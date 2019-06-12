@@ -50,7 +50,8 @@ class Error
 	}
 
 	public function getSnippet(): ?string
-    {
-        return $this->snippet;
-    }
+	{
+		return $this->snippet;
+	}
+
 }

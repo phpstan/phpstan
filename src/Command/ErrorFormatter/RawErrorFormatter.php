@@ -30,9 +30,11 @@ class RawErrorFormatter implements ErrorFormatter
 					$fileSpecificError->getMessage()
 				)
 			);
-			if ($fileSpecificError->getSnippet() !== null) {
-                $style->writeln($fileSpecificError->getSnippet());
-            }
+			if ($fileSpecificError->getSnippet() === null) {
+				continue;
+			}
+
+			$style->writeln($fileSpecificError->getSnippet());
 		}
 
 		return 1;

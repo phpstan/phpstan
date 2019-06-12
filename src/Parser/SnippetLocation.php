@@ -4,54 +4,56 @@ namespace PHPStan\Parser;
 
 class SnippetLocation
 {
-    private const SNIPPET_SIZE = 255;
 
-    /** @var string */
-    private $snippet;
+	private const SNIPPET_SIZE = 255;
 
-    public function __construct(string $filePath, \PhpParser\Node $stmt)
-    {
-        $fileContents = file_get_contents($filePath);
-        $fileLength = strlen($fileContents);
-        $fileStart = (int)$stmt->getAttribute('startFilePos');
-        $fileEnd = (int)$stmt->getAttribute('endFilePos');
+	/** @var string */
+	private $snippet;
 
-        $phpDocComment = $stmt->getDocComment(); //include phpdoc into snippet, if we have any
-        $previewStart = $phpDocComment ? $phpDocComment->getFilePos() : $fileStart;
-        $previewStart = (int)mb_strrpos(
-                $fileContents,
-                "\n",
-                min($previewStart, $fileStart) - mb_strlen($fileContents)
-            ) + 1;
+	public function __construct(string $filePath, \PhpParser\Node $stmt)
+	{
+		$fileContents = file_get_contents($filePath);
+		$fileLength = strlen($fileContents);
+		$fileStart = (int) $stmt->getAttribute('startFilePos');
+		$fileEnd = (int) $stmt->getAttribute('endFilePos');
 
-        $selectionEnd = $fileEnd + 1;
-        $previewEnd = $selectionEnd;
-        if ($selectionEnd <= $fileLength) {
-            $previewEnd = mb_strpos($fileContents, "\n", $selectionEnd);
-            if ($previewEnd === false) {
-                $previewEnd = $selectionEnd;
-            }
-        }
+		$phpDocComment = $stmt->getDocComment(); //include phpdoc into snippet, if we have any
+		$previewStart = $phpDocComment ? $phpDocComment->getFilePos() : $fileStart;
+		$previewStart = (int) mb_strrpos(
+			$fileContents,
+			"\n",
+			min($previewStart, $fileStart) - mb_strlen($fileContents)
+		) + 1;
 
-        $snippet = mb_substr($fileContents, $previewStart, $previewEnd - $previewStart);
+		$selectionEnd = $fileEnd + 1;
+		$previewEnd = $selectionEnd;
+		if ($selectionEnd <= $fileLength) {
+			$previewEnd = mb_strpos($fileContents, "\n", $selectionEnd);
+			if ($previewEnd === false) {
+				$previewEnd = $selectionEnd;
+			}
+		}
 
-        $this->snippet = $this->shortenIfExceeds($snippet);
-    }
+		$snippet = mb_substr($fileContents, $previewStart, $previewEnd - $previewStart);
 
-    public function getSnippet(): string
-    {
-        return $this->snippet;
-    }
+		$this->snippet = $this->shortenIfExceeds($snippet);
+	}
 
-    private function shortenIfExceeds(string $snippet): string
-    {
-        if (mb_strlen($snippet) > self::SNIPPET_SIZE) {
-            $lineBreak = mb_strpos($snippet, "\n", self::SNIPPET_SIZE);
-            if ($lineBreak === false) {
-                $lineBreak = strlen($snippet);
-            }
-            $snippet = mb_substr($snippet, 0, $lineBreak);
-        }
-        return $snippet;
-    }
+	public function getSnippet(): string
+	{
+		return $this->snippet;
+	}
+
+	private function shortenIfExceeds(string $snippet): string
+	{
+		if (mb_strlen($snippet) > self::SNIPPET_SIZE) {
+			$lineBreak = mb_strpos($snippet, "\n", self::SNIPPET_SIZE);
+			if ($lineBreak === false) {
+				$lineBreak = strlen($snippet);
+			}
+			$snippet = mb_substr($snippet, 0, $lineBreak);
+		}
+		return $snippet;
+	}
+
 }

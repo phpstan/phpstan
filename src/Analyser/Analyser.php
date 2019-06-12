@@ -338,10 +338,4 @@ class Analyser
 
 		$this->benchmarkData[$description] += $elapsedTime;
 	}
-    /**
-     * @return ISetting
-     *
-     * @codeCoverageIgnore
-     */
-    protected function createSetting() {}
 }
