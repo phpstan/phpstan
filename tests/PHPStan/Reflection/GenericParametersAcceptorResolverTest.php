@@ -5,6 +5,7 @@ namespace PHPStan\Reflection;
 use PHPStan\Reflection\Php\DummyParameter;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Generic\TemplateTypeFactory;
 use PHPStan\Type\Generic\TemplateTypeScope;
@@ -335,6 +336,17 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					false,
 					new NullType()
 				),
+			],
+			'constant string arg resolved to constant string' => [
+				[
+					new ConstantStringType('foo'),
+				],
+				new FunctionVariant([
+					new DummyParameter('str', $templateType('T'), false, null, false, null),
+				], false, $templateType('T')),
+				new FunctionVariant([
+					new DummyParameter('str', new ConstantStringType('foo'), false, null, false, null),
+				], false, new ConstantStringType('foo')),
 			],
 		];
 	}
