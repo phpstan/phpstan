@@ -455,41 +455,4 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 		$this->assertSame($expected->isVariadic(), $selectedAcceptor->isVariadic());
 	}
 
-	public function testSelectArguments(): void
-	{
-		$templateType = TemplateTypeFactory::create(
-			new TemplateTypeScope(null, null),
-			'T',
-			null
-		);
-
-		$acceptors = [
-			new FunctionVariant(
-				[
-					new DummyParameter(
-						'a',
-						$templateType,
-						false,
-						PassedByReference::createNo(),
-						false,
-						null
-					),
-				],
-				false,
-				$templateType
-			),
-		];
-
-		$acceptor = ParametersAcceptorSelector::selectArguments($acceptors);
-
-		$argument = $acceptor->getParameters()[0];
-		$type = $argument->getType();
-		$this->assertInstanceOf(TemplateType::class, $type);
-		$this->assertTrue($type->isArgument());
-
-		$returnType = $acceptor->getReturnType();
-		$this->assertInstanceOf(TemplateType::class, $returnType);
-		$this->assertTrue($returnType->isArgument());
-	}
-
 }

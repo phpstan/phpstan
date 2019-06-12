@@ -52,6 +52,7 @@ use PHPStan\Type\ConstantType;
 use PHPStan\Type\ConstantTypeHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
+use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
@@ -1860,11 +1861,13 @@ class Scope implements ClassMemberAccessAnswerer
 				$this->getClassReflection(),
 				$classMethod,
 				$this->getRealParameterTypes($classMethod),
-				$phpDocParameterTypes,
+				array_map(static function (Type $type): Type {
+					return TemplateTypeHelper::toArgument($type);
+				}, $phpDocParameterTypes),
 				$this->getRealParameterDefaultValues($classMethod),
 				$classMethod->returnType !== null,
 				$this->getFunctionType($classMethod->returnType, $classMethod->returnType === null, false),
-				$phpDocReturnType,
+				$phpDocReturnType !== null ? TemplateTypeHelper::toArgument($phpDocReturnType) : null,
 				$throwType,
 				$deprecatedDescription,
 				$isDeprecated,
@@ -1941,11 +1944,13 @@ class Scope implements ClassMemberAccessAnswerer
 			new PhpFunctionFromParserNodeReflection(
 				$function,
 				$this->getRealParameterTypes($function),
-				$phpDocParameterTypes,
+				array_map(static function (Type $type): Type {
+					return TemplateTypeHelper::toArgument($type);
+				}, $phpDocParameterTypes),
 				$this->getRealParameterDefaultValues($function),
 				$function->returnType !== null,
 				$this->getFunctionType($function->returnType, $function->returnType === null, false),
-				$phpDocReturnType,
+				$phpDocReturnType !== null ? TemplateTypeHelper::toArgument($phpDocReturnType) : null,
 				$throwType,
 				$deprecatedDescription,
 				$isDeprecated,
@@ -1960,7 +1965,7 @@ class Scope implements ClassMemberAccessAnswerer
 	): self
 	{
 		$variableTypes = $this->getVariableTypes();
-		foreach (ParametersAcceptorSelector::selectArguments($functionReflection->getVariants())->getParameters() as $parameter) {
+		foreach (ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getParameters() as $parameter) {
 			$variableTypes[$parameter->getName()] = VariableTypeHolder::createYes($parameter->getType());
 		}
 
