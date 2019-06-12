@@ -5,7 +5,7 @@ namespace PHPStan\Command\ErrorFormatter;
 use PHPStan\Command\AnalysisResult;
 use Symfony\Component\Console\Style\OutputStyle;
 
-class RawErrorFormatter implements ErrorFormatter
+class SnippetErrorFormatter implements ErrorFormatter
 {
 
 	public function formatErrors(
@@ -30,6 +30,7 @@ class RawErrorFormatter implements ErrorFormatter
 					$fileSpecificError->getMessage()
 				)
 			);
+			$style->writeln($fileSpecificError->getSnippet());
 		}
 
 		return 1;

@@ -20,7 +20,7 @@ class Error
 	/** @var string */
 	private $snippet;
 
-	public function __construct(string $message, string $file, ?int $line = null, bool $canBeIgnored = true, ?string $snippet = null)
+	public function __construct(string $message, string $file, ?int $line = null, bool $canBeIgnored = true, string $snippet = '')
 	{
 		$this->message = $message;
 		$this->file = $file;
@@ -49,7 +49,7 @@ class Error
 		return $this->canBeIgnored;
 	}
 
-	public function getSnippet(): ?string
+	public function getSnippet(): string
 	{
 		return $this->snippet;
 	}

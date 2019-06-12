@@ -84,7 +84,6 @@ class Analyser
 	 * @param \Closure(string $file): void|null $preFileCallback
 	 * @param \Closure(string $file): void|null $postFileCallback
 	 * @param bool $debug
-	 * @param bool $showSnippet
 	 * @return string[]|\PHPStan\Analyser\Error[] errors
 	 */
 	public function analyse(
@@ -92,8 +91,7 @@ class Analyser
 		bool $onlyFiles,
 		?\Closure $preFileCallback = null,
 		?\Closure $postFileCallback = null,
-		bool $debug = false,
-		bool $showSnippet = false
+		bool $debug = false
 	): array
 	{
 		$errors = [];
@@ -144,7 +142,7 @@ class Analyser
 					$parserBenchmarkTime = $this->benchmarkStart();
 					$parserNodes = $this->parser->parseFile($file);
 					$this->benchmarkEnd($parserBenchmarkTime, 'parser');
-					$nodeCallback = function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors, $file, &$scopeBenchmarkTime, $showSnippet): void {
+					$nodeCallback = function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors, $file, &$scopeBenchmarkTime): void {
 						$this->benchmarkEnd($scopeBenchmarkTime, 'scope');
 						$uniquedAnalysedCodeExceptionMessages = [];
 						foreach ($this->registry->getRules(get_class($node)) as $rule) {
@@ -182,7 +180,7 @@ class Analyser
 									}
 								}
 
-								$snippet = $showSnippet ? (new SnippetLocation($file, $node))->getSnippet() : null;
+								$snippet = (new SnippetLocation($file, $node))->getSnippet();
 								$fileErrors[] = new Error($message, $fileName, $line, true, $snippet);
 							}
 						}
