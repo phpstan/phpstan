@@ -5,6 +5,9 @@ namespace PHPStan\Type;
 class TypeTraverser
 {
 
+	/** @var callable(Type $type, callable(Type): Type $traverse): Type */
+	private $cb;
+
 	/**
 	 * Map a Type recursively
 	 *
@@ -31,17 +34,27 @@ class TypeTraverser
 	 */
 	public static function map(Type $type, callable $cb): Type
 	{
-		$map = static function (Type $type) use ($cb, &$map): Type {
-			static $traverse = null;
-			if ($traverse === null) {
-				$traverse = static function (Type $type) use ($map): Type {
-					return $type->traverse($map);
-				};
-			}
-			return $cb($type, $traverse);
-		};
+		$self = new self($cb);
 
-		return $map($type);
+		return $self->mapInternal($type);
+	}
+
+	/** @param callable(Type $type, callable(Type): Type $traverse): Type $cb */
+	private function __construct(callable $cb)
+	{
+		$this->cb = $cb;
+	}
+
+	/** @internal */
+	public function mapInternal(Type $type): Type
+	{
+		return ($this->cb)($type, [$this, 'traverseInternal']);
+	}
+
+	/** @internal */
+	public function traverseInternal(Type $type): Type
+	{
+		return $type->traverse([$this, 'mapInternal']);
 	}
 
 }
