@@ -733,3 +733,8 @@ services:
 		class: PHPStan\Command\ErrorFormatter\JsonErrorFormatter
 		arguments:
 			pretty: true
+
+	errorFormatter.snippet:
+		class: PHPStan\Command\ErrorFormatter\SnippetErrorFormatter
+		arguments:
+			pretty: true
