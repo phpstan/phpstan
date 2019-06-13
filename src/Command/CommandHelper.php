@@ -33,7 +33,8 @@ class CommandHelper
 		?string $memoryLimit,
 		?string $autoloadFile,
 		?string $projectConfigFile,
-		?string $level
+		?string $level,
+		?string $workingDir
 	): InceptionResult
 	{
 		$errorOutput = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
@@ -49,9 +50,13 @@ class CommandHelper
 			}
 		}
 
-		$currentWorkingDirectory = getcwd();
+		$currentWorkingDirectory = $workingDir ?? getcwd();
 		if ($currentWorkingDirectory === false) {
 			throw new \PHPStan\ShouldNotHappenException();
+		}
+		if (!is_dir($currentWorkingDirectory)) {
+			$errorOutput->writeln(sprintf('Working directory "%s" does not exist, or is not a directory', $currentWorkingDirectory));
+			throw new \PHPStan\Command\InceptionNotSuccessfulException();
 		}
 		$fileHelper = new FileHelper($currentWorkingDirectory);
 		if ($autoloadFile !== null && is_file($autoloadFile)) {

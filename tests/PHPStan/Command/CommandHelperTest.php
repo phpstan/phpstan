@@ -17,6 +17,7 @@ class CommandHelperTest extends TestCase
 				'',
 				__DIR__ . '/data/testIncludesExpand.neon',
 				null,
+				null,
 				[
 					'level' => 'max',
 				],
@@ -27,6 +28,7 @@ class CommandHelperTest extends TestCase
 				'Recursive included file',
 				__DIR__ . '/data/1.neon',
 				null,
+				null,
 				[],
 				true,
 			],
@@ -34,6 +36,7 @@ class CommandHelperTest extends TestCase
 				'',
 				'does not exist',
 				__DIR__ . '/data/nonexistent.neon',
+				null,
 				null,
 				[],
 				true,
@@ -43,6 +46,7 @@ class CommandHelperTest extends TestCase
 				'is missing or is not readable',
 				__DIR__ . '/data/containsNonexistent.neon',
 				null,
+				null,
 				[],
 				true,
 			],
@@ -51,6 +55,7 @@ class CommandHelperTest extends TestCase
 				'These files are included multiple times',
 				__DIR__ . '/../../../conf/config.level7.neon',
 				'7',
+				null,
 				[],
 				true,
 			],
@@ -59,6 +64,7 @@ class CommandHelperTest extends TestCase
 				'These files are included multiple times',
 				__DIR__ . '/../../../conf/config.level7.neon',
 				'6',
+				null,
 				[],
 				true,
 			],
@@ -67,6 +73,7 @@ class CommandHelperTest extends TestCase
 				'These files are included multiple times',
 				__DIR__ . '/../../../conf/config.level6.neon',
 				'7',
+				null,
 				[],
 				true,
 			],
@@ -75,10 +82,20 @@ class CommandHelperTest extends TestCase
 				'',
 				__DIR__ . '/data/includePhp.neon',
 				null,
+				null,
 				[
 					'level' => '3',
 				],
 				false,
+			],
+			[
+				'',
+				'',
+				__DIR__ . '/data/includePhp.neon',
+				null,
+				'/no/such/directory',
+				[],
+				true,
 			],
 		];
 	}
@@ -89,6 +106,7 @@ class CommandHelperTest extends TestCase
 	 * @param string $expectedOutput
 	 * @param string|null $projectConfigFile
 	 * @param string|null $level
+	 * @param string|null $workingDir
 	 * @param mixed[] $expectedParameters
 	 * @param bool $expectException
 	 */
@@ -97,6 +115,7 @@ class CommandHelperTest extends TestCase
 		string $expectedOutput,
 		?string $projectConfigFile,
 		?string $level,
+		?string $workingDir,
 		array $expectedParameters,
 		bool $expectException
 	): void
@@ -116,7 +135,8 @@ class CommandHelperTest extends TestCase
 				null,
 				null,
 				$projectConfigFile,
-				$level
+				$level,
+				$workingDir
 			);
 			if ($expectException) {
 				$this->fail();
