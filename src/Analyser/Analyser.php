@@ -180,7 +180,7 @@ class Analyser
 									}
 								}
 
-								$snippet = (new SnippetLocation($file, $node))->getSnippet();
+								$snippet = (new SnippetLocation($file, $node, $ruleError))->getSnippet();
 								$fileErrors[] = new Error($message, $fileName, $line, true, $snippet);
 							}
 						}

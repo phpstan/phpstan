@@ -2,6 +2,9 @@
 
 namespace PHPStan\Parser;
 
+use PHPStan\Rules\LineRuleError;
+use PHPStan\Rules\RuleError;
+
 class SnippetLocation
 {
 
@@ -10,33 +13,72 @@ class SnippetLocation
 	/** @var string */
 	private $snippet;
 
-	public function __construct(string $filePath, \PhpParser\Node $stmt)
-	{
-		$fileContents = file_get_contents($filePath);
-		$fileLength = strlen($fileContents);
-		$fileStart = (int) $stmt->getAttribute('startFilePos');
-		$fileEnd = (int) $stmt->getAttribute('endFilePos');
+	/** @var string */
+	private $fileContents;
 
-		$phpDocComment = $stmt->getDocComment(); //include phpdoc into snippet, if we have any
-		$previewStart = $phpDocComment ? $phpDocComment->getFilePos() : $fileStart;
+	/** @var \PhpParser\Node */
+	private $stmt;
+
+	/** @var int */
+	private $fileLength;
+
+	/**
+	 * @param string $filePath
+	 * @param \PhpParser\Node $stmt
+	 * @param string|RuleError $ruleError
+	 */
+	public function __construct(string $filePath, \PhpParser\Node $stmt, $ruleError)
+	{
+		$this->stmt = $stmt;
+		$this->fileContents = file_get_contents($filePath);
+		if ($this->fileContents === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		if ($ruleError instanceof LineRuleError) {
+			$currentLine = $ruleError->getLine() - 1;
+			$snippet = $this->getSnippetByLineRule($currentLine, $currentLine);
+		} elseif ($this->nodeFilePosUnavailable()) {
+			$snippet = $this->getSnippetByLineRule($stmt->getAttribute('startLine') - 1, $stmt->getAttribute('endLine') - 1);
+		} else {
+			$this->fileLength = strlen($this->fileContents);
+			$previewStart = $this->getPreviewStartFromNode();
+			$previewEnd = $this->getPreviewEndFromNode();
+			$snippet = mb_substr($this->fileContents, $previewStart, $previewEnd - $previewStart);
+		}
+
+		$snippet = (string) $stmt->getDocComment() . $snippet;
+
+		$this->snippet = $this->shortenIfExceeds($snippet);
+	}
+
+	private function getPreviewStartFromNode(): int
+	{
+		$fileStart = (int) $this->stmt->getAttribute('startFilePos');
+		$previewStart = $fileStart;
 		$previewStart = (int) mb_strrpos(
-			$fileContents,
+			$this->fileContents,
 			"\n",
-			min($previewStart, $fileStart) - mb_strlen($fileContents)
+			min($previewStart, $fileStart) - mb_strlen($this->fileContents)
 		) + 1;
 
+		return $previewStart;
+	}
+
+	private function getPreviewEndFromNode(): int
+	{
+		$fileLength = $this->fileLength;
+		$fileEnd = (int) $this->stmt->getAttribute('endFilePos');
 		$selectionEnd = $fileEnd + 1;
 		$previewEnd = $selectionEnd;
 		if ($selectionEnd <= $fileLength) {
-			$previewEnd = mb_strpos($fileContents, "\n", $selectionEnd);
+			$previewEnd = mb_strpos($this->fileContents, "\n", $selectionEnd);
 			if ($previewEnd === false) {
 				$previewEnd = $selectionEnd;
 			}
 		}
 
-		$snippet = mb_substr($fileContents, $previewStart, $previewEnd - $previewStart);
-
-		$this->snippet = $this->shortenIfExceeds($snippet);
+		return $previewEnd;
 	}
 
 	public function getSnippet(): string
@@ -54,6 +96,17 @@ class SnippetLocation
 			$snippet = mb_substr($snippet, 0, $lineBreak);
 		}
 		return $snippet;
+	}
+
+	private function getSnippetByLineRule(int $lineNumberFrom, int $lineNumberTo): string
+	{
+		$lines = explode("\n", $this->fileContents);
+		return implode("\n", array_slice($lines, $lineNumberFrom, ($lineNumberTo - $lineNumberFrom) + 1));
+	}
+
+	private function nodeFilePosUnavailable(): bool
+	{
+		return $this->stmt->getAttribute('startFilePos') === null;
 	}
 
 }
