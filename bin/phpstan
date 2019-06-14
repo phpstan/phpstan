@@ -43,7 +43,7 @@ if (is_file($devOrPharAutoloadFile)) {
 }
 
 $xdebug = new XdebugHandler('phpstan', '--ansi');
-//$xdebug->check();
+$xdebug->check();
 unset($xdebug);
 
 $version = 'Version unknown';
