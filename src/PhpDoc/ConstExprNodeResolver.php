@@ -13,6 +13,7 @@ use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprTrueNode;
 use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\ConstantTypeHelper;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 
 class ConstExprNodeResolver
@@ -48,7 +49,7 @@ class ConstExprNodeResolver
 			return ConstantTypeHelper::getTypeFromValue($node->value);
 		}
 
-		throw new \PHPStan\ShouldNotHappenException();
+		return new MixedType();
 	}
 
 	private function resolveArrayNode(ConstExprArrayNode $node): Type
