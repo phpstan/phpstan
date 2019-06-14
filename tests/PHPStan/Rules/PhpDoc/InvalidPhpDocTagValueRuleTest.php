@@ -16,6 +16,11 @@ class InvalidPhpDocTagValueRuleTest extends \PHPStan\Testing\RuleTestCase
 		);
 	}
 
+	public function testValidMultilineDocs(): void
+	{
+		$this->analyse([__DIR__ . '/data/valid-phpdoc.php'], []);
+	}
+
 	public function testRule(): void
 	{
 		$this->analyse([__DIR__ . '/data/invalid-phpdoc.php'], [

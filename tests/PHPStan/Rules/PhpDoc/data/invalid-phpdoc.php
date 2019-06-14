@@ -37,30 +37,3 @@ class Foo
 {
 
 }
-
-/**
- * @var    array<
- *   array<int,float>,
- *   array< int,
- *   string>,
- *   int
- * > $a The line
- *  with the
- *      breaks
- */
-$a = [];
-echo $a['a'];
-
-/**
- * @param    array<
- *   array<int,float>,
- *   array< int,
- *   string>,
- *   int
- * > $x The line
- *  with the
- *      breaks
- * @param array< array<int,float>,      array< \DateTime,
- * string>> $y
- */
-function baz($x, $y){}
