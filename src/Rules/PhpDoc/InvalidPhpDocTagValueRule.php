@@ -53,7 +53,7 @@ class InvalidPhpDocTagValueRule implements \PHPStan\Rules\Rule
 		}
 
 		$phpDocString = $docComment->getText();
-		$pattern  = '/@var\s+array<(.*?)(?=( @var| \*\/))/s';
+		$pattern  = '/@(var|param)\s+array<(.*?)(?=( @(var|param)| \*\/))/s';
 		$phpDocString = (string) preg_replace_callback($pattern, static function ($m) {
 			return preg_replace("/\n\s+\*/", ' ', $m[0]);
 		}, $phpDocString);

@@ -39,22 +39,28 @@ class Foo
 }
 
 /**
- * This should not trigger an error
  * @var    array<
- *   array<int,float>
+ *   array<int,float>,
  *   array< int,
  *   string>,
  *   int
  * > $a The line
  *  with the
  *      breaks
- * @var int $x
- * @var array< array<int,float>,      array< int,
- * string>,
- *   int
- * > $b
- * @var int $y
- * @var array<
- *   int, float
- * > $c Description of array
  */
+$a = [];
+echo $a['a'];
+
+/**
+ * @param    array<
+ *   array<int,float>,
+ *   array< int,
+ *   string>,
+ *   int
+ * > $x The line
+ *  with the
+ *      breaks
+ * @param array< array<int,float>,      array< \DateTime,
+ * string>> $y
+ */
+function baz($x, $y){}
