@@ -37,3 +37,24 @@ class Foo
 {
 
 }
+
+/**
+ * This should not trigger an error
+ * @var    array<
+ *   array<int,float>
+ *   array< int,
+ *   string>,
+ *   int
+ * > $a The line
+ *  with the
+ *      breaks
+ * @var int $x
+ * @var array< array<int,float>,      array< int,
+ * string>,
+ *   int
+ * > $b
+ * @var int $y
+ * @var array<
+ *   int, float
+ * > $c Description of array
+ */
