@@ -30,7 +30,7 @@ can be checked before you run the actual line.
 &nbsp;&nbsp;&nbsp;
 <a href="https://packagist.com/?utm_source=phpstan&utm_medium=readme&utm_campaign=sponsorlogo"><img src="https://i.imgur.com/PmMC45f.png" alt="Private Packagist" width="326" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://app.ncoreplat.com/jobposition/3054/php-backend-developer-milan-it/musement"><img src="https://i.imgur.com/uw5rAlR.png" alt="Musement" width="247" height="49"></a>
+<a href="https://stackoverflow.com/jobs/273089/backend-software-engineer-musement-spa"><img src="https://i.imgur.com/uw5rAlR.png" alt="Musement" width="247" height="49"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://blackfire.io/docs/introduction?utm_source=phpstan&utm_medium=github_readme&utm_campaign=logo"><img src="https://i.imgur.com/zR8rsqk.png" alt="Blackfire.io" width="254" height="64"></a>
 &nbsp;&nbsp;&nbsp;
