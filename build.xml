@@ -228,7 +228,7 @@
 				checkreturn="true"
 		>
 			<arg value="-d"/>
-			<arg value="memory_limit=512M"/>
+			<arg value="memory_limit=640M"/>
 			<arg path="bin/phpstan"/>
 			<arg value="analyse"/>
 			<arg value="-c"/>

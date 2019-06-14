@@ -78,7 +78,8 @@ class AnnotationsMethodsClassReflectionExtension implements MethodsClassReflecti
 					$parameterTag->getType(),
 					$parameterTag->passedByReference(),
 					$parameterTag->isOptional(),
-					$parameterTag->isVariadic()
+					$parameterTag->isVariadic(),
+					$parameterTag->getDefaultValue()
 				);
 			}
 

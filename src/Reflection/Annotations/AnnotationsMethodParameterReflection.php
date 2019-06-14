@@ -24,13 +24,17 @@ class AnnotationsMethodParameterReflection implements ParameterReflection
 	/** @var bool */
 	private $isVariadic;
 
-	public function __construct(string $name, Type $type, PassedByReference $passedByReference, bool $isOptional, bool $isVariadic)
+	/** @var Type|null */
+	private $defaultValue;
+
+	public function __construct(string $name, Type $type, PassedByReference $passedByReference, bool $isOptional, bool $isVariadic, ?Type $defaultValue)
 	{
 		$this->name = $name;
 		$this->type = $type;
 		$this->passedByReference = $passedByReference;
 		$this->isOptional = $isOptional;
 		$this->isVariadic = $isVariadic;
+		$this->defaultValue = $defaultValue;
 	}
 
 	public function getName(): string
@@ -56,6 +60,11 @@ class AnnotationsMethodParameterReflection implements ParameterReflection
 	public function isVariadic(): bool
 	{
 		return $this->isVariadic;
+	}
+
+	public function getDefaultValue(): ?Type
+	{
+		return $this->defaultValue;
 	}
 
 }

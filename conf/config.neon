@@ -198,6 +198,9 @@ services:
 		class: PHPStan\PhpDoc\PhpDocStringResolver
 
 	-
+		class: PHPStan\PhpDoc\ConstExprNodeResolver
+
+	-
 		class: PHPStan\PhpDoc\TypeNodeResolver
 		factory: @typeNodeResolverFactory::create
 

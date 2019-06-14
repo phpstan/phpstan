@@ -25,6 +25,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 	 * @param ClassMethod $classMethod
 	 * @param \PHPStan\Type\Type[] $realParameterTypes
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
+	 * @param \PHPStan\Type\Type[] $realParameterDefaultValues
 	 * @param bool $realReturnTypePresent
 	 * @param Type $realReturnType
 	 * @param Type|null $phpDocReturnType
@@ -39,6 +40,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 		ClassMethod $classMethod,
 		array $realParameterTypes,
 		array $phpDocParameterTypes,
+		array $realParameterDefaultValues,
 		bool $realReturnTypePresent,
 		Type $realReturnType,
 		?Type $phpDocReturnType,
@@ -53,6 +55,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 			$classMethod,
 			$realParameterTypes,
 			$phpDocParameterTypes,
+			$realParameterDefaultValues,
 			$realReturnTypePresent,
 			$realReturnType,
 			$phpDocReturnType,

@@ -70,7 +70,7 @@ class TypeNodeResolver
 
 	public function getCacheKey(): string
 	{
-		$key = 'v57-arrayshapes';
+		$key = 'v58-defaultparametervalues';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}
@@ -336,7 +336,8 @@ class TypeNodeResolver
 					$parameterNode->isOptional,
 					$this->resolve($parameterNode->type, $nameScope),
 					$parameterNode->isReference ? PassedByReference::createCreatesNewVariable() : PassedByReference::createNo(),
-					$parameterNode->isVariadic
+					$parameterNode->isVariadic,
+					null
 				);
 			},
 			$typeNode->parameters

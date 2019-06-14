@@ -237,12 +237,14 @@ class CallableType implements CompoundType, ParametersAcceptor
 		}
 
 		$parameters = array_map(static function (NativeParameterReflection $param) use ($cb): NativeParameterReflection {
+			$defaultValue = $param->getDefaultValue();
 			return new NativeParameterReflection(
 				$param->getName(),
 				$param->isOptional(),
 				$cb($param->getType()),
 				$param->passedByReference(),
-				$param->isVariadic()
+				$param->isVariadic(),
+				$defaultValue !== null ? $cb($defaultValue) : null
 			);
 		}, $this->getParameters());
 

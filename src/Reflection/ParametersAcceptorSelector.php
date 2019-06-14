@@ -38,10 +38,6 @@ class ParametersAcceptorSelector
 		array $parametersAcceptors
 	): ParametersAcceptor
 	{
-		if (count($parametersAcceptors) === 1) {
-			return $parametersAcceptors[0];
-		}
-
 		$types = [];
 		$unpack = false;
 		foreach ($args as $arg) {
@@ -70,7 +66,7 @@ class ParametersAcceptorSelector
 	): ParametersAcceptor
 	{
 		if (count($parametersAcceptors) === 1) {
-			return $parametersAcceptors[0];
+			return GenericParametersAcceptorResolver::resolve($types, $parametersAcceptors[0]);
 		}
 
 		if (count($parametersAcceptors) === 0) {
@@ -113,17 +109,18 @@ class ParametersAcceptorSelector
 		}
 
 		if (count($acceptableAcceptors) === 0) {
-			return self::combineAcceptors($parametersAcceptors);
+			return GenericParametersAcceptorResolver::resolve($types, self::combineAcceptors($parametersAcceptors));
 		}
 
 		if (count($acceptableAcceptors) === 1) {
-			return $acceptableAcceptors[0];
+			return GenericParametersAcceptorResolver::resolve($types, $acceptableAcceptors[0]);
 		}
 
 		$winningAcceptors = [];
 		$winningCertainty = null;
 		foreach ($acceptableAcceptors as $acceptableAcceptor) {
 			$isSuperType = TrinaryLogic::createYes();
+			$acceptableAcceptor = GenericParametersAcceptorResolver::resolve($types, $acceptableAcceptor);
 			foreach ($acceptableAcceptor->getParameters() as $i => $parameter) {
 				if (!isset($types[$i])) {
 					if (!$unpack || count($types) <= 0) {
@@ -161,7 +158,7 @@ class ParametersAcceptorSelector
 		}
 
 		if (count($winningAcceptors) === 0) {
-			return self::combineAcceptors($acceptableAcceptors);
+			return GenericParametersAcceptorResolver::resolve($types, self::combineAcceptors($acceptableAcceptors));
 		}
 
 		return self::combineAcceptors($winningAcceptors);
@@ -219,19 +216,28 @@ class ParametersAcceptorSelector
 						$i + 1 > $minimumNumberOfParameters,
 						$parameter->getType(),
 						$parameter->passedByReference(),
-						$parameter->isVariadic()
+						$parameter->isVariadic(),
+						$parameter->getDefaultValue()
 					);
 					continue;
 				}
 
 				$isVariadic = $parameters[$i]->isVariadic() || $parameter->isVariadic();
+				$defaultValueLeft = $parameters[$i]->getDefaultValue();
+				$defaultValueRight = $parameter->getDefaultValue();
+				if ($defaultValueLeft !== null && $defaultValueRight !== null) {
+					$defaultValue = TypeCombinator::union($defaultValueLeft, $defaultValueRight);
+				} else {
+					$defaultValue = null;
+				}
 
 				$parameters[$i] = new NativeParameterReflection(
 					$parameters[$i]->getName() !== $parameter->getName() ? sprintf('%s|%s', $parameters[$i]->getName(), $parameter->getName()) : $parameter->getName(),
 					$i + 1 > $minimumNumberOfParameters,
 					TypeCombinator::union($parameters[$i]->getType(), $parameter->getType()),
 					$parameters[$i]->passedByReference()->combine($parameter->passedByReference()),
-					$isVariadic
+					$isVariadic,
+					$defaultValue
 				);
 
 				if ($isVariadic) {

@@ -17,4 +17,6 @@ interface ParameterReflection
 
 	public function isVariadic(): bool;
 
+	public function getDefaultValue(): ?Type;
+
 }
