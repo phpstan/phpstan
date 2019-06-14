@@ -2,6 +2,7 @@
 
 namespace PHPStan\Parser;
 
+use PHPStan\Analyser\Error;
 use PHPStan\Rules\LineRuleError;
 use PHPStan\Rules\RuleError;
 
@@ -25,15 +26,12 @@ class SnippetLocation
 	/**
 	 * @param string $filePath
 	 * @param \PhpParser\Node $stmt
-	 * @param string|RuleError $ruleError
+	 * @param string|Error|RuleError $ruleError
 	 */
 	public function __construct(string $filePath, \PhpParser\Node $stmt, $ruleError)
 	{
 		$this->stmt = $stmt;
-		$this->fileContents = file_get_contents($filePath);
-		if ($this->fileContents === false) {
-			throw new \PHPStan\ShouldNotHappenException();
-		}
+		$this->fileContents = $this->loadFile($filePath);
 
 		if ($ruleError instanceof LineRuleError) {
 			$currentLine = $ruleError->getLine() - 1;
@@ -72,7 +70,7 @@ class SnippetLocation
 		$selectionEnd = $fileEnd + 1;
 		$previewEnd = $selectionEnd;
 		if ($selectionEnd <= $fileLength) {
-			$previewEnd = mb_strpos($this->fileContents, "\n", $selectionEnd);
+			$previewEnd = @mb_strpos($this->fileContents, "\n", $selectionEnd);
 			if ($previewEnd === false) {
 				$previewEnd = $selectionEnd;
 			}
@@ -89,7 +87,7 @@ class SnippetLocation
 	private function shortenIfExceeds(string $snippet): string
 	{
 		if (mb_strlen($snippet) > self::SNIPPET_SIZE) {
-			$lineBreak = mb_strpos($snippet, "\n", self::SNIPPET_SIZE);
+			$lineBreak = @mb_strpos($snippet, "\n", self::SNIPPET_SIZE);
 			if ($lineBreak === false) {
 				$lineBreak = strlen($snippet);
 			}
@@ -107,6 +105,15 @@ class SnippetLocation
 	private function nodeFilePosUnavailable(): bool
 	{
 		return $this->stmt->getAttribute('startFilePos') === null;
+	}
+
+	private function loadFile(string $filePath): string
+	{
+		$data = file_get_contents($filePath);
+		if ($data === false) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+		return $data;
 	}
 
 }
