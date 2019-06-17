@@ -12,6 +12,7 @@ parameters:
 		- %rootDir%/tests/*/data/*
 		- %rootDir%/tests/PHPStan/Analyser/traits/*
 		- %rootDir%/tests/notAutoloaded/*
+		- %rootDir%/tests/PHPStan/Generics/functions.php
 	featureToggles:
 		missingClosureNativeReturnTypehintRule: true
 	ignoreErrors:

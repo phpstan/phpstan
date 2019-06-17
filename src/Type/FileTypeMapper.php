@@ -164,6 +164,7 @@ class FileTypeMapper
 		$this->processNodes(
 			$this->phpParser->parseFile($fileName),
 			function (\PhpParser\Node $node) use ($fileName, $lookForTrait, &$phpDocMap, &$classStack, &$namespace, &$uses) {
+				$functionName = null;
 				if ($node instanceof Node\Stmt\ClassLike) {
 					if ($lookForTrait !== null) {
 						if (!$node instanceof Node\Stmt\Trait_) {
@@ -232,10 +233,12 @@ class FileTypeMapper
 						$uses[strtolower($use->getAlias()->name)] = sprintf('%s\\%s', $prefix, (string) $use->name);
 					}
 					return null;
+				} elseif ($node instanceof Node\Stmt\ClassMethod) {
+					$functionName = $node->name->name;
+				} elseif ($node instanceof Node\Stmt\Function_) {
+					$functionName = ltrim(sprintf('%s\\%s', $namespace, $node->name->name), '\\');
 				} elseif (!in_array(get_class($node), [
 					Node\Stmt\Property::class,
-					Node\Stmt\ClassMethod::class,
-					Node\Stmt\Function_::class,
 					Node\Stmt\Foreach_::class,
 					Node\Expr\Assign::class,
 					Node\Expr\AssignRef::class,
@@ -252,7 +255,7 @@ class FileTypeMapper
 				}
 
 				$className = $classStack[count($classStack) - 1] ?? null;
-				$nameScope = new NameScope($namespace, $uses, $className);
+				$nameScope = new NameScope($namespace, $uses, $className, $functionName);
 				$phpDocKey = $this->getPhpDocKey($className, $lookForTrait, $phpDocString);
 				$phpDocMap[$phpDocKey] = function () use ($phpDocString, $nameScope): ResolvedPhpDocBlock {
 					return $this->phpDocStringResolver->resolve($phpDocString, $nameScope);

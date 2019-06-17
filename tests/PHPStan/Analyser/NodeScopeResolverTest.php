@@ -6783,10 +6783,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'mixed',
 				'$iterableWithTooManyArgs',
 			],
-			[
-				'mixed',
-				'$genericFoo',
-			],
 		];
 	}
 
