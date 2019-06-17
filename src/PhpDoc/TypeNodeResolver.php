@@ -70,7 +70,7 @@ class TypeNodeResolver
 
 	public function getCacheKey(): string
 	{
-		$key = 'v58-defaultparametervalues';
+		$key = 'v59-genericsreflection';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}
@@ -202,6 +202,11 @@ class TypeNodeResolver
 
 					return new NonexistentParentClassType();
 			}
+		}
+
+		$templateType = $nameScope->resolveTemplateTypeName($typeNode->name);
+		if ($templateType !== null) {
+			return $templateType;
 		}
 
 		return new ObjectType($nameScope->resolveStringName($typeNode->name));

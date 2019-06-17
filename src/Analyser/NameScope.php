@@ -2,6 +2,10 @@
 
 namespace PHPStan\Analyser;
 
+use PHPStan\Type\Generic\TemplateTypeMap;
+use PHPStan\Type\Generic\TemplateTypeScope;
+use PHPStan\Type\Type;
+
 class NameScope
 {
 
@@ -14,16 +18,24 @@ class NameScope
 	/** @var string|null */
 	private $className;
 
+	/** @var string|null */
+	private $functionName;
+
+	/** @var TemplateTypeMap */
+	private $templateTypeMap;
+
 	/**
 	 * @param string|null $namespace
 	 * @param string[] $uses alias(string) => fullName(string)
 	 * @param string|null $className
 	 */
-	public function __construct(?string $namespace, array $uses, ?string $className = null)
+	public function __construct(?string $namespace, array $uses, ?string $className = null, ?string $functionName = null, ?TemplateTypeMap $templateTypeMap = null)
 	{
 		$this->namespace = $namespace;
 		$this->uses = $uses;
 		$this->className = $className;
+		$this->functionName = $functionName;
+		$this->templateTypeMap = $templateTypeMap ?? TemplateTypeMap::empty();
 	}
 
 	public function getClassName(): ?string
@@ -52,6 +64,35 @@ class NameScope
 		}
 
 		return $name;
+	}
+
+	public function getTemplateTypeScope(): ?TemplateTypeScope
+	{
+		if ($this->className !== null && $this->functionName !== null) {
+			return TemplateTypeScope::createWithMethod($this->className, $this->functionName);
+		}
+
+		if ($this->functionName !== null) {
+			return TemplateTypeScope::createWithFunction($this->functionName);
+		}
+
+		return null;
+	}
+
+	public function resolveTemplateTypeName(string $name): ?Type
+	{
+		return $this->templateTypeMap->getType($name);
+	}
+
+	public function withTemplateTypeMap(TemplateTypeMap $map): self
+	{
+		return new self(
+			$this->namespace,
+			$this->uses,
+			$this->className,
+			$this->functionName,
+			$map
+		);
 	}
 
 }
