@@ -352,6 +352,9 @@ services:
 		class: PHPStan\Type\FileTypeMapper
 
 	-
+		class: PHPStan\Rules\TemplateTypeCheck
+
+	-
 		class: PHPStan\Type\Php\ArgumentBasedFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
