@@ -64,10 +64,15 @@ class CallableType implements CompoundType, ParametersAcceptor
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
-		return $this->isSuperTypeOf($type);
+		return $this->isSuperTypeOfInternal($type, true);
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
+	{
+		return $this->isSuperTypeOfInternal($type, false);
+	}
+
+	private function isSuperTypeOfInternal(Type $type, bool $treatMixedAsAny): TrinaryLogic
 	{
 		$isCallable = $type->isCallable();
 		if ($isCallable->no() || $this->isCommonCallable) {
@@ -81,7 +86,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 
 		$variantsResult = null;
 		foreach ($type->getCallableParametersAcceptors($scope) as $variant) {
-			$isSuperType = CallableTypeHelper::isParametersAcceptorSuperTypeOf($this, $variant);
+			$isSuperType = CallableTypeHelper::isParametersAcceptorSuperTypeOf($this, $variant, $treatMixedAsAny);
 			if ($variantsResult === null) {
 				$variantsResult = $isSuperType;
 			} else {
@@ -223,6 +228,31 @@ class CallableType implements CompoundType, ParametersAcceptor
 		}
 
 		return $typeMap->union($this->getReturnType()->inferTemplateTypes($returnType));
+	}
+
+	public function traverse(callable $cb): Type
+	{
+		if ($this->isCommonCallable) {
+			return $this;
+		}
+
+		$parameters = array_map(static function (NativeParameterReflection $param) use ($cb): NativeParameterReflection {
+			$defaultValue = $param->getDefaultValue();
+			return new NativeParameterReflection(
+				$param->getName(),
+				$param->isOptional(),
+				$cb($param->getType()),
+				$param->passedByReference(),
+				$param->isVariadic(),
+				$defaultValue !== null ? $cb($defaultValue) : null
+			);
+		}, $this->getParameters());
+
+		return new static(
+			$parameters,
+			$cb($this->getReturnType()),
+			$this->isVariadic()
+		);
 	}
 
 	/**

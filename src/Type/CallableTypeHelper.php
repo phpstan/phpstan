@@ -10,19 +10,30 @@ class CallableTypeHelper
 
 	public static function isParametersAcceptorSuperTypeOf(
 		ParametersAcceptor $ours,
-		ParametersAcceptor $theirs
+		ParametersAcceptor $theirs,
+		bool $treatMixedAsAny
 	): TrinaryLogic
 	{
 		$theirParameters = $theirs->getParameters();
 		$ourParameters = $ours->getParameters();
-		if (count($theirParameters) > count($ourParameters)) {
-			return TrinaryLogic::createNo();
-		}
 
 		$result = null;
 		foreach ($theirParameters as $i => $theirParameter) {
+			if (!isset($ourParameters[$i])) {
+				if ($theirParameter->isOptional()) {
+					continue;
+				}
+
+				return TrinaryLogic::createNo();
+			}
+
 			$ourParameter = $ourParameters[$i];
-			$isSuperType = $theirParameter->getType()->isSuperTypeOf($ourParameter->getType());
+			$ourParameterType = $ourParameter->getType();
+			if ($treatMixedAsAny && $ourParameterType instanceof MixedType) {
+				$isSuperType = TrinaryLogic::createYes();
+			} else {
+				$isSuperType = $theirParameter->getType()->isSuperTypeOf($ourParameterType);
+			}
 			if ($result === null) {
 				$result = $isSuperType;
 			} else {
@@ -30,7 +41,12 @@ class CallableTypeHelper
 			}
 		}
 
-		$isReturnTypeSuperType = $ours->getReturnType()->isSuperTypeOf($theirs->getReturnType());
+		$theirReturnType = $theirs->getReturnType();
+		if ($treatMixedAsAny && $theirReturnType instanceof MixedType) {
+			$isReturnTypeSuperType = TrinaryLogic::createYes();
+		} else {
+			$isReturnTypeSuperType = $ours->getReturnType()->isSuperTypeOf($theirReturnType);
+		}
 		if ($result === null) {
 			$result = $isReturnTypeSuperType;
 		} else {

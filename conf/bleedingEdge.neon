@@ -4,6 +4,7 @@ parameters:
 		missingReturnRule: true
 		noopRule: true
 		subtractableTypes: true
+		tooWideTypehints: true
 		unreachableStatement: true
 		yieldRules: true
 		validateParameters: true

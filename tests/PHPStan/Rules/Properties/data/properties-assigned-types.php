@@ -173,6 +173,17 @@ class SimpleXMLElementAccepts
 		$xml->lorem = false;
 		$xml->ipsum = 1024;
 		$xml->test = $xml;
+
+		$this->takeSimpleXmlElement($xml->foo);
+		$this->takeSimpleXmlElement($xml->bar);
+		$this->takeSimpleXmlElement($xml->baz);
+		$this->takeSimpleXmlElement($xml->lorem);
+		$this->takeSimpleXmlElement($xml->ipsum);
+		$this->takeSimpleXmlElement($xml->test);
+	}
+
+	public function takeSimpleXmlElement(\SimpleXMLElement $_)
+	{
 	}
 
 }

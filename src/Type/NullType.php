@@ -124,6 +124,11 @@ class NullType implements ConstantScalarType
 		return $array->setOffsetValueType($offsetType, $valueType);
 	}
 
+	public function traverse(callable $cb): Type
+	{
+		return $this;
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

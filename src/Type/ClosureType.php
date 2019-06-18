@@ -5,6 +5,7 @@ namespace PHPStan\Type;
 use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\ParameterReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\PropertyReflection;
@@ -76,15 +77,21 @@ class ClosureType implements TypeWithClassName, ParametersAcceptor
 			return $this->objectType->accepts($type, $strictTypes);
 		}
 
-		return $this->isSuperTypeOf($type);
+		return $this->isSuperTypeOfInternal($type, true);
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
+		return $this->isSuperTypeOfInternal($type, false);
+	}
+
+	private function isSuperTypeOfInternal(Type $type, bool $treatMixedAsAny): TrinaryLogic
+	{
 		if ($type instanceof self) {
 			return CallableTypeHelper::isParametersAcceptorSuperTypeOf(
 				$this,
-				$type
+				$type,
+				$treatMixedAsAny
 			);
 		}
 
@@ -272,6 +279,25 @@ class ClosureType implements TypeWithClassName, ParametersAcceptor
 	public function getReturnType(): Type
 	{
 		return $this->returnType;
+	}
+
+	public function traverse(callable $cb): Type
+	{
+		return new static(
+			array_map(static function (NativeParameterReflection $param) use ($cb): NativeParameterReflection {
+				$defaultValue = $param->getDefaultValue();
+				return new NativeParameterReflection(
+					$param->getName(),
+					$param->isOptional(),
+					$cb($param->getType()),
+					$param->passedByReference(),
+					$param->isVariadic(),
+					$defaultValue !== null ? $cb($defaultValue) : null
+				);
+			}, $this->getParameters()),
+			$cb($this->getReturnType()),
+			$this->isVariadic()
+		);
 	}
 
 	/**

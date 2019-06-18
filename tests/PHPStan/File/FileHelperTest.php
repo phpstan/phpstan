@@ -46,6 +46,7 @@ class FileHelperTest extends \PHPStan\Testing\TestCase
 			['users', '/abcd/users'],
 			['../lib', '/abcd/../lib'],
 			['./lib', '/abcd/./lib'],
+			['phar:///home/users/', 'phar:///home/users/'],
 		];
 	}
 

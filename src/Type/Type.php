@@ -90,6 +90,16 @@ interface Type
 	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap;
 
 	/**
+	 * Traverses inner types
+	 *
+	 * Returns a new instance with all inner types mapped through $cb. Might
+	 * return the same instance if inner types did not change.
+	 *
+	 * @param callable(Type):Type $cb
+	 */
+	public function traverse(callable $cb): Type;
+
+	/**
 	 * @param mixed[] $properties
 	 * @return self
 	 */

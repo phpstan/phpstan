@@ -26,12 +26,16 @@ class NativeParameterReflection implements ParameterReflection
 	/** @var bool */
 	private $variadic;
 
+	/** @var \PHPStan\Type\Type|null */
+	private $defaultValue;
+
 	public function __construct(
 		string $name,
 		bool $optional,
 		Type $type,
 		PassedByReference $passedByReference,
-		bool $variadic
+		bool $variadic,
+		?Type $defaultValue
 	)
 	{
 		$this->name = $name;
@@ -39,6 +43,7 @@ class NativeParameterReflection implements ParameterReflection
 		$this->type = $type;
 		$this->passedByReference = $passedByReference;
 		$this->variadic = $variadic;
+		$this->defaultValue = $defaultValue;
 	}
 
 	public function getName(): string
@@ -71,6 +76,11 @@ class NativeParameterReflection implements ParameterReflection
 		return $this->variadic;
 	}
 
+	public function getDefaultValue(): ?Type
+	{
+		return $this->defaultValue;
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return self
@@ -82,7 +92,8 @@ class NativeParameterReflection implements ParameterReflection
 			$properties['optional'],
 			$properties['type'],
 			$properties['passedByReference'],
-			$properties['variadic']
+			$properties['variadic'],
+			$properties['defaultValue']
 		);
 	}
 

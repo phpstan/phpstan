@@ -15,6 +15,7 @@ use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\StaticResolvableType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
@@ -86,22 +87,28 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		if ($type instanceof self) {
-			if (count($this->keyTypes) !== count($type->keyTypes)) {
-				return TrinaryLogic::createNo();
-			}
-
-			$result = TrinaryLogic::createYes();
-			foreach (array_keys($this->keyTypes) as $i) {
-				$result = $result
-					->and($this->keyTypes[$i]->accepts($type->keyTypes[$i], $strictTypes))
-					->and($this->valueTypes[$i]->accepts($type->valueTypes[$i], $strictTypes));
-			}
-
-			return $result;
+		if (parent::isSuperTypeOf($type)->no()) {
+			return TrinaryLogic::createNo();
 		}
 
-		return TrinaryLogic::createNo();
+		$result = TrinaryLogic::createYes();
+		foreach ($this->keyTypes as $i => $keyType) {
+			$valueType = $this->valueTypes[$i];
+			$hasOffset = $type->hasOffsetValueType($keyType);
+			if ($hasOffset->no()) {
+				return $hasOffset;
+			}
+
+			$result = $result->and($hasOffset);
+			$otherValueType = $type->getOffsetValueType($keyType);
+			$acceptsValue = $valueType->accepts($otherValueType, $strictTypes);
+			if ($acceptsValue->no()) {
+				return $acceptsValue;
+			}
+			$result = $result->and($acceptsValue);
+		}
+
+		return $result;
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
@@ -495,6 +502,38 @@ class ConstantArrayType extends ArrayType implements ConstantType
 				return $describeValue(false);
 			}
 		);
+	}
+
+	public function resolveStatic(string $className): Type
+	{
+		$keyTypes = $this->keyTypes;
+		$valueTypes = $this->valueTypes;
+		foreach (array_keys($keyTypes) as $i) {
+			$valueType = $valueTypes[$i];
+			if (!$valueType instanceof StaticResolvableType) {
+				continue;
+			}
+
+			$valueTypes[$i] = $valueType->resolveStatic($className);
+		}
+
+		return new self($keyTypes, $valueTypes, $this->nextAutoIndex);
+	}
+
+	public function changeBaseClass(string $className): StaticResolvableType
+	{
+		$keyTypes = $this->keyTypes;
+		$valueTypes = $this->valueTypes;
+		foreach (array_keys($keyTypes) as $i) {
+			$valueType = $valueTypes[$i];
+			if (!$valueType instanceof StaticResolvableType) {
+				continue;
+			}
+
+			$valueTypes[$i] = $valueType->changeBaseClass($className);
+		}
+
+		return new self($keyTypes, $valueTypes, $this->nextAutoIndex);
 	}
 
 	/**

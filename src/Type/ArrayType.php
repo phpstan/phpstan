@@ -301,8 +301,8 @@ class ArrayType implements StaticResolvableType
 
 		if (
 			$receivedType instanceof ArrayType
-			&& $this->getKeyType()->isSuperTypeOf($receivedType->getKeyType())->yes()
-			&& $this->getItemType()->isSuperTypeOf($receivedType->getItemType())->yes()
+			&& !$this->getKeyType()->isSuperTypeOf($receivedType->getKeyType())->no()
+			&& !$this->getItemType()->isSuperTypeOf($receivedType->getItemType())->no()
 		) {
 			$receivedKey = $receivedType->getKeyType();
 			$receivedItem = $receivedType->getItemType();
@@ -315,6 +315,18 @@ class ArrayType implements StaticResolvableType
 		$itemTypeMap = $this->getItemType()->inferTemplateTypes($receivedItem);
 
 		return $keyTypeMap->union($itemTypeMap);
+	}
+
+	public function traverse(callable $cb): Type
+	{
+		$keyType = $cb($this->keyType);
+		$itemType = $cb($this->itemType);
+
+		if ($keyType !== $this->keyType || $itemType !== $this->itemType) {
+			return new static($keyType, $itemType);
+		}
+
+		return $this;
 	}
 
 	/**

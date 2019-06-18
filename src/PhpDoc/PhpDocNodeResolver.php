@@ -27,9 +27,13 @@ class PhpDocNodeResolver
 	/** @var TypeNodeResolver */
 	private $typeNodeResolver;
 
-	public function __construct(TypeNodeResolver $typeNodeResolver)
+	/** @var ConstExprNodeResolver */
+	private $constExprNodeResolver;
+
+	public function __construct(TypeNodeResolver $typeNodeResolver, ConstExprNodeResolver $constExprNodeResolver)
 	{
 		$this->typeNodeResolver = $typeNodeResolver;
+		$this->constExprNodeResolver = $constExprNodeResolver;
 	}
 
 	public function resolve(PhpDocNode $phpDocNode, NameScope $nameScope): ResolvedPhpDocBlock
@@ -140,13 +144,19 @@ class PhpDocNodeResolver
 				if ($parameterNode->defaultValue instanceof ConstExprNullNode) {
 					$type = TypeCombinator::addNull($type);
 				}
+				$defaultValue = null;
+				if ($parameterNode->defaultValue !== null) {
+					$defaultValue = $this->constExprNodeResolver->resolve($parameterNode->defaultValue);
+				}
+
 				$parameters[$parameterName] = new MethodTagParameter(
 					$type,
 					$parameterNode->isReference
 						? PassedByReference::createCreatesNewVariable()
 						: PassedByReference::createNo(),
 					$parameterNode->isVariadic || $parameterNode->defaultValue !== null,
-					$parameterNode->isVariadic
+					$parameterNode->isVariadic,
+					$defaultValue
 				);
 			}
 

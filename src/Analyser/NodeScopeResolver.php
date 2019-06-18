@@ -49,17 +49,21 @@ use PHPStan\Broker\Broker;
 use PHPStan\File\FileHelper;
 use PHPStan\Node\ClosureReturnStatementsNode;
 use PHPStan\Node\ExecutionEndNode;
+use PHPStan\Node\FunctionReturnStatementsNode;
 use PHPStan\Node\InClassMethodNode;
 use PHPStan\Node\LiteralArrayItem;
 use PHPStan\Node\LiteralArrayNode;
+use PHPStan\Node\MethodReturnStatementsNode;
 use PHPStan\Node\ReturnStatement;
 use PHPStan\Node\UnreachableStatementNode;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\ExtendedPropertyReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\ClosureType;
 use PHPStan\Type\CommentHelper;
@@ -73,6 +77,7 @@ use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -327,7 +332,22 @@ class NodeScopeResolver
 				$isInternal,
 				$isFinal
 			);
-			$this->processStmtNodes($stmt, $stmt->stmts, $functionScope, $nodeCallback);
+
+			$gatheredReturnStatements = [];
+			$statementResult = $this->processStmtNodes($stmt, $stmt->stmts, $functionScope, static function (\PhpParser\Node $node, Scope $scope) use ($nodeCallback, &$gatheredReturnStatements): void {
+				$nodeCallback($node, $scope);
+				if (!$node instanceof Return_) {
+					return;
+				}
+
+				$gatheredReturnStatements[] = new ReturnStatement($scope, $node);
+			});
+
+			$nodeCallback(new FunctionReturnStatementsNode(
+				$stmt,
+				$gatheredReturnStatements,
+				$statementResult
+			), $functionScope);
 		} elseif ($stmt instanceof Node\Stmt\ClassMethod) {
 			$hasYield = false;
 			[$phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $deprecatedDescription, $isDeprecated, $isInternal, $isFinal] = $this->getPhpDocs($scope, $stmt);
@@ -353,7 +373,20 @@ class NodeScopeResolver
 			$nodeCallback(new InClassMethodNode($stmt), $methodScope);
 
 			if ($stmt->stmts !== null) {
-				$this->processStmtNodes($stmt, $stmt->stmts, $methodScope, $nodeCallback);
+				$gatheredReturnStatements = [];
+				$statementResult = $this->processStmtNodes($stmt, $stmt->stmts, $methodScope, static function (\PhpParser\Node $node, Scope $scope) use ($nodeCallback, &$gatheredReturnStatements): void {
+					$nodeCallback($node, $scope);
+					if (!$node instanceof Return_) {
+						return;
+					}
+
+					$gatheredReturnStatements[] = new ReturnStatement($scope, $node);
+				});
+				$nodeCallback(new MethodReturnStatementsNode(
+					$stmt,
+					$gatheredReturnStatements,
+					$statementResult
+				), $methodScope);
 			}
 		} elseif ($stmt instanceof Echo_) {
 			$hasYield = false;
@@ -1282,6 +1315,11 @@ class NodeScopeResolver
 						$arrayArg,
 						TypeCombinator::union(...$resultArrayTypes)
 					);
+				} else {
+					$arrays = TypeUtils::getAnyArrays($scope->getType($arrayArg));
+					if (count($arrays) > 0) {
+						$scope = $scope->specifyExpressionType($arrayArg, TypeCombinator::union(...$arrays));
+					}
 				}
 			}
 
@@ -1320,7 +1358,7 @@ class NodeScopeResolver
 						$arrayType = $arrayType->setOffsetValueType(null, $argType);
 					}
 
-					$scope = $scope->specifyExpressionType($arrayArg, $arrayType);
+					$scope = $scope->specifyExpressionType($arrayArg, TypeCombinator::intersect($arrayType, new NonEmptyArrayType()));
 				} elseif (count($constantArrays) > 0) {
 					$defaultArrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 					foreach ($argumentTypes as $argType) {
@@ -1857,7 +1895,7 @@ class NodeScopeResolver
 				$expr,
 				$gatheredReturnStatements,
 				$statementResult
-			), $scope);
+			), $closureScope);
 
 			return $scope;
 		}
@@ -1885,7 +1923,7 @@ class NodeScopeResolver
 			$expr,
 			$gatheredReturnStatements,
 			$statementResult
-		), $scope);
+		), $closureScope);
 
 		return $scope->processClosureScope($closureScope, null, $byRefUses);
 	}
@@ -2132,12 +2170,45 @@ class NodeScopeResolver
 			$result = $processExprCallback($scope);
 			$hasYield = $result->hasYield();
 			$scope = $result->getScope();
-			$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+
+			$propertyHolderType = $scope->getType($var->var);
+			$propertyName = null;
+			if ($var->name instanceof Node\Identifier) {
+				$propertyName = $var->name->name;
+			}
+			if ($propertyName !== null && $propertyHolderType->hasProperty($propertyName)->yes()) {
+				$propertyReflection = $propertyHolderType->getProperty($propertyName, $scope);
+				if (!$propertyReflection instanceof ExtendedPropertyReflection || $propertyReflection->canChangeTypeAfterAssignment()) {
+					$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+				}
+			} else {
+				// fallback
+				$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+			}
+
 		} elseif ($var instanceof Expr\StaticPropertyFetch) {
 			$result = $processExprCallback($scope);
 			$hasYield = $result->hasYield();
 			$scope = $result->getScope();
-			$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+
+			if ($var->class instanceof \PhpParser\Node\Name) {
+				$propertyHolderType = new ObjectType($scope->resolveName($var->class));
+			} else {
+				$propertyHolderType = $scope->getType($var->class);
+			}
+			$propertyName = null;
+			if ($var->name instanceof Node\Identifier) {
+				$propertyName = $var->name->name;
+			}
+			if ($propertyName !== null && $propertyHolderType->hasProperty($propertyName)->yes()) {
+				$propertyReflection = $propertyHolderType->getProperty($propertyName, $scope);
+				if (!$propertyReflection instanceof ExtendedPropertyReflection || $propertyReflection->canChangeTypeAfterAssignment()) {
+					$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+				}
+			} else {
+				// fallback
+				$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+			}
 		}
 
 		return new ExpressionResult($scope, $hasYield);
@@ -2273,7 +2344,7 @@ class NodeScopeResolver
 	/**
 	 * @param Scope $scope
 	 * @param Node\FunctionLike $functionLike
-	 * @return mixed[]
+	 * @return array{Type[], ?Type, ?Type, ?string, bool, bool, bool}
 	 */
 	private function getPhpDocs(Scope $scope, Node\FunctionLike $functionLike): array
 	{

@@ -24,15 +24,17 @@ class DummyParameter implements ParameterReflection
 	/** @var bool */
 	private $variadic;
 
-	public function __construct(string $name, Type $type, bool $optional, ?PassedByReference $passedByReference = null, bool $variadic = false)
+	/** @var ?\PHPStan\Type\Type */
+	private $defaultValue;
+
+	public function __construct(string $name, Type $type, bool $optional, ?PassedByReference $passedByReference = null, bool $variadic, ?Type $defaultValue)
 	{
 		$this->name = $name;
 		$this->type = $type;
 		$this->optional = $optional;
-		$this->passedByReference = $passedByReference !== null
-			? PassedByReference::createCreatesNewVariable()
-			: PassedByReference::createNo();
+		$this->passedByReference = $passedByReference ?? PassedByReference::createNo();
 		$this->variadic = $variadic;
+		$this->defaultValue = $defaultValue;
 	}
 
 	public function getName(): string
@@ -58,6 +60,11 @@ class DummyParameter implements ParameterReflection
 	public function isVariadic(): bool
 	{
 		return $this->variadic;
+	}
+
+	public function getDefaultValue(): ?Type
+	{
+		return $this->defaultValue;
 	}
 
 }

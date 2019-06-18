@@ -65,7 +65,11 @@ class RuleLevelHelper
 		}
 
 		$acceptedArrays = TypeUtils::getArrays($acceptedType);
-		if ($acceptingType instanceof ArrayType && count($acceptedArrays) > 0) {
+		if (
+			$acceptingType instanceof ArrayType
+			&& !$acceptingType instanceof ConstantArrayType
+			&& count($acceptedArrays) > 0
+		) {
 			foreach ($acceptedArrays as $acceptedArray) {
 				if ($acceptedArray instanceof ConstantArrayType) {
 					foreach ($acceptedArray->getKeyTypes() as $i => $keyType) {
@@ -114,7 +118,11 @@ class RuleLevelHelper
 			return false;
 		}
 
-		if ($acceptedType instanceof ArrayType && $acceptingType instanceof ArrayType) {
+		if (
+			$acceptedType instanceof ArrayType
+			&& $acceptingType instanceof ArrayType
+			&& !$acceptingType instanceof ConstantArrayType
+		) {
 			return self::accepts(
 				$acceptingType->getKeyType(),
 				$acceptedType->getKeyType(),

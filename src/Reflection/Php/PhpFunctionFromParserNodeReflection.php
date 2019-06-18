@@ -24,6 +24,9 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	/** @var \PHPStan\Type\Type[] */
 	private $phpDocParameterTypes;
 
+	/** @var \PHPStan\Type\Type[] */
+	private $realParameterDefaultValues;
+
 	/** @var bool */
 	private $realReturnTypePresent;
 
@@ -55,6 +58,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	 * @param FunctionLike $functionLike
 	 * @param \PHPStan\Type\Type[] $realParameterTypes
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
+	 * @param \PHPStan\Type\Type[] $realParameterDefaultValues
 	 * @param bool $realReturnTypePresent
 	 * @param Type $realReturnType
 	 * @param Type|null $phpDocReturnType
@@ -68,6 +72,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		FunctionLike $functionLike,
 		array $realParameterTypes,
 		array $phpDocParameterTypes,
+		array $realParameterDefaultValues,
 		bool $realReturnTypePresent,
 		Type $realReturnType,
 		?Type $phpDocReturnType = null,
@@ -81,6 +86,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		$this->functionLike = $functionLike;
 		$this->realParameterTypes = $realParameterTypes;
 		$this->phpDocParameterTypes = $phpDocParameterTypes;
+		$this->realParameterDefaultValues = $realParameterDefaultValues;
 		$this->realReturnTypePresent = $realReturnTypePresent;
 		$this->realReturnType = $realReturnType;
 		$this->phpDocReturnType = $phpDocReturnType;
@@ -150,7 +156,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 				$parameter->byRef
 					? PassedByReference::createCreatesNewVariable()
 					: PassedByReference::createNo(),
-				$parameter->default,
+				$this->realParameterDefaultValues[$parameter->var->name] ?? null,
 				$parameter->variadic
 			);
 		}

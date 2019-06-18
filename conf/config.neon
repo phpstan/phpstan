@@ -40,7 +40,6 @@ parameters:
 	scopeClass: PHPStan\Analyser\Scope
 	universalObjectCratesClasses:
 		- stdClass
-		- SimpleXMLElement
 	earlyTerminatingMethodCalls: []
 	memoryLimitFile: %tmpDir%/.memory_limit
 	benchmarkFile: null
@@ -197,6 +196,9 @@ services:
 
 	-
 		class: PHPStan\PhpDoc\PhpDocStringResolver
+
+	-
+		class: PHPStan\PhpDoc\ConstExprNodeResolver
 
 	-
 		class: PHPStan\PhpDoc\TypeNodeResolver
@@ -473,6 +475,11 @@ services:
 		class: PHPStan\Type\Php\GettimeofdayDynamicFunctionReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicFunctionReturnTypeExtension
+
+	-
+		class: PHPStan\Type\Php\SimpleXMLElementClassPropertyReflectionExtension
+		tags:
+			- phpstan.broker.propertiesClassReflectionExtension
 
 	-
 		class: PHPStan\Type\Php\StatDynamicReturnTypeExtension

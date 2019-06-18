@@ -2,10 +2,9 @@
 
 namespace PHPStan\Reflection\Php;
 
-use PhpParser\Node\Expr;
-use PhpParser\Node\Expr\ConstFetch;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NullType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
 
@@ -27,7 +26,7 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 	/** @var \PHPStan\Reflection\PassedByReference */
 	private $passedByReference;
 
-	/** @var \PhpParser\Node\Expr|null */
+	/** @var \PHPStan\Type\Type|null */
 	private $defaultValue;
 
 	/** @var bool */
@@ -42,7 +41,7 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 		Type $realType,
 		?Type $phpDocType,
 		PassedByReference $passedByReference,
-		?Expr $defaultValue,
+		?Type $defaultValue,
 		bool $variadic
 	)
 	{
@@ -70,10 +69,7 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 		if ($this->type === null) {
 			$phpDocType = $this->phpDocType;
 			if ($phpDocType !== null && $this->defaultValue !== null) {
-				if (
-					$this->defaultValue instanceof ConstFetch
-					&& strtolower((string) $this->defaultValue->name) === 'null'
-				) {
+				if ($this->defaultValue instanceof NullType) {
 					$phpDocType = \PHPStan\Type\TypeCombinator::addNull($phpDocType);
 				}
 			}
@@ -101,6 +97,11 @@ class PhpParameterFromParserNodeReflection implements \PHPStan\Reflection\Parame
 	public function isVariadic(): bool
 	{
 		return $this->variadic;
+	}
+
+	public function getDefaultValue(): ?Type
+	{
+		return $this->defaultValue;
 	}
 
 }

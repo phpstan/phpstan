@@ -233,6 +233,11 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->toArray();
 	}
 
+	public function traverse(callable $cb): Type
+	{
+		return $this;
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

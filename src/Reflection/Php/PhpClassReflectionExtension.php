@@ -303,7 +303,8 @@ class PhpClassReflectionExtension
 							$parameterSignature->isOptional(),
 							$parameterSignature->getType(),
 							$parameterSignature->passedByReference(),
-							$parameterSignature->isVariadic()
+							$parameterSignature->isVariadic(),
+							null
 						);
 					}, $methodSignature->getParameters()),
 					$methodSignature->isVariadic(),

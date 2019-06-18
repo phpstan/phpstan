@@ -419,7 +419,8 @@ class Broker
 								$parameterSignature->isOptional(),
 								$type,
 								$parameterSignature->passedByReference(),
-								$parameterSignature->isVariadic()
+								$parameterSignature->isVariadic(),
+								null
 							);
 						}, $functionSignature->getParameters()),
 						$functionSignature->isVariadic(),

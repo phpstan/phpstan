@@ -27,6 +27,7 @@ use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ConstantReflection;
+use PHPStan\Reflection\ExtendedPropertyReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
@@ -48,8 +49,10 @@ use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ConstantType;
+use PHPStan\Type\ConstantTypeHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
+use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
@@ -1032,7 +1035,8 @@ class Scope implements ClassMemberAccessAnswerer
 					$param->byRef
 						? PassedByReference::createCreatesNewVariable()
 						: PassedByReference::createNo(),
-					$param->variadic
+					$param->variadic,
+					$param->default !== null ? $this->getType($param->default) : null
 				);
 			}
 
@@ -1525,7 +1529,16 @@ class Scope implements ClassMemberAccessAnswerer
 					continue;
 				}
 
-				$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getType();
+				$property = $propertyClassReflection->getProperty($propertyName, $this);
+				if ($this->isInExpressionAssign($node)) {
+					if ($property instanceof ExtendedPropertyReflection) {
+						$types[] = $property->getWritableType();
+					} else {
+						$types[] = $property->getType();
+					}
+				} else {
+					$types[] = $property->getType();
+				}
 			}
 
 			if (count($types) > 0) {
@@ -1536,7 +1549,14 @@ class Scope implements ClassMemberAccessAnswerer
 				return new ErrorType();
 			}
 
-			return $propertyFetchedOnType->getProperty($node->name->name, $this)->getType();
+			$property = $propertyFetchedOnType->getProperty($node->name->name, $this);
+			if (
+				$this->isInExpressionAssign($node)
+				&& $property instanceof ExtendedPropertyReflection
+			) {
+				return $property->getWritableType();
+			}
+			return $property->getType();
 		}
 
 		if (
@@ -1562,7 +1582,16 @@ class Scope implements ClassMemberAccessAnswerer
 					continue;
 				}
 
-				$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getType();
+				$property = $propertyClassReflection->getProperty($propertyName, $this);
+				if ($this->isInExpressionAssign($node)) {
+					if ($property instanceof ExtendedPropertyReflection) {
+						$types[] = $property->getWritableType();
+					} else {
+						$types[] = $property->getType();
+					}
+				} else {
+					$types[] = $propertyClassReflection->getProperty($propertyName, $this)->getType();
+				}
 			}
 
 			if (count($types) > 0) {
@@ -1573,7 +1602,14 @@ class Scope implements ClassMemberAccessAnswerer
 				return new ErrorType();
 			}
 
-			return $calleeType->getProperty($node->name->name, $this)->getType();
+			$property = $calleeType->getProperty($node->name->name, $this);
+			if (
+				$this->isInExpressionAssign($node)
+				&& $property instanceof ExtendedPropertyReflection
+			) {
+				return $property->getWritableType();
+			}
+			return $property->getType();
 		}
 
 		if ($node instanceof FuncCall) {
@@ -1754,25 +1790,7 @@ class Scope implements ClassMemberAccessAnswerer
 	 */
 	public function getTypeFromValue($value): Type
 	{
-		if (is_int($value)) {
-			return new ConstantIntegerType($value);
-		} elseif (is_float($value)) {
-			return new ConstantFloatType($value);
-		} elseif (is_bool($value)) {
-			return new ConstantBooleanType($value);
-		} elseif ($value === null) {
-			return new NullType();
-		} elseif (is_string($value)) {
-			return new ConstantStringType($value);
-		} elseif (is_array($value)) {
-			$arrayBuilder = ConstantArrayTypeBuilder::createEmpty();
-			foreach ($value as $k => $v) {
-				$arrayBuilder->setOffsetValueType($this->getTypeFromValue($k), $this->getTypeFromValue($v));
-			}
-			return $arrayBuilder->getArray();
-		}
-
-		return new MixedType();
+		return ConstantTypeHelper::getTypeFromValue($value);
 	}
 
 	public function isSpecified(Expr $node): bool
@@ -1843,10 +1861,13 @@ class Scope implements ClassMemberAccessAnswerer
 				$this->getClassReflection(),
 				$classMethod,
 				$this->getRealParameterTypes($classMethod),
-				$phpDocParameterTypes,
+				array_map(static function (Type $type): Type {
+					return TemplateTypeHelper::toArgument($type);
+				}, $phpDocParameterTypes),
+				$this->getRealParameterDefaultValues($classMethod),
 				$classMethod->returnType !== null,
 				$this->getFunctionType($classMethod->returnType, $classMethod->returnType === null, false),
-				$phpDocReturnType,
+				$phpDocReturnType !== null ? TemplateTypeHelper::toArgument($phpDocReturnType) : null,
 				$throwType,
 				$deprecatedDescription,
 				$isDeprecated,
@@ -1878,6 +1899,26 @@ class Scope implements ClassMemberAccessAnswerer
 	}
 
 	/**
+	 * @param Node\FunctionLike $functionLike
+	 * @return Type[]
+	 */
+	private function getRealParameterDefaultValues(Node\FunctionLike $functionLike): array
+	{
+		$realParameterDefaultValues = [];
+		foreach ($functionLike->getParams() as $parameter) {
+			if ($parameter->default === null) {
+				continue;
+			}
+			if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			$realParameterDefaultValues[$parameter->var->name] = $this->getType($parameter->default);
+		}
+
+		return $realParameterDefaultValues;
+	}
+
+	/**
 	 * @param Node\Stmt\Function_ $function
 	 * @param Type[] $phpDocParameterTypes
 	 * @param Type|null $phpDocReturnType
@@ -1903,10 +1944,13 @@ class Scope implements ClassMemberAccessAnswerer
 			new PhpFunctionFromParserNodeReflection(
 				$function,
 				$this->getRealParameterTypes($function),
-				$phpDocParameterTypes,
+				array_map(static function (Type $type): Type {
+					return TemplateTypeHelper::toArgument($type);
+				}, $phpDocParameterTypes),
+				$this->getRealParameterDefaultValues($function),
 				$function->returnType !== null,
 				$this->getFunctionType($function->returnType, $function->returnType === null, false),
-				$phpDocReturnType,
+				$phpDocReturnType !== null ? TemplateTypeHelper::toArgument($phpDocReturnType) : null,
 				$throwType,
 				$deprecatedDescription,
 				$isDeprecated,

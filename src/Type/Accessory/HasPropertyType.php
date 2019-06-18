@@ -89,6 +89,11 @@ class HasPropertyType implements AccessoryType, CompoundType
 		return [new TrivialParametersAcceptor()];
 	}
 
+	public function traverse(callable $cb): Type
+	{
+		return $this;
+	}
+
 	public static function __set_state(array $properties): Type
 	{
 		return new self($properties['propertyName']);

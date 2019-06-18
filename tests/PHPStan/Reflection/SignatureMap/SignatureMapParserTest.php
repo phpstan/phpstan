@@ -136,7 +136,7 @@ class SignatureMapParserTest extends \PHPStan\Testing\TestCase
 				),
 			],
 			[
-				['?Throwable|?Foo'],
+				['(?Throwable)|(?Foo)'],
 				null,
 				new FunctionSignature(
 					[],

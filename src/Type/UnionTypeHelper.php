@@ -67,7 +67,7 @@ class UnionTypeHelper
 	 */
 	public static function sortTypes(array $types): array
 	{
-		usort($types, static function (Type $a, Type $b): float {
+		usort($types, static function (Type $a, Type $b): int {
 			if ($a instanceof NullType) {
 				return 1;
 			} elseif ($b instanceof NullType) {
@@ -108,7 +108,7 @@ class UnionTypeHelper
 					|| $b instanceof ConstantFloatType
 				)
 			) {
-				return $a->getValue() - $b->getValue();
+				return (int) ($a->getValue() - $b->getValue());
 			}
 
 			if ($a instanceof ConstantStringType && $b instanceof ConstantStringType) {

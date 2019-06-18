@@ -377,6 +377,26 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		return $types;
 	}
 
+	public function traverse(callable $cb): Type
+	{
+		$types = [];
+		$changed = false;
+
+		foreach ($this->types as $type) {
+			$newType = $cb($type);
+			if ($type !== $newType) {
+				$changed = true;
+			}
+			$types[] = $newType;
+		}
+
+		if ($changed) {
+			return TypeCombinator::intersect(...$types);
+		}
+
+		return $this;
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

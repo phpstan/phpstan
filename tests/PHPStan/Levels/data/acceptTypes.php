@@ -540,3 +540,54 @@ class Baz
 	}
 
 }
+
+class ArrayShapes
+{
+
+	/**
+	 * @param callable[] $callables
+	 * @param string[] $strings
+	 * @param int[] $integers
+	 * @param iterable<callable> $iterable
+	 */
+	public function doFoo(
+		array $callables,
+		array $strings,
+		array $integers,
+		iterable $iterable
+	)
+	{
+		$this->doBar($callables);
+		$this->doBar($strings);
+		$this->doBar($integers);
+		$this->doBar([]);
+		$this->doBar(['foo' => 'date']);
+		$this->doBar(['foo' => 1]);
+		$this->doBar(['foo' => 'date', 'bar' => 'date']);
+		$this->doBar(['foo' => 'nonexistent']);
+		$this->doBar(['bar' => 'date']);
+
+		if (array_key_exists('foo', $callables)) {
+			$this->doBar($callables);
+		}
+
+		$optional = [];
+		if (rand(0, 1) === 0) {
+			$optional['foo'] = 'date';
+		}
+
+		$this->doBar($optional);
+		$this->doBar($iterable);
+	}
+
+	/**
+	 * @param array{foo:callable} $one
+	 */
+	public function doBar(
+		array $one
+	)
+	{
+
+	}
+
+}

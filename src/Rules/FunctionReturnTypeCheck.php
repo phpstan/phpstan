@@ -5,6 +5,7 @@ namespace PHPStan\Rules;
 use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\VerbosityLevel;
 use PHPStan\Type\VoidType;
 
@@ -44,6 +45,9 @@ class FunctionReturnTypeCheck
 		}
 
 		$isVoidSuperType = (new VoidType())->isSuperTypeOf($returnType);
+		$verbosityLevel = $returnType->isCallable()->yes() || count(TypeUtils::getConstantArrays($returnType)) > 0
+			? VerbosityLevel::value()
+			: VerbosityLevel::typeOnly();
 		if ($returnValue === null) {
 			if (!$isVoidSuperType->no()) {
 				return [];
@@ -52,7 +56,7 @@ class FunctionReturnTypeCheck
 			return [
 				sprintf(
 					$emptyReturnStatementMessage,
-					$returnType->describe(VerbosityLevel::typeOnly())
+					$returnType->describe($verbosityLevel)
 				),
 			];
 		}
@@ -63,7 +67,7 @@ class FunctionReturnTypeCheck
 			return [
 				sprintf(
 					$voidMessage,
-					$returnValueType->describe(VerbosityLevel::typeOnly())
+					$returnValueType->describe($verbosityLevel)
 				),
 			];
 		}
@@ -72,8 +76,8 @@ class FunctionReturnTypeCheck
 			return [
 				sprintf(
 					$typeMismatchMessage,
-					$returnType->describe(VerbosityLevel::typeOnly()),
-					$returnValueType->describe(VerbosityLevel::typeOnly())
+					$returnType->describe($verbosityLevel),
+					$returnValueType->describe($verbosityLevel)
 				),
 			];
 		}
