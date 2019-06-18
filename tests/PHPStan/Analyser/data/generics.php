@@ -2,7 +2,7 @@
 
 namespace PHPStan\Generics\FunctionsAssertType;
 
-use function PHPStan\Generics\assertType;
+use function PHPStan\Analyser\assertType;
 
 /**
  * @template T

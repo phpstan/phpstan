@@ -9,7 +9,6 @@ class GenericsIntegrationTest extends \PHPStan\Testing\LevelsTestCase
 	{
 		return [
 			['functions'],
-			['functionsAssertType'],
 			['invalidReturn'],
 			['pick'],
 			['varyingAcceptor'],

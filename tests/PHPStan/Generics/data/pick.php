@@ -2,8 +2,6 @@
 
 namespace PHPStan\Generics\Pick;
 
-use function PHPStan\Generics\assertType;
-
 class A {}
 class B {}
 class C {}

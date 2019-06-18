@@ -1,7 +1,7 @@
 [
     {
         "message": "Parameter #1 $c of function PHPStan\\Generics\\Pick\\foo expects PHPStan\\Generics\\Pick\\A|PHPStan\\Generics\\Pick\\B, PHPStan\\Generics\\Pick\\A|PHPStan\\Generics\\Pick\\C given.",
-        "line": 26,
+        "line": 24,
         "ignorable": true
     }
 ]

@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Generics;
+namespace PHPStan\Analyser;
 
 /**
  * Asserts the static type of a value.

@@ -1,17 +1,17 @@
 [
     {
         "message": "Parameter #1 $t1 of function PHPStan\\Generics\\VaryingAcceptor\\apply expects callable(PHPStan\\Generics\\VaryingAcceptor\\A): void, Closure(PHPStan\\Generics\\VaryingAcceptor\\B): void given.",
-        "line": 38,
+        "line": 36,
         "ignorable": true
     },
     {
         "message": "Parameter #2 $t1 of function PHPStan\\Generics\\VaryingAcceptor\\applyReversed expects callable(PHPStan\\Generics\\VaryingAcceptor\\A): void, Closure(PHPStan\\Generics\\VaryingAcceptor\\B): void given.",
-        "line": 44,
+        "line": 42,
         "ignorable": true
     },
     {
         "message": "Parameter #1 $closure of function PHPStan\\Generics\\VaryingAcceptor\\bar expects callable(callable(): int|string): int|string, callable(callable(): int): string given.",
-        "line": 57,
+        "line": 55,
         "ignorable": true
     }
 ]
