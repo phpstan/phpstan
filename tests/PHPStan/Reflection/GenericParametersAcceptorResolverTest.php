@@ -362,7 +362,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 		);
 
 		$this->assertInstanceOf(
-			get_class($expectedResult->getReturnType()),
+			(string) get_class($expectedResult->getReturnType()),
 			$result->getReturnType(),
 			'Unexpected return type'
 		);
@@ -379,7 +379,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 
 		foreach ($expectedParameters as $i => $param) {
 			$this->assertInstanceOf(
-				get_class($param->getType()),
+				(string) get_class($param->getType()),
 				$resultParameters[$i]->getType(),
 				sprintf('Unexpected parameter %d', $i + 1)
 			);
