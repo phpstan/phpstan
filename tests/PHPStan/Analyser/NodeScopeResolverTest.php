@@ -2,9 +2,11 @@
 
 namespace PHPStan\Analyser;
 
+use PhpParser\Node;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Name;
 use PHPStan\Broker\AnonymousClassNameHelper;
 use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
@@ -9163,6 +9165,68 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$description,
 			$expression
 		);
+	}
+
+	public function dataGenerics(): array
+	{
+		require_once __DIR__ . '/data/generics.php';
+
+		return $this->gatherAssertTypes(__DIR__ . '/data/generics.php');
+	}
+
+	/**
+	 * @dataProvider dataGenerics
+	 * @param ConstantStringType $expectedType
+	 * @param Type $actualType
+	 */
+	public function testGenerics(
+		ConstantStringType $expectedType,
+		Type $actualType,
+		int $line
+	): void
+	{
+		$expected = $expectedType->getValue();
+		$actual = $actualType->describe(VerbosityLevel::precise());
+		$this->assertSame(
+			$expected,
+			$actual,
+			sprintf('Expected type %s, got type %s on line %d.', $expected, $actual, $line)
+		);
+	}
+
+	private function gatherAssertTypes(string $file): array
+	{
+		$types = [];
+		$this->processFile($file, function (Node $node, Scope $scope) use (&$types): void {
+			if (!$node instanceof Node\Expr\FuncCall) {
+				return;
+			}
+
+			$nameNode = $node->name;
+			if (!$nameNode instanceof Name) {
+				return;
+			}
+
+			$assertTypeFunctionName = 'PHPStan\\Analyser\\assertType';
+			if ((string) $nameNode !== $assertTypeFunctionName) {
+				return;
+			}
+
+			if (count($node->args) !== 2) {
+				$this->fail(sprintf(
+					'ERROR: Wrong %s() call on line %d.',
+					$assertTypeFunctionName,
+					$node->getLine()
+				));
+			}
+
+			$expectedTypeString = $scope->getType($node->args[0]->value);
+			$actualType = $scope->getType($node->args[1]->value);
+
+			$types[] = [$expectedTypeString, $actualType, $node->getLine()];
+		});
+
+		return $types;
 	}
 
 	public function dataTryCatchScope(): array

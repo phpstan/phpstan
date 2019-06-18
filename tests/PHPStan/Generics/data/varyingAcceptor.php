@@ -2,8 +2,6 @@
 
 namespace PHPStan\Generics\VaryingAcceptor;
 
-use function PHPStan\Generics\assertType;
-
 class A {}
 class B extends A {}
 
