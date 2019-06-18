@@ -6,4 +6,4 @@ rules:
 
 parameters:
 	autoload_files:
-		- tests/PHPStan/Generics/functions.php
+		- %rootDir%/tests/PHPStan/Generics/functions.php
