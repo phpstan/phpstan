@@ -35,7 +35,10 @@ class AssertTypeRule implements Rule
 		}
 
 		if (count($node->args) !== 2) {
-			return [];
+			return [sprintf(
+				'ERROR: Wrong %s() call',
+				self::ASSERT_TYPE_FUNCTION
+			)];
 		}
 
 		$typeType = $scope->getType($node->args[0]->value);
@@ -46,8 +49,13 @@ class AssertTypeRule implements Rule
 			$typeString = $valueType->describe(VerbosityLevel::precise());
 			if ($constant->getValue() !== $typeString) {
 				return [sprintf(
-					'Expected type %s, got %s',
+					'ERROR: Expected type %s, got %s',
 					$constant->getValue(),
+					$typeString
+				)];
+			} else {
+				return [sprintf(
+					'CORRECT: Expected type %s',
 					$typeString
 				)];
 			}

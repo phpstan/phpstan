@@ -1,0 +1,127 @@
+[
+    {
+        "message": "CORRECT: Expected type int",
+        "line": 22,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type float|int",
+        "line": 23,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type DateTime",
+        "line": 24,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type mixed",
+        "line": 25,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type DateTime",
+        "line": 41,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type DateTimeImmutable",
+        "line": 42,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type DateTimeInterface",
+        "line": 43,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type array<int, string>",
+        "line": 60,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type int",
+        "line": 79,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type float|int",
+        "line": 80,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type DateTime|int",
+        "line": 81,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type DateTime|float|int",
+        "line": 82,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type array()|DateTime",
+        "line": 83,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type *NEVER*",
+        "line": 99,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type array<A>",
+        "line": 113,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type callable(A): B",
+        "line": 114,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type A",
+        "line": 116,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type B",
+        "line": 118,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type array<string>",
+        "line": 129,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type array<string>",
+        "line": 132,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type array",
+        "line": 135,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type array<string>",
+        "line": 138,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type array",
+        "line": 139,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type array",
+        "line": 140,
+        "ignorable": true
+    },
+    {
+        "message": "CORRECT: Expected type array<int>",
+        "line": 156,
+        "ignorable": true
+    }
+]
