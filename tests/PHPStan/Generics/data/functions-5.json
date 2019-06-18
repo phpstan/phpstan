@@ -1,12 +1,12 @@
 [
     {
         "message": "Parameter #2 $b of function PHPStan\\Generics\\Functions\\f expects callable(int): mixed, null given.",
-        "line": 139,
+        "line": 38,
         "ignorable": true
     },
     {
         "message": "Parameter #2 $b of function PHPStan\\Generics\\Functions\\f expects callable(int): mixed, '' given.",
-        "line": 140,
+        "line": 39,
         "ignorable": true
     }
 ]
