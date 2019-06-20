@@ -166,7 +166,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 					new MixedType(),
 					$templateType('T')
 				),
-				['T' => '*NEVER*'],
+				['T' => 'mixed'],
 			],
 			'receive non-accepted' => [
 				new StringType(),
@@ -174,7 +174,7 @@ class ArrayTypeTest extends \PHPStan\Testing\TestCase
 					new MixedType(),
 					$templateType('T')
 				),
-				['T' => '*NEVER*'],
+				['T' => 'string'],
 			],
 			'receive union items' => [
 				new ArrayType(

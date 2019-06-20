@@ -307,8 +307,8 @@ class ArrayType implements StaticResolvableType
 			$receivedKey = $receivedType->getKeyType();
 			$receivedItem = $receivedType->getItemType();
 		} else {
-			$receivedKey = new NeverType();
-			$receivedItem = new NeverType();
+			$receivedKey = $receivedType;
+			$receivedItem = $receivedType;
 		}
 
 		$keyTypeMap = $this->getKeyType()->inferTemplateTypes($receivedKey);

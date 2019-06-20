@@ -124,7 +124,7 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 		}
 
 		if ($this->isSuperTypeOf($receivedType)->no()) {
-			return TemplateTypeMap::empty();
+			$receivedType = $this->getBound();
 		}
 
 		return new TemplateTypeMap([

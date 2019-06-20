@@ -348,6 +348,17 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new DummyParameter('str', new ConstantStringType('foo'), false, null, false, null),
 				], false, new ConstantStringType('foo')),
 			],
+			'resolve incompatible type to the template bound' => [
+				[
+					new IntegerType(),
+				],
+				new FunctionVariant([
+					new DummyParameter('a', new ArrayType(new IntegerType(), $templateType('T', new ObjectType(\DateTimeImmutable::class))), false, null, false, null),
+				], false, $templateType('T', new ObjectType(\DateTimeImmutable::class))),
+				new FunctionVariant([
+					new DummyParameter('a', new ArrayType(new IntegerType(), new ObjectType(\DateTimeImmutable::class)), false, null, false, null),
+				], false, new ObjectType(\DateTimeImmutable::class)),
+			],
 		];
 	}
 
