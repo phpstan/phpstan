@@ -186,3 +186,18 @@ class CallableInForeach
 	}
 
 }
+
+class GenericCallable
+{
+
+	/**
+	 * @template T of \DateTime
+	 * @param callable(T): T $parameter
+	 * @return T
+	 */
+	public function doFoo($parameter)
+	{
+		return $parameter(new \DateTime());
+	}
+
+}

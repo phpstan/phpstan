@@ -241,7 +241,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 			return new NativeParameterReflection(
 				$param->getName(),
 				$param->isOptional(),
-				$cb($param->getType()),
+				$param->getType(),
 				$param->passedByReference(),
 				$param->isVariadic(),
 				$defaultValue !== null ? $cb($defaultValue) : null
