@@ -50,10 +50,20 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 
 	public function describe(VerbosityLevel $level): string
 	{
-		return sprintf(
-			'%s of %s',
-			$this->name,
-			parent::describe($level)
+		$basicDescription = function () use ($level): string {
+			return sprintf(
+				'%s of %s',
+				$this->name,
+				parent::describe($level)
+			);
+		};
+
+		return $level->handle(
+			$basicDescription,
+			$basicDescription,
+			function () use ($basicDescription): string {
+				return sprintf('%s (%s)', $basicDescription(), $this->scope->describe());
+			}
 		);
 	}
 

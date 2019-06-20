@@ -33,6 +33,15 @@ class TemplateTypeScope
 			&& $this->functionName === $other->functionName;
 	}
 
+	public function describe(): string
+	{
+		if ($this->className === null) {
+			return sprintf('function %s()', $this->functionName);
+		}
+
+		return sprintf('method %s::%s()', $this->className, $this->functionName);
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 */

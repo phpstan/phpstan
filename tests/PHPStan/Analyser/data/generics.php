@@ -10,6 +10,7 @@ use function PHPStan\Analyser\assertType;
  * @return T
  */
 function a($a) {
+	assertType('T (function PHPStan\Generics\FunctionsAssertType\a())', $a);
 	return $a;
 }
 
@@ -31,6 +32,8 @@ function testA($int, $intFloat, $mixed) {
  * @return T
  */
 function b($a) {
+	assertType('T of DateTimeInterface (function PHPStan\Generics\FunctionsAssertType\b())', $a);
+	assertType('T of DateTimeInterface (function PHPStan\Generics\FunctionsAssertType\b())', b($a));
 	return $a;
 }
 
@@ -110,12 +113,12 @@ function testE($int) {
  */
 function f($a, $b) {
 	$result = [];
-	assertType('array<A>', $a);
-	assertType('callable(A): B', $b);
+	assertType('array<A (function PHPStan\Generics\FunctionsAssertType\f())>', $a);
+	assertType('callable(A (function PHPStan\Generics\FunctionsAssertType\f())): B (function PHPStan\Generics\FunctionsAssertType\f())', $b);
 	foreach ($a as $k => $v) {
-		assertType('A', $v);
+		assertType('A (function PHPStan\Generics\FunctionsAssertType\f())', $v);
 		$newV = $b($v);
-		assertType('B', $newV);
+		assertType('B (function PHPStan\Generics\FunctionsAssertType\f())', $newV);
 		$result[$k] = $newV;
 	}
 	return $result;

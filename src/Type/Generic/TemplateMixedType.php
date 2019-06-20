@@ -51,7 +51,16 @@ final class TemplateMixedType extends MixedType implements TemplateType
 
 	public function describe(VerbosityLevel $level): string
 	{
-		return $this->name;
+		$basicDescription = function (): string {
+			return $this->name;
+		};
+		return $level->handle(
+			$basicDescription,
+			$basicDescription,
+			function () use ($basicDescription): string {
+				return sprintf('%s (%s)', $basicDescription(), $this->scope->describe());
+			}
+		);
 	}
 
 	public function equals(Type $type): bool

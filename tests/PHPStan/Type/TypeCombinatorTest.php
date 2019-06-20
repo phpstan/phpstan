@@ -1108,7 +1108,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				UnionType::class,
-				'DateTime|T',
+				'DateTime|T (function a())',
 			],
 			[
 				[
@@ -1120,7 +1120,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				UnionType::class,
-				'DateTime|T of DateTime',
+				'DateTime|T of DateTime (function a())',
 			],
 			[
 				[
@@ -1136,7 +1136,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					),
 				],
 				TemplateType::class,
-				'T of DateTime',
+				'T of DateTime (function a())',
 			],
 			[
 				[
@@ -1152,7 +1152,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					),
 				],
 				UnionType::class,
-				'T of DateTime|U of DateTime',
+				'T of DateTime (function a())|U of DateTime (function a())',
 			],
 		];
 	}
@@ -1762,7 +1762,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				IntersectionType::class,
-				'DateTime&T',
+				'DateTime&T (function a())',
 			],
 			[
 				[
@@ -1774,7 +1774,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				IntersectionType::class,
-				'DateTime&T of DateTime',
+				'DateTime&T of DateTime (function a())',
 			],
 			[
 				[
@@ -1790,7 +1790,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					),
 				],
 				TemplateType::class,
-				'T of DateTime',
+				'T of DateTime (function a())',
 			],
 			[
 				[
@@ -1806,7 +1806,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					),
 				],
 				IntersectionType::class,
-				'T of DateTime&U of DateTime',
+				'T of DateTime (function a())&U of DateTime (function a())',
 			],
 		];
 	}
