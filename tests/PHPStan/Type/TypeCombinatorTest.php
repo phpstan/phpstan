@@ -748,24 +748,24 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new UnionType([new IntegerType(), new StringType()]),
 					new BenevolentUnionType([new IntegerType(), new StringType()]),
 				],
-				UnionType::class,
-				'int|string',
+				BenevolentUnionType::class,
+				'(int|string)',
 			],
 			[
 				[
 					new IntegerType(),
 					new BenevolentUnionType([new IntegerType(), new StringType()]),
 				],
-				UnionType::class,
-				'int|string',
+				BenevolentUnionType::class,
+				'(int|string)',
 			],
 			[
 				[
 					new StringType(),
 					new BenevolentUnionType([new IntegerType(), new StringType()]),
 				],
-				UnionType::class,
-				'int|string',
+				BenevolentUnionType::class,
+				'(int|string)',
 			],
 			[
 				[
@@ -931,8 +931,8 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new BenevolentUnionType([new IntegerType(), new StringType()]),
 					new BenevolentUnionType([new IntegerType(), new StringType()]),
 				],
-				UnionType::class, // I'd be more happy with preserving BenevolentUnionType
-				'int|string',
+				BenevolentUnionType::class,
+				'(int|string)',
 			],
 			[
 				[
@@ -1153,6 +1153,80 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				],
 				UnionType::class,
 				'T of DateTime|U of DateTime',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+				],
+				BenevolentUnionType::class,
+				'(int|string)',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new IntegerType(),
+				],
+				BenevolentUnionType::class,
+				'(int|string)',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new StringType(),
+				],
+				BenevolentUnionType::class,
+				'(int|string)',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new IntegerType(),
+					new StringType(),
+				],
+				BenevolentUnionType::class,
+				'(int|string)',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new UnionType([new IntegerType(), new StringType()]),
+				],
+				BenevolentUnionType::class,
+				'(int|string)',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new IntegerType(),
+					new StringType(),
+					new FloatType(),
+				],
+				UnionType::class,
+				'float|int|string',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new UnionType([new IntegerType(), new StringType(), new FloatType()]),
+				],
+				UnionType::class,
+				'float|int|string',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new UnionType([new ConstantIntegerType(1), new ConstantIntegerType(2)]),
+				],
+				BenevolentUnionType::class,
+				'(int|string)',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new UnionType([new ConstantIntegerType(1), new ConstantIntegerType(2), new FloatType()]),
+				],
+				UnionType::class,
+				'float|int|string',
 			],
 		];
 	}

@@ -6,10 +6,8 @@ use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\ArrayType;
-use PHPStan\Type\BenevolentUnionType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\IntegerType;
-use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -34,9 +32,6 @@ class ArrayKeysFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dynam
 					return $valueType->getKeysArray();
 				}
 				$keyType = $valueType->getIterableKeyType();
-				if ($keyType instanceof BenevolentUnionType) {
-					$keyType = new MixedType();
-				}
 				return TypeCombinator::intersect(new ArrayType(new IntegerType(), $keyType), ...TypeUtils::getAccessoryTypes($valueType));
 			}
 		}

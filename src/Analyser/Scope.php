@@ -913,11 +913,6 @@ class Scope implements ClassMemberAccessAnswerer
 							$leftType->getIterableKeyType(),
 							$rightType->getIterableKeyType(),
 						] as $keyType) {
-							if ($keyType instanceof BenevolentUnionType) {
-								$keyTypes[] = new MixedType();
-								continue;
-							}
-
 							$keyTypes[] = $keyType;
 						}
 						$keyType = TypeCombinator::union(...$keyTypes);

@@ -100,7 +100,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function equals(Type $type): bool
 	{
-		if (!$type instanceof self) {
+		if (!$type instanceof static) {
 			return false;
 		}
 
