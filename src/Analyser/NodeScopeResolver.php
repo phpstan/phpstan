@@ -1351,7 +1351,7 @@ class NodeScopeResolver
 				$constantArrays = TypeUtils::getConstantArrays($originalArrayType);
 				if (
 					$function->getName() === 'array_push'
-					|| ($originalArrayType instanceof ArrayType && count($constantArrays) === 0)
+					|| ($originalArrayType->isArray()->yes() && count($constantArrays) === 0)
 				) {
 					$arrayType = $originalArrayType;
 					foreach ($argumentTypes as $argType) {

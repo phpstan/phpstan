@@ -6,7 +6,6 @@ use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
-use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ConstantType;
@@ -37,7 +36,7 @@ class MinMaxFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunction
 
 		if (count($functionCall->args) === 1) {
 			$argType = $scope->getType($functionCall->args[0]->value);
-			if ($argType instanceof ArrayType) {
+			if ($argType->isArray()->yes()) {
 				$iterableValueType = $argType->getIterableValueType();
 				$argumentTypes = [];
 				if ($iterableValueType instanceof UnionType) {
