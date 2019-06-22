@@ -53,7 +53,7 @@ class ArrayMapFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 			}
 
 			return TypeCombinator::union(...$arrayTypes);
-		} elseif ($arrayType instanceof ArrayType) {
+		} elseif ($arrayType instanceof ArrayType) { // TODO zrušit všechny instanceof ArrayType
 			return new ArrayType(
 				$arrayType->getIterableKeyType(),
 				$valueType

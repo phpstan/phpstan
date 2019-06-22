@@ -74,6 +74,11 @@ trait ObjectTypeTrait
 		return TrinaryLogic::createYes();
 	}
 
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
 	public function toNumber(): Type
 	{
 		return new ErrorType();

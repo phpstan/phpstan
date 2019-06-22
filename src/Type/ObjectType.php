@@ -486,6 +486,11 @@ class ObjectType implements TypeWithClassName, SubtractableType
 		return new ErrorType();
 	}
 
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
 	private function isExtraOffsetAccessibleClass(): TrinaryLogic
 	{
 		$broker = Broker::getInstance();

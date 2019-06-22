@@ -187,6 +187,10 @@ class IterableType implements StaticResolvableType, CompoundType
 		return $this->getItemType();
 	}
 
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
 
 	public function traverse(callable $cb): Type
 	{

@@ -51,4 +51,9 @@ trait JustNullableTypeTrait
 		return $this;
 	}
 
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
 }

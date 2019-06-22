@@ -406,6 +406,13 @@ class UnionType implements CompoundType, StaticResolvableType
 		});
 	}
 
+	public function isArray(): TrinaryLogic
+	{
+		return $this->unionResults(static function (Type $type): TrinaryLogic {
+			return $type->isArray();
+		});
+	}
+
 	public function isOffsetAccessible(): TrinaryLogic
 	{
 		return $this->unionResults(static function (Type $type): TrinaryLogic {

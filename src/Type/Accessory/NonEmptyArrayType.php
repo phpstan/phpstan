@@ -113,6 +113,11 @@ class NonEmptyArrayType implements CompoundType, AccessoryType
 		return new MixedType();
 	}
 
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
+	}
+
 	public function toNumber(): Type
 	{
 		return new ErrorType();

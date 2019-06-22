@@ -194,6 +194,11 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->isCallable();
 	}
 
+	public function isArray(): TrinaryLogic
+	{
+		return $this->staticObjectType->isArray();
+	}
+
 	/**
 	 * @param \PHPStan\Reflection\ClassMemberAccessAnswerer $scope
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
