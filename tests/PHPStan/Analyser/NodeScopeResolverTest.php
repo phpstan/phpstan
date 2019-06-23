@@ -7996,6 +7996,44 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataClosureWithInferredTypehint(): array
+	{
+		return [
+			[
+				'DateTime|stdClass',
+				'$foo',
+			],
+			[
+				'mixed',
+				'$bar',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataClosureWithInferredTypehint
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testClosureWithInferredTypehint(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/closure-inferred-typehint.php',
+			$description,
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			'die',
+			[],
+			false
+		);
+	}
+
 	public function dataTraitsPhpDocs(): array
 	{
 		return [

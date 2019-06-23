@@ -2054,19 +2054,43 @@ class Scope implements ClassMemberAccessAnswerer
 		return $this->inClosureBindScopeClass !== null;
 	}
 
+	/**
+	 * @param \PhpParser\Node\Expr\Closure $closure
+	 * @param \PHPStan\Reflection\ParameterReflection[]|null $callableParameters
+	 * @return \PHPStan\Analyser\Scope
+	 */
 	public function enterAnonymousFunction(
-		Expr\Closure $closure
+		Expr\Closure $closure,
+		?array $callableParameters = null
 	): self
 	{
 		$variableTypes = [];
-		foreach ($closure->params as $parameter) {
-			$isNullable = $this->isParameterValueNullable($parameter);
+		foreach ($closure->params as $i => $parameter) {
+			if ($parameter->type === null) {
+				if ($callableParameters === null) {
+					$parameterType = new MixedType();
+				} elseif (isset($callableParameters[$i])) {
+					$parameterType = $callableParameters[$i]->getType();
+				} elseif (count($callableParameters) > 0) {
+					$lastParameter = $callableParameters[count($callableParameters) - 1];
+					if ($lastParameter->isVariadic()) {
+						$parameterType = $lastParameter->getType();
+					} else {
+						$parameterType = new MixedType();
+					}
+				} else {
+					$parameterType = new MixedType();
+				}
+			} else {
+				$isNullable = $this->isParameterValueNullable($parameter);
+				$parameterType = $this->getFunctionType($parameter->type, $isNullable, $parameter->variadic);
+			}
 
 			if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 			$variableTypes[$parameter->var->name] = VariableTypeHolder::createYes(
-				$this->getFunctionType($parameter->type, $isNullable, $parameter->variadic)
+				$parameterType
 			);
 		}
 

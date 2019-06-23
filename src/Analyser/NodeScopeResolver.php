@@ -1209,7 +1209,9 @@ class NodeScopeResolver
 
 						if ($expr->expr instanceof Expr\Closure) {
 							$nodeCallback($expr->expr, $scope);
-							$scope = $this->processClosureNode($expr->expr, $scope, $nodeCallback, $context->enterDeep());
+							$result = $this->processClosureNode($expr->expr, $scope, $nodeCallback, $context->enterDeep(), null);
+							$hasYield = false;
+							$scope = $result->getScope();
 						} else {
 							$result = $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep());
 							$hasYield = $result->hasYield();
@@ -1515,8 +1517,7 @@ class NodeScopeResolver
 				$scope = $result->getScope();
 			}
 		} elseif ($expr instanceof Expr\Closure) {
-			$scope = $this->processClosureNode($expr, $scope, $nodeCallback, $context);
-			$hasYield = false;
+			return $this->processClosureNode($expr, $scope, $nodeCallback, $context, null);
 		} elseif ($expr instanceof Expr\ClosureUse) {
 			$this->processExprNode($expr->var, $scope, $nodeCallback, $context);
 			$hasYield = false;
@@ -1825,20 +1826,32 @@ class NodeScopeResolver
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @param ExpressionContext $context
-	 * @return \PHPStan\Analyser\Scope $scope
+	 * @param Type|null $passedToType
+	 * @return \PHPStan\Analyser\ExpressionResult
 	 */
 	private function processClosureNode(
 		Expr\Closure $expr,
 		Scope $scope,
 		\Closure $nodeCallback,
-		ExpressionContext $context
-	): Scope
+		ExpressionContext $context,
+		?Type $passedToType
+	): ExpressionResult
 	{
 		foreach ($expr->params as $param) {
 			$this->processParamNode($param, $scope, $nodeCallback);
 		}
 
 		$byRefUses = [];
+
+		if ($passedToType !== null && !$passedToType->isCallable()->no()) {
+			$callableParameters = null;
+			$acceptors = $passedToType->getCallableParametersAcceptors($scope);
+			if (count($acceptors) === 1) {
+				$callableParameters = $acceptors[0]->getParameters();
+			}
+		} else {
+			$callableParameters = null;
+		}
 
 		$useScope = $scope;
 		foreach ($expr->uses as $use) {
@@ -1877,7 +1890,7 @@ class NodeScopeResolver
 			$nodeCallback($expr->returnType, $scope);
 		}
 
-		$closureScope = $scope->enterAnonymousFunction($expr);
+		$closureScope = $scope->enterAnonymousFunction($expr, $callableParameters);
 		$closureScope = $closureScope->processClosureScope($scope, null, $byRefUses);
 
 		$gatheredReturnStatements = [];
@@ -1897,7 +1910,7 @@ class NodeScopeResolver
 				$statementResult
 			), $closureScope);
 
-			return $scope;
+			return new ExpressionResult($scope, false);
 		}
 
 		$count = 0;
@@ -1910,7 +1923,7 @@ class NodeScopeResolver
 			foreach ($intermediaryClosureScopeResult->getExitPoints() as $exitPoint) {
 				$intermediaryClosureScope = $intermediaryClosureScope->mergeWith($exitPoint->getScope());
 			}
-			$closureScope = $scope->enterAnonymousFunction($expr);
+			$closureScope = $scope->enterAnonymousFunction($expr, $callableParameters);
 			$closureScope = $closureScope->processClosureScope($intermediaryClosureScope, $prevScope, $byRefUses);
 			if ($closureScope->equals($prevScope)) {
 				break;
@@ -1925,7 +1938,7 @@ class NodeScopeResolver
 			$statementResult
 		), $closureScope);
 
-		return $scope->processClosureScope($closureScope, null, $byRefUses);
+		return new ExpressionResult($scope->processClosureScope($closureScope, null, $byRefUses), false);
 	}
 
 	private function lookForArrayDestructuringArray(Scope $scope, Expr $expr, Type $valueType): Scope
@@ -2024,9 +2037,11 @@ class NodeScopeResolver
 				$assignByReference = false;
 				if (isset($parameters[$i])) {
 					$assignByReference = $parameters[$i]->passedByReference()->createsNewVariable();
+					$parameterType = $parameters[$i]->getType();
 				} elseif (count($parameters) > 0 && $parametersAcceptor->isVariadic()) {
 					$lastParameter = $parameters[count($parameters) - 1];
 					$assignByReference = $lastParameter->passedByReference()->createsNewVariable();
+					$parameterType = $lastParameter->getType();
 				}
 
 				if ($assignByReference) {
@@ -2042,7 +2057,13 @@ class NodeScopeResolver
 			if ($i === 0 && $closureBindScope !== null) {
 				$scopeToPass = $closureBindScope;
 			}
-			$result = $this->processExprNode($arg->value, $scopeToPass, $nodeCallback, $context->enterDeep());
+
+			if ($arg->value instanceof Expr\Closure) {
+				$this->callNodeCallbackWithExpression($nodeCallback, $arg->value, $scopeToPass, $context);
+				$result = $this->processClosureNode($arg->value, $scopeToPass, $nodeCallback, $context, $parameterType ?? null);
+			} else {
+				$result = $this->processExprNode($arg->value, $scopeToPass, $nodeCallback, $context->enterDeep());
+			}
 			$scope = $result->getScope();
 			$hasYield = $hasYield || $result->hasYield();
 			if ($i !== 0 || $closureBindScope === null) {
