@@ -5,7 +5,7 @@ namespace PHPStan\Rules\Functions;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
-use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\TypeUtils;
 
 class PrintfParametersRule implements \PHPStan\Rules\Rule
 {
@@ -47,24 +47,32 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 		$formatArgumentPosition = $functionsArgumentPositions[$name];
 
 		$args = $node->args;
+		foreach ($args as $arg) {
+			if ($arg->unpack) {
+				return [];
+			}
+		}
 		$argsCount = count($args);
 		if ($argsCount < $minimumNumberOfArguments[$name]) {
 			return []; // caught by CallToFunctionParametersRule
 		}
 
 		$formatArgType = $scope->getType($args[$formatArgumentPosition]->value);
-		if (!($formatArgType instanceof ConstantStringType)) {
-			return []; // inspect only literal string format
-		}
-
-		foreach ($node->args as $arg) {
-			if ($arg->unpack) {
-				return [];
+		$placeHoldersCount = null;
+		foreach (TypeUtils::getConstantStrings($formatArgType) as $formatString) {
+			$format = $formatString->getValue();
+			$tempPlaceHoldersCount = $this->getPlaceholdersCount($name, $format);
+			if ($placeHoldersCount === null) {
+				$placeHoldersCount = $tempPlaceHoldersCount;
+			} elseif ($tempPlaceHoldersCount > $placeHoldersCount) {
+				$placeHoldersCount = $tempPlaceHoldersCount;
 			}
 		}
 
-		$format = $formatArgType->getValue();
-		$placeHoldersCount = $this->getPlaceholdersCount($name, $format);
+		if ($placeHoldersCount === null) {
+			return [];
+		}
+
 		$argsCount -= $formatArgumentPosition;
 
 		if ($argsCount !== $placeHoldersCount + 1) {
