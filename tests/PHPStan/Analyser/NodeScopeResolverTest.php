@@ -4183,6 +4183,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'object',
 				'new \DynamicMethodReturnTypesNamespace\Foo()',
 			],
+			[
+				'object',
+				'new \DynamicMethodReturnTypesNamespace\FooWithoutConstructor()',
+			],
 		];
 	}
 
@@ -4300,6 +4304,24 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 					public function getClass(): string
 					{
 						return \DynamicMethodReturnTypesNamespace\Foo::class;
+					}
+
+					public function isStaticMethodSupported(MethodReflection $methodReflection): bool
+					{
+						return $methodReflection->getName() === '__construct';
+					}
+
+					public function getTypeFromStaticMethodCall(MethodReflection $methodReflection, StaticCall $methodCall, Scope $scope): \PHPStan\Type\Type
+					{
+						return new ObjectWithoutClassType();
+					}
+
+				},
+				new class() implements DynamicStaticMethodReturnTypeExtension {
+
+					public function getClass(): string
+					{
+						return \DynamicMethodReturnTypesNamespace\FooWithoutConstructor::class;
 					}
 
 					public function isStaticMethodSupported(MethodReflection $methodReflection): bool

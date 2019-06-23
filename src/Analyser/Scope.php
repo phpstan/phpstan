@@ -27,6 +27,7 @@ use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ConstantReflection;
+use PHPStan\Reflection\Dummy\DummyConstructorReflection;
 use PHPStan\Reflection\ExtendedPropertyReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\Native\NativeParameterReflection;
@@ -1046,23 +1047,26 @@ class Scope implements ClassMemberAccessAnswerer
 					$classReflection = $this->broker->getClass($resolvedClassName);
 					if ($classReflection->hasConstructor()) {
 						$constructorMethod = $classReflection->getConstructor();
-						$resolvedTypes = [];
-						$methodCall = new Expr\StaticCall(
-							$node->class,
-							new Node\Identifier($constructorMethod->getName()),
-							$node->args
-						);
-						foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($classReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
-							if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($constructorMethod)) {
-								continue;
-							}
+					} else {
+						$constructorMethod = new DummyConstructorReflection($classReflection);
+					}
 
-							$resolvedTypes[] = $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($constructorMethod, $methodCall, $this);
+					$resolvedTypes = [];
+					$methodCall = new Expr\StaticCall(
+						$node->class,
+						new Node\Identifier($constructorMethod->getName()),
+						$node->args
+					);
+					foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($classReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
+						if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($constructorMethod)) {
+							continue;
 						}
 
-						if (count($resolvedTypes) > 0) {
-							return TypeCombinator::union(...$resolvedTypes);
-						}
+						$resolvedTypes[] = $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($constructorMethod, $methodCall, $this);
+					}
+
+					if (count($resolvedTypes) > 0) {
+						return TypeCombinator::union(...$resolvedTypes);
 					}
 				}
 				if (in_array($lowercasedClassName, [
