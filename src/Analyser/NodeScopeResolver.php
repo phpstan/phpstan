@@ -1207,16 +1207,9 @@ class NodeScopeResolver
 							);
 						}
 
-						if ($expr->expr instanceof Expr\Closure) {
-							$nodeCallback($expr->expr, $scope);
-							$result = $this->processClosureNode($expr->expr, $scope, $nodeCallback, $context->enterDeep(), null);
-							$hasYield = false;
-							$scope = $result->getScope();
-						} else {
-							$result = $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep());
-							$hasYield = $result->hasYield();
-							$scope = $result->getScope();
-						}
+						$result = $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep());
+						$hasYield = $result->hasYield();
+						$scope = $result->getScope();
 
 						if ($expr instanceof AssignRef) {
 							$scope = $scope->exitExpressionAssign($expr->expr);
