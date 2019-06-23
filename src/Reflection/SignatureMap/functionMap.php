@@ -10288,7 +10288,7 @@ return [
 'SoapServer::setClass' => ['void', 'class_name'=>'string', '...args='=>'mixed'],
 'SoapServer::setObject' => ['void', 'obj'=>'object'],
 'SoapServer::setPersistence' => ['void', 'mode'=>'int'],
-'SoapServer::SoapServer' => ['object', 'wsdl'=>'?string', 'options'=>'array'],
+'SoapServer::SoapServer' => ['object', 'wsdl'=>'?string', 'options='=>'array'],
 'SoapVar::__construct' => ['void', 'data'=>'mixed', 'encoding'=>'int', 'type_name='=>'string', 'type_namespace='=>'string', 'node_name='=>'string', 'node_namespace='=>'string'],
 'SoapVar::SoapVar' => ['object', 'data'=>'mixed', 'encoding'=>'int', 'type_name='=>'string', 'type_namespace='=>'string', 'node_name='=>'string', 'node_namespace='=>'string'],
 'socket_accept' => ['resource|false', 'socket'=>'resource'],
