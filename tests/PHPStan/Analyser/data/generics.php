@@ -205,3 +205,24 @@ function testArrayFilter(array $listOfIntegers)
 	});
 	assertType('array<int>', $integers);
 }
+
+/**
+ * @template K
+ * @template V
+ * @param iterable<K, V> $it
+ * @return array<K, V>
+ */
+function iterableToArray($it) {
+	$ret = [];
+	foreach ($it as $k => $v) {
+		$ret[$k] = $v;
+	}
+	return $ret;
+}
+
+/**
+ * @param iterable<string, Foo> $it
+ */
+function testIterable(iterable $it) {
+	assertType('array<PHPStan\Generics\FunctionsAssertType\Foo>', iterableToArray($it));
+}
