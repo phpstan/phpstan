@@ -224,5 +224,5 @@ function iterableToArray($it) {
  * @param iterable<string, Foo> $it
  */
 function testIterable(iterable $it) {
-	assertType('array<PHPStan\Generics\FunctionsAssertType\Foo>', iterableToArray($it));
+	assertType('array<string, PHPStan\Generics\FunctionsAssertType\Foo>', iterableToArray($it));
 }

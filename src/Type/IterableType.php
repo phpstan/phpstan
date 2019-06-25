@@ -179,7 +179,7 @@ class IterableType implements CompoundType
 			return TemplateTypeMap::createEmpty();
 		}
 
-		$keyTypeMap = $this->getIterableValueType()->inferTemplateTypes($receivedType->getIterableValueType());
+		$keyTypeMap = $this->getIterableKeyType()->inferTemplateTypes($receivedType->getIterableKeyType());
 		$valueTypeMap = $this->getIterableValueType()->inferTemplateTypes($receivedType->getIterableValueType());
 
 		return $keyTypeMap->union($valueTypeMap);
