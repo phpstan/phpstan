@@ -194,6 +194,17 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 				),
 				['T' => 'DateTime'],
 			],
+			'receive iterable template key' => [
+				new IterableType(
+					new StringType(),
+					new ObjectType('DateTime')
+				),
+				new IterableType(
+					$templateType('U'),
+					$templateType('T')
+				),
+				['U' => 'string', 'T' => 'DateTime'],
+			],
 			'receive mixed' => [
 				new MixedType(),
 				new IterableType(
