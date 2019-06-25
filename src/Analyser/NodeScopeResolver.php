@@ -51,6 +51,7 @@ use PHPStan\Node\ClosureReturnStatementsNode;
 use PHPStan\Node\ExecutionEndNode;
 use PHPStan\Node\FunctionReturnStatementsNode;
 use PHPStan\Node\InClassMethodNode;
+use PHPStan\Node\InFunctionNode;
 use PHPStan\Node\LiteralArrayItem;
 use PHPStan\Node\LiteralArrayNode;
 use PHPStan\Node\MethodReturnStatementsNode;
@@ -336,6 +337,7 @@ class NodeScopeResolver
 				$isInternal,
 				$isFinal
 			);
+			$nodeCallback(new InFunctionNode($stmt), $functionScope);
 
 			$gatheredReturnStatements = [];
 			$statementResult = $this->processStmtNodes($stmt, $stmt->stmts, $functionScope, static function (\PhpParser\Node $node, Scope $scope) use ($nodeCallback, &$gatheredReturnStatements): void {
