@@ -226,3 +226,19 @@ function iterableToArray($it) {
 function testIterable(iterable $it) {
 	assertType('array<string, PHPStan\Generics\FunctionsAssertType\Foo>', iterableToArray($it));
 }
+
+/**
+ * @template T
+ * @template U
+ * @param array{a: T, b: U, c: int} $a
+ * @return array{T, U}
+ */
+function constantArray($a): array {
+	return [$a['a'], $a['b']];
+}
+
+function testConstantArray(int $int, string $str) {
+	[$a, $b] = constantArray(['a' => $int, 'b' => $str, 'c' => 1]);
+	assertType('int', $a);
+	assertType('string', $b);
+}
