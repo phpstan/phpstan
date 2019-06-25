@@ -99,7 +99,7 @@ function e($a) {
  * @param int $int
  */
 function testE($int) {
-	assertType('*NEVER*', e([[$int]]));
+	assertType('int', e([[$int]]));
 }
 
 /**

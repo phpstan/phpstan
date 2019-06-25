@@ -285,17 +285,13 @@ class ArrayType implements Type
 			&& !$this->getKeyType()->isSuperTypeOf($receivedType->getKeyType())->no()
 			&& !$this->getItemType()->isSuperTypeOf($receivedType->getItemType())->no()
 		) {
-			$receivedKey = $receivedType->getKeyType();
-			$receivedItem = $receivedType->getItemType();
-		} else {
-			$receivedKey = new NeverType();
-			$receivedItem = new NeverType();
+			$keyTypeMap = $this->getKeyType()->inferTemplateTypes($receivedType->getKeyType());
+			$itemTypeMap = $this->getItemType()->inferTemplateTypes($receivedType->getItemType());
+
+			return $keyTypeMap->union($itemTypeMap);
 		}
 
-		$keyTypeMap = $this->getKeyType()->inferTemplateTypes($receivedKey);
-		$itemTypeMap = $this->getItemType()->inferTemplateTypes($receivedItem);
-
-		return $keyTypeMap->union($itemTypeMap);
+		return TemplateTypeMap::createEmpty();
 	}
 
 	public function traverse(callable $cb): Type
