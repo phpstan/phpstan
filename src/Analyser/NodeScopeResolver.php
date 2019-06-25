@@ -61,10 +61,14 @@ use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ExtendedPropertyReflection;
+use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Reflection\PassedByReference;
+use PHPStan\Reflection\Php\DummyParameter;
 use PHPStan\Type\Accessory\NonEmptyArrayType;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\CallableType;
 use PHPStan\Type\ClosureType;
 use PHPStan\Type\CommentHelper;
 use PHPStan\Type\Constant\ConstantArrayType;
@@ -1275,22 +1279,23 @@ class NodeScopeResolver
 			$hasYield = $result->hasYield();
 		} elseif ($expr instanceof FuncCall) {
 			$parametersAcceptor = null;
+			$functionReflection = null;
 			if ($expr->name instanceof Expr) {
 				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $context->enterDeep())->getScope();
 			} elseif ($this->broker->hasFunction($expr->name, $scope)) {
-				$function = $this->broker->getFunction($expr->name, $scope);
+				$functionReflection = $this->broker->getFunction($expr->name, $scope);
 				$parametersAcceptor = ParametersAcceptorSelector::selectFromArgs(
 					$scope,
 					$expr->args,
-					$function->getVariants()
+					$functionReflection->getVariants()
 				);
 			}
-			$result = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $context);
+			$result = $this->processArgs($functionReflection, $parametersAcceptor, $expr->args, $scope, $nodeCallback, $context);
 			$scope = $result->getScope();
 			$hasYield = $result->hasYield();
 			if (
-				isset($function)
-				&& in_array($function->getName(), ['array_pop', 'array_shift'], true)
+				isset($functionReflection)
+				&& in_array($functionReflection->getName(), ['array_pop', 'array_shift'], true)
 				&& count($expr->args) >= 1
 			) {
 				$arrayArg = $expr->args[0]->value;
@@ -1299,7 +1304,7 @@ class NodeScopeResolver
 					$resultArrayTypes = [];
 
 					foreach ($constantArrays as $constantArray) {
-						if ($function->getName() === 'array_pop') {
+						if ($functionReflection->getName() === 'array_pop') {
 							$resultArrayTypes[] = $constantArray->removeLast();
 						} else {
 							$resultArrayTypes[] = $constantArray->removeFirst();
@@ -1319,8 +1324,8 @@ class NodeScopeResolver
 			}
 
 			if (
-				isset($function)
-				&& in_array($function->getName(), ['array_push', 'array_unshift'], true)
+				isset($functionReflection)
+				&& in_array($functionReflection->getName(), ['array_push', 'array_unshift'], true)
 				&& count($expr->args) >= 2
 			) {
 				$argumentTypes = [];
@@ -1345,7 +1350,7 @@ class NodeScopeResolver
 				$originalArrayType = $scope->getType($arrayArg);
 				$constantArrays = TypeUtils::getConstantArrays($originalArrayType);
 				if (
-					$function->getName() === 'array_push'
+					$functionReflection->getName() === 'array_push'
 					|| ($originalArrayType->isArray()->yes() && count($constantArrays) === 0)
 				) {
 					$arrayType = $originalArrayType;
@@ -1383,8 +1388,8 @@ class NodeScopeResolver
 			}
 
 			if (
-				isset($function)
-				&& in_array($function->getName(), ['fopen', 'file_get_contents'], true)
+				isset($functionReflection)
+				&& in_array($functionReflection->getName(), ['fopen', 'file_get_contents'], true)
 			) {
 				$scope = $scope->assignVariable('http_response_header', new ArrayType(new IntegerType(), new StringType()));
 			}
@@ -1406,20 +1411,22 @@ class NodeScopeResolver
 				$scope = $scope->restoreOriginalScopeAfterClosureBind($originalScope);
 			}
 			$parametersAcceptor = null;
+			$methodReflection = null;
 			if ($expr->name instanceof Expr) {
 				$scope = $this->processExprNode($expr->name, $scope, $nodeCallback, $context->enterDeep())->getScope();
 			} else {
 				$calledOnType = $scope->getType($expr->var);
 				$methodName = $expr->name->name;
 				if ($calledOnType->hasMethod($methodName)->yes()) {
+					$methodReflection = $calledOnType->getMethod($methodName, $scope);
 					$parametersAcceptor = ParametersAcceptorSelector::selectFromArgs(
 						$scope,
 						$expr->args,
-						$calledOnType->getMethod($methodName, $scope)->getVariants()
+						$methodReflection->getVariants()
 					);
 				}
 			}
-			$result = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $context);
+			$result = $this->processArgs($methodReflection, $parametersAcceptor, $expr->args, $scope, $nodeCallback, $context);
 			$scope = $result->getScope();
 			$hasYield = $hasYield || $result->hasYield();
 		} elseif ($expr instanceof StaticCall) {
@@ -1428,6 +1435,7 @@ class NodeScopeResolver
 			}
 
 			$parametersAcceptor = null;
+			$methodReflection = null;
 			$hasYield = false;
 			if ($expr->name instanceof Expr) {
 				$result = $this->processExprNode($expr->name, $scope, $nodeCallback, $context->enterDeep());
@@ -1443,10 +1451,11 @@ class NodeScopeResolver
 						$methodName = $expr->name->name;
 					}
 					if ($classReflection->hasMethod($methodName)) {
+						$methodReflection = $classReflection->getMethod($methodName, $scope);
 						$parametersAcceptor = ParametersAcceptorSelector::selectFromArgs(
 							$scope,
 							$expr->args,
-							$classReflection->getMethod($methodName, $scope)->getVariants()
+							$methodReflection->getVariants()
 						);
 						if (
 							$classReflection->getName() === 'Closure'
@@ -1485,7 +1494,7 @@ class NodeScopeResolver
 					}
 				}
 			}
-			$result = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $context, $closureBindScope ?? null);
+			$result = $this->processArgs($methodReflection, $parametersAcceptor, $expr->args, $scope, $nodeCallback, $context, $closureBindScope ?? null);
 			$scope = $result->getScope();
 			$hasYield = $hasYield || $result->hasYield();
 		} elseif ($expr instanceof PropertyFetch) {
@@ -1685,6 +1694,7 @@ class NodeScopeResolver
 			return new ExpressionResult($scope, false);
 		} elseif ($expr instanceof New_) {
 			$parametersAcceptor = null;
+			$constructorReflection = null;
 			$hasYield = false;
 			if ($expr->class instanceof Expr) {
 				$result = $this->processExprNode($expr->class, $scope, $nodeCallback, $context->enterDeep());
@@ -1696,14 +1706,15 @@ class NodeScopeResolver
 			} elseif ($this->broker->hasClass($expr->class->toString())) {
 				$classReflection = $this->broker->getClass($expr->class->toString());
 				if ($classReflection->hasConstructor()) {
+					$constructorReflection = $classReflection->getConstructor();
 					$parametersAcceptor = ParametersAcceptorSelector::selectFromArgs(
 						$scope,
 						$expr->args,
-						$classReflection->getConstructor()->getVariants()
+						$constructorReflection->getVariants()
 					);
 				}
 			}
-			$result = $this->processArgs($parametersAcceptor, $expr->args, $scope, $nodeCallback, $context);
+			$result = $this->processArgs($constructorReflection, $parametersAcceptor, $expr->args, $scope, $nodeCallback, $context);
 			$scope = $result->getScope();
 			$hasYield = $hasYield || $result->hasYield();
 		} elseif (
@@ -2001,6 +2012,7 @@ class NodeScopeResolver
 	}
 
 	/**
+	 * @param \PHPStan\Reflection\MethodReflection|\PHPStan\Reflection\FunctionReflection|null $calleeReflection
 	 * @param ParametersAcceptor|null $parametersAcceptor
 	 * @param \PhpParser\Node\Arg[] $args
 	 * @param \PHPStan\Analyser\Scope $scope
@@ -2010,6 +2022,7 @@ class NodeScopeResolver
 	 * @return \PHPStan\Analyser\ExpressionResult
 	 */
 	private function processArgs(
+		$calleeReflection,
 		?ParametersAcceptor $parametersAcceptor,
 		array $args,
 		Scope $scope,
@@ -2041,6 +2054,28 @@ class NodeScopeResolver
 					$argValue = $arg->value;
 					if ($argValue instanceof Variable && is_string($argValue->name)) {
 						$scope = $scope->assignVariable($argValue->name, new MixedType());
+					}
+				}
+
+				if ($calleeReflection instanceof FunctionReflection) {
+					if (
+						$i === 0
+						&& $calleeReflection->getName() === 'array_map'
+						&& isset($args[1])
+					) {
+						$parameterType = new CallableType([
+							new DummyParameter('item', $scope->getType($args[1]->value)->getIterableValueType(), false, PassedByReference::createNo(), false, null),
+						], new MixedType(), false);
+					}
+
+					if (
+						$i === 1
+						&& $calleeReflection->getName() === 'array_filter'
+						&& isset($args[0])
+					) {
+						$parameterType = new CallableType([
+							new DummyParameter('item', $scope->getType($args[0]->value)->getIterableValueType(), false, PassedByReference::createNo(), false, null),
+						], new MixedType(), false);
 					}
 				}
 			}

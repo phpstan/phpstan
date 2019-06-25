@@ -179,3 +179,29 @@ function testReturnsStatic($foo) {
 	assertType('T of PHPStan\Generics\FunctionsAssertType\Foo (function PHPStan\Generics\FunctionsAssertType\testReturnsStatic())', $foo::returnsStatic());
 	assertType('T of PHPStan\Generics\FunctionsAssertType\Foo (function PHPStan\Generics\FunctionsAssertType\testReturnsStatic())', $foo->instanceReturnsStatic());
 }
+
+/**
+ * @param int[] $listOfIntegers
+ */
+function testArrayMap(array $listOfIntegers)
+{
+	$strings = array_map(function ($int): string {
+		assertType('int', $int);
+
+		return (string) $int;
+	}, $listOfIntegers);
+	assertType('array<string>', $strings);
+}
+
+/**
+ * @param int[] $listOfIntegers
+ */
+function testArrayFilter(array $listOfIntegers)
+{
+	$integers = array_filter($listOfIntegers, function ($int): bool {
+		assertType('int', $int);
+
+		return true;
+	});
+	assertType('array<int>', $integers);
+}

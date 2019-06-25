@@ -21,7 +21,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 	use MaybeOffsetAccessibleTypeTrait;
 	use TruthyBooleanTypeTrait;
 
-	/** @var array<int, \PHPStan\Reflection\Native\NativeParameterReflection> */
+	/** @var array<int, \PHPStan\Reflection\ParameterReflection> */
 	private $parameters;
 
 	/** @var Type */
@@ -34,7 +34,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 	private $isCommonCallable;
 
 	/**
-	 * @param array<int, \PHPStan\Reflection\Native\NativeParameterReflection> $parameters
+	 * @param array<int, \PHPStan\Reflection\ParameterReflection> $parameters
 	 * @param Type $returnType
 	 * @param bool $variadic
 	 */
@@ -177,7 +177,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 	}
 
 	/**
-	 * @return array<int, \PHPStan\Reflection\Native\NativeParameterReflection>
+	 * @return array<int, \PHPStan\Reflection\ParameterReflection>
 	 */
 	public function getParameters(): array
 	{
