@@ -4185,6 +4185,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'object',
 				'new \DynamicMethodReturnTypesNamespace\Foo()',
 			],
+			[
+				'object',
+				'new \DynamicMethodReturnTypesNamespace\FooWithoutConstructor()',
+			],
 		];
 	}
 
@@ -4302,6 +4306,24 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 					public function getClass(): string
 					{
 						return \DynamicMethodReturnTypesNamespace\Foo::class;
+					}
+
+					public function isStaticMethodSupported(MethodReflection $methodReflection): bool
+					{
+						return $methodReflection->getName() === '__construct';
+					}
+
+					public function getTypeFromStaticMethodCall(MethodReflection $methodReflection, StaticCall $methodCall, Scope $scope): \PHPStan\Type\Type
+					{
+						return new ObjectWithoutClassType();
+					}
+
+				},
+				new class() implements DynamicStaticMethodReturnTypeExtension {
+
+					public function getClass(): string
+					{
+						return \DynamicMethodReturnTypesNamespace\FooWithoutConstructor::class;
 					}
 
 					public function isStaticMethodSupported(MethodReflection $methodReflection): bool
@@ -7973,6 +7995,44 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[],
 			[],
 			$evaluatedPointExpression
+		);
+	}
+
+	public function dataClosureWithInferredTypehint(): array
+	{
+		return [
+			[
+				'DateTime|stdClass',
+				'$foo',
+			],
+			[
+				'mixed',
+				'$bar',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataClosureWithInferredTypehint
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testClosureWithInferredTypehint(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/closure-inferred-typehint.php',
+			$description,
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			'die',
+			[],
+			false
 		);
 	}
 

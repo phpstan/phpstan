@@ -239,3 +239,40 @@ class CallStaticMethodAfterAssignmentInBooleanAnd
 	}
 
 }
+
+class PreserveArrayKeys
+{
+	private $p = [];
+
+	/**
+	 * @param array<string, bool> $map
+	 */
+	private function test(array $map)
+	{
+		foreach ($this->p['foo'] as $key => $_) {
+			if (!isset($map[$key])) {
+				throw self::e(array_keys($map));
+			}
+		}
+	}
+
+	/**
+	 * @param array<string, bool> $map
+	 */
+	private function test2(array $map)
+	{
+		foreach ($this->p['foo'] as $key => $_) {
+			if (!array_key_exists($key, $map)) {
+				throw self::e(array_keys($map));
+			}
+		}
+	}
+
+	/**
+	 * @param string[] $list
+	 */
+	private static function e($list): \Exception
+	{
+		return new \Exception();
+	}
+}

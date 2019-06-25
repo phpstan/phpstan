@@ -51,13 +51,13 @@ class IterableType implements CompoundType
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		if ($type instanceof CompoundType) {
-			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
-		}
-
 		if ($type->isIterable()->yes()) {
 			return $this->getIterableValueType()->accepts($type->getIterableValueType(), $strictTypes)
 				->and($this->getIterableKeyType()->accepts($type->getIterableKeyType(), $strictTypes));
+		}
+
+		if ($type instanceof CompoundType) {
+			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
 		return TrinaryLogic::createNo();
@@ -163,6 +163,10 @@ class IterableType implements CompoundType
 		return $this->getItemType();
 	}
 
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
 
 	public function traverse(callable $cb): Type
 	{

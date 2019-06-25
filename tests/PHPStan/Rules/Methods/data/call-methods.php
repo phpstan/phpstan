@@ -1314,3 +1314,47 @@ class IsCallableResultsInMethodExists
 	}
 
 }
+
+class NonEmptyArrayAcceptsBug
+{
+
+	public function doFoo(array $elements)
+	{
+		/** @var \stdClass[] $links */
+		$links = [];
+
+		foreach ($elements as $link) {
+			$links[] = $link;
+		}
+
+		if (!empty($links)) {
+			$this->doBar('a', ...$links);
+			$this->doBaz('a', $links);
+			$this->doLorem('a', $links);
+		}
+	}
+
+	public function doBar(string $x, \stdClass ...$y)
+	{
+
+	}
+
+	/**
+	 * @param string $x
+	 * @param \stdClass[] $y
+	 */
+	public function doBaz(string $x, array $y)
+	{
+
+	}
+
+	/**
+	 * @param string $x
+	 * @param iterable<\stdClass> $y
+	 */
+	public function doLorem(string $x, iterable $y)
+	{
+
+	}
+
+}

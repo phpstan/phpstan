@@ -27,6 +27,7 @@ use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ConstantReflection;
+use PHPStan\Reflection\Dummy\DummyConstructorReflection;
 use PHPStan\Reflection\ExtendedPropertyReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\Native\NativeParameterReflection;
@@ -915,11 +916,6 @@ class Scope implements ClassMemberAccessAnswerer
 							$leftType->getIterableKeyType(),
 							$rightType->getIterableKeyType(),
 						] as $keyType) {
-							if ($keyType instanceof BenevolentUnionType) {
-								$keyTypes[] = new MixedType();
-								continue;
-							}
-
 							$keyTypes[] = $keyType;
 						}
 						$keyType = TypeCombinator::union(...$keyTypes);
@@ -1054,23 +1050,26 @@ class Scope implements ClassMemberAccessAnswerer
 					$classReflection = $this->broker->getClass($resolvedClassName);
 					if ($classReflection->hasConstructor()) {
 						$constructorMethod = $classReflection->getConstructor();
-						$resolvedTypes = [];
-						$methodCall = new Expr\StaticCall(
-							$node->class,
-							new Node\Identifier($constructorMethod->getName()),
-							$node->args
-						);
-						foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($classReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
-							if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($constructorMethod)) {
-								continue;
-							}
+					} else {
+						$constructorMethod = new DummyConstructorReflection($classReflection);
+					}
 
-							$resolvedTypes[] = $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($constructorMethod, $methodCall, $this);
+					$resolvedTypes = [];
+					$methodCall = new Expr\StaticCall(
+						$node->class,
+						new Node\Identifier($constructorMethod->getName()),
+						$node->args
+					);
+					foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($classReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
+						if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($constructorMethod)) {
+							continue;
 						}
 
-						if (count($resolvedTypes) > 0) {
-							return TypeCombinator::union(...$resolvedTypes);
-						}
+						$resolvedTypes[] = $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($constructorMethod, $methodCall, $this);
+					}
+
+					if (count($resolvedTypes) > 0) {
+						return TypeCombinator::union(...$resolvedTypes);
 					}
 				}
 				if (in_array($lowercasedClassName, [
@@ -2064,19 +2063,43 @@ class Scope implements ClassMemberAccessAnswerer
 		return $this->inClosureBindScopeClass !== null;
 	}
 
+	/**
+	 * @param \PhpParser\Node\Expr\Closure $closure
+	 * @param \PHPStan\Reflection\ParameterReflection[]|null $callableParameters
+	 * @return \PHPStan\Analyser\Scope
+	 */
 	public function enterAnonymousFunction(
-		Expr\Closure $closure
+		Expr\Closure $closure,
+		?array $callableParameters = null
 	): self
 	{
 		$variableTypes = [];
-		foreach ($closure->params as $parameter) {
-			$isNullable = $this->isParameterValueNullable($parameter);
+		foreach ($closure->params as $i => $parameter) {
+			if ($parameter->type === null) {
+				if ($callableParameters === null) {
+					$parameterType = new MixedType();
+				} elseif (isset($callableParameters[$i])) {
+					$parameterType = $callableParameters[$i]->getType();
+				} elseif (count($callableParameters) > 0) {
+					$lastParameter = $callableParameters[count($callableParameters) - 1];
+					if ($lastParameter->isVariadic()) {
+						$parameterType = $lastParameter->getType();
+					} else {
+						$parameterType = new MixedType();
+					}
+				} else {
+					$parameterType = new MixedType();
+				}
+			} else {
+				$isNullable = $this->isParameterValueNullable($parameter);
+				$parameterType = $this->getFunctionType($parameter->type, $isNullable, $parameter->variadic);
+			}
 
 			if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 			$variableTypes[$parameter->var->name] = VariableTypeHolder::createYes(
-				$this->getFunctionType($parameter->type, $isNullable, $parameter->variadic)
+				$parameterType
 			);
 		}
 

@@ -2,6 +2,7 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Type\Accessory\AccessoryType;
 use PHPStan\Type\Accessory\HasPropertyType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantStringType;
@@ -230,6 +231,15 @@ class TypeUtils
 		}
 
 		return [];
+	}
+
+	/**
+	 * @param \PHPStan\Type\Type $type
+	 * @return \PHPStan\Type\Accessory\AccessoryType[]
+	 */
+	public static function getAccessoryTypes(Type $type): array
+	{
+		return self::map(AccessoryType::class, $type, true, false);
 	}
 
 }

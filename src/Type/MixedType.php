@@ -271,6 +271,11 @@ class MixedType implements CompoundType, SubtractableType
 		return $this;
 	}
 
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

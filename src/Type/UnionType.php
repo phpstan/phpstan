@@ -101,7 +101,7 @@ class UnionType implements CompoundType
 
 	public function equals(Type $type): bool
 	{
-		if (!$type instanceof self) {
+		if (!$type instanceof static) {
 			return false;
 		}
 
@@ -405,6 +405,13 @@ class UnionType implements CompoundType
 	{
 		return $this->unionTypes(static function (Type $type): Type {
 			return $type->getIterableValueType();
+		});
+	}
+
+	public function isArray(): TrinaryLogic
+	{
+		return $this->unionResults(static function (Type $type): TrinaryLogic {
+			return $type->isArray();
 		});
 	}
 

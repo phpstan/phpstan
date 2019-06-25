@@ -300,6 +300,11 @@ class ClosureType implements TypeWithClassName, ParametersAcceptor
 		);
 	}
 
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

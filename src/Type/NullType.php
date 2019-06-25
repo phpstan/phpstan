@@ -129,6 +129,11 @@ class NullType implements ConstantScalarType
 		return $this;
 	}
 
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

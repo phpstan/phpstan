@@ -188,6 +188,11 @@ class NeverType implements CompoundType
 		return $this;
 	}
 
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

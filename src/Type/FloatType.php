@@ -116,6 +116,11 @@ class FloatType implements Type
 		return new ErrorType();
 	}
 
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
 	public function traverse(callable $cb): Type
 	{
 		return $this;

@@ -154,6 +154,11 @@ class ArrayType implements Type
 		return $this->getItemType();
 	}
 
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
+	}
+
 	public function isOffsetAccessible(): TrinaryLogic
 	{
 		return TrinaryLogic::createYes();

@@ -6,9 +6,12 @@ use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
 
 class ArrayKeysFunctionDynamicReturnTypeExtension implements \PHPStan\Type\DynamicFunctionReturnTypeExtension
@@ -24,8 +27,12 @@ class ArrayKeysFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dynam
 		$arrayArg = $functionCall->args[0]->value ?? null;
 		if ($arrayArg !== null) {
 			$valueType = $scope->getType($arrayArg);
-			if ($valueType instanceof ArrayType) {
-				return $valueType->getKeysArray();
+			if ($valueType->isArray()->yes()) {
+				if ($valueType instanceof ConstantArrayType) {
+					return $valueType->getKeysArray();
+				}
+				$keyType = $valueType->getIterableKeyType();
+				return TypeCombinator::intersect(new ArrayType(new IntegerType(), $keyType), ...TypeUtils::getAccessoryTypes($valueType));
 			}
 		}
 

@@ -255,6 +255,11 @@ class CallableType implements CompoundType, ParametersAcceptor
 		);
 	}
 
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type

@@ -64,3 +64,7 @@ class Foo
 
 }
 
+class FooWithoutConstructor
+{
+
+}
