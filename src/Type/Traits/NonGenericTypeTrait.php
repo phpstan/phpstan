@@ -10,7 +10,7 @@ trait NonGenericTypeTrait
 
 	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap
 	{
-		return TemplateTypeMap::empty();
+		return TemplateTypeMap::createEmpty();
 	}
 
 }

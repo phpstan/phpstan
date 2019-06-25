@@ -366,7 +366,7 @@ class IntersectionType implements CompoundType
 
 	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap
 	{
-		$types = TemplateTypeMap::empty();
+		$types = TemplateTypeMap::createEmpty();
 
 		foreach ($this->types as $type) {
 			$receive = $type->isSuperTypeOf($receivedType)->yes() ? $receivedType : new NeverType();
@@ -378,7 +378,7 @@ class IntersectionType implements CompoundType
 
 	public function inferTemplateTypesOn(Type $templateType): TemplateTypeMap
 	{
-		$types = TemplateTypeMap::empty();
+		$types = TemplateTypeMap::createEmpty();
 
 		foreach ($this->types as $type) {
 			$types = $types->intersect($templateType->inferTemplateTypes($type));
