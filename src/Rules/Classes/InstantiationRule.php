@@ -165,6 +165,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				'Parameter #%d %s of class ' . $classReflection->getDisplayName() . ' constructor expects %s, %s given.',
 				'', // constructor does not have a return type
 				'Parameter #%d %s of class ' . $classReflection->getDisplayName() . ' constructor is passed by reference, so it expects variables only',
+				'Unable to resolve the template type %s in instantiation of class ' . $classReflection->getDisplayName(),
 			]
 		));
 	}
