@@ -5,8 +5,10 @@ namespace PHPStan\Rules;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\ErrorType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NeverType;
 use PHPStan\Type\TypeUtils;
 use PHPStan\Type\VerbosityLevel;
 use PHPStan\Type\VoidType;
@@ -38,7 +40,7 @@ class FunctionCallParametersCheck
 	 * @param \PHPStan\Reflection\ParametersAcceptor $parametersAcceptor
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|\PhpParser\Node\Expr\New_ $funcCall
-	 * @param string[] $messages Eight message templates
+	 * @param string[] $messages Nine message templates
 	 * @return string[]
 	 */
 	public function check(
@@ -184,6 +186,14 @@ class FunctionCallParametersCheck
 				$i + 1,
 				sprintf('%s$%s', $parameter->isVariadic() ? '...' : '', $parameter->getName())
 			);
+		}
+
+		foreach ($parametersAcceptor->getTemplateTypeMap()->getTypes() as $name => $type) {
+			if (!($type instanceof ErrorType) && !($type instanceof NeverType)) {
+				continue;
+			}
+
+			$errors[] = sprintf($messages[9], $name);
 		}
 
 		return $errors;
