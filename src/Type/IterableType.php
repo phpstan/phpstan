@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
@@ -166,6 +167,22 @@ class IterableType implements CompoundType
 	public function isArray(): TrinaryLogic
 	{
 		return TrinaryLogic::createMaybe();
+	}
+
+	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap
+	{
+		if ($receivedType instanceof UnionType || $receivedType instanceof IntersectionType) {
+			return $receivedType->inferTemplateTypesOn($this);
+		}
+
+		if (!$receivedType->isIterable()->yes()) {
+			return TemplateTypeMap::createEmpty();
+		}
+
+		$keyTypeMap = $this->getIterableValueType()->inferTemplateTypes($receivedType->getIterableValueType());
+		$valueTypeMap = $this->getIterableValueType()->inferTemplateTypes($receivedType->getIterableValueType());
+
+		return $keyTypeMap->union($valueTypeMap);
 	}
 
 	public function traverse(callable $cb): Type
