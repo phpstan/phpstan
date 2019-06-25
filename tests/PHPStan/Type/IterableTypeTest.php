@@ -240,4 +240,50 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataDescribe(): array
+	{
+		$templateType = TemplateTypeFactory::create(
+			TemplateTypeScope::createWithFunction('a'),
+			'T',
+			null
+		);
+
+		return [
+			[
+				new IterableType(new IntegerType(), new StringType()),
+				'iterable<int, string>',
+			],
+			[
+				new IterableType(new MixedType(), new StringType()),
+				'iterable<string>',
+			],
+			[
+				new IterableType(new MixedType(), new MixedType()),
+				'iterable',
+			],
+			[
+				new IterableType($templateType, new MixedType()),
+				'iterable<T, mixed>',
+			],
+			[
+				new IterableType(new MixedType(), $templateType),
+				'iterable<T>',
+			],
+			[
+				new IterableType($templateType, $templateType),
+				'iterable<T, T>',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataDescribe
+	 */
+	public function testDescribe(Type $type, string $expect): void
+	{
+		$result = $type->describe(VerbosityLevel::typeOnly());
+
+		$this->assertSame($expect, $result);
+	}
+
 }
