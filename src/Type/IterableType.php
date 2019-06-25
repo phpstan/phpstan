@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Generic\TemplateType;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
@@ -108,8 +109,11 @@ class IterableType implements CompoundType
 
 	public function describe(VerbosityLevel $level): string
 	{
-		if ($this->keyType instanceof MixedType) {
-			if ($this->itemType instanceof MixedType) {
+		$isMixedKeyType = $this->keyType instanceof MixedType && !$this->keyType instanceof TemplateType;
+		$isMixedItemType = $this->itemType instanceof MixedType && !$this->itemType instanceof TemplateType;
+
+		if ($isMixedKeyType) {
+			if ($isMixedItemType) {
 				return 'iterable';
 			}
 
