@@ -12,6 +12,8 @@ use PHPStan\Type\BooleanType;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\Generic\TemplateTypeMap;
+use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\ObjectType;
@@ -501,6 +503,59 @@ class ConstantArrayType extends ArrayType implements ConstantType
 				return $describeValue(false);
 			}
 		);
+	}
+
+	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap
+	{
+		if ($receivedType instanceof UnionType || $receivedType instanceof IntersectionType) {
+			return $receivedType->inferTemplateTypesOn($this);
+		}
+
+		if ($receivedType instanceof self && !$this->isSuperTypeOf($receivedType)->no()) {
+			$typeMap = TemplateTypeMap::createEmpty();
+			foreach ($this->keyTypes as $i => $keyType) {
+				$valueType = $this->valueTypes[$i];
+				$receivedValueType = $receivedType->getOffsetValueType($keyType);
+				$typeMap = $typeMap->union($valueType->inferTemplateTypes($receivedValueType));
+			}
+
+			return $typeMap;
+		}
+
+		if ($receivedType instanceof ArrayType) {
+			return parent::inferTemplateTypes($receivedType);
+		}
+
+		return TemplateTypeMap::createEmpty();
+	}
+
+	public function traverse(callable $cb): Type
+	{
+		$keyTypes = [];
+		$valueTypes = [];
+		$changed = false;
+
+		foreach ($this->keyTypes as $type) {
+			$newType = $cb($type);
+			if ($newType !== $type) {
+				$changed = true;
+			}
+			$keyTypes[] = $newType;
+		}
+
+		foreach ($this->valueTypes as $type) {
+			$newType = $cb($type);
+			if ($newType !== $type) {
+				$changed = true;
+			}
+			$valueTypes[] = $newType;
+		}
+
+		if ($changed) {
+			return new static($keyTypes, $valueTypes, $this->nextAutoIndex);
+		}
+
+		return $this;
 	}
 
 	/**
