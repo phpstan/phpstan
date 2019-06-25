@@ -158,3 +158,24 @@ function g($a) {
 function testG($int) {
 	assertType('array<int>', g($int));
 }
+
+class Foo {
+	/** @return static */
+	public static function returnsStatic() {
+		return new static();
+	}
+
+	/** @return static */
+	public function instanceReturnsStatic() {
+		return new static();
+	}
+}
+
+/**
+ * @template T of Foo
+ * @param T $foo
+ */
+function testReturnsStatic($foo) {
+	assertType('T of PHPStan\Generics\FunctionsAssertType\Foo (function PHPStan\Generics\FunctionsAssertType\testReturnsStatic())', $foo::returnsStatic());
+	assertType('T of PHPStan\Generics\FunctionsAssertType\Foo (function PHPStan\Generics\FunctionsAssertType\testReturnsStatic())', $foo->instanceReturnsStatic());
+}

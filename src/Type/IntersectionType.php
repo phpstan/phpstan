@@ -7,6 +7,7 @@ use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Reflection\TrivialParametersAcceptor;
+use PHPStan\Reflection\Type\IntersectionTypeMethodReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Accessory\AccessoryType;
 use PHPStan\Type\Generic\TemplateTypeMap;
@@ -172,13 +173,25 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
+		$methods = [];
 		foreach ($this->types as $type) {
-			if ($type->hasMethod($methodName)->yes()) {
-				return $type->getMethod($methodName, $scope);
+			if (!$type->hasMethod($methodName)->yes()) {
+				continue;
 			}
+
+			$methods[] = $type->getMethod($methodName, $scope);
 		}
 
-		throw new \PHPStan\ShouldNotHappenException();
+		$methodsCount = count($methods);
+		if ($methodsCount === 0) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		if ($methodsCount === 1) {
+			return $methods[0];
+		}
+
+		return new IntersectionTypeMethodReflection($methodName, $methods);
 	}
 
 	public function canAccessConstants(): TrinaryLogic

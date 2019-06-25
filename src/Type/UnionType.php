@@ -6,6 +6,7 @@ use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Reflection\Type\UnionTypeMethodReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
@@ -327,14 +328,25 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
-		return $this->getInternal(
-			static function (Type $type) use ($methodName): TrinaryLogic {
-				return $type->hasMethod($methodName);
-			},
-			static function (Type $type) use ($methodName, $scope): MethodReflection {
-				return $type->getMethod($methodName, $scope);
+		$methods = [];
+		foreach ($this->types as $type) {
+			if (!$type->hasMethod($methodName)->yes()) {
+				continue;
 			}
-		);
+
+			$methods[] = $type->getMethod($methodName, $scope);
+		}
+
+		$methodsCount = count($methods);
+		if ($methodsCount === 0) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		if ($methodsCount === 1) {
+			return $methods[0];
+		}
+
+		return new UnionTypeMethodReflection($methodName, $methods);
 	}
 
 	public function canAccessConstants(): TrinaryLogic

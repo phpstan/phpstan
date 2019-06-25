@@ -829,3 +829,39 @@ class VariableOverwrittenInForeach
 	}
 
 }
+
+class ReturnStaticGeneric
+{
+
+	/**
+	 * @template T of self
+	 * @param T $foo
+	 * @return T
+	 */
+	public function doFoo($foo)
+	{
+		return $foo::returnsStatic();
+	}
+
+	/**
+	 * @template T of self
+	 * @param T $foo
+	 * @return T
+	 */
+	public function doBar($foo)
+	{
+		return $foo->instanceReturnsStatic();
+	}
+
+	/** @return static */
+	public static function returnsStatic()
+	{
+		return new static();
+	}
+
+	/** @return static */
+	public function instanceReturnsStatic() {
+		return new static();
+	}
+
+}
