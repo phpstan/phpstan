@@ -546,8 +546,7 @@ class UnionType implements CompoundType
 		$types = TemplateTypeMap::createEmpty();
 
 		foreach ($this->types as $type) {
-			$receive = $type->isSuperTypeOf($receivedType)->yes() ? $receivedType : new NeverType();
-			$types = $types->union($type->inferTemplateTypes($receive));
+			$types = $types->union($type->inferTemplateTypes($receivedType));
 		}
 
 		return $types;

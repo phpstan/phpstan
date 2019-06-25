@@ -369,8 +369,7 @@ class IntersectionType implements CompoundType
 		$types = TemplateTypeMap::createEmpty();
 
 		foreach ($this->types as $type) {
-			$receive = $type->isSuperTypeOf($receivedType)->yes() ? $receivedType : new NeverType();
-			$types = $types->intersect($type->inferTemplateTypes($receive));
+			$types = $types->intersect($type->inferTemplateTypes($receivedType));
 		}
 
 		return $types;
