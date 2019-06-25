@@ -12,42 +12,6 @@ class UnionTypeHelper
 {
 
 	/**
-	 * @param string $className
-	 * @param \PHPStan\Type\Type[] $types
-	 * @return \PHPStan\Type\Type[]
-	 */
-	public static function resolveStatic(string $className, array $types): array
-	{
-		foreach ($types as $i => $type) {
-			if (!($type instanceof StaticResolvableType)) {
-				continue;
-			}
-
-			$types[$i] = $type->resolveStatic($className);
-		}
-
-		return $types;
-	}
-
-	/**
-	 * @param string $className
-	 * @param \PHPStan\Type\Type[] $types
-	 * @return \PHPStan\Type\Type[]
-	 */
-	public static function changeBaseClass(string $className, array $types): array
-	{
-		foreach ($types as $i => $type) {
-			if (!($type instanceof StaticResolvableType)) {
-				continue;
-			}
-
-			$types[$i] = $type->changeBaseClass($className);
-		}
-
-		return $types;
-	}
-
-	/**
 	 * @param \PHPStan\Type\Type[] $types
 	 * @return string[]
 	 */

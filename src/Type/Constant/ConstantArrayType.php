@@ -15,7 +15,6 @@ use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\StaticResolvableType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
@@ -502,38 +501,6 @@ class ConstantArrayType extends ArrayType implements ConstantType
 				return $describeValue(false);
 			}
 		);
-	}
-
-	public function resolveStatic(string $className): Type
-	{
-		$keyTypes = $this->keyTypes;
-		$valueTypes = $this->valueTypes;
-		foreach (array_keys($keyTypes) as $i) {
-			$valueType = $valueTypes[$i];
-			if (!$valueType instanceof StaticResolvableType) {
-				continue;
-			}
-
-			$valueTypes[$i] = $valueType->resolveStatic($className);
-		}
-
-		return new self($keyTypes, $valueTypes, $this->nextAutoIndex);
-	}
-
-	public function changeBaseClass(string $className): StaticResolvableType
-	{
-		$keyTypes = $this->keyTypes;
-		$valueTypes = $this->valueTypes;
-		foreach (array_keys($keyTypes) as $i) {
-			$valueType = $valueTypes[$i];
-			if (!$valueType instanceof StaticResolvableType) {
-				continue;
-			}
-
-			$valueTypes[$i] = $valueType->changeBaseClass($className);
-		}
-
-		return new self($keyTypes, $valueTypes, $this->nextAutoIndex);
 	}
 
 	/**

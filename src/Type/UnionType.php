@@ -12,7 +12,7 @@ use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Generic\TemplateTypeMap;
 
-class UnionType implements CompoundType, StaticResolvableType
+class UnionType implements CompoundType
 {
 
 	/** @var \PHPStan\Type\Type[] */
@@ -378,16 +378,6 @@ class UnionType implements CompoundType, StaticResolvableType
 				return $type->getConstant($constantName);
 			}
 		);
-	}
-
-	public function resolveStatic(string $className): Type
-	{
-		return new self(UnionTypeHelper::resolveStatic($className, $this->getTypes()));
-	}
-
-	public function changeBaseClass(string $className): StaticResolvableType
-	{
-		return new self(UnionTypeHelper::changeBaseClass($className, $this->getTypes()));
 	}
 
 	public function isIterable(): TrinaryLogic

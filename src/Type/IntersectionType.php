@@ -12,7 +12,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Accessory\AccessoryType;
 use PHPStan\Type\Generic\TemplateTypeMap;
 
-class IntersectionType implements CompoundType, StaticResolvableType
+class IntersectionType implements CompoundType
 {
 
 	/** @var \PHPStan\Type\Type[] */
@@ -355,16 +355,6 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		});
 
 		return $type;
-	}
-
-	public function resolveStatic(string $className): Type
-	{
-		return new self(UnionTypeHelper::resolveStatic($className, $this->getTypes()));
-	}
-
-	public function changeBaseClass(string $className): StaticResolvableType
-	{
-		return new self(UnionTypeHelper::changeBaseClass($className, $this->getTypes()));
 	}
 
 	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap

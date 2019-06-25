@@ -13,7 +13,7 @@ use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 
-class ArrayType implements StaticResolvableType
+class ArrayType implements Type
 {
 
 	use MaybeCallableTypeTrait;
@@ -127,30 +127,6 @@ class ArrayType implements StaticResolvableType
 	public function getValuesArray(): self
 	{
 		return new self(new IntegerType(), $this->itemType);
-	}
-
-	public function resolveStatic(string $className): Type
-	{
-		if ($this->getItemType() instanceof StaticResolvableType) {
-			return new self(
-				$this->keyType,
-				$this->getItemType()->resolveStatic($className)
-			);
-		}
-
-		return $this;
-	}
-
-	public function changeBaseClass(string $className): StaticResolvableType
-	{
-		if ($this->getItemType() instanceof StaticResolvableType) {
-			return new self(
-				$this->keyType,
-				$this->getItemType()->changeBaseClass($className)
-			);
-		}
-
-		return $this;
 	}
 
 	public function isIterable(): TrinaryLogic

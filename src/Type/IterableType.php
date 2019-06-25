@@ -9,7 +9,7 @@ use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 
-class IterableType implements StaticResolvableType, CompoundType
+class IterableType implements CompoundType
 {
 
 	use MaybeCallableTypeTrait;
@@ -141,30 +141,6 @@ class IterableType implements StaticResolvableType, CompoundType
 	public function toArray(): Type
 	{
 		return new ArrayType($this->keyType, $this->getItemType());
-	}
-
-	public function resolveStatic(string $className): Type
-	{
-		if ($this->getItemType() instanceof StaticResolvableType) {
-			return new self(
-				$this->keyType,
-				$this->getItemType()->resolveStatic($className)
-			);
-		}
-
-		return $this;
-	}
-
-	public function changeBaseClass(string $className): StaticResolvableType
-	{
-		if ($this->getItemType() instanceof StaticResolvableType) {
-			return new self(
-				$this->keyType,
-				$this->getItemType()->changeBaseClass($className)
-			);
-		}
-
-		return $this;
 	}
 
 	public function isIterable(): TrinaryLogic
