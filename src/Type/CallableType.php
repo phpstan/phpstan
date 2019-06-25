@@ -201,12 +201,12 @@ class CallableType implements CompoundType, ParametersAcceptor
 		}
 
 		if ($receivedType->isCallable()->no()) {
-			return TemplateTypeMap::empty();
+			return TemplateTypeMap::createEmpty();
 		}
 
 		$parametersAcceptors = $receivedType->getCallableParametersAcceptors(new OutOfClassScope());
 
-		$typeMap = TemplateTypeMap::empty();
+		$typeMap = TemplateTypeMap::createEmpty();
 
 		foreach ($parametersAcceptors as $parametersAcceptor) {
 			$typeMap = $typeMap->union($this->inferTemplateTypesOnParametersAcceptor($receivedType, $parametersAcceptor));
@@ -217,7 +217,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 
 	private function inferTemplateTypesOnParametersAcceptor(Type $receivedType, ParametersAcceptor $parametersAcceptor): TemplateTypeMap
 	{
-		$typeMap = TemplateTypeMap::empty();
+		$typeMap = TemplateTypeMap::createEmpty();
 		$args = $parametersAcceptor->getParameters();
 		$returnType = $parametersAcceptor->getReturnType();
 

@@ -19,7 +19,7 @@ class GenericParametersAcceptorResolver
 	 */
 	public static function resolve(array $argTypes, ParametersAcceptor $parametersAcceptor): ParametersAcceptor
 	{
-		$typeMap = TemplateTypeMap::empty();
+		$typeMap = TemplateTypeMap::createEmpty();
 
 		foreach ($parametersAcceptor->getParameters() as $i => $param) {
 			if (isset($argTypes[$i])) {

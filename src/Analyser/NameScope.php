@@ -35,7 +35,7 @@ class NameScope
 		$this->uses = $uses;
 		$this->className = $className;
 		$this->functionName = $functionName;
-		$this->templateTypeMap = $templateTypeMap ?? TemplateTypeMap::empty();
+		$this->templateTypeMap = $templateTypeMap ?? TemplateTypeMap::createEmpty();
 	}
 
 	public function getClassName(): ?string

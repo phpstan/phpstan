@@ -119,7 +119,7 @@ final class TemplateMixedType extends MixedType implements TemplateType
 		}
 
 		if ($this->isSuperTypeOf($receivedType)->no()) {
-			return TemplateTypeMap::empty();
+			return TemplateTypeMap::createEmpty();
 		}
 
 		return new TemplateTypeMap([

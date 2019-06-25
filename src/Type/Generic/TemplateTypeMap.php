@@ -8,6 +8,9 @@ use PHPStan\Type\TypeCombinator;
 class TemplateTypeMap
 {
 
+	/** @var TemplateTypeMap|null */
+	private static $empty;
+
 	/** @var array<string,\PHPStan\Type\Type> */
 	private $types;
 
@@ -17,9 +20,18 @@ class TemplateTypeMap
 		$this->types = $types;
 	}
 
-	public static function empty(): self
+	public static function createEmpty(): self
 	{
-		return new self([]);
+		$empty = self::$empty;
+
+		if ($empty !== null) {
+			return $empty;
+		}
+
+		$empty = new self([]);
+		self::$empty = $empty;
+
+		return $empty;
 	}
 
 	/** @return array<string,\PHPStan\Type\Type> */
