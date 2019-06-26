@@ -3,9 +3,8 @@
 namespace PHPStan\Rules\Methods;
 
 use PhpParser\Node;
+use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
-use PHPStan\Node\InClassMethodNode;
-use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
 use PHPStan\Rules\TemplateTypeCheck;
 use PHPStan\Type\Generic\TemplateTypeScope;
 
@@ -22,36 +21,33 @@ class TemplateTypeDeclarationRule implements \PHPStan\Rules\Rule
 
 	public function getNodeType(): string
 	{
-		return InClassMethodNode::class;
+		return ClassMethod::class;
 	}
 
 	/**
-	 * @param \PHPStan\Node\InClassMethodNode $node
+	 * @param \PhpParser\Node\Stmt\ClassMethod $node
 	 * @return string[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		$methodReflection = $scope->getFunction();
-		if (!$methodReflection instanceof PhpMethodFromParserNodeReflection) {
-			throw new \PHPStan\ShouldNotHappenException();
-		}
-		if (!$scope->isInClass()) {
+		$classReflection = $scope->getClassReflection();
+		if ($classReflection === null) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
 		$templateTypeScope = TemplateTypeScope::createWithMethod(
-			$methodReflection->getDeclaringClass()->getName(),
-			$methodReflection->getName()
+			$classReflection->getName(),
+			$node->name->name
 		);
 
 		return $this->templateTypeCheck->checkTemplateTypeDeclarations(
-			$node->getOriginalNode(),
+			$node,
 			$scope,
 			$templateTypeScope,
 			sprintf(
 				'Type parameter %%s of method %s::%s() has invalid bound %%s (only class name bounds are supported currently).',
-				$scope->getClassReflection()->getDisplayName(),
-				$methodReflection->getName()
+				$classReflection->getDisplayName(),
+				$node->name->name
 			)
 		);
 	}
