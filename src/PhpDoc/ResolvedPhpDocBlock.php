@@ -5,6 +5,7 @@ namespace PHPStan\PhpDoc;
 use PHPStan\PhpDoc\Tag\DeprecatedTag;
 use PHPStan\PhpDoc\Tag\ReturnTag;
 use PHPStan\PhpDoc\Tag\ThrowsTag;
+use PHPStan\Type\Generic\TemplateTypeMap;
 
 class ResolvedPhpDocBlock
 {
@@ -42,6 +43,9 @@ class ResolvedPhpDocBlock
 	/** @var bool */
 	private $isFinal;
 
+	/** @var TemplateTypeMap */
+	private $templateTypeMap;
+
 	/**
 	 * @param array<string|int, \PHPStan\PhpDoc\Tag\VarTag> $varTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\MethodTag> $methodTags
@@ -54,6 +58,7 @@ class ResolvedPhpDocBlock
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
+	 * @param TemplateTypeMap $templateTypeMap
 	 */
 	private function __construct(
 		array $varTags,
@@ -66,7 +71,8 @@ class ResolvedPhpDocBlock
 		?DeprecatedTag $deprecatedTag,
 		bool $isDeprecated,
 		bool $isInternal,
-		bool $isFinal
+		bool $isFinal,
+		TemplateTypeMap $templateTypeMap
 	)
 	{
 		$this->varTags = $varTags;
@@ -80,6 +86,7 @@ class ResolvedPhpDocBlock
 		$this->isDeprecated = $isDeprecated;
 		$this->isInternal = $isInternal;
 		$this->isFinal = $isFinal;
+		$this->templateTypeMap = $templateTypeMap;
 	}
 
 	/**
@@ -94,6 +101,7 @@ class ResolvedPhpDocBlock
 	 * @param bool $isDeprecated
 	 * @param bool $isInternal
 	 * @param bool $isFinal
+	 * @param TemplateTypeMap $templateTypeMap
 	 * @return self
 	 */
 	public static function create(
@@ -107,7 +115,8 @@ class ResolvedPhpDocBlock
 		?DeprecatedTag $deprecatedTag,
 		bool $isDeprecated,
 		bool $isInternal,
-		bool $isFinal
+		bool $isFinal,
+		TemplateTypeMap $templateTypeMap
 	): self
 	{
 		return new self(
@@ -121,13 +130,14 @@ class ResolvedPhpDocBlock
 			$deprecatedTag,
 			$isDeprecated,
 			$isInternal,
-			$isFinal
+			$isFinal,
+			$templateTypeMap
 		);
 	}
 
 	public static function createEmpty(): self
 	{
-		return new self([], [], [], [], [], null, null, null, false, false, false);
+		return new self([], [], [], [], [], null, null, null, false, false, false, TemplateTypeMap::createEmpty());
 	}
 
 	/**
@@ -200,6 +210,11 @@ class ResolvedPhpDocBlock
 		return $this->isFinal;
 	}
 
+	public function getTemplateTypeMap(): TemplateTypeMap
+	{
+		return $this->templateTypeMap;
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return self
@@ -217,7 +232,8 @@ class ResolvedPhpDocBlock
 			$properties['deprecatedTag'],
 			$properties['isDeprecated'],
 			$properties['isInternal'],
-			$properties['isFinal']
+			$properties['isFinal'],
+			$properties['templateTypeMap']
 		);
 	}
 
