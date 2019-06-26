@@ -6,6 +6,7 @@ use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionVariant;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
 
 class AnnotationMethodReflection implements MethodReflection
@@ -95,6 +96,7 @@ class AnnotationMethodReflection implements MethodReflection
 		if ($this->variants === null) {
 			$this->variants = [
 				new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
 					$this->parameters,
 					$this->isVariadic,
 					$this->returnType

@@ -32,6 +32,7 @@ use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
@@ -107,6 +108,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			 * @param ClassReflection $declaringClass
 			 * @param ClassReflection|null $declaringTrait
 			 * @param \PHPStan\Reflection\Php\BuiltinMethodReflection $reflection
+			 * @param TemplateTypeMap $templateTypeMap
 			 * @param Type[] $phpDocParameterTypes
 			 * @param Type|null $phpDocReturnType
 			 * @param Type|null $phpDocThrowType
@@ -120,6 +122,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				ClassReflection $declaringClass,
 				?ClassReflection $declaringTrait,
 				\PHPStan\Reflection\Php\BuiltinMethodReflection $reflection,
+				TemplateTypeMap $templateTypeMap,
 				array $phpDocParameterTypes,
 				?Type $phpDocReturnType,
 				?Type $phpDocThrowType,
@@ -137,6 +140,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 					$this->parser,
 					$this->functionCallStatementFinder,
 					$this->cache,
+					$templateTypeMap,
 					$phpDocParameterTypes,
 					$phpDocReturnType,
 					$phpDocThrowType,
@@ -179,6 +183,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
 			/**
 			 * @param \ReflectionFunction $function
+			 * @param TemplateTypeMap $templateTypeMap
 			 * @param Type[] $phpDocParameterTypes
 			 * @param Type|null $phpDocReturnType
 			 * @param Type|null $phpDocThrowType
@@ -191,6 +196,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			 */
 			public function create(
 				\ReflectionFunction $function,
+				TemplateTypeMap $templateTypeMap,
 				array $phpDocParameterTypes,
 				?Type $phpDocReturnType,
 				?Type $phpDocThrowType,
@@ -206,6 +212,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 					$this->parser,
 					$this->functionCallStatementFinder,
 					$this->cache,
+					$templateTypeMap,
 					$phpDocParameterTypes,
 					$phpDocReturnType,
 					$phpDocThrowType,

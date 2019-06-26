@@ -19,6 +19,7 @@ use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Reflection\SignatureMap\ParameterSignature;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
@@ -297,6 +298,7 @@ class PhpClassReflectionExtension
 			while ($this->signatureMapProvider->hasFunctionSignature($variantName)) {
 				$methodSignature = $this->signatureMapProvider->getFunctionSignature($variantName, $declaringClassName);
 				$variants[] = new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
 					array_map(static function (ParameterSignature $parameterSignature): NativeParameterReflection {
 						return new NativeParameterReflection(
 							$parameterSignature->getName(),
@@ -321,6 +323,7 @@ class PhpClassReflectionExtension
 			);
 		}
 
+		$templateTypeMap = TemplateTypeMap::createEmpty();
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;
 		$phpDocThrowType = null;
@@ -350,6 +353,7 @@ class PhpClassReflectionExtension
 					$phpDocBlock->getTrait(),
 					$phpDocBlock->getDocComment()
 				);
+				$templateTypeMap = $resolvedPhpDoc->getTemplateTypeMap();
 				$phpDocParameterTypes = array_map(static function (ParamTag $tag): Type {
 					return $tag->getType();
 				}, $resolvedPhpDoc->getParamTags());
@@ -387,6 +391,7 @@ class PhpClassReflectionExtension
 			$declaringClass,
 			$declaringTrait,
 			$methodReflection,
+			$templateTypeMap,
 			$phpDocParameterTypes,
 			$phpDocReturnType,
 			$phpDocThrowType,

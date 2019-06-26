@@ -3,6 +3,7 @@
 namespace PHPStan\Reflection;
 
 use PHPStan\Reflection\Php\PhpFunctionReflection;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
 
 interface FunctionReflectionFactory
@@ -10,6 +11,7 @@ interface FunctionReflectionFactory
 
 	/**
 	 * @param \ReflectionFunction $reflection
+	 * @param TemplateTypeMap $templateTypeMap
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
 	 * @param Type|null $phpDocReturnType
 	 * @param Type|null $phpDocThrowType
@@ -22,6 +24,7 @@ interface FunctionReflectionFactory
 	 */
 	public function create(
 		\ReflectionFunction $reflection,
+		TemplateTypeMap $templateTypeMap,
 		array $phpDocParameterTypes,
 		?Type $phpDocReturnType,
 		?Type $phpDocThrowType,

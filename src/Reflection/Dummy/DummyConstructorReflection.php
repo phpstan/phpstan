@@ -6,6 +6,7 @@ use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionVariant;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\VoidType;
 
 class DummyConstructorReflection implements MethodReflection
@@ -53,6 +54,7 @@ class DummyConstructorReflection implements MethodReflection
 	{
 		return [
 			new FunctionVariant(
+				TemplateTypeMap::createEmpty(),
 				[],
 				false,
 				new VoidType()

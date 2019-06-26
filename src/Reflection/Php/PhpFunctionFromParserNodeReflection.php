@@ -7,6 +7,7 @@ use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Reflection\FunctionVariantWithPhpDocs;
 use PHPStan\Reflection\PassedByReference;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -17,6 +18,9 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 
 	/** @var \PhpParser\Node\FunctionLike */
 	private $functionLike;
+
+	/** @var \PHPStan\Type\Generic\TemplateTypeMap */
+	private $templateTypeMap;
 
 	/** @var \PHPStan\Type\Type[] */
 	private $realParameterTypes;
@@ -56,6 +60,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 
 	/**
 	 * @param FunctionLike $functionLike
+	 * @param TemplateTypeMap $templateTypeMap
 	 * @param \PHPStan\Type\Type[] $realParameterTypes
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
 	 * @param \PHPStan\Type\Type[] $realParameterDefaultValues
@@ -70,6 +75,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	 */
 	public function __construct(
 		FunctionLike $functionLike,
+		TemplateTypeMap $templateTypeMap,
 		array $realParameterTypes,
 		array $phpDocParameterTypes,
 		array $realParameterDefaultValues,
@@ -84,6 +90,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 	)
 	{
 		$this->functionLike = $functionLike;
+		$this->templateTypeMap = $templateTypeMap;
 		$this->realParameterTypes = $realParameterTypes;
 		$this->phpDocParameterTypes = $phpDocParameterTypes;
 		$this->realParameterDefaultValues = $realParameterDefaultValues;
@@ -119,6 +126,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		if ($this->variants === null) {
 			$this->variants = [
 				new FunctionVariantWithPhpDocs(
+					$this->templateTypeMap,
 					$this->getParameters(),
 					$this->isVariadic(),
 					$this->getReturnType(),

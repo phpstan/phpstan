@@ -8,6 +8,7 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StringType;
@@ -23,6 +24,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 	/**
 	 * @param ClassReflection $declaringClass
 	 * @param ClassMethod $classMethod
+	 * @param TemplateTypeMap $templateTypeMap
 	 * @param \PHPStan\Type\Type[] $realParameterTypes
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
 	 * @param \PHPStan\Type\Type[] $realParameterDefaultValues
@@ -38,6 +40,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 	public function __construct(
 		ClassReflection $declaringClass,
 		ClassMethod $classMethod,
+		TemplateTypeMap $templateTypeMap,
 		array $realParameterTypes,
 		array $phpDocParameterTypes,
 		array $realParameterDefaultValues,
@@ -53,6 +56,7 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 	{
 		parent::__construct(
 			$classMethod,
+			$templateTypeMap,
 			$realParameterTypes,
 			$phpDocParameterTypes,
 			$realParameterDefaultValues,

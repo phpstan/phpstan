@@ -18,6 +18,7 @@ use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\FloatType;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\OperatorTypeSpecifyingExtension;
@@ -397,6 +398,7 @@ class Broker
 						$returnType = TypeUtils::toBenevolentUnion($returnType);
 					}
 					$variants[] = new FunctionVariant(
+						TemplateTypeMap::createEmpty(),
 						array_map(static function (ParameterSignature $parameterSignature) use ($lowerCasedFunctionName): NativeParameterReflection {
 							$type = $parameterSignature->getType();
 							if (
@@ -479,6 +481,7 @@ class Broker
 		}
 
 		$reflectionFunction = new \ReflectionFunction($functionName);
+		$templateTypeMap = TemplateTypeMap::createEmpty();
 		$phpDocParameterTags = [];
 		$phpDocReturnTag = null;
 		$phpDocThrowsTag = null;
@@ -490,6 +493,7 @@ class Broker
 			$fileName = $reflectionFunction->getFileName();
 			$docComment = $reflectionFunction->getDocComment();
 			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, null, null, $docComment);
+			$templateTypeMap = $resolvedPhpDoc->getTemplateTypeMap();
 			$phpDocParameterTags = $resolvedPhpDoc->getParamTags();
 			$phpDocReturnTag = $resolvedPhpDoc->getReturnTag();
 			$phpDocThrowsTag = $resolvedPhpDoc->getThrowsTag();
@@ -501,6 +505,7 @@ class Broker
 
 		$functionReflection = $this->functionReflectionFactory->create(
 			$reflectionFunction,
+			$templateTypeMap,
 			array_map(static function (ParamTag $paramTag): Type {
 				return $paramTag->getType();
 			}, $phpDocParameterTags),

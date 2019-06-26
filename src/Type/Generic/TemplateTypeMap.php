@@ -75,6 +75,17 @@ class TemplateTypeMap
 		return new self($result);
 	}
 
+	/** @param callable(string,Type):Type $cb */
+	public function map(callable $cb): self
+	{
+		$types = [];
+		foreach ($this->types as $name => $type) {
+			$types[$name] = $cb($name, $type);
+		}
+
+		return new self($types);
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 */
