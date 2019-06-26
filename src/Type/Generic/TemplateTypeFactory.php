@@ -19,7 +19,7 @@ final class TemplateTypeFactory
 			return new TemplateObjectType($scope, $strategy, $name, $bound->getClassName());
 		}
 
-		if ($bound === null || $bound instanceof MixedType) {
+		if ($bound === null || get_class($bound) === MixedType::class) {
 			return new TemplateMixedType($scope, $strategy, $name);
 		}
 
