@@ -79,6 +79,11 @@ class NameScope
 		return null;
 	}
 
+	public function getTemplateTypeMap(): TemplateTypeMap
+	{
+		return $this->templateTypeMap;
+	}
+
 	public function resolveTemplateTypeName(string $name): ?Type
 	{
 		return $this->templateTypeMap->getType($name);

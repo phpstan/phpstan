@@ -63,7 +63,8 @@ class PhpDocNodeResolver
 			$this->resolveDeprecatedTag($phpDocNode, $nameScope),
 			$this->resolveIsDeprecated($phpDocNode),
 			$this->resolveIsInternal($phpDocNode),
-			$this->resolveIsFinal($phpDocNode)
+			$this->resolveIsFinal($phpDocNode),
+			$nameScope->getTemplateTypeMap()
 		);
 	}
 
