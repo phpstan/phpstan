@@ -88,6 +88,7 @@ class IntersectionTypeMethodReflection implements MethodReflection
 
 		return array_map(static function (ParametersAcceptor $acceptor) use ($returnType): ParametersAcceptor {
 			return new FunctionVariant(
+				$acceptor->getTemplateTypeMap(),
 				$acceptor->getParameters(),
 				$acceptor->isVariadic(),
 				$returnType

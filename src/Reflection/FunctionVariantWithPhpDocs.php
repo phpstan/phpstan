@@ -2,6 +2,7 @@
 
 namespace PHPStan\Reflection;
 
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
 
 class FunctionVariantWithPhpDocs extends FunctionVariant implements ParametersAcceptorWithPhpDocs
@@ -14,6 +15,7 @@ class FunctionVariantWithPhpDocs extends FunctionVariant implements ParametersAc
 	private $nativeReturnType;
 
 	/**
+	 * @param TemplateTypeMap $templateTypeMap
 	 * @param array<int, \PHPStan\Reflection\ParameterReflectionWithPhpDocs> $parameters
 	 * @param bool $isVariadic
 	 * @param Type $returnType
@@ -21,6 +23,7 @@ class FunctionVariantWithPhpDocs extends FunctionVariant implements ParametersAc
 	 * @param Type $nativeReturnType
 	 */
 	public function __construct(
+		TemplateTypeMap $templateTypeMap,
 		array $parameters,
 		bool $isVariadic,
 		Type $returnType,
@@ -29,6 +32,7 @@ class FunctionVariantWithPhpDocs extends FunctionVariant implements ParametersAc
 	)
 	{
 		parent::__construct(
+			$templateTypeMap,
 			$parameters,
 			$isVariadic,
 			$returnType

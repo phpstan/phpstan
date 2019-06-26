@@ -2,6 +2,7 @@
 
 namespace PHPStan\Reflection;
 
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
 
 interface ParametersAcceptor
@@ -12,6 +13,8 @@ interface ParametersAcceptor
 		'func_get_arg',
 		'func_num_args',
 	];
+
+	public function getTemplateTypeMap(): TemplateTypeMap;
 
 	/**
 	 * @return array<int, \PHPStan\Reflection\ParameterReflection>

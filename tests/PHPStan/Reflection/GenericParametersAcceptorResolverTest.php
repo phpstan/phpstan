@@ -8,6 +8,7 @@ use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Generic\TemplateTypeFactory;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Generic\TemplateTypeScope;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
@@ -39,6 +40,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
 					[
 						new DummyParameter(
 							'a',
@@ -53,6 +55,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new NullType()
 				),
 				new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
 					[
 						new DummyParameter(
 							'a',
@@ -73,6 +76,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new IntegerType(),
 				],
 				new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
 					[
 						new DummyParameter(
 							'a',
@@ -95,6 +99,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					$templateType('U')
 				),
 				new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
 					[
 						new DummyParameter(
 							'a',
@@ -123,6 +128,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new IntegerType(),
 				],
 				new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
 					[
 						new DummyParameter(
 							'a',
@@ -145,6 +151,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					$templateType('T')
 				),
 				new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
 					[
 						new DummyParameter(
 							'a',
@@ -181,6 +188,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
 					[
 						new DummyParameter(
 							'a',
@@ -203,6 +211,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new NullType()
 				),
 				new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
 					[
 						new DummyParameter(
 							'a',
@@ -233,6 +242,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new ConstantIntegerType(3),
 				],
 				new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
 					[
 						new DummyParameter(
 							'a',
@@ -255,6 +265,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					$templateType('U')
 				),
 				new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
 					[
 						new DummyParameter(
 							'a',
@@ -293,6 +304,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
 					[
 						new DummyParameter(
 							'a',
@@ -315,6 +327,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new NullType()
 				),
 				new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
 					[
 						new DummyParameter(
 							'a',
@@ -341,12 +354,22 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 				[
 					new ConstantStringType('foo'),
 				],
-				new FunctionVariant([
-					new DummyParameter('str', $templateType('T'), false, null, false, null),
-				], false, $templateType('T')),
-				new FunctionVariant([
-					new DummyParameter('str', new ConstantStringType('foo'), false, null, false, null),
-				], false, new ConstantStringType('foo')),
+				new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
+					[
+						new DummyParameter('str', $templateType('T'), false, null, false, null),
+					],
+					false,
+					$templateType('T')
+				),
+				new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
+					[
+						new DummyParameter('str', new ConstantStringType('foo'), false, null, false, null),
+					],
+					false,
+					new ConstantStringType('foo')
+				),
 			],
 		];
 	}

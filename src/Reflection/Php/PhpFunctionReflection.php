@@ -11,6 +11,7 @@ use PHPStan\Reflection\FunctionVariantWithPhpDocs;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
 use PHPStan\Reflection\ReflectionWithFilename;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
@@ -31,6 +32,9 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 
 	/** @var \PHPStan\Cache\Cache */
 	private $cache;
+
+	/** @var \PHPStan\Type\Generic\TemplateTypeMap */
+	private $templateTypeMap;
 
 	/** @var \PHPStan\Type\Type[] */
 	private $phpDocParameterTypes;
@@ -64,6 +68,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 	 * @param Parser $parser
 	 * @param FunctionCallStatementFinder $functionCallStatementFinder
 	 * @param Cache $cache
+	 * @param TemplateTypeMap $templateTypeMap
 	 * @param \PHPStan\Type\Type[] $phpDocParameterTypes
 	 * @param Type|null $phpDocReturnType
 	 * @param Type|null $phpDocThrowType
@@ -78,6 +83,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 		Parser $parser,
 		FunctionCallStatementFinder $functionCallStatementFinder,
 		Cache $cache,
+		TemplateTypeMap $templateTypeMap,
 		array $phpDocParameterTypes,
 		?Type $phpDocReturnType,
 		?Type $phpDocThrowType,
@@ -92,6 +98,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 		$this->parser = $parser;
 		$this->functionCallStatementFinder = $functionCallStatementFinder;
 		$this->cache = $cache;
+		$this->templateTypeMap = $templateTypeMap;
 		$this->phpDocParameterTypes = $phpDocParameterTypes;
 		$this->phpDocReturnType = $phpDocReturnType;
 		$this->phpDocThrowType = $phpDocThrowType;
@@ -123,6 +130,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 		if ($this->variants === null) {
 			$this->variants = [
 				new FunctionVariantWithPhpDocs(
+					$this->templateTypeMap,
 					$this->getParameters(),
 					$this->isVariadic(),
 					$this->getReturnType(),

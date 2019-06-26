@@ -5,6 +5,7 @@ namespace PHPStan\Reflection;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\TypeCombinator;
 
@@ -247,7 +248,7 @@ class ParametersAcceptorSelector
 			}
 		}
 
-		return new FunctionVariant($parameters, $isVariadic, $returnType);
+		return new FunctionVariant(TemplateTypeMap::createEmpty(), $parameters, $isVariadic, $returnType);
 	}
 
 }

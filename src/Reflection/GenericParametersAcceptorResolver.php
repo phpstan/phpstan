@@ -4,9 +4,11 @@ namespace PHPStan\Reflection;
 
 use PHPStan\Reflection\Php\DummyParameter;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\ErrorType;
 use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 
 class GenericParametersAcceptorResolver
@@ -39,6 +41,9 @@ class GenericParametersAcceptorResolver
 		}
 
 		return new FunctionVariant(
+			$parametersAcceptor->getTemplateTypeMap()->map(static function (string $name, Type $type) use ($typeMap): Type {
+				return $typeMap->getType($name) ?? new ErrorType();
+			}),
 			array_map(static function (ParameterReflection $param) use ($typeMap): ParameterReflection {
 				return new DummyParameter(
 					$param->getName(),

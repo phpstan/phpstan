@@ -20,6 +20,7 @@ use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
 use PHPStan\Reflection\ThrowableReflection;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectWithoutClassType;
@@ -52,6 +53,9 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 
 	/** @var \PHPStan\Cache\Cache */
 	private $cache;
+
+	/** @var \PHPStan\Type\Generic\TemplateTypeMap */
+	private $templateTypeMap;
 
 	/** @var \PHPStan\Type\Type[] */
 	private $phpDocParameterTypes;
@@ -110,6 +114,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		Parser $parser,
 		FunctionCallStatementFinder $functionCallStatementFinder,
 		Cache $cache,
+		TemplateTypeMap $templateTypeMap,
 		array $phpDocParameterTypes,
 		?Type $phpDocReturnType,
 		?Type $phpDocThrowType,
@@ -126,6 +131,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		$this->parser = $parser;
 		$this->functionCallStatementFinder = $functionCallStatementFinder;
 		$this->cache = $cache;
+		$this->templateTypeMap = $templateTypeMap;
 		$this->phpDocParameterTypes = $phpDocParameterTypes;
 		$this->phpDocReturnType = $phpDocReturnType;
 		$this->phpDocThrowType = $phpDocThrowType;
@@ -219,6 +225,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		if ($this->variants === null) {
 			$this->variants = [
 				new FunctionVariantWithPhpDocs(
+					$this->templateTypeMap,
 					$this->getParameters(),
 					$this->isVariadic(),
 					$this->getReturnType(),
