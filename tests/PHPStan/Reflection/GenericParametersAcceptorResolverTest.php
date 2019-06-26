@@ -6,7 +6,6 @@ use PHPStan\Reflection\Php\DummyParameter;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
-use PHPStan\Type\ErrorType;
 use PHPStan\Type\Generic\TemplateTypeFactory;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Generic\TemplateTypeScope;
@@ -339,7 +338,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 						),
 						new DummyParameter(
 							'b',
-							new ErrorType(),
+							new MixedType(),
 							false,
 							PassedByReference::createNo(),
 							false,
