@@ -263,7 +263,7 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 				'Parameter #%d %s of ' . $lowercasedMethodName . ' expects %s, %s given.',
 				'Result of ' . $lowercasedMethodName . ' (void) is used.',
 				'Parameter #%d %s of ' . $lowercasedMethodName . ' is passed by reference, so it expects variables only.',
-				'Unable to resolve the template type %s in call to method ' . $displayMethodName,
+				'Unable to resolve the template type %s in call to method ' . $lowercasedMethodName,
 			]
 		));
 
