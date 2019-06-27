@@ -242,3 +242,17 @@ function testConstantArray(int $int, string $str) {
 	assertType('int', $a);
 	assertType('string', $b);
 }
+
+/**
+ * @template U of \DateTimeInterface
+ * @param U $a
+ * @return U
+ */
+function typeHints(\DateTimeInterface $a): \DateTimeInterface {
+	assertType('U of DateTimeInterface (function PHPStan\Generics\FunctionsAssertType\typeHints())', $a);
+	return $a;
+}
+
+function testTypeHints(): void {
+	assertType('DateTime', typeHints(new \DateTime()));
+}

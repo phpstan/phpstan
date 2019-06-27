@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Broker\Broker;
+use PHPStan\Type\Generic\TemplateTypeHelper;
 
 class TypehintHelper
 {
@@ -103,7 +104,8 @@ class TypehintHelper
 				}
 			}
 
-			$resultType = $type->isSuperTypeOf($phpDocType)->yes() ? $phpDocType : $type;
+			$resultType = $type->isSuperTypeOf(TemplateTypeHelper::resolveToBounds($phpDocType))->yes() ? $phpDocType : $type;
+
 			if (TypeCombinator::containsNull($type)) {
 				$type = TypeCombinator::addNull($resultType);
 			} else {
