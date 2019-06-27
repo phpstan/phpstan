@@ -1257,6 +1257,40 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		);
 
 		$this->assertInstanceOf($expectedTypeClass, $actualType);
+
+		$hasSubtraction = false;
+		foreach ($types as $type) {
+			if (!($type instanceof SubtractableType) || $type->getSubtractedType() === null) {
+				continue;
+			}
+
+			$hasSubtraction = true;
+		}
+
+		if ($hasSubtraction) {
+			return;
+		}
+
+		try {
+			TypeCombinator::$enableSubtractableTypes = false;
+
+			$actualType = TypeCombinator::union(...$types);
+
+			$this->assertSame(
+				$expectedTypeDescriptionNoSubstractable ?? $expectedTypeDescription,
+				$actualType->describe(VerbosityLevel::precise()),
+				sprintf('union(%s) (no substractableTypes)', implode(', ', array_map(
+					static function (Type $type): string {
+						return $type->describe(VerbosityLevel::precise());
+					},
+					$types
+				)))
+			);
+
+			$this->assertInstanceOf($expectedTypeClass, $actualType);
+		} finally {
+			TypeCombinator::$enableSubtractableTypes = true;
+		}
 	}
 
 	/**
