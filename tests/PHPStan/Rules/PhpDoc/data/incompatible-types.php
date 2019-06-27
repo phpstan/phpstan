@@ -154,3 +154,12 @@ function genericWithTypeHints($a, $b, \DateTimeInterface $c): \DateTimeInterface
 function genericWithTypeHintsNotSubType(int $a, \DateTime $b): \DateTime
 {
 }
+
+/**
+ * @template T of \DateTime
+ * @param T $a
+ * @return T
+ */
+function genericWithTypeHintsSupertype(\DateTimeInterface $a): \DateTimeInterface
+{
+}

@@ -253,6 +253,30 @@ function typeHints(\DateTimeInterface $a): \DateTimeInterface {
 	return $a;
 }
 
+/**
+ * @template U of \DateTime
+ * @param U $a
+ * @return U
+ */
+function typeHintsSuperType(\DateTimeInterface $a): \DateTimeInterface {
+	assertType('U of DateTime (function PHPStan\Generics\FunctionsAssertType\typeHintsSuperType())', $a);
+	return $a;
+}
+
+/**
+ * Different phpDoc on purpose because of caching issue
+ * @template U of \DateTimeInterface
+ * @param U $a
+ * @return U
+ */
+function typeHintsSubType(\DateTime $a): \DateTimeInterface {
+	//assertType('U of DateTime (function PHPStan\Generics\FunctionsAssertType\typeHintsSubType())', $a);
+	assertType('DateTime', $a);
+	return $a;
+}
+
 function testTypeHints(): void {
 	assertType('DateTime', typeHints(new \DateTime()));
+	assertType('DateTime', typeHintsSuperType(new \DateTime()));
+	assertType('DateTimeInterface', typeHintsSubType(new \DateTime()));
 }
