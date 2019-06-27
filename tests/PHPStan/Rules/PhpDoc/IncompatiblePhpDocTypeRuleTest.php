@@ -65,6 +65,18 @@ class IncompatiblePhpDocTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				'PHPDoc tag @return contains unresolvable type.',
 				126,
 			],
+			[
+				'PHPDoc tag @param for parameter $a with type T is not subtype of native type int.',
+				154,
+			],
+			[
+				'PHPDoc tag @param for parameter $b with type U of DateTimeInterface is not subtype of native type DateTime.',
+				154,
+			],
+			[
+				'PHPDoc tag @return with type DateTimeInterface is not subtype of native type DateTime.',
+				154,
+			],
 		]);
 	}
 
