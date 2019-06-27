@@ -10,6 +10,7 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\Generic\TemplateType;
 
 class TypeCombinator
 {
@@ -140,7 +141,7 @@ class TypeCombinator
 				unset($types[$i]);
 				continue;
 			}
-			if (!self::$enableSubtractableTypes && $types[$i] instanceof MixedType) {
+			if (!self::$enableSubtractableTypes && $types[$i] instanceof MixedType && !$types[$i] instanceof TemplateType) {
 				return $types[$i];
 			}
 			if ($types[$i] instanceof ConstantScalarType) {
