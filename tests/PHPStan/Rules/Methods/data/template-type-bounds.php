@@ -1,8 +1,8 @@
 <?php
 
-namespace TemplateTypeBound;
+namespace TemplateTypeBoundMethods;
 
-class C
+class Foo
 {
 	/**
 	 * @template T of int|float
@@ -18,5 +18,21 @@ class C
 	 * @param U $b
 	 */
 	public function b($a, $b): void {
+	}
+
+	/**
+	 * @template T of NonexistentClass
+	 * @param T $a
+	 */
+	function c($a): void {
+
+	}
+
+	/**
+	 * @template T of foo
+	 * @param T $a
+	 */
+	function d($a): void {
+
 	}
 }

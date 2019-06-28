@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules\Functions;
 
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\TemplateTypeCheck;
 use PHPStan\Type\FileTypeMapper;
 
@@ -12,8 +13,9 @@ class TemplateTypeDeclarationRuleTest extends \PHPStan\Testing\RuleTestCase
 	{
 		$fileTypeMapper = self::getContainer()->getByType(FileTypeMapper::class);
 
+		$broker = $this->createBroker();
 		return new TemplateTypeDeclarationRule(
-			new TemplateTypeCheck($fileTypeMapper)
+			new TemplateTypeCheck($fileTypeMapper, $broker, new ClassCaseSensitivityCheck($broker), true)
 		);
 	}
 
@@ -28,6 +30,14 @@ class TemplateTypeDeclarationRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Type parameter U of function b() has invalid bound DateTime|DateTimeImmutable (only class name bounds are supported currently).',
 				18,
+			],
+			[
+				'Type parameter T of function c() has unknown class TemplateTypeBoundFunctions\NonexistentClass as its bound.',
+				25,
+			],
+			[
+				'Class TemplateTypeBoundFunctions\Foo referenced with incorrect case: TemplateTypeBoundFunctions\foo.',
+				33,
 			],
 		]);
 	}

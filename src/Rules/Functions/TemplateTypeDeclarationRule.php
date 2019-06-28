@@ -26,7 +26,7 @@ class TemplateTypeDeclarationRule implements \PHPStan\Rules\Rule
 
 	/**
 	 * @param \PhpParser\Node\Stmt\Function_ $node
-	 * @return string[]
+	 * @return \PHPStan\Rules\RuleError[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
@@ -40,6 +40,10 @@ class TemplateTypeDeclarationRule implements \PHPStan\Rules\Rule
 			$templateTypeScope,
 			sprintf(
 				'Type parameter %%s of function %s() has invalid bound %%s (only class name bounds are supported currently).',
+				$functionName
+			),
+			sprintf(
+				'Type parameter %%s of function %s() has unknown class %%s as its bound.',
 				$functionName
 			)
 		);

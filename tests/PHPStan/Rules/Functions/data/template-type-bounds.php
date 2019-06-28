@@ -1,6 +1,6 @@
 <?php
 
-namespace TemplateTypeBound;
+namespace TemplateTypeBoundFunctions;
 
 /**
  * @template T of int|float
@@ -18,3 +18,23 @@ function a($a): void {
 function b($a, $b): void {
 }
 
+/**
+ * @template T of NonexistentClass
+ * @param T $a
+ */
+function c($a): void {
+
+}
+
+/**
+ * @template T of foo
+ * @param T $a
+ */
+function d($a): void {
+
+}
+
+class Foo
+{
+
+}

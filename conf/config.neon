@@ -353,6 +353,8 @@ services:
 
 	-
 		class: PHPStan\Rules\TemplateTypeCheck
+		arguments:
+			checkClassCaseSensitivity: %checkClassCaseSensitivity%
 
 	-
 		class: PHPStan\Type\Php\ArgumentBasedFunctionReturnTypeExtension
