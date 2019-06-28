@@ -270,7 +270,6 @@ function typeHintsSuperType(\DateTimeInterface $a): \DateTimeInterface {
  * @return U
  */
 function typeHintsSubType(\DateTime $a): \DateTimeInterface {
-	//assertType('U of DateTime (function PHPStan\Generics\FunctionsAssertType\typeHintsSubType())', $a);
 	assertType('DateTime', $a);
 	return $a;
 }
