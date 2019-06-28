@@ -220,8 +220,9 @@ phpstan analyse --autoload-file=/path/to/autoload.php src tests
 
 If your codebase contains some files that are broken on purpose
 (e. g. to test behaviour of your application on files with invalid PHP code),
-you can exclude them using the `excludes_analyse` array parameter. String at each line
-is used as a pattern for the [`fnmatch`](https://secure.php.net/manual/en/function.fnmatch.php) function.
+you can exclude them on a per directory basis using the `excludes_analyse` array parameter.
+It is not supported to exclude single files.
+String at each line is used as a pattern for the [`fnmatch`](https://secure.php.net/manual/en/function.fnmatch.php) function.
 
 ```
 parameters:
