@@ -24,15 +24,15 @@ class TemplateTypeDeclarationRuleTest extends \PHPStan\Testing\RuleTestCase
 		require_once __DIR__ . '/data/template-type-bounds.php';
 		$this->analyse([__DIR__ . '/data/template-type-bounds.php'], [
 			[
-				'Type parameter T of function a() has invalid bound float|int (only class name bounds are supported currently).',
+				'Type parameter T of function TemplateTypeBoundFunctions\a() has invalid bound float|int (only class name bounds are supported currently).',
 				9,
 			],
 			[
-				'Type parameter U of function b() has invalid bound DateTime|DateTimeImmutable (only class name bounds are supported currently).',
+				'Type parameter U of function TemplateTypeBoundFunctions\b() has invalid bound DateTime|DateTimeImmutable (only class name bounds are supported currently).',
 				18,
 			],
 			[
-				'Type parameter T of function c() has unknown class TemplateTypeBoundFunctions\NonexistentClass as its bound.',
+				'Type parameter T of function TemplateTypeBoundFunctions\c() has unknown class TemplateTypeBoundFunctions\NonexistentClass as its bound.',
 				25,
 			],
 			[

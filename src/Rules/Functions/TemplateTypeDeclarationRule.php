@@ -31,6 +31,9 @@ class TemplateTypeDeclarationRule implements \PHPStan\Rules\Rule
 	public function processNode(Node $node, Scope $scope): array
 	{
 		$functionName = (string) $node->name;
+		if (isset($node->namespacedName)) {
+			$functionName = (string) $node->namespacedName;
+		}
 
 		$templateTypeScope = TemplateTypeScope::createWithFunction($functionName);
 
