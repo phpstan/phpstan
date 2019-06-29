@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules\Operators;
 
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\VerbosityLevel;
 
@@ -63,11 +64,11 @@ class InvalidIncDecOperationRule implements \PHPStan\Rules\Rule
 			}
 
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Cannot use %s on %s.',
 					$operatorString,
 					$varType->describe(VerbosityLevel::value())
-				),
+				))->line($node->var->getLine())->build(),
 			];
 		}
 

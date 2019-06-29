@@ -3,6 +3,7 @@
 namespace PHPStan\Rules\Operators;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\VerbosityLevel;
 
@@ -30,11 +31,11 @@ class InvalidUnaryOperationRule implements \PHPStan\Rules\Rule
 
 		if ($scope->getType($node) instanceof ErrorType) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Unary operation "%s" on %s results in an error.',
 					$node instanceof \PhpParser\Node\Expr\UnaryPlus ? '+' : '-',
 					$scope->getType($node->expr)->describe(VerbosityLevel::value())
-				),
+				))->line($node->expr->getLine())->build(),
 			];
 		}
 

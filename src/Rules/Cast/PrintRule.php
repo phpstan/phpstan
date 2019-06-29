@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Cast;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
@@ -42,16 +43,17 @@ class PrintRule implements Rule
 			}
 		);
 
+		$errors = [];
 		if (!$typeResult->getType() instanceof ErrorType
 			&& $typeResult->getType()->toString() instanceof ErrorType
 		) {
-			return [sprintf(
+			$errors[] = RuleErrorBuilder::message(sprintf(
 				'Parameter %s of print cannot be converted to string.',
 				$typeResult->getType()->describe(VerbosityLevel::value())
-			)];
+			))->line($node->getLine())->build();
 		}
 
-		return [];
+		return $errors;
 	}
 
 }

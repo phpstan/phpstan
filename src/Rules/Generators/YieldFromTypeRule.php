@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\YieldFrom;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\VerbosityLevel;
@@ -46,7 +47,10 @@ class YieldFromTypeRule implements Rule
 		$messagePattern = 'Argument of an invalid type %s passed to yield from, only iterables are supported.';
 		if ($isIterable->no()) {
 			return [
-				sprintf($messagePattern, $exprType->describe(VerbosityLevel::typeOnly())),
+				RuleErrorBuilder::message(sprintf(
+					$messagePattern,
+					$exprType->describe(VerbosityLevel::typeOnly())
+				))->line($node->expr->getLine())->build(),
 			];
 		} elseif (
 			!$exprType instanceof MixedType
@@ -54,7 +58,10 @@ class YieldFromTypeRule implements Rule
 			&& $isIterable->maybe()
 		) {
 			return [
-				sprintf($messagePattern, $exprType->describe(VerbosityLevel::typeOnly())),
+				RuleErrorBuilder::message(sprintf(
+					$messagePattern,
+					$exprType->describe(VerbosityLevel::typeOnly())
+				))->line($node->expr->getLine())->build(),
 			];
 		}
 
@@ -74,18 +81,18 @@ class YieldFromTypeRule implements Rule
 
 		$messages = [];
 		if (!$this->ruleLevelHelper->accepts($returnType->getIterableKeyType(), $exprType->getIterableKeyType(), $scope->isDeclareStrictTypes())) {
-			$messages[] = sprintf(
+			$messages[] = RuleErrorBuilder::message(sprintf(
 				'Generator expects key type %s, %s given.',
 				$returnType->getIterableKeyType()->describe(VerbosityLevel::typeOnly()),
 				$exprType->getIterableKeyType()->describe(VerbosityLevel::typeOnly())
-			);
+			))->line($node->expr->getLine())->build();
 		}
 		if (!$this->ruleLevelHelper->accepts($returnType->getIterableValueType(), $exprType->getIterableValueType(), $scope->isDeclareStrictTypes())) {
-			$messages[] = sprintf(
+			$messages[] = RuleErrorBuilder::message(sprintf(
 				'Generator expects value type %s, %s given.',
 				$returnType->getIterableValueType()->describe(VerbosityLevel::typeOnly()),
 				$exprType->getIterableValueType()->describe(VerbosityLevel::typeOnly())
-			);
+			))->line($node->expr->getLine())->build();
 		}
 
 		return $messages;

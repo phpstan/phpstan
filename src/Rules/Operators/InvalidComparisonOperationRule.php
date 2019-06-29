@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Operators;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
@@ -55,12 +56,12 @@ class InvalidComparisonOperationRule implements \PHPStan\Rules\Rule
 
 		if (($isNumericLeft && $isObjectRight) || ($isObjectLeft && $isNumericRight)) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Comparison operation "%s" between %s and %s results in an error.',
 					$node->getOperatorSigil(),
 					$scope->getType($node->left)->describe(VerbosityLevel::value()),
 					$scope->getType($node->right)->describe(VerbosityLevel::value())
-				),
+				))->line($node->left->getLine())->build(),
 			];
 		}
 
