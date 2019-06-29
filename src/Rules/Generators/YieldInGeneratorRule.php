@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
@@ -44,9 +45,7 @@ class YieldInGeneratorRule implements Rule
 		} elseif ($scopeFunction !== null) {
 			$returnType = ParametersAcceptorSelector::selectSingle($scopeFunction->getVariants())->getReturnType();
 		} else {
-			return [
-				'Yield can be used only inside a function.',
-			];
+			return [RuleErrorBuilder::message('Yield can be used only inside a function.')->line($node->getLine())->build()];
 		}
 
 		if ($returnType instanceof MixedType) {
@@ -65,10 +64,10 @@ class YieldInGeneratorRule implements Rule
 		}
 
 		return [
-			sprintf(
+			RuleErrorBuilder::message(sprintf(
 				'Yield can be used only with these return types: %s.',
 				'Generator, Iterator, Traversable, iterable'
-			),
+			))->line($node->getLine())->build(),
 		];
 	}
 

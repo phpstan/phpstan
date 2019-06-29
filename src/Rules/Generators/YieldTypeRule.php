@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
@@ -65,18 +66,18 @@ class YieldTypeRule implements Rule
 
 		$messages = [];
 		if (!$this->ruleLevelHelper->accepts($returnType->getIterableKeyType(), $keyType, $scope->isDeclareStrictTypes())) {
-			$messages[] = sprintf(
+			$messages[] = RuleErrorBuilder::message(sprintf(
 				'Generator expects key type %s, %s given.',
 				$returnType->getIterableKeyType()->describe(VerbosityLevel::typeOnly()),
 				$keyType->describe(VerbosityLevel::typeOnly())
-			);
+			))->line($node->getLine())->build();
 		}
 		if (!$this->ruleLevelHelper->accepts($returnType->getIterableValueType(), $valueType, $scope->isDeclareStrictTypes())) {
-			$messages[] = sprintf(
+			$messages[] = RuleErrorBuilder::message(sprintf(
 				'Generator expects value type %s, %s given.',
 				$returnType->getIterableValueType()->describe(VerbosityLevel::typeOnly()),
 				$valueType->describe(VerbosityLevel::typeOnly())
-			);
+			))->line($node->getLine())->build();
 		}
 
 		return $messages;

@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\UnreachableStatementNode;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class UnreachableStatementRule implements Rule
 {
@@ -27,7 +28,7 @@ class UnreachableStatementRule implements Rule
 		}
 
 		return [
-			'Unreachable statement - code above always terminates.',
+			RuleErrorBuilder::message('Unreachable statement - code above always terminates.')->line($node->getLine())->build(),
 		];
 	}
 

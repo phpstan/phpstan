@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\PrettyPrinter\Standard;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class NoopRule implements Rule
 {
@@ -55,10 +56,10 @@ class NoopRule implements Rule
 		}
 
 		return [
-			sprintf(
+			RuleErrorBuilder::message(sprintf(
 				'Expression "%s" on a separate line does not do anything.',
 				$this->printer->prettyPrintExpr($originalExpr)
-			),
+			))->line($expr->getLine())->build(),
 		];
 	}
 

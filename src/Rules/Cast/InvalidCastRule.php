@@ -90,7 +90,7 @@ class InvalidCastRule implements \PHPStan\Rules\Rule
 					'Cannot cast %s to %s.',
 					$scope->getType($node->expr)->describe(VerbosityLevel::value()),
 					$shortName
-				))->build(),
+				))->line($node->getLine())->build(),
 			];
 		}
 

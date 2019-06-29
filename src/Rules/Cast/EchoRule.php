@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Cast;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
@@ -51,11 +52,11 @@ class EchoRule implements Rule
 				continue;
 			}
 
-			$messages[] = sprintf(
+			$messages[] = RuleErrorBuilder::message(sprintf(
 				'Parameter #%d (%s) of echo cannot be converted to string.',
 				$key + 1,
 				$typeResult->getType()->describe(VerbosityLevel::value())
-			);
+			))->line($node->getLine())->build();
 		}
 		return $messages;
 	}
