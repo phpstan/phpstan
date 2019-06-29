@@ -26,6 +26,9 @@ class Foo
 	/** @var SomeTrait */
 	private $withTrait;
 
+	/** @var \Datetime */
+	private $datetime;
+
 }
 
 trait SomeTrait
