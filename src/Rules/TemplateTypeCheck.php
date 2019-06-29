@@ -77,6 +77,7 @@ class TemplateTypeCheck
 					$tag->getName(),
 					$tag->getBound()->describe(VerbosityLevel::precise())
 				))->build();
+				continue;
 			}
 
 			$referencedClasses = $templateType->getReferencedClasses();
