@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules\PhpDoc;
 
+use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 use PHPStan\Type\FileTypeMapper;
@@ -11,8 +12,12 @@ class InvalidPhpDocVarTagTypeRuleTest extends RuleTestCase
 
 	protected function getRule(): Rule
 	{
+		$broker = $this->createBroker();
 		return new InvalidPhpDocVarTagTypeRule(
-			self::getContainer()->getByType(FileTypeMapper::class)
+			self::getContainer()->getByType(FileTypeMapper::class),
+			$broker,
+			new ClassCaseSensitivityCheck($broker),
+			true
 		);
 	}
 
@@ -28,12 +33,20 @@ class InvalidPhpDocVarTagTypeRuleTest extends RuleTestCase
 				16,
 			],
 			[
+				'PHPDoc tag @var for variable $test contains unknown class InvalidVarTagType\aray.',
+				20,
+			],
+			[
 				'PHPDoc tag @var for variable $value contains unresolvable type.',
 				22,
 			],
 			[
 				'PHPDoc tag @var for variable $staticVar contains unresolvable type.',
 				27,
+			],
+			[
+				'Class InvalidVarTagType\Foo referenced with incorrect case: InvalidVarTagType\foo.',
+				31,
 			],
 		]);
 	}

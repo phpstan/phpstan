@@ -36,3 +36,5 @@ services:
 			- phpstan.rules.rule
 	-
 		class: PHPStan\Rules\PhpDoc\InvalidPhpDocVarTagTypeRule
+		arguments:
+			checkClassCaseSensitivity: %checkClassCaseSensitivity%

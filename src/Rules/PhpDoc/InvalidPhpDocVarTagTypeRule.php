@@ -4,6 +4,9 @@ namespace PHPStan\Rules\PhpDoc;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Broker\Broker;
+use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\ClassNameNodePair;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ErrorType;
@@ -17,9 +20,26 @@ class InvalidPhpDocVarTagTypeRule implements Rule
 	/** @var FileTypeMapper */
 	private $fileTypeMapper;
 
-	public function __construct(FileTypeMapper $fileTypeMapper)
+	/** @var \PHPStan\Broker\Broker */
+	private $broker;
+
+	/** @var \PHPStan\Rules\ClassCaseSensitivityCheck */
+	private $classCaseSensitivityCheck;
+
+	/** @var bool */
+	private $checkClassCaseSensitivity;
+
+	public function __construct(
+		FileTypeMapper $fileTypeMapper,
+		Broker $broker,
+		ClassCaseSensitivityCheck $classCaseSensitivityCheck,
+		bool $checkClassCaseSensitivity
+	)
 	{
 		$this->fileTypeMapper = $fileTypeMapper;
+		$this->broker = $broker;
+		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
+		$this->checkClassCaseSensitivity = $checkClassCaseSensitivity;
 	}
 
 	public function getNodeType(): string
@@ -58,19 +78,45 @@ class InvalidPhpDocVarTagTypeRule implements Rule
 		$errors = [];
 		foreach ($resolvedPhpDoc->getVarTags() as $name => $varTag) {
 			$varTagType = $varTag->getType();
-			if (
-				!$varTagType instanceof ErrorType
-				&& !$varTagType instanceof NeverType
-			) {
-				continue;
-			}
-
 			$identifier = 'PHPDoc tag @var';
 			if (is_string($name)) {
 				$identifier .= sprintf(' for variable $%s', $name);
 			}
+			if (
+				$varTagType instanceof ErrorType || $varTagType instanceof NeverType
+			) {
+				$errors[] = RuleErrorBuilder::message(sprintf('%s contains unresolvable type.', $identifier))->line($docComment->getLine())->build();
+				continue;
+			}
 
-			$errors[] = RuleErrorBuilder::message(sprintf('%s contains unresolvable type.', $identifier))->line($docComment->getLine())->build();
+			$referencedClasses = $varTagType->getReferencedClasses();
+			foreach ($referencedClasses as $referencedClass) {
+				if ($this->broker->hasClass($referencedClass)) {
+					if ($this->broker->getClass($referencedClass)->isTrait()) {
+						$errors[] = RuleErrorBuilder::message(sprintf(
+							sprintf('%s has invalid type %%s.', $identifier),
+							$referencedClass
+						))->build();
+					}
+					continue;
+				}
+
+				$errors[] = RuleErrorBuilder::message(sprintf(
+					sprintf('%s contains unknown class %%s.', $identifier),
+					$referencedClass
+				))->build();
+			}
+
+			if (!$this->checkClassCaseSensitivity) {
+				continue;
+			}
+
+			$errors = array_merge(
+				$errors,
+				$this->classCaseSensitivityCheck->checkClassNames(array_map(static function (string $class) use ($node): ClassNameNodePair {
+					return new ClassNameNodePair($class, $node);
+				}, $referencedClasses))
+			);
 		}
 
 		return $errors;
