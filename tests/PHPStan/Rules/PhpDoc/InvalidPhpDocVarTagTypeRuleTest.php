@@ -48,6 +48,10 @@ class InvalidPhpDocVarTagTypeRuleTest extends RuleTestCase
 				'Class InvalidVarTagType\Foo referenced with incorrect case: InvalidVarTagType\foo.',
 				31,
 			],
+			[
+				'PHPDoc tag @var for variable $test has invalid type InvalidVarTagType\FooTrait.',
+				34,
+			],
 		]);
 	}
 

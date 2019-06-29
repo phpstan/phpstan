@@ -29,6 +29,14 @@ class Foo
 
 		/** @var foo $test */
 		$test = new self();
+
+		/** @var FooTrait $test */
+		$test = new self();
 	}
+
+}
+
+trait FooTrait
+{
 
 }
