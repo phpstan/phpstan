@@ -7,7 +7,6 @@ parameters:
 	paths: []
 	featureToggles:
 		subtractableTypes: false
-		validateParameters: false
 	fileExtensions:
 		- php
 	checkAlwaysTrueCheckTypeFunctionCall: false

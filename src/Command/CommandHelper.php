@@ -226,22 +226,20 @@ class CommandHelper
 			$defaultLevelUsed = false;
 		}
 
-		if ($netteContainer->parameters['featureToggles']['validateParameters']) {
-			$schema = $netteContainer->parameters['__parametersSchema'];
-			$processor = new Processor();
-			$processor->onNewContext[] = static function (SchemaContext $context): void {
-				$context->path = ['parameters'];
-			};
+		$schema = $netteContainer->parameters['__parametersSchema'];
+		$processor = new Processor();
+		$processor->onNewContext[] = static function (SchemaContext $context): void {
+			$context->path = ['parameters'];
+		};
 
-			try {
-				$processor->process($schema, $netteContainer->parameters);
-			} catch (\Nette\Schema\ValidationException $e) {
-				foreach ($e->getMessages() as $message) {
-					$errorOutput->writeln('<error>Invalid configuration:</error>');
-					$errorOutput->writeln($message);
-				}
-				throw new \PHPStan\Command\InceptionNotSuccessfulException();
+		try {
+			$processor->process($schema, $netteContainer->parameters);
+		} catch (\Nette\Schema\ValidationException $e) {
+			foreach ($e->getMessages() as $message) {
+				$errorOutput->writeln('<error>Invalid configuration:</error>');
+				$errorOutput->writeln($message);
 			}
+			throw new \PHPStan\Command\InceptionNotSuccessfulException();
 		}
 
 		$container = $netteContainer->getByType(Container::class);
