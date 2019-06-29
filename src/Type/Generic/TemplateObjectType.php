@@ -23,6 +23,9 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 	/** @var TemplateTypeStrategy */
 	private $strategy;
 
+	/** @var ObjectType */
+	private $bound;
+
 	public function __construct(
 		TemplateTypeScope $scope,
 		TemplateTypeStrategy $templateTypeStrategy,
@@ -36,6 +39,7 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 		$this->scope = $scope;
 		$this->strategy = $templateTypeStrategy;
 		$this->name = $name;
+		$this->bound = new ObjectType($class, $subtractedType);
 	}
 
 	public function getName(): string
@@ -77,10 +81,7 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 
 	public function getBound(): Type
 	{
-		return new ObjectType(
-			$this->getClassName(),
-			$this->getSubtractedType()
-		);
+		return $this->bound;
 	}
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
