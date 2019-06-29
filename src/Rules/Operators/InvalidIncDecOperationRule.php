@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules\Operators;
 
+use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\VerbosityLevel;
@@ -25,7 +26,7 @@ class InvalidIncDecOperationRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
+	 * @return RuleError[]
 	 */
 	public function processNode(\PhpParser\Node $node, \PHPStan\Analyser\Scope $scope): array
 	{
@@ -47,10 +48,10 @@ class InvalidIncDecOperationRule implements \PHPStan\Rules\Rule
 			&& !$node->var instanceof \PhpParser\Node\Expr\StaticPropertyFetch
 		) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Cannot use %s on a non-variable.',
 					$operatorString
-				),
+				))->line($node->var->getLine())->build(),
 			];
 		}
 

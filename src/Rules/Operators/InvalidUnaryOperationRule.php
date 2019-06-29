@@ -3,6 +3,7 @@
 namespace PHPStan\Rules\Operators;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\VerbosityLevel;
@@ -18,7 +19,7 @@ class InvalidUnaryOperationRule implements \PHPStan\Rules\Rule
 	/**
 	 * @param \PhpParser\Node\Expr $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
+	 * @return RuleError[]
 	 */
 	public function processNode(\PhpParser\Node $node, Scope $scope): array
 	{
