@@ -51,7 +51,7 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 			$error = null;
 
 			/** @var Node\Name $name */
-			$name = Node\Name::concat($node->prefix, $use->name);
+			$name = Node\Name::concat($node->prefix, $use->name, ['startLine' => $use->getLine()]);
 			if (
 				$node->type === Use_::TYPE_CONSTANT
 				|| $use->type === Use_::TYPE_CONSTANT
@@ -81,7 +81,7 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 	private function checkConstant(Node\Name $name): ?RuleError
 	{
 		if (!$this->broker->hasConstant($name, null)) {
-			return RuleErrorBuilder::message(sprintf('Used constant %s not found.', (string) $name))->build();
+			return RuleErrorBuilder::message(sprintf('Used constant %s not found.', (string) $name))->line($name->getLine())->build();
 		}
 
 		return null;
@@ -90,7 +90,7 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 	private function checkFunction(Node\Name $name): ?RuleError
 	{
 		if (!$this->broker->hasFunction($name, null)) {
-			return RuleErrorBuilder::message(sprintf('Used function %s not found.', (string) $name))->build();
+			return RuleErrorBuilder::message(sprintf('Used function %s not found.', (string) $name))->line($name->getLine())->build();
 		}
 
 		if ($this->checkFunctionNameCase) {
@@ -105,7 +105,7 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 					'Function %s used with incorrect case: %s.',
 					$realName,
 					$usedName
-				))->build();
+				))->line($name->getLine())->build();
 			}
 		}
 

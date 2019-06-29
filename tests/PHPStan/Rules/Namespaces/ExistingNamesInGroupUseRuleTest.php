@@ -19,23 +19,23 @@ class ExistingNamesInGroupUseRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->analyse([__DIR__ . '/data/group-uses.php'], [
 			[
 				'Function Uses\foo used with incorrect case: Uses\Foo.',
-				5,
+				6,
 			],
 			[
 				'Used function Uses\baz not found.',
-				5,
+				7,
 			],
 			[
 				'Interface Uses\Lorem referenced with incorrect case: Uses\LOREM.',
-				9,
+				11,
 			],
 			[
 				'Function Uses\foo used with incorrect case: Uses\Foo.',
-				9,
+				13,
 			],
 			[
 				'Used constant Uses\OTHER_CONSTANT not found.',
-				9,
+				15,
 			],
 		]);
 	}
