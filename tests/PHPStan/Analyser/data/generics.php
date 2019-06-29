@@ -279,3 +279,19 @@ function testTypeHints(): void {
 	assertType('DateTime', typeHintsSuperType(new \DateTime()));
 	assertType('DateTimeInterface', typeHintsSubType(new \DateTime()));
 }
+
+/**
+ * @template T of \Exception
+ * @param T $a
+ * @param T $b
+ * @return T
+ */
+function expectsException($a, $b)
+{
+	return $b;
+}
+
+function testUpperBounds(\Throwable $t)
+{
+	assertType('Exception', expectsException(new \Exception(), $t));
+}

@@ -1358,3 +1358,30 @@ class NonEmptyArrayAcceptsBug
 	}
 
 }
+
+class ExpectsExceptionGenerics
+{
+
+	/**
+	 * @template T of \Exception
+	 * @param T $a
+	 * @param T $b
+	 * @return T
+	 */
+	public function expectsExceptionUpperBound($a, $b)
+	{
+		return $b;
+	}
+
+	public function doFoo(\Throwable $t)
+	{
+		$exception = $this->expectsExceptionUpperBound(new \Exception(), $t);
+		$this->requiresFoo($exception);
+	}
+
+	public function requiresFoo(Foo $foo)
+	{
+
+	}
+
+}

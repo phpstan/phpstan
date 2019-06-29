@@ -123,12 +123,24 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 			return $receivedType->inferTemplateTypesOn($this);
 		}
 
-		if ($this->isSuperTypeOf($receivedType)->no()) {
+		$isSuperType = $this->isSuperTypeOf($receivedType);
+		if ($isSuperType->no()) {
 			return TemplateTypeMap::createEmpty();
+		}
+		if ($isSuperType->yes()) {
+			return new TemplateTypeMap([
+				$this->name => $receivedType,
+			]);
+		}
+
+		$isBoundSuperType = $this->getBound()->isSuperTypeOf($receivedType);
+		$resultType = $receivedType;
+		if ($isBoundSuperType->maybe()) {
+			$resultType = $this->getBound();
 		}
 
 		return new TemplateTypeMap([
-			$this->name => $receivedType,
+			$this->name => $resultType,
 		]);
 	}
 

@@ -413,6 +413,14 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $parameter of method Test\SubtractedMixed::requireIntOrString() expects int|string, mixed given.',
 				1285,
 			],
+			[
+				'Parameter #2 $b of method Test\ExpectsExceptionGenerics::expectsExceptionUpperBound() expects Exception, Throwable given.',
+				1378,
+			],
+			[
+				'Parameter #1 $foo of method Test\ExpectsExceptionGenerics::requiresFoo() expects Test\Foo, Exception given.',
+				1379,
+			],
 		]);
 	}
 
@@ -645,6 +653,14 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Parameter #1 $parameter of method Test\SubtractedMixed::requireIntOrString() expects int|string, mixed given.',
 				1285,
+			],
+			[
+				'Parameter #2 $b of method Test\ExpectsExceptionGenerics::expectsExceptionUpperBound() expects Exception, Throwable given.',
+				1378,
+			],
+			[
+				'Parameter #1 $foo of method Test\ExpectsExceptionGenerics::requiresFoo() expects Test\Foo, Exception given.',
+				1379,
 			],
 		]);
 	}
