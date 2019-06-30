@@ -33,7 +33,6 @@ class PrintRule implements Rule
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
-		/** @var Node\Expr\Print_ $node */
 		$typeResult = $this->ruleLevelHelper->findTypeToCheck(
 			$scope,
 			$node->expr,
