@@ -27,4 +27,15 @@ class Foo
 		die;
 	}
 
+	/**
+	 * @param object $object
+	 */
+	public function doBaz($object)
+	{
+		/** @var self $object */
+		$test = doFoo();
+
+		die;
+	}
+
 }

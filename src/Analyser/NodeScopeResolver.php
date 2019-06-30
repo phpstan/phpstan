@@ -1231,11 +1231,18 @@ class NodeScopeResolver
 				);
 				$scope = $result->getScope();
 				$hasYield = $result->hasYield();
+				$varChangedScope = false;
 				if ($expr->var instanceof Variable && is_string($expr->var->name)) {
 					$comment = CommentHelper::getDocComment($expr);
 					if ($comment !== null) {
-						$scope = $this->processVarAnnotation($scope, $expr->var->name, $comment, false);
+						$scope = $this->processVarAnnotation($scope, $expr->var->name, $comment, false, $varChangedScope);
 					}
+				}
+
+				if (!$varChangedScope) {
+					$scope = $this->processStmtVarAnnotation($scope, new Node\Stmt\Expression($expr, [
+						'comments' => $expr->getAttribute('comments'),
+					]));
 				}
 			} else {
 				$result = $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep());
@@ -1265,7 +1272,13 @@ class NodeScopeResolver
 							continue;
 						}
 
-						$scope = $this->processVarAnnotation($scope, $arrayItem->value->name, $comment, true);
+						$varChangedScope = false;
+						$scope = $this->processVarAnnotation($scope, $arrayItem->value->name, $comment, true, $varChangedScope);
+						if (!$varChangedScope) {
+							$scope = $this->processStmtVarAnnotation($scope, new Node\Stmt\Expression($expr, [
+								'comments' => $expr->getAttribute('comments'),
+							]));
+						}
 					}
 				}
 			}
@@ -2267,7 +2280,7 @@ class NodeScopeResolver
 		return $scope;
 	}
 
-	private function processVarAnnotation(Scope $scope, string $variableName, string $comment, bool $strict): Scope
+	private function processVarAnnotation(Scope $scope, string $variableName, string $comment, bool $strict, bool &$changed = false): Scope
 	{
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 			$scope->getFile(),
@@ -2279,12 +2292,14 @@ class NodeScopeResolver
 
 		if (isset($varTags[$variableName])) {
 			$variableType = $varTags[$variableName]->getType();
+			$changed = true;
 			return $scope->assignVariable($variableName, $variableType);
 
 		}
 
 		if (!$strict && count($varTags) === 1 && isset($varTags[0])) {
 			$variableType = $varTags[0]->getType();
+			$changed = true;
 			return $scope->assignVariable($variableName, $variableType);
 
 		}
