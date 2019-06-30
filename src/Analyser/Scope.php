@@ -31,6 +31,7 @@ use PHPStan\Reflection\Dummy\DummyConstructorReflection;
 use PHPStan\Reflection\ExtendedPropertyReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\Native\NativeParameterReflection;
+use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
@@ -122,8 +123,8 @@ class Scope implements ClassMemberAccessAnswerer
 	/** @var string|null */
 	private $inClosureBindScopeClass;
 
-	/** @var \PHPStan\Type\Type|null */
-	private $inAnonymousFunctionReturnType;
+	/** @var ParametersAcceptor|null */
+	private $anonymousFunctionReflection;
 
 	/** @var \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null */
 	private $inFunctionCall;
@@ -152,7 +153,7 @@ class Scope implements ClassMemberAccessAnswerer
 	 * @param \PHPStan\Analyser\VariableTypeHolder[] $variablesTypes
 	 * @param \PHPStan\Analyser\VariableTypeHolder[] $moreSpecificTypes
 	 * @param string|null $inClosureBindScopeClass
-	 * @param \PHPStan\Type\Type|null $inAnonymousFunctionReturnType
+	 * @param \PHPStan\Reflection\ParametersAcceptor|null $anonymousFunctionReflection
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
 	 * @param bool $negated
 	 * @param bool $inFirstLevelStatement
@@ -171,7 +172,7 @@ class Scope implements ClassMemberAccessAnswerer
 		array $variablesTypes = [],
 		array $moreSpecificTypes = [],
 		?string $inClosureBindScopeClass = null,
-		?Type $inAnonymousFunctionReturnType = null,
+		?ParametersAcceptor $anonymousFunctionReflection = null,
 		?Expr $inFunctionCall = null,
 		bool $negated = false,
 		bool $inFirstLevelStatement = true,
@@ -194,7 +195,7 @@ class Scope implements ClassMemberAccessAnswerer
 		$this->variableTypes = $variablesTypes;
 		$this->moreSpecificTypes = $moreSpecificTypes;
 		$this->inClosureBindScopeClass = $inClosureBindScopeClass;
-		$this->inAnonymousFunctionReturnType = $inAnonymousFunctionReturnType;
+		$this->anonymousFunctionReflection = $anonymousFunctionReflection;
 		$this->inFunctionCall = $inFunctionCall;
 		$this->negated = $negated;
 		$this->inFirstLevelStatement = $inFirstLevelStatement;
@@ -344,12 +345,21 @@ class Scope implements ClassMemberAccessAnswerer
 
 	public function isInAnonymousFunction(): bool
 	{
-		return $this->inAnonymousFunctionReturnType !== null;
+		return $this->anonymousFunctionReflection !== null;
+	}
+
+	public function getAnonymousFunctionReflection(): ?ParametersAcceptor
+	{
+		return $this->anonymousFunctionReflection;
 	}
 
 	public function getAnonymousFunctionReturnType(): ?\PHPStan\Type\Type
 	{
-		return $this->inAnonymousFunctionReturnType;
+		if ($this->anonymousFunctionReflection === null) {
+			return null;
+		}
+
+		return $this->anonymousFunctionReflection->getReturnType();
 	}
 
 	/**
@@ -1822,7 +1832,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$this->getVariableTypes(),
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
+			$this->anonymousFunctionReflection,
 			$this->getInFunctionCall(),
 			$this->isNegated()
 		);
@@ -2017,7 +2027,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$variableTypes,
 			$this->moreSpecificTypes,
 			$scopeClass,
-			$this->getAnonymousFunctionReturnType(),
+			$this->anonymousFunctionReflection,
 			$this->getInFunctionCall(),
 			$this->isNegated()
 		);
@@ -2040,7 +2050,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$variableTypes,
 			$this->moreSpecificTypes,
 			$originalScope->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
+			$this->anonymousFunctionReflection,
 			$this->getInFunctionCall(),
 			$this->isNegated()
 		);
@@ -2059,7 +2069,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$variableTypes,
 			$this->moreSpecificTypes,
 			$thisType instanceof TypeWithClassName ? $thisType->getClassName() : null,
-			$this->getAnonymousFunctionReturnType(),
+			$this->anonymousFunctionReflection,
 			$this->getInFunctionCall(),
 			$this->isNegated()
 		);
@@ -2129,7 +2139,10 @@ class Scope implements ClassMemberAccessAnswerer
 			$variableTypes['this'] = VariableTypeHolder::createYes($this->getVariableType('this'));
 		}
 
-		$returnType = $this->getFunctionType($closure->returnType, $closure->returnType === null, false);
+		$anonymousFunctionReflection = $this->getType($closure);
+		if (!$anonymousFunctionReflection instanceof ClosureType) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
 
 		return $this->scopeFactory->create(
 			$this->context,
@@ -2139,7 +2152,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$variableTypes,
 			[],
 			$this->inClosureBindScopeClass,
-			$returnType,
+			$anonymousFunctionReflection,
 			$this->getInFunctionCall()
 		);
 	}
@@ -2261,7 +2274,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$this->getVariableTypes(),
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
+			$this->anonymousFunctionReflection,
 			$functionCall,
 			$this->isNegated(),
 			$this->inFirstLevelStatement
@@ -2282,7 +2295,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$this->getVariableTypes(),
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
+			$this->anonymousFunctionReflection,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->isInFirstLevelStatement(),
@@ -2304,7 +2317,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$this->getVariableTypes(),
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
+			$this->anonymousFunctionReflection,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->isInFirstLevelStatement(),
@@ -2346,7 +2359,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$variableTypes,
 			$moreSpecificTypeHolders,
 			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
+			$this->anonymousFunctionReflection,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->inFirstLevelStatement,
@@ -2371,7 +2384,7 @@ class Scope implements ClassMemberAccessAnswerer
 				$variableTypes,
 				$this->moreSpecificTypes,
 				$this->inClosureBindScopeClass,
-				$this->getAnonymousFunctionReturnType(),
+				$this->anonymousFunctionReflection,
 				$this->getInFunctionCall(),
 				$this->isNegated(),
 				$this->inFirstLevelStatement
@@ -2418,7 +2431,7 @@ class Scope implements ClassMemberAccessAnswerer
 				$variableTypes,
 				$this->moreSpecificTypes,
 				$this->inClosureBindScopeClass,
-				$this->getAnonymousFunctionReturnType(),
+				$this->anonymousFunctionReflection,
 				$this->getInFunctionCall(),
 				$this->isNegated(),
 				$this->inFirstLevelStatement,
@@ -2458,7 +2471,7 @@ class Scope implements ClassMemberAccessAnswerer
 				$this->getVariableTypes(),
 				$moreSpecificTypeHolders,
 				$this->inClosureBindScopeClass,
-				$this->getAnonymousFunctionReturnType(),
+				$this->anonymousFunctionReflection,
 				$this->getInFunctionCall(),
 				$this->isNegated(),
 				$this->inFirstLevelStatement
@@ -2544,7 +2557,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$this->getVariableTypes(),
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
+			$this->anonymousFunctionReflection,
 			$this->getInFunctionCall(),
 			!$this->isNegated(),
 			$this->inFirstLevelStatement
@@ -2561,7 +2574,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$this->getVariableTypes(),
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
+			$this->anonymousFunctionReflection,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			false,
@@ -2599,7 +2612,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$this->getVariableTypes(),
 			$moreSpecificTypeHolders,
 			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
+			$this->anonymousFunctionReflection,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->inFirstLevelStatement,
@@ -2621,7 +2634,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$this->mergeVariableHolders($this->getVariableTypes(), $otherScope->getVariableTypes()),
 			$this->mergeVariableHolders($this->moreSpecificTypes, $otherScope->moreSpecificTypes),
 			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
+			$this->anonymousFunctionReflection,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->inFirstLevelStatement
@@ -2673,7 +2686,7 @@ class Scope implements ClassMemberAccessAnswerer
 				$originalFinallyScope->moreSpecificTypes
 			),
 			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
+			$this->anonymousFunctionReflection,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->inFirstLevelStatement
@@ -2757,7 +2770,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$variableTypes,
 			[],
 			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
+			$this->anonymousFunctionReflection,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->inFirstLevelStatement
@@ -2800,7 +2813,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$variableTypeHolders,
 			$moreSpecificTypes,
 			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
+			$this->anonymousFunctionReflection,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->inFirstLevelStatement
@@ -2827,7 +2840,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$variableTypeHolders,
 			$moreSpecificTypes,
 			$this->inClosureBindScopeClass,
-			$this->getAnonymousFunctionReturnType(),
+			$this->anonymousFunctionReflection,
 			$this->getInFunctionCall(),
 			$this->isNegated(),
 			$this->inFirstLevelStatement
