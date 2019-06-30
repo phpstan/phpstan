@@ -1274,11 +1274,13 @@ class NodeScopeResolver
 
 						$varChangedScope = false;
 						$scope = $this->processVarAnnotation($scope, $arrayItem->value->name, $comment, true, $varChangedScope);
-						if (!$varChangedScope) {
-							$scope = $this->processStmtVarAnnotation($scope, new Node\Stmt\Expression($expr, [
-								'comments' => $expr->getAttribute('comments'),
-							]));
+						if ($varChangedScope) {
+							continue;
 						}
+
+						$scope = $this->processStmtVarAnnotation($scope, new Node\Stmt\Expression($expr, [
+							'comments' => $expr->getAttribute('comments'),
+						]));
 					}
 				}
 			}
