@@ -51,6 +51,7 @@ use PHPStan\Node\ClosureReturnStatementsNode;
 use PHPStan\Node\ExecutionEndNode;
 use PHPStan\Node\FunctionReturnStatementsNode;
 use PHPStan\Node\InClassMethodNode;
+use PHPStan\Node\InClosureNode;
 use PHPStan\Node\InFunctionNode;
 use PHPStan\Node\LiteralArrayItem;
 use PHPStan\Node\LiteralArrayNode;
@@ -1901,6 +1902,7 @@ class NodeScopeResolver
 
 		$closureScope = $scope->enterAnonymousFunction($expr, $callableParameters);
 		$closureScope = $closureScope->processClosureScope($scope, null, $byRefUses);
+		$nodeCallback(new InClosureNode($expr), $closureScope);
 
 		$gatheredReturnStatements = [];
 		$closureStmtsCallback = static function (\PhpParser\Node $node, Scope $scope) use ($nodeCallback, &$gatheredReturnStatements): void {
