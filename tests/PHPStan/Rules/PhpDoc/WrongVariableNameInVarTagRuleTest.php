@@ -55,6 +55,14 @@ class WrongVariableNameInVarTagRuleTest extends RuleTestCase
 				'Variable $foo in PHPDoc tag @var does not match any static variable: $test',
 				94,
 			],
+			[
+				'PHPDoc tag @var does not specify variable name.',
+				103,
+			],
+			[
+				'Variable $foo in PHPDoc tag @var does not exist.',
+				109,
+			],
 		]);
 	}
 

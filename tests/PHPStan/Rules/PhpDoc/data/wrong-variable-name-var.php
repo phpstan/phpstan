@@ -94,4 +94,19 @@ class Foo
 		static $test;
 	}
 
+	public function doLorem($test)
+	{
+		/** @var int $test */
+		$test2 = doFoo();
+
+		/** @var int */
+		$test->foo();
+
+		/** @var int $test */
+		$test->foo();
+
+		/** @var int $foo */
+		$test->foo();
+	}
+
 }

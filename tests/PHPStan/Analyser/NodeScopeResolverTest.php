@@ -3198,6 +3198,33 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataVarStatementAnnotation(): array
+	{
+		return [
+			[
+				'VarStatementAnnotation\Foo',
+				'$object',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataVarStatementAnnotation
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testVarStatementAnnotation(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/var-stmt-annotation.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataCloneOperators(): array
 	{
 		return [

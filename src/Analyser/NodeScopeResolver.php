@@ -389,6 +389,7 @@ class NodeScopeResolver
 				), $methodScope);
 			}
 		} elseif ($stmt instanceof Echo_) {
+			$scope = $this->processStmtVarAnnotation($scope, $stmt);
 			$hasYield = false;
 			foreach ($stmt->exprs as $echoExpr) {
 				$result = $this->processExprNode($echoExpr, $scope, $nodeCallback, ExpressionContext::createDeep());
@@ -396,6 +397,7 @@ class NodeScopeResolver
 				$hasYield = $hasYield || $result->hasYield();
 			}
 		} elseif ($stmt instanceof Return_) {
+			$scope = $this->processStmtVarAnnotation($scope, $stmt);
 			if ($stmt->expr !== null) {
 				$result = $this->processExprNode($stmt->expr, $scope, $nodeCallback, ExpressionContext::createDeep());
 				$scope = $result->getScope();
@@ -420,6 +422,9 @@ class NodeScopeResolver
 				new StatementExitPoint($stmt, $scope),
 			]);
 		} elseif ($stmt instanceof Node\Stmt\Expression) {
+			if (!$stmt->expr instanceof Assign && !$stmt->expr instanceof AssignRef) {
+				$scope = $this->processStmtVarAnnotation($scope, $stmt);
+			}
 			$earlyTerminationExpr = $this->findEarlyTerminatingExpr($stmt->expr, $scope);
 			$result = $this->processExprNode($stmt->expr, $scope, $nodeCallback, ExpressionContext::createTopLevel());
 			$scope = $result->getScope();
@@ -468,11 +473,13 @@ class NodeScopeResolver
 				$this->processExprNode($stmt->default, $scope, $nodeCallback, ExpressionContext::createDeep());
 			}
 		} elseif ($stmt instanceof Throw_) {
+			$scope = $this->processStmtVarAnnotation($scope, $stmt);
 			$result = $this->processExprNode($stmt->expr, $scope, $nodeCallback, ExpressionContext::createDeep());
 			return new StatementResult($result->getScope(), $result->hasYield(), true, [
 				new StatementExitPoint($stmt, $scope),
 			]);
 		} elseif ($stmt instanceof If_) {
+			$scope = $this->processStmtVarAnnotation($scope, $stmt);
 			$conditionType = $scope->getType($stmt->cond)->toBoolean();
 			$ifAlwaysTrue = $conditionType instanceof ConstantBooleanType && $conditionType->getValue();
 			$condResult = $this->processExprNode($stmt->cond, $scope, $nodeCallback, ExpressionContext::createDeep());
@@ -609,6 +616,7 @@ class NodeScopeResolver
 				[]
 			);
 		} elseif ($stmt instanceof While_) {
+			$scope = $this->processStmtVarAnnotation($scope, $stmt);
 			$condResult = $this->processExprNode($stmt->cond, $scope, static function (): void {
 			}, ExpressionContext::createDeep());
 			$bodyScope = $condResult->getTruthyScope();
@@ -804,6 +812,7 @@ class NodeScopeResolver
 
 			return new StatementResult($finalScope, $finalScopeResult->hasYield(), false/* $finalScopeResult->isAlwaysTerminating() && $isAlwaysIterable*/, []);
 		} elseif ($stmt instanceof Switch_) {
+			$scope = $this->processStmtVarAnnotation($scope, $stmt);
 			$scope = $this->processExprNode($stmt->cond, $scope, $nodeCallback, ExpressionContext::createDeep())->getScope();
 			$scopeForBranches = $scope;
 			$finalScope = null;
@@ -985,6 +994,7 @@ class NodeScopeResolver
 				$scope = $scope->specifyExpressionType(new ConstFetch(new Name\FullyQualified($const->name->toString())), $scope->getType($const->value));
 			}
 		} elseif ($stmt instanceof Node\Stmt\Nop) {
+			$scope = $this->processStmtVarAnnotation($scope, $stmt);
 			$hasYield = false;
 		} else {
 			$hasYield = false;
@@ -2226,6 +2236,35 @@ class NodeScopeResolver
 		}
 
 		return new ExpressionResult($scope, $hasYield);
+	}
+
+	private function processStmtVarAnnotation(Scope $scope, Node\Stmt $stmt): Scope
+	{
+		$comment = CommentHelper::getDocComment($stmt);
+		if ($comment === null) {
+			return $scope;
+		}
+
+		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+			$scope->getFile(),
+			$scope->isInClass() ? $scope->getClassReflection()->getName() : null,
+			$scope->isInTrait() ? $scope->getTraitReflection()->getName() : null,
+			$comment
+		);
+		foreach ($resolvedPhpDoc->getVarTags() as $name => $varTag) {
+			if (is_int($name)) {
+				continue;
+			}
+
+			$certainty = $scope->hasVariableType($name);
+			if ($certainty->no()) {
+				continue;
+			}
+
+			$scope = $scope->assignVariable($name, $varTag->getType(), $certainty);
+		}
+
+		return $scope;
 	}
 
 	private function processVarAnnotation(Scope $scope, string $variableName, string $comment, bool $strict): Scope

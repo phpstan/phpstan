@@ -242,6 +242,14 @@ class FileTypeMapper
 					Node\Stmt\Class_::class,
 					Node\Stmt\ClassConst::class,
 					Node\Stmt\Static_::class,
+					Node\Stmt\Echo_::class,
+					Node\Stmt\Return_::class,
+					Node\Stmt\Expression::class,
+					Node\Stmt\Throw_::class,
+					Node\Stmt\If_::class,
+					Node\Stmt\While_::class,
+					Node\Stmt\Switch_::class,
+					Node\Stmt\Nop::class,
 				], true)) {
 					return null;
 				}

@@ -2302,10 +2302,15 @@ class Scope implements ClassMemberAccessAnswerer
 		return array_key_exists($exprString, $this->currentlyAssignedExpressions);
 	}
 
-	public function assignVariable(string $variableName, Type $type): self
+	public function assignVariable(string $variableName, Type $type, ?TrinaryLogic $certainty = null): self
 	{
+		if ($certainty === null) {
+			$certainty = TrinaryLogic::createYes();
+		} elseif ($certainty->no()) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
 		$variableTypes = $this->getVariableTypes();
-		$variableTypes[$variableName] = new VariableTypeHolder($type, TrinaryLogic::createYes());
+		$variableTypes[$variableName] = new VariableTypeHolder($type, $certainty);
 
 		$variableString = $this->printer->prettyPrintExpr(new Variable($variableName));
 		$moreSpecificTypeHolders = $this->moreSpecificTypes;

@@ -3,6 +3,7 @@
 namespace PHPStan\Rules\PhpDoc;
 
 use PhpParser\Node;
+use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
@@ -36,6 +37,14 @@ class WrongVariableNameInVarTagRule implements Rule
 			&& !$node instanceof Node\Expr\Assign
 			&& !$node instanceof Node\Expr\AssignRef
 			&& !$node instanceof Node\Stmt\Static_
+			&& !$node instanceof Node\Stmt\Echo_
+			&& !$node instanceof Node\Stmt\Return_
+			&& !$node instanceof Node\Stmt\Expression
+			&& !$node instanceof Node\Stmt\Throw_
+			&& !$node instanceof Node\Stmt\If_
+			&& !$node instanceof Node\Stmt\While_
+			&& !$node instanceof Node\Stmt\Switch_
+			&& !$node instanceof Node\Stmt\Nop
 		) {
 			return [];
 		}
@@ -56,22 +65,31 @@ class WrongVariableNameInVarTagRule implements Rule
 			return [];
 		}
 		if ($node instanceof Node\Expr\Assign || $node instanceof Node\Expr\AssignRef) {
-			return $this->processAssign($node->var, $varTags);
+			return $this->processAssign($scope, $node->var, $varTags);
 		}
 
 		if ($node instanceof Node\Stmt\Foreach_) {
 			return $this->processForeach($node->keyVar, $node->valueVar, $varTags);
 		}
 
-		return $this->processStatic($node->vars, $varTags);
+		if ($node instanceof Node\Stmt\Static_) {
+			return $this->processStatic($node->vars, $varTags);
+		}
+
+		if ($node instanceof Node\Stmt\Expression) {
+			return $this->processExpression($scope, $node->expr, $varTags);
+		}
+
+		return $this->processStmt($scope, $varTags);
 	}
 
 	/**
+	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \PhpParser\Node\Expr $var
 	 * @param \PHPStan\PhpDoc\Tag\VarTag[] $varTags
 	 * @return \PHPStan\Rules\RuleError[]
 	 */
-	private function processAssign(Node\Expr $var, array $varTags): array
+	private function processAssign(Scope $scope, Node\Expr $var, array $varTags): array
 	{
 		if ($var instanceof Node\Expr\Variable && is_string($var->name)) {
 			if (count($varTags) === 1) {
@@ -81,6 +99,10 @@ class WrongVariableNameInVarTagRule implements Rule
 				}
 
 				if ($key !== $var->name) {
+					if (!$scope->hasVariableType($key)->no()) {
+						return [];
+					}
+
 					return [
 						RuleErrorBuilder::message(sprintf(
 							'Variable $%s in PHPDoc tag @var does not match assigned variable $%s.',
@@ -214,6 +236,45 @@ class WrongVariableNameInVarTagRule implements Rule
 					return sprintf('$%s', $name);
 				}, array_keys($variableNames)))
 			))->build();
+		}
+
+		return $errors;
+	}
+
+	/**
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PhpParser\Node\Expr $expr
+	 * @param \PHPStan\PhpDoc\Tag\VarTag[] $varTags
+	 * @return \PHPStan\Rules\RuleError[]
+	 */
+	private function processExpression(Scope $scope, Expr $expr, array $varTags): array
+	{
+		if ($expr instanceof Node\Expr\Assign || $expr instanceof Node\Expr\AssignRef) {
+			return [];
+		}
+
+		return $this->processStmt($scope, $varTags);
+	}
+
+	/**
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\PhpDoc\Tag\VarTag[] $varTags
+	 * @return \PHPStan\Rules\RuleError[]
+	 */
+	private function processStmt(Scope $scope, array $varTags): array
+	{
+		$errors = [];
+		foreach (array_keys($varTags) as $name) {
+			if (is_int($name)) {
+				$errors[] = RuleErrorBuilder::message('PHPDoc tag @var does not specify variable name.')->build();
+				continue;
+			}
+
+			if (!$scope->hasVariableType($name)->no()) {
+				continue;
+			}
+
+			$errors[] = RuleErrorBuilder::message(sprintf('Variable $%s in PHPDoc tag @var does not exist.', $name))->build();
 		}
 
 		return $errors;
