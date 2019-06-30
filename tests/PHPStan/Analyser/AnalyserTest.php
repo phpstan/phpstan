@@ -242,7 +242,8 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 				false,
 				false,
 				true,
-				[]
+				[],
+				true
 			),
 			$fileHelper,
 			$ignoreErrors,

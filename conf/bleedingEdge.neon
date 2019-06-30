@@ -9,3 +9,4 @@ parameters:
 		unreachableStatement: true
 		yieldRules: true
 		validateParameters: true
+		allowVarTagAboveStatements: true

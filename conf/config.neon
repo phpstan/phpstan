@@ -8,6 +8,7 @@ parameters:
 	featureToggles:
 		subtractableTypes: false
 		validateParameters: false
+		allowVarTagAboveStatements: false
 	fileExtensions:
 		- php
 	checkAlwaysTrueCheckTypeFunctionCall: false
@@ -224,6 +225,7 @@ services:
 			polluteCatchScopeWithTryAssignments: %polluteCatchScopeWithTryAssignments%
 			polluteScopeWithAlwaysIterableForeach: %polluteScopeWithAlwaysIterableForeach%
 			earlyTerminatingMethodCalls: %earlyTerminatingMethodCalls%
+			allowVarTagAboveStatements: %featureToggles.allowVarTagAboveStatements%
 
 	-
 		class: PHPStan\Cache\Cache
