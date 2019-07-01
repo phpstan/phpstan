@@ -44,17 +44,16 @@ class PrintRule implements Rule
 			}
 		);
 
-		$errors = [];
 		if (!$typeResult->getType() instanceof ErrorType
 			&& $typeResult->getType()->toString() instanceof ErrorType
 		) {
-			$errors[] = RuleErrorBuilder::message(sprintf(
+			return [RuleErrorBuilder::message(sprintf(
 				'Parameter %s of print cannot be converted to string.',
 				$typeResult->getType()->describe(VerbosityLevel::value())
-			))->line($node->getLine())->build();
+			))->line($node->expr->getLine())->build()];
 		}
 
-		return $errors;
+		return [];
 	}
 
 }
