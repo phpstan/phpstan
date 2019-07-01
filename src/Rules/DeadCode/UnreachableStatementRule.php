@@ -29,7 +29,7 @@ class UnreachableStatementRule implements Rule
 		}
 
 		return [
-			RuleErrorBuilder::message('Unreachable statement - code above always terminates.')->line($node->getLine())->build(),
+			RuleErrorBuilder::message('Unreachable statement - code above always terminates.')->build(),
 		];
 	}
 
