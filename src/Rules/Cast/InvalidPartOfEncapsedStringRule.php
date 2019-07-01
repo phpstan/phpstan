@@ -68,7 +68,7 @@ class InvalidPartOfEncapsedStringRule implements \PHPStan\Rules\Rule
 				'Part %s (%s) of encapsed string cannot be cast to string.',
 				$this->printer->prettyPrintExpr($part),
 				$partType->describe(VerbosityLevel::value())
-			))->line($node->getLine())->build();
+			))->line($part->getLine())->build();
 		}
 
 		return $messages;

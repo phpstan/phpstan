@@ -57,7 +57,7 @@ class EchoRule implements Rule
 				'Parameter #%d (%s) of echo cannot be converted to string.',
 				$key + 1,
 				$typeResult->getType()->describe(VerbosityLevel::value())
-			))->line($node->getLine())->build();
+			))->line($expr->getLine())->build();
 		}
 		return $messages;
 	}
