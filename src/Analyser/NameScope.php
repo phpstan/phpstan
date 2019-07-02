@@ -68,8 +68,12 @@ class NameScope
 
 	public function getTemplateTypeScope(): ?TemplateTypeScope
 	{
-		if ($this->className !== null && $this->functionName !== null) {
-			return TemplateTypeScope::createWithMethod($this->className, $this->functionName);
+		if ($this->className !== null) {
+			if ($this->functionName !== null) {
+				return TemplateTypeScope::createWithMethod($this->className, $this->functionName);
+			}
+
+			return TemplateTypeScope::createWithClass($this->className);
 		}
 
 		if ($this->functionName !== null) {
@@ -96,7 +100,10 @@ class NameScope
 			$this->uses,
 			$this->className,
 			$this->functionName,
-			$map
+			new TemplateTypeMap(array_merge(
+				$this->templateTypeMap->getTypes(),
+				$map->getTypes()
+			))
 		);
 	}
 

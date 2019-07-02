@@ -21,6 +21,11 @@ class TemplateTypeScope
 		return new self($className, $functionName);
 	}
 
+	public static function createWithClass(string $className): self
+	{
+		return new self($className, null);
+	}
+
 	private function __construct(?string $className, ?string $functionName)
 	{
 		$this->className = $className;
@@ -37,6 +42,10 @@ class TemplateTypeScope
 	{
 		if ($this->className === null) {
 			return sprintf('function %s()', $this->functionName);
+		}
+
+		if ($this->functionName === null) {
+			return sprintf('class %s', $this->className);
 		}
 
 		return sprintf('method %s::%s()', $this->className, $this->functionName);

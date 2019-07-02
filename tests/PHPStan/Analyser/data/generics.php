@@ -295,3 +295,52 @@ function testUpperBounds(\Throwable $t)
 {
 	assertType('Exception', expectsException(new \Exception(), $t));
 }
+
+/**
+ * @template T
+ * @return T
+ * @param callable $cb
+ */
+function varAnnotation($cb)
+{
+	/** @var T */
+	$v = $cb();
+
+	assertType('T (function PHPStan\Generics\FunctionsAssertType\varAnnotation())', $v);
+
+	return $v;
+}
+
+/**
+ * @template T
+ */
+class C
+{
+	/** @var T */
+	private $a;
+
+	/**
+	 * @param T $p
+	 * @param callable $cb
+	 */
+	public function f($p, $cb)
+	{
+		assertType('T (class PHPStan\Generics\FunctionsAssertType\C)', $p);
+
+		/** @var T */
+		$v = $cb();
+
+		assertType('T (class PHPStan\Generics\FunctionsAssertType\C)', $v);
+
+		assertType('T (class PHPStan\Generics\FunctionsAssertType\C)', $this->a);
+
+		$a = new class {
+			/** @return T */
+			public function g() {
+				throw new \Exception();
+			}
+		};
+
+		assertType('T (class PHPStan\Generics\FunctionsAssertType\C)', $a->g());
+	}
+}
