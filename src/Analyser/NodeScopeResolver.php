@@ -2425,7 +2425,7 @@ class NodeScopeResolver
 	 * @param Node\FunctionLike $functionLike
 	 * @return array{Type[], ?Type, ?Type, ?string, bool, bool, bool}
 	 */
-	private function getPhpDocs(Scope $scope, Node\FunctionLike $functionLike): array
+	public function getPhpDocs(Scope $scope, Node\FunctionLike $functionLike): array
 	{
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;

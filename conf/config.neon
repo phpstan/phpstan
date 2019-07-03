@@ -24,6 +24,7 @@ parameters:
 	checkUnionTypes: false
 	checkExplicitMixedMissingReturn: false
 	checkPhpDocMissingReturn: false
+	inferPrivatePropertyTypeFromConstructor: false
 	reportMaybes: false
 	reportMaybesInMethodSignatures: false
 	reportStaticMethodSignatures: false
@@ -110,6 +111,7 @@ parametersSchema:
 	checkUnionTypes: bool()
 	checkExplicitMixedMissingReturn: bool()
 	checkPhpDocMissingReturn: bool()
+	inferPrivatePropertyTypeFromConstructor: bool()
 	reportMaybes: bool()
 	reportMaybesInMethodSignatures: bool()
 	reportStaticMethodSignatures: bool()
@@ -284,6 +286,8 @@ services:
 
 	-
 		class: PHPStan\Reflection\Php\PhpClassReflectionExtension
+		arguments:
+			inferPrivatePropertyTypeFromConstructor: %inferPrivatePropertyTypeFromConstructor%
 
 	-
 		class: PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension
