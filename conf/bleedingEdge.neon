@@ -7,3 +7,4 @@ parameters:
 		tooWideTypehints: true
 		unreachableStatement: true
 		yieldRules: true
+		allowVarTagAboveStatements: true

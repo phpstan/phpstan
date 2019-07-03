@@ -3200,6 +3200,33 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataVarStatementAnnotation(): array
+	{
+		return [
+			[
+				'VarStatementAnnotation\Foo',
+				'$object',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataVarStatementAnnotation
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testVarStatementAnnotation(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/var-stmt-annotation.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataCloneOperators(): array
 	{
 		return [
@@ -9289,6 +9316,41 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		return $types;
 	}
 
+	public function dataInferPrivatePropertyTypeFromConstructor(): array
+	{
+		return [
+			[
+				'int',
+				'$this->intProp',
+			],
+			[
+				'string',
+				'$this->stringProp',
+			],
+			[
+				'InferPrivatePropertyTypeFromConstructor\Bar|InferPrivatePropertyTypeFromConstructor\Foo',
+				'$this->unionProp',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataInferPrivatePropertyTypeFromConstructor
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInferPrivatePropertyTypeFromConstructor(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/infer-private-property-type-from-constructor.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataTryCatchScope(): array
 	{
 		return [
@@ -9442,7 +9504,8 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 					'doFoo',
 					'doBar',
 				],
-			]
+			],
+			true
 		);
 		$resolver->setAnalysedFiles(array_map(static function (string $file) use ($fileHelper): string {
 			return $fileHelper->normalizePath($file);

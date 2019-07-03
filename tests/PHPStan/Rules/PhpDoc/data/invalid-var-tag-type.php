@@ -26,6 +26,17 @@ class Foo
 
 		/** @var self&\stdClass $staticVar */
 		static $staticVar = 1;
+
+		/** @var foo $test */
+		$test = new self();
+
+		/** @var FooTrait $test */
+		$test = new self();
 	}
+
+}
+
+trait FooTrait
+{
 
 }

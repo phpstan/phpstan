@@ -5,6 +5,8 @@ parameters:
 	autoload_files: []
 	level: null
 	paths: []
+	featureToggles:
+		allowVarTagAboveStatements: false
 	fileExtensions:
 		- php
 	checkAlwaysTrueCheckTypeFunctionCall: false
@@ -20,6 +22,7 @@ parameters:
 	checkUnionTypes: false
 	checkExplicitMixedMissingReturn: false
 	checkPhpDocMissingReturn: false
+	inferPrivatePropertyTypeFromConstructor: false
 	reportMaybes: false
 	reportMaybesInMethodSignatures: false
 	reportStaticMethodSignatures: false
@@ -106,6 +109,7 @@ parametersSchema:
 	checkUnionTypes: bool()
 	checkExplicitMixedMissingReturn: bool()
 	checkPhpDocMissingReturn: bool()
+	inferPrivatePropertyTypeFromConstructor: bool()
 	reportMaybes: bool()
 	reportMaybesInMethodSignatures: bool()
 	reportStaticMethodSignatures: bool()
@@ -224,6 +228,7 @@ services:
 			polluteCatchScopeWithTryAssignments: %polluteCatchScopeWithTryAssignments%
 			polluteScopeWithAlwaysIterableForeach: %polluteScopeWithAlwaysIterableForeach%
 			earlyTerminatingMethodCalls: %earlyTerminatingMethodCalls%
+			allowVarTagAboveStatements: %featureToggles.allowVarTagAboveStatements%
 
 	-
 		class: PHPStan\Cache\Cache
@@ -282,6 +287,8 @@ services:
 
 	-
 		class: PHPStan\Reflection\Php\PhpClassReflectionExtension
+		arguments:
+			inferPrivatePropertyTypeFromConstructor: %inferPrivatePropertyTypeFromConstructor%
 
 	-
 		class: PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension

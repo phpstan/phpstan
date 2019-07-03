@@ -28,6 +28,8 @@ rules:
 conditionalTags:
 	PHPStan\Rules\PhpDoc\InvalidPhpDocVarTagTypeRule:
 		phpstan.rules.rule: %featureToggles.invalidVarTag%
+	PHPStan\Rules\PhpDoc\WrongVariableNameInVarTagRule:
+		phpstan.rules.rule: %featureToggles.invalidVarTag%
 
 services:
 	-
@@ -38,3 +40,8 @@ services:
 			- phpstan.rules.rule
 	-
 		class: PHPStan\Rules\PhpDoc\InvalidPhpDocVarTagTypeRule
+		arguments:
+			checkClassCaseSensitivity: %checkClassCaseSensitivity%
+
+	-
+		class: PHPStan\Rules\PhpDoc\WrongVariableNameInVarTagRule
