@@ -62,7 +62,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		if ($type instanceof CompoundType) {
+		if ($type instanceof CompoundType && !$type instanceof CallableType) {
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
@@ -93,6 +93,16 @@ class UnionType implements CompoundType, StaticResolvableType
 		$results = [];
 		foreach ($this->getTypes() as $innerType) {
 			$results[] = $otherType->isSuperTypeOf($innerType);
+		}
+
+		return TrinaryLogic::extremeIdentity(...$results);
+	}
+
+	public function isAcceptedBy(Type $acceptingType, bool $strictTypes): TrinaryLogic
+	{
+		$results = [];
+		foreach ($this->getTypes() as $innerType) {
+			$results[] = $acceptingType->accepts($innerType, $strictTypes);
 		}
 
 		return TrinaryLogic::extremeIdentity(...$results);

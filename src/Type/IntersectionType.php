@@ -76,6 +76,11 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		return TrinaryLogic::maxMin(...$results);
 	}
 
+	public function isAcceptedBy(Type $acceptingType, bool $strictTypes): TrinaryLogic
+	{
+		return $this->isSubTypeOf($acceptingType);
+	}
+
 	public function equals(Type $type): bool
 	{
 		if (!$type instanceof self) {

@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\TrinaryLogic;
+
 class BenevolentUnionType extends UnionType
 {
 
@@ -27,6 +29,17 @@ class BenevolentUnionType extends UnionType
 		}
 
 		return TypeCombinator::union(...$resultTypes);
+	}
+
+	public function isAcceptedBy(Type $acceptingType, bool $strictTypes): TrinaryLogic
+	{
+		foreach ($this->getTypes() as $innerType) {
+			if ($acceptingType->accepts($innerType, $strictTypes)->yes()) {
+				return TrinaryLogic::createYes();
+			}
+		}
+
+		return TrinaryLogic::createNo();
 	}
 
 }

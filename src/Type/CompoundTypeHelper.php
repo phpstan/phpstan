@@ -9,26 +9,7 @@ class CompoundTypeHelper
 
 	public static function accepts(CompoundType $compoundType, Type $otherType, bool $strictTypes): TrinaryLogic
 	{
-		if ($compoundType instanceof MixedType) {
-			$isSuperType = $compoundType->isSuperTypeOf($otherType);
-			if ($isSuperType->no()) {
-				return $isSuperType;
-			}
-
-			return TrinaryLogic::createYes();
-		}
-
-		if ($compoundType instanceof BenevolentUnionType) {
-			foreach ($compoundType->getTypes() as $innerType) {
-				if ($otherType->accepts($innerType, $strictTypes)->yes()) {
-					return TrinaryLogic::createYes();
-				}
-			}
-
-			return TrinaryLogic::createNo();
-		}
-
-		return $compoundType->isSubTypeOf($otherType);
+		return $compoundType->isAcceptedBy($otherType, $strictTypes);
 	}
 
 }

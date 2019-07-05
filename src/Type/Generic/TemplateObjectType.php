@@ -107,6 +107,11 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 			->and(TrinaryLogic::createMaybe());
 	}
 
+	public function isAcceptedBy(Type $acceptingType, bool $strictTypes): TrinaryLogic
+	{
+		return $this->isSubTypeOf($acceptingType);
+	}
+
 	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap
 	{
 		if ($receivedType instanceof UnionType || $receivedType instanceof IntersectionType) {

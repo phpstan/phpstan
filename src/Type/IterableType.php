@@ -95,6 +95,11 @@ class IterableType implements StaticResolvableType, CompoundType
 		);
 	}
 
+	public function isAcceptedBy(Type $acceptingType, bool $strictTypes): TrinaryLogic
+	{
+		return $this->isSubTypeOf($acceptingType);
+	}
+
 	public function equals(Type $type): bool
 	{
 		if (!$type instanceof self) {

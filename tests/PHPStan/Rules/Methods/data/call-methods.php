@@ -1358,3 +1358,18 @@ class NonEmptyArrayAcceptsBug
 	}
 
 }
+
+class WithStringOrNull
+{
+
+	public function bar(ClassWithToString $bar = null): void
+	{
+		$this->baz($bar);
+	}
+
+	public function baz(string $baz = null): void
+	{
+
+	}
+
+}

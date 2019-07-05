@@ -4,9 +4,11 @@ namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Accessory\HasOffsetType;
+use PHPStan\Type\Accessory\HasPropertyType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
+use Test\ClassWithToString;
 
 class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 {
@@ -33,6 +35,21 @@ class IntersectionTypeTest extends \PHPStan\Testing\TestCase
 		yield [
 			$intersectionType,
 			new IterableType(new MixedType(), new ObjectType('Item')),
+			TrinaryLogic::createNo(),
+		];
+
+		yield [
+			new IntersectionType([
+				new ObjectType(ClassWithToString::class),
+				new HasPropertyType('foo'),
+			]),
+			new StringType(),
+			TrinaryLogic::createNo(),
+		];
+
+		yield [
+			TypeCombinator::intersect(new ArrayType(new MixedType(), new MixedType()), new CallableType()),
+			new CallableType(),
 			TrinaryLogic::createNo(),
 		];
 	}

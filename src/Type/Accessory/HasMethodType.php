@@ -63,6 +63,11 @@ class HasMethodType implements AccessoryType, CompoundType
 		return $limit->and($otherType->hasMethod($this->methodName));
 	}
 
+	public function isAcceptedBy(Type $acceptingType, bool $strictTypes): TrinaryLogic
+	{
+		return $this->isSubTypeOf($acceptingType);
+	}
+
 	public function equals(Type $type): bool
 	{
 		return $type instanceof self
