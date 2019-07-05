@@ -9267,6 +9267,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'InferPrivatePropertyTypeFromConstructor\Bar|InferPrivatePropertyTypeFromConstructor\Foo',
 				'$this->unionProp',
 			],
+			[
+				'stdClass',
+				'$this->stdClassProp',
+			],
 		];
 	}
 
