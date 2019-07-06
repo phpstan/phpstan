@@ -46,7 +46,7 @@ class TypehintHelper
 	}
 
 	public static function decideTypeFromReflection(
-		?\ReflectionType $reflectionType,
+		?\ReflectionNamedType $reflectionType,
 		?Type $phpDocType = null,
 		?string $selfClass = null,
 		bool $isVariadic = false
@@ -56,7 +56,7 @@ class TypehintHelper
 			return $phpDocType ?? new MixedType();
 		}
 
-		$reflectionTypeString = (string) $reflectionType;
+		$reflectionTypeString = $reflectionType->getName();
 		if (\Nette\Utils\Strings::endsWith(strtolower($reflectionTypeString), '\\object')) {
 			$reflectionTypeString = 'object';
 		}
