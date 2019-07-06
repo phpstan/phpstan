@@ -5,58 +5,60 @@ use Composer\XdebugHandler\XdebugHandler;
 use PHPStan\Command\AnalyseCommand;
 use PHPStan\Command\DumpDependenciesCommand;
 
-gc_disable(); // performance boost
+(function () {
+	gc_disable(); // performance boost
 
-define('__PHPSTAN_RUNNING__', true);
+	define('__PHPSTAN_RUNNING__', true);
 
-$autoloaderInWorkingDirectory = getcwd() . '/vendor/autoload.php';
-if (is_file($autoloaderInWorkingDirectory)) {
-	require_once $autoloaderInWorkingDirectory;
-}
+	$autoloaderInWorkingDirectory = getcwd() . '/vendor/autoload.php';
+	if (is_file($autoloaderInWorkingDirectory)) {
+		require_once $autoloaderInWorkingDirectory;
+	}
 
-$autoloadProjectAutoloaderFile = function (string $file): void {
-	$path = dirname(__DIR__) . $file;
-	if (!extension_loaded('phar')) {
-		if (is_file($path)) {
-			require_once $path;
-		}
-	} else {
-		$pharPath = \Phar::running(false);
-		if ($pharPath === '') {
+	$autoloadProjectAutoloaderFile = function (string $file): void {
+		$path = dirname(__DIR__) . $file;
+		if (!extension_loaded('phar')) {
 			if (is_file($path)) {
 				require_once $path;
 			}
 		} else {
-			$path = dirname($pharPath) . $file;
-        	if (is_file($path)) {
-        		require_once $path;
-        	}
+			$pharPath = \Phar::running(false);
+			if ($pharPath === '') {
+				if (is_file($path)) {
+					require_once $path;
+				}
+			} else {
+				$path = dirname($pharPath) . $file;
+				if (is_file($path)) {
+					require_once $path;
+				}
+			}
 		}
+	};
+
+	$autoloadProjectAutoloaderFile('/../../autoload.php');
+
+	$devOrPharAutoloadFile = __DIR__ . '/../vendor/autoload.php';
+	if (is_file($devOrPharAutoloadFile)) {
+		require_once $devOrPharAutoloadFile;
 	}
-};
 
-$autoloadProjectAutoloaderFile('/../../autoload.php');
+	$xdebug = new XdebugHandler('phpstan', '--ansi');
+	$xdebug->check();
+	unset($xdebug);
 
-$devOrPharAutoloadFile = __DIR__ . '/../vendor/autoload.php';
-if (is_file($devOrPharAutoloadFile)) {
-	require_once $devOrPharAutoloadFile;
-}
+	$version = 'Version unknown';
+	try {
+		$version = \Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
+	} catch (\OutOfBoundsException $e) {
 
-$xdebug = new XdebugHandler('phpstan', '--ansi');
-$xdebug->check();
-unset($xdebug);
+	}
 
-$version = 'Version unknown';
-try {
-	$version = \Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
-} catch (\OutOfBoundsException $e) {
-
-}
-
-$application = new \Symfony\Component\Console\Application(
-	'PHPStan - PHP Static Analysis Tool',
-	$version
-);
-$application->add(new AnalyseCommand());
-$application->add(new DumpDependenciesCommand());
-$application->run();
+	$application = new \Symfony\Component\Console\Application(
+		'PHPStan - PHP Static Analysis Tool',
+		$version
+	);
+	$application->add(new AnalyseCommand());
+	$application->add(new DumpDependenciesCommand());
+	$application->run();
+})();
