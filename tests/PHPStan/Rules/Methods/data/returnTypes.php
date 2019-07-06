@@ -863,5 +863,76 @@ class ReturnStaticGeneric
 	public function instanceReturnsStatic() {
 		return new static();
 	}
+}
+
+interface InterfaceThatWillBeDocInherited
+{
+
+	/**
+	 * @return $this
+	 */
+	public function setTableSchema(): self;
+
+	/**
+	 * @return $this
+	 */
+	public function setTableSchema2(): self;
+
+	/**
+	 * @return $this
+	 */
+	public function setTableSchema3(): self;
+
+	/**
+	 * @return static
+	 */
+	public function setTableSchema4(): self;
+
+	/**
+	 * @return static
+	 */
+	public function setTableSchema5(): self;
+
+}
+
+class ClassThatImplementsInterfaceAndInheritDocsIt implements InterfaceThatWillBeDocInherited
+{
+
+	public function setTableSchema(): InterfaceThatWillBeDocInherited
+	{
+		return $this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setTableSchema2(): InterfaceThatWillBeDocInherited
+	{
+		return $this;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function setTableSchema3(): InterfaceThatWillBeDocInherited
+	{
+		return $this;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function setTableSchema4(): InterfaceThatWillBeDocInherited
+	{
+		return $this;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function setTableSchema5(): InterfaceThatWillBeDocInherited
+	{
+		return $this;
+	}
 
 }

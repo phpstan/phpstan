@@ -85,9 +85,11 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\StaticType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeTraverser;
 use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
 
@@ -373,6 +375,21 @@ class NodeScopeResolver
 
 			if ($stmt->returnType !== null) {
 				$nodeCallback($stmt->returnType, $scope);
+			}
+
+			if ($phpDocReturnType !== null) {
+				if (!$scope->isInClass()) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+
+				$className = $scope->getClassReflection()->getName();
+				$phpDocReturnType = TypeTraverser::map($phpDocReturnType, static function (Type $type, callable $traverse) use ($className): Type {
+					if ($type instanceof StaticType) {
+						return $traverse($type->changeBaseClass($className));
+					}
+
+					return $traverse($type);
+				});
 			}
 
 			$methodScope = $scope->enterClassMethod(
