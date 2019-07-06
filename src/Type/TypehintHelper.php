@@ -55,7 +55,7 @@ class TypehintHelper
 			return $phpDocType ?? new MixedType();
 		}
 
-		$reflectionTypeString = (string) $reflectionType;
+		$reflectionTypeString = $reflectionType->getName();
 		if (\Nette\Utils\Strings::endsWith(strtolower($reflectionTypeString), '\\object')) {
 			$reflectionTypeString = 'object';
 		}
