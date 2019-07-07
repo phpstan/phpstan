@@ -13,9 +13,21 @@ class TableErrorFormatter implements ErrorFormatter
 	/** @var RelativePathHelper */
 	private $relativePathHelper;
 
-	public function __construct(RelativePathHelper $relativePathHelper)
+	/** @var bool */
+	private $showTipsOfTheDay;
+
+	/** @var bool */
+	private $checkThisOnly;
+
+	public function __construct(
+		RelativePathHelper $relativePathHelper,
+		bool $showTipsOfTheDay,
+		bool $checkThisOnly
+	)
 	{
 		$this->relativePathHelper = $relativePathHelper;
+		$this->showTipsOfTheDay = $showTipsOfTheDay;
+		$this->checkThisOnly = $checkThisOnly;
 	}
 
 	public function formatErrors(
@@ -25,13 +37,26 @@ class TableErrorFormatter implements ErrorFormatter
 	{
 		if (!$analysisResult->hasErrors()) {
 			$style->success('No errors');
-			if ($analysisResult->isDefaultLevelUsed()) {
-				$style->note(sprintf(
-					'PHPStan is performing only the most basic checks. You can pass a higher rule level through the --%s option (the default and current level is %d) to analyse code more thoroughly.',
-					AnalyseCommand::OPTION_LEVEL,
-					AnalyseCommand::DEFAULT_LEVEL
-				));
+			if ($this->showTipsOfTheDay) {
+				if ($analysisResult->isDefaultLevelUsed()) {
+					$style->writeln('💡 Tip of the Day:');
+					$style->writeln(sprintf(
+						"PHPStan is performing only the most basic checks.\nYou can pass a higher rule level through the <fg=cyan>--%s</> option\n(the default and current level is %d) to analyse code more thoroughly.",
+						AnalyseCommand::OPTION_LEVEL,
+						AnalyseCommand::DEFAULT_LEVEL
+					));
+					$style->writeln('');
+				} elseif (
+					!$this->checkThisOnly
+					&& $analysisResult->hasInferrablePropertyTypesFromConstructor()
+				) {
+					$style->writeln('💡 Tip of the Day:');
+					$style->writeln("One or more properties in your code do not have a phpDoc with a type\nbut it could be inferred from the constructor to find more bugs.");
+					$style->writeln(sprintf('Use <fg=cyan>inferPrivatePropertyTypeFromConstructor: true</> in your <fg=cyan>%s</> to try it out!', 'phpstan.neon'));
+					$style->writeln('');
+				}
 			}
+
 			return 0;
 		}
 

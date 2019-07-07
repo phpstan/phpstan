@@ -31,6 +31,7 @@ parameters:
 	polluteScopeWithLoopInitialAssignments: true
 	polluteScopeWithAlwaysIterableForeach: true
 	polluteCatchScopeWithTryAssignments: false
+	tipsOfTheDay: true
 	reportMagicMethods: false
 	reportMagicProperties: false
 	ignoreErrors: []
@@ -112,6 +113,7 @@ parametersSchema:
 	checkExplicitMixedMissingReturn: bool()
 	checkPhpDocMissingReturn: bool()
 	inferPrivatePropertyTypeFromConstructor: bool()
+	tipsOfTheDay: bool()
 	reportMaybes: bool()
 	reportMaybesInMethodSignatures: bool()
 	reportStaticMethodSignatures: bool()
@@ -723,6 +725,9 @@ services:
 
 	errorFormatter.table:
 		class: PHPStan\Command\ErrorFormatter\TableErrorFormatter
+		arguments:
+			showTipsOfTheDay: %tipsOfTheDay%
+			checkThisOnly: %checkThisOnly%
 
 	errorFormatter.checkstyle:
 		class: PHPStan\Command\ErrorFormatter\CheckstyleErrorFormatter
