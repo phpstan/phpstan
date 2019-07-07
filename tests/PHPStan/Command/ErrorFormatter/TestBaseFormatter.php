@@ -73,7 +73,8 @@ abstract class TestBaseFormatter extends \PHPStan\Testing\TestCase
 			$genericErrors,
 			false,
 			self::DIRECTORY_PATH,
-			false
+			false,
+			null
 		);
 	}
 

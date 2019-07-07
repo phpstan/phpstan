@@ -45,6 +45,7 @@ class AnalyseApplication
 	 * @param \PHPStan\Command\ErrorFormatter\ErrorFormatter $errorFormatter
 	 * @param bool $defaultLevelUsed
 	 * @param bool $debug
+	 * @param string|null $projectConfigFile
 	 * @return int Error code.
 	 */
 	public function analyse(
@@ -53,7 +54,8 @@ class AnalyseApplication
 		OutputStyle $style,
 		ErrorFormatter $errorFormatter,
 		bool $defaultLevelUsed,
-		bool $debug
+		bool $debug,
+		?string $projectConfigFile
 	): int
 	{
 		$this->updateMemoryLimitFile();
@@ -142,7 +144,8 @@ class AnalyseApplication
 				$notFileSpecificErrors,
 				$defaultLevelUsed,
 				$this->fileHelper->normalizePath($this->currentWorkingDirectory),
-				$hasInferrablePropertyTypesFromConstructor
+				$hasInferrablePropertyTypesFromConstructor,
+				$projectConfigFile
 			),
 			$style
 		);

@@ -50,9 +50,13 @@ class TableErrorFormatter implements ErrorFormatter
 					!$this->checkThisOnly
 					&& $analysisResult->hasInferrablePropertyTypesFromConstructor()
 				) {
+					$projectConfigFile = 'phpstan.neon';
+					if ($analysisResult->getProjectConfigFile() !== null) {
+						$projectConfigFile = $this->relativePathHelper->getRelativePath($analysisResult->getProjectConfigFile());
+					}
 					$style->writeln('💡 Tip of the Day:');
 					$style->writeln("One or more properties in your code do not have a phpDoc with a type\nbut it could be inferred from the constructor to find more bugs.");
-					$style->writeln(sprintf('Use <fg=cyan>inferPrivatePropertyTypeFromConstructor: true</> in your <fg=cyan>%s</> to try it out!', 'phpstan.neon'));
+					$style->writeln(sprintf('Use <fg=cyan>inferPrivatePropertyTypeFromConstructor: true</> in your <fg=cyan>%s</> to try it out!', $projectConfigFile));
 					$style->writeln('');
 				}
 			}

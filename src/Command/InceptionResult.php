@@ -30,6 +30,9 @@ class InceptionResult
 	/** @var string */
 	private $memoryLimitFile;
 
+	/** @var string|null */
+	private $projectConfigFile;
+
 	/**
 	 * @param string[] $files
 	 * @param bool $onlyFiles
@@ -38,6 +41,7 @@ class InceptionResult
 	 * @param Container $container
 	 * @param bool $isDefaultLevelUsed
 	 * @param string $memoryLimitFile
+	 * @param string|null $projectConfigFile
 	 */
 	public function __construct(
 		array $files,
@@ -46,7 +50,8 @@ class InceptionResult
 		OutputInterface $errorOutput,
 		Container $container,
 		bool $isDefaultLevelUsed,
-		string $memoryLimitFile
+		string $memoryLimitFile,
+		?string $projectConfigFile
 	)
 	{
 		$this->files = $files;
@@ -56,6 +61,7 @@ class InceptionResult
 		$this->container = $container;
 		$this->isDefaultLevelUsed = $isDefaultLevelUsed;
 		$this->memoryLimitFile = $memoryLimitFile;
+		$this->projectConfigFile = $projectConfigFile;
 	}
 
 	/**
@@ -89,6 +95,11 @@ class InceptionResult
 	public function isDefaultLevelUsed(): bool
 	{
 		return $this->isDefaultLevelUsed;
+	}
+
+	public function getProjectConfigFile(): ?string
+	{
+		return $this->projectConfigFile;
 	}
 
 	public function handleReturn(int $exitCode): int

@@ -57,7 +57,8 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 			$style,
 			new TableErrorFormatter($relativePathHelper, false, false),
 			false,
-			false
+			false,
+			null
 		);
 		if (file_exists($memoryLimitFile)) {
 			unlink($memoryLimitFile);

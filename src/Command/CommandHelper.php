@@ -303,7 +303,8 @@ class CommandHelper
 			$errorOutput,
 			$netteContainer,
 			$defaultLevelUsed,
-			$memoryLimitFile
+			$memoryLimitFile,
+			$projectConfigFile
 		);
 	}
 

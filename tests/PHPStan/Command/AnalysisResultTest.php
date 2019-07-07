@@ -39,7 +39,8 @@ final class AnalysisResultTest extends TestCase
 				[],
 				false,
 				__DIR__,
-				false
+				false,
+				null
 			))->getFileSpecificErrors()
 		);
 	}
