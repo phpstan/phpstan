@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\Broker\Broker;
+use ReflectionNamedType;
 
 class TypehintHelper
 {
@@ -53,6 +54,10 @@ class TypehintHelper
 	{
 		if ($reflectionType === null) {
 			return $phpDocType ?? new MixedType();
+		}
+
+		if (!$reflectionType instanceof ReflectionNamedType) {
+			throw new \PHPStan\ShouldNotHappenException(sprintf('Unexpected type: %s', get_class($reflectionType)));
 		}
 
 		$reflectionTypeString = $reflectionType->getName();
