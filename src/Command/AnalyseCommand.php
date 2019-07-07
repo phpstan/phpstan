@@ -123,7 +123,8 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				$inceptionResult->getConsoleStyle(),
 				$errorFormatter,
 				$inceptionResult->isDefaultLevelUsed(),
-				$debug
+				$debug,
+				$inceptionResult->getProjectConfigFile()
 			)
 		);
 	}

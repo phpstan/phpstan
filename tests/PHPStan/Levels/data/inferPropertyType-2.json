@@ -1,0 +1,7 @@
+[
+    {
+        "message": "Call to an undefined method DateTime::formatt().",
+        "line": 20,
+        "ignorable": true
+    }
+]

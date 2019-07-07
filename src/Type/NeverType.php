@@ -49,6 +49,11 @@ class NeverType implements CompoundType
 		return TrinaryLogic::createYes();
 	}
 
+	public function isAcceptedBy(Type $acceptingType, bool $strictTypes): TrinaryLogic
+	{
+		return $this->isSubTypeOf($acceptingType);
+	}
+
 	public function describe(VerbosityLevel $level): string
 	{
 		return '*NEVER*';

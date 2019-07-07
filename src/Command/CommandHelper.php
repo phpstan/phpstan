@@ -298,7 +298,8 @@ class CommandHelper
 			$errorOutput,
 			$container,
 			$defaultLevelUsed,
-			$memoryLimitFile
+			$memoryLimitFile,
+			$projectConfigFile
 		);
 	}
 

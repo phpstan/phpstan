@@ -22,4 +22,9 @@ class Foo
 		}
 	}
 
+	public function doBaz(callable $a): void
+	{
+		set_error_handler($a);
+	}
+
 }

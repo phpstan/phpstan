@@ -67,6 +67,11 @@ class FooWithTrait extends FooParent
 
 	}
 
+	public function phpDocWithoutCurlyBracesVoidParentMethod(): self
+	{
+
+	}
+
 	/**
 	 * @return string[]
 	 */

@@ -8,7 +8,6 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Declare_;
 use PhpParser\Node\Stmt\Namespace_;
 use PHPStan\Analyser\NodeScopeResolver;
-use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\ScopeContext;
 use PHPStan\Analyser\ScopeFactory;
 use PHPStan\Broker\Broker;
@@ -80,6 +79,9 @@ class PhpClassReflectionExtension
 
 	/** @var array<string, array<string, Type>> */
 	private $propertyTypesCache = [];
+
+	/** @var array<string, true> */
+	private $inferClassConstructorPropertyTypesInProcess = [];
 
 	public function __construct(
 		Container $container,
@@ -550,7 +552,13 @@ class PhpClassReflectionExtension
 		MethodReflection $constructor
 	): Type
 	{
+		$declaringClassName = $constructor->getDeclaringClass()->getName();
+		if (isset($this->inferClassConstructorPropertyTypesInProcess[$declaringClassName])) {
+			return new MixedType();
+		}
+		$this->inferClassConstructorPropertyTypesInProcess[$declaringClassName] = true;
 		$propertyTypes = $this->inferAndCachePropertyTypes($constructor);
+		unset($this->inferClassConstructorPropertyTypesInProcess[$declaringClassName]);
 		if (array_key_exists($propertyName, $propertyTypes)) {
 			return $propertyTypes[$propertyName];
 		}
@@ -618,24 +626,31 @@ class PhpClassReflectionExtension
 		);
 
 		$propertyTypes = [];
-		$nodeScopeResolver->processNodes($methodNode->stmts, $methodScope, static function (Node $node, Scope $scope) use (&$propertyTypes): void {
-			if (!$node instanceof Node\Expr\Assign) {
-				return;
+		foreach ($methodNode->stmts as $statement) {
+			if (!$statement instanceof Node\Stmt\Expression) {
+				continue;
 			}
-			if (!$node->var instanceof Node\Expr\PropertyFetch) {
-				return;
+
+			$expr = $statement->expr;
+			if (!$expr instanceof Node\Expr\Assign) {
+				continue;
 			}
-			$propertyFetch = $node->var;
+
+			if (!$expr->var instanceof Node\Expr\PropertyFetch) {
+				continue;
+			}
+
+			$propertyFetch = $expr->var;
 			if (
 				!$propertyFetch->var instanceof Node\Expr\Variable
 				|| $propertyFetch->var->name !== 'this'
 				|| !$propertyFetch->name instanceof Node\Identifier
 			) {
-				return;
+				continue;
 			}
 
-			$propertyTypes[$propertyFetch->name->toString()] = $scope->getType($node->expr);
-		});
+			$propertyTypes[$propertyFetch->name->toString()] = $methodScope->getType($expr->expr);
+		}
 
 		return $this->propertyTypesCache[$declaringClass->getName()] = $propertyTypes;
 	}

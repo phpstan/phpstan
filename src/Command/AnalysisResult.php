@@ -19,17 +19,27 @@ class AnalysisResult
 	/** @var string */
 	private $currentDirectory;
 
+	/** @var bool */
+	private $hasInferrablePropertyTypesFromConstructor;
+
+	/** @var string|null */
+	private $projectConfigFile;
+
 	/**
 	 * @param \PHPStan\Analyser\Error[] $fileSpecificErrors
 	 * @param string[] $notFileSpecificErrors
 	 * @param bool $defaultLevelUsed
 	 * @param string $currentDirectory
+	 * @param bool $hasInferrablePropertyTypesFromConstructor
+	 * @param string|null $projectConfigFile
 	 */
 	public function __construct(
 		array $fileSpecificErrors,
 		array $notFileSpecificErrors,
 		bool $defaultLevelUsed,
-		string $currentDirectory
+		string $currentDirectory,
+		bool $hasInferrablePropertyTypesFromConstructor,
+		?string $projectConfigFile
 	)
 	{
 		usort(
@@ -51,6 +61,8 @@ class AnalysisResult
 		$this->notFileSpecificErrors = $notFileSpecificErrors;
 		$this->defaultLevelUsed = $defaultLevelUsed;
 		$this->currentDirectory = $currentDirectory;
+		$this->hasInferrablePropertyTypesFromConstructor = $hasInferrablePropertyTypesFromConstructor;
+		$this->projectConfigFile = $projectConfigFile;
 	}
 
 	public function hasErrors(): bool
@@ -91,6 +103,16 @@ class AnalysisResult
 	public function getCurrentDirectory(): string
 	{
 		return $this->currentDirectory;
+	}
+
+	public function hasInferrablePropertyTypesFromConstructor(): bool
+	{
+		return $this->hasInferrablePropertyTypesFromConstructor;
+	}
+
+	public function getProjectConfigFile(): ?string
+	{
+		return $this->projectConfigFile;
 	}
 
 }

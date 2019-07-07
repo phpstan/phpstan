@@ -25,6 +25,11 @@ class Bar extends DOMDocument
 	/**
 	 * @var self
 	 */
+	protected $inheritDocWithoutCurlyBracesProperty;
+
+	/**
+	 * @var self
+	 */
 	protected $implicitInheritDocProperty;
 
 	public function doBar(): Self

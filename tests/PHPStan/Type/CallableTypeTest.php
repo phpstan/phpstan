@@ -331,6 +331,11 @@ class CallableTypeTest extends \PHPStan\Testing\TestCase
 				new CallableType([], new IntegerType(), false),
 				TrinaryLogic::createYes(),
 			],
+			[
+				new CallableType(),
+				TypeCombinator::intersect(new ArrayType(new MixedType(), new MixedType()), new CallableType()),
+				TrinaryLogic::createYes(),
+			],
 		];
 	}
 

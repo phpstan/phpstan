@@ -12,6 +12,8 @@ class Foo
 
 	private $unionProp;
 
+	private $stdClassProp;
+
 	/**
 	 * @param self|Bar $unionProp
 	 */
@@ -24,6 +26,7 @@ class Foo
 		$this->intProp = $intProp;
 		$this->stringProp = $stringProp;
 		$this->unionProp = $unionProp;
+		$this->stdClassProp = new \stdClass();
 	}
 
 	public function doFoo()
