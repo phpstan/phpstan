@@ -130,7 +130,7 @@ class Foo extends FooParent implements FooInterface
 	{
 		return $this;
 		return new self();
-		return 1;
+		return 1; return new static();
 		return null;
 
 		$that = $this;
@@ -862,6 +862,8 @@ class ReturnStaticGeneric
 	/** @return static */
 	public function instanceReturnsStatic() {
 		return new static();
+		return new self();
+		return $this;
 	}
 }
 

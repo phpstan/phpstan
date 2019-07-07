@@ -410,7 +410,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	}
 
 	/**
-	 * @return static
+	 * @return self
 	 */
 	public function generalizeValues(): ArrayType
 	{
@@ -423,7 +423,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	}
 
 	/**
-	 * @return static
+	 * @return self
 	 */
 	public function getKeysArray(): ArrayType
 	{
@@ -441,7 +441,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	}
 
 	/**
-	 * @return static
+	 * @return self
 	 */
 	public function getValuesArray(): ArrayType
 	{

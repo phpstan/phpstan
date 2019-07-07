@@ -93,6 +93,10 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 				133,
 			],
 			[
+				'Method ReturnTypes\Foo::returnThis() should return $this(ReturnTypes\Foo) but returns static(ReturnTypes\Foo).',
+				133,
+			],
+			[
 				'Method ReturnTypes\Foo::returnThis() should return $this(ReturnTypes\Foo) but returns null.',
 				134,
 			],
@@ -271,6 +275,10 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Method ReturnTypes\VariableOverwrittenInForeach::doBar() should return int but returns int|string.',
 				828,
+			],
+			[
+				'Method ReturnTypes\ReturnStaticGeneric::instanceReturnsStatic() should return static(ReturnTypes\ReturnStaticGeneric) but returns ReturnTypes\ReturnStaticGeneric.',
+				865,
 			],
 		]);
 	}

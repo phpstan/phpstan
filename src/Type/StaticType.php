@@ -53,7 +53,15 @@ class StaticType implements TypeWithClassName
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		return $this->staticObjectType->accepts($type, $strictTypes);
+		if ($type instanceof CompoundType) {
+			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
+		}
+
+		if (!$type instanceof static) {
+			return TrinaryLogic::createNo();
+		}
+
+		return $this->staticObjectType->accepts($type->staticObjectType, $strictTypes);
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
