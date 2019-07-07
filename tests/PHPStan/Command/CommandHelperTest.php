@@ -136,7 +136,7 @@ class CommandHelperTest extends TestCase
 		$this->assertContains($expectedOutput, $contents);
 
 		if (isset($result)) {
-			$parameters = $result->getContainer()->parameters;
+			$parameters = $result->getContainer()->getParameters();
 			foreach ($expectedParameters as $name => $expectedValue) {
 				$this->assertArrayHasKey($name, $parameters);
 				$this->assertSame($expectedValue, $parameters[$name]);

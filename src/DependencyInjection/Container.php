@@ -5,6 +5,8 @@ namespace PHPStan\DependencyInjection;
 interface Container
 {
 
+	public function hasService(string $serviceName): bool;
+
 	/**
 	 * @param string $serviceName
 	 * @return mixed
@@ -18,10 +20,21 @@ interface Container
 	public function getByType(string $className);
 
 	/**
+	 * @param string $className
+	 * @return string[]
+	 */
+	public function findServiceNamesByType(string $className): array;
+
+	/**
 	 * @param string $tagName
 	 * @return mixed[]
 	 */
 	public function getServicesByTag(string $tagName): array;
+
+	/**
+	 * @return mixed[]
+	 */
+	public function getParameters(): array;
 
 	/**
 	 * @param string $parameterName

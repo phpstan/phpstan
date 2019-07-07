@@ -15,6 +15,11 @@ class NetteContainer implements Container
 		$this->container = $container;
 	}
 
+	public function hasService(string $serviceName): bool
+	{
+		return $this->container->hasService($serviceName);
+	}
+
 	/**
 	 * @param string $serviceName
 	 * @return mixed
@@ -34,12 +39,29 @@ class NetteContainer implements Container
 	}
 
 	/**
+	 * @param string $className
+	 * @return string[]
+	 */
+	public function findServiceNamesByType(string $className): array
+	{
+		return $this->container->findByType($className);
+	}
+
+	/**
 	 * @param string $tagName
 	 * @return mixed[]
 	 */
 	public function getServicesByTag(string $tagName): array
 	{
 		return $this->tagsToServices($this->container->findByTag($tagName));
+	}
+
+	/**
+	 * @return mixed[]
+	 */
+	public function getParameters(): array
+	{
+		return $this->container->parameters;
 	}
 
 	/**

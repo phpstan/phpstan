@@ -41,13 +41,13 @@ class ContainerFactory
 	 * @param string $tempDirectory
 	 * @param string[] $additionalConfigFiles
 	 * @param string[] $analysedPaths
-	 * @return \Nette\DI\Container
+	 * @return \PHPStan\DependencyInjection\Container
 	 */
 	public function create(
 		string $tempDirectory,
 		array $additionalConfigFiles,
 		array $analysedPaths
-	): \Nette\DI\Container
+	): Container
 	{
 		$configurator = new Configurator(new LoaderFactory(
 			$this->rootDirectory,
@@ -81,7 +81,7 @@ class ContainerFactory
 		Broker::registerInstance($broker);
 		$container->getService('typeSpecifier');
 
-		return $container;
+		return $container->getByType(Container::class);
 	}
 
 	public function getCurrentWorkingDirectory(): string

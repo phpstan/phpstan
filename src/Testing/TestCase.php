@@ -14,7 +14,6 @@ use PHPStan\Cache\Cache;
 use PHPStan\Cache\MemoryCacheStorage;
 use PHPStan\DependencyInjection\Container;
 use PHPStan\DependencyInjection\ContainerFactory;
-use PHPStan\DependencyInjection\Nette\NetteContainer;
 use PHPStan\File\FileHelper;
 use PHPStan\File\FuzzyRelativePathHelper;
 use PHPStan\Parser\FunctionCallStatementFinder;
@@ -39,10 +38,10 @@ use PHPStan\Type\Type;
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
 
-	/** @var \Nette\DI\Container|null */
+	/** @var Container|null */
 	private static $container;
 
-	public static function getContainer(): \Nette\DI\Container
+	public static function getContainer(): Container
 	{
 		if (self::$container === null) {
 			$tmpDir = sys_get_temp_dir() . '/phpstan-tests';
@@ -159,7 +158,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		$annotationsMethodsClassReflectionExtension = new AnnotationsMethodsClassReflectionExtension($fileTypeMapper);
 		$annotationsPropertiesClassReflectionExtension = new AnnotationsPropertiesClassReflectionExtension($fileTypeMapper);
 		$signatureMapProvider = self::getContainer()->getByType(SignatureMapProvider::class);
-		$phpExtension = new PhpClassReflectionExtension(new NetteContainer(self::getContainer()), $methodReflectionFactory, $fileTypeMapper, $annotationsMethodsClassReflectionExtension, $annotationsPropertiesClassReflectionExtension, $signatureMapProvider, $parser, true);
+		$phpExtension = new PhpClassReflectionExtension(self::getContainer(), $methodReflectionFactory, $fileTypeMapper, $annotationsMethodsClassReflectionExtension, $annotationsPropertiesClassReflectionExtension, $signatureMapProvider, $parser, true);
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
 
 			/** @var \PHPStan\Parser\Parser */
@@ -227,12 +226,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
 		};
 
-		$tagToService = static function (array $tags) {
-			return array_map(static function (string $serviceName) {
-				return self::getContainer()->getService($serviceName);
-			}, array_keys($tags));
-		};
-
 		$currentWorkingDirectory = $this->getCurrentWorkingDirectory();
 		$anonymousClassNameHelper = new AnonymousClassNameHelper(new FileHelper($currentWorkingDirectory), new FuzzyRelativePathHelper($currentWorkingDirectory, DIRECTORY_SEPARATOR, []));
 		$broker = new Broker(
@@ -248,7 +241,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			],
 			array_merge($dynamicMethodReturnTypeExtensions, $this->getDynamicMethodReturnTypeExtensions()),
 			array_merge($dynamicStaticMethodReturnTypeExtensions, $this->getDynamicStaticMethodReturnTypeExtensions()),
-			array_merge($tagToService(self::getContainer()->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)), $this->getDynamicFunctionReturnTypeExtensions()),
+			array_merge(self::getContainer()->getServicesByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG), $this->getDynamicFunctionReturnTypeExtensions()),
 			$this->getOperatorTypeSpecifyingExtensions(),
 			$functionReflectionFactory,
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache, $anonymousClassNameHelper, self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)),
@@ -257,27 +250,16 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			$anonymousClassNameHelper,
 			self::getContainer()->getByType(Parser::class),
 			new FuzzyRelativePathHelper($this->getCurrentWorkingDirectory(), DIRECTORY_SEPARATOR, []),
-			self::getContainer()->parameters['universalObjectCratesClasses']
+			self::getContainer()->getParameter('universalObjectCratesClasses')
 		);
 		$methodReflectionFactory->broker = $broker;
 
 		return $broker;
 	}
 
-	/**
-	 * @param Broker $broker
-	 * @param TypeSpecifier $typeSpecifier
-	 * @param string[] $dynamicConstantNames
-	 *
-	 * @return ScopeFactory
-	 */
-	public function createScopeFactory(Broker $broker, TypeSpecifier $typeSpecifier, array $dynamicConstantNames = []): ScopeFactory
+	public function createScopeFactory(Broker $broker, TypeSpecifier $typeSpecifier): ScopeFactory
 	{
 		$container = self::getContainer();
-
-		if (count($dynamicConstantNames) > 0) {
-			$container->parameters['dynamicConstantNames'] = array_merge($container->parameters['dynamicConstantNames'], $dynamicConstantNames);
-		}
 
 		return new ScopeFactory(
 			Scope::class,
@@ -339,16 +321,10 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		array $staticMethodTypeSpecifyingExtensions = []
 	): TypeSpecifier
 	{
-		$tagToService = static function (array $tags) {
-			return array_map(static function (string $serviceName) {
-				return self::getContainer()->getService($serviceName);
-			}, array_keys($tags));
-		};
-
 		return new TypeSpecifier(
 			$printer,
 			$broker,
-			$tagToService(self::getContainer()->findByTag(TypeSpecifierFactory::FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG)),
+			self::getContainer()->getServicesByTag(TypeSpecifierFactory::FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG),
 			$methodTypeSpecifyingExtensions,
 			$staticMethodTypeSpecifyingExtensions
 		);

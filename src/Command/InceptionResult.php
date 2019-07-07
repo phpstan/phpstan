@@ -2,7 +2,7 @@
 
 namespace PHPStan\Command;
 
-use Nette\DI\Container;
+use PHPStan\DependencyInjection\Container;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\OutputStyle;
 
@@ -21,7 +21,7 @@ class InceptionResult
 	/** @var OutputInterface */
 	private $errorOutput;
 
-	/** @var Container */
+	/** @var \PHPStan\DependencyInjection\Container */
 	private $container;
 
 	/** @var bool */
@@ -35,7 +35,7 @@ class InceptionResult
 	 * @param bool $onlyFiles
 	 * @param OutputStyle $consoleStyle
 	 * @param OutputInterface $errorOutput
-	 * @param Container $container
+	 * @param \PHPStan\DependencyInjection\Container $container
 	 * @param bool $isDefaultLevelUsed
 	 * @param string $memoryLimitFile
 	 */

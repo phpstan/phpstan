@@ -9515,9 +9515,17 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			__DIR__ . '/data/anonymous-class-name-in-trait-trait.php',
 		]));
 
+		$scopeFactory = $this->createScopeFactory($broker, $typeSpecifier);
+		if (count($dynamicConstantNames) > 0) {
+			$reflectionProperty = new \ReflectionProperty(ScopeFactory::class, 'dynamicConstantNames');
+			$reflectionProperty->setAccessible(true);
+			$reflectionProperty->setValue($scopeFactory, $dynamicConstantNames);
+		}
+		$scope = $scopeFactory->create(ScopeContext::create($file));
+
 		$resolver->processNodes(
 			$this->getParser()->parseFile($file),
-			$this->createScopeFactory($broker, $typeSpecifier, $dynamicConstantNames)->create(ScopeContext::create($file)),
+			$scope,
 			$callback
 		);
 	}
