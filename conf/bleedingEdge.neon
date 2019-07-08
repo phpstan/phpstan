@@ -5,4 +5,3 @@ parameters:
 		missingReturnRule: true
 		noopRule: true
 		tooWideTypehints: true
-		unreachableStatement: true

@@ -11,21 +11,19 @@ rules:
 	- PHPStan\Rules\Comparison\TernaryOperatorConstantConditionRule
 	- PHPStan\Rules\Comparison\UnreachableIfBranchesRule
 	- PHPStan\Rules\Comparison\UnreachableTernaryElseBranchRule
+	- PHPStan\Rules\DeadCode\UnreachableStatementRule
 
 parameters:
 	featureToggles:
 		deadCatchesRule: false
 		noopRule: false
 		tooWideTypehints: false
-		unreachableStatement: false
 
 conditionalTags:
 	PHPStan\Rules\Exceptions\DeadCatchRule:
 		phpstan.rules.rule: %featureToggles.deadCatchesRule%
 	PHPStan\Rules\DeadCode\NoopRule:
 		phpstan.rules.rule: %featureToggles.noopRule%
-	PHPStan\Rules\DeadCode\UnreachableStatementRule:
-		phpstan.rules.rule: %featureToggles.unreachableStatement%
 	PHPStan\Rules\TooWideTypehints\TooWideClosureReturnTypehintRule:
 		phpstan.rules.rule: %featureToggles.tooWideTypehints%
 	PHPStan\Rules\TooWideTypehints\TooWideFunctionReturnTypehintRule:
@@ -74,9 +72,6 @@ services:
 
 	-
 		class: PHPStan\Rules\DeadCode\NoopRule
-
-	-
-		class: PHPStan\Rules\DeadCode\UnreachableStatementRule
 
 	-
 		class: PHPStan\Rules\TooWideTypehints\TooWideClosureReturnTypehintRule
