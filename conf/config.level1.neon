@@ -7,5 +7,7 @@ parameters:
 	reportMagicProperties: true
 
 rules:
+	- PHPStan\Rules\Classes\UnusedConstructorParametersRule
 	- PHPStan\Rules\Constants\ConstantRule
+	- PHPStan\Rules\Functions\UnusedClosureUsesRule
 	- PHPStan\Rules\Variables\VariableCertaintyInIssetRule
