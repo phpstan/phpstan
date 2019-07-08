@@ -15,6 +15,7 @@ class CallCallablesRuleTest extends \PHPStan\Testing\RuleTestCase
 			new FunctionCallParametersCheck(
 				$ruleLevelHelper,
 				true,
+				true,
 				true
 			),
 			$ruleLevelHelper,

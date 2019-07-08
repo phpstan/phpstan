@@ -25,15 +25,20 @@ class FunctionCallParametersCheck
 	/** @var bool */
 	private $checkArgumentsPassedByReference;
 
+	/** @var bool */
+	private $checkExtraArguments;
+
 	public function __construct(
 		RuleLevelHelper $ruleLevelHelper,
 		bool $checkArgumentTypes,
-		bool $checkArgumentsPassedByReference
+		bool $checkArgumentsPassedByReference,
+		bool $checkExtraArguments
 	)
 	{
 		$this->ruleLevelHelper = $ruleLevelHelper;
 		$this->checkArgumentTypes = $checkArgumentTypes;
 		$this->checkArgumentsPassedByReference = $checkArgumentsPassedByReference;
+		$this->checkExtraArguments = $checkExtraArguments;
 	}
 
 	/**
@@ -73,7 +78,10 @@ class FunctionCallParametersCheck
 			}
 		}
 
-		if ($invokedParametersCount < $functionParametersMinCount || $invokedParametersCount > $functionParametersMaxCount) {
+		if (
+			$invokedParametersCount < $functionParametersMinCount
+			|| ($this->checkExtraArguments && $invokedParametersCount > $functionParametersMaxCount)
+		) {
 			if ($functionParametersMinCount === $functionParametersMaxCount) {
 				$errors[] = sprintf(
 					$invokedParametersCount === 1 ? $messages[0] : $messages[1],

@@ -3,6 +3,7 @@ includes:
 
 parameters:
 	checkMaybeUndefinedVariables: true
+	checkExtraArguments: true
 	reportMagicMethods: true
 	reportMagicProperties: true
 

@@ -22,6 +22,7 @@ parameters:
 	checkUnionTypes: false
 	checkExplicitMixedMissingReturn: false
 	checkPhpDocMissingReturn: false
+	checkExtraArguments: false
 	inferPrivatePropertyTypeFromConstructor: false
 	reportMaybes: false
 	reportMaybesInMethodSignatures: false
@@ -110,6 +111,7 @@ parametersSchema:
 	checkUnionTypes: bool()
 	checkExplicitMixedMissingReturn: bool()
 	checkPhpDocMissingReturn: bool()
+	checkExtraArguments: bool()
 	inferPrivatePropertyTypeFromConstructor: bool()
 	tipsOfTheDay: bool()
 	reportMaybes: bool()
@@ -325,6 +327,7 @@ services:
 		arguments:
 			checkArgumentTypes: %checkFunctionArgumentTypes%
 			checkArgumentsPassedByReference: %checkArgumentsPassedByReference%
+			checkExtraArguments: %checkExtraArguments%
 
 	-
 		class: PHPStan\Rules\FunctionDefinitionCheck

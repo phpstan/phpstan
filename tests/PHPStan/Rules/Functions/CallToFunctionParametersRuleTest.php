@@ -13,7 +13,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		$broker = $this->createBroker();
 		return new CallToFunctionParametersRule(
 			$broker,
-			new FunctionCallParametersCheck(new RuleLevelHelper($broker, true, false, true), true, true)
+			new FunctionCallParametersCheck(new RuleLevelHelper($broker, true, false, true), true, true, true)
 		);
 	}
 

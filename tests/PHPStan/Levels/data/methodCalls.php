@@ -214,3 +214,15 @@ class TestExceptions
 	}
 
 }
+
+class ExtraArguments
+{
+
+	public function doFoo(int $i)
+	{
+		$this->doFoo();
+		$this->doFoo(1);
+		$this->doFoo(1, 2);
+	}
+
+}
