@@ -16,9 +16,6 @@ class AnalysisResult
 	/** @var bool */
 	private $defaultLevelUsed;
 
-	/** @var string */
-	private $currentDirectory;
-
 	/** @var bool */
 	private $hasInferrablePropertyTypesFromConstructor;
 
@@ -29,7 +26,6 @@ class AnalysisResult
 	 * @param \PHPStan\Analyser\Error[] $fileSpecificErrors
 	 * @param string[] $notFileSpecificErrors
 	 * @param bool $defaultLevelUsed
-	 * @param string $currentDirectory
 	 * @param bool $hasInferrablePropertyTypesFromConstructor
 	 * @param string|null $projectConfigFile
 	 */
@@ -37,7 +33,6 @@ class AnalysisResult
 		array $fileSpecificErrors,
 		array $notFileSpecificErrors,
 		bool $defaultLevelUsed,
-		string $currentDirectory,
 		bool $hasInferrablePropertyTypesFromConstructor,
 		?string $projectConfigFile
 	)
@@ -60,7 +55,6 @@ class AnalysisResult
 		$this->fileSpecificErrors = $fileSpecificErrors;
 		$this->notFileSpecificErrors = $notFileSpecificErrors;
 		$this->defaultLevelUsed = $defaultLevelUsed;
-		$this->currentDirectory = $currentDirectory;
 		$this->hasInferrablePropertyTypesFromConstructor = $hasInferrablePropertyTypesFromConstructor;
 		$this->projectConfigFile = $projectConfigFile;
 	}

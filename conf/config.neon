@@ -242,7 +242,6 @@ services:
 		class: PHPStan\Command\AnalyseApplication
 		arguments:
 			memoryLimitFile: %memoryLimitFile%
-			currentWorkingDirectory: %currentWorkingDirectory%
 
 	-
 		class: PHPStan\Dependency\DependencyDumper

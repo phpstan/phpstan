@@ -6,7 +6,6 @@ use PhpParser\Node;
 use PHPStan\Analyser\Analyser;
 use PHPStan\Analyser\Scope;
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
-use PHPStan\File\FileHelper;
 use PHPStan\Type\MixedType;
 use Symfony\Component\Console\Style\OutputStyle;
 
@@ -19,23 +18,13 @@ class AnalyseApplication
 	/** @var string */
 	private $memoryLimitFile;
 
-	/** @var \PHPStan\File\FileHelper */
-	private $fileHelper;
-
-	/** @var string */
-	private $currentWorkingDirectory;
-
 	public function __construct(
 		Analyser $analyser,
-		string $memoryLimitFile,
-		FileHelper $fileHelper,
-		string $currentWorkingDirectory
+		string $memoryLimitFile
 	)
 	{
 		$this->analyser = $analyser;
 		$this->memoryLimitFile = $memoryLimitFile;
-		$this->fileHelper = $fileHelper;
-		$this->currentWorkingDirectory = $currentWorkingDirectory;
 	}
 
 	/**
@@ -143,7 +132,6 @@ class AnalyseApplication
 				$fileSpecificErrors,
 				$notFileSpecificErrors,
 				$defaultLevelUsed,
-				$this->fileHelper->normalizePath($this->currentWorkingDirectory),
 				$hasInferrablePropertyTypesFromConstructor,
 				$projectConfigFile
 			),
