@@ -8,23 +8,12 @@ rules:
 	- PHPStan\Rules\Arrays\OffsetAccessAssignOpRule
 	- PHPStan\Rules\Functions\ClosureReturnTypeRule
 	- PHPStan\Rules\Functions\ReturnTypeRule
+	- PHPStan\Rules\Generators\YieldTypeRule
 	- PHPStan\Rules\Methods\ReturnTypeRule
 	- PHPStan\Rules\Properties\DefaultValueTypesAssignedToPropertiesRule
 	- PHPStan\Rules\Properties\TypesAssignedToPropertiesRule
 	- PHPStan\Rules\Variables\ThrowTypeRule
 	- PHPStan\Rules\Variables\VariableCloningRule
-
-parameters:
-	featureToggles:
-		yieldRules: false
-
-conditionalTags:
-	PHPStan\Rules\Generators\YieldFromTypeRule:
-		phpstan.rules.rule: %featureToggles.yieldRules%
-	PHPStan\Rules\Generators\YieldInGeneratorRule:
-		phpstan.rules.rule: %featureToggles.yieldRules%
-	PHPStan\Rules\Generators\YieldTypeRule:
-		phpstan.rules.rule: %featureToggles.yieldRules%
 
 services:
 	-
@@ -59,14 +48,15 @@ services:
 		class: PHPStan\Rules\Generators\YieldFromTypeRule
 		arguments:
 			reportMaybes: %reportMaybes%
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Generators\YieldInGeneratorRule
 		arguments:
 			reportMaybes: %reportMaybes%
-
-	-
-		class: PHPStan\Rules\Generators\YieldTypeRule
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Methods\MethodSignatureRule

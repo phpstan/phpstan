@@ -6,4 +6,3 @@ parameters:
 		noopRule: true
 		tooWideTypehints: true
 		unreachableStatement: true
-		yieldRules: true
