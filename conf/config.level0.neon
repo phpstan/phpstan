@@ -23,7 +23,6 @@ rules:
 	- PHPStan\Rules\Classes\ExistingClassInClassExtendsRule
 	- PHPStan\Rules\Classes\ExistingClassInTraitUseRule
 	- PHPStan\Rules\Classes\InstantiationRule
-	- PHPStan\Rules\Classes\RequireParentConstructCallRule
 	- PHPStan\Rules\Functions\CallToFunctionParametersRule
 	- PHPStan\Rules\Functions\ExistingClassesInClosureTypehintsRule
 	- PHPStan\Rules\Functions\ExistingClassesInTypehintsRule
