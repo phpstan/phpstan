@@ -1,14 +1,10 @@
 parameters:
 	customRulesetUsed: false
-	featureToggles:
-		missingReturnRule: false
 	missingClosureNativeReturnCheckObjectTypehint: false
 
 conditionalTags:
 	PHPStan\Rules\Missing\MissingClosureNativeReturnTypehintRule:
 		phpstan.rules.rule: %checkMissingClosureNativeReturnTypehintRule%
-	PHPStan\Rules\Missing\MissingReturnRule:
-		phpstan.rules.rule: %featureToggles.missingReturnRule%
 
 parametersSchema:
 	missingClosureNativeReturnCheckObjectTypehint: bool()
@@ -82,6 +78,8 @@ services:
 		arguments:
 			checkExplicitMixedMissingReturn: %checkExplicitMixedMissingReturn%
 			checkPhpDocMissingReturn: %checkPhpDocMissingReturn%
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Namespaces\ExistingNamesInGroupUseRule
