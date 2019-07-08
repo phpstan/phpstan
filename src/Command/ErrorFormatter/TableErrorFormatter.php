@@ -19,15 +19,20 @@ class TableErrorFormatter implements ErrorFormatter
 	/** @var bool */
 	private $checkThisOnly;
 
+	/** @var bool */
+	private $inferPrivatePropertyTypeFromConstructor;
+
 	public function __construct(
 		RelativePathHelper $relativePathHelper,
 		bool $showTipsOfTheDay,
-		bool $checkThisOnly
+		bool $checkThisOnly,
+		bool $inferPrivatePropertyTypeFromConstructor
 	)
 	{
 		$this->relativePathHelper = $relativePathHelper;
 		$this->showTipsOfTheDay = $showTipsOfTheDay;
 		$this->checkThisOnly = $checkThisOnly;
+		$this->inferPrivatePropertyTypeFromConstructor = $inferPrivatePropertyTypeFromConstructor;
 	}
 
 	public function formatErrors(
@@ -49,6 +54,7 @@ class TableErrorFormatter implements ErrorFormatter
 				} elseif (
 					!$this->checkThisOnly
 					&& $analysisResult->hasInferrablePropertyTypesFromConstructor()
+					&& !$this->inferPrivatePropertyTypeFromConstructor
 				) {
 					$projectConfigFile = 'phpstan.neon';
 					if ($analysisResult->getProjectConfigFile() !== null) {
