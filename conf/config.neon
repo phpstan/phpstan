@@ -5,6 +5,7 @@ parameters:
 	autoload_files: []
 	level: null
 	paths: []
+	featureToggles: []
 	fileExtensions:
 		- php
 	checkAlwaysTrueCheckTypeFunctionCall: false
