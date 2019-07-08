@@ -1,6 +1,5 @@
 parameters:
 	featureToggles:
-		deadCatchesRule: true
 		invalidVarTag: true
 		noopRule: true
 		tooWideTypehints: true
