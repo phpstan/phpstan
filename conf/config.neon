@@ -23,6 +23,7 @@ parameters:
 	checkExplicitMixedMissingReturn: false
 	checkPhpDocMissingReturn: false
 	checkExtraArguments: false
+	checkMissingClosureNativeReturnTypehintRule: false
 	inferPrivatePropertyTypeFromConstructor: false
 	reportMaybes: false
 	reportMaybesInMethodSignatures: false
@@ -112,6 +113,7 @@ parametersSchema:
 	checkExplicitMixedMissingReturn: bool()
 	checkPhpDocMissingReturn: bool()
 	checkExtraArguments: bool()
+	checkMissingClosureNativeReturnTypehintRule: bool()
 	inferPrivatePropertyTypeFromConstructor: bool()
 	tipsOfTheDay: bool()
 	reportMaybes: bool()

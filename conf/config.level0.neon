@@ -2,12 +2,11 @@ parameters:
 	customRulesetUsed: false
 	featureToggles:
 		missingReturnRule: false
-		missingClosureNativeReturnTypehintRule: false
 	missingClosureNativeReturnCheckObjectTypehint: false
 
 conditionalTags:
 	PHPStan\Rules\Missing\MissingClosureNativeReturnTypehintRule:
-		phpstan.rules.rule: %featureToggles.missingClosureNativeReturnTypehintRule%
+		phpstan.rules.rule: %checkMissingClosureNativeReturnTypehintRule%
 	PHPStan\Rules\Missing\MissingReturnRule:
 		phpstan.rules.rule: %featureToggles.missingReturnRule%
 
