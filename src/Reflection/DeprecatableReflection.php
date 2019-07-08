@@ -7,4 +7,6 @@ interface DeprecatableReflection
 
 	public function isDeprecated(): bool;
 
+	public function getDeprecatedDescription(): ?string;
+
 }
