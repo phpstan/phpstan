@@ -198,7 +198,7 @@ class FunctionDefinitionCheck
 		$returnTypeNode = $functionNode->getReturnType() ?? $functionNode;
 		foreach ($parametersAcceptor->getParameters() as $parameter) {
 			if ($this->checkThisOnly) {
-				$referencedClasses = $parameter->getType()->getReferencedClasses();
+				$referencedClasses = $parameter->getNativeType()->getReferencedClasses();
 			} else {
 				$referencedClasses = array_merge(
 					$parameter->getNativeType()->getReferencedClasses(),
@@ -241,7 +241,7 @@ class FunctionDefinitionCheck
 		}
 
 		if ($this->checkThisOnly) {
-			$returnTypeReferencedClasses = $parametersAcceptor->getReturnType()->getReferencedClasses();
+			$returnTypeReferencedClasses = $parametersAcceptor->getNativeReturnType()->getReferencedClasses();
 		} else {
 			$returnTypeReferencedClasses = array_merge(
 				$parametersAcceptor->getNativeReturnType()->getReferencedClasses(),
