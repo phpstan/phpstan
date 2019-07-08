@@ -5,8 +5,6 @@ parameters:
 	autoload_files: []
 	level: null
 	paths: []
-	featureToggles:
-		allowVarTagAboveStatements: false
 	fileExtensions:
 		- php
 	checkAlwaysTrueCheckTypeFunctionCall: false
@@ -234,7 +232,6 @@ services:
 			polluteCatchScopeWithTryAssignments: %polluteCatchScopeWithTryAssignments%
 			polluteScopeWithAlwaysIterableForeach: %polluteScopeWithAlwaysIterableForeach%
 			earlyTerminatingMethodCalls: %earlyTerminatingMethodCalls%
-			allowVarTagAboveStatements: %featureToggles.allowVarTagAboveStatements%
 
 	-
 		class: PHPStan\Cache\Cache

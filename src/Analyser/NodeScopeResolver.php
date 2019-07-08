@@ -126,9 +126,6 @@ class NodeScopeResolver
 	/** @var string[][] className(string) => methods(string[]) */
 	private $earlyTerminatingMethodCalls;
 
-	/** @var bool */
-	private $allowVarTagAboveStatements;
-
 	/** @var bool[] filePath(string) => bool(true) */
 	private $analysedFiles;
 
@@ -142,7 +139,6 @@ class NodeScopeResolver
 	 * @param bool $polluteCatchScopeWithTryAssignments
 	 * @param bool $polluteScopeWithAlwaysIterableForeach
 	 * @param string[][] $earlyTerminatingMethodCalls className(string) => methods(string[])
-	 * @param bool $allowVarTagAboveStatements
 	 */
 	public function __construct(
 		Broker $broker,
@@ -153,8 +149,7 @@ class NodeScopeResolver
 		bool $polluteScopeWithLoopInitialAssignments,
 		bool $polluteCatchScopeWithTryAssignments,
 		bool $polluteScopeWithAlwaysIterableForeach,
-		array $earlyTerminatingMethodCalls,
-		bool $allowVarTagAboveStatements
+		array $earlyTerminatingMethodCalls
 	)
 	{
 		$this->broker = $broker;
@@ -166,7 +161,6 @@ class NodeScopeResolver
 		$this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
 		$this->polluteScopeWithAlwaysIterableForeach = $polluteScopeWithAlwaysIterableForeach;
 		$this->earlyTerminatingMethodCalls = $earlyTerminatingMethodCalls;
-		$this->allowVarTagAboveStatements = $allowVarTagAboveStatements;
 	}
 
 	/**
@@ -2320,9 +2314,6 @@ class NodeScopeResolver
 
 	private function processStmtVarAnnotation(Scope $scope, Node\Stmt $stmt): Scope
 	{
-		if (!$this->allowVarTagAboveStatements) {
-			return $scope;
-		}
 		$comment = CommentHelper::getDocComment($stmt);
 		if ($comment === null) {
 			return $scope;
