@@ -1,4 +1,3 @@
 parameters:
 	featureToggles:
-		noopRule: true
 		tooWideTypehints: true
