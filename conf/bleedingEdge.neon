@@ -1,5 +1,4 @@
 parameters:
 	featureToggles:
-		invalidVarTag: true
 		noopRule: true
 		tooWideTypehints: true

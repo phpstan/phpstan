@@ -2,8 +2,6 @@ includes:
 	- config.level1.neon
 
 parameters:
-	featureToggles:
-		invalidVarTag: false
 	checkClassCaseSensitivity: true
 	checkThisOnly: false
 	checkPhpDocMissingReturn: true
@@ -24,12 +22,7 @@ rules:
 	- PHPStan\Rules\PhpDoc\IncompatiblePropertyPhpDocTypeRule
 	- PHPStan\Rules\PhpDoc\InvalidPhpDocTagValueRule
 	- PHPStan\Rules\PhpDoc\InvalidThrowsPhpDocValueRule
-
-conditionalTags:
-	PHPStan\Rules\PhpDoc\InvalidPhpDocVarTagTypeRule:
-		phpstan.rules.rule: %featureToggles.invalidVarTag%
-	PHPStan\Rules\PhpDoc\WrongVariableNameInVarTagRule:
-		phpstan.rules.rule: %featureToggles.invalidVarTag%
+	- PHPStan\Rules\PhpDoc\WrongVariableNameInVarTagRule
 
 services:
 	-
@@ -42,6 +35,5 @@ services:
 		class: PHPStan\Rules\PhpDoc\InvalidPhpDocVarTagTypeRule
 		arguments:
 			checkClassCaseSensitivity: %checkClassCaseSensitivity%
-
-	-
-		class: PHPStan\Rules\PhpDoc\WrongVariableNameInVarTagRule
+		tags:
+			- phpstan.rules.rule
