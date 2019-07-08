@@ -734,6 +734,7 @@ services:
 		arguments:
 			showTipsOfTheDay: %tipsOfTheDay%
 			checkThisOnly: %checkThisOnly%
+			inferPrivatePropertyTypeFromConstructor: %inferPrivatePropertyTypeFromConstructor%
 
 	errorFormatter.checkstyle:
 		class: PHPStan\Command\ErrorFormatter\CheckstyleErrorFormatter
