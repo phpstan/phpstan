@@ -28,8 +28,10 @@ use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Reflection\SignatureMap\ParameterSignature;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
+use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NeverType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
 
@@ -642,7 +644,12 @@ class PhpClassReflectionExtension
 				continue;
 			}
 
-			$propertyTypes[$propertyFetch->name->toString()] = $methodScope->getType($expr->expr);
+			$propertyType = $methodScope->getType($expr->expr);
+			if ($propertyType instanceof ErrorType || $propertyType instanceof NeverType) {
+				continue;
+			}
+
+			$propertyTypes[$propertyFetch->name->toString()] = $propertyType;
 		}
 
 		return $this->propertyTypesCache[$declaringClass->getName()] = $propertyTypes;
