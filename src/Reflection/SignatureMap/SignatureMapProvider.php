@@ -19,11 +19,13 @@ class SignatureMapProvider
 	public function hasFunctionSignature(string $name): bool
 	{
 		$signatureMap = self::getSignatureMap();
-		return array_key_exists($name, $signatureMap);
+		return array_key_exists(strtolower($name), $signatureMap);
 	}
 
 	public function getFunctionSignature(string $functionName, ?string $className): FunctionSignature
 	{
+		$functionName = strtolower($functionName);
+
 		if (!$this->hasFunctionSignature($functionName)) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
@@ -47,7 +49,7 @@ class SignatureMapProvider
 				throw new \PHPStan\ShouldNotHappenException('Signature map could not be loaded.');
 			}
 
-			self::$signatureMap = $signatureMap;
+			self::$signatureMap = array_change_key_case($signatureMap, CASE_LOWER);
 		}
 
 		return self::$signatureMap;

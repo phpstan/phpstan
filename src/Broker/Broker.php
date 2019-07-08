@@ -459,9 +459,7 @@ class Broker
 			return false;
 		}
 
-		$lowerCasedFunctionName = strtolower($functionName);
-
-		return !$this->signatureMapProvider->hasFunctionSignature($lowerCasedFunctionName);
+		return !$this->signatureMapProvider->hasFunctionSignature($functionName);
 	}
 
 	public function getCustomFunction(\PhpParser\Node\Name $nameNode, ?Scope $scope): \PHPStan\Reflection\Php\PhpFunctionReflection
@@ -530,9 +528,7 @@ class Broker
 				return true;
 			}
 
-			$lowercased = strtolower($name);
-
-			return $this->signatureMapProvider->hasFunctionSignature($lowercased);
+			return $this->signatureMapProvider->hasFunctionSignature($name);
 		}, $scope);
 	}
 
