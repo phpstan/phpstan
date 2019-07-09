@@ -34,7 +34,8 @@ class UnionTypeHelper
 		usort($types, static function (Type $a, Type $b): int {
 			if ($a instanceof NullType) {
 				return 1;
-			} elseif ($b instanceof NullType) {
+			}
+			if ($b instanceof NullType) {
 				return -1;
 			}
 
@@ -53,12 +54,14 @@ class UnionTypeHelper
 			$bIsBool = $b instanceof ConstantBooleanType;
 			if ($aIsBool && !$bIsBool) {
 				return 1;
-			} elseif ($bIsBool && !$aIsBool) {
+			}
+			if ($bIsBool && !$aIsBool) {
 				return -1;
 			}
 			if ($a instanceof ConstantScalarType && !$b instanceof ConstantScalarType) {
 				return -1;
-			} elseif (!$a instanceof ConstantScalarType && $b instanceof ConstantScalarType) {
+			}
+			if (!$a instanceof ConstantScalarType && $b instanceof ConstantScalarType) {
 				return 1;
 			}
 

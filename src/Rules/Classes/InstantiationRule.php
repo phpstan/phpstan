@@ -73,7 +73,8 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				];
 			}
 			return [];
-		} elseif ($lowercasedClass === 'self') {
+		}
+		if ($lowercasedClass === 'self') {
 			if (!$scope->isInClass()) {
 				return [
 					sprintf('Using %s outside of class scope.', $class),

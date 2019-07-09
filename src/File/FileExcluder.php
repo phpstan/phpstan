@@ -23,7 +23,7 @@ class FileExcluder
 	{
 		$this->analyseExcludes = array_map(function (string $exclude) use ($fileHelper): string {
 			$len = strlen($exclude);
-			$trailingDirSeparator = ($len > 0 && in_array($exclude[$len - 1], ['\\', '/'], true));
+			$trailingDirSeparator = $len > 0 && in_array($exclude[$len - 1], ['\\', '/'], true);
 
 			$normalized = $fileHelper->normalizePath($exclude);
 

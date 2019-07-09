@@ -68,7 +68,8 @@ class ScopeContext
 
 		if ($this->getClassReflection() === null) {
 			return $otherContext->getClassReflection() === null;
-		} elseif ($otherContext->getClassReflection() === null) {
+		}
+		if ($otherContext->getClassReflection() === null) {
 			return false;
 		}
 
@@ -76,7 +77,8 @@ class ScopeContext
 
 		if ($this->getTraitReflection() === null) {
 			return $otherContext->getTraitReflection() === null && $isSameClass;
-		} elseif ($otherContext->getTraitReflection() === null) {
+		}
+		if ($otherContext->getTraitReflection() === null) {
 			return false;
 		}
 

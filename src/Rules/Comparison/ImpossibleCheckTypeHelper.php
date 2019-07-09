@@ -51,7 +51,8 @@ class ImpossibleCheckTypeHelper
 				$functionName = strtolower((string) $node->name);
 				if ($functionName === 'count') {
 					return null;
-				} elseif ($functionName === 'is_numeric') {
+				}
+				if ($functionName === 'is_numeric') {
 					$argType = $scope->getType($node->args[0]->value);
 					if (count(TypeUtils::getConstantScalars($argType)) > 0) {
 						return !$argType->toNumber() instanceof ErrorType;
@@ -158,12 +159,14 @@ class ImpossibleCheckTypeHelper
 			$isSuperType = $resultType->isSuperTypeOf($argumentType);
 			if ($isSuperType->yes()) {
 				return true;
-			} elseif ($isSuperType->no()) {
+			}
+			if ($isSuperType->no()) {
 				return false;
 			}
 
 			return null;
-		} elseif (count($sureNotTypes) === 1) {
+		}
+		if (count($sureNotTypes) === 1) {
 			$sureNotType = reset($sureNotTypes);
 			if ($isSpecified($sureNotType[0])) {
 				return null;
@@ -177,12 +180,14 @@ class ImpossibleCheckTypeHelper
 			$isSuperType = $resultType->isSuperTypeOf($argumentType);
 			if ($isSuperType->yes()) {
 				return false;
-			} elseif ($isSuperType->no()) {
+			}
+			if ($isSuperType->no()) {
 				return true;
 			}
 
 			return null;
-		} elseif (count($sureTypes) > 0) {
+		}
+		if (count($sureTypes) > 0) {
 			foreach ($sureTypes as $sureType) {
 				if ($isSpecified($sureType[0])) {
 					return null;

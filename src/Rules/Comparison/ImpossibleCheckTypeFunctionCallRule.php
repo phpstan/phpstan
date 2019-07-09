@@ -54,7 +54,8 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 				$functionName,
 				$this->impossibleCheckTypeHelper->getArgumentsDescription($scope, $node->args)
 			)];
-		} elseif ($this->checkAlwaysTrueCheckTypeFunctionCall) {
+		}
+		if ($this->checkAlwaysTrueCheckTypeFunctionCall) {
 			return [sprintf(
 				'Call to function %s()%s will always evaluate to true.',
 				$functionName,

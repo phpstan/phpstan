@@ -118,7 +118,8 @@ class TrinaryLogic
 	{
 		if ($this->value > $other->value) {
 			return $this;
-		} elseif ($other->value > $this->value) {
+		}
+		if ($other->value > $this->value) {
 			return $other;
 		}
 

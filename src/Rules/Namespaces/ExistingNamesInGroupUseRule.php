@@ -119,7 +119,8 @@ class ExistingNamesInGroupUseRule implements \PHPStan\Rules\Rule
 		]);
 		if (count($errors) === 0) {
 			return null;
-		} elseif (count($errors) === 1) {
+		}
+		if (count($errors) === 1) {
 			return $errors[0];
 		}
 

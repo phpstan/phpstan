@@ -282,8 +282,8 @@ class TypeCombinator
 
 		if (count($types) === 0) {
 			return new NeverType();
-
-		} elseif (count($types) === 1) {
+		}
+		if (count($types) === 1) {
 			return $types[0];
 		}
 
@@ -387,7 +387,8 @@ class TypeCombinator
 		}
 		if (count($arrayTypes) === 0) {
 			return [];
-		} elseif (count($arrayTypes) === 1) {
+		}
+		if (count($arrayTypes) === 1) {
 			return [
 				self::intersect($arrayTypes[0], ...$accessoryTypes),
 			];
@@ -552,8 +553,8 @@ class TypeCombinator
 				$isSuperTypeA = $types[$j]->isSuperTypeOf($types[$i]);
 				if ($isSuperTypeA->no()) {
 					return new NeverType();
-
-				} elseif ($isSuperTypeA->yes()) {
+				}
+				if ($isSuperTypeA->yes()) {
 					array_splice($types, $j--, 1);
 					continue;
 				}

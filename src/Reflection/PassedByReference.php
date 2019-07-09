@@ -68,7 +68,8 @@ class PassedByReference
 	{
 		if ($this->value > $other->value) {
 			return $this;
-		} elseif ($this->value < $other->value) {
+		}
+		if ($this->value < $other->value) {
 			return $other;
 		}
 

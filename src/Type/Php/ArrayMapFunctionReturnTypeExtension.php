@@ -53,7 +53,8 @@ class ArrayMapFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFuncti
 			}
 
 			return TypeCombinator::union(...$arrayTypes);
-		} elseif ($arrayType->isArray()->yes()) {
+		}
+		if ($arrayType->isArray()->yes()) {
 			return TypeCombinator::intersect(new ArrayType(
 				$arrayType->getIterableKeyType(),
 				$valueType

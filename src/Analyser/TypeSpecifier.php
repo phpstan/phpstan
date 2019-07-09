@@ -192,8 +192,9 @@ class TypeSpecifier
 				$leftTypes = $this->create($expr->left, $type, $context);
 				$rightTypes = $this->create($expr->right, $type, $context);
 				return $leftTypes->unionWith($rightTypes);
+			}
 
-			} elseif ($context->false()) {
+			if ($context->false()) {
 				$identicalType = $scope->getType($expr);
 				if ($identicalType instanceof ConstantBooleanType) {
 					$never = new NeverType();
@@ -530,7 +531,9 @@ class TypeSpecifier
 		if (!$context->truthy()) {
 			$type = new UnionType([new ObjectWithoutClassType(), new NonEmptyArrayType()]);
 			return $this->create($expr, $type, TypeSpecifierContext::createFalse());
-		} elseif (!$context->falsey()) {
+		}
+
+		if (!$context->falsey()) {
 			$type = new UnionType([
 				new NullType(),
 				new ConstantBooleanType(false),
@@ -560,7 +563,9 @@ class TypeSpecifier
 			&& !$binaryOperation->right instanceof Expr\ClassConstFetch
 		) {
 			return [$binaryOperation->right, $leftType];
-		} elseif (
+		}
+
+		if (
 			$rightType instanceof \PHPStan\Type\ConstantScalarType
 			&& !$binaryOperation->left instanceof ConstFetch
 			&& !$binaryOperation->left instanceof Expr\ClassConstFetch

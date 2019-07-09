@@ -55,7 +55,8 @@ class ClassCaseSensitivityCheck
 	{
 		if ($classReflection->isInterface()) {
 			return 'Interface';
-		} elseif ($classReflection->isTrait()) {
+		}
+		if ($classReflection->isTrait()) {
 			return 'Trait';
 		}
 

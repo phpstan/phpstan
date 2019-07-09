@@ -89,28 +89,29 @@ class TypeNodeResolver
 
 		if ($typeNode instanceof IdentifierTypeNode) {
 			return $this->resolveIdentifierTypeNode($typeNode, $nameScope);
-
-		} elseif ($typeNode instanceof ThisTypeNode) {
+		}
+		if ($typeNode instanceof ThisTypeNode) {
 			return $this->resolveThisTypeNode($typeNode, $nameScope);
-
-		} elseif ($typeNode instanceof NullableTypeNode) {
+		}
+		if ($typeNode instanceof NullableTypeNode) {
 			return $this->resolveNullableTypeNode($typeNode, $nameScope);
-
-		} elseif ($typeNode instanceof UnionTypeNode) {
+		}
+		if ($typeNode instanceof UnionTypeNode) {
 			return $this->resolveUnionTypeNode($typeNode, $nameScope);
-
-		} elseif ($typeNode instanceof IntersectionTypeNode) {
+		}
+		if ($typeNode instanceof IntersectionTypeNode) {
 			return $this->resolveIntersectionTypeNode($typeNode, $nameScope);
-
-		} elseif ($typeNode instanceof ArrayTypeNode) {
+		}
+		if ($typeNode instanceof ArrayTypeNode) {
 			return $this->resolveArrayTypeNode($typeNode, $nameScope);
-
-		} elseif ($typeNode instanceof GenericTypeNode) {
+		}
+		if ($typeNode instanceof GenericTypeNode) {
 			return $this->resolveGenericTypeNode($typeNode, $nameScope);
-
-		} elseif ($typeNode instanceof CallableTypeNode) {
+		}
+		if ($typeNode instanceof CallableTypeNode) {
 			return $this->resolveCallableTypeNode($typeNode, $nameScope);
-		} elseif ($typeNode instanceof ArrayShapeNode) {
+		}
+		if ($typeNode instanceof ArrayShapeNode) {
 			return $this->resolveArrayShapeNode($typeNode, $nameScope);
 		}
 
@@ -352,7 +353,8 @@ class TypeNodeResolver
 		if ($mainType instanceof CallableType) {
 			return new CallableType($parameters, $returnType, $isVariadic);
 
-		} elseif (
+		}
+		if (
 			$mainType instanceof ObjectType
 			&& $mainType->getClassName() === \Closure::class
 		) {

@@ -1954,11 +1954,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		$typeCallback = static function ($value): string {
 			if (is_int($value)) {
 				return (new ConstantIntegerType($value))->describe(VerbosityLevel::precise());
-			} elseif (is_float($value)) {
+			}
+			if (is_float($value)) {
 				return (new ConstantFloatType($value))->describe(VerbosityLevel::precise());
-			} elseif (is_bool($value)) {
+			}
+			if (is_bool($value)) {
 				return (new ConstantBooleanType($value))->describe(VerbosityLevel::precise());
-			} elseif (is_string($value)) {
+			}
+			if (is_string($value)) {
 				return (new ConstantStringType($value))->describe(VerbosityLevel::precise());
 			}
 

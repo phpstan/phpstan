@@ -18,15 +18,20 @@ class ConstantTypeHelper
 	{
 		if (is_int($value)) {
 			return new ConstantIntegerType($value);
-		} elseif (is_float($value)) {
+		}
+		if (is_float($value)) {
 			return new ConstantFloatType($value);
-		} elseif (is_bool($value)) {
+		}
+		if (is_bool($value)) {
 			return new ConstantBooleanType($value);
-		} elseif ($value === null) {
+		}
+		if ($value === null) {
 			return new NullType();
-		} elseif (is_string($value)) {
+		}
+		if (is_string($value)) {
 			return new ConstantStringType($value);
-		} elseif (is_array($value)) {
+		}
+		if (is_array($value)) {
 			$arrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 			foreach ($value as $k => $v) {
 				$arrayBuilder->setOffsetValueType(self::getTypeFromValue($k), self::getTypeFromValue($v));

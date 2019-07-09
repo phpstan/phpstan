@@ -59,7 +59,8 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 					$rightType->describe(VerbosityLevel::value())
 				),
 			];
-		} elseif ($this->checkAlwaysTrueStrictComparison) {
+		}
+		if ($this->checkAlwaysTrueStrictComparison) {
 			return [
 				sprintf(
 					'Strict comparison using %s between %s and %s will always evaluate to true.',

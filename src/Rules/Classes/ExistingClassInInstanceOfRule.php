@@ -72,7 +72,8 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 			return [
 				RuleErrorBuilder::message(sprintf('Class %s not found.', $name))->line($class->getLine())->build(),
 			];
-		} elseif ($this->checkClassCaseSensitivity) {
+		}
+		if ($this->checkClassCaseSensitivity) {
 			return $this->classCaseSensitivityCheck->checkClassNames([new ClassNameNodePair($name, $class)]);
 		}
 

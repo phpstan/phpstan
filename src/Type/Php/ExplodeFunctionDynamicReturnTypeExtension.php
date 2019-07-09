@@ -37,7 +37,8 @@ class ExplodeFunctionDynamicReturnTypeExtension implements \PHPStan\Type\Dynamic
 		$isSuperset = (new ConstantStringType(''))->isSuperTypeOf($delimiterType);
 		if ($isSuperset->yes()) {
 			return new ConstantBooleanType(false);
-		} elseif ($isSuperset->no()) {
+		}
+		if ($isSuperset->no()) {
 			return new ArrayType(new IntegerType(), new StringType());
 		}
 

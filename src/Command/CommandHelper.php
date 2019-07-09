@@ -219,7 +219,8 @@ class CommandHelper
 			$errorOutput->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
 			$errorOutput->writeln('');
 			throw new \PHPStan\Command\InceptionNotSuccessfulException();
-		} elseif ((bool) $container->getParameter('customRulesetUsed')) {
+		}
+		if ((bool) $container->getParameter('customRulesetUsed')) {
 			$defaultLevelUsed = false;
 		}
 

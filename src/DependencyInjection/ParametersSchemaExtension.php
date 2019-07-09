@@ -79,7 +79,8 @@ class ParametersSchemaExtension extends \Nette\DI\CompilerExtension
 			}
 
 			return $this->processSchema([$argument]);
-		} elseif (is_array($argument)) {
+		}
+		if (is_array($argument)) {
 			$processedArray = [];
 			foreach ($argument as $key => $val) {
 				$processedArray[$key] = $this->processArgument($val);

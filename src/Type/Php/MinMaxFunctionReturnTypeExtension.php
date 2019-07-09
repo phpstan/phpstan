@@ -145,7 +145,8 @@ class MinMaxFunctionReturnTypeExtension implements \PHPStan\Type\DynamicFunction
 		) {
 			if ($secondType->count() < $firstType->count()) {
 				return $secondType;
-			} elseif ($firstType->count() < $secondType->count()) {
+			}
+			if ($firstType->count() < $secondType->count()) {
 				return $firstType;
 			}
 

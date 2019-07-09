@@ -551,7 +551,8 @@ class Scope implements ClassMemberAccessAnswerer
 			$isSuperset = $leftType->isSuperTypeOf($rightType);
 			if ($isSuperset->no()) {
 				return new ConstantBooleanType(false);
-			} elseif (
+			}
+			if (
 				$isSuperset->yes()
 				&& $leftType instanceof ConstantScalarType
 				&& $rightType instanceof ConstantScalarType
@@ -590,7 +591,8 @@ class Scope implements ClassMemberAccessAnswerer
 			$isSuperset = $leftType->isSuperTypeOf($rightType);
 			if ($isSuperset->no()) {
 				return new ConstantBooleanType(true);
-			} elseif (
+			}
+			if (
 				$isSuperset->yes()
 				&& $leftType instanceof ConstantScalarType
 				&& $rightType instanceof ConstantScalarType
@@ -629,7 +631,8 @@ class Scope implements ClassMemberAccessAnswerer
 				->and($isExpressionObject);
 			if ($isSuperType->no()) {
 				return new ConstantBooleanType(false);
-			} elseif ($isSuperType->yes()) {
+			}
+			if ($isSuperType->yes()) {
 				return new ConstantBooleanType(true);
 			}
 
@@ -758,7 +761,8 @@ class Scope implements ClassMemberAccessAnswerer
 				$rightType = $this->getType($node->right);
 				if ($hasOffset->no()) {
 					return $rightType;
-				} elseif ($hasOffset->yes()) {
+				}
+				if ($hasOffset->yes()) {
 					$offsetValueType = $varType->getOffsetValueType($dimType);
 					if ($offsetValueType->isSuperTypeOf(new NullType())->no()) {
 						return TypeCombinator::removeNull($leftType);
@@ -990,9 +994,11 @@ class Scope implements ClassMemberAccessAnswerer
 
 		if ($node instanceof LNumber) {
 			return new ConstantIntegerType($node->value);
-		} elseif ($node instanceof String_) {
+		}
+		if ($node instanceof String_) {
 			return new ConstantStringType($node->value);
-		} elseif ($node instanceof Node\Scalar\Encapsed) {
+		}
+		if ($node instanceof Node\Scalar\Encapsed) {
 			$constantString = new ConstantStringType('');
 			foreach ($node->parts as $part) {
 				if ($part instanceof EncapsedStringPart) {
@@ -1010,9 +1016,11 @@ class Scope implements ClassMemberAccessAnswerer
 				$constantString = $constantString->append($partStringType);
 			}
 			return $constantString;
-		} elseif ($node instanceof DNumber) {
+		}
+		if ($node instanceof DNumber) {
 			return new ConstantFloatType($node->value);
-		} elseif ($node instanceof Expr\Closure) {
+		}
+		if ($node instanceof Expr\Closure) {
 			$parameters = [];
 			$isVariadic = false;
 			$firstOptionalParameterIndex = null;
@@ -1052,7 +1060,8 @@ class Scope implements ClassMemberAccessAnswerer
 				$this->getFunctionType($node->returnType, $node->returnType === null, false),
 				$isVariadic
 			);
-		} elseif ($node instanceof New_) {
+		}
+		if ($node instanceof New_) {
 			if ($node->class instanceof Name) {
 				$className = $node->class->toString();
 				$lowercasedClassName = strtolower($className);
@@ -1231,9 +1240,11 @@ class Scope implements ClassMemberAccessAnswerer
 			$constName = strtolower((string) $node->name);
 			if ($constName === 'true') {
 				return new \PHPStan\Type\Constant\ConstantBooleanType(true);
-			} elseif ($constName === 'false') {
+			}
+			if ($constName === 'false') {
 				return new \PHPStan\Type\Constant\ConstantBooleanType(false);
-			} elseif ($constName === 'null') {
+			}
+			if ($constName === 'null') {
 				return new NullType();
 			}
 
@@ -1270,7 +1281,8 @@ class Scope implements ClassMemberAccessAnswerer
 			}
 
 			return new ErrorType();
-		} elseif ($node instanceof Node\Expr\ClassConstFetch && $node->name instanceof Node\Identifier) {
+		}
+		if ($node instanceof Node\Expr\ClassConstFetch && $node->name instanceof Node\Identifier) {
 			$constantName = $node->name->name;
 			if ($node->class instanceof Name) {
 				$constantClass = (string) $node->class;
@@ -1782,7 +1794,8 @@ class Scope implements ClassMemberAccessAnswerer
 				'static',
 			], true)) {
 				return $this->getClassReflection()->getName();
-			} elseif ($originalClass === 'parent') {
+			}
+			if ($originalClass === 'parent') {
 				$currentClassReflection = $this->getClassReflection();
 				if ($currentClassReflection->getParentClass() !== false) {
 					return $currentClassReflection->getParentClass()->getName();
@@ -2188,7 +2201,8 @@ class Scope implements ClassMemberAccessAnswerer
 		}
 		if ($type === null) {
 			return new MixedType();
-		} elseif ($type instanceof Name) {
+		}
+		if ($type instanceof Name) {
 			$className = (string) $type;
 			$lowercasedClassName = strtolower($className);
 			if ($this->isInClass() && in_array($lowercasedClassName, ['self', 'static'], true)) {
@@ -2203,28 +2217,37 @@ class Scope implements ClassMemberAccessAnswerer
 				return new NonexistentParentClassType();
 			}
 			return new ObjectType($className);
-		} elseif ($type instanceof Node\NullableType) {
+		}
+		if ($type instanceof Node\NullableType) {
 			return $this->getFunctionType($type->type, true, $isVariadic);
 		}
 
 		$type = $type->name;
 		if ($type === 'string') {
 			return new StringType();
-		} elseif ($type === 'int') {
+		}
+		if ($type === 'int') {
 			return new IntegerType();
-		} elseif ($type === 'bool') {
+		}
+		if ($type === 'bool') {
 			return new BooleanType();
-		} elseif ($type === 'float') {
+		}
+		if ($type === 'float') {
 			return new FloatType();
-		} elseif ($type === 'callable') {
+		}
+		if ($type === 'callable') {
 			return new CallableType();
-		} elseif ($type === 'array') {
+		}
+		if ($type === 'array') {
 			return new ArrayType(new MixedType(), new MixedType());
-		} elseif ($type === 'iterable') {
+		}
+		if ($type === 'iterable') {
 			return new IterableType(new MixedType(), new MixedType());
-		} elseif ($type === 'void') {
+		}
+		if ($type === 'void') {
 			return new VoidType();
-		} elseif ($type === 'object') {
+		}
+		if ($type === 'object') {
 			return new ObjectWithoutClassType();
 		}
 
@@ -2394,7 +2417,8 @@ class Scope implements ClassMemberAccessAnswerer
 				$this->isNegated(),
 				$this->inFirstLevelStatement
 			);
-		} elseif ($expr instanceof Expr\ArrayDimFetch && $expr->dim !== null) {
+		}
+		if ($expr instanceof Expr\ArrayDimFetch && $expr->dim !== null) {
 			$constantArrays = TypeUtils::getConstantArrays($this->getType($expr->var));
 			if (count($constantArrays) > 0) {
 				$unsetArrays = [];
@@ -2442,7 +2466,8 @@ class Scope implements ClassMemberAccessAnswerer
 				$this->inFirstLevelStatement,
 				$this->currentlyAssignedExpressions
 			);
-		} elseif ($expr instanceof Expr\ArrayDimFetch && $expr->dim !== null) {
+		}
+		if ($expr instanceof Expr\ArrayDimFetch && $expr->dim !== null) {
 			$constantArrays = TypeUtils::getConstantArrays($this->getType($expr->var));
 			if (count($constantArrays) > 0) {
 				$setArrays = [];

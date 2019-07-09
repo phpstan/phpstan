@@ -39,7 +39,8 @@ class InvalidKeyInArrayItemRule implements \PHPStan\Rules\Rule
 			return [
 				sprintf('Invalid array key type %s.', $dimensionType->describe(VerbosityLevel::typeOnly())),
 			];
-		} elseif ($this->reportMaybes && $isSuperType->maybe() && !$dimensionType instanceof MixedType) {
+		}
+		if ($this->reportMaybes && $isSuperType->maybe() && !$dimensionType instanceof MixedType) {
 			return [
 				sprintf('Possibly invalid array key type %s.', $dimensionType->describe(VerbosityLevel::typeOnly())),
 			];

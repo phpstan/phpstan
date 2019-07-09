@@ -43,7 +43,9 @@ class FileFinder
 		foreach ($paths as $path) {
 			if (!file_exists($path)) {
 				throw new \PHPStan\File\PathNotFoundException($path);
-			} elseif (is_file($path)) {
+			}
+
+			if (is_file($path)) {
 				$files[] = $this->fileHelper->normalizePath($path);
 			} else {
 				$finder = new Finder();

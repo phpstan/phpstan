@@ -31,7 +31,8 @@ class FuzzyRelativePathHelper implements RelativePathHelper
 					'/',
 					substr($path, 1),
 				];
-			} elseif (substr($path, 1, 1) === ':') {
+			}
+			if (substr($path, 1, 1) === ':') {
 				return [
 					substr($path, 0, 3),
 					substr($path, 3),

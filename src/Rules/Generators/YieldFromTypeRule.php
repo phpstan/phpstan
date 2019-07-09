@@ -48,7 +48,8 @@ class YieldFromTypeRule implements Rule
 			return [
 				sprintf($messagePattern, $exprType->describe(VerbosityLevel::typeOnly())),
 			];
-		} elseif (
+		}
+		if (
 			!$exprType instanceof MixedType
 			&& $this->reportMaybes
 			&& $isIterable->maybe()

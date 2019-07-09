@@ -22,7 +22,8 @@ class IgnoredError
 		// ignore by path
 		if (isset($ignoredError['path'])) {
 			return sprintf('%s in path %s', $ignoredError['message'], $ignoredError['path']);
-		} elseif (isset($ignoredError['paths'])) {
+		}
+		if (isset($ignoredError['paths'])) {
 			if (count($ignoredError['paths']) === 1) {
 				return sprintf('%s in path %s', $ignoredError['message'], implode(', ', $ignoredError['paths']));
 
