@@ -8488,6 +8488,7 @@ return [
 'PDOStatement::setFetchMode\'1' => ['bool', 'fetch_column'=>'int', 'colno'=>'int'],
 'PDOStatement::setFetchMode\'2' => ['bool', 'fetch_class'=>'int', 'classname'=>'string', 'ctorargs'=>'array'],
 'PDOStatement::setFetchMode\'3' => ['bool', 'fetch_into'=>'int', 'object'=>'object'],
+'PDOStatement::setFetchMode\'4' => ['bool', 'mode'=>'int', 'classname'=>'string', 'ctorargs'=>'?array'],
 'pfsockopen' => ['resource', 'hostname'=>'string', 'port='=>'int', '&w_errno='=>'int', '&w_errstr='=>'string', 'timeout='=>'float'],
 'pg_affected_rows' => ['int', 'result'=>'resource'],
 'pg_cancel_query' => ['bool', 'connection'=>'resource'],
