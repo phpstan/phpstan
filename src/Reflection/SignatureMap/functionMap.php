@@ -5127,7 +5127,7 @@ return [
 'ImagickDraw::setFontWeight' => ['bool', 'font_weight'=>'int'],
 'ImagickDraw::setGravity' => ['bool', 'gravity'=>'int'],
 'ImagickDraw::setOpacity' => ['void', 'opacity'=>'float'],
-'ImagickDraw::setResolution' => ['void', 'x_resolution'=>'string', 'y_resolution'=>'string'],
+'ImagickDraw::setResolution' => ['void', 'x_resolution'=>'float', 'y_resolution'=>'float'],
 'ImagickDraw::setStrokeAlpha' => ['bool', 'opacity'=>'float'],
 'ImagickDraw::setStrokeAntialias' => ['bool', 'stroke_antialias'=>'bool'],
 'ImagickDraw::setStrokeColor' => ['bool', 'stroke_pixel'=>'imagickpixel'],
