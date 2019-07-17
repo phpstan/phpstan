@@ -18,6 +18,7 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
 use PHPStan\Reflection\ThrowableReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\Generic\TemplateTypeMap;
@@ -414,19 +415,24 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		return null;
 	}
 
-	public function isDeprecated(): bool
+	public function isDeprecated(): TrinaryLogic
 	{
-		return $this->isDeprecated;
+		return TrinaryLogic::createFromBoolean($this->isDeprecated);
 	}
 
-	public function isInternal(): bool
+	public function isInternal(): TrinaryLogic
 	{
-		return $this->isInternal;
+		return TrinaryLogic::createFromBoolean($this->isInternal);
 	}
 
-	public function isFinal(): bool
+	public function isFinal(): TrinaryLogic
 	{
-		return $this->isFinal;
+		return TrinaryLogic::createFromBoolean($this->isFinal);
+	}
+
+	public function hasThrowType(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
 	}
 
 	public function getThrowType(): ?Type

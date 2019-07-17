@@ -7,6 +7,7 @@ use PhpParser\Node\FunctionLike;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Reflection\FunctionVariantWithPhpDocs;
 use PHPStan\Reflection\PassedByReference;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
@@ -205,19 +206,24 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		return null;
 	}
 
-	public function isDeprecated(): bool
+	public function isDeprecated(): TrinaryLogic
 	{
-		return $this->isDeprecated;
+		return TrinaryLogic::createFromBoolean($this->isDeprecated);
 	}
 
-	public function isInternal(): bool
+	public function isInternal(): TrinaryLogic
 	{
-		return $this->isInternal;
+		return TrinaryLogic::createFromBoolean($this->isInternal);
 	}
 
-	public function isFinal(): bool
+	public function isFinal(): TrinaryLogic
 	{
-		return $this->isFinal;
+		return TrinaryLogic::createFromBoolean($this->isFinal);
+	}
+
+	public function hasThrowType(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
 	}
 
 	public function getThrowType(): ?Type

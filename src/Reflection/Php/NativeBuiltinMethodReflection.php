@@ -2,6 +2,8 @@
 
 namespace PHPStan\Reflection\Php;
 
+use PHPStan\TrinaryLogic;
+
 class NativeBuiltinMethodReflection implements BuiltinMethodReflection
 {
 
@@ -75,9 +77,9 @@ class NativeBuiltinMethodReflection implements BuiltinMethodReflection
 		return new self($this->reflection->getPrototype());
 	}
 
-	public function isDeprecated(): bool
+	public function isDeprecated(): TrinaryLogic
 	{
-		return $this->reflection->isDeprecated();
+		return TrinaryLogic::createFromBoolean($this->reflection->isDeprecated());
 	}
 
 	public function isVariadic(): bool

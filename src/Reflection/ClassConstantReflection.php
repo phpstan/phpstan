@@ -2,6 +2,8 @@
 
 namespace PHPStan\Reflection;
 
+use PHPStan\TrinaryLogic;
+
 class ClassConstantReflection implements ConstantReflection, DeprecatableReflection, InternableReflection
 {
 
@@ -68,9 +70,9 @@ class ClassConstantReflection implements ConstantReflection, DeprecatableReflect
 		return $this->reflection->isPublic();
 	}
 
-	public function isDeprecated(): bool
+	public function isDeprecated(): TrinaryLogic
 	{
-		return $this->isDeprecated;
+		return TrinaryLogic::createFromBoolean($this->isDeprecated);
 	}
 
 	public function getDeprecatedDescription(): ?string
@@ -82,9 +84,9 @@ class ClassConstantReflection implements ConstantReflection, DeprecatableReflect
 		return null;
 	}
 
-	public function isInternal(): bool
+	public function isInternal(): TrinaryLogic
 	{
-		return $this->isInternal;
+		return TrinaryLogic::createFromBoolean($this->isInternal);
 	}
 
 }

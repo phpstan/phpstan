@@ -2,10 +2,13 @@
 
 namespace PHPStan\Reflection;
 
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 
 interface ThrowableReflection
 {
+
+	public function hasThrowType(): TrinaryLogic;
 
 	public function getThrowType(): ?Type;
 

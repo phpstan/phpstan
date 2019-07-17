@@ -99,21 +99,21 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 		foreach ($deprecatedAnnotations['method'] ?? [] as $methodName => $deprecatedMessage) {
 			$methodAnnotation = $class->getMethod($methodName, $scope);
 			$this->assertInstanceOf(DeprecatableReflection::class, $methodAnnotation);
-			$this->assertSame($deprecated, $methodAnnotation->isDeprecated());
+			$this->assertSame($deprecated, $methodAnnotation->isDeprecated()->yes());
 			$this->assertSame($deprecatedMessage, $methodAnnotation->getDeprecatedDescription());
 		}
 
 		foreach ($deprecatedAnnotations['property'] ?? [] as $propertyName => $deprecatedMessage) {
 			$propertyAnnotation = $class->getProperty($propertyName, $scope);
 			$this->assertInstanceOf(DeprecatableReflection::class, $propertyAnnotation);
-			$this->assertSame($deprecated, $propertyAnnotation->isDeprecated());
+			$this->assertSame($deprecated, $propertyAnnotation->isDeprecated()->yes());
 			$this->assertSame($deprecatedMessage, $propertyAnnotation->getDeprecatedDescription());
 		}
 
 		foreach ($deprecatedAnnotations['constant'] ?? [] as $constantName => $deprecatedMessage) {
 			$constantAnnotation = $class->getConstant($constantName);
 			$this->assertInstanceOf(DeprecatableReflection::class, $constantAnnotation);
-			$this->assertSame($deprecated, $constantAnnotation->isDeprecated());
+			$this->assertSame($deprecated, $constantAnnotation->isDeprecated()->yes());
 			$this->assertSame($deprecatedMessage, $constantAnnotation->getDeprecatedDescription());
 		}
 	}
@@ -125,8 +125,8 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 		/** @var Broker $broker */
 		$broker = self::getContainer()->getByType(Broker::class);
 
-		$this->assertFalse($broker->getFunction(new Name\FullyQualified('DeprecatedAnnotations\foo'), null)->isDeprecated());
-		$this->assertTrue($broker->getFunction(new Name\FullyQualified('DeprecatedAnnotations\deprecatedFoo'), null)->isDeprecated());
+		$this->assertFalse($broker->getFunction(new Name\FullyQualified('DeprecatedAnnotations\foo'), null)->isDeprecated()->yes());
+		$this->assertTrue($broker->getFunction(new Name\FullyQualified('DeprecatedAnnotations\deprecatedFoo'), null)->isDeprecated()->yes());
 	}
 
 	public function testNonDeprecatedNativeFunctions(): void
@@ -134,9 +134,9 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 		/** @var Broker $broker */
 		$broker = self::getContainer()->getByType(Broker::class);
 
-		$this->assertFalse($broker->getFunction(new Name('str_replace'), null)->isDeprecated());
-		$this->assertFalse($broker->getFunction(new Name('get_class'), null)->isDeprecated());
-		$this->assertFalse($broker->getFunction(new Name('function_exists'), null)->isDeprecated());
+		$this->assertFalse($broker->getFunction(new Name('str_replace'), null)->isDeprecated()->yes());
+		$this->assertFalse($broker->getFunction(new Name('get_class'), null)->isDeprecated()->yes());
+		$this->assertFalse($broker->getFunction(new Name('function_exists'), null)->isDeprecated()->yes());
 	}
 
 }
