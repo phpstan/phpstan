@@ -125,19 +125,19 @@ class InternalAnnotationsTest extends \PHPStan\Testing\TestCase
 		foreach ($internalAnnotations['method'] ?? [] as $methodName) {
 			$methodAnnotation = $class->getMethod($methodName, $scope);
 			$this->assertInstanceOf(InternableReflection::class, $methodAnnotation);
-			$this->assertSame($internal, $methodAnnotation->isInternal());
+			$this->assertSame($internal, $methodAnnotation->isInternal()->yes());
 		}
 
 		foreach ($internalAnnotations['property'] ?? [] as $propertyName) {
 			$propertyAnnotation = $class->getProperty($propertyName, $scope);
 			$this->assertInstanceOf(InternableReflection::class, $propertyAnnotation);
-			$this->assertSame($internal, $propertyAnnotation->isInternal());
+			$this->assertSame($internal, $propertyAnnotation->isInternal()->yes());
 		}
 
 		foreach ($internalAnnotations['constant'] ?? [] as $constantName) {
 			$constantAnnotation = $class->getConstant($constantName);
 			$this->assertInstanceOf(InternableReflection::class, $constantAnnotation);
-			$this->assertSame($internal, $constantAnnotation->isInternal());
+			$this->assertSame($internal, $constantAnnotation->isInternal()->yes());
 		}
 	}
 
@@ -148,8 +148,8 @@ class InternalAnnotationsTest extends \PHPStan\Testing\TestCase
 		/** @var Broker $broker */
 		$broker = self::getContainer()->getByType(Broker::class);
 
-		$this->assertFalse($broker->getFunction(new Name\FullyQualified('InternalAnnotations\foo'), null)->isInternal());
-		$this->assertTrue($broker->getFunction(new Name\FullyQualified('InternalAnnotations\internalFoo'), null)->isInternal());
+		$this->assertFalse($broker->getFunction(new Name\FullyQualified('InternalAnnotations\foo'), null)->isInternal()->yes());
+		$this->assertTrue($broker->getFunction(new Name\FullyQualified('InternalAnnotations\internalFoo'), null)->isInternal()->yes());
 	}
 
 }

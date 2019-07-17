@@ -6,6 +6,7 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\DeprecatableReflection;
 use PHPStan\Reflection\InternableReflection;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 
 class PhpPropertyReflection implements PropertyReflection, DeprecatableReflection, InternableReflection
@@ -98,14 +99,14 @@ class PhpPropertyReflection implements PropertyReflection, DeprecatableReflectio
 		return null;
 	}
 
-	public function isDeprecated(): bool
+	public function isDeprecated(): TrinaryLogic
 	{
-		return $this->isDeprecated;
+		return TrinaryLogic::createFromBoolean($this->isDeprecated);
 	}
 
-	public function isInternal(): bool
+	public function isInternal(): TrinaryLogic
 	{
-		return $this->isInternal;
+		return TrinaryLogic::createFromBoolean($this->isInternal);
 	}
 
 }

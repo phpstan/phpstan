@@ -11,6 +11,7 @@ use PHPStan\Reflection\InternableReflection;
 use PHPStan\Reflection\MethodPrototypeReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\Php\BuiltinMethodReflection;
+use PHPStan\TrinaryLogic;
 
 class NativeMethodReflection implements MethodReflection, DeprecatableReflection, InternableReflection, FinalizableReflection
 {
@@ -101,19 +102,19 @@ class NativeMethodReflection implements MethodReflection, DeprecatableReflection
 		return null;
 	}
 
-	public function isDeprecated(): bool
+	public function isDeprecated(): TrinaryLogic
 	{
 		return $this->reflection->isDeprecated();
 	}
 
-	public function isInternal(): bool
+	public function isInternal(): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
-	public function isFinal(): bool
+	public function isFinal(): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 }

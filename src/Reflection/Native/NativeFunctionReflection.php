@@ -2,6 +2,7 @@
 
 namespace PHPStan\Reflection\Native;
 
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 
 class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
@@ -45,6 +46,11 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 		return $this->variants;
 	}
 
+	public function hasThrowType(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
+	}
+
 	public function getThrowType(): ?Type
 	{
 		return $this->throwType;
@@ -55,19 +61,19 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 		return null;
 	}
 
-	public function isDeprecated(): bool
+	public function isDeprecated(): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
-	public function isInternal(): bool
+	public function isInternal(): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
-	public function isFinal(): bool
+	public function isFinal(): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 }

@@ -2,9 +2,11 @@
 
 namespace PHPStan\Reflection;
 
+use PHPStan\TrinaryLogic;
+
 interface InternableReflection
 {
 
-	public function isInternal(): bool;
+	public function isInternal(): TrinaryLogic;
 
 }

@@ -2,9 +2,11 @@
 
 namespace PHPStan\Reflection;
 
+use PHPStan\TrinaryLogic;
+
 interface FinalizableReflection
 {
 
-	public function isFinal(): bool;
+	public function isFinal(): TrinaryLogic;
 
 }
