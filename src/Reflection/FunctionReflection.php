@@ -2,7 +2,10 @@
 
 namespace PHPStan\Reflection;
 
-interface FunctionReflection extends DeprecatableReflection, InternableReflection, FinalizableReflection, ThrowableReflection
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\Type;
+
+interface FunctionReflection
 {
 
 	public function getName(): string;
@@ -11,5 +14,15 @@ interface FunctionReflection extends DeprecatableReflection, InternableReflectio
 	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
 	public function getVariants(): array;
+
+	public function isDeprecated(): TrinaryLogic;
+
+	public function getDeprecatedDescription(): ?string;
+
+	public function isFinal(): TrinaryLogic;
+
+	public function isInternal(): TrinaryLogic;
+
+	public function getThrowType(): ?Type;
 
 }

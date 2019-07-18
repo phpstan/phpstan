@@ -6,7 +6,9 @@ use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionVariant;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Generic\TemplateTypeMap;
+use PHPStan\Type\Type;
 use PHPStan\Type\VoidType;
 
 class DummyConstructorReflection implements MethodReflection
@@ -60,6 +62,31 @@ class DummyConstructorReflection implements MethodReflection
 				new VoidType()
 			),
 		];
+	}
+
+	public function isDeprecated(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
+	public function getDeprecatedDescription(): ?string
+	{
+		return null;
+	}
+
+	public function isFinal(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
+	public function isInternal(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
+	public function getThrowType(): ?Type
+	{
+		return null;
 	}
 
 }

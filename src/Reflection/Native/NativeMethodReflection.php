@@ -5,15 +5,13 @@ namespace PHPStan\Reflection\Native;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\DeprecatableReflection;
-use PHPStan\Reflection\FinalizableReflection;
-use PHPStan\Reflection\InternableReflection;
 use PHPStan\Reflection\MethodPrototypeReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\Php\BuiltinMethodReflection;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Type;
 
-class NativeMethodReflection implements MethodReflection, DeprecatableReflection, InternableReflection, FinalizableReflection
+class NativeMethodReflection implements MethodReflection
 {
 
 	/** @var \PHPStan\Broker\Broker */
@@ -115,6 +113,11 @@ class NativeMethodReflection implements MethodReflection, DeprecatableReflection
 	public function isFinal(): TrinaryLogic
 	{
 		return TrinaryLogic::createNo();
+	}
+
+	public function getThrowType(): ?Type
+	{
+		return null;
 	}
 
 }

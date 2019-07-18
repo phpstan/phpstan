@@ -5,7 +5,6 @@ namespace PHPStan\Reflection\Annotations;
 use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
-use PHPStan\Reflection\DeprecatableReflection;
 
 class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 {
@@ -98,21 +97,18 @@ class DeprecatedAnnotationsTest extends \PHPStan\Testing\TestCase
 
 		foreach ($deprecatedAnnotations['method'] ?? [] as $methodName => $deprecatedMessage) {
 			$methodAnnotation = $class->getMethod($methodName, $scope);
-			$this->assertInstanceOf(DeprecatableReflection::class, $methodAnnotation);
 			$this->assertSame($deprecated, $methodAnnotation->isDeprecated()->yes());
 			$this->assertSame($deprecatedMessage, $methodAnnotation->getDeprecatedDescription());
 		}
 
 		foreach ($deprecatedAnnotations['property'] ?? [] as $propertyName => $deprecatedMessage) {
 			$propertyAnnotation = $class->getProperty($propertyName, $scope);
-			$this->assertInstanceOf(DeprecatableReflection::class, $propertyAnnotation);
 			$this->assertSame($deprecated, $propertyAnnotation->isDeprecated()->yes());
 			$this->assertSame($deprecatedMessage, $propertyAnnotation->getDeprecatedDescription());
 		}
 
 		foreach ($deprecatedAnnotations['constant'] ?? [] as $constantName => $deprecatedMessage) {
 			$constantAnnotation = $class->getConstant($constantName);
-			$this->assertInstanceOf(DeprecatableReflection::class, $constantAnnotation);
 			$this->assertSame($deprecated, $constantAnnotation->isDeprecated()->yes());
 			$this->assertSame($deprecatedMessage, $constantAnnotation->getDeprecatedDescription());
 		}

@@ -5,6 +5,7 @@ namespace PHPStan\Reflection\Dummy;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ConstantReflection;
+use PHPStan\TrinaryLogic;
 
 class DummyConstantReflection implements ConstantReflection
 {
@@ -51,6 +52,21 @@ class DummyConstantReflection implements ConstantReflection
 	{
 		// so that Scope::getTypeFromValue() returns mixed
 		return new \stdClass();
+	}
+
+	public function isDeprecated(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
+	public function getDeprecatedDescription(): ?string
+	{
+		return null;
+	}
+
+	public function isInternal(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
 	}
 
 }

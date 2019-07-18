@@ -4,6 +4,7 @@ namespace PHPStan\Reflection\PhpDefect;
 
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 
 class PhpDefectPropertyReflection implements PropertyReflection
@@ -57,6 +58,21 @@ class PhpDefectPropertyReflection implements PropertyReflection
 	public function isWritable(): bool
 	{
 		return true;
+	}
+
+	public function isDeprecated(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
+	public function getDeprecatedDescription(): ?string
+	{
+		return null;
+	}
+
+	public function isInternal(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
 	}
 
 }

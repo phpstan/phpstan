@@ -7,6 +7,8 @@ use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\TrivialParametersAcceptor;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\Type;
 
 class DummyMethodReflection implements MethodReflection
 {
@@ -59,6 +61,31 @@ class DummyMethodReflection implements MethodReflection
 		return [
 			new TrivialParametersAcceptor(),
 		];
+	}
+
+	public function isDeprecated(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
+	public function getDeprecatedDescription(): ?string
+	{
+		return null;
+	}
+
+	public function isFinal(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
+	public function isInternal(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
+	public function getThrowType(): ?Type
+	{
+		return null;
 	}
 
 }

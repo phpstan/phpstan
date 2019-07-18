@@ -46,11 +46,6 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 		return $this->variants;
 	}
 
-	public function hasThrowType(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
-
 	public function getThrowType(): ?Type
 	{
 		return $this->throwType;

@@ -4,6 +4,7 @@ namespace PHPStan\Reflection\Php;
 
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ExtendedPropertyReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
@@ -78,6 +79,21 @@ class SimpleXMLElementProperty implements ExtendedPropertyReflection
 	public function canChangeTypeAfterAssignment(): bool
 	{
 		return false;
+	}
+
+	public function isDeprecated(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
+	public function getDeprecatedDescription(): ?string
+	{
+		return null;
+	}
+
+	public function isInternal(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
 	}
 
 }

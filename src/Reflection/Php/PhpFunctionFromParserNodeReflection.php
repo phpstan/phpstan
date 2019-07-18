@@ -221,11 +221,6 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		return TrinaryLogic::createFromBoolean($this->isFinal);
 	}
 
-	public function hasThrowType(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
-
 	public function getThrowType(): ?Type
 	{
 		return $this->throwType;
