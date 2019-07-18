@@ -5,7 +5,6 @@ namespace PHPStan\Reflection\Annotations;
 use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
-use PHPStan\Reflection\InternableReflection;
 
 class InternalAnnotationsTest extends \PHPStan\Testing\TestCase
 {
@@ -124,19 +123,16 @@ class InternalAnnotationsTest extends \PHPStan\Testing\TestCase
 
 		foreach ($internalAnnotations['method'] ?? [] as $methodName) {
 			$methodAnnotation = $class->getMethod($methodName, $scope);
-			$this->assertInstanceOf(InternableReflection::class, $methodAnnotation);
 			$this->assertSame($internal, $methodAnnotation->isInternal()->yes());
 		}
 
 		foreach ($internalAnnotations['property'] ?? [] as $propertyName) {
 			$propertyAnnotation = $class->getProperty($propertyName, $scope);
-			$this->assertInstanceOf(InternableReflection::class, $propertyAnnotation);
 			$this->assertSame($internal, $propertyAnnotation->isInternal()->yes());
 		}
 
 		foreach ($internalAnnotations['constant'] ?? [] as $constantName) {
 			$constantAnnotation = $class->getConstant($constantName);
-			$this->assertInstanceOf(InternableReflection::class, $constantAnnotation);
 			$this->assertSame($internal, $constantAnnotation->isInternal()->yes());
 		}
 	}

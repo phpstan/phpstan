@@ -271,11 +271,6 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 		return TrinaryLogic::createFromBoolean($this->isFinal);
 	}
 
-	public function hasThrowType(): TrinaryLogic
-	{
-		return TrinaryLogic::createYes();
-	}
-
 	public function getThrowType(): ?Type
 	{
 		return $this->phpDocThrowType;

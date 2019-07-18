@@ -4,7 +4,7 @@ namespace PHPStan\Reflection;
 
 use PHPStan\TrinaryLogic;
 
-class ClassConstantReflection implements ConstantReflection, DeprecatableReflection, InternableReflection
+class ClassConstantReflection implements ConstantReflection
 {
 
 	/** @var \PHPStan\Reflection\ClassReflection */

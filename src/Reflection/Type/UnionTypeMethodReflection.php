@@ -7,6 +7,7 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionVariant;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 
@@ -94,6 +95,57 @@ class UnionTypeMethodReflection implements MethodReflection
 				$returnType
 			);
 		}, $variants);
+	}
+
+	public function isDeprecated(): TrinaryLogic
+	{
+		return TrinaryLogic::extremeIdentity(...array_map(static function (MethodReflection $method): TrinaryLogic {
+			return $method->isDeprecated();
+		}, $this->methods));
+	}
+
+	public function getDeprecatedDescription(): ?string
+	{
+		return implode(' ', array_map(static function (MethodReflection $method): string {
+			if (!$method->isDeprecated()->yes()) {
+				return '';
+			}
+			return $method->getDeprecatedDescription() ?? '';
+		}, $this->methods));
+	}
+
+	public function isFinal(): TrinaryLogic
+	{
+		return TrinaryLogic::extremeIdentity(...array_map(static function (MethodReflection $method): TrinaryLogic {
+			return $method->isFinal();
+		}, $this->methods));
+	}
+
+	public function isInternal(): TrinaryLogic
+	{
+		return TrinaryLogic::extremeIdentity(...array_map(static function (MethodReflection $method): TrinaryLogic {
+			return $method->isInternal();
+		}, $this->methods));
+	}
+
+	public function getThrowType(): ?Type
+	{
+		$types = [];
+
+		foreach ($this->methods as $method) {
+			$type = $method->getThrowType();
+			if ($type === null) {
+				continue;
+			}
+
+			$types[] = $type;
+		}
+
+		if (count($types) === 0) {
+			return null;
+		}
+
+		return TypeCombinator::union(...$types);
 	}
 
 }

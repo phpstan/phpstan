@@ -3,13 +3,11 @@
 namespace PHPStan\Reflection\Php;
 
 use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\DeprecatableReflection;
-use PHPStan\Reflection\InternableReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 
-class PhpPropertyReflection implements PropertyReflection, DeprecatableReflection, InternableReflection
+class PhpPropertyReflection implements PropertyReflection
 {
 
 	/** @var \PHPStan\Reflection\ClassReflection */

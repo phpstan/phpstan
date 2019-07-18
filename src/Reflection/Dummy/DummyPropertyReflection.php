@@ -5,6 +5,7 @@ namespace PHPStan\Reflection\Dummy;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 
@@ -46,6 +47,21 @@ class DummyPropertyReflection implements PropertyReflection
 	public function isWritable(): bool
 	{
 		return true;
+	}
+
+	public function isDeprecated(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
+	public function getDeprecatedDescription(): ?string
+	{
+		return null;
+	}
+
+	public function isInternal(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
 	}
 
 }
