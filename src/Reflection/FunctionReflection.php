@@ -25,4 +25,6 @@ interface FunctionReflection
 
 	public function getThrowType(): ?Type;
 
+	public function hasSideEffects(): TrinaryLogic;
+
 }

@@ -276,4 +276,9 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 		return $this->phpDocThrowType;
 	}
 
+	public function hasSideEffects(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
 }

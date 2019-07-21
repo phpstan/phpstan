@@ -226,4 +226,9 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 		return $this->throwType;
 	}
 
+	public function hasSideEffects(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
 }

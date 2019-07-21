@@ -8,7 +8,8 @@ includes:
 parameters:
 	bootstrap: %rootDir%/tests/phpstan-bootstrap.php
 	excludes_analyse:
-		- %rootDir%/src/Reflection/SignatureMap/functions/*
+		- %rootDir%/src/Reflection/SignatureMap/functionMap.php
+		- %rootDir%/src/Reflection/SignatureMap/functionMetadata.php
 		- %rootDir%/tests/*/data/*
 		- %rootDir%/tests/PHPStan/Analyser/traits/*
 		- %rootDir%/tests/notAutoloaded/*

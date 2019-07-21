@@ -17,20 +17,26 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 	/** @var \PHPStan\Type\Type|null */
 	private $throwType;
 
+	/** @var TrinaryLogic */
+	private $hasSideEffects;
+
 	/**
 	 * @param string $name
 	 * @param \PHPStan\Reflection\ParametersAcceptor[] $variants
 	 * @param \PHPStan\Type\Type|null $throwType
+	 * @param \PHPStan\TrinaryLogic $hasSideEffects
 	 */
 	public function __construct(
 		string $name,
 		array $variants,
-		?Type $throwType
+		?Type $throwType,
+		TrinaryLogic $hasSideEffects
 	)
 	{
 		$this->name = $name;
 		$this->variants = $variants;
 		$this->throwType = $throwType;
+		$this->hasSideEffects = $hasSideEffects;
 	}
 
 	public function getName(): string
@@ -69,6 +75,11 @@ class NativeFunctionReflection implements \PHPStan\Reflection\FunctionReflection
 	public function isFinal(): TrinaryLogic
 	{
 		return TrinaryLogic::createNo();
+	}
+
+	public function hasSideEffects(): TrinaryLogic
+	{
+		return $this->hasSideEffects;
 	}
 
 }

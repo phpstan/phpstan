@@ -15,6 +15,7 @@ use PHPStan\Reflection\Native\NativeFunctionReflection;
 use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\SignatureMap\ParameterSignature;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\FloatType;
@@ -99,6 +100,9 @@ class Broker
 
 	/** @var \PHPStan\Type\OperatorTypeSpecifyingExtension[] */
 	private $operatorTypeSpecifyingExtensions;
+
+	/** @var array<string, array{hasSideEffects: bool}>|null */
+	private $functionMetadata;
 
 	/**
 	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
@@ -432,10 +436,18 @@ class Broker
 					$i++;
 					$variantName = sprintf($lowerCasedFunctionName . '\'' . $i);
 				}
+
+				$metadata = $this->getFunctionMetadata();
+				if (isset($metadata[$lowerCasedFunctionName])) {
+					$hasSideEffects = TrinaryLogic::createFromBoolean($metadata[$lowerCasedFunctionName]['hasSideEffects']);
+				} else {
+					$hasSideEffects = TrinaryLogic::createMaybe();
+				}
 				$functionReflection = new NativeFunctionReflection(
 					$lowerCasedFunctionName,
 					$variants,
-					null
+					null,
+					$hasSideEffects
 				);
 				self::$functionMap[$lowerCasedFunctionName] = $functionReflection;
 				$this->functionReflections[$lowerCasedFunctionName] = $functionReflection;
@@ -608,6 +620,20 @@ class Broker
 		}
 
 		return false;
+	}
+
+	/**
+	 * @return array<string, array{hasSideEffects: bool}>
+	 */
+	private function getFunctionMetadata(): array
+	{
+		if ($this->functionMetadata === null) {
+			/** @var array<string, array{hasSideEffects: bool}> $metadata */
+			$metadata = require __DIR__ . '/../Reflection/SignatureMap/functionMetadata.php';
+			$this->functionMetadata = $metadata;
+		}
+
+		return $this->functionMetadata;
 	}
 
 }
