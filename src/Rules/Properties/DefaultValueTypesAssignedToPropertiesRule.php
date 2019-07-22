@@ -48,7 +48,7 @@ class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 			}
 
 			$propertyReflection = $classReflection->getNativeProperty($property->name->name);
-			$propertyType = $propertyReflection->getType();
+			$propertyType = $propertyReflection->getWritableType();
 			$defaultValueType = $scope->getType($property->default);
 			if ($this->ruleLevelHelper->accepts($propertyType, $defaultValueType, $scope->isDeclareStrictTypes())) {
 				continue;

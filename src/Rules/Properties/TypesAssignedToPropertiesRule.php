@@ -4,7 +4,6 @@ namespace PHPStan\Rules\Properties;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ExtendedPropertyReflection;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\VerbosityLevel;
 
@@ -64,11 +63,7 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		if ($propertyReflection instanceof ExtendedPropertyReflection) {
-			$propertyType = $propertyReflection->getWritableType();
-		} else {
-			$propertyType = $propertyReflection->getType();
-		}
+		$propertyType = $propertyReflection->getWritableType();
 
 		if ($node instanceof Node\Expr\Assign) {
 			$assignedValueType = $scope->getType($node->expr);
