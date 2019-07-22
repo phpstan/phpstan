@@ -51,7 +51,7 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 		}
 
 		$propertyReflection = $scope->getClassReflection()->getNativeProperty($node->name->name);
-		$referencedClasses = $propertyReflection->getType()->getReferencedClasses();
+		$referencedClasses = $propertyReflection->getReadableType()->getReferencedClasses();
 
 		$errors = [];
 		foreach ($referencedClasses as $referencedClass) {

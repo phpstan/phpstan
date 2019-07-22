@@ -104,7 +104,7 @@ class AnalyseApplication
 				if (!$propertyReflection->isPrivate()) {
 					return;
 				}
-				$propertyType = $propertyReflection->getType();
+				$propertyType = $propertyReflection->getReadableType();
 				if (!$propertyType instanceof MixedType || $propertyType->isExplicitMixed()) {
 					return;
 				}

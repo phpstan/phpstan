@@ -30,8 +30,8 @@ class IncompatiblePropertyPhpDocTypeRule implements Rule
 		$propertyName = $node->name->toString();
 		$propertyReflection = $scope->getClassReflection()->getNativeProperty($propertyName);
 		if (
-			$propertyReflection->getType() instanceof ErrorType
-			|| $propertyReflection->getType() instanceof NeverType
+			$propertyReflection->getReadableType() instanceof ErrorType
+			|| $propertyReflection->getReadableType() instanceof NeverType
 		) {
 			return [
 				sprintf(

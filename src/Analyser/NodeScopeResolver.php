@@ -62,7 +62,6 @@ use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\ExtendedPropertyReflection;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorSelector;
@@ -2276,7 +2275,7 @@ class NodeScopeResolver
 			}
 			if ($propertyName !== null && $propertyHolderType->hasProperty($propertyName)->yes()) {
 				$propertyReflection = $propertyHolderType->getProperty($propertyName, $scope);
-				if (!$propertyReflection instanceof ExtendedPropertyReflection || $propertyReflection->canChangeTypeAfterAssignment()) {
+				if ($propertyReflection->canChangeTypeAfterAssignment()) {
 					$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
 				}
 			} else {
@@ -2300,7 +2299,7 @@ class NodeScopeResolver
 			}
 			if ($propertyName !== null && $propertyHolderType->hasProperty($propertyName)->yes()) {
 				$propertyReflection = $propertyHolderType->getProperty($propertyName, $scope);
-				if (!$propertyReflection instanceof ExtendedPropertyReflection || $propertyReflection->canChangeTypeAfterAssignment()) {
+				if ($propertyReflection->canChangeTypeAfterAssignment()) {
 					$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
 				}
 			} else {

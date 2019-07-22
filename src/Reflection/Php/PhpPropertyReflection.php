@@ -73,9 +73,19 @@ class PhpPropertyReflection implements PropertyReflection
 		return $this->reflection->isPublic();
 	}
 
-	public function getType(): Type
+	public function getReadableType(): Type
 	{
 		return $this->type;
+	}
+
+	public function getWritableType(): Type
+	{
+		return $this->type;
+	}
+
+	public function canChangeTypeAfterAssignment(): bool
+	{
+		return true;
 	}
 
 	public function isReadable(): bool
