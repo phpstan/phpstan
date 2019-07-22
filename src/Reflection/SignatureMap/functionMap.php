@@ -1861,7 +1861,7 @@ return [
 'DirectoryIterator::valid' => ['bool'],
 'dirname' => ['string', 'path'=>'string', 'levels='=>'int'],
 'disk_free_space' => ['float|false', 'path'=>'string'],
-'disk_total_space' => ['float', 'path'=>'string'],
+'disk_total_space' => ['float|false', 'path'=>'string'],
 'diskfreespace' => ['float|false', 'path'=>'string'],
 'display_disabled_function' => [''],
 'dl' => ['bool', 'extension_filename'=>'string'],
