@@ -139,6 +139,7 @@ Unofficial extensions with third-party rules:
 * [localheinz / phpstan-rules](https://github.com/localheinz/phpstan-rules)
 * [pepakriz / phpstan-exception-rules](https://github.com/pepakriz/phpstan-exception-rules)
 * [Slamdunk / phpstan-extensions](https://github.com/Slamdunk/phpstan-extensions)
+* [ekino / phpstan-banned-code](https://github.com/ekino/phpstan-banned-code)
 
 New extensions are becoming available on a regular basis!
 
@@ -383,6 +384,8 @@ For inspiration on how to implement a rule turn to [src/Rules](https://github.co
 to see a lot of built-in rules.
 
 Check out also [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-rules) repository for extra strict and opinionated rules for PHPStan!
+
+Check as well [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) for rules that detect usage of deprecated classes, methods, properties, constants and traits!
 
 ### Custom error formatters
 
