@@ -2030,7 +2030,7 @@ return [
 'Ds\Collection::copy' => ['Ds\Collection'],
 'Ds\Collection::isEmpty' => ['bool'],
 'Ds\Collection::toArray' => ['array'],
-'Ds\Hashable::hash' => ['void'],
+'Ds\Hashable::hash' => ['mixed'],
 'Ds\Hashable::equals' => ['bool', 'obj'=>'mixed'],
 'Ds\Sequence::allocate' => ['void', 'capacity'=>'int'],
 'Ds\Sequence::apply' => ['void', 'callback'=>'callable'],
