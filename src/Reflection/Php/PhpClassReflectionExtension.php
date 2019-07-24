@@ -28,6 +28,7 @@ use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Reflection\SignatureMap\ParameterSignature;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Generic\TemplateTypeMap;
@@ -358,11 +359,18 @@ class PhpClassReflectionExtension
 				$i++;
 				$variantName = sprintf($signatureMapMethodName . '\'' . $i);
 			}
+
+			if ($this->signatureMapProvider->hasFunctionMetadata($signatureMapMethodName)) {
+				$hasSideEffects = TrinaryLogic::createFromBoolean($this->signatureMapProvider->getFunctionMetadata($signatureMapMethodName)['hasSideEffects']);
+			} else {
+				$hasSideEffects = TrinaryLogic::createMaybe();
+			}
 			return new NativeMethodReflection(
 				$this->broker,
 				$declaringClass,
 				$methodReflection,
-				$variants
+				$variants,
+				$hasSideEffects
 			);
 		}
 

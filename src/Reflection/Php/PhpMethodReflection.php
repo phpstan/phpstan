@@ -431,4 +431,9 @@ class PhpMethodReflection implements MethodReflection
 		return $this->phpDocThrowType;
 	}
 
+	public function hasSideEffects(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
 }

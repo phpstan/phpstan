@@ -63,4 +63,18 @@ return [
 	// continue functionMap.php, line 424
 	'count' => ['hasSideEffects' => false],
 	'sprintf' => ['hasSideEffects' => false],
+
+	// methods
+	'DateTime::createFromFormat' => ['hasSideEffects' => false],
+	'DateTime::createFromImmutable' => ['hasSideEffects' => false],
+	'DateTimeImmutable::createFromFormat' => ['hasSideEffects' => false],
+	'DateTimeImmutable::createFromMutable' => ['hasSideEffects' => false],
+	'DateTimeImmutable::add' => ['hasSideEffects' => false],
+	'DateTimeImmutable::modify' => ['hasSideEffects' => false],
+	'DateTimeImmutable::setDate' => ['hasSideEffects' => false],
+	'DateTimeImmutable::setISODate' => ['hasSideEffects' => false],
+	'DateTimeImmutable::setTime' => ['hasSideEffects' => false],
+	'DateTimeImmutable::setTimestamp' => ['hasSideEffects' => false],
+	'DateTimeImmutable::setTimezone' => ['hasSideEffects' => false],
+	'DateTimeImmutable::sub' => ['hasSideEffects' => false],
 ];

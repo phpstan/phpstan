@@ -47,7 +47,11 @@ class SignatureMapProvider
 		return array_key_exists(strtolower($name), $signatureMap);
 	}
 
-	public function getFunctionMetadata(string $functionName): FunctionSignature
+	/**
+	 * @param string $functionName
+	 * @return array{hasSideEffects: bool}
+	 */
+	public function getFunctionMetadata(string $functionName): array
 	{
 		$functionName = strtolower($functionName);
 

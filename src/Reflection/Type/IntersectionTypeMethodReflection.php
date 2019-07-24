@@ -148,4 +148,11 @@ class IntersectionTypeMethodReflection implements MethodReflection
 		return TypeCombinator::intersect(...$types);
 	}
 
+	public function hasSideEffects(): TrinaryLogic
+	{
+		return TrinaryLogic::maxMin(...array_map(static function (MethodReflection $method): TrinaryLogic {
+			return $method->hasSideEffects();
+		}, $this->methods));
+	}
+
 }

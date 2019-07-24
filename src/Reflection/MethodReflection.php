@@ -27,4 +27,6 @@ interface MethodReflection extends ClassMemberReflection
 
 	public function getThrowType(): ?Type;
 
+	public function hasSideEffects(): TrinaryLogic;
+
 }

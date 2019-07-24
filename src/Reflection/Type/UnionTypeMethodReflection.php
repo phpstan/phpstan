@@ -148,4 +148,11 @@ class UnionTypeMethodReflection implements MethodReflection
 		return TypeCombinator::union(...$types);
 	}
 
+	public function hasSideEffects(): TrinaryLogic
+	{
+		return TrinaryLogic::extremeIdentity(...array_map(static function (MethodReflection $method): TrinaryLogic {
+			return $method->hasSideEffects();
+		}, $this->methods));
+	}
+
 }

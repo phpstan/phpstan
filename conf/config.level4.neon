@@ -15,6 +15,7 @@ rules:
 	- PHPStan\Rules\DeadCode\UnreachableStatementRule
 	- PHPStan\Rules\Exceptions\DeadCatchRule
 	- PHPStan\Rules\Functions\CallToFunctionStamentWithoutSideEffectsRule
+	- PHPStan\Rules\Methods\CallToMethodStamentWithoutSideEffectsRule
 	- PHPStan\Rules\TooWideTypehints\TooWideClosureReturnTypehintRule
 	- PHPStan\Rules\TooWideTypehints\TooWideFunctionReturnTypehintRule
 	- PHPStan\Rules\TooWideTypehints\TooWidePrivateMethodReturnTypehintRule

@@ -89,4 +89,9 @@ class DummyConstructorReflection implements MethodReflection
 		return null;
 	}
 
+	public function hasSideEffects(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
 }

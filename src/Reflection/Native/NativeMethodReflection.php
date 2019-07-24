@@ -26,23 +26,29 @@ class NativeMethodReflection implements MethodReflection
 	/** @var \PHPStan\Reflection\ParametersAcceptor[] */
 	private $variants;
 
+	/** @var TrinaryLogic */
+	private $hasSideEffects;
+
 	/**
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PHPStan\Reflection\ClassReflection $declaringClass
 	 * @param BuiltinMethodReflection $reflection
 	 * @param \PHPStan\Reflection\ParametersAcceptor[] $variants
+	 * @param TrinaryLogic $hasSideEffects
 	 */
 	public function __construct(
 		Broker $broker,
 		ClassReflection $declaringClass,
 		BuiltinMethodReflection $reflection,
-		array $variants
+		array $variants,
+		TrinaryLogic $hasSideEffects
 	)
 	{
 		$this->broker = $broker;
 		$this->declaringClass = $declaringClass;
 		$this->reflection = $reflection;
 		$this->variants = $variants;
+		$this->hasSideEffects = $hasSideEffects;
 	}
 
 	public function getDeclaringClass(): ClassReflection
@@ -118,6 +124,11 @@ class NativeMethodReflection implements MethodReflection
 	public function getThrowType(): ?Type
 	{
 		return null;
+	}
+
+	public function hasSideEffects(): TrinaryLogic
+	{
+		return $this->hasSideEffects;
 	}
 
 }
