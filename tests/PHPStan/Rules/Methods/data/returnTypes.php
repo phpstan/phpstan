@@ -130,7 +130,7 @@ class Foo extends FooParent implements FooInterface
 	{
 		return $this;
 		return new self();
-		return 1;
+		return 1; return new static();
 		return null;
 
 		$that = $this;
@@ -826,6 +826,115 @@ class VariableOverwrittenInForeach
 			$y = "hello";
 		}
 		return $x;
+	}
+
+}
+
+class ReturnStaticGeneric
+{
+
+	/**
+	 * @template T of self
+	 * @param T $foo
+	 * @return T
+	 */
+	public function doFoo($foo)
+	{
+		return $foo::returnsStatic();
+	}
+
+	/**
+	 * @template T of self
+	 * @param T $foo
+	 * @return T
+	 */
+	public function doBar($foo)
+	{
+		return $foo->instanceReturnsStatic();
+	}
+
+	/** @return static */
+	public static function returnsStatic()
+	{
+		return new static();
+	}
+
+	/** @return static */
+	public function instanceReturnsStatic() {
+		return new static();
+		return new self();
+		return $this;
+	}
+}
+
+interface InterfaceThatWillBeDocInherited
+{
+
+	/**
+	 * @return $this
+	 */
+	public function setTableSchema(): self;
+
+	/**
+	 * @return $this
+	 */
+	public function setTableSchema2(): self;
+
+	/**
+	 * @return $this
+	 */
+	public function setTableSchema3(): self;
+
+	/**
+	 * @return static
+	 */
+	public function setTableSchema4(): self;
+
+	/**
+	 * @return static
+	 */
+	public function setTableSchema5(): self;
+
+}
+
+class ClassThatImplementsInterfaceAndInheritDocsIt implements InterfaceThatWillBeDocInherited
+{
+
+	public function setTableSchema(): InterfaceThatWillBeDocInherited
+	{
+		return $this;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function setTableSchema2(): InterfaceThatWillBeDocInherited
+	{
+		return $this;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function setTableSchema3(): InterfaceThatWillBeDocInherited
+	{
+		return $this;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function setTableSchema4(): InterfaceThatWillBeDocInherited
+	{
+		return $this;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function setTableSchema5(): InterfaceThatWillBeDocInherited
+	{
+		return $this;
 	}
 
 }

@@ -84,3 +84,16 @@ function returnUnionIterable()
 
 	return [];
 }
+
+/**
+ * @param array<int, int> $arr
+ */
+function arrayMapConservesNonEmptiness(array $arr) : int {
+	if (!$arr) {
+		return 5;
+	}
+
+	$arr = array_map(function($a) : int { return $a; }, $arr);
+
+	return array_shift($arr);
+}

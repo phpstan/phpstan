@@ -100,7 +100,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				$errorFormat,
 				implode(', ', array_map(static function (string $name): string {
 					return (string) substr($name, strlen('errorFormatter.'));
-				}, $container->findByType(ErrorFormatter::class)))
+				}, $container->findServiceNamesByType(ErrorFormatter::class)))
 			));
 			return 1;
 		}
@@ -123,7 +123,8 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				$inceptionResult->getConsoleStyle(),
 				$errorFormatter,
 				$inceptionResult->isDefaultLevelUsed(),
-				$debug
+				$debug,
+				$inceptionResult->getProjectConfigFile()
 			)
 		);
 	}

@@ -10,6 +10,7 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\Generic\TemplateTypeFactory;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Generic\TemplateTypeScope;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
@@ -109,6 +110,7 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 			$ibaseWaitEventVariants,
 			false,
 			new FunctionVariant(
+				TemplateTypeMap::createEmpty(),
 				[
 					new NativeParameterReflection(
 						'link_identifier|event',
@@ -160,6 +162,7 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 			$strtokVariants,
 			false,
 			new FunctionVariant(
+				TemplateTypeMap::createEmpty(),
 				[
 					new NativeParameterReflection(
 						'str|token',
@@ -193,6 +196,7 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 
 		$variadicVariants = [
 			new FunctionVariant(
+				TemplateTypeMap::createEmpty(),
 				[
 					new NativeParameterReflection(
 						'int',
@@ -215,6 +219,7 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 				new IntegerType()
 			),
 			new FunctionVariant(
+				TemplateTypeMap::createEmpty(),
 				[
 					new NativeParameterReflection(
 						'int',
@@ -249,6 +254,7 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 
 		$defaultValuesVariants1 = [
 			new FunctionVariant(
+				TemplateTypeMap::createEmpty(),
 				[
 					new DummyParameter(
 						'a',
@@ -263,6 +269,7 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 				new NullType()
 			),
 			new FunctionVariant(
+				TemplateTypeMap::createEmpty(),
 				[
 					new DummyParameter(
 						'a',
@@ -285,6 +292,7 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 			$defaultValuesVariants1,
 			true,
 			new FunctionVariant(
+				TemplateTypeMap::createEmpty(),
 				[
 					new DummyParameter(
 						'a',
@@ -305,6 +313,7 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 
 		$defaultValuesVariants2 = [
 			new FunctionVariant(
+				TemplateTypeMap::createEmpty(),
 				[
 					new DummyParameter(
 						'a',
@@ -319,6 +328,7 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 				new NullType()
 			),
 			new FunctionVariant(
+				TemplateTypeMap::createEmpty(),
 				[
 					new DummyParameter(
 						'a',
@@ -341,6 +351,7 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 			$defaultValuesVariants2,
 			true,
 			new FunctionVariant(
+				TemplateTypeMap::createEmpty(),
 				[
 					new DummyParameter(
 						'a',
@@ -358,6 +369,7 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 
 		$genericVariants = [
 			new FunctionVariant(
+				TemplateTypeMap::createEmpty(),
 				[
 					new DummyParameter(
 						'a',
@@ -384,6 +396,7 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 			$genericVariants,
 			true,
 			new FunctionVariant(
+				TemplateTypeMap::createEmpty(),
 				[
 					new DummyParameter(
 						'a',

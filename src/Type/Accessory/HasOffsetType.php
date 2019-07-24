@@ -69,6 +69,11 @@ class HasOffsetType implements CompoundType, AccessoryType
 			->and($otherType instanceof self ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe());
 	}
 
+	public function isAcceptedBy(Type $acceptingType, bool $strictTypes): TrinaryLogic
+	{
+		return $this->isSubTypeOf($acceptingType);
+	}
+
 	public function equals(Type $type): bool
 	{
 		return $type instanceof self
@@ -107,6 +112,11 @@ class HasOffsetType implements CompoundType, AccessoryType
 	public function isIterableAtLeastOnce(): TrinaryLogic
 	{
 		return TrinaryLogic::createYes();
+	}
+
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
 	}
 
 	public function toNumber(): Type

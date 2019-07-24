@@ -48,16 +48,17 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 			$output
 		);
 
-		$memoryLimitFile = self::getContainer()->parameters['memoryLimitFile'];
+		$memoryLimitFile = self::getContainer()->getParameter('memoryLimitFile');
 
 		$relativePathHelper = new FuzzyRelativePathHelper(__DIR__, DIRECTORY_SEPARATOR, []);
 		$statusCode = $analyserApplication->analyse(
 			[$path],
 			true,
 			$style,
-			new TableErrorFormatter($relativePathHelper),
+			new TableErrorFormatter($relativePathHelper, false, false, false),
 			false,
-			false
+			false,
+			null
 		);
 		if (file_exists($memoryLimitFile)) {
 			unlink($memoryLimitFile);

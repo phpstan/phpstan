@@ -143,7 +143,7 @@ class TableErrorFormatterTest extends TestBaseFormatter
 	): void
 	{
 		$this->skipIfNotOnUnix();
-		$formatter = new TableErrorFormatter(new FuzzyRelativePathHelper(self::DIRECTORY_PATH, '/', []));
+		$formatter = new TableErrorFormatter(new FuzzyRelativePathHelper(self::DIRECTORY_PATH, '/', []), false, false, false);
 
 		$this->assertSame($exitCode, $formatter->formatErrors(
 			$this->getAnalysisResult($numFileErrors, $numGenericErrors),

@@ -127,3 +127,39 @@ function neverTypes($foo)
 {
 
 }
+
+/**
+ * @template T
+ * @template U of \DateTimeInterface
+ *
+ * @param T $a
+ * @param U $b
+ * @param U $c
+ *
+ * @return U
+ */
+function genericWithTypeHints($a, $b, \DateTimeInterface $c): \DateTimeInterface
+{
+}
+
+/**
+ * @template T
+ * @template U of \DateTimeInterface
+ *
+ * @param T $a
+ * @param U $b
+ *
+ * @return U
+ */
+function genericWithTypeHintsNotSubType(int $a, \DateTime $b): \DateTime
+{
+}
+
+/**
+ * @template T of \DateTime
+ * @param T $a
+ * @return T
+ */
+function genericWithTypeHintsSupertype(\DateTimeInterface $a): \DateTimeInterface
+{
+}

@@ -10,7 +10,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 
-class StaticType implements StaticResolvableType, TypeWithClassName
+class StaticType implements TypeWithClassName
 {
 
 	use TruthyBooleanTypeTrait;
@@ -53,7 +53,15 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		return $this->staticObjectType->accepts($type, $strictTypes);
+		if ($type instanceof CompoundType) {
+			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
+		}
+
+		if (!$type instanceof static) {
+			return TrinaryLogic::createNo();
+		}
+
+		return $this->staticObjectType->accepts($type->staticObjectType, $strictTypes);
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
@@ -138,12 +146,11 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 		return $this->staticObjectType->getConstant($constantName);
 	}
 
-	public function resolveStatic(string $className): Type
-	{
-		return new ObjectType($className);
-	}
-
-	public function changeBaseClass(string $className): StaticResolvableType
+	/**
+	 * @param string $className
+	 * @return static
+	 */
+	public function changeBaseClass(string $className): self
 	{
 		$thisClass = static::class;
 		return new $thisClass($className);
@@ -192,6 +199,11 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 	public function isCallable(): TrinaryLogic
 	{
 		return $this->staticObjectType->isCallable();
+	}
+
+	public function isArray(): TrinaryLogic
+	{
+		return $this->staticObjectType->isArray();
 	}
 
 	/**

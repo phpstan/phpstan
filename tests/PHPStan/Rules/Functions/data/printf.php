@@ -44,3 +44,11 @@ sprintf('%s %s %s', ...[1, 2, 3]); // ok
 $format = '%s %s';
 sprintf($format, 'foo'); // one parameter missing
 sprintf($format, 'foo', 'bar'); // ok
+
+$variousPlaceholderCount = 'foo';
+if (rand(0, 1) === 0) {
+	$variousPlaceholderCount = 'foo %s %s';
+}
+sprintf($variousPlaceholderCount, 'bar');
+sprintf($variousPlaceholderCount, 'bar', 'baz');
+sprintf($variousPlaceholderCount, 'bar', 'baz', 'lorem');

@@ -2,6 +2,7 @@
 
 namespace PHPStan\Reflection;
 
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 
@@ -19,6 +20,11 @@ class InaccessibleMethod implements ParametersAcceptor
 	public function getMethod(): MethodReflection
 	{
 		return $this->methodReflection;
+	}
+
+	public function getTemplateTypeMap(): TemplateTypeMap
+	{
+		return TemplateTypeMap::createEmpty();
 	}
 
 	/**

@@ -2,6 +2,8 @@
 
 namespace PHPStan\Reflection\Php;
 
+use PHPStan\TrinaryLogic;
+
 interface BuiltinMethodReflection
 {
 
@@ -37,7 +39,7 @@ interface BuiltinMethodReflection
 
 	public function getPrototype(): self;
 
-	public function isDeprecated(): bool;
+	public function isDeprecated(): TrinaryLogic;
 
 	public function isVariadic(): bool;
 

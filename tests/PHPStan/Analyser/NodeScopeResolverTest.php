@@ -2,9 +2,11 @@
 
 namespace PHPStan\Analyser;
 
+use PhpParser\Node;
 use PhpParser\Node\Expr\Exit_;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Name;
 use PHPStan\Broker\AnonymousClassNameHelper;
 use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
@@ -146,7 +148,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo->doBar()',
 			],
 			[
-				'UnionIntersection\AnotherFoo|UnionIntersection\Foo',
+				'UnionIntersection\AnotherFoo&UnionIntersection\Foo',
 				'$foobar->doFoo()',
 			],
 			[
@@ -194,7 +196,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$foo::doStaticBar()',
 			],
 			[
-				'UnionIntersection\AnotherFoo|UnionIntersection\Foo',
+				'UnionIntersection\AnotherFoo&UnionIntersection\Foo',
 				'$foobar::doStaticFoo()',
 			],
 			[
@@ -1909,6 +1911,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'PropertiesNamespace\Bar',
+				'$this->inheritDocWithoutCurlyBracesProperty',
+			],
+			[
+				'PropertiesNamespace\Bar',
 				'$this->implicitInheritDocProperty',
 			],
 			[
@@ -3198,6 +3204,33 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataVarStatementAnnotation(): array
+	{
+		return [
+			[
+				'VarStatementAnnotation\Foo',
+				'$object',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataVarStatementAnnotation
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testVarStatementAnnotation(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/var-stmt-annotation.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataCloneOperators(): array
 	{
 		return [
@@ -3715,6 +3748,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->phpDocVoidParentMethod()',
 			],
 			[
+				'MethodPhpDocsNamespace\Foo',
+				'$this->phpDocWithoutCurlyBracesVoidParentMethod()',
+			],
+			[
 				'array<string>',
 				'$this->returnsStringArray()',
 			],
@@ -3766,6 +3803,34 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		}
 		$this->assertTypes(
 			__DIR__ . '/data/methodPhpDocs-trait.php',
+			$description,
+			$expression
+		);
+	}
+
+	/**
+	 * @dataProvider dataTypeFromFunctionPhpDocs
+	 * @dataProvider dataTypeFromMethodPhpDocs
+	 * @param string $description
+	 * @param string $expression
+	 * @param bool $replaceClass
+	 */
+	public function testTypeFromMethodPhpDocsInheritDocWithoutCurlyBraces(
+		string $description,
+		string $expression,
+		bool $replaceClass = true
+	): void
+	{
+		if ($replaceClass) {
+			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooInheritDocChild)', $description);
+			$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooInheritDocChild)', $description);
+			$description = str_replace('MethodPhpDocsNamespace\FooParent', 'MethodPhpDocsNamespace\Foo', $description);
+			if ($expression === '$inlineSelf') {
+				$description = 'MethodPhpDocsNamespace\FooInheritDocChild';
+			}
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/method-phpDocs-inheritdoc-without-curly-braces.php',
 			$description,
 			$expression
 		);
@@ -4183,6 +4248,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'object',
 				'new \DynamicMethodReturnTypesNamespace\Foo()',
 			],
+			[
+				'object',
+				'new \DynamicMethodReturnTypesNamespace\FooWithoutConstructor()',
+			],
 		];
 	}
 
@@ -4300,6 +4369,24 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 					public function getClass(): string
 					{
 						return \DynamicMethodReturnTypesNamespace\Foo::class;
+					}
+
+					public function isStaticMethodSupported(MethodReflection $methodReflection): bool
+					{
+						return $methodReflection->getName() === '__construct';
+					}
+
+					public function getTypeFromStaticMethodCall(MethodReflection $methodReflection, StaticCall $methodCall, Scope $scope): \PHPStan\Type\Type
+					{
+						return new ObjectWithoutClassType();
+					}
+
+				},
+				new class() implements DynamicStaticMethodReturnTypeExtension {
+
+					public function getClass(): string
+					{
+						return \DynamicMethodReturnTypesNamespace\FooWithoutConstructor::class;
 					}
 
 					public function isStaticMethodSupported(MethodReflection $methodReflection): bool
@@ -6954,6 +7041,23 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	/**
+	 * @dataProvider dataInheritDocFromInterface
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInheritDocWithoutCurlyBracesFromInterface(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/inheritdoc-without-curly-braces-from-interface.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataInheritDocFromInterface2(): array
 	{
 		return [
@@ -6977,6 +7081,24 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		require_once __DIR__ . '/data/inheritdoc-from-interface2-definition.php';
 		$this->assertTypes(
 			__DIR__ . '/data/inheritdoc-from-interface2.php',
+			$description,
+			$expression
+		);
+	}
+
+	/**
+	 * @dataProvider dataInheritDocFromInterface2
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInheritDocWithoutCurlyBracesFromInterface2(
+		string $description,
+		string $expression
+	): void
+	{
+		require_once __DIR__ . '/data/inheritdoc-without-curly-braces-from-interface2-definition.php';
+		$this->assertTypes(
+			__DIR__ . '/data/inheritdoc-without-curly-braces-from-interface2.php',
 			$description,
 			$expression
 		);
@@ -7009,6 +7131,23 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	/**
+	 * @dataProvider dataInheritDocFromTrait
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInheritDocWithoutCurlyBracesFromTrait(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/inheritdoc-without-curly-braces-from-trait.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataInheritDocFromTrait2(): array
 	{
 		return [
@@ -7033,6 +7172,25 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		require_once __DIR__ . '/data/inheritdoc-from-trait2-definition2.php';
 		$this->assertTypes(
 			__DIR__ . '/data/inheritdoc-from-trait2.php',
+			$description,
+			$expression
+		);
+	}
+
+	/**
+	 * @dataProvider dataInheritDocFromTrait2
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInheritDocWithoutCurlyBracesFromTrait2(
+		string $description,
+		string $expression
+	): void
+	{
+		require_once __DIR__ . '/data/inheritdoc-without-curly-braces-from-trait2-definition.php';
+		require_once __DIR__ . '/data/inheritdoc-without-curly-braces-from-trait2-definition2.php';
+		$this->assertTypes(
+			__DIR__ . '/data/inheritdoc-without-curly-braces-from-trait2.php',
 			$description,
 			$expression
 		);
@@ -7971,6 +8129,44 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			[],
 			[],
 			$evaluatedPointExpression
+		);
+	}
+
+	public function dataClosureWithInferredTypehint(): array
+	{
+		return [
+			[
+				'DateTime|stdClass',
+				'$foo',
+			],
+			[
+				'mixed',
+				'$bar',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataClosureWithInferredTypehint
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testClosureWithInferredTypehint(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/closure-inferred-typehint.php',
+			$description,
+			$expression,
+			[],
+			[],
+			[],
+			[],
+			'die',
+			[],
+			false
 		);
 	}
 
@@ -9165,6 +9361,107 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataGenerics(): array
+	{
+		require_once __DIR__ . '/data/generics.php';
+
+		return $this->gatherAssertTypes(__DIR__ . '/data/generics.php');
+	}
+
+	/**
+	 * @dataProvider dataGenerics
+	 * @param ConstantStringType $expectedType
+	 * @param Type $actualType
+	 */
+	public function testGenerics(
+		ConstantStringType $expectedType,
+		Type $actualType,
+		int $line
+	): void
+	{
+		$expected = $expectedType->getValue();
+		$actual = $actualType->describe(VerbosityLevel::precise());
+		$this->assertSame(
+			$expected,
+			$actual,
+			sprintf('Expected type %s, got type %s on line %d.', $expected, $actual, $line)
+		);
+	}
+
+	private function gatherAssertTypes(string $file): array
+	{
+		$types = [];
+		$this->processFile($file, function (Node $node, Scope $scope) use (&$types): void {
+			if (!$node instanceof Node\Expr\FuncCall) {
+				return;
+			}
+
+			$nameNode = $node->name;
+			if (!$nameNode instanceof Name) {
+				return;
+			}
+
+			$assertTypeFunctionName = 'PHPStan\\Analyser\\assertType';
+			if ((string) $nameNode !== $assertTypeFunctionName) {
+				return;
+			}
+
+			if (count($node->args) !== 2) {
+				$this->fail(sprintf(
+					'ERROR: Wrong %s() call on line %d.',
+					$assertTypeFunctionName,
+					$node->getLine()
+				));
+			}
+
+			$expectedTypeString = $scope->getType($node->args[0]->value);
+			$actualType = $scope->getType($node->args[1]->value);
+
+			$types[] = [$expectedTypeString, $actualType, $node->getLine()];
+		});
+
+		return $types;
+	}
+
+	public function dataInferPrivatePropertyTypeFromConstructor(): array
+	{
+		return [
+			[
+				'int',
+				'$this->intProp',
+			],
+			[
+				'string',
+				'$this->stringProp',
+			],
+			[
+				'InferPrivatePropertyTypeFromConstructor\Bar|InferPrivatePropertyTypeFromConstructor\Foo',
+				'$this->unionProp',
+			],
+			[
+				'stdClass',
+				'$this->stdClassProp',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataInferPrivatePropertyTypeFromConstructor
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testInferPrivatePropertyTypeFromConstructor(
+		string $description,
+		string $expression
+	): void
+	{
+		$this->assertTypes(
+			__DIR__ . '/data/infer-private-property-type-from-constructor.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataTryCatchScope(): array
 	{
 		return [
@@ -9328,9 +9625,17 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			__DIR__ . '/data/anonymous-class-name-in-trait-trait.php',
 		]));
 
+		$scopeFactory = $this->createScopeFactory($broker, $typeSpecifier);
+		if (count($dynamicConstantNames) > 0) {
+			$reflectionProperty = new \ReflectionProperty(ScopeFactory::class, 'dynamicConstantNames');
+			$reflectionProperty->setAccessible(true);
+			$reflectionProperty->setValue($scopeFactory, $dynamicConstantNames);
+		}
+		$scope = $scopeFactory->create(ScopeContext::create($file));
+
 		$resolver->processNodes(
 			$this->getParser()->parseFile($file),
-			$this->createScopeFactory($broker, $typeSpecifier, $dynamicConstantNames)->create(ScopeContext::create($file)),
+			$scope,
 			$callback
 		);
 	}

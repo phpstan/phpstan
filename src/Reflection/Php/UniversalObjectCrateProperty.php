@@ -3,6 +3,7 @@
 namespace PHPStan\Reflection\Php;
 
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 
 class UniversalObjectCrateProperty implements \PHPStan\Reflection\PropertyReflection
@@ -43,9 +44,19 @@ class UniversalObjectCrateProperty implements \PHPStan\Reflection\PropertyReflec
 		return true;
 	}
 
-	public function getType(): Type
+	public function getReadableType(): Type
 	{
 		return $this->type;
+	}
+
+	public function getWritableType(): Type
+	{
+		return $this->type;
+	}
+
+	public function canChangeTypeAfterAssignment(): bool
+	{
+		return true;
 	}
 
 	public function isReadable(): bool
@@ -56,6 +67,21 @@ class UniversalObjectCrateProperty implements \PHPStan\Reflection\PropertyReflec
 	public function isWritable(): bool
 	{
 		return true;
+	}
+
+	public function isDeprecated(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
+	public function getDeprecatedDescription(): ?string
+	{
+		return null;
+	}
+
+	public function isInternal(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
 	}
 
 }

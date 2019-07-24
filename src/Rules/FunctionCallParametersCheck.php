@@ -5,8 +5,10 @@ namespace PHPStan\Rules;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Type\ArrayType;
+use PHPStan\Type\ErrorType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NeverType;
 use PHPStan\Type\TypeUtils;
 use PHPStan\Type\VerbosityLevel;
 use PHPStan\Type\VoidType;
@@ -23,22 +25,27 @@ class FunctionCallParametersCheck
 	/** @var bool */
 	private $checkArgumentsPassedByReference;
 
+	/** @var bool */
+	private $checkExtraArguments;
+
 	public function __construct(
 		RuleLevelHelper $ruleLevelHelper,
 		bool $checkArgumentTypes,
-		bool $checkArgumentsPassedByReference
+		bool $checkArgumentsPassedByReference,
+		bool $checkExtraArguments
 	)
 	{
 		$this->ruleLevelHelper = $ruleLevelHelper;
 		$this->checkArgumentTypes = $checkArgumentTypes;
 		$this->checkArgumentsPassedByReference = $checkArgumentsPassedByReference;
+		$this->checkExtraArguments = $checkExtraArguments;
 	}
 
 	/**
 	 * @param \PHPStan\Reflection\ParametersAcceptor $parametersAcceptor
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|\PhpParser\Node\Expr\New_ $funcCall
-	 * @param string[] $messages Eight message templates
+	 * @param string[] $messages Nine message templates
 	 * @return string[]
 	 */
 	public function check(
@@ -71,7 +78,10 @@ class FunctionCallParametersCheck
 			}
 		}
 
-		if ($invokedParametersCount < $functionParametersMinCount || $invokedParametersCount > $functionParametersMaxCount) {
+		if (
+			$invokedParametersCount < $functionParametersMinCount
+			|| ($this->checkExtraArguments && $invokedParametersCount > $functionParametersMaxCount)
+		) {
 			if ($functionParametersMinCount === $functionParametersMaxCount) {
 				$errors[] = sprintf(
 					$invokedParametersCount === 1 ? $messages[0] : $messages[1],
@@ -184,6 +194,14 @@ class FunctionCallParametersCheck
 				$i + 1,
 				sprintf('%s$%s', $parameter->isVariadic() ? '...' : '', $parameter->getName())
 			);
+		}
+
+		foreach ($parametersAcceptor->getTemplateTypeMap()->getTypes() as $name => $type) {
+			if (!($type instanceof ErrorType) && !($type instanceof NeverType)) {
+				continue;
+			}
+
+			$errors[] = sprintf($messages[9], $name);
 		}
 
 		return $errors;

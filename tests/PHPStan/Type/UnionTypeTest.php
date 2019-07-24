@@ -2,6 +2,8 @@
 
 namespace PHPStan\Type;
 
+use PHPStan\Reflection\Native\NativeParameterReflection;
+use PHPStan\Reflection\PassedByReference;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
@@ -610,6 +612,58 @@ class UnionTypeTest extends \PHPStan\Testing\TestCase
 				new UnionType([new CallableType(), new NullType()]),
 				new BooleanType(),
 				TrinaryLogic::createNo(),
+			],
+			[
+				new UnionType([
+					new CallableType([
+						new NativeParameterReflection('a', false, new IntegerType(), PassedByReference::createNo(), false, null),
+						new NativeParameterReflection('a', false, new StringType(), PassedByReference::createNo(), false, null),
+						new NativeParameterReflection('a', false, new StringType(), PassedByReference::createNo(), false, null),
+						new NativeParameterReflection('a', false, new ArrayType(new MixedType(), new MixedType()), PassedByReference::createNo(), false, null),
+					], new BooleanType(), false),
+					new NullType(),
+				]),
+				new CallableType(),
+				TrinaryLogic::createYes(),
+			],
+			[
+				new UnionType([
+					new CallableType([
+						new NativeParameterReflection('a', false, new IntegerType(), PassedByReference::createNo(), false, null),
+						new NativeParameterReflection('a', false, new StringType(), PassedByReference::createNo(), false, null),
+						new NativeParameterReflection('a', false, new StringType(), PassedByReference::createNo(), false, null),
+						new NativeParameterReflection('a', false, new ArrayType(new MixedType(), new MixedType()), PassedByReference::createNo(), false, null),
+					], new BooleanType(), false),
+					new NullType(),
+				]),
+				new BooleanType(),
+				TrinaryLogic::createNo(),
+			],
+			[
+				new UnionType([
+					new ClosureType([
+						new NativeParameterReflection('a', false, new IntegerType(), PassedByReference::createNo(), false, null),
+						new NativeParameterReflection('a', false, new StringType(), PassedByReference::createNo(), false, null),
+						new NativeParameterReflection('a', false, new StringType(), PassedByReference::createNo(), false, null),
+						new NativeParameterReflection('a', false, new ArrayType(new MixedType(), new MixedType()), PassedByReference::createNo(), false, null),
+					], new BooleanType(), false),
+					new NullType(),
+				]),
+				new CallableType(),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new UnionType([
+					new ClosureType([
+						new NativeParameterReflection('a', false, new IntegerType(), PassedByReference::createNo(), false, null),
+						new NativeParameterReflection('a', false, new StringType(), PassedByReference::createNo(), false, null),
+						new NativeParameterReflection('a', false, new StringType(), PassedByReference::createNo(), false, null),
+						new NativeParameterReflection('a', false, new ArrayType(new MixedType(), new MixedType()), PassedByReference::createNo(), false, null),
+					], new BooleanType(), false),
+					new NullType(),
+				]),
+				new ClosureType([], new MixedType(), false),
+				TrinaryLogic::createYes(),
 			],
 		];
 	}

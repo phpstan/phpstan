@@ -13,7 +13,7 @@ use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\NonObjectTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 
-class ArrayType implements StaticResolvableType
+class ArrayType implements Type
 {
 
 	use MaybeCallableTypeTrait;
@@ -129,30 +129,6 @@ class ArrayType implements StaticResolvableType
 		return new self(new IntegerType(), $this->itemType);
 	}
 
-	public function resolveStatic(string $className): Type
-	{
-		if ($this->getItemType() instanceof StaticResolvableType) {
-			return new self(
-				$this->keyType,
-				$this->getItemType()->resolveStatic($className)
-			);
-		}
-
-		return $this;
-	}
-
-	public function changeBaseClass(string $className): StaticResolvableType
-	{
-		if ($this->getItemType() instanceof StaticResolvableType) {
-			return new self(
-				$this->keyType,
-				$this->getItemType()->changeBaseClass($className)
-			);
-		}
-
-		return $this;
-	}
-
 	public function isIterable(): TrinaryLogic
 	{
 		return TrinaryLogic::createYes();
@@ -176,6 +152,11 @@ class ArrayType implements StaticResolvableType
 	public function getIterableValueType(): Type
 	{
 		return $this->getItemType();
+	}
+
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
 	}
 
 	public function isOffsetAccessible(): TrinaryLogic
@@ -304,17 +285,13 @@ class ArrayType implements StaticResolvableType
 			&& !$this->getKeyType()->isSuperTypeOf($receivedType->getKeyType())->no()
 			&& !$this->getItemType()->isSuperTypeOf($receivedType->getItemType())->no()
 		) {
-			$receivedKey = $receivedType->getKeyType();
-			$receivedItem = $receivedType->getItemType();
-		} else {
-			$receivedKey = new NeverType();
-			$receivedItem = new NeverType();
+			$keyTypeMap = $this->getKeyType()->inferTemplateTypes($receivedType->getKeyType());
+			$itemTypeMap = $this->getItemType()->inferTemplateTypes($receivedType->getItemType());
+
+			return $keyTypeMap->union($itemTypeMap);
 		}
 
-		$keyTypeMap = $this->getKeyType()->inferTemplateTypes($receivedKey);
-		$itemTypeMap = $this->getItemType()->inferTemplateTypes($receivedItem);
-
-		return $keyTypeMap->union($itemTypeMap);
+		return TemplateTypeMap::createEmpty();
 	}
 
 	public function traverse(callable $cb): Type

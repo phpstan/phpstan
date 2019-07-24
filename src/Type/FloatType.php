@@ -35,7 +35,7 @@ class FloatType implements Type
 		}
 
 		if ($type instanceof CompoundType) {
-			return CompoundTypeHelper::accepts($type, new UnionType([
+			return $type->isAcceptedBy(new UnionType([
 				$this,
 				new IntegerType(),
 			]), $strictTypes);
@@ -114,6 +114,11 @@ class FloatType implements Type
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
 		return new ErrorType();
+	}
+
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
 	}
 
 	public function traverse(callable $cb): Type

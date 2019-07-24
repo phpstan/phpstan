@@ -21,7 +21,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 	use MaybeOffsetAccessibleTypeTrait;
 	use TruthyBooleanTypeTrait;
 
-	/** @var array<int, \PHPStan\Reflection\Native\NativeParameterReflection> */
+	/** @var array<int, \PHPStan\Reflection\ParameterReflection> */
 	private $parameters;
 
 	/** @var Type */
@@ -34,7 +34,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 	private $isCommonCallable;
 
 	/**
-	 * @param array<int, \PHPStan\Reflection\Native\NativeParameterReflection> $parameters
+	 * @param array<int, \PHPStan\Reflection\ParameterReflection> $parameters
 	 * @param Type $returnType
 	 * @param bool $variadic
 	 */
@@ -111,6 +111,11 @@ class CallableType implements CompoundType, ParametersAcceptor
 			->and($otherType instanceof self ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe());
 	}
 
+	public function isAcceptedBy(Type $acceptingType, bool $strictTypes): TrinaryLogic
+	{
+		return $this->isSubTypeOf($acceptingType);
+	}
+
 	public function equals(Type $type): bool
 	{
 		return $type instanceof self;
@@ -176,8 +181,13 @@ class CallableType implements CompoundType, ParametersAcceptor
 		return new ArrayType(new MixedType(), new MixedType());
 	}
 
+	public function getTemplateTypeMap(): TemplateTypeMap
+	{
+		return TemplateTypeMap::createEmpty();
+	}
+
 	/**
-	 * @return array<int, \PHPStan\Reflection\Native\NativeParameterReflection>
+	 * @return array<int, \PHPStan\Reflection\ParameterReflection>
 	 */
 	public function getParameters(): array
 	{
@@ -201,12 +211,12 @@ class CallableType implements CompoundType, ParametersAcceptor
 		}
 
 		if ($receivedType->isCallable()->no()) {
-			return TemplateTypeMap::empty();
+			return TemplateTypeMap::createEmpty();
 		}
 
 		$parametersAcceptors = $receivedType->getCallableParametersAcceptors(new OutOfClassScope());
 
-		$typeMap = TemplateTypeMap::empty();
+		$typeMap = TemplateTypeMap::createEmpty();
 
 		foreach ($parametersAcceptors as $parametersAcceptor) {
 			$typeMap = $typeMap->union($this->inferTemplateTypesOnParametersAcceptor($receivedType, $parametersAcceptor));
@@ -217,7 +227,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 
 	private function inferTemplateTypesOnParametersAcceptor(Type $receivedType, ParametersAcceptor $parametersAcceptor): TemplateTypeMap
 	{
-		$typeMap = TemplateTypeMap::empty();
+		$typeMap = TemplateTypeMap::createEmpty();
 		$args = $parametersAcceptor->getParameters();
 		$returnType = $parametersAcceptor->getReturnType();
 
@@ -253,6 +263,11 @@ class CallableType implements CompoundType, ParametersAcceptor
 			$cb($this->getReturnType()),
 			$this->isVariadic()
 		);
+	}
+
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
 	}
 
 	/**

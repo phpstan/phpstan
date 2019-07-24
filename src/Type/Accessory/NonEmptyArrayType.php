@@ -63,6 +63,11 @@ class NonEmptyArrayType implements CompoundType, AccessoryType
 			->and($otherType instanceof self ? TrinaryLogic::createYes() : TrinaryLogic::createMaybe());
 	}
 
+	public function isAcceptedBy(Type $acceptingType, bool $strictTypes): TrinaryLogic
+	{
+		return $this->isSubTypeOf($acceptingType);
+	}
+
 	public function equals(Type $type): bool
 	{
 		return $type instanceof self;
@@ -111,6 +116,11 @@ class NonEmptyArrayType implements CompoundType, AccessoryType
 	public function getIterableValueType(): Type
 	{
 		return new MixedType();
+	}
+
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createYes();
 	}
 
 	public function toNumber(): Type

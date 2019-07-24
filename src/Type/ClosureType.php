@@ -13,6 +13,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantIntegerType;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
 
 class ClosureType implements TypeWithClassName, ParametersAcceptor
@@ -263,6 +264,11 @@ class ClosureType implements TypeWithClassName, ParametersAcceptor
 		);
 	}
 
+	public function getTemplateTypeMap(): TemplateTypeMap
+	{
+		return TemplateTypeMap::createEmpty();
+	}
+
 	/**
 	 * @return array<int, \PHPStan\Reflection\Native\NativeParameterReflection>
 	 */
@@ -298,6 +304,11 @@ class ClosureType implements TypeWithClassName, ParametersAcceptor
 			$cb($this->getReturnType()),
 			$this->isVariadic()
 		);
+	}
+
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
 	}
 
 	/**

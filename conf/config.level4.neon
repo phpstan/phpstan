@@ -11,27 +11,15 @@ rules:
 	- PHPStan\Rules\Comparison\TernaryOperatorConstantConditionRule
 	- PHPStan\Rules\Comparison\UnreachableIfBranchesRule
 	- PHPStan\Rules\Comparison\UnreachableTernaryElseBranchRule
-
-parameters:
-	featureToggles:
-		deadCatchesRule: false
-		noopRule: false
-		tooWideTypehints: false
-		unreachableStatement: false
-
-conditionalTags:
-	PHPStan\Rules\Exceptions\DeadCatchRule:
-		phpstan.rules.rule: %featureToggles.deadCatchesRule%
-	PHPStan\Rules\DeadCode\NoopRule:
-		phpstan.rules.rule: %featureToggles.noopRule%
-	PHPStan\Rules\DeadCode\UnreachableStatementRule:
-		phpstan.rules.rule: %featureToggles.unreachableStatement%
-	PHPStan\Rules\TooWideTypehints\TooWideClosureReturnTypehintRule:
-		phpstan.rules.rule: %featureToggles.tooWideTypehints%
-	PHPStan\Rules\TooWideTypehints\TooWideFunctionReturnTypehintRule:
-		phpstan.rules.rule: %featureToggles.tooWideTypehints%
-	PHPStan\Rules\TooWideTypehints\TooWidePrivateMethodReturnTypehintRule:
-		phpstan.rules.rule: %featureToggles.tooWideTypehints%
+	- PHPStan\Rules\DeadCode\NoopRule
+	- PHPStan\Rules\DeadCode\UnreachableStatementRule
+	- PHPStan\Rules\Exceptions\DeadCatchRule
+	- PHPStan\Rules\Functions\CallToFunctionStamentWithoutSideEffectsRule
+	- PHPStan\Rules\Methods\CallToMethodStamentWithoutSideEffectsRule
+	- PHPStan\Rules\Methods\CallToStaticMethodStamentWithoutSideEffectsRule
+	- PHPStan\Rules\TooWideTypehints\TooWideClosureReturnTypehintRule
+	- PHPStan\Rules\TooWideTypehints\TooWideFunctionReturnTypehintRule
+	- PHPStan\Rules\TooWideTypehints\TooWidePrivateMethodReturnTypehintRule
 
 services:
 	-
@@ -68,21 +56,3 @@ services:
 			checkAlwaysTrueStrictComparison: %checkAlwaysTrueStrictComparison%
 		tags:
 			- phpstan.rules.rule
-
-	-
-		class: PHPStan\Rules\Exceptions\DeadCatchRule
-
-	-
-		class: PHPStan\Rules\DeadCode\NoopRule
-
-	-
-		class: PHPStan\Rules\DeadCode\UnreachableStatementRule
-
-	-
-		class: PHPStan\Rules\TooWideTypehints\TooWideClosureReturnTypehintRule
-
-	-
-		class: PHPStan\Rules\TooWideTypehints\TooWideFunctionReturnTypehintRule
-
-	-
-		class: PHPStan\Rules\TooWideTypehints\TooWidePrivateMethodReturnTypehintRule

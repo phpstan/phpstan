@@ -329,13 +329,39 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
-	public function testAccept(): void
+	public function dataAccepts(): array
 	{
-		$simpleXmlElementType = new ObjectType(\SimpleXMLElement::class);
-		$this->assertTrue($simpleXmlElementType->accepts(new IntegerType(), true)->no());
-		$this->assertTrue($simpleXmlElementType->accepts(new ConstantStringType('foo'), true)->no());
-		$this->assertTrue($simpleXmlElementType->accepts(new IntegerType(), false)->no());
-		$this->assertTrue($simpleXmlElementType->accepts(new ConstantStringType('foo'), false)->no());
+		return [
+			[
+				new ObjectType(\SimpleXMLElement::class),
+				new IntegerType(),
+				TrinaryLogic::createNo(),
+			],
+			[
+				new ObjectType(\SimpleXMLElement::class),
+				new ConstantStringType('foo'),
+				TrinaryLogic::createNo(),
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataAccepts
+	 * @param \PHPStan\Type\ObjectType $type
+	 * @param Type $acceptedType
+	 * @param TrinaryLogic $expectedResult
+	 */
+	public function testAccepts(
+		ObjectType $type,
+		Type $acceptedType,
+		TrinaryLogic $expectedResult
+	): void
+	{
+		$this->assertSame(
+			$expectedResult->describe(),
+			$type->accepts($acceptedType, true)->describe(),
+			sprintf('%s -> accepts(%s)', $type->describe(VerbosityLevel::precise()), $acceptedType->describe(VerbosityLevel::precise()))
+		);
 	}
 
 }

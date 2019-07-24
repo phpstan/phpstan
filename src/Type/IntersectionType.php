@@ -7,11 +7,12 @@ use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Reflection\TrivialParametersAcceptor;
+use PHPStan\Reflection\Type\IntersectionTypeMethodReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Accessory\AccessoryType;
 use PHPStan\Type\Generic\TemplateTypeMap;
 
-class IntersectionType implements CompoundType, StaticResolvableType
+class IntersectionType implements CompoundType
 {
 
 	/** @var \PHPStan\Type\Type[] */
@@ -74,6 +75,11 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		}
 
 		return TrinaryLogic::maxMin(...$results);
+	}
+
+	public function isAcceptedBy(Type $acceptingType, bool $strictTypes): TrinaryLogic
+	{
+		return $this->isSubTypeOf($acceptingType);
 	}
 
 	public function equals(Type $type): bool
@@ -172,13 +178,25 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
+		$methods = [];
 		foreach ($this->types as $type) {
-			if ($type->hasMethod($methodName)->yes()) {
-				return $type->getMethod($methodName, $scope);
+			if (!$type->hasMethod($methodName)->yes()) {
+				continue;
 			}
+
+			$methods[] = $type->getMethod($methodName, $scope);
 		}
 
-		throw new \PHPStan\ShouldNotHappenException();
+		$methodsCount = count($methods);
+		if ($methodsCount === 0) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		if ($methodsCount === 1) {
+			return $methods[0];
+		}
+
+		return new IntersectionTypeMethodReflection($methodName, $methods);
 	}
 
 	public function canAccessConstants(): TrinaryLogic
@@ -231,6 +249,13 @@ class IntersectionType implements CompoundType, StaticResolvableType
 	{
 		return $this->intersectTypes(static function (Type $type): Type {
 			return $type->getIterableValueType();
+		});
+	}
+
+	public function isArray(): TrinaryLogic
+	{
+		return $this->intersectResults(static function (Type $type): TrinaryLogic {
+			return $type->isArray();
 		});
 	}
 
@@ -344,23 +369,12 @@ class IntersectionType implements CompoundType, StaticResolvableType
 		return $type;
 	}
 
-	public function resolveStatic(string $className): Type
-	{
-		return new self(UnionTypeHelper::resolveStatic($className, $this->getTypes()));
-	}
-
-	public function changeBaseClass(string $className): StaticResolvableType
-	{
-		return new self(UnionTypeHelper::changeBaseClass($className, $this->getTypes()));
-	}
-
 	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap
 	{
-		$types = TemplateTypeMap::empty();
+		$types = TemplateTypeMap::createEmpty();
 
 		foreach ($this->types as $type) {
-			$receive = $type->isSuperTypeOf($receivedType)->yes() ? $receivedType : new NeverType();
-			$types = $types->intersect($type->inferTemplateTypes($receive));
+			$types = $types->intersect($type->inferTemplateTypes($receivedType));
 		}
 
 		return $types;
@@ -368,7 +382,7 @@ class IntersectionType implements CompoundType, StaticResolvableType
 
 	public function inferTemplateTypesOn(Type $templateType): TemplateTypeMap
 	{
-		$types = TemplateTypeMap::empty();
+		$types = TemplateTypeMap::createEmpty();
 
 		foreach ($this->types as $type) {
 			$types = $types->intersect($templateType->inferTemplateTypes($type));

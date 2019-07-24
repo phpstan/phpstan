@@ -12,10 +12,11 @@ use PHPStan\Type\BooleanType;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\ConstantType;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\Generic\TemplateTypeMap;
+use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\ObjectType;
-use PHPStan\Type\StaticResolvableType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
@@ -409,7 +410,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	}
 
 	/**
-	 * @return static
+	 * @return self
 	 */
 	public function generalizeValues(): ArrayType
 	{
@@ -422,7 +423,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	}
 
 	/**
-	 * @return static
+	 * @return self
 	 */
 	public function getKeysArray(): ArrayType
 	{
@@ -440,7 +441,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	}
 
 	/**
-	 * @return static
+	 * @return self
 	 */
 	public function getValuesArray(): ArrayType
 	{
@@ -504,36 +505,57 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		);
 	}
 
-	public function resolveStatic(string $className): Type
+	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap
 	{
-		$keyTypes = $this->keyTypes;
-		$valueTypes = $this->valueTypes;
-		foreach (array_keys($keyTypes) as $i) {
-			$valueType = $valueTypes[$i];
-			if (!$valueType instanceof StaticResolvableType) {
-				continue;
-			}
-
-			$valueTypes[$i] = $valueType->resolveStatic($className);
+		if ($receivedType instanceof UnionType || $receivedType instanceof IntersectionType) {
+			return $receivedType->inferTemplateTypesOn($this);
 		}
 
-		return new self($keyTypes, $valueTypes, $this->nextAutoIndex);
+		if ($receivedType instanceof self && !$this->isSuperTypeOf($receivedType)->no()) {
+			$typeMap = TemplateTypeMap::createEmpty();
+			foreach ($this->keyTypes as $i => $keyType) {
+				$valueType = $this->valueTypes[$i];
+				$receivedValueType = $receivedType->getOffsetValueType($keyType);
+				$typeMap = $typeMap->union($valueType->inferTemplateTypes($receivedValueType));
+			}
+
+			return $typeMap;
+		}
+
+		if ($receivedType instanceof ArrayType) {
+			return parent::inferTemplateTypes($receivedType);
+		}
+
+		return TemplateTypeMap::createEmpty();
 	}
 
-	public function changeBaseClass(string $className): StaticResolvableType
+	public function traverse(callable $cb): Type
 	{
-		$keyTypes = $this->keyTypes;
-		$valueTypes = $this->valueTypes;
-		foreach (array_keys($keyTypes) as $i) {
-			$valueType = $valueTypes[$i];
-			if (!$valueType instanceof StaticResolvableType) {
-				continue;
-			}
+		$keyTypes = [];
+		$valueTypes = [];
+		$changed = false;
 
-			$valueTypes[$i] = $valueType->changeBaseClass($className);
+		foreach ($this->keyTypes as $type) {
+			$newType = $cb($type);
+			if ($newType !== $type) {
+				$changed = true;
+			}
+			$keyTypes[] = $newType;
 		}
 
-		return new self($keyTypes, $valueTypes, $this->nextAutoIndex);
+		foreach ($this->valueTypes as $type) {
+			$newType = $cb($type);
+			if ($newType !== $type) {
+				$changed = true;
+			}
+			$valueTypes[] = $newType;
+		}
+
+		if ($changed) {
+			return new static($keyTypes, $valueTypes, $this->nextAutoIndex);
+		}
+
+		return $this;
 	}
 
 	/**

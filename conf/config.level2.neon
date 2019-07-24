@@ -12,7 +12,9 @@ rules:
 	- PHPStan\Rules\Cast\InvalidPartOfEncapsedStringRule
 	- PHPStan\Rules\Cast\PrintRule
 	- PHPStan\Rules\Functions\IncompatibleDefaultParameterTypeRule
+	- PHPStan\Rules\Functions\TemplateTypeDeclarationRule
 	- PHPStan\Rules\Methods\IncompatibleDefaultParameterTypeRule
+	- PHPStan\Rules\Methods\TemplateTypeDeclarationRule
 	- PHPStan\Rules\Operators\InvalidBinaryOperationRule
 	- PHPStan\Rules\Operators\InvalidUnaryOperationRule
 	- PHPStan\Rules\Operators\InvalidComparisonOperationRule
@@ -20,11 +22,18 @@ rules:
 	- PHPStan\Rules\PhpDoc\IncompatiblePropertyPhpDocTypeRule
 	- PHPStan\Rules\PhpDoc\InvalidPhpDocTagValueRule
 	- PHPStan\Rules\PhpDoc\InvalidThrowsPhpDocValueRule
+	- PHPStan\Rules\PhpDoc\WrongVariableNameInVarTagRule
 
 services:
 	-
 		class: PHPStan\Rules\Functions\CallCallablesRule
 		arguments:
 			reportMaybes: %reportMaybes%
+		tags:
+			- phpstan.rules.rule
+	-
+		class: PHPStan\Rules\PhpDoc\InvalidPhpDocVarTagTypeRule
+		arguments:
+			checkClassCaseSensitivity: %checkClassCaseSensitivity%
 		tags:
 			- phpstan.rules.rule

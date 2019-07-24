@@ -8,10 +8,12 @@ includes:
 parameters:
 	bootstrap: %rootDir%/tests/phpstan-bootstrap.php
 	excludes_analyse:
-		- %rootDir%/src/Reflection/SignatureMap/functions/*
+		- %rootDir%/src/Reflection/SignatureMap/functionMap.php
+		- %rootDir%/src/Reflection/SignatureMap/functionMetadata.php
 		- %rootDir%/tests/*/data/*
 		- %rootDir%/tests/PHPStan/Analyser/traits/*
 		- %rootDir%/tests/notAutoloaded/*
+		- %rootDir%/tests/PHPStan/Generics/functions.php
 	featureToggles:
 		missingClosureNativeReturnTypehintRule: true
 	ignoreErrors:
@@ -20,7 +22,7 @@ parameters:
 		- '#^Only numeric types are allowed in (pre|post)-(de|in)crement, bool\|float\|int\|string\|null given\.$#'
 		- '#should be contravariant with parameter \$node \(PhpParser\\Node\) of method PHPStan\\Rules\\Rule::processNode\(\)$#'
 		- '#^Parameter .* of method PHPStan\\Command\\ErrorsConsoleStyle::.*\(\) should be contravariant with parameter .* of method Symfony\\Component\\Console\\Style\\(StyleInterface|SymfonyStyle)::.*()$#'
-		- '#Variable property access on PhpParser\\Node\.#'
+		- '#Variable property access on PhpParser\\Node#'
 		-
 			message: '#Variable method call on PHPStan\\Reflection\\ClassReflection\.#'
 			path: %rootDir%/src/PhpDoc/PhpDocBlock.php
@@ -41,10 +43,6 @@ parameters:
 			path: %rootDir%/tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
 		-
 			message: '#Fetching class constant class of deprecated class DeprecatedAnnotations\\DeprecatedWithMultipleTags.#'
-			path: %rootDir%/tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
-		-
-			# Remove when method can be added to DeprecatableReflection interface.
-			message: '#^Call to an undefined method PHPStan\\Reflection(.*)::getDeprecatedDescription\(\).#'
 			path: %rootDir%/tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
 	reportStaticMethodSignatures: true
 	tmpDir: %rootDir%/tmp

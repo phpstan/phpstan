@@ -64,6 +64,11 @@ class HasPropertyType implements AccessoryType, CompoundType
 		return $limit->and($otherType->hasProperty($this->propertyName));
 	}
 
+	public function isAcceptedBy(Type $acceptingType, bool $strictTypes): TrinaryLogic
+	{
+		return $this->isSubTypeOf($acceptingType);
+	}
+
 	public function equals(Type $type): bool
 	{
 		return $type instanceof self

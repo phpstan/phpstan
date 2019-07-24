@@ -11,6 +11,9 @@ class SignatureMapProvider
 	/** @var mixed[]|null */
 	private static $signatureMap;
 
+	/** @var array<string, array{hasSideEffects: bool}>|null */
+	private static $functionMetadata;
+
 	public function __construct(SignatureMapParser $parser)
 	{
 		$this->parser = $parser;
@@ -19,11 +22,13 @@ class SignatureMapProvider
 	public function hasFunctionSignature(string $name): bool
 	{
 		$signatureMap = self::getSignatureMap();
-		return array_key_exists($name, $signatureMap);
+		return array_key_exists(strtolower($name), $signatureMap);
 	}
 
 	public function getFunctionSignature(string $functionName, ?string $className): FunctionSignature
 	{
+		$functionName = strtolower($functionName);
+
 		if (!$this->hasFunctionSignature($functionName)) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
@@ -34,6 +39,41 @@ class SignatureMapProvider
 			$signatureMap[$functionName],
 			$className
 		);
+	}
+
+	public function hasFunctionMetadata(string $name): bool
+	{
+		$signatureMap = self::getFunctionMetadataMap();
+		return array_key_exists(strtolower($name), $signatureMap);
+	}
+
+	/**
+	 * @param string $functionName
+	 * @return array{hasSideEffects: bool}
+	 */
+	public function getFunctionMetadata(string $functionName): array
+	{
+		$functionName = strtolower($functionName);
+
+		if (!$this->hasFunctionMetadata($functionName)) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		return self::getFunctionMetadataMap()[$functionName];
+	}
+
+	/**
+	 * @return array<string, array{hasSideEffects: bool}>
+	 */
+	private static function getFunctionMetadataMap(): array
+	{
+		if (self::$functionMetadata === null) {
+			/** @var array<string, array{hasSideEffects: bool}> $metadata */
+			$metadata = require __DIR__ . '/functionMetadata.php';
+			self::$functionMetadata = array_change_key_case($metadata, CASE_LOWER);
+		}
+
+		return self::$functionMetadata;
 	}
 
 	/**
@@ -47,7 +87,7 @@ class SignatureMapProvider
 				throw new \PHPStan\ShouldNotHappenException('Signature map could not be loaded.');
 			}
 
-			self::$signatureMap = $signatureMap;
+			self::$signatureMap = array_change_key_case($signatureMap, CASE_LOWER);
 		}
 
 		return self::$signatureMap;

@@ -2,9 +2,11 @@
 
 namespace PHPStan\Command;
 
+use PhpParser\Node;
 use PHPStan\Analyser\Analyser;
+use PHPStan\Analyser\Scope;
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
-use PHPStan\File\FileHelper;
+use PHPStan\Type\MixedType;
 use Symfony\Component\Console\Style\OutputStyle;
 
 class AnalyseApplication
@@ -16,23 +18,13 @@ class AnalyseApplication
 	/** @var string */
 	private $memoryLimitFile;
 
-	/** @var \PHPStan\File\FileHelper */
-	private $fileHelper;
-
-	/** @var string */
-	private $currentWorkingDirectory;
-
 	public function __construct(
 		Analyser $analyser,
-		string $memoryLimitFile,
-		FileHelper $fileHelper,
-		string $currentWorkingDirectory
+		string $memoryLimitFile
 	)
 	{
 		$this->analyser = $analyser;
 		$this->memoryLimitFile = $memoryLimitFile;
-		$this->fileHelper = $fileHelper;
-		$this->currentWorkingDirectory = $currentWorkingDirectory;
 	}
 
 	/**
@@ -42,6 +34,7 @@ class AnalyseApplication
 	 * @param \PHPStan\Command\ErrorFormatter\ErrorFormatter $errorFormatter
 	 * @param bool $defaultLevelUsed
 	 * @param bool $debug
+	 * @param string|null $projectConfigFile
 	 * @return int Error code.
 	 */
 	public function analyse(
@@ -50,7 +43,8 @@ class AnalyseApplication
 		OutputStyle $style,
 		ErrorFormatter $errorFormatter,
 		bool $defaultLevelUsed,
-		bool $debug
+		bool $debug,
+		?string $projectConfigFile
 	): int
 	{
 		$this->updateMemoryLimitFile();
@@ -78,12 +72,45 @@ class AnalyseApplication
 			$postFileCallback = null;
 		}
 
+		$hasInferrablePropertyTypesFromConstructor = false;
 		$errors = array_merge($errors, $this->analyser->analyse(
 			$files,
 			$onlyFiles,
 			$preFileCallback,
 			$postFileCallback,
-			$debug
+			$debug,
+			static function (Node $node, Scope $scope) use (&$hasInferrablePropertyTypesFromConstructor): void {
+				if ($hasInferrablePropertyTypesFromConstructor) {
+					return;
+				}
+
+				if (!$node instanceof Node\Stmt\PropertyProperty) {
+					return;
+				}
+
+				if (!$scope->isInClass()) {
+					return;
+				}
+
+				$classReflection = $scope->getClassReflection();
+				if (!$classReflection->hasConstructor() || $classReflection->getConstructor()->getDeclaringClass()->getName() !== $classReflection->getName()) {
+					return;
+				}
+				$propertyName = $node->name->toString();
+				if (!$classReflection->hasNativeProperty($propertyName)) {
+					return;
+				}
+				$propertyReflection = $classReflection->getNativeProperty($propertyName);
+				if (!$propertyReflection->isPrivate()) {
+					return;
+				}
+				$propertyType = $propertyReflection->getReadableType();
+				if (!$propertyType instanceof MixedType || $propertyType->isExplicitMixed()) {
+					return;
+				}
+
+				$hasInferrablePropertyTypesFromConstructor = true;
+			}
 		));
 
 		if (isset($progressStarted) && $progressStarted) {
@@ -105,7 +132,8 @@ class AnalyseApplication
 				$fileSpecificErrors,
 				$notFileSpecificErrors,
 				$defaultLevelUsed,
-				$this->fileHelper->normalizePath($this->currentWorkingDirectory)
+				$hasInferrablePropertyTypesFromConstructor,
+				$projectConfigFile
 			),
 			$style
 		);

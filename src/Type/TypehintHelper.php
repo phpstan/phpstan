@@ -3,6 +3,8 @@
 namespace PHPStan\Type;
 
 use PHPStan\Broker\Broker;
+use PHPStan\Type\Generic\TemplateTypeHelper;
+use ReflectionNamedType;
 
 class TypehintHelper
 {
@@ -55,7 +57,11 @@ class TypehintHelper
 			return $phpDocType ?? new MixedType();
 		}
 
-		$reflectionTypeString = (string) $reflectionType;
+		if (!$reflectionType instanceof ReflectionNamedType) {
+			throw new \PHPStan\ShouldNotHappenException(sprintf('Unexpected type: %s', get_class($reflectionType)));
+		}
+
+		$reflectionTypeString = $reflectionType->getName();
 		if (\Nette\Utils\Strings::endsWith(strtolower($reflectionTypeString), '\\object')) {
 			$reflectionTypeString = 'object';
 		}
@@ -103,7 +109,8 @@ class TypehintHelper
 				}
 			}
 
-			$resultType = $type->isSuperTypeOf($phpDocType)->yes() ? $phpDocType : $type;
+			$resultType = $type->isSuperTypeOf(TemplateTypeHelper::resolveToBounds($phpDocType))->yes() ? $phpDocType : $type;
+
 			if (TypeCombinator::containsNull($type)) {
 				$type = TypeCombinator::addNull($resultType);
 			} else {

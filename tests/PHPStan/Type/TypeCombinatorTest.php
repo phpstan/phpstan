@@ -748,24 +748,24 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new UnionType([new IntegerType(), new StringType()]),
 					new BenevolentUnionType([new IntegerType(), new StringType()]),
 				],
-				UnionType::class,
-				'int|string',
+				BenevolentUnionType::class,
+				'(int|string)',
 			],
 			[
 				[
 					new IntegerType(),
 					new BenevolentUnionType([new IntegerType(), new StringType()]),
 				],
-				UnionType::class,
-				'int|string',
+				BenevolentUnionType::class,
+				'(int|string)',
 			],
 			[
 				[
 					new StringType(),
 					new BenevolentUnionType([new IntegerType(), new StringType()]),
 				],
-				UnionType::class,
-				'int|string',
+				BenevolentUnionType::class,
+				'(int|string)',
 			],
 			[
 				[
@@ -931,8 +931,8 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new BenevolentUnionType([new IntegerType(), new StringType()]),
 					new BenevolentUnionType([new IntegerType(), new StringType()]),
 				],
-				UnionType::class, // I'd be more happy with preserving BenevolentUnionType
-				'int|string',
+				BenevolentUnionType::class,
+				'(int|string)',
 			],
 			[
 				[
@@ -1108,7 +1108,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				UnionType::class,
-				'DateTime|T',
+				'DateTime|T (function a())',
 			],
 			[
 				[
@@ -1120,7 +1120,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				UnionType::class,
-				'DateTime|T of DateTime',
+				'DateTime|T of DateTime (function a())',
 			],
 			[
 				[
@@ -1136,7 +1136,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					),
 				],
 				TemplateType::class,
-				'T of DateTime',
+				'T of DateTime (function a())',
 			],
 			[
 				[
@@ -1152,7 +1152,81 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					),
 				],
 				UnionType::class,
-				'T of DateTime|U of DateTime',
+				'T of DateTime (function a())|U of DateTime (function a())',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+				],
+				BenevolentUnionType::class,
+				'(int|string)',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new IntegerType(),
+				],
+				BenevolentUnionType::class,
+				'(int|string)',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new StringType(),
+				],
+				BenevolentUnionType::class,
+				'(int|string)',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new IntegerType(),
+					new StringType(),
+				],
+				BenevolentUnionType::class,
+				'(int|string)',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new UnionType([new IntegerType(), new StringType()]),
+				],
+				BenevolentUnionType::class,
+				'(int|string)',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new IntegerType(),
+					new StringType(),
+					new FloatType(),
+				],
+				UnionType::class,
+				'float|int|string',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new UnionType([new IntegerType(), new StringType(), new FloatType()]),
+				],
+				UnionType::class,
+				'float|int|string',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new UnionType([new ConstantIntegerType(1), new ConstantIntegerType(2)]),
+				],
+				BenevolentUnionType::class,
+				'(int|string)',
+			],
+			[
+				[
+					new BenevolentUnionType([new IntegerType(), new StringType()]),
+					new UnionType([new ConstantIntegerType(1), new ConstantIntegerType(2), new FloatType()]),
+				],
+				UnionType::class,
+				'float|int|string',
 			],
 		];
 	}
@@ -1183,6 +1257,19 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 		);
 
 		$this->assertInstanceOf($expectedTypeClass, $actualType);
+
+		$hasSubtraction = false;
+		foreach ($types as $type) {
+			if (!($type instanceof SubtractableType) || $type->getSubtractedType() === null) {
+				continue;
+			}
+
+			$hasSubtraction = true;
+		}
+
+		if ($hasSubtraction) {
+			return;
+		}
 	}
 
 	/**
@@ -1762,7 +1849,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				IntersectionType::class,
-				'DateTime&T',
+				'DateTime&T (function a())',
 			],
 			[
 				[
@@ -1774,7 +1861,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				IntersectionType::class,
-				'DateTime&T of DateTime',
+				'DateTime&T of DateTime (function a())',
 			],
 			[
 				[
@@ -1790,7 +1877,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					),
 				],
 				TemplateType::class,
-				'T of DateTime',
+				'T of DateTime (function a())',
 			],
 			[
 				[
@@ -1806,7 +1893,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					),
 				],
 				IntersectionType::class,
-				'T of DateTime&U of DateTime',
+				'T of DateTime (function a())&U of DateTime (function a())',
 			],
 		];
 	}

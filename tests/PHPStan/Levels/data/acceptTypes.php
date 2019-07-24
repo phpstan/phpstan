@@ -156,9 +156,9 @@ class Foo
 		string $string
 	)
 	{
-		count($iterable);
-		count($array);
-		count($string);
+		echo count($iterable);
+		echo count($array);
+		echo count($string);
 	}
 
 	/**

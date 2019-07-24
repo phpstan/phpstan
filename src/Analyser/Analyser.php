@@ -83,6 +83,7 @@ class Analyser
 	 * @param \Closure(string $file): void|null $preFileCallback
 	 * @param \Closure(string $file): void|null $postFileCallback
 	 * @param bool $debug
+	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void|null $outerNodeCallback
 	 * @return string[]|\PHPStan\Analyser\Error[] errors
 	 */
 	public function analyse(
@@ -90,7 +91,8 @@ class Analyser
 		bool $onlyFiles,
 		?\Closure $preFileCallback = null,
 		?\Closure $postFileCallback = null,
-		bool $debug = false
+		bool $debug = false,
+		?\Closure $outerNodeCallback = null
 	): array
 	{
 		$errors = [];
@@ -141,8 +143,11 @@ class Analyser
 					$parserBenchmarkTime = $this->benchmarkStart();
 					$parserNodes = $this->parser->parseFile($file);
 					$this->benchmarkEnd($parserBenchmarkTime, 'parser');
-					$nodeCallback = function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors, $file, &$scopeBenchmarkTime): void {
+					$nodeCallback = function (\PhpParser\Node $node, Scope $scope) use (&$fileErrors, $file, &$scopeBenchmarkTime, $outerNodeCallback): void {
 						$this->benchmarkEnd($scopeBenchmarkTime, 'scope');
+						if ($outerNodeCallback !== null) {
+							$outerNodeCallback($node, $scope);
+						}
 						$uniquedAnalysedCodeExceptionMessages = [];
 						$classFromNode = get_class($node);
 						if ($classFromNode !== false) {

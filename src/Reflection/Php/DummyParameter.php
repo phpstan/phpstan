@@ -27,7 +27,7 @@ class DummyParameter implements ParameterReflection
 	/** @var ?\PHPStan\Type\Type */
 	private $defaultValue;
 
-	public function __construct(string $name, Type $type, bool $optional, ?PassedByReference $passedByReference = null, bool $variadic, ?Type $defaultValue)
+	public function __construct(string $name, Type $type, bool $optional, ?PassedByReference $passedByReference, bool $variadic, ?Type $defaultValue)
 	{
 		$this->name = $name;
 		$this->type = $type;

@@ -2,6 +2,8 @@
 
 namespace PHPStan\Reflection\Php;
 
+use PHPStan\TrinaryLogic;
+
 class FakeBuiltinMethodReflection implements BuiltinMethodReflection
 {
 
@@ -82,9 +84,9 @@ class FakeBuiltinMethodReflection implements BuiltinMethodReflection
 		throw new \ReflectionException();
 	}
 
-	public function isDeprecated(): bool
+	public function isDeprecated(): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
 	public function isVariadic(): bool

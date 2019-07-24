@@ -6,12 +6,13 @@ use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Reflection\Type\UnionTypeMethodReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Generic\TemplateTypeMap;
 
-class UnionType implements CompoundType, StaticResolvableType
+class UnionType implements CompoundType
 {
 
 	/** @var \PHPStan\Type\Type[] */
@@ -62,7 +63,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		if ($type instanceof CompoundType) {
+		if ($type instanceof CompoundType && !$type instanceof CallableType) {
 			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
@@ -98,9 +99,19 @@ class UnionType implements CompoundType, StaticResolvableType
 		return TrinaryLogic::extremeIdentity(...$results);
 	}
 
+	public function isAcceptedBy(Type $acceptingType, bool $strictTypes): TrinaryLogic
+	{
+		$results = [];
+		foreach ($this->getTypes() as $innerType) {
+			$results[] = $acceptingType->accepts($innerType, $strictTypes);
+		}
+
+		return TrinaryLogic::extremeIdentity(...$results);
+	}
+
 	public function equals(Type $type): bool
 	{
-		if (!$type instanceof self) {
+		if (!$type instanceof static) {
 			return false;
 		}
 
@@ -327,14 +338,25 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
-		return $this->getInternal(
-			static function (Type $type) use ($methodName): TrinaryLogic {
-				return $type->hasMethod($methodName);
-			},
-			static function (Type $type) use ($methodName, $scope): MethodReflection {
-				return $type->getMethod($methodName, $scope);
+		$methods = [];
+		foreach ($this->types as $type) {
+			if (!$type->hasMethod($methodName)->yes()) {
+				continue;
 			}
-		);
+
+			$methods[] = $type->getMethod($methodName, $scope);
+		}
+
+		$methodsCount = count($methods);
+		if ($methodsCount === 0) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		if ($methodsCount === 1) {
+			return $methods[0];
+		}
+
+		return new UnionTypeMethodReflection($methodName, $methods);
 	}
 
 	public function canAccessConstants(): TrinaryLogic
@@ -368,16 +390,6 @@ class UnionType implements CompoundType, StaticResolvableType
 		);
 	}
 
-	public function resolveStatic(string $className): Type
-	{
-		return new self(UnionTypeHelper::resolveStatic($className, $this->getTypes()));
-	}
-
-	public function changeBaseClass(string $className): StaticResolvableType
-	{
-		return new self(UnionTypeHelper::changeBaseClass($className, $this->getTypes()));
-	}
-
 	public function isIterable(): TrinaryLogic
 	{
 		return $this->unionResults(static function (Type $type): TrinaryLogic {
@@ -403,6 +415,13 @@ class UnionType implements CompoundType, StaticResolvableType
 	{
 		return $this->unionTypes(static function (Type $type): Type {
 			return $type->getIterableValueType();
+		});
+	}
+
+	public function isArray(): TrinaryLogic
+	{
+		return $this->unionResults(static function (Type $type): TrinaryLogic {
+			return $type->isArray();
 		});
 	}
 
@@ -534,11 +553,10 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap
 	{
-		$types = TemplateTypeMap::empty();
+		$types = TemplateTypeMap::createEmpty();
 
 		foreach ($this->types as $type) {
-			$receive = $type->isSuperTypeOf($receivedType)->yes() ? $receivedType : new NeverType();
-			$types = $types->union($type->inferTemplateTypes($receive));
+			$types = $types->union($type->inferTemplateTypes($receivedType));
 		}
 
 		return $types;
@@ -546,7 +564,7 @@ class UnionType implements CompoundType, StaticResolvableType
 
 	public function inferTemplateTypesOn(Type $templateType): TemplateTypeMap
 	{
-		$types = TemplateTypeMap::empty();
+		$types = TemplateTypeMap::createEmpty();
 
 		foreach ($this->types as $type) {
 			$types = $types->union($templateType->inferTemplateTypes($type));

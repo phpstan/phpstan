@@ -9,12 +9,10 @@ use Nette\Schema\Context as SchemaContext;
 use Nette\Schema\Processor;
 use Nette\Utils\Strings;
 use Nette\Utils\Validators;
-use PHPStan\DependencyInjection\Container;
 use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\DependencyInjection\LoaderFactory;
 use PHPStan\File\FileFinder;
 use PHPStan\File\FileHelper;
-use PHPStan\Type\TypeCombinator;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -187,15 +185,14 @@ class CommandHelper
 		}, $paths);
 
 		try {
-			$netteContainer = $containerFactory->create($tmpDir, $additionalConfigFiles, $paths);
+			$container = $containerFactory->create($tmpDir, $additionalConfigFiles, $paths);
 		} catch (\Nette\DI\InvalidConfigurationException | \Nette\Utils\AssertionException $e) {
 			$errorOutput->writeln('<error>Invalid configuration:</error>');
 			$errorOutput->writeln($e->getMessage());
 			throw new \PHPStan\Command\InceptionNotSuccessfulException();
 		}
 
-		TypeCombinator::$enableSubtractableTypes = (bool) $netteContainer->parameters['featureToggles']['subtractableTypes'];
-		$memoryLimitFile = $netteContainer->parameters['memoryLimitFile'];
+		$memoryLimitFile = $container->getParameter('memoryLimitFile');
 		if (file_exists($memoryLimitFile)) {
 			$memoryLimitFileContents = file_get_contents($memoryLimitFile);
 			if ($memoryLimitFileContents === false) {
@@ -210,7 +207,7 @@ class CommandHelper
 		}
 
 		self::setUpSignalHandler($consoleStyle, $memoryLimitFile);
-		if (!isset($netteContainer->parameters['customRulesetUsed'])) {
+		if ($container->getParameter('customRulesetUsed') === null) {
 			$errorOutput->writeln('');
 			$errorOutput->writeln('<comment>No rules detected</comment>');
 			$errorOutput->writeln('');
@@ -222,54 +219,52 @@ class CommandHelper
 			$errorOutput->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
 			$errorOutput->writeln('');
 			throw new \PHPStan\Command\InceptionNotSuccessfulException();
-		} elseif ((bool) $netteContainer->parameters['customRulesetUsed']) {
+		} elseif ((bool) $container->getParameter('customRulesetUsed')) {
 			$defaultLevelUsed = false;
 		}
 
-		if ($netteContainer->parameters['featureToggles']['validateParameters']) {
-			$schema = $netteContainer->parameters['__parametersSchema'];
-			$processor = new Processor();
-			$processor->onNewContext[] = static function (SchemaContext $context): void {
-				$context->path = ['parameters'];
-			};
+		$schema = $container->getParameter('__parametersSchema');
+		$processor = new Processor();
+		$processor->onNewContext[] = static function (SchemaContext $context): void {
+			$context->path = ['parameters'];
+		};
 
-			try {
-				$processor->process($schema, $netteContainer->parameters);
-			} catch (\Nette\Schema\ValidationException $e) {
-				foreach ($e->getMessages() as $message) {
-					$errorOutput->writeln('<error>Invalid configuration:</error>');
-					$errorOutput->writeln($message);
-				}
-				throw new \PHPStan\Command\InceptionNotSuccessfulException();
+		try {
+			$processor->process($schema, $container->getParameters());
+		} catch (\Nette\Schema\ValidationException $e) {
+			foreach ($e->getMessages() as $message) {
+				$errorOutput->writeln('<error>Invalid configuration:</error>');
+				$errorOutput->writeln($message);
 			}
+			throw new \PHPStan\Command\InceptionNotSuccessfulException();
 		}
 
-		$container = $netteContainer->getByType(Container::class);
-		foreach ($netteContainer->parameters['autoload_files'] as $parameterAutoloadFile) {
+		foreach ($container->getParameter('autoload_files') as $parameterAutoloadFile) {
 			(static function (string $file) use ($container): void {
 				require_once $file;
 			})($fileHelper->normalizePath($parameterAutoloadFile));
 		}
 
-		if (count($netteContainer->parameters['autoload_directories']) > 0) {
+		$autoloadDirectories = $container->getParameter('autoload_directories');
+		if (count($autoloadDirectories) > 0) {
 			$robotLoader = new \Nette\Loaders\RobotLoader();
 			$robotLoader->acceptFiles = array_map(static function (string $extension): string {
 				return sprintf('*.%s', $extension);
-			}, $netteContainer->parameters['fileExtensions']);
+			}, $container->getParameter('fileExtensions'));
 
 			$robotLoader->setTempDirectory($tmpDir);
-			foreach ($netteContainer->parameters['autoload_directories'] as $directory) {
+			foreach ($autoloadDirectories as $directory) {
 				$robotLoader->addDirectory($fileHelper->normalizePath($directory));
 			}
 
-			foreach ($netteContainer->parameters['excludes_analyse'] as $directory) {
+			foreach ($container->getParameter('excludes_analyse') as $directory) {
 				$robotLoader->excludeDirectory($fileHelper->normalizePath($directory));
 			}
 
 			$robotLoader->register();
 		}
 
-		$bootstrapFile = $netteContainer->parameters['bootstrap'];
+		$bootstrapFile = $container->getParameter('bootstrap');
 		if ($bootstrapFile !== null) {
 			$bootstrapFile = $fileHelper->normalizePath($bootstrapFile);
 			if (!is_file($bootstrapFile)) {
@@ -287,7 +282,7 @@ class CommandHelper
 		}
 
 		/** @var FileFinder $fileFinder */
-		$fileFinder = $netteContainer->getByType(FileFinder::class);
+		$fileFinder = $container->getByType(FileFinder::class);
 
 		try {
 			$fileFinderResult = $fileFinder->findFiles($paths);
@@ -301,9 +296,10 @@ class CommandHelper
 			$fileFinderResult->isOnlyFiles(),
 			$consoleStyle,
 			$errorOutput,
-			$netteContainer,
+			$container,
 			$defaultLevelUsed,
-			$memoryLimitFile
+			$memoryLimitFile,
+			$projectConfigFile
 		);
 	}
 

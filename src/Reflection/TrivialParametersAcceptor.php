@@ -2,11 +2,17 @@
 
 namespace PHPStan\Reflection;
 
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 
 class TrivialParametersAcceptor implements ParametersAcceptor
 {
+
+	public function getTemplateTypeMap(): TemplateTypeMap
+	{
+		return TemplateTypeMap::createEmpty();
+	}
 
 	/**
 	 * @return array<int, \PHPStan\Reflection\ParameterReflection>

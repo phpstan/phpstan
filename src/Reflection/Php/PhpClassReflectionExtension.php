@@ -2,7 +2,17 @@
 
 namespace PHPStan\Reflection\Php;
 
+use PhpParser\Node;
+use PhpParser\Node\Stmt\Class_;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Declare_;
+use PhpParser\Node\Stmt\Namespace_;
+use PHPStan\Analyser\NodeScopeResolver;
+use PHPStan\Analyser\ScopeContext;
+use PHPStan\Analyser\ScopeFactory;
 use PHPStan\Broker\Broker;
+use PHPStan\DependencyInjection\Container;
+use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
@@ -18,14 +28,21 @@ use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Reflection\SignatureMap\ParameterSignature;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NeverType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
 
 class PhpClassReflectionExtension
 	implements PropertiesClassReflectionExtension, MethodsClassReflectionExtension, BrokerAwareExtension
 {
+
+	/** @var \PHPStan\DependencyInjection\Container */
+	private $container;
 
 	/** @var \PHPStan\Reflection\Php\PhpMethodReflectionFactory */
 	private $methodReflectionFactory;
@@ -42,6 +59,12 @@ class PhpClassReflectionExtension
 	/** @var \PHPStan\Reflection\SignatureMap\SignatureMapProvider */
 	private $signatureMapProvider;
 
+	/** @var \PHPStan\Parser\Parser */
+	private $parser;
+
+	/** @var bool */
+	private $inferPrivatePropertyTypeFromConstructor;
+
 	/** @var \PHPStan\Broker\Broker */
 	private $broker;
 
@@ -57,19 +80,31 @@ class PhpClassReflectionExtension
 	/** @var \PHPStan\Reflection\MethodReflection[][] */
 	private $nativeMethods = [];
 
+	/** @var array<string, array<string, Type>> */
+	private $propertyTypesCache = [];
+
+	/** @var array<string, true> */
+	private $inferClassConstructorPropertyTypesInProcess = [];
+
 	public function __construct(
+		Container $container,
 		PhpMethodReflectionFactory $methodReflectionFactory,
 		FileTypeMapper $fileTypeMapper,
 		AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension,
 		AnnotationsPropertiesClassReflectionExtension $annotationsPropertiesClassReflectionExtension,
-		SignatureMapProvider $signatureMapProvider
+		SignatureMapProvider $signatureMapProvider,
+		Parser $parser,
+		bool $inferPrivatePropertyTypeFromConstructor
 	)
 	{
+		$this->container = $container;
 		$this->methodReflectionFactory = $methodReflectionFactory;
 		$this->fileTypeMapper = $fileTypeMapper;
 		$this->annotationsMethodsClassReflectionExtension = $annotationsMethodsClassReflectionExtension;
 		$this->annotationsPropertiesClassReflectionExtension = $annotationsPropertiesClassReflectionExtension;
 		$this->signatureMapProvider = $signatureMapProvider;
+		$this->parser = $parser;
+		$this->inferPrivatePropertyTypeFromConstructor = $inferPrivatePropertyTypeFromConstructor;
 	}
 
 	public function setBroker(Broker $broker): void
@@ -162,6 +197,16 @@ class PhpClassReflectionExtension
 				$deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag() !== null ? $resolvedPhpDoc->getDeprecatedTag()->getMessage() : null;
 				$isDeprecated = $resolvedPhpDoc->isDeprecated();
 				$isInternal = $resolvedPhpDoc->isInternal();
+			} elseif (
+				$this->inferPrivatePropertyTypeFromConstructor
+				&& $propertyReflection->isPrivate()
+				&& $declaringClassReflection->hasConstructor()
+				&& $declaringClassReflection->getConstructor()->getDeclaringClass()->getName() === $declaringClassReflection->getName()
+			) {
+				$type = $this->inferPrivatePropertyType(
+					$propertyReflection->getName(),
+					$declaringClassReflection->getConstructor()
+				);
 			} else {
 				$type = new MixedType();
 			}
@@ -297,6 +342,7 @@ class PhpClassReflectionExtension
 			while ($this->signatureMapProvider->hasFunctionSignature($variantName)) {
 				$methodSignature = $this->signatureMapProvider->getFunctionSignature($variantName, $declaringClassName);
 				$variants[] = new FunctionVariant(
+					TemplateTypeMap::createEmpty(),
 					array_map(static function (ParameterSignature $parameterSignature): NativeParameterReflection {
 						return new NativeParameterReflection(
 							$parameterSignature->getName(),
@@ -313,14 +359,22 @@ class PhpClassReflectionExtension
 				$i++;
 				$variantName = sprintf($signatureMapMethodName . '\'' . $i);
 			}
+
+			if ($this->signatureMapProvider->hasFunctionMetadata($signatureMapMethodName)) {
+				$hasSideEffects = TrinaryLogic::createFromBoolean($this->signatureMapProvider->getFunctionMetadata($signatureMapMethodName)['hasSideEffects']);
+			} else {
+				$hasSideEffects = TrinaryLogic::createMaybe();
+			}
 			return new NativeMethodReflection(
 				$this->broker,
 				$declaringClass,
 				$methodReflection,
-				$variants
+				$variants,
+				$hasSideEffects
 			);
 		}
 
+		$templateTypeMap = TemplateTypeMap::createEmpty();
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;
 		$phpDocThrowType = null;
@@ -350,6 +404,7 @@ class PhpClassReflectionExtension
 					$phpDocBlock->getTrait(),
 					$phpDocBlock->getDocComment()
 				);
+				$templateTypeMap = $resolvedPhpDoc->getTemplateTypeMap();
 				$phpDocParameterTypes = array_map(static function (ParamTag $tag): Type {
 					return $tag->getType();
 				}, $resolvedPhpDoc->getParamTags());
@@ -387,6 +442,7 @@ class PhpClassReflectionExtension
 			$declaringClass,
 			$declaringTrait,
 			$methodReflection,
+			$templateTypeMap,
 			$phpDocParameterTypes,
 			$phpDocReturnType,
 			$phpDocThrowType,
@@ -499,6 +555,173 @@ class PhpClassReflectionExtension
 		}
 
 		return $traits;
+	}
+
+	private function inferPrivatePropertyType(
+		string $propertyName,
+		MethodReflection $constructor
+	): Type
+	{
+		$declaringClassName = $constructor->getDeclaringClass()->getName();
+		if (isset($this->inferClassConstructorPropertyTypesInProcess[$declaringClassName])) {
+			return new MixedType();
+		}
+		$this->inferClassConstructorPropertyTypesInProcess[$declaringClassName] = true;
+		$propertyTypes = $this->inferAndCachePropertyTypes($constructor);
+		unset($this->inferClassConstructorPropertyTypesInProcess[$declaringClassName]);
+		if (array_key_exists($propertyName, $propertyTypes)) {
+			return $propertyTypes[$propertyName];
+		}
+
+		return new MixedType();
+	}
+
+	/**
+	 * @param \PHPStan\Reflection\MethodReflection $constructor
+	 * @return array<string, Type>
+	 */
+	private function inferAndCachePropertyTypes(
+		MethodReflection $constructor
+	): array
+	{
+		$declaringClass = $constructor->getDeclaringClass();
+		if (isset($this->propertyTypesCache[$declaringClass->getName()])) {
+			return $this->propertyTypesCache[$declaringClass->getName()];
+		}
+		if ($declaringClass->getFileName() === false) {
+			return $this->propertyTypesCache[$declaringClass->getName()] = [];
+		}
+
+		$fileName = $declaringClass->getFileName();
+		$nodes = $this->parser->parseFile($fileName);
+		$classNode = $this->findClassNode($declaringClass->getName(), $nodes);
+		if ($classNode === null) {
+			return $this->propertyTypesCache[$declaringClass->getName()] = [];
+		}
+
+		$methodNode = $this->findConstructorNode($constructor->getName(), $classNode->stmts);
+		if ($methodNode === null || $methodNode->stmts === null) {
+			return $this->propertyTypesCache[$declaringClass->getName()] = [];
+		}
+
+		/** @var NodeScopeResolver $nodeScopeResolver */
+		$nodeScopeResolver = $this->container->getByType(NodeScopeResolver::class);
+
+		/** @var \PHPStan\Analyser\ScopeFactory $scopeFactory */
+		$scopeFactory = $this->container->getByType(ScopeFactory::class);
+
+		$classNameParts = explode('\\', $declaringClass->getName());
+		$namespace = null;
+		if (count($classNameParts) > 0) {
+			$namespace = implode('\\', array_slice($classNameParts, 0, -1));
+		}
+
+		$classScope = $scopeFactory->create(
+			ScopeContext::create($fileName),
+			false,
+			$constructor,
+			$namespace
+		)->enterClass($declaringClass);
+		[$templateTypeMap, $phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $deprecatedDescription, $isDeprecated, $isInternal, $isFinal] = $nodeScopeResolver->getPhpDocs($classScope, $methodNode);
+		$methodScope = $classScope->enterClassMethod(
+			$methodNode,
+			$templateTypeMap,
+			$phpDocParameterTypes,
+			$phpDocReturnType,
+			$phpDocThrowType,
+			$deprecatedDescription,
+			$isDeprecated,
+			$isInternal,
+			$isFinal
+		);
+
+		$propertyTypes = [];
+		foreach ($methodNode->stmts as $statement) {
+			if (!$statement instanceof Node\Stmt\Expression) {
+				continue;
+			}
+
+			$expr = $statement->expr;
+			if (!$expr instanceof Node\Expr\Assign) {
+				continue;
+			}
+
+			if (!$expr->var instanceof Node\Expr\PropertyFetch) {
+				continue;
+			}
+
+			$propertyFetch = $expr->var;
+			if (
+				!$propertyFetch->var instanceof Node\Expr\Variable
+				|| $propertyFetch->var->name !== 'this'
+				|| !$propertyFetch->name instanceof Node\Identifier
+			) {
+				continue;
+			}
+
+			$propertyType = $methodScope->getType($expr->expr);
+			if ($propertyType instanceof ErrorType || $propertyType instanceof NeverType) {
+				continue;
+			}
+
+			$propertyTypes[$propertyFetch->name->toString()] = $propertyType;
+		}
+
+		return $this->propertyTypesCache[$declaringClass->getName()] = $propertyTypes;
+	}
+
+	/**
+	 * @param string $className
+	 * @param \PhpParser\Node[] $nodes
+	 * @return \PhpParser\Node\Stmt\Class_|null
+	 */
+	private function findClassNode(string $className, array $nodes): ?Class_
+	{
+		foreach ($nodes as $node) {
+			if (
+				$node instanceof Class_
+				&& $node->namespacedName->toString() === $className
+			) {
+				return $node;
+			}
+			if (
+				!$node instanceof Namespace_
+				&& !$node instanceof Declare_
+			) {
+				continue;
+			}
+			$subNodeNames = $node->getSubNodeNames();
+			foreach ($subNodeNames as $subNodeName) {
+				$subNode = $node->{$subNodeName};
+				if (!is_array($subNode)) {
+					$subNode = [$subNode];
+				}
+				$result = $this->findClassNode($className, $subNode);
+				if ($result === null) {
+					continue;
+				}
+				return $result;
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * @param string $methodName
+	 * @param \PhpParser\Node\Stmt[] $classStatements
+	 * @return \PhpParser\Node\Stmt\ClassMethod|null
+	 */
+	private function findConstructorNode(string $methodName, array $classStatements): ?ClassMethod
+	{
+		foreach ($classStatements as $statement) {
+			if (
+				$statement instanceof ClassMethod
+				&& $statement->name->toString() === $methodName
+			) {
+				return $statement;
+			}
+		}
+		return null;
 	}
 
 }

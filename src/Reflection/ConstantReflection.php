@@ -2,6 +2,8 @@
 
 namespace PHPStan\Reflection;
 
+use PHPStan\TrinaryLogic;
+
 interface ConstantReflection extends ClassMemberReflection
 {
 
@@ -11,5 +13,11 @@ interface ConstantReflection extends ClassMemberReflection
 	 * @return mixed
 	 */
 	public function getValue();
+
+	public function isDeprecated(): TrinaryLogic;
+
+	public function getDeprecatedDescription(): ?string;
+
+	public function isInternal(): TrinaryLogic;
 
 }

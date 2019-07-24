@@ -2,10 +2,14 @@
 
 namespace PHPStan\Reflection;
 
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
 
 class FunctionVariant implements ParametersAcceptor
 {
+
+	/** @var TemplateTypeMap */
+	private $templateTypeMap;
 
 	/** @var array<int, ParameterReflection> */
 	private $parameters;
@@ -22,14 +26,21 @@ class FunctionVariant implements ParametersAcceptor
 	 * @param Type $returnType
 	 */
 	public function __construct(
+		TemplateTypeMap $templateTypeMap,
 		array $parameters,
 		bool $isVariadic,
 		Type $returnType
 	)
 	{
+		$this->templateTypeMap = $templateTypeMap;
 		$this->parameters = $parameters;
 		$this->isVariadic = $isVariadic;
 		$this->returnType = $returnType;
+	}
+
+	public function getTemplateTypeMap(): TemplateTypeMap
+	{
+		return $this->templateTypeMap;
 	}
 
 	/**

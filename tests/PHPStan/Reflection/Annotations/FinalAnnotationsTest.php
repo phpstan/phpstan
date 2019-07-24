@@ -5,7 +5,6 @@ namespace PHPStan\Reflection\Annotations;
 use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
-use PHPStan\Reflection\FinalizableReflection;
 
 class FinalAnnotationsTest extends \PHPStan\Testing\TestCase
 {
@@ -56,20 +55,7 @@ class FinalAnnotationsTest extends \PHPStan\Testing\TestCase
 
 		foreach ($finalAnnotations['method'] ?? [] as $methodName) {
 			$methodAnnotation = $class->getMethod($methodName, $scope);
-			$this->assertInstanceOf(FinalizableReflection::class, $methodAnnotation);
-			$this->assertSame($final, $methodAnnotation->isFinal());
-		}
-
-		foreach ($finalAnnotations['property'] ?? [] as $propertyName) {
-			$propertyAnnotation = $class->getProperty($propertyName, $scope);
-			$this->assertInstanceOf(FinalizableReflection::class, $propertyAnnotation);
-			$this->assertSame($final, $propertyAnnotation->isFinal());
-		}
-
-		foreach ($finalAnnotations['constant'] ?? [] as $constantName) {
-			$constantAnnotation = $class->getConstant($constantName);
-			$this->assertInstanceOf(FinalizableReflection::class, $constantAnnotation);
-			$this->assertSame($final, $constantAnnotation->isFinal());
+			$this->assertSame($final, $methodAnnotation->isFinal()->yes());
 		}
 	}
 
@@ -80,8 +66,8 @@ class FinalAnnotationsTest extends \PHPStan\Testing\TestCase
 		/** @var Broker $broker */
 		$broker = self::getContainer()->getByType(Broker::class);
 
-		$this->assertFalse($broker->getFunction(new Name\FullyQualified('FinalAnnotations\foo'), null)->isFinal());
-		$this->assertTrue($broker->getFunction(new Name\FullyQualified('FinalAnnotations\finalFoo'), null)->isFinal());
+		$this->assertFalse($broker->getFunction(new Name\FullyQualified('FinalAnnotations\foo'), null)->isFinal()->yes());
+		$this->assertTrue($broker->getFunction(new Name\FullyQualified('FinalAnnotations\finalFoo'), null)->isFinal()->yes());
 	}
 
 }

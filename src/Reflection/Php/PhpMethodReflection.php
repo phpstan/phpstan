@@ -9,17 +9,15 @@ use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\DeprecatableReflection;
-use PHPStan\Reflection\FinalizableReflection;
 use PHPStan\Reflection\FunctionVariantWithPhpDocs;
-use PHPStan\Reflection\InternableReflection;
 use PHPStan\Reflection\MethodPrototypeReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
 use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
-use PHPStan\Reflection\ThrowableReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectWithoutClassType;
@@ -29,7 +27,7 @@ use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 use PHPStan\Type\VoidType;
 
-class PhpMethodReflection implements MethodReflection, DeprecatableReflection, InternableReflection, FinalizableReflection, ThrowableReflection
+class PhpMethodReflection implements MethodReflection
 {
 
 	/** @var \PHPStan\Reflection\ClassReflection */
@@ -52,6 +50,9 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 
 	/** @var \PHPStan\Cache\Cache */
 	private $cache;
+
+	/** @var \PHPStan\Type\Generic\TemplateTypeMap */
+	private $templateTypeMap;
 
 	/** @var \PHPStan\Type\Type[] */
 	private $phpDocParameterTypes;
@@ -110,6 +111,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		Parser $parser,
 		FunctionCallStatementFinder $functionCallStatementFinder,
 		Cache $cache,
+		TemplateTypeMap $templateTypeMap,
 		array $phpDocParameterTypes,
 		?Type $phpDocReturnType,
 		?Type $phpDocThrowType,
@@ -126,6 +128,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		$this->parser = $parser;
 		$this->functionCallStatementFinder = $functionCallStatementFinder;
 		$this->cache = $cache;
+		$this->templateTypeMap = $templateTypeMap;
 		$this->phpDocParameterTypes = $phpDocParameterTypes;
 		$this->phpDocReturnType = $phpDocReturnType;
 		$this->phpDocThrowType = $phpDocThrowType;
@@ -219,6 +222,7 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		if ($this->variants === null) {
 			$this->variants = [
 				new FunctionVariantWithPhpDocs(
+					$this->templateTypeMap,
 					$this->getParameters(),
 					$this->isVariadic(),
 					$this->getReturnType(),
@@ -407,24 +411,29 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		return null;
 	}
 
-	public function isDeprecated(): bool
+	public function isDeprecated(): TrinaryLogic
 	{
-		return $this->isDeprecated;
+		return TrinaryLogic::createFromBoolean($this->isDeprecated);
 	}
 
-	public function isInternal(): bool
+	public function isInternal(): TrinaryLogic
 	{
-		return $this->isInternal;
+		return TrinaryLogic::createFromBoolean($this->isInternal);
 	}
 
-	public function isFinal(): bool
+	public function isFinal(): TrinaryLogic
 	{
-		return $this->isFinal;
+		return TrinaryLogic::createFromBoolean($this->isFinal);
 	}
 
 	public function getThrowType(): ?Type
 	{
 		return $this->phpDocThrowType;
+	}
+
+	public function hasSideEffects(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
 	}
 
 }

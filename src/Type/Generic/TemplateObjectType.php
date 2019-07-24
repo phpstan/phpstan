@@ -23,6 +23,9 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 	/** @var TemplateTypeStrategy */
 	private $strategy;
 
+	/** @var ObjectType */
+	private $bound;
+
 	public function __construct(
 		TemplateTypeScope $scope,
 		TemplateTypeStrategy $templateTypeStrategy,
@@ -36,6 +39,7 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 		$this->scope = $scope;
 		$this->strategy = $templateTypeStrategy;
 		$this->name = $name;
+		$this->bound = new ObjectType($class, $subtractedType);
 	}
 
 	public function getName(): string
@@ -50,10 +54,20 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 
 	public function describe(VerbosityLevel $level): string
 	{
-		return sprintf(
-			'%s of %s',
-			$this->name,
-			parent::describe($level)
+		$basicDescription = function () use ($level): string {
+			return sprintf(
+				'%s of %s',
+				$this->name,
+				parent::describe($level)
+			);
+		};
+
+		return $level->handle(
+			$basicDescription,
+			$basicDescription,
+			function () use ($basicDescription): string {
+				return sprintf('%s (%s)', $basicDescription(), $this->scope->describe());
+			}
 		);
 	}
 
@@ -67,10 +81,7 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 
 	public function getBound(): Type
 	{
-		return new ObjectType(
-			$this->getClassName(),
-			$this->getSubtractedType()
-		);
+		return $this->bound;
 	}
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
@@ -107,18 +118,35 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 			->and(TrinaryLogic::createMaybe());
 	}
 
+	public function isAcceptedBy(Type $acceptingType, bool $strictTypes): TrinaryLogic
+	{
+		return $this->isSubTypeOf($acceptingType);
+	}
+
 	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap
 	{
 		if ($receivedType instanceof UnionType || $receivedType instanceof IntersectionType) {
 			return $receivedType->inferTemplateTypesOn($this);
 		}
 
-		if ($this->isSuperTypeOf($receivedType)->no()) {
-			return TemplateTypeMap::empty();
+		$isSuperType = $this->isSuperTypeOf($receivedType);
+		if ($isSuperType->no()) {
+			return TemplateTypeMap::createEmpty();
+		}
+		if ($isSuperType->yes()) {
+			return new TemplateTypeMap([
+				$this->name => $receivedType,
+			]);
+		}
+
+		$isBoundSuperType = $this->getBound()->isSuperTypeOf($receivedType);
+		$resultType = $receivedType;
+		if ($isBoundSuperType->maybe()) {
+			$resultType = $this->getBound();
 		}
 
 		return new TemplateTypeMap([
-			$this->name => $receivedType,
+			$this->name => $resultType,
 		]);
 	}
 

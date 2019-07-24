@@ -1314,3 +1314,89 @@ class IsCallableResultsInMethodExists
 	}
 
 }
+
+class NonEmptyArrayAcceptsBug
+{
+
+	public function doFoo(array $elements)
+	{
+		/** @var \stdClass[] $links */
+		$links = [];
+
+		foreach ($elements as $link) {
+			$links[] = $link;
+		}
+
+		if (!empty($links)) {
+			$this->doBar('a', ...$links);
+			$this->doBaz('a', $links);
+			$this->doLorem('a', $links);
+		}
+	}
+
+	public function doBar(string $x, \stdClass ...$y)
+	{
+
+	}
+
+	/**
+	 * @param string $x
+	 * @param \stdClass[] $y
+	 */
+	public function doBaz(string $x, array $y)
+	{
+
+	}
+
+	/**
+	 * @param string $x
+	 * @param iterable<\stdClass> $y
+	 */
+	public function doLorem(string $x, iterable $y)
+	{
+
+	}
+
+}
+
+class ExpectsExceptionGenerics
+{
+
+	/**
+	 * @template T of \Exception
+	 * @param T $a
+	 * @param T $b
+	 * @return T
+	 */
+	public function expectsExceptionUpperBound($a, $b)
+	{
+		return $b;
+	}
+
+	public function doFoo(\Throwable $t)
+	{
+		$exception = $this->expectsExceptionUpperBound(new \Exception(), $t);
+		$this->requiresFoo($exception);
+	}
+
+	public function requiresFoo(Foo $foo)
+	{
+
+	}
+
+}
+
+class WithStringOrNull
+{
+
+	public function bar(ClassWithToString $bar = null): void
+	{
+		$this->baz($bar);
+	}
+
+	public function baz(string $baz = null): void
+	{
+
+	}
+
+}

@@ -4,6 +4,7 @@ namespace PHPStan\Reflection\Annotations;
 
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 
 class AnnotationPropertyReflection implements PropertyReflection
@@ -54,9 +55,19 @@ class AnnotationPropertyReflection implements PropertyReflection
 		return true;
 	}
 
-	public function getType(): Type
+	public function getReadableType(): Type
 	{
 		return $this->type;
+	}
+
+	public function getWritableType(): Type
+	{
+		return $this->type;
+	}
+
+	public function canChangeTypeAfterAssignment(): bool
+	{
+		return true;
 	}
 
 	public function isReadable(): bool
@@ -67,6 +78,21 @@ class AnnotationPropertyReflection implements PropertyReflection
 	public function isWritable(): bool
 	{
 		return $this->writable;
+	}
+
+	public function isDeprecated(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
+	public function getDeprecatedDescription(): ?string
+	{
+		return null;
+	}
+
+	public function isInternal(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
 	}
 
 }

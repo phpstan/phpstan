@@ -1,15 +1,10 @@
 parameters:
 	customRulesetUsed: false
-	featureToggles:
-		missingReturnRule: false
-		missingClosureNativeReturnTypehintRule: false
 	missingClosureNativeReturnCheckObjectTypehint: false
 
 conditionalTags:
 	PHPStan\Rules\Missing\MissingClosureNativeReturnTypehintRule:
-		phpstan.rules.rule: %featureToggles.missingClosureNativeReturnTypehintRule%
-	PHPStan\Rules\Missing\MissingReturnRule:
-		phpstan.rules.rule: %featureToggles.missingReturnRule%
+		phpstan.rules.rule: %checkMissingClosureNativeReturnTypehintRule%
 
 parametersSchema:
 	missingClosureNativeReturnCheckObjectTypehint: bool()
@@ -24,15 +19,12 @@ rules:
 	- PHPStan\Rules\Classes\ExistingClassInClassExtendsRule
 	- PHPStan\Rules\Classes\ExistingClassInTraitUseRule
 	- PHPStan\Rules\Classes\InstantiationRule
-	- PHPStan\Rules\Classes\RequireParentConstructCallRule
-	- PHPStan\Rules\Classes\UnusedConstructorParametersRule
 	- PHPStan\Rules\Functions\CallToFunctionParametersRule
 	- PHPStan\Rules\Functions\ExistingClassesInClosureTypehintsRule
 	- PHPStan\Rules\Functions\ExistingClassesInTypehintsRule
 	- PHPStan\Rules\Functions\InnerFunctionRule
 	- PHPStan\Rules\Functions\NonExistentDefinedFunctionRule
 	- PHPStan\Rules\Functions\PrintfParametersRule
-	- PHPStan\Rules\Functions\UnusedClosureUsesRule
 	- PHPStan\Rules\Methods\ExistingClassesInTypehintsRule
 	- PHPStan\Rules\Properties\AccessPropertiesInAssignRule
 	- PHPStan\Rules\Properties\AccessStaticPropertiesInAssignRule
@@ -86,6 +78,8 @@ services:
 		arguments:
 			checkExplicitMixedMissingReturn: %checkExplicitMixedMissingReturn%
 			checkPhpDocMissingReturn: %checkPhpDocMissingReturn%
+		tags:
+			- phpstan.rules.rule
 
 	-
 		class: PHPStan\Rules\Namespaces\ExistingNamesInGroupUseRule

@@ -17,9 +17,6 @@ class TypeCombinator
 	private const CONSTANT_ARRAY_UNION_THRESHOLD = 16;
 	private const CONSTANT_SCALAR_UNION_THRESHOLD = 8;
 
-	/** @var bool */
-	public static $enableSubtractableTypes = false;
-
 	public static function addNull(Type $type): Type
 	{
 		return self::union($type, new NullType());
@@ -76,8 +73,7 @@ class TypeCombinator
 		}
 
 		if (
-			self::$enableSubtractableTypes
-			&& $fromType instanceof SubtractableType
+			$fromType instanceof SubtractableType
 			&& $fromType->isSuperTypeOf($typeToRemove)->yes()
 			&& $typeToRemove->isSuperTypeOf($fromType)->maybe()
 		) {
@@ -113,8 +109,16 @@ class TypeCombinator
 
 	public static function union(Type ...$types): Type
 	{
+		$benevolentTypes = [];
 		// transform A | (B | C) to A | B | C
 		for ($i = 0; $i < count($types); $i++) {
+			if ($types[$i] instanceof BenevolentUnionType) {
+				foreach ($types[$i]->getTypes() as $benevolentInnerType) {
+					$benevolentTypes[$benevolentInnerType->describe(VerbosityLevel::value())] = $benevolentInnerType;
+				}
+				array_splice($types, $i, 1, $types[$i]->getTypes());
+				continue;
+			}
 			if (!($types[$i] instanceof UnionType)) {
 				continue;
 			}
@@ -131,9 +135,6 @@ class TypeCombinator
 			if ($types[$i] instanceof NeverType) {
 				unset($types[$i]);
 				continue;
-			}
-			if (!self::$enableSubtractableTypes && $types[$i] instanceof MixedType) {
-				return $types[$i];
 			}
 			if ($types[$i] instanceof ConstantScalarType) {
 				$type = $types[$i];
@@ -235,33 +236,30 @@ class TypeCombinator
 		// transform A | never to A
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
-				if (self::$enableSubtractableTypes) {
-
-					if (
-						$types[$i] instanceof SubtractableType
-						&& $types[$i]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$j])->yes()
-					) {
-						$subtractedType = null;
-						if ($types[$j] instanceof SubtractableType) {
-							$subtractedType = $types[$j]->getSubtractedType();
-						}
-						$types[$i] = self::intersectWithSubtractedType($types[$i], $subtractedType);
-						array_splice($types, $j--, 1);
-						continue 1;
+				if (
+					$types[$i] instanceof SubtractableType
+					&& $types[$i]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$j])->yes()
+				) {
+					$subtractedType = null;
+					if ($types[$j] instanceof SubtractableType) {
+						$subtractedType = $types[$j]->getSubtractedType();
 					}
+					$types[$i] = self::intersectWithSubtractedType($types[$i], $subtractedType);
+					array_splice($types, $j--, 1);
+					continue 1;
+				}
 
-					if (
-						$types[$j] instanceof SubtractableType
-						&& $types[$j]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$i])->yes()
-					) {
-						$subtractedType = null;
-						if ($types[$i] instanceof SubtractableType) {
-							$subtractedType = $types[$i]->getSubtractedType();
-						}
-						$types[$j] = self::intersectWithSubtractedType($types[$j], $subtractedType);
-						array_splice($types, $i--, 1);
-						continue 2;
+				if (
+					$types[$j] instanceof SubtractableType
+					&& $types[$j]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$i])->yes()
+				) {
+					$subtractedType = null;
+					if ($types[$i] instanceof SubtractableType) {
+						$subtractedType = $types[$i]->getSubtractedType();
 					}
+					$types[$j] = self::intersectWithSubtractedType($types[$j], $subtractedType);
+					array_splice($types, $i--, 1);
+					continue 2;
 				}
 
 				if (
@@ -287,6 +285,21 @@ class TypeCombinator
 
 		} elseif (count($types) === 1) {
 			return $types[0];
+		}
+
+		if (count($benevolentTypes) > 0) {
+			$tempTypes = $types;
+			foreach ($tempTypes as $i => $type) {
+				if (!isset($benevolentTypes[$type->describe(VerbosityLevel::value())])) {
+					break;
+				}
+
+				unset($tempTypes[$i]);
+			}
+
+			if (count($tempTypes) === 0) {
+				return new BenevolentUnionType($types);
+			}
 		}
 
 		return new UnionType($types);
@@ -519,23 +532,21 @@ class TypeCombinator
 		// transform int & string to never
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
-				if (self::$enableSubtractableTypes) {
-					if ($types[$j] instanceof SubtractableType) {
-						$isSuperTypeSubtractableA = $types[$j]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$i]);
-						if ($isSuperTypeSubtractableA->yes()) {
-							$types[$i] = self::unionWithSubtractedType($types[$i], $types[$j]->getSubtractedType());
-							array_splice($types, $j--, 1);
-							continue 1;
-						}
+				if ($types[$j] instanceof SubtractableType) {
+					$isSuperTypeSubtractableA = $types[$j]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$i]);
+					if ($isSuperTypeSubtractableA->yes()) {
+						$types[$i] = self::unionWithSubtractedType($types[$i], $types[$j]->getSubtractedType());
+						array_splice($types, $j--, 1);
+						continue 1;
 					}
+				}
 
-					if ($types[$i] instanceof SubtractableType) {
-						$isSuperTypeSubtractableB = $types[$i]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$j]);
-						if ($isSuperTypeSubtractableB->yes()) {
-							$types[$j] = self::unionWithSubtractedType($types[$j], $types[$i]->getSubtractedType());
-							array_splice($types, $i--, 1);
-							continue 2;
-						}
+				if ($types[$i] instanceof SubtractableType) {
+					$isSuperTypeSubtractableB = $types[$i]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$j]);
+					if ($isSuperTypeSubtractableB->yes()) {
+						$types[$j] = self::unionWithSubtractedType($types[$j], $types[$i]->getSubtractedType());
+						array_splice($types, $i--, 1);
+						continue 2;
 					}
 				}
 				$isSuperTypeA = $types[$j]->isSuperTypeOf($types[$i]);

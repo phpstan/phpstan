@@ -212,3 +212,34 @@ class MultipleCallableItems
 	}
 
 }
+
+class ConcreteIterableAcceptsMixedIterable
+{
+
+	/**
+	 * @var Foo[]
+	 */
+	private $array;
+
+	/**
+	 * @var \Traversable<Foo>
+	 */
+	private $traversable;
+
+	/**
+	 * @var iterable<Foo>
+	 */
+	private $iterable;
+
+	public function __construct(
+		array $array,
+		\Traversable $traversable,
+		iterable $iterable
+	)
+	{
+		$this->array = $array;
+		$this->traversable = $traversable;
+		$this->iterable = $iterable;
+	}
+
+}

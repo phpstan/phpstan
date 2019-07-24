@@ -8,7 +8,7 @@ use PHPStan\Reflection\Php\PhpClassReflectionExtension;
 use PHPStan\Reflection\Php\PhpPropertyReflection;
 use PHPStan\Type\FileTypeMapper;
 
-class ClassReflection implements DeprecatableReflection, InternableReflection, FinalizableReflection, ReflectionWithFilename
+class ClassReflection implements ReflectionWithFilename
 {
 
 	/** @var \PHPStan\Broker\Broker */

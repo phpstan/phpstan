@@ -32,15 +32,16 @@ use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
 
-	/** @var \Nette\DI\Container|null */
+	/** @var Container|null */
 	private static $container;
 
-	public static function getContainer(): \Nette\DI\Container
+	public static function getContainer(): Container
 	{
 		if (self::$container === null) {
 			$tmpDir = sys_get_temp_dir() . '/phpstan-tests';
@@ -107,6 +108,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			 * @param ClassReflection $declaringClass
 			 * @param ClassReflection|null $declaringTrait
 			 * @param \PHPStan\Reflection\Php\BuiltinMethodReflection $reflection
+			 * @param TemplateTypeMap $templateTypeMap
 			 * @param Type[] $phpDocParameterTypes
 			 * @param Type|null $phpDocReturnType
 			 * @param Type|null $phpDocThrowType
@@ -120,6 +122,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				ClassReflection $declaringClass,
 				?ClassReflection $declaringTrait,
 				\PHPStan\Reflection\Php\BuiltinMethodReflection $reflection,
+				TemplateTypeMap $templateTypeMap,
 				array $phpDocParameterTypes,
 				?Type $phpDocReturnType,
 				?Type $phpDocThrowType,
@@ -137,6 +140,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 					$this->parser,
 					$this->functionCallStatementFinder,
 					$this->cache,
+					$templateTypeMap,
 					$phpDocParameterTypes,
 					$phpDocReturnType,
 					$phpDocThrowType,
@@ -154,7 +158,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		$annotationsMethodsClassReflectionExtension = new AnnotationsMethodsClassReflectionExtension($fileTypeMapper);
 		$annotationsPropertiesClassReflectionExtension = new AnnotationsPropertiesClassReflectionExtension($fileTypeMapper);
 		$signatureMapProvider = self::getContainer()->getByType(SignatureMapProvider::class);
-		$phpExtension = new PhpClassReflectionExtension($methodReflectionFactory, $fileTypeMapper, $annotationsMethodsClassReflectionExtension, $annotationsPropertiesClassReflectionExtension, $signatureMapProvider);
+		$phpExtension = new PhpClassReflectionExtension(self::getContainer(), $methodReflectionFactory, $fileTypeMapper, $annotationsMethodsClassReflectionExtension, $annotationsPropertiesClassReflectionExtension, $signatureMapProvider, $parser, true);
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
 
 			/** @var \PHPStan\Parser\Parser */
@@ -179,6 +183,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
 			/**
 			 * @param \ReflectionFunction $function
+			 * @param TemplateTypeMap $templateTypeMap
 			 * @param Type[] $phpDocParameterTypes
 			 * @param Type|null $phpDocReturnType
 			 * @param Type|null $phpDocThrowType
@@ -191,6 +196,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			 */
 			public function create(
 				\ReflectionFunction $function,
+				TemplateTypeMap $templateTypeMap,
 				array $phpDocParameterTypes,
 				?Type $phpDocReturnType,
 				?Type $phpDocThrowType,
@@ -206,6 +212,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 					$this->parser,
 					$this->functionCallStatementFinder,
 					$this->cache,
+					$templateTypeMap,
 					$phpDocParameterTypes,
 					$phpDocReturnType,
 					$phpDocThrowType,
@@ -217,12 +224,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				);
 			}
 
-		};
-
-		$tagToService = static function (array $tags) {
-			return array_map(static function (string $serviceName) {
-				return self::getContainer()->getService($serviceName);
-			}, array_keys($tags));
 		};
 
 		$currentWorkingDirectory = $this->getCurrentWorkingDirectory();
@@ -240,7 +241,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			],
 			array_merge($dynamicMethodReturnTypeExtensions, $this->getDynamicMethodReturnTypeExtensions()),
 			array_merge($dynamicStaticMethodReturnTypeExtensions, $this->getDynamicStaticMethodReturnTypeExtensions()),
-			array_merge($tagToService(self::getContainer()->findByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG)), $this->getDynamicFunctionReturnTypeExtensions()),
+			array_merge(self::getContainer()->getServicesByTag(BrokerFactory::DYNAMIC_FUNCTION_RETURN_TYPE_EXTENSION_TAG), $this->getDynamicFunctionReturnTypeExtensions()),
 			$this->getOperatorTypeSpecifyingExtensions(),
 			$functionReflectionFactory,
 			new FileTypeMapper($this->getParser(), $phpDocStringResolver, $cache, $anonymousClassNameHelper, self::getContainer()->getByType(\PHPStan\PhpDoc\TypeNodeResolver::class)),
@@ -249,27 +250,16 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			$anonymousClassNameHelper,
 			self::getContainer()->getByType(Parser::class),
 			new FuzzyRelativePathHelper($this->getCurrentWorkingDirectory(), DIRECTORY_SEPARATOR, []),
-			self::getContainer()->parameters['universalObjectCratesClasses']
+			self::getContainer()->getParameter('universalObjectCratesClasses')
 		);
 		$methodReflectionFactory->broker = $broker;
 
 		return $broker;
 	}
 
-	/**
-	 * @param Broker $broker
-	 * @param TypeSpecifier $typeSpecifier
-	 * @param string[] $dynamicConstantNames
-	 *
-	 * @return ScopeFactory
-	 */
-	public function createScopeFactory(Broker $broker, TypeSpecifier $typeSpecifier, array $dynamicConstantNames = []): ScopeFactory
+	public function createScopeFactory(Broker $broker, TypeSpecifier $typeSpecifier): ScopeFactory
 	{
 		$container = self::getContainer();
-
-		if (count($dynamicConstantNames) > 0) {
-			$container->parameters['dynamicConstantNames'] = array_merge($container->parameters['dynamicConstantNames'], $dynamicConstantNames);
-		}
 
 		return new ScopeFactory(
 			Scope::class,
@@ -331,16 +321,10 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		array $staticMethodTypeSpecifyingExtensions = []
 	): TypeSpecifier
 	{
-		$tagToService = static function (array $tags) {
-			return array_map(static function (string $serviceName) {
-				return self::getContainer()->getService($serviceName);
-			}, array_keys($tags));
-		};
-
 		return new TypeSpecifier(
 			$printer,
 			$broker,
-			$tagToService(self::getContainer()->findByTag(TypeSpecifierFactory::FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG)),
+			self::getContainer()->getServicesByTag(TypeSpecifierFactory::FUNCTION_TYPE_SPECIFYING_EXTENSION_TAG),
 			$methodTypeSpecifyingExtensions,
 			$staticMethodTypeSpecifyingExtensions
 		);

@@ -2,7 +2,6 @@
 
 namespace PHPStan\Type\Generic;
 
-use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeTraverser;
 
@@ -19,10 +18,21 @@ class TemplateTypeHelper
 				$newType = $standins->getType($type->getName());
 
 				if ($newType === null) {
-					return new ErrorType();
+					$newType = $type->getBound();
 				}
 
 				return $traverse($newType);
+			}
+
+			return $traverse($type);
+		});
+	}
+
+	public static function resolveToBounds(Type $type): Type
+	{
+		return TypeTraverser::map($type, static function (Type $type, callable $traverse): Type {
+			if ($type instanceof TemplateType) {
+				return $traverse($type->getBound());
 			}
 
 			return $traverse($type);

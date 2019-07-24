@@ -3,9 +3,12 @@ includes:
 
 parameters:
 	checkMaybeUndefinedVariables: true
+	checkExtraArguments: true
 	reportMagicMethods: true
 	reportMagicProperties: true
 
 rules:
+	- PHPStan\Rules\Classes\UnusedConstructorParametersRule
 	- PHPStan\Rules\Constants\ConstantRule
+	- PHPStan\Rules\Functions\UnusedClosureUsesRule
 	- PHPStan\Rules\Variables\VariableCertaintyInIssetRule

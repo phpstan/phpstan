@@ -5,9 +5,7 @@ parameters:
 	autoload_files: []
 	level: null
 	paths: []
-	featureToggles:
-		subtractableTypes: false
-		validateParameters: false
+	featureToggles: []
 	fileExtensions:
 		- php
 	checkAlwaysTrueCheckTypeFunctionCall: false
@@ -23,12 +21,16 @@ parameters:
 	checkUnionTypes: false
 	checkExplicitMixedMissingReturn: false
 	checkPhpDocMissingReturn: false
+	checkExtraArguments: false
+	checkMissingClosureNativeReturnTypehintRule: false
+	inferPrivatePropertyTypeFromConstructor: false
 	reportMaybes: false
 	reportMaybesInMethodSignatures: false
 	reportStaticMethodSignatures: false
 	polluteScopeWithLoopInitialAssignments: true
 	polluteScopeWithAlwaysIterableForeach: true
 	polluteCatchScopeWithTryAssignments: false
+	tipsOfTheDay: true
 	reportMagicMethods: false
 	reportMagicProperties: false
 	ignoreErrors: []
@@ -109,6 +111,10 @@ parametersSchema:
 	checkUnionTypes: bool()
 	checkExplicitMixedMissingReturn: bool()
 	checkPhpDocMissingReturn: bool()
+	checkExtraArguments: bool()
+	checkMissingClosureNativeReturnTypehintRule: bool()
+	inferPrivatePropertyTypeFromConstructor: bool()
+	tipsOfTheDay: bool()
 	reportMaybes: bool()
 	reportMaybesInMethodSignatures: bool()
 	reportStaticMethodSignatures: bool()
@@ -237,7 +243,6 @@ services:
 		class: PHPStan\Command\AnalyseApplication
 		arguments:
 			memoryLimitFile: %memoryLimitFile%
-			currentWorkingDirectory: %currentWorkingDirectory%
 
 	-
 		class: PHPStan\Dependency\DependencyDumper
@@ -285,6 +290,8 @@ services:
 
 	-
 		class: PHPStan\Reflection\Php\PhpClassReflectionExtension
+		arguments:
+			inferPrivatePropertyTypeFromConstructor: %inferPrivatePropertyTypeFromConstructor%
 
 	-
 		class: PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension
@@ -319,6 +326,7 @@ services:
 		arguments:
 			checkArgumentTypes: %checkFunctionArgumentTypes%
 			checkArgumentsPassedByReference: %checkArgumentsPassedByReference%
+			checkExtraArguments: %checkExtraArguments%
 
 	-
 		class: PHPStan\Rules\FunctionDefinitionCheck
@@ -350,6 +358,11 @@ services:
 
 	-
 		class: PHPStan\Type\FileTypeMapper
+
+	-
+		class: PHPStan\Rules\TemplateTypeCheck
+		arguments:
+			checkClassCaseSensitivity: %checkClassCaseSensitivity%
 
 	-
 		class: PHPStan\Type\Php\ArgumentBasedFunctionReturnTypeExtension
@@ -720,6 +733,10 @@ services:
 
 	errorFormatter.table:
 		class: PHPStan\Command\ErrorFormatter\TableErrorFormatter
+		arguments:
+			showTipsOfTheDay: %tipsOfTheDay%
+			checkThisOnly: %checkThisOnly%
+			inferPrivatePropertyTypeFromConstructor: %inferPrivatePropertyTypeFromConstructor%
 
 	errorFormatter.checkstyle:
 		class: PHPStan\Command\ErrorFormatter\CheckstyleErrorFormatter

@@ -13,7 +13,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		$broker = $this->createBroker();
 		return new CallToFunctionParametersRule(
 			$broker,
-			new FunctionCallParametersCheck(new RuleLevelHelper($broker, true, false, true), true, true)
+			new FunctionCallParametersCheck(new RuleLevelHelper($broker, true, false, true), true, true, true)
 		);
 	}
 
@@ -295,6 +295,29 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 	{
 		require_once __DIR__ . '/data/callable-or-closure-problem.php';
 		$this->analyse([__DIR__ . '/data/callable-or-closure-problem.php'], []);
+	}
+
+	public function testGenericFunction(): void
+	{
+		require_once __DIR__ . '/data/call-generic-function.php';
+		$this->analyse([__DIR__ . '/data/call-generic-function.php'], [
+			[
+				'Unable to resolve the template type A in call to function CallGenericFunction\f',
+				15,
+			],
+			[
+				'Unable to resolve the template type B in call to function CallGenericFunction\f',
+				15,
+			],
+			[
+				'Parameter #1 $a of function CallGenericFunction\g expects DateTime, DateTimeImmutable given.',
+				26,
+			],
+			[
+				'Unable to resolve the template type A in call to function CallGenericFunction\g',
+				26,
+			],
+		]);
 	}
 
 }

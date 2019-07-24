@@ -5,7 +5,6 @@ namespace PHPStan\Rules;
 use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
-use PHPStan\Type\ArrayType;
 use PHPStan\Type\BenevolentUnionType;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\Constant\ConstantArrayType;
@@ -13,6 +12,7 @@ use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\NullType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\Type;
@@ -64,23 +64,23 @@ class RuleLevelHelper
 			$acceptedType = TypeCombinator::removeNull($acceptedType);
 		}
 
-		$acceptedArrays = TypeUtils::getArrays($acceptedType);
 		if (
-			$acceptingType instanceof ArrayType
+			$acceptedType->isArray()->yes()
+			&& $acceptingType->isArray()->yes()
 			&& !$acceptingType instanceof ConstantArrayType
-			&& count($acceptedArrays) > 0
 		) {
-			foreach ($acceptedArrays as $acceptedArray) {
-				if ($acceptedArray instanceof ConstantArrayType) {
-					foreach ($acceptedArray->getKeyTypes() as $i => $keyType) {
-						$valueType = $acceptedArray->getValueTypes()[$i];
+			$acceptedConstantArrays = TypeUtils::getConstantArrays($acceptedType);
+			if (count($acceptedConstantArrays) > 0) {
+				foreach ($acceptedConstantArrays as $acceptedConstantArray) {
+					foreach ($acceptedConstantArray->getKeyTypes() as $i => $keyType) {
+						$valueType = $acceptedConstantArray->getValueTypes()[$i];
 						if (
 							!self::accepts(
-								$acceptingType->getKeyType(),
+								$acceptingType->getIterableKeyType(),
 								$keyType,
 								$strictTypes
 							) || !self::accepts(
-								$acceptingType->getItemType(),
+								$acceptingType->getIterableValueType(),
 								$valueType,
 								$strictTypes
 							)
@@ -88,21 +88,23 @@ class RuleLevelHelper
 							return false;
 						}
 					}
-				} else {
-					if (
-						!self::accepts(
-							$acceptingType->getKeyType(),
-							$acceptedArray->getKeyType(),
-							$strictTypes
-						) || !self::accepts(
-							$acceptingType->getItemType(),
-							$acceptedArray->getItemType(),
-							$strictTypes
-						)
-					) {
-						return false;
-					}
 				}
+
+				return true;
+			}
+
+			if (
+				!self::accepts(
+					$acceptingType->getIterableKeyType(),
+					$acceptedType->getIterableKeyType(),
+					$strictTypes
+				) || !self::accepts(
+					$acceptingType->getIterableValueType(),
+					$acceptedType->getIterableValueType(),
+					$strictTypes
+				)
+			) {
+				return false;
 			}
 
 			return true;
@@ -119,17 +121,17 @@ class RuleLevelHelper
 		}
 
 		if (
-			$acceptedType instanceof ArrayType
-			&& $acceptingType instanceof ArrayType
+			$acceptedType->isArray()->yes()
+			&& $acceptingType->isArray()->yes()
 			&& !$acceptingType instanceof ConstantArrayType
 		) {
 			return self::accepts(
-				$acceptingType->getKeyType(),
-				$acceptedType->getKeyType(),
+				$acceptingType->getIterableKeyType(),
+				$acceptedType->getIterableKeyType(),
 				$strictTypes
 			) && self::accepts(
-				$acceptingType->getItemType(),
-				$acceptedType->getItemType(),
+				$acceptingType->getIterableValueType(),
+				$acceptedType->getIterableValueType(),
 				$strictTypes
 			);
 		}
@@ -164,7 +166,7 @@ class RuleLevelHelper
 			return new FoundTypeResult(new ErrorType(), [], []);
 		}
 		if ($type instanceof StaticType) {
-			$type = $type->resolveStatic($type->getBaseClass());
+			$type = new ObjectType($type->getBaseClass());
 		}
 
 		$errors = [];

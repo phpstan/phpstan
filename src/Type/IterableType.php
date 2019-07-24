@@ -3,13 +3,15 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Generic\TemplateType;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
 use PHPStan\Type\Traits\MaybeObjectTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\UndecidedBooleanTypeTrait;
 
-class IterableType implements StaticResolvableType, CompoundType
+class IterableType implements CompoundType
 {
 
 	use MaybeCallableTypeTrait;
@@ -51,13 +53,13 @@ class IterableType implements StaticResolvableType, CompoundType
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
 	{
-		if ($type instanceof CompoundType) {
-			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
-		}
-
 		if ($type->isIterable()->yes()) {
 			return $this->getIterableValueType()->accepts($type->getIterableValueType(), $strictTypes)
 				->and($this->getIterableKeyType()->accepts($type->getIterableKeyType(), $strictTypes));
+		}
+
+		if ($type instanceof CompoundType) {
+			return CompoundTypeHelper::accepts($type, $this, $strictTypes);
 		}
 
 		return TrinaryLogic::createNo();
@@ -95,6 +97,11 @@ class IterableType implements StaticResolvableType, CompoundType
 		);
 	}
 
+	public function isAcceptedBy(Type $acceptingType, bool $strictTypes): TrinaryLogic
+	{
+		return $this->isSubTypeOf($acceptingType);
+	}
+
 	public function equals(Type $type): bool
 	{
 		if (!$type instanceof self) {
@@ -107,8 +114,11 @@ class IterableType implements StaticResolvableType, CompoundType
 
 	public function describe(VerbosityLevel $level): string
 	{
-		if ($this->keyType instanceof MixedType) {
-			if ($this->itemType instanceof MixedType) {
+		$isMixedKeyType = $this->keyType instanceof MixedType && !$this->keyType instanceof TemplateType;
+		$isMixedItemType = $this->itemType instanceof MixedType && !$this->itemType instanceof TemplateType;
+
+		if ($isMixedKeyType) {
+			if ($isMixedItemType) {
 				return 'iterable';
 			}
 
@@ -143,30 +153,6 @@ class IterableType implements StaticResolvableType, CompoundType
 		return new ArrayType($this->keyType, $this->getItemType());
 	}
 
-	public function resolveStatic(string $className): Type
-	{
-		if ($this->getItemType() instanceof StaticResolvableType) {
-			return new self(
-				$this->keyType,
-				$this->getItemType()->resolveStatic($className)
-			);
-		}
-
-		return $this;
-	}
-
-	public function changeBaseClass(string $className): StaticResolvableType
-	{
-		if ($this->getItemType() instanceof StaticResolvableType) {
-			return new self(
-				$this->keyType,
-				$this->getItemType()->changeBaseClass($className)
-			);
-		}
-
-		return $this;
-	}
-
 	public function isIterable(): TrinaryLogic
 	{
 		return TrinaryLogic::createYes();
@@ -187,6 +173,26 @@ class IterableType implements StaticResolvableType, CompoundType
 		return $this->getItemType();
 	}
 
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createMaybe();
+	}
+
+	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap
+	{
+		if ($receivedType instanceof UnionType || $receivedType instanceof IntersectionType) {
+			return $receivedType->inferTemplateTypesOn($this);
+		}
+
+		if (!$receivedType->isIterable()->yes()) {
+			return TemplateTypeMap::createEmpty();
+		}
+
+		$keyTypeMap = $this->getIterableKeyType()->inferTemplateTypes($receivedType->getIterableKeyType());
+		$valueTypeMap = $this->getIterableValueType()->inferTemplateTypes($receivedType->getIterableValueType());
+
+		return $keyTypeMap->union($valueTypeMap);
+	}
 
 	public function traverse(callable $cb): Type
 	{

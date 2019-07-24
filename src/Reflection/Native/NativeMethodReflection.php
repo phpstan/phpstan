@@ -5,14 +5,13 @@ namespace PHPStan\Reflection\Native;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\DeprecatableReflection;
-use PHPStan\Reflection\FinalizableReflection;
-use PHPStan\Reflection\InternableReflection;
 use PHPStan\Reflection\MethodPrototypeReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\Php\BuiltinMethodReflection;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\Type;
 
-class NativeMethodReflection implements MethodReflection, DeprecatableReflection, InternableReflection, FinalizableReflection
+class NativeMethodReflection implements MethodReflection
 {
 
 	/** @var \PHPStan\Broker\Broker */
@@ -27,23 +26,29 @@ class NativeMethodReflection implements MethodReflection, DeprecatableReflection
 	/** @var \PHPStan\Reflection\ParametersAcceptor[] */
 	private $variants;
 
+	/** @var TrinaryLogic */
+	private $hasSideEffects;
+
 	/**
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PHPStan\Reflection\ClassReflection $declaringClass
 	 * @param BuiltinMethodReflection $reflection
 	 * @param \PHPStan\Reflection\ParametersAcceptor[] $variants
+	 * @param TrinaryLogic $hasSideEffects
 	 */
 	public function __construct(
 		Broker $broker,
 		ClassReflection $declaringClass,
 		BuiltinMethodReflection $reflection,
-		array $variants
+		array $variants,
+		TrinaryLogic $hasSideEffects
 	)
 	{
 		$this->broker = $broker;
 		$this->declaringClass = $declaringClass;
 		$this->reflection = $reflection;
 		$this->variants = $variants;
+		$this->hasSideEffects = $hasSideEffects;
 	}
 
 	public function getDeclaringClass(): ClassReflection
@@ -101,19 +106,29 @@ class NativeMethodReflection implements MethodReflection, DeprecatableReflection
 		return null;
 	}
 
-	public function isDeprecated(): bool
+	public function isDeprecated(): TrinaryLogic
 	{
 		return $this->reflection->isDeprecated();
 	}
 
-	public function isInternal(): bool
+	public function isInternal(): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
 	}
 
-	public function isFinal(): bool
+	public function isFinal(): TrinaryLogic
 	{
-		return false;
+		return TrinaryLogic::createNo();
+	}
+
+	public function getThrowType(): ?Type
+	{
+		return null;
+	}
+
+	public function hasSideEffects(): TrinaryLogic
+	{
+		return $this->hasSideEffects;
 	}
 
 }

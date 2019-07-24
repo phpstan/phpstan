@@ -5,7 +5,7 @@ namespace PHPStan\Analyser;
 use PhpParser\Node\Expr;
 use PHPStan\Broker\Broker;
 use PHPStan\DependencyInjection\Container;
-use PHPStan\Type\Type;
+use PHPStan\Reflection\ParametersAcceptor;
 
 class ScopeFactory
 {
@@ -48,7 +48,7 @@ class ScopeFactory
 	 * @param \PHPStan\Analyser\VariableTypeHolder[] $variablesTypes
 	 * @param \PHPStan\Analyser\VariableTypeHolder[] $moreSpecificTypes
 	 * @param string|null $inClosureBindScopeClass
-	 * @param \PHPStan\Type\Type|null $inAnonymousFunctionReturnType
+	 * @param \PHPStan\Reflection\ParametersAcceptor|null $anonymousFunctionReflection
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
 	 * @param bool $negated
 	 * @param bool $inFirstLevelStatement
@@ -64,7 +64,7 @@ class ScopeFactory
 		array $variablesTypes = [],
 		array $moreSpecificTypes = [],
 		?string $inClosureBindScopeClass = null,
-		?Type $inAnonymousFunctionReturnType = null,
+		?ParametersAcceptor $anonymousFunctionReflection = null,
 		?Expr $inFunctionCall = null,
 		bool $negated = false,
 		bool $inFirstLevelStatement = true,
@@ -88,7 +88,7 @@ class ScopeFactory
 			$variablesTypes,
 			$moreSpecificTypes,
 			$inClosureBindScopeClass,
-			$inAnonymousFunctionReturnType,
+			$anonymousFunctionReflection,
 			$inFunctionCall,
 			$negated,
 			$inFirstLevelStatement,

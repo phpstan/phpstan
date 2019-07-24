@@ -13,5 +13,10 @@
         "message": "Call to static method doBar() on an unknown class Levels\\MethodCalls\\Lorem.",
         "line": 27,
         "ignorable": true
+    },
+    {
+        "message": "Method Levels\\MethodCalls\\ExtraArguments::doFoo() invoked with 0 parameters, 1 required.",
+        "line": 223,
+        "ignorable": true
     }
 ]

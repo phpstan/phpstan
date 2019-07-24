@@ -24,7 +24,7 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		$ruleLevelHelper = new RuleLevelHelper($broker, $this->checkNullables, $this->checkThisOnly, $this->checkUnionTypes);
 		return new CallMethodsRule(
 			$broker,
-			new FunctionCallParametersCheck($ruleLevelHelper, true, true),
+			new FunctionCallParametersCheck($ruleLevelHelper, true, true, true),
 			$ruleLevelHelper,
 			true,
 			true
@@ -413,6 +413,14 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $parameter of method Test\SubtractedMixed::requireIntOrString() expects int|string, mixed given.',
 				1285,
 			],
+			[
+				'Parameter #2 $b of method Test\ExpectsExceptionGenerics::expectsExceptionUpperBound() expects Exception, Throwable given.',
+				1378,
+			],
+			[
+				'Parameter #1 $foo of method Test\ExpectsExceptionGenerics::requiresFoo() expects Test\Foo, Exception given.',
+				1379,
+			],
 		]);
 	}
 
@@ -646,6 +654,14 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $parameter of method Test\SubtractedMixed::requireIntOrString() expects int|string, mixed given.',
 				1285,
 			],
+			[
+				'Parameter #2 $b of method Test\ExpectsExceptionGenerics::expectsExceptionUpperBound() expects Exception, Throwable given.',
+				1378,
+			],
+			[
+				'Parameter #1 $foo of method Test\ExpectsExceptionGenerics::requiresFoo() expects Test\Foo, Exception given.',
+				1379,
+			],
 		]);
 	}
 
@@ -827,6 +843,23 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			],
 			[
 				'Parameter #1 $str of method MethodWithInheritDoc\Foo::doBar() expects string, int given.',
+				67,
+			],
+		]);
+	}
+
+	public function testCallMethodWithInheritDocWithoutCurlyBraces(): void
+	{
+		$this->checkThisOnly = false;
+		$this->checkNullables = true;
+		$this->checkUnionTypes = true;
+		$this->analyse([__DIR__ . '/data/calling-method-with-inheritdoc-without-curly-braces.php'], [
+			[
+				'Parameter #1 $i of method MethodWithInheritDocWithoutCurlyBraces\Baz::doFoo() expects int, string given.',
+				65,
+			],
+			[
+				'Parameter #1 $str of method MethodWithInheritDocWithoutCurlyBraces\Foo::doBar() expects string, int given.',
 				67,
 			],
 		]);

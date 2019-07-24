@@ -10,9 +10,14 @@ use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\PhpDoc\ResolvedPhpDocBlock;
 use PHPStan\PhpDoc\TypeNodeResolver;
+use PHPStan\Type\Generic\TemplateTypeHelper;
+use PHPStan\Type\Generic\TemplateTypeMap;
 
 class FileTypeMapper
 {
+
+	private const SKIP_NODE = 1;
+	private const POP_TYPE_MAP_STACK = 2;
 
 	/** @var \PHPStan\Parser\Parser */
 	private $phpParser;
@@ -154,6 +159,9 @@ class FileTypeMapper
 		/** @var callable[] $phpDocMap */
 		$phpDocMap = [];
 
+		/** @var (callable(): TemplateTypeMap)[] $typeMapStack */
+		$typeMapStack = [];
+
 		/** @var string[] $classStack */
 		$classStack = [];
 		if ($lookForTrait !== null && $traitUseClass !== null) {
@@ -163,14 +171,15 @@ class FileTypeMapper
 		$uses = [];
 		$this->processNodes(
 			$this->phpParser->parseFile($fileName),
-			function (\PhpParser\Node $node) use ($fileName, $lookForTrait, &$phpDocMap, &$classStack, &$namespace, &$uses) {
+			function (\PhpParser\Node $node) use ($fileName, $lookForTrait, &$phpDocMap, &$classStack, &$namespace, &$uses, &$typeMapStack) {
+				$functionName = null;
 				if ($node instanceof Node\Stmt\ClassLike) {
 					if ($lookForTrait !== null) {
 						if (!$node instanceof Node\Stmt\Trait_) {
-							return false;
+							return self::SKIP_NODE;
 						}
 						if ((string) $node->namespacedName !== $lookForTrait) {
-							return false;
+							return self::SKIP_NODE;
 						}
 					} else {
 						if ($node->name === null) {
@@ -233,16 +242,26 @@ class FileTypeMapper
 						$uses[strtolower($use->getAlias()->name)] = sprintf('%s\\%s', $prefix, (string) $use->name);
 					}
 					return null;
+				} elseif ($node instanceof Node\Stmt\ClassMethod) {
+					$functionName = $node->name->name;
+				} elseif ($node instanceof Node\Stmt\Function_) {
+					$functionName = ltrim(sprintf('%s\\%s', $namespace, $node->name->name), '\\');
 				} elseif (!in_array(get_class($node), [
 					Node\Stmt\Property::class,
-					Node\Stmt\ClassMethod::class,
-					Node\Stmt\Function_::class,
 					Node\Stmt\Foreach_::class,
 					Node\Expr\Assign::class,
 					Node\Expr\AssignRef::class,
 					Node\Stmt\Class_::class,
 					Node\Stmt\ClassConst::class,
 					Node\Stmt\Static_::class,
+					Node\Stmt\Echo_::class,
+					Node\Stmt\Return_::class,
+					Node\Stmt\Expression::class,
+					Node\Stmt\Throw_::class,
+					Node\Stmt\If_::class,
+					Node\Stmt\While_::class,
+					Node\Stmt\Switch_::class,
+					Node\Stmt\Nop::class,
 				], true)) {
 					return null;
 				}
@@ -253,13 +272,46 @@ class FileTypeMapper
 				}
 
 				$className = $classStack[count($classStack) - 1] ?? null;
-				$nameScope = new NameScope($namespace, $uses, $className);
+				$typeMapCb = $typeMapStack[count($typeMapStack) - 1] ?? null;
+
 				$phpDocKey = $this->getPhpDocKey($className, $lookForTrait, $phpDocString);
-				$phpDocMap[$phpDocKey] = function () use ($phpDocString, $nameScope): ResolvedPhpDocBlock {
+				$phpDocMap[$phpDocKey] = function () use ($phpDocString, $namespace, $uses, $className, $functionName, $typeMapCb): ResolvedPhpDocBlock {
+					$nameScope = new NameScope(
+						$namespace,
+						$uses,
+						$className,
+						$functionName,
+						$typeMapCb !== null ? $typeMapCb() : TemplateTypeMap::createEmpty()
+					);
 					return $this->phpDocStringResolver->resolve($phpDocString, $nameScope);
 				};
+
+				if (!($node instanceof Node\Stmt\ClassLike) && !($node instanceof Node\FunctionLike)) {
+					return null;
+				}
+
+				$typeMapStack[] = function () use ($fileName, $className, $lookForTrait, $phpDocString, $typeMapCb): TemplateTypeMap {
+					static $typeMap = null;
+					if ($typeMap !== null) {
+						return $typeMap;
+					}
+					$resolvedPhpDoc = $this->getResolvedPhpDoc(
+						$fileName,
+						$className,
+						$lookForTrait,
+						$phpDocString
+					);
+					return new TemplateTypeMap(array_merge(
+						$typeMapCb !== null ? $typeMapCb()->getTypes() : [],
+						array_map(static function (Type $type): Type {
+							return TemplateTypeHelper::toArgument($type);
+						}, $resolvedPhpDoc->getTemplateTypeMap()->getTypes())
+					));
+				};
+
+				return self::POP_TYPE_MAP_STACK;
 			},
-			static function (\PhpParser\Node $node) use ($lookForTrait, &$namespace, &$classStack, &$uses): void {
+			static function (\PhpParser\Node $node, $callbackResult) use ($lookForTrait, &$namespace, &$classStack, &$uses, &$typeMapStack): void {
 				if ($node instanceof Node\Stmt\ClassLike && $lookForTrait === null) {
 					if (count($classStack) === 0) {
 						throw new \PHPStan\ShouldNotHappenException();
@@ -269,8 +321,20 @@ class FileTypeMapper
 					$namespace = null;
 					$uses = [];
 				}
+				if ($callbackResult !== self::POP_TYPE_MAP_STACK) {
+					return;
+				}
+
+				if (count($typeMapStack) === 0) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+				array_pop($typeMapStack);
 			}
 		);
+
+		if (count($typeMapStack) > 0) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
 
 		return $phpDocMap;
 	}
@@ -278,20 +342,20 @@ class FileTypeMapper
 	/**
 	 * @param \PhpParser\Node[]|\PhpParser\Node|scalar $node
 	 * @param \Closure(\PhpParser\Node $node): mixed $nodeCallback
-	 * @param \Closure(\PhpParser\Node $node): void $endNodeCallback
+	 * @param \Closure(\PhpParser\Node $node, mixed $callbackResult): void $endNodeCallback
 	 */
 	private function processNodes($node, \Closure $nodeCallback, \Closure $endNodeCallback): void
 	{
 		if ($node instanceof Node) {
 			$callbackResult = $nodeCallback($node);
-			if ($callbackResult === false) {
+			if ($callbackResult === self::SKIP_NODE) {
 				return;
 			}
 			foreach ($node->getSubNodeNames() as $subNodeName) {
 				$subNode = $node->{$subNodeName};
 				$this->processNodes($subNode, $nodeCallback, $endNodeCallback);
 			}
-			$endNodeCallback($node);
+			$endNodeCallback($node, $callbackResult);
 		} elseif (is_array($node)) {
 			foreach ($node as $subNode) {
 				$this->processNodes($subNode, $nodeCallback, $endNodeCallback);

@@ -3,7 +3,8 @@
 namespace PHPStan\Reflection\Php;
 
 use PHPStan\Reflection\ClassReflection;
-use PHPStan\Reflection\ExtendedPropertyReflection;
+use PHPStan\Reflection\PropertyReflection;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\IntegerType;
@@ -11,7 +12,7 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 
-class SimpleXMLElementProperty implements ExtendedPropertyReflection
+class SimpleXMLElementProperty implements PropertyReflection
 {
 
 	/** @var \PHPStan\Reflection\ClassReflection */
@@ -49,7 +50,7 @@ class SimpleXMLElementProperty implements ExtendedPropertyReflection
 		return true;
 	}
 
-	public function getType(): Type
+	public function getReadableType(): Type
 	{
 		return $this->type;
 	}
@@ -78,6 +79,21 @@ class SimpleXMLElementProperty implements ExtendedPropertyReflection
 	public function canChangeTypeAfterAssignment(): bool
 	{
 		return false;
+	}
+
+	public function isDeprecated(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
+	}
+
+	public function getDeprecatedDescription(): ?string
+	{
+		return null;
+	}
+
+	public function isInternal(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
 	}
 
 }

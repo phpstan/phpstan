@@ -344,7 +344,7 @@ class ObjectType implements TypeWithClassName, SubtractableType
 				}
 
 				$arrayKeys[] = new ConstantStringType($keyName);
-				$arrayValues[] = $property->getType();
+				$arrayValues[] = $property->getReadableType();
 			}
 
 			$classReflection = $classReflection->getParentClass();
@@ -484,6 +484,11 @@ class ObjectType implements TypeWithClassName, SubtractableType
 		}
 
 		return new ErrorType();
+	}
+
+	public function isArray(): TrinaryLogic
+	{
+		return TrinaryLogic::createNo();
 	}
 
 	private function isExtraOffsetAccessibleClass(): TrinaryLogic

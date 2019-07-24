@@ -15,9 +15,11 @@ use PHPStan\Reflection\Native\NativeFunctionReflection;
 use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\SignatureMap\ParameterSignature;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\FloatType;
+use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\OperatorTypeSpecifyingExtension;
@@ -397,6 +399,7 @@ class Broker
 						$returnType = TypeUtils::toBenevolentUnion($returnType);
 					}
 					$variants[] = new FunctionVariant(
+						TemplateTypeMap::createEmpty(),
 						array_map(static function (ParameterSignature $parameterSignature) use ($lowerCasedFunctionName): NativeParameterReflection {
 							$type = $parameterSignature->getType();
 							if (
@@ -430,10 +433,17 @@ class Broker
 					$i++;
 					$variantName = sprintf($lowerCasedFunctionName . '\'' . $i);
 				}
+
+				if ($this->signatureMapProvider->hasFunctionMetadata($lowerCasedFunctionName)) {
+					$hasSideEffects = TrinaryLogic::createFromBoolean($this->signatureMapProvider->getFunctionMetadata($lowerCasedFunctionName)['hasSideEffects']);
+				} else {
+					$hasSideEffects = TrinaryLogic::createMaybe();
+				}
 				$functionReflection = new NativeFunctionReflection(
 					$lowerCasedFunctionName,
 					$variants,
-					null
+					null,
+					$hasSideEffects
 				);
 				self::$functionMap[$lowerCasedFunctionName] = $functionReflection;
 				$this->functionReflections[$lowerCasedFunctionName] = $functionReflection;
@@ -457,9 +467,7 @@ class Broker
 			return false;
 		}
 
-		$lowerCasedFunctionName = strtolower($functionName);
-
-		return !$this->signatureMapProvider->hasFunctionSignature($lowerCasedFunctionName);
+		return !$this->signatureMapProvider->hasFunctionSignature($functionName);
 	}
 
 	public function getCustomFunction(\PhpParser\Node\Name $nameNode, ?Scope $scope): \PHPStan\Reflection\Php\PhpFunctionReflection
@@ -479,6 +487,7 @@ class Broker
 		}
 
 		$reflectionFunction = new \ReflectionFunction($functionName);
+		$templateTypeMap = TemplateTypeMap::createEmpty();
 		$phpDocParameterTags = [];
 		$phpDocReturnTag = null;
 		$phpDocThrowsTag = null;
@@ -490,6 +499,7 @@ class Broker
 			$fileName = $reflectionFunction->getFileName();
 			$docComment = $reflectionFunction->getDocComment();
 			$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, null, null, $docComment);
+			$templateTypeMap = $resolvedPhpDoc->getTemplateTypeMap();
 			$phpDocParameterTags = $resolvedPhpDoc->getParamTags();
 			$phpDocReturnTag = $resolvedPhpDoc->getReturnTag();
 			$phpDocThrowsTag = $resolvedPhpDoc->getThrowsTag();
@@ -501,6 +511,7 @@ class Broker
 
 		$functionReflection = $this->functionReflectionFactory->create(
 			$reflectionFunction,
+			$templateTypeMap,
 			array_map(static function (ParamTag $paramTag): Type {
 				return $paramTag->getType();
 			}, $phpDocParameterTags),
@@ -525,9 +536,7 @@ class Broker
 				return true;
 			}
 
-			$lowercased = strtolower($name);
-
-			return $this->signatureMapProvider->hasFunctionSignature($lowercased);
+			return $this->signatureMapProvider->hasFunctionSignature($name);
 		}, $scope);
 	}
 

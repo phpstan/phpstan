@@ -29,6 +29,9 @@ class ClassCaseSensitivityCheck
 				continue;
 			}
 			$classReflection = $this->broker->getClass($className);
+			if ($classReflection->getFileName() === false) {
+				continue; // skip built-in classes
+			}
 			$realClassName = $classReflection->getName();
 			if (strtolower($realClassName) !== strtolower($className)) {
 				continue; // skip class alias
