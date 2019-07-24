@@ -8259,7 +8259,7 @@ return [
 'mysqli_sqlstate' => ['string', 'link'=>'mysqli'],
 'mysqli_ssl_set' => ['bool', 'link'=>'mysqli', 'key'=>'string', 'cert'=>'string', 'ca'=>'string', 'capath'=>'string', 'cipher'=>'string'],
 'mysqli_stat' => ['string|false', 'link'=>'mysqli'],
-'mysqli_stmt::__construct' => ['void', 'query='=>'string'],
+'mysqli_stmt::__construct' => ['void', 'link'=>'mysqli', 'query='=>'string'],
 'mysqli_stmt::attr_get' => ['false|int', 'attr'=>'int'],
 'mysqli_stmt::attr_set' => ['bool', 'attr'=>'int', 'mode'=>'int'],
 'mysqli_stmt::bind_param' => ['bool', 'types'=>'string', '&var1'=>'mixed', '&...args='=>'mixed'],
