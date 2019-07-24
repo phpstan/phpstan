@@ -1541,7 +1541,7 @@ return [
 'date_create' => ['DateTime|false', 'time='=>'string|null', 'timezone='=>'?\DateTimeZone'],
 'date_create_from_format' => ['DateTime|false', 'format'=>'string', 'time'=>'string', 'timezone='=>'DateTimeZone'],
 'date_create_immutable' => ['DateTimeImmutable|false', 'time='=>'string', 'timezone='=>'?\DateTimeZone'],
-'date_create_immutable_from_format' => ['DateTimeImmutable', 'format'=>'string', 'time'=>'string', 'timezone='=>'?\DateTimeZone'],
+'date_create_immutable_from_format' => ['DateTimeImmutable|false', 'format'=>'string', 'time'=>'string', 'timezone='=>'?\DateTimeZone'],
 'date_date_set' => ['DateTime|false', 'object'=>'', 'year'=>'', 'month'=>'', 'day'=>''],
 'date_default_timezone_get' => ['string'],
 'date_default_timezone_set' => ['bool', 'timezone_identifier'=>'string'],
