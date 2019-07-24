@@ -145,7 +145,7 @@ class IntersectionTypeMethodReflection implements MethodReflection
 			return null;
 		}
 
-		return TypeCombinator::union(...$types);
+		return TypeCombinator::intersect(...$types);
 	}
 
 }
