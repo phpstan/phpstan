@@ -101,9 +101,6 @@ class Broker
 	/** @var \PHPStan\Type\OperatorTypeSpecifyingExtension[] */
 	private $operatorTypeSpecifyingExtensions;
 
-	/** @var array<string, array{hasSideEffects: bool}>|null */
-	private $functionMetadata;
-
 	/**
 	 * @param \PHPStan\Reflection\PropertiesClassReflectionExtension[] $propertiesClassReflectionExtensions
 	 * @param \PHPStan\Reflection\MethodsClassReflectionExtension[] $methodsClassReflectionExtensions
@@ -437,9 +434,8 @@ class Broker
 					$variantName = sprintf($lowerCasedFunctionName . '\'' . $i);
 				}
 
-				$metadata = $this->getFunctionMetadata();
-				if (isset($metadata[$lowerCasedFunctionName])) {
-					$hasSideEffects = TrinaryLogic::createFromBoolean($metadata[$lowerCasedFunctionName]['hasSideEffects']);
+				if ($this->signatureMapProvider->hasFunctionMetadata($lowerCasedFunctionName)) {
+					$hasSideEffects = TrinaryLogic::createFromBoolean($this->signatureMapProvider->getFunctionMetadata($lowerCasedFunctionName)['hasSideEffects']);
 				} else {
 					$hasSideEffects = TrinaryLogic::createMaybe();
 				}
@@ -620,20 +616,6 @@ class Broker
 		}
 
 		return false;
-	}
-
-	/**
-	 * @return array<string, array{hasSideEffects: bool}>
-	 */
-	private function getFunctionMetadata(): array
-	{
-		if ($this->functionMetadata === null) {
-			/** @var array<string, array{hasSideEffects: bool}> $metadata */
-			$metadata = require __DIR__ . '/../Reflection/SignatureMap/functionMetadata.php';
-			$this->functionMetadata = $metadata;
-		}
-
-		return $this->functionMetadata;
 	}
 
 }

@@ -11,6 +11,9 @@ class SignatureMapProvider
 	/** @var mixed[]|null */
 	private static $signatureMap;
 
+	/** @var array<string, array{hasSideEffects: bool}>|null */
+	private static $functionMetadata;
+
 	public function __construct(SignatureMapParser $parser)
 	{
 		$this->parser = $parser;
@@ -36,6 +39,37 @@ class SignatureMapProvider
 			$signatureMap[$functionName],
 			$className
 		);
+	}
+
+	public function hasFunctionMetadata(string $name): bool
+	{
+		$signatureMap = self::getFunctionMetadataMap();
+		return array_key_exists(strtolower($name), $signatureMap);
+	}
+
+	public function getFunctionMetadata(string $functionName): FunctionSignature
+	{
+		$functionName = strtolower($functionName);
+
+		if (!$this->hasFunctionMetadata($functionName)) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		return self::getFunctionMetadataMap()[$functionName];
+	}
+
+	/**
+	 * @return array<string, array{hasSideEffects: bool}>
+	 */
+	private static function getFunctionMetadataMap(): array
+	{
+		if (self::$functionMetadata === null) {
+			/** @var array<string, array{hasSideEffects: bool}> $metadata */
+			$metadata = require __DIR__ . '/functionMetadata.php';
+			self::$functionMetadata = array_change_key_case($metadata, CASE_LOWER);
+		}
+
+		return self::$functionMetadata;
 	}
 
 	/**
