@@ -126,11 +126,6 @@ class CommandHelper
 			}
 		}
 
-		if (count($paths) === 0) {
-			$errorOutput->writeln('At least one path must be specified to analyse.');
-			throw new \PHPStan\Command\InceptionNotSuccessfulException();
-		}
-
 		$additionalConfigFiles = [];
 		if ($level !== null) {
 			$levelConfigFile = sprintf('%s/config.level%s.neon', $containerFactory->getConfigDirectory(), $level);
@@ -189,6 +184,11 @@ class CommandHelper
 		} catch (\Nette\DI\InvalidConfigurationException | \Nette\Utils\AssertionException $e) {
 			$errorOutput->writeln('<error>Invalid configuration:</error>');
 			$errorOutput->writeln($e->getMessage());
+			throw new \PHPStan\Command\InceptionNotSuccessfulException();
+		}
+
+		if (count($paths) === 0) {
+			$errorOutput->writeln('At least one path must be specified to analyse.');
 			throw new \PHPStan\Command\InceptionNotSuccessfulException();
 		}
 
