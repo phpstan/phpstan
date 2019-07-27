@@ -80,7 +80,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 			],
 			[
 				'Function FunctionWithVariadicParameters\bar invoked with 0 parameters, at least 1 required.',
-				14,
+				18,
 			],
 		]);
 	}
