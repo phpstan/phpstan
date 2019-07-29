@@ -2258,7 +2258,7 @@ class NodeScopeResolver
 			if ($var instanceof Variable && is_string($var->name)) {
 				$scope = $scope->assignVariable($var->name, $valueToWrite);
 			} else {
-				$scope = $scope->specifyExpressionType(
+				$scope = $scope->assignExpression(
 					$var,
 					$valueToWrite
 				);
@@ -2276,11 +2276,11 @@ class NodeScopeResolver
 			if ($propertyName !== null && $propertyHolderType->hasProperty($propertyName)->yes()) {
 				$propertyReflection = $propertyHolderType->getProperty($propertyName, $scope);
 				if ($propertyReflection->canChangeTypeAfterAssignment()) {
-					$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+					$scope = $scope->assignExpression($var, $scope->getType($assignedExpr));
 				}
 			} else {
 				// fallback
-				$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+				$scope = $scope->assignExpression($var, $scope->getType($assignedExpr));
 			}
 
 		} elseif ($var instanceof Expr\StaticPropertyFetch) {
@@ -2300,11 +2300,11 @@ class NodeScopeResolver
 			if ($propertyName !== null && $propertyHolderType->hasProperty($propertyName)->yes()) {
 				$propertyReflection = $propertyHolderType->getProperty($propertyName, $scope);
 				if ($propertyReflection->canChangeTypeAfterAssignment()) {
-					$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+					$scope = $scope->assignExpression($var, $scope->getType($assignedExpr));
 				}
 			} else {
 				// fallback
-				$scope = $scope->specifyExpressionType($var, $scope->getType($assignedExpr));
+				$scope = $scope->assignExpression($var, $scope->getType($assignedExpr));
 			}
 		}
 

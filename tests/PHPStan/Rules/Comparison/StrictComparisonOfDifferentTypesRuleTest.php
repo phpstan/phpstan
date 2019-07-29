@@ -195,6 +195,30 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					'Strict comparison using !== between mixed and 1 will always evaluate to true.',
 					812,
 				],
+				[
+					'Strict comparison using === between \'foo\' and \'foo\' will always evaluate to true.',
+					846,
+				],
+				[
+					'Strict comparison using === between \'foo\' and \'foo\' will always evaluate to true.',
+					849,
+				],
+				[
+					'Strict comparison using === between \'foo\' and \'foo\' will always evaluate to true.',
+					857,
+				],
+				[
+					'Strict comparison using === between \'foo\' and \'foo\' will always evaluate to true.',
+					876,
+				],
+				[
+					'Strict comparison using === between \'foo\' and \'foo\' will always evaluate to true.',
+					879,
+				],
+				[
+					'Strict comparison using === between \'foo\' and \'foo\' will always evaluate to true.',
+					887,
+				],
 			]
 		);
 	}

@@ -826,3 +826,67 @@ class SubtractedMixed
 	}
 
 }
+
+class InvalidatingProperties
+{
+
+	/** @var self */
+	private $self;
+
+	/** @var self */
+	private $selfa;
+
+	/** @var string */
+	private $prop;
+
+	public function test()
+	{
+		assert($this->self->prop === 'foo');
+		assert($this->selfa->prop === 'foo');
+		if ($this->self->prop === 'foo') {
+
+		}
+		if ($this->selfa->prop === 'foo') {
+
+		}
+
+		$this->self = new self();
+		if ($this->self->prop === 'foo') {
+
+		}
+		if ($this->selfa->prop === 'foo') {
+
+		}
+	}
+
+}
+
+class InvalidatingVariables
+{
+
+	/** @var string */
+	private $prop;
+
+	public function test()
+	{
+		$self = new self();
+		$selfa = new self();
+		assert($self->prop === 'foo');
+		assert($selfa->prop === 'foo');
+		if ($self->prop === 'foo') {
+
+		}
+		if ($selfa->prop === 'foo') {
+
+		}
+
+		$self = new self();
+		if ($self->prop === 'foo') {
+
+		}
+		if ($selfa->prop === 'foo') {
+
+		}
+	}
+
+}

@@ -2,6 +2,7 @@
 
 namespace PHPStan\Analyser;
 
+use Nette\Utils\Strings;
 use PhpParser\Node;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Expr\Array_;
@@ -2447,28 +2448,52 @@ class Scope implements ClassMemberAccessAnswerer
 		]);
 	}
 
-	public function unspecifyExpressionType(Expr $expr): self
+	public function assignExpression(Expr $expr, Type $type): self
 	{
-		$exprString = $this->printer->prettyPrintExpr($expr);
-		$moreSpecificTypeHolders = $this->moreSpecificTypes;
-		if (isset($moreSpecificTypeHolders[$exprString])) {
-			unset($moreSpecificTypeHolders[$exprString]);
-			return $this->scopeFactory->create(
-				$this->context,
-				$this->isDeclareStrictTypes(),
-				$this->getFunction(),
-				$this->getNamespace(),
-				$this->getVariableTypes(),
-				$moreSpecificTypeHolders,
-				$this->inClosureBindScopeClass,
-				$this->anonymousFunctionReflection,
-				$this->getInFunctionCall(),
-				$this->isNegated(),
-				$this->inFirstLevelStatement
-			);
+		$scope = $this;
+		if ($expr instanceof PropertyFetch || $expr instanceof Expr\StaticPropertyFetch) {
+			$exprString = $this->printer->prettyPrintExpr($expr);
+			$scope = $this->invalidateExpression($exprString);
 		}
 
-		return $this;
+		return $scope->specifyExpressionType($expr, $type);
+	}
+
+	private function invalidateExpression(string $exprStringToInvalidate): self
+	{
+		$moreSpecificTypeHolders = $this->moreSpecificTypes;
+		foreach (array_keys($moreSpecificTypeHolders) as $exprString) {
+			if (!Strings::startsWith($exprString, $exprStringToInvalidate)) {
+				continue;
+			}
+
+			if ($exprString === $exprStringToInvalidate) {
+				unset($moreSpecificTypeHolders[$exprString]);
+				continue;
+			}
+
+			$nextLetter = substr($exprString, strlen($exprStringToInvalidate), 1);
+			if (Strings::match($nextLetter, '#[a-zA-Z_0-9\x7f-\xff]#') !== null) {
+				continue;
+			}
+
+			unset($moreSpecificTypeHolders[$exprString]);
+		}
+
+		return $this->scopeFactory->create(
+			$this->context,
+			$this->isDeclareStrictTypes(),
+			$this->getFunction(),
+			$this->getNamespace(),
+			$this->getVariableTypes(),
+			$moreSpecificTypeHolders,
+			$this->inClosureBindScopeClass,
+			$this->anonymousFunctionReflection,
+			$this->getInFunctionCall(),
+			$this->isNegated(),
+			$this->inFirstLevelStatement,
+			$this->currentlyAssignedExpressions
+		);
 	}
 
 	public function removeTypeFromExpression(Expr $expr, Type $type): self
