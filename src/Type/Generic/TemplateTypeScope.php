@@ -32,6 +32,16 @@ class TemplateTypeScope
 		$this->functionName = $functionName;
 	}
 
+	public function getClassName(): ?string
+	{
+		return $this->className;
+	}
+
+	public function getFunctionName(): ?string
+	{
+		return $this->functionName;
+	}
+
 	public function equals(self $other): bool
 	{
 		return $this->className === $other->className

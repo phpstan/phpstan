@@ -66,7 +66,7 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 			$basicDescription,
 			$basicDescription,
 			function () use ($basicDescription): string {
-				return sprintf('%s (%s)', $basicDescription(), $this->scope->describe());
+				return sprintf('%s (%s, %s)', $basicDescription(), $this->scope->describe(), $this->isArgument() ? 'argument' : 'parameter');
 			}
 		);
 	}
