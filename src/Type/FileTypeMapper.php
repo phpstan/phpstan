@@ -10,7 +10,7 @@ use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocStringResolver;
 use PHPStan\PhpDoc\ResolvedPhpDocBlock;
 use PHPStan\PhpDoc\TypeNodeResolver;
-use PHPStan\Type\Generic\TemplateTypeHelper;
+use PHPStan\Type\Generic\TemplateType;
 use PHPStan\Type\Generic\TemplateTypeMap;
 
 class FileTypeMapper
@@ -172,6 +172,7 @@ class FileTypeMapper
 		$this->processNodes(
 			$this->phpParser->parseFile($fileName),
 			function (\PhpParser\Node $node) use ($fileName, $lookForTrait, &$phpDocMap, &$classStack, &$namespace, &$uses, &$typeMapStack) {
+				$resolvableTemplateTypes = false;
 				$functionName = null;
 				if ($node instanceof Node\Stmt\ClassLike) {
 					if ($lookForTrait !== null) {
@@ -194,6 +195,7 @@ class FileTypeMapper
 							$className = ltrim(sprintf('%s\\%s', $namespace, $node->name->name), '\\');
 						}
 						$classStack[] = $className;
+						$resolvableTemplateTypes = true;
 					}
 				} elseif ($node instanceof Node\Stmt\TraitUse) {
 					foreach ($node->traits as $traitName) {
@@ -243,10 +245,13 @@ class FileTypeMapper
 					return null;
 				} elseif ($node instanceof Node\Stmt\ClassMethod) {
 					$functionName = $node->name->name;
+					$resolvableTemplateTypes = true;
 				} elseif ($node instanceof Node\Stmt\Function_) {
 					$functionName = ltrim(sprintf('%s\\%s', $namespace, $node->name->name), '\\');
+					$resolvableTemplateTypes = true;
+				} elseif ($node instanceof Node\Stmt\Property) {
+					$resolvableTemplateTypes = true;
 				} elseif (!in_array(get_class($node), [
-					Node\Stmt\Property::class,
 					Node\Stmt\Foreach_::class,
 					Node\Expr\Assign::class,
 					Node\Expr\AssignRef::class,
@@ -274,13 +279,31 @@ class FileTypeMapper
 				$typeMapCb = $typeMapStack[count($typeMapStack) - 1] ?? null;
 
 				$phpDocKey = $this->getPhpDocKey($className, $lookForTrait, $phpDocString);
-				$phpDocMap[$phpDocKey] = function () use ($phpDocString, $namespace, $uses, $className, $functionName, $typeMapCb): ResolvedPhpDocBlock {
+				$phpDocMap[$phpDocKey] = function () use ($phpDocString, $namespace, $uses, $className, $functionName, $typeMapCb, $resolvableTemplateTypes): ResolvedPhpDocBlock {
 					$nameScope = new NameScope(
 						$namespace,
 						$uses,
 						$className,
 						$functionName,
-						$typeMapCb !== null ? $typeMapCb() : TemplateTypeMap::createEmpty()
+						($typeMapCb !== null ? $typeMapCb() : TemplateTypeMap::createEmpty())->map(static function (string $name, Type $type) use ($className, $resolvableTemplateTypes): Type {
+							return TypeTraverser::map($type, static function (Type $type, callable $traverse) use ($className, $resolvableTemplateTypes): Type {
+								if (!$type instanceof TemplateType) {
+									return $traverse($type);
+								}
+
+								if (!$resolvableTemplateTypes) {
+									return $traverse($type->toArgument());
+								}
+
+								$scope = $type->getScope();
+
+								if ($scope->getClassName() === null || $scope->getFunctionName() !== null || $scope->getClassName() !== $className) {
+									return $traverse($type->toArgument());
+								}
+
+								return $traverse($type);
+							});
+						})
 					);
 					return $this->phpDocStringResolver->resolve($phpDocString, $nameScope);
 				};
@@ -302,9 +325,7 @@ class FileTypeMapper
 					);
 					return new TemplateTypeMap(array_merge(
 						$typeMapCb !== null ? $typeMapCb()->getTypes() : [],
-						array_map(static function (Type $type): Type {
-							return TemplateTypeHelper::toArgument($type);
-						}, $resolvedPhpDoc->getTemplateTypeMap()->getTypes())
+						$resolvedPhpDoc->getTemplateTypeMap()->getTypes()
 					));
 				};
 

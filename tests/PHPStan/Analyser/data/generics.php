@@ -10,7 +10,7 @@ use function PHPStan\Analyser\assertType;
  * @return T
  */
 function a($a) {
-	assertType('T (function PHPStan\Generics\FunctionsAssertType\a())', $a);
+	assertType('T (function PHPStan\Generics\FunctionsAssertType\a(), argument)', $a);
 	return $a;
 }
 
@@ -32,8 +32,8 @@ function testA($int, $intFloat, $mixed) {
  * @return T
  */
 function b($a) {
-	assertType('T of DateTimeInterface (function PHPStan\Generics\FunctionsAssertType\b())', $a);
-	assertType('T of DateTimeInterface (function PHPStan\Generics\FunctionsAssertType\b())', b($a));
+	assertType('T of DateTimeInterface (function PHPStan\Generics\FunctionsAssertType\b(), argument)', $a);
+	assertType('T of DateTimeInterface (function PHPStan\Generics\FunctionsAssertType\b(), argument)', b($a));
 	return $a;
 }
 
@@ -113,12 +113,12 @@ function testE($int) {
  */
 function f($a, $b) {
 	$result = [];
-	assertType('array<A (function PHPStan\Generics\FunctionsAssertType\f())>', $a);
-	assertType('callable(A (function PHPStan\Generics\FunctionsAssertType\f())): B (function PHPStan\Generics\FunctionsAssertType\f())', $b);
+	assertType('array<A (function PHPStan\Generics\FunctionsAssertType\f(), argument)>', $a);
+	assertType('callable(A (function PHPStan\Generics\FunctionsAssertType\f(), argument)): B (function PHPStan\Generics\FunctionsAssertType\f(), argument)', $b);
 	foreach ($a as $k => $v) {
-		assertType('A (function PHPStan\Generics\FunctionsAssertType\f())', $v);
+		assertType('A (function PHPStan\Generics\FunctionsAssertType\f(), argument)', $v);
 		$newV = $b($v);
-		assertType('B (function PHPStan\Generics\FunctionsAssertType\f())', $newV);
+		assertType('B (function PHPStan\Generics\FunctionsAssertType\f(), argument)', $newV);
 		$result[$k] = $newV;
 	}
 	return $result;
@@ -176,8 +176,8 @@ class Foo {
  * @param T $foo
  */
 function testReturnsStatic($foo) {
-	assertType('T of PHPStan\Generics\FunctionsAssertType\Foo (function PHPStan\Generics\FunctionsAssertType\testReturnsStatic())', $foo::returnsStatic());
-	assertType('T of PHPStan\Generics\FunctionsAssertType\Foo (function PHPStan\Generics\FunctionsAssertType\testReturnsStatic())', $foo->instanceReturnsStatic());
+	assertType('T of PHPStan\Generics\FunctionsAssertType\Foo (function PHPStan\Generics\FunctionsAssertType\testReturnsStatic(), argument)', $foo::returnsStatic());
+	assertType('T of PHPStan\Generics\FunctionsAssertType\Foo (function PHPStan\Generics\FunctionsAssertType\testReturnsStatic(), argument)', $foo->instanceReturnsStatic());
 }
 
 /**
@@ -249,7 +249,7 @@ function testConstantArray(int $int, string $str) {
  * @return U
  */
 function typeHints(\DateTimeInterface $a): \DateTimeInterface {
-	assertType('U of DateTimeInterface (function PHPStan\Generics\FunctionsAssertType\typeHints())', $a);
+	assertType('U of DateTimeInterface (function PHPStan\Generics\FunctionsAssertType\typeHints(), argument)', $a);
 	return $a;
 }
 
@@ -259,7 +259,7 @@ function typeHints(\DateTimeInterface $a): \DateTimeInterface {
  * @return U
  */
 function typeHintsSuperType(\DateTimeInterface $a): \DateTimeInterface {
-	assertType('U of DateTime (function PHPStan\Generics\FunctionsAssertType\typeHintsSuperType())', $a);
+	assertType('U of DateTime (function PHPStan\Generics\FunctionsAssertType\typeHintsSuperType(), argument)', $a);
 	return $a;
 }
 
@@ -306,7 +306,7 @@ function varAnnotation($cb)
 	/** @var T */
 	$v = $cb();
 
-	assertType('T (function PHPStan\Generics\FunctionsAssertType\varAnnotation())', $v);
+	assertType('T (function PHPStan\Generics\FunctionsAssertType\varAnnotation(), argument)', $v);
 
 	return $v;
 }
@@ -325,14 +325,14 @@ class C
 	 */
 	public function f($p, $cb)
 	{
-		assertType('T (class PHPStan\Generics\FunctionsAssertType\C)', $p);
+		assertType('T (class PHPStan\Generics\FunctionsAssertType\C, argument)', $p);
 
 		/** @var T */
 		$v = $cb();
 
-		assertType('T (class PHPStan\Generics\FunctionsAssertType\C)', $v);
+		assertType('T (class PHPStan\Generics\FunctionsAssertType\C, argument)', $v);
 
-		assertType('T (class PHPStan\Generics\FunctionsAssertType\C)', $this->a);
+		assertType('T (class PHPStan\Generics\FunctionsAssertType\C, argument)', $this->a);
 
 		$a = new class {
 			/** @return T */
@@ -341,6 +341,6 @@ class C
 			}
 		};
 
-		assertType('T (class PHPStan\Generics\FunctionsAssertType\C)', $a->g());
+		assertType('T (class PHPStan\Generics\FunctionsAssertType\C, argument)', $a->g());
 	}
 }

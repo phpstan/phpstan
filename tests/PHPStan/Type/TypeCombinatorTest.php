@@ -1108,7 +1108,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				UnionType::class,
-				'DateTime|T (function a())',
+				'DateTime|T (function a(), parameter)',
 			],
 			[
 				[
@@ -1120,7 +1120,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				UnionType::class,
-				'DateTime|T of DateTime (function a())',
+				'DateTime|T of DateTime (function a(), parameter)',
 			],
 			[
 				[
@@ -1136,7 +1136,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					),
 				],
 				TemplateType::class,
-				'T of DateTime (function a())',
+				'T of DateTime (function a(), parameter)',
 			],
 			[
 				[
@@ -1152,7 +1152,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					),
 				],
 				UnionType::class,
-				'T of DateTime (function a())|U of DateTime (function a())',
+				'T of DateTime (function a(), parameter)|U of DateTime (function a(), parameter)',
 			],
 			[
 				[
@@ -1849,7 +1849,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				IntersectionType::class,
-				'DateTime&T (function a())',
+				'DateTime&T (function a(), parameter)',
 			],
 			[
 				[
@@ -1861,7 +1861,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				IntersectionType::class,
-				'DateTime&T of DateTime (function a())',
+				'DateTime&T of DateTime (function a(), parameter)',
 			],
 			[
 				[
@@ -1877,7 +1877,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					),
 				],
 				TemplateType::class,
-				'T of DateTime (function a())',
+				'T of DateTime (function a(), parameter)',
 			],
 			[
 				[
@@ -1893,7 +1893,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					),
 				],
 				IntersectionType::class,
-				'T of DateTime (function a())&U of DateTime (function a())',
+				'T of DateTime (function a(), parameter)&U of DateTime (function a(), parameter)',
 			],
 		];
 	}
