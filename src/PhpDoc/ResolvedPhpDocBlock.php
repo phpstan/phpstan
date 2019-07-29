@@ -22,6 +22,15 @@ class ResolvedPhpDocBlock
 	/** @var array<string, \PHPStan\PhpDoc\Tag\TemplateTag> */
 	private $templateTags;
 
+	/** @var array<string, \PHPStan\PhpDoc\Tag\ExtendsTag> */
+	private $extendsTags;
+
+	/** @var array<string, \PHPStan\PhpDoc\Tag\ImplementsTag> */
+	private $implementsTags;
+
+	/** @var array<string, \PHPStan\PhpDoc\Tag\UsesTag> */
+	private $usesTags;
+
 	/** @var array<string, \PHPStan\PhpDoc\Tag\ParamTag> */
 	private $paramTags;
 
@@ -51,6 +60,9 @@ class ResolvedPhpDocBlock
 	 * @param array<string, \PHPStan\PhpDoc\Tag\MethodTag> $methodTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\PropertyTag> $propertyTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\TemplateTag> $templateTags
+	 * @param array<string, \PHPStan\PhpDoc\Tag\ExtendsTag> $extendsTags
+	 * @param array<string, \PHPStan\PhpDoc\Tag\ImplementsTag> $implementsTags
+	 * @param array<string, \PHPStan\PhpDoc\Tag\UsesTag> $usesTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\ParamTag> $paramTags
 	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null $returnTag
 	 * @param \PHPStan\PhpDoc\Tag\ThrowsTag|null $throwsTags
@@ -65,6 +77,9 @@ class ResolvedPhpDocBlock
 		array $methodTags,
 		array $propertyTags,
 		array $templateTags,
+		array $extendsTags,
+		array $implementsTags,
+		array $usesTags,
 		array $paramTags,
 		?ReturnTag $returnTag,
 		?ThrowsTag $throwsTags,
@@ -79,6 +94,9 @@ class ResolvedPhpDocBlock
 		$this->methodTags = $methodTags;
 		$this->propertyTags = $propertyTags;
 		$this->templateTags = $templateTags;
+		$this->extendsTags = $extendsTags;
+		$this->implementsTags = $implementsTags;
+		$this->usesTags = $usesTags;
 		$this->paramTags = $paramTags;
 		$this->returnTag = $returnTag;
 		$this->throwsTag = $throwsTags;
@@ -94,6 +112,9 @@ class ResolvedPhpDocBlock
 	 * @param array<string, \PHPStan\PhpDoc\Tag\MethodTag> $methodTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\PropertyTag> $propertyTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\TemplateTag> $templateTags
+	 * @param array<string, \PHPStan\PhpDoc\Tag\ExtendsTag> $extendsTags
+	 * @param array<string, \PHPStan\PhpDoc\Tag\ImplementsTag> $implementsTags
+	 * @param array<string, \PHPStan\PhpDoc\Tag\UsesTag> $usesTags
 	 * @param array<string, \PHPStan\PhpDoc\Tag\ParamTag> $paramTags
 	 * @param \PHPStan\PhpDoc\Tag\ReturnTag|null $returnTag
 	 * @param \PHPStan\PhpDoc\Tag\ThrowsTag|null $throwsTag
@@ -109,6 +130,9 @@ class ResolvedPhpDocBlock
 		array $methodTags,
 		array $propertyTags,
 		array $templateTags,
+		array $extendsTags,
+		array $implementsTags,
+		array $usesTags,
 		array $paramTags,
 		?ReturnTag $returnTag,
 		?ThrowsTag $throwsTag,
@@ -124,6 +148,9 @@ class ResolvedPhpDocBlock
 			$methodTags,
 			$propertyTags,
 			$templateTags,
+			$extendsTags,
+			$implementsTags,
+			$usesTags,
 			$paramTags,
 			$returnTag,
 			$throwsTag,
@@ -137,7 +164,7 @@ class ResolvedPhpDocBlock
 
 	public static function createEmpty(): self
 	{
-		return new self([], [], [], [], [], null, null, null, false, false, false, TemplateTypeMap::createEmpty());
+		return new self([], [], [], [], [], [], [], [], null, null, null, false, false, false, TemplateTypeMap::createEmpty());
 	}
 
 	/**
@@ -170,6 +197,30 @@ class ResolvedPhpDocBlock
 	public function getTemplateTags(): array
 	{
 		return $this->templateTags;
+	}
+
+	/**
+	 * @return array<string, \PHPStan\PhpDoc\Tag\ExtendsTag>
+	 */
+	public function getExtendsTags(): array
+	{
+		return $this->extendsTags;
+	}
+
+	/**
+	 * @return array<string, \PHPStan\PhpDoc\Tag\ImplementsTag>
+	 */
+	public function getImplementsTags(): array
+	{
+		return $this->implementsTags;
+	}
+
+	/**
+	 * @return array<string, \PHPStan\PhpDoc\Tag\UsesTag>
+	 */
+	public function getUsesTags(): array
+	{
+		return $this->usesTags;
 	}
 
 	/**
@@ -226,6 +277,9 @@ class ResolvedPhpDocBlock
 			$properties['methodTags'],
 			$properties['propertyTags'],
 			$properties['templateTags'],
+			$properties['extendsTags'],
+			$properties['implementsTags'],
+			$properties['usesTags'],
 			$properties['paramTags'],
 			$properties['returnTag'],
 			$properties['throwsTag'],
