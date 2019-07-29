@@ -4,6 +4,8 @@ namespace PHPStan\PhpDoc;
 
 use PHPStan\Analyser\NameScope;
 use PHPStan\PhpDoc\Tag\DeprecatedTag;
+use PHPStan\PhpDoc\Tag\ExtendsTag;
+use PHPStan\PhpDoc\Tag\ImplementsTag;
 use PHPStan\PhpDoc\Tag\MethodTag;
 use PHPStan\PhpDoc\Tag\MethodTagParameter;
 use PHPStan\PhpDoc\Tag\ParamTag;
@@ -11,6 +13,7 @@ use PHPStan\PhpDoc\Tag\PropertyTag;
 use PHPStan\PhpDoc\Tag\ReturnTag;
 use PHPStan\PhpDoc\Tag\TemplateTag;
 use PHPStan\PhpDoc\Tag\ThrowsTag;
+use PHPStan\PhpDoc\Tag\UsesTag;
 use PHPStan\PhpDoc\Tag\VarTag;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprNullNode;
 use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocNode;
@@ -45,11 +48,17 @@ class PhpDocNodeResolver
 		$templateTypeScope = $nameScope->getTemplateTypeScope();
 
 		if ($templateTypeScope !== null) {
+			$templateTypeMap = new TemplateTypeMap(array_map(static function (TemplateTag $tag) use ($templateTypeScope): Type {
+				return TemplateTypeFactory::fromTemplateTag($templateTypeScope, $tag);
+			}, $templateTags));
 			$nameScope = $nameScope->withTemplateTypeMap(
-				new TemplateTypeMap(array_map(static function (TemplateTag $tag) use ($templateTypeScope): Type {
-					return TemplateTypeFactory::fromTemplateTag($templateTypeScope, $tag);
-				}, $templateTags))
+				new TemplateTypeMap(array_merge(
+					$nameScope->getTemplateTypeMap()->getTypes(),
+					$templateTypeMap->getTypes()
+				))
 			);
+		} else {
+			$templateTypeMap = TemplateTypeMap::createEmpty();
 		}
 
 		return ResolvedPhpDocBlock::create(
@@ -57,6 +66,9 @@ class PhpDocNodeResolver
 			$this->resolveMethodTags($phpDocNode, $nameScope),
 			$this->resolvePropertyTags($phpDocNode, $nameScope),
 			$templateTags,
+			$this->resolveExtendsTags($phpDocNode, $nameScope),
+			$this->resolveImplementsTags($phpDocNode, $nameScope),
+			$this->resolveUsesTags($phpDocNode, $nameScope),
 			$this->resolveParamTags($phpDocNode, $nameScope),
 			$this->resolveReturnTag($phpDocNode, $nameScope),
 			$this->resolveThrowsTags($phpDocNode, $nameScope),
@@ -64,7 +76,7 @@ class PhpDocNodeResolver
 			$this->resolveIsDeprecated($phpDocNode),
 			$this->resolveIsInternal($phpDocNode),
 			$this->resolveIsFinal($phpDocNode),
-			$nameScope->getTemplateTypeMap()
+			$templateTypeMap
 		);
 	}
 
@@ -180,6 +192,54 @@ class PhpDocNodeResolver
 				$tagValue->returnType !== null ? $this->typeNodeResolver->resolve($tagValue->returnType, $nameScope) : new MixedType(),
 				$tagValue->isStatic,
 				$parameters
+			);
+		}
+
+		return $resolved;
+	}
+
+	/**
+	 * @return array<string, \PHPStan\PhpDoc\Tag\ExtendsTag>
+	 */
+	private function resolveExtendsTags(PhpDocNode $phpDocNode, NameScope $nameScope): array
+	{
+		$resolved = [];
+
+		foreach ($phpDocNode->getExtendsTagValues() as $tagValue) {
+			$resolved[$tagValue->type->type->name] = new ExtendsTag(
+				$this->typeNodeResolver->resolve($tagValue->type, $nameScope)
+			);
+		}
+
+		return $resolved;
+	}
+
+	/**
+	 * @return array<string, \PHPStan\PhpDoc\Tag\ImplementsTag>
+	 */
+	private function resolveImplementsTags(PhpDocNode $phpDocNode, NameScope $nameScope): array
+	{
+		$resolved = [];
+
+		foreach ($phpDocNode->getImplementsTagValues() as $tagValue) {
+			$resolved[$tagValue->type->type->name] = new ImplementsTag(
+				$this->typeNodeResolver->resolve($tagValue->type, $nameScope)
+			);
+		}
+
+		return $resolved;
+	}
+
+	/**
+	 * @return array<string, \PHPStan\PhpDoc\Tag\UsesTag>
+	 */
+	private function resolveUsesTags(PhpDocNode $phpDocNode, NameScope $nameScope): array
+	{
+		$resolved = [];
+
+		foreach ($phpDocNode->getUsesTagValues() as $tagValue) {
+			$resolved[$tagValue->type->type->name] = new UsesTag(
+				$this->typeNodeResolver->resolve($tagValue->type, $nameScope)
 			);
 		}
 
