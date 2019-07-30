@@ -98,6 +98,7 @@ class AnnotationMethodReflection implements MethodReflection
 			$this->variants = [
 				new FunctionVariant(
 					TemplateTypeMap::createEmpty(),
+					null,
 					$this->parameters,
 					$this->isVariadic,
 					$this->returnType
@@ -135,6 +136,12 @@ class AnnotationMethodReflection implements MethodReflection
 	public function hasSideEffects(): TrinaryLogic
 	{
 		return TrinaryLogic::createMaybe();
+	}
+
+	/** @return string|false */
+	public function getDocComment()
+	{
+		return false;
 	}
 
 }

@@ -248,7 +248,13 @@ class ParametersAcceptorSelector
 			}
 		}
 
-		return new FunctionVariant(TemplateTypeMap::createEmpty(), $parameters, $isVariadic, $returnType);
+		return new FunctionVariant(
+			TemplateTypeMap::createEmpty(),
+			null,
+			$parameters,
+			$isVariadic,
+			$returnType
+		);
 	}
 
 }

@@ -39,7 +39,10 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				new FunctionVariant(
-					TemplateTypeMap::createEmpty(),
+					new TemplateTypeMap([
+						'T' => $templateType('T'),
+					]),
+					null,
 					[
 						new DummyParameter(
 							'a',
@@ -54,7 +57,10 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new NullType()
 				),
 				new FunctionVariant(
-					TemplateTypeMap::createEmpty(),
+					new TemplateTypeMap([
+						'T' => $templateType('T'),
+					]),
+					null,
 					[
 						new DummyParameter(
 							'a',
@@ -75,7 +81,11 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new IntegerType(),
 				],
 				new FunctionVariant(
-					TemplateTypeMap::createEmpty(),
+					new TemplateTypeMap([
+						'T' => $templateType('T'),
+						'U' => $templateType('U'),
+					]),
+					null,
 					[
 						new DummyParameter(
 							'a',
@@ -98,7 +108,11 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					$templateType('U')
 				),
 				new FunctionVariant(
-					TemplateTypeMap::createEmpty(),
+					new TemplateTypeMap([
+						'T' => $templateType('T'),
+						'U' => $templateType('U'),
+					]),
+					null,
 					[
 						new DummyParameter(
 							'a',
@@ -127,7 +141,10 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new IntegerType(),
 				],
 				new FunctionVariant(
-					TemplateTypeMap::createEmpty(),
+					new TemplateTypeMap([
+						'T' => $templateType('T'),
+					]),
+					null,
 					[
 						new DummyParameter(
 							'a',
@@ -150,7 +167,10 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					$templateType('T')
 				),
 				new FunctionVariant(
-					TemplateTypeMap::createEmpty(),
+					new TemplateTypeMap([
+						'T' => $templateType('T'),
+					]),
+					null,
 					[
 						new DummyParameter(
 							'a',
@@ -187,7 +207,11 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				new FunctionVariant(
-					TemplateTypeMap::createEmpty(),
+					new TemplateTypeMap([
+						'T' => $templateType('T'),
+						'U' => $templateType('U'),
+					]),
+					null,
 					[
 						new DummyParameter(
 							'a',
@@ -203,14 +227,18 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 							true,
 							PassedByReference::createNo(),
 							false,
-							new ConstantIntegerType(42)
+							new IntegerType()
 						),
 					],
 					false,
 					new NullType()
 				),
 				new FunctionVariant(
-					TemplateTypeMap::createEmpty(),
+					new TemplateTypeMap([
+						'T' => $templateType('T'),
+						'U' => $templateType('U'),
+					]),
+					null,
 					[
 						new DummyParameter(
 							'a',
@@ -222,7 +250,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 						),
 						new DummyParameter(
 							'b',
-							new ConstantIntegerType(42),
+							new IntegerType(),
 							false,
 							PassedByReference::createNo(),
 							false,
@@ -241,7 +269,11 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new ConstantIntegerType(3),
 				],
 				new FunctionVariant(
-					TemplateTypeMap::createEmpty(),
+					new TemplateTypeMap([
+						'T' => $templateType('T'),
+						'U' => $templateType('U'),
+					]),
+					null,
 					[
 						new DummyParameter(
 							'a',
@@ -264,7 +296,11 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					$templateType('U')
 				),
 				new FunctionVariant(
-					TemplateTypeMap::createEmpty(),
+					new TemplateTypeMap([
+						'T' => $templateType('T'),
+						'U' => $templateType('U'),
+					]),
+					null,
 					[
 						new DummyParameter(
 							'a',
@@ -303,7 +339,11 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new ObjectType('DateTime'),
 				],
 				new FunctionVariant(
-					TemplateTypeMap::createEmpty(),
+					new TemplateTypeMap([
+						'T' => $templateType('T'),
+						'U' => $templateType('U'),
+					]),
+					null,
 					[
 						new DummyParameter(
 							'a',
@@ -326,7 +366,11 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new NullType()
 				),
 				new FunctionVariant(
-					TemplateTypeMap::createEmpty(),
+					new TemplateTypeMap([
+						'T' => $templateType('T'),
+						'U' => $templateType('U'),
+					]),
+					null,
 					[
 						new DummyParameter(
 							'a',
@@ -354,7 +398,10 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					new ConstantStringType('foo'),
 				],
 				new FunctionVariant(
-					TemplateTypeMap::createEmpty(),
+					new TemplateTypeMap([
+						'T' => $templateType('T'),
+					]),
+					null,
 					[
 						new DummyParameter('str', $templateType('T'), false, null, false, null),
 					],
@@ -363,6 +410,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 				),
 				new FunctionVariant(
 					TemplateTypeMap::createEmpty(),
+					null,
 					[
 						new DummyParameter('str', new ConstantStringType('foo'), false, null, false, null),
 					],

@@ -27,6 +27,11 @@ class InaccessibleMethod implements ParametersAcceptor
 		return TemplateTypeMap::createEmpty();
 	}
 
+	public function getResolvedTemplateTypeMap(): TemplateTypeMap
+	{
+		return TemplateTypeMap::createEmpty();
+	}
+
 	/**
 	 * @return array<int, \PHPStan\Reflection\ParameterReflection>
 	 */

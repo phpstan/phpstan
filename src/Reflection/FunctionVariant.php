@@ -11,6 +11,9 @@ class FunctionVariant implements ParametersAcceptor
 	/** @var TemplateTypeMap */
 	private $templateTypeMap;
 
+	/** @var TemplateTypeMap|null */
+	private $resolvedTemplateTypeMap;
+
 	/** @var array<int, ParameterReflection> */
 	private $parameters;
 
@@ -27,12 +30,14 @@ class FunctionVariant implements ParametersAcceptor
 	 */
 	public function __construct(
 		TemplateTypeMap $templateTypeMap,
+		?TemplateTypeMap $resolvedTemplateTypeMap,
 		array $parameters,
 		bool $isVariadic,
 		Type $returnType
 	)
 	{
 		$this->templateTypeMap = $templateTypeMap;
+		$this->resolvedTemplateTypeMap = $resolvedTemplateTypeMap;
 		$this->parameters = $parameters;
 		$this->isVariadic = $isVariadic;
 		$this->returnType = $returnType;
@@ -41,6 +46,11 @@ class FunctionVariant implements ParametersAcceptor
 	public function getTemplateTypeMap(): TemplateTypeMap
 	{
 		return $this->templateTypeMap;
+	}
+
+	public function getResolvedTemplateTypeMap(): TemplateTypeMap
+	{
+		return $this->resolvedTemplateTypeMap ?? TemplateTypeMap::createEmpty();
 	}
 
 	/**

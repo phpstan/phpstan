@@ -24,6 +24,7 @@ class FunctionVariantWithPhpDocs extends FunctionVariant implements ParametersAc
 	 */
 	public function __construct(
 		TemplateTypeMap $templateTypeMap,
+		?TemplateTypeMap $resolvedTemplateTypeMap,
 		array $parameters,
 		bool $isVariadic,
 		Type $returnType,
@@ -33,6 +34,7 @@ class FunctionVariantWithPhpDocs extends FunctionVariant implements ParametersAc
 	{
 		parent::__construct(
 			$templateTypeMap,
+			$resolvedTemplateTypeMap,
 			$parameters,
 			$isVariadic,
 			$returnType
