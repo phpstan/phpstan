@@ -57,6 +57,7 @@ class DummyConstructorReflection implements MethodReflection
 		return [
 			new FunctionVariant(
 				TemplateTypeMap::createEmpty(),
+				null,
 				[],
 				false,
 				new VoidType()
@@ -92,6 +93,12 @@ class DummyConstructorReflection implements MethodReflection
 	public function hasSideEffects(): TrinaryLogic
 	{
 		return TrinaryLogic::createNo();
+	}
+
+	/** @return string|false */
+	public function getDocComment()
+	{
+		return false;
 	}
 
 }

@@ -132,4 +132,10 @@ class PhpMethodFromParserNodeReflection extends PhpFunctionFromParserNodeReflect
 		return parent::getReturnType();
 	}
 
+	/** @return string|false */
+	public function getDocComment()
+	{
+		return false;
+	}
+
 }

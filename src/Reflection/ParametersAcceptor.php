@@ -16,6 +16,8 @@ interface ParametersAcceptor
 
 	public function getTemplateTypeMap(): TemplateTypeMap;
 
+	public function getResolvedTemplateTypeMap(): TemplateTypeMap;
+
 	/**
 	 * @return array<int, \PHPStan\Reflection\ParameterReflection>
 	 */

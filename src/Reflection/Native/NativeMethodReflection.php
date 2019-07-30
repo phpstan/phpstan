@@ -131,4 +131,10 @@ class NativeMethodReflection implements MethodReflection
 		return $this->hasSideEffects;
 	}
 
+	/** @return string|false */
+	public function getDocComment()
+	{
+		return $this->reflection->getDocComment();
+	}
+
 }

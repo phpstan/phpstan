@@ -223,6 +223,7 @@ class PhpMethodReflection implements MethodReflection
 			$this->variants = [
 				new FunctionVariantWithPhpDocs(
 					$this->templateTypeMap,
+					null,
 					$this->getParameters(),
 					$this->isVariadic(),
 					$this->getReturnType(),

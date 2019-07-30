@@ -128,6 +128,7 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 			$this->variants = [
 				new FunctionVariantWithPhpDocs(
 					$this->templateTypeMap,
+					null,
 					$this->getParameters(),
 					$this->isVariadic(),
 					$this->getReturnType(),

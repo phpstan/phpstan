@@ -2,10 +2,9 @@
 
 namespace PHPStan\Reflection;
 
-use PHPStan\Reflection\Php\DummyParameter;
+use PHPStan\Reflection\Generic\ResolvedFunctionVariant;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\ErrorType;
-use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
@@ -40,22 +39,14 @@ class GenericParametersAcceptorResolver
 			$typeMap = $typeMap->union($paramType->inferTemplateTypes($argType));
 		}
 
-		return new FunctionVariant(
-			$parametersAcceptor->getTemplateTypeMap()->map(static function (string $name, Type $type) use ($typeMap): Type {
-				return $typeMap->getType($name) ?? new ErrorType();
-			}),
-			array_map(static function (ParameterReflection $param) use ($typeMap): ParameterReflection {
-				return new DummyParameter(
-					$param->getName(),
-					TemplateTypeHelper::resolveTemplateTypes($param->getType(), $typeMap),
-					$param->isOptional(),
-					$param->passedByReference(),
-					$param->isVariadic(),
-					$param->getDefaultValue()
-				);
-			}, $parametersAcceptor->getParameters()),
-			$parametersAcceptor->isVariadic(),
-			TemplateTypeHelper::resolveTemplateTypes($parametersAcceptor->getReturnType(), $typeMap)
+		return new ResolvedFunctionVariant(
+			$parametersAcceptor,
+			new TemplateTypeMap(array_merge(
+				$parametersAcceptor->getTemplateTypeMap()->map(static function (string $name, Type $type): Type {
+					return new ErrorType();
+				})->getTypes(),
+				$typeMap->getTypes()
+			))
 		);
 	}
 
