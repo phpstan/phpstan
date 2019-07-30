@@ -9796,7 +9796,7 @@ return [
 'ReflectionProperty::isPublic' => ['bool'],
 'ReflectionProperty::isStatic' => ['bool'],
 'ReflectionProperty::setAccessible' => ['void', 'visible'=>'bool'],
-'ReflectionProperty::setValue' => ['void', 'object'=>'object', 'value'=>''],
+'ReflectionProperty::setValue' => ['void', 'object'=>'null|object', 'value'=>''],
 'ReflectionProperty::setValue\'1' => ['void', 'value'=>''],
 'ReflectionType::__toString' => ['string'],
 'ReflectionType::allowsNull' => ['bool'],
