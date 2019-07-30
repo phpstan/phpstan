@@ -9340,7 +9340,7 @@ return [
 'Redis::publish' => ['int', 'channel'=>'string', 'message'=>'string'],
 'Redis::pubsub' => ['array|int', 'keyword'=>'string', 'argument'=>'array|string'],
 'Redis::randomKey' => ['string'],
-'Redis::rawCommand' => ['mixed', 'command'=>'string', 'arguments'=>'mixed'],
+'Redis::rawCommand' => ['mixed', 'command'=>'string', '...arguments='=>'mixed'],
 'Redis::rename' => ['bool', 'srckey'=>'string', 'dstkey'=>'string'],
 'Redis::renameKey' => ['bool', 'srckey'=>'string', 'dstkey'=>'string'],
 'Redis::renameNx' => ['bool', 'srckey'=>'string', 'dstkey'=>'string'],
