@@ -3185,7 +3185,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$pushedArray',
 			],
 			[
-				'false|string',
+				'string|false',
 				'$simpleXMLReturningXML',
 			],
 			[
