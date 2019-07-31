@@ -156,6 +156,10 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 					426,
 				],
 				[
+					'Strict comparison using === between int and null will always evaluate to false.', // todo remove with isDeterministic
+					438,
+				],
+				[
 					'Strict comparison using === between int|string and 1.0 will always evaluate to false.',
 					464,
 				],
@@ -218,6 +222,10 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 				[
 					'Strict comparison using === between \'foo\' and \'foo\' will always evaluate to true.',
 					887,
+				],
+				[
+					'Strict comparison using === between 1000 and 1000 will always evaluate to true.',
+					910,
 				],
 			]
 		);
@@ -324,6 +332,10 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 				[
 					'Strict comparison using !== between null and null will always evaluate to false.',
 					408,
+				],
+				[
+					'Strict comparison using === between int and null will always evaluate to false.', // todo remove with isDeterministic
+					438,
 				],
 				[
 					'Strict comparison using === between int|string and 1.0 will always evaluate to false.',

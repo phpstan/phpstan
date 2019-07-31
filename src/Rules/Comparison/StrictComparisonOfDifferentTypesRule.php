@@ -3,7 +3,6 @@
 namespace PHPStan\Rules\Comparison;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\VerbosityLevel;
@@ -32,13 +31,6 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 	public function processNode(Node $node, Scope $scope): array
 	{
 		if (!$node instanceof Node\Expr\BinaryOp\Identical && !$node instanceof Node\Expr\BinaryOp\NotIdentical) {
-			return [];
-		}
-
-		if (
-			$this->isSpecifiedFunctionCall($scope, $node->left)
-			|| $this->isSpecifiedFunctionCall($scope, $node->right)
-		) {
 			return [];
 		}
 
@@ -71,15 +63,6 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 		}
 
 		return [];
-	}
-
-	private function isSpecifiedFunctionCall(Scope $scope, Expr $node): bool
-	{
-		return (
-			$node instanceof Expr\FuncCall
-			|| $node instanceof Expr\MethodCall
-			|| $node instanceof Expr\StaticCall
-		) && $scope->isSpecified($node);
 	}
 
 }

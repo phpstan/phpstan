@@ -890,3 +890,26 @@ class InvalidatingVariables
 	}
 
 }
+
+class InvalidationAfterCallingSideEffects
+{
+
+	public function doFoo(\DateTime $dt)
+	{
+		assert($dt->getTimestamp() === 1000);
+		$dt->modify('+1 hours');
+		if ($dt->getTimestamp() === 1000) {
+
+		}
+	}
+
+	public function doBar(\DateTimeImmutable $dti)
+	{
+		assert($dti->getTimestamp() === 1000);
+		$dti->modify('+1 hours');
+		if ($dti->getTimestamp() === 1000) {
+
+		}
+	}
+
+}
