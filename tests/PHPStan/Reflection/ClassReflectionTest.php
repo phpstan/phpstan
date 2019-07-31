@@ -98,4 +98,41 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 		$this->assertTrue($methodVariant->isVariadic());
 	}
 
+	public function testGenericInheritance(): void
+	{
+		/** @var Broker $broker */
+		$broker = self::getContainer()->getService('broker');
+		$reflection = $broker->getClass(\GenericInheritance\C::class);
+
+		$this->assertSame('GenericInheritance\\C', $reflection->getDisplayName());
+
+		$parent = $reflection->getParentClass();
+		$this->assertNotFalse($parent);
+
+		$this->assertSame('GenericInheritance\\C0<DateTime>', $parent->getDisplayName());
+
+		$this->assertSame([
+			'GenericInheritance\\I0<DateTime>',
+			'GenericInheritance\\I1<int>',
+			'GenericInheritance\\I<DateTime>',
+		], array_map(static function (ClassReflection $r): string {
+			return $r->getDisplayName();
+		}, array_values($reflection->getInterfaces())));
+	}
+
+	public function testGenericInheritanceOverride(): void
+	{
+		/** @var Broker $broker */
+		$broker = self::getContainer()->getService('broker');
+		$reflection = $broker->getClass(\GenericInheritance\Override::class);
+
+		$this->assertSame([
+			'GenericInheritance\\I0<DateTimeInterface>',
+			'GenericInheritance\\I1<int>',
+			'GenericInheritance\\I<DateTimeInterface>',
+		], array_map(static function (ClassReflection $r): string {
+			return $r->getDisplayName();
+		}, array_values($reflection->getInterfaces())));
+	}
+
 }
