@@ -4,6 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassMemberAccessAnswerer;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
@@ -725,6 +726,16 @@ class ObjectType implements TypeWithClassName, SubtractableType
 		}
 
 		return $this;
+	}
+
+	public function getClassReflection(): ?ClassReflection
+	{
+		$broker = Broker::getInstance();
+		if (!$broker->hasClass($this->className)) {
+			return null;
+		}
+
+		return $broker->getClass($this->className);
 	}
 
 }

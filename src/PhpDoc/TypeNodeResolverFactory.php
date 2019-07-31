@@ -20,7 +20,8 @@ class TypeNodeResolverFactory
 	public function create(): TypeNodeResolver
 	{
 		return new TypeNodeResolver(
-			$this->container->getServicesByTag(self::EXTENSION_TAG)
+			$this->container->getServicesByTag(self::EXTENSION_TAG),
+			$this->container
 		);
 	}
 
