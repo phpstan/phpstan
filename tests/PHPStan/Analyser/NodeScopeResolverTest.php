@@ -3189,6 +3189,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$simpleXMLReturningXML',
 			],
 			[
+				'string',
+				'$xmlString',
+			],
+			[
 				'bool',
 				'$simpleXMLWritingXML',
 			],

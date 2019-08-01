@@ -159,6 +159,10 @@ class Foo
 
 		$simpleXML = new \SimpleXMLElement('<a><b><c/></b></a>');
 		$simpleXMLReturningXML = $simpleXML->asXML();
+		if ($simpleXMLReturningXML) {
+			$xmlString = $simpleXMLReturningXML;
+		}
+
 		$simpleXMLWritingXML = $simpleXML->asXML('path.xml');
 		die;
 	}
