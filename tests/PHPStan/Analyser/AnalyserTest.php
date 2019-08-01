@@ -236,7 +236,7 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 			new NodeScopeResolver(
 				$broker,
 				$this->getParser(),
-				new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), new AnonymousClassNameHelper($fileHelper, $relativePathHelper), new \PHPStan\PhpDoc\TypeNodeResolver([])),
+				new FileTypeMapper($this->getParser(), $phpDocStringResolver, $this->createMock(Cache::class), new AnonymousClassNameHelper($fileHelper, $relativePathHelper), new \PHPStan\PhpDoc\TypeNodeResolver([], self::getContainer())),
 				$fileHelper,
 				$typeSpecifier,
 				false,

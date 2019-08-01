@@ -93,4 +93,10 @@ class DummyMethodReflection implements MethodReflection
 		return TrinaryLogic::createMaybe();
 	}
 
+	/** @return string|false */
+	public function getDocComment()
+	{
+		return false;
+	}
+
 }

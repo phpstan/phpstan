@@ -74,4 +74,10 @@ class DummyPropertyReflection implements PropertyReflection
 		return TrinaryLogic::createMaybe();
 	}
 
+	/** @return string|false */
+	public function getDocComment()
+	{
+		return false;
+	}
+
 }

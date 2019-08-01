@@ -50,4 +50,10 @@ class MethodPrototypeReflection implements ClassMemberReflection
 		return $this->isPublic;
 	}
 
+	/** @return string|false */
+	public function getDocComment()
+	{
+		return false;
+	}
+
 }

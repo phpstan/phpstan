@@ -343,6 +343,7 @@ class PhpClassReflectionExtension
 				$methodSignature = $this->signatureMapProvider->getFunctionSignature($variantName, $declaringClassName);
 				$variants[] = new FunctionVariant(
 					TemplateTypeMap::createEmpty(),
+					null,
 					array_map(static function (ParameterSignature $parameterSignature): NativeParameterReflection {
 						return new NativeParameterReflection(
 							$parameterSignature->getName(),

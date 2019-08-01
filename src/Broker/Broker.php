@@ -400,6 +400,7 @@ class Broker
 					}
 					$variants[] = new FunctionVariant(
 						TemplateTypeMap::createEmpty(),
+						null,
 						array_map(static function (ParameterSignature $parameterSignature) use ($lowerCasedFunctionName): NativeParameterReflection {
 							$type = $parameterSignature->getType();
 							if (

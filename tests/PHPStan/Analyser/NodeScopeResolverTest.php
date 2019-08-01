@@ -5741,7 +5741,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$parseUrlStringUrlWithComponentInvalid',
 			],
 			[
-				'int|null',
+				'int|false|null',
 				'$parseUrlStringUrlWithComponentPort',
 			],
 			[
@@ -6879,7 +6879,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$iterableWithTooManyArgs',
 			],
 			[
-				'mixed',
+				'Foo<int>',
 				'$genericFoo',
 			],
 		];

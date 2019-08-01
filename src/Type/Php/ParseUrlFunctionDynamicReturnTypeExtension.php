@@ -14,6 +14,7 @@ use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ConstantType;
 use PHPStan\Type\DynamicFunctionReturnTypeExtension;
 use PHPStan\Type\IntegerType;
+use PHPStan\Type\NullType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
@@ -107,19 +108,21 @@ final class ParseUrlFunctionDynamicReturnTypeExtension implements DynamicFunctio
 
 		$string = new StringType();
 		$integer = new IntegerType();
+		$false = new ConstantBooleanType(false);
+		$null = new NullType();
 
-		$stringOrNull = TypeCombinator::addNull($string);
-		$integerOrNull = TypeCombinator::addNull($integer);
+		$stringOrFalseOrNull = TypeCombinator::union($string, $false, $null);
+		$integerOrFalseOrNull = TypeCombinator::union($integer, $false, $null);
 
 		$this->componentTypesPairedConstants = [
-			PHP_URL_SCHEME => $stringOrNull,
-			PHP_URL_HOST => $stringOrNull,
-			PHP_URL_PORT => $integerOrNull,
-			PHP_URL_USER => $stringOrNull,
-			PHP_URL_PASS => $stringOrNull,
-			PHP_URL_PATH => $stringOrNull,
-			PHP_URL_QUERY => $stringOrNull,
-			PHP_URL_FRAGMENT => $stringOrNull,
+			PHP_URL_SCHEME => $stringOrFalseOrNull,
+			PHP_URL_HOST => $stringOrFalseOrNull,
+			PHP_URL_PORT => $integerOrFalseOrNull,
+			PHP_URL_USER => $stringOrFalseOrNull,
+			PHP_URL_PASS => $stringOrFalseOrNull,
+			PHP_URL_PATH => $stringOrFalseOrNull,
+			PHP_URL_QUERY => $stringOrFalseOrNull,
+			PHP_URL_FRAGMENT => $stringOrFalseOrNull,
 		];
 
 		$this->componentTypesPairedStrings = [

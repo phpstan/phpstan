@@ -132,6 +132,7 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 			$this->variants = [
 				new FunctionVariantWithPhpDocs(
 					$this->templateTypeMap,
+					null,
 					$this->getParameters(),
 					$this->isVariadic(),
 					$this->getReturnType(),

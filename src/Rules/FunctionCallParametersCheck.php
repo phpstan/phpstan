@@ -196,7 +196,7 @@ class FunctionCallParametersCheck
 			);
 		}
 
-		foreach ($parametersAcceptor->getTemplateTypeMap()->getTypes() as $name => $type) {
+		foreach ($parametersAcceptor->getResolvedTemplateTypeMap()->getTypes() as $name => $type) {
 			if (!($type instanceof ErrorType) && !($type instanceof NeverType)) {
 				continue;
 			}

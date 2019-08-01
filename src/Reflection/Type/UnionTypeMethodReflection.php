@@ -90,6 +90,7 @@ class UnionTypeMethodReflection implements MethodReflection
 		return array_map(static function (ParametersAcceptor $acceptor) use ($returnType): ParametersAcceptor {
 			return new FunctionVariant(
 				$acceptor->getTemplateTypeMap(),
+				$acceptor->getResolvedTemplateTypeMap(),
 				$acceptor->getParameters(),
 				$acceptor->isVariadic(),
 				$returnType
@@ -153,6 +154,12 @@ class UnionTypeMethodReflection implements MethodReflection
 		return TrinaryLogic::extremeIdentity(...array_map(static function (MethodReflection $method): TrinaryLogic {
 			return $method->hasSideEffects();
 		}, $this->methods));
+	}
+
+	/** @return string|false */
+	public function getDocComment()
+	{
+		return false;
 	}
 
 }

@@ -2452,17 +2452,21 @@ class Scope implements ClassMemberAccessAnswerer
 	{
 		$scope = $this;
 		if ($expr instanceof PropertyFetch || $expr instanceof Expr\StaticPropertyFetch) {
-			$exprString = $this->printer->prettyPrintExpr($expr);
-			$scope = $this->invalidateExpression($exprString);
+			$scope = $this->invalidateExpression($expr);
 		}
 
 		return $scope->specifyExpressionType($expr, $type);
 	}
 
-	private function invalidateExpression(string $exprStringToInvalidate): self
+	public function invalidateExpression(Expr $expressionToInvalidate, bool $requireMoreCharacters = false): self
 	{
+		$exprStringToInvalidate = $this->printer->prettyPrintExpr($expressionToInvalidate);
 		$moreSpecificTypeHolders = $this->moreSpecificTypes;
 		foreach (array_keys($moreSpecificTypeHolders) as $exprString) {
+			$exprString = (string) $exprString;
+			if ($requireMoreCharacters && $exprString === $exprStringToInvalidate) {
+				continue;
+			}
 			if (!Strings::startsWith($exprString, $exprStringToInvalidate)) {
 				continue;
 			}

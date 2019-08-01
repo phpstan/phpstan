@@ -85,4 +85,10 @@ class PhpDefectPropertyReflection implements PropertyReflection
 		return TrinaryLogic::createNo();
 	}
 
+	/** @return string|false */
+	public function getDocComment()
+	{
+		return false;
+	}
+
 }

@@ -4,9 +4,20 @@ namespace PHPStan\Reflection;
 
 use PHPStan\Broker\Broker;
 use PHPStan\PhpDoc\ResolvedPhpDocBlock;
+use PHPStan\PhpDoc\Tag\ExtendsTag;
+use PHPStan\PhpDoc\Tag\ImplementsTag;
+use PHPStan\PhpDoc\Tag\TemplateTag;
 use PHPStan\Reflection\Php\PhpClassReflectionExtension;
 use PHPStan\Reflection\Php\PhpPropertyReflection;
+use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\Generic\GenericObjectType;
+use PHPStan\Type\Generic\TemplateTypeFactory;
+use PHPStan\Type\Generic\TemplateTypeHelper;
+use PHPStan\Type\Generic\TemplateTypeMap;
+use PHPStan\Type\Generic\TemplateTypeScope;
+use PHPStan\Type\Type;
+use PHPStan\Type\VerbosityLevel;
 
 class ClassReflection implements ReflectionWithFilename
 {
@@ -56,6 +67,12 @@ class ClassReflection implements ReflectionWithFilename
 	/** @var bool|null */
 	private $isFinal;
 
+	/** @var ?TemplateTypeMap */
+	private $templateTypeMap;
+
+	/** @var ?TemplateTypeMap */
+	private $resolvedTemplateTypeMap;
+
 	/**
 	 * @param Broker $broker
 	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
@@ -72,7 +89,8 @@ class ClassReflection implements ReflectionWithFilename
 		array $methodsClassReflectionExtensions,
 		string $displayName,
 		\ReflectionClass $reflection,
-		?string $anonymousFilename
+		?string $anonymousFilename,
+		?TemplateTypeMap $resolvedTemplateTypeMap = null
 	)
 	{
 		$this->broker = $broker;
@@ -82,6 +100,7 @@ class ClassReflection implements ReflectionWithFilename
 		$this->displayName = $displayName;
 		$this->reflection = $reflection;
 		$this->anonymousFilename = $anonymousFilename;
+		$this->resolvedTemplateTypeMap = $resolvedTemplateTypeMap;
 	}
 
 	public function getNativeReflection(): \ReflectionClass
@@ -114,11 +133,32 @@ class ClassReflection implements ReflectionWithFilename
 	 */
 	public function getParentClass()
 	{
-		if ($this->reflection->getParentClass() === false) {
+		$parentClass = $this->reflection->getParentClass();
+
+		if ($parentClass === false) {
 			return false;
 		}
 
-		return $this->broker->getClass($this->reflection->getParentClass()->getName());
+		$extendsTag = $this->getFirstExtendsTag();
+
+		if ($extendsTag !== null && $this->isValidAncestorType($extendsTag->getType(), [$parentClass->getName()])) {
+			$extendedType = $extendsTag->getType();
+
+			if ($this->isGeneric()) {
+				$extendedType = TemplateTypeHelper::resolveTemplateTypes(
+					$extendedType,
+					$this->getActiveTemplateTypeMap()
+				);
+			}
+
+			if (!$extendedType instanceof GenericObjectType) {
+				return $this->broker->getClass($parentClass->getName());
+			}
+
+			return $extendedType->getClassReflection() ?? $this->broker->getClass($parentClass->getName());
+		}
+
+		return $this->broker->getClass($parentClass->getName());
 	}
 
 	public function getName(): string
@@ -126,9 +166,17 @@ class ClassReflection implements ReflectionWithFilename
 		return $this->reflection->getName();
 	}
 
-	public function getDisplayName(): string
+	public function getDisplayName(bool $withTemplateTypes = true): string
 	{
-		return $this->displayName;
+		$name = $this->displayName;
+
+		if ($withTemplateTypes === false || $this->resolvedTemplateTypeMap === null) {
+			return $name;
+		}
+
+		return $name . '<' . implode(',', array_map(static function (Type $type): string {
+			return $type->describe(VerbosityLevel::typeOnly());
+		}, $this->resolvedTemplateTypeMap->getTypes())) . '>';
 	}
 
 	/**
@@ -357,9 +405,66 @@ class ClassReflection implements ReflectionWithFilename
 	 */
 	public function getInterfaces(): array
 	{
-		return array_map(function (\ReflectionClass $interface): ClassReflection {
-			return $this->broker->getClass($interface->getName());
-		}, $this->getNativeReflection()->getInterfaces());
+		$interfaces = [];
+
+		$parent = $this->getParentClass();
+		if ($parent !== false) {
+			foreach ($parent->getInterfaces() as $interface) {
+				$interfaces[$interface->getName()] = $interface;
+			}
+		}
+
+		if ($this->reflection->isInterface()) {
+			$implementsTags = $this->getExtendsTags();
+		} else {
+			$implementsTags = $this->getImplementsTags();
+		}
+
+		$interfaceNames = $this->reflection->getInterfaceNames();
+		$genericInterfaces = [];
+
+		foreach ($implementsTags as $implementsTag) {
+			$implementedType = $implementsTag->getType();
+
+			if (!$this->isValidAncestorType($implementedType, $interfaceNames)) {
+				continue;
+			}
+
+			if ($this->isGeneric()) {
+				$implementedType = TemplateTypeHelper::resolveTemplateTypes(
+					$implementedType,
+					$this->getActiveTemplateTypeMap()
+				);
+			}
+
+			if (!$implementedType instanceof GenericObjectType) {
+				continue;
+			}
+
+			$reflectionIface = $implementedType->getClassReflection();
+			if ($reflectionIface === null) {
+				continue;
+			}
+
+			$genericInterfaces[] = $reflectionIface;
+		}
+
+		foreach ($genericInterfaces as $genericInterface) {
+			$interfaces = array_merge($interfaces, $genericInterface->getInterfaces());
+		}
+
+		foreach ($genericInterfaces as $genericInterface) {
+			$interfaces[$genericInterface->getName()] = $genericInterface;
+		}
+
+		foreach ($interfaceNames as $interfaceName) {
+			if (isset($interfaces[$interfaceName])) {
+				continue;
+			}
+			$interfaces[$interfaceName] = $this->broker->getClass($interfaceName);
+		}
+
+		return $interfaces;
 	}
 
 	/**
@@ -489,6 +594,79 @@ class ClassReflection implements ReflectionWithFilename
 		return $this->isFinal;
 	}
 
+	public function getTemplateTypeMap(): TemplateTypeMap
+	{
+		if ($this->templateTypeMap !== null) {
+			return $this->templateTypeMap;
+		}
+
+		$resolvedPhpDoc = $this->getResolvedPhpDoc();
+		if ($resolvedPhpDoc === null) {
+			$this->templateTypeMap = TemplateTypeMap::createEmpty();
+			return $this->templateTypeMap;
+		}
+
+		$templateTypeMap = new TemplateTypeMap(array_map(function (TemplateTag $tag): Type {
+			return TemplateTypeFactory::fromTemplateTag(
+				TemplateTypeScope::createWithClass($this->getName()),
+				$tag
+			);
+		}, $this->getTemplateTags()));
+
+		$this->templateTypeMap = $templateTypeMap;
+
+		return $templateTypeMap;
+	}
+
+	public function getResolvedTemplateTypeMap(): ?TemplateTypeMap
+	{
+		return $this->resolvedTemplateTypeMap;
+	}
+
+	public function getActiveTemplateTypeMap(): TemplateTypeMap
+	{
+		return $this->resolvedTemplateTypeMap ?? $this->getTemplateTypeMap();
+	}
+
+	public function isGeneric(): bool
+	{
+		return count($this->getTemplateTags()) > 0;
+	}
+
+	public function typeMapFromList(array $types): TemplateTypeMap
+	{
+		$resolvedPhpDoc = $this->getResolvedPhpDoc();
+		if ($resolvedPhpDoc === null) {
+			return TemplateTypeMap::createEmpty();
+		}
+
+		$map = [];
+		$i = 0;
+		foreach ($resolvedPhpDoc->getTemplateTags() as $tag) {
+			$map[$tag->getName()] = $types[$i] ?? new ErrorType();
+			$i++;
+		}
+
+		return new TemplateTypeMap($map);
+	}
+
+	/**
+	 * @param Type[] $types
+	 */
+	public function withTypes(array $types): self
+	{
+		return new self(
+			$this->broker,
+			$this->fileTypeMapper,
+			$this->propertiesClassReflectionExtensions,
+			$this->methodsClassReflectionExtensions,
+			$this->displayName,
+			$this->reflection,
+			$this->anonymousFilename,
+			$this->typeMapFromList($types)
+		);
+	}
+
 	private function getResolvedPhpDoc(): ?ResolvedPhpDocBlock
 	{
 		$fileName = $this->reflection->getFileName();
@@ -502,6 +680,65 @@ class ClassReflection implements ReflectionWithFilename
 		}
 
 		return $this->fileTypeMapper->getResolvedPhpDoc($fileName, $this->getName(), null, $docComment);
+	}
+
+	private function getFirstExtendsTag(): ?ExtendsTag
+	{
+		foreach ($this->getExtendsTags() as $tag) {
+			return $tag;
+		}
+
+		return null;
+	}
+
+	/** @return ExtendsTag[] */
+	private function getExtendsTags(): array
+	{
+		$resolvedPhpDoc = $this->getResolvedPhpDoc();
+		if ($resolvedPhpDoc === null) {
+			return [];
+		}
+
+		return $resolvedPhpDoc->getExtendsTags();
+	}
+
+	/** @return ImplementsTag[] */
+	private function getImplementsTags(): array
+	{
+		$resolvedPhpDoc = $this->getResolvedPhpDoc();
+		if ($resolvedPhpDoc === null) {
+			return [];
+		}
+
+		return $resolvedPhpDoc->getImplementsTags();
+	}
+
+	/** @return array<string,TemplateTag> */
+	private function getTemplateTags(): array
+	{
+		$resolvedPhpDoc = $this->getResolvedPhpDoc();
+		if ($resolvedPhpDoc === null) {
+			return [];
+		}
+
+		return $resolvedPhpDoc->getTemplateTags();
+	}
+
+	/**
+	 * @param string[] $ancestorClasses
+	 */
+	private function isValidAncestorType(Type $type, array $ancestorClasses): bool
+	{
+		if (!$type instanceof GenericObjectType) {
+			return false;
+		}
+
+		$reflection = $type->getClassReflection();
+		if ($reflection === null) {
+			return false;
+		}
+
+		return in_array($reflection->getName(), $ancestorClasses, true);
 	}
 
 }

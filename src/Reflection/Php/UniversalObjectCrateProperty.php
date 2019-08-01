@@ -84,4 +84,10 @@ class UniversalObjectCrateProperty implements \PHPStan\Reflection\PropertyReflec
 		return TrinaryLogic::createNo();
 	}
 
+	/** @return string|false */
+	public function getDocComment()
+	{
+		return false;
+	}
+
 }

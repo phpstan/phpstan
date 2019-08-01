@@ -4,6 +4,7 @@ namespace PHPStan\PhpDoc;
 
 use PHPStan\Analyser\NameScope;
 use PHPStan\Broker\Broker;
+use PHPStan\DependencyInjection\Container;
 use PHPStan\PhpDocParser\Ast\ConstExpr\ConstExprIntegerNode;
 use PHPStan\PhpDocParser\Ast\Type\ArrayShapeNode;
 use PHPStan\PhpDocParser\Ast\Type\ArrayTypeNode;
@@ -28,6 +29,7 @@ use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
+use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\IterableType;
@@ -43,6 +45,7 @@ use PHPStan\Type\StringType;
 use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VoidType;
 
@@ -52,10 +55,13 @@ class TypeNodeResolver
 	/** @var TypeNodeResolverExtension[] */
 	private $extensions;
 
+	/** @var Container */
+	private $container;
+
 	/**
 	 * @param TypeNodeResolverExtension[] $extensions
 	 */
-	public function __construct(array $extensions)
+	public function __construct(array $extensions, Container $container)
 	{
 		foreach ($extensions as $extension) {
 			if (!$extension instanceof TypeNodeResolverAwareExtension) {
@@ -66,11 +72,12 @@ class TypeNodeResolver
 		}
 
 		$this->extensions = $extensions;
+		$this->container = $container;
 	}
 
 	public function getCacheKey(): string
 	{
-		$key = 'v63-generic-class-annotations';
+		$key = 'v64-generic-class-reflection';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}
@@ -193,9 +200,8 @@ class TypeNodeResolver
 					return new StaticType($nameScope->getClassName());
 
 				case 'parent':
-					$broker = Broker::getInstance();
-					if ($broker->hasClass($nameScope->getClassName())) {
-						$classReflection = $broker->getClass($nameScope->getClassName());
+					if ($this->getBroker()->hasClass($nameScope->getClassName())) {
+						$classReflection = $this->getBroker()->getClass($nameScope->getClassName());
 						if ($classReflection->getParentClass() !== false) {
 							return new ObjectType($classReflection->getParentClass()->getName());
 						}
@@ -312,6 +318,13 @@ class TypeNodeResolver
 
 		$mainType = $this->resolveIdentifierTypeNode($typeNode->type, $nameScope);
 
+		if ($mainType instanceof TypeWithClassName && $this->getBroker()->hasClass($mainType->getClassName())) {
+			$classReflection = $this->getBroker()->getClass($mainType->getClassName());
+			if ($classReflection->isGeneric()) {
+				return new GenericObjectType($mainType->getClassName(), $genericTypes);
+			}
+		}
+
 		if ($mainType->isIterable()->yes()) {
 			if (count($genericTypes) === 1) { // Foo<ValueType>
 				return TypeCombinator::intersect(
@@ -326,6 +339,10 @@ class TypeNodeResolver
 					new IterableType($genericTypes[0], $genericTypes[1])
 				);
 			}
+		}
+
+		if ($mainType instanceof TypeWithClassName) {
+			return new GenericObjectType($mainType->getClassName(), $genericTypes);
 		}
 
 		return new ErrorType();
@@ -418,6 +435,11 @@ class TypeNodeResolver
 		}
 
 		return $types;
+	}
+
+	private function getBroker(): Broker
+	{
+		return $this->container->getByType(Broker::class);
 	}
 
 }
