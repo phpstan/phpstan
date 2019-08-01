@@ -52,12 +52,16 @@
 	"autoload": {
 		"psr-4": {
 			"PHPStan\\": [
-				"src/",
-				"build/PHPStan"
+				"src/"
 			]
 		}
 	},
 	"autoload-dev": {
+		"psr-4": {
+			"PHPStan\\": [
+				"build/PHPStan"
+			]
+		},
 		"classmap": [
 			"tests/PHPStan"
 		]
