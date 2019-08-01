@@ -5733,7 +5733,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$parseUrlStringUrlWithComponentInvalid',
 			],
 			[
-				'int|null',
+				'int|false|null',
 				'$parseUrlStringUrlWithComponentPort',
 			],
 			[
