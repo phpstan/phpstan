@@ -133,6 +133,10 @@ class ImpossibleCheckTypeFunctionCallRuleTest extends \PHPStan\Testing\RuleTestC
 					'Call to function is_callable() with mixed will always evaluate to false.',
 					571,
 				],
+				[
+					'Call to function is_callable() with array($this(CheckTypeFunctionCall\CheckIsCallableWithStringUnion), \'bar\'|\'foo\') will always evaluate to true.',
+					594,
+				],
 			]
 		);
 	}

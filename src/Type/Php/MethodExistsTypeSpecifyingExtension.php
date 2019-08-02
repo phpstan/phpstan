@@ -14,6 +14,9 @@ use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\FunctionTypeSpecifyingExtension;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\ObjectWithoutClassType;
+use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\UnionType;
 
 class MethodExistsTypeSpecifyingExtension implements FunctionTypeSpecifyingExtension, TypeSpecifierAwareExtension
 {
@@ -45,7 +48,8 @@ class MethodExistsTypeSpecifyingExtension implements FunctionTypeSpecifyingExten
 	): SpecifiedTypes
 	{
 		$methodNameType = $scope->getType($node->args[1]->value);
-		if (!$methodNameType instanceof ConstantStringType) {
+		$methodNames = $this->getMethodNames($methodNameType);
+		if (count($methodNames) === 0) {
 			return new SpecifiedTypes([], []);
 		}
 
@@ -53,10 +57,40 @@ class MethodExistsTypeSpecifyingExtension implements FunctionTypeSpecifyingExten
 			$node->args[0]->value,
 			new IntersectionType([
 				new ObjectWithoutClassType(),
-				new HasMethodType($methodNameType->getValue()),
+				TypeCombinator::union(...array_map(
+					static function (string $methodName): HasMethodType {
+						return new HasMethodType($methodName);
+					},
+					$methodNames
+				)),
 			]),
 			$context
 		);
+	}
+
+	/**
+	 * @return string[]
+	 */
+	private function getMethodNames(Type $methodNameType): array
+	{
+		if ($methodNameType instanceof ConstantStringType) {
+			return [$methodNameType->getValue()];
+		}
+
+		if (!$methodNameType instanceof UnionType) {
+			return [];
+		}
+
+		$methodNames = [];
+		foreach ($methodNameType->getTypes() as $subType) {
+			if (!$subType instanceof ConstantStringType) {
+				return [];
+			}
+
+			$methodNames[] = $subType->getValue();
+		}
+
+		return $methodNames;
 	}
 
 }

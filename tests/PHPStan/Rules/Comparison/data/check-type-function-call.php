@@ -574,3 +574,26 @@ class CheckIsStringOnSubtractedMixed
 	}
 
 }
+
+final class CheckIsCallableWithStringUnion
+{
+
+	public function foo()
+	{
+
+	}
+
+	public function bar()
+	{
+
+	}
+
+	public function test()
+	{
+		foreach (['foo', 'bar'] as $method) {
+			if (!is_callable([$this, $method])) {
+			}
+		}
+	}
+
+}
