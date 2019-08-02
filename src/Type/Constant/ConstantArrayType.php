@@ -172,6 +172,18 @@ class ConstantArrayType extends ArrayType implements ConstantType
 
 	public function isCallable(): TrinaryLogic
 	{
+		if (count($this->valueTypes) === 2) {
+			[$objectOrClass, $methods] = $this->valueTypes;
+			if ($methods instanceof UnionType) {
+				return TrinaryLogic::extremeIdentity(...array_map(
+					function (Type $method) use ($objectOrClass): TrinaryLogic {
+						return (new ConstantArrayType($this->keyTypes, [$objectOrClass, $method]))->isCallable();
+					},
+					$methods->getTypes()
+				));
+			}
+		}
+
 		$typeAndMethod = $this->findTypeAndMethodName();
 		if ($typeAndMethod === null) {
 			return TrinaryLogic::createNo();
