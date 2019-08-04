@@ -157,6 +157,13 @@ class Foo
 		$pushedArray = doFoo();
 		array_push($pushedArray, 1);
 
+		$simpleXML = new \SimpleXMLElement('<a><b><c/></b></a>');
+		$simpleXMLReturningXML = $simpleXML->asXML();
+		if ($simpleXMLReturningXML) {
+			$xmlString = $simpleXMLReturningXML;
+		}
+
+		$simpleXMLWritingXML = $simpleXML->asXML('path.xml');
 		die;
 	}
 
