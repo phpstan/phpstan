@@ -9512,6 +9512,78 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataArrowFunctions(): array
+	{
+		return [
+			[
+				'Closure(string): int',
+				'$x',
+			],
+			[
+				'int',
+				'$x()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataArrowFunctions
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testArrowFunctions(
+		string $description,
+		string $expression
+	): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/arrow-functions.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataArrowFunctionsInside(): array
+	{
+		return [
+			[
+				'int',
+				'$i',
+			],
+			[
+				'string',
+				'$s',
+			],
+			[
+				'*ERROR*',
+				'$t',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataArrowFunctionsInside
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testArrowFunctionsInside(
+		string $description,
+		string $expression
+	): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/arrow-functions-inside.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataTryCatchScope(): array
 	{
 		return [

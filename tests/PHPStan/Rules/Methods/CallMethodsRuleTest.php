@@ -736,6 +736,34 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
+	public function testArrowFunctionClosureBind(): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+		$this->checkThisOnly = false;
+		$this->checkNullables = true;
+		$this->checkUnionTypes = true;
+		$this->analyse([__DIR__ . '/data/arrow-function-bind.php'], [
+			[
+				'Call to an undefined method CallArrowFunctionBind\Foo::nonexistentMethod().',
+				27,
+			],
+			[
+				'Call to an undefined method CallArrowFunctionBind\Foo::nonexistentMethod().',
+				31,
+			],
+			[
+				'Call to an undefined method CallArrowFunctionBind\Foo::nonexistentMethod().',
+				33,
+			],
+			[
+				'Call to an undefined method CallArrowFunctionBind\Foo::nonexistentMethod().',
+				35,
+			],
+		]);
+	}
+
 	public function testCallVariadicMethods(): void
 	{
 		$this->checkThisOnly = false;

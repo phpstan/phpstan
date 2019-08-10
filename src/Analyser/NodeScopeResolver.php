@@ -50,6 +50,7 @@ use PHPStan\File\FileHelper;
 use PHPStan\Node\ClosureReturnStatementsNode;
 use PHPStan\Node\ExecutionEndNode;
 use PHPStan\Node\FunctionReturnStatementsNode;
+use PHPStan\Node\InArrowFunctionNode;
 use PHPStan\Node\InClassMethodNode;
 use PHPStan\Node\InClosureNode;
 use PHPStan\Node\InFunctionNode;
@@ -1447,7 +1448,7 @@ class NodeScopeResolver
 		} elseif ($expr instanceof MethodCall) {
 			$originalScope = $scope;
 			if (
-				$expr->var instanceof Expr\Closure
+				($expr->var instanceof Expr\Closure || $expr->var instanceof Expr\ArrowFunction)
 				&& $expr->name instanceof Node\Identifier
 				&& strtolower($expr->name->name) === 'call'
 				&& isset($expr->args[0])
@@ -1577,6 +1578,19 @@ class NodeScopeResolver
 		} elseif ($expr instanceof Expr\ClosureUse) {
 			$this->processExprNode($expr->var, $scope, $nodeCallback, $context);
 			$hasYield = false;
+		} elseif ($expr instanceof Expr\ArrowFunction) {
+			foreach ($expr->params as $param) {
+				$this->processParamNode($param, $scope, $nodeCallback);
+			}
+			if ($expr->returnType !== null) {
+				$nodeCallback($expr->returnType, $scope);
+			}
+
+			$arrowFunctionScope = $scope->enterArrowFunction($expr);
+			$nodeCallback(new InArrowFunctionNode($expr), $arrowFunctionScope);
+			$this->processExprNode($expr->expr, $arrowFunctionScope, $nodeCallback, $context);
+			$hasYield = false;
+
 		} elseif ($expr instanceof ErrorSuppress) {
 			$result = $this->processExprNode($expr->expr, $scope, $nodeCallback, $context);
 			$hasYield = $result->hasYield();
