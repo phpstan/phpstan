@@ -5,6 +5,7 @@ namespace PHPStan\Analyser;
 use PhpParser\Node\Expr;
 use PHPStan\Broker\Broker;
 use PHPStan\DependencyInjection\Container;
+use PHPStan\Rules\Properties\PropertyReflectionFinder;
 use PHPStan\Type\Type;
 
 class ScopeFactory
@@ -22,6 +23,9 @@ class ScopeFactory
 	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
+	/** @var \PHPStan\Rules\Properties\PropertyReflectionFinder */
+	private $propertyReflectionFinder;
+
 	/** @var string[] */
 	private $dynamicConstantNames;
 
@@ -30,6 +34,7 @@ class ScopeFactory
 		Broker $broker,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		TypeSpecifier $typeSpecifier,
+		PropertyReflectionFinder $propertyReflectionFinder,
 		Container $container
 	)
 	{
@@ -37,6 +42,7 @@ class ScopeFactory
 		$this->broker = $broker;
 		$this->printer = $printer;
 		$this->typeSpecifier = $typeSpecifier;
+		$this->propertyReflectionFinder = $propertyReflectionFinder;
 		$this->dynamicConstantNames = $container->getParameter('dynamicConstantNames');
 	}
 
@@ -81,6 +87,7 @@ class ScopeFactory
 			$this->broker,
 			$this->printer,
 			$this->typeSpecifier,
+			$this->propertyReflectionFinder,
 			$context,
 			$declareStrictTypes,
 			$function,

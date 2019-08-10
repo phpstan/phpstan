@@ -167,6 +167,7 @@ class PhpClassReflectionExtension
 			? $propertyReflection->getDocComment()
 			: null;
 
+		$phpDocType = null;
 		if ($declaringClassReflection->getFileName() !== false) {
 			$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForProperty(
 				$this->broker,
@@ -186,11 +187,9 @@ class PhpClassReflectionExtension
 				);
 				$varTags = $resolvedPhpDoc->getVarTags();
 				if (isset($varTags[0]) && count($varTags) === 1) {
-					$type = $varTags[0]->getType();
+					$phpDocType = $varTags[0]->getType();
 				} elseif (isset($varTags[$propertyName])) {
-					$type = $varTags[$propertyName]->getType();
-				} else {
-					$type = new MixedType();
+					$phpDocType = $varTags[$propertyName]->getType();
 				}
 				$deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag() !== null ? $resolvedPhpDoc->getDeprecatedTag()->getMessage() : null;
 				$isDeprecated = $resolvedPhpDoc->isDeprecated();
@@ -198,23 +197,26 @@ class PhpClassReflectionExtension
 			} elseif (
 				$this->inferPrivatePropertyTypeFromConstructor
 				&& $propertyReflection->isPrivate()
+				&& (!method_exists($propertyReflection, 'hasType') || !$propertyReflection->hasType())
 				&& $declaringClassReflection->hasConstructor()
 				&& $declaringClassReflection->getConstructor()->getDeclaringClass()->getName() === $declaringClassReflection->getName()
 			) {
-				$type = $this->inferPrivatePropertyType(
+				$phpDocType = $this->inferPrivatePropertyType(
 					$propertyReflection->getName(),
 					$declaringClassReflection->getConstructor()
 				);
-			} else {
-				$type = new MixedType();
 			}
-		} else {
-			$type = new MixedType();
+		}
+
+		$nativeType = null;
+		if (method_exists($propertyReflection, 'getType') && $propertyReflection->getType() !== null) {
+			$nativeType = $propertyReflection->getType();
 		}
 
 		return new PhpPropertyReflection(
 			$declaringClassReflection,
-			$type,
+			$nativeType,
+			$phpDocType,
 			$propertyReflection,
 			$deprecatedDescription,
 			$isDeprecated,

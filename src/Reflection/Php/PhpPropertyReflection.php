@@ -6,7 +6,10 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\DeprecatableReflection;
 use PHPStan\Reflection\InternableReflection;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypehintHelper;
 
 class PhpPropertyReflection implements PropertyReflection, DeprecatableReflection, InternableReflection
 {
@@ -14,7 +17,16 @@ class PhpPropertyReflection implements PropertyReflection, DeprecatableReflectio
 	/** @var \PHPStan\Reflection\ClassReflection */
 	private $declaringClass;
 
-	/** @var \PHPStan\Type\Type */
+	/** @var \ReflectionType|null */
+	private $nativeType;
+
+	/** @var \PHPStan\Type\Type|null */
+	private $finalNativeType;
+
+	/** @var \PHPStan\Type\Type|null */
+	private $phpDocType;
+
+	/** @var \PHPStan\Type\Type|null */
 	private $type;
 
 	/** @var \ReflectionProperty */
@@ -31,7 +43,8 @@ class PhpPropertyReflection implements PropertyReflection, DeprecatableReflectio
 
 	public function __construct(
 		ClassReflection $declaringClass,
-		Type $type,
+		?\ReflectionType $nativeType,
+		?Type $phpDocType,
 		\ReflectionProperty $reflection,
 		?string $deprecatedDescription,
 		bool $isDeprecated,
@@ -39,7 +52,8 @@ class PhpPropertyReflection implements PropertyReflection, DeprecatableReflectio
 	)
 	{
 		$this->declaringClass = $declaringClass;
-		$this->type = $type;
+		$this->nativeType = $nativeType;
+		$this->phpDocType = $phpDocType;
 		$this->reflection = $reflection;
 		$this->deprecatedDescription = $deprecatedDescription;
 		$this->isDeprecated = $isDeprecated;
@@ -76,7 +90,45 @@ class PhpPropertyReflection implements PropertyReflection, DeprecatableReflectio
 
 	public function getType(): Type
 	{
+		if ($this->type === null) {
+			$phpDocType = $this->phpDocType;
+			if (
+				$this->nativeType !== null
+				&& $this->phpDocType !== null
+				&& $this->nativeType->allowsNull() !== TypeCombinator::containsNull($this->phpDocType)
+			) {
+				$phpDocType = null;
+			}
+			$this->type = TypehintHelper::decideTypeFromReflection(
+				$this->nativeType,
+				$phpDocType,
+				$this->declaringClass->getName()
+			);
+		}
+
 		return $this->type;
+	}
+
+	public function getPhpDocType(): Type
+	{
+		if ($this->phpDocType !== null) {
+			return $this->phpDocType;
+		}
+
+		return new MixedType();
+	}
+
+	public function getNativeType(): Type
+	{
+		if ($this->finalNativeType === null) {
+			$this->finalNativeType = TypehintHelper::decideTypeFromReflection(
+				$this->nativeType,
+				null,
+				$this->declaringClass->getName()
+			);
+		}
+
+		return $this->finalNativeType;
 	}
 
 	public function isReadable(): bool

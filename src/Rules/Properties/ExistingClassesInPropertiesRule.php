@@ -23,15 +23,20 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 	/** @var bool */
 	private $checkClassCaseSensitivity;
 
+	/** @var bool */
+	private $checkThisOnly;
+
 	public function __construct(
 		Broker $broker,
 		ClassCaseSensitivityCheck $classCaseSensitivityCheck,
-		bool $checkClassCaseSensitivity
+		bool $checkClassCaseSensitivity,
+		bool $checkThisOnly
 	)
 	{
 		$this->broker = $broker;
 		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
 		$this->checkClassCaseSensitivity = $checkClassCaseSensitivity;
+		$this->checkThisOnly = $checkThisOnly;
 	}
 
 	public function getNodeType(): string
@@ -51,7 +56,14 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 		}
 
 		$propertyReflection = $scope->getClassReflection()->getNativeProperty($node->name->name);
-		$referencedClasses = $propertyReflection->getType()->getReferencedClasses();
+		if ($this->checkThisOnly) {
+			$referencedClasses = $propertyReflection->getNativeType()->getReferencedClasses();
+		} else {
+			$referencedClasses = array_merge(
+				$propertyReflection->getNativeType()->getReferencedClasses(),
+				$propertyReflection->getPhpDocType()->getReferencedClasses()
+			);
+		}
 
 		$errors = [];
 		foreach ($referencedClasses as $referencedClass) {
