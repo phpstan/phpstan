@@ -493,6 +493,10 @@ class NodeScopeResolver
 			foreach ($stmt->props as $prop) {
 				$this->processStmtNode($prop, $scope, $nodeCallback);
 			}
+
+			if ($stmt->type !== null) {
+				$nodeCallback($stmt->type, $scope);
+			}
 		} elseif ($stmt instanceof Node\Stmt\PropertyProperty) {
 			$hasYield = false;
 			if ($stmt->default !== null) {
