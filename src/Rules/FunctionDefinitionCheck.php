@@ -96,8 +96,30 @@ class FunctionDefinitionCheck
 			);
 		}
 
+		return $this->checkAnonymousFunction(
+			$function->getParams(),
+			$function->getReturnType(),
+			$parameterMessage,
+			$returnMessage
+		);
+	}
+
+	/**
+	 * @param \PhpParser\Node\Param[] $parameters
+	 * @param \PhpParser\Node\Identifier|\PhpParser\Node\Name|\PhpParser\Node\NullableType|null $returnTypeNode
+	 * @param string $parameterMessage
+	 * @param string $returnMessage
+	 * @return \PHPStan\Rules\RuleError[]
+	 */
+	public function checkAnonymousFunction(
+		array $parameters,
+		$returnTypeNode,
+		string $parameterMessage,
+		string $returnMessage
+	): array
+	{
 		$errors = [];
-		foreach ($function->getParams() as $param) {
+		foreach ($parameters as $param) {
 			if ($param->type === null) {
 				continue;
 			}
@@ -124,7 +146,6 @@ class FunctionDefinitionCheck
 			}
 		}
 
-		$returnTypeNode = $function->getReturnType();
 		if ($returnTypeNode === null) {
 			return $errors;
 		}
