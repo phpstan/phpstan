@@ -92,8 +92,8 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		];
 		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/bootstrap-error.php', false);
 		$this->assertCount(1, $result);
-		$this->assertContains('Ignored error pattern #Fail\.# in paths: ', $result[0]);
-		$this->assertContains('was not matched in reported errors', $result[0]);
+		$this->assertStringContainsString('Ignored error pattern #Fail\.# in paths: ', $result[0]);
+		$this->assertStringContainsString('was not matched in reported errors', $result[0]);
 	}
 
 	public function testIgnoreErrorByPathsUnmatched(): void
@@ -106,8 +106,8 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		];
 		$result = $this->runAnalyser($ignoreErrors, true, __DIR__ . '/data/bootstrap-error.php', false);
 		$this->assertCount(1, $result);
-		$this->assertContains('Ignored error pattern #Fail\.# in path ', $result[0]);
-		$this->assertContains('was not matched in reported errors', $result[0]);
+		$this->assertStringContainsString('Ignored error pattern #Fail\.# in path ', $result[0]);
+		$this->assertStringContainsString('was not matched in reported errors', $result[0]);
 	}
 
 	public function testIgnoreErrorNotFoundInPath(): void

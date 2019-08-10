@@ -27,7 +27,7 @@
 		"ext-simplexml": "*",
 		"ext-soap": "*",
 		"ext-zip": "*",
-		"brianium/paratest": "^2.0",
+		"brianium/paratest": "^3.0",
 		"consistence/coding-standard": "^3.5",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
 		"jakub-onderka/php-parallel-lint": "^1.0",
@@ -37,7 +37,7 @@
 		"phpstan/phpstan-php-parser": "^0.12",
 		"phpstan/phpstan-phpunit": "^0.12",
 		"phpstan/phpstan-strict-rules": "^0.12",
-		"phpunit/phpunit": "^7.5",
+		"phpunit/phpunit": "^8.0",
 		"slevomat/coding-standard": "^4.7.2",
 		"squizlabs/php_codesniffer": "^3.3.2"
 	},

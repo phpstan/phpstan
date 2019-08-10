@@ -22,7 +22,7 @@ class AnalyseCommandTest extends \PHPStan\Testing\TestCase
 
 		try {
 			$output = $this->runCommand(1);
-			$this->assertContains('Note: Using configuration file ' . $file . '.', $output);
+			$this->assertStringContainsString('Note: Using configuration file ' . $file . '.', $output);
 		} catch (\Throwable $e) {
 			chdir($originalDir);
 			throw $e;

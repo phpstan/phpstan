@@ -22,13 +22,13 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/../../notAutoloaded/Foo.php');
 		$this->assertCount(4, $errors);
-		$this->assertContains('Constant FOO_CONST was not found in reflection of class PHPStan\Tests\Foo - probably the wrong version of class is autoloaded. The currently loaded version is at', $errors[0]->getMessage());
+		$this->assertStringContainsString('Constant FOO_CONST was not found in reflection of class PHPStan\Tests\Foo - probably the wrong version of class is autoloaded. The currently loaded version is at', $errors[0]->getMessage());
 		$this->assertSame(8, $errors[0]->getLine());
-		$this->assertContains('Property $fooProperty was not found in reflection of class PHPStan\Tests\Foo - probably the wrong version of class is autoloaded. The currently loaded version is at', $errors[1]->getMessage());
+		$this->assertStringContainsString('Property $fooProperty was not found in reflection of class PHPStan\Tests\Foo - probably the wrong version of class is autoloaded. The currently loaded version is at', $errors[1]->getMessage());
 		$this->assertSame(11, $errors[1]->getLine());
-		$this->assertContains('Method doFoo() was not found in reflection of class PHPStan\Tests\Foo - probably the wrong version of class is autoloaded. The currently loaded version is at', $errors[2]->getMessage());
+		$this->assertStringContainsString('Method doFoo() was not found in reflection of class PHPStan\Tests\Foo - probably the wrong version of class is autoloaded. The currently loaded version is at', $errors[2]->getMessage());
 		$this->assertSame(13, $errors[2]->getLine());
-		$this->assertContains('Access to an undefined property PHPStan\Tests\Foo::$fooProperty.', $errors[3]->getMessage());
+		$this->assertStringContainsString('Access to an undefined property PHPStan\Tests\Foo::$fooProperty.', $errors[3]->getMessage());
 		$this->assertSame(15, $errors[3]->getLine());
 	}
 
@@ -108,7 +108,7 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$errors = $this->runAnalyse(__DIR__ . '/data/AnonymousClassesWithComments.php');
 		$this->assertCount(3, $errors);
 		foreach ($errors as $error) {
-			$this->assertContains('Call to an undefined method', $error->getMessage());
+			$this->assertStringContainsString('Call to an undefined method', $error->getMessage());
 		}
 	}
 
@@ -135,14 +135,14 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 	{
 		$errors = $this->runAnalyse(__DIR__ . '/data/anonymous-class-wrong-filename-regression.php');
 		$this->assertCount(5, $errors);
-		$this->assertContains('Return typehint of method', $errors[0]->getMessage());
+		$this->assertStringContainsString('Return typehint of method', $errors[0]->getMessage());
 		$this->assertSame(16, $errors[0]->getLine());
-		$this->assertContains('Return typehint of method', $errors[1]->getMessage());
+		$this->assertStringContainsString('Return typehint of method', $errors[1]->getMessage());
 		$this->assertSame(16, $errors[1]->getLine());
 		$this->assertSame('Instantiated class AnonymousClassWrongFilename\Bar not found.', $errors[2]->getMessage());
 		$this->assertSame(18, $errors[2]->getLine());
-		$this->assertContains('Parameter #1 $test of method', $errors[3]->getMessage());
-		$this->assertContains('$this(AnonymousClassWrongFilename\Foo) given', $errors[3]->getMessage());
+		$this->assertStringContainsString('Parameter #1 $test of method', $errors[3]->getMessage());
+		$this->assertStringContainsString('$this(AnonymousClassWrongFilename\Foo) given', $errors[3]->getMessage());
 		$this->assertSame(23, $errors[3]->getLine());
 		$this->assertSame('Call to method test() on an unknown class AnonymousClassWrongFilename\Bar.', $errors[4]->getMessage());
 		$this->assertSame(24, $errors[4]->getLine());
