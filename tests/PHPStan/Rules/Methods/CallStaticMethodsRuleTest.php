@@ -28,6 +28,9 @@ class CallStaticMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testCallStaticMethods(): void
 	{
+		if (PHP_VERSION_ID >= 70400) {
+			$this->markTestSkipped('Test does not run on PHP 7.4 because of referencing parent:: without parent class.');
+		}
 		$this->checkThisOnly = false;
 		$this->analyse([__DIR__ . '/data/call-static-methods.php'], [
 			[

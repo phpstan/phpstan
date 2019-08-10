@@ -12,6 +12,9 @@ class RequireParentConstructCallRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testCallToParentConstructor(): void
 	{
+		if (PHP_VERSION_ID >= 70400) {
+			$this->markTestSkipped('Test does not run on PHP 7.4 because of referencing parent:: without parent class.');
+		}
 		$this->analyse([__DIR__ . '/data/call-to-parent-constructor.php'], [
 			[
 				'IpsumCallToParentConstructor::__construct() calls parent constructor but parent does not have one.',
