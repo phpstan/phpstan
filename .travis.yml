@@ -24,6 +24,7 @@ env:
 matrix:
   allow_failures:
     - php: 7.4snapshot
+      env: dependencies=lowest
     - php: master
 
 before_script:

@@ -45,6 +45,7 @@ parameters:
 			message: '#Fetching class constant class of deprecated class DeprecatedAnnotations\\DeprecatedWithMultipleTags.#'
 			path: %rootDir%/tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
 	reportStaticMethodSignatures: true
+	reportUnmatchedIgnoredErrors: false
 	tmpDir: %rootDir%/tmp
 services:
 	-
