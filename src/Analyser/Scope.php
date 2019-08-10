@@ -1011,7 +1011,7 @@ class Scope implements ClassMemberAccessAnswerer
 			return $constantString;
 		} elseif ($node instanceof DNumber) {
 			return new ConstantFloatType($node->value);
-		} elseif ($node instanceof Expr\Closure) {
+		} elseif ($node instanceof Expr\Closure || $node instanceof Expr\ArrowFunction) {
 			$parameters = [];
 			$isVariadic = false;
 			$firstOptionalParameterIndex = null;
@@ -2144,6 +2144,44 @@ class Scope implements ClassMemberAccessAnswerer
 		}
 
 		$returnType = $this->getFunctionType($closure->returnType, $closure->returnType === null, false);
+
+		return $this->scopeFactory->create(
+			$this->context,
+			$this->isDeclareStrictTypes(),
+			$this->getFunction(),
+			$this->getNamespace(),
+			$variableTypes,
+			[],
+			$this->inClosureBindScopeClass,
+			$returnType,
+			$this->getInFunctionCall()
+		);
+	}
+
+	public function enterArrowFunction(Expr\ArrowFunction $arrowFunction): self
+	{
+		$variableTypes = $this->variableTypes;
+		$mixed = new MixedType();
+		foreach ($arrowFunction->params as $parameter) {
+			if ($parameter->type === null) {
+				$parameterType = $mixed;
+			} else {
+				$isNullable = $this->isParameterValueNullable($parameter);
+				$parameterType = $this->getFunctionType($parameter->type, $isNullable, $parameter->variadic);
+			}
+
+			if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
+			$variableTypes[$parameter->var->name] = VariableTypeHolder::createYes($parameterType);
+		}
+
+		if ($arrowFunction->static) {
+			unset($variableTypes['this']);
+		}
+
+		$returnType = $this->getFunctionType($arrowFunction->returnType, $arrowFunction->returnType === null, false);
 
 		return $this->scopeFactory->create(
 			$this->context,

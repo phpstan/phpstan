@@ -27,6 +27,7 @@ rules:
 	- PHPStan\Rules\Classes\RequireParentConstructCallRule
 	- PHPStan\Rules\Classes\UnusedConstructorParametersRule
 	- PHPStan\Rules\Functions\CallToFunctionParametersRule
+	- PHPStan\Rules\Functions\ExistingClassesInArrowFunctionTypehintsRule
 	- PHPStan\Rules\Functions\ExistingClassesInClosureTypehintsRule
 	- PHPStan\Rules\Functions\ExistingClassesInTypehintsRule
 	- PHPStan\Rules\Functions\InnerFunctionRule
