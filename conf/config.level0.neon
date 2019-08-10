@@ -120,6 +120,7 @@ services:
 			- phpstan.rules.rule
 		arguments:
 			checkClassCaseSensitivity: %checkClassCaseSensitivity%
+			checkThisOnly: %checkThisOnly%
 
 	-
 		class: PHPStan\Rules\Properties\WritingToReadOnlyPropertiesRule

@@ -36,7 +36,9 @@ use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
 use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
+use PHPStan\Reflection\Php\PhpPropertyReflection;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Rules\Properties\PropertyReflectionFinder;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BenevolentUnionType;
@@ -99,6 +101,9 @@ class Scope implements ClassMemberAccessAnswerer
 	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
+	/** @var \PHPStan\Rules\Properties\PropertyReflectionFinder */
+	private $propertyReflectionFinder;
+
 	/** @var \PHPStan\Analyser\ScopeContext */
 	private $context;
 
@@ -146,6 +151,7 @@ class Scope implements ClassMemberAccessAnswerer
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param \PHPStan\Analyser\TypeSpecifier $typeSpecifier
+	 * @param \PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder
 	 * @param \PHPStan\Analyser\ScopeContext $context
 	 * @param bool $declareStrictTypes
 	 * @param \PHPStan\Reflection\FunctionReflection|MethodReflection|null $function
@@ -165,6 +171,7 @@ class Scope implements ClassMemberAccessAnswerer
 		Broker $broker,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		TypeSpecifier $typeSpecifier,
+		PropertyReflectionFinder $propertyReflectionFinder,
 		ScopeContext $context,
 		bool $declareStrictTypes = false,
 		$function = null,
@@ -188,6 +195,7 @@ class Scope implements ClassMemberAccessAnswerer
 		$this->broker = $broker;
 		$this->printer = $printer;
 		$this->typeSpecifier = $typeSpecifier;
+		$this->propertyReflectionFinder = $propertyReflectionFinder;
 		$this->context = $context;
 		$this->declareStrictTypes = $declareStrictTypes;
 		$this->function = $function;
@@ -534,6 +542,7 @@ class Scope implements ClassMemberAccessAnswerer
 					|| $node->left instanceof Node\Expr\StaticPropertyFetch
 				)
 				&& $rightType instanceof NullType
+				&& !$this->hasPropertyNativeType($node->left)
 			) {
 				return new BooleanType();
 			}
@@ -544,6 +553,7 @@ class Scope implements ClassMemberAccessAnswerer
 					|| $node->right instanceof Node\Expr\StaticPropertyFetch
 				)
 				&& $leftType instanceof NullType
+				&& !$this->hasPropertyNativeType($node->right)
 			) {
 				return new BooleanType();
 			}
@@ -573,6 +583,7 @@ class Scope implements ClassMemberAccessAnswerer
 					|| $node->left instanceof Node\Expr\StaticPropertyFetch
 				)
 				&& $rightType instanceof NullType
+				&& !$this->hasPropertyNativeType($node->left)
 			) {
 				return new BooleanType();
 			}
@@ -583,6 +594,7 @@ class Scope implements ClassMemberAccessAnswerer
 					|| $node->right instanceof Node\Expr\StaticPropertyFetch
 				)
 				&& $leftType instanceof NullType
+				&& !$this->hasPropertyNativeType($node->right)
 			) {
 				return new BooleanType();
 			}
@@ -1641,6 +1653,24 @@ class Scope implements ClassMemberAccessAnswerer
 		}
 
 		return new MixedType();
+	}
+
+	/**
+	 * @param \PhpParser\Node\Expr\PropertyFetch|\PhpParser\Node\Expr\StaticPropertyFetch $propertyFetch
+	 * @return bool
+	 */
+	private function hasPropertyNativeType($propertyFetch): bool
+	{
+		$propertyReflection = $this->propertyReflectionFinder->findPropertyReflectionFromNode($propertyFetch, $this);
+		if ($propertyReflection === null) {
+			return false;
+		}
+
+		if (!$propertyReflection instanceof PhpPropertyReflection) {
+			return false;
+		}
+
+		return !$propertyReflection->getNativeType() instanceof MixedType;
 	}
 
 	protected function getTypeFromArrayDimFetch(

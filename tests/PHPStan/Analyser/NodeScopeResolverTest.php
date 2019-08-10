@@ -9474,6 +9474,44 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataPropertyNativeTypes(): array
+	{
+		return [
+			[
+				'string',
+				'$this->stringProp',
+			],
+			[
+				'PropertyNativeTypes\Foo',
+				'$this->selfProp',
+			],
+			[
+				'array<int>',
+				'$this->integersProp',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataPropertyNativeTypes
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testPropertyNativeTypes(
+		string $description,
+		string $expression
+	): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/property-native-types.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataTryCatchScope(): array
 	{
 		return [

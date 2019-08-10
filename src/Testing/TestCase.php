@@ -31,6 +31,7 @@ use PHPStan\Reflection\Php\PhpMethodReflectionFactory;
 use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Reflection\PhpDefect\PhpDefectClassReflectionExtension;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
+use PHPStan\Rules\Properties\PropertyReflectionFinder;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Type;
@@ -266,6 +267,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			$broker,
 			new \PhpParser\PrettyPrinter\Standard(),
 			$typeSpecifier,
+			new PropertyReflectionFinder(),
 			$container->getByType(Container::class)
 		);
 	}
