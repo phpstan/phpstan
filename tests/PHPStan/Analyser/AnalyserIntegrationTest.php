@@ -68,6 +68,9 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 
 	public function testExtendingUnknownClass(): void
 	{
+		if (PHP_VERSION_ID >= 70400) {
+			$this->markTestSkipped('Not supported on PHP 7.4 - results in fatal error.');
+		}
 		$errors = $this->runAnalyse(__DIR__ . '/data/extending-unknown-class.php');
 		$this->assertCount(1, $errors);
 		$this->assertNull($errors[0]->getLine());
