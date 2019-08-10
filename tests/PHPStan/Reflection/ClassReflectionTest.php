@@ -44,7 +44,7 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				\HierarchyDistances\Ipsum::class,
-				[
+				PHP_VERSION_ID < 70400 ? [
 					\HierarchyDistances\Ipsum::class => 0,
 					\HierarchyDistances\TraitOne::class => 1,
 					\HierarchyDistances\Lorem::class => 2,
@@ -55,6 +55,17 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 					\HierarchyDistances\ExtendedIpsumInterface::class => 7,
 					\HierarchyDistances\SecondIpsumInterface::class => 8,
 					\HierarchyDistances\ThirdIpsumInterface::class => 9,
+				] : [
+					\HierarchyDistances\Ipsum::class => 0,
+					\HierarchyDistances\TraitOne::class => 1,
+					\HierarchyDistances\Lorem::class => 2,
+					\HierarchyDistances\TraitTwo::class => 3,
+					\HierarchyDistances\FirstLoremInterface::class => 4,
+					\HierarchyDistances\SecondLoremInterface::class => 5,
+					\HierarchyDistances\FirstIpsumInterface::class => 6,
+					\HierarchyDistances\SecondIpsumInterface::class => 7,
+					\HierarchyDistances\ThirdIpsumInterface::class => 8,
+					\HierarchyDistances\ExtendedIpsumInterface::class => 9,
 				],
 			],
 		];
