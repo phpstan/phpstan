@@ -47,6 +47,7 @@ parameters:
 			message: '#^Call to an undefined method PHPStan\\Reflection(.*)::getDeprecatedDescription\(\).#'
 			path: %rootDir%/tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
 	reportStaticMethodSignatures: true
+	reportUnmatchedIgnoredErrors: false
 	tmpDir: %rootDir%/tmp
 services:
 	-
