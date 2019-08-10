@@ -3,6 +3,8 @@
 use PHPStan\Testing\TestCase;
 use PHPStan\Type\TypeCombinator;
 
+error_reporting(E_ALL);
+
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/PHPStan/Rules/AlwaysFailRule.php';
 require_once __DIR__ . '/PHPStan/Rules/DummyRule.php';
