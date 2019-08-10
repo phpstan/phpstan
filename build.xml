@@ -129,22 +129,28 @@
 	</target>
 
 	<target name="cs">
-		<exec
-				executable="vendor/bin/phpcs"
-				logoutput="true"
-				passthru="true"
-				checkreturn="true"
-		>
-			<arg value="--colors"/>
-			<arg value="--extensions=php"/>
-			<arg value="--encoding=utf-8"/>
-			<arg value="--tab-width=4"/>
-			<arg value="--cache=tmp/cache/phpcs"/>
-			<arg value="--ignore=tests/*/data,tests/*/traits,tests/notAutoloaded,src/Reflection/SignatureMap/functionMap.php"/>
-			<arg value="-sp"/>
-			<arg path="src"/>
-			<arg path="tests"/>
-		</exec>
+		<php expression="PHP_VERSION_ID &gt;= 70400 ?'true':'false'" returnProperty="isPHP74" level="verbose" />
+		<if>
+			<equals arg1="${isPHP74}" arg2="false" />
+			<then>
+				<exec
+					executable="vendor/bin/phpcs"
+					logoutput="true"
+					passthru="true"
+					checkreturn="true"
+				>
+					<arg value="--colors"/>
+					<arg value="--extensions=php"/>
+					<arg value="--encoding=utf-8"/>
+					<arg value="--tab-width=4"/>
+					<arg value="--cache=tmp/cache/phpcs"/>
+					<arg value="--ignore=tests/*/data,tests/*/traits,tests/notAutoloaded,src/Reflection/SignatureMap/functionMap.php"/>
+					<arg value="-sp"/>
+					<arg path="src"/>
+					<arg path="tests"/>
+				</exec>
+			</then>
+		</if>
 	</target>
 
 	<target name="cs-fix">
