@@ -14,14 +14,14 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 	public function testExecuteOnAFile(): void
 	{
 		$output = $this->runPath(__DIR__ . '/data/file-without-errors.php', 0);
-		$this->assertContains('No errors', $output);
+		$this->assertStringContainsString('No errors', $output);
 	}
 
 	public function testExecuteOnANonExistentPath(): void
 	{
 		$path = __DIR__ . '/foo';
 		$output = $this->runPath($path, 1);
-		$this->assertContains(sprintf(
+		$this->assertStringContainsString(sprintf(
 			'File %s does not exist.',
 			$path
 		), $output);
@@ -31,7 +31,7 @@ class AnalyseApplicationIntegrationTest extends \PHPStan\Testing\TestCase
 	{
 		$path = __DIR__ . '/../Rules/Functions/data/nonexistent-function.php';
 		$output = $this->runPath($path, 1);
-		$this->assertContains('Function foobarNonExistentFunction not found.', $output);
+		$this->assertStringContainsString('Function foobarNonExistentFunction not found.', $output);
 	}
 
 	private function runPath(string $path, int $expectedStatusCode): string
