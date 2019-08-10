@@ -46,6 +46,9 @@ parameters:
 			# Remove when method can be added to DeprecatableReflection interface.
 			message: '#^Call to an undefined method PHPStan\\Reflection(.*)::getDeprecatedDescription\(\).#'
 			path: %rootDir%/tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
+		-
+			message: '#^Call to function method_exists\(\) with ReflectionProperty and .(?:hasType|getType). will always evaluate to true\.$#'
+			path: %rootDir%/src/Reflection/Php/PhpClassReflectionExtension.php
 	reportStaticMethodSignatures: true
 	reportUnmatchedIgnoredErrors: false
 	tmpDir: %rootDir%/tmp
