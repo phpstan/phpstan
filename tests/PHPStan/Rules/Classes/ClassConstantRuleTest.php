@@ -77,6 +77,9 @@ class ClassConstantRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testClassConstantVisibility(): void
 	{
+		if (PHP_VERSION_ID >= 70400) {
+			$this->markTestSkipped('Test does not run on PHP 7.4 because of referencing parent:: without parent class.');
+		}
 		$this->analyse([__DIR__ . '/data/class-constant-visibility.php'], [
 			[
 				'Access to private constant PRIVATE_BAR of class ClassConstantVisibility\Bar.',
