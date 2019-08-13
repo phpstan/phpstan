@@ -9650,6 +9650,60 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataArraySpread(): array
+	{
+		return [
+			[
+				'array<int, int>',
+				'$integersOne',
+			],
+			[
+				'array<int, int>',
+				'$integersTwo',
+			],
+			[
+				'array(1, 2, 3, 4, 5, 6, 7)',
+				'$integersThree',
+			],
+			[
+				'array<int, int>',
+				'$integersFour',
+			],
+			[
+				'array<int, int>',
+				'$integersFive',
+			],
+			[
+				'array(1, 2, 3, 4, 5, 6, 7)',
+				'$integersSix',
+			],
+			[
+				'array(1, 2, 3, 4, 5, 6, 7)',
+				'$integersSeven',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataArraySpread
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testArraySpread(
+		string $description,
+		string $expression
+	): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/array-spread.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataTryCatchScope(): array
 	{
 		return [
