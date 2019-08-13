@@ -157,6 +157,10 @@ class Foo
 		$pushedArray = doFoo();
 		array_push($pushedArray, 1);
 
+		if (rand(0, 1)) {
+			$maybeDefinedVariable = 'foo';
+		}
+
 		die;
 	}
 
