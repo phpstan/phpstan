@@ -9628,6 +9628,66 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataPhp74FunctionsIn73(): array
+	{
+		return [
+			[
+				'*ERROR*',
+				'password_algos()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataPhp74FunctionsIn73
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testPhp74FunctionsIn73(
+		string $description,
+		string $expression
+	): void
+	{
+		if (PHP_VERSION_ID >= 70400) {
+			$this->markTestSkipped('Test does not run on PHP >= 7.4.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/die-73.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataPhp74FunctionsIn74(): array
+	{
+		return [
+			[
+				'array<int, string>',
+				'password_algos()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataPhp74FunctionsIn74
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testPhp74FunctionsIn74(
+		string $description,
+		string $expression
+	): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/die-74.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataTryCatchScope(): array
 	{
 		return [
