@@ -1325,7 +1325,7 @@ class NodeScopeResolver
 				function (Scope $scope) use ($expr, $nodeCallback, $context): ExpressionResult {
 					return $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep());
 				},
-				false
+				$expr instanceof Expr\AssignOp\Coalesce
 			);
 			$scope = $result->getScope();
 			$hasYield = $result->hasYield();

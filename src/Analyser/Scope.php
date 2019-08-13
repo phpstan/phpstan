@@ -729,7 +729,7 @@ class Scope implements ClassMemberAccessAnswerer
 			(
 				$node instanceof Node\Expr\BinaryOp
 				|| $node instanceof Node\Expr\AssignOp
-			) && !$node instanceof Expr\BinaryOp\Coalesce
+			) && !$node instanceof Expr\BinaryOp\Coalesce && !$node instanceof Expr\AssignOp\Coalesce
 		) {
 			if ($node instanceof Node\Expr\AssignOp) {
 				$left = $node->var;
@@ -761,6 +761,10 @@ class Scope implements ClassMemberAccessAnswerer
 			return new IntegerType();
 		}
 
+		if ($node instanceof Expr\AssignOp\Coalesce) {
+			return $this->getType(new BinaryOp\Coalesce($node->var, $node->expr, $node->getAttributes()));
+		}
+
 		if ($node instanceof Expr\BinaryOp\Coalesce) {
 			if ($node->left instanceof Expr\ArrayDimFetch && $node->left->dim !== null) {
 				$dimType = $this->getType($node->left->dim);
@@ -789,7 +793,15 @@ class Scope implements ClassMemberAccessAnswerer
 				return $rightType;
 			}
 
-			if (TypeCombinator::containsNull($leftType) || $node->left instanceof PropertyFetch) {
+			if (
+				TypeCombinator::containsNull($leftType)
+				|| $node->left instanceof PropertyFetch
+				|| (
+					$node->left instanceof Variable
+					&& is_string($node->left->name)
+					&& !$this->hasVariableType($node->left->name)->yes()
+				)
+			) {
 				return TypeCombinator::union(
 					TypeCombinator::removeNull($leftType),
 					$rightType

@@ -2349,6 +2349,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$stringOrNull ?? null',
 			],
 			[
+				'\'bar\'|\'foo\'',
+				'$maybeDefinedVariable ?? \'bar\'',
+			],
+			[
 				'string',
 				'$string ?? \'foo\'',
 			],
@@ -9579,6 +9583,68 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		}
 		$this->assertTypes(
 			__DIR__ . '/data/arrow-functions-inside.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataCoalesceAssign(): array
+	{
+		return [
+			[
+				'string',
+				'$string ??= 1',
+			],
+			[
+				'1|string',
+				'$nullableString ??= 1',
+			],
+			[
+				'\'foo\'',
+				'$emptyArray[\'foo\'] ??= \'foo\'',
+			],
+			[
+				'\'foo\'',
+				'$arrayWithFoo[\'foo\'] ??= \'bar\'',
+			],
+			[
+				'\'bar\'|\'foo\'',
+				'$arrayWithMaybeFoo[\'foo\'] ??= \'bar\'',
+			],
+			[
+				'array(\'foo\' => \'foo\')',
+				'$arrayAfterAssignment',
+			],
+			[
+				'array(\'foo\' => \'foo\')',
+				'$arrayWithFooAfterAssignment',
+			],
+			[
+				'\'foo\'',
+				'$nonexistentVariableAfterAssignment',
+			],
+			[
+				'\'bar\'|\'foo\'',
+				'$maybeNonexistentVariableAfterAssignment',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataCoalesceAssign
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testCoalesceAssign(
+		string $description,
+		string $expression
+	): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/coalesce-assign.php',
 			$description,
 			$expression
 		);
