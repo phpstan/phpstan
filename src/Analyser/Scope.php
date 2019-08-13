@@ -1285,6 +1285,15 @@ class Scope implements ClassMemberAccessAnswerer
 					return new IntegerType();
 				}
 
+				if (in_array($resolvedConstantName, [
+					'PASSWORD_DEFAULT',
+					'PASSWORD_BCRYPT',
+					'PASSWORD_ARGON2I',
+					'PASSWORD_ARGON2ID',
+				], true)) {
+					return new MixedType();
+				}
+
 				$constantType = $this->getTypeFromValue(constant($resolvedConstantName));
 				if ($constantType instanceof ConstantType && in_array($resolvedConstantName, $this->dynamicConstantNames, true)) {
 					return $constantType->generalize();
