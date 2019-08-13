@@ -1124,10 +1124,23 @@ class Scope implements ClassMemberAccessAnswerer
 				if ($arrayItem === null) {
 					continue;
 				}
-				$arrayBuilder->setOffsetValueType(
-					$arrayItem->key !== null ? $this->getType($arrayItem->key) : null,
-					$this->getType($arrayItem->value)
-				);
+
+				$valueType = $this->getType($arrayItem->value);
+				if ($arrayItem->unpack) {
+					if ($valueType instanceof ConstantArrayType) {
+						foreach ($valueType->getValueTypes() as $innerValueType) {
+							$arrayBuilder->setOffsetValueType(null, $innerValueType);
+						}
+					} else {
+						$arrayBuilder->degradeToGeneralArray();
+						$arrayBuilder->setOffsetValueType(new IntegerType(), $valueType->getIterableValueType());
+					}
+				} else {
+					$arrayBuilder->setOffsetValueType(
+						$arrayItem->key !== null ? $this->getType($arrayItem->key) : null,
+						$valueType
+					);
+				}
 			}
 			return $arrayBuilder->getArray();
 
