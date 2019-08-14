@@ -103,7 +103,7 @@ class AnalyserTraitsIntegrationTest extends \PHPStan\Testing\TestCase
 			]
 		);
 		$this->assertCount(1, $errors);
-		$this->assertContains('Access to an undefined property', $errors[0]->getMessage());
+		$this->assertStringContainsString('Access to an undefined property', $errors[0]->getMessage());
 		$this->assertSame(18, $errors[0]->getLine());
 	}
 

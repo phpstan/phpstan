@@ -2349,6 +2349,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$stringOrNull ?? null',
 			],
 			[
+				'\'bar\'|\'foo\'',
+				'$maybeDefinedVariable ?? \'bar\'',
+			],
+			[
 				'string',
 				'$string ?? \'foo\'',
 			],
@@ -9469,6 +9473,292 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/infer-private-property-type-from-constructor.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataPropertyNativeTypes(): array
+	{
+		return [
+			[
+				'string',
+				'$this->stringProp',
+			],
+			[
+				'PropertyNativeTypes\Foo',
+				'$this->selfProp',
+			],
+			[
+				'array<int>',
+				'$this->integersProp',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataPropertyNativeTypes
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testPropertyNativeTypes(
+		string $description,
+		string $expression
+	): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/property-native-types.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataArrowFunctions(): array
+	{
+		return [
+			[
+				'Closure(string): int',
+				'$x',
+			],
+			[
+				'int',
+				'$x()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataArrowFunctions
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testArrowFunctions(
+		string $description,
+		string $expression
+	): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/arrow-functions.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataArrowFunctionsInside(): array
+	{
+		return [
+			[
+				'int',
+				'$i',
+			],
+			[
+				'string',
+				'$s',
+			],
+			[
+				'*ERROR*',
+				'$t',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataArrowFunctionsInside
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testArrowFunctionsInside(
+		string $description,
+		string $expression
+	): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/arrow-functions-inside.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataCoalesceAssign(): array
+	{
+		return [
+			[
+				'string',
+				'$string ??= 1',
+			],
+			[
+				'1|string',
+				'$nullableString ??= 1',
+			],
+			[
+				'\'foo\'',
+				'$emptyArray[\'foo\'] ??= \'foo\'',
+			],
+			[
+				'\'foo\'',
+				'$arrayWithFoo[\'foo\'] ??= \'bar\'',
+			],
+			[
+				'\'bar\'|\'foo\'',
+				'$arrayWithMaybeFoo[\'foo\'] ??= \'bar\'',
+			],
+			[
+				'array(\'foo\' => \'foo\')',
+				'$arrayAfterAssignment',
+			],
+			[
+				'array(\'foo\' => \'foo\')',
+				'$arrayWithFooAfterAssignment',
+			],
+			[
+				'\'foo\'',
+				'$nonexistentVariableAfterAssignment',
+			],
+			[
+				'\'bar\'|\'foo\'',
+				'$maybeNonexistentVariableAfterAssignment',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataCoalesceAssign
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testCoalesceAssign(
+		string $description,
+		string $expression
+	): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/coalesce-assign.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataArraySpread(): array
+	{
+		return [
+			[
+				'array<int, int>',
+				'$integersOne',
+			],
+			[
+				'array<int, int>',
+				'$integersTwo',
+			],
+			[
+				'array(1, 2, 3, 4, 5, 6, 7)',
+				'$integersThree',
+			],
+			[
+				'array<int, int>',
+				'$integersFour',
+			],
+			[
+				'array<int, int>',
+				'$integersFive',
+			],
+			[
+				'array(1, 2, 3, 4, 5, 6, 7)',
+				'$integersSix',
+			],
+			[
+				'array(1, 2, 3, 4, 5, 6, 7)',
+				'$integersSeven',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataArraySpread
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testArraySpread(
+		string $description,
+		string $expression
+	): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/array-spread.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataPhp74FunctionsIn73(): array
+	{
+		return [
+			[
+				'*ERROR*',
+				'password_algos()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataPhp74FunctionsIn73
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testPhp74FunctionsIn73(
+		string $description,
+		string $expression
+	): void
+	{
+		if (PHP_VERSION_ID >= 70400) {
+			$this->markTestSkipped('Test does not run on PHP >= 7.4.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/die-73.php',
+			$description,
+			$expression
+		);
+	}
+
+	public function dataPhp74FunctionsIn74(): array
+	{
+		return [
+			[
+				'array<int, string>',
+				'password_algos()',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataPhp74FunctionsIn74
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testPhp74FunctionsIn74(
+		string $description,
+		string $expression
+	): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/die-74.php',
 			$description,
 			$expression
 		);

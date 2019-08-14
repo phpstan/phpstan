@@ -660,4 +660,46 @@ class DefinedVariableRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
+	public function testArrowFunctions(): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+
+		$this->cliArgumentsVariablesRegistered = true;
+		$this->polluteScopeWithLoopInitialAssignments = false;
+		$this->polluteCatchScopeWithTryAssignments = false;
+		$this->checkMaybeUndefinedVariables = true;
+		$this->polluteScopeWithAlwaysIterableForeach = true;
+		$this->analyse([__DIR__ . '/data/defined-variables-arrow-functions.php'], [
+			[
+				'Undefined variable: $a',
+				10,
+			],
+			[
+				'Undefined variable: $this',
+				19,
+			],
+		]);
+	}
+
+	public function testCoalesceAssign(): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+
+		$this->cliArgumentsVariablesRegistered = true;
+		$this->polluteScopeWithLoopInitialAssignments = false;
+		$this->polluteCatchScopeWithTryAssignments = false;
+		$this->checkMaybeUndefinedVariables = true;
+		$this->polluteScopeWithAlwaysIterableForeach = true;
+		$this->analyse([__DIR__ . '/data/defined-variables-coalesce-assign.php'], [
+			[
+				'Undefined variable: $b',
+				16,
+			],
+		]);
+	}
+
 }

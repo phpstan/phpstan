@@ -3,12 +3,11 @@
 namespace PHPStan\Rules\Functions;
 
 use PhpParser\Node;
-use PhpParser\Node\Expr\Closure;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\FunctionDefinitionCheck;
 use PHPStan\Rules\RuleError;
 
-class ExistingClassesInClosureTypehintsRule implements \PHPStan\Rules\Rule
+class ExistingClassesInArrowFunctionTypehintsRule implements \PHPStan\Rules\Rule
 {
 
 	/** @var \PHPStan\Rules\FunctionDefinitionCheck */
@@ -21,11 +20,11 @@ class ExistingClassesInClosureTypehintsRule implements \PHPStan\Rules\Rule
 
 	public function getNodeType(): string
 	{
-		return Closure::class;
+		return Node\Expr\ArrowFunction::class;
 	}
 
 	/**
-	 * @param \PhpParser\Node\Expr\Closure $node
+	 * @param \PhpParser\Node\Expr\ArrowFunction $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return RuleError[]
 	 */

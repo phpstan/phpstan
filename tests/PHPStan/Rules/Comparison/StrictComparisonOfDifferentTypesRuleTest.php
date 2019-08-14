@@ -384,4 +384,30 @@ class StrictComparisonOfDifferentTypesRuleTest extends \PHPStan\Testing\RuleTest
 		]);
 	}
 
+	public function testStrictComparisonPropertyNativeTypesPhp74(): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+		$this->checkAlwaysTrueStrictComparison = true;
+		$this->analyse([__DIR__ . '/data/strict-comparison-property-native-types.php'], [
+			[
+				'Strict comparison using === between string and null will always evaluate to false.',
+				14,
+			],
+			[
+				'Strict comparison using !== between string and null will always evaluate to true.',
+				25,
+			],
+			[
+				'Strict comparison using === between null and string will always evaluate to false.',
+				36,
+			],
+			[
+				'Strict comparison using !== between null and string will always evaluate to true.',
+				47,
+			],
+		]);
+	}
+
 }

@@ -36,7 +36,9 @@ use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\PassedByReference;
 use PHPStan\Reflection\Php\PhpFunctionFromParserNodeReflection;
 use PHPStan\Reflection\Php\PhpMethodFromParserNodeReflection;
+use PHPStan\Reflection\Php\PhpPropertyReflection;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Rules\Properties\PropertyReflectionFinder;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BenevolentUnionType;
@@ -99,6 +101,9 @@ class Scope implements ClassMemberAccessAnswerer
 	/** @var \PHPStan\Analyser\TypeSpecifier */
 	private $typeSpecifier;
 
+	/** @var \PHPStan\Rules\Properties\PropertyReflectionFinder */
+	private $propertyReflectionFinder;
+
 	/** @var \PHPStan\Analyser\ScopeContext */
 	private $context;
 
@@ -146,6 +151,7 @@ class Scope implements ClassMemberAccessAnswerer
 	 * @param \PHPStan\Broker\Broker $broker
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param \PHPStan\Analyser\TypeSpecifier $typeSpecifier
+	 * @param \PHPStan\Rules\Properties\PropertyReflectionFinder $propertyReflectionFinder
 	 * @param \PHPStan\Analyser\ScopeContext $context
 	 * @param bool $declareStrictTypes
 	 * @param \PHPStan\Reflection\FunctionReflection|MethodReflection|null $function
@@ -165,6 +171,7 @@ class Scope implements ClassMemberAccessAnswerer
 		Broker $broker,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		TypeSpecifier $typeSpecifier,
+		PropertyReflectionFinder $propertyReflectionFinder,
 		ScopeContext $context,
 		bool $declareStrictTypes = false,
 		$function = null,
@@ -188,6 +195,7 @@ class Scope implements ClassMemberAccessAnswerer
 		$this->broker = $broker;
 		$this->printer = $printer;
 		$this->typeSpecifier = $typeSpecifier;
+		$this->propertyReflectionFinder = $propertyReflectionFinder;
 		$this->context = $context;
 		$this->declareStrictTypes = $declareStrictTypes;
 		$this->function = $function;
@@ -534,6 +542,7 @@ class Scope implements ClassMemberAccessAnswerer
 					|| $node->left instanceof Node\Expr\StaticPropertyFetch
 				)
 				&& $rightType instanceof NullType
+				&& !$this->hasPropertyNativeType($node->left)
 			) {
 				return new BooleanType();
 			}
@@ -544,6 +553,7 @@ class Scope implements ClassMemberAccessAnswerer
 					|| $node->right instanceof Node\Expr\StaticPropertyFetch
 				)
 				&& $leftType instanceof NullType
+				&& !$this->hasPropertyNativeType($node->right)
 			) {
 				return new BooleanType();
 			}
@@ -573,6 +583,7 @@ class Scope implements ClassMemberAccessAnswerer
 					|| $node->left instanceof Node\Expr\StaticPropertyFetch
 				)
 				&& $rightType instanceof NullType
+				&& !$this->hasPropertyNativeType($node->left)
 			) {
 				return new BooleanType();
 			}
@@ -583,6 +594,7 @@ class Scope implements ClassMemberAccessAnswerer
 					|| $node->right instanceof Node\Expr\StaticPropertyFetch
 				)
 				&& $leftType instanceof NullType
+				&& !$this->hasPropertyNativeType($node->right)
 			) {
 				return new BooleanType();
 			}
@@ -717,7 +729,7 @@ class Scope implements ClassMemberAccessAnswerer
 			(
 				$node instanceof Node\Expr\BinaryOp
 				|| $node instanceof Node\Expr\AssignOp
-			) && !$node instanceof Expr\BinaryOp\Coalesce
+			) && !$node instanceof Expr\BinaryOp\Coalesce && !$node instanceof Expr\AssignOp\Coalesce
 		) {
 			if ($node instanceof Node\Expr\AssignOp) {
 				$left = $node->var;
@@ -749,6 +761,10 @@ class Scope implements ClassMemberAccessAnswerer
 			return new IntegerType();
 		}
 
+		if ($node instanceof Expr\AssignOp\Coalesce) {
+			return $this->getType(new BinaryOp\Coalesce($node->var, $node->expr, $node->getAttributes()));
+		}
+
 		if ($node instanceof Expr\BinaryOp\Coalesce) {
 			if ($node->left instanceof Expr\ArrayDimFetch && $node->left->dim !== null) {
 				$dimType = $this->getType($node->left->dim);
@@ -777,7 +793,15 @@ class Scope implements ClassMemberAccessAnswerer
 				return $rightType;
 			}
 
-			if (TypeCombinator::containsNull($leftType) || $node->left instanceof PropertyFetch) {
+			if (
+				TypeCombinator::containsNull($leftType)
+				|| $node->left instanceof PropertyFetch
+				|| (
+					$node->left instanceof Variable
+					&& is_string($node->left->name)
+					&& !$this->hasVariableType($node->left->name)->yes()
+				)
+			) {
 				return TypeCombinator::union(
 					TypeCombinator::removeNull($leftType),
 					$rightType
@@ -1012,7 +1036,7 @@ class Scope implements ClassMemberAccessAnswerer
 			return $constantString;
 		} elseif ($node instanceof DNumber) {
 			return new ConstantFloatType($node->value);
-		} elseif ($node instanceof Expr\Closure) {
+		} elseif ($node instanceof Expr\Closure || $node instanceof Expr\ArrowFunction) {
 			$parameters = [];
 			$isVariadic = false;
 			$firstOptionalParameterIndex = null;
@@ -1114,10 +1138,23 @@ class Scope implements ClassMemberAccessAnswerer
 				if ($arrayItem === null) {
 					continue;
 				}
-				$arrayBuilder->setOffsetValueType(
-					$arrayItem->key !== null ? $this->getType($arrayItem->key) : null,
-					$this->getType($arrayItem->value)
-				);
+
+				$valueType = $this->getType($arrayItem->value);
+				if ($arrayItem->unpack) {
+					if ($valueType instanceof ConstantArrayType) {
+						foreach ($valueType->getValueTypes() as $innerValueType) {
+							$arrayBuilder->setOffsetValueType(null, $innerValueType);
+						}
+					} else {
+						$arrayBuilder->degradeToGeneralArray();
+						$arrayBuilder->setOffsetValueType(new IntegerType(), $valueType->getIterableValueType());
+					}
+				} else {
+					$arrayBuilder->setOffsetValueType(
+						$arrayItem->key !== null ? $this->getType($arrayItem->key) : null,
+						$valueType
+					);
+				}
 			}
 			return $arrayBuilder->getArray();
 
@@ -1260,6 +1297,15 @@ class Scope implements ClassMemberAccessAnswerer
 				}
 				if ($resolvedConstantName === '__COMPILER_HALT_OFFSET__') {
 					return new IntegerType();
+				}
+
+				if (in_array($resolvedConstantName, [
+					'PASSWORD_DEFAULT',
+					'PASSWORD_BCRYPT',
+					'PASSWORD_ARGON2I',
+					'PASSWORD_ARGON2ID',
+				], true)) {
+					return new MixedType();
 				}
 
 				$constantType = $this->getTypeFromValue(constant($resolvedConstantName));
@@ -1641,6 +1687,24 @@ class Scope implements ClassMemberAccessAnswerer
 		}
 
 		return new MixedType();
+	}
+
+	/**
+	 * @param \PhpParser\Node\Expr\PropertyFetch|\PhpParser\Node\Expr\StaticPropertyFetch $propertyFetch
+	 * @return bool
+	 */
+	private function hasPropertyNativeType($propertyFetch): bool
+	{
+		$propertyReflection = $this->propertyReflectionFinder->findPropertyReflectionFromNode($propertyFetch, $this);
+		if ($propertyReflection === null) {
+			return false;
+		}
+
+		if (!$propertyReflection instanceof PhpPropertyReflection) {
+			return false;
+		}
+
+		return !$propertyReflection->getNativeType() instanceof MixedType;
 	}
 
 	protected function getTypeFromArrayDimFetch(
@@ -2126,6 +2190,47 @@ class Scope implements ClassMemberAccessAnswerer
 		}
 
 		$anonymousFunctionReflection = $this->getType($closure);
+		if (!$anonymousFunctionReflection instanceof ClosureType) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		return $this->scopeFactory->create(
+			$this->context,
+			$this->isDeclareStrictTypes(),
+			$this->getFunction(),
+			$this->getNamespace(),
+			$variableTypes,
+			[],
+			$this->inClosureBindScopeClass,
+			$anonymousFunctionReflection,
+			$this->getInFunctionCall()
+		);
+	}
+
+	public function enterArrowFunction(Expr\ArrowFunction $arrowFunction): self
+	{
+		$variableTypes = $this->variableTypes;
+		$mixed = new MixedType();
+		foreach ($arrowFunction->params as $parameter) {
+			if ($parameter->type === null) {
+				$parameterType = $mixed;
+			} else {
+				$isNullable = $this->isParameterValueNullable($parameter);
+				$parameterType = $this->getFunctionType($parameter->type, $isNullable, $parameter->variadic);
+			}
+
+			if (!$parameter->var instanceof Variable || !is_string($parameter->var->name)) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
+			$variableTypes[$parameter->var->name] = VariableTypeHolder::createYes($parameterType);
+		}
+
+		if ($arrowFunction->static) {
+			unset($variableTypes['this']);
+		}
+
+		$anonymousFunctionReflection = $this->getType($arrowFunction);
 		if (!$anonymousFunctionReflection instanceof ClosureType) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}

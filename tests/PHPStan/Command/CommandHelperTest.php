@@ -133,7 +133,7 @@ class CommandHelperTest extends TestCase
 		if ($contents === false) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
-		$this->assertContains($expectedOutput, $contents);
+		$this->assertStringContainsString($expectedOutput, $contents);
 
 		if (isset($result)) {
 			$parameters = $result->getContainer()->getParameters();

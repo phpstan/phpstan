@@ -20,6 +20,9 @@ class AccessStaticPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 
 	public function testAccessStaticProperties(): void
 	{
+		if (PHP_VERSION_ID >= 70400) {
+			$this->markTestSkipped('Test does not run on PHP 7.4 because of referencing parent:: without parent class.');
+		}
 		$this->analyse([__DIR__ . '/data/access-static-properties.php'], [
 			[
 				'Access to an undefined static property FooAccessStaticProperties::$bar.',

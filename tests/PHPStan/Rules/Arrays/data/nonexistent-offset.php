@@ -349,3 +349,14 @@ class OffsetAfterForLoop
 	}
 
 }
+
+class Coalesce
+{
+
+	public function doFoo()
+	{
+		$a = [];
+		echo $a['foo'] ?? 'foo';
+	}
+
+}

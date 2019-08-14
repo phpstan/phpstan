@@ -89,6 +89,11 @@ class ConstantArrayTypeBuilder
 		$this->degradeToGeneralArray = true;
 	}
 
+	public function degradeToGeneralArray(): void
+	{
+		$this->degradeToGeneralArray = true;
+	}
+
 	public function getArray(): ArrayType
 	{
 		if (!$this->degradeToGeneralArray) {

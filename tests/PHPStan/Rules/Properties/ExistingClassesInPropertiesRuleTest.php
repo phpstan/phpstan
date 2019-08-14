@@ -14,7 +14,8 @@ class ExistingClassesInPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new ExistingClassesInPropertiesRule(
 			$broker,
 			new ClassCaseSensitivityCheck($broker),
-			true
+			true,
+			false
 		);
 	}
 
@@ -59,6 +60,28 @@ class ExistingClassesInPropertiesRuleTest extends \PHPStan\Testing\RuleTestCase
 				],
 			]
 		);
+	}
+
+	public function testNativeTypes(): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+
+		$this->analyse([__DIR__ . '/data/properties-native-types.php'], [
+			[
+				'Property PropertiesNativeTypes\Foo::$bar has unknown class PropertiesNativeTypes\Bar as its type.',
+				10,
+			],
+			[
+				'Property PropertiesNativeTypes\Foo::$baz has unknown class PropertiesNativeTypes\Baz as its type.',
+				13,
+			],
+			[
+				'Property PropertiesNativeTypes\Foo::$baz has unknown class PropertiesNativeTypes\Baz as its type.',
+				13,
+			],
+		]);
 	}
 
 }

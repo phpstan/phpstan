@@ -164,6 +164,11 @@ class Foo
 		}
 
 		$simpleXMLWritingXML = $simpleXML->asXML('path.xml');
+
+		if (rand(0, 1)) {
+			$maybeDefinedVariable = 'foo';
+		}
+
 		die;
 	}
 

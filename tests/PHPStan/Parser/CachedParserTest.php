@@ -88,14 +88,7 @@ class CachedParserTest extends \PHPUnit\Framework\TestCase
 	 */
 	private function getParserMock(): Parser
 	{
-		$mock = $this->getMockBuilder(Parser::class)
-			->setMethods(
-				[
-					'parseFile',
-					'parseString',
-				]
-			)
-			->getMock();
+		$mock = $this->createMock(Parser::class);
 
 		$mock->method('parseFile')->willReturn([$this->getPhpParserNodeMock()]);
 		$mock->method('parseString')->willReturn([$this->getPhpParserNodeMock()]);

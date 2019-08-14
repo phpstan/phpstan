@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="PHPStan" default="check">
 	<property name="path.composer-require-checker"
-			  value="tmp/composer-require-checker-1.1.0.phar"/>
+			  value="tmp/composer-require-checker-2.0.0.phar"/>
 	<property name="url.composer-require-checker"
-			  value="https://github.com/maglnet/ComposerRequireChecker/releases/download/1.1.0/composer-require-checker.phar"/>
+			  value="https://github.com/maglnet/ComposerRequireChecker/releases/download/2.0.0/composer-require-checker.phar"/>
 	<target name="check" depends="
 		composer-validate,
 		composer-install,
@@ -129,22 +129,28 @@
 	</target>
 
 	<target name="cs">
-		<exec
-				executable="vendor/bin/phpcs"
-				logoutput="true"
-				passthru="true"
-				checkreturn="true"
-		>
-			<arg value="--colors"/>
-			<arg value="--extensions=php"/>
-			<arg value="--encoding=utf-8"/>
-			<arg value="--tab-width=4"/>
-			<arg value="--cache=tmp/cache/phpcs"/>
-			<arg value="--ignore=tests/*/data,tests/*/traits,tests/notAutoloaded,src/Reflection/SignatureMap/functionMap.php"/>
-			<arg value="-sp"/>
-			<arg path="src"/>
-			<arg path="tests"/>
-		</exec>
+		<php expression="PHP_VERSION_ID &gt;= 70400 ?'true':'false'" returnProperty="isPHP74" level="verbose" />
+		<if>
+			<equals arg1="${isPHP74}" arg2="false" />
+			<then>
+				<exec
+					executable="vendor/bin/phpcs"
+					logoutput="true"
+					passthru="true"
+					checkreturn="true"
+				>
+					<arg value="--colors"/>
+					<arg value="--extensions=php"/>
+					<arg value="--encoding=utf-8"/>
+					<arg value="--tab-width=4"/>
+					<arg value="--cache=tmp/cache/phpcs"/>
+					<arg value="--ignore=tests/*/data,tests/*/traits,tests/notAutoloaded,src/Reflection/SignatureMap/functionMap.php"/>
+					<arg value="-sp"/>
+					<arg path="src"/>
+					<arg path="tests"/>
+				</exec>
+			</then>
+		</if>
 	</target>
 
 	<target name="cs-fix">
