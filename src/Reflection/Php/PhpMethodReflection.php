@@ -414,17 +414,17 @@ class PhpMethodReflection implements MethodReflection
 
 	public function isDeprecated(): TrinaryLogic
 	{
-		return TrinaryLogic::createFromBoolean($this->isDeprecated);
+		return $this->reflection->isDeprecated()->or(TrinaryLogic::createFromBoolean($this->isDeprecated));
 	}
 
 	public function isInternal(): TrinaryLogic
 	{
-		return TrinaryLogic::createFromBoolean($this->isInternal);
+		return TrinaryLogic::createFromBoolean($this->reflection->isInternal() || $this->isInternal);
 	}
 
 	public function isFinal(): TrinaryLogic
 	{
-		return TrinaryLogic::createFromBoolean($this->isFinal);
+		return TrinaryLogic::createFromBoolean($this->reflection->isFinal() || $this->isFinal);
 	}
 
 	public function getThrowType(): ?Type

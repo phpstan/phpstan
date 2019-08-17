@@ -82,6 +82,16 @@ class NativeBuiltinMethodReflection implements BuiltinMethodReflection
 		return TrinaryLogic::createFromBoolean($this->reflection->isDeprecated());
 	}
 
+	public function isFinal(): bool
+	{
+		return $this->reflection->isFinal();
+	}
+
+	public function isInternal(): bool
+	{
+		return $this->reflection->isInternal();
+	}
+
 	public function isVariadic(): bool
 	{
 		return $this->reflection->isVariadic();
