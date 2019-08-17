@@ -227,3 +227,18 @@ class ConstructorComingFromAnInterface implements InterfaceWithConstructor
 	}
 
 }
+
+abstract class AbstractClassWithFinalConstructor
+{
+
+	protected final function __construct()
+	{
+
+	}
+
+	public function getInstance()
+	{
+		new static();
+		new static(1);
+	}
+}
