@@ -127,3 +127,12 @@ function neverTypes($foo)
 {
 
 }
+
+/**
+ * @param never $foo
+ * @return never
+ */
+function explicitNever($foo)
+{
+	throw new \Exception();
+}

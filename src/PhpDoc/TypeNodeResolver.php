@@ -70,7 +70,7 @@ class TypeNodeResolver
 
 	public function getCacheKey(): string
 	{
-		$key = 'v58-var-stmt';
+		$key = 'v59-explicit-never';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}
@@ -180,7 +180,7 @@ class TypeNodeResolver
 				return new ObjectWithoutClassType();
 
 			case 'never':
-				return new NeverType();
+				return new NeverType(true);
 		}
 
 		if ($nameScope->getClassName() !== null) {

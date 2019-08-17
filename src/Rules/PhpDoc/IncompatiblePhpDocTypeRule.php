@@ -59,7 +59,10 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 					$parameterName
 				);
 
-			} elseif ($phpDocParamType instanceof ErrorType || $phpDocParamType instanceof NeverType) {
+			} elseif (
+				$phpDocParamType instanceof ErrorType
+				|| ($phpDocParamType instanceof NeverType && !$phpDocParamType->isExplicit())
+			) {
 				$errors[] = sprintf(
 					'PHPDoc tag @param for parameter $%s contains unresolvable type.',
 					$parameterName
@@ -99,7 +102,10 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 		if ($resolvedPhpDoc->getReturnTag() !== null) {
 			$phpDocReturnType = $resolvedPhpDoc->getReturnTag()->getType();
 
-			if ($phpDocReturnType instanceof ErrorType || $phpDocReturnType instanceof NeverType) {
+			if (
+				$phpDocReturnType instanceof ErrorType
+				|| ($phpDocReturnType instanceof NeverType && !$phpDocReturnType->isExplicit())
+			) {
 				$errors[] = 'PHPDoc tag @return contains unresolvable type.';
 
 			} else {

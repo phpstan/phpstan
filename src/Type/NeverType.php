@@ -17,6 +17,19 @@ class NeverType implements CompoundType
 	use FalseyBooleanTypeTrait;
 	use NonGenericTypeTrait;
 
+	/** @var bool */
+	private $isExplicit;
+
+	public function __construct(bool $isExplicit = false)
+	{
+		$this->isExplicit = $isExplicit;
+	}
+
+	public function isExplicit(): bool
+	{
+		return $this->isExplicit;
+	}
+
 	/**
 	 * @return string[]
 	 */
@@ -204,7 +217,7 @@ class NeverType implements CompoundType
 	 */
 	public static function __set_state(array $properties): Type
 	{
-		return new self();
+		return new self($properties['isExplicit']);
 	}
 
 }
