@@ -32,6 +32,9 @@ class Foo
 
 		/** @var FooTrait $test */
 		$test = new self();
+
+		/** @var never $test */
+		$test = doFoo();
 	}
 
 }

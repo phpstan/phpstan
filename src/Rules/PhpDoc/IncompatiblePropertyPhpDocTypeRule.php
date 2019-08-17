@@ -40,7 +40,7 @@ class IncompatiblePropertyPhpDocTypeRule implements Rule
 		$messages = [];
 		if (
 			$phpDocType instanceof ErrorType
-			|| $phpDocType instanceof NeverType
+			|| ($phpDocType instanceof NeverType && !$phpDocType->isExplicit())
 		) {
 			$messages[] = sprintf(
 				'PHPDoc tag @var for property %s::$%s contains unresolvable type.',

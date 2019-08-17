@@ -11,4 +11,7 @@ class FooWithProperty
 	/** @var Foo&Bar */
 	private $bar;
 
+	/** @var never */
+	private $baz;
+
 }
