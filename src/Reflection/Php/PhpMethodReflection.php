@@ -409,17 +409,17 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 
 	public function isDeprecated(): bool
 	{
-		return $this->isDeprecated;
+		return $this->reflection->isDeprecated() || $this->isDeprecated;
 	}
 
 	public function isInternal(): bool
 	{
-		return $this->isInternal;
+		return $this->reflection->isInternal() || $this->isInternal;
 	}
 
 	public function isFinal(): bool
 	{
-		return $this->isFinal;
+		return $this->reflection->isFinal() || $this->isFinal;
 	}
 
 	public function getThrowType(): ?Type
