@@ -171,6 +171,14 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(13, $errors[0]->getLine());
 	}
 
+	public function testClassExistsAutoloadingError(): void
+	{
+		$errors = $this->runAnalyse(__DIR__ . '/data/class-exists.php');
+		$this->assertCount(1, $errors);
+		$this->assertSame('Instantiated class \PHPStan\GitHubIssue2359 not found.', $errors[0]->getMessage());
+		$this->assertSame(12, $errors[0]->getLine());
+	}
+
 	/**
 	 * @param string $file
 	 * @return \PHPStan\Analyser\Error[]
