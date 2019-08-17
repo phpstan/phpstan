@@ -155,6 +155,18 @@ class InstantiationRuleTest extends \PHPStan\Testing\RuleTestCase
 					'Instantiated class UndefinedClass3 not found.',
 					176,
 				],
+				[
+					'Class TestInstantiation\FinalClass does not have a constructor and must be instantiated without any parameters.',
+					187,
+				],
+				[
+					'Class TestInstantiation\ClassWithFinalConstructor constructor invoked with 0 parameters, 1 required.',
+					203,
+				],
+				[
+					'Class TestInstantiation\ConstructorComingFromAnInterface constructor invoked with 0 parameters, 1 required.',
+					226,
+				],
 			]
 		);
 	}

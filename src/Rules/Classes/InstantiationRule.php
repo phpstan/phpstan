@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\New_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\ClassNameNodePair;
 use PHPStan\Rules\FunctionCallParametersCheck;
@@ -72,7 +73,21 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 					sprintf('Using %s outside of class scope.', $class),
 				];
 			}
-			return [];
+
+			$classReflection = $scope->getClassReflection();
+			if (!$classReflection->isFinal()) {
+				if (!$classReflection->hasConstructor()) {
+					return [];
+				}
+
+				$constructor = $classReflection->getConstructor();
+				if (!$constructor->getPrototype()->getDeclaringClass()->isInterface()) {
+					$isFinal = $constructor instanceof PhpMethodReflection && $constructor->isFinal()->yes();
+					if (!$isFinal) {
+						return [];
+					}
+				}
+			}
 		} elseif ($lowercasedClass === 'self') {
 			if (!$scope->isInClass()) {
 				return [
