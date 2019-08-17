@@ -22,7 +22,7 @@ class StaticType implements StaticResolvableType, TypeWithClassName
 	/** @var \PHPStan\Type\ObjectType */
 	private $staticObjectType;
 
-	public function __construct(string $baseClass)
+	final public function __construct(string $baseClass)
 	{
 		$this->baseClass = $baseClass;
 		$this->staticObjectType = new ObjectType($baseClass);

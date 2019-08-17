@@ -251,7 +251,7 @@ class CallableType implements CompoundType, ParametersAcceptor
 			);
 		}, $this->getParameters());
 
-		return new static(
+		return new self(
 			$parameters,
 			$cb($this->getReturnType()),
 			$this->isVariadic()

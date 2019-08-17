@@ -146,7 +146,7 @@ class ObjectWithoutClassType implements SubtractableType
 		$subtractedType = $this->subtractedType !== null ? $cb($this->subtractedType) : null;
 
 		if ($subtractedType !== $this->subtractedType) {
-			return new static($subtractedType);
+			return new self($subtractedType);
 		}
 
 		return $this;

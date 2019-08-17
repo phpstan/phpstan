@@ -3,9 +3,12 @@ parameters:
 	featureToggles:
 		missingReturnRule: false
 		missingClosureNativeReturnTypehintRule: false
+		newStatic: false
 	missingClosureNativeReturnCheckObjectTypehint: false
 
 conditionalTags:
+	PHPStan\Rules\Classes\NewStaticRule:
+		phpstan.rules.rule: %featureToggles.newStatic%
 	PHPStan\Rules\Missing\MissingClosureNativeReturnTypehintRule:
 		phpstan.rules.rule: %featureToggles.missingClosureNativeReturnTypehintRule%
 	PHPStan\Rules\Missing\MissingReturnRule:
@@ -46,6 +49,9 @@ services:
 			- phpstan.rules.rule
 		arguments:
 			checkClassCaseSensitivity: %checkClassCaseSensitivity%
+
+	-
+		class: PHPStan\Rules\Classes\NewStaticRule
 
 	-
 		class: PHPStan\Rules\Exceptions\CaughtExceptionExistenceRule

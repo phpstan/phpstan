@@ -10,3 +10,4 @@ parameters:
 		yieldRules: true
 		validateParameters: true
 		allowVarTagAboveStatements: true
+		newStatic: true

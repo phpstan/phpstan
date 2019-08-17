@@ -143,7 +143,7 @@ final class TemplateMixedType extends MixedType implements TemplateType
 			$type = TypeCombinator::union($this->getSubtractedType(), $type);
 		}
 
-		return new static(
+		return new self(
 			$this->scope,
 			$this->strategy,
 			$this->name,

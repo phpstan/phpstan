@@ -92,7 +92,7 @@ class BooleanType implements Type
 	 */
 	public static function __set_state(array $properties): Type
 	{
-		return new static();
+		return new self();
 	}
 
 }
