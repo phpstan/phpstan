@@ -67,6 +67,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 	{
 		$lowercasedClass = strtolower($class);
 		$messages = [];
+		$isStatic = false;
 		if ($lowercasedClass === 'static') {
 			if (!$scope->isInClass()) {
 				return [
@@ -74,6 +75,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				];
 			}
 
+			$isStatic = true;
 			$classReflection = $scope->getClassReflection();
 			if (!$classReflection->isFinal()) {
 				if (!$classReflection->hasConstructor()) {
@@ -126,13 +128,13 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 			$classReflection = $this->broker->getClass($class);
 		}
 
-		if ($classReflection->isInterface()) {
+		if (!$isStatic && $classReflection->isInterface()) {
 			return [
 				sprintf('Cannot instantiate interface %s.', $classReflection->getDisplayName()),
 			];
 		}
 
-		if ($classReflection->isAbstract()) {
+		if (!$isStatic && $classReflection->isAbstract()) {
 			return [
 				sprintf('Instantiated class %s is abstract.', $classReflection->getDisplayName()),
 			];
