@@ -13,6 +13,14 @@ class Foo
 		return new static();
 	}
 
+	/**
+	 * @return array{foo: static}
+	 */
+	public function returnConstantArray(): array
+	{
+		return [$this];
+	}
+
 }
 
 class Bar extends Foo
@@ -20,6 +28,6 @@ class Bar extends Foo
 
 }
 
-function () {
+function (Bar $bar) {
 	die;
 };

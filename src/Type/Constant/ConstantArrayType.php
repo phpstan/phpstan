@@ -536,6 +536,41 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		return new self($keyTypes, $valueTypes, $this->nextAutoIndex);
 	}
 
+	public function traverse(callable $cb): Type
+	{
+		$keyTypes = [];
+		$valueTypes = [];
+
+		$stillOriginal = true;
+		foreach ($this->keyTypes as $keyType) {
+			$transformedKeyType = $cb($keyType);
+			if ($transformedKeyType !== $keyType) {
+				$stillOriginal = false;
+			}
+
+			if (!$transformedKeyType instanceof ConstantIntegerType && !$transformedKeyType instanceof ConstantStringType) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+
+			$keyTypes[] = $transformedKeyType;
+		}
+
+		foreach ($this->valueTypes as $valueType) {
+			$transformedValueType = $cb($valueType);
+			if ($transformedValueType !== $valueType) {
+				$stillOriginal = false;
+			}
+
+			$valueTypes[] = $transformedValueType;
+		}
+
+		if ($stillOriginal) {
+			return $this;
+		}
+
+		return new self($keyTypes, $valueTypes, $this->nextAutoIndex);
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 * @return Type
