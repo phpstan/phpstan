@@ -200,7 +200,7 @@ class IterableType implements CompoundType
 		$itemType = $cb($this->itemType);
 
 		if ($keyType !== $this->keyType || $itemType !== $this->itemType) {
-			return new static($keyType, $itemType);
+			return new self($keyType, $itemType);
 		}
 
 		return $this;

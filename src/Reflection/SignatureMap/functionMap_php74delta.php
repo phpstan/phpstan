@@ -41,6 +41,8 @@ return [
 		'get_mangled_object_vars' => ['array', 'obj'=>'object'],
 		'mb_str_split' => ['array<int,string>|false', 'str'=>'string', 'split_length='=>'int', 'encoding='=>'string'],
 		'password_algos' => ['array<int, string>'],
+		'password_hash' => ['string|false', 'password'=>'string', 'algo'=>'string|null', 'options='=>'array'],
+		'password_needs_rehash' => ['bool', 'hash'=>'string', 'algo'=>'string|null', 'options='=>'array'],
 		'ReflectionReference::fromArrayElement' => ['?ReflectionReference', 'array'=>'array', 'key'=>'int|string'],
 		'ReflectionReference::getId' => ['string'],
 		'SQLite3Stmt::getSQL' => ['string', 'expanded='=>'bool'],

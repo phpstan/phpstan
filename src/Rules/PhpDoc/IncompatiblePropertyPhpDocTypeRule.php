@@ -30,12 +30,17 @@ class IncompatiblePropertyPhpDocTypeRule implements Rule
 
 		$propertyName = $node->name->toString();
 		$propertyReflection = $scope->getClassReflection()->getNativeProperty($propertyName);
+
+		if (!$propertyReflection->hasPhpDoc()) {
+			return [];
+		}
+
 		$phpDocType = $propertyReflection->getPhpDocType();
 
 		$messages = [];
 		if (
 			$phpDocType instanceof ErrorType
-			|| $phpDocType instanceof NeverType
+			|| ($phpDocType instanceof NeverType && !$phpDocType->isExplicit())
 		) {
 			$messages[] = sprintf(
 				'PHPDoc tag @var for property %s::$%s contains unresolvable type.',

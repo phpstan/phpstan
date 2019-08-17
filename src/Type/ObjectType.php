@@ -719,7 +719,7 @@ class ObjectType implements TypeWithClassName, SubtractableType
 		$subtractedType = $this->subtractedType !== null ? $cb($this->subtractedType) : null;
 
 		if ($subtractedType !== $this->subtractedType) {
-			return new static(
+			return new self(
 				$this->className,
 				$subtractedType
 			);

@@ -552,7 +552,7 @@ class ConstantArrayType extends ArrayType implements ConstantType
 		}
 
 		if ($changed) {
-			return new static($keyTypes, $valueTypes, $this->nextAutoIndex);
+			return new self($keyTypes, $valueTypes, $this->nextAutoIndex);
 		}
 
 		return $this;

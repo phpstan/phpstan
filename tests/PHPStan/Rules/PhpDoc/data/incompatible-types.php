@@ -163,3 +163,12 @@ function genericWithTypeHintsNotSubType(int $a, \DateTime $b): \DateTime
 function genericWithTypeHintsSupertype(\DateTimeInterface $a): \DateTimeInterface
 {
 }
+
+/**
+ * @param never $foo
+ * @return never
+ */
+function explicitNever($foo)
+{
+	throw new \Exception();
+}

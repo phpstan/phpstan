@@ -77,7 +77,7 @@ class TypeNodeResolver
 
 	public function getCacheKey(): string
 	{
-		$key = 'v64-generic-class-reflection';
+		$key = 'v65-explicit-never';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}
@@ -188,7 +188,7 @@ class TypeNodeResolver
 				return new ObjectWithoutClassType();
 
 			case 'never':
-				return new NeverType();
+				return new NeverType(true);
 		}
 
 		if ($nameScope->getClassName() !== null) {

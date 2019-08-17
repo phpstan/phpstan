@@ -294,7 +294,7 @@ class ClosureType implements TypeWithClassName, ParametersAcceptor
 
 	public function traverse(callable $cb): Type
 	{
-		return new static(
+		return new self(
 			array_map(static function (NativeParameterReflection $param) use ($cb): NativeParameterReflection {
 				$defaultValue = $param->getDefaultValue();
 				return new NativeParameterReflection(

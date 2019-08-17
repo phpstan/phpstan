@@ -177,3 +177,53 @@ class ClassInExpression
 	}
 
 }
+
+final class FinalClass
+{
+
+	public function doFoo()
+	{
+		new static();
+		new static(1);
+	}
+
+}
+
+class ClassWithFinalConstructor
+{
+
+	final public function __construct(int $i)
+	{
+
+	}
+
+	public function doFoo()
+	{
+		new static(1);
+		new static();
+	}
+
+}
+
+interface InterfaceWithConstructor
+{
+
+	public function __construct(int $i);
+
+}
+
+class ConstructorComingFromAnInterface implements InterfaceWithConstructor
+{
+
+	public function __construct(int $i)
+	{
+
+	}
+
+	public function doFoo()
+	{
+		new static(1);
+		new static();
+	}
+
+}

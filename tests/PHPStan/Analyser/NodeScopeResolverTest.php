@@ -7223,6 +7223,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'ResolveStatic\Bar',
 				'\ResolveStatic\Bar::create()',
 			],
+			[
+				'array(\'foo\' => ResolveStatic\Bar)',
+				'$bar->returnConstantArray()',
+			],
 		];
 	}
 

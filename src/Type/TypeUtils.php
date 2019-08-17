@@ -242,4 +242,21 @@ class TypeUtils
 		return self::map(AccessoryType::class, $type, true, false);
 	}
 
+	public static function containsCallable(Type $type): bool
+	{
+		if ($type->isCallable()->yes()) {
+			return true;
+		}
+
+		if ($type instanceof UnionType) {
+			foreach ($type->getTypes() as $innerType) {
+				if ($innerType->isCallable()->yes()) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
+
 }
