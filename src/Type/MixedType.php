@@ -257,7 +257,7 @@ class MixedType implements CompoundType, SubtractableType
 			$type = TypeCombinator::union($this->subtractedType, $type);
 		}
 
-		return new static($this->isExplicitMixed, $type);
+		return new self($this->isExplicitMixed, $type);
 	}
 
 	public function getTypeWithoutSubtractedType(): Type
