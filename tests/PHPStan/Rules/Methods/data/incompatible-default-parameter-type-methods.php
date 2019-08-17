@@ -57,3 +57,13 @@ class Foo extends FooParent
 	}
 
 }
+
+class PasswordConstant
+{
+
+	public function doFoo(int $algorithm = PASSWORD_DEFAULT)
+	{
+
+	}
+
+}
