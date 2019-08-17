@@ -118,6 +118,11 @@ class PhpPropertyReflection implements PropertyReflection
 		return true;
 	}
 
+	public function hasPhpDoc(): bool
+	{
+		return $this->phpDocType !== null;
+	}
+
 	public function getPhpDocType(): Type
 	{
 		if ($this->phpDocType !== null) {

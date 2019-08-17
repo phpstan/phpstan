@@ -29,3 +29,10 @@ class Bar
 {
 
 }
+
+class Baz
+{
+
+	private string $stringProp;
+
+}

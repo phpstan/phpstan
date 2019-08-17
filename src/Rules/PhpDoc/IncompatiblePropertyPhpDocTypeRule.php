@@ -30,6 +30,11 @@ class IncompatiblePropertyPhpDocTypeRule implements Rule
 
 		$propertyName = $node->name->toString();
 		$propertyReflection = $scope->getClassReflection()->getNativeProperty($propertyName);
+
+		if (!$propertyReflection->hasPhpDoc()) {
+			return [];
+		}
+
 		$phpDocType = $propertyReflection->getPhpDocType();
 
 		$messages = [];
