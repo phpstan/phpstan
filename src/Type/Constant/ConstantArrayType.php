@@ -533,29 +533,35 @@ class ConstantArrayType extends ArrayType implements ConstantType
 	{
 		$keyTypes = [];
 		$valueTypes = [];
-		$changed = false;
 
-		foreach ($this->keyTypes as $type) {
-			$newType = $cb($type);
-			if ($newType !== $type) {
-				$changed = true;
+		$stillOriginal = true;
+		foreach ($this->keyTypes as $keyType) {
+			$transformedKeyType = $cb($keyType);
+			if ($transformedKeyType !== $keyType) {
+				$stillOriginal = false;
 			}
-			$keyTypes[] = $newType;
-		}
 
-		foreach ($this->valueTypes as $type) {
-			$newType = $cb($type);
-			if ($newType !== $type) {
-				$changed = true;
+			if (!$transformedKeyType instanceof ConstantIntegerType && !$transformedKeyType instanceof ConstantStringType) {
+				throw new \PHPStan\ShouldNotHappenException();
 			}
-			$valueTypes[] = $newType;
+
+			$keyTypes[] = $transformedKeyType;
 		}
 
-		if ($changed) {
-			return new self($keyTypes, $valueTypes, $this->nextAutoIndex);
+		foreach ($this->valueTypes as $valueType) {
+			$transformedValueType = $cb($valueType);
+			if ($transformedValueType !== $valueType) {
+				$stillOriginal = false;
+			}
+
+			$valueTypes[] = $transformedValueType;
 		}
 
-		return $this;
+		if ($stillOriginal) {
+			return $this;
+		}
+
+		return new self($keyTypes, $valueTypes, $this->nextAutoIndex);
 	}
 
 	/**
