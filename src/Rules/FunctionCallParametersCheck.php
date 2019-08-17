@@ -156,7 +156,7 @@ class FunctionCallParametersCheck
 				&& !$this->ruleLevelHelper->accepts($parameterType, $argumentValueType, $scope->isDeclareStrictTypes())
 				&& ($secondAccepts === null || !$secondAccepts)
 			) {
-				$verbosityLevel = $parameterType->isCallable()->yes() || count(TypeUtils::getConstantArrays($parameterType)) > 0
+				$verbosityLevel = TypeUtils::containsCallable($parameterType) || count(TypeUtils::getConstantArrays($parameterType)) > 0
 					? VerbosityLevel::value()
 					: VerbosityLevel::typeOnly();
 				$errors[] = sprintf(

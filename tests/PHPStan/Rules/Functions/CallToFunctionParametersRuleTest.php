@@ -39,6 +39,10 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $foo of function IncorrectCallToFunction\bar expects int, string given.',
 				14,
 			],
+			[
+				'Parameter #1 $error_handler of function set_error_handler expects (callable(int, string, string, int, array): bool)|null, Closure(mixed, mixed, mixed, mixed): void given.',
+				16,
+			],
 		]);
 	}
 
