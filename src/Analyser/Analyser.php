@@ -9,6 +9,9 @@ use PHPStan\Parser\Parser;
 use PHPStan\Rules\FileRuleError;
 use PHPStan\Rules\LineRuleError;
 use PHPStan\Rules\Registry;
+use function error_reporting;
+use function restore_error_handler;
+use function set_error_handler;
 
 class Analyser
 {
@@ -42,6 +45,9 @@ class Analyser
 
 	/** @var float[] */
 	private $benchmarkData = [];
+
+	/** @var \PHPStan\Analyser\Error[] */
+	private $collectedErrors = [];
 
 	/**
 	 * @param \PHPStan\Analyser\ScopeFactory $scopeFactory
@@ -130,6 +136,9 @@ class Analyser
 		}
 
 		$this->nodeScopeResolver->setAnalysedFiles($files);
+
+		$this->collectErrors($files);
+
 		$internalErrorsCount = 0;
 		$reachedInternalErrorsCountLimit = false;
 		foreach ($files as $file) {
@@ -237,12 +246,16 @@ class Analyser
 			}
 		}
 
+		$this->restoreCollectErrorsHandler();
+
 		if ($this->benchmarkFile !== null) {
 			uasort($this->benchmarkData, static function (float $a, float $b): int {
 				return $b <=> $a;
 			});
 			file_put_contents($this->benchmarkFile, Json::encode($this->benchmarkData, Json::PRETTY));
 		}
+
+		$errors = array_merge($errors, $this->collectedErrors);
 
 		$unmatchedIgnoredErrors = $this->ignoreErrors;
 		$addErrors = [];
@@ -312,6 +325,33 @@ class Analyser
 		}
 
 		return $errors;
+	}
+
+	/**
+	 * @param string[] $analysedFiles
+	 */
+	private function collectErrors(array $analysedFiles): void
+	{
+		$this->collectedErrors = [];
+		set_error_handler(function (int $errno, string $errstr, string $errfile, int $errline) use ($analysedFiles): bool {
+			if (error_reporting() === 0) {
+				// silence @ operator
+				return true;
+			}
+
+			if (!in_array($errfile, $analysedFiles, true)) {
+				return true;
+			}
+
+			$this->collectedErrors[] = new Error($errstr, $errfile, $errline, true);
+
+			return true;
+		});
+	}
+
+	private function restoreCollectErrorsHandler(): void
+	{
+		restore_error_handler();
 	}
 
 	private function benchmarkStart(): ?float

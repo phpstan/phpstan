@@ -179,6 +179,16 @@ class AnalyserIntegrationTest extends \PHPStan\Testing\TestCase
 		$this->assertSame(12, $errors[0]->getLine());
 	}
 
+	public function testCollectWarnings(): void
+	{
+		restore_error_handler();
+		$errors = $this->runAnalyse(__DIR__ . '/data/declaration-warning.php');
+		$this->assertCount(1, $errors);
+		$this->assertSame('Declaration of DeclarationWarning\Bar::doFoo(int $i): void should be compatible with DeclarationWarning\Foo::doFoo(): void', $errors[0]->getMessage());
+		$this->assertSame(__DIR__ . '/data/declaration-warning.php', $errors[0]->getFile());
+		$this->assertSame(27, $errors[0]->getLine());
+	}
+
 	/**
 	 * @param string $file
 	 * @return \PHPStan\Analyser\Error[]
