@@ -2,7 +2,6 @@
 
 namespace PHPStan\Analyser;
 
-use PhpParser\Node\Expr;
 use PHPStan\Broker\Broker;
 use PHPStan\DependencyInjection\Container;
 use PHPStan\Reflection\ParametersAcceptor;
@@ -55,7 +54,6 @@ class ScopeFactory
 	 * @param \PHPStan\Analyser\VariableTypeHolder[] $moreSpecificTypes
 	 * @param string|null $inClosureBindScopeClass
 	 * @param \PHPStan\Reflection\ParametersAcceptor|null $anonymousFunctionReflection
-	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|null $inFunctionCall
 	 * @param bool $negated
 	 * @param bool $inFirstLevelStatement
 	 * @param array<string, true> $currentlyAssignedExpressions
@@ -71,7 +69,6 @@ class ScopeFactory
 		array $moreSpecificTypes = [],
 		?string $inClosureBindScopeClass = null,
 		?ParametersAcceptor $anonymousFunctionReflection = null,
-		?Expr $inFunctionCall = null,
 		bool $negated = false,
 		bool $inFirstLevelStatement = true,
 		array $currentlyAssignedExpressions = []
@@ -96,7 +93,6 @@ class ScopeFactory
 			$moreSpecificTypes,
 			$inClosureBindScopeClass,
 			$anonymousFunctionReflection,
-			$inFunctionCall,
 			$negated,
 			$inFirstLevelStatement,
 			$currentlyAssignedExpressions,

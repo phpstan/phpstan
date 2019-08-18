@@ -2100,7 +2100,6 @@ class NodeScopeResolver
 		?Scope $closureBindScope = null
 	): ExpressionResult
 	{
-		// todo $scope = $scope->enterFunctionCall();
 		if ($parametersAcceptor !== null) {
 			$parameters = $parametersAcceptor->getParameters();
 		}
@@ -2169,8 +2168,6 @@ class NodeScopeResolver
 
 			$scope = $scope->restoreOriginalScopeAfterClosureBind($originalScope);
 		}
-
-		// todo $scope = $scope->exitFunctionCall();
 
 		return new ExpressionResult($scope, $hasYield);
 	}
