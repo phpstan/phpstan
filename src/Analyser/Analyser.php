@@ -9,9 +9,6 @@ use PHPStan\Parser\Parser;
 use PHPStan\Rules\FileRuleError;
 use PHPStan\Rules\LineRuleError;
 use PHPStan\Rules\Registry;
-use function error_reporting;
-use function restore_error_handler;
-use function set_error_handler;
 
 class Analyser
 {

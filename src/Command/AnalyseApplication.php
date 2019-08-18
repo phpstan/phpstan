@@ -52,6 +52,9 @@ class AnalyseApplication
 
 		register_shutdown_function(function (): void {
 			$error = error_get_last();
+			if ($error === null) {
+				return;
+			}
 			if ($error['type'] !== E_ERROR) {
 				return;
 			}
