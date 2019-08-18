@@ -153,6 +153,9 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 		return $this->reflection->getDocComment();
 	}
 
+	/**
+	 * @return self|\PHPStan\Reflection\MethodPrototypeReflection
+	 */
 	public function getPrototype(): ClassMemberReflection
 	{
 		try {
@@ -163,7 +166,8 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 				$prototypeDeclaringClass,
 				$prototypeMethod->isStatic(),
 				$prototypeMethod->isPrivate(),
-				$prototypeMethod->isPublic()
+				$prototypeMethod->isPublic(),
+				$prototypeMethod->isAbstract()
 			);
 		} catch (\ReflectionException $e) {
 			return $this;
@@ -415,6 +419,11 @@ class PhpMethodReflection implements MethodReflection, DeprecatableReflection, I
 	public function isInternal(): bool
 	{
 		return $this->reflection->isInternal() || $this->isInternal;
+	}
+
+	public function isAbstract(): bool
+	{
+		return $this->reflection->isAbstract();
 	}
 
 	public function isFinal(): bool

@@ -51,12 +51,18 @@ class NewStaticRule implements Rule
 			return [];
 		}
 
-		$isFinal = $constructor instanceof PhpMethodReflection && $constructor->isFinal();
-		if (!$isFinal) {
-			return $messages;
+		if ($constructor instanceof PhpMethodReflection) {
+			if ($constructor->isFinal()) {
+				return [];
+			}
+
+			$prototype = $constructor->getPrototype();
+			if ($prototype->isAbstract()) {
+				return [];
+			}
 		}
 
-		return [];
+		return $messages;
 	}
 
 }

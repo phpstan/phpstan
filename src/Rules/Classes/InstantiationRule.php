@@ -83,11 +83,13 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				}
 
 				$constructor = $classReflection->getConstructor();
-				if (!$constructor->getPrototype()->getDeclaringClass()->isInterface()) {
-					$isFinal = $constructor instanceof PhpMethodReflection && $constructor->isFinal();
-					if (!$isFinal) {
-						return [];
-					}
+				if (
+					!$constructor->getPrototype()->getDeclaringClass()->isInterface()
+					&& $constructor instanceof PhpMethodReflection
+					&& !$constructor->isFinal()
+					&& !$constructor->getPrototype()->isAbstract()
+				) {
+					return [];
 				}
 			}
 		} elseif ($lowercasedClass === 'self') {

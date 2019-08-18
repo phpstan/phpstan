@@ -52,4 +52,6 @@ interface BuiltinMethodReflection
 
 	public function isInternal(): bool;
 
+	public function isAbstract(): bool;
+
 }

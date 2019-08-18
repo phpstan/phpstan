@@ -90,6 +90,11 @@ class NativeBuiltinMethodReflection implements BuiltinMethodReflection
 		return $this->reflection->isInternal();
 	}
 
+	public function isAbstract(): bool
+	{
+		return $this->reflection->isAbstract();
+	}
+
 	public function isVariadic(): bool
 	{
 		return $this->reflection->isVariadic();

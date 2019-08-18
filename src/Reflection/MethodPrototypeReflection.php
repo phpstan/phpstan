@@ -17,17 +17,22 @@ class MethodPrototypeReflection implements ClassMemberReflection
 	/** @var bool */
 	private $isPublic;
 
+	/** @var bool */
+	private $isAbstract;
+
 	public function __construct(
 		ClassReflection $declaringClass,
 		bool $isStatic,
 		bool $isPrivate,
-		bool $isPublic
+		bool $isPublic,
+		bool $isAbstract
 	)
 	{
 		$this->declaringClass = $declaringClass;
 		$this->isStatic = $isStatic;
 		$this->isPrivate = $isPrivate;
 		$this->isPublic = $isPublic;
+		$this->isAbstract = $isAbstract;
 	}
 
 	public function getDeclaringClass(): ClassReflection
@@ -48,6 +53,11 @@ class MethodPrototypeReflection implements ClassMemberReflection
 	public function isPublic(): bool
 	{
 		return $this->isPublic;
+	}
+
+	public function isAbstract(): bool
+	{
+		return $this->isAbstract;
 	}
 
 }

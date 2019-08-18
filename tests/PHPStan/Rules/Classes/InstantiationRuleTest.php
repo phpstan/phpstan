@@ -171,6 +171,14 @@ class InstantiationRuleTest extends \PHPStan\Testing\RuleTestCase
 					'Class TestInstantiation\AbstractClassWithFinalConstructor constructor invoked with 1 parameter, 0 required.',
 					242,
 				],
+				[
+					'Class TestInstantiation\AbstractConstructor constructor invoked with 0 parameters, 1 required.',
+					254,
+				],
+				[
+					'Class TestInstantiation\ClassExtendingAbstractConstructor constructor invoked with 0 parameters, 1 required.',
+					270,
+				],
 			]
 		);
 	}

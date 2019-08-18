@@ -242,3 +242,32 @@ abstract class AbstractClassWithFinalConstructor
 		new static(1);
 	}
 }
+
+abstract class AbstractConstructor
+{
+
+	abstract public function __construct(string $s);
+
+	public function doFoo()
+	{
+		new static('foo');
+		new static();
+	}
+
+}
+
+class ClassExtendingAbstractConstructor extends AbstractConstructor
+{
+
+	public function __construct(string $s)
+	{
+
+	}
+
+	public function doBar()
+	{
+		new static('foo');
+		new static();
+	}
+
+}
