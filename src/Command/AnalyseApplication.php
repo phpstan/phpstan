@@ -50,6 +50,19 @@ class AnalyseApplication
 		$this->updateMemoryLimitFile();
 		$errors = [];
 
+		register_shutdown_function(function (): void {
+			$error = error_get_last();
+			if ($error['type'] !== E_ERROR) {
+				return;
+			}
+
+			if (strpos($error['message'], 'Allowed memory size') !== false) {
+				return;
+			}
+
+			@unlink($this->memoryLimitFile);
+		});
+
 		if (!$debug) {
 			$progressStarted = false;
 			$fileOrder = 0;
