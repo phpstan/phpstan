@@ -104,6 +104,11 @@ class FakeBuiltinMethodReflection implements BuiltinMethodReflection
 		return false;
 	}
 
+	public function isAbstract(): bool
+	{
+		return false;
+	}
+
 	public function getReturnType(): ?\ReflectionType
 	{
 		return null;

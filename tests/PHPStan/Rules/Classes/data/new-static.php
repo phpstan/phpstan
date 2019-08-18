@@ -88,3 +88,30 @@ class ConstructorComingFromAnInterface implements InterfaceWithConstructor
 	}
 
 }
+
+abstract class AbstractConstructor
+{
+
+	abstract public function __construct(string $s);
+
+	public function doFoo()
+	{
+		new static('foo');
+	}
+
+}
+
+class ClassExtendingAbstractConstructor extends AbstractConstructor
+{
+
+	public function __construct(string $s)
+	{
+
+	}
+
+	public function doBar()
+	{
+		new static('foo');
+	}
+
+}

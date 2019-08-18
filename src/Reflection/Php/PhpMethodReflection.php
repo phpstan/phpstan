@@ -156,6 +156,9 @@ class PhpMethodReflection implements MethodReflection
 		return $this->reflection->getDocComment();
 	}
 
+	/**
+	 * @return self|\PHPStan\Reflection\MethodPrototypeReflection
+	 */
 	public function getPrototype(): ClassMemberReflection
 	{
 		try {
@@ -166,7 +169,8 @@ class PhpMethodReflection implements MethodReflection
 				$prototypeDeclaringClass,
 				$prototypeMethod->isStatic(),
 				$prototypeMethod->isPrivate(),
-				$prototypeMethod->isPublic()
+				$prototypeMethod->isPublic(),
+				$prototypeMethod->isAbstract()
 			);
 		} catch (\ReflectionException $e) {
 			return $this;
@@ -425,6 +429,11 @@ class PhpMethodReflection implements MethodReflection
 	public function isFinal(): TrinaryLogic
 	{
 		return TrinaryLogic::createFromBoolean($this->reflection->isFinal() || $this->isFinal);
+	}
+
+	public function isAbstract(): bool
+	{
+		return $this->reflection->isAbstract();
 	}
 
 	public function getThrowType(): ?Type

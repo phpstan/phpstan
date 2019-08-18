@@ -67,6 +67,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 	{
 		$lowercasedClass = strtolower($class);
 		$messages = [];
+		$isStatic = false;
 		if ($lowercasedClass === 'static') {
 			if (!$scope->isInClass()) {
 				return [
@@ -74,6 +75,7 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				];
 			}
 
+			$isStatic = true;
 			$classReflection = $scope->getClassReflection();
 			if (!$classReflection->isFinal()) {
 				if (!$classReflection->hasConstructor()) {
@@ -81,11 +83,13 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 				}
 
 				$constructor = $classReflection->getConstructor();
-				if (!$constructor->getPrototype()->getDeclaringClass()->isInterface()) {
-					$isFinal = $constructor instanceof PhpMethodReflection && $constructor->isFinal()->yes();
-					if (!$isFinal) {
-						return [];
-					}
+				if (
+					!$constructor->getPrototype()->getDeclaringClass()->isInterface()
+					&& $constructor instanceof PhpMethodReflection
+					&& !$constructor->isFinal()->yes()
+					&& !$constructor->getPrototype()->isAbstract()
+				) {
+					return [];
 				}
 			}
 		} elseif ($lowercasedClass === 'self') {
@@ -126,13 +130,13 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 			$classReflection = $this->broker->getClass($class);
 		}
 
-		if ($classReflection->isInterface()) {
+		if (!$isStatic && $classReflection->isInterface()) {
 			return [
 				sprintf('Cannot instantiate interface %s.', $classReflection->getDisplayName()),
 			];
 		}
 
-		if ($classReflection->isAbstract()) {
+		if (!$isStatic && $classReflection->isAbstract()) {
 			return [
 				sprintf('Instantiated class %s is abstract.', $classReflection->getDisplayName()),
 			];

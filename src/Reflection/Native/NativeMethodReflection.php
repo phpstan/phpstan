@@ -81,7 +81,8 @@ class NativeMethodReflection implements MethodReflection
 				$prototypeDeclaringClass,
 				$prototypeMethod->isStatic(),
 				$prototypeMethod->isPrivate(),
-				$prototypeMethod->isPublic()
+				$prototypeMethod->isPublic(),
+				$prototypeMethod->isAbstract()
 			);
 		} catch (\ReflectionException $e) {
 			return $this;
