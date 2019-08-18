@@ -132,9 +132,6 @@ class Scope implements ClassMemberAccessAnswerer
 	private $anonymousFunctionReflection;
 
 	/** @var bool */
-	private $negated;
-
-	/** @var bool */
 	private $inFirstLevelStatement;
 
 	/** @var array<string, true> */
@@ -157,7 +154,6 @@ class Scope implements ClassMemberAccessAnswerer
 	 * @param \PHPStan\Analyser\VariableTypeHolder[] $moreSpecificTypes
 	 * @param string|null $inClosureBindScopeClass
 	 * @param \PHPStan\Reflection\ParametersAcceptor|null $anonymousFunctionReflection
-	 * @param bool $negated
 	 * @param bool $inFirstLevelStatement
 	 * @param array<string, true> $currentlyAssignedExpressions
 	 * @param string[] $dynamicConstantNames
@@ -176,7 +172,6 @@ class Scope implements ClassMemberAccessAnswerer
 		array $moreSpecificTypes = [],
 		?string $inClosureBindScopeClass = null,
 		?ParametersAcceptor $anonymousFunctionReflection = null,
-		bool $negated = false,
 		bool $inFirstLevelStatement = true,
 		array $currentlyAssignedExpressions = [],
 		array $dynamicConstantNames = []
@@ -199,7 +194,6 @@ class Scope implements ClassMemberAccessAnswerer
 		$this->moreSpecificTypes = $moreSpecificTypes;
 		$this->inClosureBindScopeClass = $inClosureBindScopeClass;
 		$this->anonymousFunctionReflection = $anonymousFunctionReflection;
-		$this->negated = $negated;
 		$this->inFirstLevelStatement = $inFirstLevelStatement;
 		$this->currentlyAssignedExpressions = $currentlyAssignedExpressions;
 		$this->dynamicConstantNames = $dynamicConstantNames;
@@ -1859,8 +1853,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$this->getVariableTypes(),
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
-			$this->anonymousFunctionReflection,
-			$this->isNegated()
+			$this->anonymousFunctionReflection
 		);
 	}
 
@@ -2053,8 +2046,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$variableTypes,
 			$this->moreSpecificTypes,
 			$scopeClass,
-			$this->anonymousFunctionReflection,
-			$this->isNegated()
+			$this->anonymousFunctionReflection
 		);
 	}
 
@@ -2075,8 +2067,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$variableTypes,
 			$this->moreSpecificTypes,
 			$originalScope->inClosureBindScopeClass,
-			$this->anonymousFunctionReflection,
-			$this->isNegated()
+			$this->anonymousFunctionReflection
 		);
 	}
 
@@ -2093,8 +2084,7 @@ class Scope implements ClassMemberAccessAnswerer
 			$variableTypes,
 			$this->moreSpecificTypes,
 			$thisType instanceof TypeWithClassName ? $thisType->getClassName() : null,
-			$this->anonymousFunctionReflection,
-			$this->isNegated()
+			$this->anonymousFunctionReflection
 		);
 	}
 
@@ -2337,7 +2327,6 @@ class Scope implements ClassMemberAccessAnswerer
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->anonymousFunctionReflection,
-			$this->isNegated(),
 			$this->isInFirstLevelStatement(),
 			$currentlyAssignedExpressions
 		);
@@ -2358,7 +2347,6 @@ class Scope implements ClassMemberAccessAnswerer
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->anonymousFunctionReflection,
-			$this->isNegated(),
 			$this->isInFirstLevelStatement(),
 			$currentlyAssignedExpressions
 		);
@@ -2404,7 +2392,6 @@ class Scope implements ClassMemberAccessAnswerer
 			$moreSpecificTypeHolders,
 			$this->inClosureBindScopeClass,
 			$this->anonymousFunctionReflection,
-			$this->isNegated(),
 			$this->inFirstLevelStatement,
 			$this->currentlyAssignedExpressions
 		);
@@ -2428,7 +2415,6 @@ class Scope implements ClassMemberAccessAnswerer
 				$this->moreSpecificTypes,
 				$this->inClosureBindScopeClass,
 				$this->anonymousFunctionReflection,
-				$this->isNegated(),
 				$this->inFirstLevelStatement
 			);
 		} elseif ($expr instanceof Expr\ArrayDimFetch && $expr->dim !== null) {
@@ -2474,7 +2460,6 @@ class Scope implements ClassMemberAccessAnswerer
 				$this->moreSpecificTypes,
 				$this->inClosureBindScopeClass,
 				$this->anonymousFunctionReflection,
-				$this->isNegated(),
 				$this->inFirstLevelStatement,
 				$this->currentlyAssignedExpressions
 			);
@@ -2543,7 +2528,6 @@ class Scope implements ClassMemberAccessAnswerer
 			$moreSpecificTypeHolders,
 			$this->inClosureBindScopeClass,
 			$this->anonymousFunctionReflection,
-			$this->isNegated(),
 			$this->inFirstLevelStatement,
 			$this->currentlyAssignedExpressions
 		);
@@ -2615,22 +2599,6 @@ class Scope implements ClassMemberAccessAnswerer
 		return $scope;
 	}
 
-	public function enterNegation(): self
-	{
-		return $this->scopeFactory->create(
-			$this->context,
-			$this->isDeclareStrictTypes(),
-			$this->getFunction(),
-			$this->getNamespace(),
-			$this->getVariableTypes(),
-			$this->moreSpecificTypes,
-			$this->inClosureBindScopeClass,
-			$this->anonymousFunctionReflection,
-			!$this->isNegated(),
-			$this->inFirstLevelStatement
-		);
-	}
-
 	public function exitFirstLevelStatements(): self
 	{
 		return $this->scopeFactory->create(
@@ -2642,7 +2610,6 @@ class Scope implements ClassMemberAccessAnswerer
 			$this->moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->anonymousFunctionReflection,
-			$this->isNegated(),
 			false,
 			$this->currentlyAssignedExpressions
 		);
@@ -2651,11 +2618,6 @@ class Scope implements ClassMemberAccessAnswerer
 	public function isInFirstLevelStatement(): bool
 	{
 		return $this->inFirstLevelStatement;
-	}
-
-	public function isNegated(): bool
-	{
-		return $this->negated;
 	}
 
 	/**
@@ -2679,7 +2641,6 @@ class Scope implements ClassMemberAccessAnswerer
 			$moreSpecificTypeHolders,
 			$this->inClosureBindScopeClass,
 			$this->anonymousFunctionReflection,
-			$this->isNegated(),
 			$this->inFirstLevelStatement,
 			$this->currentlyAssignedExpressions
 		);
@@ -2700,7 +2661,6 @@ class Scope implements ClassMemberAccessAnswerer
 			$this->mergeVariableHolders($this->moreSpecificTypes, $otherScope->moreSpecificTypes),
 			$this->inClosureBindScopeClass,
 			$this->anonymousFunctionReflection,
-			$this->isNegated(),
 			$this->inFirstLevelStatement
 		);
 	}
@@ -2751,7 +2711,6 @@ class Scope implements ClassMemberAccessAnswerer
 			),
 			$this->inClosureBindScopeClass,
 			$this->anonymousFunctionReflection,
-			$this->isNegated(),
 			$this->inFirstLevelStatement
 		);
 	}
@@ -2834,7 +2793,6 @@ class Scope implements ClassMemberAccessAnswerer
 			[],
 			$this->inClosureBindScopeClass,
 			$this->anonymousFunctionReflection,
-			$this->isNegated(),
 			$this->inFirstLevelStatement
 		);
 	}
@@ -2876,7 +2834,6 @@ class Scope implements ClassMemberAccessAnswerer
 			$moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->anonymousFunctionReflection,
-			$this->isNegated(),
 			$this->inFirstLevelStatement
 		);
 	}
@@ -2902,7 +2859,6 @@ class Scope implements ClassMemberAccessAnswerer
 			$moreSpecificTypes,
 			$this->inClosureBindScopeClass,
 			$this->anonymousFunctionReflection,
-			$this->isNegated(),
 			$this->inFirstLevelStatement
 		);
 	}

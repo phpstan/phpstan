@@ -54,7 +54,6 @@ class ScopeFactory
 	 * @param \PHPStan\Analyser\VariableTypeHolder[] $moreSpecificTypes
 	 * @param string|null $inClosureBindScopeClass
 	 * @param \PHPStan\Reflection\ParametersAcceptor|null $anonymousFunctionReflection
-	 * @param bool $negated
 	 * @param bool $inFirstLevelStatement
 	 * @param array<string, true> $currentlyAssignedExpressions
 	 *
@@ -69,7 +68,6 @@ class ScopeFactory
 		array $moreSpecificTypes = [],
 		?string $inClosureBindScopeClass = null,
 		?ParametersAcceptor $anonymousFunctionReflection = null,
-		bool $negated = false,
 		bool $inFirstLevelStatement = true,
 		array $currentlyAssignedExpressions = []
 	): Scope
@@ -93,7 +91,6 @@ class ScopeFactory
 			$moreSpecificTypes,
 			$inClosureBindScopeClass,
 			$anonymousFunctionReflection,
-			$negated,
 			$inFirstLevelStatement,
 			$currentlyAssignedExpressions,
 			$this->dynamicConstantNames

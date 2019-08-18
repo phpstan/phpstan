@@ -1718,9 +1718,7 @@ class NodeScopeResolver
 
 			$scope = $result->getScope();
 		} elseif ($expr instanceof BooleanNot) {
-			$scope = $scope->enterNegation();
 			$result = $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep());
-			$scope = $result->getScope()->enterNegation();
 			$hasYield = $result->hasYield();
 		} elseif ($expr instanceof Expr\ClassConstFetch) {
 			$hasYield = false;
