@@ -183,7 +183,7 @@ class InstantiationRuleTest extends \PHPStan\Testing\RuleTestCase
 		);
 	}
 
-	public function xTestSoap(): void
+	public function testSoap(): void
 	{
 		$this->analyse(
 			[__DIR__ . '/data/instantiation-soap.php'],
