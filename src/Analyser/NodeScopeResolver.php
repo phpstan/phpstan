@@ -123,6 +123,9 @@ class NodeScopeResolver
 	/** @var bool */
 	private $polluteScopeWithAlwaysIterableForeach;
 
+	/** @var string[] funcName(string) */
+	private $earlyTerminatingFunctionCalls;
+
 	/** @var string[][] className(string) => methods(string[]) */
 	private $earlyTerminatingMethodCalls;
 
@@ -139,6 +142,7 @@ class NodeScopeResolver
 	 * @param bool $polluteCatchScopeWithTryAssignments
 	 * @param bool $polluteScopeWithAlwaysIterableForeach
 	 * @param string[][] $earlyTerminatingMethodCalls className(string) => methods(string[])
+	 * @param string[] $earlyTerminatingFunctionCalls funcName(string)
 	 */
 	public function __construct(
 		Broker $broker,
@@ -149,7 +153,8 @@ class NodeScopeResolver
 		bool $polluteScopeWithLoopInitialAssignments,
 		bool $polluteCatchScopeWithTryAssignments,
 		bool $polluteScopeWithAlwaysIterableForeach,
-		array $earlyTerminatingMethodCalls
+		array $earlyTerminatingMethodCalls,
+		array $earlyTerminatingFunctionCalls
 	)
 	{
 		$this->broker = $broker;
@@ -161,6 +166,7 @@ class NodeScopeResolver
 		$this->polluteCatchScopeWithTryAssignments = $polluteCatchScopeWithTryAssignments;
 		$this->polluteScopeWithAlwaysIterableForeach = $polluteScopeWithAlwaysIterableForeach;
 		$this->earlyTerminatingMethodCalls = $earlyTerminatingMethodCalls;
+		$this->earlyTerminatingFunctionCalls = $earlyTerminatingFunctionCalls;
 	}
 
 	/**
@@ -463,6 +469,12 @@ class NodeScopeResolver
 			$hasYield = $result->hasYield();
 			if ($earlyTerminationExpr !== null) {
 				return new StatementResult($scope, $hasYield, true, [
+					new StatementExitPoint($stmt, $scope),
+				]);
+			}
+		} elseif ($stmt instanceof FuncCall && count($this->earlyTerminatingFunctionCalls) > 0) {
+			if (! $stmt->name instanceof Expr && in_array((string) $stmt->name, $this->earlyTerminatingFunctionCalls, true)) {
+				return new StatementResult($scope, false, true, [
 					new StatementExitPoint($stmt, $scope),
 				]);
 			}

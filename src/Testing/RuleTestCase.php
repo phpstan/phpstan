@@ -63,6 +63,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 					$this->shouldPolluteScopeWithLoopInitialAssignments(),
 					$this->shouldPolluteCatchScopeWithTryAssignments(),
 					$this->shouldPolluteScopeWithAlwaysIterableForeach(),
+					[],
 					[]
 				),
 				$fileHelper,
