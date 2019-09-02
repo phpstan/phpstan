@@ -499,7 +499,7 @@ class Scope implements ClassMemberAccessAnswerer
 
 		if ($node instanceof \PhpParser\Node\Expr\BinaryOp\LogicalXor) {
 			$leftBooleanType = $this->getType($node->left)->toBoolean();
-			$rightBooleanType = $this->filterByFalseyValue($node->left)->getType($node->right)->toBoolean();
+			$rightBooleanType = $this->getType($node->right)->toBoolean();
 			if (
 				$leftBooleanType instanceof ConstantBooleanType
 				&& $rightBooleanType instanceof ConstantBooleanType
