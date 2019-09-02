@@ -9262,7 +9262,7 @@ return [
 'Redis::evaluate' => ['mixed', 'script'=>'string', 'args='=>'array', 'numKeys='=>'int'],
 'Redis::evaluateSha' => ['', 'scriptSha'=>'string', 'args='=>'array', 'numKeys='=>'int'],
 'Redis::exec' => ['array'],
-'Redis::exists' => ['bool', 'key'=>'string'],
+'Redis::exists' => ['int', 'key'=>'string'],
 'Redis::expire' => ['bool', 'key'=>'string', 'ttl'=>'int'],
 'Redis::expireAt' => ['bool', 'key'=>'string', 'expiry'=>'int'],
 'Redis::flushAll' => ['bool'],
