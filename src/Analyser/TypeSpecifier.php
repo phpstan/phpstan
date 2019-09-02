@@ -528,7 +528,11 @@ class TypeSpecifier
 	private function handleDefaultTruthyOrFalseyContext(TypeSpecifierContext $context, Expr $expr): SpecifiedTypes
 	{
 		if (!$context->truthy()) {
-			$type = new UnionType([new ObjectWithoutClassType(), new NonEmptyArrayType()]);
+			$type = new UnionType([
+				new ObjectWithoutClassType(),
+				new NonEmptyArrayType(),
+				new ConstantBooleanType(true),
+			]);
 			return $this->create($expr, $type, TypeSpecifierContext::createFalse());
 		} elseif (!$context->falsey()) {
 			$type = new UnionType([
