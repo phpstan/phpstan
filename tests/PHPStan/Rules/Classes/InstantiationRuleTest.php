@@ -76,108 +76,112 @@ class InstantiationRuleTest extends \PHPStan\Testing\RuleTestCase
 					41,
 				],
 				[
+					'Class TestInstantiation\BarInstantiation constructor invoked with 0 parameters, 1 required.',
+					44,
+				],
+				[
 					'Class TestInstantiation\InstantiatingClass constructor invoked with 0 parameters, 1 required.',
-					54,
+					57,
 				],
 				[
 					'Class TestInstantiation\FooInstantiation referenced with incorrect case: TestInstantiation\FOOInstantiation.',
-					61,
+					64,
 				],
 				[
 					'Class TestInstantiation\FooInstantiation does not have a constructor and must be instantiated without any parameters.',
-					61,
+					64,
 				],
 				[
 					'Class TestInstantiation\BarInstantiation referenced with incorrect case: TestInstantiation\BARInstantiation.',
-					62,
+					65,
 				],
 				[
 					'Class TestInstantiation\BarInstantiation constructor invoked with 0 parameters, 1 required.',
-					62,
+					65,
 				],
 				[
 					'Class TestInstantiation\BarInstantiation referenced with incorrect case: TestInstantiation\BARInstantiation.',
-					63,
+					66,
 				],
 				[
 					'Class TestInstantiation\ClassExtendsProtectedConstructorClass constructor invoked with 0 parameters, 1 required.',
-					91,
+					94,
 				],
 				[
 					'Cannot instantiate class TestInstantiation\ExtendsPrivateConstructorClass via private constructor TestInstantiation\PrivateConstructorClass::__construct().',
-					101,
+					104,
 				],
 				[
 					'Class TestInstantiation\ExtendsPrivateConstructorClass constructor invoked with 0 parameters, 1 required.',
-					101,
+					104,
 				],
 				[
 					'Cannot instantiate class TestInstantiation\PrivateConstructorClass via private constructor TestInstantiation\PrivateConstructorClass::__construct().',
-					107,
-				],
-				[
-					'Cannot instantiate class TestInstantiation\ProtectedConstructorClass via protected constructor TestInstantiation\ProtectedConstructorClass::__construct().',
-					108,
-				],
-				[
-					'Cannot instantiate class TestInstantiation\ClassExtendsProtectedConstructorClass via protected constructor TestInstantiation\ProtectedConstructorClass::__construct().',
-					109,
-				],
-				[
-					'Cannot instantiate class TestInstantiation\ExtendsPrivateConstructorClass via private constructor TestInstantiation\PrivateConstructorClass::__construct().',
 					110,
 				],
 				[
+					'Cannot instantiate class TestInstantiation\ProtectedConstructorClass via protected constructor TestInstantiation\ProtectedConstructorClass::__construct().',
+					111,
+				],
+				[
+					'Cannot instantiate class TestInstantiation\ClassExtendsProtectedConstructorClass via protected constructor TestInstantiation\ProtectedConstructorClass::__construct().',
+					112,
+				],
+				[
+					'Cannot instantiate class TestInstantiation\ExtendsPrivateConstructorClass via private constructor TestInstantiation\PrivateConstructorClass::__construct().',
+					113,
+				],
+				[
 					'Parameter #1 $message of class Exception constructor expects string, int given.',
-					114,
+					117,
 				],
 				[
 					'Parameter #2 $code of class Exception constructor expects int, string given.',
-					114,
+					117,
 				],
 				[
 					'Class TestInstantiation\NoConstructor referenced with incorrect case: TestInstantiation\NOCONSTRUCTOR.',
-					124,
+					127,
 				],
 				[
-					DIRECTORY_SEPARATOR === '/' ? 'Class class@anonymous/tests/PHPStan/Rules/Classes/data/instantiation.php:134 constructor invoked with 3 parameters, 1 required.' : 'Class class@anonymous/tests\PHPStan\Rules\Classes\data\instantiation.php:134 constructor invoked with 3 parameters, 1 required.',
-					134,
+					DIRECTORY_SEPARATOR === '/' ? 'Class class@anonymous/tests/PHPStan/Rules/Classes/data/instantiation.php:137 constructor invoked with 3 parameters, 1 required.' : 'Class class@anonymous/tests\PHPStan\Rules\Classes\data\instantiation.php:137 constructor invoked with 3 parameters, 1 required.',
+					137,
 				],
 				[
 					'Instantiated class UndefinedClass1 not found.',
-					166,
-				],
-				[
-					'Instantiated class UndefinedClass2 not found.',
 					169,
 				],
 				[
+					'Instantiated class UndefinedClass2 not found.',
+					172,
+				],
+				[
 					'Instantiated class UndefinedClass3 not found.',
-					176,
+					179,
 				],
 				[
 					'Class TestInstantiation\FinalClass does not have a constructor and must be instantiated without any parameters.',
-					187,
+					190,
 				],
 				[
 					'Class TestInstantiation\ClassWithFinalConstructor constructor invoked with 0 parameters, 1 required.',
-					203,
+					206,
 				],
 				[
 					'Class TestInstantiation\ConstructorComingFromAnInterface constructor invoked with 0 parameters, 1 required.',
-					226,
+					229,
 				],
 				[
 					'Class TestInstantiation\AbstractClassWithFinalConstructor constructor invoked with 1 parameter, 0 required.',
-					242,
+					245,
 				],
 				[
 					'Class TestInstantiation\AbstractConstructor constructor invoked with 0 parameters, 1 required.',
-					254,
+					257,
 				],
 				[
 					'Class TestInstantiation\ClassExtendingAbstractConstructor constructor invoked with 0 parameters, 1 required.',
-					270,
+					273,
 				],
 			]
 		);
