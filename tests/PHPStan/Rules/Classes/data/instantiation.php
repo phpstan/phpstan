@@ -39,6 +39,9 @@ function () {
 	new self();
 	new static();
 	new parent();
+
+	$a = new BarInstantiation(1);
+	new $a();
 };
 
 class ChildInstantiatingClass extends InstantiatingClass

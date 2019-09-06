@@ -209,11 +209,16 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 			return [$anonymousClassType->getClassName()];
 		}
 
-		return array_map(
-			static function (ConstantStringType $type): string {
-				return $type->getValue();
-			},
-			TypeUtils::getConstantStrings($scope->getType($node->class))
+		$type = $scope->getType($node->class);
+
+		return array_merge(
+			array_map(
+				static function (ConstantStringType $type): string {
+					return $type->getValue();
+				},
+				TypeUtils::getConstantStrings($type)
+			),
+			TypeUtils::getDirectClassNames($type)
 		);
 	}
 
