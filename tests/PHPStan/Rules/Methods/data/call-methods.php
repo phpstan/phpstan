@@ -1400,3 +1400,40 @@ class WithStringOrNull
 	}
 
 }
+
+class TestForEmptyArrayOrTrue
+{
+
+	public function buggyTest(): void
+	{
+		$emptyArrayOrTrue = rand(0, 1) > 0 ? [] : TRUE;
+
+		if ($emptyArrayOrTrue) {
+			$this->requireBool($emptyArrayOrTrue);
+		} else {
+			$this->requireArray($emptyArrayOrTrue);
+		}
+	}
+
+	public function okTest(): void
+	{
+		$nonEmptyArrayOrFalse = rand(0, 1) > 0 ? ['foo'] : FALSE;
+
+		if ($nonEmptyArrayOrFalse) {
+			$this->requireArray($nonEmptyArrayOrFalse);
+		} else {
+			$this->requireBool($nonEmptyArrayOrFalse);
+		}
+	}
+
+	public function requireArray(array $value): void
+	{
+
+	}
+
+	public function requireBool(bool $value): void
+	{
+
+	}
+
+}
