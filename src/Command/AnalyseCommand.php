@@ -45,7 +45,12 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 	protected function initialize(InputInterface $input, OutputInterface $output): void
 	{
 		if ((bool) $input->getOption('debug')) {
-			$this->getApplication()->setCatchExceptions(false);
+			/** @var \Symfony\Component\Console\Application|null $application */
+			$application = $this->getApplication();
+			if ($application === null) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			$application->setCatchExceptions(false);
 			return;
 		}
 	}
