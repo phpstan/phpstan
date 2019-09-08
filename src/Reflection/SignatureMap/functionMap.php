@@ -2017,7 +2017,7 @@ return [
 'domxml_xslt_version' => ['int'],
 'DOMXPath::__construct' => ['void', 'doc'=>'DOMDocument'],
 'DOMXPath::evaluate' => ['mixed', 'expression'=>'string', 'contextnode='=>'DOMNode', 'registernodens='=>'bool'],
-'DOMXPath::query' => ['DOMNodeList', 'expression'=>'string', 'contextnode='=>'DOMNode', 'registernodens='=>'bool'],
+'DOMXPath::query' => ['DOMNodeList|false', 'expression'=>'string', 'contextnode='=>'DOMNode', 'registernodens='=>'bool'],
 'DOMXPath::registerNamespace' => ['bool', 'prefix'=>'string', 'namespaceuri'=>'string'],
 'DOMXPath::registerPhpFunctions' => ['void', 'restrict='=>'mixed'],
 'DomXsltStylesheet::process' => ['DomDocument', 'xml_doc'=>'DOMDocument', 'xslt_params='=>'array', 'is_xpath_param='=>'bool', 'profile_filename='=>'string'],
