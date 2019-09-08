@@ -200,7 +200,7 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 				[
 					'actualEncoding' => 'string',
 					'config' => \DOMConfiguration::class,
-					'doctype' => \DOMDocumentType::class,
+					'doctype' => \DOMDocumentType::class . '|null',
 					'documentElement' => 'DOMElement|null',
 					'documentURI' => 'string',
 					'encoding' => 'string',
