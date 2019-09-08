@@ -47,6 +47,9 @@ parameters:
 		-
 			message: "#^Call to function method_exists\\(\\) with ReflectionProperty and '(?:hasType|getType)' will always evaluate to true\\.$#"
 			path: %rootDir%/src/Reflection/Php/PhpClassReflectionExtension.php
+		-
+			message: '#^Constant SOME_CONSTANT_IN_AUTOLOAD_FILE not found\.$#'
+			path: %rootDir%/tests/PHPStan/Command/AnalyseCommandTest.php
 	reportStaticMethodSignatures: true
 	reportUnmatchedIgnoredErrors: false
 	tmpDir: %rootDir%/tmp

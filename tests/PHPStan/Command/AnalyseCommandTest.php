@@ -46,7 +46,7 @@ class AnalyseCommandTest extends \PHPStan\Testing\TestCase
 		$output = $this->runCommand(0, ['--autoload-file' => $autoloadFile]);
 		$this->assertStringContainsString('[OK] No errors', $output);
 		$this->assertStringNotContainsString(sprintf('Autoload file "%s" not found.' . PHP_EOL, $autoloadFile), $output);
-		$this->assertSame(SOME_CONSTANT_IN_AUTOLOAD_FILE, 'magic value');
+		$this->assertSame('magic value', SOME_CONSTANT_IN_AUTOLOAD_FILE);
 	}
 
 	/**
