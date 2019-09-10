@@ -14,6 +14,7 @@ use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
 use PHPStan\Type\Traits\TruthyBooleanTypeTrait;
 
@@ -38,6 +39,18 @@ class ObjectType implements TypeWithClassName, SubtractableType
 	{
 		$this->className = $className;
 		$this->subtractedType = $subtractedType;
+	}
+
+	public static function createFromReflection(ClassReflection $reflection): self
+	{
+		if (!$reflection->isGeneric()) {
+			return new ObjectType($reflection->getName());
+		}
+
+		return new GenericObjectType(
+			$reflection->getName(),
+			$reflection->typeMapToList($reflection->getActiveTemplateTypeMap())
+		);
 	}
 
 	public function getClassName(): string
@@ -734,6 +747,62 @@ class ObjectType implements TypeWithClassName, SubtractableType
 		}
 
 		return $broker->getClass($this->className);
+	}
+
+	protected function getAncestorWithClassName(string $className): ?ObjectType
+	{
+		$broker = Broker::getInstance();
+		$theirReflection = $broker->getClass($className);
+		$thisReflection = $broker->getClass($this->getClassName());
+
+		if ($theirReflection->getName() === $thisReflection->getName()) {
+			return $this;
+		}
+
+		foreach ($this->getInterfaces() as $interface) {
+			$ancestor = $interface->getAncestorWithClassName($className);
+			if ($ancestor !== null) {
+				return $ancestor;
+			}
+		}
+
+		$parent = $this->getParent();
+		if ($parent !== null) {
+			$ancestor = $parent->getAncestorWithClassName($className);
+			if ($ancestor !== null) {
+				return $ancestor;
+			}
+		}
+
+		return null;
+	}
+
+	private function getParent(): ?ObjectType
+	{
+		$thisReflection = $this->getClassReflection();
+		if ($thisReflection === null) {
+			return null;
+		}
+
+		$parentReflection = $thisReflection->getParentClass();
+		if ($parentReflection === false) {
+			return null;
+		}
+
+		return self::createFromReflection($parentReflection);
+	}
+
+	/** @return ObjectType[] */
+	private function getInterfaces(): array
+	{
+		$thisReflection = $this->getClassReflection();
+		if ($thisReflection === null) {
+			return [];
+		}
+
+		return array_map(static function (ClassReflection $interfaceReflection): self {
+			return self::createFromReflection($interfaceReflection);
+		}, $thisReflection->getInterfaces());
 	}
 
 }

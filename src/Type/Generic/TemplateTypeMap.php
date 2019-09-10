@@ -34,6 +34,11 @@ class TemplateTypeMap
 		return $empty;
 	}
 
+	public function isEmpty(): bool
+	{
+		return count($this->types) === 0;
+	}
+
 	/** @return array<string,\PHPStan\Type\Type> */
 	public function getTypes(): array
 	{
