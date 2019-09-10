@@ -4,6 +4,8 @@ namespace PHPStan\Type\Generic;
 
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\CompoundType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
@@ -36,6 +38,57 @@ final class GenericObjectType extends ObjectType
 				return $type->describe($level);
 			}, $this->types))
 		);
+	}
+
+	/** @return Type[] */
+	public function getTypes(): array
+	{
+		return $this->types;
+	}
+
+	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
+	{
+		if ($type instanceof CompoundType) {
+			return $type->isSubTypeOf($this);
+		}
+
+		return $this->isSuperTypeOf($type);
+	}
+
+	public function isSuperTypeOf(Type $type): TrinaryLogic
+	{
+		if ($type instanceof CompoundType) {
+			return $type->isSubTypeOf($this);
+		}
+
+		$nakedSuperTypeOf = parent::isSuperTypeOf($type);
+		if ($nakedSuperTypeOf->no()) {
+			return $nakedSuperTypeOf;
+		}
+
+		if (!$type instanceof ObjectType) {
+			return $nakedSuperTypeOf;
+		}
+
+		$ancestor = $type->getAncestorWithClassName($this->getClassName());
+		if ($ancestor === null || !$ancestor instanceof self) {
+			return $nakedSuperTypeOf->and(TrinaryLogic::createMaybe());
+		}
+
+		if (count($this->types) !== count($ancestor->types)) {
+			return TrinaryLogic::createNo();
+		}
+
+		foreach ($this->types as $i => $t) {
+			if (!isset($ancestor->types[$i])) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			if (!$t->equals($ancestor->types[$i])) {
+				return TrinaryLogic::createNo();
+			}
+		}
+
+		return $nakedSuperTypeOf;
 	}
 
 	public function getClassReflection(): ?ClassReflection

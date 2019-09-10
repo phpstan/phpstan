@@ -650,6 +650,18 @@ class ClassReflection implements ReflectionWithFilename
 		return new TemplateTypeMap($map);
 	}
 
+	/** @return Type[] */
+	public function typeMapToList(TemplateTypeMap $map): array
+	{
+		$types = [];
+
+		foreach ($this->getTemplateTags() as $tag) {
+			$types[] = $map->getType($tag->getName()) ?? new ErrorType();
+		}
+
+		return $types;
+	}
+
 	/**
 	 * @param Type[] $types
 	 */
