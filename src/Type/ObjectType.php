@@ -47,12 +47,11 @@ class ObjectType implements TypeWithClassName, SubtractableType
 
 	public function hasProperty(string $propertyName): TrinaryLogic
 	{
-		$broker = Broker::getInstance();
-		if (!$broker->hasClass($this->className)) {
+		$classReflection = $this->getClassReflection();
+		if ($classReflection === null) {
 			return TrinaryLogic::createMaybe();
 		}
 
-		$classReflection = $broker->getClass($this->className);
 		if ($classReflection->hasProperty($propertyName)) {
 			return TrinaryLogic::createYes();
 		}
@@ -66,8 +65,12 @@ class ObjectType implements TypeWithClassName, SubtractableType
 
 	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
-		$broker = Broker::getInstance();
-		return $broker->getClass($this->className)->getProperty($propertyName, $scope);
+		$classReflection = $this->getClassReflection();
+		if ($classReflection === null) {
+			throw new \PHPStan\Broker\ClassNotFoundException($this->className);
+		}
+
+		return $classReflection->getProperty($propertyName, $scope);
 	}
 
 	/**
@@ -235,12 +238,12 @@ class ObjectType implements TypeWithClassName, SubtractableType
 	{
 		return $level->handle(
 			function (): string {
-				$broker = Broker::getInstance();
-				if (!$broker->hasClass($this->className)) {
+				$classReflection = $this->getClassReflection();
+				if ($classReflection === null) {
 					return $this->className;
 				}
 
-				return $broker->getClass($this->className)->getDisplayName();
+				return $classReflection->getDisplayName(false);
 			},
 			function (): string {
 				return $this->className;
@@ -287,12 +290,11 @@ class ObjectType implements TypeWithClassName, SubtractableType
 
 	public function toString(): Type
 	{
-		$broker = Broker::getInstance();
-		if (!$broker->hasClass($this->className)) {
+		$classReflection = $this->getClassReflection();
+		if ($classReflection === null) {
 			return new ErrorType();
 		}
 
-		$classReflection = $broker->getClass($this->className);
 		if ($classReflection->hasNativeMethod('__toString')) {
 			return new StringType();
 		}
@@ -302,12 +304,13 @@ class ObjectType implements TypeWithClassName, SubtractableType
 
 	public function toArray(): Type
 	{
-		$broker = Broker::getInstance();
-		if (!$broker->hasClass($this->className)) {
+		$classReflection = $this->getClassReflection();
+		if ($classReflection === null) {
 			return new ArrayType(new MixedType(), new MixedType());
 		}
 
-		$classReflection = $broker->getClass($this->className);
+		$broker = Broker::getInstance();
+
 		if (
 			!$classReflection->getNativeReflection()->isUserDefined()
 			|| UniversalObjectCratesClassReflectionExtension::isUniversalObjectCrate(
@@ -370,12 +373,11 @@ class ObjectType implements TypeWithClassName, SubtractableType
 
 	public function hasMethod(string $methodName): TrinaryLogic
 	{
-		$broker = Broker::getInstance();
-		if (!$broker->hasClass($this->className)) {
+		$classReflection = $this->getClassReflection();
+		if ($classReflection === null) {
 			return TrinaryLogic::createMaybe();
 		}
 
-		$classReflection = $broker->getClass($this->className);
 		if ($classReflection->hasMethod($methodName)) {
 			return TrinaryLogic::createYes();
 		}
@@ -389,8 +391,12 @@ class ObjectType implements TypeWithClassName, SubtractableType
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
-		$broker = Broker::getInstance();
-		return $broker->getClass($this->className)->getMethod($methodName, $scope);
+		$classReflection = $this->getClassReflection();
+		if ($classReflection === null) {
+			throw new \PHPStan\Broker\ClassNotFoundException($this->className);
+		}
+
+		return $classReflection->getMethod($methodName, $scope);
 	}
 
 	public function canAccessConstants(): TrinaryLogic
@@ -400,20 +406,24 @@ class ObjectType implements TypeWithClassName, SubtractableType
 
 	public function hasConstant(string $constantName): TrinaryLogic
 	{
-		$broker = Broker::getInstance();
-		if (!$broker->hasClass($this->className)) {
+		$class = $this->getClassReflection();
+		if ($class === null) {
 			return TrinaryLogic::createNo();
 		}
 
 		return TrinaryLogic::createFromBoolean(
-			$broker->getClass($this->className)->hasConstant($constantName)
+			$class->hasConstant($constantName)
 		);
 	}
 
 	public function getConstant(string $constantName): ConstantReflection
 	{
-		$broker = Broker::getInstance();
-		return $broker->getClass($this->className)->getConstant($constantName);
+		$class = $this->getClassReflection();
+		if ($class === null) {
+			throw new \PHPStan\Broker\ClassNotFoundException($this->className);
+		}
+
+		return $class->getConstant($constantName);
 	}
 
 	public function isIterable(): TrinaryLogic
@@ -429,13 +439,10 @@ class ObjectType implements TypeWithClassName, SubtractableType
 
 	public function getIterableKeyType(): Type
 	{
-		$broker = Broker::getInstance();
-
-		if (!$broker->hasClass($this->className)) {
+		$classReflection = $this->getClassReflection();
+		if ($classReflection === null) {
 			return new ErrorType();
 		}
-
-		$classReflection = $broker->getClass($this->className);
 
 		if ($this->isInstanceOf(\Iterator::class)->yes()) {
 			return ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('key')->getVariants())->getReturnType();
@@ -458,13 +465,10 @@ class ObjectType implements TypeWithClassName, SubtractableType
 
 	public function getIterableValueType(): Type
 	{
-		$broker = Broker::getInstance();
-
-		if (!$broker->hasClass($this->className)) {
+		$classReflection = $this->getClassReflection();
+		if ($classReflection === null) {
 			return new ErrorType();
 		}
-
-		$classReflection = $broker->getClass($this->className);
 
 		if ($this->isInstanceOf(\Iterator::class)->yes()) {
 			return ParametersAcceptorSelector::selectSingle(
@@ -494,12 +498,10 @@ class ObjectType implements TypeWithClassName, SubtractableType
 
 	private function isExtraOffsetAccessibleClass(): TrinaryLogic
 	{
-		$broker = Broker::getInstance();
-		if (!$broker->hasClass($this->className)) {
+		$classReflection = $this->getClassReflection();
+		if ($classReflection === null) {
 			return TrinaryLogic::createMaybe();
 		}
-
-		$classReflection = $broker->getClass($this->className);
 
 		foreach (self::EXTRA_OFFSET_CLASSES as $extraOffsetClass) {
 			if ($classReflection->getName() === $extraOffsetClass) {
@@ -534,9 +536,8 @@ class ObjectType implements TypeWithClassName, SubtractableType
 
 	public function getOffsetValueType(Type $offsetType): Type
 	{
-		$broker = Broker::getInstance();
-
-		if (!$broker->hasClass($this->className)) {
+		$classReflection = $this->getClassReflection();
+		if ($classReflection === null) {
 			return new ErrorType();
 		}
 
@@ -545,7 +546,6 @@ class ObjectType implements TypeWithClassName, SubtractableType
 		}
 
 		if ($this->isInstanceOf(\ArrayAccess::class)->yes()) {
-			$classReflection = $broker->getClass($this->className);
 			return RecursionGuard::run($this, static function () use ($classReflection): Type {
 				return ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetGet')->getVariants())->getReturnType();
 			});
@@ -560,9 +560,11 @@ class ObjectType implements TypeWithClassName, SubtractableType
 			return new ErrorType();
 		}
 
-		$broker = Broker::getInstance();
 		if ($this->isInstanceOf(\ArrayAccess::class)->yes()) {
-			$classReflection = $broker->getClass($this->className);
+			$classReflection = $this->getClassReflection();
+			if ($classReflection === null) {
+				return new ErrorType();
+			}
 			$acceptedValueType = new NeverType();
 			$acceptedOffsetType = RecursionGuard::run($this, function () use ($classReflection, &$acceptedValueType): Type {
 				$parameters = ParametersAcceptorSelector::selectSingle($classReflection->getNativeMethod('offsetSet')->getVariants())->getParameters();
@@ -635,13 +637,11 @@ class ObjectType implements TypeWithClassName, SubtractableType
 	 */
 	private function findCallableParametersAcceptors(): ?array
 	{
-		$broker = Broker::getInstance();
-
-		if (!$broker->hasClass($this->className)) {
+		$classReflection = $this->getClassReflection();
+		if ($classReflection === null) {
 			return [new TrivialParametersAcceptor()];
 		}
 
-		$classReflection = $broker->getClass($this->className);
 		if ($classReflection->hasNativeMethod('__invoke')) {
 			return $classReflection->getNativeMethod('__invoke')->getVariants();
 		}
@@ -672,13 +672,11 @@ class ObjectType implements TypeWithClassName, SubtractableType
 
 	public function isInstanceOf(string $className): TrinaryLogic
 	{
-		$broker = Broker::getInstance();
-
-		if (!$broker->hasClass($this->className)) {
+		$classReflection = $this->getClassReflection();
+		if ($classReflection === null) {
 			return TrinaryLogic::createMaybe();
 		}
 
-		$classReflection = $broker->getClass($this->className);
 		if ($classReflection->isSubclassOf($className) || $classReflection->getName() === $className) {
 			return TrinaryLogic::createYes();
 		}
