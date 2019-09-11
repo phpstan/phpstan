@@ -27,6 +27,7 @@ rules:
 	- PHPStan\Rules\Functions\InnerFunctionRule
 	- PHPStan\Rules\Functions\NonExistentDefinedFunctionRule
 	- PHPStan\Rules\Functions\PrintfParametersRule
+	- PHPStan\Rules\Methods\ClosureCallParametersRule
 	- PHPStan\Rules\Methods\ExistingClassesInTypehintsRule
 	- PHPStan\Rules\Properties\AccessPropertiesInAssignRule
 	- PHPStan\Rules\Properties\AccessStaticPropertiesInAssignRule
