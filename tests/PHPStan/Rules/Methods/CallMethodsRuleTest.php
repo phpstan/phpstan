@@ -1158,4 +1158,45 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->analyse([__DIR__ . '/data/aliased-traits-problem.php'], []);
 	}
 
+	public function testClosureCallInvocations(): void
+	{
+		$this->checkThisOnly = false;
+		$this->checkNullables = true;
+		$this->checkUnionTypes = true;
+		$this->analyse([__DIR__ . '/data/closure-call.php'], [
+			[
+				'Method Closure::call() invoked with 0 parameters, 2 required.',
+				9,
+			],
+			[
+				'Method Closure::call() invoked with 1 parameter, 2 required.',
+				10,
+			],
+			[
+				'Method Closure::call() invoked with 1 parameter, 2 required.',
+				11,
+			],
+			[
+				'Parameter #1 $newThis of method Closure::call() expects object, int given.',
+				11,
+			],
+			[
+				'Parameter #2 $thing of method Closure::call() expects object, int given.',
+				12,
+			],
+			[
+				'Parameter #1 $newThis of method Closure::call() expects object, int given.',
+				13,
+			],
+			[
+				'Method Closure::call() invoked with 3 parameters, 2 required.',
+				14,
+			],
+			[
+				'Result of method Closure::call() (void) is used.',
+				18,
+			],
+		]);
+	}
+
 }

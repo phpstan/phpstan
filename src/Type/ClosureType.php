@@ -8,6 +8,7 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Reflection\ParameterReflection;
 use PHPStan\Reflection\ParametersAcceptor;
+use PHPStan\Reflection\Php\ClosureCallMethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Constant\ConstantArrayType;
@@ -24,7 +25,7 @@ class ClosureType implements TypeWithClassName, ParametersAcceptor
 	/** @var ObjectType */
 	private $objectType;
 
-	/** @var array<int, \PHPStan\Reflection\Native\NativeParameterReflection> */
+	/** @var array<int, \PHPStan\Reflection\ParameterReflection> */
 	private $parameters;
 
 	/** @var Type */
@@ -34,7 +35,7 @@ class ClosureType implements TypeWithClassName, ParametersAcceptor
 	private $variadic;
 
 	/**
-	 * @param array<int, \PHPStan\Reflection\Native\NativeParameterReflection> $parameters
+	 * @param array<int, \PHPStan\Reflection\ParameterReflection> $parameters
 	 * @param Type $returnType
 	 * @param bool $variadic
 	 */
@@ -158,6 +159,13 @@ class ClosureType implements TypeWithClassName, ParametersAcceptor
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
+		if ($methodName === 'call') {
+			return new ClosureCallMethodReflection(
+				$this->objectType->getMethod($methodName, $scope),
+				$this
+			);
+		}
+
 		return $this->objectType->getMethod($methodName, $scope);
 	}
 
@@ -280,7 +288,7 @@ class ClosureType implements TypeWithClassName, ParametersAcceptor
 	}
 
 	/**
-	 * @return array<int, \PHPStan\Reflection\Native\NativeParameterReflection>
+	 * @return array<int, \PHPStan\Reflection\ParameterReflection>
 	 */
 	public function getParameters(): array
 	{

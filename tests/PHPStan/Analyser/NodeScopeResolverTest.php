@@ -9434,11 +9434,17 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		return $this->gatherAssertTypes(__DIR__ . '/data/integer-range-types.php');
 	}
 
+	public function dataClosureReturnTypes(): array
+	{
+		return $this->gatherAssertTypes(__DIR__ . '/data/closure-return-type-extensions.php');
+	}
+
 	/**
 	 * @dataProvider dataGenerics
 	 * @dataProvider dataGenericClassStringType
 	 * @dataProvider dataInstanceOf
 	 * @dataProvider dataIntegerRangeTypes
+	 * @dataProvider dataClosureReturnTypes
 	 * @param ConstantStringType $expectedType
 	 * @param Type $actualType
 	 */
