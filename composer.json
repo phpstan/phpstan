@@ -10,7 +10,6 @@
 		"jean85/pretty-package-versions": "^1.0.3",
 		"nette/bootstrap": "^3.0",
 		"nette/di": "^3.0",
-		"nette/finder": "dev-master as 2.5.1",
 		"nette/neon": "^3.0",
 		"nette/robot-loader": "^3.0.1",
 		"nette/schema": "^1.0",
