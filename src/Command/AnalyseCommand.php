@@ -31,6 +31,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				new InputOption('autoload-file', 'a', InputOption::VALUE_REQUIRED, 'Project\'s additional autoload file path'),
 				new InputOption('error-format', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
 				new InputOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for analysis'),
+				new InputOption('xdebug', null, InputOption::VALUE_NONE, 'Allow running with XDebug for debugging purposes'),
 			]);
 	}
 
@@ -62,6 +63,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$configuration = $input->getOption('configuration');
 		$level = $input->getOption(self::OPTION_LEVEL);
 		$pathsFile = $input->getOption('paths-file');
+		$allowXdebug = $input->getOption('xdebug');
 
 		if (
 			!is_array($paths)
@@ -70,6 +72,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			|| (!is_string($configuration) && $configuration !== null)
 			|| (!is_string($level) && $level !== null)
 			|| (!is_string($pathsFile) && $pathsFile !== null)
+			|| (!is_bool($allowXdebug))
 		) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
@@ -83,7 +86,8 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				$memoryLimit,
 				$autoloadFile,
 				$configuration,
-				$level
+				$level,
+				$allowXdebug
 			);
 		} catch (\PHPStan\Command\InceptionNotSuccessfulException $e) {
 			return 1;

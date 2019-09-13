@@ -1,7 +1,6 @@
 #!/usr/bin/env php
 <?php declare(strict_types=1);
 
-use Composer\XdebugHandler\XdebugHandler;
 use PHPStan\Command\AnalyseCommand;
 use PHPStan\Command\DumpDependenciesCommand;
 
@@ -44,10 +43,6 @@ use PHPStan\Command\DumpDependenciesCommand;
 	if (is_file($devOrPharAutoloadFile)) {
 		require_once $devOrPharAutoloadFile;
 	}
-
-	$xdebug = new XdebugHandler('phpstan', '--ansi');
-	$xdebug->check();
-	unset($xdebug);
 
 	$version = 'Version unknown';
 	try {
