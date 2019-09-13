@@ -382,6 +382,10 @@ class ClassReflection implements ReflectionWithFilename
 
 	public function isSubclassOf(string $className): bool
 	{
+		if (!$this->broker->hasClass($className)) {
+			return false;
+		}
+
 		return $this->reflection->isSubclassOf($className);
 	}
 
