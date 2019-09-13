@@ -77,7 +77,7 @@ class TypeNodeResolver
 
 	public function getCacheKey(): string
 	{
-		$key = 'v65-explicit-never';
+		$key = 'v66-implicit-mixed';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}
@@ -153,7 +153,7 @@ class TypeNodeResolver
 				return new FloatType();
 
 			case 'array':
-				return new ArrayType(new MixedType(true), new MixedType(true));
+				return new ArrayType(new MixedType(), new MixedType());
 
 			case 'scalar':
 				return new UnionType([
