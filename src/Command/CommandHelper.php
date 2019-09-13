@@ -2,6 +2,7 @@
 
 namespace PHPStan\Command;
 
+use Composer\XdebugHandler\XdebugHandler;
 use Nette\DI\Config\Adapters\NeonAdapter;
 use Nette\DI\Config\Adapters\PhpAdapter;
 use Nette\DI\Helpers;
@@ -33,9 +34,15 @@ class CommandHelper
 		?string $memoryLimit,
 		?string $autoloadFile,
 		?string $projectConfigFile,
-		?string $level
+		?string $level,
+		bool $allowXdebug
 	): InceptionResult
 	{
+		if (!$allowXdebug) {
+			$xdebug = new XdebugHandler('phpstan', '--ansi');
+			$xdebug->check();
+			unset($xdebug);
+		}
 		$errorOutput = $output instanceof ConsoleOutputInterface ? $output->getErrorOutput() : $output;
 		$consoleStyle = new ErrorsConsoleStyle($input, $output);
 		if ($memoryLimit !== null) {

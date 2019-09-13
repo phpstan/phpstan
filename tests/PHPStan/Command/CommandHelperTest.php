@@ -116,7 +116,8 @@ class CommandHelperTest extends TestCase
 				null,
 				null,
 				$projectConfigFile,
-				$level
+				$level,
+				false
 			);
 			if ($expectException) {
 				$this->fail();
