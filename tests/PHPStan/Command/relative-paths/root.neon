@@ -1,0 +1,15 @@
+parameters:
+	bootstrap: here.php
+	autoload_files:
+		- here.php
+		- test/there.php
+		- ../up.php
+	autoload_directories:
+		- src
+		- .
+		- %rootDir%/conf
+	paths:
+		- src
+	memoryLimitFile: .memory_limit
+	excludes_analyse:
+		- src

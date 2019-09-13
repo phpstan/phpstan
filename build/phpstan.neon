@@ -50,6 +50,9 @@ parameters:
 		-
 			message: '#^Constant SOME_CONSTANT_IN_AUTOLOAD_FILE not found\.$#'
 			path: %rootDir%/tests/PHPStan/Command/AnalyseCommandTest.php
+		-
+			message: '#^Fetching class constant PREVENT_MERGING of deprecated class Nette\\DI\\Config\\Helpers\.$#'
+			path: ../src/DependencyInjection/NeonAdapter.php
 	reportStaticMethodSignatures: true
 	reportUnmatchedIgnoredErrors: false
 	tmpDir: %rootDir%/tmp

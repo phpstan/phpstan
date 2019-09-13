@@ -2,7 +2,6 @@
 
 namespace PHPStan\DependencyInjection;
 
-use Nette\DI\Config\Adapters\NeonAdapter;
 use Nette\DI\Config\Loader;
 
 class LoaderFactory
@@ -27,6 +26,7 @@ class LoaderFactory
 	{
 		$loader = new Loader();
 		$loader->addAdapter('dist', NeonAdapter::class);
+		$loader->addAdapter('neon', NeonAdapter::class);
 		$loader->setParameters([
 			'rootDir' => $this->rootDir,
 			'currentWorkingDirectory' => $this->currentWorkingDirectory,

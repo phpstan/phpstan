@@ -191,9 +191,9 @@ you can specify directories to scan and concrete files to include using
 ```
 parameters:
 	autoload_directories:
-		- %rootDir%/../../../build
+		- build
 	autoload_files:
-		- %rootDir%/../../../generated/routes/GeneratedRouteList.php
+		- generated/routes/GeneratedRouteList.php
 ```
 
 `%rootDir%` is expanded to the root directory where PHPStan resides.
@@ -364,7 +364,7 @@ you can provide your own bootstrap file:
 
 ```
 parameters:
-	bootstrap: %rootDir%/../../../phpstan-bootstrap.php
+	bootstrap: phpstan-bootstrap.php
 ```
 
 ### Custom rules

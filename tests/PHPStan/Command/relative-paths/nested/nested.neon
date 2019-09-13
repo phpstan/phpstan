@@ -1,0 +1,14 @@
+parameters:
+	autoload_files:
+		- here.php
+		- test/there.php
+		- ../up.php
+	ignoreErrors:
+		-
+			message: '#aaa#'
+			path: src/aaa.php
+		-
+			message: '#bbb#'
+			paths:
+				- ../src/aaa.php
+				- src/bbb.php

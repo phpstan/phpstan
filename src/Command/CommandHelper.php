@@ -2,7 +2,6 @@
 
 namespace PHPStan\Command;
 
-use Nette\DI\Config\Adapters\NeonAdapter;
 use Nette\DI\Config\Adapters\PhpAdapter;
 use Nette\DI\Helpers;
 use Nette\Schema\Context as SchemaContext;
@@ -11,6 +10,7 @@ use Nette\Utils\Strings;
 use Nette\Utils\Validators;
 use PHPStan\DependencyInjection\ContainerFactory;
 use PHPStan\DependencyInjection\LoaderFactory;
+use PHPStan\DependencyInjection\NeonAdapter;
 use PHPStan\File\FileFinder;
 use PHPStan\File\FileHelper;
 use Symfony\Component\Console\Input\InputInterface;
@@ -53,7 +53,6 @@ class CommandHelper
 		}
 		$fileHelper = new FileHelper($currentWorkingDirectory);
 		if ($autoloadFile !== null) {
-			$autoloadFile = $fileHelper->absolutizePath($autoloadFile);
 			if (!is_file($autoloadFile)) {
 				$errorOutput->writeln(sprintf('Autoload file "%s" not found.', $autoloadFile));
 				throw new \PHPStan\Command\InceptionNotSuccessfulException();
@@ -243,9 +242,13 @@ class CommandHelper
 		}
 
 		foreach ($container->getParameter('autoload_files') as $parameterAutoloadFile) {
+			if (!file_exists($parameterAutoloadFile)) {
+				$errorOutput->writeln(sprintf('Autoload file %s does not exist.', $parameterAutoloadFile));
+				throw new \PHPStan\Command\InceptionNotSuccessfulException();
+			}
 			(static function (string $file) use ($container): void {
 				require_once $file;
-			})($fileHelper->normalizePath($parameterAutoloadFile));
+			})($parameterAutoloadFile);
 		}
 
 		$autoloadDirectories = $container->getParameter('autoload_directories');
@@ -257,11 +260,15 @@ class CommandHelper
 
 			$robotLoader->setTempDirectory($tmpDir);
 			foreach ($autoloadDirectories as $directory) {
-				$robotLoader->addDirectory($fileHelper->normalizePath($directory));
+				if (!file_exists($directory)) {
+					$errorOutput->writeln(sprintf('Autoload directory %s does not exist.', $directory));
+					throw new \PHPStan\Command\InceptionNotSuccessfulException();
+				}
+				$robotLoader->addDirectory($directory);
 			}
 
 			foreach ($container->getParameter('excludes_analyse') as $directory) {
-				$robotLoader->excludeDirectory($fileHelper->normalizePath($directory));
+				$robotLoader->excludeDirectory($directory);
 			}
 
 			$robotLoader->register();
@@ -269,7 +276,6 @@ class CommandHelper
 
 		$bootstrapFile = $container->getParameter('bootstrap');
 		if ($bootstrapFile !== null) {
-			$bootstrapFile = $fileHelper->normalizePath($bootstrapFile);
 			if (!is_file($bootstrapFile)) {
 				$errorOutput->writeln(sprintf('Bootstrap file %s does not exist.', $bootstrapFile));
 				throw new \PHPStan\Command\InceptionNotSuccessfulException();

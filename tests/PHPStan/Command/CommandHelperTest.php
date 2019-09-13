@@ -4,6 +4,7 @@ namespace PHPStan\Command;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Input\StringInput;
+use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\StreamOutput;
 
 class CommandHelperTest extends TestCase
@@ -123,7 +124,12 @@ class CommandHelperTest extends TestCase
 			}
 		} catch (\PHPStan\Command\InceptionNotSuccessfulException $e) {
 			if (!$expectException) {
-				throw $e;
+				rewind($output->getStream());
+				$contents = stream_get_contents($output->getStream());
+				if ($contents === false) {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+				$this->fail($contents);
 			}
 		}
 
@@ -143,6 +149,83 @@ class CommandHelperTest extends TestCase
 			}
 		} else {
 			$this->assertCount(0, $expectedParameters);
+		}
+	}
+
+	public function dataResolveRelativePaths(): array
+	{
+		return [
+			[
+				__DIR__ . '/relative-paths/root.neon',
+				[
+					'bootstrap' => __DIR__ . '/relative-paths/here.php',
+					'autoload_files' => [
+						__DIR__ . '/relative-paths/here.php',
+						__DIR__ . '/relative-paths/test/there.php',
+						__DIR__ . '/up.php',
+					],
+					'autoload_directories' => [
+						__DIR__ . '/relative-paths/src',
+						__DIR__ . '/relative-paths',
+						realpath(__DIR__ . '/../../../conf'),
+					],
+					'paths' => [
+						__DIR__ . '/relative-paths/src',
+					],
+					'memoryLimitFile' => __DIR__ . '/relative-paths/.memory_limit',
+					'excludes_analyse' => [__DIR__ . '/relative-paths/src'],
+				],
+			],
+			[
+				__DIR__ . '/relative-paths/nested/nested.neon',
+				[
+					'autoload_files' => [
+						__DIR__ . '/relative-paths/nested/here.php',
+						__DIR__ . '/relative-paths/nested/test/there.php',
+						__DIR__ . '/relative-paths/up.php',
+					],
+					'ignoreErrors' => [
+						[
+							'message' => '#aaa#',
+							'path' => __DIR__ . '/relative-paths/nested/src/aaa.php',
+						],
+						[
+							'message' => '#bbb#',
+							'paths' => [
+								__DIR__ . '/relative-paths/src/aaa.php',
+								__DIR__ . '/relative-paths/nested/src/bbb.php',
+							],
+						],
+					],
+				],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataResolveRelativePaths
+	 * @param string $configFile
+	 * @param array $expectedParameters
+	 */
+	public function testResolveRelativePaths(
+		string $configFile,
+		array $expectedParameters
+	): void
+	{
+		$result = CommandHelper::begin(
+			new StringInput(''),
+			new NullOutput(),
+			[__DIR__],
+			null,
+			null,
+			null,
+			$configFile,
+			'0'
+		);
+		$parameters = $result->getContainer()->getParameters();
+		foreach ($expectedParameters as $name => $expectedValue) {
+			$this->assertArrayHasKey($name, $parameters);
+			$this->assertSame($expectedValue, $parameters[$name]);
 		}
 	}
 
