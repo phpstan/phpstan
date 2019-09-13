@@ -150,11 +150,21 @@ class ParametersAcceptorSelectorTest extends \PHPStan\Testing\TestCase
 		];
 		yield [
 			[
+				new FloatType(),
+				new IntegerType(),
 				new StringType(),
 			],
 			$absVariants,
 			false,
 			ParametersAcceptorSelector::combineAcceptors($absVariants),
+		];
+		yield [
+			[
+				new StringType(),
+			],
+			$absVariants,
+			false,
+			$absVariants[2],
 		];
 
 		$strtokVariants = $broker->getFunction(new Name('strtok'), null)->getVariants();
