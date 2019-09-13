@@ -13,18 +13,18 @@ class Foo extends \stdClass
 		$this->name = $name;
 	}
 
-	public function doFoo()
+	public function doFoo(): void
 	{
 		$this->doBar($this->name);
 		$this->doBaz($this->name); // reported - string passed to int
 	}
 
-	public function doBar(string $name)
+	public function doBar(string $name): void
 	{
 
 	}
 
-	public function doBaz(int $i)
+	public function doBaz(int $i): void
 	{
 
 	}

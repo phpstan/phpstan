@@ -1,7 +1,7 @@
 [
     {
-        "message": "Argument of an invalid type array|false supplied for foreach, only iterables are supported.",
-        "line": 35,
+        "message": "Method Levels\\Iterables\\Foo::doFoo() has no return typehint specified.",
+        "line": 15,
         "ignorable": true
     }
 ]

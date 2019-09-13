@@ -1,6 +1,6 @@
 <?php
 
-function bcompiler_write_file()
+function bcompiler_write_file(): void
 {
 
 }

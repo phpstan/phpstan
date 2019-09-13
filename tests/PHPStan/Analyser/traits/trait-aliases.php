@@ -5,7 +5,7 @@ namespace TraitAliases;
 trait BazTrait
 {
 
-	public function fooMethod()
+	public function fooMethod(): void
 	{
 
 	}
@@ -19,7 +19,7 @@ trait BarTrait
 		fooMethod as parentFooMethod;
 	}
 
-	public function fooMethod()
+	public function fooMethod(): void
 	{
 		// some code ...
 		$this->fooMethod();
@@ -33,7 +33,7 @@ class Foo
 
 	use BarTrait;
 
-	public function doFoo()
+	public function doFoo(): void
 	{
 		$this->fooMethod();
 		$this->parentFooMethod();

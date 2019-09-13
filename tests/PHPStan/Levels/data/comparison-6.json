@@ -1,12 +1,7 @@
 [
     {
-        "message": "Comparison operation \"==\" between stdClass and int|string results in an error.",
-        "line": 30,
-        "ignorable": true
-    },
-    {
-        "message": "Comparison operation \"==\" between stdClass and int|stdClass results in an error.",
-        "line": 31,
+        "message": "Method Levels\\Comparison\\Foo::doFoo() has no return typehint specified.",
+        "line": 18,
         "ignorable": true
     }
 ]

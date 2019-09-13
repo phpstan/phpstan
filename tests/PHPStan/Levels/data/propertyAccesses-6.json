@@ -1,42 +1,42 @@
 [
     {
-        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$foo.",
-        "line": 57,
+        "message": "Method Levels\\PropertyAccesses\\Foo::doFoo() has no return typehint specified.",
+        "line": 11,
         "ignorable": true
     },
     {
-        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$bar.",
-        "line": 58,
+        "message": "Method Levels\\PropertyAccesses\\Bar::doBar() has no return typehint specified.",
+        "line": 29,
         "ignorable": true
     },
     {
-        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$foo.",
-        "line": 63,
+        "message": "Method Levels\\PropertyAccesses\\Baz::doBaz() has no return typehint specified.",
+        "line": 50,
         "ignorable": true
     },
     {
-        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$bar.",
-        "line": 64,
+        "message": "Method Levels\\PropertyAccesses\\ClassWithMagicMethod::doFoo() has no return typehint specified.",
+        "line": 74,
         "ignorable": true
     },
     {
-        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$foo.",
-        "line": 161,
+        "message": "Method Levels\\PropertyAccesses\\ClassWithMagicMethod::__set() has no return typehint specified.",
+        "line": 83,
         "ignorable": true
     },
     {
-        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$bar.",
-        "line": 162,
+        "message": "Method Levels\\PropertyAccesses\\AnotherClassWithMagicMethod::doFoo() has no return typehint specified.",
+        "line": 93,
         "ignorable": true
     },
     {
-        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$foo.",
-        "line": 169,
+        "message": "Method Levels\\PropertyAccesses\\AnotherClassWithMagicMethod::__get() has no return typehint specified.",
+        "line": 98,
         "ignorable": true
     },
     {
-        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$bar.",
-        "line": 170,
+        "message": "Method Levels\\PropertyAccesses\\Ipsum::doBaz() has no return typehint specified.",
+        "line": 158,
         "ignorable": true
     }
 ]

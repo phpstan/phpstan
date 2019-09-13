@@ -2,7 +2,7 @@
 
 namespace PHPStan\Tests;
 
-function foo()
+function foo(): void
 {
 	doSomething();
 }

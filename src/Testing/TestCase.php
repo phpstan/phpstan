@@ -53,7 +53,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			$rootDir = __DIR__ . '/../..';
 			$containerFactory = new ContainerFactory($rootDir);
 			self::$container = $containerFactory->create($tmpDir, [
-				$containerFactory->getConfigDirectory() . '/config.level7.neon',
+				$containerFactory->getConfigDirectory() . '/config.level8.neon',
 			], []);
 		}
 

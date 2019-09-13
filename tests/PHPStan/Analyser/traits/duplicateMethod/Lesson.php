@@ -7,7 +7,7 @@ class Lesson
 
 	use LessonTrait;
 
-	public function test()
+	public function test(): void
 	{
 		$this->doFoo();
 	}

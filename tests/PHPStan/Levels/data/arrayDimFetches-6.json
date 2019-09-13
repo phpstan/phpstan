@@ -1,12 +1,12 @@
 [
     {
-        "message": "Cannot access offset 'a' on array('a' => 1)|stdClass.",
-        "line": 23,
+        "message": "Method Levels\\ArrayDimFetches\\Foo::doFoo() has no return typehint specified.",
+        "line": 8,
         "ignorable": true
     },
     {
-        "message": "Offset 'b' does not exist on array('a' => 1, ?'b' => 1).",
-        "line": 36,
+        "message": "Method Levels\\ArrayDimFetches\\Foo::doBar() has no return typehint specified.",
+        "line": 27,
         "ignorable": true
     }
 ]

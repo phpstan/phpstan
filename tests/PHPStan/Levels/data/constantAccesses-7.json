@@ -1,22 +1,12 @@
 [
     {
-        "message": "Cannot access constant FOO_CONSTANT on Levels\\ConstantAccesses\\Foo|null.",
-        "line": 52,
+        "message": "Access to undefined constant Levels\\ConstantAccesses\\Bar|Levels\\ConstantAccesses\\Foo::FOO_CONSTANT.",
+        "line": 49,
         "ignorable": true
     },
     {
-        "message": "Cannot access constant BAR_CONSTANT on Levels\\ConstantAccesses\\Foo|null.",
-        "line": 53,
-        "ignorable": true
-    },
-    {
-        "message": "Cannot access constant FOO_CONSTANT on Levels\\ConstantAccesses\\Bar|Levels\\ConstantAccesses\\Foo|null.",
+        "message": "Access to undefined constant Levels\\ConstantAccesses\\Bar|Levels\\ConstantAccesses\\Foo::FOO_CONSTANT.",
         "line": 55,
-        "ignorable": true
-    },
-    {
-        "message": "Cannot access constant BAR_CONSTANT on Levels\\ConstantAccesses\\Bar|Levels\\ConstantAccesses\\Foo|null.",
-        "line": 56,
         "ignorable": true
     }
 ]

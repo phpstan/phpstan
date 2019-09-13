@@ -7,7 +7,7 @@ trait NestedFooTrait
 
 	use FooTrait;
 
-	public function doNestedTraitFoo()
+	public function doNestedTraitFoo(): void
 	{
 		$this->doNestedFoo();
 	}

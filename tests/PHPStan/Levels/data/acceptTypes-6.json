@@ -1,137 +1,152 @@
 [
     {
-        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBar() expects int, float|int given.",
-        "line": 27,
+        "message": "Method Levels\\AcceptTypes\\Foo::doFoo() has no return typehint specified.",
+        "line": 15,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Foo::doIpsum() expects float, float|string given.",
-        "line": 52,
+        "message": "Method Levels\\AcceptTypes\\Foo::doBar() has no return typehint specified.",
+        "line": 30,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Foo::doIpsum() expects float, float|string|null given.",
-        "line": 53,
+        "message": "Method Levels\\AcceptTypes\\Foo::doBaz() has no return typehint specified.",
+        "line": 41,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBarArray() expects array<int>, array<float|int> given.",
-        "line": 92,
+        "message": "Method Levels\\AcceptTypes\\Foo::doLorem() has no return typehint specified.",
+        "line": 60,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Foo::doBarArray() expects array<int>, array<int, float|int> given.",
-        "line": 132,
+        "message": "Method Levels\\AcceptTypes\\Foo::doIpsum() has no return typehint specified.",
+        "line": 68,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\Foo::expectCallable() expects callable(): mixed, array<int, mixed> given.",
-        "line": 142,
+        "message": "Method Levels\\AcceptTypes\\Foo::doFooArray() has no return typehint specified.",
+        "line": 80,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $var of function count expects array|Countable, iterable given.",
-        "line": 159,
+        "message": "Method Levels\\AcceptTypes\\Foo::doBarArray() has no return typehint specified.",
+        "line": 98,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $closure of method Levels\\AcceptTypes\\ClosureAccepts::doBar() expects Closure(Levels\\AcceptTypes\\FooInterface, int): Levels\\AcceptTypes\\FooInterface, Closure(Levels\\AcceptTypes\\FooImpl): Levels\\AcceptTypes\\FooInterface given.",
-        "line": 224,
+        "message": "Method Levels\\AcceptTypes\\Foo::doBazArray() has no return typehint specified.",
+        "line": 103,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\ClosureAccepts::doBaz() expects callable(Levels\\AcceptTypes\\FooInterface, int): Levels\\AcceptTypes\\FooInterface, Closure(Levels\\AcceptTypes\\FooImpl): Levels\\AcceptTypes\\FooInterface given.",
-        "line": 225,
+        "message": "Method Levels\\AcceptTypes\\Foo::doBazArrayUnionItemTypes() has no return typehint specified.",
+        "line": 127,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $closure of method Levels\\AcceptTypes\\ClosureAccepts::doBar() expects Closure(Levels\\AcceptTypes\\FooInterface, int): Levels\\AcceptTypes\\FooInterface, Closure(Levels\\AcceptTypes\\FooInterface): Levels\\AcceptTypes\\ParentFooInterface given.",
-        "line": 236,
+        "message": "Method Levels\\AcceptTypes\\Foo::callableArray() has no return typehint specified.",
+        "line": 138,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\ClosureAccepts::doBaz() expects callable(Levels\\AcceptTypes\\FooInterface, int): Levels\\AcceptTypes\\FooInterface, Closure(Levels\\AcceptTypes\\FooInterface): Levels\\AcceptTypes\\ParentFooInterface given.",
-        "line": 237,
+        "message": "Method Levels\\AcceptTypes\\Foo::expectCallable() has no return typehint specified.",
+        "line": 148,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $closure of method Levels\\AcceptTypes\\ClosureAccepts::doBar() expects Closure(Levels\\AcceptTypes\\FooInterface, int): Levels\\AcceptTypes\\FooInterface, Closure(Levels\\AcceptTypes\\FooImpl): Levels\\AcceptTypes\\FooInterface given.",
-        "line": 287,
+        "message": "Method Levels\\AcceptTypes\\Foo::iterableCountable() has no return typehint specified.",
+        "line": 153,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\ClosureAccepts::doBaz() expects callable(Levels\\AcceptTypes\\FooInterface, int): Levels\\AcceptTypes\\FooInterface, Closure(Levels\\AcceptTypes\\FooImpl): Levels\\AcceptTypes\\FooInterface given.",
-        "line": 288,
+        "message": "Method Levels\\AcceptTypes\\Foo::benevolentUnionNotReported() has no return typehint specified.",
+        "line": 167,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $closure of method Levels\\AcceptTypes\\ClosureAccepts::doBar() expects Closure(Levels\\AcceptTypes\\FooInterface, int): Levels\\AcceptTypes\\FooInterface, Closure(Levels\\AcceptTypes\\FooInterface): Levels\\AcceptTypes\\ParentFooInterface given.",
-        "line": 305,
+        "message": "Method Levels\\AcceptTypes\\ClosureAccepts::doFoo() has no return typehint specified.",
+        "line": 194,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $callable of method Levels\\AcceptTypes\\ClosureAccepts::doBaz() expects callable(Levels\\AcceptTypes\\FooInterface, int): Levels\\AcceptTypes\\FooInterface, Closure(Levels\\AcceptTypes\\FooInterface): Levels\\AcceptTypes\\ParentFooInterface given.",
-        "line": 306,
+        "message": "Method Levels\\AcceptTypes\\ClosureAccepts::doFooUnionClosures() has no return typehint specified.",
+        "line": 240,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Baz::doBar() expects int, float|int given.",
-        "line": 401,
+        "message": "Method Levels\\AcceptTypes\\ClosureAccepts::doBar() has no return typehint specified.",
+        "line": 318,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Baz::doIpsum() expects float, float|string given.",
-        "line": 415,
+        "message": "Method Levels\\AcceptTypes\\ClosureAccepts::doBaz() has no return typehint specified.",
+        "line": 328,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $a of method Levels\\AcceptTypes\\Baz::doIpsum() expects float, float|string|null given.",
-        "line": 416,
+        "message": "Method Levels\\AcceptTypes\\Baz::doFoo() has no return typehint specified.",
+        "line": 395,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $i of method Levels\\AcceptTypes\\Baz::doBarArray() expects array<int>, array<float|int> given.",
-        "line": 482,
+        "message": "Method Levels\\AcceptTypes\\Baz::doBar() has no return typehint specified.",
+        "line": 404,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $array of method Levels\\AcceptTypes\\Baz::requireArray() expects array, array|Levels\\AcceptTypes\\Foo given.",
-        "line": 517,
+        "message": "Method Levels\\AcceptTypes\\Baz::doBaz() has no return typehint specified.",
+        "line": 409,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $foo of method Levels\\AcceptTypes\\Baz::requireFoo() expects Levels\\AcceptTypes\\Foo, array|Levels\\AcceptTypes\\Foo given.",
-        "line": 518,
+        "message": "Method Levels\\AcceptTypes\\Baz::doLorem() has no return typehint specified.",
+        "line": 423,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $array of method Levels\\AcceptTypes\\Baz::requireArray() expects array, array|Levels\\AcceptTypes\\Foo given.",
-        "line": 528,
+        "message": "Method Levels\\AcceptTypes\\Baz::doIpsum() has no return typehint specified.",
+        "line": 431,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $foo of method Levels\\AcceptTypes\\Baz::requireFoo() expects Levels\\AcceptTypes\\Foo, array|Levels\\AcceptTypes\\Foo given.",
-        "line": 529,
+        "message": "Method Levels\\AcceptTypes\\Baz::doFooArray() has no return typehint specified.",
+        "line": 476,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $one of method Levels\\AcceptTypes\\ArrayShapes::doBar() expects array('foo' => callable(): mixed), array<callable(): mixed> given.",
-        "line": 560,
+        "message": "Method Levels\\AcceptTypes\\Baz::doBarArray() has no return typehint specified.",
+        "line": 488,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $one of method Levels\\AcceptTypes\\ArrayShapes::doBar() expects array('foo' => callable(): mixed), array<string> given.",
-        "line": 561,
+        "message": "Method Levels\\AcceptTypes\\Baz::testUnions() has no return typehint specified.",
+        "line": 510,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $one of method Levels\\AcceptTypes\\ArrayShapes::doBar() expects array('foo' => callable(): mixed), array()|array('foo' => 'date') given.",
-        "line": 579,
+        "message": "Method Levels\\AcceptTypes\\Baz::testUnions2() has no return typehint specified.",
+        "line": 521,
         "ignorable": true
     },
     {
-        "message": "Parameter #1 $one of method Levels\\AcceptTypes\\ArrayShapes::doBar() expects array('foo' => callable(): mixed), iterable<callable(): mixed> given.",
-        "line": 580,
+        "message": "Method Levels\\AcceptTypes\\Baz::requireArray() has no return typehint specified.",
+        "line": 532,
+        "ignorable": true
+    },
+    {
+        "message": "Method Levels\\AcceptTypes\\Baz::requireFoo() has no return typehint specified.",
+        "line": 537,
+        "ignorable": true
+    },
+    {
+        "message": "Method Levels\\AcceptTypes\\ArrayShapes::doFoo() has no return typehint specified.",
+        "line": 553,
+        "ignorable": true
+    },
+    {
+        "message": "Method Levels\\AcceptTypes\\ArrayShapes::doBar() has no return typehint specified.",
+        "line": 586,
         "ignorable": true
     }
 ]

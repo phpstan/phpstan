@@ -7,7 +7,7 @@ class TraitInEvalUse
 
 	use \TraitInEval;
 
-	public function doLorem()
+	public function doLorem(): void
 	{
 		$this->doFoo(1);
 	}

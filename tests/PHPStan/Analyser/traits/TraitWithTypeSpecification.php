@@ -8,7 +8,7 @@ trait TraitWithTypeSpecification
 	/** @var string */
 	private $string;
 
-	public function doFoo()
+	public function doFoo(): void
 	{
 		if (!$this instanceof FooInterface) {
 			return;

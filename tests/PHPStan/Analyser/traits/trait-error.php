@@ -4,7 +4,7 @@ namespace TraitErrors;
 
 trait MyTrait
 {
-	public function test()
+	public function test(): void
 	{
 		echo $undefined;
 		$this->undefined($undefined);

@@ -5,7 +5,7 @@ namespace AnonymousClassWrongFilename;
 class Foo
 {
 
-	public function doFoo()
+	public function doFoo(): void
 	{
 		$foo = new class {
 

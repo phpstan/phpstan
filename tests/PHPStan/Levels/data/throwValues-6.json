@@ -1,7 +1,7 @@
 [
     {
-        "message": "Invalid type int|Throwable to throw.",
-        "line": 43,
+        "message": "Method Levels\\ThrowValues\\Foo::doFoo() has no return typehint specified.",
+        "line": 30,
         "ignorable": true
     }
 ]

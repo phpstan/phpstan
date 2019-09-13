@@ -1,17 +1,17 @@
 [
     {
-        "message": "Trying to invoke (Closure(int): mixed)|null but it might not be a callable.",
-        "line": 37,
+        "message": "Trying to invoke int|string but it might not be a callable.",
+        "line": 21,
         "ignorable": true
     },
     {
-        "message": "Trying to invoke (Closure(int): mixed)|null but it might not be a callable.",
-        "line": 38,
+        "message": "Trying to invoke float|string but it might not be a callable.",
+        "line": 22,
         "ignorable": true
     },
     {
-        "message": "Trying to invoke int|null but it's not a callable.",
-        "line": 43,
+        "message": "Parameter #1 $i of closure expects int, int|string given.",
+        "line": 30,
         "ignorable": true
     }
 ]

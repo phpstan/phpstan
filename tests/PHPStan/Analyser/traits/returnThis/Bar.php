@@ -5,7 +5,7 @@ namespace TraitsReturnThis;
 class Bar extends Foo
 {
 
-	public function doFoo()
+	public function doFoo(): void
 	{
 		(new Foo())->returnsThisWithSelf()->doFoo();
 		(new Foo())->returnsThisWithFoo()->doFoo();

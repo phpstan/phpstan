@@ -5,12 +5,12 @@ namespace AnalyseTraits;
 trait FooTrait
 {
 
-	public function doTraitFoo()
+	public function doTraitFoo(): void
 	{
 		$this->doFoo();
 	}
 
-	public function conflictingMethodWithDifferentArgumentNames(string $string)
+	public function conflictingMethodWithDifferentArgumentNames(string $string): void
 	{
 		strpos($string, 'foo');
 	}

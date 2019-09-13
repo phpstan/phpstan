@@ -7,7 +7,7 @@ class NestedBar
 
 	use NestedFooTrait;
 
-	public function doBar()
+	public function doBar(): void
 	{
 	}
 

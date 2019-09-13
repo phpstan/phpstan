@@ -4,8 +4,14 @@ namespace ExtendsPdoStatementCrash;
 
 class CrashOne extends \PDOStatement
 {
-	public function setFetchMode($fetchMode, $arg2 = null, $arg3 = null)
+	/**
+	 * @param int $fetchMode
+	 * @param string|object $arg2
+	 * @param mixed[] $arg3
+	 */
+	public function setFetchMode($fetchMode, $arg2 = null, $arg3 = null): bool
 	{
+		return true;
 	}
 }
 
@@ -14,6 +20,7 @@ class CrashTwo extends \PDOStatement
 
 	/**
 	 * @param int $mode
+	 * @param mixed $params
 	 * @return bool
 	 */
 	public function setFetchMode($mode, $params = null)
@@ -44,7 +51,7 @@ class CrashFour extends \PDOStatement
 	/**
 	 * @param int $fetch_class
 	 * @param string $classname
-	 * @param array $ctorargs
+	 * @param mixed[] $ctorargs
 	 * @return bool
 	 */
 	public function setFetchMode($fetch_class, $classname = null, $ctorargs = null)
@@ -60,7 +67,7 @@ class CrashFive extends \PDOStatement
 	/**
 	 * @param int $fetch_class
 	 * @param string|object $classname
-	 * @param array $ctorargs
+	 * @param mixed[] $ctorargs
 	 * @return bool
 	 */
 	public function setFetchMode($fetch_class, $classname = null, $ctorargs = null)

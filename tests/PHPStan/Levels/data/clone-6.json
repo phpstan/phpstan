@@ -1,12 +1,7 @@
 [
     {
-        "message": "Cannot clone non-object variable $fooOrInt of type int|Levels\\Cloning\\Foo.",
-        "line": 33,
-        "ignorable": true
-    },
-    {
-        "message": "Cannot clone non-object variable $nullableUnion of type int|Levels\\Cloning\\Foo.",
-        "line": 35,
+        "message": "Method Levels\\Cloning\\Foo::doFoo() has no return typehint specified.",
+        "line": 18,
         "ignorable": true
     }
 ]

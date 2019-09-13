@@ -1,0 +1,12 @@
+[
+    {
+        "message": "Comparison operation \"==\" between stdClass and int|string results in an error.",
+        "line": 30,
+        "ignorable": true
+    },
+    {
+        "message": "Comparison operation \"==\" between stdClass and int|stdClass results in an error.",
+        "line": 31,
+        "ignorable": true
+    }
+]

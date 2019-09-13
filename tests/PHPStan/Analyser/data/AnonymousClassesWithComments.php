@@ -3,7 +3,7 @@
 // Test comment
 new class () {
 
-	public function doFoo()
+	public function doFoo(): void
 	{
 		$this->doBar();
 	}
@@ -13,7 +13,7 @@ new class () {
 /* Test comment */
 new class () {
 
-	public function doFoo()
+	public function doFoo(): void
 	{
 		$this->doBar();
 	}
@@ -23,7 +23,7 @@ new class () {
 /** Test comment */
 new class () {
 
-	public function doFoo()
+	public function doFoo(): void
 	{
 		$this->doBar();
 	}

@@ -9,7 +9,7 @@ class Foo
 	/**
 	 * @param Foo|callable $xxx
 	 */
-	public function abc($xxx)
+	public function abc($xxx): void
 	{
 
 	}

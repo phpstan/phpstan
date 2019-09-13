@@ -7,7 +7,7 @@ class Bar
 
 	use FooTrait;
 
-	public function doBar()
+	public function doBar(): void
 	{
 	}
 

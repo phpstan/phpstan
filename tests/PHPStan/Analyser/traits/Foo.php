@@ -7,11 +7,11 @@ class Foo
 
 	use FooTrait;
 
-	public function doFoo()
+	public function doFoo(): void
 	{
 	}
 
-	public function conflictingMethodWithDifferentArgumentNames(string $input)
+	public function conflictingMethodWithDifferentArgumentNames(string $input): void
 	{
 	}
 

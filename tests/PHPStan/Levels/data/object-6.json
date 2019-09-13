@@ -1,42 +1,17 @@
 [
     {
-        "message": "Call to an undefined method object::foo().",
-        "line": 13,
+        "message": "Method Levels\\ObjectTests\\Foo::doFoo() has no return typehint specified.",
+        "line": 11,
         "ignorable": true
     },
     {
-        "message": "Access to an undefined property object::$bar.",
-        "line": 14,
+        "message": "Method Levels\\ObjectTests\\Foo::doBar() has no return typehint specified.",
+        "line": 23,
         "ignorable": true
     },
     {
-        "message": "Call to an undefined static method object::baz().",
-        "line": 16,
-        "ignorable": true
-    },
-    {
-        "message": "Access to an undefined static property object::$dolor.",
-        "line": 17,
-        "ignorable": true
-    },
-    {
-        "message": "Call to an undefined method object::foo().",
-        "line": 25,
-        "ignorable": true
-    },
-    {
-        "message": "Access to an undefined property object::$bar.",
-        "line": 26,
-        "ignorable": true
-    },
-    {
-        "message": "Call to an undefined static method object::baz().",
-        "line": 28,
-        "ignorable": true
-    },
-    {
-        "message": "Access to an undefined static property object::$dolor.",
-        "line": 29,
+        "message": "Method Levels\\ObjectTests\\Foo::doBaz() has no return typehint specified.",
+        "line": 35,
         "ignorable": true
     }
 ]

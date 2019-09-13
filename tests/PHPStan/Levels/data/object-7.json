@@ -1,21 +1,41 @@
 [
     {
-        "message": "Cannot call method foo() on object|null.",
+        "message": "Call to an undefined method object::foo().",
+        "line": 13,
+        "ignorable": true
+    },
+    {
+        "message": "Access to an undefined property object::$bar.",
+        "line": 14,
+        "ignorable": true
+    },
+    {
+        "message": "Call to an undefined static method object::baz().",
+        "line": 16,
+        "ignorable": true
+    },
+    {
+        "message": "Access to an undefined static property object::$dolor.",
+        "line": 17,
+        "ignorable": true
+    },
+    {
+        "message": "Call to an undefined method object::foo().",
         "line": 25,
         "ignorable": true
     },
     {
-        "message": "Cannot access property $bar on object|null.",
+        "message": "Access to an undefined property object::$bar.",
         "line": 26,
         "ignorable": true
     },
     {
-        "message": "Cannot call static method baz() on object|null.",
+        "message": "Call to an undefined static method object::baz().",
         "line": 28,
         "ignorable": true
     },
     {
-        "message": "Cannot access static property $dolor on object|null.",
+        "message": "Access to an undefined static property object::$dolor.",
         "line": 29,
         "ignorable": true
     }

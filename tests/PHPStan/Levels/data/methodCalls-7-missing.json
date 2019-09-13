@@ -6,11 +6,6 @@
     },
     {
         "message": "Method Levels\\MethodCalls\\Foo::doFoo() invoked with 0 parameters, 1 required.",
-        "line": 56,
-        "ignorable": true
-    },
-    {
-        "message": "Method Levels\\MethodCalls\\Foo::doFoo() invoked with 0 parameters, 1 required.",
         "line": 59,
         "ignorable": true
     },
@@ -21,32 +16,7 @@
     },
     {
         "message": "Method Levels\\MethodCalls\\Foo::doFoo() invoked with 0 parameters, 1 required.",
-        "line": 158,
-        "ignorable": true
-    },
-    {
-        "message": "Method Levels\\MethodCalls\\Foo::doFoo() invoked with 0 parameters, 1 required.",
         "line": 162,
-        "ignorable": true
-    },
-    {
-        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
-        "line": 59,
-        "ignorable": true
-    },
-    {
-        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
-        "line": 60,
-        "ignorable": true
-    },
-    {
-        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
-        "line": 162,
-        "ignorable": true
-    },
-    {
-        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
-        "line": 163,
         "ignorable": true
     }
 ]

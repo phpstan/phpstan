@@ -1,52 +1,72 @@
 [
     {
-        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
-        "line": 52,
+        "message": "Method Levels\\MethodCalls\\Foo::doFoo() has no return typehint specified.",
+        "line": 8,
         "ignorable": true
     },
     {
-        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
-        "line": 53,
+        "message": "Method Levels\\MethodCalls\\Bar::doBar() has no return typehint specified.",
+        "line": 23,
         "ignorable": true
     },
     {
-        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
-        "line": 59,
+        "message": "Method Levels\\MethodCalls\\Baz::doBaz() has no return typehint specified.",
+        "line": 45,
         "ignorable": true
     },
     {
-        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
-        "line": 60,
+        "message": "Method Levels\\MethodCalls\\ClassWithMagicMethod::doFoo() has no return typehint specified.",
+        "line": 70,
         "ignorable": true
     },
     {
-        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
-        "line": 153,
+        "message": "Method Levels\\MethodCalls\\ClassWithMagicMethod::__call() has no return typehint specified.",
+        "line": 75,
         "ignorable": true
     },
     {
-        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
-        "line": 154,
+        "message": "Method Levels\\MethodCalls\\AnotherClassWithMagicMethod::doFoo() has no return typehint specified.",
+        "line": 85,
         "ignorable": true
     },
     {
-        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
-        "line": 162,
+        "message": "Method Levels\\MethodCalls\\AnotherClassWithMagicMethod::__callStatic() has no return typehint specified.",
+        "line": 90,
         "ignorable": true
     },
     {
-        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
-        "line": 163,
+        "message": "Method Levels\\MethodCalls\\Ipsum::doLorem() has no return typehint specified.",
+        "line": 150,
         "ignorable": true
     },
     {
-        "message": "Call to an undefined method Levels\\MethodCalls\\BarException|Levels\\MethodCalls\\FooException::doFoo().",
-        "line": 210,
+        "message": "Method Levels\\MethodCalls\\FooException::commonMethod() has no return typehint specified.",
+        "line": 174,
         "ignorable": true
     },
     {
-        "message": "Call to an undefined method Levels\\MethodCalls\\BarException|Levels\\MethodCalls\\FooException::doBar().",
-        "line": 211,
+        "message": "Method Levels\\MethodCalls\\FooException::doFoo() has no return typehint specified.",
+        "line": 179,
+        "ignorable": true
+    },
+    {
+        "message": "Method Levels\\MethodCalls\\BarException::commonMethod() has no return typehint specified.",
+        "line": 189,
+        "ignorable": true
+    },
+    {
+        "message": "Method Levels\\MethodCalls\\BarException::doBar() has no return typehint specified.",
+        "line": 194,
+        "ignorable": true
+    },
+    {
+        "message": "Method Levels\\MethodCalls\\TestExceptions::doFoo() has no return typehint specified.",
+        "line": 204,
+        "ignorable": true
+    },
+    {
+        "message": "Method Levels\\MethodCalls\\ExtraArguments::doFoo() has no return typehint specified.",
+        "line": 221,
         "ignorable": true
     }
 ]

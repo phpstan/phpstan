@@ -1,7 +1,27 @@
 [
     {
-        "message": "Cannot assign offset int|object to SplObjectStorage.",
-        "line": 27,
+        "message": "Method Levels\\ArrayAccess\\Foo::doFoo() has no return typehint specified.",
+        "line": 11,
+        "ignorable": true
+    },
+    {
+        "message": "Method Levels\\ArrayAccess\\Foo::doBar() has no return typehint specified.",
+        "line": 22,
+        "ignorable": true
+    },
+    {
+        "message": "Method Levels\\ArrayAccess\\Foo::doBaz() has no return typehint specified.",
+        "line": 30,
+        "ignorable": true
+    },
+    {
+        "message": "Method Levels\\ArrayAccess\\Foo::doLorem() has no return typehint specified.",
+        "line": 38,
+        "ignorable": true
+    },
+    {
+        "message": "Method Levels\\ArrayAccess\\Foo::doLorem() has parameter $mixed with no typehint specified.",
+        "line": 38,
         "ignorable": true
     }
 ]

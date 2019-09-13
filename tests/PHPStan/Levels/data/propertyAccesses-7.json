@@ -1,41 +1,41 @@
 [
     {
-        "message": "Cannot access property $foo on Levels\\PropertyAccesses\\Foo|null.",
-        "line": 60,
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$foo.",
+        "line": 57,
         "ignorable": true
     },
     {
-        "message": "Cannot access property $bar on Levels\\PropertyAccesses\\Foo|null.",
-        "line": 61,
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$bar.",
+        "line": 58,
         "ignorable": true
     },
     {
-        "message": "Cannot access property $foo on Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo|null.",
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$foo.",
         "line": 63,
         "ignorable": true
     },
     {
-        "message": "Cannot access property $bar on Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo|null.",
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$bar.",
         "line": 64,
         "ignorable": true
     },
     {
-        "message": "Cannot access property $foo on Levels\\PropertyAccesses\\Foo|null.",
-        "line": 165,
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$foo.",
+        "line": 161,
         "ignorable": true
     },
     {
-        "message": "Cannot access property $bar on Levels\\PropertyAccesses\\Foo|null.",
-        "line": 166,
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$bar.",
+        "line": 162,
         "ignorable": true
     },
     {
-        "message": "Cannot access property $foo on Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo|null.",
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$foo.",
         "line": 169,
         "ignorable": true
     },
     {
-        "message": "Cannot access property $bar on Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo|null.",
+        "message": "Access to an undefined property Levels\\PropertyAccesses\\Bar|Levels\\PropertyAccesses\\Foo::$bar.",
         "line": 170,
         "ignorable": true
     }

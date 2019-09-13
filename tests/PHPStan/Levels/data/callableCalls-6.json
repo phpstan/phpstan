@@ -1,17 +1,12 @@
 [
     {
-        "message": "Trying to invoke int|string but it might not be a callable.",
-        "line": 21,
+        "message": "Method Levels\\CallableCalls\\Foo::doFoo() has no return typehint specified.",
+        "line": 14,
         "ignorable": true
     },
     {
-        "message": "Trying to invoke float|string but it might not be a callable.",
-        "line": 22,
-        "ignorable": true
-    },
-    {
-        "message": "Parameter #1 $i of closure expects int, int|string given.",
-        "line": 30,
+        "message": "Method Levels\\CallableCalls\\Foo::doBar() has no return typehint specified.",
+        "line": 41,
         "ignorable": true
     }
 ]

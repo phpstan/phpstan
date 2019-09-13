@@ -1,0 +1,17 @@
+[
+    {
+        "message": "Trying to invoke (Closure(int): mixed)|null but it might not be a callable.",
+        "line": 37,
+        "ignorable": true
+    },
+    {
+        "message": "Trying to invoke (Closure(int): mixed)|null but it might not be a callable.",
+        "line": 38,
+        "ignorable": true
+    },
+    {
+        "message": "Trying to invoke int|null but it's not a callable.",
+        "line": 43,
+        "ignorable": true
+    }
+]

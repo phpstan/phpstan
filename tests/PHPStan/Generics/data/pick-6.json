@@ -1,7 +1,22 @@
 [
     {
-        "message": "Parameter #1 $c of function PHPStan\\Generics\\Pick\\foo expects PHPStan\\Generics\\Pick\\A|PHPStan\\Generics\\Pick\\B, PHPStan\\Generics\\Pick\\A|PHPStan\\Generics\\Pick\\C given.",
-        "line": 24,
+        "message": "Function PHPStan\\Generics\\Pick\\pick() has no return typehint specified.",
+        "line": 15,
+        "ignorable": true
+    },
+    {
+        "message": "Function PHPStan\\Generics\\Pick\\pick() has parameter $t1 with no typehint specified.",
+        "line": 15,
+        "ignorable": true
+    },
+    {
+        "message": "Function PHPStan\\Generics\\Pick\\pick() has parameter $t2 with no typehint specified.",
+        "line": 15,
+        "ignorable": true
+    },
+    {
+        "message": "Function PHPStan\\Generics\\Pick\\test() has no return typehint specified.",
+        "line": 22,
         "ignorable": true
     }
 ]

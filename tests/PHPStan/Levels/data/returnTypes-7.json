@@ -1,7 +1,12 @@
 [
     {
-        "message": "Method Levels\\ReturnTypes\\Foo::doFoo() should return int but returns int|null.",
-        "line": 28,
+        "message": "Method Levels\\ReturnTypes\\Foo::doFoo() should return int but returns int|string.",
+        "line": 26,
+        "ignorable": true
+    },
+    {
+        "message": "Method Levels\\ReturnTypes\\Foo::returnArrayOrNull() should return array<string>|null but returns array<string, bool|int|string|null>.",
+        "line": 64,
         "ignorable": true
     }
 ]

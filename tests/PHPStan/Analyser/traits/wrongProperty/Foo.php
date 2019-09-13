@@ -9,7 +9,7 @@ class Foo
 
 	use FooTrait;
 
-	public function doFoo()
+	public function doFoo(): void
 	{
 		$this->id = 1;
 		$this->id = 'foo';

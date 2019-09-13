@@ -1,0 +1,12 @@
+[
+    {
+        "message": "Property InferPropertyType\\Foo::$bar has no typehint specified.",
+        "line": 10,
+        "ignorable": true
+    },
+    {
+        "message": "Method InferPropertyType\\Foo::doFoo() has no return typehint specified.",
+        "line": 18,
+        "ignorable": true
+    }
+]
