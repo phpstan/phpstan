@@ -7263,6 +7263,14 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'array(\'foo\' => ResolveStatic\Bar)',
 				'$bar->returnConstantArray()',
 			],
+			[
+				'ResolveStatic\Bar|null',
+				'$bar->nullabilityNotInSync()',
+			],
+			[
+				'ResolveStatic\Bar',
+				'$bar->anotherNullabilityNotInSync()',
+			],
 		];
 	}
 

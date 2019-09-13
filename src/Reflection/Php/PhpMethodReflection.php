@@ -23,7 +23,6 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 use PHPStan\Type\VoidType;
 
@@ -366,18 +365,9 @@ class PhpMethodReflection implements MethodReflection
 				return $this->returnType = new ObjectWithoutClassType();
 			}
 
-			$returnType = $this->reflection->getReturnType();
-			$phpDocReturnType = $this->phpDocReturnType;
-			if (
-				$returnType !== null
-				&& $phpDocReturnType !== null
-				&& $returnType->allowsNull() !== TypeCombinator::containsNull($phpDocReturnType)
-			) {
-				$phpDocReturnType = null;
-			}
 			$this->returnType = TypehintHelper::decideTypeFromReflection(
-				$returnType,
-				$phpDocReturnType,
+				$this->reflection->getReturnType(),
+				$this->phpDocReturnType,
 				$this->declaringClass->getName()
 			);
 		}

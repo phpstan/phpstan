@@ -7,7 +7,6 @@ use PHPStan\Reflection\PropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 
 class PhpPropertyReflection implements PropertyReflection
@@ -90,17 +89,9 @@ class PhpPropertyReflection implements PropertyReflection
 	public function getReadableType(): Type
 	{
 		if ($this->type === null) {
-			$phpDocType = $this->phpDocType;
-			if (
-				$this->nativeType !== null
-				&& $this->phpDocType !== null
-				&& $this->nativeType->allowsNull() !== TypeCombinator::containsNull($this->phpDocType)
-			) {
-				$phpDocType = null;
-			}
 			$this->type = TypehintHelper::decideTypeFromReflection(
 				$this->nativeType,
-				$phpDocType,
+				$this->phpDocType,
 				$this->declaringClass->getName()
 			);
 		}

@@ -21,6 +21,22 @@ class Foo
 		return [$this];
 	}
 
+	/**
+	 * @return static
+	 */
+	public function nullabilityNotInSync(): ?self
+	{
+
+	}
+
+	/**
+	 * @return static|null
+	 */
+	public function anotherNullabilityNotInSync(): self
+	{
+
+	}
+
 }
 
 class Bar extends Foo

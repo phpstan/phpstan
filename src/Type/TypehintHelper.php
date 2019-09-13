@@ -65,9 +65,12 @@ class TypehintHelper
 		if (\Nette\Utils\Strings::endsWith(strtolower($reflectionTypeString), '\\object')) {
 			$reflectionTypeString = 'object';
 		}
+
 		$type = self::getTypeObjectFromTypehint($reflectionTypeString, $selfClass);
 		if ($reflectionType->allowsNull()) {
 			$type = TypeCombinator::addNull($type);
+		} elseif ($phpDocType !== null) {
+			$phpDocType = TypeCombinator::removeNull($phpDocType);
 		}
 
 		if ($isVariadic) {

@@ -16,7 +16,6 @@ use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
-use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 
 class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilename
@@ -217,18 +216,10 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 		if ($this->reflection->getName() === 'count') {
 			return new IntegerType();
 		}
-		$returnType = $this->reflection->getReturnType();
-		$phpDocReturnType = $this->phpDocReturnType;
-		if (
-			$returnType !== null
-			&& $phpDocReturnType !== null
-			&& $returnType->allowsNull() !== TypeCombinator::containsNull($phpDocReturnType)
-		) {
-			$phpDocReturnType = null;
-		}
+
 		return TypehintHelper::decideTypeFromReflection(
-			$returnType,
-			$phpDocReturnType
+			$this->reflection->getReturnType(),
+			$this->phpDocReturnType
 		);
 	}
 
