@@ -344,12 +344,12 @@ parameters:
 	ignoreErrors:
 		-
 			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
-			path: %currentWorkingDirectory%/some/dir/SomeFile.php
+			path: some/dir/SomeFile.php
 		-
 			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
 			paths:
-				- %currentWorkingDirectory%/some/dir/*
-				- %currentWorkingDirectory%/other/dir/*
+				- some/dir/*
+				- other/dir/*
 		- '#Other error to catch anywhere#'
 ```
 
