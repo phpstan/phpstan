@@ -51,7 +51,7 @@ class CommandHelper
 		if ($currentWorkingDirectory === false) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
-		$fileHelper = new FileHelper($currentWorkingDirectory);
+		$currentWorkingDirectoryFileHelper = new FileHelper($currentWorkingDirectory);
 		if ($autoloadFile !== null) {
 			if (!is_file($autoloadFile)) {
 				$errorOutput->writeln(sprintf('Autoload file "%s" not found.', $autoloadFile));
@@ -60,7 +60,7 @@ class CommandHelper
 
 			(static function (string $file): void {
 				require_once $file;
-			})($autoloadFile);
+			})($currentWorkingDirectoryFileHelper->absolutizePath($autoloadFile));
 		}
 		if ($projectConfigFile === null) {
 			foreach (['phpstan.neon', 'phpstan.neon.dist'] as $discoverableConfigName) {
@@ -78,7 +78,12 @@ class CommandHelper
 			$defaultLevelUsed = true;
 		}
 
+		$paths = array_map(static function (string $path) use ($currentWorkingDirectoryFileHelper): string {
+			return $currentWorkingDirectoryFileHelper->absolutizePath($path);
+		}, $paths);
+
 		if (count($paths) === 0 && $pathsFile !== null) {
+			$pathsFile = $currentWorkingDirectoryFileHelper->absolutizePath($pathsFile);
 			if (!file_exists($pathsFile)) {
 				$errorOutput->writeln(sprintf('Paths file %s does not exist.', $pathsFile));
 				throw new \PHPStan\Command\InceptionNotSuccessfulException();
@@ -92,6 +97,11 @@ class CommandHelper
 			$paths = array_values(array_filter(explode("\n", $pathsString), static function (string $path): bool {
 				return trim($path) !== '';
 			}));
+
+			$pathsFileFileHelper = new FileHelper(dirname($pathsFile));
+			$paths = array_map(static function (string $path) use ($pathsFileFileHelper): string {
+				return $pathsFileFileHelper->absolutizePath($path);
+			}, $paths);
 		}
 
 		$containerFactory = new ContainerFactory($currentWorkingDirectory);
@@ -157,12 +167,12 @@ class CommandHelper
 		}
 
 		if ($projectConfigFile !== null) {
-			$additionalConfigFiles[] = $fileHelper->absolutizePath($projectConfigFile);
+			$additionalConfigFiles[] = $currentWorkingDirectoryFileHelper->absolutizePath($projectConfigFile);
 		}
 
 		self::detectDuplicateIncludedFiles(
 			$errorOutput,
-			$fileHelper,
+			$currentWorkingDirectoryFileHelper,
 			$additionalConfigFiles,
 			[
 				'rootDir' => $containerFactory->getRootDirectory(),
@@ -177,9 +187,6 @@ class CommandHelper
 				throw new \PHPStan\Command\InceptionNotSuccessfulException();
 			}
 		}
-		$paths = array_map(static function (string $path) use ($fileHelper): string {
-			return $fileHelper->absolutizePath($path);
-		}, $paths);
 
 		try {
 			$container = $containerFactory->create($tmpDir, $additionalConfigFiles, $paths);
@@ -217,7 +224,7 @@ class CommandHelper
 			$errorOutput->writeln('');
 			$errorOutput->writeln('* while running the analyse option, use the <info>--level</info> option to adjust your rule level - the higher the stricter');
 			$errorOutput->writeln('');
-			$errorOutput->writeln(sprintf('* create your own <info>custom ruleset</info> by selecting which rules you want to check by copying the service definitions from the built-in config level files in <options=bold>%s</>.', $fileHelper->normalizePath(__DIR__ . '/../../conf')));
+			$errorOutput->writeln(sprintf('* create your own <info>custom ruleset</info> by selecting which rules you want to check by copying the service definitions from the built-in config level files in <options=bold>%s</>.', $currentWorkingDirectoryFileHelper->normalizePath(__DIR__ . '/../../conf')));
 			$errorOutput->writeln('  * in this case, don\'t forget to define parameter <options=bold>customRulesetUsed</> in your config file.');
 			$errorOutput->writeln('');
 			throw new \PHPStan\Command\InceptionNotSuccessfulException();
@@ -343,7 +350,7 @@ class CommandHelper
 		}
 
 		$normalized = array_map(static function (string $file) use ($fileHelper): string {
-			return $fileHelper->absolutizePath($fileHelper->normalizePath($file));
+			return $fileHelper->normalizePath($file);
 		}, $allConfigFiles);
 
 		$deduplicated = array_unique($normalized);
