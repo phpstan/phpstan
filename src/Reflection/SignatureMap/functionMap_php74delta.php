@@ -49,5 +49,7 @@ return [
 		'WeakReference::create' => ['WeakReference', 'referent'=>'object'],
 		'WeakReference::get' => ['?object'],
 	],
-	'old' => [],
+	'old' => [
+		'implode\'2',
+	],
 ];

@@ -111,7 +111,7 @@ class SignatureMapProvider
 	 */
 	private static function computeSignatureMap(array $signatureMap, array $delta): array
 	{
-		foreach (array_keys($delta['old']) as $key) {
+		foreach ($delta['old'] as $key) {
 			unset($signatureMap[strtolower($key)]);
 		}
 		foreach ($delta['new'] as $key => $signature) {

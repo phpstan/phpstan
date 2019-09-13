@@ -223,6 +223,33 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Testing\RuleTestCase
 		]);
 	}
 
+	public function testImplodeOnPhp74(): void
+	{
+		if (PHP_VERSION_ID < 70400) {
+			$this->markTestSkipped('Test requires PHP 7.4.');
+		}
+
+		$this->analyse([__DIR__ . '/data/implode-74.php'], [
+			[
+				'Parameter #1 $glue of function implode expects string, array given.',
+				8,
+			],
+			[
+				'Parameter #2 $pieces of function implode expects array, string given.',
+				8,
+			],
+		]);
+	}
+
+	public function testImplodeOnLessThanPhp74(): void
+	{
+		if (PHP_VERSION_ID >= 70400) {
+			$this->markTestSkipped('Test skipped on 7.4.');
+		}
+
+		$this->analyse([__DIR__ . '/data/implode-74.php'], []);
+	}
+
 	public function testVariableIsNotNullAfterSeriesOfConditions(): void
 	{
 		require_once __DIR__ . '/data/variable-is-not-null-after-conditions.php';
