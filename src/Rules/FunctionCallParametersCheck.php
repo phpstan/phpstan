@@ -9,6 +9,7 @@ use PHPStan\Type\ErrorType;
 use PHPStan\Type\IterableType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
+use PHPStan\Type\Type;
 use PHPStan\Type\TypeUtils;
 use PHPStan\Type\VerbosityLevel;
 use PHPStan\Type\VoidType;
@@ -121,6 +122,28 @@ class FunctionCallParametersCheck
 		/** @var array<int, \PhpParser\Node\Arg> $args */
 		$args = $funcCall->args;
 		foreach ($args as $i => $argument) {
+			if ($this->checkArgumentTypes && $argument->unpack) {
+				$iterableTypeResult = $this->ruleLevelHelper->findTypeToCheck(
+					$scope,
+					$argument->value,
+					'',
+					static function (Type $type): bool {
+						return $type->isIterable()->yes();
+					}
+				);
+				$iterableTypeResultType = $iterableTypeResult->getType();
+				if (
+					!$iterableTypeResultType instanceof ErrorType
+					&& !$iterableTypeResultType->isIterable()->yes()
+				) {
+					$errors[] = sprintf(
+						'Only iterables can be unpacked, %s given in argument #%d.',
+						$iterableTypeResultType->describe(VerbosityLevel::typeOnly()),
+						$i + 1
+					);
+				}
+			}
+
 			if (!isset($parameters[$i])) {
 				if (!$parametersAcceptor->isVariadic() || count($parameters) === 0) {
 					break;

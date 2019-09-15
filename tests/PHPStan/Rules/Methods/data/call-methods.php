@@ -1437,3 +1437,35 @@ class TestForEmptyArrayOrTrue
 	}
 
 }
+
+class IterableUnpackCallMethods
+{
+
+	/**
+	 * @param int[] $integers
+	 * @param int[]|null $integersOrNull
+	 */
+	public function doFoo(
+		array $integers,
+		?array $integersOrNull,
+		string $str,
+		$mixed
+	)
+	{
+
+		$this->doBar(
+			...[1, 2, 3],
+			...$integers,
+			...$integersOrNull,
+			...2,
+			...$str,
+			...$mixed
+		);
+	}
+
+	public function doBar($arg1, $arg2, $arg3, $arg4, $arg5, $arg6)
+	{
+
+	}
+
+}

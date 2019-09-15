@@ -421,6 +421,18 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #1 $foo of method Test\ExpectsExceptionGenerics::requiresFoo() expects Test\Foo, Exception given.',
 				1379,
 			],
+			[
+				'Only iterables can be unpacked, array<int>|null given in argument #3.',
+				1456,
+			],
+			[
+				'Only iterables can be unpacked, int given in argument #4.',
+				1456,
+			],
+			[
+				'Only iterables can be unpacked, string given in argument #5.',
+				1456,
+			],
 		]);
 	}
 
