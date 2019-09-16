@@ -692,7 +692,7 @@ class NodeScopeResolver
 			$alwaysIterates = $condBooleanType instanceof ConstantBooleanType && $condBooleanType->getValue();
 
 			if ($alwaysIterates) {
-				$isAlwaysTerminating = $finalScopeResult->isAlwaysTerminatingWhile();
+				$isAlwaysTerminating = count($finalScopeResult->getExitPointsByType(Break_::class)) === 0;
 			} elseif ($isIterableAtLeastOnce) {
 				$isAlwaysTerminating = $finalScopeResult->isAlwaysTerminating();
 			} else {
