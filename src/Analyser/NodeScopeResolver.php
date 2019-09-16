@@ -276,6 +276,9 @@ class NodeScopeResolver
 			// todo break
 		}
 
+		if (!$alreadyTerminated) {
+			$exitPoints[] = new StatementExitPoint(new Node\Stmt\Nop(), $scope);
+		}
 		$statementResult = new StatementResult($scope, $hasYield, $alreadyTerminated, $exitPoints);
 		if ($stmtCount === 0 && $shouldCheckLastStatement) {
 			/** @var Node\Stmt\Function_|Node\Stmt\ClassMethod|Expr\Closure $parentNode */
@@ -683,16 +686,17 @@ class NodeScopeResolver
 				$finalScope = $finalScope->mergeWith($breakExitPoint->getScope());
 			}
 
-			$condBooleanType = $scope->getType($stmt->cond)->toBoolean();
-			$isIterableAtLeastOnce = $condBooleanType instanceof ConstantBooleanType && $condBooleanType->getValue();
-			$isAlwaysTerminating = $finalScopeResult->isAlwaysTerminating() && $isIterableAtLeastOnce;
-			if (
-				!$isAlwaysTerminating
-				&& $isIterableAtLeastOnce
-				&& count($breakExitPoints) === 0
-				&& count($finalScopeResult->getTerminatingExitPoints()) > 0
-			) {
-				$isAlwaysTerminating = true;
+			$beforeCondBooleanType = $scope->getType($stmt->cond)->toBoolean();
+			$condBooleanType = $finalScope->getType($stmt->cond)->toBoolean();
+			$isIterableAtLeastOnce = $beforeCondBooleanType instanceof ConstantBooleanType && $beforeCondBooleanType->getValue();
+			$alwaysIterates = $condBooleanType instanceof ConstantBooleanType && $condBooleanType->getValue();
+
+			if ($alwaysIterates) {
+				$isAlwaysTerminating = $finalScopeResult->isAlwaysTerminatingWhile();
+			} elseif ($isIterableAtLeastOnce) {
+				$isAlwaysTerminating = $finalScopeResult->isAlwaysTerminating();
+			} else {
+				$isAlwaysTerminating = false;
 			}
 			// todo for all loops - is not falsey when the loop is exited via break
 			$condScope = $condResult->getFalseyScope();
@@ -752,15 +756,6 @@ class NodeScopeResolver
 			}
 			if (!$alwaysTerminating) {
 				$finalScope = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, ExpressionContext::createDeep())->getFalseyScope();
-
-				$condType = $bodyScope->getType($stmt->cond);
-				if (
-					$condType instanceof ConstantBooleanType && $condType->getValue()
-					&& count($bodyScopeResult->getExitPointsByType(Break_::class)) === 0
-					&& count($bodyScopeResult->getTerminatingExitPoints()) > 0
-				) {
-					$alwaysTerminating = true;
-				}
 				// todo not falsey if it breaks out of the loop using break;
 			}
 			foreach ($bodyScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {

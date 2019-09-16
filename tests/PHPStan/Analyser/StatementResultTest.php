@@ -4,6 +4,7 @@ namespace PHPStan\Analyser;
 
 use PhpParser\Node\Stmt;
 use PHPStan\Parser\Parser;
+use PHPStan\Type\StringType;
 
 class StatementResultTest extends \PHPStan\Testing\TestCase
 {
@@ -276,8 +277,24 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 				false,
 			],
 			[
+				'if (doFoo()) { continue; } else { return; }',
+				true,
+			],
+			[
 				'while (true) { if (doFoo()) { continue; } else { return; } }',
 				true,
+			],
+			[
+				'while (true) { if (doFoo()) { continue; } elseif (doBar()) { doBaz(); } else { return; } }',
+				false,
+			],
+			[
+				'while (true) { if (doFoo()) { break; } elseif (doBar()) { doBaz(); } else { return; } }',
+				false,
+			],
+			[
+				'while (true) { if (doFoo()) { break; } else { return; } }',
+				false,
 			],
 			[
 				'while (true) { if (doFoo()) { continue; } else { throw new \Exception(); } }',
@@ -297,11 +314,35 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'do { if (doFoo()) { continue; } else { return; } } while (true);',
-				true,
+				false,
 			],
 			[
 				'do { if (doFoo()) { continue; } else { return; } } while (doFoo());',
 				false,
+			],
+			[
+				'while (true) { try { return true; } catch (\Exception $e) { doFoo(); } }',
+				false,
+			],
+			[
+				'try { return true; } catch (\Exception $e) { doFoo(); }',
+				false,
+			],
+			[
+				'do { try { return true; } catch (\Exception $e) { doFoo(); } } while (true);',
+				false,
+			],
+			[
+				'while ($string !== null) { $string = rand(0, 1) ? $string : null; if ($string !== null) { return; } else { continue; } }',
+				false,
+			],
+			[
+				'while (true) { $string = rand(0, 1) ? $string : null; if ($string !== null) { return; } else { continue; } }',
+				true,
+			],
+			[
+				'while ($string !== null) { $string = null; return; }',
+				true,
 			],
 		];
 	}
@@ -326,10 +367,12 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 		$nodeScopeResolver = self::getContainer()->getByType(NodeScopeResolver::class);
 		/** @var ScopeFactory $scopeFactory */
 		$scopeFactory = self::getContainer()->getByType(ScopeFactory::class);
+		$scope = $scopeFactory->create(ScopeContext::create('test.php'))
+			->assignVariable('string', new StringType());
 		$result = $nodeScopeResolver->processStmtNodes(
 			new Stmt\Namespace_(null, $stmts),
 			$stmts,
-			$scopeFactory->create(ScopeContext::create('test.php')),
+			$scope,
 			static function (): void {
 			}
 		);
