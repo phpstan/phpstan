@@ -276,9 +276,6 @@ class NodeScopeResolver
 			// todo break
 		}
 
-		if (!$alreadyTerminated) {
-			$exitPoints[] = new StatementExitPoint(new Node\Stmt\Nop(), $scope);
-		}
 		$statementResult = new StatementResult($scope, $hasYield, $alreadyTerminated, $exitPoints);
 		if ($stmtCount === 0 && $shouldCheckLastStatement) {
 			/** @var Node\Stmt\Function_|Node\Stmt\ClassMethod|Expr\Closure $parentNode */
