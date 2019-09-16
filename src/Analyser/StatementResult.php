@@ -53,43 +53,6 @@ class StatementResult
 		return $this->isAlwaysTerminating;
 	}
 
-	public function isAlwaysTerminatingWhile(): bool
-	{
-		if ($this->isAlwaysTerminating) {
-			return true;
-		}
-
-		$countsByType = [];
-		foreach ($this->getExitPoints() as $exitPoint) {
-			$statement = $exitPoint->getStatement();
-			$statementType = get_class($statement);
-			if (!isset($countsByType[$statementType])) {
-				$countsByType[$statementType] = 0;
-			}
-			$countsByType[$statementType]++;
-		}
-
-		$nopCount = $countsByType[Stmt\Nop::class] ?? 0;
-		if ($nopCount > 0) {
-			return false;
-		}
-
-		$breakCount = $countsByType[Stmt\Break_::class] ?? 0;
-		if ($breakCount > 0) {
-			return false;
-		}
-
-		unset($countsByType[Stmt\Nop::class]);
-		unset($countsByType[Stmt\Break_::class]);
-
-		$total = array_sum($countsByType);
-
-		$continueCount = $countsByType[Stmt\Continue_::class] ?? 0;
-		$restCount = $total - $continueCount;
-
-		return $restCount > 0;
-	}
-
 	public function filterOutLoopExitPoints(): self
 	{
 		if (!$this->isAlwaysTerminating) {

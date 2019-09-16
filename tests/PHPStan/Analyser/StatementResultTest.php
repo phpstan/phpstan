@@ -158,7 +158,7 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'while (true) { }',
-				false,
+				true,
 			],
 			[
 				'while (true) { return; }',
@@ -274,7 +274,7 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'while (true) { continue; }',
-				false,
+				true,
 			],
 			[
 				'if (doFoo()) { continue; } else { return; }',
@@ -286,7 +286,7 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'while (true) { if (doFoo()) { continue; } elseif (doBar()) { doBaz(); } else { return; } }',
-				false,
+				true,
 			],
 			[
 				'while (true) { if (doFoo()) { break; } elseif (doBar()) { doBaz(); } else { return; } }',
@@ -322,6 +322,14 @@ class StatementResultTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				'while (true) { try { return true; } catch (\Exception $e) { doFoo(); } }',
+				true,
+			],
+			[
+				'while ($string !== null) { $string = null; try { return true; } catch (\Exception $e) { doFoo(); } }',
+				false,
+			],
+			[
+				'while ($string !== null) { $string = null; try { return true; } catch (\Exception $e) { doFoo(); } }',
 				false,
 			],
 			[
