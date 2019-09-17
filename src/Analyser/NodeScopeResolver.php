@@ -672,6 +672,7 @@ class NodeScopeResolver
 			} while (!$alwaysTerminating && $count < self::LOOP_SCOPE_ITERATIONS);
 
 			$bodyScope = $bodyScope->mergeWith($scope);
+			$bodyScopeMaybeRan = $bodyScope;
 			$bodyScope = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, ExpressionContext::createDeep())->getTruthyScope();
 			$finalScopeResult = $this->processStmtNodes($stmt, $stmt->stmts, $bodyScope, $nodeCallback)->filterOutLoopExitPoints();
 			$finalScope = $finalScopeResult->getScope();
@@ -684,7 +685,7 @@ class NodeScopeResolver
 			}
 
 			$beforeCondBooleanType = $scope->getType($stmt->cond)->toBoolean();
-			$condBooleanType = $finalScope->getType($stmt->cond)->toBoolean();
+			$condBooleanType = $bodyScopeMaybeRan->getType($stmt->cond)->toBoolean();
 			$isIterableAtLeastOnce = $beforeCondBooleanType instanceof ConstantBooleanType && $beforeCondBooleanType->getValue();
 			$alwaysIterates = $condBooleanType instanceof ConstantBooleanType && $condBooleanType->getValue();
 

@@ -52,4 +52,65 @@ class Foo
 		var_dump($a);
 	}
 
+	public function whileIssue(\DateTime $dt)
+	{
+		while ($dt->getTimestamp() === 1000) {
+
+		}
+
+		echo $dt->getTimestamp();
+	}
+
+	public function otherWhileIssue(\DateTime $dt)
+	{
+		assert($dt->getTimestamp() === 1000);
+		while ($dt->getTimestamp() === 1000) {
+
+		}
+
+		echo $dt->getTimestamp();
+	}
+
+	public function anotherWhileIssue(\DateTime $dt)
+	{
+		while ($dt->getTimestamp() === 1000) {
+			$dt->modify('+1 day');
+		}
+
+		echo $dt->getTimestamp();
+	}
+
+	public function yetOtherWhileIssue(\DateTime $dt)
+	{
+		assert($dt->getTimestamp() === 1000);
+		while ($dt->getTimestamp() === 1000) {
+			$dt->modify('+1 day');
+		}
+
+		echo $dt->getTimestamp();
+	}
+
+	public function yetAnotherWhileIssue(\DateTime $dt)
+	{
+		while ($this->somethingAboutDateTime($dt) === false) {
+
+		}
+
+		echo $dt->getTimestamp();
+	}
+
+	public function yetYetAnotherWhileIssue(\DateTime $dt)
+	{
+		while ($this->somethingAboutDateTime($dt) === false) {
+			$dt->modify('+1 day');
+		}
+
+		echo $dt->getTimestamp();
+	}
+
+	private function somethingAboutDateTime(\DateTime $dt): bool
+	{
+		return rand(0, 1) ? true : false;
+	}
+
 }
