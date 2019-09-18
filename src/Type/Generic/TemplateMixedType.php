@@ -9,6 +9,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 
@@ -123,7 +124,7 @@ final class TemplateMixedType extends MixedType implements TemplateType
 		}
 
 		return new TemplateTypeMap([
-			$this->name => $receivedType,
+			$this->name => TypeUtils::generalizeType($receivedType),
 		]);
 	}
 

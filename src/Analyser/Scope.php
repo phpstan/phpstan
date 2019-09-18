@@ -56,6 +56,7 @@ use PHPStan\Type\ConstantType;
 use PHPStan\Type\ConstantTypeHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
+use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\IntegerType;
@@ -1061,54 +1062,24 @@ class Scope implements ClassMemberAccessAnswerer
 			);
 		} elseif ($node instanceof New_) {
 			if ($node->class instanceof Name) {
-				$className = $node->class->toString();
-				$lowercasedClassName = strtolower($className);
-				$resolvedClassName = $this->resolveName($node->class);
-				if ($this->broker->hasClass($resolvedClassName)) {
-					$classReflection = $this->broker->getClass($resolvedClassName);
-					if ($classReflection->hasConstructor()) {
-						$constructorMethod = $classReflection->getConstructor();
-					} else {
-						$constructorMethod = new DummyConstructorReflection($classReflection);
-					}
-
-					$resolvedTypes = [];
-					$methodCall = new Expr\StaticCall(
-						$node->class,
-						new Node\Identifier($constructorMethod->getName()),
-						$node->args
-					);
-					foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($classReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
-						if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($constructorMethod)) {
-							continue;
-						}
-
-						$resolvedTypes[] = $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($constructorMethod, $methodCall, $this);
-					}
-
-					if (count($resolvedTypes) > 0) {
-						return TypeCombinator::union(...$resolvedTypes);
-					}
+				$type = $this->exactInstantiation($node, $node->class->toString());
+				if ($type !== null) {
+					return $type;
 				}
-				if (in_array($lowercasedClassName, [
-					'static',
-					'parent',
-				], true)) {
+
+				$lowercasedClassName = strtolower($node->class->toString());
+				if ($lowercasedClassName === 'static') {
 					if (!$this->isInClass()) {
 						throw new \PHPStan\ShouldNotHappenException();
 					}
-					if ($lowercasedClassName === 'static') {
-						return new StaticType($this->getClassReflection()->getName());
-					}
 
-					if ($this->getClassReflection()->getParentClass() !== false) {
-						return new ObjectType($this->getClassReflection()->getParentClass()->getName());
-					}
-
+					return new StaticType($this->getClassReflection()->getName());
+				}
+				if ($lowercasedClassName === 'parent') {
 					return new NonexistentParentClassType();
 				}
 
-				return new ObjectType($resolvedClassName);
+				return new ObjectType($node->class->toString());
 			}
 			if ($node->class instanceof Node\Stmt\Class_) {
 				$anonymousClassReflection = $this->broker->getAnonymousClassReflection($node->class, $this);
@@ -1795,6 +1766,32 @@ class Scope implements ClassMemberAccessAnswerer
 		}
 
 		return new MixedType();
+	}
+
+	private function resolveExactName(Name $name): ?string
+	{
+		$originalClass = (string) $name;
+
+		switch (strtolower($originalClass)) {
+			case 'self':
+				if (!$this->isInClass()) {
+					return null;
+				}
+				return $this->getClassReflection()->getName();
+			case 'parent':
+				if (!$this->isInClass()) {
+					return null;
+				}
+				$currentClassReflection = $this->getClassReflection();
+				if ($currentClassReflection->getParentClass() !== false) {
+					return $currentClassReflection->getParentClass()->getName();
+				}
+				return null;
+			case 'static':
+				return null;
+		}
+
+		return $originalClass;
 	}
 
 	public function resolveName(Name $name): string
@@ -3155,6 +3152,66 @@ class Scope implements ClassMemberAccessAnswerer
 		}
 
 		return $descriptions;
+	}
+
+	private function exactInstantiation(New_ $node, string $className): ?Type
+	{
+		$resolvedClassName = $this->resolveExactName(new Name($className));
+		if ($resolvedClassName === null) {
+			return null;
+		}
+
+		if (!$this->broker->hasClass($resolvedClassName)) {
+			return null;
+		}
+
+		$classReflection = $this->broker->getClass($resolvedClassName);
+		if ($classReflection->hasConstructor()) {
+			$constructorMethod = $classReflection->getConstructor();
+		} else {
+			$constructorMethod = new DummyConstructorReflection($classReflection);
+		}
+
+		$resolvedTypes = [];
+		$methodCall = new Expr\StaticCall(
+			new Name($resolvedClassName),
+			new Node\Identifier($constructorMethod->getName()),
+			$node->args
+		);
+
+		foreach ($this->broker->getDynamicStaticMethodReturnTypeExtensionsForClass($classReflection->getName()) as $dynamicStaticMethodReturnTypeExtension) {
+			if (!$dynamicStaticMethodReturnTypeExtension->isStaticMethodSupported($constructorMethod)) {
+				continue;
+			}
+
+			$resolvedTypes[] = $dynamicStaticMethodReturnTypeExtension->getTypeFromStaticMethodCall($constructorMethod, $methodCall, $this);
+		}
+
+		if (count($resolvedTypes) > 0) {
+			return TypeCombinator::union(...$resolvedTypes);
+		}
+
+		if (!$classReflection->isGeneric()) {
+			return new ObjectType($resolvedClassName);
+		}
+
+		if ($constructorMethod instanceof DummyConstructorReflection || $constructorMethod->getDeclaringClass()->getName() !== $classReflection->getName()) {
+			return new GenericObjectType(
+				$resolvedClassName,
+				$classReflection->typeMapToList($classReflection->getTemplateTypeMap())
+			);
+		}
+
+		$parametersAcceptor = ParametersAcceptorSelector::selectFromArgs(
+			$this,
+			$methodCall->args,
+			$constructorMethod->getVariants()
+		);
+
+		return new GenericObjectType(
+			$resolvedClassName,
+			$classReflection->typeMapToList($parametersAcceptor->getResolvedTemplateTypeMap())
+		);
 	}
 
 }
