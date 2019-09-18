@@ -8,6 +8,7 @@ use PHPStan\Type\IntersectionType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 
@@ -135,7 +136,7 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 		}
 		if ($isSuperType->yes()) {
 			return new TemplateTypeMap([
-				$this->name => $receivedType,
+				$this->name => TypeUtils::generalizeType($receivedType),
 			]);
 		}
 

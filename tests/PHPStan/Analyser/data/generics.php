@@ -83,7 +83,7 @@ function testD($int, $float, $intFloat) {
 	assertType('float|int', d($int, $float));
 	assertType('DateTime|int', d($int, new \DateTime()));
 	assertType('DateTime|float|int', d($intFloat, new \DateTime()));
-	assertType('array()|DateTime', d([], new \DateTime()));
+	assertType('array|DateTime', d([], new \DateTime()));
 }
 
 /**
@@ -343,4 +343,68 @@ class C
 
 		assertType('T (class PHPStan\Generics\FunctionsAssertType\C, argument)', $a->g());
 	}
+}
+
+/**
+ * class A
+ *
+ * @template T
+ */
+class A {
+	/**
+	 * A::__construct()
+	 *
+	 * @param T $a
+	 */
+	public function __construct($a) {
+	}
+}
+
+/**
+ * class AOfDateTime
+ *
+ * @extends A<\DateTime>
+ */
+class AOfDateTime extends A {
+}
+
+/**
+ * class B
+ *
+ * @template T
+ *
+ * @extends A<T>
+ */
+class B extends A {
+	/**
+	 * B::__construct()
+	 *
+	 * @param T $a
+	 */
+	public function __construct($a) {
+	}
+}
+
+/**
+ * class NoConstructor
+ *
+ * @template T
+ *
+ * @extends A<T>
+ */
+class NoConstructor extends A {
+}
+
+function testClasses() {
+	$a = new A(1);
+	assertType('PHPStan\Generics\FunctionsAssertType\A<int>', $a);
+
+	$a = new AOfDateTime();
+	assertType('PHPStan\Generics\FunctionsAssertType\AOfDateTime', $a);
+
+	$b = new B(1);
+	assertType('PHPStan\Generics\FunctionsAssertType\B<int>', $b);
+
+	$noConstructor = new NoConstructor(1);
+	assertType('PHPStan\Generics\FunctionsAssertType\NoConstructor<T (class PHPStan\Generics\FunctionsAssertType\NoConstructor, parameter)>', $noConstructor);
 }

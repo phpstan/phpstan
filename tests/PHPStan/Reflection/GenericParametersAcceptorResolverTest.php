@@ -13,6 +13,7 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NullType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
@@ -314,11 +315,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 							'b',
 							new ArrayType(
 								new MixedType(),
-								new UnionType([
-									new ConstantIntegerType(1),
-									new ConstantIntegerType(2),
-									new ConstantIntegerType(3),
-								])
+								new IntegerType()
 							),
 							false,
 							PassedByReference::createNo(),
@@ -327,11 +324,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 						),
 					],
 					false,
-					new UnionType([
-						new ConstantIntegerType(1),
-						new ConstantIntegerType(2),
-						new ConstantIntegerType(3),
-					])
+					new IntegerType()
 				),
 			],
 			'missing args' => [
@@ -412,10 +405,10 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 					TemplateTypeMap::createEmpty(),
 					null,
 					[
-						new DummyParameter('str', new ConstantStringType('foo'), false, null, false, null),
+						new DummyParameter('str', new StringType(), false, null, false, null),
 					],
 					false,
-					new ConstantStringType('foo')
+					new StringType()
 				),
 			],
 		];
