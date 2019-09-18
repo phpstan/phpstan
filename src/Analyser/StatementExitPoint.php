@@ -10,10 +10,10 @@ class StatementExitPoint
 	/** @var Stmt */
 	private $statement;
 
-	/** @var Scope */
+	/** @var MutatingScope */
 	private $scope;
 
-	public function __construct(Stmt $statement, Scope $scope)
+	public function __construct(Stmt $statement, MutatingScope $scope)
 	{
 		$this->statement = $statement;
 		$this->scope = $scope;
@@ -24,7 +24,7 @@ class StatementExitPoint
 		return $this->statement;
 	}
 
-	public function getScope(): Scope
+	public function getScope(): MutatingScope
 	{
 		return $this->scope;
 	}

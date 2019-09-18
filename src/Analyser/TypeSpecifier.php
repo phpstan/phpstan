@@ -403,6 +403,9 @@ class TypeSpecifier
 		} elseif ($expr instanceof Node\Expr\BooleanNot && !$context->null()) {
 			return $this->specifyTypesInCondition($scope, $expr->expr, $context->negate());
 		} elseif ($expr instanceof Node\Expr\Assign) {
+			if (!$scope instanceof MutatingScope) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
 			if ($context->null()) {
 				return $this->specifyTypesInCondition($scope->exitFirstLevelStatements(), $expr->expr, $context);
 			}

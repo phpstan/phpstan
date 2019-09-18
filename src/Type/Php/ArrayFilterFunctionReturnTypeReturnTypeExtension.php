@@ -6,6 +6,7 @@ use PhpParser\Node\Expr\Closure;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Expr\Variable;
 use PhpParser\Node\Stmt\Return_;
+use PHPStan\Analyser\MutatingScope;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\ArrayType;
@@ -62,6 +63,9 @@ class ArrayFilterFunctionReturnTypeReturnTypeExtension implements \PHPStan\Type\
 						throw new \PHPStan\ShouldNotHappenException();
 					}
 					$itemVariableName = $callbackArg->params[0]->var->name;
+					if (!$scope instanceof MutatingScope) {
+						throw new \PHPStan\ShouldNotHappenException();
+					}
 					$scope = $scope->assignVariable($itemVariableName, $itemType);
 					$scope = $scope->filterByTruthyValue($statement->expr);
 					$itemType = $scope->getVariableType($itemVariableName);

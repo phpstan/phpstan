@@ -3,7 +3,7 @@
 namespace PHPStan\Testing;
 
 use PhpParser\PrettyPrinter\Standard;
-use PHPStan\Analyser\Scope;
+use PHPStan\Analyser\MutatingScope;
 use PHPStan\Analyser\ScopeFactory;
 use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierFactory;
@@ -263,7 +263,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		$container = self::getContainer();
 
 		return new ScopeFactory(
-			Scope::class,
+			MutatingScope::class,
 			$broker,
 			new \PhpParser\PrettyPrinter\Standard(),
 			$typeSpecifier,

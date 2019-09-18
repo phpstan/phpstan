@@ -3,6 +3,7 @@
 namespace PHPStan\Rules\Operators;
 
 use PhpParser\Node;
+use PHPStan\Analyser\MutatingScope;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
@@ -95,6 +96,10 @@ class InvalidBinaryOperationRule implements \PHPStan\Rules\Rule
 			)->getType();
 			if ($rightType instanceof ErrorType) {
 				return [];
+			}
+
+			if (!$scope instanceof MutatingScope) {
+				throw new \PHPStan\ShouldNotHappenException();
 			}
 
 			$scope = $scope

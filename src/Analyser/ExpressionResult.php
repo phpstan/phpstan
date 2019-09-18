@@ -5,32 +5,32 @@ namespace PHPStan\Analyser;
 class ExpressionResult
 {
 
-	/** @var Scope */
+	/** @var MutatingScope */
 	private $scope;
 
 	/** @var bool */
 	private $hasYield;
 
-	/** @var (callable(): Scope)|null */
+	/** @var (callable(): MutatingScope)|null */
 	private $truthyScopeCallback;
 
-	/** @var Scope|null */
+	/** @var MutatingScope|null */
 	private $truthyScope;
 
-	/** @var (callable(): Scope)|null */
+	/** @var (callable(): MutatingScope)|null */
 	private $falseyScopeCallback;
 
-	/** @var Scope|null */
+	/** @var MutatingScope|null */
 	private $falseyScope;
 
 	/**
-	 * @param Scope $scope
+	 * @param MutatingScope $scope
 	 * @param bool $hasYield
-	 * @param (callable(): Scope)|null $truthyScopeCallback
-	 * @param (callable(): Scope)|null $falseyScopeCallback
+	 * @param (callable(): MutatingScope)|null $truthyScopeCallback
+	 * @param (callable(): MutatingScope)|null $falseyScopeCallback
 	 */
 	public function __construct(
-		Scope $scope,
+		MutatingScope $scope,
 		bool $hasYield,
 		?callable $truthyScopeCallback = null,
 		?callable $falseyScopeCallback = null
@@ -42,7 +42,7 @@ class ExpressionResult
 		$this->falseyScopeCallback = $falseyScopeCallback;
 	}
 
-	public function getScope(): Scope
+	public function getScope(): MutatingScope
 	{
 		return $this->scope;
 	}
@@ -52,7 +52,7 @@ class ExpressionResult
 		return $this->hasYield;
 	}
 
-	public function getTruthyScope(): Scope
+	public function getTruthyScope(): MutatingScope
 	{
 		if ($this->truthyScopeCallback === null) {
 			return $this->scope;
@@ -67,7 +67,7 @@ class ExpressionResult
 		return $this->truthyScope;
 	}
 
-	public function getFalseyScope(): Scope
+	public function getFalseyScope(): MutatingScope
 	{
 		if ($this->falseyScopeCallback === null) {
 			return $this->scope;

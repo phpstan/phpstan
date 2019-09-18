@@ -57,7 +57,7 @@ class ScopeFactory
 	 * @param bool $inFirstLevelStatement
 	 * @param array<string, true> $currentlyAssignedExpressions
 	 *
-	 * @return Scope
+	 * @return MutatingScope
 	 */
 	public function create(
 		ScopeContext $context,
@@ -70,10 +70,10 @@ class ScopeFactory
 		?ParametersAcceptor $anonymousFunctionReflection = null,
 		bool $inFirstLevelStatement = true,
 		array $currentlyAssignedExpressions = []
-	): Scope
+	): MutatingScope
 	{
 		$scopeClass = $this->scopeClass;
-		if (!is_a($scopeClass, Scope::class, true)) {
+		if (!is_a($scopeClass, MutatingScope::class, true)) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 

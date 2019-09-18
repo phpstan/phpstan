@@ -39,7 +39,7 @@ parameters:
 	    nodesByFileCountMax: 512
 	    nodesByStringCountMax: 512
 	reportUnmatchedIgnoredErrors: true
-	scopeClass: PHPStan\Analyser\Scope
+	scopeClass: PHPStan\Analyser\MutatingScope
 	universalObjectCratesClasses:
 		- stdClass
 	earlyTerminatingMethodCalls: []

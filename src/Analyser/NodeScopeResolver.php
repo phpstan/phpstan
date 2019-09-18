@@ -173,12 +173,12 @@ class NodeScopeResolver
 
 	/**
 	 * @param \PhpParser\Node[] $nodes
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\MutatingScope $scope
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 */
 	public function processNodes(
 		array $nodes,
-		Scope $scope,
+		MutatingScope $scope,
 		\Closure $nodeCallback
 	): void
 	{
@@ -209,14 +209,14 @@ class NodeScopeResolver
 	/**
 	 * @param \PhpParser\Node $parentNode
 	 * @param \PhpParser\Node\Stmt[] $stmts
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\MutatingScope $scope
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @return StatementResult
 	 */
 	public function processStmtNodes(
 		Node $parentNode,
 		array $stmts,
-		Scope $scope,
+		MutatingScope $scope,
 		\Closure $nodeCallback
 	): StatementResult
 	{
@@ -282,13 +282,13 @@ class NodeScopeResolver
 
 	/**
 	 * @param \PhpParser\Node\Stmt $stmt
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\MutatingScope $scope
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @return StatementResult
 	 */
 	private function processStmtNode(
 		Node\Stmt $stmt,
-		Scope $scope,
+		MutatingScope $scope,
 		\Closure $nodeCallback
 	): StatementResult
 	{
@@ -1026,13 +1026,13 @@ class NodeScopeResolver
 
 	/**
 	 * @param Node\Stmt\Catch_ $catchNode
-	 * @param Scope $catchScope
+	 * @param MutatingScope $catchScope
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @return StatementResult
 	 */
 	private function processCatchNode(
 		Node\Stmt\Catch_ $catchNode,
-		Scope $catchScope,
+		MutatingScope $catchScope,
 		\Closure $nodeCallback
 	): StatementResult
 	{
@@ -1044,13 +1044,13 @@ class NodeScopeResolver
 		return $this->processStmtNodes($catchNode, $catchNode->stmts, $catchScope, $nodeCallback);
 	}
 
-	private function lookForEnterVariableAssign(Scope $scope, Expr $expr): Scope
+	private function lookForEnterVariableAssign(MutatingScope $scope, Expr $expr): MutatingScope
 	{
 		if (!$expr instanceof ArrayDimFetch || $expr->dim !== null) {
 			$scope = $scope->enterExpressionAssign($expr);
 		}
 		if (!$expr instanceof Variable) {
-			return $this->lookForVariableAssignCallback($scope, $expr, static function (Scope $scope, Expr $expr): Scope {
+			return $this->lookForVariableAssignCallback($scope, $expr, static function (MutatingScope $scope, Expr $expr): MutatingScope {
 				return $scope->enterExpressionAssign($expr);
 			});
 		}
@@ -1058,11 +1058,11 @@ class NodeScopeResolver
 		return $scope;
 	}
 
-	private function lookForExitVariableAssign(Scope $scope, Expr $expr): Scope
+	private function lookForExitVariableAssign(MutatingScope $scope, Expr $expr): MutatingScope
 	{
 		$scope = $scope->exitExpressionAssign($expr);
 		if (!$expr instanceof Variable) {
-			return $this->lookForVariableAssignCallback($scope, $expr, static function (Scope $scope, Expr $expr): Scope {
+			return $this->lookForVariableAssignCallback($scope, $expr, static function (MutatingScope $scope, Expr $expr): MutatingScope {
 				return $scope->exitExpressionAssign($expr);
 			});
 		}
@@ -1071,12 +1071,12 @@ class NodeScopeResolver
 	}
 
 	/**
-	 * @param Scope $scope
+	 * @param MutatingScope $scope
 	 * @param Expr $expr
-	 * @param \Closure(Scope $scope, Expr $expr): Scope $callback
-	 * @return Scope
+	 * @param \Closure(MutatingScope $scope, Expr $expr): MutatingScope $callback
+	 * @return MutatingScope
 	 */
-	private function lookForVariableAssignCallback(Scope $scope, Expr $expr, \Closure $callback): Scope
+	private function lookForVariableAssignCallback(MutatingScope $scope, Expr $expr, \Closure $callback): MutatingScope
 	{
 		if ($expr instanceof Variable) {
 			$scope = $callback($scope, $expr);
@@ -1105,7 +1105,7 @@ class NodeScopeResolver
 		return $scope;
 	}
 
-	private function ensureNonNullability(Scope $scope, Expr $expr, bool $findMethods): EnsuredNonNullabilityResult
+	private function ensureNonNullability(MutatingScope $scope, Expr $expr, bool $findMethods): EnsuredNonNullabilityResult
 	{
 		$exprToSpecify = $expr;
 		$specifiedExpressions = [];
@@ -1145,11 +1145,11 @@ class NodeScopeResolver
 	}
 
 	/**
-	 * @param Scope $scope
+	 * @param MutatingScope $scope
 	 * @param EnsuredNonNullabilityResultExpression[] $specifiedExpressions
-	 * @return Scope
+	 * @return MutatingScope
 	 */
-	private function revertNonNullability(Scope $scope, array $specifiedExpressions): Scope
+	private function revertNonNullability(MutatingScope $scope, array $specifiedExpressions): MutatingScope
 	{
 		foreach ($specifiedExpressions as $specifiedExpressionResult) {
 			$scope = $scope->specifyExpressionType($specifiedExpressionResult->getExpression(), $specifiedExpressionResult->getOriginalType());
@@ -1203,12 +1203,12 @@ class NodeScopeResolver
 
 	/**
 	 * @param \PhpParser\Node\Expr $expr
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\MutatingScope $scope
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @param \PHPStan\Analyser\ExpressionContext $context
 	 * @return \PHPStan\Analyser\ExpressionResult
 	 */
-	private function processExprNode(Expr $expr, Scope $scope, \Closure $nodeCallback, ExpressionContext $context): ExpressionResult
+	private function processExprNode(Expr $expr, MutatingScope $scope, \Closure $nodeCallback, ExpressionContext $context): ExpressionResult
 	{
 		$this->callNodeCallbackWithExpression($nodeCallback, $expr, $scope, $context);
 
@@ -1225,7 +1225,7 @@ class NodeScopeResolver
 					$expr->expr,
 					$nodeCallback,
 					$context,
-					function (Scope $scope) use ($expr, $nodeCallback, $context): ExpressionResult {
+					function (MutatingScope $scope) use ($expr, $nodeCallback, $context): ExpressionResult {
 						$hasYield = false;
 						if ($expr instanceof AssignRef) {
 							$scope = $scope->enterExpressionAssign($expr->expr);
@@ -1312,7 +1312,7 @@ class NodeScopeResolver
 				$expr,
 				$nodeCallback,
 				$context,
-				function (Scope $scope) use ($expr, $nodeCallback, $context): ExpressionResult {
+				function (MutatingScope $scope) use ($expr, $nodeCallback, $context): ExpressionResult {
 					return $this->processExprNode($expr->expr, $scope, $nodeCallback, $context->enterDeep());
 				},
 				$expr instanceof Expr\AssignOp\Coalesce
@@ -1638,10 +1638,10 @@ class NodeScopeResolver
 			return new ExpressionResult(
 				$leftMergedWithRightScope,
 				$leftResult->hasYield() || $rightResult->hasYield(),
-				static function () use ($expr, $rightResult): Scope {
+				static function () use ($expr, $rightResult): MutatingScope {
 					return $rightResult->getScope()->filterByTruthyValue($expr);
 				},
-				static function () use ($leftMergedWithRightScope, $expr): Scope {
+				static function () use ($leftMergedWithRightScope, $expr): MutatingScope {
 					return $leftMergedWithRightScope->filterByFalseyValue($expr);
 				}
 			);
@@ -1654,10 +1654,10 @@ class NodeScopeResolver
 			return new ExpressionResult(
 				$leftMergedWithRightScope,
 				$leftResult->hasYield() || $rightResult->hasYield(),
-				static function () use ($leftMergedWithRightScope, $expr): Scope {
+				static function () use ($leftMergedWithRightScope, $expr): MutatingScope {
 					return $leftMergedWithRightScope->filterByTruthyValue($expr);
 				},
-				static function () use ($expr, $rightResult): Scope {
+				static function () use ($expr, $rightResult): MutatingScope {
 					return $rightResult->getScope()->filterByFalseyValue($expr);
 				}
 			);
@@ -1804,7 +1804,7 @@ class NodeScopeResolver
 						static function (): void {
 						},
 						$context,
-						static function (Scope $scope): ExpressionResult {
+						static function (MutatingScope $scope): ExpressionResult {
 							return new ExpressionResult($scope, false);
 						},
 						false
@@ -1828,10 +1828,10 @@ class NodeScopeResolver
 			return new ExpressionResult(
 				$finalScope,
 				$ternaryCondResult->hasYield(),
-				static function () use ($finalScope, $expr): Scope {
+				static function () use ($finalScope, $expr): MutatingScope {
 					return $finalScope->filterByTruthyValue($expr);
 				},
-				static function () use ($finalScope, $expr): Scope {
+				static function () use ($finalScope, $expr): MutatingScope {
 					return $finalScope->filterByFalseyValue($expr);
 				}
 			);
@@ -1853,10 +1853,10 @@ class NodeScopeResolver
 		return new ExpressionResult(
 			$scope,
 			$hasYield,
-			static function () use ($scope, $expr): Scope {
+			static function () use ($scope, $expr): MutatingScope {
 				return $scope->filterByTruthyValue($expr);
 			},
-			static function () use ($scope, $expr): Scope {
+			static function () use ($scope, $expr): MutatingScope {
 				return $scope->filterByFalseyValue($expr);
 			}
 		);
@@ -1865,13 +1865,13 @@ class NodeScopeResolver
 	/**
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @param Expr $expr
-	 * @param Scope $scope
+	 * @param MutatingScope $scope
 	 * @param ExpressionContext $context
 	 */
 	private function callNodeCallbackWithExpression(
 		\Closure $nodeCallback,
 		Expr $expr,
-		Scope $scope,
+		MutatingScope $scope,
 		ExpressionContext $context
 	): void
 	{
@@ -1883,7 +1883,7 @@ class NodeScopeResolver
 
 	/**
 	 * @param \PhpParser\Node\Expr\Closure $expr
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\MutatingScope $scope
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @param ExpressionContext $context
 	 * @param Type|null $passedToType
@@ -1891,7 +1891,7 @@ class NodeScopeResolver
 	 */
 	private function processClosureNode(
 		Expr\Closure $expr,
-		Scope $scope,
+		MutatingScope $scope,
 		\Closure $nodeCallback,
 		ExpressionContext $context,
 		?Type $passedToType
@@ -2002,7 +2002,7 @@ class NodeScopeResolver
 		return new ExpressionResult($scope->processClosureScope($closureScope, null, $byRefUses), false);
 	}
 
-	private function lookForArrayDestructuringArray(Scope $scope, Expr $expr, Type $valueType): Scope
+	private function lookForArrayDestructuringArray(MutatingScope $scope, Expr $expr, Type $valueType): MutatingScope
 	{
 		if ($expr instanceof Array_ || $expr instanceof List_) {
 			foreach ($expr->items as $key => $item) {
@@ -2024,7 +2024,7 @@ class NodeScopeResolver
 		return $scope;
 	}
 
-	private function specifyItemFromArrayDestructuring(Scope $scope, ArrayItem $arrayItem, Type $valueType, Type $keyType): Scope
+	private function specifyItemFromArrayDestructuring(MutatingScope $scope, ArrayItem $arrayItem, Type $valueType, Type $keyType): MutatingScope
 	{
 		$type = $valueType->getOffsetValueType($keyType);
 
@@ -2049,12 +2049,12 @@ class NodeScopeResolver
 
 	/**
 	 * @param \PhpParser\Node\Param $param
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\MutatingScope $scope
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 */
 	private function processParamNode(
 		Node\Param $param,
-		Scope $scope,
+		MutatingScope $scope,
 		\Closure $nodeCallback
 	): void
 	{
@@ -2072,20 +2072,20 @@ class NodeScopeResolver
 	 * @param \PHPStan\Reflection\MethodReflection|\PHPStan\Reflection\FunctionReflection|null $calleeReflection
 	 * @param ParametersAcceptor|null $parametersAcceptor
 	 * @param \PhpParser\Node\Arg[] $args
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\MutatingScope $scope
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @param ExpressionContext $context
-	 * @param \PHPStan\Analyser\Scope|null $closureBindScope
+	 * @param \PHPStan\Analyser\MutatingScope|null $closureBindScope
 	 * @return \PHPStan\Analyser\ExpressionResult
 	 */
 	private function processArgs(
 		$calleeReflection,
 		?ParametersAcceptor $parametersAcceptor,
 		array $args,
-		Scope $scope,
+		MutatingScope $scope,
 		\Closure $nodeCallback,
 		ExpressionContext $context,
-		?Scope $closureBindScope = null
+		?MutatingScope $closureBindScope = null
 	): ExpressionResult
 	{
 		if ($parametersAcceptor !== null) {
@@ -2161,17 +2161,17 @@ class NodeScopeResolver
 	}
 
 	/**
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\MutatingScope $scope
 	 * @param \PhpParser\Node\Expr $var
 	 * @param \PhpParser\Node\Expr $assignedExpr
 	 * @param \Closure(\PhpParser\Node $node, Scope $scope): void $nodeCallback
 	 * @param ExpressionContext $context
-	 * @param \Closure(Scope $scope): ExpressionResult $processExprCallback
+	 * @param \Closure(MutatingScope $scope): ExpressionResult $processExprCallback
 	 * @param bool $enterExpressionAssign
 	 * @return ExpressionResult
 	 */
 	private function processAssignVar(
-		Scope $scope,
+		MutatingScope $scope,
 		Expr $var,
 		Expr $assignedExpr,
 		\Closure $nodeCallback,
@@ -2317,7 +2317,7 @@ class NodeScopeResolver
 		return new ExpressionResult($scope, $hasYield);
 	}
 
-	private function processStmtVarAnnotation(Scope $scope, Node\Stmt $stmt): Scope
+	private function processStmtVarAnnotation(MutatingScope $scope, Node\Stmt $stmt): MutatingScope
 	{
 		$comment = CommentHelper::getDocComment($stmt);
 		if ($comment === null) {
@@ -2346,7 +2346,7 @@ class NodeScopeResolver
 		return $scope;
 	}
 
-	private function processVarAnnotation(Scope $scope, string $variableName, string $comment, bool $strict, bool &$changed = false): Scope
+	private function processVarAnnotation(MutatingScope $scope, string $variableName, string $comment, bool $strict, bool &$changed = false): MutatingScope
 	{
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 			$scope->getFile(),
@@ -2373,7 +2373,7 @@ class NodeScopeResolver
 		return $scope;
 	}
 
-	private function enterForeach(Scope $scope, Foreach_ $stmt): Scope
+	private function enterForeach(MutatingScope $scope, Foreach_ $stmt): MutatingScope
 	{
 		if ($stmt->keyVar !== null && $stmt->keyVar instanceof Variable && is_string($stmt->keyVar->name)) {
 			$scope = $scope->assignVariable($stmt->keyVar->name, new MixedType());
@@ -2424,7 +2424,7 @@ class NodeScopeResolver
 		return $scope;
 	}
 
-	private function processTraitUse(Node\Stmt\TraitUse $node, Scope $classScope, \Closure $nodeCallback): void
+	private function processTraitUse(Node\Stmt\TraitUse $node, MutatingScope $classScope, \Closure $nodeCallback): void
 	{
 		foreach ($node->traits as $trait) {
 			$traitName = (string) $trait;
@@ -2448,10 +2448,10 @@ class NodeScopeResolver
 	/**
 	 * @param \PhpParser\Node[]|\PhpParser\Node|scalar $node
 	 * @param ClassReflection $traitReflection
-	 * @param \PHPStan\Analyser\Scope $scope
+	 * @param \PHPStan\Analyser\MutatingScope $scope
 	 * @param \Closure(\PhpParser\Node $node): void $nodeCallback
 	 */
-	private function processNodesForTraitUse($node, ClassReflection $traitReflection, Scope $scope, \Closure $nodeCallback): void
+	private function processNodesForTraitUse($node, ClassReflection $traitReflection, MutatingScope $scope, \Closure $nodeCallback): void
 	{
 		if ($node instanceof Node) {
 			if ($node instanceof Node\Stmt\Trait_ && $traitReflection->getName() === (string) $node->namespacedName) {

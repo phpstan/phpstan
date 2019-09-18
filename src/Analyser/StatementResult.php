@@ -7,7 +7,7 @@ use PhpParser\Node\Stmt;
 class StatementResult
 {
 
-	/** @var Scope */
+	/** @var MutatingScope */
 	private $scope;
 
 	/** @var bool */
@@ -20,13 +20,13 @@ class StatementResult
 	private $exitPoints;
 
 	/**
-	 * @param Scope $scope
+	 * @param MutatingScope $scope
 	 * @param bool $hasYield
 	 * @param bool $isAlwaysTerminating
 	 * @param StatementExitPoint[] $exitPoints
 	 */
 	public function __construct(
-		Scope $scope,
+		MutatingScope $scope,
 		bool $hasYield,
 		bool $isAlwaysTerminating,
 		array $exitPoints
@@ -38,7 +38,7 @@ class StatementResult
 		$this->exitPoints = $exitPoints;
 	}
 
-	public function getScope(): Scope
+	public function getScope(): MutatingScope
 	{
 		return $this->scope;
 	}
