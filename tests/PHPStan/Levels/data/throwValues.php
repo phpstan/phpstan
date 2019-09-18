@@ -34,14 +34,30 @@ class Foo
 		$throwableOrInt,
 		$intOrString
 	) {
-		throw new \Exception();
-		throw $validInterface;
-		throw 123;
-		throw new InvalidException();
-		throw $invalidInterface;
-		throw $nullableException;
-		throw $throwableOrInt;
-		throw $intOrString;
+		if (rand(0, 1)) {
+			throw new \Exception();
+		}
+		if (rand(0, 1)) {
+			throw $validInterface;
+		}
+		if (rand(0, 1)) {
+			throw 123;
+		}
+		if (rand(0, 1)) {
+			throw new InvalidException();
+		}
+		if (rand(0, 1)) {
+			throw $invalidInterface;
+		}
+		if (rand(0, 1)) {
+			throw $nullableException;
+		}
+		if (rand(0, 1)) {
+			throw $throwableOrInt;
+		}
+		if (rand(0, 1)) {
+			throw $intOrString;
+		}
 	}
 
 }

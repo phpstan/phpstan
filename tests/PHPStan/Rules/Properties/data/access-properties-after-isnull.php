@@ -5,7 +5,7 @@ namespace AccessPropertiesAfterIsNull;
 class Foo
 {
 
-	/** @var self */
+	/** @var self|null */
 	private $fooProperty;
 
 	/**

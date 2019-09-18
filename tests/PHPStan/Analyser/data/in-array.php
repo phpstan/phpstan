@@ -8,23 +8,17 @@ class Foo
 	/**
 	 * @param string $s
 	 * @param string $r
-	 * @param int $i
 	 * @param $mixed
 	 * @param string[] $strings
 	 */
 	public function doFoo(
 		string $s,
 		string $r,
-		int $i,
 		$mixed,
 		array $strings
 	)
 	{
 		if (!in_array($s, ['foo', 'bar'], true)) {
-			return;
-		}
-
-		if (!in_array($i, ['foo', 'bar'], true)) {
 			return;
 		}
 

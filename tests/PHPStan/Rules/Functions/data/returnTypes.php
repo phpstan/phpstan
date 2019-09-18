@@ -9,8 +9,13 @@ function returnNothing()
 
 function returnInteger(): int
 {
-	return 1;
-	return 'foo';
+	if (rand(0, 1)) {
+		return 1;
+	}
+
+	if (rand(0, 1)) {
+		return 'foo';
+	}
 	$foo = function () {
 		return 'bar';
 	};
@@ -18,16 +23,32 @@ function returnInteger(): int
 
 function returnObject(): Bar
 {
-	return 1;
-	return new Foo();
-	return new Bar();
+	if (rand(0, 1)) {
+		return 1;
+	}
+
+	if (rand(0, 1)) {
+		return new Foo();
+	}
+
+	if (rand(0, 1)) {
+		return new Bar();
+	}
 }
 
 function returnChild(): Foo
 {
-	return new Foo();
-	return new FooChild();
-	return new OtherInterfaceImpl();
+	if (rand(0, 1)) {
+		return new Foo();
+	}
+
+	if (rand(0, 1)) {
+		return new FooChild();
+	}
+
+	if (rand(0, 1)) {
+		return new OtherInterfaceImpl();
+	}
 }
 
 /**
@@ -35,8 +56,13 @@ function returnChild(): Foo
  */
 function returnNullable()
 {
-	return 'foo';
-	return null;
+	if (rand(0, 1)) {
+		return 'foo';
+	}
+
+	if (rand(0, 1)) {
+		return null;
+	}
 }
 
 function returnInterface(): FooInterface
@@ -49,9 +75,17 @@ function returnInterface(): FooInterface
  */
 function returnVoid()
 {
-	return;
-	return null;
-	return 1;
+	if (rand(0, 1)) {
+		return;
+	}
+
+	if (rand(0, 1)) {
+		return null;
+	}
+
+	if (rand(0, 1)) {
+		return 1;
+	}
 }
 
 function returnAlias(): Foo

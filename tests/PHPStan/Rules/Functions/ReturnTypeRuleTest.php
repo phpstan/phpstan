@@ -19,27 +19,27 @@ class ReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->analyse([__DIR__ . '/data/returnTypes.php'], [
 			[
 				'Function ReturnTypes\returnInteger() should return int but returns string.',
-				13,
+				17,
 			],
 			[
 				'Function ReturnTypes\returnObject() should return ReturnTypes\Bar but returns int.',
-				21,
+				27,
 			],
 			[
 				'Function ReturnTypes\returnObject() should return ReturnTypes\Bar but returns ReturnTypes\Foo.',
-				22,
+				31,
 			],
 			[
 				'Function ReturnTypes\returnChild() should return ReturnTypes\Foo but returns ReturnTypes\OtherInterfaceImpl.',
-				30,
+				50,
 			],
 			[
 				'Function ReturnTypes\returnVoid() with return type void returns null but should not return anything.',
-				53,
+				83,
 			],
 			[
 				'Function ReturnTypes\returnVoid() with return type void returns int but should not return anything.',
-				54,
+				87,
 			],
 		]);
 	}

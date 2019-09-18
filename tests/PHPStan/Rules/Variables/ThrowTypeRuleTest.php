@@ -12,30 +12,30 @@ class ThrowTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 		return new ThrowTypeRule(new RuleLevelHelper($this->createBroker(), true, false, true));
 	}
 
-	public function testAccessPropertiesOnPossiblyNullRuleTest(): void
+	public function testRule(): void
 	{
 		$this->analyse(
 			[__DIR__ . '/data/throw-values.php'],
 			[
 				[
 					'Invalid type int to throw.',
-					19,
+					24,
 				],
 				[
 					'Invalid type ThrowValues\InvalidException to throw.',
-					20,
+					27,
 				],
 				[
 					'Invalid type ThrowValues\InvalidInterfaceException to throw.',
-					21,
+					30,
 				],
 				[
 					'Invalid type Exception|null to throw.',
-					22,
+					33,
 				],
 				[
 					'Throwing object of an unknown class ThrowValues\NonexistentClass.',
-					24,
+					39,
 				],
 			]
 		);

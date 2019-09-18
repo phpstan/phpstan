@@ -8978,10 +8978,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$s',
 			],
 			[
-				'*NEVER*',
-				'$i',
-			],
-			[
 				'string',
 				'$mixed',
 			],

@@ -18,23 +18,23 @@ class ClosureReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->analyse([__DIR__ . '/data/closureReturnTypes.php'], [
 			[
 				'Anonymous function should return int but returns string.',
-				15,
+				21,
 			],
 			[
 				'Anonymous function should return string but returns int.',
-				20,
+				28,
 			],
 			[
 				'Anonymous function should return ClosureReturnTypes\Foo but returns ClosureReturnTypes\Bar.',
-				25,
+				35,
 			],
 			[
 				'Anonymous function should return SomeOtherNamespace\Foo but returns ClosureReturnTypes\Foo.',
-				29,
+				39,
 			],
 			[
 				'Anonymous function should return SomeOtherNamespace\Baz but returns ClosureReturnTypes\Foo.',
-				34,
+				46,
 			],
 		]);
 	}
@@ -44,11 +44,11 @@ class ClosureReturnTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 		$this->analyse([__DIR__ . '/data/closure-7.1ReturnTypes.php'], [
 			[
 				'Anonymous function should return int|null but returns string.',
-				6,
+				9,
 			],
 			[
 				'Anonymous function should return iterable but returns string.',
-				13,
+				22,
 			],
 		]);
 	}

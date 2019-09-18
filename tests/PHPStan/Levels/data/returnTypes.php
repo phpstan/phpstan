@@ -21,12 +21,24 @@ class Foo
 		?int $m
 	)
 	{
-		return $i;
-		return $j;
-		return $k;
-		return $l;
-		return $m;
-		return;
+		if (rand(0, 1)) {
+			return $i;
+		}
+		if (rand(0, 1)) {
+			return $j;
+		}
+		if (rand(0, 1)) {
+			return $k;
+		}
+		if (rand(0, 1)) {
+			return $l;
+		}
+		if (rand(0, 1)) {
+			return $m;
+		}
+		if (rand(0, 1)) {
+			return;
+		}
 	}
 
 	/**
@@ -45,12 +57,24 @@ class Foo
 		?int $m
 	)
 	{
-		return $i;
-		return $j;
-		return $k;
-		return $l;
-		return $m;
-		return;
+		if (rand(0, 1)) {
+			return $i;
+		}
+		if (rand(0, 1)) {
+			return $j;
+		}
+		if (rand(0, 1)) {
+			return $k;
+		}
+		if (rand(0, 1)) {
+			return $l;
+		}
+		if (rand(0, 1)) {
+			return $m;
+		}
+		if (rand(0, 1)) {
+			return;
+		}
 	}
 
 	/**

@@ -375,10 +375,10 @@ class ConstantTypeInDoWhile
 class ConstantAssignOperatorInWhile
 {
 
-	public function doFoo()
+	public function doFoo(bool $bool)
 	{
 		$i = 10.0;
-		while (true) {
+		while ($bool) {
 			$i /= 5;
 			if ($i === 1000000.0) {
 

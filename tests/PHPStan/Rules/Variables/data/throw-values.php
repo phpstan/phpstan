@@ -14,12 +14,28 @@ function () {
 	/** @var \Exception|null $nullableException */
 	$nullableException = new \Exception();
 
-	throw new \Exception();
-	throw $validInterface;
-	throw 123;
-	throw new InvalidException();
-	throw $invalidInterface;
-	throw $nullableException;
-	throw foo();
-	throw new NonexistentClass();
+	if (rand(0, 1)) {
+		throw new \Exception();
+	}
+	if (rand(0, 1)) {
+		throw $validInterface;
+	}
+	if (rand(0, 1)) {
+		throw 123;
+	}
+	if (rand(0, 1)) {
+		throw new InvalidException();
+	}
+	if (rand(0, 1)) {
+		throw $invalidInterface;
+	}
+	if (rand(0, 1)) {
+		throw $nullableException;
+	}
+	if (rand(0, 1)) {
+		throw foo();
+	}
+	if (rand(0, 1)) {
+		throw new NonexistentClass();
+	}
 };

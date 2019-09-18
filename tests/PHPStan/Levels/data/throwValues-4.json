@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Unreachable statement - code above always terminates.",
-        "line": 38,
-        "ignorable": true
-    }
-]

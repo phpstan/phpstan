@@ -12,8 +12,13 @@ class Foo extends FooParent implements FooInterface
 
 	public function returnInteger(): int
 	{
-		return 1;
-		return 'foo';
+		if (rand(0, 1)) {
+			return 1;
+		}
+
+		if (rand(0, 1)) {
+			return 'foo';
+		}
 		$foo = function () {
 			return 'bar';
 		};
@@ -21,16 +26,32 @@ class Foo extends FooParent implements FooInterface
 
 	public function returnObject(): Bar
 	{
-		return 1;
-		return new self();
-		return new Bar();
+		if (rand(0, 1)) {
+			return 1;
+		}
+
+		if (rand(0, 1)) {
+			return new self();
+		}
+
+		if (rand(0, 1)) {
+			return new Bar();
+		}
 	}
 
 	public function returnChild(): self
 	{
-		return new self();
-		return new FooChild();
-		return new OtherInterfaceImpl();
+		if (rand(0, 1)) {
+			return new self();
+		}
+
+		if (rand(0, 1)) {
+			return new FooChild();
+		}
+
+		if (rand(0, 1)) {
+			return new OtherInterfaceImpl();
+		}
 	}
 
 	/**
@@ -38,8 +59,13 @@ class Foo extends FooParent implements FooInterface
 	 */
 	public function returnNullable()
 	{
-		return 'foo';
-		return null;
+		if (rand(0, 1)) {
+			return 'foo';
+		}
+
+		if (rand(0, 1)) {
+			return null;
+		}
 	}
 
 	public function returnInterface(): FooInterface
@@ -52,9 +78,17 @@ class Foo extends FooParent implements FooInterface
 	 */
 	public function returnVoid()
 	{
-		return;
-		return null;
-		return 1;
+		if (rand(0, 1)) {
+			return;
+		}
+
+		if (rand(0, 1)) {
+			return null;
+		}
+
+		if (rand(0, 1)) {
+			return 1;
+		}
 	}
 
 	/**
@@ -62,11 +96,19 @@ class Foo extends FooParent implements FooInterface
 	 */
 	public function returnStatic(): FooParent
 	{
-		return parent::returnStatic();
+		if (rand(0, 1)) {
+			return parent::returnStatic();
+		}
 
 		$parent = new FooParent();
-		return $parent->returnStatic(); // the only case with wrong static base class
-		return $this->returnStatic();
+
+		if (rand(0, 1)) {
+			return $parent->returnStatic(); // the only case with wrong static base class
+		}
+
+		if (rand(0, 1)) {
+			return $this->returnStatic();
+		}
 	}
 
 	public function returnAlias(): Foo
@@ -85,32 +127,69 @@ class Foo extends FooParent implements FooInterface
 	 */
 	public function returnUnionIterableType($collection)
 	{
-		return $collection;
-		return new Collection();
-		return new self();
-		return [new self()];
-		return new Bar();
-		return [new Bar()];
-		return 1;
-		return;
+		if (rand(0, 1)) {
+			return $collection;
+		}
+
+		if (rand(0, 1)) {
+			return new Collection();
+		}
+
+		if (rand(0, 1)) {
+			return new self();
+		}
+
+		if (rand(0, 1)) {
+			return [new self()];
+		}
+
+		if (rand(0, 1)) {
+			return new Bar();
+		}
+
+		if (rand(0, 1)) {
+			return [new Bar()];
+		}
+
+		if (rand(0, 1)) {
+			return 1;
+		}
+
+		if (rand(0, 1)) {
+			return;
+		}
 
 		/** @var Bar[]|Collection $barListOrCollection */
 		$barListOrCollection = doFoo();
-		return $barListOrCollection;
+
+		if (rand(0, 1)) {
+			return $barListOrCollection;
+		}
 
 		/** @var self[]|AnotherCollection $selfListOrAnotherCollection */
 		$selfListOrAnotherCollection = doFoo();
-		return $selfListOrAnotherCollection;
+
+		if (rand(0, 1)) {
+			return $selfListOrAnotherCollection;
+		}
 
 		/** @var self[]|Collection|AnotherCollection $selfListOrCollectionorAnotherCollection */
 		$selfListOrCollectionorAnotherCollection = doFoo();
-		return $selfListOrCollectionorAnotherCollection;
+
+		if (rand(0, 1)) {
+			return $selfListOrCollectionorAnotherCollection;
+		}
 
 		/** @var Bar[]|AnotherCollection $completelyDiffernetUnionIterable */
 		$completelyDiffernetUnionIterable = doFoo();
-		return $completelyDiffernetUnionIterable;
 
-		return null;
+		if (rand(0, 1)) {
+			return $completelyDiffernetUnionIterable;
+		}
+
+		if (rand(0, 1)) {
+			return null;
+		}
 	}
 
 	/**
@@ -119,8 +198,13 @@ class Foo extends FooParent implements FooInterface
 	 */
 	public function returnUnionIterableLooserReturnType($collection)
 	{
-		return $collection;
-		return null;
+		if (rand(0, 1)) {
+			return $collection;
+		}
+
+		if (rand(0, 1)) {
+			return null;
+		}
 	}
 
 	/**
@@ -128,13 +212,27 @@ class Foo extends FooParent implements FooInterface
 	 */
 	public function returnThis(): self
 	{
-		return $this;
-		return new self();
-		return 1; return new static();
-		return null;
+		if (rand(0, 1)) {
+			return $this;
+		}
+		if (rand(0, 1)) {
+			return new self();
+		}
+		if (rand(0, 1)) {
+			return 1;
+		}
+		if (rand(0, 1)) {
+			return new static();
+		}
 
-		$that = $this;
-		return $that;
+		if (rand(0, 1)) {
+			return null;
+		}
+
+		if (rand(0, 1)) {
+			$that = $this;
+			return $that;
+		}
 	}
 
 	/**
@@ -142,12 +240,24 @@ class Foo extends FooParent implements FooInterface
 	 */
 	public function returnThisOrNull()
 	{
-		return $this;
-		return new self();
-		return 1;
-		return null;
-		return $this->returnThis();
-		return $this->returnStaticThatReturnsNewStatic();
+		if (rand(0, 1)) {
+			return $this;
+		}
+		if (rand(0, 1)) {
+			return new self();
+		}
+		if (rand(0, 1)) {
+			return 1;
+		}
+		if (rand(0, 1)) {
+			return null;
+		}
+		if (rand(0, 1)) {
+			return $this->returnThis();
+		}
+		if (rand(0, 1)) {
+			return $this->returnStaticThatReturnsNewStatic();
+		}
 	}
 
 	/**
@@ -155,22 +265,41 @@ class Foo extends FooParent implements FooInterface
 	 */
 	public function returnStaticThatReturnsNewStatic(): self
 	{
-		return new static();
-		return $this;
+		if (rand(0, 1)) {
+			return new static();
+		}
+		if (rand(0, 1)) {
+			return $this;
+		}
 	}
 
 	public function returnsParent(): parent
 	{
-		return new FooParent();
-		return 1;
-		return null;
+		if (rand(0, 1)) {
+			return new FooParent();
+		}
+		if (rand(0, 1)) {
+			return 1;
+		}
+		if (rand(0, 1)) {
+			return null;
+		}
 	}
 
-	public function returnsPhpDocParent(): parent
+	/**
+	 * @return parent
+	 */
+	public function returnsPhpDocParent()
 	{
-		return new FooParent();
-		return 1;
-		return null;
+		if (rand(0, 1)) {
+			return new FooParent();
+		}
+		if (rand(0, 1)) {
+			return 1;
+		}
+		if (rand(0, 1)) {
+			return null;
+		}
 	}
 
 	/**
@@ -178,11 +307,21 @@ class Foo extends FooParent implements FooInterface
 	 */
 	public function returnScalar()
 	{
-		return 1;
-		return 10.1;
-		return 'a';
-		return false;
-		return new \stdClass();
+		if (rand(0, 1)) {
+			return 1;
+		}
+		if (rand(0, 1)) {
+			return 10.1;
+		}
+		if (rand(0, 1)) {
+			return 'a';
+		}
+		if (rand(0, 1)) {
+			return false;
+		}
+		if (rand(0, 1)) {
+			return new \stdClass();
+		}
 	}
 
 	/**
@@ -198,30 +337,55 @@ class Foo extends FooParent implements FooInterface
 	{
 		/** @var int|null $intOrNull */
 		$intOrNull = doFoo();
-		return $intOrNull;
-		return $intOrNull !== null ? $intOrNull : 5;
-		return $intOrNull !== null ? $intOrNull : null;
+
+		if (rand(0, 1)) {
+			return $intOrNull;
+		}
+		if (rand(0, 1)) {
+			return $intOrNull !== null ? $intOrNull : 5;
+		}
+		if (rand(0, 1)) {
+			return $intOrNull !== null ? $intOrNull : null;
+		}
 	}
 
 	public function misleadingBoolReturnType(): boolean
 	{
-		return true;
-		return 1;
-		return new boolean();
+		if (rand(0, 1)) {
+			return true;
+		}
+		if (rand(0, 1)) {
+			return 1;
+		}
+		if (rand(0, 1)) {
+			return new boolean();
+		}
 	}
 
 	public function misleadingIntReturnType(): integer
 	{
-		return 1;
-		return true;
-		return new integer();
+		if (rand(0, 1)) {
+			return 1;
+		}
+		if (rand(0, 1)) {
+			return true;
+		}
+		if (rand(0, 1)) {
+			return new integer();
+		}
 	}
 
 	public function misleadingMixedReturnType(): mixed
 	{
-		return 1;
-		return true;
-		return new mixed();
+		if (rand(0, 1)) {
+			return 1;
+		}
+		if (rand(0, 1)) {
+			return true;
+		}
+		if (rand(0, 1)) {
+			return new mixed();
+		}
 	}
 }
 
@@ -444,14 +608,22 @@ class ReturnTernary
 	 */
 	public function returnTernary($fooOrFalse): Foo
 	{
-		return $fooOrFalse ?: new Foo();
-		return $fooOrFalse !== false ? $fooOrFalse : new Foo();
+		if (rand(0, 1)) {
+			return $fooOrFalse ?: new Foo();
+		}
+		if (rand(0, 1)) {
+			return $fooOrFalse !== false ? $fooOrFalse : new Foo();
+		}
 
-		$fooOrFalse ? ($fooResult = $fooOrFalse) : new Foo();
-		return $fooResult;
+		if (rand(0, 1)) {
+			$fooOrFalse ? ($fooResult = $fooOrFalse) : new Foo();
+			return $fooResult;
+		}
 
-		$fooOrFalse ? false : ($falseResult = $fooOrFalse);
-		return $falseResult;
+		if (rand(0, 1)) {
+			$fooOrFalse ? false : ($falseResult = $fooOrFalse);
+			return $falseResult;
+		}
 	}
 
 	/**
@@ -474,9 +646,15 @@ class TrickyVoid
 	 */
 	public function returnVoidOrInt()
 	{
-		return;
-		return  1;
-		return 'str';
+		if (rand(0, 1)) {
+			return;
+		}
+		if (rand(0, 1)) {
+			return  1;
+		}
+		if (rand(0, 1)) {
+			return 'str';
+		}
 	}
 
 }
@@ -486,16 +664,28 @@ class TernaryWithJsonEncode
 
 	public function toJsonOrNull(array $arr, string $s): ?string
 	{
-		return json_encode($arr) ?: null;
-		return json_encode($arr) ? json_encode($arr): null;
-		return (rand(0, 1) ? $s : false) ?: null;
+		if (rand(0, 1)) {
+			return json_encode($arr) ?: null;
+		}
+		if (rand(0, 1)) {
+			return json_encode($arr) ? json_encode($arr): null;
+		}
+		if (rand(0, 1)) {
+			return (rand(0, 1) ? $s : false) ?: null;
+		}
 	}
 
 	public function toJson(array $arr): string
 	{
-		return json_encode($arr) ?: '';
-		return json_encode($arr) ? json_encode($arr) : '';
-		return json_encode($arr) ?: json_encode($arr);
+		if (rand(0, 1)) {
+			return json_encode($arr) ?: '';
+		}
+		if (rand(0, 1)) {
+			return json_encode($arr) ? json_encode($arr) : '';
+		}
+		if (rand(0, 1)) {
+			return json_encode($arr) ?: json_encode($arr);
+		}
 	}
 
 }
@@ -751,9 +941,15 @@ class Foo2 extends FooParent implements FooInterface
 {
 	public function returnIntFromParent()
 	{
-		return 1;
-		return '1';
-		return new integer();
+		if (rand(0, 1)) {
+			return 1;
+		}
+		if (rand(0, 1)) {
+			return '1';
+		}
+		if (rand(0, 1)) {
+			return new integer();
+		}
 	}
 
 	public function returnsVoid(): self
@@ -861,9 +1057,15 @@ class ReturnStaticGeneric
 
 	/** @return static */
 	public function instanceReturnsStatic() {
-		return new static();
-		return new self();
-		return $this;
+		if (rand(0, 1)) {
+			return new static();
+		}
+		if (rand(0, 1)) {
+			return new self();
+		}
+		if (rand(0, 1)) {
+			return $this;
+		}
 	}
 }
 

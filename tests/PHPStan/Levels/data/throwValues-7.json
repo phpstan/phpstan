@@ -1,7 +1,7 @@
 [
     {
         "message": "Invalid type int|Throwable to throw.",
-        "line": 43,
+        "line": 56,
         "ignorable": true
     }
 ]

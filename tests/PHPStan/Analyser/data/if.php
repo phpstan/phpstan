@@ -183,6 +183,8 @@ switch ('foo') {
 	case 'bar':
 		$variableDefinedOnlyInEarlyTerminatingSwitchCases = true;
 		return;
+	case 'baz':
+		break;
 	default:
 		$variableDefinedOnlyInEarlyTerminatingSwitchCases = true;
 		return;

@@ -281,7 +281,7 @@ echo $anotherVariableBitwiseAndAssign;
 do {
  echo $mightBeUndefinedInDoWhile;
  $definedInDoWhile = 1;
-} while ($mightBeUndefinedInDoWhile = 1);
+} while ($mightBeUndefinedInDoWhile = 1 && rand(0, 1));
 
 echo $definedInDoWhile;
 
@@ -353,7 +353,7 @@ echo $maybeDefinedInTernary;
 [] ? true : ($anotherMaybeDefinedInTernary = 'foo');
 echo $anotherMaybeDefinedInTernary;
 
-while ($whileVariableUsedAndThenDefined && $whileVariableUsedAndThenDefined = 1) {
+while ($whileVariableUsedAndThenDefined && $whileVariableUsedAndThenDefined = 1 && rand(0, 1)) {
 
 }
 

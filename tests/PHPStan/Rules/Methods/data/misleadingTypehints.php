@@ -5,23 +5,47 @@ class FooWithoutNamespace
 
 	public function misleadingBoolReturnType(): boolean
 	{
-		return true;
-		return 1;
-		return new boolean();
+		if (rand(0, 1)) {
+			return true;
+		}
+
+		if (rand(0, 1)) {
+			return 1;
+		}
+
+		if (rand(0, 1)) {
+			return new boolean();
+		}
 	}
 
 	public function misleadingIntReturnType(): integer
 	{
-		return 1;
-		return true;
-		return new integer();
+		if (rand(0, 1)) {
+			return 1;
+		}
+
+		if (rand(0, 1)) {
+			return true;
+		}
+
+		if (rand(0, 1)) {
+			return new integer();
+		}
 	}
 
 	public function misleadingMixedReturnType(): mixed
 	{
-		return 1;
-		return true;
-		return new mixed();
+		if (rand(0, 1)) {
+			return 1;
+		}
+
+		if (rand(0, 1)) {
+			return true;
+		}
+
+		if (rand(0, 1)) {
+			return new mixed();
+		}
 	}
 
 }

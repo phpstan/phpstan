@@ -1,42 +1,42 @@
 [
     {
         "message": "Method Levels\\ReturnTypes\\Foo::doFoo() should return int but returns float.",
-        "line": 25,
+        "line": 28,
         "ignorable": true
     },
     {
         "message": "Method Levels\\ReturnTypes\\Foo::doFoo() should return int but returns float|string.",
-        "line": 27,
+        "line": 34,
         "ignorable": true
     },
     {
         "message": "Method Levels\\ReturnTypes\\Foo::doFoo() should return int but empty return statement found.",
-        "line": 29,
+        "line": 40,
         "ignorable": true
     },
     {
         "message": "Method Levels\\ReturnTypes\\Foo::doBar() with return type void returns int but should not return anything.",
-        "line": 48,
+        "line": 61,
         "ignorable": true
     },
     {
         "message": "Method Levels\\ReturnTypes\\Foo::doBar() with return type void returns float but should not return anything.",
-        "line": 49,
+        "line": 64,
         "ignorable": true
     },
     {
         "message": "Method Levels\\ReturnTypes\\Foo::doBar() with return type void returns int|string but should not return anything.",
-        "line": 50,
+        "line": 67,
         "ignorable": true
     },
     {
         "message": "Method Levels\\ReturnTypes\\Foo::doBar() with return type void returns float|string but should not return anything.",
-        "line": 51,
+        "line": 70,
         "ignorable": true
     },
     {
         "message": "Method Levels\\ReturnTypes\\Foo::doBar() with return type void returns int|null but should not return anything.",
-        "line": 52,
+        "line": 73,
         "ignorable": true
     }
 ]

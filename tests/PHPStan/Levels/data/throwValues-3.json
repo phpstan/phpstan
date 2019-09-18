@@ -1,22 +1,22 @@
 [
     {
         "message": "Invalid type int to throw.",
-        "line": 39,
+        "line": 44,
         "ignorable": true
     },
     {
         "message": "Invalid type Levels\\ThrowValues\\InvalidException to throw.",
-        "line": 40,
+        "line": 47,
         "ignorable": true
     },
     {
         "message": "Invalid type Levels\\ThrowValues\\InvalidInterfaceException to throw.",
-        "line": 41,
+        "line": 50,
         "ignorable": true
     },
     {
         "message": "Invalid type int|string to throw.",
-        "line": 44,
+        "line": 59,
         "ignorable": true
     }
 ]
