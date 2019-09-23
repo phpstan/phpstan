@@ -77,6 +77,66 @@ class InvalidComparisonOperationRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Comparison operation "<" between stdClass and int|stdClass results in an error.',
 				57,
 			],
+			[
+				'Comparison operation "==" between array and int results in an error.',
+				61,
+			],
+			[
+				'Comparison operation "!=" between array and int results in an error.',
+				62,
+			],
+			[
+				'Comparison operation "<" between array and int results in an error.',
+				63,
+			],
+			[
+				'Comparison operation ">" between array and int results in an error.',
+				64,
+			],
+			[
+				'Comparison operation "<=" between array and int results in an error.',
+				65,
+			],
+			[
+				'Comparison operation ">=" between array and int results in an error.',
+				66,
+			],
+			[
+				'Comparison operation "<=>" between array and int results in an error.',
+				67,
+			],
+			[
+				'Comparison operation "==" between array and float|null results in an error.',
+				71,
+			],
+			[
+				'Comparison operation "<" between array and float|null results in an error.',
+				72,
+			],
+			[
+				'Comparison operation "==" between array and float|int|null results in an error.',
+				84,
+			],
+			[
+				'Comparison operation "<" between array and float|int|null results in an error.',
+				85,
+			],
+			[
+				'Comparison operation "==" between array and 1 results in an error.',
+				89,
+			],
+			[
+				'Comparison operation "<" between array and 1 results in an error.',
+				90,
+			],
+			[
+				'Comparison operation "==" between array and array|int results in an error.',
+				97,
+			],
+			[
+				'Comparison operation "<" between array and array|int results in an error.',
+				98,
+			],
 		]);
 	}
 

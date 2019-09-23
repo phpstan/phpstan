@@ -50,12 +50,14 @@ class InvalidComparisonOperationRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
-		$isNumericLeft = $this->isNumberType($scope, $node->left);
-		$isObjectLeft = $this->isObjectType($scope, $node->left);
-		$isNumericRight = $this->isNumberType($scope, $node->right);
-		$isObjectRight = $this->isObjectType($scope, $node->right);
-
-		if (($isNumericLeft && $isObjectRight) || ($isObjectLeft && $isNumericRight)) {
+		if (
+			($this->isNumberType($scope, $node->left) && (
+				$this->isObjectType($scope, $node->right) || $this->isArrayType($scope, $node->right)
+			))
+			|| ($this->isNumberType($scope, $node->right) && (
+				$this->isObjectType($scope, $node->left) || $this->isArrayType($scope, $node->left)
+			))
+		) {
 			return [
 				RuleErrorBuilder::message(sprintf(
 					'Comparison operation "%s" between %s and %s results in an error.',
@@ -111,6 +113,20 @@ class InvalidComparisonOperationRule implements \PHPStan\Rules\Rule
 		}
 
 		return $isSuperType->yes();
+	}
+
+	private function isArrayType(Scope $scope, Node\Expr $expr): bool
+	{
+		$type = $this->ruleLevelHelper->findTypeToCheck(
+			$scope,
+			$expr,
+			'',
+			static function (Type $type): bool {
+				return $type->isArray()->yes();
+			}
+		)->getType();
+
+		return !($type instanceof ErrorType) && $type->isArray()->yes();
 	}
 
 }
