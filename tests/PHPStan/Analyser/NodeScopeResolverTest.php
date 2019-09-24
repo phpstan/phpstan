@@ -8,6 +8,7 @@ use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
 use PHPStan\Broker\AnonymousClassNameHelper;
+use PHPStan\Broker\Broker;
 use PHPStan\Cache\Cache;
 use PHPStan\File\FileHelper;
 use PHPStan\File\FuzzyRelativePathHelper;
@@ -9944,6 +9945,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 		$printer = new \PhpParser\PrettyPrinter\Standard();
 		$broker = $this->createBroker($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions);
+		Broker::registerInstance($broker);
 		$typeSpecifier = $this->createTypeSpecifier($printer, $broker, $methodTypeSpecifyingExtensions, $staticMethodTypeSpecifyingExtensions);
 		$currentWorkingDirectory = $this->getCurrentWorkingDirectory();
 		$fileHelper = new FileHelper($currentWorkingDirectory);
