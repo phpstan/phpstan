@@ -12,7 +12,7 @@ use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 
-class TooWidePrivateMethodReturnTypehintRule implements Rule
+class TooWideMethodReturnTypehintRule implements Rule
 {
 
 	public function getNodeType(): string
@@ -31,7 +31,8 @@ class TooWidePrivateMethodReturnTypehintRule implements Rule
 		if (!$method instanceof MethodReflection) {
 			throw new \PHPStan\ShouldNotHappenException();
 		}
-		if (!$method->isPrivate()) {
+		$isFirstDeclaration = $method->getPrototype()->getDeclaringClass() === $method->getDeclaringClass();
+		if (!$method->isPrivate() && (!$isFirstDeclaration || !$method->getDeclaringClass()->isFinal())) {
 			return [];
 		}
 
@@ -71,7 +72,7 @@ class TooWidePrivateMethodReturnTypehintRule implements Rule
 				continue;
 			}
 
-			$messages[] = sprintf('Private method %s::%s() never returns %s so it can be removed from the return typehint.', $method->getDeclaringClass()->getDisplayName(), $method->getName(), $type->describe(VerbosityLevel::typeOnly()));
+			$messages[] = sprintf('Method %s::%s() never returns %s so it can be removed from the return typehint.', $method->getDeclaringClass()->getDisplayName(), $method->getName(), $type->describe(VerbosityLevel::typeOnly()));
 		}
 
 		return $messages;
