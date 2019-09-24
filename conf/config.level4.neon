@@ -19,7 +19,7 @@ rules:
 	- PHPStan\Rules\Methods\CallToStaticMethodStamentWithoutSideEffectsRule
 	- PHPStan\Rules\TooWideTypehints\TooWideClosureReturnTypehintRule
 	- PHPStan\Rules\TooWideTypehints\TooWideFunctionReturnTypehintRule
-	- PHPStan\Rules\TooWideTypehints\TooWidePrivateMethodReturnTypehintRule
+	- PHPStan\Rules\TooWideTypehints\TooWideMethodReturnTypehintRule
 
 services:
 	-

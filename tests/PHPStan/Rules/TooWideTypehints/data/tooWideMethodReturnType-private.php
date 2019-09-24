@@ -1,6 +1,6 @@
 <?php
 
-namespace TooWidePrivateMethodReturnType;
+namespace TooWideMethodReturnType;
 
 class Foo
 {
