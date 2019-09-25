@@ -49,18 +49,6 @@ class SignatureMapParser
 			return new MixedType(true);
 		}
 
-		if ($typeString === 'OCI-Lob' || $typeString === 'OCI-Collection') {
-			return new ObjectType($typeString);
-		}
-
-		if ($typeString === 'OCI-Collection|false') {
-			return new UnionType([new ObjectType('OCI-Collection'), new ConstantBooleanType(false)]);
-		}
-
-		if ($typeString === 'OCI-Lob|false') {
-			return new UnionType([new ObjectType('OCI-Lob'), new ConstantBooleanType(false)]);
-		}
-
 		return $this->typeStringResolver->resolve($typeString, new NameScope(null, [], $className));
 	}
 
