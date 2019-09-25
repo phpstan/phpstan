@@ -22,6 +22,7 @@ use PHPStan\Reflection\PassedByReference;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
+use PHPStan\Type\ClassStringType;
 use PHPStan\Type\ClosureType;
 use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
 use PHPStan\Type\Constant\ConstantBooleanType;
@@ -77,7 +78,7 @@ class TypeNodeResolver
 
 	public function getCacheKey(): string
 	{
-		$key = 'v66-implicit-mixed';
+		$key = 'v67-class-string';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}
@@ -134,6 +135,9 @@ class TypeNodeResolver
 
 			case 'string':
 				return new StringType();
+
+			case 'class-string':
+				return new ClassStringType();
 
 			case 'bool':
 			case 'boolean':

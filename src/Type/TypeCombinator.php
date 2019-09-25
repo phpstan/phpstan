@@ -151,7 +151,7 @@ class TypeCombinator
 			if ($types[$i] instanceof IntegerType) {
 				$hasGenericScalarTypes[ConstantIntegerType::class] = true;
 			}
-			if ($types[$i] instanceof StringType) {
+			if ($types[$i] instanceof StringType && !$types[$i] instanceof ClassStringType) {
 				$hasGenericScalarTypes[ConstantStringType::class] = true;
 			}
 			if ($types[$i] instanceof IntersectionType) {

@@ -1228,6 +1228,38 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				UnionType::class,
 				'float|int|string',
 			],
+			[
+				[
+					new StringType(),
+					new ClassStringType(),
+				],
+				StringType::class,
+				'string',
+			],
+			[
+				[
+					new ClassStringType(),
+					new ConstantStringType(\stdClass::class),
+				],
+				ClassStringType::class,
+				'class-string',
+			],
+			[
+				[
+					new ClassStringType(),
+					new ConstantStringType('Nonexistent'),
+				],
+				UnionType::class,
+				'\'Nonexistent\'|class-string',
+			],
+			[
+				[
+					new ClassStringType(),
+					new IntegerType(),
+				],
+				UnionType::class,
+				'class-string|int',
+			],
 		];
 	}
 
@@ -1894,6 +1926,38 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				],
 				IntersectionType::class,
 				'T of DateTime (function a(), parameter)&U of DateTime (function a(), parameter)',
+			],
+			[
+				[
+					new StringType(),
+					new ClassStringType(),
+				],
+				ClassStringType::class,
+				'class-string',
+			],
+			[
+				[
+					new ClassStringType(),
+					new ConstantStringType(\stdClass::class),
+				],
+				ConstantStringType::class,
+				'\'stdClass\'',
+			],
+			[
+				[
+					new ClassStringType(),
+					new ConstantStringType('Nonexistent'),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new ClassStringType(),
+					new IntegerType(),
+				],
+				NeverType::class,
+				'*NEVER*',
 			],
 		];
 	}

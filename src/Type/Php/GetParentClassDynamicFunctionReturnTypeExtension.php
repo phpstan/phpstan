@@ -8,9 +8,9 @@ use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Type\ClassStringType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantStringType;
-use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeUtils;
 use PHPStan\Type\UnionType;
@@ -81,7 +81,7 @@ class GetParentClassDynamicFunctionReturnTypeExtension implements \PHPStan\Type\
 	{
 		if (!$this->broker->hasClass($className)) {
 			return new UnionType([
-				new StringType(),
+				new ClassStringType(),
 				new ConstantBooleanType(false),
 			]);
 		}

@@ -43,6 +43,7 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\BenevolentUnionType;
 use PHPStan\Type\BooleanType;
 use PHPStan\Type\CallableType;
+use PHPStan\Type\ClassStringType;
 use PHPStan\Type\ClosureType;
 use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantArrayTypeBuilder;
@@ -1277,7 +1278,7 @@ class MutatingScope implements Scope
 						$namesToResolve[] = 'static';
 					} elseif (strtolower($constantClass) === 'static') {
 						if (strtolower($constantName) === 'class') {
-							return new StringType();
+							return new ClassStringType();
 						}
 						return new MixedType();
 					}
@@ -1285,7 +1286,7 @@ class MutatingScope implements Scope
 				if (in_array(strtolower($constantClass), $namesToResolve, true)) {
 					$resolvedName = $this->resolveName($node->class);
 					if ($resolvedName === 'parent' && strtolower($constantName) === 'class') {
-						return new StringType();
+						return new ClassStringType();
 					}
 					$constantClassType = new ObjectType($resolvedName);
 				}

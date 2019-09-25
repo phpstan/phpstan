@@ -8,6 +8,8 @@ use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\InaccessibleMethod;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\ClassStringType;
+use PHPStan\Type\CompoundType;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\StringType;
@@ -52,6 +54,29 @@ class ConstantStringType extends StringType implements ConstantScalarType
 				return var_export($this->value, true);
 			}
 		);
+	}
+
+	public function isSuperTypeOf(Type $type): TrinaryLogic
+	{
+		if ($type instanceof ClassStringType) {
+			$broker = Broker::getInstance();
+
+			return $broker->hasClass($this->getValue()) ? TrinaryLogic::createMaybe() : TrinaryLogic::createNo();
+		}
+
+		if ($type instanceof self) {
+			return $this->value === $type->value ? TrinaryLogic::createYes() : TrinaryLogic::createNo();
+		}
+
+		if ($type instanceof parent) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		if ($type instanceof CompoundType) {
+			return $type->isSubTypeOf($this);
+		}
+
+		return TrinaryLogic::createNo();
 	}
 
 	public function isCallable(): TrinaryLogic

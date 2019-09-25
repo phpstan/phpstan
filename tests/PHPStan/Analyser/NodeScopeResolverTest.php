@@ -3138,7 +3138,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$arrToPop',
 			],
 			[
-				'string',
+				'class-string',
 				'static::class',
 			],
 			[
@@ -3146,7 +3146,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'NonexistentClass::class',
 			],
 			[
-				'string',
+				'class-string',
 				'parent::class',
 			],
 			[
@@ -9018,7 +9018,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'get_parent_class()',
 			],
 			[
-				'string|false',
+				'class-string|false',
 				'get_parent_class($s)',
 			],
 			[
@@ -9026,11 +9026,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'get_parent_class(\ParentClass\Foo::class)',
 			],
 			[
-				'string|false',
+				'class-string|false',
 				'get_parent_class(NonexistentClass::class)',
 			],
 			[
-				'string|false',
+				'class-string|false',
 				'get_parent_class(1)',
 			],
 			[
@@ -9058,12 +9058,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				"'inChildClass'",
 			],
 			[
-				'string|false',
+				'class-string|false',
 				'get_parent_class()',
 				"'inTrait'",
 			],
 			[
-				'string|false',
+				'class-string|false',
 				'get_parent_class($this)',
 				"'inTrait'",
 			],

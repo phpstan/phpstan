@@ -20,6 +20,12 @@ class StringTypeTest extends TestCase
 			]),
 			TrinaryLogic::createNo(),
 		];
+
+		yield [
+			new StringType(),
+			new ClassStringType(),
+			TrinaryLogic::createYes(),
+		];
 	}
 
 	/**

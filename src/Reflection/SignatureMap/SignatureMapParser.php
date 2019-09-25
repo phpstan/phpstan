@@ -5,11 +5,8 @@ namespace PHPStan\Reflection\SignatureMap;
 use PHPStan\Analyser\NameScope;
 use PHPStan\PhpDoc\TypeStringResolver;
 use PHPStan\Reflection\PassedByReference;
-use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\MixedType;
-use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
-use PHPStan\Type\UnionType;
 
 class SignatureMapParser
 {
