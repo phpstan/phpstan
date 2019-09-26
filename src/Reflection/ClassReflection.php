@@ -73,6 +73,9 @@ class ClassReflection implements ReflectionWithFilename
 	/** @var ?TemplateTypeMap */
 	private $resolvedTemplateTypeMap;
 
+	/** @var array<string,ClassReflection>|null */
+	private $ancestors;
+
 	/**
 	 * @param Broker $broker
 	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
@@ -357,6 +360,7 @@ class ClassReflection implements ReflectionWithFilename
 			$filename = $this->getFileName();
 			throw new \PHPStan\Reflection\MissingPropertyFromReflectionException($this->getName(), $propertyName, $filename !== false ? $filename : null);
 		}
+
 		return $this->getPhpExtension()->getNativeProperty($this, $propertyName);
 	}
 
@@ -655,15 +659,19 @@ class ClassReflection implements ReflectionWithFilename
 	}
 
 	/** @return Type[] */
-	public function typeMapToList(TemplateTypeMap $map): array
+	public function typeMapToList(TemplateTypeMap $typeMap): array
 	{
-		$types = [];
-
-		foreach ($this->getTemplateTags() as $tag) {
-			$types[] = $map->getType($tag->getName()) ?? new ErrorType();
+		$resolvedPhpDoc = $this->getResolvedPhpDoc();
+		if ($resolvedPhpDoc === null) {
+			return [];
 		}
 
-		return $types;
+		$list = [];
+		foreach ($resolvedPhpDoc->getTemplateTags() as $tag) {
+			$list[] = $typeMap->getType($tag->getName()) ?? new ErrorType();
+		}
+
+		return $list;
 	}
 
 	/**
@@ -738,6 +746,51 @@ class ClassReflection implements ReflectionWithFilename
 		}
 
 		return $resolvedPhpDoc->getTemplateTags();
+	}
+
+	/**
+	 * @return array<string,ClassReflection>
+	 */
+	private function getAncestors(): array
+	{
+		$ancestors = $this->ancestors;
+
+		if ($ancestors === null) {
+			$ancestors = [
+				$this->getName() => $this,
+			];
+
+			foreach ($this->getInterfaces() as $interface) {
+				$ancestors[$interface->getName()] = $interface;
+				foreach ($interface->getAncestors() as $name => $ancestor) {
+					$ancestors[$name] = $ancestor;
+				}
+			}
+
+			foreach ($this->getTraits() as $trait) {
+				$ancestors[$trait->getName()] = $trait;
+				foreach ($trait->getAncestors() as $name => $ancestor) {
+					$ancestors[$name] = $ancestor;
+				}
+			}
+
+			$parent = $this->getParentClass();
+			if ($parent !== false) {
+				$ancestors[$parent->getName()] = $parent;
+				foreach ($parent->getAncestors() as $name => $ancestor) {
+					$ancestors[$name] = $ancestor;
+				}
+			}
+
+			$this->ancestors = $ancestors;
+		}
+
+		return $ancestors;
+	}
+
+	public function getAncestorWithClassName(string $className): ?self
+	{
+		return $this->getAncestors()[$className] ?? null;
 	}
 
 	/**
