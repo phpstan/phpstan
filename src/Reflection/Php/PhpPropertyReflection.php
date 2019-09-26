@@ -15,6 +15,9 @@ class PhpPropertyReflection implements PropertyReflection
 	/** @var \PHPStan\Reflection\ClassReflection */
 	private $declaringClass;
 
+	/** @var \PHPStan\Reflection\ClassReflection|null */
+	private $declaringTrait;
+
 	/** @var \ReflectionType|null */
 	private $nativeType;
 
@@ -41,6 +44,7 @@ class PhpPropertyReflection implements PropertyReflection
 
 	public function __construct(
 		ClassReflection $declaringClass,
+		?ClassReflection $declaringTrait,
 		?\ReflectionType $nativeType,
 		?Type $phpDocType,
 		\ReflectionProperty $reflection,
@@ -50,6 +54,7 @@ class PhpPropertyReflection implements PropertyReflection
 	)
 	{
 		$this->declaringClass = $declaringClass;
+		$this->declaringTrait = $declaringTrait;
 		$this->nativeType = $nativeType;
 		$this->phpDocType = $phpDocType;
 		$this->reflection = $reflection;
@@ -61,6 +66,11 @@ class PhpPropertyReflection implements PropertyReflection
 	public function getDeclaringClass(): ClassReflection
 	{
 		return $this->declaringClass;
+	}
+
+	public function getDeclaringTrait(): ?ClassReflection
+	{
+		return $this->declaringTrait;
 	}
 
 	/**
