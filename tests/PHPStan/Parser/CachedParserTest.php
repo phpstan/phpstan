@@ -66,6 +66,23 @@ class CachedParserTest extends \PHPUnit\Framework\TestCase
 		);
 	}
 
+	public function testCachedSourceCodes(): void
+	{
+		$parser = new CachedParser(
+			$this->getParserMock(),
+			10,
+			10
+		);
+		$parser->setCachedSourceCodesByFile([
+			'file1' => '<?php echo 1;',
+		]);
+		$parser->parseFile('file1');
+		$cachedNodesByFile = $parser->getCachedNodesByFile();
+		$cachedNodesByString = $parser->getCachedNodesByString();
+		$this->assertEquals(true, isset($cachedNodesByFile['file1']));
+		$this->assertEquals(true, isset($cachedNodesByString['<?php echo 1;']));
+	}
+
 	public function dataParseFileClearCache(): \Generator
 	{
 		yield 'even' => [

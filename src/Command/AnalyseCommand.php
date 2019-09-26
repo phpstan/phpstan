@@ -3,6 +3,7 @@
 namespace PHPStan\Command;
 
 use PHPStan\Command\ErrorFormatter\ErrorFormatter;
+use PHPStan\Parser\Parser;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -32,6 +33,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 				new InputOption('error-format', null, InputOption::VALUE_REQUIRED, 'Format in which to print the result of the analysis', 'table'),
 				new InputOption('memory-limit', null, InputOption::VALUE_REQUIRED, 'Memory limit for analysis'),
 				new InputOption('xdebug', null, InputOption::VALUE_NONE, 'Allow running with XDebug for debugging purposes'),
+				new InputOption('source-code', 's', InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'Specify source code of the file to run analysis on'),
 			]);
 	}
 
@@ -64,6 +66,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$level = $input->getOption(self::OPTION_LEVEL);
 		$pathsFile = $input->getOption('paths-file');
 		$allowXdebug = $input->getOption('xdebug');
+		$sourceCodes = $input->getOption('source-code');
 
 		if (
 			!is_array($paths)
@@ -124,9 +127,26 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
+		/** @var Parser $parser */
+		$parser = $container->getByType(Parser::class);
+		$files = $inceptionResult->getFiles();
+		if (method_exists($parser, 'setCachedSourceCodesByFile') && $sourceCodes) {
+			$cachedSourceCodes = [];
+			foreach ($files as $index => $file) {
+				if ($index >= count($sourceCodes)) {
+					break;
+				}
+				if (!is_file($file)) {
+					continue;
+				}
+				$cachedSourceCodes[$file] = $sourceCodes[$index];
+			}
+			$parser->setCachedSourceCodesByFile($cachedSourceCodes);
+		}
+
 		return $inceptionResult->handleReturn(
 			$application->analyse(
-				$inceptionResult->getFiles(),
+				$files,
 				$inceptionResult->isOnlyFiles(),
 				$inceptionResult->getConsoleStyle(),
 				$errorFormatter,

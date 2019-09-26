@@ -26,6 +26,9 @@ class CachedParser implements Parser
 	/** @var int */
 	private $cachedNodesByStringCountMax;
 
+	/** @var mixed[] */
+	private $cachedSourceCodesByFile = [];
+
 	public function __construct(
 		Parser $originalParser,
 		int $cachedNodesByFileCountMax,
@@ -55,7 +58,11 @@ class CachedParser implements Parser
 		}
 
 		if (!isset($this->cachedNodesByFile[$file])) {
-			$this->cachedNodesByFile[$file] = $this->originalParser->parseFile($file);
+			if (isset($this->cachedSourceCodesByFile[$file])) {
+				$this->cachedNodesByFile[$file] = $this->parseString($this->cachedSourceCodesByFile[$file]);
+			} else {
+				$this->cachedNodesByFile[$file] = $this->originalParser->parseFile($file);
+			}
 			$this->cachedNodesByFileCount++;
 		}
 
@@ -115,6 +122,15 @@ class CachedParser implements Parser
 	public function getCachedNodesByString(): array
 	{
 		return $this->cachedNodesByString;
+	}
+
+	/**
+	 * @param mixed[] $cachedSourceCodesByFile
+	 * @return void
+	 */
+	public function setCachedSourceCodesByFile(array $cachedSourceCodesByFile): void
+	{
+		$this->cachedSourceCodesByFile = $cachedSourceCodesByFile;
 	}
 
 }
