@@ -169,22 +169,26 @@ class PhpClassReflectionExtension
 			? $propertyReflection->getDocComment()
 			: null;
 
+		$declaringTraitName = null;
 		$phpDocType = null;
 		if ($declaringClassReflection->getFileName() !== false) {
 			$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForProperty(
-				$this->broker,
 				$docComment,
-				$declaringClassReflection->getName(),
+				$declaringClassReflection,
 				null,
 				$propertyName,
 				$declaringClassReflection->getFileName()
 			);
 
 			if ($phpDocBlock !== null) {
+				$declaringTraitName = $this->findPropertyTrait(
+					$phpDocBlock,
+					$propertyReflection
+				);
 				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 					$phpDocBlock->getFile(),
-					$phpDocBlock->getClass(),
-					$this->findPropertyTrait($phpDocBlock, $propertyReflection),
+					$phpDocBlock->getClassReflection()->getName(),
+					$declaringTraitName,
 					$phpDocBlock->getDocComment()
 				);
 				$varTags = $resolvedPhpDoc->getVarTags();
@@ -215,8 +219,16 @@ class PhpClassReflectionExtension
 			$nativeType = $propertyReflection->getType();
 		}
 
+		$declaringTrait = null;
+		if (
+			$declaringTraitName !== null && $this->broker->hasClass($declaringTraitName)
+		) {
+			$declaringTrait = $this->broker->getClass($declaringTraitName);
+		}
+
 		return new PhpPropertyReflection(
 			$declaringClassReflection,
+			$declaringTrait,
 			$nativeType,
 			$phpDocType,
 			$propertyReflection,
@@ -392,9 +404,8 @@ class PhpClassReflectionExtension
 				: null;
 
 			$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
-				$this->broker,
 				$docComment,
-				$declaringClass->getName(),
+				$declaringClass,
 				$declaringTraitName,
 				$methodReflection->getName(),
 				$declaringClass->getFileName()
@@ -403,7 +414,7 @@ class PhpClassReflectionExtension
 			if ($phpDocBlock !== null) {
 				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 					$phpDocBlock->getFile(),
-					$phpDocBlock->getClass(),
+					$phpDocBlock->getClassReflection()->getName(),
 					$phpDocBlock->getTrait(),
 					$phpDocBlock->getDocComment()
 				);
@@ -463,7 +474,7 @@ class PhpClassReflectionExtension
 	{
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 			$phpDocBlock->getFile(),
-			$phpDocBlock->getClass(),
+			$phpDocBlock->getClassReflection()->getName(),
 			null,
 			$phpDocBlock->getDocComment()
 		);
@@ -483,7 +494,7 @@ class PhpClassReflectionExtension
 
 			$traitResolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 				$phpDocBlock->getFile(),
-				$phpDocBlock->getClass(),
+				$phpDocBlock->getClassReflection()->getName(),
 				$traitReflection->getName(),
 				$phpDocBlock->getDocComment()
 			);
