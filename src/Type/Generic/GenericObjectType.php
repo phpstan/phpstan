@@ -3,7 +3,12 @@
 namespace PHPStan\Type\Generic;
 
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Reflection\ResolvedMethodReflection;
+use PHPStan\Reflection\ResolvedPropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\ObjectType;
@@ -99,6 +104,26 @@ final class GenericObjectType extends ObjectType
 		}
 
 		return $broker->getClass($this->getClassName())->withTypes($this->types);
+	}
+
+	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
+	{
+		$reflection = parent::getProperty($propertyName, $scope);
+
+		return new ResolvedPropertyReflection(
+			$reflection,
+			$this->getClassReflection()->getActiveTemplateTypeMap()
+		);
+	}
+
+	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
+	{
+		$reflection = parent::getMethod($methodName, $scope);
+
+		return new ResolvedMethodReflection(
+			$reflection,
+			$this->getClassReflection()->getActiveTemplateTypeMap()
+		);
 	}
 
 	public function traverse(callable $cb): Type

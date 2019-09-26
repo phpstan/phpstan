@@ -351,13 +351,38 @@ class C
  * @template T
  */
 class A {
+	/** @var T */
+	private $a;
+
+	/** @var T */
+	public $b;
+
 	/**
 	 * A::__construct()
 	 *
 	 * @param T $a
 	 */
 	public function __construct($a) {
+		$this->a = $a;
+		$this->b = $a;
 	}
+
+	/**
+	 * @return T
+	 */
+	public function get() {
+		asserType('T (class PHPStan\Generics\FunctionsAssertType\A, argument)', $this->a);
+		asserType('T (class PHPStan\Generics\FunctionsAssertType\A, argument)', $this->b);
+		return $this->a;
+	}
+
+	/**
+	 * @param T $a
+	 */
+	public function set($a) {
+		$this->a = $a;
+	}
+
 }
 
 /**
@@ -366,6 +391,9 @@ class A {
  * @extends A<\DateTime>
  */
 class AOfDateTime extends A {
+	public function __construct() {
+		parent::__construct(new \DateTime());
+	}
 }
 
 /**
@@ -382,6 +410,105 @@ class B extends A {
 	 * @param T $a
 	 */
 	public function __construct($a) {
+		parent::__construct($a);
+	}
+}
+
+/**
+ * @template T
+ */
+interface I {
+	/**
+	 * I::get()
+	 *
+	 * @return T
+	 */
+	function get();
+
+	/**
+	 * I::getInheritdoc()
+	 *
+	 * @return T
+	 */
+	function getInheritdoc();
+}
+
+/**
+ * @implements I<int>
+ */
+class CofI implements I {
+	public function get() {
+	}
+
+	/** @inheritdoc */
+	public function getInheritdoc() {
+	}
+}
+
+/**
+ * Interface SuperIfaceA
+ *
+ * @template A
+ */
+interface SuperIfaceA {
+	/**
+	 * SuperIfaceA::get()
+	 *
+	 * @param A $a
+	 * @return A
+	 */
+	public function getA($a);
+}
+
+/**
+ * Interface SuperIfaceB
+ *
+ * @template B
+ */
+interface SuperIfaceB {
+	/**
+	 * SuperIfaceB::get()
+	 *
+	 * @param B $b
+	 * @return B
+	 */
+	public function getB($b);
+}
+
+/**
+ * IfaceAB
+ *
+ * @template T
+ *
+ * @extends SuperIfaceA<int>
+ * @implements SuperIfaceB<T>
+ */
+interface IfaceAB extends SuperIfaceA, SuperIfaceB {
+}
+
+/**
+ * ABImpl
+ *
+ * @implements IfaceAB<\DateTime>
+ */
+class ABImpl implements IfaceAB {
+	public function getA($a) {
+		// assertType('int', $a);
+		return 1;
+	}
+	public function getB($b) {
+		// assertType('DateTime', $b);
+		return new \DateTime();
+	}
+}
+
+/**
+ * @implements SuperIfaceA<int>
+ */
+class X implements SuperIfaceA {
+	public function getA($a) {
+		// assertType('int', $a);
+		return 1;
 	}
 }
 
@@ -398,12 +525,27 @@ class NoConstructor extends A {
 function testClasses() {
 	$a = new A(1);
 	assertType('PHPStan\Generics\FunctionsAssertType\A<int>', $a);
+	assertType('int', $a->get());
+	assertType('int', $a->b);
 
 	$a = new AOfDateTime();
 	assertType('PHPStan\Generics\FunctionsAssertType\AOfDateTime', $a);
+	assertType('DateTime', $a->get());
+	assertType('DateTime', $a->b);
 
 	$b = new B(1);
 	assertType('PHPStan\Generics\FunctionsAssertType\B<int>', $b);
+	assertType('int', $b->get());
+	assertType('int', $b->b);
+
+	$c = new CofI();
+	assertType('PHPStan\Generics\FunctionsAssertType\CofI', $c);
+	assertType('int', $c->get());
+	assertType('int', $c->getInheritdoc());
+
+	$ab = new ABImpl();
+	assertType('int', $ab->getA(0));
+	assertType('DateTime', $ab->getB(new \DateTime()));
 
 	$noConstructor = new NoConstructor(1);
 	assertType('PHPStan\Generics\FunctionsAssertType\NoConstructor<T (class PHPStan\Generics\FunctionsAssertType\NoConstructor, parameter)>', $noConstructor);

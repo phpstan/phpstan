@@ -31,6 +31,7 @@ use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
@@ -145,7 +146,16 @@ class PhpClassReflectionExtension
 	{
 		$propertyReflection = $classReflection->getNativeReflection()->getProperty($propertyName);
 		$propertyName = $propertyReflection->getName();
-		$declaringClassReflection = $this->broker->getClass($propertyReflection->getDeclaringClass()->getName());
+		$declaringClassName = $propertyReflection->getDeclaringClass()->getName();
+		$declaringClassReflection = $classReflection->getAncestorWithClassName($declaringClassName);
+		if ($declaringClassReflection === null) {
+			throw new \PHPStan\ShouldNotHappenException(sprintf(
+				'Internal error: Expected to find an ancestor with class name %s on %s, but none was found.',
+				$declaringClassName,
+				$classReflection->getName()
+			));
+		}
+
 		$deprecatedDescription = null;
 		$isDeprecated = false;
 		$isInternal = false;
@@ -197,6 +207,10 @@ class PhpClassReflectionExtension
 				} elseif (isset($varTags[$propertyName])) {
 					$phpDocType = $varTags[$propertyName]->getType();
 				}
+				$phpDocType = $phpDocType !== null ? TemplateTypeHelper::resolveTemplateTypes(
+					$phpDocType,
+					$phpDocBlock->getClassReflection()->getActiveTemplateTypeMap()
+				) : null;
 				$deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag() !== null ? $resolvedPhpDoc->getDeprecatedTag()->getMessage() : null;
 				$isDeprecated = $resolvedPhpDoc->isDeprecated();
 				$isInternal = $resolvedPhpDoc->isInternal();
@@ -348,7 +362,16 @@ class PhpClassReflectionExtension
 		}
 		$declaringClassName = $methodReflection->getDeclaringClass()->getName();
 		$signatureMapMethodName = sprintf('%s::%s', $declaringClassName, $methodReflection->getName());
-		$declaringClass = $this->broker->getClass($declaringClassName);
+		$declaringClass = $classReflection->getAncestorWithClassName($declaringClassName);
+
+		if ($declaringClass === null) {
+			throw new \PHPStan\ShouldNotHappenException(sprintf(
+				'Internal error: Expected to find an ancestor with class name %s on %s, but none was found.',
+				$declaringClassName,
+				$classReflection->getName()
+			));
+		}
+
 		if ($this->signatureMapProvider->hasFunctionSignature($signatureMapMethodName)) {
 			$variantName = $signatureMapMethodName;
 			$variants = [];
@@ -419,8 +442,11 @@ class PhpClassReflectionExtension
 					$phpDocBlock->getDocComment()
 				);
 				$templateTypeMap = $resolvedPhpDoc->getTemplateTypeMap();
-				$phpDocParameterTypes = array_map(static function (ParamTag $tag): Type {
-					return $tag->getType();
+				$phpDocParameterTypes = array_map(static function (ParamTag $tag) use ($phpDocBlock): Type {
+					return TemplateTypeHelper::resolveTemplateTypes(
+						$tag->getType(),
+						$phpDocBlock->getClassReflection()->getActiveTemplateTypeMap()
+					);
 				}, $resolvedPhpDoc->getParamTags());
 				$nativeReturnType = TypehintHelper::decideTypeFromReflection(
 					$methodReflection->getReturnType(),
@@ -436,6 +462,10 @@ class PhpClassReflectionExtension
 					)
 				) {
 					$phpDocReturnType = $resolvedPhpDoc->getReturnTag()->getType();
+					$phpDocReturnType = TemplateTypeHelper::resolveTemplateTypes(
+						$phpDocReturnType,
+						$phpDocBlock->getClassReflection()->getActiveTemplateTypeMap()
+					);
 				}
 				$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 				$deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag() !== null ? $resolvedPhpDoc->getDeprecatedTag()->getMessage() : null;
