@@ -130,10 +130,11 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		/** @var Parser $parser */
 		$parser = $container->getByType(Parser::class);
 		$files = $inceptionResult->getFiles();
-		if (method_exists($parser, 'setCachedSourceCodesByFile') && $sourceCodes) {
+		if (method_exists($parser, 'setCachedSourceCodesByFile') && is_array($sourceCodes)) {
+			$sourceCodesNum = count($sourceCodes);
 			$cachedSourceCodes = [];
 			foreach ($files as $index => $file) {
-				if ($index >= count($sourceCodes)) {
+				if ($index >= $sourceCodesNum) {
 					break;
 				}
 				if (!is_file($file)) {
