@@ -119,22 +119,22 @@ class PhpClassReflectionExtension
 
 	public function getProperty(ClassReflection $classReflection, string $propertyName): PropertyReflection
 	{
-		if (!isset($this->propertiesIncludingAnnotations[$classReflection->getName()][$propertyName])) {
-			$this->propertiesIncludingAnnotations[$classReflection->getName()][$propertyName] = $this->createProperty($classReflection, $propertyName, true);
+		if (!isset($this->propertiesIncludingAnnotations[$classReflection->getDisplayName()][$propertyName])) {
+			$this->propertiesIncludingAnnotations[$classReflection->getDisplayName()][$propertyName] = $this->createProperty($classReflection, $propertyName, true);
 		}
 
-		return $this->propertiesIncludingAnnotations[$classReflection->getName()][$propertyName];
+		return $this->propertiesIncludingAnnotations[$classReflection->getDisplayName()][$propertyName];
 	}
 
 	public function getNativeProperty(ClassReflection $classReflection, string $propertyName): PhpPropertyReflection
 	{
-		if (!isset($this->nativeProperties[$classReflection->getName()][$propertyName])) {
+		if (!isset($this->nativeProperties[$classReflection->getDisplayName()][$propertyName])) {
 			/** @var \PHPStan\Reflection\Php\PhpPropertyReflection $property */
 			$property = $this->createProperty($classReflection, $propertyName, false);
-			$this->nativeProperties[$classReflection->getName()][$propertyName] = $property;
+			$this->nativeProperties[$classReflection->getDisplayName()][$propertyName] = $property;
 		}
 
-		return $this->nativeProperties[$classReflection->getName()][$propertyName];
+		return $this->nativeProperties[$classReflection->getDisplayName()][$propertyName];
 	}
 
 	private function createProperty(
@@ -245,20 +245,20 @@ class PhpClassReflectionExtension
 			$classReflection = $this->broker->getClass(\ReflectionNamedType::class);
 		}
 
-		if (isset($this->methodsIncludingAnnotations[$classReflection->getName()][$methodName])) {
-			return $this->methodsIncludingAnnotations[$classReflection->getName()][$methodName];
+		if (isset($this->methodsIncludingAnnotations[$classReflection->getDisplayName()][$methodName])) {
+			return $this->methodsIncludingAnnotations[$classReflection->getDisplayName()][$methodName];
 		}
 
 		$nativeMethodReflection = new NativeBuiltinMethodReflection($classReflection->getNativeReflection()->getMethod($methodName));
-		if (!isset($this->methodsIncludingAnnotations[$classReflection->getName()][$nativeMethodReflection->getName()])) {
+		if (!isset($this->methodsIncludingAnnotations[$classReflection->getDisplayName()][$nativeMethodReflection->getName()])) {
 			$method = $this->createMethod($classReflection, $nativeMethodReflection, true);
-			$this->methodsIncludingAnnotations[$classReflection->getName()][$nativeMethodReflection->getName()] = $method;
+			$this->methodsIncludingAnnotations[$classReflection->getDisplayName()][$nativeMethodReflection->getName()] = $method;
 			if ($nativeMethodReflection->getName() !== $methodName) {
-				$this->methodsIncludingAnnotations[$classReflection->getName()][$methodName] = $method;
+				$this->methodsIncludingAnnotations[$classReflection->getDisplayName()][$methodName] = $method;
 			}
 		}
 
-		return $this->methodsIncludingAnnotations[$classReflection->getName()][$nativeMethodReflection->getName()];
+		return $this->methodsIncludingAnnotations[$classReflection->getDisplayName()][$nativeMethodReflection->getName()];
 	}
 
 	public function hasNativeMethod(ClassReflection $classReflection, string $methodName): bool
@@ -281,8 +281,8 @@ class PhpClassReflectionExtension
 
 	public function getNativeMethod(ClassReflection $classReflection, string $methodName): MethodReflection
 	{
-		if (isset($this->nativeMethods[$classReflection->getName()][$methodName])) {
-			return $this->nativeMethods[$classReflection->getName()][$methodName];
+		if (isset($this->nativeMethods[$classReflection->getDisplayName()][$methodName])) {
+			return $this->nativeMethods[$classReflection->getDisplayName()][$methodName];
 		}
 
 		if ($classReflection->getNativeReflection()->hasMethod($methodName)) {
@@ -308,10 +308,10 @@ class PhpClassReflectionExtension
 
 		if (!isset($this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()])) {
 			$method = $this->createMethod($classReflection, $nativeMethodReflection, false);
-			$this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()] = $method;
+			$this->nativeMethods[$classReflection->getDisplayName()][$nativeMethodReflection->getName()] = $method;
 		}
 
-		return $this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()];
+		return $this->nativeMethods[$classReflection->getDisplayName()][$nativeMethodReflection->getName()];
 	}
 
 	private function createMethod(
