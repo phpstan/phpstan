@@ -332,7 +332,7 @@ class PhpClassReflectionExtension
 			);
 		}
 
-		if (!isset($this->nativeMethods[$classReflection->getName()][$nativeMethodReflection->getName()])) {
+		if (!isset($this->nativeMethods[$classReflection->getDisplayName()][$nativeMethodReflection->getName()])) {
 			$method = $this->createMethod($classReflection, $nativeMethodReflection, false);
 			$this->nativeMethods[$classReflection->getDisplayName()][$nativeMethodReflection->getName()] = $method;
 		}
