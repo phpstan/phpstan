@@ -6038,19 +6038,15 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$anotherFoo',
 			],
 			[
-				'Foo|string',
+				'class-string<Foo>|Foo',
 				'$subClassOfFoo',
-			],
-			[
-				'\'str\'',
-				'$subClassAsString',
 			],
 			[
 				'Foo',
 				'$subClassOfFoo2',
 			],
 			[
-				'object|string',
+				'class-string|object',
 				'$subClassOfFoo3',
 			],
 			[
@@ -6058,11 +6054,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$subClassOfFoo4',
 			],
 			[
-				'Foo|string',
+				'class-string<Foo>|Foo',
 				'$subClassOfFoo5',
 			],
 			[
-				'object|string',
+				'class-string|object',
 				'$subClassOfFoo6',
 			],
 			[
@@ -6098,11 +6094,11 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$subClassOfFoo14',
 			],
 			[
-				'Foo|string',
+				'class-string<Foo>|Foo',
 				'$subClassOfFoo15',
 			],
 			[
-				'Bar|Foo|string',
+				'Bar|class-string|Foo',
 				'$subClassOfFoo16',
 			],
 		];
@@ -9429,12 +9425,20 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		return $this->gatherAssertTypes(__DIR__ . '/data/generics.php');
 	}
 
+	public function dataGenericClassStringType(): array
+	{
+		require_once __DIR__ . '/data/generic-class-string.php';
+
+		return $this->gatherAssertTypes(__DIR__ . '/data/generic-class-string.php');
+	}
+
 	/**
 	 * @dataProvider dataGenerics
+	 * @dataProvider dataGenericClassStringType
 	 * @param ConstantStringType $expectedType
 	 * @param Type $actualType
 	 */
-	public function testGenerics(
+	public function testFileAsserts(
 		ConstantStringType $expectedType,
 		Type $actualType,
 		int $line

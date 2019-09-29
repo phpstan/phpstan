@@ -14,4 +14,10 @@ class FooWithProperty
 	/** @var never */
 	private $baz;
 
+	/** @var class-string<int> */
+	private $classStringInt;
+
+	/** @var class-string<stdClass> */
+	private $classStringValid;
+
 }

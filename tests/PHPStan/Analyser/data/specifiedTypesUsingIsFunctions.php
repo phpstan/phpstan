@@ -79,11 +79,6 @@ if (!is_subclass_of($subClassOfFoo, Foo::class)) {
 	return;
 }
 
-$subClassAsString = 'str';
-if (!is_subclass_of($subClassAsString, Foo::class)) {
-	return;
-}
-
 function (Foo $foo) {
 	if (!is_subclass_of($foo, '')) {
 

@@ -11,6 +11,7 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\Generic\TemplateType;
 use PHPStan\Type\Generic\TemplateTypeFactory;
 use PHPStan\Type\Generic\TemplateTypeScope;
@@ -1260,6 +1261,94 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				UnionType::class,
 				'class-string|int',
 			],
+			[
+				[
+					new ConstantStringType(\Exception::class),
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+				],
+				GenericClassStringType::class,
+				'class-string<Exception>',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+					new ClassStringType(),
+				],
+				ClassStringType::class,
+				'class-string',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+					new StringType(),
+				],
+				StringType::class,
+				'string',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+				],
+				GenericClassStringType::class,
+				'class-string<Exception>',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+					new GenericClassStringType(new ObjectType(\Throwable::class)),
+				],
+				GenericClassStringType::class,
+				'class-string<Throwable>',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+					new GenericClassStringType(new ObjectType(\InvalidArgumentException::class)),
+				],
+				GenericClassStringType::class,
+				'class-string<Exception>',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+					new GenericClassStringType(new ObjectType(\stdClass::class)),
+				],
+				UnionType::class,
+				'class-string<Exception>|class-string<stdClass>',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+					new ConstantStringType(\Exception::class),
+				],
+				GenericClassStringType::class,
+				'class-string<Exception>',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Throwable::class)),
+					new ConstantStringType(\Exception::class),
+				],
+				GenericClassStringType::class,
+				'class-string<Throwable>',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\InvalidArgumentException::class)),
+					new ConstantStringType(\Exception::class),
+				],
+				UnionType::class,
+				'\'Exception\'|class-string<InvalidArgumentException>',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+					new ConstantStringType(\stdClass::class),
+				],
+				UnionType::class,
+				'\'stdClass\'|class-string<Exception>',
+			],
 		];
 	}
 
@@ -1955,6 +2044,94 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				[
 					new ClassStringType(),
 					new IntegerType(),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new ConstantStringType(\Exception::class),
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+				],
+				ConstantStringType::class,
+				'\'Exception\'',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+					new ClassStringType(),
+				],
+				GenericClassStringType::class,
+				'class-string<Exception>',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+					new StringType(),
+				],
+				GenericClassStringType::class,
+				'class-string<Exception>',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+				],
+				GenericClassStringType::class,
+				'class-string<Exception>',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+					new GenericClassStringType(new ObjectType(\Throwable::class)),
+				],
+				GenericClassStringType::class,
+				'class-string<Exception>',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+					new GenericClassStringType(new ObjectType(\InvalidArgumentException::class)),
+				],
+				GenericClassStringType::class,
+				'class-string<InvalidArgumentException>',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+					new GenericClassStringType(new ObjectType(\stdClass::class)),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+					new ConstantStringType(\Exception::class),
+				],
+				ConstantStringType::class,
+				'\'Exception\'',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Throwable::class)),
+					new ConstantStringType(\Exception::class),
+				],
+				ConstantStringType::class,
+				'\'Exception\'',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\InvalidArgumentException::class)),
+					new ConstantStringType(\Exception::class),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new GenericClassStringType(new ObjectType(\Exception::class)),
+					new ConstantStringType(\stdClass::class),
 				],
 				NeverType::class,
 				'*NEVER*',

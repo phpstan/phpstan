@@ -810,7 +810,20 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new Arg(new Variable('string')),
 					new Arg(new Variable('stringOrNull')),
 				]),
+				[
+					'$string' => 'class-string|object',
+				],
 				[],
+			],
+			[
+				new FuncCall(new Name('is_subclass_of'), [
+					new Arg(new Variable('string')),
+					new Arg(new Variable('stringOrNull')),
+					new Arg(new Expr\ConstFetch(new Name('false'))),
+				]),
+				[
+					'$string' => 'object',
+				],
 				[],
 			],
 		];

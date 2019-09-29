@@ -12,6 +12,8 @@ use PHPStan\Type\ClassStringType;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\ConstantScalarType;
 use PHPStan\Type\ErrorType;
+use PHPStan\Type\Generic\GenericClassStringType;
+use PHPStan\Type\ObjectType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Traits\ConstantScalarTypeTrait;
 use PHPStan\Type\Type;
@@ -58,6 +60,17 @@ class ConstantStringType extends StringType implements ConstantScalarType
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
+		if ($type instanceof GenericClassStringType) {
+			$broker = Broker::getInstance();
+			if (!$broker->hasClass($this->getValue())) {
+				return TrinaryLogic::createNo();
+			}
+			$isSuperType = $type->getGenericType()->isSuperTypeOf(new ObjectType($this->getValue()));
+			if (!$isSuperType->yes()) {
+				return TrinaryLogic::createNo();
+			}
+			return TrinaryLogic::createMaybe();
+		}
 		if ($type instanceof ClassStringType) {
 			$broker = Broker::getInstance();
 

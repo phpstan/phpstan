@@ -33,6 +33,9 @@
 	<rule ref="SlevomatCodingStandard.Functions.UnusedInheritedVariablePassedToClosure.UnusedInheritedVariable">
 		<exclude-pattern>src/Command/CommandHelper.php</exclude-pattern>
 	</rule>
+	<rule ref="SlevomatCodingStandard.Exceptions.ReferenceThrowableOnly.ReferencedGeneralException">
+		<exclude-pattern>tests</exclude-pattern>
+	</rule>
 	<rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>
 	<rule ref="SlevomatCodingStandard.ControlStructures.DisallowEqualOperators"/>
 	<rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceOperator"/>

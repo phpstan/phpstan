@@ -522,6 +522,46 @@ class X implements SuperIfaceA {
 class NoConstructor extends A {
 }
 
+/**
+ * @template T
+ * @param class-string<T> $s
+ * @return T
+ */
+function acceptsClassString(string $s)
+{
+	return new $s;
+}
+
+/**
+ * @template U
+ * @param class-string<U> $s
+ * @return class-string<U>
+ */
+function anotherAcceptsClassString(string $s)
+{
+	assertType('U (function PHPStan\Generics\FunctionsAssertType\anotherAcceptsClassString(), argument)', acceptsClassString($s));
+}
+
+/**
+ * @template T
+ * @param T $object
+ * @return class-string<T>
+ */
+function returnsClassString($object)
+{
+	return get_class($object);
+}
+
+/**
+ * @template T of \Exception
+ * @param class-string<T> $string
+ * @return T
+ */
+function acceptsClassStringUpperBound($string)
+{
+	return new $string;
+}
+
 function testClasses() {
 	$a = new A(1);
 	assertType('PHPStan\Generics\FunctionsAssertType\A<int>', $a);
@@ -549,4 +589,11 @@ function testClasses() {
 
 	$noConstructor = new NoConstructor(1);
 	assertType('PHPStan\Generics\FunctionsAssertType\NoConstructor<T (class PHPStan\Generics\FunctionsAssertType\NoConstructor, parameter)>', $noConstructor);
+
+	assertType('stdClass', acceptsClassString(\stdClass::class));
+	assertType('class-string<stdClass>', returnsClassString(new \stdClass()));
+
+	assertType('Exception', acceptsClassStringUpperBound(\Exception::class));
+	assertType('Exception', acceptsClassStringUpperBound(\Throwable::class));
+	assertType('InvalidArgumentException', acceptsClassStringUpperBound(\InvalidArgumentException::class));
 }

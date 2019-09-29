@@ -6,6 +6,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\ObjectType;
+use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypeUtils;
@@ -104,6 +105,10 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 	{
 		if ($type instanceof UnionType || $type instanceof IntersectionType) {
 			return $type->isSuperTypeOf($this);
+		}
+
+		if ($type instanceof ObjectWithoutClassType) {
+			return TrinaryLogic::createYes();
 		}
 
 		if (!$type instanceof TemplateType) {

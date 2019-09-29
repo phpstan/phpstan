@@ -5,10 +5,35 @@ namespace PHPStan\Type;
 use PHPStan\Testing\TestCase;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Accessory\HasPropertyType;
+use PHPStan\Type\Generic\GenericClassStringType;
 use Test\ClassWithToString;
 
 class StringTypeTest extends TestCase
 {
+
+	public function dataIsSuperTypeOf(): array
+	{
+		return [
+			[
+				new StringType(),
+				new GenericClassStringType(new ObjectType(\Exception::class)),
+				TrinaryLogic::createYes(),
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataIsSuperTypeOf
+	 */
+	public function testIsSuperTypeOf(StringType $type, Type $otherType, TrinaryLogic $expectedResult): void
+	{
+		$actualResult = $type->isSuperTypeOf($otherType);
+		$this->assertSame(
+			$expectedResult->describe(),
+			$actualResult->describe(),
+			sprintf('%s -> isSuperTypeOf(%s)', $type->describe(VerbosityLevel::precise()), $otherType->describe(VerbosityLevel::precise()))
+		);
+	}
 
 	public function dataAccepts(): iterable
 	{

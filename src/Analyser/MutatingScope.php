@@ -56,6 +56,7 @@ use PHPStan\Type\ConstantType;
 use PHPStan\Type\ConstantTypeHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
+use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\Generic\TemplateTypeMap;
@@ -1090,6 +1091,10 @@ class MutatingScope implements Scope
 
 				return new ObjectType($anonymousClassReflection->getName());
 			}
+
+			$exprType = $this->getType($node->class);
+			return $this->getTypeToInstantiateForNew($exprType);
+
 		} elseif ($node instanceof Array_) {
 			$arrayBuilder = ConstantArrayTypeBuilder::createEmpty();
 			foreach ($node->items as $arrayItem) {
@@ -1426,7 +1431,7 @@ class MutatingScope implements Scope
 				$calleeType = $this->getType($node->class);
 			}
 
-			$referencedClasses = TypeUtils::getDirectClassNames($calleeType);
+			$referencedClasses = TypeUtils::getDirectClassNames($this->getTypeToInstantiateForNew($calleeType));
 			$resolvedTypesFromDynamicReturnTypeExtensions = [];
 			$resolvedTypes = [];
 			foreach ($referencedClasses as $referencedClass) {
@@ -3202,6 +3207,40 @@ class MutatingScope implements Scope
 			$resolvedClassName,
 			$classReflection->typeMapToList($parametersAcceptor->getResolvedTemplateTypeMap())
 		);
+	}
+
+	private function getTypeToInstantiateForNew(Type $type): Type
+	{
+		$decideType = static function (Type $type): ?Type {
+			if ($type instanceof TypeWithClassName) {
+				return $type;
+			}
+			if ($type instanceof GenericClassStringType) {
+				return $type->getGenericType();
+			}
+			return null;
+		};
+
+		if ($type instanceof UnionType) {
+			$types = [];
+			foreach ($type->getTypes() as $innerType) {
+				$decidedType = $decideType($innerType);
+				if ($decidedType === null) {
+					return new MixedType();
+				}
+
+				$types[] = $decidedType;
+			}
+
+			return TypeCombinator::union(...$types);
+		}
+
+		$decidedType = $decideType($type);
+		if ($decidedType === null) {
+			return new MixedType();
+		}
+
+		return $decidedType;
 	}
 
 	private function methodCallReturnType(Type $calledOnType, string $methodName, MethodCall $node): ?Type

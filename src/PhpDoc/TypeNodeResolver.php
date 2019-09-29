@@ -30,6 +30,7 @@ use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FloatType;
+use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IntersectionType;
@@ -78,7 +79,7 @@ class TypeNodeResolver
 
 	public function getCacheKey(): string
 	{
-		$key = 'v67-class-string';
+		$key = 'v68-generic-class-string';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}
@@ -318,6 +319,15 @@ class TypeNodeResolver
 			if (count($genericTypes) === 2) { // iterable<KeyType, ValueType>
 				return new IterableType($genericTypes[0], $genericTypes[1]);
 			}
+		} elseif ($mainTypeName === 'class-string') {
+			if (count($genericTypes) === 1) {
+				$genericType = $genericTypes[0];
+				if ((new ObjectWithoutClassType())->isSuperTypeOf($genericType)->yes() || $genericType instanceof MixedType) {
+					return new GenericClassStringType($genericType);
+				}
+			}
+
+			return new ErrorType();
 		}
 
 		$mainType = $this->resolveIdentifierTypeNode($typeNode->type, $nameScope);

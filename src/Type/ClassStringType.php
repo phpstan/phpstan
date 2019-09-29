@@ -54,4 +54,13 @@ class ClassStringType extends StringType
 		return TrinaryLogic::createNo();
 	}
 
+	/**
+	 * @param mixed[] $properties
+	 * @return Type
+	 */
+	public static function __set_state(array $properties): Type
+	{
+		return new self();
+	}
+
 }

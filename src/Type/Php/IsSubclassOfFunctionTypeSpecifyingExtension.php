@@ -9,15 +9,20 @@ use PHPStan\Analyser\TypeSpecifier;
 use PHPStan\Analyser\TypeSpecifierAwareExtension;
 use PHPStan\Analyser\TypeSpecifierContext;
 use PHPStan\Reflection\FunctionReflection;
+use PHPStan\Type\ClassStringType;
 use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\FunctionTypeSpecifyingExtension;
+use PHPStan\Type\Generic\GenericClassStringType;
+use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\NeverType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeTraverser;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 
@@ -37,44 +42,65 @@ class IsSubclassOfFunctionTypeSpecifyingExtension implements FunctionTypeSpecify
 	public function specifyTypes(FunctionReflection $functionReflection, FuncCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
 	{
 		$objectType = $scope->getType($node->args[0]->value);
-		$stringType = new StringType();
-		if (
-			!$objectType instanceof MixedType
-			&& !$objectType instanceof UnionType
-			&& !$stringType->isSuperTypeOf($objectType)->no()
-		) {
+		$classType = $scope->getType($node->args[1]->value);
+		$allowStringType = isset($node->args[2]) ? $scope->getType($node->args[2]->value) : new ConstantBooleanType(true);
+		$allowString = !$allowStringType->equals(new ConstantBooleanType(false));
+
+		if (!$classType instanceof ConstantStringType) {
+			if ($context->truthy()) {
+				if ($allowString) {
+					$type = TypeCombinator::union(
+						new ObjectWithoutClassType(),
+						new ClassStringType()
+					);
+				} else {
+					$type = new ObjectWithoutClassType();
+				}
+
+				return $this->typeSpecifier->create(
+					$node->args[0]->value,
+					$type,
+					$context
+				);
+			}
+
 			return new SpecifiedTypes();
 		}
 
-		$classType = $scope->getType($node->args[1]->value);
-		if ($classType instanceof ConstantStringType && $classType->getValue() !== '') {
-			$type = new ObjectType($classType->getValue());
-		} elseif ($objectType instanceof UnionType) {
-			$type = TypeCombinator::union(...array_filter(
-				$objectType->getTypes(),
-				static function (Type $type): bool {
-					return $type instanceof ObjectWithoutClassType || $type instanceof TypeWithClassName;
+		$type = TypeTraverser::map($objectType, static function (Type $type, callable $traverse) use ($classType, $allowString): Type {
+			if ($type instanceof UnionType) {
+				return $traverse($type);
+			}
+			if ($type instanceof IntersectionType) {
+				return $traverse($type);
+			}
+			if ($allowString) {
+				if ($type instanceof StringType) {
+					return new GenericClassStringType(new ObjectType($classType->getValue()));
 				}
-			));
-		} else {
-			$type = new ObjectWithoutClassType();
-		}
+			}
+			if ($type instanceof ObjectWithoutClassType || $type instanceof TypeWithClassName) {
+				return new ObjectType($classType->getValue());
+			}
+			if ($type instanceof MixedType) {
+				$objectType = new ObjectType($classType->getValue());
+				if ($allowString) {
+					return TypeCombinator::union(
+						new GenericClassStringType($objectType),
+						$objectType
+					);
+				}
 
-		$types = $this->typeSpecifier->create($node->args[0]->value, $type, $context);
+				return $objectType;
+			}
+			return new NeverType();
+		});
 
-		if (!$objectType->isSuperTypeOf(new StringType())->no()
-			&& (!isset($node->args[2])
-				|| $scope->getType($node->args[2]->value)->equals(new ConstantBooleanType(true)))
-		) {
-			$stringTypes = $this->typeSpecifier->create(
-				$node->args[0]->value,
-				$objectType instanceof ConstantStringType ? $objectType : $stringType,
-				$context
-			);
-			$types = $types->intersectWith($stringTypes);
-		}
-
-		return $types;
+		return $this->typeSpecifier->create(
+			$node->args[0]->value,
+			$type,
+			$context
+		);
 	}
 
 	public function setTypeSpecifier(TypeSpecifier $typeSpecifier): void

@@ -1469,3 +1469,25 @@ class IterableUnpackCallMethods
 	}
 
 }
+
+class ClassStringWithUpperBounds
+{
+
+	/**
+	 * @template T of \Exception
+	 * @param class-string<T> $s
+	 * @param T $object
+	 */
+	public function doFoo(string $s, $object)
+	{
+
+	}
+
+	public function doBar(\Throwable $t)
+	{
+		$this->doFoo(\InvalidArgumentException::class, new \InvalidArgumentException());
+		$this->doFoo(\Exception::class, new \Exception());
+		$this->doFoo(\Throwable::class, $t);
+	}
+
+}

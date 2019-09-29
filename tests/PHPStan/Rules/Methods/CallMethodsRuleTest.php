@@ -433,6 +433,14 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Only iterables can be unpacked, string given in argument #5.',
 				1456,
 			],
+			[
+				'Parameter #1 $s of method Test\ClassStringWithUpperBounds::doFoo() expects class-string<Exception>, string given.',
+				1490,
+			],
+			[
+				'Parameter #2 $object of method Test\ClassStringWithUpperBounds::doFoo() expects Exception, Throwable given.',
+				1490,
+			],
 		]);
 	}
 
@@ -673,6 +681,14 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Parameter #1 $foo of method Test\ExpectsExceptionGenerics::requiresFoo() expects Test\Foo, Exception given.',
 				1379,
+			],
+			[
+				'Parameter #1 $s of method Test\ClassStringWithUpperBounds::doFoo() expects class-string<Exception>, string given.',
+				1490,
+			],
+			[
+				'Parameter #2 $object of method Test\ClassStringWithUpperBounds::doFoo() expects Exception, Throwable given.',
+				1490,
 			],
 		]);
 	}
