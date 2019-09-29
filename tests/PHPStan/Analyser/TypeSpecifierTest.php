@@ -46,6 +46,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 		$this->scope = $this->scope->enterClass($broker->getClass('DateTime'));
 		$this->scope = $this->scope->assignVariable('bar', new ObjectType('Bar'));
 		$this->scope = $this->scope->assignVariable('stringOrNull', new UnionType([new StringType(), new NullType()]));
+		$this->scope = $this->scope->assignVariable('string', new StringType());
 		$this->scope = $this->scope->assignVariable('barOrNull', new UnionType([new ObjectType('Bar'), new NullType()]));
 		$this->scope = $this->scope->assignVariable('barOrFalse', new UnionType([new ObjectType('Bar'), new ConstantBooleanType(false)]));
 		$this->scope = $this->scope->assignVariable('stringOrFalse', new UnionType([new StringType(), new ConstantBooleanType(false)]));
@@ -803,6 +804,14 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				[
 					'$array' => '~hasOffset(\'foo\')',
 				],
+			],
+			[
+				new FuncCall(new Name('is_subclass_of'), [
+					new Arg(new Variable('string')),
+					new Arg(new Variable('stringOrNull')),
+				]),
+				[],
+				[],
 			],
 		];
 	}
