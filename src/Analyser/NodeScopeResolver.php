@@ -80,6 +80,7 @@ use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
@@ -2483,6 +2484,7 @@ class NodeScopeResolver
 	public function getPhpDocs(Scope $scope, Node\FunctionLike $functionLike): array
 	{
 		$templateTypeMap = TemplateTypeMap::createEmpty();
+		$phpDocBlockTemplateTypeMap = null;
 		$phpDocParameterTypes = [];
 		$phpDocReturnType = null;
 		$phpDocThrowType = null;
@@ -2516,6 +2518,7 @@ class NodeScopeResolver
 				$class = $phpDocBlock->getClassReflection()->getName();
 				$trait = $phpDocBlock->getTrait();
 				$isExplicitPhpDoc = $phpDocBlock->isExplicit();
+				$phpDocBlockTemplateTypeMap = $phpDocBlock->getClassReflection()->getActiveTemplateTypeMap();
 			}
 		}
 
@@ -2527,7 +2530,13 @@ class NodeScopeResolver
 				$docComment
 			);
 			$templateTypeMap = $resolvedPhpDoc->getTemplateTypeMap();
-			$phpDocParameterTypes = array_map(static function (ParamTag $tag): Type {
+			$phpDocParameterTypes = array_map(static function (ParamTag $tag) use ($phpDocBlockTemplateTypeMap): Type {
+				if ($phpDocBlockTemplateTypeMap !== null) {
+					return TemplateTypeHelper::resolveTemplateTypes(
+						$tag->getType(),
+						$phpDocBlockTemplateTypeMap
+					);
+				}
 				return $tag->getType();
 			}, $resolvedPhpDoc->getParamTags());
 			$nativeReturnType = $scope->getFunctionType($functionLike->getReturnType(), false, false);
@@ -2540,6 +2549,12 @@ class NodeScopeResolver
 				)
 			) {
 				$phpDocReturnType = $resolvedPhpDoc->getReturnTag()->getType();
+				if ($phpDocBlockTemplateTypeMap !== null) {
+					$phpDocReturnType = TemplateTypeHelper::resolveTemplateTypes(
+						$phpDocReturnType,
+						$phpDocBlockTemplateTypeMap
+					);
+				}
 			}
 			$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 			$deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag() !== null ? $resolvedPhpDoc->getDeprecatedTag()->getMessage() : null;

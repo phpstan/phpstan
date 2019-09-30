@@ -184,6 +184,44 @@ function acceptSuperIFaceBOfDateTime($a): void {
 function acceptSuperIFaceBOfInt($a): void {
 }
 
+/**
+ * @template TNodeType of \PhpParser\Node
+ */
+interface GenericRule
+{
+
+	/**
+	 * @return class-string<TNodeType>
+	 */
+	public function getNodeType(): string;
+
+	/**
+	 * @param TNodeType $node
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return RuleError[] errors
+	 */
+	public function processNode(\PhpParser\Node $node, Scope $scope): array;
+
+}
+
+/**
+ * @implements GenericRule<\PhpParser\Node\Expr\StaticCall>
+ */
+class SomeRule implements GenericRule
+{
+
+	public function getNodeType(): string
+	{
+		return \PhpParser\Node\Expr\StaticCall::class;
+	}
+
+	public function processNode(\PhpParser\Node $node, Scope $scope): array
+	{
+		return [];
+	}
+
+}
+
 function testClasses(): void {
 	$a = new A(1);
 	$a->set(2);
