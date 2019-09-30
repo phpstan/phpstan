@@ -1,0 +1,7 @@
+[
+    {
+        "message": "Method PHPStan\\Generics\\Classes\\A::get() should return T but returns int.",
+        "line": 31,
+        "ignorable": true
+    }
+]
