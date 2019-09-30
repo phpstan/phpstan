@@ -29,11 +29,10 @@ final class TemplateMixedType extends MixedType implements TemplateType
 		TemplateTypeScope $scope,
 		TemplateTypeStrategy $templateTypeStrategy,
 		string $name,
-		bool $isExplicitMixed = false,
 		?Type $subtractedType = null
 	)
 	{
-		parent::__construct($isExplicitMixed, $subtractedType);
+		parent::__construct(true, $subtractedType);
 
 		$this->scope = $scope;
 		$this->strategy = $templateTypeStrategy;
@@ -73,10 +72,7 @@ final class TemplateMixedType extends MixedType implements TemplateType
 
 	public function getBound(): Type
 	{
-		return new MixedType(
-			$this->isExplicitMixed(),
-			$this->getSubtractedType()
-		);
+		return new MixedType(true, $this->getSubtractedType());
 	}
 
 	public function accepts(Type $type, bool $strictTypes): TrinaryLogic
@@ -139,7 +135,6 @@ final class TemplateMixedType extends MixedType implements TemplateType
 			$this->scope,
 			new TemplateTypeArgumentStrategy(),
 			$this->name,
-			$this->isExplicitMixed(),
 			$this->getSubtractedType()
 		);
 	}
@@ -157,7 +152,6 @@ final class TemplateMixedType extends MixedType implements TemplateType
 			$this->scope,
 			$this->strategy,
 			$this->name,
-			$this->isExplicitMixed(),
 			$type
 		);
 	}
@@ -168,7 +162,6 @@ final class TemplateMixedType extends MixedType implements TemplateType
 			$this->scope,
 			$this->strategy,
 			$this->name,
-			$this->isExplicitMixed(),
 			null
 		);
 	}
@@ -179,7 +172,6 @@ final class TemplateMixedType extends MixedType implements TemplateType
 			$this->scope,
 			$this->strategy,
 			$this->name,
-			$this->isExplicitMixed(),
 			$subtractedType
 		);
 	}
@@ -194,7 +186,6 @@ final class TemplateMixedType extends MixedType implements TemplateType
 			$properties['scope'],
 			$properties['strategy'],
 			$properties['name'],
-			$properties['isExplicitMixed'],
 			$properties['subtractedType']
 		);
 	}

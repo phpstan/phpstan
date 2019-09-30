@@ -79,7 +79,7 @@ class TypeNodeResolver
 
 	public function getCacheKey(): string
 	{
-		$key = 'v68-generic-class-string';
+		$key = 'v69-generic-rules-fix';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}

@@ -1,22 +1,7 @@
 [
     {
-        "message": "Function PHPStan\\Generics\\VaryingAcceptor\\apply() has parameter $t2 with no typehint specified.",
-        "line": 14,
-        "ignorable": true
-    },
-    {
-        "message": "Function PHPStan\\Generics\\VaryingAcceptor\\applyReversed() has parameter $t2 with no typehint specified.",
-        "line": 25,
-        "ignorable": true
-    },
-    {
         "message": "Function PHPStan\\Generics\\VaryingAcceptor\\testApply() has no return typehint specified.",
         "line": 30,
-        "ignorable": true
-    },
-    {
-        "message": "Function PHPStan\\Generics\\VaryingAcceptor\\bar() has no return typehint specified.",
-        "line": 51,
         "ignorable": true
     }
 ]
