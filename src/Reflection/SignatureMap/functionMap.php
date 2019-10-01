@@ -9596,7 +9596,7 @@ return [
 'Reflection::export' => ['string|null', 'r'=>'reflector', 'return='=>'bool'],
 'Reflection::getModifierNames' => ['array', 'modifiers'=>'int'],
 'ReflectionClass::__clone' => ['void'],
-'ReflectionClass::__construct' => ['void', 'argument'=>''],
+'ReflectionClass::__construct' => ['void', 'argument'=>'object|string'],
 'ReflectionClass::__toString' => ['string'],
 'ReflectionClass::export' => ['string|null', 'argument'=>'string|object', 'return='=>'bool'],
 'ReflectionClass::getConstant' => ['mixed', 'name'=>'string'],
