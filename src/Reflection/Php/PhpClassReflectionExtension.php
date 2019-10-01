@@ -14,6 +14,7 @@ use PHPStan\Broker\Broker;
 use PHPStan\DependencyInjection\Container;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
+use PHPStan\PhpDoc\ResolvedPhpDocBlock;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
@@ -453,20 +454,7 @@ class PhpClassReflectionExtension
 					null,
 					$declaringClass->getName()
 				);
-				$phpDocReturnType = null;
-				if (
-					$resolvedPhpDoc->getReturnTag() !== null
-					&& (
-						$phpDocBlock->isExplicit()
-						|| $nativeReturnType->isSuperTypeOf($resolvedPhpDoc->getReturnTag()->getType())->yes()
-					)
-				) {
-					$phpDocReturnType = $resolvedPhpDoc->getReturnTag()->getType();
-					$phpDocReturnType = TemplateTypeHelper::resolveTemplateTypes(
-						$phpDocReturnType,
-						$phpDocBlock->getClassReflection()->getActiveTemplateTypeMap()
-					);
-				}
+				$phpDocReturnType = $this->getPhpDocReturnType($phpDocBlock, $resolvedPhpDoc, $nativeReturnType);
 				$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 				$deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag() !== null ? $resolvedPhpDoc->getDeprecatedTag()->getMessage() : null;
 				$isDeprecated = $resolvedPhpDoc->isDeprecated();
@@ -765,6 +753,27 @@ class PhpClassReflectionExtension
 				return $statement;
 			}
 		}
+		return null;
+	}
+
+	private function getPhpDocReturnType(PhpDocBlock $phpDocBlock, ResolvedPhpDocBlock $resolvedPhpDoc, Type $nativeReturnType): ?Type
+	{
+		$returnTag = $resolvedPhpDoc->getReturnTag();
+
+		if ($returnTag === null) {
+			return null;
+		}
+
+		$phpDocReturnType = $returnTag->getType();
+		$phpDocReturnType = TemplateTypeHelper::resolveTemplateTypes(
+			$phpDocReturnType,
+			$phpDocBlock->getClassReflection()->getActiveTemplateTypeMap()
+		);
+
+		if ($phpDocBlock->isExplicit() || $nativeReturnType->isSuperTypeOf($phpDocReturnType)->yes()) {
+			return $phpDocReturnType;
+		}
+
 		return null;
 	}
 

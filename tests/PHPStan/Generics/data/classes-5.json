@@ -1,27 +1,27 @@
 [
     {
         "message": "Parameter #1 $a of method PHPStan\\Generics\\Classes\\A<int>::set() expects int, string given.",
-        "line": 229,
+        "line": 242,
         "ignorable": true
     },
     {
         "message": "Parameter #1 $a of method PHPStan\\Generics\\Classes\\A<DateTime>::set() expects DateTime, int given.",
-        "line": 234,
+        "line": 247,
         "ignorable": true
     },
     {
         "message": "Parameter #1 $a of method PHPStan\\Generics\\Classes\\A<int>::set() expects int, string given.",
-        "line": 239,
+        "line": 252,
         "ignorable": true
     },
     {
         "message": "Parameter #1 $a of method PHPStan\\Generics\\Classes\\C::set() expects int, string given.",
-        "line": 244,
+        "line": 257,
         "ignorable": true
     },
     {
         "message": "Parameter #1 $a of function PHPStan\\Generics\\Classes\\acceptSuperIFaceBOfInt expects PHPStan\\Generics\\Classes\\SuperIfaceB<int>, PHPStan\\Generics\\Classes\\ABImpl given.",
-        "line": 249,
+        "line": 262,
         "ignorable": true
     }
 ]

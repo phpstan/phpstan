@@ -2,6 +2,10 @@
 
 namespace PHPStan\Generics\FunctionsAssertType;
 
+use PhpParser\Node;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Name;
+use PHPStan\Generics\FunctionsAssertType\GenericRule;
 use function PHPStan\Analyser\assertType;
 
 /**
@@ -562,6 +566,29 @@ function acceptsClassStringUpperBound($string)
 	return new $string;
 }
 
+
+/**
+ * @template TNodeType of \PhpParser\Node
+ */
+interface GenericRule
+{
+    /**
+     * @return TNodeType
+     */
+    public function getNodeInstance(): Node;
+}
+
+/**
+ * @implements GenericRule<\PhpParser\Node\Expr\StaticCall>
+ */
+class SomeRule implements GenericRule
+{
+    public function getNodeInstance(): Node
+    {
+        return new StaticCall(new Name(\stdClass::class), '__construct');
+    }
+}
+
 function testClasses() {
 	$a = new A(1);
 	assertType('PHPStan\Generics\FunctionsAssertType\A<int>', $a);
@@ -596,4 +623,7 @@ function testClasses() {
 	assertType('Exception', acceptsClassStringUpperBound(\Exception::class));
 	assertType('Exception', acceptsClassStringUpperBound(\Throwable::class));
 	assertType('InvalidArgumentException', acceptsClassStringUpperBound(\InvalidArgumentException::class));
+
+	$rule = new SomeRule();
+	assertType(StaticCall::class, $rule->getNodeInstance());
 }
