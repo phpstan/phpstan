@@ -2,6 +2,9 @@
 
 namespace PHPStan\Generics\Classes;
 
+use PhpParser\Node;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleError;
 
@@ -196,6 +199,11 @@ interface GenericRule
 	public function getNodeType(): string;
 
 	/**
+	 * @return TNodeType
+	 */
+	public function getNodeInstance(): Node;
+
+	/**
 	 * @param TNodeType $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return RuleError[] errors
@@ -213,6 +221,11 @@ class SomeRule implements GenericRule
 	public function getNodeType(): string
 	{
 		return \PhpParser\Node\Expr\StaticCall::class;
+	}
+
+	public function getNodeInstance(): Node
+	{
+		return new StaticCall(new Name(\stdClass::class), '__construct');
 	}
 
 	public function processNode(\PhpParser\Node $node, Scope $scope): array
@@ -247,4 +260,6 @@ function testClasses(): void {
 	acceptSuperIFaceAOfInt($ab);
 	acceptSuperIFaceBOfDateTime($ab);
 	acceptSuperIFaceBOfInt($ab);
+
+	new SomeRule();
 }

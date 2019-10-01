@@ -61,6 +61,7 @@ use PHPStan\Node\ReturnStatement;
 use PHPStan\Node\UnreachableStatementNode;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
+use PHPStan\PhpDoc\ResolvedPhpDocBlock;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflection;
@@ -2499,7 +2500,7 @@ class NodeScopeResolver
 		$file = $scope->getFile();
 		$class = $scope->isInClass() ? $scope->getClassReflection()->getName() : null;
 		$trait = $scope->isInTrait() ? $scope->getTraitReflection()->getName() : null;
-		$isExplicitPhpDoc = true;
+		$phpDocBlock = null;
 		if ($functionLike instanceof Node\Stmt\ClassMethod) {
 			if (!$scope->isInClass()) {
 				throw new \PHPStan\ShouldNotHappenException();
@@ -2517,7 +2518,6 @@ class NodeScopeResolver
 				$file = $phpDocBlock->getFile();
 				$class = $phpDocBlock->getClassReflection()->getName();
 				$trait = $phpDocBlock->getTrait();
-				$isExplicitPhpDoc = $phpDocBlock->isExplicit();
 				$phpDocBlockTemplateTypeMap = $phpDocBlock->getClassReflection()->getActiveTemplateTypeMap();
 			}
 		}
@@ -2540,22 +2540,7 @@ class NodeScopeResolver
 				return $tag->getType();
 			}, $resolvedPhpDoc->getParamTags());
 			$nativeReturnType = $scope->getFunctionType($functionLike->getReturnType(), false, false);
-			$phpDocReturnType = null;
-			if (
-				$resolvedPhpDoc->getReturnTag() !== null
-				&& (
-					$isExplicitPhpDoc
-					|| $nativeReturnType->isSuperTypeOf($resolvedPhpDoc->getReturnTag()->getType())->yes()
-				)
-			) {
-				$phpDocReturnType = $resolvedPhpDoc->getReturnTag()->getType();
-				if ($phpDocBlockTemplateTypeMap !== null) {
-					$phpDocReturnType = TemplateTypeHelper::resolveTemplateTypes(
-						$phpDocReturnType,
-						$phpDocBlockTemplateTypeMap
-					);
-				}
-			}
+			$phpDocReturnType = $this->getPhpDocReturnType($phpDocBlock, $resolvedPhpDoc, $nativeReturnType);
 			$phpDocThrowType = $resolvedPhpDoc->getThrowsTag() !== null ? $resolvedPhpDoc->getThrowsTag()->getType() : null;
 			$deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag() !== null ? $resolvedPhpDoc->getDeprecatedTag()->getMessage() : null;
 			$isDeprecated = $resolvedPhpDoc->isDeprecated();
@@ -2564,6 +2549,30 @@ class NodeScopeResolver
 		}
 
 		return [$templateTypeMap, $phpDocParameterTypes, $phpDocReturnType, $phpDocThrowType, $deprecatedDescription, $isDeprecated, $isInternal, $isFinal];
+	}
+
+	private function getPhpDocReturnType(?PhpDocBlock $phpDocBlock, ResolvedPhpDocBlock $resolvedPhpDoc, Type $nativeReturnType): ?Type
+	{
+		$returnTag = $resolvedPhpDoc->getReturnTag();
+
+		if ($returnTag === null) {
+			return null;
+		}
+
+		$phpDocReturnType = $returnTag->getType();
+
+		if ($phpDocBlock !== null) {
+			$phpDocReturnType = TemplateTypeHelper::resolveTemplateTypes(
+				$phpDocReturnType,
+				$phpDocBlock->getClassReflection()->getActiveTemplateTypeMap()
+			);
+		}
+
+		if (($phpDocBlock !== null && $phpDocBlock->isExplicit()) || $nativeReturnType->isSuperTypeOf($phpDocReturnType)->yes()) {
+			return $phpDocReturnType;
+		}
+
+		return null;
 	}
 
 }
