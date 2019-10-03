@@ -11,8 +11,11 @@ use PHPStan\Reflection\ResolvedMethodReflection;
 use PHPStan\Reflection\ResolvedPropertyReflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
+use PHPStan\Type\ErrorType;
+use PHPStan\Type\IntersectionType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
+use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 
 final class GenericObjectType extends ObjectType
@@ -124,6 +127,30 @@ final class GenericObjectType extends ObjectType
 			$reflection,
 			$this->getClassReflection()->getActiveTemplateTypeMap()
 		);
+	}
+
+	public function inferTemplateTypes(Type $receivedType): TemplateTypeMap
+	{
+		if ($receivedType instanceof UnionType || $receivedType instanceof IntersectionType) {
+			return $receivedType->inferTemplateTypesOn($this);
+		}
+
+		if (
+			$receivedType instanceof GenericObjectType
+			&& $receivedType->getClassName() === $this->getClassName()
+		) {
+			$otherTypes = $receivedType->getTypes();
+			$typeMap = TemplateTypeMap::createEmpty();
+
+			foreach ($this->getTypes() as $i => $type) {
+				$other = $otherTypes[$i] ?? new ErrorType();
+				$typeMap = $typeMap->union($type->inferTemplateTypes($other));
+			}
+
+			return $typeMap;
+		}
+
+		return TemplateTypeMap::createEmpty();
 	}
 
 	public function traverse(callable $cb): Type
