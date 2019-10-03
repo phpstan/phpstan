@@ -15,6 +15,7 @@
     "SPL",
     "standard",
     "pcntl",
-    "mbstring"
+    "mbstring",
+    "intl"
   ]
 }
