@@ -602,6 +602,43 @@ function inferFromGeneric($x) {
 	return $x->get();
 }
 
+/**
+ * Class Factory
+ *
+ * @template A
+ * @template B
+ */
+class Factory
+{
+	private $a;
+	private $b;
+
+	/**
+	 * @param A $a
+	 * @param B $b
+	 */
+	public function __construct($a, $b)
+	{
+		$this->a = $a;
+		$this->b = $b;
+	}
+
+	/**
+	 * @template C
+	 * @template D
+	 *
+	 * @param A $a
+	 * @param C $c
+	 * @param D $d
+	 *
+	 * @return array{A, B, C, D}
+	 */
+	public function create($a, $c, $d): array
+	{
+		return [$a, $this->b, $c, $d];
+	}
+}
+
 function testClasses() {
 	$a = new A(1);
 	assertType('PHPStan\Generics\FunctionsAssertType\A<int>', $a);
@@ -642,4 +679,10 @@ function testClasses() {
 
 	$a = inferFromGeneric(new A(new A(new \DateTime())));
 	assertType('PHPStan\Generics\FunctionsAssertType\A<DateTime>', $a);
+
+	$factory = new Factory(new \DateTime(), new A(1));
+	assertType(
+		'array(DateTime, PHPStan\Generics\FunctionsAssertType\A<int>, string, PHPStan\Generics\FunctionsAssertType\A<DateTime>)',
+		$factory->create(new \DateTime(), '', new A(new \DateTime()))
+	);
 }
