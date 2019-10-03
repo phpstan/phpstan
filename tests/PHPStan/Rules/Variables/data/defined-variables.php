@@ -428,3 +428,9 @@ function () {
 		if ($str === "hello") {}
 	}
 };
+
+if (!Foo::doStaticFoo(1, 2, $variableDefinedInBooleaNotByReference)) {
+
+}
+
+echo $variableDefinedInBooleaNotByReference;
