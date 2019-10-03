@@ -589,6 +589,19 @@ class SomeRule implements GenericRule
     }
 }
 
+/**
+ * Infer from generic
+ *
+ * @template T of \DateTimeInterface
+ *
+ * @param A<A<T>> $x
+ *
+ * @return A<T>
+ */
+function inferFromGeneric($x) {
+	return $x->get();
+}
+
 function testClasses() {
 	$a = new A(1);
 	assertType('PHPStan\Generics\FunctionsAssertType\A<int>', $a);
@@ -626,4 +639,7 @@ function testClasses() {
 
 	$rule = new SomeRule();
 	assertType(StaticCall::class, $rule->getNodeInstance());
+
+	$a = inferFromGeneric(new A(new A(new \DateTime())));
+	assertType('PHPStan\Generics\FunctionsAssertType\A<DateTime>', $a);
 }

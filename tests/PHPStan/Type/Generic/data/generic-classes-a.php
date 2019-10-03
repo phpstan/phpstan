@@ -13,3 +13,9 @@ class AOfDateTime extends A {}
  * @extends A<U>
  */
 class SubA extends A {}
+
+/**
+ * @template K
+ * @template V
+ */
+class A2 {}

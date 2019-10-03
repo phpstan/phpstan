@@ -3,10 +3,13 @@
 namespace PHPStan\Type\Generic;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\IntegerType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Test\A;
 use PHPStan\Type\Test\B;
 use PHPStan\Type\Type;
+use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 
 class GenericObjectTypeTest extends \PHPStan\Testing\TestCase
@@ -121,6 +124,115 @@ class GenericObjectTypeTest extends \PHPStan\Testing\TestCase
 			$expectedResult->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> accepts(%s)', $acceptingType->describe(VerbosityLevel::precise()), $acceptedType->describe(VerbosityLevel::precise()))
+		);
+	}
+
+	/** @return array<string,array{Type,Type,array<string,string>}> */
+	public function dataInferTemplateTypes(): array
+	{
+		$templateType = static function (string $name, ?Type $bound = null): Type {
+			return TemplateTypeFactory::create(
+				TemplateTypeScope::createWithFunction('a'),
+				$name,
+				$bound ?? new MixedType()
+			);
+		};
+
+		return [
+			'simple' => [
+				new GenericObjectType(A\A::class, [
+					new ObjectType(\DateTime::class),
+				]),
+				new GenericObjectType(A\A::class, [
+					$templateType('T'),
+				]),
+				['T' => 'DateTime'],
+			],
+			'two types' => [
+				new GenericObjectType(A\A2::class, [
+					new ObjectType(\DateTime::class),
+					new IntegerType(),
+				]),
+				new GenericObjectType(A\A2::class, [
+					$templateType('K'),
+					$templateType('V'),
+				]),
+				['K' => 'DateTime', 'V' => 'int'],
+			],
+			'union' => [
+				new UnionType([
+					new GenericObjectType(A\A2::class, [
+						new ObjectType(\DateTime::class),
+						new IntegerType(),
+					]),
+					new GenericObjectType(A\A2::class, [
+						new IntegerType(),
+						new ObjectType(\DateTime::class),
+					]),
+				]),
+				new GenericObjectType(A\A2::class, [
+					$templateType('K'),
+					$templateType('V'),
+				]),
+				['K' => 'DateTime|int', 'V' => 'DateTime|int'],
+			],
+			'nested' => [
+				new GenericObjectType(A\A::class, [
+					new GenericObjectType(A\A2::class, [
+						new ObjectType(\DateTime::class),
+						new IntegerType(),
+					]),
+				]),
+				new GenericObjectType(A\A::class, [
+					new GenericObjectType(A\A2::class, [
+						$templateType('K'),
+						$templateType('V'),
+					]),
+				]),
+				['K' => 'DateTime', 'V' => 'int'],
+			],
+			'missing type' => [
+				new GenericObjectType(A\A2::class, [
+					new ObjectType(\DateTime::class),
+				]),
+				new GenericObjectType(A\A2::class, [
+					$templateType('K', new ObjectType(\DateTimeInterface::class)),
+					$templateType('V', new ObjectType(\DateTimeInterface::class)),
+				]),
+				['K' => 'DateTime', 'V' => 'DateTimeInterface'],
+			],
+			'wrong class' => [
+				new GenericObjectType(B\I::class, [
+					new ObjectType(\DateTime::class),
+				]),
+				new GenericObjectType(A\A::class, [
+					$templateType('T', new ObjectType(\DateTimeInterface::class)),
+				]),
+				[],
+			],
+			'wrong type' => [
+				new IntegerType(),
+				new GenericObjectType(A\A::class, [
+					$templateType('T', new ObjectType(\DateTimeInterface::class)),
+				]),
+				[],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataInferTemplateTypes
+	 * @param array<string,string> $expectedTypes
+	 */
+	public function testResolveTemplateTypes(Type $received, Type $template, array $expectedTypes): void
+	{
+		$result = $template->inferTemplateTypes($received);
+
+		$this->assertSame(
+			$expectedTypes,
+			array_map(static function (Type $type): string {
+				return $type->describe(VerbosityLevel::precise());
+			}, $result->getTypes())
 		);
 	}
 
