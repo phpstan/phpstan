@@ -9404,6 +9404,7 @@ return [
 'Redis::wait' => ['int', 'numSlaves'=>'int', 'timeout'=>'int'],
 'Redis::watch' => ['void', 'key'=>'string'],
 'Redis::zAdd' => ['int', 'key'=>'string', 'score1'=>'float', 'value1'=>'string', 'score2='=>'float', 'value2='=>'string', 'scoreN='=>'float', 'valueN='=>'string'],
+'Redis::zAdd\'1' => ['int', 'options'=>'array', 'key'=>'string', 'score1'=>'float', 'value1'=>'string', 'score2='=>'float', 'value2='=>'string', 'scoreN='=>'float', 'valueN='=>'string'],
 'Redis::zCard' => ['int', 'key'=>'string'],
 'Redis::zCount' => ['int', 'key'=>'string', 'start'=>'string', 'end'=>'string'],
 'Redis::zDelete' => ['int', 'key'=>'string', 'member1'=>'string', 'member2='=>'string', 'memberN='=>'string'],
