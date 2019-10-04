@@ -33,6 +33,11 @@ class StaticType implements TypeWithClassName
 		return $this->baseClass;
 	}
 
+	public function getAncestorWithClassName(string $className): ?TypeWithClassName
+	{
+		return $this->staticObjectType->getAncestorWithClassName($className);
+	}
+
 	protected function getStaticObjectType(): ObjectType
 	{
 		return $this->staticObjectType;

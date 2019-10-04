@@ -749,7 +749,7 @@ class ObjectType implements TypeWithClassName, SubtractableType
 		return $broker->getClass($this->className);
 	}
 
-	protected function getAncestorWithClassName(string $className): ?ObjectType
+	public function getAncestorWithClassName(string $className): ?TypeWithClassName
 	{
 		$broker = Broker::getInstance();
 		$theirReflection = $broker->getClass($className);

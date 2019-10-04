@@ -217,6 +217,13 @@ class GenericObjectTypeTest extends \PHPStan\Testing\TestCase
 				]),
 				[],
 			],
+			'sub type' => [
+				new ObjectType(A\AOfDateTime::class),
+				new GenericObjectType(A\A::class, [
+					$templateType('T'),
+				]),
+				['T' => 'DateTime'],
+			],
 		];
 	}
 
