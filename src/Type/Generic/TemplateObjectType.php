@@ -135,25 +135,22 @@ final class TemplateObjectType extends ObjectType implements TemplateType
 			return $receivedType->inferTemplateTypesOn($this);
 		}
 
-		$isSuperType = $this->isSuperTypeOf($receivedType);
-		if ($isSuperType->no()) {
-			return TemplateTypeMap::createEmpty();
+		if (
+			$receivedType instanceof TemplateType
+			&& $this->getBound()->isSuperTypeOf($receivedType->getBound())->yes()
+		) {
+			return new TemplateTypeMap([
+				$this->name => $receivedType,
+			]);
 		}
-		if ($isSuperType->yes()) {
+
+		if ($this->getBound()->isSuperTypeOf($receivedType)->yes()) {
 			return new TemplateTypeMap([
 				$this->name => TypeUtils::generalizeType($receivedType),
 			]);
 		}
 
-		$isBoundSuperType = $this->getBound()->isSuperTypeOf($receivedType);
-		$resultType = $receivedType;
-		if ($isBoundSuperType->maybe()) {
-			$resultType = $this->getBound();
-		}
-
-		return new TemplateTypeMap([
-			$this->name => $resultType,
-		]);
+		return TemplateTypeMap::createEmpty();
 	}
 
 	public function isArgument(): bool

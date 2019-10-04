@@ -5,6 +5,7 @@ namespace PHPStan\Type;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Generic\TemplateType;
 use PHPStan\Type\Generic\TemplateTypeFactory;
+use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\Generic\TemplateTypeScope;
 
 class TemplateTypeTest extends \PHPStan\Testing\TestCase
@@ -160,6 +161,72 @@ class TemplateTypeTest extends \PHPStan\Testing\TestCase
 			$expectedIsSuperTypeInverse->describe(),
 			$actualResult->describe(),
 			sprintf('%s -> isSuperTypeOf(%s)', $otherType->describe(VerbosityLevel::precise()), $type->describe(VerbosityLevel::precise()))
+		);
+	}
+
+	/** @return array<string,array{Type,Type,array<string,string>}> */
+	public function dataInferTemplateTypes(): array
+	{
+		$templateType = static function (string $name, ?Type $bound = null, ?string $functionName = null): Type {
+			return TemplateTypeFactory::create(
+				TemplateTypeScope::createWithFunction($functionName ?? '_'),
+				$name,
+				$bound
+			);
+		};
+
+		return [
+			'simple' => [
+				new IntegerType(),
+				$templateType('T'),
+				['T' => 'int'],
+			],
+			'object' => [
+				new ObjectType(\DateTime::class),
+				$templateType('T'),
+				['T' => 'DateTime'],
+			],
+			'object with bound' => [
+				new ObjectType(\DateTime::class),
+				$templateType('T', new ObjectType(\DateTimeInterface::class)),
+				['T' => 'DateTime'],
+			],
+			'wrong object with bound' => [
+				new ObjectType(\stdClass::class),
+				$templateType('T', new ObjectType(\DateTimeInterface::class)),
+				[],
+			],
+			'template type' => [
+				TemplateTypeHelper::toArgument($templateType('T', new ObjectType(\DateTimeInterface::class))),
+				$templateType('T', new ObjectType(\DateTimeInterface::class)),
+				['T' => 'T of DateTimeInterface (function _(), argument)'],
+			],
+			'foreign template type' => [
+				TemplateTypeHelper::toArgument($templateType('T', new ObjectType(\DateTimeInterface::class), 'a')),
+				$templateType('T', new ObjectType(\DateTimeInterface::class), 'b'),
+				['T' => 'T of DateTimeInterface (function a(), argument)'],
+			],
+			'foreign template type, imcompatible bound' => [
+				TemplateTypeHelper::toArgument($templateType('T', new ObjectType(\stdClass::class), 'a')),
+				$templateType('T', new ObjectType(\DateTime::class), 'b'),
+				[],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataInferTemplateTypes
+	 * @param array<string,string> $expectedTypes
+	 */
+	public function testResolveTemplateTypes(Type $received, Type $template, array $expectedTypes): void
+	{
+		$result = $template->inferTemplateTypes($received);
+
+		$this->assertSame(
+			$expectedTypes,
+			array_map(static function (Type $type): string {
+				return $type->describe(VerbosityLevel::precise());
+			}, $result->getTypes())
 		);
 	}
 
