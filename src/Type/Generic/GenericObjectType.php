@@ -15,6 +15,7 @@ use PHPStan\Type\ErrorType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
+use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 use PHPStan\Type\VerbosityLevel;
 
@@ -135,22 +136,25 @@ final class GenericObjectType extends ObjectType
 			return $receivedType->inferTemplateTypesOn($this);
 		}
 
-		if (
-			$receivedType instanceof GenericObjectType
-			&& $receivedType->getClassName() === $this->getClassName()
-		) {
-			$otherTypes = $receivedType->getTypes();
-			$typeMap = TemplateTypeMap::createEmpty();
-
-			foreach ($this->getTypes() as $i => $type) {
-				$other = $otherTypes[$i] ?? new ErrorType();
-				$typeMap = $typeMap->union($type->inferTemplateTypes($other));
-			}
-
-			return $typeMap;
+		if (!$receivedType instanceof TypeWithClassName) {
+			return TemplateTypeMap::createEmpty();
 		}
 
-		return TemplateTypeMap::createEmpty();
+		$ancestor = $receivedType->getAncestorWithClassName($this->getClassName());
+
+		if ($ancestor === null || !$ancestor instanceof GenericObjectType) {
+			return TemplateTypeMap::createEmpty();
+		}
+
+		$otherTypes = $ancestor->getTypes();
+		$typeMap = TemplateTypeMap::createEmpty();
+
+		foreach ($this->getTypes() as $i => $type) {
+			$other = $otherTypes[$i] ?? new ErrorType();
+			$typeMap = $typeMap->union($type->inferTemplateTypes($other));
+		}
+
+		return $typeMap;
 	}
 
 	public function traverse(callable $cb): Type
