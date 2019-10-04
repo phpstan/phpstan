@@ -199,7 +199,7 @@ class GenericObjectTypeTest extends \PHPStan\Testing\TestCase
 					$templateType('K', new ObjectType(\DateTimeInterface::class)),
 					$templateType('V', new ObjectType(\DateTimeInterface::class)),
 				]),
-				['K' => 'DateTime', 'V' => 'DateTimeInterface'],
+				['K' => 'DateTime'],
 			],
 			'wrong class' => [
 				new GenericObjectType(B\I::class, [

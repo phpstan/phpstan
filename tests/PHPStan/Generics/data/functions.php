@@ -38,3 +38,24 @@ function testF($arrayOfInt, $callableOrNull) {
 	f($arrayOfInt, null);
 	f($arrayOfInt, '');
 }
+
+/**
+ * Function passthru
+ *
+ * @template T of \DateTimeInterface
+ *
+ * @param T $t
+ */
+function passthru($t): void {
+	passthru2($t);
+}
+
+/**
+ * Function passthru2
+ *
+ * @template T of \DateTimeInterface
+ *
+ * @param T $t
+ */
+function passthru2($t): void {
+}

@@ -441,6 +441,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Parameter #2 $object of method Test\ClassStringWithUpperBounds::doFoo() expects Exception, Throwable given.',
 				1490,
 			],
+			[
+				'Unable to resolve the template type T in call to method Test\ClassStringWithUpperBounds::doFoo()',
+				1490,
+			],
 		]);
 	}
 
@@ -688,6 +692,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			],
 			[
 				'Parameter #2 $object of method Test\ClassStringWithUpperBounds::doFoo() expects Exception, Throwable given.',
+				1490,
+			],
+			[
+				'Unable to resolve the template type T in call to method Test\ClassStringWithUpperBounds::doFoo()',
 				1490,
 			],
 		]);

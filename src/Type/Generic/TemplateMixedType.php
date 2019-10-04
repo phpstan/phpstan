@@ -115,13 +115,22 @@ final class TemplateMixedType extends MixedType implements TemplateType
 			return $receivedType->inferTemplateTypesOn($this);
 		}
 
-		if ($this->isSuperTypeOf($receivedType)->no()) {
-			return TemplateTypeMap::createEmpty();
+		if (
+			$receivedType instanceof TemplateType
+			&& $this->getBound()->isSuperTypeOf($receivedType->getBound())->yes()
+		) {
+			return new TemplateTypeMap([
+				$this->name => $receivedType,
+			]);
 		}
 
-		return new TemplateTypeMap([
-			$this->name => TypeUtils::generalizeType($receivedType),
-		]);
+		if ($this->getBound()->isSuperTypeOf($receivedType)->yes()) {
+			return new TemplateTypeMap([
+				$this->name => TypeUtils::generalizeType($receivedType),
+			]);
+		}
+
+		return TemplateTypeMap::createEmpty();
 	}
 
 	public function isArgument(): bool
