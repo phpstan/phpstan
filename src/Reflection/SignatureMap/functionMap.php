@@ -9413,7 +9413,7 @@ return [
 'Redis::zInter' => ['int', 'Output'=>'string', 'ZSetKeys'=>'array', 'Weights='=>'?array', 'aggregateFunction='=>'string'],
 'Redis::zRange' => ['array', 'key'=>'string', 'start'=>'int', 'end'=>'int', 'withscores='=>'bool'],
 'Redis::zRangeByLex' => ['array|false', 'key'=>'string', 'min'=>'int', 'max'=>'int', 'offset='=>'int', 'limit='=>'int'],
-'Redis::zRangeByScore' => ['array', 'key'=>'string', 'start'=>'int', 'end'=>'int', 'options='=>'array'],
+'Redis::zRangeByScore' => ['array', 'key'=>'string', 'start'=>'int|string', 'end'=>'int|string', 'options='=>'array'],
 'Redis::zRank' => ['int', 'key'=>'string', 'member'=>'string'],
 'Redis::zRem' => ['int', 'key'=>'string', 'member1'=>'string', 'member2='=>'string', 'memberN='=>'string'],
 'Redis::zRemRangeByRank' => ['int', 'key'=>'string', 'start'=>'int', 'end'=>'int'],
