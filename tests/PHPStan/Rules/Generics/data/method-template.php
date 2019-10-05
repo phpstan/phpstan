@@ -22,3 +22,21 @@ class Foo
 	}
 
 }
+
+/**
+ * @template T of \Exception
+ * @template Z
+ */
+class Bar
+{
+
+	/**
+	 * @template T
+	 * @template U
+	 */
+	public function doFoo()
+	{
+
+	}
+
+}

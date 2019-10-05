@@ -28,6 +28,10 @@ class MethodTemplateTypeRuleTest extends RuleTestCase
 				'PHPDoc tag @template T for method MethodTemplateType\Foo::doBar() has invalid bound type MethodTemplateType\Zazzzu.',
 				19,
 			],
+			[
+				'PHPDoc tag @template T for method MethodTemplateType\Bar::doFoo() shadows @template T of Exception for class MethodTemplateType\Bar.',
+				37,
+			],
 		]);
 	}
 
