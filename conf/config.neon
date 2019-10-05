@@ -341,6 +341,9 @@ services:
 		class: PHPStan\Rules\Generics\GenericObjectTypeCheck
 
 	-
+		class: PHPStan\Rules\Generics\TemplateTypeCheck
+
+	-
 		class: PHPStan\Rules\Properties\PropertyDescriptor
 
 	-

@@ -12,8 +12,8 @@ class ClassTemplateTypeRuleTest extends RuleTestCase
 	protected function getRule(): Rule
 	{
 		return new ClassTemplateTypeRule(
-			$this->createBroker(),
-			self::getContainer()->getByType(FileTypeMapper::class)
+			self::getContainer()->getByType(FileTypeMapper::class),
+			new TemplateTypeCheck($this->createBroker())
 		);
 	}
 

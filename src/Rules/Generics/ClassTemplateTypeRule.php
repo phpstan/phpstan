@@ -4,27 +4,25 @@ namespace PHPStan\Rules\Generics;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Broker\Broker;
 use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\FileTypeMapper;
 
 class ClassTemplateTypeRule implements Rule
 {
 
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
-
 	/** @var \PHPStan\Type\FileTypeMapper */
 	private $fileTypeMapper;
 
+	/** @var \PHPStan\Rules\Generics\TemplateTypeCheck */
+	private $templateTypeCheck;
+
 	public function __construct(
-		Broker $broker,
-		FileTypeMapper $fileTypeMapper
+		FileTypeMapper $fileTypeMapper,
+		TemplateTypeCheck $templateTypeCheck
 	)
 	{
-		$this->broker = $broker;
 		$this->fileTypeMapper = $fileTypeMapper;
+		$this->templateTypeCheck = $templateTypeCheck;
 	}
 
 	public function getNodeType(): string
@@ -56,35 +54,11 @@ class ClassTemplateTypeRule implements Rule
 			$docComment->getText()
 		);
 
-		$messages = [];
-		foreach ($resolvedPhpDoc->getTemplateTags() as $templateTag) {
-			$templateTagName = $templateTag->getName();
-			if ($this->broker->hasClass($templateTagName)) {
-				$messages[] = RuleErrorBuilder::message(sprintf(
-					'PHPDoc tag @template for class %s cannot have existing class %s as its name.',
-					$className,
-					$templateTagName
-				))->build();
-			}
-			$boundType = $templateTag->getBound();
-			foreach ($boundType->getReferencedClasses() as $referencedClass) {
-				if (
-					$this->broker->hasClass($referencedClass)
-					&& !$this->broker->getClass($referencedClass)->isTrait()
-				) {
-					continue;
-				}
-
-				$messages[] = RuleErrorBuilder::message(sprintf(
-					'PHPDoc tag @template %s for class %s has invalid bound type %s.',
-					$templateTagName,
-					$className,
-					$referencedClass
-				))->build();
-			}
-		}
-
-		return $messages;
+		return $this->templateTypeCheck->check(
+			$resolvedPhpDoc->getTemplateTags(),
+			sprintf('PHPDoc tag @template for class %s cannot have existing class %%s as its name.', $className),
+			sprintf('PHPDoc tag @template %%s for class %s has invalid bound type %%s.', $className)
+		);
 	}
 
 }
