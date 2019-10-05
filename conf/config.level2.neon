@@ -14,6 +14,7 @@ rules:
 	- PHPStan\Rules\Functions\IncompatibleDefaultParameterTypeRule
 	- PHPStan\Rules\Functions\TemplateTypeDeclarationRule
 	- PHPStan\Rules\Generics\ClassTemplateTypeRule
+	- PHPStan\Rules\Generics\InterfaceTemplateTypeRule
 	- PHPStan\Rules\Methods\IncompatibleDefaultParameterTypeRule
 	- PHPStan\Rules\Methods\TemplateTypeDeclarationRule
 	- PHPStan\Rules\Operators\InvalidBinaryOperationRule
