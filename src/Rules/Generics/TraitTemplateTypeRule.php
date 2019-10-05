@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\Generic\TemplateTypeScope;
 
 class TraitTemplateTypeRule implements Rule
 {
@@ -55,9 +56,11 @@ class TraitTemplateTypeRule implements Rule
 		);
 
 		return $this->templateTypeCheck->check(
+			TemplateTypeScope::createWithClass($traitName),
 			$resolvedPhpDoc->getTemplateTags(),
 			sprintf('PHPDoc tag @template for trait %s cannot have existing class %%s as its name.', $traitName),
-			sprintf('PHPDoc tag @template %%s for trait %s has invalid bound type %%s.', $traitName)
+			sprintf('PHPDoc tag @template %%s for trait %s has invalid bound type %%s.', $traitName),
+			sprintf('PHPDoc tag @template %%s for trait %s with bound type %%s is not supported.', $traitName)
 		);
 	}
 

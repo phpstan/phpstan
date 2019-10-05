@@ -28,6 +28,10 @@ class TraitTemplateTypeRuleTest extends RuleTestCase
 				'PHPDoc tag @template T for trait TraitTemplateType\Bar has invalid bound type TraitTemplateType\Zazzzu.',
 				16,
 			],
+			[
+				'PHPDoc tag @template T for trait TraitTemplateType\Baz with bound type int is not supported.',
+				24,
+			],
 		]);
 	}
 

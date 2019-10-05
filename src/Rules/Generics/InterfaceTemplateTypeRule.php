@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\Generic\TemplateTypeScope;
 
 class InterfaceTemplateTypeRule implements Rule
 {
@@ -55,9 +56,11 @@ class InterfaceTemplateTypeRule implements Rule
 		);
 
 		return $this->templateTypeCheck->check(
+			TemplateTypeScope::createWithClass($interfaceName),
 			$resolvedPhpDoc->getTemplateTags(),
 			sprintf('PHPDoc tag @template for interface %s cannot have existing class %%s as its name.', $interfaceName),
-			sprintf('PHPDoc tag @template %%s for interface %s has invalid bound type %%s.', $interfaceName)
+			sprintf('PHPDoc tag @template %%s for interface %s has invalid bound type %%s.', $interfaceName),
+			sprintf('PHPDoc tag @template %%s for interface %s with bound type %%s is not supported.', $interfaceName)
 		);
 	}
 

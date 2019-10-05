@@ -32,6 +32,10 @@ class MethodTemplateTypeRuleTest extends RuleTestCase
 				'PHPDoc tag @template T for method MethodTemplateType\Bar::doFoo() shadows @template T of Exception for class MethodTemplateType\Bar.',
 				37,
 			],
+			[
+				'PHPDoc tag @template T for method MethodTemplateType\Baz::doFoo() with bound type int is not supported.',
+				50,
+			],
 		]);
 	}
 

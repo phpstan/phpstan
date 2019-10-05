@@ -28,6 +28,10 @@ class InterfaceTemplateTypeRuleTest extends RuleTestCase
 				'PHPDoc tag @template T for interface InterfaceTemplateType\Bar has invalid bound type InterfaceTemplateType\Zazzzu.',
 				16,
 			],
+			[
+				'PHPDoc tag @template T for interface InterfaceTemplateType\Baz with bound type int is not supported.',
+				24,
+			],
 		]);
 	}
 

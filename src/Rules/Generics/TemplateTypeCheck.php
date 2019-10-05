@@ -4,6 +4,10 @@ namespace PHPStan\Rules\Generics;
 
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Type\ErrorType;
+use PHPStan\Type\Generic\TemplateTypeFactory;
+use PHPStan\Type\Generic\TemplateTypeScope;
+use PHPStan\Type\VerbosityLevel;
 
 class TemplateTypeCheck
 {
@@ -17,13 +21,16 @@ class TemplateTypeCheck
 	}
 
 	/**
+	 * @param \PHPStan\Type\Generic\TemplateTypeScope $templateTypeScope
 	 * @param array<string, \PHPStan\PhpDoc\Tag\TemplateTag> $templateTags
 	 * @return \PHPStan\Rules\RuleError[]
 	 */
 	public function check(
+		TemplateTypeScope $templateTypeScope,
 		array $templateTags,
 		string $sameTemplateTypeNameAsClassMessage,
-		string $invalidBoundTypeMessage
+		string $invalidBoundTypeMessage,
+		string $notSupportedBoundMessage
 	): array
 	{
 		$messages = [];
@@ -50,6 +57,13 @@ class TemplateTypeCheck
 					$referencedClass
 				))->build();
 			}
+
+			$processedType = TemplateTypeFactory::fromTemplateTag($templateTypeScope, $templateTag);
+			if (!$processedType instanceof ErrorType) {
+				continue;
+			}
+
+			$messages[] = RuleErrorBuilder::message(sprintf($notSupportedBoundMessage, $templateTagName, $boundType->describe(VerbosityLevel::typeOnly())))->build();
 		}
 
 		return $messages;

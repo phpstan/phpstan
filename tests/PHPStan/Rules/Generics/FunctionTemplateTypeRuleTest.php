@@ -28,6 +28,10 @@ class FunctionTemplateTypeRuleTest extends RuleTestCase
 				'PHPDoc tag @template T for function FunctionTemplateType\bar() has invalid bound type FunctionTemplateType\Zazzzu.',
 				16,
 			],
+			[
+				'PHPDoc tag @template T for function FunctionTemplateType\baz() with bound type int is not supported.',
+				24,
+			],
 		]);
 	}
 

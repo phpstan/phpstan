@@ -17,3 +17,11 @@ trait Bar
 {
 
 }
+
+/**
+ * @template T of int
+ */
+trait Baz
+{
+
+}

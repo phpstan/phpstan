@@ -17,3 +17,11 @@ function bar()
 {
 
 }
+
+/**
+ * @template T of int
+ */
+function baz()
+{
+
+}

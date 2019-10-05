@@ -17,3 +17,11 @@ class Bar
 {
 
 }
+
+/**
+ * @template T of int
+ */
+class Baz
+{
+
+}

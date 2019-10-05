@@ -17,3 +17,11 @@ interface Bar
 {
 
 }
+
+/**
+ * @template T of int
+ */
+interface Baz
+{
+
+}

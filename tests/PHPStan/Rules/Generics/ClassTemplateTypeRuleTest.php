@@ -28,6 +28,10 @@ class ClassTemplateTypeRuleTest extends RuleTestCase
 				'PHPDoc tag @template T for class ClassTemplateType\Bar has invalid bound type ClassTemplateType\Zazzzu.',
 				16,
 			],
+			[
+				'PHPDoc tag @template T for class ClassTemplateType\Baz with bound type int is not supported.',
+				24,
+			],
 		]);
 	}
 

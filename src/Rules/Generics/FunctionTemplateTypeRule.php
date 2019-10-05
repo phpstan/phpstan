@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Type\FileTypeMapper;
+use PHPStan\Type\Generic\TemplateTypeScope;
 
 class FunctionTemplateTypeRule implements Rule
 {
@@ -55,9 +56,11 @@ class FunctionTemplateTypeRule implements Rule
 		);
 
 		return $this->templateTypeCheck->check(
+			TemplateTypeScope::createWithFunction($functionName),
 			$resolvedPhpDoc->getTemplateTags(),
 			sprintf('PHPDoc tag @template for function %s() cannot have existing class %%s as its name.', $functionName),
-			sprintf('PHPDoc tag @template %%s for function %s() has invalid bound type %%s.', $functionName)
+			sprintf('PHPDoc tag @template %%s for function %s() has invalid bound type %%s.', $functionName),
+			sprintf('PHPDoc tag @template %%s for function %s() with bound type %%s is not supported.', $functionName)
 		);
 	}
 

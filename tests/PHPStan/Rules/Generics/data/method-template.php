@@ -40,3 +40,16 @@ class Bar
 	}
 
 }
+
+class Baz
+{
+
+	/**
+	 * @template T of int
+	 */
+	public function doFoo()
+	{
+
+	}
+
+}
