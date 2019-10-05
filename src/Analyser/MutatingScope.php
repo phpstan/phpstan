@@ -640,13 +640,6 @@ class MutatingScope implements Scope
 		}
 
 		if ($node instanceof Expr\Instanceof_) {
-			if ($node->class instanceof Node\Name) {
-				$className = $this->resolveName($node->class);
-				$type = new ObjectType($className);
-			} else {
-				$type = $this->getType($node->class);
-			}
-
 			$expressionType = $this->getType($node->expr);
 			if (
 				$this->isInTrait()
@@ -657,13 +650,35 @@ class MutatingScope implements Scope
 			if ($expressionType instanceof NeverType) {
 				return new ConstantBooleanType(false);
 			}
-			$isExpressionObject = (new ObjectWithoutClassType())->isSuperTypeOf($expressionType);
-			if (!$isExpressionObject->no() && !(new StringType())->isSuperTypeOf($type)->no()) {
+
+			if ($node->class instanceof Node\Name) {
+				$className = $this->resolveName($node->class);
+				$classType = new ObjectType($className);
+			} else {
+				$classType = $this->getType($node->class);
+				$classType = TypeTraverser::map($classType, static function (Type $type, callable $traverse): Type {
+					if ($type instanceof UnionType || $type instanceof IntersectionType) {
+						return $traverse($type);
+					}
+					if ($type instanceof TypeWithClassName) {
+						return $type;
+					}
+					if ($type instanceof GenericClassStringType) {
+						return $type->getGenericType();
+					}
+					if ($type instanceof ConstantStringType) {
+						return new ObjectType($type->getValue());
+					}
+					return new MixedType();
+				});
+			}
+
+			if ($classType->isSuperTypeOf(new MixedType())->yes()) {
 				return new BooleanType();
 			}
 
-			$isSuperType = $type->isSuperTypeOf($expressionType)
-				->and($isExpressionObject);
+			$isSuperType = $classType->isSuperTypeOf($expressionType);
+
 			if ($isSuperType->no()) {
 				return new ConstantBooleanType(false);
 			} elseif ($isSuperType->yes()) {

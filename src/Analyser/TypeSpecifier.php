@@ -29,6 +29,7 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\IntegerRangeType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IntersectionType;
@@ -41,7 +42,9 @@ use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
+use PHPStan\Type\TypeTraverser;
 use PHPStan\Type\TypeUtils;
+use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\UnionType;
 
 class TypeSpecifier
@@ -133,6 +136,26 @@ class TypeSpecifier
 				return $this->create($exprNode, $type, $context);
 			}
 
+			$classType = $scope->getType($expr->class);
+			$type = TypeTraverser::map($classType, static function (Type $type, callable $traverse): Type {
+				if ($type instanceof UnionType || $type instanceof IntersectionType) {
+					return $traverse($type);
+				}
+				if ($type instanceof TypeWithClassName) {
+					return $type;
+				}
+				if ($type instanceof GenericClassStringType) {
+					return $type->getGenericType();
+				}
+				if ($type instanceof ConstantStringType) {
+					return new ObjectType($type->getValue());
+				}
+				return new MixedType();
+			});
+
+			if (!$type instanceof MixedType) {
+				return $this->create($exprNode, $type, $context);
+			}
 			if ($context->true()) {
 				return $this->create($exprNode, new ObjectWithoutClassType(), $context);
 			}
