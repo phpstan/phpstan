@@ -14,7 +14,7 @@ class IntegerRangeType extends IntegerType
 	/** @var int */
 	private $max;
 
-	public function __construct(?int $min, ?int $max)
+	private function __construct(?int $min, ?int $max)
 	{
 		assert($min === null || $max === null || $min <= $max);
 
@@ -140,15 +140,7 @@ class IntegerRangeType extends IntegerType
 
 	public function equals(Type $type): bool
 	{
-		if ($type instanceof self) {
-			return $this->min === $type->min && $this->max === $type->max;
-		}
-
-		if ($type instanceof ConstantIntegerType) {
-			return $this->min === $type->getValue() && $this->max === $type->getValue();
-		}
-
-		return false;
+		return $type instanceof self && $this->min === $type->min && $this->max === $type->max;
 	}
 
 

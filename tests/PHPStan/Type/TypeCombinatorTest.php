@@ -1351,19 +1351,43 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IntegerRangeType(1, 3),
-					new IntegerRangeType(2, 5),
+					IntegerRangeType::fromInterval(1, 3),
+					IntegerRangeType::fromInterval(2, 5),
 				],
 				IntegerRangeType::class,
 				'int<1, 5>',
 			],
 			[
 				[
-					new IntegerRangeType(1, 3),
-					new IntegerRangeType(7, 9),
+					IntegerRangeType::fromInterval(1, 3),
+					IntegerRangeType::fromInterval(7, 9),
 				],
 				IntegerRangeType::class,
 				'int<1, 9>',
+			],
+			[
+				[
+					IntegerRangeType::fromInterval(1, 3),
+					new ConstantIntegerType(3),
+				],
+				IntegerRangeType::class,
+				'int<1, 3>',
+			],
+			[
+				[
+					IntegerRangeType::fromInterval(1, 3),
+					new ConstantIntegerType(4),
+				],
+				IntegerRangeType::class,
+				'int<1, 4>',
+			],
+			[
+				[
+					IntegerRangeType::fromInterval(1, 3),
+					new ConstantIntegerType(5),
+				],
+				IntegerRangeType::class,
+				'int<1, 5>',
 			],
 		];
 	}
@@ -2154,31 +2178,31 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IntegerRangeType(1, 3),
-					new IntegerRangeType(2, 5),
+					IntegerRangeType::fromInterval(1, 3),
+					IntegerRangeType::fromInterval(2, 5),
 				],
 				IntegerRangeType::class,
 				'int<2, 3>',
 			],
 			[
 				[
-					new IntegerRangeType(1, 3),
-					new IntegerRangeType(3, 5),
+					IntegerRangeType::fromInterval(1, 3),
+					IntegerRangeType::fromInterval(3, 5),
 				],
 				ConstantIntegerType::class,
 				'3',
 			],
 			[
 				[
-					new IntegerRangeType(1, 3),
-					new IntegerRangeType(7, 9),
+					IntegerRangeType::fromInterval(1, 3),
+					IntegerRangeType::fromInterval(7, 9),
 				],
 				NeverType::class,
 				'*NEVER*',
 			],
 			[
 				[
-					new IntegerRangeType(1, 3),
+					IntegerRangeType::fromInterval(1, 3),
 					new ConstantIntegerType(3),
 				],
 				ConstantIntegerType::class,
@@ -2186,7 +2210,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IntegerRangeType(1, 3),
+					IntegerRangeType::fromInterval(1, 3),
 					new ConstantIntegerType(4),
 				],
 				NeverType::class,
@@ -2194,7 +2218,7 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
-					new IntegerRangeType(1, 3),
+					IntegerRangeType::fromInterval(1, 3),
 					new IntegerType(),
 				],
 				IntegerRangeType::class,
@@ -2533,32 +2557,32 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				'Exception~InvalidArgumentException',
 			],
 			[
-				new IntegerRangeType(3, 7),
-				new IntegerRangeType(2, 4),
+				IntegerRangeType::fromInterval(3, 7),
+				IntegerRangeType::fromInterval(2, 4),
 				IntegerRangeType::class,
 				'int<5, 7>',
 			],
 			[
-				new IntegerRangeType(3, 7),
-				new IntegerRangeType(3, 4),
+				IntegerRangeType::fromInterval(3, 7),
+				IntegerRangeType::fromInterval(3, 4),
 				IntegerRangeType::class,
 				'int<5, 7>',
 			],
 			[
-				new IntegerRangeType(3, 7),
-				new IntegerRangeType(5, 7),
+				IntegerRangeType::fromInterval(3, 7),
+				IntegerRangeType::fromInterval(5, 7),
 				IntegerRangeType::class,
 				'int<3, 4>',
 			],
 			[
-				new IntegerRangeType(3, 7),
+				IntegerRangeType::fromInterval(3, 7),
 				new ConstantIntegerType(3),
 				IntegerRangeType::class,
 				'int<4, 7>',
 			],
 			[
 				new IntegerType(),
-				new IntegerRangeType(null, 7),
+				IntegerRangeType::fromInterval(null, 7),
 				IntegerRangeType::class,
 				'int<8, max>',
 			],

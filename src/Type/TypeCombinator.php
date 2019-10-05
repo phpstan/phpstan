@@ -60,36 +60,32 @@ class TypeCombinator
 			if ($typeToRemove->isSuperTypeOf($traversableType)->yes()) {
 				return $arrayType;
 			}
-		} elseif ($fromType instanceof IntegerRangeType) {
+		} elseif ($fromType instanceof IntegerRangeType || $fromType instanceof IntegerType) {
+			$minA = $fromType instanceof IntegerRangeType ? $fromType->getMin() : PHP_INT_MIN;
+			$maxA = $fromType instanceof IntegerRangeType ? $fromType->getMax() : PHP_INT_MAX;
+
 			if ($typeToRemove instanceof IntegerRangeType) {
-				if ($typeToRemove->getMax() >= $fromType->getMax()) {
+				if ($typeToRemove->getMax() >= $maxA) {
 					return IntegerRangeType::fromInterval(
-						$fromType->getMin(),
+						$minA,
 						$typeToRemove->getMin() - 1
 					);
 				}
 
-				if ($typeToRemove->getMin() <= $fromType->getMin()) {
+				if ($typeToRemove->getMin() <= $minA) {
 					return IntegerRangeType::fromInterval(
 						$typeToRemove->getMax() + 1,
-						$fromType->getMax()
+						$maxA
 					);
 				}
 			} elseif ($typeToRemove instanceof ConstantIntegerType) {
-				if ($typeToRemove->getValue() === $fromType->getMin()) {
-					return IntegerRangeType::fromInterval($fromType->getMin() + 1, $fromType->getMax());
+				if ($typeToRemove->getValue() === $minA) {
+					return IntegerRangeType::fromInterval($minA + 1, $maxA);
 				}
 
-				if ($typeToRemove->getValue() === $fromType->getMax()) {
-					return IntegerRangeType::fromInterval($fromType->getMin(), $fromType->getMax() - 1);
+				if ($typeToRemove->getValue() === $maxA) {
+					return IntegerRangeType::fromInterval($minA, $maxA - 1);
 				}
-			}
-		} elseif ($fromType instanceof IntegerType) {
-			if ($typeToRemove instanceof IntegerRangeType) {
-				return self::remove(
-					new IntegerRangeType(null, null),
-					$typeToRemove
-				);
 			}
 		} elseif ($fromType->isArray()->yes()) {
 			if ($typeToRemove instanceof ConstantArrayType && $typeToRemove->isIterableAtLeastOnce()->no()) {
@@ -171,7 +167,7 @@ class TypeCombinator
 			if ($types[$i] instanceof FloatType) {
 				$hasGenericScalarTypes[ConstantFloatType::class] = true;
 			}
-			if ($types[$i] instanceof IntegerType) {
+			if ($types[$i] instanceof IntegerType && !$types[$i] instanceof IntegerRangeType) {
 				$hasGenericScalarTypes[ConstantIntegerType::class] = true;
 			}
 			if ($types[$i] instanceof StringType && !$types[$i] instanceof ClassStringType) {
@@ -235,13 +231,6 @@ class TypeCombinator
 					array_splice($types, $j, 1);
 					continue 2;
 				}
-
-				if ($types[$i] instanceof IntegerRangeType && $types[$j] instanceof IntegerRangeType) {
-					return IntegerRangeType::fromInterval(
-						min($types[$i]->getMin(), $types[$j]->getMin()),
-						max($types[$i]->getMax(), $types[$j]->getMax())
-					);
-				}
 			}
 		}
 
@@ -266,6 +255,26 @@ class TypeCombinator
 		// transform A | never to A
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
+				if ($types[$i] instanceof IntegerRangeType) {
+					if ($types[$j] instanceof IntegerRangeType) {
+						$types[$i] = IntegerRangeType::fromInterval(
+							min($types[$i]->getMin(), $types[$j]->getMin()),
+							max($types[$i]->getMax(), $types[$j]->getMax())
+						);
+						array_splice($types, $j, 1);
+						continue 2;
+					}
+
+					if ($types[$j] instanceof ConstantIntegerType) {
+						$types[$i] = IntegerRangeType::fromInterval(
+							min($types[$i]->getMin(), $types[$j]->getValue()),
+							max($types[$i]->getMax(), $types[$j]->getValue())
+						);
+						array_splice($types, $j, 1);
+						continue 2;
+					}
+				}
+
 				if (
 					$types[$i] instanceof SubtractableType
 					&& $types[$i]->getTypeWithoutSubtractedType()->isSuperTypeOf($types[$j])->yes()

@@ -7466,7 +7466,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				"'end'",
 			],
 			[
-				'int',
+				'int<min, 10>',
 				'$i',
 				"'afterLoop'",
 			],
