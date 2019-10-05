@@ -49,6 +49,21 @@ final class GenericObjectType extends ObjectType
 		);
 	}
 
+	/**
+	 * @return string[]
+	 */
+	public function getReferencedClasses(): array
+	{
+		$classes = parent::getReferencedClasses();
+		foreach ($this->types as $type) {
+			foreach ($type->getReferencedClasses() as $referencedClass) {
+				$classes[] = $referencedClass;
+			}
+		}
+
+		return $classes;
+	}
+
 	/** @return Type[] */
 	public function getTypes(): array
 	{

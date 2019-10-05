@@ -29,6 +29,9 @@ class Foo
 	/** @var \Datetime */
 	private $datetime;
 
+	/** @var \InvalidPhpDocDefinitions\FooGeneric<Foooo, Barrrr> */
+	private $nonexistentClassInGenericObjectType;
+
 }
 
 trait SomeTrait
