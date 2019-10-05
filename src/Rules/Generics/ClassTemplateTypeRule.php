@@ -49,10 +49,6 @@ class ClassTemplateTypeRule implements Rule
 		}
 
 		$className = (string) $node->namespacedName;
-		if (!$this->broker->hasClass($className)) {
-			return [];
-		}
-
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 			$scope->getFile(),
 			$className,
