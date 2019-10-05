@@ -13,6 +13,7 @@ rules:
 	- PHPStan\Rules\Cast\PrintRule
 	- PHPStan\Rules\Functions\IncompatibleDefaultParameterTypeRule
 	- PHPStan\Rules\Functions\TemplateTypeDeclarationRule
+	- PHPStan\Rules\Generics\ClassAncestorsRule
 	- PHPStan\Rules\Generics\ClassTemplateTypeRule
 	- PHPStan\Rules\Generics\FunctionTemplateTypeRule
 	- PHPStan\Rules\Generics\InterfaceTemplateTypeRule
