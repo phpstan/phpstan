@@ -20,4 +20,7 @@ class FooWithProperty
 	/** @var class-string<stdClass> */
 	private $classStringValid;
 
+	/** @var array{\InvalidPhpDocDefinitions\Foo<\stdClass>} */
+	private $fooGeneric;
+
 }

@@ -5,6 +5,7 @@ namespace PHPStan\Rules\PhpDoc;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\Generics\GenericObjectTypeCheck;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\ErrorType;
@@ -20,9 +21,16 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 	/** @var FileTypeMapper */
 	private $fileTypeMapper;
 
-	public function __construct(FileTypeMapper $fileTypeMapper)
+	/** @var \PHPStan\Rules\Generics\GenericObjectTypeCheck */
+	private $genericObjectTypeCheck;
+
+	public function __construct(
+		FileTypeMapper $fileTypeMapper,
+		GenericObjectTypeCheck $genericObjectTypeCheck
+	)
 	{
 		$this->fileTypeMapper = $fileTypeMapper;
+		$this->genericObjectTypeCheck = $genericObjectTypeCheck;
 	}
 
 	public function getNodeType(): string
@@ -74,6 +82,14 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 				$nativeParamType = $nativeParameterTypes[$parameterName];
 				$isParamSuperType = $nativeParamType->isSuperTypeOf(TemplateTypeHelper::resolveToBounds($phpDocParamType));
 
+				$errors = array_merge($errors, $this->genericObjectTypeCheck->check(
+					$phpDocParamType,
+					sprintf(
+						'PHPDoc tag @param for parameter $%s contains generic type %%s but class %%s is not generic.',
+						$parameterName
+					)
+				));
+
 				if (
 					$phpDocParamTag->isVariadic()
 					&& $nativeParamType instanceof ArrayType
@@ -112,6 +128,10 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 
 			} else {
 				$isReturnSuperType = $nativeReturnType->isSuperTypeOf($phpDocReturnType);
+				$errors = array_merge($errors, $this->genericObjectTypeCheck->check(
+					$phpDocReturnType,
+					'PHPDoc tag @return contains generic type %s but class %s is not generic.'
+				));
 				if ($isReturnSuperType->no()) {
 					$errors[] = RuleErrorBuilder::message(sprintf(
 						'PHPDoc tag @return with type %s is incompatible with native type %s.',

@@ -3,6 +3,7 @@
 namespace PHPStan\Rules\PhpDoc;
 
 use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\Generics\GenericObjectTypeCheck;
 use PHPStan\Rules\Rule;
 use PHPStan\Testing\RuleTestCase;
 use PHPStan\Type\FileTypeMapper;
@@ -17,6 +18,7 @@ class InvalidPhpDocVarTagTypeRuleTest extends RuleTestCase
 			self::getContainer()->getByType(FileTypeMapper::class),
 			$broker,
 			new ClassCaseSensitivityCheck($broker),
+			new GenericObjectTypeCheck(),
 			true
 		);
 	}
@@ -51,6 +53,10 @@ class InvalidPhpDocVarTagTypeRuleTest extends RuleTestCase
 			[
 				'PHPDoc tag @var for variable $test has invalid type InvalidVarTagType\FooTrait.',
 				34,
+			],
+			[
+				'PHPDoc tag @var for variable $test contains generic type InvalidPhpDoc\Foo<stdClass> but class InvalidPhpDoc\Foo is not generic.',
+				40,
 			],
 		]);
 	}

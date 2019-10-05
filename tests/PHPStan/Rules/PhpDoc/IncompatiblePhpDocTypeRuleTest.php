@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules\PhpDoc;
 
+use PHPStan\Rules\Generics\GenericObjectTypeCheck;
 use PHPStan\Type\FileTypeMapper;
 
 class IncompatiblePhpDocTypeRuleTest extends \PHPStan\Testing\RuleTestCase
@@ -10,7 +11,8 @@ class IncompatiblePhpDocTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
 		return new IncompatiblePhpDocTypeRule(
-			self::getContainer()->getByType(FileTypeMapper::class)
+			self::getContainer()->getByType(FileTypeMapper::class),
+			new GenericObjectTypeCheck()
 		);
 	}
 
@@ -76,6 +78,14 @@ class IncompatiblePhpDocTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'PHPDoc tag @return with type DateTimeInterface is not subtype of native type DateTime.',
 				154,
+			],
+			[
+				'PHPDoc tag @param for parameter $foo contains generic type InvalidPhpDocDefinitions\Foo<stdClass> but class InvalidPhpDocDefinitions\Foo is not generic.',
+				180,
+			],
+			[
+				'PHPDoc tag @return contains generic type InvalidPhpDocDefinitions\Foo<stdClass> but class InvalidPhpDocDefinitions\Foo is not generic.',
+				180,
 			],
 		]);
 	}

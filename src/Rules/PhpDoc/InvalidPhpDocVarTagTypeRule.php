@@ -7,6 +7,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\ClassNameNodePair;
+use PHPStan\Rules\Generics\GenericObjectTypeCheck;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ErrorType;
@@ -26,6 +27,9 @@ class InvalidPhpDocVarTagTypeRule implements Rule
 	/** @var \PHPStan\Rules\ClassCaseSensitivityCheck */
 	private $classCaseSensitivityCheck;
 
+	/** @var \PHPStan\Rules\Generics\GenericObjectTypeCheck */
+	private $genericObjectTypeCheck;
+
 	/** @var bool */
 	private $checkClassCaseSensitivity;
 
@@ -33,12 +37,14 @@ class InvalidPhpDocVarTagTypeRule implements Rule
 		FileTypeMapper $fileTypeMapper,
 		Broker $broker,
 		ClassCaseSensitivityCheck $classCaseSensitivityCheck,
+		GenericObjectTypeCheck $genericObjectTypeCheck,
 		bool $checkClassCaseSensitivity
 	)
 	{
 		$this->fileTypeMapper = $fileTypeMapper;
 		$this->broker = $broker;
 		$this->classCaseSensitivityCheck = $classCaseSensitivityCheck;
+		$this->genericObjectTypeCheck = $genericObjectTypeCheck;
 		$this->checkClassCaseSensitivity = $checkClassCaseSensitivity;
 	}
 
@@ -89,6 +95,11 @@ class InvalidPhpDocVarTagTypeRule implements Rule
 				$errors[] = RuleErrorBuilder::message(sprintf('%s contains unresolvable type.', $identifier))->line($docComment->getLine())->build();
 				continue;
 			}
+
+			$errors = array_merge($errors, $this->genericObjectTypeCheck->check(
+				$varTagType,
+				sprintf('%s contains generic type %%s but class %%s is not generic.', $identifier)
+			));
 
 			$referencedClasses = $varTagType->getReferencedClasses();
 			foreach ($referencedClasses as $referencedClass) {

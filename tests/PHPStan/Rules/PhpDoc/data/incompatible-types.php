@@ -172,3 +172,12 @@ function explicitNever($foo)
 {
 	throw new \Exception();
 }
+
+/**
+ * @param \InvalidPhpDocDefinitions\Foo<\stdClass> $foo
+ * @return \InvalidPhpDocDefinitions\Foo<\stdClass>
+ */
+function generics($foo)
+{
+
+}

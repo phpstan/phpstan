@@ -173,7 +173,11 @@ class ClassReflection implements ReflectionWithFilename
 	{
 		$name = $this->displayName;
 
-		if ($withTemplateTypes === false || $this->resolvedTemplateTypeMap === null) {
+		if (
+			$withTemplateTypes === false
+			|| $this->resolvedTemplateTypeMap === null
+			|| count($this->resolvedTemplateTypeMap->getTypes()) === 0
+		) {
 			return $name;
 		}
 

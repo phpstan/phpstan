@@ -338,6 +338,9 @@ services:
 		class: PHPStan\Rules\FunctionReturnTypeCheck
 
 	-
+		class: PHPStan\Rules\Generics\GenericObjectTypeCheck
+
+	-
 		class: PHPStan\Rules\Properties\PropertyDescriptor
 
 	-

@@ -35,6 +35,9 @@ class Foo
 
 		/** @var never $test */
 		$test = doFoo();
+
+		/** @var \InvalidPhpDoc\Foo<\stdClass> $test */
+		$test = doFoo();
 	}
 
 }

@@ -4,6 +4,7 @@ namespace PHPStan\Rules\PhpDoc;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\Generics\GenericObjectTypeCheck;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ErrorType;
@@ -12,6 +13,14 @@ use PHPStan\Type\VerbosityLevel;
 
 class IncompatiblePropertyPhpDocTypeRule implements Rule
 {
+
+	/** @var \PHPStan\Rules\Generics\GenericObjectTypeCheck */
+	private $genericObjectTypeCheck;
+
+	public function __construct(GenericObjectTypeCheck $genericObjectTypeCheck)
+	{
+		$this->genericObjectTypeCheck = $genericObjectTypeCheck;
+	}
 
 	public function getNodeType(): string
 	{
@@ -70,6 +79,15 @@ class IncompatiblePropertyPhpDocTypeRule implements Rule
 				$nativeType->describe(VerbosityLevel::typeOnly())
 			))->build();
 		}
+
+		$messages = array_merge($messages, $this->genericObjectTypeCheck->check(
+			$phpDocType,
+			sprintf(
+				'PHPDoc tag @var for property %s::$%s contains generic type %%s but class %%s is not generic.',
+				$propertyReflection->getDeclaringClass()->getDisplayName(),
+				$propertyName
+			)
+		));
 
 		return $messages;
 	}

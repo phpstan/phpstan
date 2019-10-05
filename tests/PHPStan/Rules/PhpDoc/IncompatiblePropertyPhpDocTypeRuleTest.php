@@ -2,6 +2,7 @@
 
 namespace PHPStan\Rules\PhpDoc;
 
+use PHPStan\Rules\Generics\GenericObjectTypeCheck;
 use PHPStan\Rules\Rule;
 
 class IncompatiblePropertyPhpDocTypeRuleTest extends \PHPStan\Testing\RuleTestCase
@@ -9,7 +10,7 @@ class IncompatiblePropertyPhpDocTypeRuleTest extends \PHPStan\Testing\RuleTestCa
 
 	protected function getRule(): Rule
 	{
-		return new IncompatiblePropertyPhpDocTypeRule();
+		return new IncompatiblePropertyPhpDocTypeRule(new GenericObjectTypeCheck());
 	}
 
 	public function testRule(): void
@@ -22,6 +23,10 @@ class IncompatiblePropertyPhpDocTypeRuleTest extends \PHPStan\Testing\RuleTestCa
 			[
 				'PHPDoc tag @var for property InvalidPhpDoc\FooWithProperty::$classStringInt contains unresolvable type.',
 				18,
+			],
+			[
+				'PHPDoc tag @var for property InvalidPhpDoc\FooWithProperty::$fooGeneric contains generic type InvalidPhpDocDefinitions\Foo<stdClass> but class InvalidPhpDocDefinitions\Foo is not generic.',
+				24,
 			],
 		]);
 	}
