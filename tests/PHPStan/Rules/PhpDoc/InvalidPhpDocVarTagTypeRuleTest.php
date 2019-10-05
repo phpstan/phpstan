@@ -58,6 +58,22 @@ class InvalidPhpDocVarTagTypeRuleTest extends RuleTestCase
 				'PHPDoc tag @var for variable $test contains generic type InvalidPhpDoc\Foo<stdClass> but class InvalidPhpDoc\Foo is not generic.',
 				40,
 			],
+			[
+				'Generic type InvalidPhpDocDefinitions\FooGeneric<int> in PHPDoc tag @var for variable $test does not specify all template types of class InvalidPhpDocDefinitions\FooGeneric: T, U',
+				46,
+			],
+			[
+				'Generic type InvalidPhpDocDefinitions\FooGeneric<int, InvalidArgumentException, string> in PHPDoc tag @var for variable $test specifies 3 template types, but class InvalidPhpDocDefinitions\FooGeneric supports only 2: T, U',
+				49,
+			],
+			[
+				'Type Throwable in generic type InvalidPhpDocDefinitions\FooGeneric<int, Throwable> in PHPDoc tag @var for variable $test is not subtype of template type U of Exception of class InvalidPhpDocDefinitions\FooGeneric.',
+				52,
+			],
+			[
+				'Type stdClass in generic type InvalidPhpDocDefinitions\FooGeneric<int, stdClass> in PHPDoc tag @var for variable $test is not subtype of template type U of Exception of class InvalidPhpDocDefinitions\FooGeneric.',
+				55,
+			],
 		]);
 	}
 

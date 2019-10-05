@@ -98,7 +98,10 @@ class InvalidPhpDocVarTagTypeRule implements Rule
 
 			$errors = array_merge($errors, $this->genericObjectTypeCheck->check(
 				$varTagType,
-				sprintf('%s contains generic type %%s but class %%s is not generic.', $identifier)
+				sprintf('%s contains generic type %%s but class %%s is not generic.', $identifier),
+				sprintf('Generic type %%s in %s does not specify all template types of class %%s: %%s', $identifier),
+				sprintf('Generic type %%s in %s specifies %%d template types, but class %%s supports only %%d: %%s', $identifier),
+				sprintf('Type %%s in generic type %%s in %s is not subtype of template type %%s of class %%s.', $identifier)
 			));
 
 			$referencedClasses = $varTagType->getReferencedClasses();

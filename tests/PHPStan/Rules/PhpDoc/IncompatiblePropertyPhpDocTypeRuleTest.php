@@ -28,6 +28,22 @@ class IncompatiblePropertyPhpDocTypeRuleTest extends \PHPStan\Testing\RuleTestCa
 				'PHPDoc tag @var for property InvalidPhpDoc\FooWithProperty::$fooGeneric contains generic type InvalidPhpDocDefinitions\Foo<stdClass> but class InvalidPhpDocDefinitions\Foo is not generic.',
 				24,
 			],
+			[
+				'Generic type InvalidPhpDocDefinitions\FooGeneric<int> in PHPDoc tag @var for property InvalidPhpDoc\FooWithProperty::$notEnoughTypesGenericfoo does not specify all template types of class InvalidPhpDocDefinitions\FooGeneric: T, U',
+				30,
+			],
+			[
+				'Generic type InvalidPhpDocDefinitions\FooGeneric<int, InvalidArgumentException, string> in PHPDoc tag @var for property InvalidPhpDoc\FooWithProperty::$tooManyTypesGenericfoo specifies 3 template types, but class InvalidPhpDocDefinitions\FooGeneric supports only 2: T, U',
+				33,
+			],
+			[
+				'Type Throwable in generic type InvalidPhpDocDefinitions\FooGeneric<int, Throwable> in PHPDoc tag @var for property InvalidPhpDoc\FooWithProperty::$invalidTypeGenericfoo is not subtype of template type U of Exception of class InvalidPhpDocDefinitions\FooGeneric.',
+				36,
+			],
+			[
+				'Type stdClass in generic type InvalidPhpDocDefinitions\FooGeneric<int, stdClass> in PHPDoc tag @var for property InvalidPhpDoc\FooWithProperty::$anotherInvalidTypeGenericfoo is not subtype of template type U of Exception of class InvalidPhpDocDefinitions\FooGeneric.',
+				39,
+			],
 		]);
 	}
 

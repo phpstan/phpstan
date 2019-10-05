@@ -23,4 +23,19 @@ class FooWithProperty
 	/** @var array{\InvalidPhpDocDefinitions\Foo<\stdClass>} */
 	private $fooGeneric;
 
+	/** @var \InvalidPhpDocDefinitions\FooGeneric<int, \InvalidArgumentException> */
+	private $validGenericFoo;
+
+	/** @var \InvalidPhpDocDefinitions\FooGeneric<int> */
+	private $notEnoughTypesGenericfoo;
+
+	/** @var \InvalidPhpDocDefinitions\FooGeneric<int, \InvalidArgumentException, string> */
+	private $tooManyTypesGenericfoo;
+
+	/** @var \InvalidPhpDocDefinitions\FooGeneric<int, \Throwable> */
+	private $invalidTypeGenericfoo;
+
+	/** @var \InvalidPhpDocDefinitions\FooGeneric<int, \stdClass> */
+	private $anotherInvalidTypeGenericfoo;
+
 }

@@ -86,6 +86,21 @@ class IncompatiblePropertyPhpDocTypeRule implements Rule
 				'PHPDoc tag @var for property %s::$%s contains generic type %%s but class %%s is not generic.',
 				$propertyReflection->getDeclaringClass()->getDisplayName(),
 				$propertyName
+			),
+			sprintf(
+				'Generic type %%s in PHPDoc tag @var for property %s::$%s does not specify all template types of class %%s: %%s',
+				$propertyReflection->getDeclaringClass()->getDisplayName(),
+				$propertyName
+			),
+			sprintf(
+				'Generic type %%s in PHPDoc tag @var for property %s::$%s specifies %%d template types, but class %%s supports only %%d: %%s',
+				$propertyReflection->getDeclaringClass()->getDisplayName(),
+				$propertyName
+			),
+			sprintf(
+				'Type %%s in generic type %%s in PHPDoc tag @var for property %s::$%s is not subtype of template type %%s of class %%s.',
+				$propertyReflection->getDeclaringClass()->getDisplayName(),
+				$propertyName
 			)
 		));
 

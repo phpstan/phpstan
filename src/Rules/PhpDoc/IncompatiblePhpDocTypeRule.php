@@ -87,6 +87,18 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 					sprintf(
 						'PHPDoc tag @param for parameter $%s contains generic type %%s but class %%s is not generic.',
 						$parameterName
+					),
+					sprintf(
+						'Generic type %%s in PHPDoc tag @param for parameter $%s does not specify all template types of class %%s: %%s',
+						$parameterName
+					),
+					sprintf(
+						'Generic type %%s in PHPDoc tag @param for parameter $%s specifies %%d template types, but class %%s supports only %%d: %%s',
+						$parameterName
+					),
+					sprintf(
+						'Type %%s in generic type %%s in PHPDoc tag @param for parameter $%s is not subtype of template type %%s of class %%s.',
+						$parameterName
 					)
 				));
 
@@ -130,7 +142,10 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 				$isReturnSuperType = $nativeReturnType->isSuperTypeOf($phpDocReturnType);
 				$errors = array_merge($errors, $this->genericObjectTypeCheck->check(
 					$phpDocReturnType,
-					'PHPDoc tag @return contains generic type %s but class %s is not generic.'
+					'PHPDoc tag @return contains generic type %s but class %s is not generic.',
+					'Generic type %s in PHPDoc tag @return does not specify all template types of class %s: %s',
+					'Generic type %s in PHPDoc tag @return specifies %d template types, but class %s supports only %d: %s',
+					'Type %s in generic type %s in PHPDoc tag @return is not subtype of template type %s of class %s.'
 				));
 				if ($isReturnSuperType->no()) {
 					$errors[] = RuleErrorBuilder::message(sprintf(

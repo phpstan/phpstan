@@ -175,9 +175,54 @@ function explicitNever($foo)
 
 /**
  * @param \InvalidPhpDocDefinitions\Foo<\stdClass> $foo
+ * @param \InvalidPhpDocDefinitions\FooGeneric<int, \InvalidArgumentException> $bar
+ * @param \InvalidPhpDocDefinitions\FooGeneric<int> $baz
+ * @param \InvalidPhpDocDefinitions\FooGeneric<int, \InvalidArgumentException, string> $lorem
+ * @param \InvalidPhpDocDefinitions\FooGeneric<int, \Throwable> $ipsum
+ * @param \InvalidPhpDocDefinitions\FooGeneric<int, \stdClass> $dolor
  * @return \InvalidPhpDocDefinitions\Foo<\stdClass>
  */
-function generics($foo)
+function generics($foo, $bar, $baz, $lorem, $ipsum, $dolor)
+{
+
+}
+
+/**
+ * @return \InvalidPhpDocDefinitions\FooGeneric<int, \InvalidArgumentException>
+ */
+function genericsBar()
+{
+
+}
+
+/**
+ * @return \InvalidPhpDocDefinitions\FooGeneric<int>
+ */
+function genericsBaz()
+{
+
+}
+
+/**
+ * @return \InvalidPhpDocDefinitions\FooGeneric<int, \InvalidArgumentException, string>
+ */
+function genericsLorem()
+{
+
+}
+
+/**
+ * @return \InvalidPhpDocDefinitions\FooGeneric<int, \Throwable>
+ */
+function genericsIpsum()
+{
+
+}
+
+/**
+ * @return \InvalidPhpDocDefinitions\FooGeneric<int, \stdClass>
+ */
+function genericsDolor()
 {
 
 }

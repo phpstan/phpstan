@@ -38,6 +38,21 @@ class Foo
 
 		/** @var \InvalidPhpDoc\Foo<\stdClass> $test */
 		$test = doFoo();
+
+		/** @var \InvalidPhpDocDefinitions\FooGeneric<int, \InvalidArgumentException> $test */
+		$test = doFoo();
+
+		/** @var \InvalidPhpDocDefinitions\FooGeneric<int> $test */
+		$test = doFoo();
+
+		/** @var \InvalidPhpDocDefinitions\FooGeneric<int, \InvalidArgumentException, string> $test */
+		$test = doFoo();
+
+		/** @var \InvalidPhpDocDefinitions\FooGeneric<int, \Throwable> $test */
+		$test = doFoo();
+
+		/** @var \InvalidPhpDocDefinitions\FooGeneric<int, \stdClass> $test */
+		$test = doFoo();
 	}
 
 }

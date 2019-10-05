@@ -81,11 +81,43 @@ class IncompatiblePhpDocTypeRuleTest extends \PHPStan\Testing\RuleTestCase
 			],
 			[
 				'PHPDoc tag @param for parameter $foo contains generic type InvalidPhpDocDefinitions\Foo<stdClass> but class InvalidPhpDocDefinitions\Foo is not generic.',
-				180,
+				185,
+			],
+			[
+				'Generic type InvalidPhpDocDefinitions\FooGeneric<int> in PHPDoc tag @param for parameter $baz does not specify all template types of class InvalidPhpDocDefinitions\FooGeneric: T, U',
+				185,
+			],
+			[
+				'Generic type InvalidPhpDocDefinitions\FooGeneric<int, InvalidArgumentException, string> in PHPDoc tag @param for parameter $lorem specifies 3 template types, but class InvalidPhpDocDefinitions\FooGeneric supports only 2: T, U',
+				185,
+			],
+			[
+				'Type Throwable in generic type InvalidPhpDocDefinitions\FooGeneric<int, Throwable> in PHPDoc tag @param for parameter $ipsum is not subtype of template type U of Exception of class InvalidPhpDocDefinitions\FooGeneric.',
+				185,
+			],
+			[
+				'Type stdClass in generic type InvalidPhpDocDefinitions\FooGeneric<int, stdClass> in PHPDoc tag @param for parameter $dolor is not subtype of template type U of Exception of class InvalidPhpDocDefinitions\FooGeneric.',
+				185,
 			],
 			[
 				'PHPDoc tag @return contains generic type InvalidPhpDocDefinitions\Foo<stdClass> but class InvalidPhpDocDefinitions\Foo is not generic.',
-				180,
+				185,
+			],
+			[
+				'Generic type InvalidPhpDocDefinitions\FooGeneric<int> in PHPDoc tag @return does not specify all template types of class InvalidPhpDocDefinitions\FooGeneric: T, U',
+				201,
+			],
+			[
+				'Generic type InvalidPhpDocDefinitions\FooGeneric<int, InvalidArgumentException, string> in PHPDoc tag @return specifies 3 template types, but class InvalidPhpDocDefinitions\FooGeneric supports only 2: T, U',
+				209,
+			],
+			[
+				'Type Throwable in generic type InvalidPhpDocDefinitions\FooGeneric<int, Throwable> in PHPDoc tag @return is not subtype of template type U of Exception of class InvalidPhpDocDefinitions\FooGeneric.',
+				217,
+			],
+			[
+				'Type stdClass in generic type InvalidPhpDocDefinitions\FooGeneric<int, stdClass> in PHPDoc tag @return is not subtype of template type U of Exception of class InvalidPhpDocDefinitions\FooGeneric.',
+				225,
 			],
 		]);
 	}
