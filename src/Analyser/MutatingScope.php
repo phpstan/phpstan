@@ -1214,7 +1214,11 @@ class MutatingScope implements Scope
 				}
 				return TypeCombinator::union(...$newTypes);
 			} elseif ($varType instanceof IntegerRangeType) {
-				return $varType->generalize();
+				$shift = $node instanceof Expr\PreInc ? +1 : -1;
+				return IntegerRangeType::fromInterval(
+					$varType->getMin() === PHP_INT_MIN ? PHP_INT_MIN : $varType->getMin() + $shift,
+					$varType->getMax() === PHP_INT_MAX ? PHP_INT_MAX : $varType->getMax() + $shift
+				);
 			}
 
 			$stringType = new StringType();

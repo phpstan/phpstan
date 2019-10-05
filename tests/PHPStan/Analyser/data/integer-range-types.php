@@ -9,7 +9,7 @@ function (int $i) {
 		assertType('int<min, 2>', $i);
 
 		$i++;
-		assertType('int', $i);
+		assertType('int<min, 3>', $i);
 	} else {
 		assertType('int<3, max>', $i);
 	}
@@ -18,7 +18,7 @@ function (int $i) {
 		assertType('int<min, 2>', $i);
 
 		$i--;
-		assertType('int', $i);
+		assertType('int<min, 1>', $i);
 	}
 
 	if ($i < 3 && $i > 5) {
