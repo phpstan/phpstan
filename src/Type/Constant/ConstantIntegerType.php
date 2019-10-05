@@ -2,7 +2,10 @@
 
 namespace PHPStan\Type\Constant;
 
+use PHPStan\TrinaryLogic;
+use PHPStan\Type\CompoundType;
 use PHPStan\Type\ConstantScalarType;
+use PHPStan\Type\IntegerRangeType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\Traits\ConstantScalarTypeTrait;
 use PHPStan\Type\Type;
@@ -25,6 +28,32 @@ class ConstantIntegerType extends IntegerType implements ConstantScalarType
 	public function getValue(): int
 	{
 		return $this->value;
+	}
+
+
+	public function isSuperTypeOf(Type $type): TrinaryLogic
+	{
+		if ($type instanceof self) {
+			return $this->value === $type->value ? TrinaryLogic::createYes() : TrinaryLogic::createNo();
+		}
+
+		if ($type instanceof IntegerRangeType) {
+			if ($type->getMin() <= $this->value && $this->value <= $type->getMax()) {
+				return TrinaryLogic::createMaybe();
+			}
+
+			return TrinaryLogic::createNo();
+		}
+
+		if ($type instanceof parent) {
+			return TrinaryLogic::createMaybe();
+		}
+
+		if ($type instanceof CompoundType) {
+			return $type->isSubTypeOf($this);
+		}
+
+		return TrinaryLogic::createNo();
 	}
 
 	public function describe(VerbosityLevel $level): string

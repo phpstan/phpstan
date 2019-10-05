@@ -60,6 +60,7 @@ use PHPStan\Type\Generic\GenericClassStringType;
 use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\Generic\TemplateTypeMap;
+use PHPStan\Type\IntegerRangeType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\IterableType;
@@ -1212,6 +1213,8 @@ class MutatingScope implements Scope
 					$newTypes[] = $this->getTypeFromValue($varValue);
 				}
 				return TypeCombinator::union(...$newTypes);
+			} elseif ($varType instanceof IntegerRangeType) {
+				return $varType->generalize();
 			}
 
 			$stringType = new StringType();
