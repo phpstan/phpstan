@@ -385,7 +385,49 @@ class MutatingScope implements Scope
 			|| $node instanceof Expr\BinaryOp\GreaterOrEqual
 			|| $node instanceof Expr\BinaryOp\Smaller
 			|| $node instanceof Expr\BinaryOp\SmallerOrEqual
-			|| $node instanceof Expr\BinaryOp\Equal
+		) {
+			$leftType = $this->getType($node->left);
+			$rightType = $this->getType($node->right);
+
+			if ($rightType instanceof ConstantIntegerType) {
+				$rightValue = $rightType->getValue();
+
+				if ($node instanceof Expr\BinaryOp\Greater) {
+					$rightIntervalType = IntegerRangeType::fromInterval($rightValue + 1, null);
+				} elseif ($node instanceof Expr\BinaryOp\GreaterOrEqual) {
+					$rightIntervalType = IntegerRangeType::fromInterval($rightValue, null);
+				} elseif ($node instanceof Expr\BinaryOp\Smaller) {
+					$rightIntervalType = IntegerRangeType::fromInterval(null, $rightValue - 1);
+				} elseif ($node instanceof Expr\BinaryOp\SmallerOrEqual) {
+					$rightIntervalType = IntegerRangeType::fromInterval(null, $rightValue);
+				} else {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+
+				return $rightIntervalType->isSuperTypeOf($leftType->toInteger())->toBooleanType();
+			} elseif ($leftType instanceof ConstantIntegerType) {
+				$leftValue = $leftType->getValue();
+
+				if ($node instanceof Expr\BinaryOp\Smaller) {
+					$leftIntervalType = IntegerRangeType::fromInterval($leftValue + 1, null);
+				} elseif ($node instanceof Expr\BinaryOp\SmallerOrEqual) {
+					$leftIntervalType = IntegerRangeType::fromInterval($leftValue, null);
+				} elseif ($node instanceof Expr\BinaryOp\Greater) {
+					$leftIntervalType = IntegerRangeType::fromInterval(null, $leftValue - 1);
+				} elseif ($node instanceof Expr\BinaryOp\GreaterOrEqual) {
+					$leftIntervalType = IntegerRangeType::fromInterval(null, $leftValue);
+				} else {
+					throw new \PHPStan\ShouldNotHappenException();
+				}
+
+				return $leftIntervalType->isSuperTypeOf($rightType->toInteger())->toBooleanType();
+			}
+
+			return new BooleanType();
+		}
+
+		if (
+			$node instanceof Expr\BinaryOp\Equal
 			|| $node instanceof Expr\BinaryOp\NotEqual
 			|| $node instanceof Expr\Empty_
 		) {

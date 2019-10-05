@@ -3315,7 +3315,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$mixedArray[0]',
 			],
 			[
-				'bool',
+				'true',
 				'$integers[0] >= $integers[1] - 1',
 			],
 			[

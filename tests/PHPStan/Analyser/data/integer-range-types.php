@@ -83,3 +83,50 @@ function () {
 		assertType('int<1, max>', $i); // should improved to be int<1, 4>
 	}
 };
+
+
+function (int $j) {
+	$i = 1;
+
+	assertType('true', $i > 0);
+	assertType('true', $i >= 1);
+	assertType('true', $i <= 1);
+	assertType('true', $i < 2);
+
+	assertType('false', $i < 1);
+	assertType('false', $i <= 0);
+	assertType('false', $i >= 2);
+	assertType('false', $i > 1);
+
+	assertType('true', 0 < $i);
+	assertType('true', 1 <= $i);
+	assertType('true', 1 >= $i);
+	assertType('true', 2 > $i);
+
+	assertType('bool', $j > 0);
+	assertType('bool', $j >= 0);
+	assertType('bool', $j <= 0);
+	assertType('bool', $j < 0);
+
+	if ($j < 5) {
+		assertType('bool', $j > 0);
+		assertType('false', $j > 4);
+		assertType('bool', 0 < $j);
+		assertType('false', 4 < $j);
+
+		assertType('bool', $j >= 0);
+		assertType('false', $j >= 5);
+		assertType('bool', 0 <= $j);
+		assertType('false', 5 <= $j);
+
+		assertType('true', $j <= 4);
+		assertType('bool', $j <= 3);
+		assertType('true', 4 >= $j);
+		assertType('bool', 3 >= $j);
+
+		assertType('true', $j < 5);
+		assertType('bool', $j < 4);
+		assertType('true', 5 > $j);
+		assertType('bool', 4 > $j);
+	}
+};

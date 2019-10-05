@@ -116,3 +116,14 @@ class IssetBug
 	}
 
 }
+
+class IntegerRangeType
+{
+
+	public function doFoo(int $i)
+	{
+		if ($i < 3 && $i > 5) { // can never happen
+		}
+	}
+
+}
