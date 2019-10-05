@@ -46,6 +46,15 @@ class TemplateTypeTest extends \PHPStan\Testing\TestCase
 				TrinaryLogic::createYes(),
 				TrinaryLogic::createYes(),
 			],
+			[
+				$templateType('T', null),
+				new IntersectionType([
+					new ObjectWithoutClassType(),
+					$templateType('T', null),
+				]),
+				TrinaryLogic::createYes(),
+				TrinaryLogic::createYes(),
+			],
 		];
 	}
 

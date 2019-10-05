@@ -3,6 +3,7 @@
 namespace PHPStan\Type\Generic;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 
@@ -14,6 +15,16 @@ class TemplateTypeArgumentStrategy implements TemplateTypeStrategy
 
 	public function accepts(TemplateType $left, Type $right, bool $strictTypes): TrinaryLogic
 	{
+		if ($right instanceof IntersectionType) {
+			foreach ($right->getTypes() as $type) {
+				if ($this->accepts($left, $type, $strictTypes)->yes()) {
+					return TrinaryLogic::createYes();
+				}
+			}
+
+			return TrinaryLogic::createNo();
+		}
+
 		return TrinaryLogic::createFromBoolean($left->equals($right))
 			->or(TrinaryLogic::createFromBoolean($right->equals(new MixedType())));
 	}
