@@ -1349,6 +1349,22 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				UnionType::class,
 				'\'stdClass\'|class-string<Exception>',
 			],
+			[
+				[
+					new IntegerRangeType(1, 3),
+					new IntegerRangeType(2, 5),
+				],
+				IntegerRangeType::class,
+				'int<1, 5>',
+			],
+			[
+				[
+					new IntegerRangeType(1, 3),
+					new IntegerRangeType(7, 9),
+				],
+				IntegerRangeType::class,
+				'int<1, 9>',
+			],
 		];
 	}
 
@@ -2136,6 +2152,54 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				NeverType::class,
 				'*NEVER*',
 			],
+			[
+				[
+					new IntegerRangeType(1, 3),
+					new IntegerRangeType(2, 5),
+				],
+				IntegerRangeType::class,
+				'int<2, 3>',
+			],
+			[
+				[
+					new IntegerRangeType(1, 3),
+					new IntegerRangeType(3, 5),
+				],
+				ConstantIntegerType::class,
+				'3',
+			],
+			[
+				[
+					new IntegerRangeType(1, 3),
+					new IntegerRangeType(7, 9),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new IntegerRangeType(1, 3),
+					new ConstantIntegerType(3),
+				],
+				ConstantIntegerType::class,
+				'3',
+			],
+			[
+				[
+					new IntegerRangeType(1, 3),
+					new ConstantIntegerType(4),
+				],
+				NeverType::class,
+				'*NEVER*',
+			],
+			[
+				[
+					new IntegerRangeType(1, 3),
+					new IntegerType(),
+				],
+				IntegerRangeType::class,
+				'int<1, 3>',
+			],
 		];
 	}
 
@@ -2467,6 +2531,36 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				new ObjectType('InvalidArgumentException'),
 				ObjectType::class,
 				'Exception~InvalidArgumentException',
+			],
+			[
+				new IntegerRangeType(3, 7),
+				new IntegerRangeType(2, 4),
+				IntegerRangeType::class,
+				'int<5, 7>',
+			],
+			[
+				new IntegerRangeType(3, 7),
+				new IntegerRangeType(3, 4),
+				IntegerRangeType::class,
+				'int<5, 7>',
+			],
+			[
+				new IntegerRangeType(3, 7),
+				new IntegerRangeType(5, 7),
+				IntegerRangeType::class,
+				'int<3, 4>',
+			],
+			[
+				new IntegerRangeType(3, 7),
+				new ConstantIntegerType(3),
+				IntegerRangeType::class,
+				'int<4, 7>',
+			],
+			[
+				new IntegerType(),
+				new IntegerRangeType(null, 7),
+				IntegerRangeType::class,
+				'int<8, max>',
 			],
 		];
 	}

@@ -674,6 +674,53 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 				],
 			],
 			[
+				new Expr\BinaryOp\Smaller(
+					new Variable('n'),
+					new LNumber(3)
+				),
+				[
+					'$n' => 'int<min, 2>',
+				],
+				[
+					'$n' => '~int<min, 2>',
+				],
+			],
+			[
+				new Expr\BinaryOp\BooleanAnd(
+					new Expr\BinaryOp\GreaterOrEqual(
+						new Variable('n'),
+						new LNumber(3)
+					),
+					new Expr\BinaryOp\SmallerOrEqual(
+						new Variable('n'),
+						new LNumber(5)
+					)
+				),
+				[
+					'$n' => 'int<3, 5>',
+				],
+				[
+					'$n' => '~int<3, 5>',
+				],
+			],
+			[
+				new Expr\BinaryOp\BooleanAnd(
+					new Expr\Assign(
+						new Variable('foo'),
+						new LNumber(1)
+					),
+					new Expr\BinaryOp\SmallerOrEqual(
+						new Variable('n'),
+						new LNumber(5)
+					)
+				),
+				[
+					'$n' => 'int<min, 5>',
+					'$foo' => '~0|0.0|\'\'|array()|false|null',
+				],
+				[],
+			],
+			[
 				new NotIdentical(
 					new Expr\Assign(
 						new Variable('notNullBar'),

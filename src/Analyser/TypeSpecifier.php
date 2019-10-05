@@ -29,6 +29,7 @@ use PHPStan\Type\Constant\ConstantBooleanType;
 use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\IntegerRangeType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
@@ -326,6 +327,66 @@ class TypeSpecifier
 				new Node\Expr\BooleanNot(new Node\Expr\BinaryOp\Equal($expr->left, $expr->right)),
 				$context
 			);
+
+		} elseif ($expr instanceof Node\Expr\BinaryOp\Smaller || $expr instanceof Node\Expr\BinaryOp\SmallerOrEqual) {
+			$offset = $expr instanceof Node\Expr\BinaryOp\Smaller ? 1 : 0;
+			$leftType = $scope->getType($expr->left);
+			$rightType = $scope->getType($expr->right);
+
+			$result = new SpecifiedTypes();
+
+			if ($leftType instanceof ConstantIntegerType) {
+				if ($expr->right instanceof Expr\PostDec) {
+					$result = $result->unionWith($this->create(
+						$expr->right->var,
+						new IntegerRangeType($leftType->getValue() + $offset - 1, null),
+						$context
+					));
+				} elseif ($expr->right instanceof Expr\PreDec) {
+					$result = $result->unionWith($this->create(
+						$expr->right->var,
+						new IntegerRangeType($leftType->getValue() + $offset, null),
+						$context
+					));
+				}
+
+				$result = $result->unionWith($this->create(
+					$expr->right,
+					new IntegerRangeType($leftType->getValue() + $offset, null),
+					$context
+				));
+			}
+
+			if ($rightType instanceof ConstantIntegerType) {
+				if ($expr->left instanceof Expr\PostInc) {
+					$result = $result->unionWith($this->create(
+						$expr->left->var,
+						new IntegerRangeType(null, $rightType->getValue() - $offset + 1),
+						$context
+					));
+				} elseif ($expr->left instanceof Expr\PreInc) {
+					$result = $result->unionWith($this->create(
+						$expr->left->var,
+						new IntegerRangeType(null, $rightType->getValue() - $offset),
+						$context
+					));
+				}
+
+				$result = $result->unionWith($this->create(
+					$expr->left,
+					new IntegerRangeType(null, $rightType->getValue() - $offset),
+					$context
+				));
+			}
+
+			return $result;
+
+		} elseif ($expr instanceof Node\Expr\BinaryOp\Greater) {
+			return $this->specifyTypesInCondition($scope, new Expr\BinaryOp\Smaller($expr->right, $expr->left), $context, $defaultHandleFunctions);
+
+		} elseif ($expr instanceof Node\Expr\BinaryOp\GreaterOrEqual) {
+			return $this->specifyTypesInCondition($scope, new Expr\BinaryOp\SmallerOrEqual($expr->right, $expr->left), $context, $defaultHandleFunctions);
+
 		} elseif ($expr instanceof FuncCall && $expr->name instanceof Name) {
 			if ($this->broker->hasFunction($expr->name, $scope)) {
 				$functionReflection = $this->broker->getFunction($expr->name, $scope);

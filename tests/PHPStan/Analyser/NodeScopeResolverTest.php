@@ -296,7 +296,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'i',
 				TrinaryLogic::createYes(),
-				'int',
+				'int<min, 4>',
 			],
 			[
 				$testScope,
@@ -433,7 +433,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'previousI',
 				TrinaryLogic::createYes(),
-				'int',
+				'0|1',
 			],
 			[
 				$testScope,
@@ -7312,21 +7312,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				"'afterLoop'",
 			],
 			[
-				'int',
-				'$i',
-				"'begin'",
-			],
-			[
-				'int',
-				'$i',
-				"'end'",
-			],
-			[
-				'int',
-				'$i',
-				"'afterLoop'",
-			],
-			[
 				'int|null',
 				'$nullableVal',
 				"'begin'",
@@ -7427,8 +7412,68 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->property',
 				"'afterLoop'",
 			],
+			[
+				'int',
+				'$i',
+				"'begin'",
+			],
+			[
+				'int',
+				'$i',
+				"'end'",
+			],
+			[
+				'int',
+				'$i',
+				"'afterLoop'",
+			],
 		];
 	}
+
+	public function dataWhileLoopVariables(): array
+	{
+		return [
+			[
+				'int',
+				'$i',
+				"'begin'",
+			],
+			[
+				'int',
+				'$i',
+				"'end'",
+			],
+			[
+				'int',
+				'$i',
+				"'afterLoop'",
+			],
+		];
+	}
+
+
+	public function dataForLoopVariables(): array
+	{
+		return [
+			[
+				'int<min, 9>',
+				'$i',
+				"'begin'",
+			],
+			[
+				'int<min, 9>',
+				'$i',
+				"'end'",
+			],
+			[
+				'int',
+				'$i',
+				"'afterLoop'",
+			],
+		];
+	}
+
+
 
 	/**
 	 * @dataProvider dataLoopVariables
@@ -7457,6 +7502,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 	/**
 	 * @dataProvider dataLoopVariables
+	 * @dataProvider dataWhileLoopVariables
 	 * @param string $description
 	 * @param string $expression
 	 * @param string $evaluatedPointExpression
@@ -7481,6 +7527,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 
 	/**
 	 * @dataProvider dataLoopVariables
+	 * @dataProvider dataForLoopVariables
 	 * @param string $description
 	 * @param string $expression
 	 * @param string $evaluatedPointExpression
@@ -7591,6 +7638,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$anotherFalseOrObject',
 				"'afterLoop'",
 			],
+
 		];
 	}
 
@@ -9432,9 +9480,16 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		return $this->gatherAssertTypes(__DIR__ . '/data/generic-class-string.php');
 	}
 
+
+	public function dataIntegerRangeTypes(): array
+	{
+		return $this->gatherAssertTypes(__DIR__ . '/data/integer-range-types.php');
+	}
+
 	/**
 	 * @dataProvider dataGenerics
 	 * @dataProvider dataGenericClassStringType
+	 * @dataProvider dataIntegerRangeTypes
 	 * @param ConstantStringType $expectedType
 	 * @param Type $actualType
 	 */
