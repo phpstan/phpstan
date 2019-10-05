@@ -5,6 +5,7 @@ namespace PHPStan\Rules\PhpDoc;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\VerbosityLevel;
@@ -20,7 +21,7 @@ class IncompatiblePropertyPhpDocTypeRule implements Rule
 	/**
 	 * @param \PhpParser\Node\Stmt\PropertyProperty $node
 	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
+	 * @return \PHPStan\Rules\RuleError[]
 	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
@@ -42,32 +43,32 @@ class IncompatiblePropertyPhpDocTypeRule implements Rule
 			$phpDocType instanceof ErrorType
 			|| ($phpDocType instanceof NeverType && !$phpDocType->isExplicit())
 		) {
-			$messages[] = sprintf(
+			$messages[] = RuleErrorBuilder::message(sprintf(
 				'PHPDoc tag @var for property %s::$%s contains unresolvable type.',
 				$propertyReflection->getDeclaringClass()->getName(),
 				$propertyName
-			);
+			))->build();
 		}
 
 		$nativeType = $propertyReflection->getNativeType();
 		$isSuperType = $nativeType->isSuperTypeOf($phpDocType);
 		if ($isSuperType->no()) {
-			$messages[] = sprintf(
+			$messages[] = RuleErrorBuilder::message(sprintf(
 				'PHPDoc tag @var for property %s::$%s with type %s is incompatible with native type %s.',
 				$propertyReflection->getDeclaringClass()->getDisplayName(),
 				$propertyName,
 				$phpDocType->describe(VerbosityLevel::typeOnly()),
 				$nativeType->describe(VerbosityLevel::typeOnly())
-			);
+			))->build();
 
 		} elseif ($isSuperType->maybe()) {
-			$messages[] = sprintf(
+			$messages[] = RuleErrorBuilder::message(sprintf(
 				'PHPDoc tag @var for property %s::$%s with type %s is not subtype of native type %s.',
 				$propertyReflection->getDeclaringClass()->getDisplayName(),
 				$propertyName,
 				$phpDocType->describe(VerbosityLevel::typeOnly()),
 				$nativeType->describe(VerbosityLevel::typeOnly())
-			);
+			))->build();
 		}
 
 		return $messages;
