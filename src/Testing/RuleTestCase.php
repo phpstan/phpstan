@@ -132,7 +132,7 @@ abstract class RuleTestCase extends \PHPStan\Testing\TestCase
 			$actualErrors
 		);
 
-		$this->assertSame(implode("\n", $expectedErrors), implode("\n", $actualErrors));
+		$this->assertSame(implode("\n", $expectedErrors) . "\n", implode("\n", $actualErrors) . "\n");
 	}
 
 	protected function shouldPolluteScopeWithLoopInitialAssignments(): bool
