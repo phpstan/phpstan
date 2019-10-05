@@ -31,7 +31,7 @@ class ClassTemplateTypeRule implements Rule
 	}
 
 	/**
-	 * @param \PhpParser\Node\Stmt\ClassLike $node
+	 * @param \PhpParser\Node\Stmt\Class_ $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return \PHPStan\Rules\RuleError[]
 	 */
