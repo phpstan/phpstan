@@ -256,7 +256,7 @@ class TypeCombinator
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
 				if ($types[$i] instanceof IntegerRangeType) {
-					if ($types[$j] instanceof IntegerRangeType) {
+					if ($types[$j] instanceof IntegerRangeType && $types[$i]->isSuperTypeOf($types[$j])->maybe()) {
 						$types[$i] = IntegerRangeType::fromInterval(
 							min($types[$i]->getMin(), $types[$j]->getMin()),
 							max($types[$i]->getMax(), $types[$j]->getMax())

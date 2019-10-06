@@ -24,14 +24,14 @@ function (int $i) {
 	if ($i < 3 && $i > 5) {
 		assertType('*NEVER*', $i);
 	} else {
-		assertType('int', $i);
+		assertType('int<3, max>|int<min, 1>', $i);
 	}
 
 	if ($i > 3 && $i < 5) {
 		assertType('4', $i);
 
 	} else {
-		assertType('int', $i);
+		assertType('int<3, max>|int<min, 1>', $i);
 	}
 
 	if ($i >= 3 && $i <= 5) {
