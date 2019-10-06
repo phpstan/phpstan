@@ -226,3 +226,20 @@ function genericsDolor()
 {
 
 }
+
+/**
+ * @template T
+ * @template U of \Exception
+ * @template V of \Throwable
+ * @template W of \InvalidArgumentException
+ * @template X of \stdClass
+ * @param \InvalidPhpDocDefinitions\FooGeneric<int, T> $t
+ * @param \InvalidPhpDocDefinitions\FooGeneric<int, U> $u
+ * @param \InvalidPhpDocDefinitions\FooGeneric<int, V> $v
+ * @param \InvalidPhpDocDefinitions\FooGeneric<int, W> $w
+ * @param \InvalidPhpDocDefinitions\FooGeneric<int, X> $x
+ */
+function genericGenerics($t, $u, $v, $w, $x)
+{
+
+}

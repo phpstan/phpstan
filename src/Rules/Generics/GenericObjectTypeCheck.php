@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Generics;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\Generic\TemplateType;
+use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeTraverser;
 use PHPStan\Type\VerbosityLevel;
@@ -97,13 +98,13 @@ class GenericObjectTypeCheck
 	private function getGenericTypes(Type $phpDocType): array
 	{
 		if ($phpDocType instanceof GenericObjectType) {
-			return [$phpDocType];
+			return [TemplateTypeHelper::resolveToBounds($phpDocType)];
 		}
 
 		$genericObjectTypes = [];
 		TypeTraverser::map($phpDocType, static function (Type $type, callable $traverse) use (&$genericObjectTypes): Type {
 			if ($type instanceof GenericObjectType) {
-				$genericObjectTypes[] = $type;
+				$genericObjectTypes[] = TemplateTypeHelper::resolveToBounds($type);
 			}
 			$traverse($type);
 			return $type;
