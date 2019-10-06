@@ -5,10 +5,12 @@ namespace PHPStan\Rules\Generics;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\PhpDoc\Tag\ExtendsTag;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Generic\GenericObjectType;
+use PHPStan\Type\Type;
 use PHPStan\Type\VerbosityLevel;
 
 class ClassAncestorsRule implements Rule
@@ -62,66 +64,65 @@ class ClassAncestorsRule implements Rule
 			null,
 			$docComment->getText()
 		);
-		$extendsTags = $resolvedPhpDoc->getExtendsTags();
 
-		return $this->checkExtends($className, $node->extends, $extendsTags);
+		return $this->checkExtends($className, $node->extends !== null ? [$node->extends] : [], array_map(static function (ExtendsTag $tag): Type {
+			return $tag->getType();
+		}, $resolvedPhpDoc->getExtendsTags()));
 	}
 
 	/**
 	 * @param string $className
-	 * @param \PhpParser\Node\Name|null $classExtends
-	 * @param array<string, \PHPStan\PhpDoc\Tag\ExtendsTag> $extendsTags
+	 * @param array<int, \PhpParser\Node\Name> $nameNodes
+	 * @param array<\PHPStan\Type\Type> $ancestorTypes
 	 * @return \PHPStan\Rules\RuleError[]
 	 */
-	private function checkExtends(string $className, ?Node\Name $classExtends, array $extendsTags): array
+	private function checkExtends(string $className, array $nameNodes, array $ancestorTypes): array
 	{
-		if (count($extendsTags) > 1) {
-			return [
-				RuleErrorBuilder::message(sprintf('Class %s has multiple @extends tags, but can extend only one class.', $className))->build(),
-			];
-		}
-
-		if (count($extendsTags) === 0) {
+		if (count($ancestorTypes) === 0) {
 			return [];
 		}
 
-		if ($classExtends === null) {
-			return [
-				RuleErrorBuilder::message(sprintf('Class %s has @extends tag, but does not extend any class.', $className))->build(),
-			];
-		}
+		$names = array_fill_keys(array_map(static function (Node\Name $nameNode): string {
+			return $nameNode->toString();
+		}, $nameNodes), true);
 
-		$extendsTagType = array_values($extendsTags)[0]->getType();
-		if (!$extendsTagType instanceof GenericObjectType) {
-			return [
-				RuleErrorBuilder::message(sprintf('Class %s @extends tag contains incompatible type %s.', $className, $extendsTagType->describe(VerbosityLevel::typeOnly())))->build(),
-			];
-		}
-
-		$extendsClassName = $classExtends->toString();
-		if ($extendsTagType->getClassName() !== $extendsClassName) {
-			return [
-				RuleErrorBuilder::message(sprintf('Class %s extends %s but the @extends tag describes %s.', $className, $extendsClassName, $extendsTagType->getClassName()))->build(),
-			];
-		}
-
-		$messages = $this->genericObjectTypeCheck->check(
-			$extendsTagType,
-			'PHPDoc tag @extends contains generic type %s but class %s is not generic.',
-			'Generic type %s in PHPDoc tag @extends does not specify all template types of class %s: %s',
-			'Generic type %s in PHPDoc tag @extends specifies %d template types, but class %s supports only %d: %s',
-			'Type %s in generic type %s in PHPDoc tag @extends is not subtype of template type %s of class %s.'
-		);
-
-		foreach ($extendsTagType->getReferencedClasses() as $referencedClass) {
-			if (
-				$this->broker->hasClass($referencedClass)
-				&& !$this->broker->getClass($referencedClass)->isTrait()
-			) {
+		$messages = [];
+		foreach ($ancestorTypes as $ancestorType) {
+			if (!$ancestorType instanceof GenericObjectType) {
+				$messages[] = RuleErrorBuilder::message(sprintf('Class %s @extends tag contains incompatible type %s.', $className, $ancestorType->describe(VerbosityLevel::typeOnly())))->build();
 				continue;
 			}
 
-			$messages[] = RuleErrorBuilder::message(sprintf('PHPDoc tag @extends has invalid type %s.', $referencedClass))->build();
+			$ancestorTypeClassName = $ancestorType->getClassName();
+			if (!isset($names[$ancestorTypeClassName])) {
+				if (count($names) === 0) {
+					$messages[] = RuleErrorBuilder::message(sprintf('Class %s has @extends tag, but does not extend any class.', $className))->build();
+				} else {
+					$messages[] = RuleErrorBuilder::message(sprintf('The @extends tag of class %s describes %s but the class extends %s.', $className, $ancestorTypeClassName, implode(',', array_keys($names))))->build();
+				}
+
+				continue;
+			}
+
+			$genericObjectTypeCheckMessages = $this->genericObjectTypeCheck->check(
+				$ancestorType,
+				'PHPDoc tag @extends contains generic type %s but class %s is not generic.',
+				'Generic type %s in PHPDoc tag @extends does not specify all template types of class %s: %s',
+				'Generic type %s in PHPDoc tag @extends specifies %d template types, but class %s supports only %d: %s',
+				'Type %s in generic type %s in PHPDoc tag @extends is not subtype of template type %s of class %s.'
+			);
+			$messages = array_merge($messages, $genericObjectTypeCheckMessages);
+
+			foreach ($ancestorType->getReferencedClasses() as $referencedClass) {
+				if (
+					$this->broker->hasClass($referencedClass)
+					&& !$this->broker->getClass($referencedClass)->isTrait()
+				) {
+					continue;
+				}
+
+				$messages[] = RuleErrorBuilder::message(sprintf('PHPDoc tag @extends has invalid type %s.', $referencedClass))->build();
+			}
 		}
 
 		return $messages;

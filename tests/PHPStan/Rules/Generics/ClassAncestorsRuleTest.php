@@ -26,11 +26,11 @@ class ClassAncestorsRuleTest extends RuleTestCase
 				26,
 			],
 			[
-				'Class ClassAncestors\FooDuplicateExtendsTags has multiple @extends tags, but can extend only one class.',
+				'The @extends tag of class ClassAncestors\FooDuplicateExtendsTags describes ClassAncestors\FooGeneric2 but the class extends ClassAncestors\FooGeneric.',
 				35,
 			],
 			[
-				'Class ClassAncestors\FooWrongClassExtended extends ClassAncestors\FooGeneric but the @extends tag describes ClassAncestors\FooGeneric2.',
+				'The @extends tag of class ClassAncestors\FooWrongClassExtended describes ClassAncestors\FooGeneric2 but the class extends ClassAncestors\FooGeneric.',
 				43,
 			],
 			[
