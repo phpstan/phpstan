@@ -142,7 +142,7 @@ class IgnoredBreakBranch
 		$hasBar = false;
 		foreach (['a','b'] as $key) {
 			if (rand(0,100) > 50) {
-				if (rand(0,100) > 50) {
+				if (rand(0,101) > 50) {
 					$hasBar = true;
 					break;
 				}
