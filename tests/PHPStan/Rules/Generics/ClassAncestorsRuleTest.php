@@ -12,9 +12,11 @@ class ClassAncestorsRuleTest extends RuleTestCase
 	protected function getRule(): Rule
 	{
 		return new ClassAncestorsRule(
-			$this->createBroker(),
 			self::getContainer()->getByType(FileTypeMapper::class),
-			new GenericObjectTypeCheck()
+			new GenericAncestorsCheck(
+				$this->createBroker(),
+				new GenericObjectTypeCheck()
+			)
 		);
 	}
 
