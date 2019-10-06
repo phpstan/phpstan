@@ -16,6 +16,7 @@ rules:
 	- PHPStan\Rules\Generics\ClassAncestorsRule
 	- PHPStan\Rules\Generics\ClassTemplateTypeRule
 	- PHPStan\Rules\Generics\FunctionTemplateTypeRule
+	- PHPStan\Rules\Generics\InterfaceAncestorsRule
 	- PHPStan\Rules\Generics\InterfaceTemplateTypeRule
 	- PHPStan\Rules\Generics\MethodTemplateTypeRule
 	- PHPStan\Rules\Generics\TraitTemplateTypeRule
