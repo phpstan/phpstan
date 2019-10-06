@@ -53,6 +53,9 @@ parameters:
 		-
 			message: '#^Fetching class constant PREVENT_MERGING of deprecated class Nette\\DI\\Config\\Helpers\.$#'
 			path: ../src/DependencyInjection/NeonAdapter.php
+		-
+			message: '#^Right side of && is always false\.$#'
+			path: ../src/Command/ErrorsConsoleStyle.php
 	reportStaticMethodSignatures: true
 	reportUnmatchedIgnoredErrors: false
 	tmpDir: %rootDir%/tmp
