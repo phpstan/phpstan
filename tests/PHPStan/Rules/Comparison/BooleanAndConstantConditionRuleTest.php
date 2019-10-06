@@ -73,7 +73,7 @@ class BooleanAndConstantConditionRuleTest extends \PHPStan\Testing\RuleTestCase
 				66,
 			],
 			[
-				'Right side of && is always false.',
+				'Result of && is always false.',
 				125,
 			],
 		]);

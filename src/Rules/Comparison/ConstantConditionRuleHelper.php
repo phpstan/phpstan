@@ -39,6 +39,10 @@ class ConstantConditionRuleHelper
 			|| $expr instanceof Expr\BinaryOp\BooleanAnd
 			|| $expr instanceof Expr\Ternary
 			|| $expr instanceof Expr\Isset_
+			|| $expr instanceof Expr\BinaryOp\Greater
+			|| $expr instanceof Expr\BinaryOp\GreaterOrEqual
+			|| $expr instanceof Expr\BinaryOp\Smaller
+			|| $expr instanceof Expr\BinaryOp\SmallerOrEqual
 		) {
 			// already checked by different rules
 			return true;
