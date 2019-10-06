@@ -30,6 +30,7 @@ use PHPStan\Type\Constant\ConstantFloatType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\IntegerRangeType;
+use PHPStan\Type\IntegerType;
 use PHPStan\Type\IntersectionType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
@@ -337,20 +338,20 @@ class TypeSpecifier
 
 			if ($leftType instanceof ConstantIntegerType) {
 				if ($expr->right instanceof Expr\PostDec) {
-					$result = $result->unionWith($this->create(
+					$result = $result->unionWith($this->createRangeTypes(
 						$expr->right->var,
 						IntegerRangeType::fromInterval($leftType->getValue() + $offset - 1, null),
 						$context
 					));
 				} elseif ($expr->right instanceof Expr\PreDec) {
-					$result = $result->unionWith($this->create(
+					$result = $result->unionWith($this->createRangeTypes(
 						$expr->right->var,
 						IntegerRangeType::fromInterval($leftType->getValue() + $offset, null),
 						$context
 					));
 				}
 
-				$result = $result->unionWith($this->create(
+				$result = $result->unionWith($this->createRangeTypes(
 					$expr->right,
 					IntegerRangeType::fromInterval($leftType->getValue() + $offset, null),
 					$context
@@ -359,20 +360,20 @@ class TypeSpecifier
 
 			if ($rightType instanceof ConstantIntegerType) {
 				if ($expr->left instanceof Expr\PostInc) {
-					$result = $result->unionWith($this->create(
+					$result = $result->unionWith($this->createRangeTypes(
 						$expr->left->var,
 						IntegerRangeType::fromInterval(null, $rightType->getValue() - $offset + 1),
 						$context
 					));
 				} elseif ($expr->left instanceof Expr\PreInc) {
-					$result = $result->unionWith($this->create(
+					$result = $result->unionWith($this->createRangeTypes(
 						$expr->left->var,
 						IntegerRangeType::fromInterval(null, $rightType->getValue() - $offset),
 						$context
 					));
 				}
 
-				$result = $result->unionWith($this->create(
+				$result = $result->unionWith($this->createRangeTypes(
 					$expr->left,
 					IntegerRangeType::fromInterval(null, $rightType->getValue() - $offset),
 					$context
@@ -661,6 +662,23 @@ class TypeSpecifier
 		}
 
 		return new SpecifiedTypes($sureTypes, $sureNotTypes, $overwrite);
+	}
+
+	private function createRangeTypes(Expr $expr, Type $type, TypeSpecifierContext $context): SpecifiedTypes
+	{
+		$sureNotTypes = [];
+
+		if ($type instanceof IntegerRangeType || $type instanceof ConstantIntegerType) {
+			$exprString = $this->printer->prettyPrintExpr($expr);
+			if ($context->false()) {
+				$sureNotTypes[$exprString] = [$expr, $type];
+			} elseif ($context->true()) {
+				$inverted = TypeCombinator::remove(new IntegerType(), $type);
+				$sureNotTypes[$exprString] = [$expr, $inverted];
+			}
+		}
+
+		return new SpecifiedTypes([], $sureNotTypes);
 	}
 
 	/**

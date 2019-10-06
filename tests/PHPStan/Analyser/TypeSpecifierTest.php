@@ -679,7 +679,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					new LNumber(3)
 				),
 				[
-					'$n' => 'int<min, 2>',
+					'$n' => '~int<3, max>',
 				],
 				[
 					'$n' => '~int<min, 2>',
@@ -697,7 +697,7 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					)
 				),
 				[
-					'$n' => 'int<3, 5>',
+					'$n' => '~int<6, max>|int<min, 2>',
 				],
 				[
 					'$n' => '~int<3, 5>',
@@ -715,8 +715,8 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 					)
 				),
 				[
-					'$n' => 'int<min, 5>',
 					'$foo' => '~0|0.0|\'\'|array()|false|null',
+					'$n' => '~int<6, max>',
 				],
 				[],
 			],

@@ -120,9 +120,12 @@ class IssetBug
 class IntegerRangeType
 {
 
-	public function doFoo(int $i)
+	public function doFoo(int $i, float $f)
 	{
 		if ($i < 3 && $i > 5) { // can never happen
+		}
+
+		if ($f > 0 && $f < 1) {
 		}
 	}
 

@@ -1362,8 +1362,8 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 					IntegerRangeType::fromInterval(1, 3),
 					IntegerRangeType::fromInterval(7, 9),
 				],
-				IntegerRangeType::class,
-				'int<1, 9>',
+				UnionType::class,
+				'int<1, 3>|int<7, 9>',
 			],
 			[
 				[
