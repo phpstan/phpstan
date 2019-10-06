@@ -5,10 +5,12 @@ namespace PHPStan\Rules\Generics;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Generic\GenericObjectType;
+use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\VerbosityLevel;
 
 class ClassAncestorsRule implements Rule
@@ -56,6 +58,10 @@ class ClassAncestorsRule implements Rule
 		}
 
 		$className = (string) $node->namespacedName;
+		if (!$this->broker->hasClass($className)) {
+			return [];
+		}
+
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 			$scope->getFile(),
 			$className,
@@ -64,17 +70,18 @@ class ClassAncestorsRule implements Rule
 		);
 		$extendsTags = $resolvedPhpDoc->getExtendsTags();
 
-		return $this->checkExtends($className, $node->extends, $extendsTags);
+		return $this->checkExtends($this->broker->getClass($className), $node->extends, $extendsTags);
 	}
 
 	/**
-	 * @param string $className
+	 * @param ClassReflection $className
 	 * @param \PhpParser\Node\Name|null $classExtends
 	 * @param array<string, \PHPStan\PhpDoc\Tag\ExtendsTag> $extendsTags
 	 * @return \PHPStan\Rules\RuleError[]
 	 */
-	private function checkExtends(string $className, ?Node\Name $classExtends, array $extendsTags): array
+	private function checkExtends(ClassReflection $classReflection, ?Node\Name $classExtends, array $extendsTags): array
 	{
+		$className = $classReflection->getDisplayName(false);
 		if (count($extendsTags) > 1) {
 			return [
 				RuleErrorBuilder::message(sprintf('Class %s has multiple @extends tags, but can extend only one class.', $className))->build(),
@@ -92,6 +99,13 @@ class ClassAncestorsRule implements Rule
 		}
 
 		$extendsTagType = array_values($extendsTags)[0]->getType();
+
+		if ($classReflection->isGeneric()) {
+			$extendsTagType = TemplateTypeHelper::resolveTemplateTypes(
+				$extendsTagType,
+				$classReflection->getActiveTemplateTypeMap()
+			);
+		}
 		if (!$extendsTagType instanceof GenericObjectType) {
 			return [
 				RuleErrorBuilder::message(sprintf('Class %s @extends tag contains incompatible type %s.', $className, $extendsTagType->describe(VerbosityLevel::typeOnly())))->build(),

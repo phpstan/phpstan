@@ -57,6 +57,14 @@ class ClassAncestorsRuleTest extends RuleTestCase
 				'PHPDoc tag @extends has invalid type ClassAncestors\Zazzuuuu.',
 				99,
 			],
+			[
+				'aaa',
+				108,
+			],
+			[
+				'aaa',
+				117,
+			],
 		]);
 	}
 
