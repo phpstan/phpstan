@@ -74,4 +74,66 @@ class ClassAncestorsRuleTest extends RuleTestCase
 		]);
 	}
 
+	public function testRuleImplements(): void
+	{
+		$this->analyse([__DIR__ . '/data/class-ancestors-implements.php'], [
+			[
+				'Class ClassAncestorsImplements\FooDoesNotImplementAnything has @implements tag, but does not implement any interface.',
+				35,
+			],
+			[
+				'The @implements tag of class ClassAncestorsImplements\FooInvalidImplementsTags describes ClassAncestorsImplements\FooGeneric2 but the class implements: ClassAncestorsImplements\FooGeneric',
+				44,
+			],
+			[
+				'The @implements tag of class ClassAncestorsImplements\FooWrongClassImplemented describes ClassAncestorsImplements\FooGeneric2 but the class implements: ClassAncestorsImplements\FooGeneric, ClassAncestorsImplements\FooGeneric3',
+				52,
+			],
+			[
+				'Class ClassAncestorsImplements\FooWrongTypeInImplementsTag @implements tag contains incompatible type class-string<ClassAncestorsImplements\T>.',
+				60,
+			],
+			[
+				'Generic type ClassAncestorsImplements\FooGeneric<int> in PHPDoc tag @implements does not specify all template types of interface ClassAncestorsImplements\FooGeneric: T, U',
+				76,
+			],
+			[
+				'Generic type ClassAncestorsImplements\FooGeneric<int, InvalidArgumentException, string> in PHPDoc tag @implements specifies 3 template types, but interface ClassAncestorsImplements\FooGeneric supports only 2: T, U',
+				84,
+			],
+			[
+				'Type Throwable in generic type ClassAncestorsImplements\FooGeneric<int, Throwable> in PHPDoc tag @implements is not subtype of template type U of Exception of interface ClassAncestorsImplements\FooGeneric.',
+				92,
+			],
+			[
+				'Type stdClass in generic type ClassAncestorsImplements\FooGeneric<int, stdClass> in PHPDoc tag @implements is not subtype of template type U of Exception of interface ClassAncestorsImplements\FooGeneric.',
+				100,
+			],
+			[
+				'PHPDoc tag @implements has invalid type ClassAncestorsImplements\Zazzuuuu.',
+				108,
+			],
+			[
+				'Type mixed in generic type ClassAncestorsImplements\FooGeneric<int, mixed> in PHPDoc tag @implements is not subtype of template type U of Exception of interface ClassAncestorsImplements\FooGeneric.',
+				117,
+			],
+			[
+				'Type Throwable in generic type ClassAncestorsImplements\FooGeneric<int, Throwable> in PHPDoc tag @implements is not subtype of template type U of Exception of interface ClassAncestorsImplements\FooGeneric.',
+				126,
+			],
+			[
+				'Type stdClass in generic type ClassAncestorsImplements\FooGeneric<int, stdClass> in PHPDoc tag @implements is not subtype of template type U of Exception of interface ClassAncestorsImplements\FooGeneric.',
+				172,
+			],
+			[
+				'Type stdClass in generic type ClassAncestorsImplements\FooGeneric<int, stdClass> in PHPDoc tag @implements is not subtype of template type U of Exception of interface ClassAncestorsImplements\FooGeneric.',
+				182,
+			],
+			[
+				'Type stdClass in generic type ClassAncestorsImplements\FooGeneric2<int, stdClass> in PHPDoc tag @implements is not subtype of template type V of Exception of interface ClassAncestorsImplements\FooGeneric2.',
+				182,
+			],
+		]);
+	}
+
 }

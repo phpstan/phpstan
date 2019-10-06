@@ -64,7 +64,7 @@ class GenericAncestorsCheck
 				if (count($names) === 0) {
 					$messages[] = RuleErrorBuilder::message($noNamesMessage)->build();
 				} else {
-					$messages[] = RuleErrorBuilder::message(sprintf($noRelatedNameMessage, $ancestorTypeClassName, implode(',', array_keys($names))))->build();
+					$messages[] = RuleErrorBuilder::message(sprintf($noRelatedNameMessage, $ancestorTypeClassName, implode(', ', array_keys($names))))->build();
 				}
 
 				continue;
