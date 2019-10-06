@@ -205,10 +205,12 @@ class PhpDocNodeResolver
 	{
 		$resolved = [];
 
-		foreach ($phpDocNode->getExtendsTagValues() as $tagValue) {
-			$resolved[$tagValue->type->type->name] = new ExtendsTag(
-				$this->typeNodeResolver->resolve($tagValue->type, $nameScope)
-			);
+		foreach (['@extends', '@template-extends', '@phpstan-extends'] as $tagName) {
+			foreach ($phpDocNode->getExtendsTagValues($tagName) as $tagValue) {
+				$resolved[$tagValue->type->type->name] = new ExtendsTag(
+					$this->typeNodeResolver->resolve($tagValue->type, $nameScope)
+				);
+			}
 		}
 
 		return $resolved;
@@ -221,10 +223,12 @@ class PhpDocNodeResolver
 	{
 		$resolved = [];
 
-		foreach ($phpDocNode->getImplementsTagValues() as $tagValue) {
-			$resolved[$tagValue->type->type->name] = new ImplementsTag(
-				$this->typeNodeResolver->resolve($tagValue->type, $nameScope)
-			);
+		foreach (['@implements', '@template-implements', '@phpstan-implements'] as $tagName) {
+			foreach ($phpDocNode->getImplementsTagValues($tagName) as $tagValue) {
+				$resolved[$tagValue->type->type->name] = new ImplementsTag(
+					$this->typeNodeResolver->resolve($tagValue->type, $nameScope)
+				);
+			}
 		}
 
 		return $resolved;
@@ -237,10 +241,12 @@ class PhpDocNodeResolver
 	{
 		$resolved = [];
 
-		foreach ($phpDocNode->getUsesTagValues() as $tagValue) {
-			$resolved[$tagValue->type->type->name] = new UsesTag(
-				$this->typeNodeResolver->resolve($tagValue->type, $nameScope)
-			);
+		foreach (['@uses', '@template-use', '@phpstan-uses'] as $tagName) {
+			foreach ($phpDocNode->getUsesTagValues($tagName) as $tagValue) {
+				$resolved[$tagValue->type->type->name] = new UsesTag(
+					$this->typeNodeResolver->resolve($tagValue->type, $nameScope)
+				);
+			}
 		}
 
 		return $resolved;
@@ -255,11 +261,13 @@ class PhpDocNodeResolver
 	{
 		$resolved = [];
 
-		foreach ($phpDocNode->getTemplateTagValues() as $tagValue) {
-			$resolved[$tagValue->name] = new TemplateTag(
-				$tagValue->name,
-				$tagValue->bound !== null ? $this->typeNodeResolver->resolve($tagValue->bound, $nameScope) : new MixedType()
-			);
+		foreach (['@template', '@psalm-template', '@phpstan-template'] as $tagName) {
+			foreach ($phpDocNode->getTemplateTagValues($tagName) as $tagValue) {
+				$resolved[$tagValue->name] = new TemplateTag(
+					$tagValue->name,
+					$tagValue->bound !== null ? $this->typeNodeResolver->resolve($tagValue->bound, $nameScope) : new MixedType()
+				);
+			}
 		}
 
 		return $resolved;
@@ -273,25 +281,28 @@ class PhpDocNodeResolver
 	private function resolveParamTags(PhpDocNode $phpDocNode, NameScope $nameScope): array
 	{
 		$resolved = [];
-		foreach ($phpDocNode->getParamTagValues() as $tagValue) {
-			$parameterName = substr($tagValue->parameterName, 1);
-			$parameterType = !isset($resolved[$parameterName])
-				? $this->typeNodeResolver->resolve($tagValue->type, $nameScope)
-				: new MixedType();
 
-			if ($tagValue->isVariadic) {
-				if (!$parameterType instanceof ArrayType) {
-					$parameterType = new ArrayType(new IntegerType(), $parameterType);
+		foreach (['@param', '@psalm-param', '@phpstan-param'] as $tagName) {
+			foreach ($phpDocNode->getParamTagValues($tagName) as $tagValue) {
+				$parameterName = substr($tagValue->parameterName, 1);
+				$parameterType = !isset($resolved[$parameterName])
+					? $this->typeNodeResolver->resolve($tagValue->type, $nameScope)
+					: new MixedType();
 
-				} elseif ($parameterType->getKeyType() instanceof MixedType) {
-					$parameterType = new ArrayType(new IntegerType(), $parameterType->getItemType());
+				if ($tagValue->isVariadic) {
+					if (!$parameterType instanceof ArrayType) {
+						$parameterType = new ArrayType(new IntegerType(), $parameterType);
+
+					} elseif ($parameterType->getKeyType() instanceof MixedType) {
+						$parameterType = new ArrayType(new IntegerType(), $parameterType->getItemType());
+					}
 				}
-			}
 
-			$resolved[$parameterName] = new ParamTag(
-				$parameterType,
-				$tagValue->isVariadic
-			);
+				$resolved[$parameterName] = new ParamTag(
+					$parameterType,
+					$tagValue->isVariadic
+				);
+			}
 		}
 
 		return $resolved;
@@ -299,11 +310,15 @@ class PhpDocNodeResolver
 
 	private function resolveReturnTag(PhpDocNode $phpDocNode, NameScope $nameScope): ?\PHPStan\PhpDoc\Tag\ReturnTag
 	{
-		foreach ($phpDocNode->getReturnTagValues() as $tagValue) {
-			return new ReturnTag($this->typeNodeResolver->resolve($tagValue->type, $nameScope));
+		$resolved = null;
+
+		foreach (['@return', '@psalm-return', '@phpstan-return'] as $tagName) {
+			foreach ($phpDocNode->getReturnTagValues($tagName) as $tagValue) {
+				$resolved = new ReturnTag($this->typeNodeResolver->resolve($tagValue->type, $nameScope));
+			}
 		}
 
-		return null;
+		return $resolved;
 	}
 
 	private function resolveThrowsTags(PhpDocNode $phpDocNode, NameScope $nameScope): ?\PHPStan\PhpDoc\Tag\ThrowsTag
