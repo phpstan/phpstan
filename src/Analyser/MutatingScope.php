@@ -398,10 +398,8 @@ class MutatingScope implements Scope
 					$rightIntervalType = IntegerRangeType::fromInterval($rightValue, null);
 				} elseif ($node instanceof Expr\BinaryOp\Smaller) {
 					$rightIntervalType = IntegerRangeType::fromInterval(null, $rightValue - 1);
-				} elseif ($node instanceof Expr\BinaryOp\SmallerOrEqual) {
-					$rightIntervalType = IntegerRangeType::fromInterval(null, $rightValue);
 				} else {
-					throw new \PHPStan\ShouldNotHappenException();
+					$rightIntervalType = IntegerRangeType::fromInterval(null, $rightValue);
 				}
 
 				return $rightIntervalType->isSuperTypeOf($leftType->toInteger())->toBooleanType();
@@ -414,10 +412,8 @@ class MutatingScope implements Scope
 					$leftIntervalType = IntegerRangeType::fromInterval($leftValue, null);
 				} elseif ($node instanceof Expr\BinaryOp\Greater) {
 					$leftIntervalType = IntegerRangeType::fromInterval(null, $leftValue - 1);
-				} elseif ($node instanceof Expr\BinaryOp\GreaterOrEqual) {
-					$leftIntervalType = IntegerRangeType::fromInterval(null, $leftValue);
 				} else {
-					throw new \PHPStan\ShouldNotHappenException();
+					$leftIntervalType = IntegerRangeType::fromInterval(null, $leftValue);
 				}
 
 				return $leftIntervalType->isSuperTypeOf($rightType->toInteger())->toBooleanType();
