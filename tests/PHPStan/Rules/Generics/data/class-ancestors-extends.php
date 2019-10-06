@@ -1,6 +1,6 @@
 <?php
 
-namespace ClassAncestors;
+namespace ClassAncestorsExtends;
 
 /**
  * @template T
