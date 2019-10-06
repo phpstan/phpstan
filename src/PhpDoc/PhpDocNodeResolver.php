@@ -258,7 +258,7 @@ class PhpDocNodeResolver
 		foreach ($phpDocNode->getTemplateTagValues() as $tagValue) {
 			$resolved[$tagValue->name] = new TemplateTag(
 				$tagValue->name,
-				$this->typeNodeResolver->resolve($tagValue->bound, $nameScope)
+				$tagValue->bound !== null ? $this->typeNodeResolver->resolve($tagValue->bound, $nameScope) : new MixedType()
 			);
 		}
 
