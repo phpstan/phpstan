@@ -100,3 +100,67 @@ class FooUnknownClass extends FooGeneric
 {
 
 }
+
+/**
+ * @template T
+ * @extends FooGeneric<int, T>
+ */
+class FooGenericGeneric extends FooGeneric
+{
+
+}
+
+/**
+ * @template T of \Throwable
+ * @extends FooGeneric<int, T>
+ */
+class FooGenericGeneric2 extends FooGeneric
+{
+
+}
+
+
+/**
+ * @template T of \Exception
+ * @extends FooGeneric<int, T>
+ */
+class FooGenericGeneric3 extends FooGeneric
+{
+
+}
+
+/**
+ * @template T of \InvalidArgumentException
+ * @extends FooGeneric<int, T>
+ */
+class FooGenericGeneric4 extends FooGeneric
+{
+
+}
+
+/**
+ * @template T
+ * @extends FooGeneric<T, \Exception>
+ */
+class FooGenericGeneric5 extends FooGeneric
+{
+
+}
+
+/**
+ * @template T of \stdClass
+ * @extends FooGeneric<T, \Exception>
+ */
+class FooGenericGeneric6 extends FooGeneric
+{
+
+}
+
+/**
+ * @template T of \stdClass
+ * @extends FooGeneric<int, T>
+ */
+class FooGenericGeneric7 extends FooGeneric
+{
+
+}

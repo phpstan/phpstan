@@ -57,6 +57,18 @@ class ClassAncestorsRuleTest extends RuleTestCase
 				'PHPDoc tag @extends has invalid type ClassAncestors\Zazzuuuu.',
 				99,
 			],
+			[
+				'Type mixed in generic type ClassAncestors\FooGeneric<int, mixed> in PHPDoc tag @extends is not subtype of template type U of Exception of class ClassAncestors\FooGeneric.',
+				108,
+			],
+			[
+				'Type Throwable in generic type ClassAncestors\FooGeneric<int, Throwable> in PHPDoc tag @extends is not subtype of template type U of Exception of class ClassAncestors\FooGeneric.',
+				117,
+			],
+			[
+				'Type stdClass in generic type ClassAncestors\FooGeneric<int, stdClass> in PHPDoc tag @extends is not subtype of template type U of Exception of class ClassAncestors\FooGeneric.',
+				163,
+			],
 		]);
 	}
 

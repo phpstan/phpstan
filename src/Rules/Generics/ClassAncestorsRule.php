@@ -9,6 +9,7 @@ use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\Generic\GenericObjectType;
+use PHPStan\Type\Generic\TemplateTypeHelper;
 use PHPStan\Type\VerbosityLevel;
 
 class ClassAncestorsRule implements Rule
@@ -91,7 +92,7 @@ class ClassAncestorsRule implements Rule
 			];
 		}
 
-		$extendsTagType = array_values($extendsTags)[0]->getType();
+		$extendsTagType = TemplateTypeHelper::resolveToBounds(array_values($extendsTags)[0]->getType());
 		if (!$extendsTagType instanceof GenericObjectType) {
 			return [
 				RuleErrorBuilder::message(sprintf('Class %s @extends tag contains incompatible type %s.', $className, $extendsTagType->describe(VerbosityLevel::typeOnly())))->build(),

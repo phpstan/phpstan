@@ -180,12 +180,12 @@ final class GenericObjectType extends ObjectType
 		$types = [];
 		foreach ($this->types as $type) {
 			$newType = $cb($type);
+			$types[] = $newType;
 			if ($newType === $type) {
 				continue;
 			}
 
 			$typesChanged = true;
-			$types[] = $newType;
 		}
 
 		if ($subtractedType !== $this->getSubtractedType() || $typesChanged) {
