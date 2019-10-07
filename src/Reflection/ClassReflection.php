@@ -630,11 +630,6 @@ class ClassReflection implements ReflectionWithFilename
 		return $templateTypeMap;
 	}
 
-	public function getResolvedTemplateTypeMap(): ?TemplateTypeMap
-	{
-		return $this->resolvedTemplateTypeMap;
-	}
-
 	public function getActiveTemplateTypeMap(): TemplateTypeMap
 	{
 		return $this->resolvedTemplateTypeMap ?? $this->getTemplateTypeMap();
