@@ -497,7 +497,7 @@ interface IfaceAB extends SuperIfaceA, SuperIfaceB {
  */
 class ABImpl implements IfaceAB {
 	public function getA($a) {
-		// assertType('int', $a);
+		assertType('int', $a);
 		return 1;
 	}
 	public function getB($b) {
@@ -511,7 +511,7 @@ class ABImpl implements IfaceAB {
  */
 class X implements SuperIfaceA {
 	public function getA($a) {
-		// assertType('int', $a);
+		assertType('int', $a);
 		return 1;
 	}
 }
