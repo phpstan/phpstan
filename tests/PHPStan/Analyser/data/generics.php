@@ -485,7 +485,7 @@ interface SuperIfaceB {
  * @template T
  *
  * @extends SuperIfaceA<int>
- * @implements SuperIfaceB<T>
+ * @extends SuperIfaceB<T>
  */
 interface IfaceAB extends SuperIfaceA, SuperIfaceB {
 }
@@ -576,6 +576,11 @@ interface GenericRule
      * @return TNodeType
      */
     public function getNodeInstance(): Node;
+
+	/**
+	 * @return class-string<TNodeType>
+	 */
+    public function getNodeType(): string;
 }
 
 /**
@@ -587,6 +592,24 @@ class SomeRule implements GenericRule
     {
         return new StaticCall(new Name(\stdClass::class), '__construct');
     }
+
+	public function getNodeType(): string
+	{
+		return StaticCall::class;
+	}
+}
+
+class SomeRule2 implements GenericRule
+{
+	public function getNodeInstance(): Node
+	{
+		return new StaticCall(new Name(\stdClass::class), '__construct');
+	}
+
+	public function getNodeType(): string
+	{
+		return Node::class;
+	}
 }
 
 /**
@@ -676,6 +699,11 @@ function testClasses() {
 
 	$rule = new SomeRule();
 	assertType(StaticCall::class, $rule->getNodeInstance());
+	assertType('class-string<' .  StaticCall::class. '>', $rule->getNodeType());
+
+	$rule2 = new SomeRule2();
+	assertType(Node::class, $rule2->getNodeInstance());
+	assertType('class-string<' .  Node::class. '>', $rule2->getNodeType());
 
 	$a = inferFromGeneric(new A(new A(new \DateTime())));
 	assertType('PHPStan\Generics\FunctionsAssertType\A<DateTime>', $a);

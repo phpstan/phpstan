@@ -91,6 +91,13 @@ class TemplateTypeMap
 		return new self($types);
 	}
 
+	public function resolveToBounds(): self
+	{
+		return $this->map(static function (string $name, Type $type): Type {
+			return TemplateTypeHelper::resolveToBounds($type);
+		});
+	}
+
 	/**
 	 * @param mixed[] $properties
 	 */
