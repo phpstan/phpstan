@@ -473,7 +473,16 @@ class ClassReflection implements ReflectionWithFilename
 			if (isset($interfaces[$interfaceName])) {
 				continue;
 			}
-			$interfaces[$interfaceName] = $this->broker->getClass($interfaceName);
+
+			$interfaceReflection = $this->broker->getClass($interfaceName);
+			if (!$interfaceReflection->isGeneric()) {
+				$interfaces[$interfaceName] = $interfaceReflection;
+				continue;
+			}
+
+			$interfaces[$interfaceName] = $interfaceReflection->withTypes(
+				$interfaceReflection->getTemplateTypeMap()->resolveToBounds()->getTypes()
+			);
 		}
 
 		return $interfaces;
