@@ -549,7 +549,7 @@ class ABImpl implements IfaceAB
 
 	public function getB($b)
 	{
-		// assertType('DateTime', $b);
+		assertType('DateTime', $b);
 		return new \DateTime();
 	}
 }
