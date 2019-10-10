@@ -6,9 +6,8 @@ use PhpParser\Node\Expr\FuncCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Type\Constant\ConstantBooleanType;
+use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\DynamicFunctionReturnTypeExtension;
-use PHPStan\Type\Generic\GenericClassStringType;
-use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 
 class GetCalledClassDynamicReturnTypeExtension implements DynamicFunctionReturnTypeExtension
@@ -23,7 +22,7 @@ class GetCalledClassDynamicReturnTypeExtension implements DynamicFunctionReturnT
 	{
 		$classContext = $scope->getClassReflection();
 		if ($classContext !== null) {
-			return new GenericClassStringType(new ObjectType($classContext->getName()));
+			return new ConstantStringType($classContext->getName());
 		}
 		return new ConstantBooleanType(false);
 	}
