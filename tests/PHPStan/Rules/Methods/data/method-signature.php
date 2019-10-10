@@ -2,6 +2,268 @@
 
 namespace MethodSignature;
 
+class Animal
+{
+}
+
+class Dog extends Animal
+{
+}
+
+class Cat extends Animal
+{
+}
+
+class BaseClass
+{
+
+	/**
+	 * @param Animal $animal
+	 */
+	public function __construct($animal)
+	{
+	}
+
+	public function parameterTypeTest1()
+	{
+	}
+
+	/**
+	 * @param Animal $animal
+	 */
+	public function parameterTypeTest2($animal)
+	{
+	}
+
+	/**
+	 * @param Dog $animal
+	 */
+	public function parameterTypeTest3($animal)
+	{
+	}
+
+	/**
+	 * @param Animal $animal
+	 */
+	public function parameterTypeTest4($animal)
+	{
+	}
+
+	/**
+	 * @param Cat $animal
+	 */
+	public function parameterTypeTest5($animal)
+	{
+	}
+
+	/**
+	 * @param Animal $animal
+	 */
+	public function parameterTypeTest6($animal)
+	{
+	}
+
+	/**
+	 * @param Animal $animal
+	 */
+	public function parameterTypeTest7($animal)
+	{
+	}
+
+	/**
+	 * @param Animal $animal
+	 */
+	public function parameterTypeTest8($animal)
+	{
+	}
+
+	/**
+	 * @return void
+	 */
+	public function returnTypeTest1()
+	{
+	}
+
+	/**
+	 * @return Animal
+	 */
+	public function returnTypeTest2()
+	{
+	}
+
+	/**
+	 * @return Animal
+	 */
+	public function returnTypeTest3()
+	{
+	}
+
+	/**
+	 * @return Dog
+	 */
+	public function returnTypeTest4()
+	{
+	}
+
+	/**
+	 * @return Dog
+	 */
+	public function returnTypeTest5()
+	{
+	}
+
+	/**
+	 * @return Animal|null
+	 */
+	public function returnTypeTest6()
+	{
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function returnTypeTest7()
+	{
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function returnTypeTest8()
+	{
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function returnTypeTest9()
+	{
+	}
+
+}
+
+interface BaseInterface
+{
+
+	/**
+	 * @param Animal $animal
+	 */
+	public function __construct($animal);
+
+	public function parameterTypeTest1();
+
+	/**
+	 * @param Animal $animal
+	 */
+	public function parameterTypeTest2($animal);
+
+	/**
+	 * @param Dog $animal
+	 */
+	public function parameterTypeTest3($animal);
+
+	/**
+	 * @param Animal $animal
+	 */
+	public function parameterTypeTest4($animal);
+
+	/**
+	 * @param Cat $animal
+	 */
+	public function parameterTypeTest5($animal);
+
+	/**
+	 * @param Animal $animal
+	 */
+	public function parameterTypeTest6($animal);
+
+	/**
+	 * @param Animal $animal
+	 */
+	public function parameterTypeTest7($animal);
+
+	/**
+	 * @param Animal $animal
+	 */
+	public function parameterTypeTest8($animal);
+
+	/**
+	 * @return void
+	 */
+	public function returnTypeTest1();
+
+	/**
+	 * @return Animal
+	 */
+	public function returnTypeTest2();
+
+	/**
+	 * @return Animal
+	 */
+	public function returnTypeTest3();
+
+	/**
+	 * @return Dog
+	 */
+	public function returnTypeTest4();
+
+	/**
+	 * @return Dog
+	 */
+	public function returnTypeTest5();
+
+	/**
+	 * @return Animal|null
+	 */
+	public function returnTypeTest6();
+
+	public function returnTypeTest7();
+
+	/**
+	 * @return mixed
+	 */
+	public function returnTypeTest8();
+
+	public function returnTypeTest9();
+
+}
+
+class BaseClassWithPrivateMethods
+{
+
+	/**
+	 * @param Animal $animal
+	 */
+	private function parameterTypeTest1($animal)
+	{
+	}
+
+	/**
+	 * @return Animal
+	 */
+	private function returnTypeTest1()
+	{
+	}
+
+	/**
+	 * @param Animal $animal
+	 */
+	private function parameterTypeTest2($animal)
+	{
+	}
+
+	/**
+	 * @return Animal
+	 */
+	private function returnTypeTest2()
+	{
+	}
+
+}
+
+
+namespace MethodSignature;
+
 class SubClass extends BaseClass implements BaseInterface
 {
 
@@ -124,13 +386,6 @@ class SubClass extends BaseClass implements BaseInterface
 	public function returnTypeTest9()
 	{
 	}
-
-}
-
-class SubClassUsingTrait extends BaseClass implements BaseInterface
-{
-
-	use SubTrait;
 
 }
 
