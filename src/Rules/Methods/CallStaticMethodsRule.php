@@ -22,6 +22,9 @@ use PHPStan\Type\TypeUtils;
 use PHPStan\Type\TypeWithClassName;
 use PHPStan\Type\VerbosityLevel;
 
+/**
+ * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Expr\StaticCall>
+ */
 class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 {
 
@@ -65,11 +68,6 @@ class CallStaticMethodsRule implements \PHPStan\Rules\Rule
 		return StaticCall::class;
 	}
 
-	/**
-	 * @param \PhpParser\Node\Expr\StaticCall $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return (string|\PHPStan\Rules\RuleError)[]
-	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
 		if (!$node->name instanceof Node\Identifier) {

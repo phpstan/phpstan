@@ -5,16 +5,19 @@ namespace PHPStan\Rules;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 
+/**
+ * @template TNodeType of \PhpParser\Node
+ */
 interface Rule
 {
 
 	/**
-	 * @return string Class implementing \PhpParser\Node
+	 * @return class-string<TNodeType>
 	 */
 	public function getNodeType(): string;
 
 	/**
-	 * @param \PhpParser\Node $node
+	 * @param TNodeType $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return (string|RuleError)[] errors
 	 */

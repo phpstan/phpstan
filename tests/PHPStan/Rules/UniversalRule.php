@@ -5,15 +5,23 @@ namespace PHPStan\Rules;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 
+/**
+ * @template TNodeType of \PhpParser\Node
+ * @implements Rule<TNodeType>
+ */
 class UniversalRule implements Rule
 {
 
-	/** @var string */
+	/** @var class-string<TNodeType> */
 	private $nodeType;
 
-	/** @var callable */
+	/** @var (callable(TNodeType, Scope): array) */
 	private $processNodeCallback;
 
+	/**
+	 * @param class-string<TNodeType> $nodeType
+	 * @param (callable(TNodeType, Scope): array) $processNodeCallback
+	 */
 	public function __construct(string $nodeType, callable $processNodeCallback)
 	{
 		$this->nodeType = $nodeType;

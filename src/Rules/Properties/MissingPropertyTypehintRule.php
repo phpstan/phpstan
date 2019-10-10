@@ -6,23 +6,17 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Type\MixedType;
 
+/**
+ * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\PropertyProperty>
+ */
 final class MissingPropertyTypehintRule implements \PHPStan\Rules\Rule
 {
 
-	/**
-	 * @return string Class implementing \PhpParser\Node
-	 */
 	public function getNodeType(): string
 	{
 		return \PhpParser\Node\Stmt\PropertyProperty::class;
 	}
 
-	/**
-	 * @param \PhpParser\Node\Stmt\PropertyProperty $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 *
-	 * @return string[] errors
-	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
 		if (!$scope->isInClass()) {

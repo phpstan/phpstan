@@ -9,23 +9,17 @@ use PHPStan\Reflection\ParameterReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Type\MixedType;
 
+/**
+ * @implements \PHPStan\Rules\Rule<\PhpParser\Node\Stmt\ClassMethod>
+ */
 final class MissingMethodParameterTypehintRule implements \PHPStan\Rules\Rule
 {
 
-	/**
-	 * @return string Class implementing \PhpParser\Node
-	 */
 	public function getNodeType(): string
 	{
 		return \PhpParser\Node\Stmt\ClassMethod::class;
 	}
 
-	/**
-	 * @param \PhpParser\Node\Stmt\ClassMethod $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 *
-	 * @return string[] errors
-	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
 		if (!$scope->isInClass()) {
