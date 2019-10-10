@@ -481,7 +481,7 @@ class ClassReflection implements ReflectionWithFilename
 			}
 
 			$interfaces[$interfaceName] = $interfaceReflection->withTypes(
-				$interfaceReflection->getTemplateTypeMap()->resolveToBounds()->getTypes()
+				array_values($interfaceReflection->getTemplateTypeMap()->resolveToBounds()->getTypes())
 			);
 		}
 
@@ -649,6 +649,10 @@ class ClassReflection implements ReflectionWithFilename
 		return count($this->getTemplateTags()) > 0;
 	}
 
+	/**
+	 * @param array<int, Type> $types
+	 * @return \PHPStan\Type\Generic\TemplateTypeMap
+	 */
 	public function typeMapFromList(array $types): TemplateTypeMap
 	{
 		$resolvedPhpDoc = $this->getResolvedPhpDoc();
@@ -666,7 +670,7 @@ class ClassReflection implements ReflectionWithFilename
 		return new TemplateTypeMap($map);
 	}
 
-	/** @return Type[] */
+	/** @return array<int, Type> */
 	public function typeMapToList(TemplateTypeMap $typeMap): array
 	{
 		$resolvedPhpDoc = $this->getResolvedPhpDoc();
@@ -683,7 +687,7 @@ class ClassReflection implements ReflectionWithFilename
 	}
 
 	/**
-	 * @param Type[] $types
+	 * @param array<int, Type> $types
 	 */
 	public function withTypes(array $types): self
 	{

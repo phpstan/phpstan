@@ -431,3 +431,29 @@ class SubClassWithPrivateMethods extends BaseClassWithPrivateMethods
 	}
 
 }
+
+/**
+ * @template TNodeType of \PhpParser\Node
+ */
+interface GenericRule
+{
+
+	/**
+	 * @param TNodeType $node
+	 */
+	public function processNode(\PhpParser\Node $node): void;
+
+}
+
+class Rule implements GenericRule
+{
+
+	/**
+	 * @param \PhpParser\Node\Expr\StaticCall $node
+	 */
+	public function processNode(\PhpParser\Node $node): void
+	{
+
+	}
+
+}
