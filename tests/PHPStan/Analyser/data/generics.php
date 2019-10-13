@@ -2,6 +2,7 @@
 
 namespace PHPStan\Generics\FunctionsAssertType;
 
+use IteratorAggregate;
 use PhpParser\Node;
 use PhpParser\Node\Expr\StaticCall;
 use PhpParser\Node\Name;
@@ -767,3 +768,29 @@ function testClasses()
 		$factory->create(new \DateTime(), '', new A(new \DateTime()))
 	);
 }
+
+/**
+ * Different phpDoc on purpose because of caching issue bbbb
+ * @template T
+ */
+interface GenericIterator extends IteratorAggregate
+{
+
+	/**
+	 * Different phpDoc on purpose because of caching issue ccccc
+	 * @return \Iterator<T>
+	 */
+	public function getIterator(): \Iterator;
+
+}
+
+function () {
+	/** @var GenericIterator<int> $iterator */
+	$iterator = doFoo();
+	assertType('PHPStan\Generics\FunctionsAssertType\GenericIterator<int>', $iterator);
+	assertType('iterable<int>&Iterator', $iterator->getIterator());
+
+	foreach ($iterator as $int) {
+		assertType('int', $int);
+	}
+};
