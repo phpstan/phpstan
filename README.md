@@ -335,6 +335,7 @@ parameters:
 		- '#Call to an undefined method [a-zA-Z0-9\\_]+::expects\(\)#'
 		- '#Access to an undefined property PHPUnit_Framework_MockObject_MockObject::\$[a-zA-Z0-9_]+#'
 		- '#Call to an undefined method PHPUnit_Framework_MockObject_MockObject::[a-zA-Z0-9_]+\(\)#'
+		- '#Call to an undefined method Knp\\DoctrineBehaviors\\Model\\Translatable\\Translation(.|\n)+#'
 ```
 
 To exclude an error in a specific directory or file, specify a `path` or `paths` along with the `message`:
