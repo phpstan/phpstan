@@ -41,7 +41,7 @@ class ObjectType implements TypeWithClassName, SubtractableType
 		$this->subtractedType = $subtractedType;
 	}
 
-	public static function createFromReflection(ClassReflection $reflection): self
+	private static function createFromReflection(ClassReflection $reflection): self
 	{
 		if (!$reflection->isGeneric()) {
 			return new ObjectType($reflection->getName());
