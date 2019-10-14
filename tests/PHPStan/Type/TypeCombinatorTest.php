@@ -1481,6 +1481,29 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 			],
 			[
 				[
+					new IterableType(new MixedType(true), new StringType()),
+					new ObjectType('Iterator'),
+				],
+				IntersectionType::class,
+				'iterable<string>&Iterator',
+			],
+			[
+				[
+					new ObjectType('Iterator'),
+					new IterableType(
+						new MixedType(true),
+						TemplateTypeFactory::create(
+							TemplateTypeScope::createWithFunction('_'),
+							'T',
+							null
+						)
+					),
+				],
+				IntersectionType::class,
+				'iterable<T (function _(), parameter)>&Iterator',
+			],
+			[
+				[
 					new ObjectType('Foo'),
 					new StaticType('Foo'),
 				],
@@ -2055,6 +2078,18 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				],
 				IntersectionType::class,
 				'T of DateTime (function a(), parameter)&U of DateTime (function a(), parameter)',
+			],
+			[
+				[
+					TemplateTypeFactory::create(
+						TemplateTypeScope::createWithFunction('a'),
+						'T',
+						null
+					),
+					new MixedType(),
+				],
+				TemplateType::class,
+				'T (function a(), parameter)',
 			],
 			[
 				[

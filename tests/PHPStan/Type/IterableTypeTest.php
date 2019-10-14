@@ -40,6 +40,11 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 				new ConstantArrayType([], []),
 				TrinaryLogic::createYes(),
 			],
+			[
+				new IterableType(new MixedType(true), new StringType()),
+				new ObjectType('Iterator'),
+				TrinaryLogic::createMaybe(),
+			],
 		];
 	}
 
@@ -135,6 +140,11 @@ class IterableTypeTest extends \PHPStan\Testing\TestCase
 			[
 				new IterableType(new MixedType(), new StringType()),
 				new HasPropertyType('foo'),
+				TrinaryLogic::createMaybe(),
+			],
+			[
+				new IterableType(new MixedType(true), new StringType()),
+				new ObjectType('Iterator'),
 				TrinaryLogic::createMaybe(),
 			],
 		];
