@@ -80,7 +80,7 @@ class TemplateTypeTest extends \PHPStan\Testing\TestCase
 
 	public function dataIsSuperTypeOf(): array
 	{
-		$templateType = static function (string $name, Type $bound, ?string $functionName = null): Type {
+		$templateType = static function (string $name, ?Type $bound, ?string $functionName = null): Type {
 			return TemplateTypeFactory::create(
 				TemplateTypeScope::createWithFunction($functionName ?? '_'),
 				$name,
@@ -133,6 +133,12 @@ class TemplateTypeTest extends \PHPStan\Testing\TestCase
 				]),
 				TrinaryLogic::createMaybe(),
 				TrinaryLogic::createMaybe(),
+			],
+			[
+				$templateType('T', null),
+				new MixedType(true),
+				TrinaryLogic::createMaybe(),
+				TrinaryLogic::createYes(),
 			],
 		];
 	}

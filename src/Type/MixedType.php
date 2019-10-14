@@ -11,6 +11,7 @@ use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Generic\TemplateMixedType;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
@@ -122,7 +123,7 @@ class MixedType implements CompoundType, SubtractableType
 
 	public function isSubTypeOf(Type $otherType): TrinaryLogic
 	{
-		if ($otherType instanceof self) {
+		if ($otherType instanceof self && !$otherType instanceof TemplateMixedType) {
 			return TrinaryLogic::createYes();
 		}
 
