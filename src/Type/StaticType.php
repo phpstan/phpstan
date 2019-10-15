@@ -19,13 +19,17 @@ class StaticType implements TypeWithClassName
 	/** @var string */
 	private $baseClass;
 
-	/** @var \PHPStan\Type\ObjectType */
+	/** @var \PHPStan\Type\ObjectType|null */
 	private $staticObjectType;
 
 	final public function __construct(string $baseClass)
 	{
 		$this->baseClass = $baseClass;
-		$this->staticObjectType = new ObjectType($baseClass);
+	}
+
+	protected static function createStaticObjectType(string $className): ObjectType
+	{
+		return new ObjectType($className);
 	}
 
 	public function getClassName(): string
@@ -35,11 +39,15 @@ class StaticType implements TypeWithClassName
 
 	public function getAncestorWithClassName(string $className): ?TypeWithClassName
 	{
-		return $this->staticObjectType->getAncestorWithClassName($className);
+		return $this->getStaticObjectType()->getAncestorWithClassName($className);
 	}
 
 	protected function getStaticObjectType(): ObjectType
 	{
+		if ($this->staticObjectType === null) {
+			$this->staticObjectType = static::createStaticObjectType($this->baseClass);
+		}
+
 		return $this->staticObjectType;
 	}
 
@@ -48,7 +56,7 @@ class StaticType implements TypeWithClassName
 	 */
 	public function getReferencedClasses(): array
 	{
-		return $this->staticObjectType->getReferencedClasses();
+		return $this->getStaticObjectType()->getReferencedClasses();
 	}
 
 	public function getBaseClass(): string
@@ -66,13 +74,13 @@ class StaticType implements TypeWithClassName
 			return TrinaryLogic::createNo();
 		}
 
-		return $this->staticObjectType->accepts($type->staticObjectType, $strictTypes);
+		return $this->getStaticObjectType()->accepts($type->getStaticObjectType(), $strictTypes);
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		if ($type instanceof self) {
-			return $this->staticObjectType->isSuperTypeOf($type);
+			return $this->getStaticObjectType()->isSuperTypeOf($type);
 		}
 
 		if ($type instanceof ObjectWithoutClassType) {
@@ -80,7 +88,7 @@ class StaticType implements TypeWithClassName
 		}
 
 		if ($type instanceof ObjectType) {
-			return TrinaryLogic::createMaybe()->and($this->staticObjectType->isSuperTypeOf($type));
+			return TrinaryLogic::createMaybe()->and($this->getStaticObjectType()->isSuperTypeOf($type));
 		}
 
 		if ($type instanceof CompoundType) {
@@ -98,57 +106,57 @@ class StaticType implements TypeWithClassName
 
 		/** @var StaticType $type */
 		$type = $type;
-		return $this->staticObjectType->equals($type->staticObjectType);
+		return $this->getStaticObjectType()->equals($type->getStaticObjectType());
 	}
 
 	public function describe(VerbosityLevel $level): string
 	{
-		return sprintf('static(%s)', $this->staticObjectType->describe($level));
+		return sprintf('static(%s)', $this->getStaticObjectType()->describe($level));
 	}
 
 	public function canAccessProperties(): TrinaryLogic
 	{
-		return $this->staticObjectType->canAccessProperties();
+		return $this->getStaticObjectType()->canAccessProperties();
 	}
 
 	public function hasProperty(string $propertyName): TrinaryLogic
 	{
-		return $this->staticObjectType->hasProperty($propertyName);
+		return $this->getStaticObjectType()->hasProperty($propertyName);
 	}
 
 	public function getProperty(string $propertyName, ClassMemberAccessAnswerer $scope): PropertyReflection
 	{
-		return $this->staticObjectType->getProperty($propertyName, $scope);
+		return $this->getStaticObjectType()->getProperty($propertyName, $scope);
 	}
 
 	public function canCallMethods(): TrinaryLogic
 	{
-		return $this->staticObjectType->canCallMethods();
+		return $this->getStaticObjectType()->canCallMethods();
 	}
 
 	public function hasMethod(string $methodName): TrinaryLogic
 	{
-		return $this->staticObjectType->hasMethod($methodName);
+		return $this->getStaticObjectType()->hasMethod($methodName);
 	}
 
 	public function getMethod(string $methodName, ClassMemberAccessAnswerer $scope): MethodReflection
 	{
-		return $this->staticObjectType->getMethod($methodName, $scope);
+		return $this->getStaticObjectType()->getMethod($methodName, $scope);
 	}
 
 	public function canAccessConstants(): TrinaryLogic
 	{
-		return $this->staticObjectType->canAccessConstants();
+		return $this->getStaticObjectType()->canAccessConstants();
 	}
 
 	public function hasConstant(string $constantName): TrinaryLogic
 	{
-		return $this->staticObjectType->hasConstant($constantName);
+		return $this->getStaticObjectType()->hasConstant($constantName);
 	}
 
 	public function getConstant(string $constantName): ConstantReflection
 	{
-		return $this->staticObjectType->getConstant($constantName);
+		return $this->getStaticObjectType()->getConstant($constantName);
 	}
 
 	/**
@@ -163,52 +171,52 @@ class StaticType implements TypeWithClassName
 
 	public function isIterable(): TrinaryLogic
 	{
-		return $this->staticObjectType->isIterable();
+		return $this->getStaticObjectType()->isIterable();
 	}
 
 	public function isIterableAtLeastOnce(): TrinaryLogic
 	{
-		return $this->staticObjectType->isIterableAtLeastOnce();
+		return $this->getStaticObjectType()->isIterableAtLeastOnce();
 	}
 
 	public function getIterableKeyType(): Type
 	{
-		return $this->staticObjectType->getIterableKeyType();
+		return $this->getStaticObjectType()->getIterableKeyType();
 	}
 
 	public function getIterableValueType(): Type
 	{
-		return $this->staticObjectType->getIterableValueType();
+		return $this->getStaticObjectType()->getIterableValueType();
 	}
 
 	public function isOffsetAccessible(): TrinaryLogic
 	{
-		return $this->staticObjectType->isInstanceOf(\ArrayAccess::class);
+		return $this->getStaticObjectType()->isInstanceOf(\ArrayAccess::class);
 	}
 
 	public function hasOffsetValueType(Type $offsetType): TrinaryLogic
 	{
-		return $this->staticObjectType->hasOffsetValueType($offsetType);
+		return $this->getStaticObjectType()->hasOffsetValueType($offsetType);
 	}
 
 	public function getOffsetValueType(Type $offsetType): Type
 	{
-		return $this->staticObjectType->getOffsetValueType($offsetType);
+		return $this->getStaticObjectType()->getOffsetValueType($offsetType);
 	}
 
 	public function setOffsetValueType(?Type $offsetType, Type $valueType): Type
 	{
-		return $this->staticObjectType->setOffsetValueType($offsetType, $valueType);
+		return $this->getStaticObjectType()->setOffsetValueType($offsetType, $valueType);
 	}
 
 	public function isCallable(): TrinaryLogic
 	{
-		return $this->staticObjectType->isCallable();
+		return $this->getStaticObjectType()->isCallable();
 	}
 
 	public function isArray(): TrinaryLogic
 	{
-		return $this->staticObjectType->isArray();
+		return $this->getStaticObjectType()->isArray();
 	}
 
 	/**
@@ -217,7 +225,7 @@ class StaticType implements TypeWithClassName
 	 */
 	public function getCallableParametersAcceptors(ClassMemberAccessAnswerer $scope): array
 	{
-		return $this->staticObjectType->getCallableParametersAcceptors($scope);
+		return $this->getStaticObjectType()->getCallableParametersAcceptors($scope);
 	}
 
 	public function isCloneable(): TrinaryLogic
@@ -232,7 +240,7 @@ class StaticType implements TypeWithClassName
 
 	public function toString(): Type
 	{
-		return $this->staticObjectType->toString();
+		return $this->getStaticObjectType()->toString();
 	}
 
 	public function toInteger(): Type
@@ -247,7 +255,7 @@ class StaticType implements TypeWithClassName
 
 	public function toArray(): Type
 	{
-		return $this->staticObjectType->toArray();
+		return $this->getStaticObjectType()->toArray();
 	}
 
 	public function traverse(callable $cb): Type
