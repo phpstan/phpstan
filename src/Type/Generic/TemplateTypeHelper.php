@@ -22,7 +22,7 @@ class TemplateTypeHelper
 					$newType = $type->getBound();
 				}
 
-				return $traverse($newType);
+				return $newType;
 			}
 
 			return $traverse($type);
