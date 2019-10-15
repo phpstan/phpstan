@@ -161,7 +161,14 @@ class ClassReflection implements ReflectionWithFilename
 			return $extendedType->getClassReflection() ?? $this->broker->getClass($parentClass->getName());
 		}
 
-		return $this->broker->getClass($parentClass->getName());
+		$parentReflection = $this->broker->getClass($parentClass->getName());
+		if ($parentReflection->isGeneric()) {
+			return $parentReflection->withTypes(
+				array_values($parentReflection->getTemplateTypeMap()->resolveToBounds()->getTypes())
+			);
+		}
+
+		return $parentReflection;
 	}
 
 	public function getName(): string

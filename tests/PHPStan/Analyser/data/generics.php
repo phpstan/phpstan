@@ -815,3 +815,13 @@ function (GenericClassWithProperty $obj): void
 {
 	assertType(Node::class, $obj->a);
 };
+
+class ClassThatExtendsGenericClassWithPropertyWithoutSpecifyingTemplateType extends GenericClassWithProperty
+{
+
+}
+
+function (ClassThatExtendsGenericClassWithPropertyWithoutSpecifyingTemplateType $obj): void
+{
+	assertType(Node::class, $obj->a);
+};
