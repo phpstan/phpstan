@@ -799,3 +799,19 @@ function (GenericRule $rule): void {
 	assertType('class-string<PhpParser\Node>', $rule->getNodeType());
 	assertType(Node::class, $rule->getNodeInstance());
 };
+
+/**
+ * @template T of \PhpParser\Node
+ */
+class GenericClassWithProperty
+{
+
+	/** @var T */
+	public $a;
+
+}
+
+function (GenericClassWithProperty $obj): void
+{
+	assertType(Node::class, $obj->a);
+};

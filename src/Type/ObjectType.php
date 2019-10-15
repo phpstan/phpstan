@@ -86,6 +86,10 @@ class ObjectType implements TypeWithClassName, SubtractableType
 			throw new \PHPStan\Broker\ClassNotFoundException($this->className);
 		}
 
+		if ($classReflection->isGeneric() && static::class === self::class) {
+			return $this->getGenericObjectType()->getProperty($propertyName, $scope);
+		}
+
 		return $classReflection->getProperty($propertyName, $scope);
 	}
 
@@ -412,7 +416,7 @@ class ObjectType implements TypeWithClassName, SubtractableType
 			throw new \PHPStan\Broker\ClassNotFoundException($this->className);
 		}
 
-		if ($classReflection->isGeneric() && get_class($this) === self::class) {
+		if ($classReflection->isGeneric() && static::class === self::class) {
 			return $this->getGenericObjectType()->getMethod($methodName, $scope);
 		}
 
