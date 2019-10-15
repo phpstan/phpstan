@@ -22,11 +22,11 @@ use PHPStan\Type\VerbosityLevel;
 final class GenericObjectType extends ObjectType
 {
 
-	/** @var Type[] */
+	/** @var array<int, Type> */
 	private $types;
 
 	/**
-	 * @param Type[] $types
+	 * @param array<int, Type> $types
 	 */
 	public function __construct(
 		string $mainType,
@@ -64,7 +64,7 @@ final class GenericObjectType extends ObjectType
 		return $classes;
 	}
 
-	/** @return Type[] */
+	/** @return array<int, Type> */
 	public function getTypes(): array
 	{
 		return $this->types;

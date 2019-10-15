@@ -794,3 +794,8 @@ function () {
 		assertType('int', $int);
 	}
 };
+
+function (GenericRule $rule): void {
+	assertType('class-string<PhpParser\Node>', $rule->getNodeType());
+	assertType(Node::class, $rule->getNodeInstance());
+};

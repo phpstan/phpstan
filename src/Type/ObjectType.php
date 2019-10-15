@@ -32,6 +32,9 @@ class ObjectType implements TypeWithClassName, SubtractableType
 	/** @var \PHPStan\Type\Type|null */
 	private $subtractedType;
 
+	/** @var GenericObjectType|null */
+	private $genericObjectType;
+
 	public function __construct(
 		string $className,
 		?Type $subtractedType = null
@@ -409,7 +412,29 @@ class ObjectType implements TypeWithClassName, SubtractableType
 			throw new \PHPStan\Broker\ClassNotFoundException($this->className);
 		}
 
+		if ($classReflection->isGeneric() && get_class($this) === self::class) {
+			return $this->getGenericObjectType()->getMethod($methodName, $scope);
+		}
+
 		return $classReflection->getMethod($methodName, $scope);
+	}
+
+	private function getGenericObjectType(): GenericObjectType
+	{
+		$classReflection = $this->getClassReflection();
+		if ($classReflection === null || !$classReflection->isGeneric()) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		if ($this->genericObjectType === null) {
+			$this->genericObjectType = new GenericObjectType(
+				$this->className,
+				array_values($classReflection->getTemplateTypeMap()->resolveToBounds()->getTypes()),
+				$this->subtractedType
+			);
+		}
+
+		return $this->genericObjectType;
 	}
 
 	public function canAccessConstants(): TrinaryLogic
