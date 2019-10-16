@@ -8,15 +8,19 @@ class SimpleRelativePathHelper implements RelativePathHelper
 	/** @var string */
 	private $currentWorkingDirectory;
 
-	public function __construct(string $currentWorkingDirectory)
+	public function __construct(string $currentWorkingDirectory, string $directorySeparator = DIRECTORY_SEPARATOR)
 	{
-		$this->currentWorkingDirectory = $currentWorkingDirectory;
+		$this->currentWorkingDirectory = rtrim($currentWorkingDirectory, $directorySeparator);
+		if ($currentWorkingDirectory === '') {
+			return;
+		}
+		$this->currentWorkingDirectory .= $directorySeparator;
 	}
 
 	public function getRelativePath(string $filename): string
 	{
 		if ($this->currentWorkingDirectory !== '' && strpos($filename, $this->currentWorkingDirectory) === 0) {
-			return substr($filename, strlen($this->currentWorkingDirectory) + 1);
+			return substr($filename, strlen($this->currentWorkingDirectory));
 		}
 
 		return $filename;
