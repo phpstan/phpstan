@@ -15,7 +15,7 @@ class SimpleRelativePathHelper implements RelativePathHelper
 
 	public function getRelativePath(string $filename): string
 	{
-		if ($this->currentWorkingDirectory !== '' && strpos($filename, $this->currentWorkingDirectory) === 0) {
+		if ($this->currentWorkingDirectory !== '/' && $this->currentWorkingDirectory !== '' && strpos($filename, $this->currentWorkingDirectory) === 0) {
 			return substr($filename, strlen($this->currentWorkingDirectory) + 1);
 		}
 
