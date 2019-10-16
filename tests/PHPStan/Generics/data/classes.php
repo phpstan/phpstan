@@ -235,6 +235,25 @@ class SomeRule implements GenericRule
 
 }
 
+/**
+ * Class GenericThis
+ *
+ * @template T of \DateTimeInterface
+ */
+class GenericThis
+{
+	/** @param T $foo */
+	public function __construct(\DateTimeInterface $foo)
+	{
+		$this->setFoo($foo);
+	}
+
+	/** @param T $foo */
+	public function setFoo(\DateTimeInterface $foo): void
+	{
+	}
+}
+
 function testClasses(): void {
 	$a = new A(1);
 	$a->set(2);

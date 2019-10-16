@@ -4,6 +4,7 @@ namespace PHPStan\Type;
 
 use PHPStan\Broker\Broker;
 use PHPStan\Type\Generic\GenericObjectType;
+use PHPStan\Type\Generic\TemplateTypeHelper;
 
 class ThisType extends StaticType
 {
@@ -17,7 +18,13 @@ class ThisType extends StaticType
 
 		$classReflection = $broker->getClass($className);
 		if ($classReflection->isGeneric()) {
-			return new GenericObjectType($className, $classReflection->typeMapToList($classReflection->getTemplateTypeMap()));
+			$typeMap = $classReflection->getTemplateTypeMap()->map(static function (string $name, Type $type): Type {
+				return TemplateTypeHelper::toArgument($type);
+			});
+			return new GenericObjectType(
+				$className,
+				$classReflection->typeMapToList($typeMap)
+			);
 		}
 
 		return new ObjectType($className);
