@@ -42,7 +42,7 @@ class StaticType implements TypeWithClassName
 		return $this->getStaticObjectType()->getAncestorWithClassName($className);
 	}
 
-	protected function getStaticObjectType(): ObjectType
+	public function getStaticObjectType(): ObjectType
 	{
 		if ($this->staticObjectType === null) {
 			$this->staticObjectType = static::createStaticObjectType($this->baseClass);

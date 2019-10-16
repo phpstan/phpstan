@@ -12,7 +12,6 @@ use PHPStan\Type\ErrorType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\NeverType;
 use PHPStan\Type\NullType;
-use PHPStan\Type\ObjectType;
 use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StaticType;
 use PHPStan\Type\Type;
@@ -166,7 +165,7 @@ class RuleLevelHelper
 			return new FoundTypeResult(new ErrorType(), [], []);
 		}
 		if ($type instanceof StaticType) {
-			$type = new ObjectType($type->getBaseClass());
+			$type = $type->getStaticObjectType();
 		}
 
 		$errors = [];

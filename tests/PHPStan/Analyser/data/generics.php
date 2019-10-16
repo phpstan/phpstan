@@ -825,3 +825,22 @@ function (ClassThatExtendsGenericClassWithPropertyWithoutSpecifyingTemplateType 
 {
 	assertType(Node::class, $obj->a);
 };
+
+/**
+ * Class GenericThis
+ *
+ * @template T of \DateTimeInterface
+ */
+class GenericThis
+{
+	/** @param T $foo */
+	public function __construct(\DateTimeInterface $foo)
+	{
+		assertType('T of DateTimeInterface (class PHPStan\Generics\FunctionsAssertType\GenericThis, argument)', $this->getFoo());
+	}
+
+	/** @return T */
+	public function getFoo()
+	{
+	}
+}
