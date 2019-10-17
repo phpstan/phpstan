@@ -728,6 +728,9 @@ services:
 	errorFormatter.raw:
 		class: PHPStan\Command\ErrorFormatter\RawErrorFormatter
 
+	errorFormatter.baselineNeon:
+		class: PHPStan\Command\ErrorFormatter\BaselineNeonErrorFormatter
+
 	errorFormatter.table:
 		class: PHPStan\Command\ErrorFormatter\TableErrorFormatter
 		arguments:
