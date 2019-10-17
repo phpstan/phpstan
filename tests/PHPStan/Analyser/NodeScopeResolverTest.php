@@ -3980,77 +3980,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
-	public function dataInstanceOf(): array
-	{
-		return [
-			[
-				'PhpParser\Node\Expr\ArrayDimFetch',
-				'$foo',
-			],
-			[
-				'PhpParser\Node\Expr',
-				'$bar',
-			],
-			[
-				'*ERROR*',
-				'$baz',
-			],
-			[
-				'InstanceOfNamespace\Lorem',
-				'$lorem',
-			],
-			[
-				'InstanceOfNamespace\Dolor',
-				'$dolor',
-			],
-			[
-				'InstanceOfNamespace\Sit',
-				'$sit',
-			],
-			[
-				'InstanceOfNamespace\Foo',
-				'$self',
-			],
-			[
-				'static(InstanceOfNamespace\Foo)',
-				'$static',
-			],
-			[
-				'static(InstanceOfNamespace\Foo)',
-				'clone $static',
-			],
-			[
-				'InstanceOfNamespace\BarInterface&InstanceOfNamespace\Foo',
-				'$intersected',
-			],
-			[
-				'$this(InstanceOfNamespace\Foo)&InstanceOfNamespace\BarInterface',
-				'$this',
-			],
-			[
-				'InstanceOfNamespace\BarParent',
-				'$parent',
-			],
-		];
-	}
-
-	/**
-	 * @dataProvider dataInstanceOf
-	 * @param string $description
-	 * @param string $expression
-	 */
-	public function testInstanceOf(
-		string $description,
-		string $expression
-	): void
-	{
-		$this->assertTypes(
-			__DIR__ . '/data/instanceof.php',
-			$description,
-			$expression
-		);
-	}
-
 	public function testNotSwitchInstanceof(): void
 	{
 		$this->assertTypes(
@@ -9494,6 +9423,12 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		return $this->gatherAssertTypes(__DIR__ . '/data/generic-class-string.php');
 	}
 
+	public function dataInstanceOf(): array
+	{
+		require_once __DIR__ . '/data/instanceof.php';
+
+		return $this->gatherAssertTypes(__DIR__ . '/data/instanceof.php');
+	}
 
 	public function dataIntegerRangeTypes(): array
 	{
@@ -9503,11 +9438,13 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	/**
 	 * @dataProvider dataGenerics
 	 * @dataProvider dataGenericClassStringType
+	 * @dataProvider dataInstanceOf
 	 * @dataProvider dataIntegerRangeTypes
 	 * @param ConstantStringType $expectedType
 	 * @param Type $actualType
 	 */
 	public function testFileAsserts(
+		string $file,
 		ConstantStringType $expectedType,
 		Type $actualType,
 		int $line
@@ -9515,17 +9452,20 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$expected = $expectedType->getValue();
 		$actual = $actualType->describe(VerbosityLevel::precise());
+		if ($actualType instanceof ErrorType) {
+			$actual = '*ERROR*';
+		}
 		$this->assertSame(
 			$expected,
 			$actual,
-			sprintf('Expected type %s, got type %s on line %d.', $expected, $actual, $line)
+			sprintf('Expected type %s, got type %s in %s on line %d.', $expected, $actual, $file, $line)
 		);
 	}
 
 	private function gatherAssertTypes(string $file): array
 	{
 		$types = [];
-		$this->processFile($file, function (Node $node, Scope $scope) use (&$types): void {
+		$this->processFile($file, function (Node $node, Scope $scope) use (&$types, $file): void {
 			if (!$node instanceof Node\Expr\FuncCall) {
 				return;
 			}
@@ -9551,7 +9491,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 			$expectedTypeString = $scope->getType($node->args[0]->value);
 			$actualType = $scope->getType($node->args[1]->value);
 
-			$types[] = [$expectedTypeString, $actualType, $node->getLine()];
+			$types[$file . ':' . $node->getLine()] = [$file, $expectedTypeString, $actualType, $node->getLine()];
 		});
 
 		return $types;
