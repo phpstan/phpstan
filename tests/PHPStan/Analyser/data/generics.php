@@ -844,3 +844,53 @@ class GenericThis
 	{
 	}
 }
+
+/**
+ * Class Cache
+ *
+ * @template T
+ */
+class Cache
+{
+	/**
+	 * Function Cache::__construct
+	 *
+	 * @param T $t
+	 */
+	public function __construct($t)
+	{
+	}
+
+	/**
+	 * Function Cache::get
+	 *
+	 * @return T
+	 */
+	public function get()
+	{
+	}
+}
+
+/**
+ * Function cache0
+ *
+ * @template T
+ *
+ * @param T $t
+ */
+function cache0($t): void {
+	$c = new Cache($t);
+	assertType('T (function PHPStan\Generics\FunctionsAssertType\cache0(), argument)', $c->get());
+}
+
+/**
+ * Function cache1
+ *
+ * @template T
+ *
+ * @param T $t
+ */
+function cache1($t): void {
+	$c = new Cache($t);
+	assertType('T (function PHPStan\Generics\FunctionsAssertType\cache1(), argument)', $c->get());
+}

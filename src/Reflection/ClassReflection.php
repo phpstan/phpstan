@@ -76,6 +76,9 @@ class ClassReflection implements ReflectionWithFilename
 	/** @var array<string,ClassReflection>|null */
 	private $ancestors;
 
+	/** @var string|null */
+	private $cacheKey;
+
 	/**
 	 * @param Broker $broker
 	 * @param \PHPStan\Type\FileTypeMapper $fileTypeMapper
@@ -191,6 +194,26 @@ class ClassReflection implements ReflectionWithFilename
 		return $name . '<' . implode(',', array_map(static function (Type $type): string {
 			return $type->describe(VerbosityLevel::typeOnly());
 		}, $this->resolvedTemplateTypeMap->getTypes())) . '>';
+	}
+
+	public function getCacheKey(): string
+	{
+		$cacheKey = $this->cacheKey;
+		if ($cacheKey !== null) {
+			return $this->cacheKey;
+		}
+
+		$cacheKey = $this->displayName;
+
+		if ($this->resolvedTemplateTypeMap !== null) {
+			$cacheKey .= '<' . implode(',', array_map(static function (Type $type): string {
+				return $type->describe(VerbosityLevel::precise());
+			}, $this->resolvedTemplateTypeMap->getTypes())) . '>';
+		}
+
+		$this->cacheKey = $cacheKey;
+
+		return $cacheKey;
 	}
 
 	/**
