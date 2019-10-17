@@ -7,6 +7,7 @@ use Symfony\Component\Console\Style\OutputStyle;
 
 class NeonExcludesErrorFormatter implements ErrorFormatter
 {
+
 	public function formatErrors(
 		AnalysisResult $analysisResult,
 		OutputStyle $style
