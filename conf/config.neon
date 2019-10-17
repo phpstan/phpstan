@@ -760,6 +760,9 @@ services:
 	errorFormatter.raw:
 		class: PHPStan\Command\ErrorFormatter\RawErrorFormatter
 
+	errorFormatter.neonExcludes:
+		class: PHPStan\Command\ErrorFormatter\NeonExcludesErrorFormatter
+
 	errorFormatter.table:
 		class: PHPStan\Command\ErrorFormatter\TableErrorFormatter
 		arguments:
