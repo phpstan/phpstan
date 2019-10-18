@@ -330,3 +330,48 @@ class BarGrandChild implements BarChild
 {
 
 }
+
+class InvalidTypeTest
+{
+	/**
+	 * @template ObjectT of InvalidTypeTest
+	 * @template MixedT
+	 *
+	 * @param mixed $subject
+	 * @param int $int
+	 * @param object $objectWithoutClass
+	 * @param InvalidTypeTest $object
+	 * @param int|InvalidTypeTest $intOrObject
+	 * @param string $string
+	 * @param mixed $mixed
+	 * @param mixed $mixed
+	 * @param ObjectT $objectT
+	 * @param MixedT $mixedT
+	 */
+	public function doTest($int, $objectWithoutClass, $object, $intOrObject, $string, $mixed, $objectT, $mixedT)
+	{
+		if ($mixed instanceof $int) {
+		}
+
+		if ($mixed instanceof $objectWithoutClass) {
+		}
+
+		if ($mixed instanceof $object) {
+		}
+
+		if ($mixed instanceof $intOrObject) {
+		}
+
+		if ($mixed instanceof $string) {
+		}
+
+		if ($mixed instanceof $mixed) {
+		}
+
+		if ($mixed instanceof $objectT) {
+		}
+
+		if ($mixed instanceof $mixedT) {
+		}
+	}
+}

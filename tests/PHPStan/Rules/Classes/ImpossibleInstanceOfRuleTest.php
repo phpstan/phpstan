@@ -127,6 +127,14 @@ class ImpossibleInstanceOfRuleTest extends \PHPStan\Testing\RuleTestCase
 					'Instanceof between ImpossibleInstanceOf\Bar and ImpossibleInstanceOf\BarGrandChild will always evaluate to false.',
 					322,
 				],
+				[
+					'Instanceof between mixed and int results in an error.',
+					353,
+				],
+				[
+					'Instanceof between mixed and ImpossibleInstanceOf\InvalidTypeTest|int results in an error.',
+					362,
+				],
 			]
 		);
 	}
@@ -192,6 +200,14 @@ class ImpossibleInstanceOfRuleTest extends \PHPStan\Testing\RuleTestCase
 				[
 					'Instanceof between ImpossibleInstanceOf\Bar and ImpossibleInstanceOf\BarGrandChild will always evaluate to false.',
 					322,
+				],
+				[
+					'Instanceof between mixed and int results in an error.',
+					353,
+				],
+				[
+					'Instanceof between mixed and ImpossibleInstanceOf\InvalidTypeTest|int results in an error.',
+					362,
 				],
 			]
 		);
