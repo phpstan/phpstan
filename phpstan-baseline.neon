@@ -68,16 +68,6 @@ parameters:
 			path: src/PhpDoc/PhpDocBlock.php
 
 		-
-			message: "#^Fetching class constant class of deprecated class DeprecatedAnnotations\\\\DeprecatedFoo\\:\nin 1\\.0\\.0\\.$#"
-			count: 1
-			path: tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
-
-		-
-			message: "#^Fetching class constant class of deprecated class DeprecatedAnnotations\\\\DeprecatedWithMultipleTags\\:\nin Foo 1\\.1\\.0 and will be removed in 1\\.5\\.0, use\n\\\\Foo\\\\Bar\\\\NotDeprecated instead\\.$#"
-			count: 1
-			path: tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
-
-		-
 			message: "#^Call to an undefined method PHPStan\\\\Reflection\\\\DeprecatableReflection&PHPStan\\\\Reflection\\\\MethodReflection\\:\\:getDeprecatedDescription\\(\\)\\.$#"
 			count: 1
 			path: tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
@@ -91,4 +81,5 @@ parameters:
 			message: "#^Call to an undefined method PHPStan\\\\Reflection\\\\ConstantReflection&PHPStan\\\\Reflection\\\\DeprecatableReflection\\:\\:getDeprecatedDescription\\(\\)\\.$#"
 			count: 1
 			path: tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
+
 
