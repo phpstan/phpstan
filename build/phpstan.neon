@@ -5,6 +5,7 @@ includes:
 	- ../vendor/phpstan/phpstan-phpunit/rules.neon
 	- ../vendor/phpstan/phpstan-strict-rules/rules.neon
 	- ../conf/bleedingEdge.neon
+	- ../phpstan-baseline.neon
 parameters:
 	bootstrap: %rootDir%/tests/phpstan-bootstrap.php
 	excludes_analyse:
@@ -17,42 +18,18 @@ parameters:
 	featureToggles:
 		missingClosureNativeReturnTypehintRule: true
 	ignoreErrors:
-		- '#^Strict comparison using === between PhpParser\\Node\\Expr\\ArrayItem and null will always evaluate to false\.$#'
 		- '#^Dynamic call to static method PHPUnit\\Framework\\\S+\(\)\.$#'
-		- '#^Only numeric types are allowed in (pre|post)-(de|in)crement, bool\|float\|int\|string\|null given\.$#'
 		- '#should be contravariant with parameter \$node \(PhpParser\\Node\) of method PHPStan\\Rules\\Rule<PhpParser\\Node>::processNode\(\)$#'
-		- '#^Parameter .* of method PHPStan\\Command\\ErrorsConsoleStyle::.*\(\) should be contravariant with parameter .* of method Symfony\\Component\\Console\\Style\\(StyleInterface|SymfonyStyle)::.*()$#'
 		- '#Variable property access on PhpParser\\Node#'
 		-
-			message: '#Variable method call on PHPStan\\Reflection\\ClassReflection\.#'
-			path: %rootDir%/src/PhpDoc/PhpDocBlock.php
-		-
-			message: '#Variable static method call on PHPStan\\PhpDoc\\PhpDocBlock\.#'
-			path: %rootDir%/src/PhpDoc/PhpDocBlock.php
-		-
-			message: '#Anonymous function has an unused use \$container\.#'
-			path: %rootDir%/src/Command/CommandHelper.php
-		-
-			message: '#Access to constant EXTENSIONS on an unknown class PHPStan\\ExtensionInstaller\\GeneratedConfig\.#'
-			path: %rootDir%/src/Command/CommandHelper.php
-		-
-			message: '#Variable (?:static )?method call#'
-			path: %rootDir%/src/DependencyInjection/ParametersSchemaExtension.php
+			message: "#^Call to function method_exists\\(\\) with ReflectionProperty and '(?:hasType|getType)' will always evaluate to true\\.$#"
+			path: %rootDir%/src/Reflection/Php/PhpClassReflectionExtension.php
 		-
 			message: '#Fetching class constant class of deprecated class DeprecatedAnnotations\\DeprecatedFoo.#'
 			path: %rootDir%/tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
 		-
 			message: '#Fetching class constant class of deprecated class DeprecatedAnnotations\\DeprecatedWithMultipleTags.#'
 			path: %rootDir%/tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
-		-
-			message: "#^Call to function method_exists\\(\\) with ReflectionProperty and '(?:hasType|getType)' will always evaluate to true\\.$#"
-			path: %rootDir%/src/Reflection/Php/PhpClassReflectionExtension.php
-		-
-			message: '#^Constant SOME_CONSTANT_IN_AUTOLOAD_FILE not found\.$#'
-			path: %rootDir%/tests/PHPStan/Command/AnalyseCommandTest.php
-		-
-			message: '#^Fetching class constant PREVENT_MERGING of deprecated class Nette\\DI\\Config\\Helpers\.$#'
-			path: ../src/DependencyInjection/NeonAdapter.php
 	reportStaticMethodSignatures: true
 	reportUnmatchedIgnoredErrors: false
 	tmpDir: %rootDir%/tmp

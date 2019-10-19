@@ -1,0 +1,120 @@
+
+
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Strict comparison using \\=\\=\\= between PhpParser\\\\Node\\\\Expr\\\\ArrayItem and null will always evaluate to false\\.$#"
+			count: 1
+			path: src/Analyser/MutatingScope.php
+
+		-
+			message: "#^Only numeric types are allowed in pre\\-increment, bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 1
+			path: src/Analyser/MutatingScope.php
+
+		-
+			message: "#^Only numeric types are allowed in pre\\-decrement, bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 1
+			path: src/Analyser/MutatingScope.php
+
+		-
+			message: "#^Access to constant EXTENSIONS on an unknown class PHPStan\\\\ExtensionInstaller\\\\GeneratedConfig\\.$#"
+			count: 1
+			path: src/Command/CommandHelper.php
+
+		-
+			message: "#^Anonymous function has an unused use \\$container\\.$#"
+			count: 2
+			path: src/Command/CommandHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$headers \\(array\\<string\\>\\) of method PHPStan\\\\Command\\\\ErrorsConsoleStyle\\:\\:table\\(\\) should be contravariant with parameter \\$headers \\(array\\) of method Symfony\\\\Component\\\\Console\\\\Style\\\\StyleInterface\\:\\:table\\(\\)$#"
+			count: 1
+			path: src/Command/ErrorsConsoleStyle.php
+
+		-
+			message: "#^Parameter \\#1 \\$headers \\(array\\<string\\>\\) of method PHPStan\\\\Command\\\\ErrorsConsoleStyle\\:\\:table\\(\\) should be contravariant with parameter \\$headers \\(array\\) of method Symfony\\\\Component\\\\Console\\\\Style\\\\SymfonyStyle\\:\\:table\\(\\)$#"
+			count: 1
+			path: src/Command/ErrorsConsoleStyle.php
+
+		-
+			message: "#^Parameter \\#2 \\$rows \\(array\\<array\\<string\\>\\>\\) of method PHPStan\\\\Command\\\\ErrorsConsoleStyle\\:\\:table\\(\\) should be contravariant with parameter \\$rows \\(array\\) of method Symfony\\\\Component\\\\Console\\\\Style\\\\StyleInterface\\:\\:table\\(\\)$#"
+			count: 1
+			path: src/Command/ErrorsConsoleStyle.php
+
+		-
+			message: "#^Parameter \\#2 \\$rows \\(array\\<array\\<string\\>\\>\\) of method PHPStan\\\\Command\\\\ErrorsConsoleStyle\\:\\:table\\(\\) should be contravariant with parameter \\$rows \\(array\\) of method Symfony\\\\Component\\\\Console\\\\Style\\\\SymfonyStyle\\:\\:table\\(\\)$#"
+			count: 1
+			path: src/Command/ErrorsConsoleStyle.php
+
+		-
+			message: "#^Fetching class constant PREVENT_MERGING of deprecated class Nette\\\\DI\\\\Config\\\\Helpers\\.$#"
+			count: 1
+			path: src/DependencyInjection/NeonAdapter.php
+
+		-
+			message: "#^Variable static method call on Nette\\\\Schema\\\\Expect\\.$#"
+			count: 1
+			path: src/DependencyInjection/ParametersSchemaExtension.php
+
+		-
+			message: "#^Variable method call on Nette\\\\Schema\\\\Elements\\\\AnyOf\\|Nette\\\\Schema\\\\Elements\\\\Structure\\|Nette\\\\Schema\\\\Elements\\\\Type\\.$#"
+			count: 1
+			path: src/DependencyInjection/ParametersSchemaExtension.php
+
+		-
+			message: "#^Variable method call on PHPStan\\\\Reflection\\\\ClassReflection\\.$#"
+			count: 2
+			path: src/PhpDoc/PhpDocBlock.php
+
+		-
+			message: "#^Variable static method call on PHPStan\\\\PhpDoc\\\\PhpDocBlock\\.$#"
+			count: 1
+			path: src/PhpDoc/PhpDocBlock.php
+
+		-
+			message: "#^Method PHPStan\\\\Reflection\\\\ClassReflection\\:\\:getCacheKey\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: src/Reflection/ClassReflection.php
+
+		-
+			message: "#^Cannot call method toString\\(\\) on PhpParser\\\\Node\\\\Identifier\\|null\\.$#"
+			count: 1
+			path: src/Rules/Generics/MethodTemplateTypeRule.php
+
+		-
+			message: "#^Cannot call method getActiveTemplateTypeMap\\(\\) on PHPStan\\\\Reflection\\\\ClassReflection\\|null\\.$#"
+			count: 2
+			path: src/Type/Generic/GenericObjectType.php
+
+		-
+			message: "#^Constant SOME_CONSTANT_IN_AUTOLOAD_FILE not found\\.$#"
+			count: 1
+			path: tests/PHPStan/Command/AnalyseCommandTest.php
+
+		-
+			message: "#^Class PHPStan\\\\Command\\\\AnalysisResult constructor invoked with 6 parameters, 5 required\\.$#"
+			count: 1
+			path: tests/PHPStan/Command/ErrorFormatter/BaselineNeonErrorFormatterTest.php
+
+		-
+			message: "#^Parameter \\#4 \\$hasInferrablePropertyTypesFromConstructor of class PHPStan\\\\Command\\\\AnalysisResult constructor expects bool, string given\\.$#"
+			count: 1
+			path: tests/PHPStan/Command/ErrorFormatter/BaselineNeonErrorFormatterTest.php
+
+		-
+			message: "#^Parameter \\#5 \\$projectConfigFile of class PHPStan\\\\Command\\\\AnalysisResult constructor expects string\\|null, false given\\.$#"
+			count: 1
+			path: tests/PHPStan/Command/ErrorFormatter/BaselineNeonErrorFormatterTest.php
+
+		-
+			message: "#^Fetching class constant class of deprecated class DeprecatedAnnotations\\\\DeprecatedFoo\\:\nin 1\\.0\\.0\\.$#"
+			count: 1
+			path: tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
+
+		-
+			message: "#^Fetching class constant class of deprecated class DeprecatedAnnotations\\\\DeprecatedWithMultipleTags\\:\nin Foo 1\\.1\\.0 and will be removed in 1\\.5\\.0, use\n\\\\Foo\\\\Bar\\\\NotDeprecated instead\\.$#"
+			count: 1
+			path: tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
+
+
