@@ -258,7 +258,21 @@ class Analyser
 					if (isset($ignore['path'])) {
 						$shouldBeIgnored = IgnoredError::shouldIgnore($this->fileHelper, $error, $ignore['message'], $ignore['path']);
 						if ($shouldBeIgnored) {
-							unset($unmatchedIgnoredErrors[$i]);
+							if (isset($ignore['count'])) {
+								$realCount = $unmatchedIgnoredErrors[$i]['realCount'] ?? 0;
+								$realCount++;
+								$unmatchedIgnoredErrors[$i]['realCount'] = $realCount;
+
+								if ($realCount > $ignore['count']) {
+									$shouldBeIgnored = false;
+									if (!isset($unmatchedIgnoredErrors[$i]['file'])) {
+										$unmatchedIgnoredErrors[$i]['file'] = $error->getFile();
+										$unmatchedIgnoredErrors[$i]['line'] = $error->getLine();
+									}
+								}
+							} else {
+								unset($unmatchedIgnoredErrors[$i]);
+							}
 						}
 					} elseif (isset($ignore['paths'])) {
 						foreach ($ignore['paths'] as $j => $ignorePath) {
@@ -296,14 +310,49 @@ class Analyser
 			return true;
 		}));
 
+		foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
+			if (!isset($unmatchedIgnoredError['count']) || !isset($unmatchedIgnoredError['realCount'])) {
+				continue;
+			}
+
+			if ($unmatchedIgnoredError['realCount'] <= $unmatchedIgnoredError['count']) {
+				continue;
+			}
+
+			$addErrors[] = new Error(sprintf(
+				'Ignored error pattern %s is expected to occur %d %s, but occured %d %s.',
+				IgnoredError::stringifyPattern($unmatchedIgnoredError),
+				$unmatchedIgnoredError['count'],
+				$unmatchedIgnoredError['count'] === 1 ? 'time' : 'times',
+				$unmatchedIgnoredError['realCount'],
+				$unmatchedIgnoredError['realCount'] === 1 ? 'time' : 'times'
+			), $unmatchedIgnoredError['file'], $unmatchedIgnoredError['line']);
+		}
+
 		$errors = array_merge($errors, $addErrors);
 
 		if (!$onlyFiles && $this->reportUnmatchedIgnoredErrors && !$reachedInternalErrorsCountLimit) {
 			foreach ($unmatchedIgnoredErrors as $unmatchedIgnoredError) {
-				$errors[] = sprintf(
-					'Ignored error pattern %s was not matched in reported errors.',
-					IgnoredError::stringifyPattern($unmatchedIgnoredError)
-				);
+				if (
+					isset($unmatchedIgnoredError['count'])
+					&& isset($unmatchedIgnoredError['realCount'])
+				) {
+					if ($unmatchedIgnoredError['realCount'] < $unmatchedIgnoredError['count']) {
+						$errors[] = sprintf(
+							'Ignored error pattern %s is expected to occur %d %s, but occured only %d %s.',
+							IgnoredError::stringifyPattern($unmatchedIgnoredError),
+							$unmatchedIgnoredError['count'],
+							$unmatchedIgnoredError['count'] === 1 ? 'time' : 'times',
+							$unmatchedIgnoredError['realCount'],
+							$unmatchedIgnoredError['realCount'] === 1 ? 'time' : 'times'
+						);
+					}
+				} else {
+					$errors[] = sprintf(
+						'Ignored error pattern %s was not matched in reported errors.',
+						IgnoredError::stringifyPattern($unmatchedIgnoredError)
+					);
+				}
 			}
 		}
 

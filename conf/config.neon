@@ -131,6 +131,11 @@ parametersSchema:
 			]),
 			structure([
 				message: string()
+				count: int()
+				path: string()
+			]),
+			structure([
+				message: string()
 				paths: listOf(string())
 			])
 		)
