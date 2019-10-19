@@ -1,0 +1,94 @@
+
+
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Strict comparison using \\=\\=\\= between PhpParser\\\\Node\\\\Expr\\\\ArrayItem and null will always evaluate to false\\.$#"
+			count: 1
+			path: src/Analyser/Scope.php
+
+		-
+			message: "#^Only numeric types are allowed in pre\\-increment, bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 1
+			path: src/Analyser/Scope.php
+
+		-
+			message: "#^Only numeric types are allowed in pre\\-decrement, bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 1
+			path: src/Analyser/Scope.php
+
+		-
+			message: "#^Access to constant EXTENSIONS on an unknown class PHPStan\\\\ExtensionInstaller\\\\GeneratedConfig\\.$#"
+			count: 1
+			path: src/Command/CommandHelper.php
+
+		-
+			message: "#^Anonymous function has an unused use \\$container\\.$#"
+			count: 2
+			path: src/Command/CommandHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$headers \\(array\\<string\\>\\) of method PHPStan\\\\Command\\\\ErrorsConsoleStyle\\:\\:table\\(\\) should be contravariant with parameter \\$headers \\(array\\) of method Symfony\\\\Component\\\\Console\\\\Style\\\\StyleInterface\\:\\:table\\(\\)$#"
+			count: 1
+			path: src/Command/ErrorsConsoleStyle.php
+
+		-
+			message: "#^Parameter \\#1 \\$headers \\(array\\<string\\>\\) of method PHPStan\\\\Command\\\\ErrorsConsoleStyle\\:\\:table\\(\\) should be contravariant with parameter \\$headers \\(array\\) of method Symfony\\\\Component\\\\Console\\\\Style\\\\SymfonyStyle\\:\\:table\\(\\)$#"
+			count: 1
+			path: src/Command/ErrorsConsoleStyle.php
+
+		-
+			message: "#^Parameter \\#2 \\$rows \\(array\\<array\\<string\\>\\>\\) of method PHPStan\\\\Command\\\\ErrorsConsoleStyle\\:\\:table\\(\\) should be contravariant with parameter \\$rows \\(array\\) of method Symfony\\\\Component\\\\Console\\\\Style\\\\StyleInterface\\:\\:table\\(\\)$#"
+			count: 1
+			path: src/Command/ErrorsConsoleStyle.php
+
+		-
+			message: "#^Parameter \\#2 \\$rows \\(array\\<array\\<string\\>\\>\\) of method PHPStan\\\\Command\\\\ErrorsConsoleStyle\\:\\:table\\(\\) should be contravariant with parameter \\$rows \\(array\\) of method Symfony\\\\Component\\\\Console\\\\Style\\\\SymfonyStyle\\:\\:table\\(\\)$#"
+			count: 1
+			path: src/Command/ErrorsConsoleStyle.php
+
+		-
+			message: "#^Variable static method call on Nette\\\\Schema\\\\Expect\\.$#"
+			count: 1
+			path: src/DependencyInjection/ParametersSchemaExtension.php
+
+		-
+			message: "#^Variable method call on Nette\\\\Schema\\\\Elements\\\\AnyOf\\|Nette\\\\Schema\\\\Elements\\\\Structure\\|Nette\\\\Schema\\\\Elements\\\\Type\\.$#"
+			count: 1
+			path: src/DependencyInjection/ParametersSchemaExtension.php
+
+		-
+			message: "#^Variable method call on PHPStan\\\\Reflection\\\\ClassReflection\\.$#"
+			count: 2
+			path: src/PhpDoc/PhpDocBlock.php
+
+		-
+			message: "#^Variable static method call on PHPStan\\\\PhpDoc\\\\PhpDocBlock\\.$#"
+			count: 1
+			path: src/PhpDoc/PhpDocBlock.php
+
+		-
+			message: "#^Fetching class constant class of deprecated class DeprecatedAnnotations\\\\DeprecatedFoo\\:\nin 1\\.0\\.0\\.$#"
+			count: 1
+			path: tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
+
+		-
+			message: "#^Fetching class constant class of deprecated class DeprecatedAnnotations\\\\DeprecatedWithMultipleTags\\:\nin Foo 1\\.1\\.0 and will be removed in 1\\.5\\.0, use\n\\\\Foo\\\\Bar\\\\NotDeprecated instead\\.$#"
+			count: 1
+			path: tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
+
+		-
+			message: "#^Call to an undefined method PHPStan\\\\Reflection\\\\DeprecatableReflection&PHPStan\\\\Reflection\\\\MethodReflection\\:\\:getDeprecatedDescription\\(\\)\\.$#"
+			count: 1
+			path: tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
+
+		-
+			message: "#^Call to an undefined method PHPStan\\\\Reflection\\\\DeprecatableReflection&PHPStan\\\\Reflection\\\\PropertyReflection\\:\\:getDeprecatedDescription\\(\\)\\.$#"
+			count: 1
+			path: tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
+
+		-
+			message: "#^Call to an undefined method PHPStan\\\\Reflection\\\\ConstantReflection&PHPStan\\\\Reflection\\\\DeprecatableReflection\\:\\:getDeprecatedDescription\\(\\)\\.$#"
+			count: 1
+			path: tests/PHPStan/Reflection/Annotations/DeprecatedAnnotationsTest.php
+
