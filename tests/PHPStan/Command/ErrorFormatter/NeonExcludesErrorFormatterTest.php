@@ -2,6 +2,9 @@
 
 namespace PHPStan\Command\ErrorFormatter;
 
+use PHPStan\Analyser\Error;
+use PHPStan\Command\AnalysisResult;
+
 class NeonExcludesErrorFormatterTest extends TestBaseFormatter
 {
 
@@ -121,6 +124,37 @@ class NeonExcludesErrorFormatterTest extends TestBaseFormatter
 		), sprintf('%s: response code do not match', $message));
 
 		$this->assertEquals($expected, $this->getOutputContent(), sprintf('%s: output do not match', $message));
+	}
+
+
+	public function testFormatErrorMessagesRegexEscape(): void
+	{
+		$formatter = new NeonExcludesErrorFormatter();
+
+		$result  = new AnalysisResult(
+			[new Error('Escape Regex with file # ~ <> \' ()', 'Testfile')],
+			['Escape Regex without file # ~ <> \' ()'],
+			false,
+			false,
+			null
+		);
+		$formatter->formatErrors(
+			$result,
+			$this->getErrorConsoleStyle()
+		);
+
+		self::assertSame(
+			"parameters:
+	ignoreErrors:
+		- '''
+#Escape Regex without file \# ~ <\> ' \(\)#
+'''
+		- '''
+#Escape Regex with file \# ~ <\> ' \(\)#
+'''
+",
+			$this->getOutputContent()
+		);
 	}
 
 }
