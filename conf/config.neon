@@ -43,6 +43,7 @@ parameters:
 	universalObjectCratesClasses:
 		- stdClass
 	earlyTerminatingMethodCalls: []
+	earlyTerminatingFunctionCalls: []
 	memoryLimitFile: %tmpDir%/.memory_limit
 	benchmarkFile: null
 	dynamicConstantNames:
@@ -150,6 +151,7 @@ parametersSchema:
 	scopeClass: string()
 	universalObjectCratesClasses: listOf(string())
 	earlyTerminatingMethodCalls: arrayOf(listOf(string()))
+	earlyTerminatingFunctionCalls: listOf(string())
 	memoryLimitFile: string()
 	benchmarkFile: schema(string(), nullable())
 	dynamicConstantNames: listOf(string())
@@ -238,6 +240,7 @@ services:
 			polluteCatchScopeWithTryAssignments: %polluteCatchScopeWithTryAssignments%
 			polluteScopeWithAlwaysIterableForeach: %polluteScopeWithAlwaysIterableForeach%
 			earlyTerminatingMethodCalls: %earlyTerminatingMethodCalls%
+			earlyTerminatingFunctionCalls: %earlyTerminatingFunctionCalls%
 
 	-
 		class: PHPStan\Cache\Cache
