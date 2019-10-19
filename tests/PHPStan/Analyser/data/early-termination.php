@@ -10,8 +10,10 @@ if ($something % 2 === 0) {
 
 	if ($something <= 5) {
 		Bar::doBar();
-	} else {
+	} elseif ($something <= 7) {
 		$foo->doFoo();
+	} else {
+		baz();
 	}
 }
 

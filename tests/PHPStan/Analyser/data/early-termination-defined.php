@@ -20,3 +20,8 @@ class Bar extends Foo
 {
 
 }
+
+function baz()
+{
+	throw new \Exception();
+}
