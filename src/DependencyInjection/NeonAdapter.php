@@ -13,7 +13,7 @@ use PHPStan\File\FileHelper;
 class NeonAdapter implements Adapter
 {
 
-	public const CACHE_KEY = 'v1';
+	public const CACHE_KEY = 'v2';
 
 	private const PREVENT_MERGING_SUFFIX = '!';
 
@@ -77,28 +77,31 @@ class NeonAdapter implements Adapter
 					$val = new Statement($tmp[0], $this->process($val->attributes, $fileKeyToPass, $file));
 				}
 			}
-			if ((in_array($fileKey, [
-				'[parameters][autoload_files]',
-				'[parameters][autoload_directories]',
-				'[parameters][paths]',
-				'[parameters][excludes_analyse]',
-				'[parameters][ignoreErrors][][paths]',
-			], true) || (
-				$fileKey === '[parameters]'
-				&& in_array($key, [
-					'bootstrap',
-					'memoryLimitFile',
-					'benchmarkFile',
-				], true)
-			) || (
-				$fileKey === '[parameters][ignoreErrors][]'
-				&& in_array($key, [
-					'path',
-				], true)
-			)) && is_string($val) && strpos($val, '%') === false) {
+
+			$keyToResolve = $fileKey;
+			if (is_int($key)) {
+				$keyToResolve .= '[]';
+			} else {
+				$keyToResolve .= '[' . $key . ']';
+			}
+
+			if (in_array($keyToResolve, [
+				'[parameters][autoload_files][]',
+				'[parameters][autoload_directories][]',
+				'[parameters][paths][]',
+				'[parameters][excludes_analyse][]',
+				'[parameters][ignoreErrors][][paths][]',
+				'[parameters][ignoreErrors][][path]',
+				'[parameters][bootstrap]',
+				'[parameters][memoryLimitFile]',
+				'[parameters][benchmarkFile]',
+				'[parameters][symfony][console_application_loader]',
+				'[parameters][doctrine][objectManagerLoader]',
+			], true) && is_string($val) && strpos($val, '%') === false) {
 				$fileHelper = $this->createFileHelperByFile($file);
 				$val = $fileHelper->normalizePath($fileHelper->absolutizePath($val));
 			}
+
 			$res[$key] = $val;
 		}
 		return $res;
