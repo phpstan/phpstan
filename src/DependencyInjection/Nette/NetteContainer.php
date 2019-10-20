@@ -64,13 +64,22 @@ class NetteContainer implements Container
 		return $this->container->parameters;
 	}
 
+	public function hasParameter(string $parameterName): bool
+	{
+		return array_key_exists($parameterName, $this->container->parameters);
+	}
+
 	/**
 	 * @param string $parameterName
 	 * @return mixed
 	 */
 	public function getParameter(string $parameterName)
 	{
-		return $this->container->parameters[$parameterName] ?? null;
+		if (!$this->hasParameter($parameterName)) {
+			throw new \PHPStan\DependencyInjection\ParameterNotFoundException($parameterName);
+		}
+
+		return $this->container->parameters[$parameterName];
 	}
 
 	/**

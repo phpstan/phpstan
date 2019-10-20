@@ -36,9 +36,12 @@ interface Container
 	 */
 	public function getParameters(): array;
 
+	public function hasParameter(string $parameterName): bool;
+
 	/**
 	 * @param string $parameterName
 	 * @return mixed
+	 * @throws \PHPStan\DependencyInjection\ParameterNotFoundException
 	 */
 	public function getParameter(string $parameterName);
 

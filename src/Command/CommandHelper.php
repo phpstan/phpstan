@@ -223,7 +223,7 @@ class CommandHelper
 		}
 
 		self::setUpSignalHandler($consoleStyle, $memoryLimitFile);
-		if ($container->getParameter('customRulesetUsed') === null) {
+		if (!$container->hasParameter('customRulesetUsed')) {
 			$errorOutput->writeln('');
 			$errorOutput->writeln('<comment>No rules detected</comment>');
 			$errorOutput->writeln('');
