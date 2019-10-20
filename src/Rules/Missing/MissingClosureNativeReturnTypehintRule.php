@@ -48,7 +48,7 @@ class MissingClosureNativeReturnTypehintRule implements Rule
 			return [];
 		}
 
-		$messagePattern = 'Anonymous function should have native typehint "%s".';
+		$messagePattern = 'Anonymous function should have native return typehint "%s".';
 		$statementResult = $node->getStatementResult();
 		if ($statementResult->hasYield()) {
 			return [
