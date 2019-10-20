@@ -698,7 +698,6 @@ class NodeScopeResolver
 			} else {
 				$isAlwaysTerminating = false;
 			}
-			// todo for all loops - is not falsey when the loop is exited via break
 			$condScope = $condResult->getFalseyScope();
 			if (!$isIterableAtLeastOnce) {
 				if (!$this->polluteScopeWithLoopInitialAssignments) {
@@ -763,7 +762,6 @@ class NodeScopeResolver
 			}
 			if (!$alwaysTerminating) {
 				$finalScope = $this->processExprNode($stmt->cond, $bodyScope, $nodeCallback, ExpressionContext::createDeep())->getFalseyScope();
-				// todo not falsey if it breaks out of the loop using break;
 			}
 			foreach ($bodyScopeResult->getExitPointsByType(Break_::class) as $breakExitPoint) {
 				$finalScope = $breakExitPoint->getScope()->mergeWith($finalScope);
@@ -834,11 +832,6 @@ class NodeScopeResolver
 			}
 
 			$finalScope = $finalScope->mergeWith($scope);
-
-			/*foreach ($stmt->cond as $condExpr) {
-				// todo not if breaks out of the loop using break;
-				//$finalScope = $finalScope->filterByFalseyValue($condExpr);
-			}*/
 
 			return new StatementResult($finalScope, $finalScopeResult->hasYield(), false/* $finalScopeResult->isAlwaysTerminating() && $isAlwaysIterable*/, []);
 		} elseif ($stmt instanceof Switch_) {
