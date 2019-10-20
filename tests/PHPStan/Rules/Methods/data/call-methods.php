@@ -1491,3 +1491,30 @@ class ClassStringWithUpperBounds
 	}
 
 }
+
+abstract class CollectionWithStaticParam
+{
+
+	/**
+	 * @param static $other
+	 */
+	public function add(self $other): void
+	{
+	}
+
+}
+
+class AppleCollection extends CollectionWithStaticParam
+{
+
+	public function doFoo()
+	{
+		$this->add(new AppleCollection());
+	}
+
+}
+
+function () {
+	$foo = new AppleCollection();
+	$foo->add(new AppleCollection());
+};

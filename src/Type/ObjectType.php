@@ -7,6 +7,7 @@ use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\ConstantReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ObjectTypeMethodReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Reflection\Php\UniversalObjectCratesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
@@ -420,7 +421,10 @@ class ObjectType implements TypeWithClassName, SubtractableType
 			return $this->getGenericObjectType()->getMethod($methodName, $scope);
 		}
 
-		return $classReflection->getMethod($methodName, $scope);
+		return new ObjectTypeMethodReflection(
+			$this,
+			$classReflection->getMethod($methodName, $scope)
+		);
 	}
 
 	private function getGenericObjectType(): GenericObjectType
