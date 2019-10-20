@@ -1664,7 +1664,6 @@ class NodeScopeResolver
 					return $leftMergedWithRightScope->filterByFalseyValue($expr);
 				}
 			);
-			// todo do not execute right side if the left is false
 		} elseif ($expr instanceof BooleanOr || $expr instanceof BinaryOp\LogicalOr) {
 			$leftResult = $this->processExprNode($expr->left, $scope, $nodeCallback, $context->enterDeep());
 			$rightResult = $this->processExprNode($expr->right, $leftResult->getFalseyScope(), $nodeCallback, $context);
@@ -1680,7 +1679,6 @@ class NodeScopeResolver
 					return $rightResult->getScope()->filterByFalseyValue($expr);
 				}
 			);
-			// todo do not execute right side if the left is true
 		} elseif ($expr instanceof Coalesce) {
 			$nonNullabilityResult = $this->ensureNonNullability($scope, $expr->left, false);
 
@@ -1856,8 +1854,6 @@ class NodeScopeResolver
 				}
 			);
 
-			// todo do not run else if cond is always true
-			// todo do not run if branch if cond is always false
 		} elseif ($expr instanceof Expr\Yield_) {
 			if ($expr->key !== null) {
 				$scope = $this->processExprNode($expr->key, $scope, $nodeCallback, $context->enterDeep())->getScope();
