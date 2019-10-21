@@ -4,6 +4,7 @@ namespace PHPStan\Command\ErrorFormatter;
 
 use Nette\Utils\Json;
 use PHPStan\Command\AnalysisResult;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\OutputStyle;
 
 class JsonErrorFormatter implements ErrorFormatter
@@ -51,7 +52,7 @@ class JsonErrorFormatter implements ErrorFormatter
 
 		$json = Json::encode($errorsArray, $this->pretty ? Json::PRETTY : 0);
 
-		$style->write($json);
+		$style->write($json, false, OutputInterface::OUTPUT_RAW);
 
 		return $analysisResult->hasErrors() ? 1 : 0;
 	}
