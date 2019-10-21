@@ -13,6 +13,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\CompoundType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\IntersectionType;
+use PHPStan\Type\MixedType;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeWithClassName;
@@ -108,6 +109,12 @@ final class GenericObjectType extends ObjectType
 				throw new \PHPStan\ShouldNotHappenException();
 			}
 			if (!$t->equals($ancestor->types[$i])) {
+				if ($t instanceof MixedType) {
+					continue;
+				}
+				if ($ancestor->types[$i] instanceof MixedType) {
+					continue;
+				}
 				return TrinaryLogic::createNo();
 			}
 		}

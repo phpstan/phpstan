@@ -243,3 +243,46 @@ class ConcreteIterableAcceptsMixedIterable
 	}
 
 }
+
+/**
+ * @template T
+ */
+class GenericClass
+{
+
+	/**
+	 * @param T $type
+	 */
+	public function __construct($type)
+	{
+
+	}
+
+}
+
+class ClassWithPropertyThatAcceptsGenericClass
+{
+
+	/** @var GenericClass<Foo> */
+	private $genericProp;
+
+	/** @var GenericClass<mixed> */
+	private $genericProp2;
+
+	/**
+	 * @param GenericClass<mixed> $a
+	 */
+	public function doFoo($a)
+	{
+		$this->genericProp = $a;
+	}
+
+	/**
+	 * @param GenericClass<Foo> $a
+	 */
+	public function doBar($a)
+	{
+		$this->genericProp2 = $a;
+	}
+
+}
