@@ -21,7 +21,7 @@ if (foo()) {
 	$ifNestedVar = 2;
 	$ifNotNestedVar = 2;
 	$ifNotVar = 2;
-} elseif ($ifNestedVar = baz()) {
+} elseif ($ifNestedVar = 3) {
 	$ifVar = 3;
 	$ifNotNestedVar = 3;
 } else {

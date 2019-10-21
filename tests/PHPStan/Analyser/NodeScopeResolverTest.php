@@ -25,7 +25,6 @@ use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\DynamicStaticMethodReturnTypeExtension;
-use PHPStan\Type\ErrorType;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ObjectWithoutClassType;
@@ -338,7 +337,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				$testScope,
 				'ifNestedVar',
 				TrinaryLogic::createYes(),
-				'mixed',
+				'1|2|3',
 			],
 			[
 				$testScope,
@@ -9452,9 +9451,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$expected = $expectedType->getValue();
 		$actual = $actualType->describe(VerbosityLevel::precise());
-		if ($actualType instanceof ErrorType) {
-			$actual = '*ERROR*';
-		}
 		$this->assertSame(
 			$expected,
 			$actual,
@@ -10056,9 +10052,6 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	): void
 	{
 		$actualDescription = $actualType->describe(VerbosityLevel::precise());
-		if ($actualType instanceof ErrorType) {
-			$actualDescription = '*ERROR*';
-		}
 		$this->assertSame(
 			$expectedDescription,
 			$actualDescription,
