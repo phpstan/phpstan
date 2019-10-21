@@ -39,7 +39,7 @@ class BaselineNeonErrorFormatter implements ErrorFormatter
 			if (!$fileSpecificError->canBeIgnored()) {
 				continue;
 			}
-			$fileErrors[$fileSpecificError->getFile()][] = $fileSpecificError->getMessage();
+			$fileErrors[$fileSpecificError->getFilePath()][] = $fileSpecificError->getMessage();
 		}
 
 		$errorsToOutput = [];

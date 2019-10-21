@@ -17,12 +17,22 @@ class Error
 	/** @var bool */
 	private $canBeIgnored;
 
-	public function __construct(string $message, string $file, ?int $line = null, bool $canBeIgnored = true)
+	/** @var string|null */
+	private $filePath;
+
+	public function __construct(
+		string $message,
+		string $file,
+		?int $line = null,
+		bool $canBeIgnored = true,
+		?string $filePath = null
+	)
 	{
 		$this->message = $message;
 		$this->file = $file;
 		$this->line = $line;
 		$this->canBeIgnored = $canBeIgnored;
+		$this->filePath = $filePath;
 	}
 
 	public function getMessage(): string
@@ -33,6 +43,15 @@ class Error
 	public function getFile(): string
 	{
 		return $this->file;
+	}
+
+	public function getFilePath(): string
+	{
+		if ($this->filePath === null) {
+			return $this->file;
+		}
+
+		return $this->filePath;
 	}
 
 	public function getLine(): ?int
