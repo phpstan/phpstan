@@ -22,7 +22,7 @@ class BaselineNeonErrorFormatterIntegrationTest extends TestCase
 	public function testGenerateBaselineAndRunAgainWithIt(): void
 	{
 		$output = $this->runPhpStan(null, 'baselineNeon');
-		$baselineFile = sys_get_temp_dir() . '/baseline.neon';
+		$baselineFile = __DIR__ . '/../../../../baseline.neon';
 		file_put_contents($baselineFile, $output);
 
 		$output = $this->runPhpStan($baselineFile);
