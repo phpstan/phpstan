@@ -4,6 +4,7 @@ namespace PHPStan\Command\ErrorFormatter;
 
 use Nette\Utils\Json;
 use PHPStan\Command\AnalysisResult;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\OutputStyle;
 
 /**
@@ -59,7 +60,7 @@ class GitlabErrorFormatter implements ErrorFormatter
 
 		$json = Json::encode($errorsArray, Json::PRETTY);
 
-		$style->write($json);
+		$style->write($json, false, OutputInterface::OUTPUT_RAW);
 
 		return $analysisResult->hasErrors() ? 1 : 0;
 	}
