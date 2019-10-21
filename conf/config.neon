@@ -770,6 +770,8 @@ services:
 
 	errorFormatter.baselineNeon:
 		class: PHPStan\Command\ErrorFormatter\BaselineNeonErrorFormatter
+		arguments:
+			relativePathHelper: @simpleRelativePathHelper
 
 	errorFormatter.table:
 		class: PHPStan\Command\ErrorFormatter\TableErrorFormatter
