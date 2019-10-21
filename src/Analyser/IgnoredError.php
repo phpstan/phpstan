@@ -52,7 +52,7 @@ class IgnoredError
 			$fileExcluder = new FileExcluder($fileHelper, [$path]);
 
 			return \Nette\Utils\Strings::match($error->getMessage(), $ignoredErrorPattern) !== null
-				&& $fileExcluder->isExcludedFromAnalysing($error->getFile());
+				&& $fileExcluder->isExcludedFromAnalysing($error->getFilePath());
 		}
 
 		return \Nette\Utils\Strings::match($error->getMessage(), $ignoredErrorPattern) !== null;
