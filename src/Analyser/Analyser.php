@@ -168,6 +168,13 @@ class Analyser
 								$line = $node->getLine();
 								$fileName = $scope->getFileDescription();
 								$filePath = $scope->getFile();
+								$traitFilePath = null;
+								if ($scope->isInTrait()) {
+									$traitReflection = $scope->getTraitReflection();
+									if ($traitReflection->getFileName() !== false) {
+										$traitFilePath = $traitReflection->getFileName();
+									}
+								}
 								if (is_string($ruleError)) {
 									$message = $ruleError;
 								} else {
@@ -184,6 +191,7 @@ class Analyser
 									) {
 										$fileName = $ruleError->getFile();
 										$filePath = $ruleError->getFile();
+										$traitFilePath = null;
 									}
 								}
 								$fileErrors[] = new Error(
@@ -191,7 +199,8 @@ class Analyser
 									$fileName,
 									$line,
 									true,
-									$filePath
+									$filePath,
+									$traitFilePath
 								);
 							}
 						}

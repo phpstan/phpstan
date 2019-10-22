@@ -213,6 +213,37 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 		$this->assertSame('Ignored error pattern #Fail\.# in path ' . __DIR__ . '/data/not-existent-path.php was not matched in reported errors.', $result[0]);
 	}
 
+	public function dataIgnoreErrorInTraitUsingClassFilePath(): array
+	{
+		return [
+			[
+				__DIR__ . '/data/traits-ignore/Foo.php',
+			],
+			[
+				__DIR__ . '/data/traits-ignore/FooTrait.php',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataIgnoreErrorInTraitUsingClassFilePath
+	 * @param string $pathToIgnore
+	 */
+	public function testIgnoreErrorInTraitUsingClassFilePath(string $pathToIgnore): void
+	{
+		$ignoreErrors = [
+			[
+				'message' => '#Fail\.#',
+				'path' => $pathToIgnore,
+			],
+		];
+		$result = $this->runAnalyser($ignoreErrors, true, [
+			__DIR__ . '/data/traits-ignore/Foo.php',
+			__DIR__ . '/data/traits-ignore/FooTrait.php',
+		], true);
+		$this->assertCount(0, $result);
+	}
+
 	public function testIgnoredErrorMissingMessage(): void
 	{
 		$ignoreErrors = [
@@ -276,14 +307,14 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 	/**
 	 * @param mixed[] $ignoreErrors
 	 * @param bool $reportUnmatchedIgnoredErrors
-	 * @param string $filePath
+	 * @param string|string[] $filePaths
 	 * @param bool $onlyFiles
 	 * @return string[]|\PHPStan\Analyser\Error[]
 	 */
 	private function runAnalyser(
 		array $ignoreErrors,
 		bool $reportUnmatchedIgnoredErrors,
-		string $filePath,
+		$filePaths,
 		bool $onlyFiles
 	): array
 	{
@@ -291,7 +322,14 @@ class AnalyserTest extends \PHPStan\Testing\TestCase
 			$ignoreErrors,
 			$reportUnmatchedIgnoredErrors
 		);
-		return $analyser->analyse([$this->getFileHelper()->normalizePath($filePath)], $onlyFiles);
+
+		if (is_string($filePaths)) {
+			$filePaths = [$filePaths];
+		}
+
+		return $analyser->analyse(array_map(function (string $path): string {
+			return $this->getFileHelper()->normalizePath($path);
+		}, $filePaths), $onlyFiles);
 	}
 
 	/**
