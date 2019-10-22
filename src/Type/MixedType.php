@@ -12,6 +12,7 @@ use PHPStan\Reflection\PropertyReflection;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Generic\TemplateMixedType;
+use PHPStan\Type\Generic\TemplateType;
 use PHPStan\Type\Traits\MaybeIterableTypeTrait;
 use PHPStan\Type\Traits\MaybeOffsetAccessibleTypeTrait;
 use PHPStan\Type\Traits\NonGenericTypeTrait;
@@ -251,7 +252,7 @@ class MixedType implements CompoundType, SubtractableType
 
 	public function subtract(Type $type): Type
 	{
-		if ($type instanceof self) {
+		if ($type instanceof self && !$type instanceof TemplateType) {
 			return new NeverType();
 		}
 		if ($this->subtractedType !== null) {
