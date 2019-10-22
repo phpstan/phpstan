@@ -20,12 +20,16 @@ class Error
 	/** @var string|null */
 	private $filePath;
 
+	/** @var string|null */
+	private $traitFilePath;
+
 	public function __construct(
 		string $message,
 		string $file,
 		?int $line = null,
 		bool $canBeIgnored = true,
-		?string $filePath = null
+		?string $filePath = null,
+		?string $traitFilePath = null
 	)
 	{
 		$this->message = $message;
@@ -33,6 +37,7 @@ class Error
 		$this->line = $line;
 		$this->canBeIgnored = $canBeIgnored;
 		$this->filePath = $filePath;
+		$this->traitFilePath = $traitFilePath;
 	}
 
 	public function getMessage(): string
@@ -52,6 +57,11 @@ class Error
 		}
 
 		return $this->filePath;
+	}
+
+	public function getTraitFilePath(): ?string
+	{
+		return $this->traitFilePath;
 	}
 
 	public function getLine(): ?int

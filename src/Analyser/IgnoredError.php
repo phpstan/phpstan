@@ -51,8 +51,16 @@ class IgnoredError
 		if ($path !== null) {
 			$fileExcluder = new FileExcluder($fileHelper, [$path]);
 
-			return \Nette\Utils\Strings::match($error->getMessage(), $ignoredErrorPattern) !== null
-				&& $fileExcluder->isExcludedFromAnalysing($error->getFilePath());
+			if (\Nette\Utils\Strings::match($error->getMessage(), $ignoredErrorPattern) === null) {
+				return false;
+			}
+
+			$isExcluded = $fileExcluder->isExcludedFromAnalysing($error->getFilePath());
+			if (!$isExcluded && $error->getTraitFilePath() !== null) {
+				return $fileExcluder->isExcludedFromAnalysing($error->getTraitFilePath());
+			}
+
+			return $isExcluded;
 		}
 
 		return \Nette\Utils\Strings::match($error->getMessage(), $ignoredErrorPattern) !== null;
