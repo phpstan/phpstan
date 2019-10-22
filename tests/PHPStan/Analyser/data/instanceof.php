@@ -69,9 +69,10 @@ class Foo extends BarParent
 	 * @param BarInterface $instance
 	 * @param ObjectT $objectT
 	 * @param class-string<ObjectT> $objectTString
+	 * @param class-string<MixedT> $mixedTString
 	 * @param object $object
 	 */
-	public function testExprInstanceof($subject, string $classString, $union, $intersection, string $other, $instance, $objectT, $objectTString, string $string, $object)
+	public function testExprInstanceof($subject, string $classString, $union, $intersection, string $other, $instance, $objectT, $objectTString, $mixedTString, string $string, $object)
 	{
 		if ($subject instanceof $classString) {
 			assertType('InstanceOfNamespace\Foo', $subject);
@@ -134,10 +135,18 @@ class Foo extends BarParent
 
 		if ($subject instanceof $objectTString) {
 			assertType('ObjectT of InstanceOfNamespace\BarInterface (method InstanceOfNamespace\Foo::testExprInstanceof(), argument)', $subject);
-			assertType('true', $subject instanceof $objectT);
+			assertType('true', $subject instanceof $objectTString);
 		} else {
 			assertType('mixed~ObjectT of InstanceOfNamespace\BarInterface (method InstanceOfNamespace\Foo::testExprInstanceof(), argument)', $subject);
-			assertType('false', $subject instanceof $objectT);
+			assertType('false', $subject instanceof $objectTString);
+		}
+
+		if ($subject instanceof $mixedTString) {
+			assertType('MixedT (method InstanceOfNamespace\Foo::testExprInstanceof(), argument)&object', $subject);
+			assertType('true', $subject instanceof $mixedTString);
+		} else {
+			assertType('mixed~MixedT (method InstanceOfNamespace\Foo::testExprInstanceof(), argument)', $subject);
+			assertType('false', $subject instanceof $mixedTString);
 		}
 
 		if ($subject instanceof $string) {

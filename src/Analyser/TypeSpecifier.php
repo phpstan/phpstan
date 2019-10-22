@@ -153,7 +153,13 @@ class TypeSpecifier
 				return new MixedType();
 			});
 
-			if (!$type instanceof MixedType) {
+			if (!$type->isSuperTypeOf(new MixedType())->yes()) {
+				if ($context->true()) {
+					$type = TypeCombinator::intersect(
+						$type,
+						new ObjectWithoutClassType()
+					);
+				}
 				return $this->create($exprNode, $type, $context);
 			}
 			if ($context->true()) {
