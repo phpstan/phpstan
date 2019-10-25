@@ -482,11 +482,6 @@ services:
 			- phpstan.broker.dynamicMethodReturnTypeExtension
 
 	-
-		class: PHPStan\Type\Php\ClosureCallDynamicReturnTypeExtension
-		tags:
-			- phpstan.broker.dynamicMethodReturnTypeExtension
-
-	-
 		class: PHPStan\Type\Php\ClosureFromCallableDynamicReturnTypeExtension
 		tags:
 			- phpstan.broker.dynamicStaticMethodReturnTypeExtension
