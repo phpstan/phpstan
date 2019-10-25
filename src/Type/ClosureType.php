@@ -24,7 +24,7 @@ class ClosureType implements TypeWithClassName, ParametersAcceptor
 	/** @var ObjectType */
 	private $objectType;
 
-	/** @var array<int, \PHPStan\Reflection\Native\NativeParameterReflection> */
+	/** @var array<int, \PHPStan\Reflection\ParameterReflection> */
 	private $parameters;
 
 	/** @var Type */
@@ -34,7 +34,7 @@ class ClosureType implements TypeWithClassName, ParametersAcceptor
 	private $variadic;
 
 	/**
-	 * @param array<int, \PHPStan\Reflection\Native\NativeParameterReflection> $parameters
+	 * @param array<int, \PHPStan\Reflection\ParameterReflection> $parameters
 	 * @param Type $returnType
 	 * @param bool $variadic
 	 */
@@ -280,7 +280,7 @@ class ClosureType implements TypeWithClassName, ParametersAcceptor
 	}
 
 	/**
-	 * @return array<int, \PHPStan\Reflection\Native\NativeParameterReflection>
+	 * @return array<int, \PHPStan\Reflection\ParameterReflection>
 	 */
 	public function getParameters(): array
 	{

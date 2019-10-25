@@ -5,7 +5,6 @@ namespace PHPStan\Type\Php;
 use PhpParser\Node\Expr\StaticCall;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
-use PHPStan\Reflection\Native\NativeParameterReflection;
 use PHPStan\Type\ClosureType;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\Type;
@@ -33,7 +32,6 @@ class ClosureFromCallableDynamicReturnTypeExtension implements \PHPStan\Type\Dyn
 
 		$closureTypes = [];
 		foreach ($callableType->getCallableParametersAcceptors($scope) as $variant) {
-			/** @var NativeParameterReflection[] $parameters */
 			$parameters = $variant->getParameters();
 			$closureTypes[] = new ClosureType(
 				$parameters,
