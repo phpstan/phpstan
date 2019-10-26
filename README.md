@@ -132,6 +132,7 @@ Unofficial extensions for other frameworks and libraries are also available:
 * [Drupal](https://github.com/mglaman/phpstan-drupal)
 * [WordPress](https://github.com/szepeviktor/phpstan-wordpress)
 * [Zend Framework](https://github.com/Slamdunk/phpstan-zend-framework)
+* [Precious](https://github.com/gabrielelana/precious)
 
 Unofficial extensions with third-party rules:
 
