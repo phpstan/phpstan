@@ -72,6 +72,10 @@ class ClassWithMagicMethod
 		$this->test();
 	}
 
+	/**
+	 * @param string $name
+	 * @param mixed[] $args
+	 */
 	public function __call(string $name, array $args)
 	{
 
@@ -87,6 +91,10 @@ class AnotherClassWithMagicMethod
 		self::test();
 	}
 
+	/**
+	 * @param string $name
+	 * @param mixed[] $args
+	 */
 	public static function __callStatic(string $name, array $args)
 	{
 

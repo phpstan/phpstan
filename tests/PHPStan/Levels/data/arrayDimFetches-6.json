@@ -1,12 +1,12 @@
 [
     {
         "message": "Method Levels\\ArrayDimFetches\\Foo::doFoo() has no return typehint specified.",
-        "line": 8,
+        "line": 12,
         "ignorable": true
     },
     {
         "message": "Method Levels\\ArrayDimFetches\\Foo::doBar() has no return typehint specified.",
-        "line": 27,
+        "line": 31,
         "ignorable": true
     }
 ]

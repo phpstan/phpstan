@@ -7,7 +7,9 @@ use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Rules\MissingTypehintCheck;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\VerbosityLevel;
 
 final class MissingFunctionReturnTypehintRule implements \PHPStan\Rules\Rule
 {
@@ -15,9 +17,16 @@ final class MissingFunctionReturnTypehintRule implements \PHPStan\Rules\Rule
 	/** @var Broker */
 	private $broker;
 
-	public function __construct(Broker $broker)
+	/** @var \PHPStan\Rules\MissingTypehintCheck */
+	private $missingTypehintCheck;
+
+	public function __construct(
+		Broker $broker,
+		MissingTypehintCheck $missingTypehintCheck
+	)
 	{
 		$this->broker = $broker;
+		$this->missingTypehintCheck = $missingTypehintCheck;
 	}
 
 	public function getNodeType(): string
@@ -53,7 +62,12 @@ final class MissingFunctionReturnTypehintRule implements \PHPStan\Rules\Rule
 			];
 		}
 
-		return [];
+		$messages = [];
+		foreach ($this->missingTypehintCheck->getIterableTypesWithMissingValueTypehint($returnType) as $iterableType) {
+			$messages[] = sprintf('Function %s() return type has no value type specified in iterable type %s.', $functionReflection->getName(), $iterableType->describe(VerbosityLevel::typeOnly()));
+		}
+
+		return $messages;
 	}
 
 }

@@ -355,6 +355,9 @@ services:
 		class: PHPStan\Rules\Generics\TemplateTypeCheck
 
 	-
+		class: PHPStan\Rules\MissingTypehintCheck
+
+	-
 		class: PHPStan\Rules\Properties\PropertyDescriptor
 
 	-

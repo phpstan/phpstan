@@ -7,10 +7,10 @@ namespace Levels\Print_;
 class Foo
 {
 	/**
-	 * @param array $array
-	 * @param array|callable $arrayOrCallable
-	 * @param array|float|int $arrayOrFloatOrInt
-	 * @param array|string $arrayOrString
+	 * @param mixed[] $array
+	 * @param mixed[]|callable $arrayOrCallable
+	 * @param mixed[]|float|int $arrayOrFloatOrInt
+	 * @param mixed[]|string $arrayOrString
 	 */
 	public function doFoo(
 		array $array,

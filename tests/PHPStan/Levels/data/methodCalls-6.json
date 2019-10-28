@@ -21,52 +21,52 @@
     },
     {
         "message": "Method Levels\\MethodCalls\\ClassWithMagicMethod::__call() has no return typehint specified.",
-        "line": 75,
+        "line": 79,
         "ignorable": true
     },
     {
         "message": "Method Levels\\MethodCalls\\AnotherClassWithMagicMethod::doFoo() has no return typehint specified.",
-        "line": 85,
+        "line": 89,
         "ignorable": true
     },
     {
         "message": "Method Levels\\MethodCalls\\AnotherClassWithMagicMethod::__callStatic() has no return typehint specified.",
-        "line": 90,
+        "line": 98,
         "ignorable": true
     },
     {
         "message": "Method Levels\\MethodCalls\\Ipsum::doLorem() has no return typehint specified.",
-        "line": 150,
+        "line": 158,
         "ignorable": true
     },
     {
         "message": "Method Levels\\MethodCalls\\FooException::commonMethod() has no return typehint specified.",
-        "line": 174,
+        "line": 182,
         "ignorable": true
     },
     {
         "message": "Method Levels\\MethodCalls\\FooException::doFoo() has no return typehint specified.",
-        "line": 179,
+        "line": 187,
         "ignorable": true
     },
     {
         "message": "Method Levels\\MethodCalls\\BarException::commonMethod() has no return typehint specified.",
-        "line": 189,
+        "line": 197,
         "ignorable": true
     },
     {
         "message": "Method Levels\\MethodCalls\\BarException::doBar() has no return typehint specified.",
-        "line": 194,
+        "line": 202,
         "ignorable": true
     },
     {
         "message": "Method Levels\\MethodCalls\\TestExceptions::doFoo() has no return typehint specified.",
-        "line": 204,
+        "line": 212,
         "ignorable": true
     },
     {
         "message": "Method Levels\\MethodCalls\\ExtraArguments::doFoo() has no return typehint specified.",
-        "line": 221,
+        "line": 229,
         "ignorable": true
     }
 ]

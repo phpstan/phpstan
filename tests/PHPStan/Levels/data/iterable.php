@@ -6,11 +6,11 @@ class Foo
 {
 
 	/**
-	 * @param array $array
-	 * @param array|null $arrayOrNull
+	 * @param mixed[] $array
+	 * @param mixed[]|null $arrayOrNull
 	 * @param int $int
 	 * @param int|float $intOrFloat
-	 * @param array|false $arrayOrFalse
+	 * @param mixed[]|false $arrayOrFalse
 	 */
 	public function doFoo(
 		array $array,

@@ -150,6 +150,11 @@ class Foo
 
 	}
 
+	/**
+	 * @param iterable<mixed> $iterable
+	 * @param mixed[] $array
+	 * @param string $string
+	 */
 	public function iterableCountable(
 		iterable $iterable,
 		array $array,
@@ -496,7 +501,7 @@ class Baz
 	}
 
 	/**
-	 * @return Foo|array
+	 * @return Foo|mixed[]
 	 */
 	public function makeFooOrArray()
 	{
@@ -529,6 +534,9 @@ class Baz
 		$this->requireFoo($a);
 	}
 
+	/**
+	 * @param mixed[] $array
+	 */
 	private function requireArray(array $array)
 	{
 

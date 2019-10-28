@@ -2,12 +2,14 @@
 
 namespace PHPStan\Rules\Properties;
 
+use PHPStan\Rules\MissingTypehintCheck;
+
 class MissingPropertyTypehintRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new MissingPropertyTypehintRule();
+		return new MissingPropertyTypehintRule(new MissingTypehintCheck());
 	}
 
 	public function testRule(): void
@@ -24,6 +26,10 @@ class MissingPropertyTypehintRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Property MissingPropertyTypehint\MyClass::$prop3 has no typehint specified.',
 				14,
+			],
+			[
+				'Property MissingPropertyTypehint\ChildClass::$unionProp type has no value type specified in iterable type array.',
+				32,
 			],
 		]);
 	}

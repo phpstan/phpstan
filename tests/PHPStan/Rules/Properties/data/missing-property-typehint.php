@@ -25,4 +25,10 @@ class ChildClass extends MyClass
 	 * @var null
 	 */
 	protected $prop2;
+
+	/**
+	 * @var \stdClass|array|int|null
+	 */
+	private $unionProp;
+
 }

@@ -2,12 +2,14 @@
 
 namespace PHPStan\Rules\Functions;
 
+use PHPStan\Rules\MissingTypehintCheck;
+
 class MissingFunctionParameterTypehintRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new MissingFunctionParameterTypehintRule($this->createBroker([], []));
+		return new MissingFunctionParameterTypehintRule($this->createBroker([], []), new MissingTypehintCheck());
 	}
 
 	public function testRule(): void
@@ -25,6 +27,18 @@ class MissingFunctionParameterTypehintRuleTest extends \PHPStan\Testing\RuleTest
 			[
 				'Function MissingFunctionParameterTypehint\namespacedFunction() has parameter $d with no typehint specified.',
 				24,
+			],
+			[
+				'Function MissingFunctionParameterTypehint\missingIterableTypehint() has parameter $a with no value type specified in iterable type array.',
+				36,
+			],
+			[
+				'Function MissingFunctionParameterTypehint\missingPhpDocIterableTypehint() has parameter $a with no value type specified in iterable type array.',
+				44,
+			],
+			[
+				'Function MissingFunctionParameterTypehint\unionTypeWithUnknownArrayValueTypehint() has parameter $a with no value type specified in iterable type array.',
+				60,
 			],
 		]);
 	}

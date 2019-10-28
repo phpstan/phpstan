@@ -2,12 +2,14 @@
 
 namespace PHPStan\Rules\Methods;
 
+use PHPStan\Rules\MissingTypehintCheck;
+
 class MissingMethodReturnTypehintRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new MissingMethodReturnTypehintRule();
+		return new MissingMethodReturnTypehintRule(new MissingTypehintCheck());
 	}
 
 	public function testRule(): void
@@ -28,6 +30,10 @@ class MissingMethodReturnTypehintRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Method MissingMethodReturnTypehint\Foo::getBar() has no return typehint specified.',
 				33,
+			],
+			[
+				'Method MissingMethodReturnTypehint\Foo::unionTypeWithUnknownArrayValueTypehint() return type has no value type specified in iterable type array.',
+				46,
 			],
 		]);
 	}

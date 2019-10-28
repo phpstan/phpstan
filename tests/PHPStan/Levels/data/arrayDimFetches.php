@@ -5,6 +5,10 @@ namespace Levels\ArrayDimFetches;
 class Foo
 {
 
+	/**
+	 * @param \stdClass $stdClass
+	 * @param mixed[]|null $arrayOrNull
+	 */
 	public function doFoo(\stdClass $stdClass, ?array $arrayOrNull)
 	{
 		echo $stdClass[1];

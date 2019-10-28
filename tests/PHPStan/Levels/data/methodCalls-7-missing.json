@@ -11,12 +11,12 @@
     },
     {
         "message": "Method Levels\\MethodCalls\\Foo::doFoo() invoked with 0 parameters, 1 required.",
-        "line": 154,
+        "line": 162,
         "ignorable": true
     },
     {
         "message": "Method Levels\\MethodCalls\\Foo::doFoo() invoked with 0 parameters, 1 required.",
-        "line": 162,
+        "line": 170,
         "ignorable": true
     }
 ]

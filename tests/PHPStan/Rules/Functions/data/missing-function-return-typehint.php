@@ -12,7 +12,7 @@ namespace
 		$closure = function($a, $b, $c) {
 
 		};
-		
+
 		return false;
 	}
 
@@ -44,4 +44,12 @@ namespace MissingFunctionReturnTypehint
 	{
 		return 9;
 	};
+
+	/**
+	 * @return \stdClass|array|int|null
+	 */
+	function unionTypeWithUnknownArrayValueTypehint()
+	{
+
+	}
 }

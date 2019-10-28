@@ -9,7 +9,9 @@ use PHPStan\Broker\Broker;
 use PHPStan\Reflection\FunctionReflection;
 use PHPStan\Reflection\ParameterReflection;
 use PHPStan\Reflection\ParametersAcceptorSelector;
+use PHPStan\Rules\MissingTypehintCheck;
 use PHPStan\Type\MixedType;
+use PHPStan\Type\VerbosityLevel;
 
 final class MissingFunctionParameterTypehintRule implements \PHPStan\Rules\Rule
 {
@@ -17,9 +19,16 @@ final class MissingFunctionParameterTypehintRule implements \PHPStan\Rules\Rule
 	/** @var Broker */
 	private $broker;
 
-	public function __construct(Broker $broker)
+	/** @var \PHPStan\Rules\MissingTypehintCheck */
+	private $missingTypehintCheck;
+
+	public function __construct(
+		Broker $broker,
+		MissingTypehintCheck $missingTypehintCheck
+	)
 	{
 		$this->broker = $broker;
+		$this->missingTypehintCheck = $missingTypehintCheck;
 	}
 
 	public function getNodeType(): string
@@ -48,30 +57,42 @@ final class MissingFunctionParameterTypehintRule implements \PHPStan\Rules\Rule
 		$messages = [];
 
 		foreach (ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getParameters() as $parameterReflection) {
-			$message = $this->checkFunctionParameter($functionReflection, $parameterReflection);
-			if ($message === null) {
-				continue;
+			foreach ($this->checkFunctionParameter($functionReflection, $parameterReflection) as $parameterMessage) {
+				$messages[] = $parameterMessage;
 			}
-
-			$messages[] = $message;
 		}
 
 		return $messages;
 	}
 
-	private function checkFunctionParameter(FunctionReflection $functionReflection, ParameterReflection $parameterReflection): ?string
+	/**
+	 * @param \PHPStan\Reflection\FunctionReflection $functionReflection
+	 * @param \PHPStan\Reflection\ParameterReflection $parameterReflection
+	 * @return string[]
+	 */
+	private function checkFunctionParameter(FunctionReflection $functionReflection, ParameterReflection $parameterReflection): array
 	{
 		$parameterType = $parameterReflection->getType();
 
 		if ($parameterType instanceof MixedType && !$parameterType->isExplicitMixed()) {
-			return sprintf(
+			return [sprintf(
 				'Function %s() has parameter $%s with no typehint specified.',
 				$functionReflection->getName(),
 				$parameterReflection->getName()
+			)];
+		}
+
+		$messages = [];
+		foreach ($this->missingTypehintCheck->getIterableTypesWithMissingValueTypehint($parameterType) as $iterableType) {
+			$messages[] = sprintf(
+				'Function %s() has parameter $%s with no value type specified in iterable type %s.',
+				$functionReflection->getName(),
+				$parameterReflection->getName(),
+				$iterableType->describe(VerbosityLevel::typeOnly())
 			);
 		}
 
-		return null;
+		return $messages;
 	}
 
 }

@@ -40,4 +40,12 @@ class Foo extends FooParent implements FooInterface
         return false;
     }
 
+	/**
+	 * @return \stdClass|array|int|null
+	 */
+	public function unionTypeWithUnknownArrayValueTypehint()
+	{
+
+	}
+
 }

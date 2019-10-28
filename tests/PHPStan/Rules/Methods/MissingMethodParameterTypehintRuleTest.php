@@ -2,12 +2,14 @@
 
 namespace PHPStan\Rules\Methods;
 
+use PHPStan\Rules\MissingTypehintCheck;
+
 class MissingMethodParameterTypehintRuleTest extends \PHPStan\Testing\RuleTestCase
 {
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new MissingMethodParameterTypehintRule();
+		return new MissingMethodParameterTypehintRule(new MissingTypehintCheck());
 	}
 
 	public function testRule(): void
@@ -32,6 +34,10 @@ class MissingMethodParameterTypehintRuleTest extends \PHPStan\Testing\RuleTestCa
 			[
 				'Method MissingMethodParameterTypehint\Foo::getBaz() has parameter $p3 with no typehint specified.',
 				42,
+			],
+			[
+				'Method MissingMethodParameterTypehint\Foo::unionTypeWithUnknownArrayValueTypehint() has parameter $a with no value type specified in iterable type array.',
+				58,
 			],
 		]);
 	}

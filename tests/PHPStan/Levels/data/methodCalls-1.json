@@ -6,12 +6,12 @@
     },
     {
         "message": "Call to an undefined static method Levels\\MethodCalls\\AnotherClassWithMagicMethod::test().",
-        "line": 87,
+        "line": 91,
         "ignorable": true
     },
     {
         "message": "Method Levels\\MethodCalls\\ExtraArguments::doFoo() invoked with 2 parameters, 1 required.",
-        "line": 225,
+        "line": 233,
         "ignorable": true
     }
 ]

@@ -6,9 +6,9 @@ class Foo
 {
 
 	/**
-	 * @param array $array
-	 * @param array|callable $arrayOrCallable
-	 * @param array|float|int $arrayOrFloatOrInt
+	 * @param mixed[] $array
+	 * @param mixed[]|callable $arrayOrCallable
+	 * @param mixed[]|float|int $arrayOrFloatOrInt
 	 */
 	public function doFoo(
 		array $array,

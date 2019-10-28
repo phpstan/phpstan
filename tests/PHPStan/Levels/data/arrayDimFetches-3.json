@@ -1,17 +1,17 @@
 [
     {
         "message": "Cannot access offset 1 on stdClass.",
-        "line": 10,
+        "line": 14,
         "ignorable": true
     },
     {
         "message": "Offset 'b' does not exist on array('a' => 1).",
-        "line": 17,
+        "line": 21,
         "ignorable": true
     },
     {
         "message": "Cannot access offset 'b' on array('a' => 1)|stdClass.",
-        "line": 24,
+        "line": 28,
         "ignorable": true
     }
 ]

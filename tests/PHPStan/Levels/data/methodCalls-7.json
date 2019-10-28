@@ -21,12 +21,7 @@
     },
     {
         "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
-        "line": 153,
-        "ignorable": true
-    },
-    {
-        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
-        "line": 154,
+        "line": 161,
         "ignorable": true
     },
     {
@@ -36,17 +31,22 @@
     },
     {
         "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
-        "line": 163,
+        "line": 170,
+        "ignorable": true
+    },
+    {
+        "message": "Call to an undefined method Levels\\MethodCalls\\Bar|Levels\\MethodCalls\\Foo::doFoo().",
+        "line": 171,
         "ignorable": true
     },
     {
         "message": "Call to an undefined method Levels\\MethodCalls\\BarException|Levels\\MethodCalls\\FooException::doFoo().",
-        "line": 210,
+        "line": 218,
         "ignorable": true
     },
     {
         "message": "Call to an undefined method Levels\\MethodCalls\\BarException|Levels\\MethodCalls\\FooException::doBar().",
-        "line": 211,
+        "line": 219,
         "ignorable": true
     }
 ]
