@@ -742,7 +742,7 @@ function testClasses()
 	assertType('DateTime', $ab->getB(new \DateTime()));
 
 	$noConstructor = new NoConstructor(1);
-	assertType('PHPStan\Generics\FunctionsAssertType\NoConstructor<T (class PHPStan\Generics\FunctionsAssertType\NoConstructor, parameter)>', $noConstructor);
+	assertType('PHPStan\Generics\FunctionsAssertType\NoConstructor<mixed>', $noConstructor);
 
 	assertType('stdClass', acceptsClassString(\stdClass::class));
 	assertType('class-string<stdClass>', returnsClassString(new \stdClass()));
@@ -893,4 +893,10 @@ function cache0($t): void {
 function cache1($t): void {
 	$c = new Cache($t);
 	assertType('T (function PHPStan\Generics\FunctionsAssertType\cache1(), argument)', $c->get());
+}
+
+function newHandling(): void {
+	assertType('PHPStan\Generics\FunctionsAssertType\C<mixed>', new C());
+	assertType('PHPStan\Generics\FunctionsAssertType\A<stdClass>', new A(new \stdClass()));
+	assertType('PHPStan\Generics\FunctionsAssertType\A<*ERROR*>', new A());
 }

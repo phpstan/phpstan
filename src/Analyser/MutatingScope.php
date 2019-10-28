@@ -3253,7 +3253,7 @@ class MutatingScope implements Scope
 		if ($constructorMethod instanceof DummyConstructorReflection || $constructorMethod->getDeclaringClass()->getName() !== $classReflection->getName()) {
 			return new GenericObjectType(
 				$resolvedClassName,
-				$classReflection->typeMapToList($classReflection->getTemplateTypeMap())
+				$classReflection->typeMapToList($classReflection->getTemplateTypeMap()->resolveToBounds())
 			);
 		}
 
