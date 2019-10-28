@@ -5,6 +5,7 @@ namespace PHPStan\Type;
 use PHPStan\Reflection\ClassMemberAccessAnswerer;
 use PHPStan\Reflection\TrivialParametersAcceptor;
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Constant\ConstantArrayType;
 use PHPStan\Type\Constant\ConstantIntegerType;
 use PHPStan\Type\Constant\ConstantStringType;
 use PHPStan\Type\Generic\TemplateType;
@@ -285,6 +286,25 @@ class ArrayType implements Type
 	{
 		if ($receivedType instanceof UnionType || $receivedType instanceof IntersectionType) {
 			return $receivedType->inferTemplateTypesOn($this);
+		}
+
+		if ($receivedType instanceof ConstantArrayType && count($receivedType->getKeyTypes()) === 0) {
+			$keyType = $this->getKeyType();
+			$typeMap = TemplateTypeMap::createEmpty();
+			if ($keyType instanceof TemplateType) {
+				$typeMap = new TemplateTypeMap([
+					$keyType->getName() => $keyType->getBound(),
+				]);
+			}
+
+			$itemType = $this->getItemType();
+			if ($itemType instanceof TemplateType) {
+				$typeMap = $typeMap->union(new TemplateTypeMap([
+					$itemType->getName() => $itemType->getBound(),
+				]));
+			}
+
+			return $typeMap;
 		}
 
 		if (

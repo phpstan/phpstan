@@ -900,3 +900,41 @@ function newHandling(): void {
 	assertType('PHPStan\Generics\FunctionsAssertType\A<stdClass>', new A(new \stdClass()));
 	assertType('PHPStan\Generics\FunctionsAssertType\A<*ERROR*>', new A());
 }
+
+/**
+ * @template TKey
+ * @template TValue of \stdClass
+ */
+class StdClassCollection
+{
+
+	/** @var array<TKey, TValue> */
+	private $list;
+
+	/**
+	 * @param array<TKey, TValue> $list
+	 */
+	public function __construct(array $list)
+	{
+
+	}
+
+	/**
+	 * @return array<TKey, TValue>
+	 */
+	public function getAll(): array
+	{
+		return $this->list;
+	}
+
+}
+
+function () {
+	$stdEmpty = new StdClassCollection([]);
+	assertType('PHPStan\Generics\FunctionsAssertType\StdClassCollection<mixed, stdClass>', $stdEmpty);
+	assertType('array<stdClass>', $stdEmpty->getAll());
+
+	$std = new StdClassCollection([new \stdClass()]);
+	assertType('PHPStan\Generics\FunctionsAssertType\StdClassCollection<int, stdClass>', $std);
+	assertType('array<int, stdClass>', $std->getAll());
+};
