@@ -3,5 +3,40 @@
         "message": "Parameter #1 $ of callable callable(Levels\\CallableVariance\\B): void expects Levels\\CallableVariance\\B, Levels\\CallableVariance\\A given.",
         "line": 14,
         "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $cb of function Levels\\CallableVariance\\b expects callable(Levels\\CallableVariance\\B): void, Closure(Levels\\CallableVariance\\C): void given.",
+        "line": 35,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $cb of function Levels\\CallableVariance\\b expects callable(Levels\\CallableVariance\\B): void, callable(Levels\\CallableVariance\\C): void given.",
+        "line": 39,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $cb of function Levels\\CallableVariance\\c expects callable(): Levels\\CallableVariance\\B, Closure(): Levels\\CallableVariance\\A given.",
+        "line": 56,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $cb of function Levels\\CallableVariance\\c expects callable(): Levels\\CallableVariance\\B, callable(): Levels\\CallableVariance\\A given.",
+        "line": 60,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $cb of function Levels\\CallableVariance\\d expects callable(callable(): Levels\\CallableVariance\\B): Levels\\CallableVariance\\B, callable(callable(): Levels\\CallableVariance\\C): Levels\\CallableVariance\\C given.",
+        "line": 81,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $cb of function Levels\\CallableVariance\\d expects callable(callable(): Levels\\CallableVariance\\B): Levels\\CallableVariance\\B, callable(callable(): Levels\\CallableVariance\\A): Levels\\CallableVariance\\A given.",
+        "line": 84,
+        "ignorable": true
+    },
+    {
+        "message": "Parameter #1 $cb of function Levels\\CallableVariance\\d expects callable(callable(): Levels\\CallableVariance\\B): Levels\\CallableVariance\\B, callable(callable(): Levels\\CallableVariance\\C): Levels\\CallableVariance\\A given.",
+        "line": 85,
+        "ignorable": true
     }
 ]

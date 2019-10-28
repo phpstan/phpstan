@@ -29,8 +29,8 @@ class CallableTypeHelper
 
 			$ourParameter = $ourParameters[$i];
 			$ourParameterType = $ourParameter->getType();
-			if ($treatMixedAsAny && $ourParameterType instanceof MixedType) {
-				$isSuperType = TrinaryLogic::createYes();
+			if ($treatMixedAsAny) {
+				$isSuperType = $theirParameter->getType()->accepts($ourParameterType, true);
 			} else {
 				$isSuperType = $theirParameter->getType()->isSuperTypeOf($ourParameterType);
 			}
@@ -42,8 +42,8 @@ class CallableTypeHelper
 		}
 
 		$theirReturnType = $theirs->getReturnType();
-		if ($treatMixedAsAny && $theirReturnType instanceof MixedType) {
-			$isReturnTypeSuperType = TrinaryLogic::createYes();
+		if ($treatMixedAsAny) {
+			$isReturnTypeSuperType = $ours->getReturnType()->accepts($theirReturnType, true);
 		} else {
 			$isReturnTypeSuperType = $ours->getReturnType()->isSuperTypeOf($theirReturnType);
 		}

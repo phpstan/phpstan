@@ -445,6 +445,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 				'Unable to resolve the template type T in call to method Test\ClassStringWithUpperBounds::doFoo()',
 				1490,
 			],
+			[
+				'Parameter #1 $a of method Test\CallableWithMixedArray::doBar() expects callable(array<string>): array<string>, Closure(array): array|null given.',
+				1533,
+			],
 		]);
 	}
 
@@ -697,6 +701,10 @@ class CallMethodsRuleTest extends \PHPStan\Testing\RuleTestCase
 			[
 				'Unable to resolve the template type T in call to method Test\ClassStringWithUpperBounds::doFoo()',
 				1490,
+			],
+			[
+				'Parameter #1 $a of method Test\CallableWithMixedArray::doBar() expects callable(array<string>): array<string>, Closure(array): array|null given.',
+				1533,
 			],
 		]);
 	}

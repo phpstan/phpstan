@@ -1518,3 +1518,29 @@ function () {
 	$foo = new AppleCollection();
 	$foo->add(new AppleCollection());
 };
+
+class CallableWithMixedArray
+{
+
+	public function doFoo()
+	{
+		$this->doBar(function (array $foo): array {
+			return ['foo'];
+		});
+		$this->doBar(function (?array $foo): array {
+			return ['foo'];
+		});
+		$this->doBar(function (array $foo): ?array {
+			return ['foo'];
+		});
+	}
+
+	/**
+	 * @param callable(array<string>): array<string> $a
+	 */
+	public function doBar($a)
+	{
+
+	}
+
+}
