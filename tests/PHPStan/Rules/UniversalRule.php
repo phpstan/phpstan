@@ -15,12 +15,12 @@ class UniversalRule implements Rule
 	/** @var class-string<TNodeType> */
 	private $nodeType;
 
-	/** @var (callable(TNodeType, Scope): array) */
+	/** @var (callable(TNodeType, Scope): array<string|RuleError>) */
 	private $processNodeCallback;
 
 	/**
 	 * @param class-string<TNodeType> $nodeType
-	 * @param (callable(TNodeType, Scope): array) $processNodeCallback
+	 * @param (callable(TNodeType, Scope): array<string|RuleError>) $processNodeCallback
 	 */
 	public function __construct(string $nodeType, callable $processNodeCallback)
 	{
@@ -33,6 +33,11 @@ class UniversalRule implements Rule
 		return $this->nodeType;
 	}
 
+	/**
+	 * @param TNodeType $node
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return array<string|RuleError>
+	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
 		$callback = $this->processNodeCallback;

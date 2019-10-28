@@ -33,6 +33,9 @@ class FileNode extends NodeAbstract implements VirtualNode
 		return 'PHPStan_Node_FileNode';
 	}
 
+	/**
+	 * @return string[]
+	 */
 	public function getSubNodeNames(): array
 	{
 		return [];

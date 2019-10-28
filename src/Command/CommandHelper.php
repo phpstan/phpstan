@@ -24,6 +24,9 @@ class CommandHelper
 
 	public const DEFAULT_LEVEL = 0;
 
+	/**
+	 * @param string[] $paths
+	 */
 	public static function begin(
 		InputInterface $input,
 		OutputInterface $output,
@@ -342,6 +345,13 @@ class CommandHelper
 		});
 	}
 
+	/**
+	 * @param \Symfony\Component\Console\Output\OutputInterface $output
+	 * @param \PHPStan\File\FileHelper $fileHelper
+	 * @param string[] $configFiles
+	 * @param array<string, string> $loaderParameters
+	 * @throws \PHPStan\Command\InceptionNotSuccessfulException
+	 */
 	private static function detectDuplicateIncludedFiles(
 		OutputInterface $output,
 		FileHelper $fileHelper,
@@ -378,6 +388,13 @@ class CommandHelper
 		}
 	}
 
+	/**
+	 * @param \PHPStan\DependencyInjection\NeonAdapter $neonAdapter
+	 * @param \Nette\DI\Config\Adapters\PhpAdapter $phpAdapter
+	 * @param string $configFile
+	 * @param array<string, string> $loaderParameters
+	 * @return string[]
+	 */
 	private static function getConfigFiles(
 		NeonAdapter $neonAdapter,
 		PhpAdapter $phpAdapter,

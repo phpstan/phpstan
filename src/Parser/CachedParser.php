@@ -8,7 +8,7 @@ class CachedParser implements Parser
 	/** @var \PHPStan\Parser\Parser */
 	private $originalParser;
 
-	/** @var mixed[] */
+	/** @var array<string, \PhpParser\Node[]> */
 	private $cachedNodesByFile = [];
 
 	/** @var int */
@@ -17,7 +17,7 @@ class CachedParser implements Parser
 	/** @var int */
 	private $cachedNodesByFileCountMax;
 
-	/** @var mixed[] */
+	/** @var array<string, \PhpParser\Node[]>*/
 	private $cachedNodesByString = [];
 
 	/** @var int */
@@ -107,11 +107,17 @@ class CachedParser implements Parser
 		return $this->cachedNodesByStringCountMax;
 	}
 
+	/**
+	 * @return array<string, \PhpParser\Node[]>
+	 */
 	public function getCachedNodesByFile(): array
 	{
 		return $this->cachedNodesByFile;
 	}
 
+	/**
+	 * @return array<string, \PhpParser\Node[]>
+	 */
 	public function getCachedNodesByString(): array
 	{
 		return $this->cachedNodesByString;

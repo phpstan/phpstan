@@ -34,6 +34,9 @@ class LiteralArrayNode extends NodeAbstract implements VirtualNode
 		return 'PHPStan_Node_LiteralArray';
 	}
 
+	/**
+	 * @return string[]
+	 */
 	public function getSubNodeNames(): array
 	{
 		return [];

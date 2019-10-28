@@ -27,6 +27,9 @@ class InArrowFunctionNode extends NodeAbstract implements VirtualNode
 		return 'PHPStan_Node_InArrowFunctionNode';
 	}
 
+	/**
+	 * @return string[]
+	 */
 	public function getSubNodeNames(): array
 	{
 		return [];

@@ -631,7 +631,7 @@ class PhpDefectClassReflectionExtensionTest extends \PHPStan\Testing\TestCase
 	 * @dataProvider dataDateInterval71Properties
 	 * @param string $className
 	 * @param string $declaringClassName
-	 * @param array $data
+	 * @param array<string, mixed> $data
 	 */
 	public function test71Properties(string $className, string $declaringClassName, array $data): void
 	{

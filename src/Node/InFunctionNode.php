@@ -24,6 +24,9 @@ class InFunctionNode extends \PhpParser\Node\Stmt implements VirtualNode
 		return 'PHPStan_Stmt_InFunctionNode';
 	}
 
+	/**
+	 * @return string[]
+	 */
 	public function getSubNodeNames(): array
 	{
 		return [];

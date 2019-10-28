@@ -7,6 +7,9 @@ use PHPStan\File\FileHelper;
 abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 {
 
+	/**
+	 * @return array<array<string>>
+	 */
 	abstract public function dataTopics(): array;
 
 	abstract public function getDataPath(): string;
@@ -104,6 +107,11 @@ abstract class LevelsTestCase extends \PHPUnit\Framework\TestCase
 		}
 	}
 
+	/**
+	 * @param string $expectedJsonFile
+	 * @param string[] $expectedMessages
+	 * @return \PHPUnit\Framework\AssertionFailedError|null
+	 */
 	private function compareFiles(string $expectedJsonFile, array $expectedMessages): ?\PHPUnit\Framework\AssertionFailedError
 	{
 		if (count($expectedMessages) === 0) {

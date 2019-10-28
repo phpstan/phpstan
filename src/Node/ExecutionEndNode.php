@@ -50,6 +50,9 @@ class ExecutionEndNode extends NodeAbstract implements VirtualNode
 		return 'PHPStan_Node_ExecutionEndNode';
 	}
 
+	/**
+	 * @return string[]
+	 */
 	public function getSubNodeNames(): array
 	{
 		return [];

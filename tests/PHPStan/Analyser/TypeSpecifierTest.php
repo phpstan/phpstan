@@ -57,8 +57,8 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 	/**
 	 * @dataProvider dataCondition
 	 * @param Expr  $expr
-	 * @param array $expectedPositiveResult
-	 * @param array $expectedNegatedResult
+	 * @param mixed[] $expectedPositiveResult
+	 * @param mixed[] $expectedNegatedResult
 	 */
 	public function testCondition(Expr $expr, array $expectedPositiveResult, array $expectedNegatedResult): void
 	{
@@ -876,6 +876,10 @@ class TypeSpecifierTest extends \PHPStan\Testing\TestCase
 		];
 	}
 
+	/**
+	 * @param \PHPStan\Analyser\SpecifiedTypes $specifiedTypes
+	 * @return mixed[]
+	 */
 	private function toReadableResult(SpecifiedTypes $specifiedTypes): array
 	{
 		$typesDescription = [];

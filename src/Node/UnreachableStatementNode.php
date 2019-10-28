@@ -26,6 +26,9 @@ class UnreachableStatementNode extends Stmt implements VirtualNode
 		return 'PHPStan_Stmt_UnreachableStatementNode';
 	}
 
+	/**
+	 * @return string[]
+	 */
 	public function getSubNodeNames(): array
 	{
 		return [];

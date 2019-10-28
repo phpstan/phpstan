@@ -58,6 +58,9 @@ class ClosureReturnStatementsNode extends NodeAbstract implements VirtualNode
 		return 'PHPStan_Node_ClosureReturnStatementsNode';
 	}
 
+	/**
+	 * @return string[]
+	 */
 	public function getSubNodeNames(): array
 	{
 		return [];

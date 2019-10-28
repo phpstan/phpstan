@@ -27,6 +27,9 @@ class InClosureNode extends NodeAbstract implements VirtualNode
 		return 'PHPStan_Node_InClosureNode';
 	}
 
+	/**
+	 * @return string[]
+	 */
 	public function getSubNodeNames(): array
 	{
 		return [];

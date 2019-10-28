@@ -58,6 +58,11 @@ final class StrSplitFunctionReturnTypeExtension implements DynamicFunctionReturn
 		return self::createConstantArrayFrom($items, $scope);
 	}
 
+	/**
+	 * @param string[] $constantArray
+	 * @param \PHPStan\Analyser\Scope $scope
+	 * @return \PHPStan\Type\Constant\ConstantArrayType
+	 */
 	private static function createConstantArrayFrom(array $constantArray, Scope $scope): ConstantArrayType
 	{
 		$keyTypes = [];

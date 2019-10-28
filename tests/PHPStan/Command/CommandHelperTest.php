@@ -206,7 +206,7 @@ class CommandHelperTest extends TestCase
 	/**
 	 * @dataProvider dataResolveRelativePaths
 	 * @param string $configFile
-	 * @param array $expectedParameters
+	 * @param array<string, string> $expectedParameters
 	 */
 	public function testResolveRelativePaths(
 		string $configFile,

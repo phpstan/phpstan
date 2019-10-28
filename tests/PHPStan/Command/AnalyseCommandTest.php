@@ -70,6 +70,11 @@ class AnalyseCommandTest extends \PHPStan\Testing\TestCase
 		];
 	}
 
+	/**
+	 * @param int $expectedStatusCode
+	 * @param array<string, string> $parameters
+	 * @return string
+	 */
 	private function runCommand(int $expectedStatusCode, array $parameters = []): string
 	{
 		$commandTester = new CommandTester(new AnalyseCommand());

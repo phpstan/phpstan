@@ -416,6 +416,7 @@ class GenericParametersAcceptorResolverTest  extends \PHPStan\Testing\TestCase
 
 	/**
 	 * @dataProvider dataResolve
+	 * @param \PHPStan\Type\Type[] $argTypes
 	 */
 	public function testResolve(array $argTypes, ParametersAcceptor $parametersAcceptor, ParametersAcceptor $expectedResult): void
 	{

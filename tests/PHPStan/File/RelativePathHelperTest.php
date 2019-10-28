@@ -216,7 +216,7 @@ class RelativePathHelperTest extends \PHPUnit\Framework\TestCase
 	/**
 	 * @dataProvider dataGetRelativePathWindowsSpecific
 	 * @param string $currentWorkingDirectory
-	 * @param array $analysedPaths
+	 * @param string[] $analysedPaths
 	 * @param string $filenameToRelativize
 	 * @param string $expectedResult
 	 */

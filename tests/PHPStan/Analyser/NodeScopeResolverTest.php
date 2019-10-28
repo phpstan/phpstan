@@ -9458,6 +9458,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	/**
+	 * @param string $file
+	 * @return array<string, array{string, Type, Type, int}>
+	 */
 	private function gatherAssertTypes(string $file): array
 	{
 		$types = [];
@@ -9484,10 +9488,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				));
 			}
 
-			$expectedTypeString = $scope->getType($node->args[0]->value);
+			$expectedType = $scope->getType($node->args[0]->value);
 			$actualType = $scope->getType($node->args[1]->value);
 
-			$types[$file . ':' . $node->getLine()] = [$file, $expectedTypeString, $actualType, $node->getLine()];
+			$types[$file . ':' . $node->getLine()] = [$file, $expectedType, $actualType, $node->getLine()];
 		});
 
 		return $types;
@@ -9880,6 +9884,18 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		}
 	}
 
+	/**
+	 * @param string $file
+	 * @param string $description
+	 * @param string $expression
+	 * @param DynamicMethodReturnTypeExtension[] $dynamicMethodReturnTypeExtensions
+	 * @param DynamicStaticMethodReturnTypeExtension[] $dynamicStaticMethodReturnTypeExtensions
+	 * @param \PHPStan\Type\MethodTypeSpecifyingExtension[] $methodTypeSpecifyingExtensions
+	 * @param \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] $staticMethodTypeSpecifyingExtensions
+	 * @param string $evaluatedPointExpression
+	 * @param string[] $dynamicConstantNames
+	 * @param bool $useCache
+	 */
 	private function assertTypes(
 		string $file,
 		string $description,
@@ -9934,10 +9950,10 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	/**
 	 * @param string $file
 	 * @param \Closure $callback
-	 * @param array $dynamicMethodReturnTypeExtensions
-	 * @param array $dynamicStaticMethodReturnTypeExtensions
-	 * @param array $methodTypeSpecifyingExtensions
-	 * @param array $staticMethodTypeSpecifyingExtensions
+	 * @param DynamicMethodReturnTypeExtension[] $dynamicMethodReturnTypeExtensions
+	 * @param DynamicStaticMethodReturnTypeExtension[] $dynamicStaticMethodReturnTypeExtensions
+	 * @param \PHPStan\Type\MethodTypeSpecifyingExtension[] $methodTypeSpecifyingExtensions
+	 * @param \PHPStan\Type\StaticMethodTypeSpecifyingExtension[] $staticMethodTypeSpecifyingExtensions
 	 * @param string[] $dynamicConstantNames
 	 */
 	private function processFile(

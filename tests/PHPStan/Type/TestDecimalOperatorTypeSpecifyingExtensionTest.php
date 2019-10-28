@@ -9,7 +9,7 @@ class TestDecimalOperatorTypeSpecifyingExtensionTest extends TestCase
 {
 
 	/**
-	 * @dataProvider matchingSigilAndSidesProvider
+	 * @dataProvider dataSigilAndSidesProvider
 	 */
 	public function testSupportsMatchingSigilsAndSides(string $sigil, Type $leftType, Type $rightType): void
 	{
@@ -20,7 +20,7 @@ class TestDecimalOperatorTypeSpecifyingExtensionTest extends TestCase
 		self::assertTrue($result);
 	}
 
-	public function matchingSigilAndSidesProvider(): iterable
+	public function dataSigilAndSidesProvider(): iterable
 	{
 		yield '+' => [
 			'+',
@@ -48,7 +48,7 @@ class TestDecimalOperatorTypeSpecifyingExtensionTest extends TestCase
 	}
 
 	/**
-	 * @dataProvider notMatchingSidesProvider
+	 * @dataProvider dataNotMatchingSidesProvider
 	 */
 	public function testNotSupportsNotMatchingSides(string $sigil, Type $leftType, Type $rightType): void
 	{
@@ -59,7 +59,7 @@ class TestDecimalOperatorTypeSpecifyingExtensionTest extends TestCase
 		self::assertFalse($result);
 	}
 
-	public function notMatchingSidesProvider(): iterable
+	public function dataNotMatchingSidesProvider(): iterable
 	{
 		yield 'left' => [
 			'+',

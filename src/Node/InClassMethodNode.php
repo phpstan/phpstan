@@ -24,6 +24,9 @@ class InClassMethodNode extends \PhpParser\Node\Stmt implements VirtualNode
 		return 'PHPStan_Stmt_InClassMethodNode';
 	}
 
+	/**
+	 * @return string[]
+	 */
 	public function getSubNodeNames(): array
 	{
 		return [];
