@@ -21,6 +21,18 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 	{
 		parent::__construct($input, $output);
 		$this->showProgress = $input->hasOption(self::OPTION_NO_PROGRESS) && !(bool) $input->getOption(self::OPTION_NO_PROGRESS);
+		
+		// disable progressbar on CI
+		if (isset($_SERVER['TRAVIS'])
+			|| isset($_SERVER['CIRCLECI'])
+			|| isset($_SERVER['APPVEYOR'])
+			|| isset($_SERVER['JENKINS_URL'])
+			|| isset($_SERVER['SCRUTINIZER'])
+			|| isset($_SERVER['GITLAB_CI'])
+			|| isset($_SERVER['GITHUB_WORKFLOW'])
+		) {
+			$this->showProgress = false;
+		}		
 	}
 
 	/**
