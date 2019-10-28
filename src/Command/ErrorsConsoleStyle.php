@@ -32,7 +32,7 @@ class ErrorsConsoleStyle extends \Symfony\Component\Console\Style\SymfonyStyle
 			|| isset($_SERVER['GITHUB_WORKFLOW'])
 		) {
 			$this->showProgress = false;
-		}		
+		}
 	}
 
 	/**
