@@ -192,7 +192,7 @@ class CommandHelper
 
 		if (!isset($tmpDir)) {
 			$tmpDir = sys_get_temp_dir() . '/phpstan';
-			if (!@mkdir($tmpDir, 0777, true) && !is_dir($tmpDir)) {
+			if (!is_dir($tmpDir) && !mkdir($tmpDir, 0777, true) && !is_dir($tmpDir)) {
 				$errorOutput->writeln(sprintf('Cannot create a temp directory %s', $tmpDir));
 				throw new \PHPStan\Command\InceptionNotSuccessfulException();
 			}

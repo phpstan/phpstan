@@ -12,7 +12,7 @@ class FileCacheStorage implements CacheStorage
 	{
 		$this->directory = $directory;
 
-		if (@mkdir($this->directory) && !is_dir($this->directory)) {
+		if (!is_dir($this->directory) && !mkdir($this->directory) && !is_dir($this->directory)) {
 			throw new \InvalidArgumentException(sprintf('Directory "%s" doesn\'t exist.', $this->directory));
 		}
 	}
