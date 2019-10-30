@@ -61,4 +61,37 @@ namespace MissingFunctionParameterTypehint
 	{
 
 	}
+
+	/**
+	 * @param iterable<int>&\Traversable $a
+	 */
+	function iterableIntersectionTypehint($a)
+	{
+
+	}
+
+	/**
+	 * @param iterable<mixed>&\Traversable $a
+	 */
+	function iterableIntersectionTypehint2($a)
+	{
+
+	}
+
+	/**
+	 * @param \PDOStatement<int> $a
+	 */
+	function iterableIntersectionTypehint3($a)
+	{
+
+	}
+
+	/**
+	 * @param \PDOStatement<mixed> $a
+	 */
+	function iterableIntersectionTypehint4($a)
+	{
+
+	}
+
 }

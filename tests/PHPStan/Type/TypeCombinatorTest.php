@@ -1389,6 +1389,30 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				IntegerRangeType::class,
 				'int<1, 5>',
 			],
+			[
+				[
+					new MixedType(),
+					new MixedType(),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(true),
+					new MixedType(),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(true),
+					new MixedType(true),
+				],
+				MixedType::class,
+				'mixed',
+			],
 		];
 	}
 
@@ -2258,6 +2282,70 @@ class TypeCombinatorTest extends \PHPStan\Testing\TestCase
 				],
 				IntegerRangeType::class,
 				'int<1, 3>',
+			],
+			[
+				[
+					new ObjectType(\Traversable::class),
+					new IterableType(new MixedType(), new MixedType()),
+				],
+				ObjectType::class,
+				'Traversable',
+			],
+			[
+				[
+					new ObjectType(\Traversable::class),
+					new IterableType(new MixedType(), new MixedType()),
+				],
+				ObjectType::class,
+				'Traversable',
+			],
+			[
+				[
+					new ObjectType(\Traversable::class),
+					new IterableType(new MixedType(), new MixedType(true)),
+				],
+				IntersectionType::class,
+				'iterable&Traversable',
+			],
+			[
+				[
+					new ObjectType(\Traversable::class),
+					new IterableType(new MixedType(true), new MixedType()),
+				],
+				IntersectionType::class,
+				'iterable&Traversable',
+			],
+			[
+				[
+					new ObjectType(\Traversable::class),
+					new IterableType(new MixedType(true), new MixedType(true)),
+				],
+				IntersectionType::class,
+				'iterable&Traversable',
+			],
+			[
+				[
+					new MixedType(),
+					new MixedType(),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(true),
+					new MixedType(),
+				],
+				MixedType::class,
+				'mixed',
+			],
+			[
+				[
+					new MixedType(true),
+					new MixedType(true),
+				],
+				MixedType::class,
+				'mixed',
 			],
 		];
 	}

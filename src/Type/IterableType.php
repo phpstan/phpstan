@@ -3,6 +3,7 @@
 namespace PHPStan\Type;
 
 use PHPStan\TrinaryLogic;
+use PHPStan\Type\Generic\TemplateMixedType;
 use PHPStan\Type\Generic\TemplateType;
 use PHPStan\Type\Generic\TemplateTypeMap;
 use PHPStan\Type\Traits\MaybeCallableTypeTrait;
@@ -66,8 +67,29 @@ class IterableType implements CompoundType
 	public function isSuperTypeOf(Type $type): TrinaryLogic
 	{
 		return $type->isIterable()
-			->and($this->getIterableValueType()->isSuperTypeOf($type->getIterableValueType()))
-			->and($this->getIterableKeyType()->isSuperTypeOf($type->getIterableKeyType()));
+			->and($this->isNestedTypeSuperTypeOf($this->getIterableValueType(), $type->getIterableValueType()))
+			->and($this->isNestedTypeSuperTypeOf($this->getIterableKeyType(), $type->getIterableKeyType()));
+	}
+
+	private function isNestedTypeSuperTypeOf(Type $a, Type $b): TrinaryLogic
+	{
+		if (!$a instanceof MixedType || !$b instanceof MixedType) {
+			return $a->isSuperTypeOf($b);
+		}
+
+		if ($a instanceof TemplateMixedType || $b instanceof TemplateMixedType) {
+			return $a->isSuperTypeOf($b);
+		}
+
+		if ($a->isExplicitMixed()) {
+			if ($b->isExplicitMixed()) {
+				return TrinaryLogic::createYes();
+			}
+
+			return TrinaryLogic::createMaybe();
+		}
+
+		return TrinaryLogic::createYes();
 	}
 
 	public function isSubTypeOf(Type $otherType): TrinaryLogic
