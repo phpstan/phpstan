@@ -50,10 +50,18 @@ class IncompatiblePhpDocTypeRule implements \PHPStan\Rules\Rule
 			return [];
 		}
 
+		$functionName = null;
+		if ($node instanceof Node\Stmt\ClassMethod) {
+			$functionName = $node->name->name;
+		} elseif ($node instanceof Node\Stmt\Function_) {
+			$functionName = trim($scope->getNamespace() . '\\' . $node->name->name, '\\');
+		}
+
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 			$scope->getFile(),
 			$scope->isInClass() ? $scope->getClassReflection()->getName() : null,
 			$scope->isInTrait() ? $scope->getTraitReflection()->getName() : null,
+			$functionName,
 			$docComment->getText()
 		);
 		$nativeParameterTypes = $this->getNativeParameterTypes($node, $scope);

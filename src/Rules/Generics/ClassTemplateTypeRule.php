@@ -52,6 +52,7 @@ class ClassTemplateTypeRule implements Rule
 			$scope->getFile(),
 			$className,
 			null,
+			null,
 			$docComment->getText()
 		);
 

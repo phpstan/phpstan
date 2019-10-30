@@ -10,7 +10,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 		/** @var FileTypeMapper $fileTypeMapper */
 		$fileTypeMapper = self::getContainer()->getByType(FileTypeMapper::class);
 
-		$resolvedA = $fileTypeMapper->getResolvedPhpDoc(__DIR__ . '/data/annotations.php', 'Foo', null, '/**
+		$resolvedA = $fileTypeMapper->getResolvedPhpDoc(__DIR__ . '/data/annotations.php', 'Foo', null, null, '/**
  * @property int | float $numericBazBazProperty
  * @property X $singleLetterObjectName
  *
@@ -92,6 +92,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 			$realpath,
 			\DependentPhpDocs\Foo::class,
 			null,
+			'addPages',
 			'/** @param Foo[]|Foo|\Iterator $pages */'
 		);
 
@@ -112,7 +113,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		$resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \ThrowsPhpDocs\Foo::class, null, '/**
+		$resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \ThrowsPhpDocs\Foo::class, null, 'throwRuntimeException', '/**
  * @throws RuntimeException
  */');
 
@@ -122,7 +123,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 			$resolved->getThrowsTag()->getType()->describe(VerbosityLevel::precise())
 		);
 
-		$resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \ThrowsPhpDocs\Foo::class, null, '/**
+		$resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \ThrowsPhpDocs\Foo::class, null, 'throwRuntimeAndLogicException', '/**
  * @throws RuntimeException|LogicException
  */');
 
@@ -132,7 +133,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 			$resolved->getThrowsTag()->getType()->describe(VerbosityLevel::precise())
 		);
 
-		$resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \ThrowsPhpDocs\Foo::class, null, '/**
+		$resolved = $fileTypeMapper->getResolvedPhpDoc($realpath, \ThrowsPhpDocs\Foo::class, null, 'throwRuntimeAndLogicException2', '/**
  * @throws RuntimeException
  * @throws LogicException
  */');
@@ -160,6 +161,7 @@ class FileTypeMapperTest extends \PHPStan\Testing\TestCase
 			$realpath,
 			\CyclicPhpDocs\Foo::class,
 			null,
+			'getIterator',
 			'/** @return iterable<Foo> | Foo */'
 		);
 

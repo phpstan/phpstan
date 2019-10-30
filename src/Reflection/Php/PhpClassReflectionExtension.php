@@ -200,6 +200,7 @@ class PhpClassReflectionExtension
 					$phpDocBlock->getFile(),
 					$phpDocBlock->getClassReflection()->getName(),
 					$declaringTraitName,
+					null,
 					$phpDocBlock->getDocComment()
 				);
 				$varTags = $resolvedPhpDoc->getVarTags();
@@ -440,6 +441,7 @@ class PhpClassReflectionExtension
 					$phpDocBlock->getFile(),
 					$phpDocBlock->getClassReflection()->getName(),
 					$phpDocBlock->getTrait(),
+					$methodReflection->getName(),
 					$phpDocBlock->getDocComment()
 				);
 				$templateTypeMap = $resolvedPhpDoc->getTemplateTypeMap();
@@ -494,6 +496,7 @@ class PhpClassReflectionExtension
 			$phpDocBlock->getFile(),
 			$phpDocBlock->getClassReflection()->getName(),
 			null,
+			null,
 			$phpDocBlock->getDocComment()
 		);
 		if (count($resolvedPhpDoc->getVarTags()) > 0) {
@@ -514,6 +517,7 @@ class PhpClassReflectionExtension
 				$phpDocBlock->getFile(),
 				$phpDocBlock->getClassReflection()->getName(),
 				$traitReflection->getName(),
+				null,
 				$phpDocBlock->getDocComment()
 			);
 			if (

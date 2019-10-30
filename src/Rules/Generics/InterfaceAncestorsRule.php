@@ -54,6 +54,7 @@ class InterfaceAncestorsRule implements Rule
 			$scope->getFile(),
 			$interfaceName,
 			null,
+			null,
 			$docComment->getText()
 		);
 

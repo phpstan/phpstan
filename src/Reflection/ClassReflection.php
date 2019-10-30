@@ -564,7 +564,7 @@ class ClassReflection implements ReflectionWithFilename
 				$docComment = $reflectionConstant->getDocComment();
 				$fileName = $this->getFileName();
 				$className = $reflectionConstant->getDeclaringClass()->getName();
-				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $className, null, $docComment);
+				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc($fileName, $className, null, null, $docComment);
 
 				$deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag() !== null ? $resolvedPhpDoc->getDeprecatedTag()->getMessage() : null;
 				$isDeprecated = $resolvedPhpDoc->isDeprecated();
@@ -745,7 +745,7 @@ class ClassReflection implements ReflectionWithFilename
 			return null;
 		}
 
-		return $this->fileTypeMapper->getResolvedPhpDoc($fileName, $this->getName(), null, $docComment);
+		return $this->fileTypeMapper->getResolvedPhpDoc($fileName, $this->getName(), null, null, $docComment);
 	}
 
 	private function getFirstExtendsTag(): ?ExtendsTag

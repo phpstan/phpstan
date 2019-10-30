@@ -3,6 +3,8 @@
 namespace PHPStan\Rules;
 
 use PhpParser\Node\FunctionLike;
+use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Stmt\Function_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Type\ErrorType;
@@ -60,10 +62,18 @@ class TemplateTypeCheck
 			return [];
 		}
 
+		$functionName = null;
+		if ($node instanceof ClassMethod) {
+			$functionName = $node->name->name;
+		} elseif ($node instanceof Function_) {
+			$functionName = trim($scope->getNamespace() . '\\' . $node->name->name, '\\');
+		}
+
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 			$scope->getFile(),
 			$scope->isInClass() ? $scope->getClassReflection()->getName() : null,
 			$scope->isInTrait() ? $scope->getTraitReflection()->getName() : null,
+			$functionName,
 			$docComment->getText()
 		);
 

@@ -54,6 +54,7 @@ class ClassAncestorsRule implements Rule
 			$scope->getFile(),
 			$className,
 			null,
+			null,
 			$docComment->getText()
 		);
 

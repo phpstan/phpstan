@@ -79,7 +79,7 @@ class TypeNodeResolver
 
 	public function getCacheKey(): string
 	{
-		$key = 'v69-generic-rules-fix';
+		$key = 'v70-filetypemapper-caching-bug';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}

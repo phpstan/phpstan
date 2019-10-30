@@ -293,8 +293,6 @@ function typeHintsSuperType(\DateTimeInterface $a): \DateTimeInterface
 }
 
 /**
- * Different phpDoc on purpose because of caching issue
- *
  * @template U of \DateTimeInterface
  * @param U $a
  * @return U
@@ -380,8 +378,6 @@ class C
 }
 
 /**
- * class A
- *
  * @template T
  */
 class A
@@ -424,8 +420,6 @@ class A
 }
 
 /**
- * class AOfDateTime
- *
  * @extends A<\DateTime>
  */
 class AOfDateTime extends A
@@ -437,8 +431,6 @@ class AOfDateTime extends A
 }
 
 /**
- * class B
- *
  * @template T
  *
  * @extends A<T>
@@ -568,8 +560,6 @@ class X implements SuperIfaceA
 }
 
 /**
- * class NoConstructor
- *
  * @template T
  *
  * @extends A<T>
@@ -679,8 +669,6 @@ function inferFromGeneric($x)
 }
 
 /**
- * Class Factory
- *
  * @template A
  * @template B
  */
@@ -770,14 +758,12 @@ function testClasses()
 }
 
 /**
- * Different phpDoc on purpose because of caching issue bbbb
  * @template T
  */
 interface GenericIterator extends IteratorAggregate
 {
 
 	/**
-	 * Different phpDoc on purpose because of caching issue ccccc
 	 * @return \Iterator<T>
 	 */
 	public function getIterator(): \Iterator;
@@ -827,8 +813,6 @@ function (ClassThatExtendsGenericClassWithPropertyWithoutSpecifyingTemplateType 
 };
 
 /**
- * Class GenericThis
- *
  * @template T of \DateTimeInterface
  */
 class GenericThis
@@ -846,15 +830,11 @@ class GenericThis
 }
 
 /**
- * Class Cache
- *
  * @template T
  */
 class Cache
 {
 	/**
-	 * Function Cache::__construct
-	 *
 	 * @param T $t
 	 */
 	public function __construct($t)
@@ -938,3 +918,34 @@ function () {
 	assertType('PHPStan\Generics\FunctionsAssertType\StdClassCollection<int, stdClass>', $std);
 	assertType('array<int, stdClass>', $std->getAll());
 };
+
+class ClassWithMethodCachingIssue
+{
+
+	/**
+	 * @template T
+	 * @param T $a
+	 */
+	public function doFoo($a)
+	{
+		assertType('T (method PHPStan\Generics\FunctionsAssertType\ClassWithMethodCachingIssue::doFoo(), argument)', $a);
+
+		/** @var T $b */
+		$b = doFoo();
+		assertType('T (method PHPStan\Generics\FunctionsAssertType\ClassWithMethodCachingIssue::doFoo(), argument)', $b);
+	}
+
+	/**
+	 * @template T
+	 * @param T $a
+	 */
+	public function doBar($a)
+	{
+		assertType('T (method PHPStan\Generics\FunctionsAssertType\ClassWithMethodCachingIssue::doBar(), argument)', $a);
+
+		/** @var T $b */
+		$b = doFoo();
+		assertType('T (method PHPStan\Generics\FunctionsAssertType\ClassWithMethodCachingIssue::doBar(), argument)', $b);
+	}
+
+}

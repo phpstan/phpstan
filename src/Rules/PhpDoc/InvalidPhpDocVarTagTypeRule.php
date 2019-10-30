@@ -74,10 +74,12 @@ class InvalidPhpDocVarTagTypeRule implements Rule
 			return [];
 		}
 
+		$function = $scope->getFunction();
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 			$scope->getFile(),
 			$scope->isInClass() ? $scope->getClassReflection()->getName() : null,
 			$scope->isInTrait() ? $scope->getTraitReflection()->getName() : null,
+			$function !== null ? $function->getName() : null,
 			$docComment->getText()
 		);
 

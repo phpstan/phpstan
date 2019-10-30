@@ -52,6 +52,7 @@ class InterfaceTemplateTypeRule implements Rule
 			$scope->getFile(),
 			$interfaceName,
 			null,
+			null,
 			$docComment->getText()
 		);
 

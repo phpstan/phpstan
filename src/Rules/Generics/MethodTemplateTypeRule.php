@@ -56,6 +56,7 @@ class MethodTemplateTypeRule implements Rule
 			$scope->getFile(),
 			$className,
 			$scope->isInTrait() ? $scope->getTraitReflection()->getName() : null,
+			$methodName,
 			$docComment->getText()
 		);
 

@@ -52,6 +52,7 @@ class TraitTemplateTypeRule implements Rule
 			$scope->getFile(),
 			$traitName,
 			null,
+			null,
 			$docComment->getText()
 		);
 

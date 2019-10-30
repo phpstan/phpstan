@@ -59,6 +59,7 @@ class FileTypeMapper
 		string $fileName,
 		?string $className,
 		?string $traitName,
+		?string $functionName,
 		string $docComment
 	): ResolvedPhpDocBlock
 	{
@@ -66,7 +67,7 @@ class FileTypeMapper
 			throw new \PHPStan\ShouldNotHappenException();
 		}
 
-		$phpDocKey = $this->getPhpDocKey($className, $traitName, $docComment);
+		$phpDocKey = $this->getPhpDocKey($className, $traitName, $functionName, $docComment);
 		$phpDocMap = [];
 
 		if (!isset($this->inProcess[$fileName])) {
@@ -168,12 +169,12 @@ class FileTypeMapper
 			$classStack[] = $traitUseClass;
 		}
 		$namespace = null;
+		$functionName = null;
 		$uses = [];
 		$this->processNodes(
 			$this->phpParser->parseFile($fileName),
-			function (\PhpParser\Node $node) use ($fileName, $lookForTrait, &$phpDocMap, &$classStack, &$namespace, &$uses, &$typeMapStack) {
+			function (\PhpParser\Node $node) use ($fileName, $lookForTrait, &$phpDocMap, &$classStack, &$namespace, &$functionName, &$uses, &$typeMapStack) {
 				$resolvableTemplateTypes = false;
-				$functionName = null;
 				if ($node instanceof Node\Stmt\ClassLike) {
 					if ($lookForTrait !== null) {
 						if (!$node instanceof Node\Stmt\Trait_) {
@@ -195,6 +196,7 @@ class FileTypeMapper
 							$className = ltrim(sprintf('%s\\%s', $namespace, $node->name->name), '\\');
 						}
 						$classStack[] = $className;
+						$functionName = null;
 						$resolvableTemplateTypes = true;
 					}
 				} elseif ($node instanceof Node\Stmt\TraitUse) {
@@ -278,7 +280,7 @@ class FileTypeMapper
 				$className = $classStack[count($classStack) - 1] ?? null;
 				$typeMapCb = $typeMapStack[count($typeMapStack) - 1] ?? null;
 
-				$phpDocKey = $this->getPhpDocKey($className, $lookForTrait, $phpDocString);
+				$phpDocKey = $this->getPhpDocKey($className, $lookForTrait, $functionName, $phpDocString);
 				$phpDocMap[$phpDocKey] = function () use ($phpDocString, $namespace, $uses, $className, $functionName, $typeMapCb, $resolvableTemplateTypes): ResolvedPhpDocBlock {
 					$nameScope = new NameScope(
 						$namespace,
@@ -312,7 +314,7 @@ class FileTypeMapper
 					return null;
 				}
 
-				$typeMapStack[] = function () use ($fileName, $className, $lookForTrait, $phpDocString, $typeMapCb): TemplateTypeMap {
+				$typeMapStack[] = function () use ($fileName, $className, $lookForTrait, $functionName, $phpDocString, $typeMapCb): TemplateTypeMap {
 					static $typeMap = null;
 					if ($typeMap !== null) {
 						return $typeMap;
@@ -321,6 +323,7 @@ class FileTypeMapper
 						$fileName,
 						$className,
 						$lookForTrait,
+						$functionName,
 						$phpDocString
 					);
 					return new TemplateTypeMap(array_merge(
@@ -331,7 +334,7 @@ class FileTypeMapper
 
 				return self::POP_TYPE_MAP_STACK;
 			},
-			static function (\PhpParser\Node $node, $callbackResult) use ($lookForTrait, &$namespace, &$classStack, &$uses, &$typeMapStack): void {
+			static function (\PhpParser\Node $node, $callbackResult) use ($lookForTrait, &$namespace, &$functionName, &$classStack, &$uses, &$typeMapStack): void {
 				if ($node instanceof Node\Stmt\ClassLike && $lookForTrait === null) {
 					if (count($classStack) === 0) {
 						throw new \PHPStan\ShouldNotHappenException();
@@ -340,6 +343,8 @@ class FileTypeMapper
 				} elseif ($node instanceof \PhpParser\Node\Stmt\Namespace_) {
 					$namespace = null;
 					$uses = [];
+				} elseif ($node instanceof Node\Stmt\ClassMethod || $node instanceof Node\Stmt\Function_) {
+					$functionName = null;
 				}
 				if ($callbackResult !== self::POP_TYPE_MAP_STACK) {
 					return;
@@ -386,12 +391,13 @@ class FileTypeMapper
 	private function getPhpDocKey(
 		?string $class,
 		?string $trait,
+		?string $function,
 		string $docComment
 	): string
 	{
 		$docComment = \Nette\Utils\Strings::replace($docComment, '#\s+#', ' ');
 
-		return md5(sprintf('%s-%s-%s', $class, $trait, $docComment));
+		return md5(sprintf('%s-%s-%s-%s', $class, $trait, $function, $docComment));
 	}
 
 }

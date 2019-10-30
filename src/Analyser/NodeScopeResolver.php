@@ -2333,10 +2333,13 @@ class NodeScopeResolver
 			return $scope;
 		}
 
+		$function = $scope->getFunction();
+
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 			$scope->getFile(),
 			$scope->isInClass() ? $scope->getClassReflection()->getName() : null,
 			$scope->isInTrait() ? $scope->getTraitReflection()->getName() : null,
+			$function !== null ? $function->getName() : null,
 			$comment
 		);
 		foreach ($resolvedPhpDoc->getVarTags() as $name => $varTag) {
@@ -2357,10 +2360,12 @@ class NodeScopeResolver
 
 	private function processVarAnnotation(MutatingScope $scope, string $variableName, string $comment, bool $strict, bool &$changed = false): MutatingScope
 	{
+		$function = $scope->getFunction();
 		$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 			$scope->getFile(),
 			$scope->isInClass() ? $scope->getClassReflection()->getName() : null,
 			$scope->isInTrait() ? $scope->getTraitReflection()->getName() : null,
+			$function !== null ? $function->getName() : null,
 			$comment
 		);
 		$varTags = $resolvedPhpDoc->getVarTags();
@@ -2508,10 +2513,12 @@ class NodeScopeResolver
 		$class = $scope->isInClass() ? $scope->getClassReflection()->getName() : null;
 		$trait = $scope->isInTrait() ? $scope->getTraitReflection()->getName() : null;
 		$phpDocBlock = null;
+		$functionName = null;
 		if ($functionLike instanceof Node\Stmt\ClassMethod) {
 			if (!$scope->isInClass()) {
 				throw new \PHPStan\ShouldNotHappenException();
 			}
+			$functionName = $functionLike->name->name;
 			$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
 				$docComment,
 				$scope->getClassReflection(),
@@ -2527,6 +2534,8 @@ class NodeScopeResolver
 				$trait = $phpDocBlock->getTrait();
 				$phpDocBlockTemplateTypeMap = $phpDocBlock->getClassReflection()->getActiveTemplateTypeMap();
 			}
+		} elseif ($functionLike instanceof Node\Stmt\Function_) {
+			$functionName = trim($scope->getNamespace() . '\\' . $functionLike->name->name, '\\');
 		}
 
 		if ($docComment !== null) {
@@ -2534,6 +2543,7 @@ class NodeScopeResolver
 				$file,
 				$class,
 				$trait,
+				$functionName,
 				$docComment
 			);
 			$templateTypeMap = $resolvedPhpDoc->getTemplateTypeMap();

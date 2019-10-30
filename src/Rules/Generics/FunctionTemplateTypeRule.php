@@ -52,6 +52,7 @@ class FunctionTemplateTypeRule implements Rule
 			$scope->getFile(),
 			null,
 			null,
+			$functionName,
 			$docComment->getText()
 		);
 
