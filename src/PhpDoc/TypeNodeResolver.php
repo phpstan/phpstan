@@ -79,7 +79,7 @@ class TypeNodeResolver
 
 	public function getCacheKey(): string
 	{
-		$key = 'v70-filetypemapper-caching-bug';
+		$key = 'v71-trait-method-aliases';
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}

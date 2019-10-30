@@ -12,6 +12,7 @@ use PHPStan\PhpDoc\ResolvedPhpDocBlock;
 use PHPStan\PhpDoc\TypeNodeResolver;
 use PHPStan\Type\Generic\TemplateType;
 use PHPStan\Type\Generic\TemplateTypeMap;
+use function array_key_exists;
 
 class FileTypeMapper
 {
@@ -149,12 +150,14 @@ class FileTypeMapper
 	 * @param string $fileName
 	 * @param string|null $lookForTrait
 	 * @param string|null $traitUseClass
+	 * @param array<string, string> $traitMethodAliases
 	 * @return callable[]
 	 */
 	private function createFilePhpDocMap(
 		string $fileName,
 		?string $lookForTrait,
-		?string $traitUseClass
+		?string $traitUseClass,
+		array $traitMethodAliases = []
 	): array
 	{
 		/** @var callable[] $phpDocMap */
@@ -173,7 +176,7 @@ class FileTypeMapper
 		$uses = [];
 		$this->processNodes(
 			$this->phpParser->parseFile($fileName),
-			function (\PhpParser\Node $node) use ($fileName, $lookForTrait, &$phpDocMap, &$classStack, &$namespace, &$functionName, &$uses, &$typeMapStack) {
+			function (\PhpParser\Node $node) use ($fileName, $lookForTrait, $traitMethodAliases, &$phpDocMap, &$classStack, &$namespace, &$functionName, &$uses, &$typeMapStack) {
 				$resolvableTemplateTypes = false;
 				if ($node instanceof Node\Stmt\ClassLike) {
 					if ($lookForTrait !== null) {
@@ -200,6 +203,23 @@ class FileTypeMapper
 						$resolvableTemplateTypes = true;
 					}
 				} elseif ($node instanceof Node\Stmt\TraitUse) {
+					$traitMethodAliases = [];
+					foreach ($node->adaptations as $traitUseAdaptation) {
+						if (!$traitUseAdaptation instanceof Node\Stmt\TraitUseAdaptation\Alias) {
+							continue;
+						}
+
+						if ($traitUseAdaptation->trait === null) {
+							continue;
+						}
+
+						if ($traitUseAdaptation->newName === null) {
+							continue;
+						}
+
+						$traitMethodAliases[$traitUseAdaptation->trait->toString()][$traitUseAdaptation->method->toString()] = $traitUseAdaptation->newName->toString();
+					}
+
 					foreach ($node->traits as $traitName) {
 						$traitName = (string) $traitName;
 						if (!trait_exists($traitName)) {
@@ -222,7 +242,8 @@ class FileTypeMapper
 						$traitPhpDocMap = $this->createFilePhpDocMap(
 							$traitReflection->getFileName(),
 							$traitName,
-							$className
+							$className,
+							$traitMethodAliases[$traitName] ?? []
 						);
 						$phpDocMap = array_merge($phpDocMap, $traitPhpDocMap);
 					}
@@ -247,6 +268,9 @@ class FileTypeMapper
 					return null;
 				} elseif ($node instanceof Node\Stmt\ClassMethod) {
 					$functionName = $node->name->name;
+					if (array_key_exists($functionName, $traitMethodAliases)) {
+						$functionName = $traitMethodAliases[$functionName];
+					}
 					$resolvableTemplateTypes = true;
 				} elseif ($node instanceof Node\Stmt\Function_) {
 					$functionName = ltrim(sprintf('%s\\%s', $namespace, $node->name->name), '\\');
