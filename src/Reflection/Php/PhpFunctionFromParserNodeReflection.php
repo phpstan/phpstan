@@ -13,6 +13,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
+use PHPStan\Type\VoidType;
 
 class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\FunctionReflection
 {
@@ -229,6 +230,9 @@ class PhpFunctionFromParserNodeReflection implements \PHPStan\Reflection\Functio
 
 	public function hasSideEffects(): TrinaryLogic
 	{
+		if ($this->getReturnType() instanceof VoidType) {
+			return TrinaryLogic::createYes();
+		}
 		return TrinaryLogic::createMaybe();
 	}
 

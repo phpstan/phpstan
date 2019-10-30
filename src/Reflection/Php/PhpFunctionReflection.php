@@ -17,6 +17,7 @@ use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypehintHelper;
+use PHPStan\Type\VoidType;
 
 class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilename
 {
@@ -270,6 +271,9 @@ class PhpFunctionReflection implements FunctionReflection, ReflectionWithFilenam
 
 	public function hasSideEffects(): TrinaryLogic
 	{
+		if ($this->getReturnType() instanceof VoidType) {
+			return TrinaryLogic::createYes();
+		}
 		return TrinaryLogic::createMaybe();
 	}
 

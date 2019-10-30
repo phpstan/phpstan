@@ -913,3 +913,25 @@ class InvalidationAfterCallingSideEffects
 	}
 
 }
+
+class InvalidateAfterCallingSideEffectsUserlandMethod
+{
+
+	/** @var int|null */
+	private $foo;
+
+	public function doFoo()
+	{
+		$this->foo = 123;
+		$this->returnsVoid();
+		if ($this->foo === 456) {
+
+		}
+	}
+
+	private function returnsVoid(): void
+	{
+		$this->foo = null;
+	}
+
+}
