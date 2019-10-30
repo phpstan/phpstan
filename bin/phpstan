@@ -6,7 +6,7 @@ use PHPStan\Command\DumpDependenciesCommand;
 
 (function () {
 	error_reporting(E_ALL);
-	ini_set('display_errors', '1');
+	ini_set('display_errors', 'stderr');
 	gc_disable(); // performance boost
 
 	define('__PHPSTAN_RUNNING__', true);
