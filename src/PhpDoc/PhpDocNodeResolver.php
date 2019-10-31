@@ -87,21 +87,27 @@ class PhpDocNodeResolver
 	 */
 	private function resolveVarTags(PhpDocNode $phpDocNode, NameScope $nameScope): array
 	{
-		$resolved = [];
-		foreach ($phpDocNode->getVarTagValues() as $tagValue) {
-			if ($tagValue->variableName !== '') {
-				$variableName = substr($tagValue->variableName, 1);
-				$type = !isset($resolved[$variableName])
-					? $this->typeNodeResolver->resolve($tagValue->type, $nameScope)
-					: new MixedType();
-				$resolved[$variableName] = new VarTag($type);
+		foreach (['@phpstan-var', '@psalm-var', '@var'] as $tagName) {
+			$resolved = [];
+			foreach ($phpDocNode->getVarTagValues($tagName) as $tagValue) {
+				if ($tagValue->variableName !== '') {
+					$variableName = substr($tagValue->variableName, 1);
+					$type = !isset($resolved[$variableName])
+						? $this->typeNodeResolver->resolve($tagValue->type, $nameScope)
+						: new MixedType();
+					$resolved[$variableName] = new VarTag($type);
 
-			} else {
-				$resolved[] = new VarTag($this->typeNodeResolver->resolve($tagValue->type, $nameScope));
+				} else {
+					$resolved[] = new VarTag($this->typeNodeResolver->resolve($tagValue->type, $nameScope));
+				}
+			}
+
+			if (count($resolved) > 0) {
+				return $resolved;
 			}
 		}
 
-		return $resolved;
+		return [];
 	}
 
 	/**

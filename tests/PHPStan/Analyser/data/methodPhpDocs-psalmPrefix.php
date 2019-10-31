@@ -93,10 +93,10 @@ class FooPsalmPrefix extends FooParent
 		$parent = new FooParent();
 		$differentInstance = new self();
 
-		/** @var self $inlineSelf */
+		/** @psalm-var self $inlineSelf */
 		$inlineSelf = doFoo();
 
-		/** @var Bar $inlineBar */
+		/** @psalm-var Bar $inlineBar */
 		$inlineBar = doFoo();
 
 		foreach ($moreSpecifiedObject->doFluentUnionIterable() as $fluentUnionIterableBaz) {

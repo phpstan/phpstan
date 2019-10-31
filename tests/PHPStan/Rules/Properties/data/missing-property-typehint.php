@@ -32,3 +32,14 @@ class ChildClass extends MyClass
 	private $unionProp;
 
 }
+
+class PrefixedTags
+{
+
+	/** @phpstan-var int */
+	private $fooPhpstan;
+
+	/** @psalm-var int */
+	private $fooPsalm;
+
+}

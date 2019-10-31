@@ -109,4 +109,20 @@ class Foo
 		$test->foo();
 	}
 
+	public function multiplePrefixedTagsAreFine()
+	{
+		/**
+		 * @var int
+		 * @phpstan-var int
+		 * @psalm-var int
+		 */
+		$test = doFoo(); // OK
+
+		/**
+		 * @var int
+		 * @var string
+		 */
+		$test = doFoo(); // error
+	}
+
 }
