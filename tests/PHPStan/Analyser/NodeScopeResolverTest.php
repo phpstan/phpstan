@@ -3484,7 +3484,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$unionTypeParameter',
 			],
 			[
-				'mixed',
+				'int',
 				'$anotherMixedParameter',
 			],
 			[
