@@ -3651,6 +3651,54 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function dataTypeFromFunctionPrefixedPhpDocs(): array
+	{
+		return [
+			[
+				'MethodPhpDocsNamespace\Foo',
+				'$fooFunctionResult',
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider dataTypeFromFunctionPhpDocs
+	 * @dataProvider dataTypeFromFunctionPrefixedPhpDocs
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testTypeFromFunctionPhpDocsPsalmPrefix(
+		string $description,
+		string $expression
+	): void
+	{
+		require_once __DIR__ . '/data/functionPhpDocs-psalmPrefix.php';
+		$this->assertTypes(
+			__DIR__ . '/data/functionPhpDocs-psalmPrefix.php',
+			$description,
+			$expression
+		);
+	}
+
+	/**
+	 * @dataProvider dataTypeFromFunctionPhpDocs
+	 * @dataProvider dataTypeFromFunctionPrefixedPhpDocs
+	 * @param string $description
+	 * @param string $expression
+	 */
+	public function testTypeFromFunctionPhpDocsPhpstanPrefix(
+		string $description,
+		string $expression
+	): void
+	{
+		require_once __DIR__ . '/data/functionPhpDocs-phpstanPrefix.php';
+		$this->assertTypes(
+			__DIR__ . '/data/functionPhpDocs-phpstanPrefix.php',
+			$description,
+			$expression
+		);
+	}
+
 	public function dataTypeFromMethodPhpDocs(): array
 	{
 		return [
@@ -3807,6 +3855,62 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 	{
 		$this->assertTypes(
 			__DIR__ . '/data/methodPhpDocs.php',
+			$description,
+			$expression
+		);
+	}
+
+	/**
+	 * @dataProvider dataTypeFromFunctionPhpDocs
+	 * @dataProvider dataTypeFromMethodPhpDocs
+	 * @param string $description
+	 * @param string $expression
+	 * @param bool $replaceClass
+	 */
+	public function testTypeFromMethodPhpDocsPsalmPrefix(
+		string $description,
+		string $expression,
+		bool $replaceClass = true
+	): void
+	{
+		$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooPsalmPrefix)', $description);
+
+		if ($replaceClass && $expression !== '$this->doFoo()') {
+			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooPsalmPrefix)', $description);
+			if ($description === 'MethodPhpDocsNamespace\Foo') {
+				$description = 'MethodPhpDocsNamespace\FooPsalmPrefix';
+			}
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/methodPhpDocs-psalmPrefix.php',
+			$description,
+			$expression
+		);
+	}
+
+	/**
+	 * @dataProvider dataTypeFromFunctionPhpDocs
+	 * @dataProvider dataTypeFromMethodPhpDocs
+	 * @param string $description
+	 * @param string $expression
+	 * @param bool $replaceClass = true
+	 */
+	public function testTypeFromMethodPhpDocsPhpstanPrefix(
+		string $description,
+		string $expression,
+		bool $replaceClass = true
+	): void
+	{
+		$description = str_replace('static(MethodPhpDocsNamespace\Foo)', 'static(MethodPhpDocsNamespace\FooPhpstanPrefix)', $description);
+
+		if ($replaceClass && $expression !== '$this->doFoo()') {
+			$description = str_replace('$this(MethodPhpDocsNamespace\Foo)', '$this(MethodPhpDocsNamespace\FooPhpstanPrefix)', $description);
+			if ($description === 'MethodPhpDocsNamespace\Foo') {
+				$description = 'MethodPhpDocsNamespace\FooPhpstanPrefix';
+			}
+		}
+		$this->assertTypes(
+			__DIR__ . '/data/methodPhpDocs-phpstanPrefix.php',
 			$description,
 			$expression
 		);
