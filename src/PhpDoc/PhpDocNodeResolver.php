@@ -92,9 +92,7 @@ class PhpDocNodeResolver
 			foreach ($phpDocNode->getVarTagValues($tagName) as $tagValue) {
 				if ($tagValue->variableName !== '') {
 					$variableName = substr($tagValue->variableName, 1);
-					$type = !isset($resolved[$variableName])
-						? $this->typeNodeResolver->resolve($tagValue->type, $nameScope)
-						: new MixedType();
+					$type = $this->typeNodeResolver->resolve($tagValue->type, $nameScope);
 					$resolved[$variableName] = new VarTag($type);
 
 				} else {
@@ -121,9 +119,7 @@ class PhpDocNodeResolver
 
 		foreach ($phpDocNode->getPropertyTagValues() as $tagValue) {
 			$propertyName = substr($tagValue->propertyName, 1);
-			$propertyType = !isset($resolved[$propertyName])
-				? $this->typeNodeResolver->resolve($tagValue->type, $nameScope)
-				: new MixedType();
+			$propertyType = $this->typeNodeResolver->resolve($tagValue->type, $nameScope);
 
 			$resolved[$propertyName] = new PropertyTag(
 				$propertyType,
@@ -134,9 +130,7 @@ class PhpDocNodeResolver
 
 		foreach ($phpDocNode->getPropertyReadTagValues() as $tagValue) {
 			$propertyName = substr($tagValue->propertyName, 1);
-			$propertyType = !isset($resolved[$propertyName])
-				? $this->typeNodeResolver->resolve($tagValue->type, $nameScope)
-				: new MixedType();
+			$propertyType = $this->typeNodeResolver->resolve($tagValue->type, $nameScope);
 
 			$resolved[$propertyName] = new PropertyTag(
 				$propertyType,
@@ -147,9 +141,7 @@ class PhpDocNodeResolver
 
 		foreach ($phpDocNode->getPropertyWriteTagValues() as $tagValue) {
 			$propertyName = substr($tagValue->propertyName, 1);
-			$propertyType = !isset($resolved[$propertyName])
-				? $this->typeNodeResolver->resolve($tagValue->type, $nameScope)
-				: new MixedType();
+			$propertyType = $this->typeNodeResolver->resolve($tagValue->type, $nameScope);
 
 			$resolved[$propertyName] = new PropertyTag(
 				$propertyType,
@@ -291,9 +283,7 @@ class PhpDocNodeResolver
 		foreach (['@param', '@psalm-param', '@phpstan-param'] as $tagName) {
 			foreach ($phpDocNode->getParamTagValues($tagName) as $tagValue) {
 				$parameterName = substr($tagValue->parameterName, 1);
-				$parameterType = !isset($resolved[$parameterName])
-					? $this->typeNodeResolver->resolve($tagValue->type, $nameScope)
-					: new MixedType();
+				$parameterType = $this->typeNodeResolver->resolve($tagValue->type, $nameScope);
 
 				if ($tagValue->isVariadic) {
 					if (!$parameterType instanceof ArrayType) {

@@ -6,18 +6,20 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 
 /**
- * @template TNodeType of \PhpParser\Node
+ * @phpstan-template TNodeType of \PhpParser\Node
  */
 interface Rule
 {
 
 	/**
-	 * @return class-string<TNodeType>
+	 * @phpstan-return class-string<TNodeType>
+	 * @return string
 	 */
 	public function getNodeType(): string;
 
 	/**
-	 * @param TNodeType $node
+	 * @phpstan-param TNodeType $node
+	 * @param \PhpParser\Node $node
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @return (string|RuleError)[] errors
 	 */

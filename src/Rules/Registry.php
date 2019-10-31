@@ -23,8 +23,10 @@ class Registry
 
 	/**
 	 * @template TNodeType of \PhpParser\Node
-	 * @param class-string<TNodeType> $nodeType
-	 * @return array<\PHPStan\Rules\Rule<TNodeType>>
+	 * @phpstan-param class-string<TNodeType> $nodeType
+	 * @param \PhpParser\Node $nodeType
+	 * @phpstan-return array<\PHPStan\Rules\Rule<TNodeType>>
+	 * @return \PHPStan\Rules\Rule[]
 	 */
 	public function getRules(string $nodeType): array
 	{
@@ -41,7 +43,7 @@ class Registry
 			$this->cache[$nodeType] = $rules;
 		}
 
-		/** @var array<\PHPStan\Rules\Rule<TNodeType>> $selectedRules */
+		/** @phpstan-var array<\PHPStan\Rules\Rule<TNodeType>> $selectedRules */
 		$selectedRules = $this->cache[$nodeType];
 
 		return $selectedRules;
