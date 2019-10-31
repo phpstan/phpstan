@@ -323,6 +323,17 @@ parameters:
 			- sendResponse
 ```
 
+### Custom early terminating function calls
+In addition to the custom early terminating method calls, you can specify custom early terminating function calls. For example a global helper function called `redirect()`
+
+These functions can be configured by adding them to the `earlyTerminatingFunctionCalls` list like this:
+
+```
+parameters:
+	earlyTerminatingFunctionCalls:
+			- redirect
+```
+
 ### Ignore error messages with regular expressions
 
 If some issue in your code base is not easy to fix or just simply want to deal with it later,
