@@ -43,7 +43,10 @@ class Registry
 			$this->cache[$nodeType] = $rules;
 		}
 
-		/** @phpstan-var array<\PHPStan\Rules\Rule<TNodeType>> $selectedRules */
+		/**
+		 * @phpstan-var array<\PHPStan\Rules\Rule<TNodeType>> $selectedRules
+		 * @var \PHPStan\Rules\Rule[] $selectedRules
+		 */
 		$selectedRules = $this->cache[$nodeType];
 
 		return $selectedRules;
