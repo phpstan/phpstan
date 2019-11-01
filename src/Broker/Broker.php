@@ -341,7 +341,8 @@ class Broker
 				$this->methodsClassReflectionExtensions,
 				$displayName,
 				$reflectionClass,
-				$anonymousFilename
+				$anonymousFilename,
+				null
 			);
 			$this->classReflections[$className] = $classReflection;
 		}

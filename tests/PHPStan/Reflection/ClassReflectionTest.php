@@ -26,7 +26,7 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 	{
 		$broker = $this->createMock(Broker::class);
 		$fileTypeMapper = $this->createMock(FileTypeMapper::class);
-		$classReflection = new ClassReflection($broker, $fileTypeMapper, [], [], $className, new \ReflectionClass($className), null);
+		$classReflection = new ClassReflection($broker, $fileTypeMapper, [], [], $className, new \ReflectionClass($className), null, null, null);
 		$this->assertSame($has, $classReflection->hasTraitUse(\HasTraitUse\FooTrait::class));
 	}
 
@@ -91,6 +91,7 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 			[],
 			$class,
 			new \ReflectionClass($class),
+			null,
 			null
 		);
 		$this->assertSame(

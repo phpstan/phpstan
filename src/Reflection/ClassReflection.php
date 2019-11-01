@@ -96,7 +96,7 @@ class ClassReflection implements ReflectionWithFilename
 		string $displayName,
 		\ReflectionClass $reflection,
 		?string $anonymousFilename,
-		?TemplateTypeMap $resolvedTemplateTypeMap = null
+		?TemplateTypeMap $resolvedTemplateTypeMap
 	)
 	{
 		$this->broker = $broker;
