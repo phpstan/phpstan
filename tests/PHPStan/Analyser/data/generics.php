@@ -949,3 +949,15 @@ class ClassWithMethodCachingIssue
 	}
 
 }
+
+/**
+ * @param \ReflectionClass<Foo> $ref
+ */
+function testReflectionClass($ref)
+{
+	assertType('class-string<PHPStan\Generics\FunctionsAssertType\Foo>', $ref->name);
+	assertType('class-string<PHPStan\Generics\FunctionsAssertType\Foo>', $ref->getName());
+	assertType('PHPStan\Generics\FunctionsAssertType\Foo', $ref->newInstanceWithoutConstructor());
+
+	assertType('ReflectionClass<PHPStan\Generics\FunctionsAssertType\Foo|string>', new \ReflectionClass(Foo::class));
+}

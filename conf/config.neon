@@ -42,6 +42,8 @@ parameters:
 	scopeClass: PHPStan\Analyser\MutatingScope
 	universalObjectCratesClasses:
 		- stdClass
+	stubFiles:
+		- ../stubs/ReflectionClass.php
 	earlyTerminatingMethodCalls: []
 	earlyTerminatingFunctionCalls: []
 	memoryLimitFile: %tmpDir%/.memory_limit
@@ -150,6 +152,7 @@ parametersSchema:
 	reportUnmatchedIgnoredErrors: bool()
 	scopeClass: string()
 	universalObjectCratesClasses: listOf(string())
+	stubFiles: listOf(string())
 	earlyTerminatingMethodCalls: arrayOf(listOf(string()))
 	earlyTerminatingFunctionCalls: listOf(string())
 	memoryLimitFile: string()
@@ -212,6 +215,11 @@ services:
 
 	-
 		class: PHPStan\PhpDoc\ConstExprNodeResolver
+
+	-
+		class: PHPStan\PhpDoc\StubPhpDocProvider
+		arguments:
+			stubFiles: %stubFiles%
 
 	-
 		class: PHPStan\PhpDoc\TypeNodeResolver

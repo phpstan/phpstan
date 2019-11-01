@@ -15,6 +15,7 @@ use PHPStan\DependencyInjection\Container;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\PhpDoc\ResolvedPhpDocBlock;
+use PHPStan\PhpDoc\StubPhpDocProvider;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
@@ -64,6 +65,9 @@ class PhpClassReflectionExtension
 	/** @var \PHPStan\Parser\Parser */
 	private $parser;
 
+	/** @var \PHPStan\PhpDoc\StubPhpDocProvider */
+	private $stubPhpDocProvider;
+
 	/** @var bool */
 	private $inferPrivatePropertyTypeFromConstructor;
 
@@ -96,6 +100,7 @@ class PhpClassReflectionExtension
 		AnnotationsPropertiesClassReflectionExtension $annotationsPropertiesClassReflectionExtension,
 		SignatureMapProvider $signatureMapProvider,
 		Parser $parser,
+		StubPhpDocProvider $stubPhpDocProvider,
 		bool $inferPrivatePropertyTypeFromConstructor
 	)
 	{
@@ -106,6 +111,7 @@ class PhpClassReflectionExtension
 		$this->annotationsPropertiesClassReflectionExtension = $annotationsPropertiesClassReflectionExtension;
 		$this->signatureMapProvider = $signatureMapProvider;
 		$this->parser = $parser;
+		$this->stubPhpDocProvider = $stubPhpDocProvider;
 		$this->inferPrivatePropertyTypeFromConstructor = $inferPrivatePropertyTypeFromConstructor;
 	}
 
@@ -182,52 +188,67 @@ class PhpClassReflectionExtension
 
 		$declaringTraitName = null;
 		$phpDocType = null;
-		if ($declaringClassReflection->getFileName() !== false) {
-			$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForProperty(
-				$docComment,
-				$declaringClassReflection,
-				null,
-				$propertyName,
-				$declaringClassReflection->getFileName()
-			);
-
-			if ($phpDocBlock !== null) {
-				$declaringTraitName = $this->findPropertyTrait(
-					$phpDocBlock,
-					$propertyReflection
-				);
-				$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
-					$phpDocBlock->getFile(),
-					$phpDocBlock->getClassReflection()->getName(),
-					$declaringTraitName,
+		$resolvedPhpDoc = $this->stubPhpDocProvider->findPropertyPhpDoc(
+			$declaringClassName,
+			$propertyReflection->getName()
+		);
+		if ($resolvedPhpDoc === null) {
+			if ($declaringClassReflection->getFileName() !== false) {
+				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForProperty(
+					$docComment,
+					$declaringClassReflection,
 					null,
-					$phpDocBlock->getDocComment()
+					$propertyName,
+					$declaringClassReflection->getFileName()
 				);
-				$varTags = $resolvedPhpDoc->getVarTags();
-				if (isset($varTags[0]) && count($varTags) === 1) {
-					$phpDocType = $varTags[0]->getType();
-				} elseif (isset($varTags[$propertyName])) {
-					$phpDocType = $varTags[$propertyName]->getType();
+				if ($phpDocBlock !== null) {
+					$declaringTraitName = $this->findPropertyTrait(
+						$phpDocBlock,
+						$propertyReflection
+					);
+					$phpDocBlockClassReflection = $phpDocBlock->getClassReflection();
+					$resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
+						$phpDocBlock->getFile(),
+						$phpDocBlockClassReflection->getName(),
+						$declaringTraitName,
+						null,
+						$phpDocBlock->getDocComment()
+					);
 				}
-				$phpDocType = $phpDocType !== null ? TemplateTypeHelper::resolveTemplateTypes(
-					$phpDocType,
-					$phpDocBlock->getClassReflection()->getActiveTemplateTypeMap()
-				) : null;
-				$deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag() !== null ? $resolvedPhpDoc->getDeprecatedTag()->getMessage() : null;
-				$isDeprecated = $resolvedPhpDoc->isDeprecated();
-				$isInternal = $resolvedPhpDoc->isInternal();
-			} elseif (
-				$this->inferPrivatePropertyTypeFromConstructor
-				&& $propertyReflection->isPrivate()
-				&& (!method_exists($propertyReflection, 'hasType') || !$propertyReflection->hasType())
-				&& $declaringClassReflection->hasConstructor()
-				&& $declaringClassReflection->getConstructor()->getDeclaringClass()->getName() === $declaringClassReflection->getName()
-			) {
-				$phpDocType = $this->inferPrivatePropertyType(
-					$propertyReflection->getName(),
-					$declaringClassReflection->getConstructor()
-				);
 			}
+		} else {
+			$phpDocBlockClassReflection = $this->broker->getClass($declaringClassName);
+		}
+
+		if ($resolvedPhpDoc !== null) {
+			$varTags = $resolvedPhpDoc->getVarTags();
+			if (isset($varTags[0]) && count($varTags) === 1) {
+				$phpDocType = $varTags[0]->getType();
+			} elseif (isset($varTags[$propertyName])) {
+				$phpDocType = $varTags[$propertyName]->getType();
+			}
+			if (!isset($phpDocBlockClassReflection)) {
+				throw new \PHPStan\ShouldNotHappenException();
+			}
+			$phpDocType = $phpDocType !== null ? TemplateTypeHelper::resolveTemplateTypes(
+				$phpDocType,
+				$phpDocBlockClassReflection->getActiveTemplateTypeMap()
+			) : null;
+			$deprecatedDescription = $resolvedPhpDoc->getDeprecatedTag() !== null ? $resolvedPhpDoc->getDeprecatedTag()->getMessage() : null;
+			$isDeprecated = $resolvedPhpDoc->isDeprecated();
+			$isInternal = $resolvedPhpDoc->isInternal();
+		} elseif (
+			$this->inferPrivatePropertyTypeFromConstructor
+			&& $declaringClassReflection->getFileName() !== false
+			&& $propertyReflection->isPrivate()
+			&& (!method_exists($propertyReflection, 'hasType') || !$propertyReflection->hasType())
+			&& $declaringClassReflection->hasConstructor()
+			&& $declaringClassReflection->getConstructor()->getDeclaringClass()->getName() === $declaringClassReflection->getName()
+		) {
+			$phpDocType = $this->inferPrivatePropertyType(
+				$propertyReflection->getName(),
+				$declaringClassReflection->getConstructor()
+			);
 		}
 
 		$nativeType = null;
@@ -385,23 +406,49 @@ class PhpClassReflectionExtension
 			}
 
 			$variants = [];
-			foreach ($variantNames as $variantName) {
-				$methodSignature = $this->signatureMapProvider->getFunctionSignature($variantName, $declaringClassName);
+			foreach ($variantNames as $innerVariantName) {
+				$methodSignature = $this->signatureMapProvider->getFunctionSignature($innerVariantName, $declaringClassName);
+				$phpDocReturnType = null;
+				$stubPhpDocParameterTypes = [];
+				$stubPhpDocParameterVariadicity = [];
+				if (count($variantNames) === 1) {
+					$stubPhpDoc = $this->stubPhpDocProvider->findMethodPhpDoc($declaringClassName, $methodReflection->getName());
+					if ($stubPhpDoc !== null) {
+						$templateTypeMap = $this->broker->getClass($declaringClassName)->getActiveTemplateTypeMap();
+						$returnTag = $stubPhpDoc->getReturnTag();
+						if ($returnTag !== null) {
+							$stubPhpDocReturnType = $returnTag->getType();
+							$phpDocReturnType = TemplateTypeHelper::resolveTemplateTypes(
+								$stubPhpDocReturnType,
+								$templateTypeMap
+							);
+						}
+
+						foreach ($stubPhpDoc->getParamTags() as $name => $paramTag) {
+							$stubPhpDocParameterTypes[$name] = TemplateTypeHelper::resolveTemplateTypes(
+								$paramTag->getType(),
+								$this->broker->getClass($declaringClassName)->getActiveTemplateTypeMap()
+							);
+							$stubPhpDocParameterVariadicity[$name] = $paramTag->isVariadic();
+						}
+					}
+				}
 				$variants[] = new FunctionVariant(
 					TemplateTypeMap::createEmpty(),
 					null,
-					array_map(static function (ParameterSignature $parameterSignature): NativeParameterReflection {
+					array_map(static function (ParameterSignature $parameterSignature) use ($stubPhpDocParameterTypes, $stubPhpDocParameterVariadicity): NativeParameterReflection {
 						return new NativeParameterReflection(
 							$parameterSignature->getName(),
 							$parameterSignature->isOptional(),
-							$parameterSignature->getType(),
+							$stubPhpDocParameterTypes[$parameterSignature->getName()] ?? $parameterSignature->getType(),
 							$parameterSignature->passedByReference(),
-							$parameterSignature->isVariadic(),
-							null
+							$stubPhpDocParameterVariadicity[$parameterSignature->getName()] ?? $parameterSignature->isVariadic(),
+							null,
+							isset($stubPhpDocParameterTypes[$parameterSignature->getName()])
 						);
 					}, $methodSignature->getParameters()),
 					$methodSignature->isVariadic(),
-					$methodSignature->getReturnType()
+					$phpDocReturnType ?? $methodSignature->getReturnType()
 				);
 			}
 

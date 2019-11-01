@@ -19,6 +19,7 @@ use PHPStan\File\FuzzyRelativePathHelper;
 use PHPStan\Parser\FunctionCallStatementFinder;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocStringResolver;
+use PHPStan\PhpDoc\StubPhpDocProvider;
 use PHPStan\PhpDoc\TypeStringResolver;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
@@ -159,7 +160,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 		$annotationsMethodsClassReflectionExtension = new AnnotationsMethodsClassReflectionExtension($fileTypeMapper);
 		$annotationsPropertiesClassReflectionExtension = new AnnotationsPropertiesClassReflectionExtension($fileTypeMapper);
 		$signatureMapProvider = self::getContainer()->getByType(SignatureMapProvider::class);
-		$phpExtension = new PhpClassReflectionExtension(self::getContainer(), $methodReflectionFactory, $fileTypeMapper, $annotationsMethodsClassReflectionExtension, $annotationsPropertiesClassReflectionExtension, $signatureMapProvider, $parser, true);
+		$phpExtension = new PhpClassReflectionExtension(self::getContainer(), $methodReflectionFactory, $fileTypeMapper, $annotationsMethodsClassReflectionExtension, $annotationsPropertiesClassReflectionExtension, $signatureMapProvider, $parser, self::getContainer()->getByType(StubPhpDocProvider::class), true);
 		$functionReflectionFactory = new class($this->getParser(), $functionCallStatementFinder, $cache) implements FunctionReflectionFactory {
 
 			/** @var \PHPStan\Parser\Parser */
@@ -251,6 +252,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			$anonymousClassNameHelper,
 			self::getContainer()->getByType(Parser::class),
 			new FuzzyRelativePathHelper($this->getCurrentWorkingDirectory(), DIRECTORY_SEPARATOR, []),
+			self::getContainer()->getByType(StubPhpDocProvider::class),
 			self::getContainer()->getParameter('universalObjectCratesClasses')
 		);
 		$methodReflectionFactory->broker = $broker;

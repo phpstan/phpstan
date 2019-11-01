@@ -73,6 +73,9 @@ class ClassReflection implements ReflectionWithFilename
 	/** @var ?TemplateTypeMap */
 	private $resolvedTemplateTypeMap;
 
+	/** @var ResolvedPhpDocBlock|null */
+	private $stubPhpDocBlock;
+
 	/** @var array<string,ClassReflection>|null */
 	private $ancestors;
 
@@ -87,6 +90,7 @@ class ClassReflection implements ReflectionWithFilename
 	 * @param string $displayName
 	 * @param \ReflectionClass $reflection
 	 * @param string|null $anonymousFilename
+	 * @param ResolvedPhpDocBlock|null $stubPhpDocBlock
 	 */
 	public function __construct(
 		Broker $broker,
@@ -96,7 +100,8 @@ class ClassReflection implements ReflectionWithFilename
 		string $displayName,
 		\ReflectionClass $reflection,
 		?string $anonymousFilename,
-		?TemplateTypeMap $resolvedTemplateTypeMap
+		?TemplateTypeMap $resolvedTemplateTypeMap,
+		?ResolvedPhpDocBlock $stubPhpDocBlock
 	)
 	{
 		$this->broker = $broker;
@@ -107,6 +112,7 @@ class ClassReflection implements ReflectionWithFilename
 		$this->reflection = $reflection;
 		$this->anonymousFilename = $anonymousFilename;
 		$this->resolvedTemplateTypeMap = $resolvedTemplateTypeMap;
+		$this->stubPhpDocBlock = $stubPhpDocBlock;
 	}
 
 	public function getNativeReflection(): \ReflectionClass
@@ -729,12 +735,17 @@ class ClassReflection implements ReflectionWithFilename
 			$this->displayName,
 			$this->reflection,
 			$this->anonymousFilename,
-			$this->typeMapFromList($types)
+			$this->typeMapFromList($types),
+			$this->stubPhpDocBlock
 		);
 	}
 
 	private function getResolvedPhpDoc(): ?ResolvedPhpDocBlock
 	{
+		if ($this->stubPhpDocBlock !== null) {
+			return $this->stubPhpDocBlock;
+		}
+
 		$fileName = $this->reflection->getFileName();
 		if ($fileName === false) {
 			return null;

@@ -92,6 +92,7 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 			$class,
 			new \ReflectionClass($class),
 			null,
+			null,
 			null
 		);
 		$this->assertSame(
@@ -145,6 +146,14 @@ class ClassReflectionTest extends \PHPStan\Testing\TestCase
 		], array_map(static function (ClassReflection $r): string {
 			return $r->getDisplayName();
 		}, array_values($reflection->getInterfaces())));
+	}
+
+	public function testIsGenericWithStubPhpDoc(): void
+	{
+		/** @var Broker $broker */
+		$broker = self::getContainer()->getService('broker');
+		$reflection = $broker->getClass(\ReflectionClass::class);
+		$this->assertTrue($reflection->isGeneric());
 	}
 
 }

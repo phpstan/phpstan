@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\File\RelativePathHelper;
 use PHPStan\Parser\Parser;
+use PHPStan\PhpDoc\StubPhpDocProvider;
 use PHPStan\PhpDoc\Tag\ParamTag;
 use PHPStan\Reflection\BrokerAwareExtension;
 use PHPStan\Reflection\ClassReflection;
@@ -77,6 +78,9 @@ class Broker
 	/** @var RelativePathHelper */
 	private $relativePathHelper;
 
+	/** @var StubPhpDocProvider */
+	private $stubPhpDocProvider;
+
 	/** @var string[] */
 	private $universalObjectCratesClasses;
 
@@ -115,6 +119,7 @@ class Broker
 	 * @param AnonymousClassNameHelper $anonymousClassNameHelper
 	 * @param Parser $parser
 	 * @param RelativePathHelper $relativePathHelper
+	 * @param \PHPStan\PhpDoc\StubPhpDocProvider $stubPhpDocProvider
 	 * @param string[] $universalObjectCratesClasses
 	 */
 	public function __construct(
@@ -131,6 +136,7 @@ class Broker
 		AnonymousClassNameHelper $anonymousClassNameHelper,
 		Parser $parser,
 		RelativePathHelper $relativePathHelper,
+		StubPhpDocProvider $stubPhpDocProvider,
 		array $universalObjectCratesClasses
 	)
 	{
@@ -159,6 +165,7 @@ class Broker
 		$this->anonymousClassNameHelper = $anonymousClassNameHelper;
 		$this->parser = $parser;
 		$this->relativePathHelper = $relativePathHelper;
+		$this->stubPhpDocProvider = $stubPhpDocProvider;
 		$this->universalObjectCratesClasses = $universalObjectCratesClasses;
 	}
 
@@ -342,7 +349,8 @@ class Broker
 				$displayName,
 				$reflectionClass,
 				$anonymousFilename,
-				null
+				null,
+				$this->stubPhpDocProvider->findClassPhpDoc($className)
 			);
 			$this->classReflections[$className] = $classReflection;
 		}

@@ -90,4 +90,5 @@ class MissingReturnRuleTest extends RuleTestCase
 			],
 		]);
 	}
+
 }

@@ -9,6 +9,7 @@ use PHPStan\File\FileHelper;
 use PHPStan\File\FuzzyRelativePathHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocStringResolver;
+use PHPStan\PhpDoc\StubPhpDocProvider;
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Reflection\SignatureMap\SignatureMapProvider;
 use PHPStan\Type\FileTypeMapper;
@@ -41,6 +42,7 @@ class BrokerTest extends \PHPStan\Testing\TestCase
 			$anonymousClassNameHelper,
 			self::getContainer()->getByType(Parser::class),
 			$relativePathHelper,
+			self::getContainer()->getByType(StubPhpDocProvider::class),
 			[]
 		);
 	}

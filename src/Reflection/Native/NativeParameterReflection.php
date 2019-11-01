@@ -29,13 +29,17 @@ class NativeParameterReflection implements ParameterReflection
 	/** @var \PHPStan\Type\Type|null */
 	private $defaultValue;
 
+	/** @var bool */
+	private $variadicParameterAlreadyExpanded;
+
 	public function __construct(
 		string $name,
 		bool $optional,
 		Type $type,
 		PassedByReference $passedByReference,
 		bool $variadic,
-		?Type $defaultValue
+		?Type $defaultValue,
+		bool $variadicParameterAlreadyExpanded = false
 	)
 	{
 		$this->name = $name;
@@ -44,6 +48,7 @@ class NativeParameterReflection implements ParameterReflection
 		$this->passedByReference = $passedByReference;
 		$this->variadic = $variadic;
 		$this->defaultValue = $defaultValue;
+		$this->variadicParameterAlreadyExpanded = $variadicParameterAlreadyExpanded;
 	}
 
 	public function getName(): string
@@ -59,7 +64,7 @@ class NativeParameterReflection implements ParameterReflection
 	public function getType(): Type
 	{
 		$type = $this->type;
-		if ($this->variadic) {
+		if ($this->variadic && !$this->variadicParameterAlreadyExpanded) {
 			$type = new ArrayType(new IntegerType(), $type);
 		}
 

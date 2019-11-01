@@ -5,6 +5,7 @@ namespace PHPStan\Broker;
 use PHPStan\DependencyInjection\Container;
 use PHPStan\File\RelativePathHelper;
 use PHPStan\Parser\Parser;
+use PHPStan\PhpDoc\StubPhpDocProvider;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
 use PHPStan\Reflection\FunctionReflectionFactory;
@@ -55,6 +56,7 @@ class BrokerFactory
 			$this->container->getByType(AnonymousClassNameHelper::class),
 			$this->container->getByType(Parser::class),
 			$relativePathHelper,
+			$this->container->getByType(StubPhpDocProvider::class),
 			$this->container->getParameter('universalObjectCratesClasses')
 		);
 	}
