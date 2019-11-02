@@ -30,6 +30,12 @@ class StubPhpDocProvider
 	/** @var array<string, array<string, ResolvedPhpDocBlock>>|null */
 	private $methodMap;
 
+	/** @var bool */
+	private $initialized = false;
+
+	/** @var bool */
+	private $initializing = false;
+
 	/**
 	 * @param \PHPStan\Parser\Parser $parser
 	 * @param string[] $stubFiles
@@ -47,7 +53,7 @@ class StubPhpDocProvider
 
 	public function findClassPhpDoc(string $className): ?ResolvedPhpDocBlock
 	{
-		if ($this->classMap === null) {
+		if (!$this->initialized) {
 			$this->initialize();
 		}
 
@@ -60,7 +66,7 @@ class StubPhpDocProvider
 
 	public function findPropertyPhpDoc(string $className, string $propertyName): ?ResolvedPhpDocBlock
 	{
-		if ($this->propertyMap === null) {
+		if (!$this->initialized) {
 			$this->initialize();
 		}
 
@@ -73,7 +79,7 @@ class StubPhpDocProvider
 
 	public function findMethodPhpDoc(string $className, string $methodName): ?ResolvedPhpDocBlock
 	{
-		if ($this->methodMap === null) {
+		if (!$this->initialized) {
 			$this->initialize();
 		}
 
@@ -86,10 +92,19 @@ class StubPhpDocProvider
 
 	private function initialize(): void
 	{
+		if ($this->initializing) {
+			throw new \PHPStan\ShouldNotHappenException();
+		}
+
+		$this->initializing = true;
+
 		foreach ($this->stubFiles as $stubFile) {
 			$nodes = $this->parser->parseFile($stubFile);
 			$this->processNodes($stubFile, $nodes);
 		}
+
+		$this->initializing = false;
+		$this->initialized = true;
 	}
 
 	/**
