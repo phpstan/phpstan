@@ -376,9 +376,16 @@ class PhpClassReflectionExtension
 
 		if ($this->signatureMapProvider->hasFunctionSignature($signatureMapMethodName)) {
 			$variantName = $signatureMapMethodName;
-			$variants = [];
+			$variantNames = [];
 			$i = 0;
 			while ($this->signatureMapProvider->hasFunctionSignature($variantName)) {
+				$variantNames[] = $variantName;
+				$i++;
+				$variantName = sprintf($signatureMapMethodName . '\'' . $i);
+			}
+
+			$variants = [];
+			foreach ($variantNames as $variantName) {
 				$methodSignature = $this->signatureMapProvider->getFunctionSignature($variantName, $declaringClassName);
 				$variants[] = new FunctionVariant(
 					TemplateTypeMap::createEmpty(),
@@ -396,8 +403,6 @@ class PhpClassReflectionExtension
 					$methodSignature->isVariadic(),
 					$methodSignature->getReturnType()
 				);
-				$i++;
-				$variantName = sprintf($signatureMapMethodName . '\'' . $i);
 			}
 
 			if ($this->signatureMapProvider->hasFunctionMetadata($signatureMapMethodName)) {
