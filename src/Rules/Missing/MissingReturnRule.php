@@ -10,6 +10,7 @@ use PHPStan\Reflection\ParametersAcceptorSelector;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
+use PHPStan\Type\Generic\TemplateMixedType;
 use PHPStan\Type\MixedType;
 use PHPStan\Type\VerbosityLevel;
 use PHPStan\Type\VoidType;
@@ -78,6 +79,7 @@ class MissingReturnRule implements Rule
 
 		if (
 			$returnType instanceof MixedType
+			&& !$returnType instanceof TemplateMixedType
 			&& (
 				!$returnType->isExplicitMixed()
 				|| !$this->checkExplicitMixedMissingReturn

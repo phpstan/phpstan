@@ -8,13 +8,18 @@ use PHPStan\Testing\RuleTestCase;
 class MissingReturnRuleTest extends RuleTestCase
 {
 
+	/** @var bool */
+	private $checkExplicitMixedMissingReturn;
+
 	protected function getRule(): Rule
 	{
-		return new MissingReturnRule(true, true);
+		return new MissingReturnRule($this->checkExplicitMixedMissingReturn, true);
 	}
 
 	public function testRule(): void
 	{
+		$this->checkExplicitMixedMissingReturn = true;
+
 		$this->analyse([__DIR__ . '/data/missing-return.php'], [
 			[
 				'Method MissingReturn\Foo::doFoo() should return int but return statement is missing.',
@@ -68,7 +73,21 @@ class MissingReturnRuleTest extends RuleTestCase
 				'Method MissingReturn\ReturnInPhpDoc::doFoo() should return int but return statement is missing.',
 				290,
 			],
+			[
+				'Method MissingReturn\FooTemplateMixedType::doFoo() should return T but return statement is missing.',
+				321,
+			],
 		]);
 	}
 
+	public function testCheckMissingReturnWithTemplateMixedType(): void
+	{
+		$this->checkExplicitMixedMissingReturn = false;
+		$this->analyse([__DIR__ . '/data/missing-return-template-mixed-type.php'], [
+			[
+				'Method MissingReturnTemplateMixedType\Foo::doFoo() should return T but return statement is missing.',
+				13,
+			],
+		]);
+	}
 }

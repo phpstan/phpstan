@@ -309,3 +309,18 @@ class YieldInAssign
 	}
 
 }
+
+class FooTemplateMixedType
+{
+
+	/**
+	 * @template T
+	 * @param T $a
+	 * @return T
+	 */
+	public function doFoo($a)
+	{
+
+	}
+
+}
