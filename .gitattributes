@@ -1,2 +1,3 @@
-/build export-ignore
-/tests export-ignore
+/.github export-ignore
+/BACKERS.md export-ignore
+/CODE_OF_CONDUCT.md export-ignore
