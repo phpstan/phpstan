@@ -738,17 +738,3 @@ This project adheres to a [Contributor Code of Conduct](https://github.com/phpst
 ## Contributing
 
 Any contributions are welcome. PHPStan's source code open to pull requests lives at [`phpstan/phpstan-src`](https://github.com/phpstan/phpstan-src).
-
-### Building
-
-You can either run the whole build including linting and coding standards using
-
-```bash
-vendor/bin/phing
-```
-
-or run only tests using
-
-```bash
-vendor/bin/phing tests
-```
