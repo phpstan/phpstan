@@ -774,7 +774,7 @@ function () {
 	/** @var GenericIterator<int> $iterator */
 	$iterator = doFoo();
 	assertType('PHPStan\Generics\FunctionsAssertType\GenericIterator<int>', $iterator);
-	assertType('iterable<int>&Iterator', $iterator->getIterator());
+	assertType('Iterator<mixed, int>', $iterator->getIterator());
 
 	foreach ($iterator as $int) {
 		assertType('int', $int);
@@ -960,4 +960,20 @@ function testReflectionClass($ref)
 	assertType('PHPStan\Generics\FunctionsAssertType\Foo', $ref->newInstanceWithoutConstructor());
 
 	assertType('ReflectionClass<PHPStan\Generics\FunctionsAssertType\Foo|string>', new \ReflectionClass(Foo::class));
+}
+
+/**
+ * @param \Traversable<int> $t1
+ * @param \Traversable<int, \stdClass> $t2
+ */
+function testIterateOverTraversable($t1, $t2)
+{
+	foreach ($t1 as $int) {
+		assertType('int', $int);
+	}
+
+	foreach ($t2 as $key => $value) {
+		assertType('int', $key);
+		assertType('stdClass', $value);
+	}
 }

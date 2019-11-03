@@ -503,6 +503,14 @@ class ObjectType implements TypeWithClassName, SubtractableType
 		}
 
 		if ($this->isInstanceOf(\Traversable::class)->yes()) {
+			$traversableAncestor = $this->getAncestorWithClassName(\Traversable::class);
+			$templateTypeMap = $traversableAncestor->getClassReflection()->getActiveTemplateTypeMap();
+			$tKey = $templateTypeMap->getType('TKey');
+
+			if ($tKey !== null) {
+				return $tKey;
+			}
+
 			return new MixedType();
 		}
 
@@ -531,6 +539,14 @@ class ObjectType implements TypeWithClassName, SubtractableType
 		}
 
 		if ($this->isInstanceOf(\Traversable::class)->yes()) {
+			$traversableAncestor = $this->getAncestorWithClassName(\Traversable::class);
+			$templateTypeMap = $traversableAncestor->getClassReflection()->getActiveTemplateTypeMap();
+
+			$tValue = $templateTypeMap->getType('TValue');
+			if ($tValue !== null) {
+				return $tValue;
+			}
+
 			return new MixedType();
 		}
 
@@ -781,12 +797,16 @@ class ObjectType implements TypeWithClassName, SubtractableType
 
 		$classReflection = $broker->getClass($this->className);
 		if ($classReflection->isGeneric()) {
-			return $classReflection->withTypes($classReflection->getTemplateTypeMap()->resolveToBounds()->getTypes());
+			return $classReflection->withTypes(array_values($classReflection->getTemplateTypeMap()->resolveToBounds()->getTypes()));
 		}
 
 		return $classReflection;
 	}
 
+	/**
+	 * @param string $className
+	 * @return self|null
+	 */
 	public function getAncestorWithClassName(string $className): ?TypeWithClassName
 	{
 		$broker = Broker::getInstance();

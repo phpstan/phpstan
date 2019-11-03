@@ -44,6 +44,7 @@ parameters:
 		- stdClass
 	stubFiles:
 		- ../stubs/ReflectionClass.php
+		- ../stubs/iterable.php
 	earlyTerminatingMethodCalls: []
 	earlyTerminatingFunctionCalls: []
 	memoryLimitFile: %tmpDir%/.memory_limit

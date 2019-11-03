@@ -217,7 +217,7 @@ class PhpClassReflectionExtension
 				}
 			}
 		} else {
-			$phpDocBlockClassReflection = $this->broker->getClass($declaringClassName);
+			$phpDocBlockClassReflection = $declaringClassReflection;
 		}
 
 		if ($resolvedPhpDoc !== null) {
@@ -414,7 +414,7 @@ class PhpClassReflectionExtension
 				if (count($variantNames) === 1) {
 					$stubPhpDoc = $this->stubPhpDocProvider->findMethodPhpDoc($declaringClassName, $methodReflection->getName());
 					if ($stubPhpDoc !== null) {
-						$templateTypeMap = $this->broker->getClass($declaringClassName)->getActiveTemplateTypeMap();
+						$templateTypeMap = $declaringClass->getActiveTemplateTypeMap();
 						$returnTag = $stubPhpDoc->getReturnTag();
 						if ($returnTag !== null) {
 							$stubPhpDocReturnType = $returnTag->getType();
@@ -427,7 +427,7 @@ class PhpClassReflectionExtension
 						foreach ($stubPhpDoc->getParamTags() as $name => $paramTag) {
 							$stubPhpDocParameterTypes[$name] = TemplateTypeHelper::resolveTemplateTypes(
 								$paramTag->getType(),
-								$this->broker->getClass($declaringClassName)->getActiveTemplateTypeMap()
+								$templateTypeMap
 							);
 							$stubPhpDocParameterVariadicity[$name] = $paramTag->isVariadic();
 						}

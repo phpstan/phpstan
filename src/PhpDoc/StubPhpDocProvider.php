@@ -18,6 +18,9 @@ class StubPhpDocProvider
 	/** @var \PHPStan\Type\FileTypeMapper */
 	private $fileTypeMapper;
 
+	/** @var \PHPStan\PhpDoc\TypeNodeResolver */
+	private $typeNodeResolver;
+
 	/** @var string[] */
 	private $stubFiles;
 
@@ -43,11 +46,13 @@ class StubPhpDocProvider
 	public function __construct(
 		Parser $parser,
 		FileTypeMapper $fileTypeMapper,
+		TypeNodeResolver $typeNodeResolver,
 		array $stubFiles
 	)
 	{
 		$this->parser = $parser;
 		$this->fileTypeMapper = $fileTypeMapper;
+		$this->typeNodeResolver = $typeNodeResolver;
 		$this->stubFiles = $stubFiles;
 	}
 
@@ -97,6 +102,7 @@ class StubPhpDocProvider
 		}
 
 		$this->initializing = true;
+		$this->typeNodeResolver->disableIterableGenericFallback();
 
 		foreach ($this->stubFiles as $stubFile) {
 			$nodes = $this->parser->parseFile($stubFile);
@@ -105,6 +111,7 @@ class StubPhpDocProvider
 
 		$this->initializing = false;
 		$this->initialized = true;
+		$this->typeNodeResolver->enableIterableGenericFallback();
 	}
 
 	/**

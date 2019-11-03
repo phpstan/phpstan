@@ -6464,7 +6464,7 @@ class NodeScopeResolverTest extends \PHPStan\Testing\TestCase
 				'$this->collectionOfIntegersOrArrayOfStrings',
 			],
 			[
-				'Generator&iterable<Iterables\Foo>',
+				'Generator<mixed, Iterables\Foo, mixed, mixed>',
 				'$generatorOfFoos',
 			],
 			[

@@ -105,7 +105,7 @@ final class GenericObjectType extends ObjectType
 			return $nakedSuperTypeOf->and(TrinaryLogic::createMaybe());
 		}
 		if (!$ancestor instanceof self) {
-			if ($ancestor instanceof TypeWithClassName && $acceptsContext) {
+			if ($acceptsContext) {
 				return $nakedSuperTypeOf;
 			}
 

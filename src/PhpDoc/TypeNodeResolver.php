@@ -60,6 +60,9 @@ class TypeNodeResolver
 	/** @var Container */
 	private $container;
 
+	/** @var bool */
+	private $iterableGenericFallback = true;
+
 	/**
 	 * @param TypeNodeResolverExtension[] $extensions
 	 */
@@ -77,9 +80,19 @@ class TypeNodeResolver
 		$this->container = $container;
 	}
 
+	public function disableIterableGenericFallback(): void
+	{
+		$this->iterableGenericFallback = false;
+	}
+
+	public function enableIterableGenericFallback(): void
+	{
+		$this->iterableGenericFallback = true;
+	}
+
 	public function getCacheKey(): string
 	{
-		$key = 'v72-fix-prefixed';
+		$key = md5(uniqid());
 		foreach ($this->extensions as $extension) {
 			$key .= sprintf('-%s', $extension->getCacheKey());
 		}
@@ -332,14 +345,58 @@ class TypeNodeResolver
 
 		$mainType = $this->resolveIdentifierTypeNode($typeNode->type, $nameScope);
 
-		if ($mainType instanceof TypeWithClassName && $this->getBroker()->hasClass($mainType->getClassName())) {
+		if ($mainType instanceof TypeWithClassName) {
+			if (!$this->iterableGenericFallback || !$this->getBroker()->hasClass($mainType->getClassName())) {
+				return new GenericObjectType($mainType->getClassName(), $genericTypes);
+			}
+
 			$classReflection = $this->getBroker()->getClass($mainType->getClassName());
 			if ($classReflection->isGeneric()) {
+				if (in_array($mainType->getClassName(), [
+					\Traversable::class,
+					\IteratorAggregate::class,
+					\Iterator::class,
+				], true)) {
+					if (count($genericTypes) === 1) {
+						return new GenericObjectType($mainType->getClassName(), [
+							new MixedType(true),
+							$genericTypes[0],
+						]);
+					}
+
+					if (count($genericTypes) === 2) {
+						return new GenericObjectType($mainType->getClassName(), [
+							$genericTypes[0],
+							$genericTypes[1],
+						]);
+					}
+				}
+				if ($mainType->getClassName() === \Generator::class) {
+					if (count($genericTypes) === 1) {
+						$mixed = new MixedType(true);
+						return new GenericObjectType($mainType->getClassName(), [
+							$mixed,
+							$genericTypes[0],
+							$mixed,
+							$mixed,
+						]);
+					}
+
+					if (count($genericTypes) === 2) {
+						$mixed = new MixedType(true);
+						return new GenericObjectType($mainType->getClassName(), [
+							$genericTypes[0],
+							$genericTypes[1],
+							$mixed,
+							$mixed,
+						]);
+					}
+				}
 				return new GenericObjectType($mainType->getClassName(), $genericTypes);
 			}
 		}
 
-		if ($mainType->isIterable()->yes()) {
+		if ($this->iterableGenericFallback && $mainType->isIterable()->yes()) {
 			if (count($genericTypes) === 1) { // Foo<ValueType>
 				return TypeCombinator::intersect(
 					$mainType,
