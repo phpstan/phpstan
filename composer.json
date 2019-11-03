@@ -1,13 +1,10 @@
 {
-	"name": "phpstan/phpstan-shim",
-	"description": "PHPStan Phar distribution",
+	"name": "phpstan/phpstan",
+	"description": "PHPStan - PHP Static Analysis Tool",
 	"license": ["MIT"],
 	"require": {
 		"php": "~7.1",
 		"nikic/php-parser": "^4.2.3"
-	},
-	"replace": {
-		"phpstan/phpstan": "self.version"
 	},
 	"bin": [
 		"phpstan",
