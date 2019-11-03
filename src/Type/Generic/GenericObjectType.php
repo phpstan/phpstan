@@ -77,10 +77,15 @@ final class GenericObjectType extends ObjectType
 			return $type->isSubTypeOf($this);
 		}
 
-		return $this->isSuperTypeOf($type);
+		return $this->isSuperTypeOfInternal($type, true);
 	}
 
 	public function isSuperTypeOf(Type $type): TrinaryLogic
+	{
+		return $this->isSuperTypeOfInternal($type, false);
+	}
+
+	private function isSuperTypeOfInternal(Type $type, bool $acceptsContext): TrinaryLogic
 	{
 		if ($type instanceof CompoundType) {
 			return $type->isSubTypeOf($this);
@@ -96,7 +101,14 @@ final class GenericObjectType extends ObjectType
 		}
 
 		$ancestor = $type->getAncestorWithClassName($this->getClassName());
-		if ($ancestor === null || !$ancestor instanceof self) {
+		if ($ancestor === null) {
+			return $nakedSuperTypeOf->and(TrinaryLogic::createMaybe());
+		}
+		if (!$ancestor instanceof self) {
+			if ($ancestor instanceof TypeWithClassName && $acceptsContext) {
+				return $nakedSuperTypeOf;
+			}
+
 			return $nakedSuperTypeOf->and(TrinaryLogic::createMaybe());
 		}
 

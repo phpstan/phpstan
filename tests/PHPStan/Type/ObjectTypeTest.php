@@ -6,6 +6,7 @@ use PHPStan\TrinaryLogic;
 use PHPStan\Type\Accessory\HasMethodType;
 use PHPStan\Type\Accessory\HasPropertyType;
 use PHPStan\Type\Constant\ConstantStringType;
+use PHPStan\Type\Generic\GenericObjectType;
 
 class ObjectTypeTest extends \PHPStan\Testing\TestCase
 {
@@ -341,6 +342,11 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 				new ObjectType(\SimpleXMLElement::class),
 				new ConstantStringType('foo'),
 				TrinaryLogic::createNo(),
+			],
+			[
+				new ObjectType(\Traversable::class),
+				new GenericObjectType(\Traversable::class, [new MixedType(true), new ObjectType('DateTimeInteface')]),
+				TrinaryLogic::createYes(),
 			],
 		];
 	}

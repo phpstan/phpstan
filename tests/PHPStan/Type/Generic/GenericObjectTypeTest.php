@@ -95,7 +95,7 @@ class GenericObjectTypeTest extends \PHPStan\Testing\TestCase
 			'same class, one naked' => [
 				new GenericObjectType(A\A::class, [new ObjectType('DateTimeInterface')]),
 				new ObjectType(A\A::class),
-				TrinaryLogic::createMaybe(),
+				TrinaryLogic::createYes(),
 			],
 			'implementation with @extends with same type args' => [
 				new GenericObjectType(B\I::class, [new ObjectType('DateTime')]),
@@ -106,6 +106,11 @@ class GenericObjectTypeTest extends \PHPStan\Testing\TestCase
 				new GenericObjectType(B\I::class, [new ObjectType('DateTimeInteface')]),
 				new GenericObjectType(B\IImpl::class, [new ObjectType('DateTime')]),
 				TrinaryLogic::createNo(),
+			],
+			'generic object accepts normal object of same type' => [
+				new GenericObjectType(\Traversable::class, [new MixedType(true), new ObjectType('DateTimeInteface')]),
+				new ObjectType(\Traversable::class),
+				TrinaryLogic::createYes(),
 			],
 		];
 	}

@@ -224,7 +224,7 @@ class ObjectType implements TypeWithClassName, SubtractableType
 		return $this->subtractedType->equals($type->subtractedType);
 	}
 
-	private function checkSubclassAcceptability(string $thatClass): TrinaryLogic
+	protected function checkSubclassAcceptability(string $thatClass): TrinaryLogic
 	{
 		if ($this->className === $thatClass) {
 			return TrinaryLogic::createYes();
