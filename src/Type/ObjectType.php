@@ -779,7 +779,12 @@ class ObjectType implements TypeWithClassName, SubtractableType
 			return null;
 		}
 
-		return $broker->getClass($this->className);
+		$classReflection = $broker->getClass($this->className);
+		if ($classReflection->isGeneric()) {
+			return $classReflection->withTypes($classReflection->getTemplateTypeMap()->resolveToBounds()->getTypes());
+		}
+
+		return $classReflection;
 	}
 
 	public function getAncestorWithClassName(string $className): ?TypeWithClassName

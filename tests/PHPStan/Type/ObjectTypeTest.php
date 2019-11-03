@@ -364,4 +364,12 @@ class ObjectTypeTest extends \PHPStan\Testing\TestCase
 		);
 	}
 
+	public function testGetClassReflectionOfGenericClass(): void
+	{
+		$objectType = new ObjectType(\Traversable::class);
+		$classReflection = $objectType->getClassReflection();
+		$this->assertNotNull($classReflection);
+		$this->assertSame('Traversable<mixed,mixed>', $classReflection->getDisplayName());
+	}
+
 }
