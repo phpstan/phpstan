@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Binary operation \"+\" between int and int|string results in an error.",
-        "line": 22,
-        "ignorable": true
-    }
-]

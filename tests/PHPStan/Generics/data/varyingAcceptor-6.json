@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Function PHPStan\\Generics\\VaryingAcceptor\\testApply() has no return typehint specified.",
-        "line": 30,
-        "ignorable": true
-    }
-]

@@ -1,3 +1,0 @@
-<?php
-
-header('Location: /foo');

@@ -1,4 +1,0 @@
-parameters:
-	reportMaybesInMethodSignatures: true
-includes:
-	- ../../../conf/bleedingEdge.neon

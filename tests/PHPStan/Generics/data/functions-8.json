@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Parameter #2 $b of function PHPStan\\Generics\\Functions\\f expects callable(int): string, (callable(int): string)|null given.",
-        "line": 37,
-        "ignorable": true
-    }
-]

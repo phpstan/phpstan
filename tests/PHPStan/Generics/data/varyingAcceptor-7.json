@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Parameter #1 $closure of function PHPStan\\Generics\\VaryingAcceptor\\bar expects callable(callable(): int|string): int|string, callable(callable(): int): string given.",
-        "line": 55,
-        "ignorable": true
-    }
-]

@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Method Levels\\Casts\\Foo::doFoo() has no return typehint specified.",
-        "line": 13,
-        "ignorable": true
-    }
-]

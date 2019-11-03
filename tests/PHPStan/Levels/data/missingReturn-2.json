@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Method Levels\\MissingReturn\\Foo::doBar() should return int but return statement is missing.",
-        "line": 16,
-        "ignorable": true
-    }
-]

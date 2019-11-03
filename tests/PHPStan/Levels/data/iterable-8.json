@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Argument of an invalid type array|null supplied for foreach, only iterables are supported.",
-        "line": 26,
-        "ignorable": true
-    }
-]

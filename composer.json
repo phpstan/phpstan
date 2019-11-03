@@ -1,75 +1,24 @@
 {
-	"name": "phpstan/phpstan",
-	"description": "PHPStan - PHP Static Analysis Tool",
-	"license": [
-		"MIT"
-	],
+	"name": "phpstan/phpstan-shim",
+	"description": "PHPStan Phar distribution",
+	"license": ["MIT"],
 	"require": {
 		"php": "~7.1",
-		"composer/xdebug-handler": "^1.3.0",
-		"jean85/pretty-package-versions": "^1.0.3",
-		"nette/bootstrap": "^3.0",
-		"nette/di": "^3.0",
-		"nette/neon": "^3.0",
-		"nette/robot-loader": "^3.0.1",
-		"nette/schema": "^1.0",
-		"nette/utils": "^3.0",
-		"nikic/php-parser": "^4.2.3",
-		"phpstan/phpdoc-parser": "^0.4",
-		"symfony/console": "~4.3",
-		"symfony/finder": "~4.3"
+		"nikic/php-parser": "^4.2.3"
 	},
-	"require-dev": {
-		"ext-intl": "*",
-		"ext-mysqli": "*",
-		"ext-simplexml": "*",
-		"ext-soap": "*",
-		"ext-zip": "*",
-		"brianium/paratest": "^2.0 || ^3.0",
-		"consistence/coding-standard": "^3.5",
-		"dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
-		"jakub-onderka/php-parallel-lint": "^1.0",
-		"localheinz/composer-normalize": "^1.1.0",
-		"phing/phing": "^2.16.0",
-		"phpstan/phpstan-deprecation-rules": "^0.12",
-		"phpstan/phpstan-php-parser": "^0.12",
-		"phpstan/phpstan-phpunit": "^0.12",
-		"phpstan/phpstan-strict-rules": "^0.12",
-		"phpunit/phpunit": "^7.5.14 || ^8.0",
-		"slevomat/coding-standard": "^4.7.2",
-		"squizlabs/php_codesniffer": "^3.3.2"
+	"replace": {
+		"phpstan/phpstan": "self.version"
 	},
-	"config": {
-		"platform": {
-			"php": "7.1.3"
-		},
-		"sort-packages": true
-	},
+	"bin": [
+		"phpstan",
+		"phpstan.phar"
+	],
 	"extra": {
 		"branch-alias": {
 			"dev-master": "0.12-dev"
 		}
 	},
 	"autoload": {
-		"psr-4": {
-			"PHPStan\\": [
-				"src/"
-			]
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"PHPStan\\": [
-				"build/PHPStan"
-			]
-		},
-		"classmap": [
-			"tests/PHPStan"
-		]
-	},
-	"minimum-stability": "dev",
-	"prefer-stable": true,
-	"bin": [
-		"bin/phpstan"
-	]
+		"files": ["bootstrap.php"]
+	}
 }

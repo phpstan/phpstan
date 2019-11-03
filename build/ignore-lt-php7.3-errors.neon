@@ -1,3 +1,0 @@
-parameters:
-	ignoreErrors:
-		- '#Constant JSON_THROW_ON_ERROR not found#'

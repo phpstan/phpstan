@@ -1,6 +1,0 @@
-includes:
-	- ../../../conf/bleedingEdge.neon
-
-parameters:
-	dynamicConstantNames:
-		- Levels\Comparison\Foo::FOO_CONST

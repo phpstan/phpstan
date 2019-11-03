@@ -1,6 +1,0 @@
-includes:
-	- config.level4.neon
-
-parameters:
-	checkFunctionArgumentTypes: true
-	checkArgumentsPassedByReference: true

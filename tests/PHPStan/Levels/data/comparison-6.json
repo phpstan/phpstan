@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Method Levels\\Comparison\\Foo::doFoo() has no return typehint specified.",
-        "line": 18,
-        "ignorable": true
-    }
-]

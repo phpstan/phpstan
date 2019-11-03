@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Parameter #1 $i of method Levels\\MethodCalls\\Foo::doFoo() expects int, float given.",
-        "line": 12,
-        "ignorable": true
-    }
-]

@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Method Levels\\ThrowValues\\Foo::doFoo() has no return typehint specified.",
-        "line": 30,
-        "ignorable": true
-    }
-]

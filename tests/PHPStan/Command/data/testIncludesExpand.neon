@@ -1,3 +1,0 @@
-includes:
-	- %rootDir%/build/phpstan.neon
-	- testLevel.neon

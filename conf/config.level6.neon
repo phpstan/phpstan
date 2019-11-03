@@ -1,9 +1,0 @@
-includes:
-	- config.level5.neon
-
-rules:
-	- PHPStan\Rules\Functions\MissingFunctionParameterTypehintRule
-	- PHPStan\Rules\Functions\MissingFunctionReturnTypehintRule
-	- PHPStan\Rules\Methods\MissingMethodParameterTypehintRule
-	- PHPStan\Rules\Methods\MissingMethodReturnTypehintRule
-	- PHPStan\Rules\Properties\MissingPropertyTypehintRule

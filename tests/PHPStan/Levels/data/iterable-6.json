@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Method Levels\\Iterables\\Foo::doFoo() has no return typehint specified.",
-        "line": 15,
-        "ignorable": true
-    }
-]

@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Invalid type int|Throwable to throw.",
-        "line": 56,
-        "ignorable": true
-    }
-]

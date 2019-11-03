@@ -1,7 +1,0 @@
-[
-    {
-        "message": "Method Levels\\ReturnTypes\\Foo::doFoo() should return int but returns int|null.",
-        "line": 37,
-        "ignorable": true
-    }
-]
