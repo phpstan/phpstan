@@ -1,6 +1,8 @@
 /build/phpstan-generated.neon
 /composer.lock
 /conf/config.local.yml
+/e2e/composer.lock
+/e2e/vendor
 /vendor
 /.idea
 /tests/tmp

@@ -1,0 +1,93 @@
+os: linux
+dist: xenial
+language: php
+
+jobs:
+  include:
+    - stage: Tests
+      php: 7.1
+      script:
+        - composer install
+        - cd e2e
+        - composer install
+        - php testPharAutoloader.php
+        - vendor/bin/phpunit PharTest.php
+
+    - stage: Tests
+      php: 7.2
+      script:
+        - composer install
+        - cd e2e
+        - composer install
+        - php testPharAutoloader.php
+        - vendor/bin/phpunit PharTest.php
+
+    - stage: Tests
+      php: 7.3
+      script:
+        - composer install
+        - cd e2e
+        - composer install
+        - php testPharAutoloader.php
+        - vendor/bin/phpunit PharTest.php
+
+    - stage: Tests
+      php: 7.4snapshot
+      script:
+        - composer install
+        - cd e2e
+        - composer install
+        - php testPharAutoloader.php
+        - vendor/bin/phpunit PharTest.php
+
+    - stage: Tests
+      os: windows
+      dist: 1803-containers
+      language: sh # No PHP currently
+      env: PHP_VERSION=7.1.32
+      install:
+        - choco install php --version=${PHP_VERSION} --package-parameters="/InstallDir:c:\tools\php"
+        - choco install composer --ia "/DEV=C:\tools\php"
+        - export PATH=/c/tools/php:$PATH
+      script:
+        - composer install
+        - cd e2e
+        - composer install
+        - php testPharAutoloader.php
+        - vendor/bin/phpunit PharTest.php
+
+    - stage: Tests
+      os: windows
+      dist: 1803-containers
+      language: sh # No PHP currently
+      env: PHP_VERSION=7.2.23
+      install:
+        - choco install php --version=${PHP_VERSION} --package-parameters="/InstallDir:c:\tools\php"
+        - choco install composer --ia "/DEV=C:\tools\php"
+        - export PATH=/c/tools/php:$PATH
+      script:
+        - composer install
+        - cd e2e
+        - composer install
+        - php testPharAutoloader.php
+        - vendor/bin/phpunit PharTest.php
+
+    - stage: Tests
+      os: windows
+      dist: 1803-containers
+      language: sh # No PHP currently
+      env: PHP_VERSION=7.3.10
+      install:
+        - choco install php --version=${PHP_VERSION} --package-parameters="/InstallDir:c:\tools\php"
+        - choco install composer --ia "/DEV=C:\tools\php"
+        - export PATH=/c/tools/php:$PATH
+      script:
+        - composer install
+        - cd e2e
+        - composer install
+        - php testPharAutoloader.php
+        - vendor/bin/phpunit PharTest.php
+
+cache:
+  directories:
+    - $HOME/.composer/cache
