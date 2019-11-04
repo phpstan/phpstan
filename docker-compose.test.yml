@@ -1,5 +1,5 @@
 sut:
   build: .
-  args:
-    - "PHPSTAN_VERSION=dev-master#${SOURCE_COMMIT}"
+    args:
+      - "PHPSTAN_VERSION=dev-master#${SOURCE_COMMIT}"
   command: help
