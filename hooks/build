@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ "$DOCKER_TAG" = "nightly" ] ; then
+	docker build --build-arg PHPSTAN_VERSION='dev-master#'${SOURCE_COMMIT} -f $DOCKERFILE_PATH -t $IMAGE_NAME .
+else
+	docker build --build-arg PHPSTAN_VERSION=$DOCKER_TAG -f $DOCKERFILE_PATH -t $IMAGE_NAME .
+fi
