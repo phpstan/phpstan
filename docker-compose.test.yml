@@ -1,7 +1,8 @@
 version: "3.7"
-sut:
-  build:
-    context: .
-    args:
-      - "PHPSTAN_VERSION=dev-master#${SOURCE_COMMIT}"
-  command: help
+services:
+  sut:
+    build:
+      context: .
+      args:
+        - "PHPSTAN_VERSION=dev-master#${SOURCE_COMMIT}"
+    command: help
