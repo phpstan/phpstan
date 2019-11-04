@@ -66,6 +66,9 @@ If you have conflicting dependencies or you want to install PHPStan globally, th
 
 <details>
   <summary>Use PHPStan via Docker</summary>
+  
+[![Docker Stars](https://img.shields.io/docker/stars/phpstan/phpstan.svg)](https://hub.docker.com/r/phpstan/phpstan/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/phpstan/phpstan.svg)](https://hub.docker.com/r/phpstan/phpstan/)
 
 The image is based on [Alpine Linux](https://alpinelinux.org/) and built daily.
 
