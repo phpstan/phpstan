@@ -64,7 +64,168 @@ Composer will install PHPStan's executable in its `bin-dir` which defaults to `v
 
 If you have conflicting dependencies or you want to install PHPStan globally, the best way is via a PHAR archive. You will always find the latest stable PHAR archive below the [release notes](https://github.com/phpstan/phpstan/releases). You can also use the [phpstan/phpstan-shim](https://packagist.org/packages/phpstan/phpstan-shim) package to install PHPStan via Composer without the risk of conflicting dependencies.
 
-You can also use [PHPStan via Docker](https://github.com/phpstan/docker-image).
+<details>
+  <summary>Use PHPStan via Docker</summary>
+
+The image is based on [Alpine Linux](https://alpinelinux.org/) and built daily.
+
+## Supported tags
+
+- `0.11`, `latest`
+- `0.10`
+- `nightly` (dev-master)
+
+## How to use this image
+
+### Install
+
+Install the container:
+
+```bash
+docker pull phpstan/phpstan
+```
+
+Alternatively, pull a specific version:
+
+```bash
+docker pull phpstan/phpstan:0.11
+```
+
+### Usage
+
+We are recommend to use the images as an shell alias to access via short-command.
+To use simply *phpstan* everywhere on CLI add this line to your ~/.zshrc, ~/.bashrc or ~/.profile.
+
+```bash
+alias phpstan='docker run -v $PWD:/app --rm phpstan/phpstan'
+```
+
+If you don't have set the alias, use this command to run the container:
+
+```bash
+docker run --rm -v /path/to/app:/app phpstan/phpstan [some arguments for PHPStan]
+```
+
+For example:
+
+```bash
+docker run --rm -v /path/to/app:/app phpstan/phpstan analyse /app/src
+```
+
+### Customizing
+
+#### Install PHPStan extensions
+
+If you need an PHPStan extension, for example [phpstan/phpstan-phpunit](https://github.com/phpstan/phpstan-phpunit), you can simply
+extend an existing image and add the relevant extension via Composer.
+In some cases you need also some additional PHP extensions like DOM. (see section below)
+
+Here is an example Dockerfile for phpstan/phpstan-phpunit:
+
+```dockerfile
+FROM phpstan/phpstan:latest
+RUN composer global require phpstan/phpstan-phpunit
+```
+
+You can update the `phpstan.neon` file in order to use the extension:
+
+```neon
+includes:
+    - /composer/vendor/phpstan/phpstan-phpunit/extension.neon
+```
+
+#### Further PHP extension support
+
+Sometimes your codebase requires some additional PHP extensions like "intl" or maybe "soap".
+
+Therefore you need to know that our Docker image extends the [official php:cli-alpine Docker image](https://hub.docker.com/_/php).
+So only [the default built-in extensions](#default-built-in-php-extensions) are available (see below).
+Also because PHPStan needs no further extensions to run itself.
+
+But to solve this issue you can extend our Docker image in an own Dockerfile like this, for example to add "soap" and "intl":
+
+```dockerfile
+FROM phpstan/phpstan:latest
+RUN apk --update --progress --no-cache add icu-dev libxml2-dev \
+    && docker-php-ext-install intl soap
+```
+
+#### Missing classes like "PHPUnit_Framework_TestCase"
+
+Often you use PHAR files like PHPUnit in your projects. These PHAR files provide sometimes own classes
+where your project classes extends from. But these cannot be found in
+the vendor directory and so cannot be autoloaded. So you see error messages like this:
+*"Fatal error: Class 'PHPUnit_Framework_TestCase' not found"*
+
+To solve this issue you need an own configuration file, like "phpstan.neon".
+This file can look like this:
+
+```neon
+parameters:
+	autoload_files:
+		- path/to/phpunit.phar
+```
+
+After creating this file in your project root you can run PHPStan for example via
+
+```bash
+docker run -v $PWD:/app --rm phpstan/phpstan -c phpstan.neon --level=4
+```
+
+and now the required classes are loaded. Please take also a look in the [relevant part](https://github.com/phpstan/phpstan#autoloading) at the PHPStan documentation.
+
+---
+
+#### Default built-in PHP extensions
+
+You can use the following command to determine which php extensions are already installed on the base image:
+
+```bash
+docker run --rm php:cli-alpine -m
+```
+
+This should give you an output like this:
+
+```ini
+[PHP Modules]
+Core
+ctype
+curl
+date
+dom
+fileinfo
+filter
+ftp
+hash
+iconv
+json
+libxml
+mbstring
+mysqlnd
+openssl
+pcre
+PDO
+pdo_sqlite
+Phar
+posix
+readline
+Reflection
+session
+SimpleXML
+sodium
+SPL
+sqlite3
+standard
+tokenizer
+xml
+xmlreader
+xmlwriter
+zlib
+
+[Zend Modules]
+```
+
+</details>
 
 ## First run
 
