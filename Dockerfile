@@ -1,5 +1,4 @@
 FROM php:cli-alpine
-MAINTAINER Ondrej Mirtes <ondrej@mirtes.cz>
 
 ENV COMPOSER_HOME /composer
 ENV COMPOSER_ALLOW_SUPERUSER 1
