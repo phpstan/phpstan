@@ -4,7 +4,7 @@
 	"license": ["MIT"],
 	"require": {
 		"php": "~7.1",
-		"nikic/php-parser": "^4.2.3"
+		"nikic/php-parser": "^4.3.0"
 	},
 	"bin": [
 		"phpstan",
