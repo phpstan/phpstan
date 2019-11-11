@@ -555,7 +555,7 @@ services:
 			- phpstan.rules.rule
 ```
 
-For inspiration on how to implement a rule turn to [src/Rules](https://github.com/phpstan/phpstan/tree/master/src/Rules)
+For inspiration on how to implement a rule turn to [src/Rules](https://github.com/phpstan/phpstan-src/tree/master/src/Rules)
 to see a lot of built-in rules.
 
 Check out also [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-rules) repository for extra strict and opinionated rules for PHPStan!
