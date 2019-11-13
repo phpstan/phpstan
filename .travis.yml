@@ -56,17 +56,17 @@ jobs:
     - stage: Extension Tests
       name: phpstan-phpunit
       script:
-        - ./e2e/test-extension.sh 'git@github.com:phpstan/phpstan-phpunit.git'
+        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-phpunit.git'
 
     - stage: Extension Tests
       name: phpstan-strict-rules
       script:
-        - ./e2e/test-extension.sh 'git@github.com:phpstan/phpstan-strict-rules.git'
+        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-strict-rules.git'
 
     - stage: Extension Tests
       name: phpstan-mockery
       script:
-        - ./e2e/test-extension.sh 'git@github.com:phpstan/phpstan-mockery.git'
+        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-mockery.git'
 
 cache:
   directories:
