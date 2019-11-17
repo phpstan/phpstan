@@ -73,6 +73,11 @@ jobs:
       script:
         - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-doctrine.git'
 
+    - stage: Extension Tests
+      name: phpstan-symfony
+      script:
+        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-symfony.git'
+
 cache:
   directories:
     - $HOME/.composer/cache
