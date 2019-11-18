@@ -5,3 +5,4 @@
 /docker-compose.test.yml export-ignore
 /e2e export-ignore
 /hooks export-ignore
+/.travis.yml
