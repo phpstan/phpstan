@@ -340,6 +340,8 @@ All the following options are part of the `parameters` section.
  - `level` - specifies analysis level - if specified, `-l` option is not required
  - `paths` - specifies analysed paths - if specified, paths are not required to be passed as arguments
 
+Relative paths in the configuration are made absolute according to the directory where the configuration file resides.
+
 ### Autoloading
 
 PHPStan uses Composer autoloader so the easiest way how to autoload classes
@@ -359,8 +361,6 @@ parameters:
 	autoload_files:
 		- generated/routes/GeneratedRouteList.php
 ```
-
-`%rootDir%` is expanded to the root directory where PHPStan resides.
 
 #### Autoloading for global installation
 
@@ -391,7 +391,7 @@ is used as a pattern for the [`fnmatch`](https://secure.php.net/manual/en/functi
 ```
 parameters:
 	excludes_analyse:
-		- %rootDir%/../../../tests/*/data/*
+		- tests/*/data/*
 ```
 
 ### Include custom extensions
