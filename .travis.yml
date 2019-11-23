@@ -78,6 +78,11 @@ jobs:
       script:
         - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-symfony.git'
 
+    - stage: Extension Tests
+      name: phpstan-php-parser
+      script:
+        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-php-parser.git'
+
 cache:
   directories:
     - $HOME/.composer/cache
