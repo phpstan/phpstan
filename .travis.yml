@@ -93,6 +93,11 @@ jobs:
       script:
         - ./e2e/test-extension.sh 'https://github.com/phpstan/phpdoc-parser.git'
 
+    - stage: Extension Tests
+      name: phpstan-nette
+      script:
+        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-nette.git'
+
 cache:
   directories:
     - $HOME/.composer/cache
