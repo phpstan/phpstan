@@ -83,6 +83,11 @@ jobs:
       script:
         - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-php-parser.git'
 
+    - stage: Extension Tests
+      name: phpstan-deprecation-rules
+      script:
+        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-deprecation-rules.git'
+
 cache:
   directories:
     - $HOME/.composer/cache
