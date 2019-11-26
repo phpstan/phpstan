@@ -108,6 +108,11 @@ jobs:
       script:
         - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-webmozart-assert.git'
 
+    - stage: Extension Tests
+      name: phpstan-beberlei-assert
+      script:
+        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-beberlei-assert.git'
+
 cache:
   directories:
     - $HOME/.composer/cache
