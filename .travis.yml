@@ -103,6 +103,11 @@ jobs:
       script:
         - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-dibi.git'
 
+    - stage: Extension Tests
+      name: phpstan-webmozart-assert
+      script:
+        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-webmozart-assert.git'
+
 cache:
   directories:
     - $HOME/.composer/cache
