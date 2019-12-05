@@ -62,11 +62,9 @@ composer require --dev phpstan/phpstan
 
 Composer will install PHPStan's executable in its `bin-dir` which defaults to `vendor/bin`.
 
-If you have conflicting dependencies or you want to install PHPStan globally, the best way is via a PHAR archive. You will always find the latest stable PHAR archive below the [release notes](https://github.com/phpstan/phpstan/releases). You can also use the [phpstan/phpstan-shim](https://packagist.org/packages/phpstan/phpstan-shim) package to install PHPStan via Composer without the risk of conflicting dependencies.
-
 <details>
   <summary>Use PHPStan via Docker</summary>
-  
+
 [![Docker Stars](https://img.shields.io/docker/stars/phpstan/phpstan.svg)](https://hub.docker.com/r/phpstan/phpstan/)
 [![Docker Pulls](https://img.shields.io/docker/pulls/phpstan/phpstan.svg)](https://hub.docker.com/r/phpstan/phpstan/)
 
