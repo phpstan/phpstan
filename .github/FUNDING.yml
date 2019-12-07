@@ -1,4 +1,4 @@
 # These are supported funding model platforms
 
 patreon: phpstan
-tidelift: packagist/phpstan%2Fphpstan
+tidelift: "packagist/phpstan/phpstan"
