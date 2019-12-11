@@ -114,7 +114,7 @@ jobs:
         - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-beberlei-assert.git'
 
     - stage: Draft The Release
-      script: []
+      script: skip
       deploy:
         - provider: releases
           api_key:
