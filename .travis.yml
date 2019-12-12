@@ -9,6 +9,10 @@ script:
   - php testPharAutoloader.php
   - vendor/bin/phpunit PharTest.php
 
+env:
+  global:
+    secure: "TbH4BzxhThar4som8lrLvysZe2Unf7LNmbnBma9ZT7v6yYk1RLug9tIltCoktrIRsSuq6usspG1GjmWpb74KTJSXVs3BuR81hM7zH4DKkZZahqhVgz1uOno3qZHCO/K/hSBfS3gkIuTPuYmAOEaSWz26buKwZPQWlSWFWfo3+uvT6jaa+Ry+EWwbtpEQsp7ox3oOomIJg3jwUD9tP7xlyMHDDY1XC8X1uE09KefqUSxeN2id5Yb6kb21+iB9kONImGt0AqUSBOa7iwadizhBMGUs0b9IwVIG4+5V3zIATubqZOTGJQJ/z+XDCY6gUw42TmVThneZVdM9++7XU7mCuIh+5jE1tTgnxuLGubXAAFWLPZN0+VwMnkCCcdccFz313+pSCVgww2lIKn2Ij0fGt3OJyqik8kzDwE7YGuFWJYx21SXTiJy6nXj9T7UYEJbyNMq6PSA/QVUrfnikzJ5024NYs2MhnL7ZPuo364M6I7HkecRVvlSdsI04njjUYpCBVvR+sIEfBzL3YBq3kz8v2Q+V0lY6wsrGDfZdQ1KonbE3XC7ADZSVzzzwcSl2OWwamjbORgr03LoEwJZuk7nYDDzyJU7zwtu4XiagxdudJw+/V/xAhQo079MOiiOP91ZTFm4g18WvDrCSkDUGe3/SIlCy5ESWYQHHNUvaQjb9a28="
+
 jobs:
   include:
     - stage: Tests
@@ -117,8 +121,7 @@ jobs:
       script: skip
       deploy:
         - provider: releases
-          api_key:
-            secure: 3qGfBd4BPl2bh0TfirFYCWqFUKKFnmB6hGcKyl/D88NtvCHV439emIc9n5WBaaVEGHSJEPAGgIEsyv/WoSsiTTStHjaeckO/zwoCvbMWPtsCXQqB6wn363pcGe9ZPFayO96UJJ/udcdsZ64F68Ibw46BNqnVwG0Yo1bkpn3oYK5U8I388o5chA1IF472i6zYVTBhJczgzMt1YpDejkJ/MXupIp6TJSL6NqVfRmQtIyTL15HQkr1NJIVlN6dIkbjTDiOEk9nAu4vGxaV3RtURXEe8iM86+ezR0F36jdI/QoIn8WhkR1j6pgh3aRtRVylu8J1FOee5eOs2PU4terFcgpYnDN5mPBEAVkF6D/cxuLybfbyvcl36qJb6wndfL2g/fTVSw95k75DRJTfYAmFHYhB5pk672i9OGgLGBlVrgIRk4MyZB/JSFPoACMHRCOxKQq1Mjrepw9mxCamxRNVUs2w/ERiq5JZg7sWFF6QYAAL2gowwgTu9ezvAVDaYhDJR0KMvG3bL+tzzrAN8YNOghDXa6knlP2QhnMBbsiE0py+02QxVG+fIYMEVpsCNBYuHvPxqr2kafCnCOanFG3BslsL8SIQ4F2eFRFX5cXrrl9Po+R/ZzaCsUrlt7DILRqbr+iLJvMDbfg3CzhBqm/NCJVMUy0HaW2xdvX2I3dQLrDY=
+          api_key: $GITHUB_TOKEN
           file:
             - phpstan.phar
             - phpstan.phar.asc
