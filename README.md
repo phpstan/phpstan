@@ -343,8 +343,9 @@ Relative paths in the configuration are made absolute according to the directory
 
 ### Autoloading
 
-PHPStan uses Composer autoloader so the easiest way how to autoload classes
-is through the `autoload`/`autoload-dev` sections in composer.json.
+PHPStan uses Composer's autoloader by default.
+
+Use the `autoload`/`autoload-dev` sections in composer.json to configure autoloading.
 
 #### Specify paths to scan
 
