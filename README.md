@@ -308,7 +308,7 @@ New extensions are becoming available on a regular basis!
 
 ## Configuration
 
-Config file is passed to the `phpstan` executable with `-c` option:
+A config file can passed to the `phpstan` executable using the `-c` option:
 
 ```bash
 vendor/bin/phpstan analyse -l 4 -c phpstan.neon src tests
@@ -340,6 +340,16 @@ All the following options are part of the `parameters` section.
  - `paths` - specifies analysed paths - if specified, paths are not required to be passed as arguments
 
 Relative paths in the configuration are made absolute according to the directory where the configuration file resides.
+
+Here is an example of a `phpstan.neon` file to run `vendor/bin/phpstan analyse` without any extra argument:
+
+```neon
+parameters:
+	level: 5
+	paths:
+		- src
+		- tests
+```
 
 ### Autoloading
 
