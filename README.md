@@ -36,7 +36,11 @@ can be checked before you run the actual line.
 &nbsp;&nbsp;&nbsp;
 <a href="https://www.intracto.com/"><img src="https://i.imgur.com/XRCDGZi.png" alt="Intracto" width="254" height="65"></a>
 
-Check out [PHPStan's Patreon](https://www.patreon.com/phpstan) for sponsoring options. One-time donations [through PayPal](https://paypal.me/phpstan) are also accepted. To request an invoice, [contact me](mailto:ondrej@mirtes.cz) through e-mail.
+[**You can now sponsor my open-source work on PHPStan through GitHub Sponsors.**](https://github.com/sponsors/ondrejmirtes)
+
+Does GitHub already have your 💳? Do you use PHPStan to find 🐛 before they reach production? Send a couple of 💸 a month my way too. Thank you!
+
+One-time donations [through PayPal](https://paypal.me/phpstan) are also accepted. To request an invoice, [contact me](mailto:ondrej@mirtes.cz) through e-mail.
 
 BTC: bc1qd5s06wjtf8rzag08mk3s264aekn52jze9zeapt
 <br>LTC: LSU5xLsWEfrVx1P9yJwmhziHAXikiE8xtC

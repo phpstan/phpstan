@@ -1,4 +1,5 @@
 # These are supported funding model platforms
 
+github: ondrejmirtes
 patreon: phpstan
 tidelift: "packagist/phpstan/phpstan"
