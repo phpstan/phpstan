@@ -38,7 +38,7 @@ can be checked before you run the actual line.
 
 [**You can now sponsor my open-source work on PHPStan through GitHub Sponsors.**](https://github.com/sponsors/ondrejmirtes)
 
-Does GitHub already have your 💳? Do you use PHPStan to find 🐛 before they reach production? Send a couple of 💸 a month my way too. Thank you!
+Does GitHub already have your 💳? Do you use PHPStan to find 🐛 before they reach production? [Send a couple of 💸 a month my way too.](https://github.com/sponsors/ondrejmirtes) Thank you!
 
 One-time donations [through PayPal](https://paypal.me/phpstan) are also accepted. To request an invoice, [contact me](mailto:ondrej@mirtes.cz) through e-mail.
 
