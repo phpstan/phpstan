@@ -299,6 +299,7 @@ Unofficial extensions for other frameworks and libraries are also available:
 * [Drupal](https://github.com/mglaman/phpstan-drupal)
 * [WordPress](https://github.com/szepeviktor/phpstan-wordpress)
 * [Zend Framework](https://github.com/Slamdunk/phpstan-zend-framework)
+* [Nextras ORM](https://github.com/nextras/orm-phpstan)
 
 Unofficial extensions with third-party rules:
 
