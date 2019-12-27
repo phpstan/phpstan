@@ -516,7 +516,7 @@ parameters:
 		- '#Call to an undefined method PHPUnit_Framework_MockObject_MockObject::[a-zA-Z0-9_]+\(\)#'
 ```
 
-To exclude an error in a specific directory or file, specify a `path` or `paths` along with the `message`:
+To exclude an error in a specific directory or file, specify a `path` or `paths` along with the `message`, you can also specify how many times the error is expected by using `count` (optional, applies only to `path`, not `paths`):
 
 ```
 parameters:
@@ -524,6 +524,7 @@ parameters:
 		-
 			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
 			path: some/dir/SomeFile.php
+			count: 2
 		-
 			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::method\(\)#'
 			paths:
