@@ -1,0 +1,17 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Access to an undefined property PhpParser\\\\BuilderAbstract\\:\\:\\$flags\\.$#"
+			count: 2
+			path: PHP-Parser/lib/PhpParser/BuilderAbstract.php
+
+		-
+			message: "#^Undefined variable\\: \\$undefinedVariable$#"
+			count: 1
+			path: PHP-Parser/lib/PhpParser/Lexer.php
+
+		-
+			message: "#^Unsafe usage of new static\\(\\)\\.$#"
+			count: 4
+			path: PHP-Parser/lib/PhpParser/Node/Name.php
+

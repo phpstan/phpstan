@@ -122,6 +122,16 @@ jobs:
       script:
         - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-beberlei-assert.git'
 
+    - stage: Other Tests
+      name: Run on PHP-Parser v3
+      script:
+        - cd e2e
+        - git clone https://github.com/nikic/PHP-Parser.git
+        - cd PHP-Parser
+        - git checkout v3.1.5
+        - composer install
+        - ../../phpstan analyse -l 0 -c ../php-parser-baseline.neon lib
+
     - stage: Draft The Release
       script: skip
       deploy:
