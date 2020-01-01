@@ -6,7 +6,7 @@ script:
   - composer install
   - cd e2e
   - composer install
-  - php testPharAutoloader.php
+  #- php testPharAutoloader.php
   - vendor/bin/phpunit PharTest.php
 
 env:
