@@ -3,8 +3,7 @@
 	"description": "PHPStan - PHP Static Analysis Tool",
 	"license": ["MIT"],
 	"require": {
-		"php": "^7.1",
-		"nikic/php-parser": "^4.3.0"
+		"php": "^7.1"
 	},
 	"bin": [
 		"phpstan",
