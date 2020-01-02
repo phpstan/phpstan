@@ -24,8 +24,6 @@ can be checked before you run the actual line.
 
 ## Sponsors
 
-<a href="https://mike-pretzlaw.de/"><img src="https://i.imgur.com/TW2US6H.png" alt="Mike Pretzlaw" width="247" height="64"></a>
-&nbsp;&nbsp;&nbsp;
 <a href="https://coders.thecodingmachine.com/phpstan"><img src="https://i.imgur.com/kQhNOTP.png" alt="TheCodingMachine" width="247" height="64"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://packagist.com/?utm_source=phpstan&utm_medium=readme&utm_campaign=sponsorlogo"><img src="https://i.imgur.com/PmMC45f.png" alt="Private Packagist" width="326" height="64"></a>
@@ -33,8 +31,6 @@ can be checked before you run the actual line.
 <a href="https://stackoverflow.com/jobs/273089/backend-software-engineer-musement-spa"><img src="https://i.imgur.com/uw5rAlR.png" alt="Musement" width="247" height="49"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://blackfire.io/docs/introduction?utm_source=phpstan&utm_medium=github_readme&utm_campaign=logo"><img src="https://i.imgur.com/zR8rsqk.png" alt="Blackfire.io" width="254" height="64"></a>
-&nbsp;&nbsp;&nbsp;
-<a href="https://www.intracto.com/"><img src="https://i.imgur.com/XRCDGZi.png" alt="Intracto" width="254" height="65"></a>
 
 [**You can now sponsor my open-source work on PHPStan through GitHub Sponsors.**](https://github.com/sponsors/ondrejmirtes)
 
