@@ -298,7 +298,7 @@ Unofficial extensions for other frameworks and libraries are also available:
 * [moneyphp/money](https://github.com/JohnstonCode/phpstan-moneyphp)
 * [Drupal](https://github.com/mglaman/phpstan-drupal)
 * [WordPress](https://github.com/szepeviktor/phpstan-wordpress)
-* [Zend Framework](https://github.com/Slamdunk/phpstan-zend-framework)
+* [Laminas](https://github.com/Slamdunk/phpstan-laminas-framework) (a.k.a. [Zend Framework](https://github.com/Slamdunk/phpstan-zend-framework))
 
 Unofficial extensions with third-party rules:
 
