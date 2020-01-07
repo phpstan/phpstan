@@ -289,6 +289,7 @@ Unofficial extensions for other frameworks and libraries are also available:
 * [Phony](https://github.com/eloquent/phpstan-phony)
 * [Prophecy](https://github.com/Jan0707/phpstan-prophecy)
 * [Laravel](https://github.com/nunomaduro/larastan)
+* [marc-mabe/php-enum](https://github.com/marc-mabe/php-enum-phpstan)
 * [myclabs/php-enum](https://github.com/timeweb/phpstan-enum)
 * [Yii2](https://github.com/proget-hq/phpstan-yii2)
 * [PhpSpec](https://github.com/proget-hq/phpstan-phpspec)
