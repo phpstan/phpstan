@@ -7,6 +7,7 @@ class ConditionalTagsExtension extends \Nette\DI\CompilerExtension
 
 	public function beforeCompile(): void
 	{
+		/** @var mixed[] $config */
 		$config = $this->config;
 		$builder = $this->getContainerBuilder();
 
