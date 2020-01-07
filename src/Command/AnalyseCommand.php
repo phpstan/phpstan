@@ -65,6 +65,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 		$currentWorkingDirectory = getcwd();
 		$fileHelper = new FileHelper($currentWorkingDirectory);
 
+		/** @var string|null $autoloadFile */
 		$autoloadFile = $input->getOption('autoload-file');
 		if ($autoloadFile !== null && is_file($autoloadFile)) {
 			$autoloadFile = $fileHelper->normalizePath($autoloadFile);
@@ -73,6 +74,7 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 			}
 		}
 
+		/** @var string|null $projectConfigFile */
 		$projectConfigFile = $input->getOption('configuration');
 		$levelOption = $input->getOption(self::OPTION_LEVEL);
 		$defaultLevelUsed = false;
@@ -185,15 +187,21 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 		TypeCombinator::setUnionTypesEnabled($container->parameters['checkUnionTypes']);
 
+		/** @var string[] $paths */
+		$paths = $input->getArgument('paths');
+
+		/** @var bool $debug */
+		$debug = $input->getOption('debug');
+
 		/** @var \PHPStan\Command\AnalyseApplication $application */
 		$application = $container->getByType(AnalyseApplication::class);
 		return $this->handleReturn(
 			$application->analyse(
-				$input->getArgument('paths'),
+				$paths,
 				$consoleStyle,
 				$errorFormatter,
 				$defaultLevelUsed,
-				$input->getOption('debug')
+				$debug
 			),
 			$memoryLimitFile
 		);
