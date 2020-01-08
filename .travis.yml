@@ -30,7 +30,7 @@ jobs:
       php: 7.3
 
     - stage: Tests
-      php: 7.4snapshot
+      php: 7.4
 
     - stage: Tests
       os: windows
