@@ -37,6 +37,7 @@ lambda(function (array $event) {
 		'includes' => $configFiles,
 		'parameters' => [
 			'inferPrivatePropertyTypeFromConstructor' => true,
+			'treatPhpDocTypesAsCertain' => $event['treatPhpDocTypesAsCertain'] ?? true,
 		],
 	]);
 	file_put_contents($finalConfigFile, $neon);
