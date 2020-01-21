@@ -569,9 +569,12 @@ Check as well [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-dep
 
 ### Custom error formatters
 
-PHPStan outputs errors via formatters. You can customize the output by implementing the `ErrorFormatter` interface in a new class and add it to the configuration. For existing formatters, see next chapter.
+PHPStan outputs errors via formatters. You can customize the output by implementing the `\PHPStan\Command\ErrorFormatter\ErrorFormatter` interface in a new class and add it to the configuration. For existing formatters, see next chapter.
 
 ```php
+
+namespace PHPStan\Command\ErrorFormatter;
+
 interface ErrorFormatter
 {
 
@@ -584,7 +587,7 @@ interface ErrorFormatter
 	 */
 	public function formatErrors(
 		AnalysisResult $analysisResult,
-		\Symfony\Component\Console\Style\OutputStyle $style
+		\PHPStan\Command\Output $output
 	): int;
 
 }
