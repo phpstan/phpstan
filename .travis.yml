@@ -132,6 +132,13 @@ jobs:
         - composer install
         - ../../phpstan analyse -l 0 -c ../php-parser-baseline.neon lib
 
+    - stage: Other Tests
+      name: Run project depending on PhpStorm stubs
+      script:
+        - cd e2e/phpstorm-stubs
+        - composer install
+        - ../../phpstan analyse -l 8 test.php
+
     - stage: Draft The Release
       script: skip
       deploy:

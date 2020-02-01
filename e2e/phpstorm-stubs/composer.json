@@ -1,0 +1,5 @@
+{
+	"require-dev": {
+		"jetbrains/phpstorm-stubs": "^2019.3"
+	}
+}
