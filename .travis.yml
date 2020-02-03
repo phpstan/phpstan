@@ -153,16 +153,6 @@ jobs:
           on:
             tags: true
 
-    - stage: Update Playground
-      name: Update Playground
-      script:
-        - cd playground-runner
-        - composer install --no-dev
-        - cp ../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-        - cp ../phpstan vendor/phpstan/phpstan/phpstan
-        - npm install -g serverless
-        - serverless deploy
-
 cache:
   directories:
     - $HOME/.composer/cache
