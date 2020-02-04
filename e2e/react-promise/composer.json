@@ -1,0 +1,5 @@
+{
+	"require-dev": {
+		"react/promise": "^2.7.1"
+	}
+}
