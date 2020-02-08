@@ -48,7 +48,7 @@ class ExampleTest extends RuleTestCase
 	{
 		$this->analyse([__DIR__ . '/test.php'], [
 			[
-				'Echo: ok',
+				'Class MongoDB\Driver\Manager was not found while trying to analyse it - autoloading is probably not configured properly.',
 				3,
 			],
 		]);
