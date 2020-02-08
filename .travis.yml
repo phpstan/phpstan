@@ -138,6 +138,7 @@ jobs:
         - cd e2e/phpstorm-stubs
         - composer install
         - ../../phpstan analyse -l 8 test.php
+        - vendor/bin/phpunit ExampleTest.php
 
     - stage: Other Tests
       name: Run project depending on react/promise

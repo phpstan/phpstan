@@ -13,6 +13,7 @@ spl_autoload_register(function (string $class): void {
 
 		if ($composerAutoloader === null) {
 			$composerAutoloader = require 'phar://' . __DIR__ . '/phpstan.phar/vendor/autoload.php';
+			require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/jetbrains/phpstorm-stubs/PhpStormStubsMap.php';
 		}
 		$composerAutoloader->loadClass($class);
 
