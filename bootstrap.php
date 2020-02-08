@@ -14,6 +14,8 @@ spl_autoload_register(function (string $class): void {
 		if ($composerAutoloader === null) {
 			$composerAutoloader = require 'phar://' . __DIR__ . '/phpstan.phar/vendor/autoload.php';
 			require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/jetbrains/phpstorm-stubs/PhpStormStubsMap.php';
+			require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/react/promise-timer/src/functions_include.php';
+			require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/react/promise/src/functions_include.php';
 		}
 		$composerAutoloader->loadClass($class);
 
