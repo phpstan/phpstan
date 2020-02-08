@@ -135,6 +135,7 @@ jobs:
     - stage: Other Tests
       name: Run project depending on PhpStorm stubs
       script:
+        - composer install
         - cd e2e/phpstorm-stubs
         - composer install
         - ../../phpstan analyse -l 8 test.php
