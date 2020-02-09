@@ -148,6 +148,13 @@ jobs:
         - composer install
         - ../../phpstan analyse -l 8 src
 
+    - stage: Other Tests
+      name: Run project using Hoa with static reflection
+      script:
+        - cd e2e/hoa
+        - composer install
+        - ../../phpstan analyse -l 8 src
+
     - stage: Draft The Release
       script: skip
       deploy:
