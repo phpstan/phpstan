@@ -1,0 +1,103 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Build"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "master"
+
+env:
+  COMPOSER_ROOT_VERSION: "0.12.x-dev"
+
+jobs:
+  tests:
+    name: "Tests"
+
+    runs-on: ${{ matrix.operating-system }}
+
+    strategy:
+      matrix:
+        php-version:
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+        operating-system: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2.0.0"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@1.8.2"
+        with:
+          coverage: "none"
+          php-version: "${{ matrix.php-version }}"
+          extensions: mbstring
+
+      - name: "Cache dependencies"
+        uses: "actions/cache@v1.1.2"
+        with:
+          path: "~/.composer/cache"
+          key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php-version }}-composer-"
+
+      - name: "Install dependencies"
+        run: "composer update --no-interaction --no-progress --no-suggest"
+
+      - name: "Tests"
+        run: |
+          cd e2e
+          composer install
+          # php testPharAutoloader.php
+          vendor/bin/phpunit PharTest.php
+  tests-extensions:
+    name: "Extension Tests"
+
+    runs-on: "ubuntu-latest"
+
+    strategy:
+      matrix:
+        php-version:
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+        extension-name:
+          - "phpstan-phpunit"
+          - "phpstan-strict-rules"
+          - "phpstan-mockery"
+          - "phpstan-doctrine"
+          - "phpstan-symfony"
+          - "phpstan-php-parser"
+          - "phpstan-deprecation-rules"
+          - "phpdoc-parser"
+          - "phpstan-nette"
+          - "phpstan-dibi"
+          - "phpstan-webmozart-assert"
+          - "phpstan-beberlei-assert"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2.0.0"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@1.8.2"
+        with:
+          coverage: "none"
+          php-version: "${{ matrix.php-version }}"
+
+      - name: "Cache dependencies"
+        uses: "actions/cache@v1.1.2"
+        with:
+          path: "~/.composer/cache"
+          key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php-version }}-composer-"
+
+      - name: "Install dependencies"
+        run: "composer update --no-interaction --no-progress --no-suggest"
+
+      - name: "Extension build"
+        run: "./e2e/test-extension.sh 'https://github.com/phpstan/${{ matrix.extension-name }}.git'"
