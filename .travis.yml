@@ -13,39 +13,6 @@ env:
 
 jobs:
   include:
-    - stage: Other Tests
-      name: Run on PHP-Parser v3
-      script:
-        - cd e2e
-        - git clone https://github.com/nikic/PHP-Parser.git
-        - cd PHP-Parser
-        - git checkout v3.1.5
-        - composer install
-        - ../../phpstan analyse -l 0 -c ../php-parser-baseline.neon lib
-
-    - stage: Other Tests
-      name: Run project depending on PhpStorm stubs
-      script:
-        - composer install
-        - cd e2e/phpstorm-stubs
-        - composer install
-        - ../../phpstan analyse -l 8 test.php
-        - vendor/bin/phpunit ExampleTest.php
-
-    - stage: Other Tests
-      name: Run project depending on react/promise
-      script:
-        - cd e2e/react-promise
-        - composer install
-        - ../../phpstan analyse -l 8 src
-
-    - stage: Other Tests
-      name: Run project using Hoa with static reflection
-      script:
-        - cd e2e/hoa
-        - composer install
-        - ../../phpstan analyse -l 8 src
-
     - stage: Draft The Release
       script: skip
       deploy:

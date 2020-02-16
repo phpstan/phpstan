@@ -101,3 +101,57 @@ jobs:
 
       - name: "Extension build"
         run: "./e2e/test-extension.sh 'https://github.com/phpstan/${{ matrix.extension-name }}.git'"
+
+  other-tests:
+    name: "Other Tests"
+
+    runs-on: "ubuntu-latest"
+
+    strategy:
+      matrix:
+        php-version:
+          - "7.4"
+        script:
+          - |
+            cd e2e
+            git clone https://github.com/nikic/PHP-Parser.git
+            cd PHP-Parser
+            git checkout v3.1.5
+            composer install
+            ../../phpstan analyse -l 0 -c ../php-parser-baseline.neon lib
+          - |
+            cd e2e/phpstorm-stubs
+            composer install
+            ../../phpstan analyse -l 8 test.php
+            vendor/bin/phpunit ExampleTest.php
+          - |
+            cd e2e/react-promise
+            composer install
+            ../../phpstan analyse -l 8 src
+          - |
+            cd e2e/hoa
+            composer install
+            ../../phpstan analyse -l 8 src
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2.0.0"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@1.8.2"
+        with:
+          coverage: "none"
+          php-version: "${{ matrix.php-version }}"
+
+      - name: "Cache dependencies"
+        uses: "actions/cache@v1.1.2"
+        with:
+          path: "~/.composer/cache"
+          key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php-version }}-composer-"
+
+      - name: "Install dependencies"
+        run: "composer update --no-interaction --no-progress --no-suggest"
+
+      - name: "Tests"
+        run: "${{ matrix.script }}"
