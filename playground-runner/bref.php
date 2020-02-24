@@ -47,12 +47,7 @@ lambda(function (array $event) {
 
 	/** @var \PHPStan\Analyser\Analyser $analyser */
 	$analyser = $container->getByType(\PHPStan\Analyser\Analyser::class);
-
-	/** @var \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver */
-	$nodeScopeResolver = $container->getByType(\PHPStan\Analyser\NodeScopeResolver::class);
-	$results = $analyser->analyse([$codePath], true, function (string $file) use ($nodeScopeResolver, $codePath): void {
-		$nodeScopeResolver->setAnalysedFiles([$codePath]);
-	}, null, false);
+	$results = $analyser->analyse([$codePath], true, null, null, false, [$codePath])->getErrors();
 
 	$errors = [];
 	foreach ($results as $result) {
