@@ -55,11 +55,17 @@ the logo of your company in PHPStan's README.
 * [Fabian Böttcher](https://github.com/Cakasim)
 * [Josef Benjač](https://github.com/josefbenjac)
 * [Lamp Bristol](https://github.com/lampbristolteam)
+* [Florian Engelhardt](https://github.com/flow-control)
+* [Dave Liddament](https://github.com/DaveLiddament)
+* [Miroslav Šustek](https://github.com/sustmi)
+* [Scott Helme](https://github.com/ScottHelme)
+* [Emir Karşıyakalı](https://github.com/emir)
+* [AllenJB](https://github.com/AllenJB)
+* [Jakub Trmota](https://github.com/forrest79)
+* [Tomas Norre Mikkelsen](https://github.com/tomasnorre)
 
 * Kayneth
-* Miroslav Šustek
 * Mandy Schoep
-* Florian Engelhardt
 * thechris
 * Evgenii Bobkov
 * Bill Condo
