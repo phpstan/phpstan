@@ -872,16 +872,22 @@ public function getClass(): string
 	return \PHPUnit\Framework\Assert::class;
 }
 
-public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, TypeSpecifierContext $context): bool;
+public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, TypeSpecifierContext $context): bool
 {
 	// The $context argument tells us if we're in an if condition or not (as in this case).
-	return $staticMethodReflection->getName() === 'assertNotNull' && $context->null();
+	// Is assertNotNull called with at least 1 argument?
+	return $staticMethodReflection->getName() === 'assertNotNull' && $context->null() && isset($node->args[0]);
 }
 
 public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
 {
+	$expr = $node->args[0]->value;
+	$typeBefore = $scope->getType($expr);
+	$type = TypeCombinator::removeNull($typeBefore);
+
 	// Assuming extension implements \PHPStan\Analyser\TypeSpecifierAwareExtension.
-	return $this->typeSpecifier->create($node->var, \PHPStan\Type\TypeCombinator::removeNull($scope->getType($node->var)), $context);
+
+	return $this->typeSpecifier->create($expr, $type, TypeSpecifierContext::createTruthy());
 }
 ```
 
