@@ -47,7 +47,7 @@ lambda(function (array $event) {
 
 	/** @var \PHPStan\Analyser\Analyser $analyser */
 	$analyser = $container->getByType(\PHPStan\Analyser\Analyser::class);
-	$results = $analyser->analyse([$codePath], true, null, null, false, [$codePath])->getErrors();
+	$results = $analyser->analyse([$codePath], null, null, false, [$codePath])->getErrors();
 
 	$errors = [];
 	foreach ($results as $result) {
