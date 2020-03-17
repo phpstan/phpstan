@@ -25,6 +25,8 @@ jobs:
           skip_cleanup: true
           draft: true
           name: $TRAVIS_TAG
+          on:
+            tags: true
 
     - stage: Update Playground
       name: Update Playground
