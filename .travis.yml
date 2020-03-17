@@ -15,6 +15,7 @@ jobs:
   include:
     - stage: Draft The Release
       script: skip
+      if: tag IS present && type = push
       deploy:
         - provider: releases
           api_key: $GITHUB_TOKEN
@@ -24,11 +25,10 @@ jobs:
           skip_cleanup: true
           draft: true
           name: $TRAVIS_TAG
-          on:
-            tags: true
 
     - stage: Update Playground
       name: Update Playground
+      if: (branch = master) && type = push
       script:
         - cd playground-runner
         - composer install --no-dev
