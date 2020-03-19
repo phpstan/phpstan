@@ -318,7 +318,7 @@ New extensions are becoming available on a regular basis!
 
 ## Configuration
 
-A config file can passed to the `phpstan` executable using the `-c` option:
+A config file can be passed to the `phpstan` executable using the `-c` option:
 
 ```bash
 vendor/bin/phpstan analyse -l 4 -c phpstan.neon src tests
