@@ -15,4 +15,4 @@ functions:
         description: ''
         timeout: 20
         layers:
-            - arn:aws:lambda:eu-west-1:416566615250:layer:php-74:4
+            - ${bref:layer.php-74}

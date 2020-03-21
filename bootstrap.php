@@ -1,6 +1,7 @@
 <?php declare(strict_types = 1);
 
 spl_autoload_register(function (string $class): void {
+	static $composerAutoloader;
 	if (!extension_loaded('phar') || defined('__PHPSTAN_RUNNING__')) {
 		return;
 	}
@@ -10,7 +11,12 @@ spl_autoload_register(function (string $class): void {
 			throw new \Exception('Phar wrapper is not registered. Please review your php.ini settings.');
 		}
 
-		$composerAutoloader = require 'phar://' . __DIR__ . '/phpstan.phar/vendor/autoload.php';
+		if ($composerAutoloader === null) {
+			$composerAutoloader = require 'phar://' . __DIR__ . '/phpstan.phar/vendor/autoload.php';
+			require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/jetbrains/phpstorm-stubs/PhpStormStubsMap.php';
+			require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/react/promise-timer/src/functions_include.php';
+			require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/react/promise/src/functions_include.php';
+		}
 		$composerAutoloader->loadClass($class);
 
 		return;

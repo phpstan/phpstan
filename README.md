@@ -6,6 +6,7 @@
 
 <p align="center">
 	<a href="https://travis-ci.org/phpstan/phpstan"><img src="https://travis-ci.org/phpstan/phpstan.svg" alt="Build Status"></a>
+	<a href="https://github.com/phpstan/phpstan/actions"><img src="https://github.com/phpstan/phpstan/workflows/Build/badge.svg" alt="Build Status"></a>
 	<a href="https://packagist.org/packages/phpstan/phpstan"><img src="https://poser.pugx.org/phpstan/phpstan/v/stable" alt="Latest Stable Version"></a>
 	<a href="https://packagist.org/packages/phpstan/phpstan/stats"><img src="https://poser.pugx.org/phpstan/phpstan/downloads" alt="Total Downloads"></a>
 	<a href="https://choosealicense.com/licenses/mit/"><img src="https://poser.pugx.org/phpstan/phpstan/license" alt="License"></a>
@@ -35,6 +36,10 @@ can be checked before you run the actual line.
 <a href="https://blackfire.io/docs/introduction?utm_source=phpstan&utm_medium=github_readme&utm_campaign=logo"><img src="https://i.imgur.com/zR8rsqk.png" alt="Blackfire.io" width="254" height="64"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://www.intracto.com/"><img src="https://i.imgur.com/XRCDGZi.png" alt="Intracto" width="254" height="65"></a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://jobs.ticketswap.com/"><img src="https://i.imgur.com/lhzcutK.png" alt="TicketSwap" width="269" height="64"></a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://www.startupjobs.cz/startup/shipmonk"><img src="https://i.imgur.com/bAC47za.jpg" alt="ShipMonk" width="290" height="64"></a>
 
 [**You can now sponsor my open-source work on PHPStan through GitHub Sponsors.**](https://github.com/sponsors/ondrejmirtes)
 
@@ -258,8 +263,8 @@ making PHPStan suitable to run as part of your continuous integration script.
 ## Rule levels
 
 If you want to use PHPStan but your codebase isn't up to speed with strong typing
-and PHPStan's strict checks, you can choose from currently 8 levels
-(0 is the loosest and 7 is the strictest) by passing `--level` to `analyse` command. Default level is `0`.
+and PHPStan's strict checks, you can choose from currently 9 levels
+(0 is the loosest and 8 is the strictest) by passing `--level` to `analyse` command. Default level is `0`.
 
 This feature enables incremental adoption of PHPStan checks. You can start using PHPStan
 with a lower rule level and increase it when you feel like it.
@@ -291,6 +296,7 @@ Unofficial extensions for other frameworks and libraries are also available:
 * [Phony](https://github.com/eloquent/phpstan-phony)
 * [Prophecy](https://github.com/Jan0707/phpstan-prophecy)
 * [Laravel](https://github.com/nunomaduro/larastan)
+* [marc-mabe/php-enum](https://github.com/marc-mabe/php-enum-phpstan)
 * [myclabs/php-enum](https://github.com/timeweb/phpstan-enum)
 * [Yii2](https://github.com/proget-hq/phpstan-yii2)
 * [PhpSpec](https://github.com/proget-hq/phpstan-phpspec)
@@ -298,7 +304,7 @@ Unofficial extensions for other frameworks and libraries are also available:
 * [moneyphp/money](https://github.com/JohnstonCode/phpstan-moneyphp)
 * [Drupal](https://github.com/mglaman/phpstan-drupal)
 * [WordPress](https://github.com/szepeviktor/phpstan-wordpress)
-* [Zend Framework](https://github.com/Slamdunk/phpstan-zend-framework)
+* [Laminas](https://github.com/Slamdunk/phpstan-laminas-framework) (a.k.a. [Zend Framework](https://github.com/Slamdunk/phpstan-zend-framework))
 * [Nextras ORM](https://github.com/nextras/orm-phpstan)
 
 Unofficial extensions with third-party rules:
@@ -313,7 +319,7 @@ New extensions are becoming available on a regular basis!
 
 ## Configuration
 
-Config file is passed to the `phpstan` executable with `-c` option:
+A config file can be passed to the `phpstan` executable using the `-c` option:
 
 ```bash
 vendor/bin/phpstan analyse -l 4 -c phpstan.neon src tests
@@ -345,6 +351,16 @@ All the following options are part of the `parameters` section.
  - `paths` - specifies analysed paths - if specified, paths are not required to be passed as arguments
 
 Relative paths in the configuration are made absolute according to the directory where the configuration file resides.
+
+Here is an example of a `phpstan.neon` file to run `vendor/bin/phpstan analyse` without any extra argument:
+
+```neon
+parameters:
+	level: 5
+	paths:
+		- src
+		- tests
+```
 
 ### Autoloading
 
@@ -569,9 +585,12 @@ Check as well [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-dep
 
 ### Custom error formatters
 
-PHPStan outputs errors via formatters. You can customize the output by implementing the `ErrorFormatter` interface in a new class and add it to the configuration. For existing formatters, see next chapter.
+PHPStan outputs errors via formatters. You can customize the output by implementing the `\PHPStan\Command\ErrorFormatter\ErrorFormatter` interface in a new class and add it to the configuration. For existing formatters, see next chapter.
 
 ```php
+
+namespace PHPStan\Command\ErrorFormatter;
+
 interface ErrorFormatter
 {
 
@@ -584,7 +603,7 @@ interface ErrorFormatter
 	 */
 	public function formatErrors(
 		AnalysisResult $analysisResult,
-		\Symfony\Component\Console\Style\OutputStyle $style
+		\PHPStan\Command\Output $output
 	): int;
 
 }
@@ -612,6 +631,7 @@ You can pass the following keywords to the `--error-format=X` parameter in order
 - `raw`: Contains one error per line, with path to file, line number, and error description
 - `checkstyle`: Creates a checkstyle.xml compatible output. Note that you'd have to redirect output into a file in order to capture the results for later processing.
 - `json`: Creates minified .json output without whitespaces. Note that you'd have to redirect output into a file in order to capture the results for later processing.
+- `junit`: Creates JUnit compatible output. Note that you'd have to redirect output into a file in order to capture the results for later processing.
 - `prettyJson`: Creates human readable .json output with whitespaces and indentations. Note that you'd have to redirect output into a file in order to capture the results for later processing.
 - `gitlab`: Creates format for use Code Quality widget on GitLab Merge Request.
 - `baselineNeon`: Creates a .neon output for including in your config. This allows a baseline for existing errors. Note that you'd have to redirect output into a file in order to capture the results for later processing. [Detailed article about this feature.](https://medium.com/@ondrejmirtes/phpstans-baseline-feature-lets-you-hold-new-code-to-a-higher-standard-e77d815a5dff)
@@ -863,16 +883,22 @@ public function getClass(): string
 	return \PHPUnit\Framework\Assert::class;
 }
 
-public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, TypeSpecifierContext $context): bool;
+public function isStaticMethodSupported(MethodReflection $staticMethodReflection, StaticCall $node, TypeSpecifierContext $context): bool
 {
 	// The $context argument tells us if we're in an if condition or not (as in this case).
-	return $staticMethodReflection->getName() === 'assertNotNull' && $context->null();
+	// Is assertNotNull called with at least 1 argument?
+	return $staticMethodReflection->getName() === 'assertNotNull' && $context->null() && isset($node->args[0]);
 }
 
 public function specifyTypes(MethodReflection $staticMethodReflection, StaticCall $node, Scope $scope, TypeSpecifierContext $context): SpecifiedTypes
 {
+	$expr = $node->args[0]->value;
+	$typeBefore = $scope->getType($expr);
+	$type = TypeCombinator::removeNull($typeBefore);
+
 	// Assuming extension implements \PHPStan\Analyser\TypeSpecifierAwareExtension.
-	return $this->typeSpecifier->create($node->var, \PHPStan\Type\TypeCombinator::removeNull($scope->getType($node->var)), $context);
+
+	return $this->typeSpecifier->create($expr, $type, TypeSpecifierContext::createTruthy());
 }
 ```
 

@@ -2,13 +2,6 @@ os: linux
 dist: xenial
 language: php
 
-script:
-  - composer install
-  - cd e2e
-  - composer install
-  - php testPharAutoloader.php
-  - vendor/bin/phpunit PharTest.php
-
 env:
   global:
     # GITHUB_TOKEN
@@ -20,110 +13,9 @@ env:
 
 jobs:
   include:
-    - stage: Tests
-      php: 7.1
-
-    - stage: Tests
-      php: 7.2
-
-    - stage: Tests
-      php: 7.3
-
-    - stage: Tests
-      php: 7.4snapshot
-
-    - stage: Tests
-      os: windows
-      dist: 1803-containers
-      language: sh # No PHP currently
-      env: PHP_VERSION=7.1.32
-      install:
-        - choco install php --version=${PHP_VERSION} --package-parameters="/InstallDir:c:\tools\php"
-        - choco install composer --ia "/DEV=C:\tools\php"
-        - export PATH=/c/tools/php:$PATH
-
-    - stage: Tests
-      os: windows
-      dist: 1803-containers
-      language: sh # No PHP currently
-      env: PHP_VERSION=7.2.23
-      install:
-        - choco install php --version=${PHP_VERSION} --package-parameters="/InstallDir:c:\tools\php"
-        - choco install composer --ia "/DEV=C:\tools\php"
-        - export PATH=/c/tools/php:$PATH
-
-    - stage: Tests
-      os: windows
-      dist: 1803-containers
-      language: sh # No PHP currently
-      env: PHP_VERSION=7.3.10
-      install:
-        - choco install php --version=${PHP_VERSION} --package-parameters="/InstallDir:c:\tools\php"
-        - choco install composer --ia "/DEV=C:\tools\php"
-        - export PATH=/c/tools/php:$PATH
-
-    - stage: Extension Tests
-      name: phpstan-phpunit
-      script:
-        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-phpunit.git'
-
-    - stage: Extension Tests
-      name: phpstan-strict-rules
-      script:
-        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-strict-rules.git'
-
-    - stage: Extension Tests
-      name: phpstan-mockery
-      script:
-        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-mockery.git'
-
-    - stage: Extension Tests
-      name: phpstan-doctrine
-      script:
-        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-doctrine.git'
-
-    - stage: Extension Tests
-      name: phpstan-symfony
-      script:
-        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-symfony.git'
-
-    - stage: Extension Tests
-      name: phpstan-php-parser
-      script:
-        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-php-parser.git'
-
-    - stage: Extension Tests
-      name: phpstan-deprecation-rules
-      script:
-        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-deprecation-rules.git'
-
-    - stage: Extension Tests
-      name: phpdoc-parser
-      script:
-        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpdoc-parser.git'
-
-    - stage: Extension Tests
-      name: phpstan-nette
-      script:
-        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-nette.git'
-
-    - stage: Extension Tests
-      name: phpstan-dibi
-      script:
-        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-dibi.git'
-
-    - stage: Extension Tests
-      name: phpstan-webmozart-assert
-      script:
-        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-webmozart-assert.git'
-
-    - stage: Extension Tests
-      name: phpstan-beberlei-assert
-      script:
-        - ./e2e/test-extension.sh 'https://github.com/phpstan/phpstan-beberlei-assert.git'
-
     - stage: Draft The Release
       script: skip
+      if: tag IS present && type = push
       deploy:
         - provider: releases
           api_key: $GITHUB_TOKEN
@@ -138,6 +30,7 @@ jobs:
 
     - stage: Update Playground
       name: Update Playground
+      if: (branch = master) && type = push
       script:
         - cd playground-runner
         - composer install --no-dev
