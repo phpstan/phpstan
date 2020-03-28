@@ -7,3 +7,4 @@
 /hooks export-ignore
 /playground-runner export-ignore
 /.travis.yml export-ignore
+/website export-ignore

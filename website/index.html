@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name='viewport' content='width=device-width, initial-scale=1, viewport-fit=cover'>
+		<title>PHPStan</title>
+		<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+		<link rel="stylesheet" href="./app.pcss">
+		<link rel="icon" type="image/png" href="images/favicon.png">
+	</head>
+	<body>
+
+	<div class="min-h-screen bg-white">
+		<nav class="bg-white border-b border-gray-200">
+			<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div class="flex justify-between h-16">
+					<div class="flex">
+						<div class="flex-shrink-0 flex items-center">
+							<a href="/"><img class="block h-12 w-auto rounded-lg" src="/images/logo.png" alt="PHPStan" /></a>
+							<h2 class="text-2xl font-semibold leading-tight text-gray-800 ml-4">
+								<a href="/">PHPStan</a>
+							</h2>
+						</div>
+						<div class="hidden sm:-my-px sm:ml-6 sm:flex">
+							<a href="/" class="inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-md font-medium leading-5 text-gray-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out">
+								Playground
+							</a>
+							<a target="_blank" href="https://github.com/phpstan/phpstan" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-md font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out">
+								GitHub
+								<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="ml-1  w-4 h-4"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+							</a>
+						</div>
+					</div>
+					<div class="-mr-2 flex items-center sm:hidden">
+						<button data-bind="click: toggleMainMenu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+							<svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+								<path data-bind="css: {hidden: mainMenuOpen, 'inline-flex': !mainMenuOpen()}" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+								<path data-bind="css: {hidden: !mainMenuOpen(), 'inline-flex': mainMenuOpen}" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+							</svg>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div data-bind="css: {block: mainMenuOpen, hidden: !mainMenuOpen()}" class="hidden sm:hidden">
+				<div class="pt-2 pb-3">
+					<a href="/" class="block pl-3 pr-4 py-2 border-l-4 border-blue-500 text-base font-medium text-blue-700 bg-blue-50 focus:outline-none focus:text-blue-800 focus:bg-blue-100 focus:border-blue-700 transition duration-150 ease-in-out">Playground</a>
+					<a target="_blank" href="https://github.com/phpstan/phpstan" class="flex items-center mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+						<span>GitHub</span>
+						<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-4 h-4 ml-1"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+					</a>
+				</div>
+			</div>
+		</nav>
+
+		<div class="py-5">
+			<main>
+				<div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+					<p class="mb-4 px-4 sm:px-0">PHPStan finds bugs in your code without writing tests. <a href="https://medium.com/@ondrejmirtes/phpstan-2939cd0ad0e3" target="_blank" class="underline hover:no-underline">Read more about it here</a> or try it right now in the editor:</p>
+					<!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL -->
+					<svg data-bind="visible: false" class="mt-8 mx-4 sm:mx-0" width="38" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#3f83f8">
+						<g fill="none" fill-rule="evenodd">
+							<g transform="translate(1 1)" stroke-width="2">
+								<circle stroke-opacity="0" cx="18" cy="18" r="18"/>
+								<path d="M36 18c0-9.94-8.06-18-18-18">
+									<animateTransform
+											attributeName="transform"
+											type="rotate"
+											from="0 18 18"
+											to="360 18 18"
+											dur="1s"
+											repeatCount="indefinite"/>
+								</path>
+							</g>
+						</g>
+					</svg>
+					<div style="display: none" data-bind="visible: true">
+						<form action="#" method="post">
+							<textarea data-bind="codeMirror: code"></textarea>
+
+							<div class="flex align-items-center mt-4 flex-col sm:flex-row">
+								<select class="form-select block mt-1 mx-4 sm:mx-0" data-bind="value: level">
+									<option value="0">Level 0</option>
+									<option value="1">Level 1</option>
+									<option value="2">Level 2</option>
+									<option value="3">Level 3</option>
+									<option value="4">Level 4</option>
+									<option value="5">Level 5</option>
+									<option value="6">Level 6</option>
+									<option value="7">Level 7</option>
+									<option value="8">Level 8</option>
+								</select>
+
+								<label class="inline-flex items-center px-4 mt-2 sm:mt-0 ml-0 sm:ml-4">
+									<input type="checkbox" class="form-checkbox" data-bind="checked: strictRules">
+									<span class="ml-2">Strict rules</span>
+								</label>
+
+								<label class="inline-flex items-center px-4">
+									<input type="checkbox" class="form-checkbox" data-bind="checked: bleedingEdge">
+									<span class="ml-2">Bleeding edge</span>
+								</label>
+
+								<label class="inline-flex items-center px-4">
+									<input type="checkbox" class="form-checkbox" data-bind="checked: treatPhpDocTypesAsCertain">
+									<span class="ml-2">Treat PHPDoc types as certain</span>
+								</label>
+							</div>
+						</form>
+
+						<!-- ko if: isLoading -->
+							<!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL -->
+							<svg class="mt-8 mx-4 sm:mx-0" width="38" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#3f83f8">
+								<g fill="none" fill-rule="evenodd">
+									<g transform="translate(1 1)" stroke-width="2">
+										<circle stroke-opacity="0" cx="18" cy="18" r="18"/>
+										<path d="M36 18c0-9.94-8.06-18-18-18">
+											<animateTransform
+													attributeName="transform"
+													type="rotate"
+													from="0 18 18"
+													to="360 18 18"
+													dur="1s"
+													repeatCount="indefinite"/>
+										</path>
+									</g>
+								</g>
+							</svg>
+						<!-- /ko -->
+
+						<!-- ko if: hasServerError -->
+							<span class="inline-flex text-red-500 mt-8">An error occured. Please try again later.</span>
+						<!-- /ko -->
+
+						<!-- ko ifnot: hasServerError -->
+							<div class="flex align-items-stretch mx-4 sm:mx-0">
+								<!-- ko if: legacyResult() === null && !isLoading() && errors().length > 0 -->
+								<span class="inline-flex flex-grow justify-center sm:flex-grow-0 items-center px-4 py-3 rounded-lg text-lg font-medium leading-4 bg-red-100 text-red-900 mt-8" data-bind="text: errorsText"></span>
+								<!-- /ko -->
+
+								<!-- ko if: legacyResult() === null && !isLoading() && errors().length === 0 -->
+								<span class="inline-flex flex-grow sm:flex-grow-0 items-center px-4 py-3 rounded-lg text-lg font-medium leading-4 bg-green-100 text-green-900 mt-8">
+										No errors!
+									</span>
+								<!-- /ko -->
+
+								<!-- ko if: legacyResult() === null && !isLoading() && !isSharing() -->
+								<a href="#" data-bind="click: share" class="inline-flex flex-grow sm:flex-grow-0 items-center px-2.5 py-3 rounded-lg text-lg font-medium leading-4 bg-gray-100 hover:bg-gray-200 mt-8 ml-2 w-32 h-12 justify-center">
+									<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+									<span class="ml-2" data-bind="text: shareText"></span>
+								</a>
+								<!-- /ko -->
+
+								<!-- ko if: legacyResult() === null && !isLoading() && isSharing() -->
+								<span class="inline-flex flex-grow sm:flex-grow-0 items-center px-2.5 py-3 rounded-lg text-lg font-medium leading-4 bg-gray-100 mt-8 ml-2 w-32 h-12 justify-center">
+										<!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL -->
+										<svg width="120" height="30" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#3f83f8" class="h-12 w-12">
+											<circle cx="15" cy="15" r="15">
+												<animate attributeName="r" from="15" to="15"
+														 begin="0s" dur="0.8s"
+														 values="15;9;15" calcMode="linear"
+														 repeatCount="indefinite" />
+												<animate attributeName="fill-opacity" from="1" to="1"
+														 begin="0s" dur="0.8s"
+														 values="1;.5;1" calcMode="linear"
+														 repeatCount="indefinite" />
+											</circle>
+											<circle cx="60" cy="15" r="9" fill-opacity="0.3">
+												<animate attributeName="r" from="9" to="9"
+														 begin="0s" dur="0.8s"
+														 values="9;15;9" calcMode="linear"
+														 repeatCount="indefinite" />
+												<animate attributeName="fill-opacity" from="0.5" to="0.5"
+														 begin="0s" dur="0.8s"
+														 values=".5;1;.5" calcMode="linear"
+														 repeatCount="indefinite" />
+											</circle>
+											<circle cx="105" cy="15" r="15">
+												<animate attributeName="r" from="15" to="15"
+														 begin="0s" dur="0.8s"
+														 values="15;9;15" calcMode="linear"
+														 repeatCount="indefinite" />
+												<animate attributeName="fill-opacity" from="1" to="1"
+														 begin="0s" dur="0.8s"
+														 values="1;.5;1" calcMode="linear"
+														 repeatCount="indefinite" />
+											</circle>
+										</svg>
+									</span>
+								<!-- /ko -->
+							</div>
+
+							<!-- ko if: errors().length > 0 && !isLoading() -->
+								<table class="w-full mt-8">
+									<thead>
+									<tr>
+										<th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-base leading-4 font-medium text-gray-500 tracking-wider">
+											Line
+										</th>
+										<th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-base leading-4 font-medium text-gray-500 tracking-wider">
+											Error
+										</th>
+									</tr>
+									</thead>
+									<tbody class="bg-white">
+									<!-- ko foreach: errors -->
+									<tr>
+										<td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-base leading-5 font-medium text-gray-500" data-bind="text: $data.line"></td>
+										<td class="px-6 py-4 border-b border-gray-200 text-base leading-5 text-gray-900" data-bind="text: $data.message"></td>
+									</tr>
+									<!-- /ko -->
+									</tbody>
+								</table>
+							<!-- /ko -->
+
+							<!-- ko if: legacyResult() !== null && !isLoading() -->
+								<pre data-bind="html: legacyResult" class="bg-gray-800 w-auto p-4 mt-8 leading-none"></pre>
+							<!-- /ko -->
+						<!-- /ko -->
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+	<script src="./index.ts"></script>
+
+	</body>
+</html>

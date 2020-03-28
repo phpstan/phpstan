@@ -1,0 +1,65 @@
+# You can remove the first two lines to have credentials read from
+# the environment variables AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY or
+# ~/.aws/credentials.
+s3_bucket: web-phpstan.org
+
+# set session_token if using temporary credentials with a session token (eg: when assuming a role)
+# session_token: YOUR_AWS_S3_SESSION_TOKEN
+
+# Below are examples of all the available configurations.
+# See README for more detailed info on each of them.
+
+site: dist
+
+# index_document: index.html
+# error_document: error.html
+
+# max_age:
+#   "assets/*": 6000
+#   "*": 300
+
+gzip:
+- .html
+- .css
+- .js
+# gzip_zopfli: true
+
+# See http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region for valid endpoints
+# s3_endpoint: ap-northeast-1
+
+# ignore_on_server: that_folder_of_stuff_i_dont_keep_locally
+
+# exclude_from_upload:
+#   - those_folders_of_stuff
+#   - i_wouldnt_want_to_upload
+
+# s3_reduced_redundancy: true
+
+cloudfront_distribution_id: E1W83FJ5FCYXPT
+
+# cloudfront_distribution_config:
+#   default_cache_behavior:
+#     min_ttl: <%= 60 * 60 * 24 %>
+#   aliases:
+#     quantity: 1
+#     items:
+#       - your.website.com
+
+# cloudfront_invalidate_root: true
+
+cloudfront_wildcard_invalidation: true
+
+concurrency_level: 5
+
+# redirects:
+#   index.php: /
+#   about.php: about.html
+#   music-files/promo.mp4: http://www.youtube.com/watch?v=dQw4w9WgXcQ
+
+# routing_rules:
+#   - condition:
+#       key_prefix_equals: blog/some_path
+#     redirect:
+#       host_name: blog.example.com
+#       replace_key_prefix_with: some_new_path/
+#       http_redirect_code: 301

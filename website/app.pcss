@@ -1,0 +1,13 @@
+@import './node_modules/codemirror/lib/codemirror.css';
+@import './node_modules/codemirror/theme/ttcn.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* purgecss ignore */
+.CodeMirror {
+	font-size: 15px;
+	height: auto;
+	@apply border-t border-b shadow-md
+}
