@@ -56,23 +56,9 @@
 			<main>
 				<div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
 					<p class="mb-4 px-4 sm:px-0">PHPStan finds bugs in your code without writing tests. <a href="https://medium.com/@ondrejmirtes/phpstan-2939cd0ad0e3" target="_blank" class="underline hover:no-underline">Read more about it here</a> or try it right now in the editor:</p>
-					<!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL -->
-					<svg data-bind="visible: false" class="mt-8 mx-4 sm:mx-0" width="38" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#3f83f8">
-						<g fill="none" fill-rule="evenodd">
-							<g transform="translate(1 1)" stroke-width="2">
-								<circle stroke-opacity="0" cx="18" cy="18" r="18"/>
-								<path d="M36 18c0-9.94-8.06-18-18-18">
-									<animateTransform
-											attributeName="transform"
-											type="rotate"
-											from="0 18 18"
-											to="360 18 18"
-											dur="1s"
-											repeatCount="indefinite"/>
-								</path>
-							</g>
-						</g>
-					</svg>
+					<div data-bind="visible: false" class="mx-auto w-12 h-12 my-12">
+						<div class="spinner"></div>
+					</div>
 					<div style="display: none" data-bind="visible: true">
 						<form action="#" method="post">
 							<textarea data-bind="codeMirror: code"></textarea>
@@ -108,23 +94,9 @@
 						</form>
 
 						<!-- ko if: isLoading -->
-							<!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL -->
-							<svg class="mt-8 mx-4 sm:mx-0" width="38" height="38" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg" stroke="#3f83f8">
-								<g fill="none" fill-rule="evenodd">
-									<g transform="translate(1 1)" stroke-width="2">
-										<circle stroke-opacity="0" cx="18" cy="18" r="18"/>
-										<path d="M36 18c0-9.94-8.06-18-18-18">
-											<animateTransform
-													attributeName="transform"
-													type="rotate"
-													from="0 18 18"
-													to="360 18 18"
-													dur="1s"
-													repeatCount="indefinite"/>
-										</path>
-									</g>
-								</g>
-							</svg>
+						<div class="m-auto w-12 h-12 my-12">
+							<div class="spinner"></div>
+						</div>
 						<!-- /ko -->
 
 						<!-- ko if: hasServerError -->
