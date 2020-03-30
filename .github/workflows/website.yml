@@ -89,7 +89,7 @@ jobs:
           path: dist
 
       - name: "Sync with S3"
-        uses: jakejarvis/s3-sync-action@2fb81a9e9fea11e078587911c27754e42e6a6e88
+        uses: jakejarvis/s3-sync-action@v0.5.1
         with:
           args: --exclude '.git*/*' --delete --follow-symlinks
         env:
@@ -100,7 +100,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: "Invalidate CloudFront"
-        uses: chetan/invalidate-cloudfront-action@master
+        uses: chetan/invalidate-cloudfront-action@v1.2
         env:
           DISTRIBUTION: "E1W83FJ5FCYXPT"
           PATHS: '/index.html'
