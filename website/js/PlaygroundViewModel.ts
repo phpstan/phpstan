@@ -2,7 +2,7 @@ import * as ko from 'knockout';
 import {PHPStanError} from './PHPStanError';
 import $ from 'jquery';
 
-export class RootViewModel {
+export class PlaygroundViewModel {
 
 	mainMenuOpen: KnockoutObservable<boolean>;
 	code: KnockoutObservable<string>;

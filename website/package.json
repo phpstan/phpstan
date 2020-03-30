@@ -17,6 +17,7 @@
 		"parcel-bundler": "^1.12.4",
 		"parcel-plugin-clean-dist": "^0.0.6",
 		"postcss-modules": "^1.5.0",
+		"posthtml-extend": "^0.3.0",
 		"tailwindcss": "^1.2.0",
 		"tslint": "^6.1.0",
 		"typescript": "^3.8.3"
@@ -24,6 +25,6 @@
 	"scripts": {
 		"check": "tsc -p tsconfig.json --noEmit && tslint -p tsconfig.json -c tslint.json",
 		"watch": "parcel index.html",
-		"build": "parcel build *.html --no-minify --no-source-maps"
+		"build": "parcel build index.html --no-minify --no-source-maps"
 	}
 }

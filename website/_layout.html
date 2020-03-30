@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name='viewport' content='width=device-width, initial-scale=1, viewport-fit=cover'>
+	<title>PHPStan</title>
+	<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+	<link rel="stylesheet" href="./app.pcss">
+	<link rel="icon" type="image/png" href="images/favicon.png">
+</head>
+<body>
+
+<div class="min-h-screen bg-white">
+	<nav class="bg-white border-b border-gray-200">
+		<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="flex justify-between h-16">
+				<div class="flex">
+					<div class="flex-shrink-0 flex items-center">
+						<a href="/"><img class="block h-12 w-auto rounded-lg" src="/images/logo.png" alt="PHPStan" /></a>
+						<h2 class="text-2xl font-semibold leading-tight text-gray-800 ml-4">
+							<a href="/">PHPStan</a>
+						</h2>
+					</div>
+					<div class="hidden sm:-my-px sm:ml-6 sm:flex">
+						<a href="/" class="inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-md font-medium leading-5 text-gray-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out">
+							Playground
+						</a>
+						<a target="_blank" href="https://github.com/phpstan/phpstan" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-md font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out">
+							GitHub
+							<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="ml-1  w-4 h-4"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+						</a>
+					</div>
+				</div>
+				<div class="-mr-2 flex items-center sm:hidden">
+					<button data-bind="click: toggleMainMenu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+						<svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+							<path data-bind="css: {hidden: mainMenuOpen, 'inline-flex': !mainMenuOpen()}" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+							<path data-bind="css: {hidden: !mainMenuOpen(), 'inline-flex': mainMenuOpen}" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+						</svg>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div data-bind="css: {block: mainMenuOpen, hidden: !mainMenuOpen()}" class="hidden sm:hidden">
+			<div class="pt-2 pb-3">
+				<a href="/" class="block pl-3 pr-4 py-2 border-l-4 border-blue-500 text-base font-medium text-blue-700 bg-blue-50 focus:outline-none focus:text-blue-800 focus:bg-blue-100 focus:border-blue-700 transition duration-150 ease-in-out">Playground</a>
+				<a target="_blank" href="https://github.com/phpstan/phpstan" class="flex items-center mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+					<span>GitHub</span>
+					<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-4 h-4 ml-1"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+				</a>
+			</div>
+		</div>
+	</nav>
+
+	<div class="py-5">
+		<main>
+			<div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+				<block name="content"></block>
+			</div>
+		</main>
+	</div>
+</div>
+<block name="scripts"></block>
+
+</body>
+</html>
