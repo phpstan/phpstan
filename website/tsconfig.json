@@ -10,5 +10,8 @@
 		"strictNullChecks": true,
 		"noImplicitReturns": true,
 		"allowSyntheticDefaultImports": true
-	}
+	},
+	"include": [
+		"js/**/*"
+	]
 }

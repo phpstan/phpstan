@@ -1,10 +1,11 @@
 import * as ko from 'knockout';
 import {PHPStanError} from './PHPStanError';
 import $ from 'jquery';
+import {MainMenuViewModel} from './MainMenuViewModel';
 
 export class PlaygroundViewModel {
 
-	mainMenuOpen: KnockoutObservable<boolean>;
+	mainMenu: MainMenuViewModel;
 	code: KnockoutObservable<string>;
 	codeDelayed: KnockoutComputed<string>;
 	errors: KnockoutObservableArray<PHPStanError>;
@@ -27,7 +28,7 @@ export class PlaygroundViewModel {
 	apiBaseUrl: string = 'https://api.phpstan.org';
 
 	constructor() {
-		this.mainMenuOpen = ko.observable(false);
+		this.mainMenu = new MainMenuViewModel();
 		this.code = ko.observable('');
 		this.codeDelayed = ko.pureComputed(this.code).extend({
 			notify: 'always',
@@ -144,10 +145,6 @@ export class PlaygroundViewModel {
 			}, 2000);
 			return;
 		}
-	}
-
-	toggleMainMenu(): void {
-		this.mainMenuOpen(!this.mainMenuOpen());
 	}
 
 	startAcceptingChanges(): void {
