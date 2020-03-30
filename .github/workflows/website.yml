@@ -1,0 +1,109 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Website Build"
+
+on:
+  push:
+    branches:
+      - "master"
+
+jobs:
+  typescript-check:
+    name: "TypeScript check"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2.0.0"
+
+      - name: "Install Node"
+        uses: "actions/setup-node@v1"
+        with:
+          node-version: "13"
+
+      - name: "Cache dependencies"
+        uses: "actions/cache@v1"
+        with:
+          path: "$(yarn cache dir)"
+          key: "${{ runner.os }}-yarn-${{ hashFiles('website/**/yarn.lock') }}"
+          restore-keys: "${{ runner.os }}-yarn-"
+
+      - name: "Install dependencies"
+        working-directory: ./website
+        run: "yarn install"
+
+      - name: "TypeScript check"
+        working-directory: ./website
+        run: "yarn run check"
+
+  build:
+    name: "Build"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2.0.0"
+
+      - name: "Install Node"
+        uses: "actions/setup-node@v1"
+        with:
+          node-version: "13"
+
+      - name: "Cache dependencies"
+        uses: "actions/cache@v1"
+        with:
+          path: "$(yarn cache dir)"
+          key: "${{ runner.os }}-yarn-${{ hashFiles('website/**/yarn.lock') }}"
+          restore-keys: "${{ runner.os }}-yarn-"
+
+      - name: "Install dependencies"
+        working-directory: ./website
+        run: "yarn install"
+
+      - name: "Build"
+        working-directory: ./website
+        run: "yarn run build"
+
+      - name: "Upload website dist"
+        uses: actions/upload-artifact@v1
+        with:
+          name: website-dist
+          path: website/dist
+
+  deploy:
+    name: "Deploy"
+    needs:
+      - typescript-check
+      - build
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Install Node"
+        uses: "actions/setup-node@v1"
+        with:
+          node-version: "13"
+
+      - name: "Download website dist"
+        uses: actions/download-artifact@v1
+        with:
+          name: website-dist
+          path: dist
+
+      - name: "Sync with S3"
+        uses: jakejarvis/s3-sync-action@2fb81a9e9fea11e078587911c27754e42e6a6e88
+        with:
+          args: --exclude '.git*/*' --delete --follow-symlinks
+        env:
+          SOURCE_DIR: './dist'
+          AWS_REGION: 'eu-west-1'
+          AWS_S3_BUCKET: "web-phpstan.org"
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: "Invalidate CloudFront"
+        uses: chetan/invalidate-cloudfront-action@master
+        env:
+          DISTRIBUTION: "E1W83FJ5FCYXPT"
+          PATHS: '/index.html'
+          AWS_REGION: 'eu-west-1'
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
