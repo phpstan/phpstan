@@ -8,14 +8,14 @@
 	<link rel="stylesheet" href="./app.pcss">
 	<link rel="icon" type="image/png" href="images/favicon.png">
 </head>
-<body>
+<body class="overflow-hidden">
 
-<div class="min-h-screen bg-white">
-	<nav class="bg-white border-b border-gray-200">
+<div class="h-screen bg-white flex flex-col">
+	<nav class="bg-white border-b border-gray-200 flex-shrink">
 		<block name="menu"></block>
 	</nav>
 
-	<div class="py-5">
+	<div class="py-5 overflow-y-auto">
 		<main>
 			<div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
 				<block name="content"></block>
