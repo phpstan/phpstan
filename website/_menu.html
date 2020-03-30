@@ -8,9 +8,19 @@
 				</h2>
 			</div>
 			<div class="hidden sm:-my-px sm:ml-6 sm:flex">
-				<a href="/" class="inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-md font-medium leading-5 text-gray-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out">
-					Playground
-				</a>
+				<each loop="item, index in mainMenuItems">
+					<if condition="activeMenuItemLink === item.link">
+						<a href="{{ item.link }}" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-md font-medium leading-5 text-gray-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out">
+							{{ item.title }}
+						</a>
+					</if>
+					<else>
+						<a href="{{ item.link }}" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-md font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+							{{ item.title }}
+						</a>
+					</else>
+				</each>
+
 				<a target="_blank" href="https://github.com/phpstan/phpstan" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-md font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out">
 					GitHub
 					<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="ml-1  w-4 h-4"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
@@ -29,7 +39,18 @@
 </div>
 <div data-bind="css: {block: mainMenuOpen, hidden: !mainMenuOpen()}" class="hidden sm:hidden">
 	<div class="pt-2 pb-3">
-		<a href="/" class="block pl-3 pr-4 py-2 border-l-4 border-blue-500 text-base font-medium text-blue-700 bg-blue-50 focus:outline-none focus:text-blue-800 focus:bg-blue-100 focus:border-blue-700 transition duration-150 ease-in-out">Playground</a>
+		<each loop="item, index in mainMenuItems">
+			<if condition="activeMenuItemLink === item.link">
+				<a href="{{ item.link }}" class="mt-1 block pl-3 pr-4 py-2 border-l-4 border-blue-500 text-base font-medium text-blue-700 bg-blue-50 focus:outline-none focus:text-blue-800 focus:bg-blue-100 focus:border-blue-700 transition duration-150 ease-in-out">
+					{{ item.title }}
+				</a>
+			</if>
+			<else>
+				<a href="{{ item.link }}" class="mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
+					{{ item.title }}
+				</a>
+			</else>
+		</each>
 		<a target="_blank" href="https://github.com/phpstan/phpstan" class="flex items-center mt-1 block pl-3 pr-4 py-2 border-l-4 border-transparent text-base font-medium text-gray-600 hover:text-gray-800 hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:bg-gray-50 focus:border-gray-300 transition duration-150 ease-in-out">
 			<span>GitHub</span>
 			<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-4 h-4 ml-1"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>

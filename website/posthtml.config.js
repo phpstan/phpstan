@@ -5,6 +5,17 @@ module.exports = {
 		},
 		"posthtml-include": {
 			root: './'
-		}
+		},
+		"posthtml-expressions": {
+			"locals": {
+				"mainMenuItems": {
+					"playground": {
+						title: "Playground",
+						link: "/",
+						activeMenuItemLink: "/"
+					},
+				},
+			}
+		},
 	},
 };
