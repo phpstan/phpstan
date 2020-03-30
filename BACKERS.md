@@ -6,10 +6,6 @@ You can become one of them by [becoming a GitHub Sponsor](https://github.com/spo
 Check out all the tiers - higher ones include additional goodies like placing
 the logo of your company in PHPStan's README.
 
-# $110
-
-* [Terje Slettebø](https://github.com/tslettebo)
-
 # $30
 
 * [Wysija](https://github.com/Wysija)
@@ -63,16 +59,21 @@ the logo of your company in PHPStan's README.
 * [AllenJB](https://github.com/AllenJB)
 * [Jakub Trmota](https://github.com/forrest79)
 * [Tomas Norre Mikkelsen](https://github.com/tomasnorre)
+* [Gabriel Caruso](https://github.com/carusogabriel)
+* [Mickaël Andrieu](https://github.com/mickaelandrieu)
+* [Evgenii Bobkov](https://github.com/esbobkov)
+* [Luís Cobucci](https://github.com/lcobucci)
+* [Complex GmbH & Co. KG](https://github.com/complexgmbh)
+* [Niels Mokkenstorm](https://github.com/nmokkenstorm)
+* [SuRaMoN](https://github.com/SuRaMoN)
+* [Koji Tanaka](https://github.com/tenkoma)
 
 * Kayneth
 * Mandy Schoep
 * thechris
-* Evgenii Bobkov
 * Bill Condo
 * Rodrigue Villetard
-* Mickaël Andrieu
 * Luis Pablo Galeas
-* Luís Cobucci
 * Bart Reunes
 * Thomas Daugaard
 * Carlos C Soto
