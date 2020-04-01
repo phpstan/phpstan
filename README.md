@@ -315,6 +315,7 @@ Unofficial extensions with third-party rules:
 * [pepakriz / phpstan-exception-rules](https://github.com/pepakriz/phpstan-exception-rules)
 * [Slamdunk / phpstan-extensions](https://github.com/Slamdunk/phpstan-extensions)
 * [ekino / phpstan-banned-code](https://github.com/ekino/phpstan-banned-code)
+* [taptima / phpstan-custom](https://github.com/taptima/phpstan-custom)
 
 New extensions are becoming available on a regular basis!
 
