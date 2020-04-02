@@ -5,6 +5,9 @@
 	"require": {
 		"php": "^7.1"
 	},
+	"conflict": {
+		"phpstan/phpstan-shim": "*"
+	},
 	"bin": [
 		"phpstan",
 		"phpstan.phar"
