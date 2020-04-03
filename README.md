@@ -323,7 +323,7 @@ New extensions are becoming available on a regular basis!
 
 Head to [**Config Reference**](https://phpstan.org/config-reference) on PHPStan's website to learn about all the configuration options.
 
-### Custom rules
+## Custom rules
 
 PHPStan allows writing custom rules to check for specific situations in your own codebase. Your rule class
 needs to implement the `PHPStan\Rules\Rule` interface and registered as a service in the configuration file:
@@ -343,7 +343,7 @@ Check out also [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-
 
 Check as well [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) for rules that detect usage of deprecated classes, methods, properties, constants and traits!
 
-### Custom error formatters
+## Custom error formatters
 
 PHPStan outputs errors via formatters. You can customize the output by implementing the `\PHPStan\Command\ErrorFormatter\ErrorFormatter` interface in a new class and add it to the configuration. For existing formatters, see next chapter.
 
@@ -383,7 +383,7 @@ Use the name part after `errorFormatter.` as the CLI option value:
 vendor/bin/phpstan analyse -c phpstan.neon -l 4 --error-format awesome src tests
 ```
 
-### Existing error formatters to be used
+## Existing error formatters to be used
 
 You can pass the following keywords to the `--error-format=X` parameter in order to affect the output:
 
