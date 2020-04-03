@@ -14,7 +14,8 @@ if (!IS_DEVELOPMENT) {
 	plugins.push(
 		purgecss({
 			content: [__dirname + '/*.html'],
-			defaultExtractor: content => content.match(/[\w-/.:]+(?<!:)/g) || []
+			defaultExtractor: content => content.match(/[\w-/.:]+(?<!:)/g) || [],
+			whitelistPatterns: [/^hljs/],
 		})
 	);
 }
