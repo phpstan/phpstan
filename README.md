@@ -49,9 +49,6 @@ Does GitHub already have your 💳? Do you use PHPStan to find 🐛 before they 
 
 One-time donations [through PayPal](https://paypal.me/phpstan) are also accepted. To request an invoice, [contact me](mailto:ondrej@mirtes.cz) through e-mail.
 
-BTC: bc1qd5s06wjtf8rzag08mk3s264aekn52jze9zeapt
-<br>LTC: LSU5xLsWEfrVx1P9yJwmhziHAXikiE8xtC
-
 ## Documentation
 
 All the documentation lives on the [phpstan.org website](https://phpstan.org/):
