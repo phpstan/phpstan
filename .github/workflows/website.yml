@@ -103,7 +103,7 @@ jobs:
         uses: chetan/invalidate-cloudfront-action@v1.2
         env:
           DISTRIBUTION: "E1W83FJ5FCYXPT"
-          PATHS: '/,/index.html,/config-reference,/config-reference.html'
+          PATHS: '/,/config-reference,/user-guide/*'
           AWS_REGION: 'eu-west-1'
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

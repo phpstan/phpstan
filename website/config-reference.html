@@ -42,7 +42,7 @@
 				<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert" md>
 					**Getting started?**
 
-					This page is about all the configuration options PHPStan has. If you want to learn how to start using PHPStan, head to [Getting Started](/user-guide) instead.
+					This page is about all the configuration options PHPStan has. If you want to learn how to start using PHPStan, head to [Getting Started](/user-guide/getting-started) instead.
 				</div>
 
 				<div md>
@@ -193,7 +193,9 @@ composer require --dev phpstan/phpstan-beberlei-assert</code></pre>
 
 				<h2 id="autoloading">Autoloading</h2>
 
-				Learn more about autoloading in the [user guide](/user-guide/autoloading).
+				<div md>
+					Learn more about autoloading in the [user guide](/user-guide/autoloading).
+				</div>
 
 				<h2 id="bootstrap">Bootstrap</h2>
 
@@ -270,9 +272,11 @@ composer require --dev phpstan/phpstan-beberlei-assert</code></pre>
 
 				<h2 id="rule-level">Rule level</h2>
 
-				Learn more about rule levels in the [user guide](/user-guide/rule-levels).
+				<div md>
+					Learn more about rule levels in the [user guide](/user-guide/rule-levels).
 
-				You can save some keystrokes each time you run PHPStan by moving the desired level to the config file:
+					Instead of using the CLI option `--level`, you can save some keystrokes each time you run PHPStan by moving the desired level to the config file:
+				</div>
 
 				<pre><code class="hljs lang-yaml">parameters:
 	level: 6</code></pre>
