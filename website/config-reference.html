@@ -467,9 +467,9 @@ function foo($arg)
 					PHPStan runs in multiple threads by default, taking advantage of multiple cores in your CPU. It uses [a formula](https://github.com/phpstan/phpstan-src/blob/a97bdead71d24694dfe2bbe96de80486119b27a1/src/Parallel/Scheduler.php#L28-L45) to figure out how many child processes to spawn. The child processes are given "jobs" - each job represents a batch of a certain number of files to process. The inputs to the formula are:
 
 					* Auto-detected number of logical CPU cores on your system. If you have 8 physical cores and hyper-threading-enabled CPU, you have 16 logical CPU cores.
-					* Maximum number of desired spawned processes, to prevent CPU hogging of the whole system if it's resource-constrained. (`parallel.maximumNumberOfProcesses`)
-					* Minimum number of jobs per process. Process is spawned only if it will process at least 2 jobs by default.  (`parallel.minimumNumberOfJobsPerProcess`)
-					* Job size - how many files are analysed in a single batch (`parallel.jobSize`)
+					* Maximum number of desired spawned processes, to prevent CPU hogging of the whole system if it's resource-constrained. (`maximumNumberOfProcesses`)
+					* Minimum number of jobs per process. Process is spawned only if it will process at least 2 jobs by default.  (`minimumNumberOfJobsPerProcess`)
+					* Job size - how many files are analysed in a single batch (`jobSize`)
 					* Number of analysed files - it's different each time because of how your codebase changes, and also thanks to the [result cache](https://medium.com/@ondrejmirtes/from-minutes-to-seconds-massive-performance-gains-in-phpstan-163be88d1519).
 
 					These variables can be changed in the configuration. Here are the defaults:
