@@ -33,6 +33,7 @@
 		"watch-playground": "parcel index.html",
 		"watch-user-guide": "parcel index.html user-guide/*",
 		"watch-config-reference": "parcel config-reference.html",
-		"build": "parcel build index.html config-reference.html user-guide/* --no-minify --no-source-maps"
+		"watch-developing-extensions": "parcel index.html developing-extensions/*",
+		"build": "parcel build index.html config-reference.html user-guide/* developing-extensions/* --no-minify --no-source-maps"
 	}
 }

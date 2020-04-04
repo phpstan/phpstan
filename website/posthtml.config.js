@@ -26,6 +26,11 @@ module.exports = {
 						link: "/config-reference",
 						activeMenuItemLink: "/config-reference"
 					},
+					"developingExtensions": {
+						title: "Developing Extensions",
+						link: "/developing-extensions",
+						activeMenuItemLink: "/developing-extensions"
+					},
 				},
 			}
 		},

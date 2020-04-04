@@ -13,7 +13,7 @@ if (!IS_DEVELOPMENT) {
 
 	plugins.push(
 		purgecss({
-			content: [__dirname + '/*.html', __dirname + '/user-guide/*.html'],
+			content: [__dirname + '/*.html', __dirname + '/user-guide/*.html', __dirname + '/developing-extensions/*.html'],
 			defaultExtractor: content => content.match(/[\w-/.:]+(?<!:)/g) || [],
 			whitelistPatterns: [/^hljs/],
 		})
