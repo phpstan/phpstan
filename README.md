@@ -56,6 +56,7 @@ BTC: bc1qd5s06wjtf8rzag08mk3s264aekn52jze9zeapt
 
 * [Getting Started & User Guide](https://phpstan.org/user-guide/getting-started)
 * [Config Reference](https://phpstan.org/config-reference)
+* [Extension Library](https://phpstan.org/user-guide/extension-library)
 
 ## Custom rules
 
