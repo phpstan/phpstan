@@ -28,8 +28,8 @@ module.exports = {
 					},
 					"developingExtensions": {
 						title: "Developing Extensions",
-						link: "/developing-extensions",
-						activeMenuItemLink: "/developing-extensions"
+						link: "/developing-extensions/extension-types",
+						activeMenuItemLink: "/developing-extensions/extension-types"
 					},
 				},
 			}
