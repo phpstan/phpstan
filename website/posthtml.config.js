@@ -1,7 +1,8 @@
 module.exports = {
 	plugins: {
 		"posthtml-extend": {
-			root: './'
+			root: './',
+			strict: false
 		},
 		"posthtml-include": {
 			root: './'
@@ -14,6 +15,11 @@ module.exports = {
 						title: "Playground",
 						link: "/",
 						activeMenuItemLink: "/"
+					},
+					"userGuide": {
+						title: "User Guide",
+						link: "/user-guide/getting-started",
+						activeMenuItemLink: "/user-guide/getting-started",
 					},
 					"configReference": {
 						title: "Config Reference",

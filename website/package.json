@@ -31,7 +31,8 @@
 	"scripts": {
 		"check": "tsc -p tsconfig.json --noEmit && tslint -p tsconfig.json -c tslint.json",
 		"watch-playground": "parcel index.html",
+		"watch-user-guide": "parcel index.html user-guide/*",
 		"watch-config-reference": "parcel config-reference.html",
-		"build": "parcel build index.html config-reference.html --no-minify --no-source-maps"
+		"build": "parcel build index.html config-reference.html user-guide/* --no-minify --no-source-maps"
 	}
 }
