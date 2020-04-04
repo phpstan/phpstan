@@ -15,7 +15,6 @@
 					<li><a href="#neon-format">NEON format</a></li>
 					<li><a href="#config-file">Config file</a></li>
 					<li><a href="#multiple-files">Multiple files</a></li>
-					<li><a href="#installing-extensions">Installing extensions</a></li>
 					<li><a href="#ignoring-errors">Ignoring errors</a></li>
 					<li><a href="#autoloading">Autoloading</a></li>
 					<li><a href="#bootstrap">Bootstrap</a></li>
@@ -109,28 +108,6 @@ parameters:
 
 				<div md>
 					Relative paths in the `includes` section are resolved based on the directory of the config file is in. So in this example, `phpstan.neon.dist` and `phpstan.neon` are next to each other in the same directory.
-				</div>
-
-				<h2 id="installing-extensions">Installing extensions</h2>
-
-				<div md>
-					Users can install various PHPStan extensions to enhance the capabilities of the static analyser. Many extensions already support [phpstan/extension-installer](https://github.com/phpstan/extension-installer) Composer plugin, so in order to enable an extension, it's sufficient to require it in your `composer.json`:
-				</div>
-
-				<pre><code class="hljs language-bash">composer require --dev phpstan/extension-installer && \
-composer require --dev phpstan/phpstan-beberlei-assert</code></pre>
-
-				<div md>
-					If you can't or don't want to use [phpstan/extension-installer](https://github.com/phpstan/extension-installer), include the extension's configuration file manually in the `includes` section:
-				</div>
-
-				<pre><code class="hljs language-yaml">includes:
-	- vendor/phpstan/phpstan-beberlei-assert/extension.neon</code></pre>
-
-				<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert" md>
-					**Why wouldn't I want to always use [phpstan/extension-installer](https://github.com/phpstan/extension-installer)?**
-
-					It always enables all the functionality that an extension offers. If you for example want to use only some of the rules from [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-rules), or if you only want to use `extension.neon` (but not `rules.neon`) from [phpstan-doctrine](https://github.com/phpstan/phpstan-doctrine), you can't use the extension installer plugin and must include chosen files manually.
 				</div>
 
 				<h2 id="ignoring-errors">Ignoring errors</h2>

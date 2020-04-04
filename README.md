@@ -57,52 +57,6 @@ BTC: bc1qd5s06wjtf8rzag08mk3s264aekn52jze9zeapt
 * [Getting Started & User Guide](https://phpstan.org/user-guide/getting-started)
 * [Config Reference](https://phpstan.org/config-reference)
 
-## Extensibility
-
-Unique feature of PHPStan is the ability to define and statically check "magic" behaviour of classes -
-accessing properties that are not defined in the class but are created in `__get` and `__set`
-and invoking methods using `__call`.
-
-See [Class reflection extensions](#class-reflection-extensions), [Dynamic return type extensions](#dynamic-return-type-extensions) and [Type-specifying extensions](#type-specifying-extensions).
-
-You can also install official framework-specific extensions:
-
-* [Doctrine](https://github.com/phpstan/phpstan-doctrine)
-* [PHPUnit](https://github.com/phpstan/phpstan-phpunit)
-* [Nette Framework](https://github.com/phpstan/phpstan-nette)
-* [Dibi - Database Abstraction Library](https://github.com/phpstan/phpstan-dibi)
-* [PHP-Parser](https://github.com/phpstan/phpstan-php-parser)
-* [beberlei/assert](https://github.com/phpstan/phpstan-beberlei-assert)
-* [webmozart/assert](https://github.com/phpstan/phpstan-webmozart-assert)
-* [Symfony Framework](https://github.com/phpstan/phpstan-symfony)
-* [Mockery](https://github.com/phpstan/phpstan-mockery)
-
-Unofficial extensions for other frameworks and libraries are also available:
-
-* [Phony](https://github.com/eloquent/phpstan-phony)
-* [Prophecy](https://github.com/Jan0707/phpstan-prophecy)
-* [Laravel](https://github.com/nunomaduro/larastan)
-* [marc-mabe/php-enum](https://github.com/marc-mabe/php-enum-phpstan)
-* [myclabs/php-enum](https://github.com/timeweb/phpstan-enum)
-* [Yii2](https://github.com/proget-hq/phpstan-yii2)
-* [PhpSpec](https://github.com/proget-hq/phpstan-phpspec)
-* [TYPO3](https://github.com/sascha-egerer/phpstan-typo3)
-* [moneyphp/money](https://github.com/JohnstonCode/phpstan-moneyphp)
-* [Drupal](https://github.com/mglaman/phpstan-drupal)
-* [WordPress](https://github.com/szepeviktor/phpstan-wordpress)
-* [Laminas](https://github.com/Slamdunk/phpstan-laminas-framework) (a.k.a. [Zend Framework](https://github.com/Slamdunk/phpstan-zend-framework))
-
-Unofficial extensions with third-party rules:
-
-* [thecodingmachine / phpstan-strict-rules](https://github.com/thecodingmachine/phpstan-strict-rules)
-* [ergebnis / phpstan-rules](https://github.com/ergebnis/phpstan-rules)
-* [pepakriz / phpstan-exception-rules](https://github.com/pepakriz/phpstan-exception-rules)
-* [Slamdunk / phpstan-extensions](https://github.com/Slamdunk/phpstan-extensions)
-* [ekino / phpstan-banned-code](https://github.com/ekino/phpstan-banned-code)
-* [taptima / phpstan-custom](https://github.com/taptima/phpstan-custom)
-
-New extensions are becoming available on a regular basis!
-
 ## Custom rules
 
 PHPStan allows writing custom rules to check for specific situations in your own codebase. Your rule class
@@ -118,10 +72,6 @@ services:
 
 For inspiration on how to implement a rule turn to [src/Rules](https://github.com/phpstan/phpstan-src/tree/master/src/Rules)
 to see a lot of built-in rules.
-
-Check out also [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-rules) repository for extra strict and opinionated rules for PHPStan!
-
-Check as well [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) for rules that detect usage of deprecated classes, methods, properties, constants and traits!
 
 ## Custom error formatters
 
