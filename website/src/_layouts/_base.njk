@@ -25,7 +25,7 @@
 						<div class="hidden sm:-my-px sm:ml-6 sm:flex">
 							{% for item in mainMenu %}
 								{% if item.pageType === pageType %}
-									<a href="{{ item.link }}" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-md font-medium leading-5 text-gray-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out">
+									<a href="{{ item.link }}" class="algolia-active ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-md font-medium leading-5 text-gray-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out">
 										{{ item.title }}
 									</a>
 								{% else %}
@@ -55,7 +55,7 @@
 				<div class="pt-2 pb-3">
 					{% for item in mainMenu %}
 						{% if item.pageType === pageType %}
-							<a href="{{ item.link }}" class="mt-1 block pl-3 pr-4 py-2 border-l-4 border-blue-500 text-base font-medium text-blue-700 bg-blue-50 focus:outline-none focus:text-blue-800 focus:bg-blue-100 focus:border-blue-700 transition duration-150 ease-in-out">
+							<a href="{{ item.link }}" class="algolia-active mt-1 block pl-3 pr-4 py-2 border-l-4 border-blue-500 text-base font-medium text-blue-700 bg-blue-50 focus:outline-none focus:text-blue-800 focus:bg-blue-100 focus:border-blue-700 transition duration-150 ease-in-out">
 								{{ item.title }}
 							</a>
 						{% else %}
