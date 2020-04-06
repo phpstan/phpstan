@@ -1,3 +1,33 @@
 {
-    "layout": "_developing_extensions.njk"
+    "layout": "_developing_extensions.njk",
+    "sidebarItems": [
+        {
+            "title": "Extension Types",
+            "link": "/developing-extensions/extension-types"
+        },
+        {
+            "title": "Core Concepts",
+            "link": "/developing-extensions/core-concepts"
+        },
+        {
+            "title": "Custom Rules",
+            "link": "/developing-extensions/rules"
+        },
+        {
+            "title": "Error Formatters",
+            "link": "/developing-extensions/error-formatters"
+        },
+        {
+            "title": "Class Reflection Extensions",
+            "link": "/developing-extensions/class-reflection-extensions"
+        },
+        {
+            "title": "Dynamic Return Type Extensions",
+            "link": "/developing-extensions/dynamic-return-type-extensions"
+        },
+        {
+            "title": "Type-Specifying Extensions",
+            "link": "/developing-extensions/type-specifying-extensions"
+        }
+    ]
 }

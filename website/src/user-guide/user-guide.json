@@ -1,3 +1,37 @@
 {
-    "layout": "_user_guide.njk"
+    "layout": "_user_guide.njk",
+    "sidebarItems": [
+        {
+            "title": "Getting Started",
+            "link": "/user-guide/getting-started"
+        },
+        {
+            "title": "Rule Levels",
+            "link": "/user-guide/rule-levels"
+        },
+        {
+            "title": "The Baseline",
+            "link": "/user-guide/baseline"
+        },
+        {
+            "title": "Autoloading",
+            "link": "/user-guide/autoloading"
+        },
+        {
+            "title": "Output Format",
+            "link": "/user-guide/output-format"
+        },
+        {
+            "title": "Ignoring Errors",
+            "link": "/user-guide/ignoring-errors"
+        },
+        {
+            "title": "Stub Files",
+            "link": "/user-guide/stub-files"
+        },
+        {
+            "title": "Extension Library",
+            "link": "/user-guide/extension-library"
+        }
+    ]
 }

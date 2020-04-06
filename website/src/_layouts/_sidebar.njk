@@ -12,7 +12,18 @@
 				</svg>
 			</a>
 		</div>
-		{% block sidebar %}{% endblock %}
+
+		{% block sidebar %}
+			<ul>
+				{% for item in sidebarItems %}
+					{% if item.link === page.filePathStem %}
+						<li class="algolia-active font-bold"><a href="{{ item.link }}">{{ item.title }}</a></li>
+					{% else %}
+						<li><a href="{{ item.link }}">{{ item.title }}</a></li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		{% endblock %}
 	</div>
 	<div class="content px-4 pb-8 pt-4 min-w-0 ml-0 sm:ml-64">
 		<a href="#" class="text-sm text-gray-400 sm:hidden no-underline hover:underline" data-bind="click: openSidebar">Menu</a>
