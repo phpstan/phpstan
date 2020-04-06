@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="flex" data-bind="with: mainMenu">
-	<div class="sidebar w-64 sm:block flex-none pr-4 border-r border-gray-200 fixed bg-white overflow-y-auto top-0 bottom-0 mt-16 pt-6 pl-4 sm:pl-0" data-bind="css: { hidden: !sidebarOpen() }, event: { click: handleSidebarClick }">
+	<div class="sidebar w-64 sm:block hidden flex-none pr-4 border-r border-gray-200 fixed bg-white overflow-y-auto top-0 bottom-0 mt-16 pt-6 pl-4 sm:pl-0" data-bind="css: { hidden: !sidebarOpen() }, event: { click: handleSidebarClick }">
 		<div class="flex sm:hidden items-center mb-8">
 			<h1 class="text-lg font-bold flex-grow">{{ title }}</h1>
 			<a href="#" class="text-gray-400 hover:text-gray-500" data-bind="click: closeSidebar">
