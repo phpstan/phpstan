@@ -20,6 +20,14 @@ module.exports = function (eleventyConfig) {
 
 	eleventyConfig.setLibrary("md", markdownLib);
 
+	eleventyConfig.addFilter("trimInputPath", function(value) {
+		if (value.startsWith('./')) {
+			return value.substring(2);
+		}
+
+		return value;
+	});
+
 	return {
 		dir: {
 			input: "src",
