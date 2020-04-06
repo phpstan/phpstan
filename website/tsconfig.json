@@ -12,6 +12,6 @@
 		"allowSyntheticDefaultImports": true
 	},
 	"include": [
-		"js/**/*"
+		"src/js/**/*"
 	]
 }

@@ -1,0 +1,46 @@
+---
+permalink: "{{ page.filePathStem }}.html"
+pageType: configReference
+---
+
+{% extends "./_base.njk" %}
+
+{% block scripts %}
+	<script src="/js/config-reference.ts"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="flex">
+	<div class="sidebar w-64 flex-none hidden sm:block pr-4 border-r border-gray-200">
+		<ul>
+			<li><a href="#neon-format">NEON format</a></li>
+			<li><a href="#config-file">Config file</a></li>
+			<li><a href="#multiple-files">Multiple files</a></li>
+			<li><a href="#ignoring-errors">Ignoring errors</a></li>
+			<li><a href="#autoloading">Autoloading</a></li>
+			<li><a href="#bootstrap">Bootstrap</a></li>
+			<li><a href="#caching">Caching</a></li>
+			<li><a href="#analysed-files">Analysed files</a></li>
+			<li><a href="#rule-level">Rule level</a></li>
+			<li><a href="#custom-ruleset">Custom ruleset</a></li>
+			<li><a href="#solving-undefined-variables">Solving undefined variables</a></li>
+			<li><a href="#universal-object-crates">Universal object crates</a></li>
+			<li><a href="#constants">Constants</a></li>
+			<li><a href="#stub-files">Stub files</a></li>
+			<li><a href="#stricter-analysis">Stricter analysis</a></li>
+			<li><a href="#vague-typehints">Vague typehints</a></li>
+			<li><a href="#type-aliases">Type aliases</a></li>
+			<li><a href="#parallel-processing">Parallel processing</a></li>
+			<li><a href="#miscellaneous-parameters">Miscellaneous parameters</a></li>
+			<li><a href="#expanding-paths">Expanding paths</a></li>
+			<li><a href="#custom-parameters">Custom parameters</a></li>
+		</ul>
+	</div>
+	<div class="content px-4 pb-8 min-w-0">
+		<h1>{{ title }}</h1>
+		{{ content | safe }}
+	</div>
+</div>
+
+{% endblock %}

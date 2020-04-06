@@ -13,9 +13,8 @@ if (!IS_DEVELOPMENT) {
 
 	plugins.push(
 		purgecss({
-			content: [__dirname + '/*.html', __dirname + '/user-guide/*.html', __dirname + '/developing-extensions/*.html'],
+			content: [__dirname + '/tmp/*.html', __dirname + '/tmp/user-guide/*.html', __dirname + '/tmp/developing-extensions/*.html'],
 			defaultExtractor: content => content.match(/[\w-/.:]+(?<!:)/g) || [],
-			whitelistPatterns: [/^hljs/],
 		})
 	);
 }

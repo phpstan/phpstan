@@ -1,0 +1,32 @@
+---
+permalink: "{{ page.filePathStem }}.html"
+pageType: developingExtensions
+---
+
+{% extends "./_base.njk" %}
+
+{% block scripts %}
+	<script src="/js/developing-extensions.ts"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="flex">
+	<div class="sidebar w-64 flex-none hidden sm:block pr-4 border-r border-gray-200">
+		<ul>
+			<li><a href="/developing-extensions/extension-types">Extension Types</a></li>
+			<li><a href="/developing-extensions/core-concepts">Core Concepts</a></li>
+			<li><a href="/developing-extensions/rules">Custom Rules</a></li>
+			<li><a href="/developing-extensions/error-formatters">Error Formatters</a></li>
+			<li><a href="/developing-extensions/class-reflection-extensions">Class Reflection Extensions</a></li>
+			<li><a href="/developing-extensions/dynamic-return-type-extensions">Dynamic Return Type Extensions</a></li>
+			<li><a href="/developing-extensions/type-specifying-extensions">Type-Specifying Extensions</a></li>
+		</ul>
+	</div>
+	<div class="content px-4 pb-8 min-w-0">
+		<h1>{{ title }}</h1>
+		{{ content | safe }}
+	</div>
+</div>
+
+{% endblock %}
