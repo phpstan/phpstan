@@ -8,10 +8,10 @@
 	<link rel="stylesheet" href="/app.pcss">
 	<link rel="icon" type="image/png" href="/images/favicon.png">
 </head>
-<body class="overflow-hidden">
+<body class="h-full overflow-hidden">
 
 <div class="h-screen bg-white flex flex-col">
-	<nav class="bg-white border-b border-gray-200 flex-shrink">
+	<nav class="bg-white border-b border-gray-200 flex-shrink z-10">
 		<!-- ko with: mainMenu -->
 			<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div class="flex justify-between h-16">
@@ -73,8 +73,7 @@
 			</div>
 		<!-- /ko -->
 	</nav>
-
-	<div class="py-5 overflow-y-auto">
+	<div class="overflow-y-auto">
 		<main>
 			<div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
 				{% block content %}{% endblock %}

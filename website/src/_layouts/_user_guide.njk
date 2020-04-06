@@ -3,31 +3,23 @@ permalink: "{{ page.filePathStem }}.html"
 pageType: userGuide
 ---
 
-{% extends "./_base.njk" %}
+{% extends "./_sidebar.njk" %}
 
 {% block scripts %}
 	<script src="/js/user-guide.ts"></script>
 {% endblock %}
 
-{% block content %}
+{% block sidebar %}
 
-<div class="flex">
-	<div class="sidebar w-64 flex-none hidden sm:block pr-4 border-r border-gray-200">
-		<ul>
-			<li><a href="/user-guide/getting-started">Getting Started</a></li>
-			<li><a href="/user-guide/rule-levels">Rule Levels</a></li>
-			<li><a href="/user-guide/baseline">The Baseline</a></li>
-			<li><a href="/user-guide/autoloading">Autoloading</a></li>
-			<li><a href="/user-guide/output-format">Output Format</a></li>
-			<li><a href="/user-guide/ignoring-errors">Ignoring Errors</a></li>
-			<li><a href="/user-guide/stub-files">Stub Files</a></li>
-			<li><a href="/user-guide/extension-library">Extension Library</a></li>
-		</ul>
-	</div>
-	<div class="content px-4 pb-8 min-w-0">
-		<h1>{{ title }}</h1>
-		{{ content | safe }}
-	</div>
-</div>
+<ul>
+	<li><a href="/user-guide/getting-started">Getting Started</a></li>
+	<li><a href="/user-guide/rule-levels">Rule Levels</a></li>
+	<li><a href="/user-guide/baseline">The Baseline</a></li>
+	<li><a href="/user-guide/autoloading">Autoloading</a></li>
+	<li><a href="/user-guide/output-format">Output Format</a></li>
+	<li><a href="/user-guide/ignoring-errors">Ignoring Errors</a></li>
+	<li><a href="/user-guide/stub-files">Stub Files</a></li>
+	<li><a href="/user-guide/extension-library">Extension Library</a></li>
+</ul>
 
 {% endblock %}
