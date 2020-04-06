@@ -63,11 +63,11 @@ The use-cases
 
 Baseline successfully solves all the problems mentioned above.
 
-**Upgrade to new versions of PHPStan immediately**
+### Upgrade to new versions of PHPStan immediately
 
 It’s especially great if you’re on ancient release branches of PHPStan like 0.10.x or even 0.9.x. You might have been postponing the upgrade because you tried it but had been scared away by hundreds of new errors found by PHPStan. But with the baseline, you can take advantage of the new rules immediately. They will be analysing new code you write with a more critical eye, while the issues found in the old code wait silently in the baseline for you to be fixed when you feel like it.
 
-**Run higher rule level even if there are errors**
+### Run higher rule level even if there are errors
 
 If you achieved zero errors on level 2, congratulations to you! PHPStan now reports calls to unknown methods on all variables, or validates types in phpDocs, besides dozens of other checks. But it won’t tell you that you’re passing wrong argument types to a method until level 5!
 
@@ -75,7 +75,7 @@ So you’re missing out on real bugs that might get into production.
 
 With the baseline you can for example run PHPStan on level 5, and export all reported errors. The effect is that the new code you write will be checked more strictly — barring any new bugs to get into production.
 
-**Introduce custom rules and hold new code to a higher standard**
+### Introduce custom rules and hold new code to a higher standard
 
 One strategy to fight technical debt is to come up with best practices you want to follow and gradually apply them to the codebase and especially to new code you write.
 

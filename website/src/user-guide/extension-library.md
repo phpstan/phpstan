@@ -40,7 +40,7 @@ Check out [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-rules
 
 Check out as well [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) for rules that detect usage of deprecated classes, methods, properties, constants and traits!
 
-**Framework-specific extensions**
+### Framework-specific extensions
 
 * [Doctrine](https://github.com/phpstan/phpstan-doctrine)
 * [PHPUnit](https://github.com/phpstan/phpstan-phpunit)
