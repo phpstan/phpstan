@@ -4,7 +4,7 @@ title: Extension Library
 
 Unique feature of PHPStan is the ability to define and statically check "magic" behaviour of classes - accessing properties that are not defined in the class but are created in `__get` and `__set` and invoking methods using `__call`.
 
-PHPStan also allows writing custom rules that take advantage of the abstract syntax tree, advanced type inference engine, PHPDoc parser, and class reflection data.
+PHPStan also allows writing custom rules for situations that aren't objective bugs or other problems in the code, but allow people avoid tricky situations or enforce the way they want to write their code. These custom rules take advantage of the abstract syntax tree, advanced type inference engine, PHPDoc parser, and class reflection data.
 
 [Learn more about writing custom extensions »](/developing-extensions/extension-types)
 
