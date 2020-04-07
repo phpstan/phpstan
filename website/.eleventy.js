@@ -4,6 +4,7 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy('src/images');
 	eleventyConfig.addPassthroughCopy('src/js');
 	eleventyConfig.addPassthroughCopy('src/app.pcss');
+	eleventyConfig.addPassthroughCopy('src/robots.txt');
 	eleventyConfig.addPlugin(syntaxHighlight);
 
 	const markdownIt = require("markdown-it");
