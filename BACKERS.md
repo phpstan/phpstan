@@ -67,6 +67,7 @@ the logo of your company in PHPStan's README.
 * [Niels Mokkenstorm](https://github.com/nmokkenstorm)
 * [SuRaMoN](https://github.com/SuRaMoN)
 * [Koji Tanaka](https://github.com/tenkoma)
+* [Christer Edvartsen](https://github.com/christeredvartsen)
 
 * Kayneth
 * Mandy Schoep
