@@ -44,29 +44,29 @@ Check out as well [phpstan-deprecation-rules](https://github.com/phpstan/phpstan
 
 * [Doctrine](https://github.com/phpstan/phpstan-doctrine)
 * [PHPUnit](https://github.com/phpstan/phpstan-phpunit)
-* [Nette Framework](https://github.com/phpstan/phpstan-nette)
-* [Dibi - Database Abstraction Library](https://github.com/phpstan/phpstan-dibi)
-* [PHP-Parser](https://github.com/phpstan/phpstan-php-parser)
+* [Symfony Framework](https://github.com/phpstan/phpstan-symfony)
 * [beberlei/assert](https://github.com/phpstan/phpstan-beberlei-assert)
 * [webmozart/assert](https://github.com/phpstan/phpstan-webmozart-assert)
-* [Symfony Framework](https://github.com/phpstan/phpstan-symfony)
 * [Mockery](https://github.com/phpstan/phpstan-mockery)
+* [Nette Framework](https://github.com/phpstan/phpstan-nette)
+* [PHP-Parser](https://github.com/phpstan/phpstan-php-parser)
+* [Dibi - Database Abstraction Library](https://github.com/phpstan/phpstan-dibi)
 
 Unofficial extensions
 -----------------
 
+* [Laravel](https://github.com/nunomaduro/larastan)
+* [Drupal](https://github.com/mglaman/phpstan-drupal)
+* [WordPress](https://github.com/szepeviktor/phpstan-wordpress)
+* [Laminas](https://github.com/Slamdunk/phpstan-laminas-framework) (a.k.a. [Zend Framework](https://github.com/Slamdunk/phpstan-zend-framework))
 * [Phony](https://github.com/eloquent/phpstan-phony)
 * [Prophecy](https://github.com/Jan0707/phpstan-prophecy)
-* [Laravel](https://github.com/nunomaduro/larastan)
 * [marc-mabe/php-enum](https://github.com/marc-mabe/php-enum-phpstan)
 * [myclabs/php-enum](https://github.com/timeweb/phpstan-enum)
 * [Yii2](https://github.com/proget-hq/phpstan-yii2)
 * [PhpSpec](https://github.com/proget-hq/phpstan-phpspec)
 * [TYPO3](https://github.com/sascha-egerer/phpstan-typo3)
 * [moneyphp/money](https://github.com/JohnstonCode/phpstan-moneyphp)
-* [Drupal](https://github.com/mglaman/phpstan-drupal)
-* [WordPress](https://github.com/szepeviktor/phpstan-wordpress)
-* [Laminas](https://github.com/Slamdunk/phpstan-laminas-framework) (a.k.a. [Zend Framework](https://github.com/Slamdunk/phpstan-zend-framework))
 * [Nextras ORM](https://github.com/nextras/orm-phpstan)
 
 3rd party rules
