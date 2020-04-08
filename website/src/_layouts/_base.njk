@@ -16,17 +16,17 @@
 			<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div class="flex justify-between h-16">
 					<div class="flex flex-grow">
-						<div class="w-64 flex items-center">
+						<div class="w-64 flex flex-none items-center">
 							<a href="/"><img class="block h-12 w-auto rounded-lg" src="/images/logo.png" alt="PHPStan" /></a>
 							<h2 class="text-2xl font-semibold leading-tight text-gray-800 ml-4">
 								<a href="/">PHPStan</a>
 							</h2>
 						</div>
 						<div class="flex flex-grow justify-between">
-							<div class="items-center hidden sm:flex">
-								<input class="form-input leading-3 w-48" type="text" id="searchInput" placeholder="Search">
+							<div class="items-center hidden sm:flex flex-grow">
+								<input class="form-input leading-3 w-full" type="text" id="searchInput" placeholder="Search">
 							</div>
-							<div class="hidden sm:-my-px sm:ml-6 sm:flex">
+							<div class="hidden sm:-my-px sm:flex">
 								{% for item in mainMenu %}
 									{% if item.pageType === pageType %}
 										<a href="{{ item.link }}" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-md font-medium leading-5 text-gray-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out">
