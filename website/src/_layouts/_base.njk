@@ -16,11 +16,14 @@
 			<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div class="flex justify-between h-16">
 					<div class="flex">
-						<div class="flex-shrink-0 flex items-center">
+						<div class="w-64 flex items-center">
 							<a href="/"><img class="block h-12 w-auto rounded-lg" src="/images/logo.png" alt="PHPStan" /></a>
 							<h2 class="text-2xl font-semibold leading-tight text-gray-800 ml-4">
 								<a href="/">PHPStan</a>
 							</h2>
+						</div>
+						<div class="items-center hidden sm:flex">
+							<input class="form-input leading-3 w-48" type="text" id="searchInput" placeholder="Search">
 						</div>
 						<div class="hidden sm:-my-px sm:ml-6 sm:flex">
 							{% for item in mainMenu %}
