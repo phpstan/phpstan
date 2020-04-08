@@ -1,5 +1,15 @@
 {
     "layout": "_developing_extensions.njk",
+    "sidebarOtherSections": [
+        {
+            "title": "User Guide",
+            "link": "/user-guide/getting-started"
+        },
+        {
+            "title": "Config Reference",
+            "link": "/config-reference"
+        }
+    ],
     "sidebarItems": [
         {
             "title": "Extension Types",

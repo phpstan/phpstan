@@ -4,26 +4,33 @@
 
 <div class="flex" data-bind="with: mainMenu">
 	<div class="sidebar w-64 sm:block hidden flex-none pr-4 border-r border-gray-200 fixed bg-white overflow-y-auto top-0 bottom-0 mt-16 pt-6 pl-4 sm:pl-0" data-bind="css: { hidden: !sidebarOpen() }, event: { click: handleSidebarClick }">
-		<div class="flex sm:hidden items-center mb-8">
-			<h1 class="text-lg font-bold flex-grow">{{ sectionTitle }}</h1>
-			<a href="#" class="text-gray-400 hover:text-gray-500" data-bind="click: closeSidebar">
+		<div class="flex items-center">
+			<span class="group flex-grow items-center px-3 py-2 text-lg leading-5 font-bold text-gray-900">{{ sectionTitle }}</span>
+			<a href="#" class="sm:hidden text-gray-400 hover:text-gray-500" data-bind="click: closeSidebar">
 				<svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
 				</svg>
 			</a>
 		</div>
 
-		{% block sidebar %}
-			<ul>
-				{% for item in sidebarItems %}
-					{% if item.link === page.filePathStem %}
-						<li class="algolia-active font-bold"><a href="{{ item.link }}">{{ item.title }}</a></li>
-					{% else %}
-						<li><a href="{{ item.link }}">{{ item.title }}</a></li>
-					{% endif %}
-				{% endfor %}
-			</ul>
-		{% endblock %}
+		<ul>
+			{% for item in sidebarItems %}
+				{% if item.link === page.filePathStem %}
+					<li><a class="flex px-3 py-2 text-sm leading-5 font-medium rounded-md bg-blue-500 text-white" href="{{ item.link }}">{{ item.title }}</a></li>
+				{% else %}
+					<li><a class="flex px-3 py-2 text-sm leading-5 font-medium rounded-md hover:bg-gray-50 transition ease-in-out duration-150" href="{{ item.link }}">{{ item.title }}</a></li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+		<ul class="mt-12">
+			{% for item in sidebarOtherSections %}
+				<li>
+					<a href="{{ item.link }}" class="group flex items-center px-3 py-2 text-lg leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150">
+						{{ item.title }}
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
 	</div>
 	<div class="content px-4 pb-8 pt-4 min-w-0 ml-0 sm:ml-64">
 		<a href="#" class="text-sm text-gray-400 sm:hidden no-underline hover:underline" data-bind="click: openSidebar">Menu</a>

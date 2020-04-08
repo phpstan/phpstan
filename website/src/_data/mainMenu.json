@@ -5,18 +5,8 @@
         "pageType": "playground"
     },
     {
-        "title": "User Guide",
+        "title": "Documentation",
         "link": "/user-guide/getting-started",
-        "pageType": "userGuide"
-    },
-    {
-        "title": "Config Reference",
-        "link": "/config-reference",
-        "pageType": "configReference"
-    },
-    {
-        "title": "Developing Extensions",
-        "link": "/developing-extensions/extension-types",
-        "pageType": "developingExtensions"
+        "pageType": "documentation"
     }
 ]
