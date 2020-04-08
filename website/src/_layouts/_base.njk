@@ -15,33 +15,35 @@
 		<!-- ko with: mainMenu -->
 			<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div class="flex justify-between h-16">
-					<div class="flex">
+					<div class="flex flex-grow">
 						<div class="w-64 flex items-center">
 							<a href="/"><img class="block h-12 w-auto rounded-lg" src="/images/logo.png" alt="PHPStan" /></a>
 							<h2 class="text-2xl font-semibold leading-tight text-gray-800 ml-4">
 								<a href="/">PHPStan</a>
 							</h2>
 						</div>
-						<div class="items-center hidden sm:flex">
-							<input class="form-input leading-3 w-48" type="text" id="searchInput" placeholder="Search">
-						</div>
-						<div class="hidden sm:-my-px sm:ml-6 sm:flex">
-							{% for item in mainMenu %}
-								{% if item.pageType === pageType %}
-									<a href="{{ item.link }}" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-md font-medium leading-5 text-gray-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out">
-										{{ item.title }}
-									</a>
-								{% else %}
-									<a href="{{ item.link }}" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-md font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
-										{{ item.title }}
-									</a>
-								{% endif %}
-							{% endfor %}
+						<div class="flex flex-grow justify-between">
+							<div class="items-center hidden sm:flex">
+								<input class="form-input leading-3 w-48" type="text" id="searchInput" placeholder="Search">
+							</div>
+							<div class="hidden sm:-my-px sm:ml-6 sm:flex">
+								{% for item in mainMenu %}
+									{% if item.pageType === pageType %}
+										<a href="{{ item.link }}" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-md font-medium leading-5 text-gray-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out">
+											{{ item.title }}
+										</a>
+									{% else %}
+										<a href="{{ item.link }}" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-md font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out">
+											{{ item.title }}
+										</a>
+									{% endif %}
+								{% endfor %}
 
-							<a target="_blank" href="https://github.com/phpstan/phpstan" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-md font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out">
-								GitHub
-								<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="ml-1  w-4 h-4"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-							</a>
+								<a target="_blank" href="https://github.com/phpstan/phpstan" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-md font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out">
+									GitHub
+									<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="ml-1  w-4 h-4"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+								</a>
+							</div>
 						</div>
 					</div>
 					<div class="-mr-2 flex items-center sm:hidden">
