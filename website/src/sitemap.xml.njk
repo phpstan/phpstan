@@ -7,7 +7,7 @@ sitemapIgnore: true
 {% for item in collections.all %}
 	{% if item.data.sitemapIgnore !== true %}
 		<url>
-			<loc>https://phpstan.org{{ item.url }}</loc>
+			<loc>https://phpstan.org{% if item.filePathStem === '/index'%}/{% else %}{{ item.filePathStem }}{% endif %}</loc>
 		</url>
 	{% endif %}
 {% endfor %}
