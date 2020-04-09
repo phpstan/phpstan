@@ -13,7 +13,7 @@ if (!IS_DEVELOPMENT) {
 
 	plugins.push(
 		purgecss({
-			content: [__dirname + '/tmp/*.html', __dirname + '/tmp/user-guide/*.html', __dirname + '/tmp/developing-extensions/*.html'],
+			content: [__dirname + '/tmp/*.html', __dirname + '/tmp/user-guide/*.html', __dirname + '/tmp/developing-extensions/*.html', __dirname + '/tmp/blog.html', __dirname + '/tmp/blog/*.html'],
 			defaultExtractor: content => content.match(/[\w-/.:]+(?<!:)/g) || [],
 			whitelistPatterns: [/algolia/, /searchbox/],
 		})
