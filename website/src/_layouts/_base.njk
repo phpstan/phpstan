@@ -13,7 +13,7 @@
 <div class="h-screen bg-white flex flex-col main-area">
 	<nav class="bg-white border-b border-gray-200 flex-shrink z-10">
 		<!-- ko with: mainMenu -->
-			<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="max-w-5xl mx-auto px-4 md:px-6">
 				<div class="flex justify-between h-16">
 					<div class="flex flex-grow">
 						<div class="w-64 flex flex-none items-center">
@@ -23,10 +23,10 @@
 							</h2>
 						</div>
 						<div class="flex flex-grow justify-between">
-							<div class="items-center hidden sm:flex flex-grow">
+							<div class="items-center hidden md:flex flex-grow">
 								<input class="form-input leading-3 w-full" type="text" id="searchInput" placeholder="Search">
 							</div>
-							<div class="hidden sm:-my-px sm:flex">
+							<div class="hidden md:-my-px md:flex">
 								{% for item in mainMenu %}
 									{% if item.pageType === pageType %}
 										<a href="{{ item.link }}" class="ml-8 inline-flex items-center px-1 pt-1 border-b-2 border-blue-500 text-md font-medium leading-5 text-gray-900 focus:outline-none focus:border-blue-700 transition duration-150 ease-in-out">
@@ -46,7 +46,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="-mr-2 flex items-center sm:hidden">
+					<div class="-mr-2 flex items-center md:hidden">
 						<button data-bind="click: toggleMainMenu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
 							<svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
 								<path data-bind="css: {hidden: mainMenuOpen, 'inline-flex': !mainMenuOpen()}" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -56,7 +56,7 @@
 					</div>
 				</div>
 			</div>
-			<div data-bind="css: {block: mainMenuOpen, hidden: !mainMenuOpen()}" class="hidden sm:hidden">
+			<div data-bind="css: {block: mainMenuOpen, hidden: !mainMenuOpen()}" class="hidden md:hidden">
 				<div class="pt-2 pb-3">
 					{% for item in mainMenu %}
 						{% if item.pageType === pageType %}
@@ -80,7 +80,7 @@
 	</nav>
 	<div class="overflow-y-auto">
 		<main>
-			<div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+			<div class="max-w-5xl mx-auto md:px-6">
 				{% block content %}{% endblock %}
 			</div>
 		</main>

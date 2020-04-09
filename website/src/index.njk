@@ -11,7 +11,7 @@ pageType: playground
 
 {% block content %}
 
-<p class="mb-4 px-4 sm:px-0 pt-4">PHPStan finds bugs in your code without writing tests. <a href="https://medium.com/@ondrejmirtes/phpstan-2939cd0ad0e3" target="_blank" class="underline hover:no-underline">Read more about it here</a> or try it right now in the editor:</p>
+<p class="mb-4 px-4 md:px-0 pt-4">PHPStan finds bugs in your code without writing tests. <a href="https://medium.com/@ondrejmirtes/phpstan-2939cd0ad0e3" target="_blank" class="underline hover:no-underline">Read more about it here</a> or try it right now in the editor:</p>
 <div data-bind="visible: false" class="mx-auto w-12 h-12 my-12">
 	<div class="spinner"></div>
 </div>
@@ -19,8 +19,8 @@ pageType: playground
 	<form action="#" method="post" class="mb-8">
 		<textarea data-bind="codeMirror: code"></textarea>
 
-		<div class="flex align-items-center mt-4 flex-col sm:flex-row">
-			<select class="form-select block mt-1 mx-4 sm:mx-0" data-bind="value: level">
+		<div class="flex align-items-center mt-4 flex-col md:flex-row">
+			<select class="form-select block mt-1 mx-4 md:mx-0" data-bind="value: level">
 				<option value="0">Level 0</option>
 				<option value="1">Level 1</option>
 				<option value="2">Level 2</option>
@@ -32,7 +32,7 @@ pageType: playground
 				<option value="8">Level 8</option>
 			</select>
 
-			<label class="inline-flex items-center px-4 mt-2 sm:mt-0 ml-0 sm:ml-4">
+			<label class="inline-flex items-center px-4 mt-2 md:mt-0 ml-0 md:ml-4">
 				<input type="checkbox" class="form-checkbox" data-bind="checked: strictRules">
 				<span class="ml-2">Strict rules</span>
 			</label>
@@ -60,26 +60,26 @@ pageType: playground
 	<!-- /ko -->
 
 	<!-- ko ifnot: hasServerError -->
-	<div class="flex align-items-stretch mx-4 sm:mx-0 mb-8">
+	<div class="flex align-items-stretch mx-4 md:mx-0 mb-8">
 		<!-- ko if: legacyResult() === null && !isLoading() && errors().length > 0 -->
-		<span class="inline-flex flex-grow justify-center sm:flex-grow-0 items-center px-4 py-3 rounded-lg text-lg font-medium leading-4 bg-red-100 text-red-900" data-bind="text: errorsText"></span>
+		<span class="inline-flex flex-grow justify-center md:flex-grow-0 items-center px-4 py-3 rounded-lg text-lg font-medium leading-4 bg-red-100 text-red-900" data-bind="text: errorsText"></span>
 		<!-- /ko -->
 
 		<!-- ko if: legacyResult() === null && !isLoading() && errors().length === 0 -->
-		<span class="inline-flex flex-grow justify-center sm:flex-grow-0 items-center px-4 py-3 rounded-lg text-lg font-medium leading-4 bg-green-100 text-green-900">
+		<span class="inline-flex flex-grow justify-center md:flex-grow-0 items-center px-4 py-3 rounded-lg text-lg font-medium leading-4 bg-green-100 text-green-900">
 								No errors!
 							</span>
 		<!-- /ko -->
 
 		<!-- ko if: legacyResult() === null && !isLoading() && !isSharing() -->
-		<a href="#" data-bind="click: share" class="inline-flex flex-grow sm:flex-grow-0 items-center px-2.5 py-3 rounded-lg text-lg font-medium leading-4 bg-gray-100 hover:bg-gray-200 ml-2 w-32 h-12 justify-center">
+		<a href="#" data-bind="click: share" class="inline-flex flex-grow md:flex-grow-0 items-center px-2.5 py-3 rounded-lg text-lg font-medium leading-4 bg-gray-100 hover:bg-gray-200 ml-2 w-32 h-12 justify-center">
 			<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
 			<span class="ml-2" data-bind="text: shareText"></span>
 		</a>
 		<!-- /ko -->
 
 		<!-- ko if: legacyResult() === null && !isLoading() && isSharing() -->
-		<span class="inline-flex flex-grow sm:flex-grow-0 items-center px-2.5 py-3 rounded-lg text-lg font-medium leading-4 bg-gray-100 ml-2 w-32 h-12 justify-center">
+		<span class="inline-flex flex-grow md:flex-grow-0 items-center px-2.5 py-3 rounded-lg text-lg font-medium leading-4 bg-gray-100 ml-2 w-32 h-12 justify-center">
 			<!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL -->
 			<svg width="120" height="30" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#3f83f8" class="h-12 w-12">
 				<circle cx="15" cy="15" r="15">
