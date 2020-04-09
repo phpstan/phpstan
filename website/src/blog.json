@@ -1,0 +1,28 @@
+{
+    "pageType": "blog",
+    "sectionTitle": "Blog",
+    "sidebarOtherSections": [
+        {
+            "title": "RSS",
+            "link": "/rss.xml"
+        }
+    ],
+    "sidebarItems": [
+        {
+            "title": "All Articles",
+            "link": "/blog"
+        },
+        {
+            "title": "Releases",
+            "link": "/blog/releases"
+        },
+        {
+            "title": "Guides",
+            "link": "/blog/guides"
+        },
+        {
+            "title": "Other",
+            "link": "/blog/other"
+        }
+    ]
+}

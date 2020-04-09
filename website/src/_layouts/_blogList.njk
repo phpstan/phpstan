@@ -1,0 +1,23 @@
+---
+pageType: blog
+sectionTitle: Blog
+---
+
+{% extends "./_sidebar.njk" %}
+
+{% block mainTitle %}{% endblock %}
+{% block editPageLink %}{% endblock %}
+
+{% block scripts %}
+	<script src="/js/blog.ts"></script>
+{% endblock %}
+
+{% block innerContent %}
+
+<div class="pt-4">
+
+	{% block postsList %}{% endblock %}
+
+</div>
+
+{% endblock %}

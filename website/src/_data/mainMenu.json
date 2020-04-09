@@ -8,5 +8,10 @@
         "title": "Documentation",
         "link": "/user-guide/getting-started",
         "pageType": "documentation"
+    },
+    {
+        "title": "Blog",
+        "link": "/blog",
+        "pageType": "blog"
     }
 ]

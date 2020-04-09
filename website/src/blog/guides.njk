@@ -1,0 +1,10 @@
+---
+title: Guides
+---
+
+{% extends "./../_layouts/_blogList.njk" %}
+
+{% block postsList %}
+	{% set postsList = collections.guides %}
+	{% include './../_includes/postsList.njk' %}
+{% endblock %}

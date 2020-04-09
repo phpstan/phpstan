@@ -1,0 +1,11 @@
+---
+permalink: /blog.html
+title: Blog
+---
+
+{% extends "./_layouts/_blogList.njk" %}
+
+{% block postsList %}
+	{% set postsList = collections.blog %}
+	{% include './_includes/postsList.njk' %}
+{% endblock %}

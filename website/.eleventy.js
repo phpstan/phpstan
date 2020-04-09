@@ -1,4 +1,7 @@
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
+const pluginRss = require("@11ty/eleventy-plugin-rss");
+const { DateTime } = require("luxon");
+const readingTime = require('reading-time');
 
 module.exports = function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy('src/images');
@@ -6,6 +9,8 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy('src/app.pcss');
 	eleventyConfig.addPassthroughCopy('src/robots.txt');
 	eleventyConfig.addPlugin(syntaxHighlight);
+	eleventyConfig.addPlugin(pluginRss);
+	eleventyConfig.setDataDeepMerge(true);
 
 	const markdownIt = require("markdown-it");
 	const options = {
@@ -27,6 +32,22 @@ module.exports = function (eleventyConfig) {
 		}
 
 		return value;
+	});
+
+	eleventyConfig.addFilter('trimDotHtml', function (value) {
+		if (value.endsWith('.html')) {
+			return value.substring(0, value.length - 5);
+		}
+
+		return value;
+	});
+
+	eleventyConfig.addFilter('htmlDateString', (dateObj) => {
+		return DateTime.fromJSDate(dateObj, {zone: 'utc'}).toFormat('DDD');
+	});
+
+	eleventyConfig.addFilter('readingTime', (text) => {
+		return readingTime(text).text;
 	});
 
 	return {
