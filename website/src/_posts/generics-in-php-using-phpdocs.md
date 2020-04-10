@@ -4,7 +4,7 @@ date: 2019-12-02
 tags: guides
 ---
 
-Two years ago I wrote an impactful article on [union and intersection types](https://phpstan.org/blog/union-types-vs-intersection-types). It helped the PHP community to familiarize themselves with these concepts which eventually led to intersection types [support in PhpStorm](https://blog.jetbrains.com/phpstorm/2018/09/phpstorm-2018-3-eap-183-2635-12/).
+Two years ago I wrote an impactful article on [union and intersection types](/blog/union-types-vs-intersection-types). It helped the PHP community to familiarize themselves with these concepts which eventually led to intersection types [support in PhpStorm](https://blog.jetbrains.com/phpstorm/2018/09/phpstorm-2018-3-eap-183-2635-12/).
 
 I wrote that article because the differences between unions and intersections are useful and important for static analysis, and developers should be aware of them.
 

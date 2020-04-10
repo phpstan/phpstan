@@ -397,7 +397,7 @@ parameters:
 	checkMissingIterableValueType: false
 ```
 
-If you're using [generics](https://phpstan.org/blog/generics-in-php-using-phpdocs), another thing that level 6 does is that it requires type variables always be specified in typehints. So `ReflectionClass` isn't sufficient but `ReflectionClass<Foo>` is.
+If you're using [generics](/blog/generics-in-php-using-phpdocs), another thing that level 6 does is that it requires type variables always be specified in typehints. So `ReflectionClass` isn't sufficient but `ReflectionClass<Foo>` is.
 
 You can disable this strict approach to generics by setting `checkGenericClassInNonGenericObjectType` key to false:
 
@@ -443,7 +443,7 @@ PHPStan runs in multiple threads by default, taking advantage of multiple cores 
 * Maximum number of desired spawned processes, to prevent CPU hogging of the whole system if it's resource-constrained. (`maximumNumberOfProcesses`)
 * Minimum number of jobs per process. Process is spawned only if it will process at least 2 jobs by default.  (`minimumNumberOfJobsPerProcess`)
 * Job size - how many files are analysed in a single batch (`jobSize`)
-* Number of analysed files - it's different each time because of how your codebase changes, and also thanks to the [result cache](https://phpstan.org/blog/from-minutes-to-seconds-massive-performance-gains-in-phpstan).
+* Number of analysed files - it's different each time because of how your codebase changes, and also thanks to the [result cache](/blog/from-minutes-to-seconds-massive-performance-gains-in-phpstan).
 
 These variables can be changed in the configuration. Here are the defaults:
 

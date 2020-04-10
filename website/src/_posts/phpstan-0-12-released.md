@@ -8,7 +8,7 @@ This is a massive release that has been in the works for the past six months. We
 
 But I can’t wait for _everyone_ to get their hands on this new version because it’s so much better. And it’s designed so that everyone is able to upgrade to it immediately without breaking a sweat.
 
-> If you’re not familiar with PHPStan, it’s a static analyser for PHP focused on finding bugs in your code. It catches whole classes of bugs even before you run your app at all. See the [introductory article](https://phpstan.org/blog/find-bugs-in-your-code-without-writing-tests) if you want to know more about the basics!
+> If you’re not familiar with PHPStan, it’s a static analyser for PHP focused on finding bugs in your code. It catches whole classes of bugs even before you run your app at all. See the [introductory article](/blog/find-bugs-in-your-code-without-writing-tests) if you want to know more about the basics!
 
 **PHPStan 0.12 is brought to you by Gábor Hojtsy ([@gaborhojtsy](https://twitter.com/gaborhojtsy)):**
 
@@ -20,7 +20,7 @@ So what’s new in PHPStan 0.12?
 
 ## Generics
 
-The flagship feature of this release. It deserves [its own article](https://phpstan.org/blog/generics-in-php-using-phpdocs) — check it out to learn about what they can do for the type safety and documentation of your code.
+The flagship feature of this release. It deserves [its own article](/blog/generics-in-php-using-phpdocs) — check it out to learn about what they can do for the type safety and documentation of your code.
 
 How this feature came into fruition in PHPStan? In mid-May this year, [Arnaud Le Blanc](https://twitter.com/arnaud_lb) sent me an email out of the blue that he’d like to help me out with implementing generics. This is exactly the kind of letter you print, frame and hang on the wall. Because what followed was the best collaboration I’ve had with anybody in a long time. We’ve bounced back and forth with over ~50 pull requests and hundreds of commits, gave each other feedback, tested and polished the code. And while there are still some ideas we have that could be implemented in the future, we’re quite happy with this and let others make use of it in 0.12.0.
 
@@ -124,7 +124,7 @@ You can even describe your own types for this purpose. [See the README](https://
 
 It’s dangerous to accept all possible strings in a function but pretend that they’re an existing class name. That’s why PHPStan introduces the “class-string” pseudotype applicable to all PHPDocs. Only literal string or `::class` constants can be passed as an argument into it, or you can require `class-string` through the whole call chain. You can also narrow a `string` into `class-string` with the help of `class_exists()` and related functions. Passing a general `string` into `class-string` is only reported on level 7+.
 
-This type also pairs nicely with [generics](https://phpstan.org/blog/generics-in-php-using-phpdocs). You can use `class-string<T>` in the generic signature, or you can use `class-string<Foo>` to only accept valid class names that are subtypes of Foo.
+This type also pairs nicely with [generics](/blog/generics-in-php-using-phpdocs). You can use `class-string<T>` in the generic signature, or you can use `class-string<Foo>` to only accept valid class names that are subtypes of Foo.
 
 ## Function calls with no effect
 
@@ -146,7 +146,7 @@ $midnight = $date->setTime(0, 0, 0);
 
 This is not a complete list of new features and checks. It would be overwhelming to include everything in this article that's supposed to be easily digestible. That’s what [release notes](https://github.com/phpstan/phpstan/releases/tag/0.12.0) are for.
 
-I encourage everyone to upgrade to get the latest checks. If you're worried how many new errors you will have to fix, I have good news for you. Thanks to the [baseline feature](https://phpstan.org/blog/phpstans-baseline-feature-lets-you-hold-new-code-to-a-higher-standard) released recently, you can get to a green build immediately and fix those errors later when you have time. But the new and changed code you write will be held to a higher standard set by the new version.
+I encourage everyone to upgrade to get the latest checks. If you're worried how many new errors you will have to fix, I have good news for you. Thanks to the [baseline feature](/blog/phpstans-baseline-feature-lets-you-hold-new-code-to-a-higher-standard) released recently, you can get to a green build immediately and fix those errors later when you have time. But the new and changed code you write will be held to a higher standard set by the new version.
 
 ---
 
