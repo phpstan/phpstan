@@ -4,8 +4,13 @@
 	<meta charset="utf-8">
 	<meta name='viewport' content='width=device-width, initial-scale=1'>
 	<title>{{ title }} | PHPStan</title>
+	<meta property="og:title" content="{{ title }} | PHPStan" />
 	<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 	<link rel="stylesheet" href="/app.pcss">
+
+	{% if ogImage %}
+		<meta property="og:image" content="{{ ogImage }}" />
+	{% endif %}
 	<link rel="icon" type="image/png" href="/images/favicon.png">
 </head>
 <body>

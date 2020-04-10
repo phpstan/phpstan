@@ -37,7 +37,7 @@
 		"check": "tsc -p tsconfig.json --noEmit && tslint -p tsconfig.json -c tslint.json",
 		"watch:parcel": "parcel tmp/*.html tmp/**/*.html tmp/*.xml tmp/robots.txt",
 		"watch:11ty": "eleventy --watch",
-		"build:parcel": "parcel build tmp/*.html tmp/**/*.html tmp/*.xml tmp/robots.txt --no-source-maps",
+		"build:parcel": "parcel build tmp/*.html tmp/**/*.html tmp/*.xml tmp/robots.txt --no-source-maps --public-url https://phpstan.org/",
 		"build:11ty": "eleventy",
 		"watch": "run-p watch:*",
 		"build": "yarn run build:11ty && yarn run build:parcel"
