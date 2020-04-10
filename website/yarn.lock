@@ -5812,6 +5812,13 @@ postcss@^6.0.1, postcss@^6.0.9:
     source-map "^0.6.1"
     supports-color "^5.4.0"
 
+posthtml-noopener@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/posthtml-noopener/-/posthtml-noopener-1.0.5.tgz#a0d20ce875e877cc9ee661345a4691f8f8b2df58"
+  integrity sha512-IfCGJDYNESTUjNAUwdc9JQIJ7g6ie9fW/mbvTiCxZdSJ2w25YobtjoQsI2Nv7Ad6frjyQOM6C+gi2Yi+5uMOyA==
+  dependencies:
+    posthtml "^0.12.0"
+
 posthtml-parser@^0.4.0, posthtml-parser@^0.4.1:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/posthtml-parser/-/posthtml-parser-0.4.2.tgz#a132bbdf0cd4bc199d34f322f5c1599385d7c6c1"
