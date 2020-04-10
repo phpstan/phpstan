@@ -6,24 +6,24 @@ import {MainMenuViewModel} from './MainMenuViewModel';
 export class PlaygroundViewModel {
 
 	mainMenu: MainMenuViewModel;
-	code: KnockoutObservable<string>;
-	codeDelayed: KnockoutComputed<string>;
-	errors: KnockoutObservableArray<PHPStanError>;
-	errorsText: KnockoutComputed<string>;
-	shareText: KnockoutObservable<string>;
-	legacyResult: KnockoutObservable<string | null>;
+	code: ko.Observable<string>;
+	codeDelayed: ko.Computed<string>;
+	errors: ko.ObservableArray<PHPStanError>;
+	errorsText: ko.Computed<string>;
+	shareText: ko.Observable<string>;
+	legacyResult: ko.Observable<string | null>;
 
-	level: KnockoutObservable<string>;
-	strictRules: KnockoutObservable<boolean>;
-	bleedingEdge: KnockoutObservable<boolean>;
-	treatPhpDocTypesAsCertain: KnockoutObservable<boolean>;
+	level: ko.Observable<string>;
+	strictRules: ko.Observable<boolean>;
+	bleedingEdge: ko.Observable<boolean>;
+	treatPhpDocTypesAsCertain: ko.Observable<boolean>;
 
-	isLoading: KnockoutObservable<boolean>;
-	isSharing: KnockoutObservable<boolean>;
+	isLoading: ko.Observable<boolean>;
+	isSharing: ko.Observable<boolean>;
 	xhr: JQuery.jqXHR | null;
 	shareXhr: JQuery.jqXHR | null;
 	id: string | null;
-	hasServerError: KnockoutObservable<boolean>;
+	hasServerError: ko.Observable<boolean>;
 
 	apiBaseUrl: string = 'https://api.phpstan.org';
 
@@ -34,7 +34,7 @@ export class PlaygroundViewModel {
 			notify: 'always',
 			rateLimit: { timeout: 500, method: 'notifyWhenChangesStop' },
 		});
-		this.errors = ko.observableArray([]);
+		this.errors = ko.observableArray<PHPStanError>([]);
 		this.errorsText = ko.pureComputed(() => {
 			const errorsCount = this.errors().length;
 			if (errorsCount === 1) {

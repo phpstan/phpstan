@@ -15,8 +15,8 @@ $(() => {
 
 export class MainMenuViewModel {
 
-	mainMenuOpen: KnockoutObservable<boolean>;
-	sidebarOpen: KnockoutObservable<boolean>;
+	mainMenuOpen: ko.Observable<boolean>;
+	sidebarOpen: ko.Observable<boolean>;
 
 	constructor() {
 		this.mainMenuOpen = ko.observable(false);

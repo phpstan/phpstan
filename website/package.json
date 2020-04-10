@@ -18,7 +18,6 @@
 		"@fullhuman/postcss-purgecss": "^2.1.0",
 		"@tailwindcss/custom-forms": "^0.2.1",
 		"@types/jquery": "^3.3.34",
-		"@types/knockout": "^3.4.67",
 		"autoprefixer": "^9.7.5",
 		"luxon": "^1.23.0",
 		"markdown-it-anchor": "^5.2.7",

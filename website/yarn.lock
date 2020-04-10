@@ -998,11 +998,6 @@
   dependencies:
     "@types/sizzle" "*"
 
-"@types/knockout@^3.4.67":
-  version "3.4.67"
-  resolved "https://registry.yarnpkg.com/@types/knockout/-/knockout-3.4.67.tgz#44d219b66d165397e747d24baf795f007a11ecbb"
-  integrity sha512-VYg5VcZecApmAILpSsTtD0UUAHUIGWi7/um9WQjbk/ajPWinGZAKkH9U8zbFmvdxfafFGvcRm655XRm6vc6hoQ==
-
 "@types/minimatch@^3.0.3":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
