@@ -24,6 +24,8 @@ module.exports = function (eleventyConfig) {
 		level: 2,
 	});
 
+	markdownLib.use(require('markdown-it-footnote'));
+
 	eleventyConfig.setLibrary("md", markdownLib);
 
 	eleventyConfig.addFilter("trimInputPath", function(value) {

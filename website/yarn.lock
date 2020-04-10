@@ -898,6 +898,23 @@
     "@nodelib/fs.scandir" "2.1.3"
     fastq "^1.6.0"
 
+"@pacote/get-style@^1.0.0", "@pacote/get-style@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@pacote/get-style/-/get-style-1.1.1.tgz#0a37929d3c9822a536a4d577810cd5c2294dfffc"
+  integrity sha512-4BLDtqUJX02JxhYtFxaCKweCSdIxaIIgvteVLIkWEC8ssbqvUFwdPq2ANAYKWtT46Ik4OonbBg9U/8RZgQGpvg==
+
+"@pacote/pixels@^1.0.0":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@pacote/pixels/-/pixels-1.1.1.tgz#55fd041f26b3e085478c3b15ce0af23291fe8290"
+  integrity sha512-t+B4Gp5DGpibK+Y2svrX0vfaBDKmbN/lh/Sx4Sj3hdsJuzLzx93bomJCfmDh+yMrVteDYYkxKbNxEu5q5GMmcw==
+  dependencies:
+    "@pacote/get-style" "^1.1.1"
+
+"@pacote/throttle@^1.0.0":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@pacote/throttle/-/throttle-1.0.2.tgz#cce07a0d5983f67cbd06e229bc7bb5e51d0fbfe5"
+  integrity sha512-L3Nf/RI1Vghl/8J32loBZqqBkY1dwr7+sae0PfNEHUvdknbQN+3h3+Agidqt88OIChUI477Fh9R2XQU4f7VEyg==
+
 "@parcel/fs@^1.11.0":
   version "1.11.0"
   resolved "https://registry.yarnpkg.com/@parcel/fs/-/fs-1.11.0.tgz#fb8a2be038c454ad46a50dc0554c1805f13535cd"
@@ -2575,6 +2592,13 @@ delegate@^3.1.2:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/delegate/-/delegate-3.2.0.tgz#b66b71c3158522e8ab5744f720d8ca0c2af59166"
   integrity sha512-IofjkYBZaZivn0V8nnsMJGBr4jVLxHDheKSW88PyxS5QC4Vo9ZbZVvhzlSxY87fVq3STR6r+4cGepyHkcWOQSw==
+
+delegated-events@^1.0.10:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/delegated-events/-/delegated-events-1.1.2.tgz#741a4ba320718096fb8f7db4ddfaadcb0daa5986"
+  integrity sha512-PjEw4Z5mrvXimyf60HGqMJ3BMcqqWZpBqSDGnEMBdkAtF4P7ltoa6N+UJXhbMMUxPLYFtykCmRs6Ra8I8pwzPQ==
+  dependencies:
+    selector-set "^1.1.5"
 
 depd@~1.1.2:
   version "1.1.2"
@@ -4331,6 +4355,16 @@ list-to-array@^1.1.0:
   resolved "https://registry.yarnpkg.com/list-to-array/-/list-to-array-1.1.0.tgz#ca7dff640606433cac75cbe8446acd864b15bf6f"
   integrity sha1-yn3/ZAYGQzysdcvoRGrNhksVv28=
 
+littlefoot@^3.2.4:
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/littlefoot/-/littlefoot-3.2.4.tgz#797734552a92069bf31cd402d3a6be1ba344bcbc"
+  integrity sha512-tl1A2BKE+mJtB/wUl7tR8LumOZ4j5iOJtfYyWem6A+F9p9FhkuR3u8pN8juxPPNMGpz0AsJnjIWxL/DHYKRbEA==
+  dependencies:
+    "@pacote/get-style" "^1.0.0"
+    "@pacote/pixels" "^1.0.0"
+    "@pacote/throttle" "^1.0.0"
+    delegated-events "^1.0.10"
+
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
@@ -4479,6 +4513,11 @@ markdown-it-anchor@^5.2.7:
   version "5.2.7"
   resolved "https://registry.yarnpkg.com/markdown-it-anchor/-/markdown-it-anchor-5.2.7.tgz#ec740f6bd03258a582cd0c65b9644b9f9852e5a3"
   integrity sha512-REFmIaSS6szaD1bye80DMbp7ePwsPNvLTR5HunsUcZ0SG0rWJQ+Pz24R4UlTKtjKBPhxo0v0tOBDYjZQQknW8Q==
+
+markdown-it-footnote@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/markdown-it-footnote/-/markdown-it-footnote-3.0.2.tgz#1575ee7a093648d4e096aa33386b058d92ac8bc1"
+  integrity sha512-JVW6fCmZWjvMdDQSbOT3nnOQtd9iAXmw7hTSh26+v42BnvXeVyGMDBm5b/EZocMed2MbCAHiTX632vY0FyGB8A==
 
 markdown-it@^8.4.2:
   version "8.4.2"
@@ -6496,6 +6535,11 @@ select@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/select/-/select-1.1.2.tgz#0e7350acdec80b1108528786ec1d4418d11b396d"
   integrity sha1-DnNQrN7ICxEIUoeG7B1EGNEbOW0=
+
+selector-set@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/selector-set/-/selector-set-1.1.5.tgz#60c135aea482b6f46a2d95ad72058927690a8634"
+  integrity sha512-6SQw6yMew5iOZ8/cDHDEnJWRM4ot2mxP6szZyF5ptrBogw4AcS4EXRj/8BUfgAMwVfdL84qpModlBMOl2NVrsQ==
 
 semver-compare@^1.0.0:
   version "1.0.0"
