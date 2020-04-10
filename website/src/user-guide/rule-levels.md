@@ -19,7 +19,9 @@ This feature enables incremental adoption of PHPStan checks. You can start using
 To be able to run a higher level without fixing all the reported errors first, check out a feature called [the baseline](/user-guide/baseline).
 </div>
 
-You can also use `--level max` as an alias for the highest level. This will ensure that you will always use the highest level when upgrading to new versions of PHPStan. Please note that this can create a significant obstacle when upgrading to a newer version because you might have to fix a lot of code to bring the number of errors down to zero.
+You can also use `--level max` as an alias for the highest level. This will ensure that you will always use the highest level when upgrading to new versions of PHPStan. [^levelmax]
+
+[^levelmax]: Please note that this can create a significant obstacle when upgrading to a newer version because you might have to fix a lot of code to bring the number of errors down to zero.
 
 Here's a brief overview of what's checked on each level. Levels are cumulative - for example running level 5 also gives you all the checks from levels 0-4.
 
