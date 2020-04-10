@@ -4,7 +4,7 @@ date: 2017-11-27
 tags: guides
 ---
 
-One of the headlining features of [PHPStan 0.9](https://medium.com/@ondrejmirtes/phpstan-0-9-a-huge-leap-forward-1e9b0872d1cc) is the introduction of intersection types. Since this is a very useful feature that helps us understand the code much better, but the terminology is largely unknown and mysterious to the PHP community, I decided to write up and compare these two kinds of compound types.
+One of the headlining features of [PHPStan 0.9](https://phpstan.org/blog/phpstan-0-9-a-huge-leap-forward) is the introduction of intersection types. Since this is a very useful feature that helps us understand the code much better, but the terminology is largely unknown and mysterious to the PHP community, I decided to write up and compare these two kinds of compound types.
 
 # Union Types
 

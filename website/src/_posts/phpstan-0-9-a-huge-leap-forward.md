@@ -4,9 +4,9 @@ date: 2017-11-29
 tags: releases
 ---
 
-It's been a year since [I unveiled PHPStan to the world](https://medium.com/@ondrejmirtes/phpstan-2939cd0ad0e3). After 19 releases, more than 480,000 downloads (clocking around 3,600 daily during the workweek), 2,500 stars on GitHub and countless saved hours of developers that use it every day, PHPStan does so much more and is flourishing how I couldn't have ever imagine. It feels like [comparing the original iPhone to iPhone X](http://mashable.com/2017/11/06/how-many-original-iphone-screens-fit-apple-iphone-x-super-retina-display) just after a single year.
+It's been a year since [I unveiled PHPStan to the world](https://phpstan.org/blog/find-bugs-in-your-code-without-writing-tests). After 19 releases, more than 480,000 downloads (clocking around 3,600 daily during the workweek), 2,500 stars on GitHub and countless saved hours of developers that use it every day, PHPStan does so much more and is flourishing how I couldn't have ever imagine. It feels like [comparing the original iPhone to iPhone X](http://mashable.com/2017/11/06/how-many-original-iphone-screens-fit-apple-iphone-x-super-retina-display) just after a single year.
 
-> In case you've never heard about PHPStan: It's a static analyser for PHP that focuses on finding bugs in your code. You can find out more about its basics in this [introductory article](https://medium.com/@ondrejmirtes/phpstan-2939cd0ad0e3).
+> In case you've never heard about PHPStan: It's a static analyser for PHP that focuses on finding bugs in your code. You can find out more about its basics in this [introductory article](https://phpstan.org/blog/find-bugs-in-your-code-without-writing-tests).
 
 Today, I'd like to introduce the next version of PHPStan. It packs so many new features and improvements that it deserves its own article with more space to be able to explain them, but I published [comprehensive release notes](https://github.com/phpstan/phpstan/releases/tag/0.9) as well.
 
@@ -20,7 +20,7 @@ I'm really lucky that I'm able to work on something I really love and that I can
 
 ## Intersection types
 
-This is a largely unknown term to the PHP community. That's why I took time a few days ago to [describe it in-depth in a special article](https://medium.com/@ondrejmirtes/union-types-vs-intersection-types-fd44a8eacbb).
+This is a largely unknown term to the PHP community. That's why I took time a few days ago to [describe it in-depth in a special article](https://phpstan.org/blog/union-types-vs-intersection-types).
 
 Implementation of intersection types allows PHPStan to understand code much better. In previous versions, PHPStan would fail to analyse this code:
 

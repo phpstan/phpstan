@@ -4,7 +4,7 @@ date: 2019-02-13
 tags: releases
 ---
 
-[PHPStan is a static analyser](https://medium.com/@ondrejmirtes/phpstan-2939cd0ad0e3) that focuses on finding bugs in your code before you even run it. Its unique extensibility allows it to correctly interpret common magic behavior of PHP like `__call()`, `__set()`, `__get()`, and offer static analysis in areas where it was considered impossible.
+[PHPStan is a static analyser](https://phpstan.org/blog/find-bugs-in-your-code-without-writing-tests) that focuses on finding bugs in your code before you even run it. Its unique extensibility allows it to correctly interpret common magic behavior of PHP like `__call()`, `__set()`, `__get()`, and offer static analysis in areas where it was considered impossible.
 
 [Doctrine ORM](https://www.doctrine-project.org/) is a popular library that allows developers to represent data from the database as objects in their application.
 
