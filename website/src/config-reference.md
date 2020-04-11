@@ -35,7 +35,7 @@ A config file can be passed to the `phpstan` executable using the `-c|--configur
 vendor/bin/phpstan analyse -c phpstan.neon
 ```
 
-When using a config file, you have to pass the `--level|-l` option to `analyse` command (default value `0` does not apply here), or provide it as a `level` parameter in the config file itself.
+When using a config file, you have to pass the `--level|-l` option to `analyse` command (default value `0` does not apply here), or provide it as a `level` parameter in the config file itself. [Learn more about other command line options »](/user-guide/command-line-usage)
 
 If you do not provide a config file explicitly, PHPStan will look for files named `phpstan.neon` or `phpstan.neon.dist` in current directory.
 

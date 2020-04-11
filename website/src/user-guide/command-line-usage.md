@@ -89,7 +89,7 @@ To clear the current state of the result cache, for example if you're developing
 vendor/bin/phpstan clear-result-cache [options]
 ```
 
-The `clear-result-cache` command shares some of the options with the `analyse` command. The reason is that the [configuration file](/config-reference) might be setting a custom [`tmpDir`](config-reference#caching) which is where the result cache is saved.
+The `clear-result-cache` command shares some of the options with the `analyse` command. The reason is that the [configuration file](/config-reference) might be setting a custom [`tmpDir`](/config-reference#caching) which is where the result cache is saved.
 
 ### `--configuration|-c`
 
