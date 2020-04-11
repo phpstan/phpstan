@@ -4,6 +4,12 @@ title: Result Cache
 
 PHPStan caches the result of the analysis so the subsequent runs are much faster. You should always analyse the whole project - the list of paths passed to the [`analyse` command](/user-guide/command-line-usage) should be the same to take advantage of the result cache. If the list of paths differs from run to run, the cache is rebuilt from the ground up each time.
 
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+
+You might notice the result cache isn't sometimes saved and PHPStan runs full analysis even if nothing changed since the last run. If the analysis result contains some serious errors like parse errors or [autoloading errors](/user-guide/autoloading), result cache cannot be used for the next run because the files dependency tree might be incomplete.
+
+</div>
+
 The result cache is saved at `%tmpDir%/result-cache.php`. [Learn more about `tmpDir` configuration »](/config-reference#caching)
 
 Result cache contents
