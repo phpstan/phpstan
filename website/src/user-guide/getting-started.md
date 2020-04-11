@@ -39,6 +39,8 @@ You should only analyse files with the code you've written yourself. There's no 
 Yes, PHPStan needs to know about all the classes, interfaces, traits, and functions your code uses, but that's achieved through [autoloading](/user-guide/autoloading), not by including the files in the analysis.
 </div>
 
+[Learn more about command line options »](/user-guide/command-line-usage)
+
 PHPStan will probably find some errors, but don't worry, your code might be just fine. Errors found on the first run tend to be:
 
 * Extra arguments passed to functions (e. g. function requires two arguments, the code passes three)

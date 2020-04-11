@@ -16,6 +16,10 @@
             "link": "/user-guide/getting-started"
         },
         {
+            "title": "Command Line Usage",
+            "link": "/user-guide/command-line-usage"
+        },
+        {
             "title": "Rule Levels",
             "link": "/user-guide/rule-levels"
         },
