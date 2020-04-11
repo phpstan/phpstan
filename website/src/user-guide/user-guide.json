@@ -44,6 +44,10 @@
             "link": "/user-guide/stub-files"
         },
         {
+            "title": "Result Cache",
+            "link": "/user-guide/result-cache"
+        },
+        {
             "title": "Extension Library",
             "link": "/user-guide/extension-library"
         }

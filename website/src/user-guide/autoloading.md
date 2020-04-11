@@ -4,7 +4,9 @@ title: Autoloading
 
 PHPStan needs a working autoloader to access reflection of the analysed classes. It uses Composer autoloader in the project by looking at `vendor/autoload.php` from the current working directory. Use the `autoload`/`autoload-dev` sections in `composer.json` to configure the autoloader.
 
-If PHPStan complains about some non-existent classes and you're sure the classes exist in the codebase and you don't want to use Composer autoloader, you can specify directories to scan and concrete files to include using `autoload_directories` and `autoload_files` parameters in the [configuration file](/config-reference).
+If PHPStan complains about some non-existent classes [^class-not-found] and you're sure the classes exist in the codebase and you don't want to use Composer autoloader, you can specify directories to scan and concrete files to include using `autoload_directories` and `autoload_files` parameters in the [configuration file](/config-reference).
+
+[^class-not-found]: This manifests are "Class not found" message in the PHPStan's output, even when analysing the file the class is in.
 
 `autoload_directories` is for discovering classes, interfaces, and traits, `autoload_files` is used for loading function definitions.
 

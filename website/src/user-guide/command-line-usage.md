@@ -83,7 +83,7 @@ Outputs a summary of available CLI options, but not as in much detail as this pa
 Clearing the result cache
 --------------
 
-To clear the current state of the result cache, for example if you're developing [custom extensions](/developing-extensions/extension-types) and the result cache is getting stale too often.
+To clear the current state of the [result cache](/user-guide/result-cache), for example if you're developing [custom extensions](/developing-extensions/extension-types) and the result cache is getting stale too often.
 
 ```bash
 vendor/bin/phpstan clear-result-cache [options]
