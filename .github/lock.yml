@@ -19,6 +19,10 @@ lockComment: >
   any recent activity after it was closed. Please open a new issue for
   related bugs.
 
+  BTW: Did you know that PHPStan now has a [brand new website](https://phpstan.org/user-guide/getting-started)
+  with a user guide, guide to writing analyser-friendly PHP code, and a guide to developing
+  PHPStan extensions? Visit [phpstan.org](https://phpstan.org/) today!
+
 # Assign `resolved` as the reason for locking. Set to `false` to disable
 setLockReason: true
 
