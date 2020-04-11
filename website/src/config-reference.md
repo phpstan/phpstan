@@ -192,7 +192,7 @@ You can then choose your own ruleset by copying parts of the [level configuratio
 Solving undefined variables
 -------------------
 
-<!-- todo move to user guide -->
+<!-- todo move to Writing PHP Code -->
 
 Consider this example:
 
@@ -235,7 +235,7 @@ parameters:
 Universal object crates
 ----------------
 
-<!-- TODO move to user guide -->
+<!-- TODO move to Solving undefined properties -->
 
 Classes without predefined structure are common in PHP applications. They are used as universal holders of data - any property can be set and read on them. Notable examples include `stdClass`, `SimpleXMLElement` (these are enabled by default), objects with results of database queries etc. Use `universalObjectCratesClasses` key to let PHPStan know which classes with these characteristics are used in your codebase:
 
@@ -408,8 +408,6 @@ parameters:
 
 Type aliases
 -------------
-
-<!-- TODO move to User Guide, just leave a link here -->
 
 Type aliases (also known as `typedef`) are a popular feature in other languages like TypeScript or C++. Using the following configuration in the config file will allow you to reference these types in your PHPDocs:
 
