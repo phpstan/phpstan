@@ -29,9 +29,12 @@ To ignore errors by a regular expression only in a specific file, add an entry w
 parameters:
 	ignoreErrors:
 		-
-			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::doFoo\(\)#'
+			message: '#Access to an undefined property [a-zA-Z0-9\\_]+::\$foo#'
 			path: some/dir/SomeFile.php
-			count: 2
+		-
+			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::doFoo\(\)#'
+			path: other/dir/DifferentFile.php
+			count: 2 # optional
 		-
 			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::doBar\(\)#'
 			paths:
