@@ -23,7 +23,7 @@ parameters:
 		- '#Call to an undefined method [a-zA-Z0-9\\_]+::doBar\(\)#'
 ```
 
-To ignore errors by a regular expression only in a specific file, add an entry with `message` and `path` or `paths` keys. Wildcard patterns compatible with the PHP [`fnmatch()`](https://www.php.net/manual/en/function.fnmatch.php) are also supported.
+To ignore errors by a regular expression only in a specific file, add an entry with `message` and `path` or `paths` keys. Wildcard patterns compatible with the PHP [`fnmatch()`](https://www.php.net/manual/en/function.fnmatch.php) are also supported. You can specify how many times the error is expected by using `count` (optional, applies only to `path`, not `paths`).
 
 ```yaml
 parameters:
@@ -31,6 +31,7 @@ parameters:
 		-
 			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::doFoo\(\)#'
 			path: some/dir/SomeFile.php
+			count: 2
 		-
 			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::doBar\(\)#'
 			paths:
