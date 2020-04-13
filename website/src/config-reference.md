@@ -373,7 +373,7 @@ parameters:
 Type aliases
 -------------
 
-Learn more about ignoring errors in the [Writing PHP Code section](/writing-php-code/phpdoc-types#type-aliases).
+Learn more about type aliases in the [Writing PHP Code section](/writing-php-code/phpdoc-types#type-aliases).
 
 Related config key: `typeAliases`.
 
