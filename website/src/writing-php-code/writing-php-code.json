@@ -26,6 +26,10 @@
         {
             "title": "Solving Undefined Variables",
             "link": "/writing-php-code/solving-undefined-variables"
+        },
+        {
+            "title": "Narrowing Types",
+            "link": "/writing-php-code/narrowing-types"
         }
     ]
 }
