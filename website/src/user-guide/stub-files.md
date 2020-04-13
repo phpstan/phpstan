@@ -2,7 +2,7 @@
 title: Stub Files
 ---
 
-PHPStan depends on PHPDocs in the analysed and used code. You might encounter a PHPDoc in your `vendor/` that's imprecise and causes an error in the analysis of your project that's a false positive.
+PHPStan depends on [PHPDocs](/writing-php-code/phpdocs-basics) in the analysed and used code. You might encounter a PHPDoc in your `vendor/` that's imprecise and causes an error in the analysis of your project that's a false positive.
 
 To mitigate this, you can write a stub file with the right PHPDoc. It's like source code, but PHPStan only reads PHPDocs from it. So the namespace and class/interface/trait/method/function names must match with the original source you're describing. But method bodies can stay empty, PHPStan is only interested in the PHPDocs. Get inspired by [the stubs PHPStan itself uses](https://github.com/phpstan/phpstan-src/tree/master/stubs) or by [the stubs from the phpstan-doctrine extension](https://github.com/phpstan/phpstan-doctrine/tree/master/stubs).
 
@@ -16,7 +16,7 @@ Errors reported in the stub files also can't be ignored and all of them must be 
 
 </div>
 
-The stub file needs to be added to the `stubFiles` key:
+The stub file needs to be added to the `stubFiles` key in the [configuration file](/config-reference):
 
 ```yaml
 parameters:

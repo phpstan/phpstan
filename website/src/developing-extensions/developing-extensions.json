@@ -8,6 +8,10 @@
         {
             "title": "Config Reference",
             "link": "/config-reference"
+        },
+        {
+            "title": "Writing PHP Code",
+            "link": "/writing-php-code/phpdocs-basics"
         }
     ],
     "sidebarItems": [

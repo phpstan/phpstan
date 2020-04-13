@@ -192,45 +192,9 @@ You can then choose your own ruleset by copying parts of the [level configuratio
 Solving undefined variables
 -------------------
 
-<!-- todo move to Writing PHP Code -->
+Learn more about solving undefined variables in [Writing PHP Code](/writing-php-code/solving-undefined-variables).
 
-Consider this example:
-
-```php
-if (somethingIsTrue()) {
-	$foo = true;
-} elseif (orSomethingElseIsTrue()) {
-	$foo = false;
-} else {
-	$this->redirect('homepage');
-}
-
-doFoo($foo); // possibly undefined variable $foo
-```
-
-Without any special knowledge we might think that the variable `$foo` might be undefined in case the `else` branch was executed. However, some specific method calls can be perceived by project developers also as early terminating - like a `redirect()` that stops execution by throwing an internal exception.
-
-These methods can be configured by specifying a class on whose instance they are called using `earlyTerminatingMethodCalls` option key like this:
-
-```yaml
-parameters:
-	earlyTerminatingMethodCalls:
-		Nette\Application\UI\Presenter:
-			- redirect
-			- redirectUrl
-			- sendJson
-			- sendResponse
-```
-
-The same applies to plain global functions. Early terminating functions can be defined using the `earlyTerminatingFunctionCalls` key, like this one with a global helper function `redirect()`:
-
-```yaml
-parameters:
-	earlyTerminatingFunctionCalls:
-		- redirect
-```
-
-<!-- TODO talk about isset() when PHPStan doesn't see the connection between variable value and existence -->
+Related config keys: `earlyTerminatingMethodCalls`, `earlyTerminatingFunctionCalls`.
 
 Universal object crates
 ----------------
@@ -409,27 +373,9 @@ parameters:
 Type aliases
 -------------
 
-Type aliases (also known as `typedef`) are a popular feature in other languages like TypeScript or C++. Using the following configuration in the config file will allow you to reference these types in your PHPDocs:
+Learn more about ignoring errors in the [Writing PHP Code section](/writing-php-code/phpdoc-types#type-aliases).
 
-```yaml
-parameters:
-	typeAliases:
-		Name: 'string'
-		NameResolver: 'callable(): string'
-		NameOrResolver: 'Name|NameResolver'
-```
-
-Your code can look like this:
-
-```php
-/**
- * @param NameOrResolver $arg
- */
-function foo($arg)
-{
-	// $arg is string|(callable(): string)
-}
-```
+Related config key: `typeAliases`.
 
 Parallel processing
 ----------------
