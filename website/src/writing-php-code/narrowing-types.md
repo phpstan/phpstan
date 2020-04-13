@@ -13,22 +13,16 @@ In case of scalar values type can be narrowed using `===` and `!==` operators:
 
 ```php
 if ($stringOrBool === true) {
-    // $stringOrBool is true
+    // $stringOrBool is true here
 }
 ```
 
 These operators can either be used in conditions, or in an `assert()` call:
 
 ```php
-if (is_string($intOrString)) {
-    // $intOrString is string here
-}
+assert($stringOrBool === true);
 
-// or:
-
-assert(is_string($intOrString));
-
-// $intOrString is string after the assert() call
+// $intOrString is true after the assert() call
 ```
 
 Type-checking functions
