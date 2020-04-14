@@ -25,6 +25,7 @@ module.exports = function (eleventyConfig) {
 	});
 
 	markdownLib.use(require('markdown-it-footnote'));
+	markdownLib.use(require('markdown-it-abbr'));
 
 	eleventyConfig.setLibrary("md", markdownLib);
 
