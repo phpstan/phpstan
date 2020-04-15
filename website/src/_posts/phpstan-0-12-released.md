@@ -59,7 +59,7 @@ So the new levels design looks like this:
 4. basic dead code checking - always false `instanceof` and other type checks, dead `else` branches, unreachable code after return; etc.
 5. checking types of arguments passed to methods and functions
 6. **report missing typehints**
-7. report partially wrong union types - if you call a method that only exists on some types in a union type, level 6 starts to report that; other possibly incorrect situations
+7. report partially wrong union types - if you call a method that only exists on some types in a union type, level 7 starts to report that; other possibly incorrect situations
 8. report calling methods and accessing properties on nullable types
 
 So who has previously been on levels 5+ should now be able to jump at least one level higher if they add typehints to all their code.
