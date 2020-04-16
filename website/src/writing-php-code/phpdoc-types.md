@@ -145,7 +145,7 @@ function foo($arg)
 Array shapes
 -------------------------
 
-This feature enables usage of strong types in legacy code where arrays of various specific shapes are passed around functions and methods. PHPStan checks that the values in specified keys have the correct types:
+This feature enables usage of strong types in codebases where arrays of various specific shapes are passed around functions and methods. PHPStan checks that the values in specified keys have the correct types:
 
 * `array{'foo': int, "bar": string}`
 * `array{0: int, 1?: int}` (key `1` is optional in the array)
