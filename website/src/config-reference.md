@@ -419,6 +419,10 @@ parameters:
 		maximumNumberOfProcesses: 1
 ```
 
+Parallel processing is also disabled when running with [`--debug`](/user-guide/command-line-usage#--debug). [^notWantToRunWithDebug]
+
+[^notWantToRunWithDebug]: Although you don't want to always run PHPStan with this option.
+
 Miscellaneous parameters
 -----------------
 

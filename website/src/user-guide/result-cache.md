@@ -15,7 +15,7 @@ The result cache is saved at `%tmpDir%/result-cache.php`. [Learn more about `tmp
 Result cache contents
 --------------
 
-* The last time a full analysis of the project was performed. The full analysis is performed at least every 24 hours.
+* The last time a full analysis of the project was performed. The full analysis is performed at least every 7 days.
 * Analysis variables used to invalidate a stale cache. If any of these values change, full analysis is performed again.
   * PHPStan version
   * PHP version
@@ -32,3 +32,5 @@ Clearing the result cache
 ---------------
 
 To clear the current state of the result cache, for example if you're developing [custom extensions](/developing-extensions/extension-types) and the result cache is getting stale too often, you can run the `clear-result-cache` command. [Learn more »](/user-guide/command-line-usage#clearing-the-result-cache)
+
+Result cache also gets disabled when running with [`--debug`](/user-guide/command-line-usage#--debug).

@@ -63,6 +63,8 @@ Instead of the progress bar, it outputs lines with each analysed file before its
 
 Additionally, it stops on the first internal error and prints a stack trace.
 
+This option also disables the [result cache](/user-guide/result-cache) and [parallel processing](/config-reference#parallel-processing) for debugging purposes.
+
 ### `--ansi, --no-ansi`
 
 Overrides the autodetection of whether colors should be used in the output and how nice the progress bar should be.
