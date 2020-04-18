@@ -14,7 +14,39 @@ Please note that some selected serious errors (like autoloading issues, parent c
 
 </div>
 
-Errors can be ignored by adding a regular expression to the config file under the `ignoreErrors` key. To ignore an error by a regular expression in the whole project, add a string entry:
+Ignoring in code using PHPDocs
+-------------------
+
+Errors can be ignored next to the violating line of code using PHPDoc tags in comments:
+
+* `@phpstan-ignore-line`
+* `@phpstan-ignore-next-line`
+
+All the PHP comment styles (`//`, `/* */`, `/** */`) can be used.
+
+```php
+function () {
+	/** @phpstan-ignore-next-line */
+	echo $foo;
+
+	echo $foo; /** @phpstan-ignore-line */
+
+	/* @phpstan-ignore-next-line */
+	echo $foo;
+
+	echo $foo; /* @phpstan-ignore-line */
+
+	// @phpstan-ignore-next-line
+	echo $foo;
+
+	echo $foo; // @phpstan-ignore-line
+};
+```
+
+Ignoring in configuration file
+-------------------
+
+Errors can be ignored by adding a regular expression to the [configuration file](/config-reference) under the `ignoreErrors` key. To ignore an error by a regular expression in the whole project, add a string entry:
 
 ```yaml
 parameters:
@@ -59,7 +91,7 @@ If you want to ignore all the current errors and only focus on new and changed c
 Reporting unused ignores
 ------------------
 
-If some of the patterns do not occur in the result anymore, PHPStan will let you know and you will have to remove the pattern from the configuration. You can turn off this behaviour by setting `reportUnmatchedIgnoredErrors` to `false` in the configuration:
+If some of the ignored errors (both from configuration and PHPDocs) do not occur in the result anymore, PHPStan will let you know and you will have to remove the pattern from the configuration. You can turn off this behaviour by setting `reportUnmatchedIgnoredErrors` to `false` in the configuration:
 
 ```yaml
 parameters:
