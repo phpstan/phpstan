@@ -10,6 +10,7 @@ export class PlaygroundViewModel {
 	codeDelayed: ko.Computed<string>;
 	errors: ko.ObservableArray<PHPStanError>;
 	errorsText: ko.Computed<string>;
+	errorLines: ko.Computed<number[]>;
 	shareText: ko.Observable<string>;
 	legacyResult: ko.Observable<string | null>;
 
@@ -42,6 +43,19 @@ export class PlaygroundViewModel {
 			}
 
 			return 'Found ' + errorsCount.toString() + ' errors';
+		});
+		this.errorLines = ko.pureComputed(() => {
+			const errors = this.errors();
+			const lines = [];
+			for (let i = 0; i < errors.length; i++) {
+				const line = errors[i].line;
+				if (line < 1) {
+					continue;
+				}
+				lines.push(line - 1);
+			}
+
+			return lines;
 		});
 		this.shareText = ko.observable('Share');
 		this.legacyResult = ko.observable(null);

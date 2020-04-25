@@ -20,6 +20,7 @@ ko.bindingHandlers.codeMirror = {
 			const observable = valueAccessor();
 			observable(codeMirror.getDoc().getValue());
 		});
+		codeMirror.getDoc().addLineClass(3, 'background', 'bg-red-500');
 
 		ko.utils.domData.set(element, 'codeMirror', codeMirror);
 	},
@@ -33,5 +34,21 @@ ko.bindingHandlers.codeMirror = {
 			return;
 		}
 		codeMirror.getDoc().setValue(newValue);
+	},
+};
+
+ko.bindingHandlers.codeMirrorLines = {
+	update: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) => {
+		const codeMirror: any = ko.utils.domData.get(element, 'codeMirror');
+		const doc = codeMirror.getDoc();
+		const lineCount = doc.lineCount();
+		for (let i = 0; i < lineCount; i++) {
+			doc.removeLineClass(i, 'background');
+		}
+
+		const newLines = ko.unwrap(valueAccessor());
+		for (let i = 0; i < newLines.length; i++) {
+			doc.addLineClass(newLines[i], 'background', 'bg-red-100');
+		}
 	},
 };

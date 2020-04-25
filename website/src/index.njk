@@ -17,7 +17,7 @@ pageType: playground
 </div>
 <div style="display: none" data-bind="visible: true">
 	<form action="#" method="post" class="mb-8">
-		<textarea data-bind="codeMirror: code"></textarea>
+		<textarea data-bind="codeMirror: code, codeMirrorLines: errorLines"></textarea>
 
 		<div class="flex align-items-center mt-4 flex-col md:flex-row">
 			<select class="form-select block mt-1 mx-4 md:mx-0" data-bind="value: level">
