@@ -47,8 +47,8 @@ export class PlaygroundViewModel {
 		this.errorLines = ko.pureComputed(() => {
 			const errors = this.errors();
 			const lines = [];
-			for (let i = 0; i < errors.length; i++) {
-				const line = errors[i].line;
+			for (const error of errors) {
+				const line = error.line;
 				if (line < 1) {
 					continue;
 				}

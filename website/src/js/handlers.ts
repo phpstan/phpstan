@@ -47,8 +47,8 @@ ko.bindingHandlers.codeMirrorLines = {
 		}
 
 		const newLines = ko.unwrap(valueAccessor());
-		for (let i = 0; i < newLines.length; i++) {
-			doc.addLineClass(newLines[i], 'background', 'bg-red-100');
+		for (const newLine of newLines) {
+			doc.addLineClass(newLine, 'background', 'bg-red-100');
 		}
 	},
 };
