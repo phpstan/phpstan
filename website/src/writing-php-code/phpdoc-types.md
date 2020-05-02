@@ -154,6 +154,24 @@ This feature enables usage of strong types in codebases where arrays of various 
 
 This is different from [general arrays](#general-arrays) that mandate that all the keys and values must be of a specific homogeneous type. Array shapes allow each key and value to be different.
 
+Literals and constants
+-------------------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 0.12.20</div>
+
+PHPStan allows specifying scalar values as types in PHPDocs:
+
+* `234` (integers)
+* `1.0` (floats)
+* `'foo'|'bar'` (strings; types can be combined with others)
+
+Constant enumerations are also supported:
+
+* `Foo::SOME_CONSTANT`
+* `Foo::SOME_CONSTANT|Bar::OTHER_CONSTANT`
+* `self::SOME_*` (all constants on `self` that start with `SOME_`)
+* `Foo::*` (all constants on `Foo`)
+
 Callables
 -------------------------
 
