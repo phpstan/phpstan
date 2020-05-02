@@ -89,6 +89,73 @@ For custom `__call` methods logic, a `@method` PHPDoc tag can be placed above a 
 class Foo { ... }
 ```
 
+Mixins
+-------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 0.12.20</div>
+
+When a class delegates unknown method calls and property accesses to a different class using `__call` and `__get`/`__set`, we can describe the relationship using `@mixin` PHPDoc tag:
+
+```php
+class A
+{
+    public function doA(): void
+    {
+    }
+}
+
+/**
+ * @mixin A
+ */
+class B
+{
+    public function doB(): void
+    {
+    }
+
+    public function __call($name, $arguments)
+    {
+        (new A())->$name(...$arguments);
+    }
+}
+
+$b = new B();
+$b->doB();
+$b->doA(); // works
+```
+
+It also works with [generics](/blog/generics-in-php-using-phpdocs):
+
+```php
+/**
+ * @template T
+ * @mixin T
+ */
+class Delegatee
+{
+
+    /** @var T */
+    private $delegate;
+
+    /**
+     * @param T $delegate
+     */
+    public function __construct($delegate)
+    {
+        $this->delegate = $delegate;
+    }
+
+    public function __call($name, $arguments)
+    {
+        return $this->delegate->$name(...$arguments);
+    }
+
+}
+
+$d = new Delegatee(new \Exception('My message'));
+echo $d->getMessage(); // PHPStan knows the method is on Exception
+```
+
 Combining PHPDoc types with native typehints
 -------------
 
