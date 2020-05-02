@@ -73,7 +73,7 @@ class Foo { ... }
 
 The `@property` tag can also be used to override wrong property type from a parent class.
 
-<!-- link Solving undefined properties -->
+<!-- TODO link Solving undefined properties -->
 
 Magic methods
 -------------
