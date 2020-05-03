@@ -135,6 +135,10 @@ jobs:
             cd e2e/hoa
             composer install
             ../../phpstan analyse -l 8 src
+          - |
+            cd e2e/different-php-parser
+            composer install
+            ../../phpstan analyse -l 8 test.php
 
     steps:
       - name: "Checkout"

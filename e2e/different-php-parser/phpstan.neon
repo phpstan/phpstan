@@ -1,0 +1,3 @@
+parameters:
+	autoload_files:
+		- vendor/squizlabs/php_codesniffer/autoload.php
