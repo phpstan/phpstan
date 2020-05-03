@@ -139,6 +139,10 @@ jobs:
             cd e2e/different-php-parser
             composer install
             ../../phpstan analyse -l 8 test.php
+          - |
+            cd e2e/different-phpdoc-parser
+            composer install
+            ../../phpstan analyse -l 8 -a Test.php Test.php
 
     steps:
       - name: "Checkout"
