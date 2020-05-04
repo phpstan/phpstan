@@ -143,6 +143,10 @@ jobs:
             cd e2e/different-phpdoc-parser
             composer install
             ../../phpstan analyse -l 8 -a Test.php Test.php
+          - |
+            cd e2e/php-metrics
+            composer install
+            ../../phpstan analyse -l 8 test.php
 
     steps:
       - name: "Checkout"
