@@ -147,6 +147,10 @@ jobs:
             cd e2e/php-metrics
             composer install
             ../../phpstan analyse -l 8 test.php
+          - |
+            cd e2e/react-bootstrap
+            composer install
+            ../../phpstan analyse -l 8 -c phpstan.neon test.php
 
     steps:
       - name: "Checkout"

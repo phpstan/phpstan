@@ -1,0 +1,6 @@
+{
+	"require": {
+		"phpstan/phpstan": "^0.12.19",
+		"react/promise": "^2.7"
+	}
+}
