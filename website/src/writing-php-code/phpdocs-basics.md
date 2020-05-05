@@ -18,7 +18,7 @@ This is how a valid PHPDoc above a function or a method can look like:
  * @param Foo $param
  * @return Bar
  */
-function foo ($param) { ... }
+function foo($param) { ... }
 ```
 
 Properties
