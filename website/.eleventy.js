@@ -22,6 +22,9 @@ module.exports = function (eleventyConfig) {
 	const markdownLib = markdownIt(options).disable('code');
 	markdownLib.use(require('markdown-it-anchor'), {
 		level: 2,
+		permalink: true,
+		permalinkSymbol: '#',
+		permalinkClass: 'header-anchor ml-1 text-gray-300 hover:text-black',
 	});
 
 	markdownLib.use(require('markdown-it-footnote'));
