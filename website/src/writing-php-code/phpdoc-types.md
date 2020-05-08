@@ -183,3 +183,21 @@ The `callable` typehint has been in PHP for a long time. But it doesn't allow en
 * `callable(float ...$floats): (int|null)` (accepts multiple variadic float arguments, returns integer or null)
 
 Parameter types and return type are required. Use `mixed` if you don't want to use a more specific type.
+
+Variadic functions (variable amount of arguments)
+-------------------------
+
+This allows specifying functions or methods which have a variable amount of parameters (available in PHP [since v5.6](https://www.php.net/manual/en/migration56.new-features.php)).
+
+Your code can look like this:
+
+```php
+/**
+ * @param string $arg
+ * @param string ...$additional
+ */
+function foo($arg, ...$additional)
+{
+    
+}
+```
