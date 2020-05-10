@@ -191,6 +191,24 @@ public function returnStatic(): self
 }
 ```
 
+Variadic functions
+-------------------------
+
+This allows specifying functions or methods which have a variable amount of parameters (available since [PHP 5.6](https://www.php.net/manual/en/migration56.new-features.php)).
+
+Your code can look like this:
+
+```php
+/**
+ * @param string $arg
+ * @param string ...$additional
+ */
+function foo($arg, ...$additional)
+{
+    
+}
+```
+
 A narrower `@return $this` instead of `@return static` can also be used, and PHPStan will check if you're really returning the same object instance and not just the child class.
 
 Generics
