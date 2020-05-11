@@ -34,7 +34,6 @@ the logo of your company in PHPStan's README.
 * [Ahmed Abdou](https://github.com/amaabdou)
 * [Buster "Silver Eagle" Neece](https://github.com/SlvrEagle23)
 * [Luc De Brouwer](https://github.com/ldebrouwer)
-* [Andreas Leathley](https://github.com/iquito)
 * [Michael Moll](https://github.com/mmoll)
 * [Hugo Alliaume](https://github.com/Kocal)
 * [Vašek Brychta](https://github.com/vasek-b)
@@ -68,12 +67,18 @@ the logo of your company in PHPStan's README.
 * [SuRaMoN](https://github.com/SuRaMoN)
 * [Koji Tanaka](https://github.com/tenkoma)
 * [Christer Edvartsen](https://github.com/christeredvartsen)
+* [Oliver Klee](https://github.com/oliverklee)
+* [shoma](https://github.com/shoma)
+* [spaceemotion](https://github.com/spaceemotion)
+* [Akihito Koriyama](https://github.com/koriym)
+* [Anton Ukhanev](https://github.com/XedinUnknown)
+* [Tom Spencer](https://github.com/tspencer244)
+* [Stefan Zielke](https://github.com/stefanzielke)
 
 * Kayneth
 * Mandy Schoep
 * thechris
 * Bill Condo
-* Rodrigue Villetard
 * Luis Pablo Galeas
 * Bart Reunes
 * Thomas Daugaard
@@ -81,4 +86,3 @@ the logo of your company in PHPStan's README.
 * Jan Kuchař
 * Rudolph Gottesheim
 * Dennis Haarbrink
-* Stefan Zielke
