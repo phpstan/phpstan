@@ -78,6 +78,9 @@ jobs:
           - "phpstan-dibi"
           - "phpstan-webmozart-assert"
           - "phpstan-beberlei-assert"
+        static-reflection:
+          - "true"
+          - "false"
 
     steps:
       - name: "Checkout"
@@ -100,6 +103,8 @@ jobs:
         run: "composer update --no-interaction --no-progress --no-suggest"
 
       - name: "Extension build"
+        env:
+          STATIC_REFLECTION: ${{ matrix.static-reflection }}
         run: "./e2e/test-extension.sh 'https://github.com/phpstan/${{ matrix.extension-name }}.git'"
 
   other-tests:
