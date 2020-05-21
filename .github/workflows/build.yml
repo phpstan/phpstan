@@ -114,6 +114,7 @@ jobs:
     runs-on: "ubuntu-latest"
 
     strategy:
+      fail-fast: false
       matrix:
         php-version:
           - "7.1"
@@ -157,6 +158,10 @@ jobs:
             cd e2e/react-bootstrap
             composer install
             ../../phpstan analyse -l 8 -c phpstan.neon test.php
+          - |
+            cd e2e/no-autoloader
+            composer install
+            ../../phpstan analyse -l 8 -c phpstan.neon src tests
 
     steps:
       - name: "Checkout"

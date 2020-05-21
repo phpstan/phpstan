@@ -1,0 +1,3 @@
+parameters:
+	autoload_directories:
+		- tests

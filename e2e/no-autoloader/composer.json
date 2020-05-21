@@ -1,0 +1,6 @@
+{
+	"require": {
+		"phpstan/phpstan": "^0.12.25",
+		"nette/tester": "^2.3.2"
+	}
+}
