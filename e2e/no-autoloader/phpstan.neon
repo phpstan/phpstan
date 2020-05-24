@@ -1,3 +1,7 @@
 parameters:
 	autoload_directories:
 		- tests
+	ignoreErrors:
+		-
+			message: '~Parameter #1 \$i of function App\\f expects int, string given\.~'
+			path: src/Test.php
