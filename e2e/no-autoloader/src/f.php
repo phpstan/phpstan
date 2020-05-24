@@ -3,5 +3,8 @@
 namespace App;
 
 function f(int $i): void {
-
+	die;
 }
+
+f(1);
+f('str');

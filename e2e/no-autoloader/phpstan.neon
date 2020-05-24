@@ -4,4 +4,6 @@ parameters:
 	ignoreErrors:
 		-
 			message: '~Parameter #1 \$i of function App\\f expects int, string given\.~'
-			path: src/Test.php
+			paths:
+				- src/Test.php
+				- src/f.php
