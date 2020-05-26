@@ -162,6 +162,9 @@ jobs:
             cd e2e/no-autoloader
             composer install
             ../../phpstan analyse -l 8 -c phpstan.neon src tests
+          - |
+            cd e2e/mongodb
+            ../../phpstan analyse -l 8 test.php
 
     steps:
       - name: "Checkout"
