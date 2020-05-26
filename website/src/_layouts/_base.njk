@@ -10,6 +10,8 @@
 
 	{% if ogImage %}
 		<meta property="og:image" content="{{ ogImage }}" />
+	{% else %}
+		<meta property="og:image" content="/images/logo-big.png" />
 	{% endif %}
 	<link rel="icon" type="image/png" href="/images/favicon.png">
 
