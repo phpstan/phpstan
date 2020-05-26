@@ -183,6 +183,9 @@ jobs:
           key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
           restore-keys: "php-${{ matrix.php-version }}-composer-"
 
+      - name: "Disable MongoDB extension"
+        run: sudo phpdismod -v ${{ matrix.php-version }} mongodb
+
       - name: "Install dependencies"
         run: "composer update --no-interaction --no-progress --no-suggest"
 
