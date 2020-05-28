@@ -31,7 +31,7 @@
 		"posthtml-noopener": "^1.0.5",
 		"reading-time": "^1.2.0",
 		"tailwindcss": "^1.2.0",
-		"tslint": "^6.1.0",
+		"tslint": "^6.1.2",
 		"typescript": "^3.8.3"
 	},
 	"scripts": {
