@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"license": "MIT",
 	"dependencies": {
-		"@tailwindcss/ui": "^0.1.3",
+		"@tailwindcss/ui": "^0.1.4",
 		"codemirror": "^5.52.2",
 		"docsearch.js": "2",
 		"jquery": "^3.5.1",

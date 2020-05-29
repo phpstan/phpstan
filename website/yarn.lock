@@ -965,13 +965,13 @@
     mini-svg-data-uri "^1.0.3"
     traverse "^0.6.6"
 
-"@tailwindcss/ui@^0.1.3":
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/@tailwindcss/ui/-/ui-0.1.3.tgz#4cc46f8a5788fcad937eff1ab567f5688080eb24"
-  integrity sha512-ggEEFj0N6YY6fFjHtoGArv9j7wr5nj+TswpGzEezN2l15jHJK1NZ+Lnt0XKsbJy2zWFSNy/KKpPCbh3d6/66tw==
+"@tailwindcss/ui@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@tailwindcss/ui/-/ui-0.1.4.tgz#810f83736b5c86b2c64342a20eb29f11a11e62a5"
+  integrity sha512-ZEfWbr3igOd/iOJPljVKC1/q1Y5eAVcAD2xRgAWhYsMjgtPj2jKVRHQz1SARNAUYr+8vkDzRiRMRatpUvfWncA==
   dependencies:
     "@tailwindcss/custom-forms" "^0.2.1"
-    hex-to-rgba "^2.0.1"
+    hex-rgb "^4.1.0"
     postcss-selector-parser "^6.0.2"
 
 "@types/babel-types@*", "@types/babel-types@^7.0.0":
@@ -3552,10 +3552,10 @@ hex-color-regex@^1.1.0:
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
 
-hex-to-rgba@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/hex-to-rgba/-/hex-to-rgba-2.0.1.tgz#4176977882a1cb32b83ce5ab1db6828ab84d5a13"
-  integrity sha512-5XqPJBpsEUMsseJUi2w2Hl7cHFFi3+OO10M2pzAvKB1zL6fc+koGMhmBqoDOCB4GemiRM/zvDMRIhVw6EkB8dQ==
+hex-rgb@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/hex-rgb/-/hex-rgb-4.1.0.tgz#2d5d3a2943bd40e7dc9b0d5b98903d7d17035967"
+  integrity sha512-n7xsIfyBkFChITGPh6FLtxNzAt2HxZLcQIY9hYH4gm2gmMQJHMguMH3E+jnmvUbSTF5QrmFnGab5Ippi+D7e/g==
 
 hmac-drbg@^1.0.0:
   version "1.0.1"
