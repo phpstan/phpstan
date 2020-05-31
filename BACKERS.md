@@ -74,6 +74,7 @@ the logo of your company in PHPStan's README.
 * [Anton Ukhanev](https://github.com/XedinUnknown)
 * [Tom Spencer](https://github.com/tspencer244)
 * [Stefan Zielke](https://github.com/stefanzielke)
+* [Nick](https://github.com/nick-zh)
 
 * Kayneth
 * Mandy Schoep
@@ -86,3 +87,4 @@ the logo of your company in PHPStan's README.
 * Jan Kuchař
 * Rudolph Gottesheim
 * Dennis Haarbrink
+* Doug Harple
