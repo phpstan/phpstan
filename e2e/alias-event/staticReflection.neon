@@ -1,2 +1,3 @@
 parameters:
-	disableRuntimeReflectionProvider: true
+	featureToggles:
+		disableRuntimeReflectionProvider: true
