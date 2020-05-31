@@ -165,6 +165,12 @@ jobs:
           - |
             cd e2e/mongodb
             ../../phpstan analyse -l 8 test.php
+          - |
+            cd e2e/alias-event
+            ../../phpstan analyse -l 8 -a alias.php test.php
+          - |
+            cd e2e/alias-event
+            ../../phpstan analyse -l 8 -a alias.php -c staticReflection.neon test.php
 
     steps:
       - name: "Checkout"
