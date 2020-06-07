@@ -38,7 +38,7 @@ vendor/bin/phpstan analyse src tests
 
 You should only analyse files with the code you've written yourself. There's no need to analyse the `vendor` directory with 3rd party dependencies because it's not in your power to fix all the mistakes made by the developers you don't work with directly.
 
-Yes, PHPStan needs to know about all the classes, interfaces, traits, and functions your code uses, but that's achieved through [autoloading](/user-guide/autoloading), not by including the files in the analysis.
+Yes, PHPStan needs to know about all the classes, interfaces, traits, and functions your code uses, but that's achieved through [discovering symbols](/user-guide/discovering-symbols), not by including the files in the analysis.
 </div>
 
 [Learn more about command line options »](/user-guide/command-line-usage)
@@ -48,7 +48,7 @@ PHPStan will probably find some errors, but don't worry, your code might be just
 * Extra arguments passed to functions (e. g. function requires two arguments, the code passes three)
 * Extra arguments passed to print/sprintf functions (e. g. format string contains one placeholder, the code passes two values to replace)
 * Obvious errors in dead code
-* Autoloading issues - "class not found" even if it exists. See [Autoloading](/user-guide/autoloading) for more details.
+* Unknown symbols - like "class not found". See [Discovering Symbols](/user-guide/discovering-symbols) for more details.
 
 **By default, PHPStan runs only the most basic checks. Head to [Rule Levels](/user-guide/rule-levels) to learn how to turn on stricter checks.**
 

@@ -35,7 +35,7 @@ Please note that the exit code differs in this case. Exit code 0 means that the 
 
 If your application uses a custom autoloader, you should set it up and register in a PHP file that is passed to this CLI option. Relative paths are resolved based on the current working directory.
 
-[Learn more about autoloading »](/user-guide/autoloading)
+[Learn more »](/user-guide/discovering-symbols)
 
 ### `--error-format`
 
@@ -101,7 +101,7 @@ Specifies the path to a [configuration file](/config-reference). Relative paths 
 
 If your application uses a custom autoloader, you should set it up and register in a PHP file that is passed to this CLI option. Relative paths are resolved based on the current working directory.
 
-[Learn more about autoloading »](/user-guide/autoloading)
+[Learn more »](/user-guide/discovering-symbols)
 
 ### `--quiet|-q`
 

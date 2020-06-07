@@ -1,5 +1,6 @@
 {
     "layout": "_user_guide.njk",
+    "showBanner": true,
     "sidebarOtherSections": [
         {
             "title": "Config Reference",
@@ -32,8 +33,8 @@
             "link": "/user-guide/baseline"
         },
         {
-            "title": "Autoloading",
-            "link": "/user-guide/autoloading"
+            "title": "Discovering Symbols",
+            "link": "/user-guide/discovering-symbols"
         },
         {
             "title": "Output Format",

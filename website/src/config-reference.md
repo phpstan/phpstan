@@ -83,6 +83,13 @@ Learn more about ignoring errors in the [user guide](/user-guide/ignoring-errors
 
 Related config keys: `ignoreErrors`, `reportUnmatchedIgnoredErrors`.
 
+Discovering symbols
+------------------
+
+Learn more about discovering symbols in the [user guide](/user-guide/discovering-symbols).
+
+Related config keys: `scanFiles`, `scanDirectories`.
+
 Autoloading
 ------------------
 
@@ -93,14 +100,15 @@ Related config keys: `autoload_directories`, `autoload_files`.
 Bootstrap
 ------------------
 
-If you need to initialize something in PHP runtime before PHPStan runs (like your own autoloader), you can provide your own bootstrap file:
+If you need to initialize something in PHP runtime before PHPStan runs (like your own autoloader), you can provide your own bootstrap files:
 
 ```yaml
 parameters:
-	bootstrap: phpstan-bootstrap.php
+	bootstrapFiles:
+		- phpstan-bootstrap.php
 ```
 
-Relative path in the `bootstrap` key is resolved based on the directory of the config file is in.
+Relative paths in the `bootstrapFiles` key are resolved based on the directory of the config file is in.
 
 Caching
 ------------------
@@ -141,7 +149,7 @@ If you provide analysed paths to PHPStan on the command line and in the config f
 
 You should only analyse files with the code you've written yourself. There's no need to analyse the `vendor` directory with 3rd party dependencies because it's not in your power to fix all the mistakes made by the developers you don't work with directly.
 
-Yes, PHPStan needs to know about all the classes, interfaces, traits, and functions your code uses, but that's achieved through [autoloading](/user-guide/autoloading), not by including the files in the analysis.
+Yes, PHPStan needs to know about all the classes, interfaces, traits, and functions your code uses, but that's achieved through [discovering symbols](/user-guide/discovering-symbols), not by including the files in the analysis.
 
 </div>
 
@@ -214,7 +222,7 @@ parameters:
 Constants
 ---------------
 
-Learn more about letting PHPStan know about your global constants in [the user guide](/user-guide/autoloading).
+Learn more about letting PHPStan know about your global constants in [the user guide](/user-guide/discovering-symbols).
 
 Sometimes your constants can have different values in different environments, like `DATABASE_ENGINE` that can have different values like `mysql` or `pgsql`. To let PHPStan know that the value of the constant can be different, and prevent errors like `Strict comparison using === between 'pgsql' and 'mysql' will always evaluate to false.`, add the constant name to `dynamicConstantNames` key:
 

@@ -6,7 +6,7 @@ PHPStan caches the result of the analysis so the subsequent runs are much faster
 
 <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
 
-You might notice the result cache isn't sometimes saved and PHPStan runs full analysis even if nothing changed since the last run. If the analysis result contains some serious errors like parse errors or [autoloading errors](/user-guide/autoloading), result cache cannot be used for the next run because the files dependency tree might be incomplete.
+You might notice the result cache isn't sometimes saved and PHPStan runs full analysis even if nothing changed since the last run. If the analysis result contains some serious errors like parse errors, result cache cannot be used for the next run because the files dependency tree might be incomplete.
 
 </div>
 

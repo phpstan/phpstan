@@ -1,6 +1,13 @@
 ---
 title: Autoloading
+showBanner: false
 ---
+
+<div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4" role="alert">
+
+Autoloading has been deprecated in favor of [Discovering Symbols](/user-guide/discovering-symbols) in PHPStan 0.12.26. Make sure to upgrade to the latest version and take advantage of the latest features!
+
+</div>
 
 PHPStan needs a working autoloader to access reflection of the analysed classes. It uses Composer autoloader in the project by looking at `vendor/autoload.php` from the current working directory. Use the `autoload`/`autoload-dev` sections in `composer.json` to configure the autoloader.
 

@@ -7,6 +7,7 @@ sectionTitle: User Guide
 {% extends "./_sidebar.njk" %}
 
 {% block banner %}
+{% if showBanner %}
 <div class="bg-green-100 border-2 rounded-lg border-green-500 text-green-700 p-4 mt-4 mb-4" role="alert">
 
 <p>Interested in mastering your PHP craft and getting the most out of PHPStan? Ondřej&nbsp;Mirtes (the creator of PHPStan) will  hold a <strong>3-hour interactive workshop</strong> as part of the online Dutch PHP Conference on <strong>June 25th 2020</strong>.</p>
@@ -16,6 +17,7 @@ sectionTitle: User Guide
 <a target="_blank" class="font-bold" href="https://ibuildings.paydro.com/dutch-php-conference-2020">Buy a ticket and secure your place! »</a>
 
 </div>
+{% endif %}
 {% endblock %}
 
 {% block scripts %}

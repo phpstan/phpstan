@@ -6,7 +6,7 @@ PHPStan depends on [PHPDocs](/writing-php-code/phpdocs-basics) in the analysed a
 
 To mitigate this, you can write a stub file with the right PHPDoc. It's like source code, but PHPStan only reads PHPDocs from it. So the namespace and class/interface/trait/method/function names must match with the original source you're describing. But method bodies can stay empty, PHPStan is only interested in the PHPDocs. Get inspired by [the stubs PHPStan itself uses](https://github.com/phpstan/phpstan-src/tree/master/stubs) or by [the stubs from the phpstan-doctrine extension](https://github.com/phpstan/phpstan-doctrine/tree/master/stubs).
 
-Stub files aren't a replacement for [autoloading](/user-guide/autoloading) so if you're trying to fix errors like "Function not found" or "Class not found", check out the [autoloading](/user-guide/autoloading) guide instead.
+Stub files aren't a replacement for [discovering symbols](/user-guide/discovering-symbols) so if you're trying to fix errors like "Function not found" or "Class not found", check out the [discovering symbols](/user-guide/discovering-symbols) guide instead.
 
 <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
 
