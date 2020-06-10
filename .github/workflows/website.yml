@@ -100,7 +100,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: "Invalidate CloudFront"
-        uses: chetan/invalidate-cloudfront-action@v1.2
+        uses: chetan/invalidate-cloudfront-action@v1.3
         env:
           DISTRIBUTION: "E1W83FJ5FCYXPT"
           PATHS: '/,/r/*,/config-reference,/user-guide/*,/writing-php-code/*,/developing-extensions/*,/blog,/blog/*,/robots.txt,/sitemap.xml,/rss.xml'
