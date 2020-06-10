@@ -83,7 +83,7 @@ jobs:
           node-version: "13"
 
       - name: "Download website dist"
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: website-dist
           path: dist
