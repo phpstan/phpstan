@@ -36,6 +36,7 @@ jobs:
         - composer install --no-dev
         - cp ../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
         - cp ../phpstan vendor/phpstan/phpstan/phpstan
+        - rm -rf vendor/phpstan/phpstan/.git
         - npm install -g serverless
         - serverless deploy
 
