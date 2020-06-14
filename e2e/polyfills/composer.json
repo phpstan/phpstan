@@ -1,0 +1,5 @@
+{
+	"require": {
+		"symfony/polyfill-php80": "^1.0"
+	}
+}
