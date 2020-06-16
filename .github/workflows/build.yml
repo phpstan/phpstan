@@ -38,7 +38,7 @@ jobs:
           extensions: mbstring
 
       - name: "Cache dependencies"
-        uses: "actions/cache@v1.1.2"
+        uses: "actions/cache@v2"
         with:
           path: "~/.composer/cache"
           key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
@@ -94,7 +94,7 @@ jobs:
           php-version: "${{ matrix.php-version }}"
 
       - name: "Cache dependencies"
-        uses: "actions/cache@v1.1.2"
+        uses: "actions/cache@v2"
         with:
           path: "~/.composer/cache"
           key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
@@ -187,7 +187,7 @@ jobs:
           php-version: "${{ matrix.php-version }}"
 
       - name: "Cache dependencies"
-        uses: "actions/cache@v1.1.2"
+        uses: "actions/cache@v2"
         with:
           path: "~/.composer/cache"
           key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
