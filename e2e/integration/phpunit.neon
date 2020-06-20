@@ -1,0 +1,10 @@
+includes:
+	- phpunit-baseline.neon
+
+parameters:
+	excludes_analyse:
+		- repo/tests/end-to-end/regression/GitHub/4232/Issue4232Test.php
+		- repo/tests/_files/ClassWithUnionReturnTypes.php
+		- repo/tests/unit/Framework/MockObject/MockObjectTest.php
+	bootstrapFiles:
+		- phar://%currentWorkingDirectory%/tests/_files/phpunit-example-extension/tools/phpunit.d/phpunit-example-extension-3.0.3.phar/phpunit-example-extension/TestCaseTrait.php
