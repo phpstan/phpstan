@@ -5,6 +5,7 @@ provider:
     region: eu-west-1
     runtime: provided
     stage: prod
+    versionFunctions: false
 
 plugins:
     - ./vendor/bref/bref
