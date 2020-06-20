@@ -231,7 +231,7 @@ jobs:
             composer install
             ../../../phpstan.phar analyse -c ../rector.neon
           - |
-            git clone git@github.com:slevomat/coding-standard.git e2e/integration/repo
+            git clone https://github.com/slevomat/coding-standard.git e2e/integration/repo
             cd e2e/integration/repo
             git checkout 6.3.9
             composer install
