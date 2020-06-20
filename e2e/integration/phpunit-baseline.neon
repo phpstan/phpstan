@@ -4546,11 +4546,6 @@ parameters:
 			path: repo/tests/_files/Foo.php
 
 		-
-			message: "#^Call to an undefined method Bar\\:\\:doSomethingElse\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/_files/Foo.php
-
-		-
 			message: "#^Method FunctionCallbackWrapper\\:\\:functionCallback\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: repo/tests/_files/FunctionCallback.php
@@ -5364,11 +5359,6 @@ parameters:
 			message: "#^Method Test\\\\Issue3156Test\\:\\:dataSelectOperatorsProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/tests/end-to-end/regression/GitHub/3156/Issue3156Test.php
-
-		-
-			message: "#^Call to private method assertTrue\\(\\) of parent class Bar\\.$#"
-			count: 1
-			path: repo/tests/end-to-end/regression/GitHub/3904/Issue3904Test.php
 
 		-
 			message: "#^Method Issue498Test\\:\\:shouldBeTrue\\(\\) has parameter \\$testData with no typehint specified\\.$#"
