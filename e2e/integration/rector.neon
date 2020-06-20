@@ -1,0 +1,8 @@
+includes:
+	- repo/phpstan.neon
+
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Cannot cast PhpParser\\Node\\Expr\|PhpParser\\Node\\Name to string\.$#'
+			path: repo/rules/php71/src/IsArrayAndDualCheckToAble.php
