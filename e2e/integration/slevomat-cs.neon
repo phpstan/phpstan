@@ -1,0 +1,3 @@
+includes:
+	- slevomat-cs-baseline.neon
+	- repo/build/PHPStan/phpstan.neon
