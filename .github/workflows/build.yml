@@ -217,6 +217,12 @@ jobs:
             git checkout 9.2.3
             composer install
             ../../../phpstan.phar analyse -l 8 -c ../phpunit.neon src tests
+          - |
+            git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
+            cd e2e/integration/repo
+            git checkout v0.6.1
+            composer install
+            ../../../phpstan.phar analyse
 
     steps:
       - name: "Checkout"
