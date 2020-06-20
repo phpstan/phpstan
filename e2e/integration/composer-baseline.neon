@@ -66,7 +66,7 @@ parameters:
 			path: repo/src/Composer/Command/DiagnoseCommand.php
 
 		-
-			message: "#^Comparison operation \"\\<\" between 269488207 and 268439567 is always false\\.$#"
+			message: "#^Comparison operation \"\\<\" between 269488255 and 268439567 is always false\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/DiagnoseCommand.php
 
@@ -1149,11 +1149,6 @@ parameters:
 			message: "#^Negated boolean expression is always true\\.$#"
 			count: 1
 			path: repo/src/Composer/Repository/InstalledRepository.php
-
-		-
-			message: "#^Access to undefined constant ZipArchive\\:\\:LIBZIP_VERSION\\.$#"
-			count: 1
-			path: repo/src/Composer/Repository/PlatformRepository.php
 
 		-
 			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getDescription\\(\\)\\.$#"
