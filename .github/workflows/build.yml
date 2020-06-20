@@ -215,6 +215,7 @@ jobs:
             git clone https://github.com/sebastianbergmann/phpunit.git e2e/integration/repo
             cd e2e/integration/repo
             git checkout 9.2.3
+            export COMPOSER_ROOT_VERSION=9.2.3
             composer install
             ../../../phpstan.phar analyse -l 8 -c ../phpunit.neon src tests
           - |
