@@ -3,5 +3,10 @@
 		"phpstan/phpstan": "^0.12.19",
 		"nikic/php-parser": "4.3.0",
 		"squizlabs/php_codesniffer": "3.5.5"
+	},
+	"autoload": {
+		"psr-4": {
+			"App\\": "src"
+		}
 	}
 }

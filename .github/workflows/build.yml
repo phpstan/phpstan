@@ -145,7 +145,7 @@ jobs:
           - |
             cd e2e/different-php-parser
             composer install
-            ../../phpstan analyse -l 8 test.php
+            ../../phpstan analyse -l 8 test.php src
           - |
             cd e2e/different-phpdoc-parser
             composer install
