@@ -175,6 +175,10 @@ jobs:
             cd e2e/polyfills
             composer install
             ../../phpstan analyse -l 8 test.php
+          - |
+            cd e2e/symfony-event
+            composer install
+            ../../phpstan analyse -l 2 src
 
     steps:
       - name: "Checkout"
