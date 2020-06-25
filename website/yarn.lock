@@ -4377,10 +4377,10 @@ list-to-array@^1.1.0:
   resolved "https://registry.yarnpkg.com/list-to-array/-/list-to-array-1.1.0.tgz#ca7dff640606433cac75cbe8446acd864b15bf6f"
   integrity sha1-yn3/ZAYGQzysdcvoRGrNhksVv28=
 
-littlefoot@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/littlefoot/-/littlefoot-3.3.0.tgz#54d717bfd3217d20a78edceb799253b35e9b474b"
-  integrity sha512-yTeDt4LVd815rHBolzlYX4De5AqptNbopdxupOGbvEZND793FUhP8WfNnRvmaxckZjT9K0cHboXY0cixr+NuLA==
+littlefoot@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/littlefoot/-/littlefoot-3.3.1.tgz#a4b7b86cfc885b63a6587edca67430fa3ad6a9f5"
+  integrity sha512-orKvTLXk5nfcddPq1OTMJ6RLydiUXbu7Fa3UmPTnnUfRCMChnChn/HYpVqgJ7c9O4gl8JtMtd6LKOsd5kOCLUQ==
   dependencies:
     "@pacote/get-style" "^1.0.0"
     "@pacote/pixels" "^1.0.0"
