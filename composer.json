@@ -15,6 +15,10 @@
 	"extra": {
 		"branch-alias": {
 			"dev-master": "0.12-dev"
+		},
+		"thanks": {
+			"name": "phpstan/phpstan-src",
+			"url": "https://github.com/phpstan/phpstan-src"
 		}
 	},
 	"autoload": {
