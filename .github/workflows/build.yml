@@ -237,6 +237,7 @@ jobs:
             cd e2e/integration/repo
             git checkout v0.7.36
             composer install
+            rm stubs/Symfony/Component/Process/Process.php
             ../../../phpstan.phar analyse -c ../rector.neon
           - |
             git clone https://github.com/slevomat/coding-standard.git e2e/integration/repo
