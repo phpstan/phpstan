@@ -46,12 +46,12 @@ jobs:
           restore-keys: "php-${{ matrix.php-version }}-composer-"
 
       - name: "Install dependencies"
-        run: "composer update --no-interaction --no-progress --no-suggest"
+        run: "composer update --no-interaction --no-progress --no-suggest --ignore-platform-reqs"
 
       - name: "Tests"
         run: |
           cd e2e
-          composer install
+          composer install --ignore-platform-reqs
           # php testPharAutoloader.php
           vendor/bin/phpunit PharTest.php
   tests-extensions:
@@ -103,7 +103,7 @@ jobs:
           restore-keys: "php-${{ matrix.php-version }}-composer-"
 
       - name: "Install dependencies"
-        run: "composer update --no-interaction --no-progress --no-suggest"
+        run: "composer update --no-interaction --no-progress --no-suggest --ignore-platform-reqs"
 
       - name: "Extension build"
         env:
@@ -134,7 +134,7 @@ jobs:
             ../../phpstan analyse -l 0 -c ../php-parser-baseline.neon lib
           - |
             cd e2e/phpstorm-stubs
-            composer install
+            composer install --ignore-platform-reqs
             ../../phpstan analyse -l 8 test.php
             vendor/bin/phpunit ExampleTest.php
           - |
@@ -147,23 +147,23 @@ jobs:
             ../../phpstan analyse -l 8 src
           - |
             cd e2e/different-php-parser
-            composer install
+            composer install --ignore-platform-reqs
             ../../phpstan analyse -l 8 test.php src
           - |
             cd e2e/different-phpdoc-parser
-            composer install
+            composer install --ignore-platform-reqs
             ../../phpstan analyse -l 8 -a Test.php Test.php
           - |
             cd e2e/php-metrics
-            composer install
+            composer install --ignore-platform-reqs
             ../../phpstan analyse -l 8 test.php
           - |
             cd e2e/react-bootstrap
-            composer install
+            composer install --ignore-platform-reqs
             ../../phpstan analyse -l 8 -c phpstan.neon test.php
           - |
             cd e2e/no-autoloader
-            composer install
+            composer install --ignore-platform-reqs
             ../../phpstan analyse -l 8 -c phpstan.neon src tests
           - |
             cd e2e/mongodb
@@ -180,7 +180,7 @@ jobs:
             ../../phpstan analyse -l 8 test.php
           - |
             cd e2e/symfony-event
-            composer install
+            composer install --ignore-platform-reqs
             ../../phpstan analyse -l 2 src
           - |
             cd e2e/composer-file
