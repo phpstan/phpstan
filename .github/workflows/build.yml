@@ -108,6 +108,7 @@ jobs:
       - name: "Extension build"
         env:
           STATIC_REFLECTION: ${{ matrix.static-reflection }}
+          PHP_VERSION: ${{ matrix.php-version }}
         run: "./e2e/test-extension.sh 'https://github.com/phpstan/${{ matrix.extension-name }}.git'"
 
   other-tests:
