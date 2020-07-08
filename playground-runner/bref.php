@@ -42,6 +42,8 @@ lambda(function (array $event) {
 	]);
 	file_put_contents($finalConfigFile, $neon);
 
+	require_once 'phar://' . $rootDir . '/vendor/phpstan/phpstan/phpstan.phar/stubs/runtime/ReflectionUnionType.php';
+
 	$containerFactory = new \PHPStan\DependencyInjection\ContainerFactory('/tmp');
 	$container = $containerFactory->create('/tmp', [sprintf('%s/config.level%s.neon', $containerFactory->getConfigDirectory(), $level), $finalConfigFile], [$codePath]);
 
