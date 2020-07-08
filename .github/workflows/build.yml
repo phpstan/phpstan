@@ -188,6 +188,9 @@ jobs:
             cd e2e/composer-file
             composer install
             ../../phpstan analyse -l 8 test.php
+          - |
+            cd e2e/union-type
+            ../../phpstan analyse -l 8 test.php
 
     steps:
       - name: "Checkout"
