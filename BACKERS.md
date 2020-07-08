@@ -9,6 +9,7 @@ the logo of your company in PHPStan's README.
 # $30
 
 * [Wysija](https://github.com/Wysija)
+* [Stepan Kocourek](https://github.com/stpnkcrk)
 
 # $10+
 
@@ -34,7 +35,6 @@ the logo of your company in PHPStan's README.
 * [Ahmed Abdou](https://github.com/amaabdou)
 * [Buster "Silver Eagle" Neece](https://github.com/SlvrEagle23)
 * [Luc De Brouwer](https://github.com/ldebrouwer)
-* [Michael Moll](https://github.com/mmoll)
 * [Hugo Alliaume](https://github.com/Kocal)
 * [Vašek Brychta](https://github.com/vasek-b)
 * [Dukolm](https://github.com/Dukolm)
@@ -45,10 +45,8 @@ the logo of your company in PHPStan's README.
 * [Maciej Laskowski](https://github.com/maciej-laskowski)
 * [Andres Jaanson](https://github.com/ANZI999)
 * [Pavel Železný](https://github.com/zeleznypa)
-* [Stepan Kocourek](https://github.com/stpnkcrk)
 * [Richard van Laak](https://github.com/rvanlaak)
 * [Fabian Böttcher](https://github.com/Cakasim)
-* [Josef Benjač](https://github.com/josefbenjac)
 * [Lamp Bristol](https://github.com/lampbristolteam)
 * [Florian Engelhardt](https://github.com/flow-control)
 * [Dave Liddament](https://github.com/DaveLiddament)
@@ -75,6 +73,7 @@ the logo of your company in PHPStan's README.
 * [Tom Spencer](https://github.com/tspencer244)
 * [Stefan Zielke](https://github.com/stefanzielke)
 * [Nick](https://github.com/nick-zh)
+* [Filip Kuchár](https://github.com/Mistrfilda)
 
 * Kayneth
 * Mandy Schoep
