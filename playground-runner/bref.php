@@ -38,6 +38,7 @@ lambda(function (array $event) {
 		'parameters' => [
 			'inferPrivatePropertyTypeFromConstructor' => true,
 			'treatPhpDocTypesAsCertain' => $event['treatPhpDocTypesAsCertain'] ?? true,
+			'phpVersion' => $event['phpVersion'] ?? 80000,
 		],
 	]);
 	file_put_contents($finalConfigFile, $neon);
