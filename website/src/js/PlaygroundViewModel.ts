@@ -2,17 +2,18 @@ import * as ko from 'knockout';
 import {PHPStanError} from './PHPStanError';
 import $ from 'jquery';
 import {MainMenuViewModel} from './MainMenuViewModel';
+import {PlaygroundTabViewModel} from './PlaygroundTabViewModel';
 
 export class PlaygroundViewModel {
 
 	mainMenu: MainMenuViewModel;
 	code: ko.Observable<string>;
 	codeDelayed: ko.Computed<string>;
-	errors: ko.ObservableArray<PHPStanError>;
-	errorsText: ko.Computed<string>;
-	errorLines: ko.Computed<number[]>;
 	shareText: ko.Observable<string>;
 	legacyResult: ko.Observable<string | null>;
+
+	tabs: ko.ObservableArray<PlaygroundTabViewModel>;
+	currentTab: ko.PureComputed<PlaygroundTabViewModel | null>;
 
 	level: ko.Observable<string>;
 	strictRules: ko.Observable<boolean>;
@@ -35,30 +36,18 @@ export class PlaygroundViewModel {
 			notify: 'always',
 			rateLimit: { timeout: 500, method: 'notifyWhenChangesStop' },
 		});
-		this.errors = ko.observableArray<PHPStanError>([]);
-		this.errorsText = ko.pureComputed(() => {
-			const errorsCount = this.errors().length;
-			if (errorsCount === 1) {
-				return 'Found 1 error';
-			}
-
-			return 'Found ' + errorsCount.toString() + ' errors';
-		});
-		this.errorLines = ko.pureComputed(() => {
-			const errors = this.errors();
-			const lines = [];
-			for (const error of errors) {
-				const line = error.line;
-				if (line < 1) {
-					continue;
-				}
-				lines.push(line - 1);
-			}
-
-			return lines;
-		});
 		this.shareText = ko.observable('Share');
 		this.legacyResult = ko.observable(null);
+
+		// @ts-ignore
+		this.tabs = ko.observableArray([]);
+		this.currentTab = ko.pureComputed(() => {
+			if (this.tabs().length > 0) {
+				return this.tabs()[0];
+			}
+
+			return null;
+		});
 
 		this.level = ko.observable('8');
 		this.strictRules = ko.observable(false);
@@ -71,6 +60,10 @@ export class PlaygroundViewModel {
 		this.shareXhr = null;
 		this.id = null;
 		this.hasServerError = ko.observable(false);
+	}
+
+	isActiveTab(index: number): boolean {
+		return index === 0;
 	}
 
 	setId(id: string | null): void {
@@ -112,9 +105,13 @@ export class PlaygroundViewModel {
 			}),
 			contentType: 'application/json'
 		}).done((data) => {
-			this.errors(data.errors.map((error: any): PHPStanError => {
-				return {line: error.line, message: error.message};
-			}));
+			this.tabs([
+				new PlaygroundTabViewModel(
+					data.errors.map((error: any): PHPStanError => {
+						return {line: error.line, message: error.message};
+					})
+				)
+			]);
 			this.legacyResult(null);
 		}).fail((xhr, textStatus) => {
 			if (textStatus === 'abort') {
@@ -199,15 +196,19 @@ export class PlaygroundViewModel {
 				this.code(data.code);
 
 				if (hashMatch !== null) {
-					this.errors(data.errors.map((error: any): PHPStanError => {
-						return {line: error.line, message: error.message};
-					}));
+					this.tabs([
+						new PlaygroundTabViewModel(
+							data.errors.map((error: any): PHPStanError => {
+								return {line: error.line, message: error.message};
+							})
+						),
+					])
 					this.legacyResult(null);
 					if (id !== null) {
 						this.setId(id);
 					}
 				} else {
-					this.errors([]);
+					this.tabs([]);
 					this.legacyResult(data.htmlErrors);
 				}
 				this.level(data.level);
