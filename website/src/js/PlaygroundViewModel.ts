@@ -246,7 +246,7 @@ export class PlaygroundViewModel {
 		});
 	}
 
-	createTabs(versionedErrors: Array<{phpVersion: number, errors: PHPStanError[]}>): void {
+	createTabs(versionedErrors: {phpVersion: number, errors: PHPStanError[]}[]): void {
 		const versions: {versions: number[], errors: PHPStanError[]}[] = [];
 		let last: {versions: number[], errors: PHPStanError[]} | null = null;
 		for (const version of versionedErrors) {
@@ -254,7 +254,7 @@ export class PlaygroundViewModel {
 			const errors = version.errors;
 			const current = {
 				versions: [phpVersion],
-				errors: errors,
+				errors,
 			};
 			if (last === null) {
 				last = current;
@@ -269,6 +269,9 @@ export class PlaygroundViewModel {
 
 			let merge = true;
 			for (const i in errors) {
+				if (!errors.hasOwnProperty(i)) {
+					continue;
+				}
 				const error = errors[i];
 				const lastError = last.errors[i];
 				if (error.line !== lastError.line) {
@@ -309,10 +312,10 @@ export class PlaygroundViewModel {
 		});
 
 		const tabs: PlaygroundTabViewModel[] = [];
-		let i = 0;
+		let versionOrder = 0;
 		for (const version of versions) {
-			tabs.push(new PlaygroundTabViewModel(version.errors, version.versions, i === 0));
-			i++;
+			tabs.push(new PlaygroundTabViewModel(version.errors, version.versions, versionOrder === 0));
+			versionOrder++;
 		}
 
 		this.tabs(tabs);

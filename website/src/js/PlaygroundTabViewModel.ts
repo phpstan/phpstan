@@ -58,8 +58,8 @@ export class PlaygroundTabViewModel {
 
 		this.title = title;
 		this.tabClass = ko.pureComputed((): string => {
-			const active = this.isActive();
-			if (active) {
+			const isActive = this.isActive();
+			if (isActive) {
 				if (this.errors.length > 0) {
 					return 'bg-red-100 text-red-500 cursor-default border-gray-400';
 				}
