@@ -13,6 +13,7 @@ export class PlaygroundViewModel {
 	legacyResult: ko.Observable<string | null>;
 
 	tabs: ko.ObservableArray<PlaygroundTabViewModel>;
+	currentTabIndex: ko.Observable<number | null>;
 	currentTab: ko.PureComputed<PlaygroundTabViewModel | null>;
 
 	level: ko.Observable<string>;
@@ -41,12 +42,14 @@ export class PlaygroundViewModel {
 
 		// @ts-ignore
 		this.tabs = ko.observableArray([]);
+		this.currentTabIndex = ko.observable(null);
 		this.currentTab = ko.pureComputed(() => {
-			if (this.tabs().length > 0) {
-				return this.tabs()[0];
+			const index = this.currentTabIndex();
+			if (index === null) {
+				return null;
 			}
 
-			return null;
+			return this.tabs()[index];
 		});
 
 		this.level = ko.observable('8');
@@ -62,8 +65,18 @@ export class PlaygroundViewModel {
 		this.hasServerError = ko.observable(false);
 	}
 
+	switchTab(index: number): void {
+		const currentIndex = this.currentTabIndex();
+		if (currentIndex !== null) {
+			this.tabs()[currentIndex].isActive(false);
+		}
+
+		this.currentTabIndex(index);
+		this.tabs()[index].isActive(true);
+	}
+
 	isActiveTab(index: number): boolean {
-		return index === 0;
+		return index === this.currentTabIndex();
 	}
 
 	setId(id: string | null): void {
@@ -105,13 +118,7 @@ export class PlaygroundViewModel {
 			}),
 			contentType: 'application/json'
 		}).done((data) => {
-			this.tabs([
-				new PlaygroundTabViewModel(
-					data.errors.map((error: any): PHPStanError => {
-						return {line: error.line, message: error.message};
-					})
-				)
-			]);
+			this.createTabs(data.versionedErrors);
 			this.legacyResult(null);
 		}).fail((xhr, textStatus) => {
 			if (textStatus === 'abort') {
@@ -196,19 +203,18 @@ export class PlaygroundViewModel {
 				this.code(data.code);
 
 				if (hashMatch !== null) {
-					this.tabs([
-						new PlaygroundTabViewModel(
-							data.errors.map((error: any): PHPStanError => {
-								return {line: error.line, message: error.message};
-							})
-						),
-					])
+					if (typeof data.versionedErrors !== 'undefined') {
+						this.createTabs(data.versionedErrors);
+					} else {
+						this.createTabs([{phpVersion: 70400, errors: data.errors}]);
+					}
 					this.legacyResult(null);
 					if (id !== null) {
 						this.setId(id);
 					}
 				} else {
 					this.tabs([]);
+					this.currentTabIndex(null);
 					this.legacyResult(data.htmlErrors);
 				}
 				this.level(data.level);
@@ -238,6 +244,79 @@ export class PlaygroundViewModel {
 			initCallback();
 			this.startAcceptingChanges();
 		});
+	}
+
+	createTabs(versionedErrors: Array<{phpVersion: number, errors: PHPStanError[]}>): void {
+		const versions: {versions: number[], errors: PHPStanError[]}[] = [];
+		let last: {versions: number[], errors: PHPStanError[]} | null = null;
+		for (const version of versionedErrors) {
+			const phpVersion = version.phpVersion;
+			const errors = version.errors;
+			const current = {
+				versions: [phpVersion],
+				errors: errors,
+			};
+			if (last === null) {
+				last = current;
+				continue;
+			}
+
+			if (errors.length !== last.errors.length) {
+				versions.push(last);
+				last = current;
+				continue;
+			}
+
+			let merge = true;
+			for (const i in errors) {
+				const error = errors[i];
+				const lastError = last.errors[i];
+				if (error.line !== lastError.line) {
+					versions.push(last);
+					last = current;
+					merge = false;
+					break;
+				}
+				if (error.message !== lastError.message) {
+					versions.push(last);
+					last = current;
+					merge = false;
+					break;
+				}
+			}
+
+			if (!merge) {
+				continue;
+			}
+
+			last.versions.push(phpVersion);
+		}
+
+		if (last !== null) {
+			versions.push(last);
+		}
+
+		versions.sort((a: {versions: number[], errors: PHPStanError[]}, b: {versions: number[], errors: PHPStanError[]}) => {
+			const aVersion = a.versions[a.versions.length - 1];
+			const bVersion = b.versions[b.versions.length - 1];
+			if (aVersion === 80000) {
+				return -1;
+			} else if (bVersion === 80000) {
+				return 1;
+			}
+
+			return bVersion - aVersion;
+		});
+
+		const tabs: PlaygroundTabViewModel[] = [];
+		let i = 0;
+		for (const version of versions) {
+			tabs.push(new PlaygroundTabViewModel(version.errors, version.versions, i === 0));
+			i++;
+		}
+
+		this.tabs(tabs);
+		this.currentTabIndex(0);
 	}
 
 }
