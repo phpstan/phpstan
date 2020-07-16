@@ -13,4 +13,18 @@ module.exports = {
 		require('@tailwindcss/ui'),
 		require('@tailwindcss/custom-forms'),
 	],
+	purge: {
+		enabled: true,
+		content: [
+			'./tmp/*.html',
+			'./tmp/user-guide/*.html',
+			'./tmp/developing-extensions/*.html',
+			'./tmp/blog.html',
+			'./tmp/blog/*.html',
+			'./tmp/js/PlaygroundTabViewModel.ts',
+		],
+		options: {
+			whitelistPatterns: [/algolia/, /searchbox/, /littlefoot/],
+		}
+	},
 }
