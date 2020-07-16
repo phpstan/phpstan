@@ -10,7 +10,7 @@ the logo of your company in PHPStan's README.
 
 * [Wysija](https://github.com/Wysija)
 * [Stepan Kocourek](https://github.com/stpnkcrk)
-* GLAMI.cz
+* GLAMI.cz
 
 # $10+
 
