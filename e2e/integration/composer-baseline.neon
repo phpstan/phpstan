@@ -906,11 +906,6 @@ parameters:
 			path: repo/src/Composer/Package/Archiver/PharArchiver.php
 
 		-
-			message: "#^Call to an undefined method ZipArchive\\:\\:setExternalAttributesName\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/Archiver/ZipArchiver.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: repo/src/Composer/Package/BasePackage.php
