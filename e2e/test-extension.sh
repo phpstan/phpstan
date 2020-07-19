@@ -6,12 +6,10 @@ set -o nounset
 
 git clone $1 extension
 cd extension
+composer install
 
 if [[ "$PHP_VERSION" == "8.0" ]]; then
-  composer install --ignore-platform-reqs
   composer require --dev phpunit/phpunit:'^9.3' --update-with-dependencies --ignore-platform-reqs
-else
-  composer install
 fi;
 
 cp ../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
