@@ -139,11 +139,6 @@ jobs:
             composer install
             ../../phpstan analyse -l 0 -c ../php-parser-baseline.neon lib
           - |
-            cd e2e/phpstorm-stubs
-            composer install --ignore-platform-reqs
-            ../../phpstan analyse -l 8 test.php
-            vendor/bin/phpunit ExampleTest.php
-          - |
             cd e2e/react-promise
             composer install
             ../../phpstan analyse -l 8 src
@@ -197,6 +192,12 @@ jobs:
             script: |
               cd e2e/union-type
               ../../phpstan analyse -l 8 test.php
+          - php-version: 7.4
+            script: |
+              cd e2e/phpstorm-stubs
+              composer install --ignore-platform-reqs
+              ../../phpstan analyse -l 8 test.php
+              vendor/bin/phpunit ExampleTest.php
 
     steps:
       - name: "Checkout"
