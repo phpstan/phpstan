@@ -32,27 +32,22 @@ jobs:
         uses: "actions/checkout@v2.3.1"
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.3.1"
+        uses: "shivammathur/setup-php@2.4.0"
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
-          extensions: mbstring
           tools: composer:v2
 
-      - name: "Cache dependencies"
-        uses: "actions/cache@v2"
-        with:
-          path: "~/.composer/cache"
-          key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-${{ matrix.php-version }}-composer-"
+      - name: "Disable Platform Checks"
+        run: "composer config -g platform-check false"
 
       - name: "Install dependencies"
-        run: "composer update --no-interaction --no-progress --no-suggest --ignore-platform-reqs"
+        run: "composer update --no-interaction --no-progress --ignore-platform-reqs"
 
       - name: "Tests"
         run: |
           cd e2e
-          composer install --ignore-platform-reqs
+          composer install --no-interaction --no-progress --ignore-platform-reqs
           # php testPharAutoloader.php
           vendor/bin/phpunit PharTest.php
   tests-extensions:
@@ -94,21 +89,18 @@ jobs:
         uses: "actions/checkout@v2.3.1"
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.3.1"
+        uses: "shivammathur/setup-php@2.4.0"
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
           ini-values: memory_limit=256M
+          tools: composer:v2
 
-      - name: "Cache dependencies"
-        uses: "actions/cache@v2"
-        with:
-          path: "~/.composer/cache"
-          key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-${{ matrix.php-version }}-composer-"
+      - name: "Disable Platform Checks"
+        run: "composer config -g platform-check false"
 
       - name: "Install dependencies"
-        run: "composer update --no-interaction --no-progress --no-suggest --ignore-platform-reqs"
+        run: "composer update --no-interaction --no-progress --ignore-platform-reqs"
 
       - name: "Extension build"
         env:
@@ -136,35 +128,35 @@ jobs:
             git clone https://github.com/nikic/PHP-Parser.git
             cd PHP-Parser
             git checkout v3.1.5
-            composer install
+            composer install --no-interaction --no-progress
             ../../phpstan analyse -l 0 -c ../php-parser-baseline.neon lib
           - |
             cd e2e/react-promise
-            composer install
+            composer install --no-interaction --no-progress
             ../../phpstan analyse -l 8 src
           - |
             cd e2e/hoa
-            composer install
+            composer install --no-interaction --no-progress
             ../../phpstan analyse -l 8 src
           - |
             cd e2e/different-php-parser
-            composer install --ignore-platform-reqs
+            composer install --no-interaction --no-progress --ignore-platform-reqs
             ../../phpstan analyse -l 8 test.php src
           - |
             cd e2e/different-phpdoc-parser
-            composer install --ignore-platform-reqs
+            composer install --no-interaction --no-progress --ignore-platform-reqs
             ../../phpstan analyse -l 8 -a Test.php Test.php
           - |
             cd e2e/php-metrics
-            composer install --ignore-platform-reqs
+            composer install --no-interaction --no-progress --ignore-platform-reqs
             ../../phpstan analyse -l 8 test.php
           - |
             cd e2e/react-bootstrap
-            composer install --ignore-platform-reqs
+            composer install --no-interaction --no-progress --ignore-platform-reqs
             ../../phpstan analyse -l 8 -c phpstan.neon test.php
           - |
             cd e2e/no-autoloader
-            composer install --ignore-platform-reqs
+            composer install --no-interaction --no-progress --ignore-platform-reqs
             ../../phpstan analyse -l 8 -c phpstan.neon src tests
           - |
             cd e2e/mongodb
@@ -177,15 +169,15 @@ jobs:
             ../../phpstan analyse -l 8 -a alias.php -c staticReflection.neon test.php
           - |
             cd e2e/polyfills
-            composer install
+            composer install --no-interaction --no-progress
             ../../phpstan analyse -l 8 test.php
           - |
             cd e2e/symfony-event
-            composer install --ignore-platform-reqs
+            composer install --no-interaction --no-progress --ignore-platform-reqs
             ../../phpstan analyse -l 2 src
           - |
             cd e2e/composer-file
-            composer install
+            composer install --no-interaction --no-progress
             ../../phpstan analyse -l 8 test.php
         include:
           - php-version: 8.0
@@ -195,7 +187,7 @@ jobs:
           - php-version: 7.4
             script: |
               cd e2e/phpstorm-stubs
-              composer install --ignore-platform-reqs
+              composer install --no-interaction --no-progress --ignore-platform-reqs
               ../../phpstan analyse -l 8 test.php
               vendor/bin/phpunit ExampleTest.php
 
@@ -204,24 +196,21 @@ jobs:
         uses: "actions/checkout@v2.3.1"
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.3.1"
+        uses: "shivammathur/setup-php@2.4.0"
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
           ini-values: memory_limit=256M
-
-      - name: "Cache dependencies"
-        uses: "actions/cache@v2"
-        with:
-          path: "~/.composer/cache"
-          key: "php-${{ matrix.php-version }}-composer-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-${{ matrix.php-version }}-composer-"
+          tools: composer:v2
 
       - name: "Disable MongoDB extension"
         run: sudo phpdismod -v ${{ matrix.php-version }} mongodb
 
+      - name: "Disable Platform Checks"
+        run: "composer config -g platform-check false"
+
       - name: "Install dependencies"
-        run: "composer update --no-interaction --no-progress --no-suggest"
+        run: "composer update --no-interaction --no-progress"
 
       - name: "Tests"
         run: "${{ matrix.script }}"
@@ -240,35 +229,35 @@ jobs:
             cd e2e/integration/repo
             git checkout 9.2.3
             export COMPOSER_ROOT_VERSION=9.2.3
-            composer install
+            composer install --no-interaction --no-progress
             ../../../phpstan.phar analyse -l 8 -c ../phpunit.neon src tests
           - |
             git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
             cd e2e/integration/repo
             git checkout v0.6.1
-            composer install
+            composer install --no-interaction --no-progress
             ../../../phpstan.phar analyse
           - |
             git clone https://github.com/rectorphp/rector.git e2e/integration/repo
             cd e2e/integration/repo
             git checkout 4873119f76c422209995f4e92ecfb5a971c74480
             cp ../rector-composer.lock composer.lock
-            composer install
+            composer install --no-interaction --no-progress
             rm stubs/Symfony/Component/Process/Process.php
             ../../../phpstan.phar analyse -c ../rector.neon
           - |
             git clone https://github.com/slevomat/coding-standard.git e2e/integration/repo
             cd e2e/integration/repo
             git checkout 6.3.9
-            composer install
+            composer install --no-interaction --no-progress
             ../../../phpstan.phar analyse -c ../slevomat-cs.neon -l 7 SlevomatCodingStandard
             ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon -l 7 tests
           - |
             git clone https://github.com/composer/composer.git e2e/integration/repo
             cd e2e/integration/repo
             git checkout 2.0.0-alpha1
-            composer install
-            composer config platform --unset && composer update
+            composer install --no-interaction --no-progress
+            composer config platform --unset && composer update --no-interaction --no-progress
             bin/composer require --dev phpunit/phpunit:^7.5 --with-all-dependencies
             ../../../phpstan.phar analyse -c ../composer.neon -l 5 src tests
 
@@ -277,20 +266,17 @@ jobs:
         uses: "actions/checkout@v2.3.1"
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@2.3.1"
+        uses: "shivammathur/setup-php@2.4.0"
         with:
           coverage: "none"
           php-version: "7.4"
+          tools: composer:v2
 
-      - name: "Cache dependencies"
-        uses: "actions/cache@v2"
-        with:
-          path: "~/.composer/cache"
-          key: "php-7.4-composer-${{ hashFiles('**/composer.json') }}"
-          restore-keys: "php-7.4-composer-"
+      - name: "Disable Platform Checks"
+        run: "composer config -g platform-check false"
 
       - name: "Install dependencies"
-        run: "composer update --no-interaction --no-progress --no-suggest"
+        run: "composer update --no-interaction --no-progress"
 
       - name: "Tests"
         run: "${{ matrix.script }}"
