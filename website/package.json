@@ -17,7 +17,7 @@
 		"@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
 		"@tailwindcss/custom-forms": "^0.2.1",
 		"@types/jquery": "^3.5.1",
-		"autoprefixer": "^9.8.5",
+		"autoprefixer": "^9.8.6",
 		"luxon": "^1.24.1",
 		"markdown-it-abbr": "^1.0.4",
 		"markdown-it-anchor": "^5.3.0",
