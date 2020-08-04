@@ -273,6 +273,12 @@ jobs:
             composer config platform --unset && composer update
             bin/composer require --dev phpunit/phpunit:^7.5 --with-all-dependencies
             ../../../phpstan.phar analyse -c ../composer.neon -l 5 src tests
+          - |
+            git clone https://github.com/pmmp/PocketMine-MP.git e2e/integration/repo
+            cd e2e/integration/repo
+            git checkout 3.14.2
+            composer install --ignore-platform-reqs
+            ../../../phpstan.phar analyse --memory-limit=2G
 
     steps:
       - name: "Checkout"
@@ -283,6 +289,8 @@ jobs:
         with:
           coverage: "none"
           php-version: "7.4"
+          tools: pecl
+          extensions: pthreads
 
       - name: "Cache dependencies"
         uses: "actions/cache@v2"
