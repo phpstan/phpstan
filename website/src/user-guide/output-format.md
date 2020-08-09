@@ -14,5 +14,6 @@ You can pass the following keywords to the `--error-format=X` CLI option of the 
 - `junit`: Creates JUnit compatible output. Note that you'd have to redirect output into a file in order to capture the results for later processing.
 - `github`: Creates GitHub Actions compatible output.
 - `gitlab`: Creates format for use Code Quality widget on GitLab Merge Request.
+- `teamcity`: Creates TeamCity compatible output.
 
 You can also implement your own custom error formatter. [Learn how »](/developing-extensions/error-formatters)
