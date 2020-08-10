@@ -68,6 +68,7 @@ Unofficial extensions
 * [TYPO3](https://github.com/sascha-egerer/phpstan-typo3)
 * [moneyphp/money](https://github.com/JohnstonCode/phpstan-moneyphp)
 * [Nextras ORM](https://github.com/nextras/orm-phpstan)
+* [Sonata](https://github.com/ekino/phpstan-sonata)
 
 3rd party rules
 -----------------
