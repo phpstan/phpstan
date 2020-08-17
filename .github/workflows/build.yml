@@ -7,6 +7,8 @@ on:
   push:
     branches:
       - "master"
+    paths-ignore:
+      - 'website/**'
 
 env:
   COMPOSER_ROOT_VERSION: "0.12.x-dev"

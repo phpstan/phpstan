@@ -6,6 +6,9 @@ on:
   push:
     branches:
       - "master"
+    paths:
+      - '.github/**'
+      - 'website/**'
 
 jobs:
   typescript-check:
