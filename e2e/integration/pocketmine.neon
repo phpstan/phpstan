@@ -1,5 +1,6 @@
 includes:
 	- repo/phpstan.neon.dist
+	- pocketmine-baseline.neon
 
 parameters:
 	featureToggles:

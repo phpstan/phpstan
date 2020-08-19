@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method pocketmine\\\\entity\\\\utils\\\\ExperienceUtils\\:\\:getLevelFromXp\\(\\) should return float but returns float\\|false\\.$#"
+			count: 1
+			path: repo/src/pocketmine/entity/utils/ExperienceUtils.php
+
