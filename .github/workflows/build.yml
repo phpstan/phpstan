@@ -247,7 +247,7 @@ jobs:
           - |
             git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
             cd e2e/integration/repo
-            git checkout v0.6.1
+            git checkout 1e14ee6f5665b1794627f4e033b03d7380194502
             composer install
             ../../../phpstan.phar analyse
           - |
