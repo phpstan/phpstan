@@ -531,6 +531,11 @@ parameters:
 			path: repo/src/Composer/EventDispatcher/EventDispatcher.php
 
 		-
+			message: "#^Offset 'key' does not exist on array\\(\\?'text' \\=\\> string, \\?'token' \\=\\> string, \\?'line' \\=\\> int, \\?'loc' \\=\\> array, \\?'expected' \\=\\> array\\)\\.$#"
+			count: 1
+			path: repo/src/Composer/Factory.php
+
+		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: repo/src/Composer/Factory.php
