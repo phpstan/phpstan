@@ -4,3 +4,9 @@ parameters:
 			message: "#^Method SlevomatCodingStandard\\\\Sniffs\\\\Classes\\\\AbstractMethodSignature\\:\\:getSignatureStartAndEndPointers\\(\\) should return array\\<int, int\\> but returns array\\<int, int\\|null\\>\\.$#"
 			count: 1
 			path: repo/SlevomatCodingStandard/Sniffs/Classes/AbstractMethodSignature.php
+
+		-
+			message: "#^Parameter \\#3 \\$startPointer of static method SlevomatCodingStandard\\\\Helpers\\\\TokenHelper\\:\\:findPrevious\\(\\) expects int, int\\|false given\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Sniffs/ControlStructures/AssignmentInConditionSniff.php
+
