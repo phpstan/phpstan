@@ -170,7 +170,7 @@ jobs:
             ../../phpstan analyse -l 8 -c phpstan.neon src tests
           - |
             cd e2e/mongodb
-            ../../phpstan analyse -l 8 test.php
+            ../../phpstan analyse -l 8 test.php test2.php
           - |
             cd e2e/alias-event
             ../../phpstan analyse -l 8 -a alias.php test.php
