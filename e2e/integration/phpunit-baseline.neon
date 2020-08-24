@@ -1456,11 +1456,6 @@ parameters:
 			path: repo/src/Framework/MockObject/Generator.php
 
 		-
-			message: "#^Parameter \\#1 \\$args of method ReflectionClass\\<mixed\\>\\:\\:newInstanceArgs\\(\\) expects array\\<int, mixed\\>, array given\\.$#"
-			count: 2
-			path: repo/src/Framework/MockObject/Generator.php
-
-		-
 			message: "#^Method PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:generateMock\\(\\) has parameter \\$explicitMethods with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/Generator.php
