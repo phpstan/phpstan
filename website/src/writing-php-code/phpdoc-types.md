@@ -117,6 +117,11 @@ function bar(string $name): void
 }
 ```
 
+Other advanced string types
+-------------------------
+
+There's also `callable-string` and `numeric-string`.
+
 Type aliases
 -------------------------
 
