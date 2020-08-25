@@ -6,3 +6,6 @@ parameters:
 		-
 			message: '#^Cannot cast PhpParser\\Node\\Expr\|PhpParser\\Node\\Name to string\.$#'
 			path: repo/rules/php71/src/IsArrayAndDualCheckToAble.php
+		-
+			message: '#^Cannot cast array<string>\|string\|true to string\.$#'
+			path: repo/src/Configuration/Configuration.php

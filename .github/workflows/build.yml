@@ -253,10 +253,9 @@ jobs:
           - |
             git clone https://github.com/rectorphp/rector.git e2e/integration/repo
             cd e2e/integration/repo
-            git checkout 4873119f76c422209995f4e92ecfb5a971c74480
+            git checkout 44d3ec8b7a488aa3d07efa231ff742d8b2670a3d
             cp ../rector-composer.lock composer.lock
             composer install
-            rm stubs/Symfony/Component/Process/Process.php
             ../../../phpstan.phar analyse -c ../rector.neon
           - |
             git clone https://github.com/slevomat/coding-standard.git e2e/integration/repo
