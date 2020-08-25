@@ -5461,12 +5461,7 @@ parameters:
 			path: repo/tests/static-analysis/happy-path/assert-is-not-numeric.php
 
 		-
-			message: "#^Parameter \\$value of function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotNumeric\\\\consume\\(\\) has invalid typehint type PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotNumeric\\\\numeric\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-is-not-numeric.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotNumeric\\\\consume\\(\\) should return array but returns array\\|PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotNumeric\\\\numeric\\.$#"
+			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotNumeric\\\\consume\\(\\) should return array but returns array\\|float\\|int\\|string\\.$#"
 			count: 1
 			path: repo/tests/static-analysis/happy-path/assert-is-not-numeric.php
 
@@ -5489,11 +5484,6 @@ parameters:
 			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotString\\\\consume\\(\\) should return int but returns int\\|string\\.$#"
 			count: 1
 			path: repo/tests/static-analysis/happy-path/assert-is-not-string.php
-
-		-
-			message: "#^Return typehint of function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNumeric\\\\consume\\(\\) has invalid type PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNumeric\\\\numeric\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-is-numeric.php
 
 		-
 			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertNotEmpty\\\\consume\\(\\) should return int but returns int\\|null\\.$#"
