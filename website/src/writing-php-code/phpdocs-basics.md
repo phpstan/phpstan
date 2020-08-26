@@ -191,6 +191,27 @@ public function returnStatic(): self
 }
 ```
 
+Special cases of classes named after PHP internal types
+-----------------------------------------------------------
+
+When having classes named `Resource`, `Double`, `Number` (or `Mixed` until PHP 8), there is no possible way to distinguish between either the PHP internal type or the custom class to use in the PHPDoc. By default, PHPStan will consider the type as being the PHP internal type, which means some false-positive can appear.
+
+```php
+/**
+ * @param Resource $var
+ */
+public function foo(Resource $var): void { ... }
+```
+To make PHPStan understand this parameter must be an instance of a `Resource` object, use the fully-qualified name in the PHPDoc. 
+This way, PHPStan will not be confused anymore:
+
+```php
+/**
+ * @param \My\Resource $var
+ */
+public function foo(Resource $var): void { ... }
+```
+
 Variadic functions
 -------------------------
 
