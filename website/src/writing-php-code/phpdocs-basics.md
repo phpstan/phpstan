@@ -191,27 +191,6 @@ public function returnStatic(): self
 }
 ```
 
-Special cases of classes named after PHP internal types
------------------------------------------------------------
-
-When having classes named `Resource`, `Double`, `Number` (or `Mixed` until PHP 8), there is no possible way to distinguish between either the PHP internal type or the custom class to use in the PHPDoc. By default, PHPStan will consider the type as being the PHP internal type, which means some false-positive can appear.
-
-```php
-/**
- * @param Resource $var
- */
-public function foo(Resource $var): void { ... }
-```
-To make PHPStan understand this parameter must be an instance of a `Resource` object, use the fully-qualified name in the PHPDoc. 
-This way, PHPStan will not be confused anymore:
-
-```php
-/**
- * @param \My\Resource $var
- */
-public function foo(Resource $var): void { ... }
-```
-
 Variadic functions
 -------------------------
 
@@ -251,3 +230,24 @@ function foo ($param) { ... }
 ```
 
 This is useful in the context of advanced types and [generics](/blog/generics-in-php-using-phpdocs). IDEs and other PHP tools might not understand the advanced types that PHPStan takes advantage of. So you can leave the ordinary `@param` in the PHPDoc and add a `@phpstan-param` with an advanced type syntax.
+
+Classes named after internal PHP types
+-----------------------------------------------------------
+
+When having classes named like `Resource`, `Double`, `Number` (or `Mixed` until PHP 8), there is no possible way to distinguish between either the PHP internal type or the custom class to use in the PHPDoc. By default, PHPStan will consider the type as being the PHP internal type, which means some false-positives can appear.
+
+```php
+/**
+ * @param Resource $var
+ */
+public function foo(Resource $var): void { ... }
+```
+
+To make PHPStan understand the passed argument must be an instance of a `Resource` object, use a fully-qualified name in the PHPDoc. PHPStan will understand that as the object of `My\Resource` class.
+
+```php
+/**
+ * @param \My\Resource $var
+ */
+public function foo(Resource $var): void { ... }
+```
