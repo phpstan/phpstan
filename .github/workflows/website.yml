@@ -68,7 +68,7 @@ jobs:
         run: "yarn run build"
 
       - name: "Upload website dist"
-        uses: actions/upload-artifact@v2.1.1
+        uses: actions/upload-artifact@v2.1.4
         with:
           name: website-dist
           path: website/dist
