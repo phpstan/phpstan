@@ -29,6 +29,8 @@ Most likely you will also have to implement a new class implementing the `Proper
 ```php
 namespace PHPStan\Reflection;
 
+use PHPStan\Type\Type;
+
 interface PropertyReflection
 {
 
@@ -77,6 +79,8 @@ Most likely you will also have to implement a new class implementing the `Method
 
 ```php
 namespace PHPStan\Reflection;
+
+use PHPStan\Type\Type;
 
 interface MethodReflection
 {
