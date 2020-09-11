@@ -37,7 +37,7 @@ jobs:
         - cp ../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
         - cp ../phpstan vendor/phpstan/phpstan/phpstan
         - rm -rf vendor/phpstan/phpstan/.git
-        - npm install -g serverless
+        - npm install -g serverless@1.83.0
         - serverless deploy
 
 cache:
