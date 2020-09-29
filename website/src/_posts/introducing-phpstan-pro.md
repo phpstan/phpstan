@@ -106,6 +106,12 @@ Make sure you have at least PHPStan 0.12.45 and launch PHPStan Pro by running th
 
 They all do the same thing so you can choose which one you like. PHPStan will download the PHPStan Pro PHAR file and open your web browser pointing to a locally hosted website. After that, you can follow the on-screen instructions and create an account.
 
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+
+If you want to create the account and set up payments without running PHPStan in the CLI right now, head to <strong><a href="https://account.phpstan.com/">account.phpstan.com</a></strong>.
+
+</div>
+
 Keep in mind right now it's really early in PHPStan Pro's development life cycle. If you were a PHPStan user right after its initial release in December 2016, you'd remember it also didn’t do a lot but the main idea was there, ready to blossom.
 
 I have plans on what to do next for both PHPStan and PHPStan Pro, but I rely on you to tell me what you want the most. Don't hesitate to use the built-in "Send feedback" form to tell me what you think.
