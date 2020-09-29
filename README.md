@@ -55,6 +55,20 @@ All the documentation lives on the [phpstan.org website](https://phpstan.org/):
 * [Extension Library](https://phpstan.org/user-guide/extension-library)
 * [Developing Extensions](https://phpstan.org/developing-extensions/extension-types)
 
+## PHPStan Pro
+
+PHPStan Pro is a paid add-on on top of open-source PHPStan Static Analysis Tool with these premium features:
+
+* Web UI for browsing found errors, you can click and open your editor of choice on the offending line.
+* Continuous analysis (watch mode): scans changed files in the background, refreshes the UI automatically.
+* Interactive fixer: lets you choose the right fix for found errors :blush:
+
+Try it on PHPStan 0.12.45 or later by running it with the `--pro` option.
+
+After 30-day free trial period it costs 7 EUR for individuals monthly, 70 EUR for teams (up to 25 members). By paying for PHPStan Pro, you're supporting the development of open-source PHPStan.
+
+You can read more about it on [PHPStan's website](https://phpstan.org/blog/introducing-phpstan-pro).
+
 ## Code of Conduct
 
 This project adheres to a [Contributor Code of Conduct](https://github.com/phpstan/phpstan/blob/master/CODE_OF_CONDUCT.md). By participating in this project and its community, you are expected to uphold this code.
