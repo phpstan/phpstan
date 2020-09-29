@@ -11,8 +11,6 @@ The image is based on [Alpine Linux](https://alpinelinux.org/) and updated autom
 ## Supported tags
 
 - `0.12`, `latest`
-- `0.11`
-- `0.10`
 - `nightly` (dev-master)
 
 ## Installation
