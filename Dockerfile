@@ -20,4 +20,7 @@ RUN composer global require phpstan/phpstan:"$PHPSTAN_VERSION"
 VOLUME ["/app"]
 WORKDIR /app
 
+ENV PHPSTAN_PRO_WEB_PORT=11111
+EXPOSE 11111
+
 ENTRYPOINT ["phpstan"]
