@@ -1,15 +1,8 @@
 import * as ko from 'knockout';
-import docsearch from 'docsearch.js/dist/cdn/docsearch.min.js';
 import $ from 'jquery';
 import littlefoot from 'littlefoot';
 
 $(() => {
-	docsearch({
-		apiKey: '8a2169842d3555d81852e08de53b05fd',
-		indexName: 'phpstan',
-		inputSelector: '#searchInput',
-		debug: false // Set debug to true if you want to inspect the dropdown
-	});
 	littlefoot();
 });
 
