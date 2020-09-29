@@ -9,6 +9,11 @@
         "link": "/user-guide/getting-started",
         "pageType": "documentation"
     },
+	{
+		"title": "PHPStan Pro",
+		"link": "/blog/introducing-phpstan-pro",
+		"pageType": "pro"
+	},
     {
         "title": "Blog",
         "link": "/blog",

@@ -3,6 +3,7 @@ title: "Introducing PHPStan Pro – Save Your Keystrokes and Get More Productive
 date: 2020-09-29
 tags: releases
 ogImage: /images/phpstan-pro-twitter-card.png
+pageType: pro
 ---
 
 I'm really excited to show everyone what I've been working on for the past 9 months. It's a new product aimed to enhance user experience when using PHPStan. I want to challenge a common presumption that developer tools like PHPStan are usually constrained to CLI, limiting their visual side, and possible interactions.
