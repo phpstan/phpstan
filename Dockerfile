@@ -17,6 +17,8 @@ ARG PHPSTAN_VERSION
 
 RUN composer global require phpstan/phpstan:"$PHPSTAN_VERSION"
 
+RUN rm -rf /composer/vendor/phpstan/phpstan/.git
+
 VOLUME ["/app"]
 WORKDIR /app
 
