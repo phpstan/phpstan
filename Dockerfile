@@ -17,7 +17,8 @@ ARG PHPSTAN_VERSION
 
 RUN composer global require phpstan/phpstan:"$PHPSTAN_VERSION"
 
-RUN rm -rf /composer/vendor/phpstan/phpstan/.git
+RUN rm -rf /composer/vendor/phpstan/phpstan/.git \
+	&& composer clear-cache
 
 VOLUME ["/app"]
 WORKDIR /app
