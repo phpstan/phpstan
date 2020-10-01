@@ -63,7 +63,7 @@ PHPStan Pro is a paid add-on on top of open-source PHPStan Static Analysis Tool 
 * Continuous analysis (watch mode): scans changed files in the background, refreshes the UI automatically.
 * Interactive fixer: lets you choose the right fix for found errors :blush:
 
-Try it on PHPStan 0.12.45 or later by running it with the `--pro` option.
+Try it on PHPStan 0.12.45 or later by running it with the `--pro` option. You can create an account either by following the on-screen instructions, or by visiting [account.phpstan.com](https://account.phpstan.com/).
 
 After 30-day free trial period it costs 7 EUR for individuals monthly, 70 EUR for teams (up to 25 members). By paying for PHPStan Pro, you're supporting the development of open-source PHPStan.
 
