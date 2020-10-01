@@ -15,9 +15,8 @@ RUN echo "memory_limit=-1" > $PHP_CONF_DIR/99_memory-limit.ini \
 
 ARG PHPSTAN_VERSION
 
-RUN composer global require phpstan/phpstan:"$PHPSTAN_VERSION"
-
-RUN rm -rf /composer/vendor/phpstan/phpstan/.git \
+RUN composer global require phpstan/phpstan:"$PHPSTAN_VERSION" \
+	&& rm -rf /composer/vendor/phpstan/phpstan/.git \
 	&& composer clear-cache
 
 VOLUME ["/app"]
