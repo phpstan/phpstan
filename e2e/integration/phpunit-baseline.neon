@@ -2316,11 +2316,6 @@ parameters:
 			path: repo/src/Runner/Filter/GroupFilterIterator.php
 
 		-
-			message: "#^Method PHPUnit\\\\Runner\\\\Filter\\\\GroupFilterIterator\\:\\:__construct\\(\\) has parameter \\$iterator with no value type specified in iterable type RecursiveIterator\\.$#"
-			count: 1
-			path: repo/src/Runner/Filter/GroupFilterIterator.php
-
-		-
 			message: "#^Method PHPUnit\\\\Runner\\\\Filter\\\\GroupFilterIterator\\:\\:__construct\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
 			count: 1
 			path: repo/src/Runner/Filter/GroupFilterIterator.php
@@ -2329,11 +2324,6 @@ parameters:
 			message: "#^Method PHPUnit\\\\Runner\\\\Filter\\\\GroupFilterIterator\\:\\:doAccept\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: repo/src/Runner/Filter/GroupFilterIterator.php
-
-		-
-			message: "#^Method PHPUnit\\\\Runner\\\\Filter\\\\NameFilterIterator\\:\\:__construct\\(\\) has parameter \\$iterator with no value type specified in iterable type RecursiveIterator\\.$#"
-			count: 1
-			path: repo/src/Runner/Filter/NameFilterIterator.php
 
 		-
 			message: "#^Method PHPUnit\\\\Runner\\\\TestListenerAdapter\\:\\:startTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
