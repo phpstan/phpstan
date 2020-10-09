@@ -2,6 +2,9 @@ includes:
 	- phpunit-baseline.neon
 
 parameters:
+	earlyTerminatingMethodCalls:
+		PHPUnit\TextUI\Command:
+			- exitWithErrorMessage
 	featureToggles:
 		disableRuntimeReflectionProvider: true
 	excludes_analyse:

@@ -2746,8 +2746,23 @@ parameters:
 			path: repo/src/TextUI/Command.php
 
 		-
+			message: "#^Result of && is always true\\.$#"
+			count: 1
+			path: repo/src/TextUI/Command.php
+
+		-
+			message: "#^Variable \\$arguments in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/TextUI/Command.php
+
+		-
 			message: "#^Parameter \\#1 \\$str of function trim expects string, string\\|false given\\.$#"
 			count: 3
+			path: repo/src/TextUI/Command.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
 			path: repo/src/TextUI/Command.php
 
 		-
