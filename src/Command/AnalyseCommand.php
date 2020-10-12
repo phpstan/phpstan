@@ -6,6 +6,7 @@ use PHPStan\Command\ErrorFormatter\ErrorFormatter;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class AnalyseCommand extends \Symfony\Component\Console\Command\Command
@@ -58,6 +59,51 @@ class AnalyseCommand extends \Symfony\Component\Console\Command\Command
 
 	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
+		if ($output instanceof ConsoleOutputInterface) {
+			$errorOutput = $output->getErrorOutput();
+			$errorOutput->writeln('');
+			$errorOutput->writeln("⚠️  You're running a really old version of PHPStan.️");
+			$errorOutput->writeln('');
+			$errorOutput->writeln('The last release in the 0.11.x series with new features');
+
+			$lastRelease = new \DateTimeImmutable('2019-10-22 00:00:00');
+			$daysSince = (time() - $lastRelease->getTimestamp()) / 60 / 60 / 24;
+			if ($daysSince > 360) {
+				$errorOutput->writeln('and bugfixes was released on <fg=red>October 22nd 2019</>,');
+				$errorOutput->writeln(sprintf('that\'s <fg=red>%d days ago.</>', floor($daysSince)));
+			} else {
+				$errorOutput->writeln('and bugfixes was released on <fg=red>October 22nd 2019</>.');
+			}
+			$errorOutput->writeln('');
+
+			$errorOutput->writeln('Since then more than <fg=cyan>50 new PHPStan versions</> were released');
+			$errorOutput->writeln('with hundreds of new features, bugfixes, and other');
+			$errorOutput->writeln('quality of life improvements.');
+			$errorOutput->writeln('');
+
+			$errorOutput->writeln("To learn about what you're missing out on, check out");
+			$errorOutput->writeln('this blog with articles about the latest major releases:');
+			$errorOutput->writeln('<options=underscore>https://phpstan.org/blog</>');
+			$errorOutput->writeln('');
+
+			$errorOutput->writeln('Historically, the main two blockers preventing');
+			$errorOutput->writeln('people from upgrading were:');
+			$errorOutput->writeln('1) Composer conflicts with other dependencies.');
+			$errorOutput->writeln('2) Errors discovered by the new PHPStan version and no time');
+			$errorOutput->writeln('   to fix them to get to a green build again.');
+			$errorOutput->writeln('');
+
+			$errorOutput->writeln('Today, neither of them is a problem anymore thanks to:');
+			$errorOutput->writeln('1) phpstan/phpstan package having zero external dependencies.');
+			$errorOutput->writeln('2) Baseline feature letting you use the latest release');
+			$errorOutput->writeln('   right away even with pre-existing errors.');
+			$errorOutput->writeln('   Read more about it here: <options=underscore>https://phpstan.org/user-guide/baseline</>');
+			$errorOutput->writeln('');
+
+			$errorOutput->writeln('Upgrade today to <fg=green>PHPStan 0.12</> by using');
+			$errorOutput->writeln('<fg=cyan>"phpstan/phpstan": "^0.12"</> in your <fg=cyan>composer.json</>.');
+			$errorOutput->writeln('');
+		}
 		$paths = $input->getArgument('paths');
 		$memoryLimit = $input->getOption('memory-limit');
 		$autoloadFile = $input->getOption('autoload-file');
