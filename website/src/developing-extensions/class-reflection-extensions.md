@@ -29,12 +29,11 @@ Most likely you will also have to implement a new class implementing the [`Prope
 ```php
 namespace PHPStan\Reflection;
 
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 
 interface PropertyReflection
 {
-
-	public function getType(): Type;
 
 	public function getDeclaringClass(): ClassReflection;
 
@@ -43,6 +42,24 @@ interface PropertyReflection
 	public function isPrivate(): bool;
 
 	public function isPublic(): bool;
+
+	public function getDocComment(): ?string;
+
+	public function getReadableType(): Type;
+
+	public function getWritableType(): Type;
+
+	public function canChangeTypeAfterAssignment(): bool;
+
+	public function isReadable(): bool;
+
+	public function isWritable(): bool;
+
+	public function isDeprecated(): TrinaryLogic;
+
+	public function getDeprecatedDescription(): ?string;
+
+	public function isInternal(): TrinaryLogic;
 
 }
 ```
@@ -85,7 +102,8 @@ use PHPStan\Type\Type;
 
 interface MethodReflection
 {
-	public function getDeclaringClass(): ClassReflection;
+
+        public function getDeclaringClass(): ClassReflection;
 
 	public function isStatic(): bool;
 
