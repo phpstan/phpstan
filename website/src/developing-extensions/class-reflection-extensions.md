@@ -103,7 +103,7 @@ use PHPStan\Type\Type;
 interface MethodReflection
 {
 
-        public function getDeclaringClass(): ClassReflection;
+	public function getDeclaringClass(): ClassReflection;
 
 	public function isStatic(): bool;
 
