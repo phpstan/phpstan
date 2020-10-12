@@ -83,8 +83,17 @@ namespace PHPStan\Reflection;
 use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 
-interface MethodReflection extends ClassMemberReflection
+interface MethodReflection
 {
+	public function getDeclaringClass(): ClassReflection;
+
+	public function isStatic(): bool;
+
+	public function isPrivate(): bool;
+
+	public function isPublic(): bool;
+
+	public function getDocComment(): ?string;
 
 	public function getName(): string;
 
