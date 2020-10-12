@@ -81,6 +81,16 @@ parameters:
 			path: repo/src/Composer/Command/InitCommand.php
 
 		-
+			message: "#^Empty array passed to foreach\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/InitCommand.php
+
+		-
+			message: "#^Call to function unset\\(\\) contains undefined variable \\$requiredPackage\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/InitCommand.php
+
+		-
 			message: "#^Parameter \\#1 \\$command of class Symfony\\\\Component\\\\Process\\\\Process constructor expects array, string given\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/InitCommand.php
