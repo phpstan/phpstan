@@ -6,4 +6,4 @@ parameters:
 	featureToggles:
 		disableRuntimeReflectionProvider: true
 	ignoreErrors:
-		- '~^Parameter #1 \\$string of function substr expects string~'
+		- "#^Parameter \\#1 \\$string of function substr expects string#"
