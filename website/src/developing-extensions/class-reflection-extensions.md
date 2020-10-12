@@ -80,31 +80,32 @@ Most likely you will also have to implement a new class implementing the [`Metho
 ```php
 namespace PHPStan\Reflection;
 
+use PHPStan\TrinaryLogic;
 use PHPStan\Type\Type;
 
-interface MethodReflection
+interface MethodReflection extends ClassMemberReflection
 {
-
-	public function getDeclaringClass(): ClassReflection;
-
-	public function getPrototype(): self;
-
-	public function isStatic(): bool;
-
-	public function isPrivate(): bool;
-
-	public function isPublic(): bool;
 
 	public function getName(): string;
 
+	public function getPrototype(): ClassMemberReflection;
+
 	/**
-	 * @return \PHPStan\Reflection\ParameterReflection[]
+	 * @return \PHPStan\Reflection\ParametersAcceptor[]
 	 */
-	public function getParameters(): array;
+	public function getVariants(): array;
 
-	public function isVariadic(): bool;
+	public function isDeprecated(): TrinaryLogic;
 
-	public function getReturnType(): Type;
+	public function getDeprecatedDescription(): ?string;
+
+	public function isFinal(): TrinaryLogic;
+
+	public function isInternal(): TrinaryLogic;
+
+	public function getThrowType(): ?Type;
+
+	public function hasSideEffects(): TrinaryLogic;
 
 }
 ```
