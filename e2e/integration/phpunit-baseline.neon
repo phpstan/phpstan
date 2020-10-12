@@ -3176,7 +3176,7 @@ parameters:
 			path: repo/src/Util/Annotation/DocBlock.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function substr expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|null given\\.$#"
 			count: 1
 			path: repo/src/Util/Annotation/DocBlock.php
 
@@ -3666,7 +3666,7 @@ parameters:
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function substr expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|null given\\.$#"
 			count: 4
 			path: repo/src/Util/TestDox/NamePrettifier.php
 
