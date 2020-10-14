@@ -95,9 +95,10 @@ Related config keys: [`scanFiles`](/user-guide/discovering-symbols#third-party-c
 Autoloading
 ------------------
 
-Learn more about autoloading in the [user guide](/user-guide/autoloading).
+Autoloading has been deprecated in favor of [Discovering Symbols](/user-guide/discovering-symbols) in PHPStan 0.12.26.
 
-Related config keys: `autoload_directories`, `autoload_files`.
+Related config keys: [`autoload_directories`](/user-guide/autoloading),
+[`autoload_files`](/user-guide/autoloading).
 
 Bootstrap
 ------------------
