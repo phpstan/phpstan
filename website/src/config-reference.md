@@ -243,7 +243,7 @@ Stub files
 
 Learn more about stub files in the [user guide](/user-guide/stub-files).
 
-Related config key: `stubFiles`.
+Related config key: [`stubFiles`](/user-guide/stub-files).
 
 Stricter analysis
 -----------
