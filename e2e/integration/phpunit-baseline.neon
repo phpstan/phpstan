@@ -4046,7 +4046,7 @@ parameters:
 			path: repo/tests/_files/Calculator.php
 
 		-
-			message: "#^Method ClassThatImplementsSerializable\\:\\:serialize\\(\\) should return string but returns array\\<string, mixed\\>\\.$#"
+			message: "#^Method ClassThatImplementsSerializable\\:\\:serialize\\(\\) should return string\\|null but returns array\\<string, mixed\\>\\.$#"
 			count: 1
 			path: repo/tests/_files/ClassThatImplementsSerializable.php
 
