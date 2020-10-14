@@ -205,7 +205,8 @@ Solving undefined variables
 
 Learn more about solving undefined variables in [Writing PHP Code](/writing-php-code/solving-undefined-variables).
 
-Related config keys: `earlyTerminatingMethodCalls`, `earlyTerminatingFunctionCalls`.
+Related config keys: [`earlyTerminatingMethodCalls`](/writing-php-code/solving-undefined-variables),
+[`earlyTerminatingFunctionCalls`](/writing-php-code/solving-undefined-variables).
 
 Universal object crates
 ----------------
