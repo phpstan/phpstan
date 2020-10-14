@@ -81,21 +81,24 @@ Ignoring errors
 
 Learn more about ignoring errors in the [user guide](/user-guide/ignoring-errors).
 
-Related config keys: `ignoreErrors`, `reportUnmatchedIgnoredErrors`.
+Related config keys: [`ignoreErrors`](/user-guide/ignoring-errors#ignoring-in-configuration-file),
+[`reportUnmatchedIgnoredErrors`](/user-guide/ignoring-errors#reporting-unused-ignores).
 
 Discovering symbols
 ------------------
 
 Learn more about discovering symbols in the [user guide](/user-guide/discovering-symbols).
 
-Related config keys: `scanFiles`, `scanDirectories`.
+Related config keys: [`scanFiles`](/user-guide/discovering-symbols#third-party-code-outside-of-composer-dependencies),
+[`scanDirectories`](/user-guide/discovering-symbols#third-party-code-outside-of-composer-dependencies).
 
 Autoloading
 ------------------
 
-Learn more about autoloading in the [user guide](/user-guide/autoloading).
+Autoloading has been deprecated in favor of [Discovering Symbols](/user-guide/discovering-symbols) in PHPStan 0.12.26.
 
-Related config keys: `autoload_directories`, `autoload_files`.
+Related config keys: [`autoload_directories`](/user-guide/autoloading),
+[`autoload_files`](/user-guide/autoloading).
 
 Bootstrap
 ------------------
@@ -202,7 +205,8 @@ Solving undefined variables
 
 Learn more about solving undefined variables in [Writing PHP Code](/writing-php-code/solving-undefined-variables).
 
-Related config keys: `earlyTerminatingMethodCalls`, `earlyTerminatingFunctionCalls`.
+Related config keys: [`earlyTerminatingMethodCalls`](/writing-php-code/solving-undefined-variables),
+[`earlyTerminatingFunctionCalls`](/writing-php-code/solving-undefined-variables).
 
 Universal object crates
 ----------------
@@ -239,7 +243,7 @@ Stub files
 
 Learn more about stub files in the [user guide](/user-guide/stub-files).
 
-Related config key: `stubFiles`.
+Related config key: [`stubFiles`](/user-guide/stub-files).
 
 Stricter analysis
 -----------
@@ -397,9 +401,9 @@ parameters:
 Type aliases
 -------------
 
-Learn more about type aliases in the [Writing PHP Code section](/writing-php-code/phpdoc-types#type-aliases).
+Learn more about type aliases in [Writing PHP Code](/writing-php-code/phpdoc-types#type-aliases).
 
-Related config key: `typeAliases`.
+Related config key: [`typeAliases`](/writing-php-code/phpdoc-types#type-aliases).
 
 Parallel processing
 ----------------
