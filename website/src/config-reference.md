@@ -81,7 +81,8 @@ Ignoring errors
 
 Learn more about ignoring errors in the [user guide](/user-guide/ignoring-errors).
 
-Related config keys: `ignoreErrors`, `reportUnmatchedIgnoredErrors`.
+Related config keys: [`ignoreErrors`](/user-guide/ignoring-errors#ignoring-in-configuration-file),
+[`reportUnmatchedIgnoredErrors`](/user-guide/ignoring-errors#reporting-unused-ignores).
 
 Discovering symbols
 ------------------
