@@ -3116,11 +3116,6 @@ parameters:
 			path: repo/src/Util/Annotation/DocBlock.php
 
 		-
-			message: "#^Method PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:requirements\\(\\) should return array\\<string, array\\<int\\|string, string\\>\\|string\\>&array\\('__OFFSET' \\=\\> \\*NEVER\\*, \\?'setting' \\=\\> array\\<string, string\\>, \\?'extension_versions' \\=\\> array\\<string, array\\('version' \\=\\> string, 'operator' \\=\\> string\\)\\>\\) but returns array\\('__OFFSET' \\=\\> \\*NEVER\\*, \\?'setting' \\=\\> array\\<string, string\\>, \\?'extension_versions' \\=\\> array\\<string, array\\('version' \\=\\> string, 'operator' \\=\\> string\\)\\>\\)\\.$#"
-			count: 1
-			path: repo/src/Util/Annotation/DocBlock.php
-
-		-
 			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, array\\<int, string\\>\\|false given\\.$#"
 			count: 1
 			path: repo/src/Util/Annotation/DocBlock.php
@@ -3131,12 +3126,12 @@ parameters:
 			path: repo/src/Util/Annotation/DocBlock.php
 
 		-
-			message: "#^Method PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:requirements\\(\\) should return array\\<string, array\\<int\\|string, string\\>\\|string\\>&array\\('__OFFSET' \\=\\> \\*NEVER\\*, \\?'setting' \\=\\> array\\<string, string\\>, \\?'extension_versions' \\=\\> array\\<string, array\\('version' \\=\\> string, 'operator' \\=\\> string\\)\\>\\) but returns array\\<int\\|string, mixed\\>\\.$#"
+			message: "#^Method PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:requirements\\(\\) should return array\\<'__OFFSET'\\|'extension_versions'\\|'setting', array\\<string, string\\>\\> but returns array\\<int\\|string, mixed\\>\\.$#"
 			count: 1
 			path: repo/src/Util/Annotation/DocBlock.php
 
 		-
-			message: "#^Property PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:\\$parsedRequirements \\(array\\('__OFFSET' \\=\\> \\*NEVER\\*, \\?'setting' \\=\\> array\\<string, string\\>, \\?'extension_versions' \\=\\> array\\<string, array\\('version' \\=\\> string, 'operator' \\=\\> string\\)\\>\\)\\|null\\) does not accept array\\<int\\|string, mixed\\>\\.$#"
+			message: "#^Property PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:\\$parsedRequirements \\(array\\<'__OFFSET'\\|'extension_versions'\\|'setting', array\\<string, string\\>\\>\\|null\\) does not accept array\\<int\\|string, mixed\\>\\.$#"
 			count: 1
 			path: repo/src/Util/Annotation/DocBlock.php
 
