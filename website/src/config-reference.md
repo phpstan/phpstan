@@ -538,3 +538,7 @@ parametersSchema:
 		console_application_loader: schema(string(), nullable())
 	])
 ```
+
+Discovering Symbols
+-------------------
+For `scanFiles`, `scanDirectories` and `bootstrapFiles`, see [Discovering Symbols](/user-guide/discovering-symbols)
