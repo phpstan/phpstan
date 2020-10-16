@@ -6,10 +6,13 @@ You can become one of them by [becoming a GitHub Sponsor](https://github.com/spo
 Check out all the tiers - higher ones include additional goodies like placing
 the logo of your company in PHPStan's README.
 
+# $110
+
+* [Stepan Kocourek](https://github.com/stpnkcrk)
+
 # $30
 
 * [Wysija](https://github.com/Wysija)
-* [Stepan Kocourek](https://github.com/stpnkcrk)
 * GLAMI.cz
 
 # $10+
@@ -27,7 +30,6 @@ the logo of your company in PHPStan's README.
 * [Marco Vito Moscaritolo](https://github.com/mavimo)
 * [Ondra Votava](https://github.com/ondraondra81)
 * [Teoh Han Hui](https://github.com/teohhanhui)
-* [Alessandro Lai](https://github.com/Jean85)
 * [Adam Lundrigan](https://github.com/adamlundrigan)
 * [John Linhart](https://github.com/escopecz)
 * [Wim Godden](https://github.com/wimg)
@@ -37,7 +39,6 @@ the logo of your company in PHPStan's README.
 * [Buster "Silver Eagle" Neece](https://github.com/SlvrEagle23)
 * [Luc De Brouwer](https://github.com/ldebrouwer)
 * [Hugo Alliaume](https://github.com/Kocal)
-* [Vašek Brychta](https://github.com/vasek-b)
 * [Dukolm](https://github.com/Dukolm)
 * [USAMI Kenta](https://github.com/zonuexe)
 * [Einar](https://github.com/eigan)
@@ -53,12 +54,10 @@ the logo of your company in PHPStan's README.
 * [Dave Liddament](https://github.com/DaveLiddament)
 * [Miroslav Šustek](https://github.com/sustmi)
 * [Scott Helme](https://github.com/ScottHelme)
-* [Emir Karşıyakalı](https://github.com/emir)
 * [AllenJB](https://github.com/AllenJB)
 * [Jakub Trmota](https://github.com/forrest79)
 * [Tomas Norre Mikkelsen](https://github.com/tomasnorre)
 * [Gabriel Caruso](https://github.com/carusogabriel)
-* [Mickaël Andrieu](https://github.com/mickaelandrieu)
 * [Evgenii Bobkov](https://github.com/esbobkov)
 * [Luís Cobucci](https://github.com/lcobucci)
 * [Complex GmbH & Co. KG](https://github.com/complexgmbh)
@@ -70,11 +69,17 @@ the logo of your company in PHPStan's README.
 * [shoma](https://github.com/shoma)
 * [spaceemotion](https://github.com/spaceemotion)
 * [Akihito Koriyama](https://github.com/koriym)
-* [Anton Ukhanev](https://github.com/XedinUnknown)
+* [Anton Ukhanev](https://github.com/XedinUnknown)
 * [Tom Spencer](https://github.com/tspencer244)
 * [Stefan Zielke](https://github.com/stefanzielke)
 * [Nick](https://github.com/nick-zh)
 * [Filip Kuchár](https://github.com/Mistrfilda)
+* [Arnold Daniels](https://github.com/jasny)
+* [Rudolph Gottesheim](https://github.com/MidnightDesign)
+* [Matt Loberg](https://github.com/mloberg)
+* [Václav Pávek](https://github.com/VaclavPavek)
+* [Anna Filina](https://github.com/afilina)
+* [Daniël Brekelmans](https://github.com/dbrekelmans)
 
 * Kayneth
 * Mandy Schoep
