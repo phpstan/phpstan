@@ -42,6 +42,8 @@ General arrays
 * `Type[]`
 * `array<Type>`
 * `array<int, Type>`
+* `non-empty-array<Type>`
+* `non-empty-array<int, Type>`
 
 Iterables
 -------------------------
