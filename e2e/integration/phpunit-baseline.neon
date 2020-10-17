@@ -3156,16 +3156,6 @@ parameters:
 			path: repo/src/Util/Annotation/DocBlock.php
 
 		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, string\\|null given\\.$#"
-			count: 1
-			path: repo/src/Util/Annotation/DocBlock.php
-
-		-
-			message: "#^Parameter \\#1 \\$name of method ReflectionClass\\<object\\>\\:\\:getMethod\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: repo/src/Util/Annotation/DocBlock.php
-
-		-
 			message: "#^Method PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:getDataFromTestWithAnnotation\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Util/Annotation/DocBlock.php
@@ -3659,21 +3649,6 @@ parameters:
 			message: "#^Offset 'last' does not exist on array\\('default' \\=\\> mixed, 'start' \\=\\> mixed, 'message' \\=\\> mixed, 'diff' \\=\\> mixed, 'trace' \\=\\> mixed, 'last' \\=\\> mixed\\)\\|string\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|null given\\.$#"
-			count: 4
-			path: repo/src/Util/TestDox/NamePrettifier.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function strlen expects string, string\\|null given\\.$#"
-			count: 1
-			path: repo/src/Util/TestDox/NamePrettifier.php
-
-		-
-			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, string\\|null given\\.$#"
-			count: 2
-			path: repo/src/Util/TestDox/NamePrettifier.php
 
 		-
 			message: "#^Method PHPUnit\\\\Util\\\\TestDox\\\\NamePrettifier\\:\\:mapTestMethodParameterNamesToProvidedDataValues\\(\\) return type has no value type specified in iterable type array\\.$#"
