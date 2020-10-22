@@ -1,7 +1,32 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Empty array passed to foreach\\.$#"
+			count: 1
+			path: repo/src/pocketmine/CrashDump.php
+
+		-
+			message: "#^Comparison operation \"\\>\" between int\\<1, max\\> and 0 is always true\\.$#"
+			count: 1
+			path: repo/src/pocketmine/Server.php
+
+		-
 			message: "#^Method pocketmine\\\\entity\\\\utils\\\\ExperienceUtils\\:\\:getLevelFromXp\\(\\) should return float but returns float\\|false\\.$#"
 			count: 1
 			path: repo/src/pocketmine/entity/utils/ExperienceUtils.php
+
+		-
+			message: "#^Comparison operation \"\\<\" between int\\<1, max\\> and 1 is always false\\.$#"
+			count: 1
+			path: repo/src/pocketmine/inventory/transaction/CraftingTransaction.php
+
+		-
+			message: "#^Only numeric types are allowed in \\+, int\\<0, max\\>\\|false given on the left side\\.$#"
+			count: 2
+			path: repo/src/pocketmine/level/format/io/region/McRegion.php
+
+		-
+			message: "#^Comparison operation \"\\>\\=\" between int\\<1, max\\> and 1 is always true\\.$#"
+			count: 1
+			path: repo/src/pocketmine/utils/Utils.php
 
