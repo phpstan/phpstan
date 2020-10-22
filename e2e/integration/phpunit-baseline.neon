@@ -1431,7 +1431,7 @@ parameters:
 			path: repo/src/Framework/MockObject/Generator.php
 
 		-
-			message: "#^Parameter \\#2 \\$start of function substr expects int, int\\|false given\\.$#"
+			message: "#^Parameter \\#2 \\$start of function substr expects int, int\\<0, max\\>\\|false given\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/Generator.php
 
@@ -2576,7 +2576,7 @@ parameters:
 			path: repo/src/Runner/TestSuiteSorter.php
 
 		-
-			message: "#^Parameter \\#3 \\$length of function substr expects int, int\\|false given\\.$#"
+			message: "#^Parameter \\#3 \\$length of function substr expects int, int\\<0, max\\>\\|false given\\.$#"
 			count: 1
 			path: repo/src/Runner/TestSuiteSorter.php
 
