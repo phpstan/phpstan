@@ -1471,7 +1471,7 @@ parameters:
 			path: repo/src/Composer/Util/PackageSorter.php
 
 		-
-			message: "#^Comparison operation \"\\>\" between int\\<min, 0\\> and 0 is always false\\.$#"
+			message: "#^Comparison operation \"\\>\" between 0 and 0 is always false\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/Perforce.php
 
