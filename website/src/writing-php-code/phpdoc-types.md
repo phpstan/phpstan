@@ -8,6 +8,7 @@ Basic types
 -------------------------
 
 * `int`, `integer`
+* `positive-int`, `negative-int`
 * `string`
 * `bool`, `boolean`
 * `true`
