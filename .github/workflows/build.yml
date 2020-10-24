@@ -103,6 +103,7 @@ jobs:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
           ini-values: memory_limit=256M
+          tools: composer:v1
 
       - name: "Cache dependencies"
         uses: "actions/cache@v2"
@@ -219,6 +220,7 @@ jobs:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
           ini-values: memory_limit=256M
+          tools: composer:v1
 
       - name: "Cache dependencies"
         uses: "actions/cache@v2"
@@ -296,6 +298,7 @@ jobs:
         with:
           coverage: "none"
           php-version: "7.4"
+          tools: composer:v1
 
       - name: "Cache dependencies"
         uses: "actions/cache@v2"
