@@ -39,7 +39,7 @@ jobs:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
           extensions: mbstring
-          tools: composer:snapshot
+          tools: composer:v2
 
       - name: "Cache dependencies"
         uses: "actions/cache@v2"
