@@ -216,6 +216,11 @@ parameters:
 			path: repo/src/Composer/Console/Application.php
 
 		-
+			message: "#^Method Composer\\\\DependencyResolver\\\\Decisions\\:\\:next\\(\\) with return type void returns mixed but should not return anything\\.$#"
+			count: 1
+			path: repo/src/Composer/DependencyResolver/Decisions.php
+
+		-
 			message: "#^Access to an undefined property Composer\\\\Package\\\\PackageInterface\\:\\:\\$id\\.$#"
 			count: 4
 			path: repo/src/Composer/DependencyResolver/DefaultPolicy.php
