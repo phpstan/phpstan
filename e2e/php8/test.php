@@ -1,7 +1,7 @@
 <?php
 
 function (): void {
-	gmp_random();
+	$a = gmp_random();
 
 	new DOMImplementationSource();
 };
