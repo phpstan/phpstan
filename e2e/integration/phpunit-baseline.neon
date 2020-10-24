@@ -4936,11 +4936,6 @@ parameters:
 			path: repo/tests/_files/TestIterator.php
 
 		-
-			message: "#^Method TestIterator\\:\\:valid\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: repo/tests/_files/TestIterator.php
-
-		-
 			message: "#^Method TestIterator\\:\\:key\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: repo/tests/_files/TestIterator.php
@@ -4972,11 +4967,6 @@ parameters:
 
 		-
 			message: "#^Method TestIterator2\\:\\:key\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: repo/tests/_files/TestIterator2.php
-
-		-
-			message: "#^Method TestIterator2\\:\\:valid\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: repo/tests/_files/TestIterator2.php
 
