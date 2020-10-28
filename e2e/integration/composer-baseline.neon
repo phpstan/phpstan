@@ -286,17 +286,7 @@ parameters:
 			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
 
 		-
-			message: "#^Cannot access offset mixed on Composer\\\\Package\\\\AliasPackage\\.$#"
-			count: 1
-			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
-
-		-
 			message: "#^Array \\(array\\<Composer\\\\DependencyResolver\\\\Package\\>\\) does not accept Composer\\\\Package\\\\AliasPackage\\.$#"
-			count: 1
-			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
-
-		-
-			message: "#^Cannot access offset float\\|int on Composer\\\\Package\\\\AliasPackage\\.$#"
 			count: 1
 			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
 
