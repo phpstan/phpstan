@@ -1,5 +1,6 @@
 includes:
 	- repo/phpstan.neon
+	- rector-baseline.neon
 
 parameters:
 	ignoreErrors:

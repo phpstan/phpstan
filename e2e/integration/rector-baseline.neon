@@ -1,0 +1,12 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method Rector\\\\Core\\\\Exception\\\\ShouldNotHappenException\\:\\:__construct\\(\\) has parameter \\$code with no typehint specified\\.$#"
+			count: 1
+			path: repo/src/Exception/ShouldNotHappenException.php
+
+		-
+			message: "#^Method Rector\\\\Core\\\\Exception\\\\ShouldNotHappenException\\:\\:__construct\\(\\) has parameter \\$message with no typehint specified\\.$#"
+			count: 1
+			path: repo/src/Exception/ShouldNotHappenException.php
+
