@@ -1216,6 +1216,16 @@ parameters:
 			path: repo/src/Framework/Exception/Exception.php
 
 		-
+			message: "#^Method PHPUnit\\\\Framework\\\\Exception\\:\\:__construct\\(\\) has parameter \\$code with no typehint specified\\.$#"
+			count: 1
+			path: repo/src/Framework/Exception/Exception.php
+
+		-
+			message: "#^Method PHPUnit\\\\Framework\\\\Exception\\:\\:__construct\\(\\) has parameter \\$message with no typehint specified\\.$#"
+			count: 1
+			path: repo/src/Framework/Exception/Exception.php
+
+		-
 			message: "#^Method PHPUnit\\\\Framework\\\\Exception\\:\\:getSerializableTrace\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Framework/Exception/Exception.php
