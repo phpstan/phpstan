@@ -29,7 +29,7 @@
 		"posthtml": "^0.13.1",
 		"posthtml-noopener": "^1.0.5",
 		"reading-time": "^1.2.0",
-		"tailwindcss": "^1.8.9",
+		"tailwindcss": "^1.9.6",
 		"tslint": "^6.1.2",
 		"typescript": "^4.0.2"
 	},
