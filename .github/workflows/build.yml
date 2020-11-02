@@ -218,6 +218,12 @@ jobs:
             composer install
             cp ../../phpstan vendor/bin/phpstan
             vendor/bin/phpstan analyse -l 8 src/
+          - |
+            cd e2e/multiple-composer-autoloaders
+            composer self-update --2
+            composer install --no-scripts
+            SYMFONY_PHPUNIT_VERSION=9.4 bin/phpunit install
+            ../../phpstan analyse -l 8 src/Test.php
         include:
           - php-version: 8.0
             operating-system: ubuntu-latest

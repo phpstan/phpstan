@@ -1,0 +1,18 @@
+{
+    "require": {
+        "symfony/framework-bundle": "^5.1",
+        "symfony/yaml": "^5.1",
+        "doctrine/orm": "^2.7",
+        "doctrine/doctrine-bundle": "^2.1",
+        "symfony/proxy-manager-bridge": "^5.1"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^5.1",
+        "phpstan/phpstan-doctrine": "^0.12.22"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}

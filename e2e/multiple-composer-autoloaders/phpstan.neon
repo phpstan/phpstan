@@ -1,0 +1,8 @@
+parameters:
+    bootstrapFiles:
+        - bin/.phpunit/phpunit-9.4-0/vendor/autoload.php
+    doctrine:
+        objectManagerLoader: object_manager.php
+includes:
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-doctrine/rules.neon
