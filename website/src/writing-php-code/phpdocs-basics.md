@@ -191,6 +191,8 @@ public function returnStatic(): self
 }
 ```
 
+A narrower `@return $this` instead of `@return static` can also be used, and PHPStan will check if you're really returning the same object instance and not just the child class.
+
 Variadic functions
 -------------------------
 
@@ -208,8 +210,6 @@ function foo($arg, ...$additional)
     
 }
 ```
-
-A narrower `@return $this` instead of `@return static` can also be used, and PHPStan will check if you're really returning the same object instance and not just the child class.
 
 Generics
 ---------------
