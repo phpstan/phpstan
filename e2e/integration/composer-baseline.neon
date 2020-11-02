@@ -126,11 +126,6 @@ parameters:
 			path: repo/src/Composer/Command/ShowCommand.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 2
-			path: repo/src/Composer/Command/ShowCommand.php
-
-		-
 			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/ShowCommand.php
@@ -186,17 +181,17 @@ parameters:
 			path: repo/src/Composer/Console/Application.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 2
-			path: repo/src/Composer/Console/Application.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: repo/src/Composer/Console/Application.php
 
 		-
 			message: "#^Property Composer\\\\Console\\\\Application\\:\\:\\$composer \\(Composer\\\\Composer\\) does not accept null\\.$#"
+			count: 1
+			path: repo/src/Composer/Console/Application.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: repo/src/Composer/Console/Application.php
 
@@ -368,6 +363,11 @@ parameters:
 		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 3
+			path: repo/src/Composer/Downloader/FileDownloader.php
+
+		-
+			message: "#^Elseif condition is always true\\.$#"
+			count: 1
 			path: repo/src/Composer/Downloader/FileDownloader.php
 
 		-
