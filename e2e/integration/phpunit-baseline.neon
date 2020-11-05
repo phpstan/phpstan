@@ -2251,13 +2251,8 @@ parameters:
 			path: repo/src/Framework/TestSuite.php
 
 		-
-			message: "#^Parameter \\#1 \\$function of function call_user_func expects callable\\(\\)\\: mixed, array\\(string, mixed\\) given\\.$#"
-			count: 1
-			path: repo/src/Framework/TestSuite.php
-
-		-
 			message: "#^Parameter \\#1 \\$function of function call_user_func expects callable\\(\\)\\: mixed, array\\(class\\-string, mixed\\) given\\.$#"
-			count: 1
+			count: 2
 			path: repo/src/Framework/TestSuite.php
 
 		-
@@ -4151,6 +4146,11 @@ parameters:
 			path: repo/tests/_files/DataProviderDebugTest.php
 
 		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 2
+			path: repo/tests/_files/DataProviderDependencyTest.php
+
+		-
 			message: "#^Method DataProviderDependencyTest\\:\\:testDependency\\(\\) has parameter \\$param with no typehint specified\\.$#"
 			count: 1
 			path: repo/tests/_files/DataProviderDependencyTest.php
@@ -4221,6 +4221,11 @@ parameters:
 			path: repo/tests/_files/DataProviderIncompleteTest.php
 
 		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/tests/_files/DataProviderIncompleteTest.php
+
+		-
 			message: "#^Method Foo\\\\DataProviderIssue2833\\\\FirstTest\\:\\:testFirst\\(\\) has parameter \\$x with no typehint specified\\.$#"
 			count: 1
 			path: repo/tests/_files/DataProviderIssue2833/FirstTest.php
@@ -4287,6 +4292,11 @@ parameters:
 
 		-
 			message: "#^Method DataProviderSkippedTest\\:\\:skippedTestProviderMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: repo/tests/_files/DataProviderSkippedTest.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: repo/tests/_files/DataProviderSkippedTest.php
 
@@ -5491,11 +5501,6 @@ parameters:
 			path: repo/tests/static-analysis/happy-path/assert-same.php
 
 		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertEmpty\\\\Fail\\\\consume\\(\\) should return int but returns int\\|string\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/fail.php
-
-		-
 			message: "#^Property PHPUnit\\\\Framework\\\\FunctionsTest\\:\\:\\$globalAssertionFunctions has no typehint specified\\.$#"
 			count: 1
 			path: repo/tests/unit/Framework/Assert/FunctionsTest.php
@@ -5513,6 +5518,11 @@ parameters:
 		-
 			message: "#^Method PHPUnit\\\\Framework\\\\AssertTest\\:\\:validInvalidJsonDataprovider\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
+			path: repo/tests/unit/Framework/AssertTest.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 3
 			path: repo/tests/unit/Framework/AssertTest.php
 
 		-
