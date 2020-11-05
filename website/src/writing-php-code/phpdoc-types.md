@@ -191,3 +191,17 @@ The `callable` typehint has been in PHP for a long time. But it doesn't allow en
 * `callable(float ...$floats): (int|null)` (accepts multiple variadic float arguments, returns integer or null)
 
 Parameter types and return type are required. Use `mixed` if you don't want to use a more specific type.
+
+Bottom type
+-------------------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 0.12.54</div>
+
+All of these names are equivalent:
+
+* `never`
+* `never-return`
+* `never-returns`
+* `no-return'`
+
+Marking a function or a method as `@return never` tells PHPStan the function always throws an exception, or contains a way to end the script execution, like `die()` or `exit()`. This is useful when [solving undefined variables](/writing-php-code/solving-undefined-variables).

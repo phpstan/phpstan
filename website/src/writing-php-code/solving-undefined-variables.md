@@ -38,6 +38,8 @@ parameters:
 		- redirect
 ```
 
+In PHPStan 0.12.54 and later, `@return never` above a function or a method can be used instead of configuring `earlyTerminatingFunctionCalls` or `earlyTerminatingMethodCalls`.
+
 ---------
 
 Another issue you might encounter is that PHPStan doesn't understand conditionally defined variables like this:
