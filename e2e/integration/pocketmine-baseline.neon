@@ -11,6 +11,11 @@ parameters:
 			path: repo/src/pocketmine/Server.php
 
 		-
+			message: "#^Method pocketmine\\\\entity\\\\Entity\\:\\:getSaveId\\(\\) should return string but returns string\\|false\\.$#"
+			count: 1
+			path: repo/src/pocketmine/entity/Entity.php
+
+		-
 			message: "#^Method pocketmine\\\\entity\\\\utils\\\\ExperienceUtils\\:\\:getLevelFromXp\\(\\) should return float but returns float\\|false\\.$#"
 			count: 1
 			path: repo/src/pocketmine/entity/utils/ExperienceUtils.php
@@ -24,6 +29,11 @@ parameters:
 			message: "#^Only numeric types are allowed in \\+, int\\<0, max\\>\\|false given on the left side\\.$#"
 			count: 2
 			path: repo/src/pocketmine/level/format/io/region/McRegion.php
+
+		-
+			message: "#^Method pocketmine\\\\tile\\\\Tile\\:\\:getSaveId\\(\\) should return string but returns string\\|false\\.$#"
+			count: 1
+			path: repo/src/pocketmine/tile/Tile.php
 
 		-
 			message: "#^Comparison operation \"\\>\\=\" between int\\<1, max\\> and 1 is always true\\.$#"
