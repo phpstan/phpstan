@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Class with base \"Attribute\" name is already used in \"PhpParser\\\\Node\\\\Attribute\", \"_HumbugBox0b420eca7b48\\\\Attribute\"\\. Use unique name to make classes easy to recognize$#"
+			count: 1
+			path: repo/packages/better-php-doc-parser/src/Attributes/Attribute/Attribute.php
+
+		-
 			message: "#^Method Rector\\\\Core\\\\Exception\\\\ShouldNotHappenException\\:\\:__construct\\(\\) has parameter \\$code with no typehint specified\\.$#"
 			count: 1
 			path: repo/src/Exception/ShouldNotHappenException.php
