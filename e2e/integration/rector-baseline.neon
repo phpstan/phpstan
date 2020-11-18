@@ -1,7 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Class with base \"Attribute\" name is already used in \"PhpParser\\\\Node\\\\Attribute\", \"_HumbugBox0b420eca7b48\\\\Attribute\"\\. Use unique name to make classes easy to recognize$#"
+			message: "#^Class with base \"Attribute\" name is already used in \"PhpParser\\\\Node\\\\Attribute\", \"_HumbugBox[a-z0-9]+\\\\Attribute\"\\. Use unique name to make classes easy to recognize$#"
 			count: 1
 			path: repo/packages/better-php-doc-parser/src/Attributes/Attribute/Attribute.php
 
