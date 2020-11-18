@@ -198,6 +198,12 @@ jobs:
           - |
             cd e2e/php8
             ../../phpstan analyse -l 8 -c php80.neon test.php
+          - |
+            cd e2e/attributes
+            ../../phpstan analyse -l 8 test.php
+          - |
+            cd e2e/attributes
+            ../../phpstan analyse -l 8 -c php80.neon test.php
         include:
           - php-version: 8.0
             script: |
