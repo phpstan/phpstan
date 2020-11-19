@@ -2,7 +2,7 @@
 
 namespace AttributeProblems;
 
-#[Attribute]
+#[\Attribute]
 class Foo
 {
 }
