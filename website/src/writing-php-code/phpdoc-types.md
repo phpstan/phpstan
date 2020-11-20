@@ -202,6 +202,6 @@ All of these names are equivalent:
 * `never`
 * `never-return`
 * `never-returns`
-* `no-return'`
+* `no-return`
 
 Marking a function or a method as `@return never` tells PHPStan the function always throws an exception, or contains a way to end the script execution, like `die()` or `exit()`. This is useful when [solving undefined variables](/writing-php-code/solving-undefined-variables).
