@@ -204,6 +204,13 @@ jobs:
           - |
             cd e2e/attributes
             ../../phpstan analyse -l 8 -c php80.neon test.php
+          - |
+            cd e2e/baseline
+            ../../phpstan analyse -l 8 src/
+            ../../phpstan analyse -l 8 src/ --generate-baseline
+            ../../phpstan analyse -l 8 src/
+            ../../phpstan analyse -l 8 src/ --generate-baseline
+            ../../phpstan analyse -l 8 src/
         include:
           - php-version: 8.0
             script: |

@@ -1,0 +1,12 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method BaselineTest\\\\Test\\:\\:doFoo\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Test.php
+
+		-
+			message: "#^Method BaselineTest\\\\Test2\\:\\:doFoo\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Test2.php
+
