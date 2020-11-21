@@ -9,3 +9,4 @@
 /playground-runner export-ignore
 /.travis.yml export-ignore
 /website export-ignore
+website/* linguist-vendored
