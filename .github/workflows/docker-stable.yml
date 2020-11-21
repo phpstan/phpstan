@@ -7,7 +7,7 @@ name: Docker image stable
 on:
   push:
     tags:
-      - '*'
+      - '0.12.*'
 
 jobs:
   docker:
