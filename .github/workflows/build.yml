@@ -211,6 +211,11 @@ jobs:
             ../../phpstan analyse -l 8 src/
             ../../phpstan analyse -l 8 src/ --generate-baseline
             ../../phpstan analyse -l 8 src/
+          - |
+            cd e2e/name-conflict
+            composer install
+            cp ../../phpstan vendor/bin/phpstan
+            vendor/bin/phpstan analyse -l 8 test.php
         include:
           - php-version: 8.0
             script: |
