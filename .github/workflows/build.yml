@@ -124,11 +124,12 @@ jobs:
   other-tests:
     name: "Other Tests"
 
-    runs-on: "ubuntu-latest"
+    runs-on: ${{ matrix.operating-system }}
 
     strategy:
       fail-fast: false
       matrix:
+        operating-system: [ubuntu-latest]
         php-version:
           - "7.1"
           - "7.2"
@@ -215,18 +216,27 @@ jobs:
             cd e2e/name-conflict
             composer install
             cp ../../phpstan vendor/bin/phpstan
-            vendor/bin/phpstan analyse -l 8 test.php
+            vendor/bin/phpstan analyse -l 8 src/
         include:
           - php-version: 8.0
+            operating-system: ubuntu-latest
             script: |
               cd e2e/union-type
               ../../phpstan analyse -l 8 test.php
           - php-version: 7.4
+            operating-system: ubuntu-latest
             script: |
               cd e2e/phpstorm-stubs
               composer install --ignore-platform-reqs
               ../../phpstan analyse -l 8 test.php
               vendor/bin/phpunit ExampleTest.php
+          - php-version: 7.4
+            operating-system: windows-latest
+            script: |
+              cd e2e/name-conflict
+              composer install
+              cp ../../phpstan vendor/bin/phpstan
+              vendor/bin/phpstan analyse -l 8 src/
 
     steps:
       - name: "Checkout"
