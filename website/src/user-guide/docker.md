@@ -2,10 +2,6 @@
 title: Docker
 ---
 
-[![Docker Stars](https://img.shields.io/docker/stars/phpstan/phpstan.svg)](https://hub.docker.com/r/phpstan/phpstan/)
-
-[![Docker Pulls](https://img.shields.io/docker/pulls/phpstan/phpstan.svg)](https://hub.docker.com/r/phpstan/phpstan/)
-
 The image is based on [Alpine Linux](https://alpinelinux.org/) and updated automatically.
 
 ## Supported tags
@@ -16,13 +12,22 @@ The image is based on [Alpine Linux](https://alpinelinux.org/) and updated autom
 ## Installation
 
 ```yaml
-docker pull phpstan/phpstan
+docker pull ghcr.io/phpstan/phpstan
 ```
 
 Alternatively, pull a specific version:
 
 ```bash
-docker pull phpstan/phpstan:0.12
+docker pull ghcr.io/phpstan/phpstan:0.12
+```
+
+## Different PHP version?
+
+The image is based on PHP 8. To force PHPStan consider the analysed source code to be for a different PHP version, set `phpVersion` in your `phpstan.neon`:
+
+```yaml
+parameters:
+    phpVersion: 70400 # PHP 7.4
 ```
 
 ## Usage
@@ -32,19 +37,19 @@ We recommend to use the images as a shell alias shortcut.
 To use `phpstan` everywhere  in the CLI add this line to your `~/.zshrc`, `~/.bashrc`, or `~/.profile`.
 
 ```bash
-alias phpstan='docker run -v $PWD:/app --rm phpstan/phpstan'
+alias phpstan='docker run -v $PWD:/app --rm ghcr.io/phpstan/phpstan'
 ```
 
 If you don't have set the alias, use this command to run the container:
 
 ```bash
-docker run --rm -v /path/to/app:/app phpstan/phpstan [some arguments for PHPStan]
+docker run --rm -v /path/to/app:/app ghcr.io/phpstan/phpstan [some arguments for PHPStan]
 ```
 
 For example:
 
 ```bash
-docker run --rm -v /path/to/app:/app phpstan/phpstan analyse /app/src
+docker run --rm -v /path/to/app:/app ghcr.io/phpstan/phpstan analyse /app/src
 ```
 
 ## Install PHPStan extensions
@@ -56,7 +61,7 @@ In some cases you also need some additional PHP extensions like DOM. (see sectio
 Here is an example Dockerfile for `phpstan/phpstan-phpunit`:
 
 ```docker
-FROM phpstan/phpstan:latest
+FROM ghcr.io/phpstan/phpstan:latest
 RUN composer global require phpstan/phpstan-phpunit
 ```
 
@@ -77,7 +82,7 @@ So only the default built-in extensions are available (see below).
 To solve this issue you can extend our Docker image in a custom Dockerfile like this, for example to add `soap` and `intl`:
 
 ```docker
-FROM phpstan/phpstan:latest
+FROM ghcr.io/phpstan/phpstan:latest
 RUN apk --update --progress --no-cache add icu-dev libxml2-dev \
 	&& docker-php-ext-install intl soap
 ```
