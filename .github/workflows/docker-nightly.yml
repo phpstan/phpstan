@@ -43,5 +43,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./docker
           file: ./docker/Dockerfile
+          build-args: |
+            PHPSTAN_VERSION=dev-master#${{ github.sha }}
           push: true
           tags: ghcr.io/phpstan/phpstan:nightly
