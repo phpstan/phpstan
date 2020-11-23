@@ -1556,12 +1556,12 @@ parameters:
 			path: repo/src/Framework/MockObject/MockBuilder.php
 
 		-
-			message: "#^Parameter \\#1 \\$originalClassName of method PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:getMockForAbstractClass\\(\\) expects class\\-string\\<object\\>, string given\\.$#"
+			message: "#^Unable to resolve the template type RealInstanceType in call to method PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:getMockForAbstractClass\\(\\)$#"
 			count: 1
 			path: repo/src/Framework/MockObject/MockBuilder.php
 
 		-
-			message: "#^Unable to resolve the template type RealInstanceType in call to method PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:getMockForAbstractClass\\(\\)$#"
+			message: "#^Parameter \\#1 \\$originalClassName of method PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:getMockForAbstractClass\\(\\) expects class\\-string\\<object\\>, string given\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/MockBuilder.php
 
@@ -3047,6 +3047,11 @@ parameters:
 
 		-
 			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: repo/src/TextUI/DefaultResultPrinter.php
+
+		-
+			message: "#^Parameter \\#2 \\$pad_length of function str_pad expects int, int\\|false given\\.$#"
 			count: 1
 			path: repo/src/TextUI/DefaultResultPrinter.php
 
@@ -6641,12 +6646,12 @@ parameters:
 			path: repo/tests/unit/Util/TestClassTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$classNameInHierarchy of static method PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:ofMethod\\(\\) expects class\\-string, string given\\.$#"
+			message: "#^Class PHPUnit\\\\Util\\\\VariousDocblockDefinedDataProvider not found\\.$#"
 			count: 9
 			path: repo/tests/unit/Util/TestClassTest.php
 
 		-
-			message: "#^Class PHPUnit\\\\Util\\\\VariousDocblockDefinedDataProvider not found\\.$#"
+			message: "#^Parameter \\#2 \\$classNameInHierarchy of static method PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:ofMethod\\(\\) expects class\\-string, string given\\.$#"
 			count: 9
 			path: repo/tests/unit/Util/TestClassTest.php
 
