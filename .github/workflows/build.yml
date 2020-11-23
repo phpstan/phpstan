@@ -258,6 +258,7 @@ jobs:
           restore-keys: "php-${{ matrix.php-version }}-composer-"
 
       - name: "Disable MongoDB extension"
+        if: matrix.operating-system != 'windows-latest'
         run: sudo phpdismod -v ${{ matrix.php-version }} mongodb
 
       - name: "Install dependencies"
