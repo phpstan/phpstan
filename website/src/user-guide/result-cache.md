@@ -10,7 +10,7 @@ You might notice the result cache isn't sometimes saved and PHPStan runs full an
 
 </div>
 
-The result cache is saved at `%tmpDir%/result-cache.php`. [Learn more about `tmpDir` configuration »](/config-reference#caching)
+The result cache is saved at `%tmpDir%/resultCache.php`. [Learn more about `tmpDir` configuration »](/config-reference#caching)
 
 Result cache contents
 --------------
