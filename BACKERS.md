@@ -14,6 +14,7 @@ the logo of your company in PHPStan's README.
 
 * [Wysija](https://github.com/Wysija)
 * GLAMI.cz
+* [Martin Georgiev](https://github.com/martin-georgiev)
 
 # $10+
 
@@ -80,6 +81,10 @@ the logo of your company in PHPStan's README.
 * [Václav Pávek](https://github.com/VaclavPavek)
 * [Anna Filina](https://github.com/afilina)
 * [Daniël Brekelmans](https://github.com/dbrekelmans)
+* [Orbitale.io](https://github.com/Orbitaleio)
+* [Leonardo Losoviz](https://github.com/leoloso)
+* [Yann Rabiller](https://github.com/Einenlum)
+* [David Šolc](https://github.com/solcik)
 
 * Kayneth
 * Mandy Schoep
