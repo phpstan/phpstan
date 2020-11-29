@@ -31,6 +31,11 @@ parameters:
 			path: repo/src/pocketmine/level/format/io/region/McRegion.php
 
 		-
+			message: "#^Cannot access offset 'errors' on array\\('warning_count' \\=\\> int, 'warnings' \\=\\> array\\<int, string\\>, 'error_count' \\=\\> int, 'errors' \\=\\> array\\<int, string\\>\\)\\|false\\.$#"
+			count: 1
+			path: repo/src/pocketmine/permission/BanEntry.php
+
+		-
 			message: "#^Method pocketmine\\\\tile\\\\Tile\\:\\:getSaveId\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: repo/src/pocketmine/tile/Tile.php
