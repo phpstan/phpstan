@@ -1,4 +1,4 @@
-FROM php:rc-cli-alpine
+FROM php:8-cli-alpine
 
 RUN php --version
 
