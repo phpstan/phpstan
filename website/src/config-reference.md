@@ -323,6 +323,12 @@ When set to `true`, it reports code paths with missing `return` statement in fun
 
 When set to `true`, it reports function and method calls with incorrect name case.
 
+### `checkInternalClassCaseSensitivity`
+
+**default**: `false`
+
+When set to `true`, it reports references to built-in classes with incorrect name case.
+
 ### `checkMissingClosureNativeReturnTypehintRule`
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
