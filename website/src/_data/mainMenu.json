@@ -1,6 +1,6 @@
 [
     {
-        "title": "Playground",
+        "title": "Try",
         "link": "/",
         "pageType": "playground"
     },
@@ -18,5 +18,10 @@
         "title": "Blog",
         "link": "/blog",
         "pageType": "blog"
-    }
+    },
+	{
+		"title": "Support",
+		"link": "https://github.com/phpstan/phpstan/discussions/new?category=support",
+		"pageType": "support"
+	}
 ]
