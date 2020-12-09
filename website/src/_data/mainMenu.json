@@ -21,7 +21,7 @@
     },
 	{
 		"title": "Support",
-		"link": "https://github.com/phpstan/phpstan/discussions/new?category=support",
+		"link": "https://github.com/phpstan/phpstan/discussions",
 		"pageType": "support"
 	}
 ]
