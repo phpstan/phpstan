@@ -1,6 +1,6 @@
 ---
 name: Support question ❓ 
-about: This is a great place to ask support questions. The community is eager to answer them!
+about: Please [open a new discussion](https://github.com/phpstan/phpstan/discussions/new?category=support) instead. Thank you.
 ---
 
 # Support question
