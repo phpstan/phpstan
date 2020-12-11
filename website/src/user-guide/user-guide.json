@@ -55,6 +55,10 @@
         {
             "title": "Extension Library",
             "link": "/user-guide/extension-library"
-        }
+        },
+        {
+            "title": "Docker",
+            "link": "/user-guide/docker"
+        },
     ]
 }
