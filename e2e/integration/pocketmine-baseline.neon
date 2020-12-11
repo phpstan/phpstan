@@ -6,8 +6,18 @@ parameters:
 			path: repo/src/pocketmine/CrashDump.php
 
 		-
+			message: "#^Parameter \\#1 \\$pid of static method pocketmine\\\\utils\\\\Process\\:\\:kill\\(\\) expects int, int\\|false given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/PocketMine.php
+
+		-
 			message: "#^Comparison operation \"\\>\" between int\\<1, max\\> and 0 is always true\\.$#"
 			count: 1
+			path: repo/src/pocketmine/Server.php
+
+		-
+			message: "#^Parameter \\#1 \\$pid of static method pocketmine\\\\utils\\\\Process\\:\\:kill\\(\\) expects int, int\\|false given\\.$#"
+			count: 2
 			path: repo/src/pocketmine/Server.php
 
 		-
@@ -26,9 +36,34 @@ parameters:
 			path: repo/src/pocketmine/inventory/transaction/CraftingTransaction.php
 
 		-
+			message: "#^Parameter \\#1 \\$input of function array_values expects array, array\\|false given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/level/format/Chunk.php
+
+		-
+			message: "#^Parameter \\#1 \\$input of function array_values expects array, array\\|false given\\.$#"
+			count: 3
+			path: repo/src/pocketmine/level/format/io/leveldb/LevelDB.php
+
+		-
+			message: "#^Parameter \\#1 \\$input of function array_values expects array, array\\|false given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/level/format/io/region/McRegion.php
+
+		-
 			message: "#^Only numeric types are allowed in \\+, int\\<0, max\\>\\|false given on the left side\\.$#"
 			count: 2
 			path: repo/src/pocketmine/level/format/io/region/McRegion.php
+
+		-
+			message: "#^Cannot access offset int on array\\|false\\.$#"
+			count: 2
+			path: repo/src/pocketmine/level/format/io/region/RegionLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$seed of function mt_srand expects int, int\\|false given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/network/mcpe/convert/RuntimeBlockMapping.php
 
 		-
 			message: "#^Cannot access offset 'errors' on array\\('warning_count' \\=\\> int, 'warnings' \\=\\> array\\<int, string\\>, 'error_count' \\=\\> int, 'errors' \\=\\> array\\<int, string\\>\\)\\|false\\.$#"
@@ -39,6 +74,16 @@ parameters:
 			message: "#^Method pocketmine\\\\tile\\\\Tile\\:\\:getSaveId\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: repo/src/pocketmine/tile/Tile.php
+
+		-
+			message: "#^Parameter \\#1 \\$pid of static method pocketmine\\\\utils\\\\Process\\:\\:kill\\(\\) expects int, int\\|false given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/utils/ServerKiller.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of static method pocketmine\\\\utils\\\\Binary\\:\\:writeShort\\(\\) expects int, int\\|false given\\.$#"
+			count: 2
+			path: repo/src/pocketmine/utils/UUID.php
 
 		-
 			message: "#^Comparison operation \"\\>\\=\" between int\\<1, max\\> and 1 is always true\\.$#"
