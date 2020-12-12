@@ -1,0 +1,47 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Create release"
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  deploy:
+    name: "Deploy"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Create release"
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${GITHUB_REF#refs/tags/}
+          release_name: ${GITHUB_REF#refs/tags/}
+          draft: true
+
+      - name: "Upload phpstan.phar"
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: ./phpstan.phar
+          asset_name: phpstan.phar
+          asset_content_type: application/octet-stream
+
+      - name: "Upload phpstan.phar.asc"
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: ./phpstan.phar.asc
+          asset_name: phpstan.phar.asc
+          asset_content_type: application/pgp-signature
