@@ -1,0 +1,63 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Update playground"
+
+on:
+  push:
+    branches:
+      - "master"
+    paths-ignore:
+      - 'website/**'
+
+jobs:
+  deploy:
+    name: "Deploy"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Install Node"
+        uses: "actions/setup-node@v2-beta"
+        with:
+          node-version: "13"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "7.4"
+
+      - name: "Install Serverless"
+        working-directory: ./playground-runner
+        run: "npm install -g serverless@1.83.0"
+
+      - name: "Cache PHP dependencies"
+        uses: "actions/cache@v2"
+        with:
+          path: "~/.composer/cache"
+          key: "php-${{ matrix.php-version }}-download-api-composer-${{ hashFiles('download-api/**/composer.lock') }}"
+          restore-keys: "php-${{ matrix.php-version }}-download-api-composer-"
+
+      - name: "Install PHP dependencies"
+        working-directory: ./playground-runner
+        run: "composer install --no-interaction --no-progress --no-suggest"
+
+      - name: "Copy current PHAR"
+        working-directory: ./playground-runner
+        run: |
+          cp ../phpstan.phar vendor/phpstan/phpstan/phpstan.phar && \
+          cp ../phpstan vendor/phpstan/phpstan/phpstan
+
+      - name: "Clean Git directory"
+        working-directory: ./playground-runner
+        run: rm -rf vendor/phpstan/phpstan/.git
+
+      - name: "Deploy"
+        working-directory: ./playground-runner
+        env:
+          AWS_DEFAULT_REGION: "eu-west-1"
+          AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
+        run: "serverless deploy"
