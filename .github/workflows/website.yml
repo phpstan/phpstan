@@ -99,8 +99,8 @@ jobs:
           SOURCE_DIR: './dist'
           AWS_REGION: 'eu-west-1'
           AWS_S3_BUCKET: "web-phpstan.org"
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
 
       - name: "Invalidate CloudFront"
         uses: chetan/invalidate-cloudfront-action@v1.3
@@ -108,5 +108,5 @@ jobs:
           DISTRIBUTION: "E1W83FJ5FCYXPT"
           PATHS: '/,/r/*,/config-reference,/user-guide/*,/writing-php-code/*,/developing-extensions/*,/blog,/blog/*,/robots.txt,/sitemap.xml,/rss.xml'
           AWS_REGION: 'eu-west-1'
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
