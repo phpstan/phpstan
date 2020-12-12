@@ -37,8 +37,8 @@ jobs:
         uses: "actions/cache@v2"
         with:
           path: "~/.composer/cache"
-          key: "php-${{ matrix.php-version }}-download-api-composer-${{ hashFiles('download-api/**/composer.lock') }}"
-          restore-keys: "php-${{ matrix.php-version }}-download-api-composer-"
+          key: "php-7.4-playground-runner-composer-${{ hashFiles('playground-runner/**/composer.lock') }}"
+          restore-keys: "php-7.4-playground-runner-composer-"
 
       - name: "Install PHP dependencies"
         working-directory: ./playground-runner
