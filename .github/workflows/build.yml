@@ -90,6 +90,9 @@ jobs:
         exclude:
           - extension-name: "phpstan-phpunit"
             static-reflection: "true"
+          - extension-name: "phpstan-symfony"
+            php-version: "7.1"
+            static-reflection: "false"
 
     steps:
       - name: "Checkout"
