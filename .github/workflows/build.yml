@@ -87,11 +87,6 @@ jobs:
         static-reflection:
           - "true"
           - "false"
-        exclude:
-          - extension-name: "phpstan-phpunit"
-            static-reflection: "true"
-          - extension-name: "phpstan-mockery"
-            php-version: "8.0"
 
     steps:
       - name: "Checkout"
