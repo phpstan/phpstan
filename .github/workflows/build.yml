@@ -87,6 +87,9 @@ jobs:
         static-reflection:
           - "true"
           - "false"
+        exclude:
+          - extension-name: "phpstan-phpunit"
+            static-reflection: "true"
 
     steps:
       - name: "Checkout"
