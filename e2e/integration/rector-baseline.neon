@@ -1,6 +1,81 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Argument of an invalid type array\\<string, class\\-string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: repo/packages/family-tree/src/NodeAnalyzer/ClassChildAnalyzer.php
+
+		-
+			message: "#^Argument of an invalid type array\\<string, class\\-string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: repo/packages/vendor-locker/src/NodeVendorLocker/ClassMethodVendorLockResolver.php
+
+		-
+			message: "#^Argument of an invalid type array\\<string, class\\-string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: repo/packages/vendor-locker/src/NodeVendorLocker/ClassMethodVisibilityVendorLockResolver.php
+
+		-
+			message: "#^Argument of an invalid type array\\<string, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: repo/packages/vendor-locker/src/NodeVendorLocker/ClassMethodVisibilityVendorLockResolver.php
+
+		-
+			message: "#^Argument of an invalid type array\\<string, class\\-string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: repo/packages/vendor-locker/src/NodeVendorLocker/PropertyVisibilityVendorLockResolver.php
+
+		-
+			message: "#^Argument of an invalid type array\\<string, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: repo/rules/dead-code/src/UnusedNodeResolver/ClassUnusedPrivateClassMethodResolver.php
+
+		-
+			message: "#^Argument of an invalid type array\\<string, class\\-string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: repo/rules/dead-code/src/UnusedNodeResolver/ClassUnusedPrivateClassMethodResolver.php
+
+		-
+			message: "#^Method Rector\\\\Privatization\\\\Rector\\\\Property\\\\PrivatizeFinalClassPropertyRector\\:\\:getParentClasses\\(\\) should return array\\<class\\-string\\> but returns array\\<string, class\\-string\\>\\|false\\.$#"
+			count: 1
+			path: repo/rules/privatization/src/Rector/Property/PrivatizeFinalClassPropertyRector.php
+
+		-
+			message: "#^Method Rector\\\\Privatization\\\\VisibilityGuard\\\\ClassMethodVisibilityGuard\\:\\:getParentClasses\\(\\) should return array\\<class\\-string\\> but returns array\\<string, class\\-string\\>\\|false\\.$#"
+			count: 1
+			path: repo/rules/privatization/src/VisibilityGuard/ClassMethodVisibilityGuard.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of function in_array expects array, array\\<string, string\\>\\|false given\\.$#"
+			count: 1
+			path: repo/rules/restoration/src/Rector/Class_/RemoveUselessJustForSakeInterfaceRector.php
+
+		-
+			message: "#^Argument of an invalid type array\\<string, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 2
+			path: repo/rules/solid/src/Rector/ClassMethod/UseInterfaceOverImplementationInConstructorRector.php
+
+		-
+			message: "#^Cannot access offset mixed on array\\<string, string\\>\\|false\\.$#"
+			count: 1
+			path: repo/rules/solid/src/Rector/ClassMethod/UseInterfaceOverImplementationInConstructorRector.php
+
+		-
+			message: "#^Parameter \\#1 \\$input of function array_values expects array, array\\<string, string\\>\\|false given\\.$#"
+			count: 1
+			path: repo/rules/solid/src/Rector/ClassMethod/UseInterfaceOverImplementationInConstructorRector.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of function in_array expects array, array\\<string, string\\>\\|false given\\.$#"
+			count: 1
+			path: repo/rules/solid/src/Rector/ClassMethod/UseInterfaceOverImplementationInConstructorRector.php
+
+		-
+			message: "#^Argument of an invalid type array\\<string, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: repo/rules/symfony/src/ValueObject/ServiceMap/ServiceMap.php
+
+		-
 			message: "#^Method Rector\\\\Core\\\\Exception\\\\ShouldNotHappenException\\:\\:__construct\\(\\) has parameter \\$code with no typehint specified\\.$#"
 			count: 1
 			path: repo/src/Exception/ShouldNotHappenException.php
@@ -9,4 +84,29 @@ parameters:
 			message: "#^Method Rector\\\\Core\\\\Exception\\\\ShouldNotHappenException\\:\\:__construct\\(\\) has parameter \\$message with no typehint specified\\.$#"
 			count: 1
 			path: repo/src/Exception/ShouldNotHappenException.php
+
+		-
+			message: "#^Argument of an invalid type array\\<string, class\\-string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: repo/src/PhpParser/Node/Manipulator/ClassDependencyManipulator.php
+
+		-
+			message: "#^Argument of an invalid type array\\<string, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: repo/src/PhpParser/Node/Manipulator/ClassManipulator.php
+
+		-
+			message: "#^Argument of an invalid type array\\<string, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: repo/src/PhpParser/Node/Manipulator/ClassMethodManipulator.php
+
+		-
+			message: "#^Argument of an invalid type array\\<string, class\\-string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: repo/src/PhpParser/Node/Manipulator/ClassMethodManipulator.php
+
+		-
+			message: "#^Parameter \\#1 \\$str of function trim expects string, string\\|false given\\.$#"
+			count: 1
+			path: repo/utils/project-validator/src/CpuCoreCountResolver.php
 
