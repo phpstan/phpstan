@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Property pocketmine\\\\CrashDump\\:\\:\\$encodedData \\(string\\) does not accept string\\|false\\.$#"
+			count: 1
+			path: repo/src/pocketmine/CrashDump.php
+
+		-
+			message: "#^Parameter \\#1 \\$str of function base64_encode expects string, string\\|false given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/CrashDump.php
+
+		-
 			message: "#^Empty array passed to foreach\\.$#"
 			count: 1
 			path: repo/src/pocketmine/CrashDump.php
@@ -66,6 +76,11 @@ parameters:
 			path: repo/src/pocketmine/network/mcpe/convert/RuntimeBlockMapping.php
 
 		-
+			message: "#^Parameter \\#1 \\$str of method pocketmine\\\\utils\\\\BinaryStream\\:\\:put\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/network/mcpe/protocol/BatchPacket.php
+
+		-
 			message: "#^Cannot access offset 'errors' on array\\('warning_count' \\=\\> int, 'warnings' \\=\\> array\\<int, string\\>, 'error_count' \\=\\> int, 'errors' \\=\\> array\\<int, string\\>\\)\\|false\\.$#"
 			count: 1
 			path: repo/src/pocketmine/permission/BanEntry.php
@@ -81,9 +96,19 @@ parameters:
 			path: repo/src/pocketmine/utils/ServerKiller.php
 
 		-
+			message: "#^Parameter \\#1 \\$str of function trim expects string, string\\|false given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/utils/Timezone.php
+
+		-
 			message: "#^Parameter \\#1 \\$value of static method pocketmine\\\\utils\\\\Binary\\:\\:writeShort\\(\\) expects int, int\\|false given\\.$#"
 			count: 2
 			path: repo/src/pocketmine/utils/UUID.php
+
+		-
+			message: "#^Parameter \\#1 \\$pieces of function implode expects array, array\\|false given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/utils/Utils.php
 
 		-
 			message: "#^Comparison operation \"\\>\\=\" between int\\<1, max\\> and 1 is always true\\.$#"
