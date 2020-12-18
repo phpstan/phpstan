@@ -81,6 +81,11 @@ parameters:
 			path: repo/src/pocketmine/network/mcpe/protocol/BatchPacket.php
 
 		-
+			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
+			count: 1
+			path: repo/src/pocketmine/network/mcpe/protocol/DataPacket.php
+
+		-
 			message: "#^Cannot access offset 'errors' on array\\('warning_count' \\=\\> int, 'warnings' \\=\\> array\\<int, string\\>, 'error_count' \\=\\> int, 'errors' \\=\\> array\\<int, string\\>\\)\\|false\\.$#"
 			count: 1
 			path: repo/src/pocketmine/permission/BanEntry.php
@@ -94,11 +99,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$pid of static method pocketmine\\\\utils\\\\Process\\:\\:kill\\(\\) expects int, int\\|false given\\.$#"
 			count: 1
 			path: repo/src/pocketmine/utils/ServerKiller.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, string\\|false given\\.$#"
-			count: 1
-			path: repo/src/pocketmine/utils/Timezone.php
 
 		-
 			message: "#^Parameter \\#1 \\$value of static method pocketmine\\\\utils\\\\Binary\\:\\:writeShort\\(\\) expects int, int\\|false given\\.$#"
