@@ -16,7 +16,7 @@
 		"ansi-to-html": "^0.6.14",
 		"aws-sdk": "^2.751.0",
 		"middy": "^0.19.5",
-		"uuid": "^3.4.0"
+		"uuid": "^8.3.2"
 	},
 	"devDependencies": {
 		"@types/aws-lambda": "^8.10.62",
