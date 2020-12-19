@@ -31,7 +31,7 @@
 		"reading-time": "^1.2.0",
 		"tailwindcss": "^1.9.6",
 		"tslint": "^6.1.2",
-		"typescript": "^4.0.2"
+		"typescript": "^4.1.3"
 	},
 	"scripts": {
 		"check": "tsc -p tsconfig.json --noEmit && tslint -p tsconfig.json -c tslint.json",
