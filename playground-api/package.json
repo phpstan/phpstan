@@ -19,7 +19,7 @@
 		"uuid": "^3.4.0"
 	},
 	"devDependencies": {
-		"@types/aws-lambda": "^8.10.62",
+		"@types/aws-lambda": "^8.10.66",
 		"@types/node": "^10.17.32",
 		"@types/uuid": "^3.4.9",
 		"serverless": "^1.83.0",
