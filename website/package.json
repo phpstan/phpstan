@@ -30,7 +30,7 @@
 		"posthtml-noopener": "^1.0.5",
 		"reading-time": "^1.2.0",
 		"tailwindcss": "^1.9.6",
-		"tslint": "^6.1.2",
+		"tslint": "^6.1.3",
 		"typescript": "^4.0.2"
 	},
 	"scripts": {
