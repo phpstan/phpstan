@@ -1,0 +1,31 @@
+{
+	"name": "phpstan-playground-api",
+	"version": "1.0.0",
+	"description": "",
+	"main": "handler.ts",
+	"scripts": {
+		"deploy": "serverless deploy",
+		"offline": "serverless offline start",
+		"check": "tsc -p tsconfig.json --noEmit && tslint -p tsconfig.json -c tslint.json",
+		"check-fix": "tslint --fix -p tsconfig.json -c tslint.json"
+	},
+	"author": "",
+	"license": "MIT",
+	"dependencies": {
+		"@sentry/node": "^4.6.6",
+		"ansi-to-html": "^0.6.14",
+		"aws-sdk": "^2.751.0",
+		"middy": "^0.19.5",
+		"uuid": "^3.4.0"
+	},
+	"devDependencies": {
+		"@types/aws-lambda": "^8.10.62",
+		"@types/node": "^10.17.32",
+		"@types/uuid": "^3.4.9",
+		"serverless": "^1.83.0",
+		"serverless-offline": "6.7.0",
+		"serverless-plugin-typescript": "^1.1.9",
+		"tslint": "^5.20.1",
+		"typescript": "^3.9.7"
+	}
+}

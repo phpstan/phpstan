@@ -9,6 +9,8 @@ on:
       - "master"
     paths-ignore:
       - 'website/**'
+      - 'playground-api/**'
+      - 'playground-runner/**'
 
 env:
   COMPOSER_ROOT_VERSION: "0.12.x-dev"

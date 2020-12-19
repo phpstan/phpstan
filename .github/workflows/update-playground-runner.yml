@@ -1,6 +1,6 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
-name: "Update playground"
+name: "Update playground runner"
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
       - "master"
     paths-ignore:
       - 'website/**'
+      - 'playground-api/**'
 
 jobs:
   deploy:

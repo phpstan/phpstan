@@ -5,6 +5,16 @@ updates:
   schedule:
     interval: monthly
   open-pull-requests-limit: 10
+- package-ecosystem: npm
+  directory: "/playground-api"
+  schedule:
+    interval: monthly
+  open-pull-requests-limit: 10
+- package-ecosystem: composer
+  directory: "/playground-runner"
+  schedule:
+    interval: monthly
+  open-pull-requests-limit: 10
 - package-ecosystem: github-actions
   directory: "/"
   schedule:

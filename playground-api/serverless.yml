@@ -1,0 +1,39 @@
+service: phpstan-playground-api
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: prod
+  region: eu-west-1
+
+plugins:
+- serverless-plugin-typescript
+- serverless-offline
+
+functions:
+  analyseResult:
+    handler: handler.analyseResult
+    role: arn:aws:iam::928192134594:role/lambda-phpstan-playground
+    events:
+    - http:
+        method: post
+        path: /analyse
+        cors: true
+
+  retrieveResult:
+    handler: handler.retrieveResult
+    role: arn:aws:iam::928192134594:role/lambda-phpstan-playground
+    events:
+    - http:
+        method: get
+        path: /result
+        cors: true
+
+  retrieveLegacyResult:
+    handler: handler.retrieveLegacyResult
+    role: arn:aws:iam::928192134594:role/lambda-phpstan-playground
+    events:
+    - http:
+        method: get
+        path: /legacyResult
+        cors: true
