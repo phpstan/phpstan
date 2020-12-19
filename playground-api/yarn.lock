@@ -1371,11 +1371,6 @@ callsite@1.0.0:
   resolved "https://registry.yarnpkg.com/callsite/-/callsite-1.0.0.tgz#280398e5d664bd74038b6f0905153e6e8af1bc20"
   integrity sha1-KAOY5dZkvXQDi28JBRU+borxvCA=
 
-callsites@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/callsites/-/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"
-  integrity sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
-
 camelcase@^5.0.0, camelcase@^5.3.1:
   version "5.3.1"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.3.1.tgz#e3c9b31569e106811df242f715725a1f4c494320"
@@ -1466,14 +1461,6 @@ class-utils@^0.3.5:
     define-property "^0.2.5"
     isobject "^3.0.0"
     static-extend "^0.1.1"
-
-clear-module@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/clear-module/-/clear-module-4.1.1.tgz#bf8ba3b62eb70ee1e0adec90589741425cf32db8"
-  integrity sha512-ng0E7LeODcT3QkazOckzZqbca+JByQy/Q2Z6qO24YsTp+pLxCfohGz2gJYJqZS0CWTX3LEUiHOqe5KlYeUbEMw==
-  dependencies:
-    parent-module "^2.0.0"
-    resolve-from "^5.0.0"
 
 cli-boxes@^2.2.0:
   version "2.2.1"
@@ -4327,13 +4314,6 @@ pako@~1.0.2:
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
 
-parent-module@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/parent-module/-/parent-module-2.0.0.tgz#fa71f88ff1a50c27e15d8ff74e0e3a9523bf8708"
-  integrity sha512-uo0Z9JJeWzv8BG+tRcapBKNJ0dro9cLyczGzulS6EfeyAdeC9sbojtW6XwvYxJkEne9En+J2XEl4zyglVeIwFg==
-  dependencies:
-    callsites "^3.1.0"
-
 parseqs@0.0.5:
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/parseqs/-/parseqs-0.0.5.tgz#d5208a3738e46766e291ba2ea173684921a8b89d"
@@ -4706,11 +4686,6 @@ request@^2.88.0:
     tunnel-agent "^0.6.0"
     uuid "^3.3.2"
 
-resolve-from@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/resolve-from/-/resolve-from-5.0.0.tgz#c35225843df8f776df21c57557bc087e9dfdfc69"
-  integrity sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==
-
 resolve-url@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
@@ -4841,10 +4816,10 @@ semver@^7.1.3, semver@^7.3.2:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.3.2.tgz#604962b052b81ed0786aae84389ffba70ffd3938"
   integrity sha512-OrOb32TeeambH6UrhtShmF7CRDqhL6/5XpPNp2DuRH6+9QLw/orhp72j87v8Qa1ScDkvrrBNpZcDejAirJmfXQ==
 
-serverless-offline@6.7.0:
-  version "6.7.0"
-  resolved "https://registry.yarnpkg.com/serverless-offline/-/serverless-offline-6.7.0.tgz#8873630e400e8f4314e12bb339d49ddb0dc1bce4"
-  integrity sha512-N/5vUk8PzSzViwRjeLIM/o5LYk6NudaSEoZRlwQFSGeLuQSHZuFUvNZlCSK3e4N3gs1CLKMP0Ks1H0/jHD/8gQ==
+serverless-offline@6.8.0:
+  version "6.8.0"
+  resolved "https://registry.yarnpkg.com/serverless-offline/-/serverless-offline-6.8.0.tgz#65d2192e41ef87ebcbc1093108db6a25059d6ab5"
+  integrity sha512-DBDMcU58Bl+zZGSTAZ96Ed57k11oh0fQwgSoH2iVJpO6xFV9dTIttBYzTCwnfAgG0kB6NZK99Q/69b4brChTnQ==
   dependencies:
     "@hapi/boom" "^7.4.11"
     "@hapi/h2o2" "^8.3.2"
@@ -4852,7 +4827,6 @@ serverless-offline@6.7.0:
     aws-sdk "^2.624.0"
     boxen "^4.2.0"
     chalk "^3.0.0"
-    clear-module "^4.1.1"
     cuid "^2.1.8"
     execa "^4.0.0"
     extend "^3.0.2"

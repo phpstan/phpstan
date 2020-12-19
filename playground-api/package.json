@@ -23,7 +23,7 @@
 		"@types/node": "^10.17.32",
 		"@types/uuid": "^3.4.9",
 		"serverless": "^1.83.0",
-		"serverless-offline": "6.7.0",
+		"serverless-offline": "6.8.0",
 		"serverless-plugin-typescript": "^1.1.9",
 		"tslint": "^5.20.1",
 		"typescript": "^3.9.7"
