@@ -29,7 +29,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 		const runBleedingEdge = typeof json.bleedingEdge !== 'undefined' ? json.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.treatPhpDocTypesAsCertain !== 'undefined' ? json.treatPhpDocTypesAsCertain : true;
 		const saveResult: boolean = typeof json.saveResult !== 'undefined' ? json.saveResult : true;
-		const lambdaPromises: Array<[Promise<PromiseResult<Lambda.InvocationResponse, AWSError>>, number]> = [];
+		const lambdaPromises: [Promise<PromiseResult<Lambda.InvocationResponse, AWSError>>, number][] = [];
 		for (const phpVersion of [70100, 70200, 70300, 70400, 80000]) {
 			lambdaPromises.push([lambda.invoke({
 				FunctionName: 'phpstan-runner-prod-main',
