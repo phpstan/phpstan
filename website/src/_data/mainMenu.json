@@ -20,7 +20,7 @@
         "pageType": "blog"
     },
 	{
-		"title": "Support",
+		"title": "Help",
 		"link": "https://github.com/phpstan/phpstan/discussions",
 		"pageType": "support"
 	}
