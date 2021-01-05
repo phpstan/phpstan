@@ -37,6 +37,8 @@ can be checked before you run the actual line.
 <a href="https://www.startupjobs.cz/startup/shipmonk"><img src="https://i.imgur.com/bAC47za.jpg" alt="ShipMonk" width="290" height="64"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://togetter.com/"><img src="https://i.imgur.com/x9n5cj3.png" alt="Togetter" width="283" height="64"></a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://join.rightcapital.com/?utm_source=phpstan&utm_medium=github&utm_campaign=sponsorship"><img src="https://i.imgur.com/EuIgI08.png" alt="RightCapital" width="283" height="64"></a>
 
 [**You can now sponsor my open-source work on PHPStan through GitHub Sponsors.**](https://github.com/sponsors/ondrejmirtes)
 
