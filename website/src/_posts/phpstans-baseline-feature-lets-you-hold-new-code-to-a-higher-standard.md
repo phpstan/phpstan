@@ -91,7 +91,3 @@ With the baseline, you can enable [phpstan-strict-rules](https://github.com/phps
 This feature is released in the current 0.11.x release branch of PHPStan that has been running since January. You can [try it out](https://github.com/phpstan/phpstan/releases/tag/0.11.17) today!
 
 At the same time, me and my contributors are busy pecking away new major version — PHPStan 0.12. It will contain [support for generics](https://arnaud.le-blanc.net/post/phpstan-generics.html) and many other new features. You can preview some of them today in the 0.11.x series by enabling the bleeding edge config. [More details here.](https://github.com/phpstan/phpstan/releases/tag/0.11.4) PHPStan 0.12 will be released later this year.
-
----
-
-Do you like PHPStan and use it every day? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!

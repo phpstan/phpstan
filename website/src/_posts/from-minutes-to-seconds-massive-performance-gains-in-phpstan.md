@@ -73,7 +73,3 @@ vendor/bin/phpstan analyse -c phpstan.neon -l 8 src/ tests/
 ```
 
 I’m really excited about these improvements and can’t wait till you try them out! I’m looking forward to your feedback.
-
----
-
-Do you like PHPStan and use it every day? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!

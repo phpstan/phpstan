@@ -43,7 +43,7 @@ What's important to mention in this day and age of privacy nightmares and data l
 Continuous analysis (watch mode)
 ============
 
-Once you fix all the found errors and achieve [Error Zero](https://twitter.com/OndrejMirtes/status/1301760838144004098), PHPStan Pro keeps running in the background, watching files, and re-running analysis each time it detects a change. There's a loading indicator in the lower right corner for that:
+Once you fix all the found errors and achieve Error Zero, PHPStan Pro keeps running in the background, watching files, and re-running analysis each time it detects a change. There's a loading indicator in the lower right corner for that:
 
 <video width="267" height="159" class="mb-8 rounded-lg border border-gray-300 mx-auto" autoplay muted loop playsinline>
   <source src="/images/phpstan-pro-loader.mp4" type="video/mp4">
@@ -116,5 +116,4 @@ Keep in mind right now it's really early in PHPStan Pro's development life cycle
 
 I have plans on what to do next for both PHPStan and PHPStan Pro, but I rely on you to tell me what you want the most. Don't hesitate to use the built-in "Send feedback" form to tell me what you think.
 
-Thank you.<br>
-\- Ondřej Mirtes
+Thank you.

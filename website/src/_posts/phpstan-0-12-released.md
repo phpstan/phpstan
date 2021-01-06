@@ -94,12 +94,6 @@ With this feature, PHPStan again knows more about the code and is able to point 
 
 Integer range type was developed by [Jan Tvrdík](https://twitter.com/jantvrdik) also at the EU-FOSSA hackaton in Brussels.
 
-![EU-FOSSA hackaton PHPStan Team](/images/eu-fossa.jpg)
-
-<p class="text-sm text-center text-gray-500">
-<a href="https://twitter.com/lookyman_">Lukáš Unger</a>, <a href="https://twitter.com/OndrejMirtes">Ondřej Mirtes</a>, <a href="https://twitter.com/jantvrdik">Jan Tvrdík</a>
-</p>
-
 We were honored to be invited to the event. It was a great opportunity to achieve two full days-worth of open-source work what would otherwise take weeks of constant interruptions and back-and-forths. It definitely sped up the development of PHPStan 0.12 and helped bringing it to the final release this year.
 
 ## Doctrine extension: compare property type against @ORM\Column definition
@@ -148,7 +142,3 @@ $midnight = $date->setTime(0, 0, 0);
 This is not a complete list of new features and checks. It would be overwhelming to include everything in this article that's supposed to be easily digestible. That’s what [release notes](https://github.com/phpstan/phpstan/releases/tag/0.12.0) are for.
 
 I encourage everyone to upgrade to get the latest checks. If you're worried how many new errors you will have to fix, I have good news for you. Thanks to the [baseline feature](/blog/phpstans-baseline-feature-lets-you-hold-new-code-to-a-higher-standard) released recently, you can get to a green build immediately and fix those errors later when you have time. But the new and changed code you write will be held to a higher standard set by the new version.
-
----
-
-Do you like PHPStan and use it every day? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!

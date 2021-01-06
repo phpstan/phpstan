@@ -46,7 +46,7 @@ Give a talk about your project at the local user group. Submit a talk to a prest
 
 ## Ask for money
 
-Yes. The money. It can really boost your motivation and confidence if people consider your project to be actually worth something. You can just have a PayPal Donate button at the top of your README, or set up a Kickstarter campaign. I personally [use GitHub Sponsors to receive sponsorships](https://github.com/sponsors/ondrejmirtes).
+Yes. The money. It can really boost your motivation and confidence if people consider your project to be actually worth something. You can just have a PayPal Donate button at the top of your README, or set up a Kickstarter campaign.
 
 ## And most of all: Be nice!
 

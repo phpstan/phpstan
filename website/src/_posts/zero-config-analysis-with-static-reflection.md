@@ -39,15 +39,11 @@ These tradeoffs can go away thanks to [Roave's BetterReflection](https://github.
 
 *[AST]: Abstract Syntax Tree
 
-<blockquote class="twitter-tweet tw-align-center" data-lang="en" data-dnt="true"><p lang="en" dir="ltr">Kudos to <a href="https://twitter.com/OndrejMirtes?ref_src=twsrc%5Etfw">@OndrejMirtes</a> for moving <a href="https://twitter.com/phpstan?ref_src=twsrc%5Etfw">@phpstan</a> from runtime reflection to AST-based reflection via <a href="https://twitter.com/RoaveTeam?ref_src=twsrc%5Etfw">@RoaveTeam</a> /better-reflection! <a href="https://t.co/YxL6DHEKxU">https://t.co/YxL6DHEKxU</a></p>&mdash; OSS Lamantee (@Ocramius) <a href="https://twitter.com/Ocramius/status/1263798610698870784?ref_src=twsrc%5Etfw">May 22, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
 Setting up autoloading for all the parsed sources is no longer necessary - BetterReflection simply looks at all the files in analysed paths to discover the desired symbols. PHPStan will be able to analyse most codebases without any additional configuration. I wrote a [handful guide](/user-guide/discovering-symbols) for the rest.
 
 Such a deep integration of a technology inevitably leads to finding bugs in that technology. In the true spirit of open source, we improved BetterReflection a ton in collaboration with Marco [@Ocramius](https://twitter.com/Ocramius) and Jarda [@kukulich](https://twitter.com/kukulich). [^lovemyjob]
 
 [^lovemyjob]: I love my job!
-
-<blockquote class="twitter-tweet tw-align-center" data-lang="en" data-dnt="true"><p lang="en" dir="ltr">PHPStan, also known as &quot;Integration test suite for roave/better-reflection&quot;.<br><br>Fixing bugs with <a href="https://twitter.com/kukulich?ref_src=twsrc%5Etfw">@kukulich</a> so that PHPStan can start using this static reflection engine to the fullest! 👍</p>&mdash; Ondřej Mirtes (@OndrejMirtes) <a href="https://twitter.com/OndrejMirtes/status/1261621042176548865?ref_src=twsrc%5Etfw">May 16, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Unlocking new use cases
 -----------------------
@@ -70,7 +66,3 @@ With all that said, PHPStan can still use runtime reflection where appropriate. 
 -----------------------
 
 If you have tried PHPStan before and it didn't work on your project, now is the time to give it a chance again. If you're already using PHPStan, you can definitely simplify your configuration. I'm looking forward to your feedback!
-
----
-
-Do you like PHPStan and use it every day? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!
