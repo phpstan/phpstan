@@ -103,10 +103,50 @@ parameters:
 Excluding whole files
 ------------------
 
-If your codebase contains some files that are broken on purpose (e. g. to test behaviour of your application on files with invalid PHP code), you can exclude them using the `excludes_analyse` key. Each entry is used as a pattern for the [`fnmatch()`](https://www.php.net/manual/en/function.fnmatch.php) function.
+If your codebase contains some files that are broken on purpose (e. g. to test behaviour of your application on files with invalid PHP code), you can exclude them using the `excludePaths` key. Each entry is used as a pattern for the [`fnmatch()`](https://www.php.net/manual/en/function.fnmatch.php) function.
 
 ```yaml
 parameters:
-	excludes_analyse:
+	excludePaths:
 		- tests/*/data/*
+```
+
+This is a shortcut for:
+
+```yaml
+parameters:
+	excludePaths:
+	    analyseAndScan:
+		    - tests/*/data/*
+```
+
+If your project's directory structure mixes your own code (the one you want to analyse and fix bugs in) and third party code (which you're using for [discovering symbols](https://phpstan.org/user-guide/discovering-symbols), but don't want to analyse), the file structure might look like this:
+
+```
+├── phpstan.neon
+└── src
+    ├── foo.php
+    ├── ...
+    └── thirdparty
+        └── bar.php
+```
+
+In this case, you want to analyse the whole `src` directory, but want to exclude `src/thirdparty` from analysing. This is how to configure PHPStan:
+
+```yaml
+parameters:
+    excludePaths:
+        analyse:
+            - src/thirdparty
+```
+
+Additionally, there might be a `src/broken` directory which contains files that you don't want to analyse nor use for discovering symbols. You can modify the configuration to achieve that effect:
+
+```yaml
+parameters:
+    excludePaths:
+        analyse:
+            - src/thirdparty
+        analyseAndScan:
+            - src/broken
 ```
