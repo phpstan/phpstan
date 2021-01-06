@@ -4151,7 +4151,7 @@ parameters:
 			path: repo/tests/_files/DataProviderDebugTest.php
 
 		-
-			message: "#^Access to an undefined property SplObjectStorage\\:\\:\\$foo\\.$#"
+			message: "#^Access to an undefined property SplObjectStorage\\<object, mixed\\>\\:\\:\\$foo\\.$#"
 			count: 1
 			path: repo/tests/_files/DataProviderDebugTest.php
 
