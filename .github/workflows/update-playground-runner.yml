@@ -32,7 +32,7 @@ jobs:
 
       - name: "Install Serverless"
         working-directory: ./playground-runner
-        run: "npm install -g serverless@1.83.0"
+        run: "sudo npm install -g serverless@1.83.0"
 
       - name: "Cache PHP dependencies"
         uses: "actions/cache@v2"
