@@ -220,6 +220,9 @@ jobs:
             composer install
             cp ../../phpstan vendor/bin/phpstan
             vendor/bin/phpstan analyse -l 8 src/
+          - |
+            cd e2e/excludePaths
+            ../../phpstan analyse
         include:
           - php-version: 8.0
             operating-system: ubuntu-latest
