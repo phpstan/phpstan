@@ -14,7 +14,7 @@ mergeable:
     fail:
       - do: comment
         payload:
-          body: >
+          body: |
             This bug report is missing a link to reproduction on [phpstan.org](https://phpstan.org/).
 
             It will most likely be closed after manual review.
@@ -29,7 +29,7 @@ mergeable:
     fail:
       - do: comment
         payload:
-          body: >
+          body: |
             Hi there! :wave:
 
             Looks like you opened an issue without following one of the issue templates:
