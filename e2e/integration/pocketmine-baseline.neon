@@ -71,6 +71,16 @@ parameters:
 			path: repo/src/pocketmine/level/format/io/region/RegionLoader.php
 
 		-
+			message: "#^Property pocketmine\\\\metadata\\\\MetadataStore\\:\\:\\$metadataMap with generic class SplObjectStorage does not specify its types\\: TObject, TData$#"
+			count: 1
+			path: repo/src/pocketmine/metadata/MetadataStore.php
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$values contains generic class SplObjectStorage but does not specify its types\\: TObject, TData$#"
+			count: 1
+			path: repo/src/pocketmine/metadata/MetadataStore.php
+
+		-
 			message: "#^Parameter \\#1 \\$seed of function mt_srand expects int, int\\|false given\\.$#"
 			count: 1
 			path: repo/src/pocketmine/network/mcpe/convert/RuntimeBlockMapping.php
@@ -89,6 +99,11 @@ parameters:
 			message: "#^Cannot access offset 'errors' on array\\('warning_count' \\=\\> int, 'warnings' \\=\\> array\\<int, string\\>, 'error_count' \\=\\> int, 'errors' \\=\\> array\\<int, string\\>\\)\\|false\\.$#"
 			count: 1
 			path: repo/src/pocketmine/permission/BanEntry.php
+
+		-
+			message: "#^Property pocketmine\\\\scheduler\\\\AsyncTask\\:\\:\\$threadLocalStorage with generic class SplObjectStorage does not specify its types\\: TObject, TData$#"
+			count: 1
+			path: repo/src/pocketmine/scheduler/AsyncTask.php
 
 		-
 			message: "#^Method pocketmine\\\\tile\\\\Tile\\:\\:getSaveId\\(\\) should return string but returns string\\|false\\.$#"
