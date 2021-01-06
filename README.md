@@ -40,12 +40,6 @@ can be checked before you run the actual line.
 &nbsp;&nbsp;&nbsp;
 <a href="https://join.rightcapital.com/?utm_source=phpstan&utm_medium=github&utm_campaign=sponsorship"><img src="https://i.imgur.com/EuIgI08.png" alt="RightCapital" width="283" height="64"></a>
 
-[**You can now sponsor my open-source work on PHPStan through GitHub Sponsors.**](https://github.com/sponsors/ondrejmirtes)
-
-Does GitHub already have your 💳? Do you use PHPStan to find 🐛 before they reach production? [Send a couple of 💸 a month my way too.](https://github.com/sponsors/ondrejmirtes) Thank you!
-
-One-time donations [through PayPal](https://paypal.me/phpstan) are also accepted. To request an invoice, [contact me](mailto:ondrej@mirtes.cz) through e-mail.
-
 ## Documentation
 
 All the documentation lives on the [phpstan.org website](https://phpstan.org/):
