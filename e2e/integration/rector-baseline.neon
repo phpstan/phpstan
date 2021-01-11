@@ -51,7 +51,7 @@ parameters:
 			path: repo/rules/restoration/src/Rector/Class_/RemoveUselessJustForSakeInterfaceRector.php
 
 		-
-			message: "#^Argument of an invalid type array\\<string, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
+			message: "#^Argument of an invalid type \\(array\\<string, string\\>\\&nonEmpty\\)|false supplied for foreach, only iterables are supported\\.$#"
 			count: 2
 			path: repo/rules/solid/src/Rector/ClassMethod/UseInterfaceOverImplementationInConstructorRector.php
 
