@@ -26,6 +26,8 @@ mergeable:
               regex: '^# Bug report'
           - must_include:
               regex: '^# Feature request'
+          - must_include:
+              regex: 'https:\/\/phpstan\.org\/r\/'
     fail:
       - do: comment
         payload:
