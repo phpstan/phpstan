@@ -1,0 +1,21 @@
+includes:
+    - vendor/jangregor/phpstan-prophecy/extension.neon
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-doctrine/rules.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
+    - vendor/phpstan/phpstan-webmozart-assert/extension.neon
+    - vendor/thecodingmachine/phpstan-strict-rules/phpstan-strict-rules.neon
+
+parameters:
+    level: max
+    paths:
+        - src
+    inferPrivatePropertyTypeFromConstructor: true
+    bootstrapFiles:
+        - vendor/bin/.phpunit/phpunit-8.5-0/vendor/autoload.php
+    symfony:
+        console_application_loader: tests/phpstan/console-application.php
+    doctrine:
+        objectManagerLoader: tests/phpstan/object-manager.php

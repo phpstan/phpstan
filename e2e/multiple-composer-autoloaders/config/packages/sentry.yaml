@@ -1,0 +1,19 @@
+sentry:
+    register_error_listener: false # Disables the ErrorListener
+    dsn: null
+    monolog:
+        error_handler:
+            enabled: true
+            level: error
+
+# monolog configuration for sentry
+# see also: https://github.com/getsentry/sentry-symfony/blob/3.5.3/README.md#optional-use-monolog-handler-provided-by-sentrysentry-available-since-320
+monolog:
+    handlers:
+        sentry:
+            type: service
+            id: Sentry\Monolog\Handler
+
+services:
+    Monolog\Processor\PsrLogMessageProcessor:
+        tags: { name: monolog.processor, handler: sentry }

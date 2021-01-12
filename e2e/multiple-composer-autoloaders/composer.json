@@ -1,0 +1,36 @@
+{
+    "require": {
+        "php": "^7.4",
+        "ext-iconv": "*",
+        "ext-json": "*",
+        "doctrine/doctrine-bundle": "^2.0",
+        "sentry/sentry-symfony": "^3.3",
+        "symfony/config": "^4.3  || ^5.1",
+        "symfony/yaml": "^4.3  || ^5.1",
+        "symfony/framework-bundle": "^4.3  || ^5.1",
+        "symfony/monolog-bundle": "^3.2",
+        "doctrine/orm": "^2.8"
+    },
+    "require-dev": {
+        "jangregor/phpstan-prophecy": "^0.8",
+        "phpstan/phpstan": "^0.12",
+        "phpstan/phpstan-doctrine": "^0.12",
+        "phpstan/phpstan-phpunit": "^0.12",
+        "phpstan/phpstan-symfony": "^0.12",
+        "phpstan/phpstan-webmozart-assert": "^0.12",
+        "symfony/error-handler": "^4.3  || ^5.1",
+        "symfony/debug-bundle": "^4.3  || ^5.1",
+        "symfony/phpunit-bridge": "^4.3  || ^5.1",
+        "thecodingmachine/phpstan-strict-rules": "^0.12"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    }
+}
