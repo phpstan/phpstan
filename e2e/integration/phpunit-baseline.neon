@@ -846,17 +846,7 @@ parameters:
 			path: repo/src/Framework/Assert/Functions.php
 
 		-
-			message: "#^Unable to resolve the template type ExpectedType in call to method static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\)$#"
-			count: 1
-			path: repo/src/Framework/Assert/Functions.php
-
-		-
 			message: "#^Function PHPUnit\\\\Framework\\\\assertNotInstanceOf\\(\\) has parameter \\$actual with no typehint specified\\.$#"
-			count: 1
-			path: repo/src/Framework/Assert/Functions.php
-
-		-
-			message: "#^Unable to resolve the template type ExpectedType in call to method static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotInstanceOf\\(\\)$#"
 			count: 1
 			path: repo/src/Framework/Assert/Functions.php
 
@@ -6107,11 +6097,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$expected of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) expects class\\-string\\<object\\>, string given\\.$#"
-			count: 1
-			path: repo/tests/unit/Framework/MockObject/GeneratorTest.php
-
-		-
-			message: "#^Unable to resolve the template type ExpectedType in call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\)$#"
 			count: 1
 			path: repo/tests/unit/Framework/MockObject/GeneratorTest.php
 
