@@ -105,3 +105,18 @@ parameters:
 			count: 1
 			path: repo/src/PhpParser/Node/Manipulator/ClassMethodManipulator.php
 
+		-
+			message: "#^Cannot call method getMethod\\(\\) on PhpParser\\\\Node\\\\Stmt\\\\Class_\\|null\\.$#"
+			count: 1
+			path: repo/src/Rector/AbstractRector.php
+
+		-
+			message: "#^Cannot call method getMethod\\(\\) on PhpParser\\\\Node\\\\Stmt\\\\Class_\\|null\\.$#"
+			count: 1
+			path: repo/packages/file-system-rector/src/Rector/AbstractFileSystemRector.php
+
+		-
+			message: "#^Call to an undefined method PhpParser\\\\Node\\\\Expr\\|PhpParser\\\\Node\\\\Name\\:\\:toString\\(\\)\\.$#"
+			count: 1
+			path: repo/utils/phpstan-extensions/src/ReturnTypeExtension/NodeFinder/FindFirstInstanceOfReturnTypeExtension.php
+
