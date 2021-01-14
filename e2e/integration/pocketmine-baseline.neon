@@ -51,6 +51,11 @@ parameters:
 			path: repo/src/pocketmine/level/format/Chunk.php
 
 		-
+			message: "#^Array \\(array\\<string, class\\-string\\<pocketmine\\\\level\\\\format\\\\io\\\\LevelProvider\\>\\>\\) does not accept pocketmine\\\\level\\\\format\\\\io\\\\LevelProvider\\.$#"
+			count: 1
+			path: repo/src/pocketmine/level/format/io/LevelProviderManager.php
+
+		-
 			message: "#^Parameter \\#1 \\$input of function array_values expects array, array\\|false given\\.$#"
 			count: 3
 			path: repo/src/pocketmine/level/format/io/leveldb/LevelDB.php
