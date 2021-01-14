@@ -586,21 +586,6 @@ parameters:
 			path: repo/src/Composer/EventDispatcher/EventDispatcher.php
 
 		-
-			message: "#^Call to an undefined method Composer\\\\EventDispatcher\\\\Event\\:\\:getComposer\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/EventDispatcher/EventDispatcher.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\EventDispatcher\\\\Event\\:\\:getIO\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/EventDispatcher/EventDispatcher.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\EventDispatcher\\\\Event\\:\\:isDevMode\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/EventDispatcher/EventDispatcher.php
-
-		-
 			message: "#^Call to method unregister\\(\\) on an unknown class Composer\\\\ClassLoader\\.$#"
 			count: 1
 			path: repo/src/Composer/EventDispatcher/EventDispatcher.php
