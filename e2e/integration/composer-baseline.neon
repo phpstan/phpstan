@@ -1401,6 +1401,11 @@ parameters:
 			path: repo/src/Composer/Util/GitLab.php
 
 		-
+			message: "#^Parameter \\#1 \\$callback of function set_error_handler expects \\(callable\\(int, string, string, int, array\\)\\: bool\\)\\|null, Closure\\(mixed, mixed\\)\\: void given\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/Http/CurlDownloader.php
+
+		-
 			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/Http/CurlDownloader.php
