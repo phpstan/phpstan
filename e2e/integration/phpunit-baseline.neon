@@ -3211,6 +3211,11 @@ parameters:
 			path: repo/src/Util/ErrorHandler.php
 
 		-
+			message: "#^Parameter \\#1 \\$callback of function set_error_handler expects \\(callable\\(int, string, string, int, array\\)\\: bool\\)\\|null, Closure\\(mixed, mixed\\)\\: false\\|null given\\.$#"
+			count: 1
+			path: repo/src/Util/ErrorHandler.php
+
+		-
 			message: "#^Cannot call method getTrace\\(\\) on Throwable\\|null\\.$#"
 			count: 1
 			path: repo/src/Util/Filter.php
@@ -3626,32 +3631,32 @@ parameters:
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
 
 		-
-			message: "#^Offset 'start' does not exist on array\\('default' \\=\\> mixed, 'start' \\=\\> mixed, 'message' \\=\\> mixed, 'diff' \\=\\> mixed, 'trace' \\=\\> mixed, 'last' \\=\\> mixed\\)\\|string\\.$#"
+			message: "#^Offset 'start' does not exist on array\\('default' \\=\\> string, 'start' \\=\\> string, 'message' \\=\\> string, 'diff' \\=\\> string, 'trace' \\=\\> string, 'last' \\=\\> string\\)\\|string\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
 
 		-
-			message: "#^Offset 'message' does not exist on array\\('default' \\=\\> mixed, 'start' \\=\\> mixed, 'message' \\=\\> mixed, 'diff' \\=\\> mixed, 'trace' \\=\\> mixed, 'last' \\=\\> mixed\\)\\|string\\.$#"
+			message: "#^Offset 'message' does not exist on array\\('default' \\=\\> string, 'start' \\=\\> string, 'message' \\=\\> string, 'diff' \\=\\> string, 'trace' \\=\\> string, 'last' \\=\\> string\\)\\|string\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
 
 		-
-			message: "#^Offset 'diff' does not exist on array\\('default' \\=\\> mixed, 'start' \\=\\> mixed, 'message' \\=\\> mixed, 'diff' \\=\\> mixed, 'trace' \\=\\> mixed, 'last' \\=\\> mixed\\)\\|string\\.$#"
+			message: "#^Offset 'diff' does not exist on array\\('default' \\=\\> string, 'start' \\=\\> string, 'message' \\=\\> string, 'diff' \\=\\> string, 'trace' \\=\\> string, 'last' \\=\\> string\\)\\|string\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
 
 		-
-			message: "#^Offset 'default' does not exist on array\\('default' \\=\\> mixed, 'start' \\=\\> mixed, 'message' \\=\\> mixed, 'diff' \\=\\> mixed, 'trace' \\=\\> mixed, 'last' \\=\\> mixed\\)\\|string\\.$#"
+			message: "#^Offset 'default' does not exist on array\\('default' \\=\\> string, 'start' \\=\\> string, 'message' \\=\\> string, 'diff' \\=\\> string, 'trace' \\=\\> string, 'last' \\=\\> string\\)\\|string\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
 
 		-
-			message: "#^Offset 'trace' does not exist on array\\('default' \\=\\> mixed, 'start' \\=\\> mixed, 'message' \\=\\> mixed, 'diff' \\=\\> mixed, 'trace' \\=\\> mixed, 'last' \\=\\> mixed\\)\\|string\\.$#"
+			message: "#^Offset 'trace' does not exist on array\\('default' \\=\\> string, 'start' \\=\\> string, 'message' \\=\\> string, 'diff' \\=\\> string, 'trace' \\=\\> string, 'last' \\=\\> string\\)\\|string\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
 
 		-
-			message: "#^Offset 'last' does not exist on array\\('default' \\=\\> mixed, 'start' \\=\\> mixed, 'message' \\=\\> mixed, 'diff' \\=\\> mixed, 'trace' \\=\\> mixed, 'last' \\=\\> mixed\\)\\|string\\.$#"
+			message: "#^Offset 'last' does not exist on array\\('default' \\=\\> string, 'start' \\=\\> string, 'message' \\=\\> string, 'diff' \\=\\> string, 'trace' \\=\\> string, 'last' \\=\\> string\\)\\|string\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
 
