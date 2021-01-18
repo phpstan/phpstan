@@ -1,1 +1,6 @@
+#!/usr/bin/env php
+<?php
 
+declare (strict_types=1);
+
+return require_once 'phar://' . __DIR__ . '/phpstan.phar/bin/phpstan';
