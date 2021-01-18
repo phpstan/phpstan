@@ -15,7 +15,7 @@ else
 fi;
 
 cp ../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-cp ../phpstan.phar vendor/phpstan/phpstan/phpstan
+cp ../phpstan vendor/phpstan/phpstan/phpstan
 cp ../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
 
 if [[ "$STATIC_REFLECTION" == "true" ]]; then
