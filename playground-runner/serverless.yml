@@ -3,7 +3,7 @@ service: phpstan-runner
 provider:
     name: aws
     region: eu-west-1
-    runtime: provided
+    runtime: provided.al2
     stage: prod
     versionFunctions: false
 
@@ -16,4 +16,4 @@ functions:
         description: ''
         timeout: 20
         layers:
-            - arn:aws:lambda:eu-west-1:209497400698:layer:php-74:5
+            - ${bref:layer.php-74}

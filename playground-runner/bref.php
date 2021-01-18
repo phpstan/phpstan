@@ -11,7 +11,7 @@ $errorHandler->registerExceptionHandler();
 $errorHandler->registerErrorHandler();
 $errorHandler->registerShutdownFunction();
 
-lambda(function (array $event) {
+return function ($event) {
 	$code = $event['code'];
 	$level = $event['level'];
 	$codePath = '/tmp/tmp.php';
@@ -71,4 +71,4 @@ lambda(function (array $event) {
 	}
 
 	return ['result' => $errors, 'version' => \Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion()];
-});
+};
