@@ -56,11 +56,6 @@ parameters:
 			path: repo/src/Composer/Command/DiagnoseCommand.php
 
 		-
-			message: "#^Comparison operation \"\\<\" between 269488255 and 268439567 is always false\\.$#"
-			count: 1
-			path: repo/src/Composer/Command/DiagnoseCommand.php
-
-		-
 			message: "#^Result of && is always false\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/DiagnoseCommand.php
