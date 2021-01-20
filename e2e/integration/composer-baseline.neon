@@ -56,11 +56,6 @@ parameters:
 			path: repo/src/Composer/Command/DiagnoseCommand.php
 
 		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: repo/src/Composer/Command/DiagnoseCommand.php
-
-		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Input\\\\InputInterface\\:\\:__toString\\(\\)\\.$#"
 			count: 2
 			path: repo/src/Composer/Command/GlobalCommand.php
