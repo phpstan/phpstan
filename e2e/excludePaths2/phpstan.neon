@@ -1,0 +1,9 @@
+parameters:
+  paths:
+    - src
+  level: 5
+  excludePaths:
+    analyse:
+      - src/thirdparty
+    analyseAndScan:
+      - src/broken

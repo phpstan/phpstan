@@ -223,6 +223,9 @@ jobs:
           - |
             cd e2e/excludePaths
             ../../phpstan analyse
+          - |
+            cd e2e/excludePaths2
+            ../../phpstan analyse
         include:
           - php-version: 8.0
             operating-system: ubuntu-latest
