@@ -96,7 +96,7 @@ pageType: playground
 	</form>
 
 	<!-- ko if: isLoading -->
-	<div class="m-auto w-12 h-12 mt-8">
+	<div class="m-auto w-12 h-12 mt-4">
 		<div class="spinner"></div>
 	</div>
 	<!-- /ko -->
@@ -108,7 +108,7 @@ pageType: playground
 	<!-- ko ifnot: hasServerError -->
 
 	<!-- ko if: tabs().length > 1 && !isLoading() && legacyResult() === null -->
-		<nav class="flex mt-8 border-b border-gray-400">
+		<nav class="flex mt-4 border-b border-gray-400">
 			<!-- ko foreach: tabs -->
 				<a href="#" class="relative px-3 py-2 font-medium text-md mr-4 leading-5 rounded-md rounded-b-none text-gray-500 border-l border-t border-r" data-bind="click: $parent.switchTab.bind($parent, $index()), text: title, class: tabClass, style: { 'top': isActive() ? '1px' : '0' }"></a>
 			<!-- /ko -->
@@ -119,17 +119,17 @@ pageType: playground
 		<!-- ko with: currentTab() -->
 			<div class="flex items-stretch mx-4 md:mx-0">
 				<!-- ko if: errors.length > 0 && $parent.tabs().length < 2 -->
-				<span class="inline-flex flex-grow justify-center md:flex-grow-0 items-center px-4 py-3 h-12 rounded-lg text-lg font-medium leading-4 bg-red-100 text-red-900 mt-8" data-bind="text: errorsText"></span>
+				<span class="inline-flex flex-grow justify-center md:flex-grow-0 items-center px-4 py-3 h-12 rounded-lg text-lg font-medium leading-4 bg-red-100 text-red-900 mt-4" data-bind="text: errorsText"></span>
 				<!-- /ko -->
 
 				<!-- ko if: errors.length === 0 -->
-				<span class="inline-flex flex-grow justify-center md:flex-grow-0 items-center px-4 py-3 h-12 rounded-lg text-lg font-medium leading-4 bg-green-100 text-green-900 mt-8">
+				<span class="inline-flex flex-grow justify-center md:flex-grow-0 items-center px-4 py-3 h-12 rounded-lg text-lg font-medium leading-4 bg-green-100 text-green-900 mt-4">
 										No errors!
 									</span>
 				<!-- /ko -->
 			</div>
 			<!-- ko if: errors.length > 0 -->
-				<table class="w-full mt-8">
+				<table class="w-full mt-4">
 					<thead>
 					<tr>
 						<th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-base leading-4 font-medium text-gray-500 tracking-wider">
@@ -154,7 +154,7 @@ pageType: playground
 	<!-- /ko -->
 
 	<!-- ko if: legacyResult() !== null && !isLoading() -->
-		<pre data-bind="html: legacyResult" class="bg-gray-800 w-auto p-4 mt-8 leading-none"></pre>
+		<pre data-bind="html: legacyResult" class="bg-gray-800 w-auto p-4 mt-4 leading-none"></pre>
 	<!-- /ko -->
 	<!-- /ko -->
 
