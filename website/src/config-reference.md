@@ -444,6 +444,18 @@ parameters:
 	checkGenericClassInNonGenericObjectType: false
 ```
 
+If you use callables, you might find that `callable` or `\Closure` is too vague for your liking.
+For example, PHPStan won't complain if you pass `callable(int) : void` to `callable`, but it will complain if you pass `callable(int) : void` to `callable(string) : void`. So, being specific with callable signatures helps PHPStan find more bugs.
+
+However, by default PHPStan won't complain if you don't specify a signature for a callable or closure.
+
+You can make PHPStan require that callable signatures are specified with PHPStan's [callable PHPDoc syntax](/writing-php-code/phpdoc-types#callables) by setting the `checkMissingCallableSignature` key to `true` (disabled by default):
+
+```yaml
+parameters:
+	checkMissingCallableSignature: true
+```
+
 Type aliases
 -------------
 
