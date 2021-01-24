@@ -1,25 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name='viewport' content='width=device-width, initial-scale=1'>
-	<title>{{ title }} | PHPStan</title>
-	<meta property="og:title" content="{{ title }}" />
-	<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-	<link rel="stylesheet" href="/app.pcss">
-
-	{% if ogImage %}
-		<meta property="og:image" content="{{ ogImage }}" />
-		<meta name="twitter:image" content="{{ ogImage }}" />
-	{% else %}
-		<meta property="og:image" content="/images/logo-big.png" />
-		<meta name="twitter:image" content="/images/logo-big.png" />
-	{% endif %}
-	<link rel="icon" type="image/png" href="/images/favicon.png">
-
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:site" content="@phpstan" />
-</head>
+{% include './../_includes/header.njk' %}
 <body>
 
 <div class="h-screen bg-white flex flex-col main-area">
@@ -97,19 +76,7 @@
 
 {% block scripts %}{% endblock %}
 
-<script>
-	(function(f, a, t, h, o, m){
-		a[h]=a[h]||function(){
-			(a[h].q=a[h].q||[]).push(arguments)
-		};
-		o=f.createElement('script'),
-			m=f.getElementsByTagName('script')[0];
-		o.async=1; o.src=t; o.id='fathom-script';
-		m.parentNode.insertBefore(o,m)
-	})(document, window, 'https://cdn.usefathom.com/tracker.js', 'fathom');
-	fathom('set', 'siteId', 'UDESFNRN');
-	fathom('trackPageview');
-</script>
+{% include './../_includes/analytics.njk' %}
 
 </body>
 </html>

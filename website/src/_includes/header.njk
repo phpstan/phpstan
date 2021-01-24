@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name='viewport' content='width=device-width, initial-scale=1'>
+	<title>{{ title }} | PHPStan</title>
+	<meta property="og:title" content="{{ title }}" />
+	<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+	<link rel="stylesheet" href="/app.pcss">
+
+	{% if ogImage %}
+		<meta property="og:image" content="{{ ogImage }}" />
+		<meta name="twitter:image" content="{{ ogImage }}" />
+	{% else %}
+		<meta property="og:image" content="/images/logo-big.png" />
+		<meta name="twitter:image" content="/images/logo-big.png" />
+	{% endif %}
+	<link rel="icon" type="image/png" href="/images/favicon.png">
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@phpstan" />
+</head>
