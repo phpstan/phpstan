@@ -28,6 +28,8 @@ export class PlaygroundViewModel {
 	id: string | null;
 	hasServerError: ko.Observable<boolean>;
 
+	embed: ko.Observable<boolean>;
+
 	apiBaseUrl: string = 'https://api.phpstan.org';
 
 	constructor() {
@@ -63,6 +65,8 @@ export class PlaygroundViewModel {
 		this.shareXhr = null;
 		this.id = null;
 		this.hasServerError = ko.observable(false);
+
+		this.embed = ko.observable(false);
 	}
 
 	switchTab(index: number): void {
@@ -81,10 +85,11 @@ export class PlaygroundViewModel {
 
 	setId(id: string | null): void {
 		this.id = id;
+		const prefix = this.embed() ? '/embed' : '';
 		if (id === null) {
-			window.history.replaceState({}, '', '/');
+			window.history.replaceState({}, '', `${prefix}/`);
 		} else{
-			window.history.replaceState({}, '', '/r/' + id);
+			window.history.replaceState({}, '', `${prefix}/r/${id}`);
 		}
 	}
 
@@ -184,7 +189,12 @@ export class PlaygroundViewModel {
 	}
 
 	init(path: string, initCallback: () => void): void {
-		const legacyHashMatch = path.match(/^\/r\/([a-f0-9]{32})$/);
+		const embedMatch = path.match(/^\/embed\/.*$/);
+		if (embedMatch !== null) {
+			this.embed(true);
+		}
+
+		const legacyHashMatch = path.match(/^\/(?:embed\/)?r\/([a-f0-9]{32})$/);
 		let resultUrl = null;
 		let id: string | null = null;
 		if (legacyHashMatch !== null) {
@@ -192,7 +202,7 @@ export class PlaygroundViewModel {
 			resultUrl = this.apiBaseUrl + '/legacyResult?id=' + id;
 		}
 
-		const hashMatch = path.match(/^\/r\/([0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12})$/i);
+		const hashMatch = path.match(/^\/(?:embed\/)?r\/([0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12})$/i);
 		if (hashMatch !== null) {
 			id = hashMatch[1];
 			resultUrl = this.apiBaseUrl + '/result?id=' + id;
