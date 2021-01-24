@@ -3426,11 +3426,6 @@ parameters:
 			path: repo/src/Util/PHP/AbstractPhpProcess.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of function set_error_handler expects \\(callable\\(int, string, string, int, array\\)\\: bool\\)\\|null, Closure\\(mixed, mixed, mixed, mixed\\)\\: void given\\.$#"
-			count: 1
-			path: repo/src/Util/PHP/AbstractPhpProcess.php
-
-		-
 			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\Test\\:\\:setResult\\(\\)\\.$#"
 			count: 1
 			path: repo/src/Util/PHP/AbstractPhpProcess.php
