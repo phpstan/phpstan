@@ -7,7 +7,7 @@
 		"nikic/php-parser": "^4.3.0",
 		"phpstan/phpstan": "^0.12.99",
 		"phpstan/phpstan-strict-rules": "^0.12.99",
-		"sentry/sentry": "^1.9"
+		"sentry/sentry": "^3.1"
 	},
 	"config": {
 		"sort-packages": true
