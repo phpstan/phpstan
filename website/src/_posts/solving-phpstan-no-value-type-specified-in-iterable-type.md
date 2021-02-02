@@ -29,13 +29,6 @@ Solving this for arrays is straightforward - PHPStan needs to know what the arra
 * `non-empty-array<Type>`
 * `non-empty-array<int, Type>`
 
-If your codebase makes use of [arrays of various specific shapes](/writing-php-code/phpdoc-types#array-shapes) passed around functions and methods. PHPStan can check that the values in specified keys have the correct types. This is different from general arrays that mandate that all the keys and values must be of a specific homogeneous type. [Array shapes](/writing-php-code/phpdoc-types#array-shapes) allow each key and value to be different.
-
-* `array{'foo': int, "bar": string}`
-* `array{0: int, 1?: int}` (key `1` is optional in the array)
-* `array{int, int}` (keys are `0` and `1`)
-* `array{foo: int, bar: string}` (quotes around array keys aren't necessary)
-
 An example:
 
 ```php
@@ -49,6 +42,13 @@ function foo(array $items): void
 	}
 }
 ```
+
+If your codebase makes use of [arrays of various specific shapes](/writing-php-code/phpdoc-types#array-shapes) passed around functions and methods, PHPStan can check that the values in specified keys have the correct types. This is different from general arrays that mandate that all the keys and values must be of a specific homogeneous type. [Array shapes](/writing-php-code/phpdoc-types#array-shapes) allow each key and value to be different.
+
+* `array{'foo': int, "bar": string}`
+* `array{0: int, 1?: int}` (key `1` is optional in the array)
+* `array{int, int}` (keys are `0` and `1`)
+* `array{foo: int, bar: string}` (quotes around array keys aren't necessary)
 
 Iterable objects
 ======================
