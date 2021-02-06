@@ -107,6 +107,7 @@ jobs:
           php-version: "${{ matrix.php-version }}"
           ini-values: memory_limit=256M
           tools: composer:v1
+          extensions: soap
 
       - name: "Cache dependencies"
         uses: "actions/cache@v2"
