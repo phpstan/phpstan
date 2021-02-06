@@ -6,6 +6,11 @@ parameters:
 			path: repo/packages/family-tree/src/NodeAnalyzer/ClassChildAnalyzer.php
 
 		-
+			message: "#^PHPDoc tag @var does not specify variable name\\.$#"
+			count: 1
+			path: repo/packages/post-rector/src/Collector/PropertyToAddCollector.php
+
+		-
 			message: "#^Argument of an invalid type array\\<string, class\\-string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: repo/packages/vendor-locker/src/NodeVendorLocker/ClassMethodVendorLockResolver.php
