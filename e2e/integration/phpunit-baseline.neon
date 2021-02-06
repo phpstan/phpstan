@@ -1356,6 +1356,11 @@ parameters:
 			path: repo/src/Framework/MockObject/ConfigurableMethod.php
 
 		-
+			message: "#^PHPDoc tag @var has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/Framework/MockObject/Generator.php
+
+		-
 			message: "#^Property PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:\\$cache type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/Generator.php
