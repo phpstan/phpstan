@@ -39,6 +39,8 @@ can be checked before you run the actual line.
 <a href="https://togetter.com/"><img src="https://i.imgur.com/x9n5cj3.png" alt="Togetter" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://join.rightcapital.com/?utm_source=phpstan&utm_medium=github&utm_campaign=sponsorship"><img src="https://i.imgur.com/EuIgI08.png" alt="RightCapital" width="283" height="64"></a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://www.contentkingapp.com/careers/php-developer/"><img src="https://i.imgur.com/0blm7ki.png" alt="RightCapital" width="283" height="64"></a>
 
 ## Documentation
 
