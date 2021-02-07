@@ -96,6 +96,11 @@ parameters:
 			path: repo/src/pocketmine/network/mcpe/protocol/BatchPacket.php
 
 		-
+			message: "#^PHPDoc tag @var above assignment does not specify variable name\\.$#"
+			count: 1
+			path: repo/src/pocketmine/network/mcpe/protocol/CraftingDataPacket.php
+
+		-
 			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/pocketmine/network/mcpe/protocol/DataPacket.php
