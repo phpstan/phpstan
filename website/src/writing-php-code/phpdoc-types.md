@@ -9,14 +9,16 @@ Basic types
 
 * `int`, `integer`
 * `positive-int`, `negative-int`
+* `number`, `numeric`
 * `string`
 * `bool`, `boolean`
 * `true`
 * `false`
 * `null`
-* `float`
-* `double`
-* `array`
+* `float`, `double`
+* `array-key`, `scalar`
+* `array`, `associative-array`, `non-empty-array`
+* `list`, `non-empty-list`
 * `iterable`
 * `callable`
 * `resource`
@@ -123,7 +125,7 @@ function bar(string $name): void
 Other advanced string types
 -------------------------
 
-There's also `callable-string` and `numeric-string`.
+There's also `class-string`, `callable-string` and `numeric-string`.
 
 Type aliases
 -------------------------
