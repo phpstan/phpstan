@@ -1371,11 +1371,6 @@ parameters:
 			path: repo/src/Composer/Util/ErrorHandler.php
 
 		-
-			message: "#^Variable \\$ri in PHPDoc tag @var does not match any variable in the foreach loop\\: \\$file$#"
-			count: 1
-			path: repo/src/Composer/Util/Filesystem.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/Filesystem.php
