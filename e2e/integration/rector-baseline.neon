@@ -6,7 +6,7 @@ parameters:
 			path: repo/packages/family-tree/src/NodeAnalyzer/ClassChildAnalyzer.php
 
 		-
-			message: "#^PHPDoc tag @var does not specify variable name\\.$#"
+			message: "#^PHPDoc tag @var above a method has no effect\\.$#"
 			count: 1
 			path: repo/packages/post-rector/src/Collector/PropertyToAddCollector.php
 
