@@ -307,12 +307,7 @@ parameters:
 
 		-
 			message: "#^Part \\$analyzedRule \\(Composer\\\\DependencyResolver\\\\Rule\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: repo/src/Composer/DependencyResolver/Solver.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
+			count: 2
 			path: repo/src/Composer/DependencyResolver/Solver.php
 
 		-
