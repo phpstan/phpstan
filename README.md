@@ -41,6 +41,8 @@ can be checked before you run the actual line.
 <a href="https://join.rightcapital.com/?utm_source=phpstan&utm_medium=github&utm_campaign=sponsorship"><img src="https://i.imgur.com/EuIgI08.png" alt="RightCapital" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://www.contentkingapp.com/?ref=php-developer&utm_source=phpstan&utm_medium=referral&utm_campaign=sponsorship"><img src="https://i.imgur.com/0blm7ki.png" alt="ContentKing" width="283" height="64"></a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://zol.fr?utm_source=phpstan"><img src="https://i.imgur.com/ooNiOnz.png" alt="ZOL" width="283" height="64"></a>
 
 ## Documentation
 
