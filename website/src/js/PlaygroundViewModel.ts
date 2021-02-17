@@ -286,7 +286,7 @@ export class PlaygroundViewModel {
 		for (let i = 0; i < tabs.length; i++) {
 			const tab = tabs[i];
 			const upToDateTab = upToDateTabs[i];
-			if (tab.title !== upToDateTab.title) {
+			if (tab.title !== upToDateTab.title && tabs.length > 1) {
 				return true;
 			}
 

@@ -107,7 +107,7 @@ pageType: playground
 
 	<!-- ko ifnot: hasServerError -->
 
-	<!-- ko if: upToDateErrors() !== null -->
+	<!-- ko if: upToDateErrors() !== null && !isLoading() -->
 		<div class="flex content-center justify-center mt-4">
 			<div class="inline-block bg-yellow-100 rounded-lg px-2 py-1 text-sm">This result is out of date. <a href="#" class="text-blue-700" data-bind="click: showUpToDateErrors">Show the latest result</a></div>
 		</div>
