@@ -186,6 +186,7 @@ Callables
 The `callable` typehint has been in PHP for a long time. But it doesn't allow enforcing specific callback signatures. However, PHPStan allows and enforce specific signatures in PHPDocs:
 
 * `callable(int, int): string` (accepts two integers, returns a string)
+* `callable(int, int=): string` (second parameter is optional)
 * `callable(int $foo, string $bar): void` (accepts an integer and a string, doesn't return anything; parameter names are optional and insignificant)
 * `callable(string &$bar): mixed` (accepts a string parameter passed by reference, returns `mixed`)
 * `callable(float ...$floats): (int|null)` (accepts multiple variadic float arguments, returns integer or null)
