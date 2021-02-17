@@ -157,7 +157,6 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 		const id = request.queryStringParameters.id;
 		const firstTwoChars = id.substr(0, 2);
 		const path = 'data/results/' + firstTwoChars + '/' + id;
-		console.log(path);
 		const inputObject = await s3.getObject({
 			Bucket: 'phpstan-playground',
 			Key: path + '/input.json',
@@ -174,6 +173,13 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 			body: JSON.stringify({
 				code: inputJson.phpCode,
 				htmlErrors: convert.toHtml(JSON.parse(outputObject.Body as string).output),
+				upToDateErrors: await analyseResultInternal(
+					inputJson.phpCode,
+					inputJson.level.toString(),
+					false,
+					false,
+					true,
+				),
 				version: inputJson.phpStanVersion,
 				level: inputJson.level.toString(),
 				config: {
