@@ -236,6 +236,13 @@ export class PlaygroundViewModel {
 					if (id !== null) {
 						this.setId(id);
 					}
+
+					const upToDateTabs = this.createTabs(data.upToDateErrors);
+					if (this.areTabsDifferent(tabs, upToDateTabs)) {
+						this.upToDateErrors(data.upToDateErrors);
+					} else {
+						this.upToDateErrors(null);
+					}
 				} else {
 					this.tabs([]);
 					this.currentTabIndex(null);
@@ -269,6 +276,41 @@ export class PlaygroundViewModel {
 			initCallback();
 			this.startAcceptingChanges();
 		});
+	}
+
+	areTabsDifferent(tabs: PlaygroundTabViewModel[], upToDateTabs: PlaygroundTabViewModel[]): boolean {
+		if (tabs.length !== upToDateTabs.length) {
+			return true;
+		}
+
+		for (let i = 0; i < tabs.length; i++) {
+			const tab = tabs[i];
+			const upToDateTab = upToDateTabs[i];
+			if (tab.title !== upToDateTab.title) {
+				return true;
+			}
+
+			if (tab.errorsText !== upToDateTab.errorsText) {
+				return true;
+			}
+
+			if (tab.errors.length !== upToDateTab.errors.length) {
+				return true;
+			}
+
+			for (let j = 0; j < tab.errors.length; j++) {
+				const error = tab.errors[j];
+				const upToDateError = upToDateTab.errors[j];
+				if (error.message !== upToDateError.message) {
+					return true;
+				}
+				if (error.line !== upToDateError.line) {
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	createTabs(versionedErrors: {phpVersion: number, errors: PHPStanError[]}[]): PlaygroundTabViewModel[] {

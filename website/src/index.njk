@@ -107,6 +107,12 @@ pageType: playground
 
 	<!-- ko ifnot: hasServerError -->
 
+	<!-- ko if: upToDateErrors() !== null -->
+		<div class="flex content-center justify-center mt-4">
+			<div class="inline-block bg-yellow-100 rounded-lg px-2 py-1 text-sm">This result is out of date. <a href="#" class="text-blue-700" data-bind="click: showUpToDateErrors">Show the latest result</a></div>
+		</div>
+	<!-- /ko -->
+
 	<!-- ko if: tabs().length > 1 && !isLoading() && legacyResult() === null -->
 		<nav class="flex mt-8 border-b border-gray-400">
 			<!-- ko foreach: tabs -->
