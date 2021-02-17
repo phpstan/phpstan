@@ -127,16 +127,26 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 			Key: 'api/results/' + id + '.json',
 		}).promise();
 		const json = JSON.parse(object.Body as string);
+		const strictRules = typeof json.config.strictRules !== 'undefined' ? json.config.strictRules : false;
+		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
+		const treatPhpDocTypesAsCertain = typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true;
 		const bodyJson: any = {
 			code: json.code,
 			errors: json.errors,
 			version: json.version,
 			level: json.level,
 			config: {
-				strictRules: typeof json.config.strictRules !== 'undefined' ? json.config.strictRules : false,
-				bleedingEdge: typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false,
-				treatPhpDocTypesAsCertain: typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true,
+				strictRules,
+				bleedingEdge,
+				treatPhpDocTypesAsCertain,
 			},
+			upToDateErrors: await analyseResultInternal(
+				json.code,
+				json.level,
+				strictRules,
+				bleedingEdge,
+				treatPhpDocTypesAsCertain,
+			),
 		};
 		if (typeof json.versionedErrors !== 'undefined') {
 			bodyJson.versionedErrors = json.versionedErrors;
