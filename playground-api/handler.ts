@@ -22,6 +22,49 @@ interface HttpResponse {
 const lambda = new Lambda();
 const s3 = new S3();
 
+async function analyseResultInternal(
+	code: string,
+	level: string,
+	runStrictRules: boolean,
+	runBleedingEdge: boolean,
+	treatPhpDocTypesAsCertain: boolean,
+): Promise<any[]> {
+	const lambdaPromises: [Promise<PromiseResult<Lambda.InvocationResponse, AWSError>>, number][] = [];
+	for (const phpVersion of [70100, 70200, 70300, 70400, 80000]) {
+		lambdaPromises.push([lambda.invoke({
+			FunctionName: 'phpstan-runner-prod-main',
+			Payload: JSON.stringify({
+				code: code,
+				level: level,
+				strictRules: runStrictRules,
+				bleedingEdge: runBleedingEdge,
+				treatPhpDocTypesAsCertain: treatPhpDocTypesAsCertain,
+				phpVersion: phpVersion,
+			}),
+		}).promise(), phpVersion]);
+	}
+
+	const versionedErrors: any[] = [];
+	for (const tuple of lambdaPromises) {
+		const promise = tuple[0];
+		const phpVersion = tuple[1];
+		const lambdaResult = await promise;
+
+		const jsonResponse = JSON.parse(lambdaResult.Payload as string);
+		versionedErrors.push({
+			phpVersion: phpVersion,
+			errors: jsonResponse.result.map((error: any) => {
+				return {
+					line: error.line,
+					message: error.message,
+				};
+			}),
+		});
+	}
+
+	return versionedErrors;
+}
+
 async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 	try {
 		const json = JSON.parse(request.body);
@@ -29,38 +72,13 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 		const runBleedingEdge = typeof json.bleedingEdge !== 'undefined' ? json.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.treatPhpDocTypesAsCertain !== 'undefined' ? json.treatPhpDocTypesAsCertain : true;
 		const saveResult: boolean = typeof json.saveResult !== 'undefined' ? json.saveResult : true;
-		const lambdaPromises: [Promise<PromiseResult<Lambda.InvocationResponse, AWSError>>, number][] = [];
-		for (const phpVersion of [70100, 70200, 70300, 70400, 80000]) {
-			lambdaPromises.push([lambda.invoke({
-				FunctionName: 'phpstan-runner-prod-main',
-				Payload: JSON.stringify({
-					code: json.code,
-					level: json.level,
-					strictRules: runStrictRules,
-					bleedingEdge: runBleedingEdge,
-					treatPhpDocTypesAsCertain: treatPhpDocTypesAsCertain,
-					phpVersion: phpVersion,
-				}),
-			}).promise(), phpVersion]);
-		}
-
-		const versionedErrors: any[] = [];
-		for (const tuple of lambdaPromises) {
-			const promise = tuple[0];
-			const phpVersion = tuple[1];
-			const lambdaResult = await promise;
-
-			const jsonResponse = JSON.parse(lambdaResult.Payload as string);
-			versionedErrors.push({
-				phpVersion: phpVersion,
-				errors: jsonResponse.result.map((error: any) => {
-					return {
-						line: error.line,
-						message: error.message,
-					};
-				}),
-			});
-		}
+		const versionedErrors = await analyseResultInternal(
+			json.code,
+			json.level,
+			runStrictRules,
+			runBleedingEdge,
+			treatPhpDocTypesAsCertain
+		);
 
 		const response: any = {
 			errors: versionedErrors[versionedErrors.length - 1].errors,
