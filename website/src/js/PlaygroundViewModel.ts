@@ -122,7 +122,9 @@ export class PlaygroundViewModel {
 			}),
 			contentType: 'application/json'
 		}).done((data) => {
-			this.createTabs(data.versionedErrors);
+			const tabs = this.createTabs(data.versionedErrors);
+			this.tabs(tabs);
+			this.currentTabIndex(0);
 			this.legacyResult(null);
 			this.upToDateErrors(null);
 		}).fail((xhr, textStatus) => {
@@ -194,7 +196,9 @@ export class PlaygroundViewModel {
 			return;
 		}
 
-		this.createTabs(errors);
+		const tabs = this.createTabs(errors);
+		this.tabs(tabs);
+		this.currentTabIndex(0);
 		this.legacyResult(null);
 		this.upToDateErrors(null);
 		this.setId(null);
@@ -220,11 +224,14 @@ export class PlaygroundViewModel {
 				this.code(data.code);
 
 				if (hashMatch !== null) {
+					let tabs;
 					if (typeof data.versionedErrors !== 'undefined') {
-						this.createTabs(data.versionedErrors);
+						tabs = this.createTabs(data.versionedErrors);
 					} else {
-						this.createTabs([{phpVersion: 70400, errors: data.errors}]);
+						tabs = this.createTabs([{phpVersion: 70400, errors: data.errors}]);
 					}
+					this.tabs(tabs);
+					this.currentTabIndex(0);
 					this.legacyResult(null);
 					if (id !== null) {
 						this.setId(id);
@@ -264,7 +271,7 @@ export class PlaygroundViewModel {
 		});
 	}
 
-	createTabs(versionedErrors: {phpVersion: number, errors: PHPStanError[]}[]): void {
+	createTabs(versionedErrors: {phpVersion: number, errors: PHPStanError[]}[]): PlaygroundTabViewModel[] {
 		const versions: {versions: number[], errors: PHPStanError[]}[] = [];
 		let last: {versions: number[], errors: PHPStanError[]} | null = null;
 		for (const version of versionedErrors) {
@@ -336,8 +343,7 @@ export class PlaygroundViewModel {
 			versionOrder++;
 		}
 
-		this.tabs(tabs);
-		this.currentTabIndex(0);
+		return tabs;
 	}
 
 }
