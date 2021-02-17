@@ -154,7 +154,10 @@ pageType: playground
 	<!-- /ko -->
 
 	<!-- ko if: legacyResult() !== null && !isLoading() -->
-		<pre data-bind="html: legacyResult" class="bg-gray-800 w-auto p-4 mt-8 leading-none"></pre>
+		<div class="flex content-center justify-center mt-4">
+			<div class="inline-block bg-yellow-100 rounded-lg px-2 py-1 text-sm">This result is out of date. <a href="#" class="text-blue-700" data-bind="click: showUpToDateErrors">Show the latest result</a></div>
+		</div>
+		<pre data-bind="html: legacyResult" class="bg-gray-800 w-auto p-4 mt-4 leading-none"></pre>
 	<!-- /ko -->
 	<!-- /ko -->
 

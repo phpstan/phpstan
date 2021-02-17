@@ -16,6 +16,8 @@ export class PlaygroundViewModel {
 	currentTabIndex: ko.Observable<number | null>;
 	currentTab: ko.PureComputed<PlaygroundTabViewModel | null>;
 
+	upToDateErrors: ko.Observable<{phpVersion: number, errors: PHPStanError[]}[] | null>;
+
 	level: ko.Observable<string>;
 	strictRules: ko.Observable<boolean>;
 	bleedingEdge: ko.Observable<boolean>;
@@ -51,6 +53,8 @@ export class PlaygroundViewModel {
 
 			return this.tabs()[index];
 		});
+
+		this.upToDateErrors = ko.observable(null);
 
 		this.level = ko.observable('8');
 		this.strictRules = ko.observable(false);
@@ -120,6 +124,7 @@ export class PlaygroundViewModel {
 		}).done((data) => {
 			this.createTabs(data.versionedErrors);
 			this.legacyResult(null);
+			this.upToDateErrors(null);
 		}).fail((xhr, textStatus) => {
 			if (textStatus === 'abort') {
 				return;
@@ -183,6 +188,18 @@ export class PlaygroundViewModel {
 		this.treatPhpDocTypesAsCertain.subscribe(instantAnalyse);
 	}
 
+	showUpToDateErrors(): void {
+		const errors = this.upToDateErrors();
+		if (errors === null) {
+			return;
+		}
+
+		this.createTabs(errors);
+		this.legacyResult(null);
+		this.upToDateErrors(null);
+		this.setId(null);
+	}
+
 	init(path: string, initCallback: () => void): void {
 		const legacyHashMatch = path.match(/^\/r\/([a-f0-9]{32})$/);
 		let resultUrl = null;
@@ -216,6 +233,7 @@ export class PlaygroundViewModel {
 					this.tabs([]);
 					this.currentTabIndex(null);
 					this.legacyResult(data.htmlErrors);
+					this.upToDateErrors(data.upToDateErrors);
 				}
 				this.level(data.level);
 				this.strictRules(data.config.strictRules);
