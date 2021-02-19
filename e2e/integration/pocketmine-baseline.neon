@@ -11,6 +11,11 @@ parameters:
 			path: repo/src/pocketmine/CrashDump.php
 
 		-
+			message: "#^Parameter \\#3 \\$subject of function preg_replace expects array\\|string, string\\|false given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/CrashDump.php
+
+		-
 			message: "#^Empty array passed to foreach\\.$#"
 			count: 1
 			path: repo/src/pocketmine/CrashDump.php
