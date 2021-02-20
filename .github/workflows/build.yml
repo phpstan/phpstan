@@ -306,7 +306,7 @@ jobs:
           - |
             git clone https://github.com/slevomat/coding-standard.git e2e/integration/repo
             cd e2e/integration/repo
-            git checkout 6.3.9
+            git checkout 6.4.1
             composer install
             ../../../phpstan.phar analyse -c ../slevomat-cs.neon -l 7 SlevomatCodingStandard
             ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon -l 7 tests
