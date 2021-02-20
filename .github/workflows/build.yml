@@ -348,20 +348,3 @@ jobs:
 
       - name: "Tests"
         run: "${{ matrix.script }}"
-
-  test-projects:
-    name: "Test projects"
-    if: github.ref == 'refs/heads/master'
-    runs-on: "ubuntu-latest"
-
-    strategy:
-      matrix:
-        repository:
-          - "ondrejmirtes/lorem"
-
-    steps:
-      - uses: peter-evans/repository-dispatch@v1
-        with:
-          token: ${{ secrets.REPO_ACCESS_TOKEN }}
-          repository: "${{ matrix.repository }}"
-          event-type: test_phpstan
