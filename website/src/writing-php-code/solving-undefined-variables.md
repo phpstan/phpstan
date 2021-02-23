@@ -56,16 +56,4 @@ if ($foo) {
 }
 ```
 
-This is because the value of `$foo` might change between the two `if` conditions and PHPStan doesn't track this. Instead of the second `if ($foo)` you can use an `isset()` call:
-
-```php
-if ($foo) {
-    $var = rand();
-}
-
-// 200 lines later:
-
-if (isset($var)) {
-    echo $var; // OK!
-}
-```
+Forunately this has been understood by PHPStan since version [0.12.64](https://github.com/phpstan/phpstan/releases/tag/0.12.64). So if you're still experiencing this problem, make sure to upgrade to the latest version.
