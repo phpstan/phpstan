@@ -5,7 +5,7 @@
 		"jean85/pretty-package-versions": "^1.2",
 		"nette/neon": "^3.0",
 		"nikic/php-parser": "^4.3.0",
-		"phpstan/phpstan": "^0.12.99",
+		"phpstan/phpstan": "^0.12.78",
 		"phpstan/phpstan-strict-rules": "^0.12.99",
 		"sentry/sentry": "^1.9"
 	},
