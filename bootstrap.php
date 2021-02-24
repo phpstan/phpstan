@@ -27,10 +27,7 @@ spl_autoload_register(function (string $class): void {
 	if (strpos($class, 'PHPStan\\PhpDocParser\\') === 0) {
 		return;
 	}
-
-	$isPhpStan = strpos($class, 'PHPStan\\') === 0;
-	$isBetterReflection = strpos($class, 'Roave\\BetterReflection\\') === 0;
-	if (!$isPhpStan && !$isBetterReflection) {
+	if (strpos($class, 'PHPStan\\') !== 0) {
 		return;
 	}
 
@@ -39,17 +36,8 @@ spl_autoload_register(function (string $class): void {
 	}
 
 	$filename = str_replace('\\', DIRECTORY_SEPARATOR, $class);
-
-	if ($isPhpStan) {
-		$filename = substr($filename, strlen('PHPStan\\'));
-		$filepath = 'phar://' . __DIR__ . '/phpstan.phar/src/' . $filename . '.php';
-	} elseif ($isBetterReflection) {
-		$filename = substr($filename, strlen('Roave\\BetterReflection\\'));
-		$filepath = 'phar://' . __DIR__ . '/phpstan.phar/vendor/ondrejmirtes/better-reflection/src/' . $filename . '.php';
-	} else {
-		return;
-	}
-
+	$filename = substr($filename, strlen('PHPStan\\'));
+	$filepath = 'phar://' . __DIR__ . '/phpstan.phar/src/' . $filename . '.php';
 	if (!file_exists($filepath)) {
 		return;
 	}
