@@ -224,6 +224,9 @@ jobs:
           - |
             cd e2e/excludePaths2
             ../../phpstan analyse
+          - |
+            cd e2e/autoload-better-reflection
+            php test.php
         include:
           - php-version: 8.0
             operating-system: ubuntu-latest
