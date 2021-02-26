@@ -3766,6 +3766,11 @@ parameters:
 			path: repo/src/Util/TextTestListRenderer.php
 
 		-
+			message: "#^Parameter \\#1 \\$iterator of class RecursiveIteratorIterator constructor expects T of IteratorAggregate\\|RecursiveIterator, Iterator given\\.$#"
+			count: 1
+			path: repo/src/Util/TextTestListRenderer.php
+
+		-
 			message: "#^Method PHPUnit\\\\Util\\\\XdebugFilterScriptGenerator\\:\\:getWhitelistItems\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Util/XdebugFilterScriptGenerator.php
@@ -3802,6 +3807,11 @@ parameters:
 
 		-
 			message: "#^Method PHPUnit\\\\Util\\\\XmlTestListRenderer\\:\\:render\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
+			count: 1
+			path: repo/src/Util/XmlTestListRenderer.php
+
+		-
+			message: "#^Parameter \\#1 \\$iterator of class RecursiveIteratorIterator constructor expects T of IteratorAggregate\\|RecursiveIterator, Iterator given\\.$#"
 			count: 1
 			path: repo/src/Util/XmlTestListRenderer.php
 
