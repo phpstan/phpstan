@@ -6,6 +6,7 @@
 /docker-compose.test.yml export-ignore
 /e2e export-ignore
 /hooks export-ignore
+/issue-bot export-ignore
 /playground-api export-ignore
 /playground-runner export-ignore
 /.travis.yml export-ignore

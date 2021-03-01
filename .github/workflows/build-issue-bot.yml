@@ -1,0 +1,42 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Issue Bot Build"
+
+on:
+  push:
+    branches:
+      - "master"
+    paths:
+      - '.github/**'
+      - 'issue-bot/**'
+
+jobs:
+  build:
+    name: "Build"
+    runs-on: "ubuntu-latest"
+
+    strategy:
+      fail-fast: false
+      matrix:
+        script:
+          - "../phpstan analyse"
+          - "vendor/bin/phpunit"
+          - "vendor/bin/phpcs"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "7.4"
+
+      - name: "Install PHP dependencies"
+        working-directory: ./issue-bot
+        run: "composer install --no-interaction --no-progress --no-suggest"
+
+      - name: "Script"
+        working-directory: ./issue-bot
+        run: "${{ matrix.script }}"

@@ -1,0 +1,33 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Run Issue bot"
+
+on:
+  repository_dispatch:
+    types: [ run_issue_bot ]
+
+jobs:
+  issue-bot:
+    name: "Issue bot"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "7.4"
+
+      - name: "Install dependencies"
+        working-directory: ./issue-bot
+        run: "composer install --no-interaction --no-progress --no-suggest"
+
+      - name: "Run bot"
+        working-directory: ./issue-bot
+        env:
+          GITHUB_PAT: ${{ secrets.ISSUE_BOT_TOKEN }}
+          PHPSTAN_SRC_COMMIT: ${{ github.event.client_payload.phpstan_src_commit }}
+        run: "php run.php"

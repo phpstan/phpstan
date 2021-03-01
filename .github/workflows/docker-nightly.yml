@@ -9,6 +9,7 @@ on:
     branches:
       - "master"
     paths-ignore:
+      - 'issue-bot/**'
       - 'website/**'
       - 'playground-api/**'
       - 'playground-runner/**'

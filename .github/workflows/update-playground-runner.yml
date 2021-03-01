@@ -7,6 +7,7 @@ on:
     branches:
       - "master"
     paths-ignore:
+      - 'issue-bot/**'
       - 'website/**'
       - 'playground-api/**'
 
@@ -34,13 +35,6 @@ jobs:
         working-directory: ./playground-runner
         run: "sudo npm install -g serverless@1.83.0"
 
-      - name: "Cache PHP dependencies"
-        uses: "actions/cache@v2"
-        with:
-          path: "~/.composer/cache"
-          key: "php-7.4-playground-runner-composer-${{ hashFiles('playground-runner/**/composer.lock') }}"
-          restore-keys: "php-7.4-playground-runner-composer-"
-
       - name: "Install PHP dependencies"
         working-directory: ./playground-runner
         run: "composer install --no-interaction --no-progress --no-suggest"
@@ -62,3 +56,14 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
         run: "serverless deploy"
+
+      - name: "Get PHPStan version"
+        working-directory: ./playground-runner
+        id: phpstan_commit
+        run: echo ::set-output name=sha::$(php extractVersion.php)
+
+      - uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          event-type: run_issue_bot
+          client-payload: '{"phpstan_src_commit": "${{ steps.phpstan_commit.outputs.sha }}"}'
