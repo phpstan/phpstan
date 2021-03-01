@@ -2,7 +2,7 @@
 	"require": {
 		"php": "~7.2",
 		"bref/bref": "^1.1.4",
-		"jean85/pretty-package-versions": "^1.2",
+		"jean85/pretty-package-versions": "^2.0",
 		"nette/neon": "^3.0",
 		"nikic/php-parser": "^4.3.0",
 		"phpstan/phpstan": "^0.12.78",
