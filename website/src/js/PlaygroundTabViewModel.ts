@@ -16,7 +16,7 @@ export class PlaygroundTabViewModel {
 
 		const errorsCount = this.errors.length;
 		if (errorsCount === 1) {
-			this.errorsText = 'Found ' + errorsCount.toString() + ' errors';
+			this.errorsText = 'Found ' + errorsCount.toString() + ' error';
 		} else {
 			this.errorsText = 'Found ' + errorsCount.toString() + ' errors';
 		}
