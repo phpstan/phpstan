@@ -174,6 +174,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 		const runBleedingEdge = typeof json.bleedingEdge !== 'undefined' ? json.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.treatPhpDocTypesAsCertain !== 'undefined' ? json.treatPhpDocTypesAsCertain : true;
 		const saveResult: boolean = typeof json.saveResult !== 'undefined' ? json.saveResult : true;
+
 		const versionedErrors = await analyseResultInternal(
 			json.code,
 			json.level,
@@ -181,10 +182,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 			runBleedingEdge,
 			treatPhpDocTypesAsCertain
 		);
-
 		const response: any = {
-			errors: versionedErrors[versionedErrors.length - 1].errors,
-			versionedErrors: versionedErrors,
 			tabs: createTabs(versionedErrors),
 		};
 
@@ -196,8 +194,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 				ContentType: 'application/json',
 				Body: JSON.stringify({
 					code: json.code,
-					errors: response.errors,
-					versionedErrors: response.versionedErrors,
+					versionedErrors: versionedErrors,
 					version: 'N/A',
 					level: json.level,
 					config: {
@@ -233,13 +230,6 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 		const strictRules = typeof json.config.strictRules !== 'undefined' ? json.config.strictRules : false;
 		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true;
-		const upToDateErrors = await analyseResultInternal(
-			json.code,
-			json.level,
-			strictRules,
-			bleedingEdge,
-			treatPhpDocTypesAsCertain,
-		);
 		const bodyJson: any = {
 			code: json.code,
 			errors: json.errors,
@@ -250,11 +240,16 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 				bleedingEdge,
 				treatPhpDocTypesAsCertain,
 			},
-			upToDateErrors,
-			upToDateTabs: createTabs(upToDateErrors),
+			upToDateTabs: createTabs(await analyseResultInternal(
+				json.code,
+				json.level,
+				strictRules,
+				bleedingEdge,
+				treatPhpDocTypesAsCertain,
+			)),
 		};
 		if (typeof json.versionedErrors !== 'undefined') {
-			bodyJson.versionedErrors = json.versionedErrors;
+			bodyJson.tabs = createTabs(json.versionedErrors);
 		}
 		return Promise.resolve({
 			statusCode: 200,
