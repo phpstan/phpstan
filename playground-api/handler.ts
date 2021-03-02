@@ -19,6 +19,11 @@ interface HttpResponse {
 	body?: string;
 }
 
+interface PHPStanError {
+	message: string,
+	line: number,
+}
+
 const lambda = new Lambda();
 const s3 = new S3();
 
@@ -65,6 +70,103 @@ async function analyseResultInternal(
 	return versionedErrors;
 }
 
+function createTabs(versionedErrors: {phpVersion: number, errors: PHPStanError[]}[]): any[] {
+	const versions: {versions: number[], errors: PHPStanError[]}[] = [];
+	let last: {versions: number[], errors: PHPStanError[]} | null = null;
+	for (const version of versionedErrors) {
+		const phpVersion = version.phpVersion;
+		const errors = version.errors;
+		const current = {
+			versions: [phpVersion],
+			errors,
+		};
+		if (last === null) {
+			last = current;
+			continue;
+		}
+
+		if (errors.length !== last.errors.length) {
+			versions.push(last);
+			last = current;
+			continue;
+		}
+
+		let merge = true;
+		for (const i in errors) {
+			if (!errors.hasOwnProperty(i)) {
+				continue;
+			}
+			const error = errors[i];
+			const lastError = last.errors[i];
+			if (error.line !== lastError.line) {
+				versions.push(last);
+				last = current;
+				merge = false;
+				break;
+			}
+			if (error.message !== lastError.message) {
+				versions.push(last);
+				last = current;
+				merge = false;
+				break;
+			}
+		}
+
+		if (!merge) {
+			continue;
+		}
+
+		last.versions.push(phpVersion);
+	}
+
+	if (last !== null) {
+		versions.push(last);
+	}
+
+	versions.sort((a: {versions: number[], errors: PHPStanError[]}, b: {versions: number[], errors: PHPStanError[]}) => {
+		const aVersion = a.versions[a.versions.length - 1];
+		const bVersion = b.versions[b.versions.length - 1];
+		if (aVersion === 80000) {
+			return -1;
+		} else if (bVersion === 80000) {
+			return 1;
+		}
+
+		return bVersion - aVersion;
+	});
+
+	const tabs: any[] = [];
+	const versionNumberToString = (version: number): string => {
+		const first = Math.floor(version / 10000);
+		const second = Math.floor((version % 10000) / 100);
+		const third = Math.floor(version % 100);
+
+		return first + '.' + second + (third !== 0 ? '.' + third : '');
+	}
+	for (const version of versions) {
+		let title = 'PHP ';
+		if (version.versions.length > 1) {
+			title += versionNumberToString(version.versions[0]);
+			title += ' – ';
+			title += versionNumberToString(version.versions[version.versions.length - 1]);
+		} else {
+			title += versionNumberToString(version.versions[0]);
+		}
+
+		if (version.errors.length === 1) {
+			title += ' (1 error)';
+		} else if (version.errors.length > 0) {
+			title += ' (' + version.errors.length + ' errors)';
+		}
+		tabs.push({
+			errors: version.errors,
+			title: title,
+		});
+	}
+
+	return tabs;
+}
+
 async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 	try {
 		const json = JSON.parse(request.body);
@@ -83,6 +185,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 		const response: any = {
 			errors: versionedErrors[versionedErrors.length - 1].errors,
 			versionedErrors: versionedErrors,
+			tabs: createTabs(versionedErrors),
 		};
 
 		if (saveResult) {
@@ -130,6 +233,13 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 		const strictRules = typeof json.config.strictRules !== 'undefined' ? json.config.strictRules : false;
 		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true;
+		const upToDateErrors = await analyseResultInternal(
+			json.code,
+			json.level,
+			strictRules,
+			bleedingEdge,
+			treatPhpDocTypesAsCertain,
+		);
 		const bodyJson: any = {
 			code: json.code,
 			errors: json.errors,
@@ -140,13 +250,8 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 				bleedingEdge,
 				treatPhpDocTypesAsCertain,
 			},
-			upToDateErrors: await analyseResultInternal(
-				json.code,
-				json.level,
-				strictRules,
-				bleedingEdge,
-				treatPhpDocTypesAsCertain,
-			),
+			upToDateErrors,
+			upToDateTabs: createTabs(upToDateErrors),
 		};
 		if (typeof json.versionedErrors !== 'undefined') {
 			bodyJson.versionedErrors = json.versionedErrors;
@@ -178,18 +283,20 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 		const inputJson = JSON.parse(inputObject.Body as string);
 		const AnsiToHtml = require('ansi-to-html');
 		const convert = new AnsiToHtml();
+		const upToDateErrors = await analyseResultInternal(
+			inputJson.phpCode,
+			inputJson.level.toString(),
+			false,
+			false,
+			true,
+		);
 		return Promise.resolve({
 			statusCode: 200,
 			body: JSON.stringify({
 				code: inputJson.phpCode,
 				htmlErrors: convert.toHtml(JSON.parse(outputObject.Body as string).output),
-				upToDateErrors: await analyseResultInternal(
-					inputJson.phpCode,
-					inputJson.level.toString(),
-					false,
-					false,
-					true,
-				),
+				upToDateErrors,
+				upToDateTabs: createTabs(upToDateErrors),
 				version: inputJson.phpStanVersion,
 				level: inputJson.level.toString(),
 				config: {
