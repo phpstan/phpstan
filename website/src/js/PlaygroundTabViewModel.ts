@@ -11,7 +11,7 @@ export class PlaygroundTabViewModel {
 
 	title: string;
 
-	constructor(errors: PHPStanError[], versions: number[], active: boolean) {
+	constructor(errors: PHPStanError[], title: string, active: boolean) {
 		this.errors = errors;
 
 		const errorsCount = this.errors.length;
@@ -31,30 +31,6 @@ export class PlaygroundTabViewModel {
 		}
 
 		this.errorLines = lines;
-
-		const versionNumberToString = (version: number): string => {
-			const first = Math.floor(version / 10000);
-			const second = Math.floor((version % 10000) / 100);
-			const third = Math.floor(version % 100);
-
-			return first + '.' + second + (third !== 0 ? '.' + third : '');
-		}
-
-		let title = 'PHP ';
-		if (versions.length > 1) {
-			title += versionNumberToString(versions[0]);
-			title += ' – ';
-			title += versionNumberToString(versions[versions.length - 1]);
-		} else {
-			title += versionNumberToString(versions[0]);
-		}
-
-		if (errorsCount === 1) {
-			title += ' (1 error)';
-		} else if (errorsCount > 0) {
-			title += ' (' + errorsCount + ' errors)';
-		}
-
 
 		this.title = title;
 		this.tabClass = ko.pureComputed((): string => {
