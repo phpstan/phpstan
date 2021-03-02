@@ -278,20 +278,18 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 		const inputJson = JSON.parse(inputObject.Body as string);
 		const AnsiToHtml = require('ansi-to-html');
 		const convert = new AnsiToHtml();
-		const upToDateErrors = await analyseResultInternal(
-			inputJson.phpCode,
-			inputJson.level.toString(),
-			false,
-			false,
-			true,
-		);
 		return Promise.resolve({
 			statusCode: 200,
 			body: JSON.stringify({
 				code: inputJson.phpCode,
 				htmlErrors: convert.toHtml(JSON.parse(outputObject.Body as string).output),
-				upToDateErrors,
-				upToDateTabs: createTabs(upToDateErrors),
+				upToDateTabs: createTabs(await analyseResultInternal(
+					inputJson.phpCode,
+					inputJson.level.toString(),
+					false,
+					false,
+					true,
+				)),
 				version: inputJson.phpStanVersion,
 				level: inputJson.level.toString(),
 				config: {
