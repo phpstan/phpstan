@@ -11,7 +11,18 @@ $errorHandler->registerExceptionHandler();
 $errorHandler->registerErrorHandler();
 $errorHandler->registerShutdownFunction();
 
+function clearTemp(): void
+{
+	$files = glob('/tmp/*');
+	foreach ($files as $file) {
+		if (is_file($file)) {
+			@unlink($file);
+		}
+	}
+}
+
 return function ($event) {
+	clearTemp();
 	$code = $event['code'];
 	$level = $event['level'];
 	$codePath = '/tmp/tmp.php';
