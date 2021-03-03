@@ -13,11 +13,14 @@ $errorHandler->registerShutdownFunction();
 
 function clearTemp(): void
 {
-	$files = glob('/tmp/*');
-	foreach ($files as $file) {
-		if (is_file($file)) {
-			@unlink($file);
-		}
+	$files = new RecursiveIteratorIterator(
+		new RecursiveDirectoryIterator('/tmp', RecursiveDirectoryIterator::SKIP_DOTS),
+		RecursiveIteratorIterator::CHILD_FIRST
+	);
+
+	foreach ($files as $fileinfo) {
+		$todo = ($fileinfo->isDir() ? 'rmdir' : 'unlink');
+		$todo($fileinfo->getRealPath());
 	}
 }
 
