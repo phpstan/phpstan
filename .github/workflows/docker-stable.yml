@@ -16,6 +16,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
@@ -49,3 +52,4 @@ jobs:
             PHPSTAN_VERSION=${{ steps.get_version.outputs.VERSION }}
           push: true
           tags: ghcr.io/phpstan/phpstan:latest,ghcr.io/phpstan/phpstan:0.12,ghcr.io/phpstan/phpstan:${{ steps.get_version.outputs.VERSION }}
+          platforms: linux/amd64,linux/arm64
