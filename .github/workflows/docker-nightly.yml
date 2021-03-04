@@ -54,3 +54,5 @@ jobs:
           push: true
           tags: ghcr.io/phpstan/phpstan:nightly
           platforms: linux/amd64,linux/arm64
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
