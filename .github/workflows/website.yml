@@ -25,7 +25,7 @@ jobs:
           node-version: "13"
 
       - name: "Cache dependencies"
-        uses: "actions/cache@v2"
+        uses: "actions/cache@v2.1.4"
         with:
           path: "$(yarn cache dir)"
           key: "${{ runner.os }}-yarn-${{ hashFiles('website/**/yarn.lock') }}"
@@ -53,7 +53,7 @@ jobs:
           node-version: "13"
 
       - name: "Cache dependencies"
-        uses: "actions/cache@v2"
+        uses: "actions/cache@v2.1.4"
         with:
           path: "$(yarn cache dir)"
           key: "${{ runner.os }}-yarn-${{ hashFiles('website/**/yarn.lock') }}"
