@@ -23,8 +23,11 @@ $phpstanSrcCommit = $_SERVER['PHPSTAN_SRC_COMMIT'];
 
 $rateLimitPlugin = new RateLimitPlugin();
 
+$gitHubRequestCounter = new RequestCounterPlugin();
+
 $httpBuilder = new Builder();
 $httpBuilder->addPlugin($rateLimitPlugin);
+$httpBuilder->addPlugin($gitHubRequestCounter);
 
 $client = new Client($httpBuilder);
 $client->authenticate($token, Client::AUTH_ACCESS_TOKEN);
@@ -190,3 +193,6 @@ foreach (getIssues() as $issue) {
 }
 
 $promiseResolver->flush();
+
+echo sprintf("Total playground requests: %d\n", $promiseResolver->getTotalCount());
+echo sprintf("Total GitHub requests: %d\n", $gitHubRequestCounter->getTotalCount());
