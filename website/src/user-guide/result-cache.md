@@ -25,8 +25,8 @@ Result cache contents
   * Analysed paths
   * `composer.lock` files hashes
   * [Stub files](/user-guide/stub-files) hashes
-  * [Bootstrap files](https://phpstan.org/config-reference#bootstrap) hashes
-  * [Autoload file](https://phpstan.org/user-guide/command-line-usage#--autoload-file%7C-a) hash
+  * [Bootstrap files](/config-reference#bootstrap) hashes
+  * [Autoload file](/user-guide/command-line-usage#--autoload-file%7C-a) hash
 * Errors in the last run
 * Dependency tree of project files. If file `A.php` was modified since the last run, `A.php` and all the files calling or otherwise referencing all the symbols in `A.php` are analysed again.
 
