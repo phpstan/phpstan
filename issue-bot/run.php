@@ -6,10 +6,12 @@ use App\BotCommentParser\BotCommentParser;
 use App\BotCommentParser\BotCommentParserException;
 use App\Playground\PlaygroundClient;
 use App\Playground\PlaygroundExample;
+use AppendIterator;
 use DateTimeImmutable;
 use Github\Client;
 use Github\HttpClient\Builder;
 use GuzzleHttp\Promise\Utils;
+use Iterator;
 use League\CommonMark\DocParser;
 use League\CommonMark\Environment;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
@@ -41,9 +43,10 @@ $markdownEnvironment->addExtension(new GithubFlavoredMarkdownExtension());
 $botCommentParser = new BotCommentParser(new DocParser($markdownEnvironment));
 
 /**
- * @return Issue[]
+ * @param string $label
+ * @return Iterator<int, Issue>
  */
-function getIssues(): iterable
+function getIssues(string $label): Iterator
 {
 	/** @var Client */
 	global $client;
@@ -55,7 +58,7 @@ function getIssues(): iterable
 	while (true) {
 		$newIssues = $api->all('phpstan', 'phpstan', [
 			'state' => 'open',
-			'labels' => 'bug',
+			'labels' => $label,
 			'page' => $page,
 			'per_page' => 100,
 			'sort' => 'created',
@@ -143,7 +146,11 @@ function searchBody(string $text, string $author): array
 $postGenerator = new PostGenerator(new Differ(new UnifiedDiffOutputBuilder('')), $phpstanSrcCommit);
 $promiseResolver = new PromiseResolver();
 
-foreach (getIssues() as $issue) {
+$issuesIterator = new AppendIterator();
+$issuesIterator->append(getIssues('bug'));
+$issuesIterator->append(getIssues('feature-request'));
+
+foreach ($issuesIterator as $issue) {
 	$deduplicatedExamples = [];
 
 	foreach ($issue->getPlaygroundExamples() as $example) {
