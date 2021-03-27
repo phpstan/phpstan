@@ -927,16 +927,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "0.5.2",
+            "version": "0.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "2269e476268a46e1a9b71fef61a6e5584b819b74"
+                "reference": "7c3115eeb29211577a64a7a5757abbb2d20a652d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/2269e476268a46e1a9b71fef61a6e5584b819b74",
-                "reference": "2269e476268a46e1a9b71fef61a6e5584b819b74",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/7c3115eeb29211577a64a7a5757abbb2d20a652d",
+                "reference": "7c3115eeb29211577a64a7a5757abbb2d20a652d",
                 "shasum": ""
             },
             "require": {
@@ -971,9 +971,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/0.5.2"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/0.5.3"
             },
-            "time": "2021-03-22T17:32:47+00:00"
+            "time": "2021-03-27T11:40:37+00:00"
         },
         {
             "name": "phpstan/phpstan",
