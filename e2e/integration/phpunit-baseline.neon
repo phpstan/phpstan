@@ -1246,11 +1246,6 @@ parameters:
 			path: repo/src/Framework/Exception/SyntheticError.php
 
 		-
-			message: "#^Parameter \\#1 \\$t of class PHPUnit\\\\Framework\\\\ExceptionWrapper constructor expects Throwable, Throwable\\|null given\\.$#"
-			count: 1
-			path: repo/src/Framework/ExceptionWrapper.php
-
-		-
 			message: "#^Method PHPUnit\\\\TestFixture\\\\MockObject\\\\AnotherClassUsingConfigurableMethods\\:\\:__phpunit_setOriginalObject\\(\\) has parameter \\$originalObject with no typehint specified\\.$#"
 			count: 1
 			path: repo/tests/_files/mock-object/AnotherClassUsingConfigurableMethods.php
@@ -1821,11 +1816,6 @@ parameters:
 			path: repo/src/Framework/TestCase.php
 
 		-
-			message: "#^Cannot call method filter\\(\\) on SebastianBergmann\\\\CodeCoverage\\\\CodeCoverage\\|null\\.$#"
-			count: 1
-			path: repo/src/Framework/TestCase.php
-
-		-
 			message: "#^Property PHPUnit\\\\Framework\\\\TestCase\\:\\:\\$result \\(PHPUnit\\\\Framework\\\\TestResult\\) does not accept null\\.$#"
 			count: 1
 			path: repo/src/Framework/TestCase.php
@@ -2044,11 +2034,6 @@ parameters:
 			message: "#^Instanceof between \\$this\\(PHPUnit\\\\Framework\\\\TestCase\\) and PHPUnit\\\\Runner\\\\PhptTestCase will always evaluate to false\\.$#"
 			count: 1
 			path: repo/src/Framework/TestCase.php
-
-		-
-			message: "#^Cannot call method getDiff\\(\\) on SebastianBergmann\\\\Comparator\\\\ComparisonFailure\\|null\\.$#"
-			count: 1
-			path: repo/src/Framework/TestFailure.php
 
 		-
 			message: "#^Method PHPUnit\\\\Framework\\\\TestListener\\:\\:startTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
@@ -3221,19 +3206,9 @@ parameters:
 			path: repo/src/Util/ErrorHandler.php
 
 		-
-			message: "#^Cannot call method getTrace\\(\\) on Throwable\\|null\\.$#"
+			message: "#^Negated boolean expression is always true\\.$#"
 			count: 1
-			path: repo/src/Util/Filter.php
-
-		-
-			message: "#^Cannot call method getFile\\(\\) on Throwable\\|null\\.$#"
-			count: 1
-			path: repo/src/Util/Filter.php
-
-		-
-			message: "#^Cannot call method getLine\\(\\) on Throwable\\|null\\.$#"
-			count: 1
-			path: repo/src/Util/Filter.php
+			path: repo/src/Util/Filesystem.php
 
 		-
 			message: "#^Method PHPUnit\\\\Util\\\\Filter\\:\\:shouldPrintFrame\\(\\) has parameter \\$frame with no value type specified in iterable type array\\.$#"
