@@ -51,11 +51,6 @@ parameters:
 			path: repo/src/pocketmine/inventory/transaction/CraftingTransaction.php
 
 		-
-			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: repo/src/pocketmine/item/Durable.php
-
-		-
 			message: "#^Parameter \\#1 \\$input of function array_values expects array, array\\|false given\\.$#"
 			count: 1
 			path: repo/src/pocketmine/level/format/Chunk.php
