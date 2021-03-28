@@ -61,11 +61,6 @@ parameters:
 			path: repo/src/Composer/Command/GlobalCommand.php
 
 		-
-			message: "#^Negated boolean expression is always true\\.$#"
-			count: 1
-			path: repo/src/Composer/Command/GlobalCommand.php
-
-		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Helper\\\\HelperInterface\\:\\:formatBlock\\(\\)\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/InitCommand.php
@@ -278,11 +273,6 @@ parameters:
 		-
 			message: "#^Array \\(array\\<Composer\\\\DependencyResolver\\\\Package\\>\\) does not accept Composer\\\\Package\\\\AliasPackage\\.$#"
 			count: 1
-			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
-
-		-
-			message: "#^Negated boolean expression is always true\\.$#"
-			count: 2
 			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
 
 		-
