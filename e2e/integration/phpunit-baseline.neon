@@ -2256,11 +2256,6 @@ parameters:
 			path: repo/src/Framework/TestSuite.php
 
 		-
-			message: "#^Variable \\$afterClassMethod might not be defined\\.$#"
-			count: 2
-			path: repo/src/Framework/TestSuite.php
-
-		-
 			message: "#^Variable \\$test might not be defined\\.$#"
 			count: 1
 			path: repo/src/Framework/TestSuite.php
