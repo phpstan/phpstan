@@ -290,10 +290,11 @@ jobs:
           - |
             git clone https://github.com/composer/composer.git e2e/integration/repo
             cd e2e/integration/repo
-            git checkout 2.0.0-RC1
+            git checkout 4940009f8377d06b9fb48df0cbe67193e0989830
             composer install
             composer config platform --unset && composer update
             bin/composer require --dev phpunit/phpunit:^7.5 --with-all-dependencies
+            bin/composer require --dev phpstan/phpstan-phpunit
             ../../../phpstan.phar analyse -c ../composer.neon -l 5 src tests
           - |
             git clone https://github.com/pmmp/PocketMine-MP.git e2e/integration/repo

@@ -1,22 +1,17 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: repo/src/Composer/Autoload/AutoloadGenerator.php
-
-		-
 			message: "#^Else branch is unreachable because ternary operator condition is always true\\.$#"
 			count: 1
 			path: repo/src/Composer/Autoload/AutoloadGenerator.php
 
 		-
-			message: "#^Parameter \\#1 \\$autoload_function of function spl_autoload_register expects callable\\(string\\)\\: void, array\\(\\$this\\(Composer\\\\Autoload\\\\ClassLoader\\), 'loadClass'\\) given\\.$#"
+			message: "#^Left side of && is always true\\.$#"
 			count: 1
-			path: repo/src/Composer/Autoload/ClassLoader.php
+			path: repo/src/Composer/Autoload/AutoloadGenerator.php
 
 		-
-			message: "#^Method Composer\\\\Autoload\\\\ClassLoader\\:\\:loadClass\\(\\) should return bool\\|null but return statement is missing\\.$#"
+			message: "#^Parameter \\#1 \\$autoload_function of function spl_autoload_register expects callable\\(string\\)\\: void, array\\(\\$this\\(Composer\\\\Autoload\\\\ClassLoader\\), 'loadClass'\\) given\\.$#"
 			count: 1
 			path: repo/src/Composer/Autoload/ClassLoader.php
 
@@ -31,24 +26,14 @@ parameters:
 			path: repo/src/Composer/Command/ArchiveCommand.php
 
 		-
-			message: "#^Elseif branch is unreachable because previous condition is always true\\.$#"
-			count: 1
-			path: repo/src/Composer/Command/BaseCommand.php
-
-		-
 			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/BaseCommand.php
 
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Helper\\\\TableStyle\\:\\:setVerticalBorderChar\\(\\)\\.$#"
+			message: "#^Elseif branch is unreachable because previous condition is always true\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/BaseCommand.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getDescription\\(\\)\\.$#"
-			count: 2
-			path: repo/src/Composer/Command/DiagnoseCommand.php
 
 		-
 			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
@@ -56,27 +41,22 @@ parameters:
 			path: repo/src/Composer/Command/DiagnoseCommand.php
 
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Input\\\\InputInterface\\:\\:__toString\\(\\)\\.$#"
-			count: 2
-			path: repo/src/Composer/Command/GlobalCommand.php
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/DiagnoseCommand.php
 
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Helper\\\\HelperInterface\\:\\:formatBlock\\(\\)\\.$#"
+			message: "#^Strict comparison using \\!\\=\\= between '@package_version@' and '@package_version@' will always evaluate to false\\.$#"
 			count: 1
-			path: repo/src/Composer/Command/InitCommand.php
+			path: repo/src/Composer/Command/DiagnoseCommand.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/DiagnoseCommand.php
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: repo/src/Composer/Command/InitCommand.php
-
-		-
-			message: "#^Empty array passed to foreach\\.$#"
-			count: 1
-			path: repo/src/Composer/Command/InitCommand.php
-
-		-
-			message: "#^Call to function unset\\(\\) contains undefined variable \\$requiredPackage\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/InitCommand.php
 
@@ -86,18 +66,18 @@ parameters:
 			path: repo/src/Composer/Command/InitCommand.php
 
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Helper\\\\TableStyle\\:\\:setVerticalBorderChar\\(\\)\\.$#"
+			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
-			path: repo/src/Composer/Command/LicensesCommand.php
+			path: repo/src/Composer/Command/InstallCommand.php
 
 		-
-			message: "#^PHPDoc tag @throws with type FilesystemException is not subtype of Throwable$#"
+			message: "#^Parameter \\#3 \\$description of method Composer\\\\Package\\\\Loader\\\\ArrayLoader\\:\\:parseLinks\\(\\) expects 'conflicts'\\|'devRequires'\\|'provides'\\|'relates to'\\|'replaces'\\|'requires', string given\\.$#"
 			count: 1
-			path: repo/src/Composer/Command/SelfUpdateCommand.php
+			path: repo/src/Composer/Command/RequireCommand.php
 
 		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:isAbandoned\\(\\)\\.$#"
-			count: 5
+			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
+			count: 1
 			path: repo/src/Composer/Command/ShowCommand.php
 
 		-
@@ -106,39 +86,14 @@ parameters:
 			path: repo/src/Composer/Command/ShowCommand.php
 
 		-
-			message: "#^Call to an undefined method Composer\\\\Console\\\\Application\\:\\:getTerminalDimensions\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Command/ShowCommand.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getReplacementPackage\\(\\)\\.$#"
-			count: 5
-			path: repo/src/Composer/Command/ShowCommand.php
-
-		-
-			message: "#^Call to function is_array\\(\\) with string will always evaluate to false\\.$#"
-			count: 1
-			path: repo/src/Composer/Command/ShowCommand.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getDescription\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Command/ShowCommand.php
-
-		-
-			message: "#^Cannot call method getConstraint\\(\\) on Composer\\\\Package\\\\PackageInterface\\|string\\.$#"
-			count: 1
-			path: repo/src/Composer/Command/ShowCommand.php
-
-		-
-			message: "#^Cannot call method getPrettyConstraint\\(\\) on Composer\\\\Package\\\\PackageInterface\\|string\\.$#"
-			count: 2
-			path: repo/src/Composer/Command/ShowCommand.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/ShowCommand.php
+
+		-
+			message: "#^Parameter \\#4 \\$description of class Composer\\\\Package\\\\Link constructor expects 'conflicts'\\|'devRequires'\\|'provides'\\|'relates to'\\|'replaces'\\|'requires', string given\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/UpdateCommand.php
 
 		-
 			message: "#^Parameter \\#1 \\$command of class Symfony\\\\Component\\\\Process\\\\Process constructor expects array, string given\\.$#"
@@ -151,24 +106,9 @@ parameters:
 			path: repo/src/Composer/Compiler.php
 
 		-
-			message: "#^Strict comparison using \\=\\=\\= between '2\\.0\\.0\\-RC1' and '@package_version@' will always evaluate to false\\.$#"
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: repo/src/Composer/Composer.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 1
-			path: repo/src/Composer/Composer.php
-
-		-
-			message: "#^Strict comparison using \\!\\=\\= between '' and '' will always evaluate to false\\.$#"
-			count: 1
-			path: repo/src/Composer/Composer.php
-
-		-
-			message: "#^Parameter \\#2 \\$newvalue of function ini_set expects string, false given\\.$#"
-			count: 2
-			path: repo/src/Composer/Console/Application.php
 
 		-
 			message: "#^If condition is always true\\.$#"
@@ -176,17 +116,17 @@ parameters:
 			path: repo/src/Composer/Console/Application.php
 
 		-
-			message: "#^Property Composer\\\\Console\\\\Application\\:\\:\\$composer \\(Composer\\\\Composer\\) does not accept null\\.$#"
-			count: 1
-			path: repo/src/Composer/Console/Application.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
-			count: 1
+			count: 2
 			path: repo/src/Composer/Console/Application.php
 
 		-
-			message: "#^Left side of && is always false\\.$#"
+			message: "#^Parameter \\#2 \\$newvalue of function ini_set expects string, false given\\.$#"
+			count: 2
+			path: repo/src/Composer/Console/Application.php
+
+		-
+			message: "#^Strict comparison using \\!\\=\\= between '@package_branch…' and '@package_branch…' will always evaluate to false\\.$#"
 			count: 1
 			path: repo/src/Composer/Console/Application.php
 
@@ -196,37 +136,17 @@ parameters:
 			path: repo/src/Composer/Console/Application.php
 
 		-
-			message: "#^Call to an undefined method Composer\\\\Plugin\\\\Capability\\\\Capability\\:\\:getCommands\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Console/Application.php
-
-		-
-			message: "#^Method Composer\\\\DependencyResolver\\\\Decisions\\:\\:next\\(\\) with return type void returns mixed but should not return anything\\.$#"
-			count: 1
-			path: repo/src/Composer/DependencyResolver/Decisions.php
-
-		-
-			message: "#^Access to an undefined property Composer\\\\Package\\\\PackageInterface\\:\\:\\$id\\.$#"
-			count: 4
-			path: repo/src/Composer/DependencyResolver/DefaultPolicy.php
-
-		-
 			message: "#^Instanceof between mixed and Composer\\\\Package\\\\RootAliasPackage will always evaluate to false\\.$#"
 			count: 1
 			path: repo/src/Composer/DependencyResolver/LockTransaction.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$lock bool Whether this is an operation on the lock file\\)\\: Unexpected token \"\\$lock\", expected type at offset 84$#"
+			message: "#^Parameter \\#1 \\$input of function str_pad expects string, int given\\.$#"
 			count: 1
-			path: repo/src/Composer/DependencyResolver/Operation/OperationInterface.php
+			path: repo/src/Composer/DependencyResolver/Pool.php
 
 		-
-			message: "#^Property Composer\\\\DependencyResolver\\\\PoolBuilder\\:\\:\\$packages has unknown class Composer\\\\DependencyResolver\\\\Package as its type\\.$#"
-			count: 1
-			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
-
-		-
-			message: "#^Property Composer\\\\DependencyResolver\\\\PoolBuilder\\:\\:\\$unacceptableFixedPackages has unknown class Composer\\\\DependencyResolver\\\\Package as its type\\.$#"
+			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
 
@@ -236,47 +156,17 @@ parameters:
 			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
 
 		-
+			message: "#^Parameter \\#1 \\$aliasOf of class Composer\\\\Package\\\\AliasPackage constructor expects Composer\\\\Package\\\\BasePackage, Composer\\\\Package\\\\PackageInterface given\\.$#"
+			count: 1
+			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
+
+		-
+			message: "#^Parameter \\#1 \\$aliasOf of class Composer\\\\Package\\\\CompleteAliasPackage constructor expects Composer\\\\Package\\\\CompletePackage, Composer\\\\Package\\\\CompletePackageInterface given\\.$#"
+			count: 1
+			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
+
+		-
 			message: "#^Parameter \\#2 \\$stabilityFlags of static method Composer\\\\Package\\\\Version\\\\StabilityFilter\\:\\:isPackageAcceptable\\(\\) expects array\\<string, 0\\|5\\|10\\|15\\|20\\>, array\\<int\\> given\\.$#"
-			count: 1
-			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
-
-		-
-			message: "#^Call to method getVersion\\(\\) on an unknown class Composer\\\\DependencyResolver\\\\Package\\.$#"
-			count: 1
-			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
-
-		-
-			message: "#^Binary operation \"\\+\\=\" between array\\<Composer\\\\DependencyResolver\\\\Package\\> and Composer\\\\Package\\\\AliasPackage results in an error\\.$#"
-			count: 1
-			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
-
-		-
-			message: "#^Property Composer\\\\DependencyResolver\\\\PoolBuilder\\:\\:\\$packages \\(array\\<Composer\\\\DependencyResolver\\\\Package\\>\\) does not accept array\\<Composer\\\\Package\\\\PackageInterface\\>\\.$#"
-			count: 1
-			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
-
-		-
-			message: "#^Property Composer\\\\DependencyResolver\\\\PoolBuilder\\:\\:\\$unacceptableFixedPackages \\(array\\<int, Composer\\\\DependencyResolver\\\\Package\\>\\) does not accept array\\<Composer\\\\Package\\\\PackageInterface\\>\\.$#"
-			count: 1
-			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
-
-		-
-			message: "#^Array \\(array\\<Composer\\\\DependencyResolver\\\\Package\\>\\) does not accept Composer\\\\Package\\\\PackageInterface\\.$#"
-			count: 1
-			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
-
-		-
-			message: "#^Array \\(array\\<Composer\\\\DependencyResolver\\\\Package\\>\\) does not accept Composer\\\\Package\\\\AliasPackage\\.$#"
-			count: 1
-			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
-
-		-
-			message: "#^Argument of an invalid type Composer\\\\Package\\\\AliasPackage supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
 
@@ -286,59 +176,14 @@ parameters:
 			path: repo/src/Composer/DependencyResolver/Problem.php
 
 		-
-			message: "#^Access to an undefined property Composer\\\\Package\\\\PackageInterface\\:\\:\\$id\\.$#"
-			count: 5
-			path: repo/src/Composer/DependencyResolver/RuleSetGenerator.php
-
-		-
-			message: "#^Parameter \\#3 \\$reasonData of class Composer\\\\DependencyResolver\\\\GenericRule constructor expects Composer\\\\Package\\\\Link\\|Composer\\\\Package\\\\PackageInterface\\|int\\|null, array given\\.$#"
+			message: "#^Parameter \\#3 \\$reasonData of class Composer\\\\DependencyResolver\\\\GenericRule constructor expects Composer\\\\Package\\\\BasePackage\\|Composer\\\\Package\\\\Link\\|int\\|null, array given\\.$#"
 			count: 1
 			path: repo/src/Composer/DependencyResolver/RuleSetGenerator.php
 
 		-
-			message: "#^Parameter \\#3 \\$reasonData of class Composer\\\\DependencyResolver\\\\GenericRule constructor expects Composer\\\\Package\\\\Link\\|Composer\\\\Package\\\\PackageInterface\\|int\\|null, array\\<string, mixed\\> given\\.$#"
+			message: "#^Parameter \\#3 \\$reasonData of class Composer\\\\DependencyResolver\\\\GenericRule constructor expects Composer\\\\Package\\\\BasePackage\\|Composer\\\\Package\\\\Link\\|int\\|null, array\\<string, mixed\\> given\\.$#"
 			count: 1
 			path: repo/src/Composer/DependencyResolver/Solver.php
-
-		-
-			message: "#^Part \\$rule \\(Composer\\\\DependencyResolver\\\\Rule\\) of encapsed string cannot be cast to string\\.$#"
-			count: 1
-			path: repo/src/Composer/DependencyResolver/Solver.php
-
-		-
-			message: "#^Part \\$analyzedRule \\(Composer\\\\DependencyResolver\\\\Rule\\) of encapsed string cannot be cast to string\\.$#"
-			count: 2
-			path: repo/src/Composer/DependencyResolver/Solver.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\DownloadManager\\:\\:getDownloaderForPackage\\(\\) should return Composer\\\\Downloader\\\\DownloaderInterface\\|null but empty return statement found\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/DownloadManager.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\DownloadManager\\:\\:prepare\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/DownloadManager.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\DownloadManager\\:\\:install\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/DownloadManager.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\DownloadManager\\:\\:update\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but empty return statement found\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/DownloadManager.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\DownloadManager\\:\\:remove\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/DownloadManager.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\DownloadManager\\:\\:cleanup\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/DownloadManager.php
 
 		-
 			message: "#^If condition is always true\\.$#"
@@ -351,112 +196,7 @@ parameters:
 			path: repo/src/Composer/Downloader/FileDownloader.php
 
 		-
-			message: "#^Elseif condition is always true\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/FileDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\FileDownloader\\:\\:prepare\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/FileDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\FileDownloader\\:\\:cleanup\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/FileDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\FossilDownloader\\:\\:doDownload\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/FossilDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\FossilDownloader\\:\\:doInstall\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/FossilDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\FossilDownloader\\:\\:doUpdate\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/FossilDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\GitDownloader\\:\\:doDownload\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/GitDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\GitDownloader\\:\\:doInstall\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/GitDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\GitDownloader\\:\\:doUpdate\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/GitDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\GitDownloader\\:\\:getLocalChanges\\(\\) should return string\\|null but empty return statement found\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/GitDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\GitDownloader\\:\\:getUnpushedChanges\\(\\) should return string\\|null but empty return statement found\\.$#"
-			count: 3
-			path: repo/src/Composer/Downloader/GitDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\GzipDownloader\\:\\:extract\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but empty return statement found\\.$#"
-			count: 2
-			path: repo/src/Composer/Downloader/GzipDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\GzipDownloader\\:\\:extract\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/GzipDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\HgDownloader\\:\\:doDownload\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/HgDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\HgDownloader\\:\\:doInstall\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/HgDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\HgDownloader\\:\\:doUpdate\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/HgDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\PathDownloader\\:\\:download\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but empty return statement found\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/PathDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\PathDownloader\\:\\:download\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/PathDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\PathDownloader\\:\\:getVcsReference\\(\\) should return string\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/PathDownloader.php
-
-		-
-			message: "#^Result of && is always false\\.$#"
-			count: 2
-			path: repo/src/Composer/Downloader/PathDownloader.php
-
-		-
 			message: "#^Comparison operation \"\\>\" between 0 and 6 is always false\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/PathDownloader.php
-
-		-
-			message: "#^Result of \\|\\| is always false\\.$#"
 			count: 1
 			path: repo/src/Composer/Downloader/PathDownloader.php
 
@@ -466,127 +206,32 @@ parameters:
 			path: repo/src/Composer/Downloader/PathDownloader.php
 
 		-
+			message: "#^Result of && is always false\\.$#"
+			count: 2
+			path: repo/src/Composer/Downloader/PathDownloader.php
+
+		-
+			message: "#^Result of \\|\\| is always false\\.$#"
+			count: 1
+			path: repo/src/Composer/Downloader/PathDownloader.php
+
+		-
 			message: "#^Strict comparison using \\=\\=\\= between 0 and 6 will always evaluate to false\\.$#"
 			count: 1
 			path: repo/src/Composer/Downloader/PathDownloader.php
 
 		-
-			message: "#^Method Composer\\\\Downloader\\\\PerforceDownloader\\:\\:doDownload\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/PerforceDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\PerforceDownloader\\:\\:doInstall\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/PerforceDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\PerforceDownloader\\:\\:doUpdate\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/PerforceDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\PerforceDownloader\\:\\:getLocalChanges\\(\\) should return string\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/PerforceDownloader.php
-
-		-
 			message: "#^Parameter \\#2 \\$files of method Phar\\:\\:extractTo\\(\\) expects array\\|string, null given\\.$#"
 			count: 1
 			path: repo/src/Composer/Downloader/PharDownloader.php
 
 		-
-			message: "#^Method Composer\\\\Downloader\\\\PharDownloader\\:\\:extract\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/PharDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\RarDownloader\\:\\:extract\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but empty return statement found\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/RarDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\RarDownloader\\:\\:extract\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/RarDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\SvnDownloader\\:\\:doDownload\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/SvnDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\SvnDownloader\\:\\:doInstall\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/SvnDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\SvnDownloader\\:\\:doUpdate\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/SvnDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\TarDownloader\\:\\:extract\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/TarDownloader.php
-
-		-
 			message: "#^Parameter \\#2 \\$files of method Phar\\:\\:extractTo\\(\\) expects array\\|string, null given\\.$#"
 			count: 1
 			path: repo/src/Composer/Downloader/TarDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\VcsDownloader\\:\\:download\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/VcsDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\VcsDownloader\\:\\:prepare\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/VcsDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\VcsDownloader\\:\\:cleanup\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/VcsDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\VcsDownloader\\:\\:getVcsReference\\(\\) should return string\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/VcsDownloader.php
-
-		-
-			message: "#^Method Composer\\\\Downloader\\\\XzDownloader\\:\\:extract\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but empty return statement found\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/XzDownloader.php
-
-		-
-			message: "#^Cannot call method then\\(\\) on int\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/ZipDownloader.php
-
-		-
-			message: "#^Property Composer\\\\EventDispatcher\\\\EventDispatcher\\:\\:\\$loader has unknown class Composer\\\\ClassLoader as its type\\.$#"
-			count: 1
-			path: repo/src/Composer/EventDispatcher/EventDispatcher.php
-
-		-
-			message: "#^Call to method unregister\\(\\) on an unknown class Composer\\\\ClassLoader\\.$#"
-			count: 1
-			path: repo/src/Composer/EventDispatcher/EventDispatcher.php
-
-		-
-			message: "#^Property Composer\\\\EventDispatcher\\\\EventDispatcher\\:\\:\\$loader \\(Composer\\\\ClassLoader\\|null\\) does not accept Composer\\\\Autoload\\\\ClassLoader\\.$#"
-			count: 1
-			path: repo/src/Composer/EventDispatcher/EventDispatcher.php
 
 		-
 			message: "#^If condition is always true\\.$#"
-			count: 1
-			path: repo/src/Composer/Factory.php
-
-		-
-			message: "#^Parameter \\#1 \\$repo of method Composer\\\\Installer\\\\InstallationManager\\:\\:isPackageInstalled\\(\\) expects Composer\\\\Repository\\\\InstalledRepositoryInterface, Composer\\\\Repository\\\\WritableRepositoryInterface given\\.$#"
 			count: 1
 			path: repo/src/Composer/Factory.php
 
@@ -596,14 +241,9 @@ parameters:
 			path: repo/src/Composer/Factory.php
 
 		-
-			message: "#^Method Composer\\\\IO\\\\BaseIO\\:\\:log\\(\\) should return null but return statement is missing\\.$#"
+			message: "#^Parameter \\#1 \\$repo of method Composer\\\\Installer\\\\InstallationManager\\:\\:isPackageInstalled\\(\\) expects Composer\\\\Repository\\\\InstalledRepositoryInterface, Composer\\\\Repository\\\\WritableRepositoryInterface given\\.$#"
 			count: 1
-			path: repo/src/Composer/IO/BaseIO.php
-
-		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\:\\:getStream\\(\\)\\.$#"
-			count: 2
-			path: repo/src/Composer/IO/BufferIO.php
+			path: repo/src/Composer/Factory.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between 16 and 0 will always evaluate to false\\.$#"
@@ -611,32 +251,12 @@ parameters:
 			path: repo/src/Composer/IO/ConsoleIO.php
 
 		-
-			message: "#^Default value of the parameter \\#3 \\$attempts \\(false\\) of method Composer\\\\IO\\\\NullIO\\:\\:askAndValidate\\(\\) is incompatible with type int\\|null\\.$#"
-			count: 1
-			path: repo/src/Composer/IO/NullIO.php
-
-		-
-			message: "#^Property Composer\\\\Installer\\:\\:\\$updateMirrors \\(array\\|null\\) does not accept default value of type false\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 2
 			path: repo/src/Composer/Installer.php
 
 		-
-			message: "#^Parameter \\#1 \\$lockedRepository of class Composer\\\\DependencyResolver\\\\Request constructor expects Composer\\\\Repository\\\\LockArrayRepository\\|null, Composer\\\\Repository\\\\RepositoryInterface\\|null given\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer.php
-
-		-
-			message: "#^Property Composer\\\\Installer\\:\\:\\$updateMirrors \\(array\\|null\\) does not accept bool\\.$#"
+			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: repo/src/Composer/Installer.php
 
@@ -646,134 +266,9 @@ parameters:
 			path: repo/src/Composer/Installer/InstallationManager.php
 
 		-
-			message: "#^Call to an undefined method Composer\\\\DependencyResolver\\\\Operation\\\\OperationInterface\\:\\:getTargetPackage\\(\\)\\.$#"
-			count: 2
-			path: repo/src/Composer/Installer/InstallationManager.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\DependencyResolver\\\\Operation\\\\OperationInterface\\:\\:getInitialPackage\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/InstallationManager.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\DependencyResolver\\\\Operation\\\\OperationInterface\\:\\:getPackage\\(\\)\\.$#"
-			count: 2
-			path: repo/src/Composer/Installer/InstallationManager.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Repository\\\\RepositoryInterface\\:\\:write\\(\\)\\.$#"
-			count: 2
-			path: repo/src/Composer/Installer/InstallationManager.php
-
-		-
 			message: "#^Right side of && is always true\\.$#"
 			count: 2
 			path: repo/src/Composer/Installer/InstallationManager.php
-
-		-
-			message: "#^Parameter \\#1 \\$repo of method Composer\\\\Installer\\\\InstallerInterface\\:\\:install\\(\\) expects Composer\\\\Repository\\\\InstalledRepositoryInterface, Composer\\\\Repository\\\\RepositoryInterface given\\.$#"
-			count: 2
-			path: repo/src/Composer/Installer/InstallationManager.php
-
-		-
-			message: "#^Parameter \\#1 \\$repo of method Composer\\\\Installer\\\\InstallerInterface\\:\\:update\\(\\) expects Composer\\\\Repository\\\\InstalledRepositoryInterface, Composer\\\\Repository\\\\RepositoryInterface given\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/InstallationManager.php
-
-		-
-			message: "#^Parameter \\#1 \\$repo of method Composer\\\\Installer\\\\InstallerInterface\\:\\:uninstall\\(\\) expects Composer\\\\Repository\\\\InstalledRepositoryInterface, Composer\\\\Repository\\\\RepositoryInterface given\\.$#"
-			count: 2
-			path: repo/src/Composer/Installer/InstallationManager.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Repository\\\\RepositoryInterface\\:\\:addPackage\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/InstallationManager.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Repository\\\\RepositoryInterface\\:\\:removePackage\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/InstallationManager.php
-
-		-
-			message: "#^Parameter \\#2 \\$defaultOptions of static method Composer\\\\Util\\\\StreamContextFactory\\:\\:getContext\\(\\) expects array\\('http' \\=\\> array\\(\\?'follow_location' \\=\\> int, \\?'max_redirects' \\=\\> int, \\?'header' \\=\\> array\\<string, int\\|string\\>\\|string\\)\\), array\\('http' \\=\\> array\\('method' \\=\\> 'POST', 'header' \\=\\> array\\(0 \\=\\> 'Content\\-type\\:…', \\?1 \\=\\> string\\), 'content' \\=\\> string, 'timeout' \\=\\> 3\\)\\) given\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/InstallationManager.php
-
-		-
-			message: "#^Parameter \\#2 \\$defaultOptions of static method Composer\\\\Util\\\\StreamContextFactory\\:\\:getContext\\(\\) expects array\\('http' \\=\\> array\\(\\?'follow_location' \\=\\> int, \\?'max_redirects' \\=\\> int, \\?'header' \\=\\> array\\<string, int\\|string\\>\\|string\\)\\), array\\('http' \\=\\> array\\('method' \\=\\> 'POST', 'header' \\=\\> array\\(0 \\=\\> 'Content\\-Type\\:…', \\?1 \\=\\> string\\), 'content' \\=\\> string\\|false, 'timeout' \\=\\> 6\\)\\) given\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/InstallationManager.php
-
-		-
-			message: "#^Method Composer\\\\Installer\\\\MetapackageInstaller\\:\\:download\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/MetapackageInstaller.php
-
-		-
-			message: "#^Method Composer\\\\Installer\\\\MetapackageInstaller\\:\\:prepare\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/MetapackageInstaller.php
-
-		-
-			message: "#^Method Composer\\\\Installer\\\\MetapackageInstaller\\:\\:cleanup\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/MetapackageInstaller.php
-
-		-
-			message: "#^Method Composer\\\\Installer\\\\MetapackageInstaller\\:\\:install\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/MetapackageInstaller.php
-
-		-
-			message: "#^Method Composer\\\\Installer\\\\MetapackageInstaller\\:\\:update\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/MetapackageInstaller.php
-
-		-
-			message: "#^Method Composer\\\\Installer\\\\MetapackageInstaller\\:\\:uninstall\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/MetapackageInstaller.php
-
-		-
-			message: "#^Method Composer\\\\Installer\\\\NoopInstaller\\:\\:download\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/NoopInstaller.php
-
-		-
-			message: "#^Method Composer\\\\Installer\\\\NoopInstaller\\:\\:prepare\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/NoopInstaller.php
-
-		-
-			message: "#^Method Composer\\\\Installer\\\\NoopInstaller\\:\\:cleanup\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/NoopInstaller.php
-
-		-
-			message: "#^Method Composer\\\\Installer\\\\NoopInstaller\\:\\:install\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/NoopInstaller.php
-
-		-
-			message: "#^Method Composer\\\\Installer\\\\NoopInstaller\\:\\:update\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/NoopInstaller.php
-
-		-
-			message: "#^Method Composer\\\\Installer\\\\NoopInstaller\\:\\:uninstall\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/NoopInstaller.php
-
-		-
-			message: "#^PHPDoc tag @param references unknown parameter\\: \\$request$#"
-			count: 1
-			path: repo/src/Composer/Installer/PackageEvent.php
-
-		-
-			message: "#^Method Composer\\\\Installer\\\\SuggestedPackagesReporter\\:\\:output\\(\\) should return Composer\\\\Installer\\\\SuggestedPackagesReporter but returns int\\.$#"
-			count: 1
-			path: repo/src/Composer/Installer/SuggestedPackagesReporter.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between null and string will always evaluate to false\\.$#"
@@ -781,134 +276,9 @@ parameters:
 			path: repo/src/Composer/Json/JsonFile.php
 
 		-
-			message: "#^Method Composer\\\\Package\\\\AliasPackage\\:\\:setSourceReference\\(\\) with return type void returns void but should not return anything\\.$#"
+			message: "#^Parameter \\#4 \\$description of class Composer\\\\Package\\\\Link constructor expects 'conflicts'\\|'devRequires'\\|'provides'\\|'relates to'\\|'replaces'\\|'requires', string given\\.$#"
 			count: 1
 			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Result of method Composer\\\\Package\\\\PackageInterface\\:\\:setSourceReference\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setSourceMirrors\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Method Composer\\\\Package\\\\AliasPackage\\:\\:setDistReference\\(\\) with return type void returns void but should not return anything\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Result of method Composer\\\\Package\\\\PackageInterface\\:\\:setDistReference\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setTransportOptions\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setDistMirrors\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getScripts\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getLicense\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getRepositories\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getKeywords\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getDescription\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getHomepage\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getAuthors\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getSupport\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getFunding\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:isAbandoned\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getReplacementPackage\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Method Composer\\\\Package\\\\AliasPackage\\:\\:setDistUrl\\(\\) with return type void returns void but should not return anything\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Result of method Composer\\\\Package\\\\PackageInterface\\:\\:setDistUrl\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Method Composer\\\\Package\\\\AliasPackage\\:\\:setDistType\\(\\) with return type void returns void but should not return anything\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Result of method Composer\\\\Package\\\\PackageInterface\\:\\:setDistType\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Method Composer\\\\Package\\\\AliasPackage\\:\\:setSourceDistReferences\\(\\) with return type void returns void but should not return anything\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Result of method Composer\\\\Package\\\\PackageInterface\\:\\:setSourceDistReferences\\(\\) \\(void\\) is used\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/AliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setArchiveName\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/Archiver/ArchiveManager.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setArchiveExcludes\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/Archiver/ArchiveManager.php
 
 		-
 			message: "#^Parameter \\#2 \\$flags of class PharData constructor expects int, null given\\.$#"
@@ -921,16 +291,6 @@ parameters:
 			path: repo/src/Composer/Package/Archiver/PharArchiver.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/BasePackage.php
-
-		-
-			message: "#^Property Composer\\\\Package\\\\BasePackage\\:\\:\\$repository \\(Composer\\\\Repository\\\\RepositoryInterface\\) does not accept null\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/BasePackage.php
-
-		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: repo/src/Composer/Package/Dumper/ArrayDumper.php
@@ -941,164 +301,34 @@ parameters:
 			path: repo/src/Composer/Package/Link.php
 
 		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\CompletePackageInterface\\:\\:setScripts\\(\\)\\.$#"
+			message: "#^Parameter \\#1 \\$aliasOf of class Composer\\\\Package\\\\CompleteAliasPackage constructor expects Composer\\\\Package\\\\CompletePackage, Composer\\\\Package\\\\CompletePackageInterface&Composer\\\\Package\\\\Package given\\.$#"
 			count: 1
 			path: repo/src/Composer/Package/Loader/ArrayLoader.php
 
 		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\CompletePackageInterface\\:\\:setDescription\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/Loader/ArrayLoader.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\CompletePackageInterface\\:\\:setHomepage\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/Loader/ArrayLoader.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\CompletePackageInterface\\:\\:setKeywords\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/Loader/ArrayLoader.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\CompletePackageInterface\\:\\:setLicense\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/Loader/ArrayLoader.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\CompletePackageInterface\\:\\:setAuthors\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/Loader/ArrayLoader.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\CompletePackageInterface\\:\\:setSupport\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/Loader/ArrayLoader.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\CompletePackageInterface\\:\\:setFunding\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/Loader/ArrayLoader.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\CompletePackageInterface\\:\\:setAbandoned\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/Loader/ArrayLoader.php
-
-		-
-			message: "#^Method Composer\\\\Package\\\\Loader\\\\ArrayLoader\\:\\:getBranchAlias\\(\\) should return string\\|null but empty return statement found\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/Loader/ArrayLoader.php
-
-		-
-			message: "#^Method Composer\\\\Package\\\\Loader\\\\ArrayLoader\\:\\:getBranchAlias\\(\\) should return string\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/Loader/ArrayLoader.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getAliasOf\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/Loader/RootPackageLoader.php
-
-		-
-			message: "#^Method Composer\\\\Package\\\\Loader\\\\RootPackageLoader\\:\\:load\\(\\) should return Composer\\\\Package\\\\RootPackageInterface but returns Composer\\\\Package\\\\PackageInterface\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/Loader/RootPackageLoader.php
-
-		-
-			message: "#^Method Composer\\\\Package\\\\Package\\:\\:getTargetDir\\(\\) should return string\\|null but empty return statement found\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/Package.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getAliases\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getMinimumStability\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getStabilityFlags\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getReferences\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getPreferStable\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getConfig\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setRequires\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setDevRequires\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setConflicts\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setProvides\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setReplaces\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setRepositories\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setAutoload\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setDevAutoload\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setStabilityFlags\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setSuggests\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setExtra\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Package/RootAliasPackage.php
-
-		-
-			message: "#^Ternary operator condition is always true\\.$#"
+			message: "#^Parameter \\#3 \\$description of method Composer\\\\Package\\\\Loader\\\\ArrayLoader\\:\\:createLink\\(\\) expects 'conflicts'\\|'devRequires'\\|'provides'\\|'relates to'\\|'replaces'\\|'requires', string given\\.$#"
 			count: 2
-			path: repo/src/Composer/Plugin/PluginManager.php
+			path: repo/src/Composer/Package/Loader/ArrayLoader.php
+
+		-
+			message: "#^Parameter \\#3 \\$description of method Composer\\\\Package\\\\Loader\\\\ArrayLoader\\:\\:parseLinks\\(\\) expects 'conflicts'\\|'devRequires'\\|'provides'\\|'relates to'\\|'replaces'\\|'requires', string given\\.$#"
+			count: 1
+			path: repo/src/Composer/Package/Loader/ArrayLoader.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/src/Composer/Package/Loader/ArrayLoader.php
+
+		-
+			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
+			count: 1
+			path: repo/src/Composer/Package/Locker.php
+
+		-
+			message: "#^Parameter \\#1 \\$aliasOf of method Composer\\\\Package\\\\CompleteAliasPackage\\:\\:__construct\\(\\) expects Composer\\\\Package\\\\CompletePackage, Composer\\\\Package\\\\RootPackageInterface given\\.$#"
+			count: 1
+			path: repo/src/Composer/Package/RootAliasPackage.php
 
 		-
 			message: "#^If condition is always true\\.$#"
@@ -1116,22 +346,27 @@ parameters:
 			path: repo/src/Composer/Plugin/PluginManager.php
 
 		-
-			message: "#^Method Composer\\\\Plugin\\\\PluginManager\\:\\:getCapabilityImplementationClassName\\(\\) should return string\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/src/Composer/Plugin/PluginManager.php
-
-		-
 			message: "#^Parameter \\#2 \\$return of function var_export expects bool, int given\\.$#"
 			count: 1
 			path: repo/src/Composer/Plugin/PluginManager.php
 
 		-
-			message: "#^Method Composer\\\\Plugin\\\\PluginManager\\:\\:getPluginCapability\\(\\) should return Composer\\\\Plugin\\\\Capability\\\\Capability\\|null but return statement is missing\\.$#"
-			count: 1
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 2
 			path: repo/src/Composer/Plugin/PluginManager.php
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: repo/src/Composer/Repository/ArrayRepository.php
+
+		-
+			message: "#^Parameter \\#1 \\$aliasOf of class Composer\\\\Package\\\\AliasPackage constructor expects Composer\\\\Package\\\\BasePackage, Composer\\\\Package\\\\PackageInterface given\\.$#"
+			count: 1
+			path: repo/src/Composer/Repository/ArrayRepository.php
+
+		-
+			message: "#^Parameter \\#1 \\$aliasOf of class Composer\\\\Package\\\\CompleteAliasPackage constructor expects Composer\\\\Package\\\\CompletePackage, Composer\\\\Package\\\\CompletePackageInterface given\\.$#"
 			count: 1
 			path: repo/src/Composer/Repository/ArrayRepository.php
 
@@ -1141,18 +376,8 @@ parameters:
 			path: repo/src/Composer/Repository/ArrayRepository.php
 
 		-
-			message: "#^Property Composer\\\\Repository\\\\ArrayRepository\\:\\:\\$packageMap \\(array\\<Composer\\\\Package\\\\PackageInterface\\>\\) does not accept null\\.$#"
-			count: 2
-			path: repo/src/Composer/Repository/ArrayRepository.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getDescription\\(\\)\\.$#"
+			message: "#^If condition is always false\\.$#"
 			count: 1
-			path: repo/src/Composer/Repository/ArrayRepository.php
-
-		-
-			message: "#^Method Composer\\\\Repository\\\\ComposerRepository\\:\\:findPackage\\(\\) should return Composer\\\\Package\\\\PackageInterface\\|null but empty return statement found\\.$#"
-			count: 2
 			path: repo/src/Composer/Repository/ComposerRepository.php
 
 		-
@@ -1161,52 +386,17 @@ parameters:
 			path: repo/src/Composer/Repository/ComposerRepository.php
 
 		-
-			message: "#^Method Composer\\\\Repository\\\\ComposerRepository\\:\\:search\\(\\) should return array\\<int, array\\('name' \\=\\> string, 'description' \\=\\> string\\)\\> but returns array\\<int, array\\('name' \\=\\> mixed\\)\\>\\.$#"
-			count: 1
-			path: repo/src/Composer/Repository/ComposerRepository.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setTransportOptions\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Repository/ComposerRepository.php
-
-		-
-			message: "#^Property Composer\\\\Repository\\\\ArrayRepository\\:\\:\\$packages \\(array\\<Composer\\\\Package\\\\PackageInterface\\>\\) does not accept null\\.$#"
-			count: 1
-			path: repo/src/Composer/Repository/FilesystemRepository.php
-
-		-
-			message: "#^Method Composer\\\\Repository\\\\FilterRepository\\:\\:getProviders\\(\\) should return array\\<string, array\\('name' \\=\\> string, 'description' \\=\\> string, 'type' \\=\\> string\\)\\> but returns array\\<int, mixed\\>\\.$#"
-			count: 1
-			path: repo/src/Composer/Repository/FilterRepository.php
-
-		-
 			message: "#^Negated boolean expression is always true\\.$#"
 			count: 1
 			path: repo/src/Composer/Repository/InstalledRepository.php
 
 		-
-			message: "#^Parameter \\#3 \\$constraint of class Composer\\\\Package\\\\Link constructor expects Composer\\\\Semver\\\\Constraint\\\\ConstraintInterface, null given\\.$#"
-			count: 2
+			message: "#^Parameter \\#4 \\$description of class Composer\\\\Package\\\\Link constructor expects 'conflicts'\\|'devRequires'\\|'provides'\\|'relates to'\\|'replaces'\\|'requires', 'does not require' given\\.$#"
+			count: 1
 			path: repo/src/Composer/Repository/InstalledRepository.php
 
 		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getDescription\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Repository/PlatformRepository.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:setDescription\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Repository/PlatformRepository.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$name\\)\\: Unexpected token \"\\$name\", expected type at offset 79$#"
-			count: 1
-			path: repo/src/Composer/Repository/PlatformRepository.php
-
-		-
-			message: "#^Parameter \\#3 \\$stabilityFlags of method Composer\\\\Repository\\\\RepositoryInterface\\:\\:loadPackages\\(\\) expects array\\<string, 0\\|5\\|10\\|15\\|20\\>, array\\<string, int\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$acceptableStabilities of class Composer\\\\DependencyResolver\\\\PoolBuilder constructor expects array\\<string, 0\\|5\\|10\\|15\\|20\\>, array\\<string, int\\> given\\.$#"
 			count: 1
 			path: repo/src/Composer/Repository/RepositorySet.php
 
@@ -1216,12 +406,12 @@ parameters:
 			path: repo/src/Composer/Repository/RepositorySet.php
 
 		-
-			message: "#^Parameter \\#2 \\$stabilityFlags of static method Composer\\\\Package\\\\Version\\\\StabilityFilter\\:\\:isPackageAcceptable\\(\\) expects array\\<string, 0\\|5\\|10\\|15\\|20\\>, array\\<string, int\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$aliasOf of class Composer\\\\Package\\\\AliasPackage constructor expects Composer\\\\Package\\\\BasePackage, Composer\\\\Package\\\\PackageInterface given\\.$#"
 			count: 1
 			path: repo/src/Composer/Repository/RepositorySet.php
 
 		-
-			message: "#^Parameter \\#1 \\$acceptableStabilities of class Composer\\\\DependencyResolver\\\\PoolBuilder constructor expects array\\<string, 0\\|5\\|10\\|15\\|20\\>, array\\<string, int\\> given\\.$#"
+			message: "#^Parameter \\#1 \\$aliasOf of class Composer\\\\Package\\\\CompleteAliasPackage constructor expects Composer\\\\Package\\\\CompletePackage, Composer\\\\Package\\\\CompletePackageInterface given\\.$#"
 			count: 1
 			path: repo/src/Composer/Repository/RepositorySet.php
 
@@ -1231,27 +421,22 @@ parameters:
 			path: repo/src/Composer/Repository/RepositorySet.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 9
-			path: repo/src/Composer/Repository/Vcs/BitbucketDriver.php
+			message: "#^Parameter \\#2 \\$stabilityFlags of static method Composer\\\\Package\\\\Version\\\\StabilityFilter\\:\\:isPackageAcceptable\\(\\) expects array\\<string, 0\\|5\\|10\\|15\\|20\\>, array\\<string, int\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Repository/RepositorySet.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 9
-			path: repo/src/Composer/Repository/Vcs/BitbucketDriver.php
+			message: "#^Parameter \\#3 \\$stabilityFlags of method Composer\\\\Repository\\\\RepositoryInterface\\:\\:loadPackages\\(\\) expects array\\<string, 0\\|5\\|10\\|15\\|20\\>, array\\<string, int\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Repository/RepositorySet.php
 
 		-
 			message: "#^Parameter \\#2 \\$prefix of function http_build_query expects string, null given\\.$#"
-			count: 1
+			count: 3
 			path: repo/src/Composer/Repository/Vcs/BitbucketDriver.php
 
 		-
-			message: "#^Property Composer\\\\Repository\\\\Vcs\\\\BitbucketDriver\\:\\:\\$fallbackDriver \\(Composer\\\\Repository\\\\Vcs\\\\VcsDriver\\) does not accept null\\.$#"
-			count: 1
-			path: repo/src/Composer/Repository/Vcs/BitbucketDriver.php
-
-		-
-			message: "#^If condition is always true\\.$#"
+			message: "#^Negated boolean expression is always true\\.$#"
 			count: 1
 			path: repo/src/Composer/Repository/Vcs/GitBitbucketDriver.php
 
@@ -1261,37 +446,17 @@ parameters:
 			path: repo/src/Composer/Repository/Vcs/GitBitbucketDriver.php
 
 		-
-			message: "#^If condition is always true\\.$#"
-			count: 8
-			path: repo/src/Composer/Repository/Vcs/GitHubDriver.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 8
-			path: repo/src/Composer/Repository/Vcs/GitHubDriver.php
-
-		-
-			message: "#^Property Composer\\\\Repository\\\\Vcs\\\\GitHubDriver\\:\\:\\$gitDriver \\(Composer\\\\Repository\\\\Vcs\\\\GitDriver\\) does not accept null\\.$#"
-			count: 1
-			path: repo/src/Composer/Repository/Vcs/GitHubDriver.php
-
-		-
-			message: "#^If condition is always true\\.$#"
-			count: 8
-			path: repo/src/Composer/Repository/Vcs/GitLabDriver.php
-
-		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 8
-			path: repo/src/Composer/Repository/Vcs/GitLabDriver.php
-
-		-
-			message: "#^Property Composer\\\\Repository\\\\Vcs\\\\GitLabDriver\\:\\:\\$gitDriver \\(Composer\\\\Repository\\\\Vcs\\\\GitDriver\\) does not accept null\\.$#"
+			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: repo/src/Composer/Repository/Vcs/GitLabDriver.php
 
 		-
-			message: "#^If condition is always true\\.$#"
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: repo/src/Composer/Repository/Vcs/GitLabDriver.php
+
+		-
+			message: "#^Negated boolean expression is always true\\.$#"
 			count: 1
 			path: repo/src/Composer/Repository/Vcs/HgBitbucketDriver.php
 
@@ -1299,21 +464,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: repo/src/Composer/Repository/Vcs/HgBitbucketDriver.php
-
-		-
-			message: "#^Method Composer\\\\Repository\\\\Vcs\\\\HgDriver\\:\\:getFileContent\\(\\) should return string\\|null but empty return statement found\\.$#"
-			count: 1
-			path: repo/src/Composer/Repository/Vcs/HgDriver.php
-
-		-
-			message: "#^Method Composer\\\\Repository\\\\Vcs\\\\PerforceDriver\\:\\:getContents\\(\\) should return Composer\\\\Util\\\\Http\\\\Response but returns false\\.$#"
-			count: 1
-			path: repo/src/Composer/Repository/Vcs/PerforceDriver.php
-
-		-
-			message: "#^Property Composer\\\\Repository\\\\Vcs\\\\PerforceDriver\\:\\:\\$perforce \\(Composer\\\\Util\\\\Perforce\\) does not accept null\\.$#"
-			count: 1
-			path: repo/src/Composer/Repository/Vcs/PerforceDriver.php
 
 		-
 			message: "#^Left side of && is always true\\.$#"
@@ -1331,24 +481,14 @@ parameters:
 			path: repo/src/Composer/Repository/VcsRepository.php
 
 		-
-			message: "#^Unreachable statement \\- code above always terminates\\.$#"
-			count: 1
-			path: repo/src/Composer/Repository/VcsRepository.php
-
-		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: repo/src/Composer/Repository/VcsRepository.php
 
 		-
-			message: "#^Property Composer\\\\Script\\\\Event\\:\\:\\$originatingEvent \\(Composer\\\\EventDispatcher\\\\Event\\) does not accept null\\.$#"
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
-			path: repo/src/Composer/Script/Event.php
-
-		-
-			message: "#^Method Composer\\\\Util\\\\AuthHelper\\:\\:promptAuthIfNeeded\\(\\) should return array\\|null but empty return statement found\\.$#"
-			count: 1
-			path: repo/src/Composer/Util/AuthHelper.php
+			path: repo/src/Composer/Repository/VcsRepository.php
 
 		-
 			message: "#^Result of \\|\\| is always true\\.$#"
@@ -1356,24 +496,19 @@ parameters:
 			path: repo/src/Composer/Util/AuthHelper.php
 
 		-
-			message: "#^Offset 'access_token' does not exist on array\\(\\)\\.$#"
+			message: "#^Result of \\|\\| is always true\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/Bitbucket.php
 
 		-
-			message: "#^Method Composer\\\\Util\\\\ErrorHandler\\:\\:handle\\(\\) should return bool but empty return statement found\\.$#"
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
-			path: repo/src/Composer/Util/ErrorHandler.php
+			path: repo/src/Composer/Util/Bitbucket.php
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/Filesystem.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: repo/src/Composer/Util/Git.php
 
 		-
 			message: "#^Parameter \\#2 \\$prefix of function http_build_query expects string, null given\\.$#"
@@ -1391,32 +526,12 @@ parameters:
 			path: repo/src/Composer/Util/Http/CurlDownloader.php
 
 		-
-			message: "#^Parameter \\#3 \\$url of method Composer\\\\Util\\\\NoProxyPattern\\:\\:match\\(\\) expects string, stdClass\\|true given\\.$#"
-			count: 1
-			path: repo/src/Composer/Util/NoProxyPattern.php
+			message: "#^If condition is always true\\.$#"
+			count: 2
+			path: repo/src/Composer/Util/Loop.php
 
 		-
-			message: "#^Cannot access property \\$ipdata on string\\.$#"
-			count: 3
-			path: repo/src/Composer/Util/NoProxyPattern.php
-
-		-
-			message: "#^Cannot access property \\$name on string\\.$#"
-			count: 1
-			path: repo/src/Composer/Util/NoProxyPattern.php
-
-		-
-			message: "#^Cannot access property \\$port on string\\.$#"
-			count: 1
-			path: repo/src/Composer/Util/NoProxyPattern.php
-
-		-
-			message: "#^PHPDoc tag @return has invalid value \\(\\{null\\|stdClass\\} Null if the hostname is invalid\\)\\: Unexpected token \"\\{\", expected type at offset 138$#"
-			count: 1
-			path: repo/src/Composer/Util/NoProxyPattern.php
-
-		-
-			message: "#^Array \\(array\\<object\\>\\) does not accept null\\.$#"
+			message: "#^Parameter \\#2 \\$multiplier of function str_repeat expects int, float given\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/NoProxyPattern.php
 
@@ -1426,34 +541,9 @@ parameters:
 			path: repo/src/Composer/Util/NoProxyPattern.php
 
 		-
-			message: "#^Parameter \\#2 \\$multiplier of function str_repeat expects int, float given\\.$#"
-			count: 1
-			path: repo/src/Composer/Util/NoProxyPattern.php
-
-		-
-			message: "#^Variable \\$package in PHPDoc tag @var does not match any variable in the foreach loop\\: \\$link$#"
-			count: 1
-			path: repo/src/Composer/Util/PackageSorter.php
-
-		-
 			message: "#^Comparison operation \"\\>\" between 0 and 0 is always false\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/Perforce.php
-
-		-
-			message: "#^PHPDoc tag @param references unknown parameter\\: \\$output$#"
-			count: 1
-			path: repo/src/Composer/Util/ProcessExecutor.php
-
-		-
-			message: "#^Method Composer\\\\Util\\\\ProcessExecutor\\:\\:executeAsync\\(\\) should return int but returns React\\\\Promise\\\\PromiseInterface\\.$#"
-			count: 1
-			path: repo/src/Composer/Util/ProcessExecutor.php
-
-		-
-			message: "#^Call to an undefined method Exception\\:\\:setResponse\\(\\)\\.$#"
-			count: 1
-			path: repo/src/Composer/Util/RemoteFilesystem.php
 
 		-
 			message: "#^Dead catch \\- Exception is already caught by Throwable above\\.$#"
@@ -1461,9 +551,9 @@ parameters:
 			path: repo/src/Composer/Util/RemoteFilesystem.php
 
 		-
-			message: "#^Default value of the parameter \\#2 \\$defaultOptions \\(array\\(\\)\\) of method Composer\\\\Util\\\\StreamContextFactory\\:\\:getContext\\(\\) is incompatible with type array\\('http' \\=\\> array\\(\\?'follow_location' \\=\\> int, \\?'max_redirects' \\=\\> int, \\?'header' \\=\\> array\\<string, int\\|string\\>\\|string\\)\\)\\.$#"
+			message: "#^Parameter \\#2 \\$target of method Composer\\\\Downloader\\\\DownloaderInterface\\:\\:update\\(\\) expects Composer\\\\Package\\\\PackageInterface, string given\\.$#"
 			count: 1
-			path: repo/src/Composer/Util/StreamContextFactory.php
+			path: repo/src/Composer/Util/SyncHelper.php
 
 		-
 			message: "#^Method Composer\\\\Util\\\\TlsHelper\\:\\:certNameMatcher\\(\\) never returns void so it can be removed from the return typehint\\.$#"
@@ -1481,24 +571,9 @@ parameters:
 			path: repo/tests/Composer/Test/AllFunctionalTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$input of method Composer\\\\Console\\\\Application\\:\\:doRun\\(\\) expects Symfony\\\\Component\\\\Console\\\\Input\\\\InputInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 2
-			path: repo/tests/Composer/Test/ApplicationTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$output of method Composer\\\\Console\\\\Application\\:\\:doRun\\(\\) expects Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 2
-			path: repo/tests/Composer/Test/ApplicationTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$eventDispatcher of class Composer\\\\Autoload\\\\AutoloadGenerator constructor expects Composer\\\\EventDispatcher\\\\EventDispatcher, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
+			message: "#^Parameter \\#1 \\$dirs of static method Composer\\\\Autoload\\\\ClassMapGenerator\\:\\:dump\\(\\) expects Traversable, array\\<int, mixed\\> given\\.$#"
 			count: 1
-			path: repo/tests/Composer/Test/Autoload/AutoloadGeneratorTest.php
-
-		-
-			message: "#^Parameter \\#4 \\$installationManager of method Composer\\\\Autoload\\\\AutoloadGenerator\\:\\:dump\\(\\) expects Composer\\\\Installer\\\\InstallationManager, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Autoload/AutoloadGeneratorTest.php
+			path: repo/tests/Composer/Test/Autoload/ClassMapGeneratorTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$path of static method Composer\\\\Autoload\\\\ClassMapGenerator\\:\\:createMap\\(\\) expects Iterator\\|string, Symfony\\\\Component\\\\Finder\\\\Finder given\\.$#"
@@ -1506,304 +581,14 @@ parameters:
 			path: repo/tests/Composer/Test/Autoload/ClassMapGeneratorTest.php
 
 		-
-			message: "#^Parameter \\#3 \\$io of static method Composer\\\\Autoload\\\\ClassMapGenerator\\:\\:createMap\\(\\) expects Composer\\\\IO\\\\IOInterface\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 2
-			path: repo/tests/Composer/Test/Autoload/ClassMapGeneratorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$dirs of static method Composer\\\\Autoload\\\\ClassMapGenerator\\:\\:dump\\(\\) expects Traversable, array\\<int, mixed\\> given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Autoload/ClassMapGeneratorTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of class Composer\\\\Cache constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/CacheTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$manager of method Composer\\\\Composer\\:\\:setArchiveManager\\(\\) expects Composer\\\\Package\\\\Archiver\\\\ArchiveManager, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Command/ArchiveCommandTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$eventDispatcher of method Composer\\\\Composer\\:\\:setEventDispatcher\\(\\) expects Composer\\\\EventDispatcher\\\\EventDispatcher, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Command/ArchiveCommandTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$package of method Composer\\\\Composer\\:\\:setPackage\\(\\) expects Composer\\\\Package\\\\RootPackageInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Command/ArchiveCommandTest.php
-
-		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:run\\(\\)\\.$#"
-			count: 2
-			path: repo/tests/Composer/Test/Command/ArchiveCommandTest.php
-
-		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:run\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Command/RunScriptCommandTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$package of method Composer\\\\Composer\\:\\:setPackage\\(\\) expects Composer\\\\Package\\\\RootPackageInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/ComposerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$locker of method Composer\\\\Composer\\:\\:setLocker\\(\\) expects Composer\\\\Package\\\\Locker, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/ComposerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$manager of method Composer\\\\Composer\\:\\:setRepositoryManager\\(\\) expects Composer\\\\Repository\\\\RepositoryManager, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/ComposerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$manager of method Composer\\\\Composer\\:\\:setDownloadManager\\(\\) expects Composer\\\\Downloader\\\\DownloadManager, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/ComposerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$manager of method Composer\\\\Composer\\:\\:setInstallationManager\\(\\) expects Composer\\\\Installer\\\\InstallationManager, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/ComposerTest.php
-
-		-
-			message: "#^Call to an undefined method Traversable\\<mixed, mixed\\>\\:\\:current\\(\\)\\.$#"
-			count: 2
-			path: repo/tests/Composer/Test/DependencyResolver/RuleSetTest.php
-
-		-
-			message: "#^Call to an undefined method Traversable\\<mixed, mixed\\>\\:\\:next\\(\\)\\.$#"
+			message: "#^Parameter \\#3 \\$reasonData of class Composer\\\\DependencyResolver\\\\GenericRule constructor expects Composer\\\\Package\\\\BasePackage\\|Composer\\\\Package\\\\Link\\|int\\|null, array\\<string, string\\|null\\> given\\.$#"
 			count: 1
 			path: repo/tests/Composer/Test/DependencyResolver/RuleSetTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$reasonData of class Composer\\\\DependencyResolver\\\\GenericRule constructor expects Composer\\\\Package\\\\Link\\|Composer\\\\Package\\\\PackageInterface\\|int\\|null, array\\<string, string\\|null\\> given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/DependencyResolver/RuleSetTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$repositorySet of method Composer\\\\DependencyResolver\\\\RuleSet\\:\\:getPrettyString\\(\\) expects Composer\\\\Repository\\\\RepositorySet\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/DependencyResolver/RuleSetTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$request of method Composer\\\\DependencyResolver\\\\RuleSet\\:\\:getPrettyString\\(\\) expects Composer\\\\DependencyResolver\\\\Request\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/DependencyResolver/RuleSetTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$repositorySet of method Composer\\\\DependencyResolver\\\\Rule\\:\\:getPrettyString\\(\\) expects Composer\\\\Repository\\\\RepositorySet, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/DependencyResolver/RuleTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$request of method Composer\\\\DependencyResolver\\\\Rule\\:\\:getPrettyString\\(\\) expects Composer\\\\DependencyResolver\\\\Request, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/DependencyResolver/RuleTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of class Composer\\\\Util\\\\HttpDownloader constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Downloader/ArchiveDownloaderTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$config of class Composer\\\\Util\\\\HttpDownloader constructor expects Composer\\\\Config, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Downloader/ArchiveDownloaderTest.php
-
-		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:getDownloaderForPackage\\(\\)\\.$#"
-			count: 4
-			path: repo/tests/Composer/Test/Downloader/DownloadManagerTest.php
-
-		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:download\\(\\)\\.$#"
-			count: 16
-			path: repo/tests/Composer/Test/Downloader/DownloadManagerTest.php
-
-		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:setPreferSource\\(\\)\\.$#"
-			count: 3
-			path: repo/tests/Composer/Test/Downloader/DownloadManagerTest.php
-
-		-
-			message: "#^Call to an undefined method Prophecy\\\\Prophecy\\\\ObjectProphecy\\:\\:getInstallationSource\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Downloader/DownloadManagerTest.php
-
-		-
-			message: "#^Call to an undefined method Prophecy\\\\Prophecy\\\\ObjectProphecy\\:\\:isDev\\(\\)\\.$#"
-			count: 2
-			path: repo/tests/Composer/Test/Downloader/DownloadManagerTest.php
-
-		-
-			message: "#^Call to an undefined method Prophecy\\\\Prophecy\\\\ObjectProphecy\\:\\:getSourceType\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Downloader/DownloadManagerTest.php
-
-		-
-			message: "#^Call to an undefined method Prophecy\\\\Prophecy\\\\ObjectProphecy\\:\\:getDistType\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Downloader/DownloadManagerTest.php
-
-		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:update\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Downloader/DownloadManagerTest.php
-
-		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:remove\\(\\)\\.$#"
-			count: 2
-			path: repo/tests/Composer/Test/Downloader/DownloadManagerTest.php
-
-		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:setPreferences\\(\\)\\.$#"
-			count: 6
-			path: repo/tests/Composer/Test/Downloader/DownloadManagerTest.php
-
-		-
-			message: "#^Call to an undefined method Prophecy\\\\Prophecy\\\\ObjectProphecy\\:\\:execute\\(\\)\\.$#"
-			count: 21
-			path: repo/tests/Composer/Test/Downloader/GitDownloaderTest.php
-
-		-
-			message: "#^Call to an undefined method Prophecy\\\\Prophecy\\\\ObjectProphecy\\:\\:getErrorOutput\\(\\)\\.$#"
-			count: 2
-			path: repo/tests/Composer/Test/Downloader/GitDownloaderTest.php
-
-		-
-			message: "#^Property Composer\\\\Test\\\\Downloader\\\\PerforceDownloaderTest\\:\\:\\$downloader \\(Composer\\\\Downloader\\\\PerforceDownloader\\) does not accept null\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Downloader/PerforceDownloaderTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of class Composer\\\\Downloader\\\\XzDownloader constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Downloader/XzDownloaderTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of class Composer\\\\Util\\\\HttpDownloader constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Downloader/XzDownloaderTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$config of class Composer\\\\Downloader\\\\XzDownloader constructor expects Composer\\\\Config, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Downloader/XzDownloaderTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$config of class Composer\\\\Util\\\\HttpDownloader constructor expects Composer\\\\Config, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Downloader/XzDownloaderTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$package of method Composer\\\\Downloader\\\\ArchiveDownloader\\:\\:download\\(\\) expects Composer\\\\Package\\\\PackageInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Downloader/XzDownloaderTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$package of method Composer\\\\Downloader\\\\ArchiveDownloader\\:\\:install\\(\\) expects Composer\\\\Package\\\\PackageInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Downloader/XzDownloaderTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of class Composer\\\\Util\\\\HttpDownloader constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Downloader/ZipDownloaderTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$config of class Composer\\\\Util\\\\HttpDownloader constructor expects Composer\\\\Config, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Downloader/ZipDownloaderTest.php
-
-		-
-			message: "#^Parameter \\#7 \\$process of class Composer\\\\Test\\\\Downloader\\\\MockedZipDownloader constructor expects Composer\\\\Util\\\\ProcessExecutor\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 6
-			path: repo/tests/Composer/Test/Downloader/ZipDownloaderTest.php
-
-		-
-			message: "#^Method Composer\\\\Test\\\\Downloader\\\\MockedZipDownloader\\:\\:download\\(\\) should return React\\\\Promise\\\\PromiseInterface\\|null but empty return statement found\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Downloader/ZipDownloaderTest.php
-
-		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:dispatchScript\\(\\)\\.$#"
-			count: 6
-			path: repo/tests/Composer/Test/EventDispatcher/EventDispatcherTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$io of class Composer\\\\EventDispatcher\\\\EventDispatcher constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/EventDispatcher/EventDispatcherTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$process of class Composer\\\\EventDispatcher\\\\EventDispatcher constructor expects Composer\\\\Util\\\\ProcessExecutor\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 2
-			path: repo/tests/Composer/Test/EventDispatcher/EventDispatcherTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$event of method Composer\\\\EventDispatcher\\\\EventDispatcher\\:\\:hasEventListeners\\(\\) expects Composer\\\\EventDispatcher\\\\Event, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/EventDispatcher/EventDispatcherTest.php
-
-		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:dispatch\\(\\)\\.$#"
-			count: 3
-			path: repo/tests/Composer/Test/EventDispatcher/EventDispatcherTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$io of class Composer\\\\Script\\\\Event constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/EventDispatcher/EventDispatcherTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of class Composer\\\\Util\\\\ProcessExecutor constructor expects Composer\\\\IO\\\\IOInterface\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/EventDispatcher/EventDispatcherTest.php
-
-		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:dispatchInstallerEvent\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/EventDispatcher/EventDispatcherTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$package of method Composer\\\\Composer\\:\\:setPackage\\(\\) expects Composer\\\\Package\\\\RootPackageInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/EventDispatcher/EventDispatcherTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of static method Composer\\\\Factory\\:\\:createHttpDownloader\\(\\) expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/FactoryTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$config of static method Composer\\\\Factory\\:\\:createHttpDownloader\\(\\) expects Composer\\\\Config, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/FactoryTest.php
 
 		-
 			message: "#^Parameter \\#2 \\$default of method Composer\\\\IO\\\\ConsoleIO\\:\\:askConfirmation\\(\\) expects bool, string given\\.$#"
 			count: 2
 			path: repo/tests/Composer/Test/IO/BufferIOTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$input of class Composer\\\\IO\\\\ConsoleIO constructor expects Symfony\\\\Component\\\\Console\\\\Input\\\\InputInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 12
-			path: repo/tests/Composer/Test/IO/ConsoleIOTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$output of class Composer\\\\IO\\\\ConsoleIO constructor expects Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 12
-			path: repo/tests/Composer/Test/IO/ConsoleIOTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$helperSet of class Composer\\\\IO\\\\ConsoleIO constructor expects Symfony\\\\Component\\\\Console\\\\Helper\\\\HelperSet, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 12
-			path: repo/tests/Composer/Test/IO/ConsoleIOTest.php
 
 		-
 			message: "#^Parameter \\#2 \\$default of method Composer\\\\IO\\\\ConsoleIO\\:\\:askConfirmation\\(\\) expects bool, string given\\.$#"
@@ -1831,59 +616,9 @@ parameters:
 			path: repo/tests/Composer/Test/IO/NullIOTest.php
 
 		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:addInstaller\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Installer/InstallationManagerTest.php
-
-		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:execute\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Installer/InstallationManagerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$installer of method Composer\\\\Installer\\\\InstallationManager\\:\\:addInstaller\\(\\) expects Composer\\\\Installer\\\\InstallerInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Installer/InstallationManagerTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$composer of class Composer\\\\Installer\\\\InstallerEvent constructor expects Composer\\\\Composer, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Installer/InstallerEventTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$io of class Composer\\\\Installer\\\\InstallerEvent constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Installer/InstallerEventTest.php
-
-		-
-			message: "#^Parameter \\#6 \\$transaction of class Composer\\\\Installer\\\\InstallerEvent constructor expects Composer\\\\DependencyResolver\\\\Transaction, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Installer/InstallerEventTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$manager of method Composer\\\\Composer\\:\\:setDownloadManager\\(\\) expects Composer\\\\Downloader\\\\DownloadManager, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Installer/LibraryInstallerTest.php
-
-		-
-			message: "#^Parameter \\#4 \\$filesystem of class Composer\\\\Installer\\\\LibraryInstaller constructor expects Composer\\\\Util\\\\Filesystem\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Installer/LibraryInstallerTest.php
-
-		-
-			message: "#^Parameter \\#5 \\$binaryInstaller of class Composer\\\\Installer\\\\LibraryInstaller constructor expects Composer\\\\Installer\\\\BinaryInstaller\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Installer/LibraryInstallerTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$str of function md5 expects string, int given\\.$#"
 			count: 1
 			path: repo/tests/Composer/Test/Installer/LibraryInstallerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of class Composer\\\\Installer\\\\MetapackageInstaller constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Installer/MetapackageInstallerTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$str of function md5 expects string, int given\\.$#"
@@ -1891,29 +626,9 @@ parameters:
 			path: repo/tests/Composer/Test/Installer/MetapackageInstallerTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$io of class Composer\\\\Installer\\\\SuggestedPackagesReporter constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Installer/SuggestedPackagesReporterTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$str of function md5 expects string, int given\\.$#"
 			count: 1
 			path: repo/tests/Composer/Test/Installer/SuggestedPackagesReporterTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$config of class Composer\\\\Repository\\\\RepositoryManager constructor expects Composer\\\\Config, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/InstallerTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$httpDownloader of class Composer\\\\Repository\\\\RepositoryManager constructor expects Composer\\\\Util\\\\HttpDownloader, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/InstallerTest.php
-
-		-
-			message: "#^Parameter \\#4 \\$eventDispatcher of class Composer\\\\Repository\\\\RepositoryManager constructor expects Composer\\\\EventDispatcher\\\\EventDispatcher\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/InstallerTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$json of function json_decode expects string, null given\\.$#"
@@ -1926,434 +641,84 @@ parameters:
 			path: repo/tests/Composer/Test/InstallerTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$lockFile of class Composer\\\\Package\\\\Locker constructor expects Composer\\\\Json\\\\JsonFile, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 2
-			path: repo/tests/Composer/Test/InstallerTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$config of class Composer\\\\Installer constructor expects Composer\\\\Config, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
+			message: "#^Parameter \\#1 \\$package of method Composer\\\\Package\\\\Archiver\\\\ArchiveManager\\:\\:getPackageFilename\\(\\) expects Composer\\\\Package\\\\CompletePackageInterface, Composer\\\\Package\\\\PackageInterface given\\.$#"
 			count: 1
-			path: repo/tests/Composer/Test/InstallerTest.php
+			path: repo/tests/Composer/Test/Package/Archiver/ArchiveManagerTest.php
 
 		-
-			message: "#^Parameter \\#4 \\$downloadManager of class Composer\\\\Installer constructor expects Composer\\\\Downloader\\\\DownloadManager, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
+			message: "#^Parameter \\#4 \\$description of class Composer\\\\Package\\\\Link constructor expects 'conflicts'\\|'devRequires'\\|'provides'\\|'relates to'\\|'replaces'\\|'requires', 'requires \\(for…' given\\.$#"
 			count: 1
-			path: repo/tests/Composer/Test/InstallerTest.php
-
-		-
-			message: "#^Parameter \\#8 \\$eventDispatcher of class Composer\\\\Installer constructor expects Composer\\\\EventDispatcher\\\\EventDispatcher, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/InstallerTest.php
-
-		-
-			message: "#^Parameter \\#9 \\$autoloadGenerator of class Composer\\\\Installer constructor expects Composer\\\\Autoload\\\\AutoloadGenerator, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/InstallerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$repositoryFile of class Composer\\\\Test\\\\Mock\\\\InstalledFilesystemRepositoryMock constructor expects Composer\\\\Json\\\\JsonFile, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/InstallerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$autoloadGenerator of method Composer\\\\Composer\\:\\:setAutoloadGenerator\\(\\) expects Composer\\\\Autoload\\\\AutoloadGenerator, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/InstallerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$eventDispatcher of method Composer\\\\Composer\\:\\:setEventDispatcher\\(\\) expects Composer\\\\EventDispatcher\\\\EventDispatcher, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/InstallerTest.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Installer\\\\InstallationManager\\:\\:getTrace\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/InstallerTest.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Repository\\\\RepositoryInterface\\:\\:addPackage\\(\\)\\.$#"
-			count: 2
-			path: repo/tests/Composer/Test/Mock/InstallationManagerMock.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Repository\\\\RepositoryInterface\\:\\:removePackage\\(\\)\\.$#"
-			count: 2
-			path: repo/tests/Composer/Test/Mock/InstallationManagerMock.php
-
-		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:setRepository\\(\\)\\.$#"
-			count: 4
-			path: repo/tests/Composer/Test/Package/BasePackageTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$package of method Composer\\\\Package\\\\Dumper\\\\ArrayDumper\\:\\:dump\\(\\) expects Composer\\\\Package\\\\PackageInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 2
 			path: repo/tests/Composer/Test/Package/Dumper/ArrayDumperTest.php
 
 		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:isAbandoned\\(\\)\\.$#"
+			message: "#^Parameter \\#3 \\$description of method Composer\\\\Package\\\\Loader\\\\ArrayLoader\\:\\:parseLinks\\(\\) expects 'conflicts'\\|'devRequires'\\|'provides'\\|'relates to'\\|'replaces'\\|'requires', '' given\\.$#"
 			count: 2
 			path: repo/tests/Composer/Test/Package/Loader/ArrayLoaderTest.php
 
 		-
-			message: "#^Call to an undefined method Composer\\\\Package\\\\PackageInterface\\:\\:getReplacementPackage\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Package/Loader/ArrayLoaderTest.php
+			message: "#^Parameter \\#4 \\$description of class Composer\\\\Package\\\\Link constructor expects 'conflicts'\\|'devRequires'\\|'provides'\\|'relates to'\\|'replaces'\\|'requires', 'foo' given\\.$#"
+			count: 5
+			path: repo/tests/Composer/Test/Package/RootAliasPackageTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$manager of class Composer\\\\Package\\\\Loader\\\\RootPackageLoader constructor expects Composer\\\\Repository\\\\RepositoryManager, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 4
-			path: repo/tests/Composer/Test/Package/Loader/RootPackageLoaderTest.php
+			path: repo/tests/Composer/Test/Platform/HhvmDetectorTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$process of class Composer\\\\Package\\\\Version\\\\VersionGuesser constructor expects Composer\\\\Util\\\\ProcessExecutor, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 3
-			path: repo/tests/Composer/Test/Package/Loader/RootPackageLoaderTest.php
-
-		-
-			message: "#^Call to an undefined method Prophecy\\\\Prophecy\\\\ObjectProphecy\\:\\:guessVersion\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Package/Loader/RootPackageLoaderTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$loader of class Composer\\\\Package\\\\Loader\\\\ValidatingArrayLoader constructor expects Composer\\\\Package\\\\Loader\\\\LoaderInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 4
-			path: repo/tests/Composer/Test/Package/Loader/ValidatingArrayLoaderTest.php
-
-		-
-			message: "#^Call to an undefined method Prophecy\\\\Prophecy\\\\ObjectProphecy\\:\\:getName\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Package/RootAliasPackageTest.php
-
-		-
-			message: "#^Call to an undefined method Prophecy\\\\Prophecy\\\\ObjectProphecy\\:\\:getRequires\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Package/RootAliasPackageTest.php
-
-		-
-			message: "#^Call to an undefined method Prophecy\\\\Prophecy\\\\ObjectProphecy\\:\\:getDevRequires\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Package/RootAliasPackageTest.php
-
-		-
-			message: "#^Call to an undefined method Prophecy\\\\Prophecy\\\\ObjectProphecy\\:\\:getConflicts\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Package/RootAliasPackageTest.php
-
-		-
-			message: "#^Call to an undefined method Prophecy\\\\Prophecy\\\\ObjectProphecy\\:\\:getProvides\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Package/RootAliasPackageTest.php
-
-		-
-			message: "#^Call to an undefined method Prophecy\\\\Prophecy\\\\ObjectProphecy\\:\\:getReplaces\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Package/RootAliasPackageTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$process of static method Composer\\\\Util\\\\Git\\:\\:getNoShowSignatureFlag\\(\\) expects Composer\\\\Util\\\\ProcessExecutor, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Package/Version/VersionGuesserTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$process of class Composer\\\\Package\\\\Version\\\\VersionGuesser constructor expects Composer\\\\Util\\\\ProcessExecutor, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 13
-			path: repo/tests/Composer/Test/Package/Version/VersionGuesserTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$package of method Composer\\\\Package\\\\Version\\\\VersionSelector\\:\\:findRecommendedRequireVersion\\(\\) expects Composer\\\\Package\\\\PackageInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Package/Version/VersionSelectorTest.php
-
-		-
-			message: "#^Array \\(array\\<Composer\\\\Package\\\\CompletePackage\\>\\) does not accept Composer\\\\Package\\\\PackageInterface\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
-
-		-
-			message: "#^Property Composer\\\\Test\\\\Plugin\\\\PluginInstallerTest\\:\\:\\$io \\(PHPUnit_Framework_MockObject_MockObject\\) does not accept Composer\\\\IO\\\\BufferIO\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$eventDispatcher of class Composer\\\\Autoload\\\\AutoloadGenerator constructor expects Composer\\\\EventDispatcher\\\\EventDispatcher, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$manager of method Composer\\\\Composer\\:\\:setDownloadManager\\(\\) expects Composer\\\\Downloader\\\\DownloadManager, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$manager of method Composer\\\\Composer\\:\\:setRepositoryManager\\(\\) expects Composer\\\\Repository\\\\RepositoryManager, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$manager of method Composer\\\\Composer\\:\\:setInstallationManager\\(\\) expects Composer\\\\Installer\\\\InstallationManager, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of class Composer\\\\Installer\\\\PluginInstaller constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit_Framework_MockObject_MockObject given\\.$#"
-			count: 7
-			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$repo of method Composer\\\\Installer\\\\PluginInstaller\\:\\:install\\(\\) expects Composer\\\\Repository\\\\InstalledRepositoryInterface, PHPUnit_Framework_MockObject_MockObject given\\.$#"
+			message: "#^Parameter \\#1 \\$repo of method Composer\\\\Installer\\\\PluginInstaller\\:\\:install\\(\\) expects Composer\\\\Repository\\\\InstalledRepositoryInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
 			count: 4
 			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
 
 		-
-			message: "#^Call to an undefined method PHPUnit_Framework_MockObject_MockObject\\:\\:getOutput\\(\\)\\.$#"
-			count: 6
+			message: "#^Parameter \\#1 \\$repo of method Composer\\\\Installer\\\\PluginInstaller\\:\\:uninstall\\(\\) expects Composer\\\\Repository\\\\InstalledRepositoryInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
+			count: 1
 			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$repo of method Composer\\\\Installer\\\\PluginInstaller\\:\\:update\\(\\) expects Composer\\\\Repository\\\\InstalledRepositoryInterface, PHPUnit_Framework_MockObject_MockObject given\\.$#"
+			message: "#^Parameter \\#1 \\$repo of method Composer\\\\Installer\\\\PluginInstaller\\:\\:update\\(\\) expects Composer\\\\Repository\\\\InstalledRepositoryInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
 			count: 2
 			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$repo of method Composer\\\\Installer\\\\PluginInstaller\\:\\:uninstall\\(\\) expects Composer\\\\Repository\\\\InstalledRepositoryInterface, PHPUnit_Framework_MockObject_MockObject given\\.$#"
+			message: "#^Parameter \\#2 \\$capabilityClassName of method Composer\\\\Plugin\\\\PluginManager\\:\\:getPluginCapability\\(\\) expects class\\-string\\<Composer\\\\Plugin\\\\Capability\\\\Capability\\>, string given\\.$#"
+			count: 2
+			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
+
+		-
+			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with array\\(array\\('name' \\=\\> 'bar', 'description' \\=\\> null\\)\\) and array\\<int, array\\('name' \\=\\> string, 'description' \\=\\> string\\)\\> will always evaluate to false\\.$#"
 			count: 1
-			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
+			path: repo/tests/Composer/Test/Repository/ArrayRepositoryTest.php
 
 		-
-			message: "#^Property Composer\\\\Test\\\\Plugin\\\\PluginInstallerTest\\:\\:\\$pm \\(Composer\\\\Plugin\\\\PluginManager\\) does not accept PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\.$#"
+			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with array\\(array\\('name' \\=\\> 'foo', 'description' \\=\\> null\\)\\) and array\\<int, array\\('name' \\=\\> string, 'description' \\=\\> string\\)\\> will always evaluate to false\\.$#"
+			count: 2
+			path: repo/tests/Composer/Test/Repository/ArrayRepositoryTest.php
+
+		-
+			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with array\\(array\\('name' \\=\\> 'foobar', 'description' \\=\\> null\\)\\) and array\\<int, array\\('name' \\=\\> string, 'description' \\=\\> string\\)\\> will always evaluate to false\\.$#"
 			count: 1
-			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
+			path: repo/tests/Composer/Test/Repository/ArrayRepositoryTest.php
 
 		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:loadInstalledPlugins\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Plugin\\\\Capability\\\\Capability\\:\\:getCommands\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$plugin of method Composer\\\\Plugin\\\\PluginManager\\:\\:getPluginCapability\\(\\) expects Composer\\\\Plugin\\\\PluginInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 4
-			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
-
-		-
-			message: "#^Access to an undefined property Composer\\\\Plugin\\\\Capability\\\\Capability\\:\\:\\$args\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Plugin/PluginInstallerTest.php
-
-		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:getPackages\\(\\)\\.$#"
+			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with array\\(array\\('name' \\=\\> 'foo', 'description' \\=\\> null\\)\\) and array\\<int, array\\('name' \\=\\> string, 'description' \\=\\> string\\)\\> will always evaluate to false\\.$#"
 			count: 1
 			path: repo/tests/Composer/Test/Repository/ComposerRepositoryTest.php
 
 		-
-			message: "#^Parameter \\#4 \\$httpDownloader of class Composer\\\\Repository\\\\ComposerRepository constructor expects Composer\\\\Util\\\\HttpDownloader, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 3
-			path: repo/tests/Composer/Test/Repository/ComposerRepositoryTest.php
-
-		-
-			message: "#^Parameter \\#5 \\$eventDispatcher of class Composer\\\\Repository\\\\ComposerRepository constructor expects Composer\\\\EventDispatcher\\\\EventDispatcher\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 2
-			path: repo/tests/Composer/Test/Repository/ComposerRepositoryTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$installationManager of method Composer\\\\Repository\\\\FilesystemRepository\\:\\:write\\(\\) expects Composer\\\\Installer\\\\InstallationManager, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 2
-			path: repo/tests/Composer/Test/Repository/FilesystemRepositoryTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$io of class Composer\\\\Repository\\\\PathRepository constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 5
-			path: repo/tests/Composer/Test/Repository/PathRepositoryTest.php
-
-		-
-			message: "#^Parameter \\#4 \\$hhvmDetector of class Composer\\\\Repository\\\\PlatformRepository constructor expects Composer\\\\Platform\\\\HhvmDetector\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Repository/PlatformRepositoryTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$runtime of class Composer\\\\Repository\\\\PlatformRepository constructor expects Composer\\\\Platform\\\\Runtime\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 3
-			path: repo/tests/Composer/Test/Repository/PlatformRepositoryTest.php
-
-		-
-			message: "#^PHPDoc tag @param references unknown parameter\\: \\$classes$#"
-			count: 1
-			path: repo/tests/Composer/Test/Repository/PlatformRepositoryTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$sourcePackage of method Composer\\\\Test\\\\Repository\\\\PlatformRepositoryTest\\:\\:assertPackageLinks\\(\\) expects Composer\\\\Package\\\\Package, Composer\\\\Package\\\\PackageInterface\\|null given\\.$#"
+			message: "#^Parameter \\#3 \\$sourcePackage of method Composer\\\\Test\\\\Repository\\\\PlatformRepositoryTest\\:\\:assertPackageLinks\\(\\) expects Composer\\\\Package\\\\Package, Composer\\\\Package\\\\PackageInterface given\\.$#"
 			count: 2
 			path: repo/tests/Composer/Test/Repository/PlatformRepositoryTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$io of static method Composer\\\\Repository\\\\RepositoryFactory\\:\\:manager\\(\\) expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Repository/RepositoryFactoryTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$config of static method Composer\\\\Repository\\\\RepositoryFactory\\:\\:manager\\(\\) expects Composer\\\\Config, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Repository/RepositoryFactoryTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$httpDownloader of static method Composer\\\\Repository\\\\RepositoryFactory\\:\\:manager\\(\\) expects Composer\\\\Util\\\\HttpDownloader, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Repository/RepositoryFactoryTest.php
-
-		-
-			message: "#^Parameter \\#4 \\$eventDispatcher of static method Composer\\\\Repository\\\\RepositoryFactory\\:\\:manager\\(\\) expects Composer\\\\EventDispatcher\\\\EventDispatcher\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Repository/RepositoryFactoryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of class Composer\\\\Repository\\\\RepositoryManager constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 3
-			path: repo/tests/Composer/Test/Repository/RepositoryManagerTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$config of class Composer\\\\Repository\\\\RepositoryManager constructor expects Composer\\\\Config, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 3
-			path: repo/tests/Composer/Test/Repository/RepositoryManagerTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$httpDownloader of class Composer\\\\Repository\\\\RepositoryManager constructor expects Composer\\\\Util\\\\HttpDownloader, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 3
-			path: repo/tests/Composer/Test/Repository/RepositoryManagerTest.php
-
-		-
-			message: "#^Parameter \\#4 \\$eventDispatcher of class Composer\\\\Repository\\\\RepositoryManager constructor expects Composer\\\\EventDispatcher\\\\EventDispatcher\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 3
-			path: repo/tests/Composer/Test/Repository/RepositoryManagerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$repository of method Composer\\\\Repository\\\\RepositoryManager\\:\\:addRepository\\(\\) expects Composer\\\\Repository\\\\RepositoryInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Repository/RepositoryManagerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$repository of method Composer\\\\Repository\\\\RepositoryManager\\:\\:prependRepository\\(\\) expects Composer\\\\Repository\\\\RepositoryInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Repository/RepositoryManagerTest.php
-
-		-
-			message: "#^Call to an undefined method Composer\\\\Repository\\\\RepositoryInterface\\:\\:getRepository\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Repository/RepositoryManagerTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of static method Composer\\\\Repository\\\\Vcs\\\\FossilDriver\\:\\:supports\\(\\) expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Repository/Vcs/FossilDriverTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$io of class Composer\\\\Repository\\\\Vcs\\\\GitHubDriver constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 5
-			path: repo/tests/Composer/Test/Repository/Vcs/GitHubDriverTest.php
-
-		-
-			message: "#^Parameter \\#4 \\$httpDownloader of class Composer\\\\Repository\\\\Vcs\\\\GitHubDriver constructor expects Composer\\\\Util\\\\HttpDownloader, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 5
-			path: repo/tests/Composer/Test/Repository/Vcs/GitHubDriverTest.php
-
-		-
-			message: "#^Parameter \\#5 \\$process of class Composer\\\\Repository\\\\Vcs\\\\GitHubDriver constructor expects Composer\\\\Util\\\\ProcessExecutor, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 5
-			path: repo/tests/Composer/Test/Repository/Vcs/GitHubDriverTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$io of class Composer\\\\Repository\\\\Vcs\\\\SvnDriver constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Repository/Vcs/SvnDriverTest.php
-
-		-
-			message: "#^Parameter \\#4 \\$httpDownloader of class Composer\\\\Repository\\\\Vcs\\\\SvnDriver constructor expects Composer\\\\Util\\\\HttpDownloader, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Repository/Vcs/SvnDriverTest.php
-
-		-
-			message: "#^Parameter \\#5 \\$process of class Composer\\\\Repository\\\\Vcs\\\\SvnDriver constructor expects Composer\\\\Util\\\\ProcessExecutor, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Repository/Vcs/SvnDriverTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of static method Composer\\\\Repository\\\\Vcs\\\\SvnDriver\\:\\:supports\\(\\) expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Repository/Vcs/SvnDriverTest.php
-
-		-
-			message: "#^Parameter \\#4 \\$httpDownloader of class Composer\\\\Repository\\\\VcsRepository constructor expects Composer\\\\Util\\\\HttpDownloader, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Repository/VcsRepositoryTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$io of class Composer\\\\Script\\\\Event constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 3
-			path: repo/tests/Composer/Test/Script/EventTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$package of method Composer\\\\Composer\\:\\:setPackage\\(\\) expects Composer\\\\Package\\\\RootPackageInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
+			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with arguments Composer\\\\EventDispatcher\\\\Event, null and 'getOriginatingEvent…' will always evaluate to false\\.$#"
 			count: 1
 			path: repo/tests/Composer/Test/Script/EventTest.php
 
 		-
-			message: "#^PHPDoc tag @throws with type PHPUnit_Framework_SkippedTestError is not subtype of Throwable$#"
+			message: "#^Parameter \\#3 \\$description of method Composer\\\\Package\\\\Loader\\\\ArrayLoader\\:\\:parseLinks\\(\\) expects 'conflicts'\\|'devRequires'\\|'provides'\\|'relates to'\\|'replaces'\\|'requires', string given\\.$#"
 			count: 1
 			path: repo/tests/Composer/Test/TestCase.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of class Composer\\\\Util\\\\AuthHelper constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/AuthHelperTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$config of class Composer\\\\Util\\\\AuthHelper constructor expects Composer\\\\Config, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/AuthHelperTest.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$auth\\)\\: Unexpected token \"\\$auth\", expected type at offset 40$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/AuthHelperTest.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$origin\\)\\: Unexpected token \"\\$origin\", expected type at offset 18$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/AuthHelperTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of class Composer\\\\Util\\\\Bitbucket constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/BitbucketTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$config of class Composer\\\\Util\\\\Bitbucket constructor expects Composer\\\\Config, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/BitbucketTest.php
-
-		-
-			message: "#^Parameter \\#4 \\$httpDownloader of class Composer\\\\Util\\\\Bitbucket constructor expects Composer\\\\Util\\\\HttpDownloader\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/BitbucketTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$process of class Composer\\\\Util\\\\Bitbucket constructor expects Composer\\\\Util\\\\ProcessExecutor\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 2
-			path: repo/tests/Composer/Test/Util/BitbucketTest.php
-
-		-
-			message: "#^Expression \"\\$array\\['baz'\\]\" on a separate line does not do anything\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/ErrorHandlerTest.php
-
-		-
-			message: "#^Offset 'baz' does not exist on array\\('foo' \\=\\> 'bar'\\)\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/ErrorHandlerTest.php
 
 		-
 			message: "#^Call to function array_merge\\(\\) on a separate line has no effect\\.$#"
@@ -2366,57 +731,17 @@ parameters:
 			path: repo/tests/Composer/Test/Util/ErrorHandlerTest.php
 
 		-
-			message: "#^Property Composer\\\\Test\\\\Util\\\\GitTest\\:\\:\\$io \\(Composer\\\\IO\\\\IOInterface&PHPUnit_Framework_MockObject_MockObject\\) does not accept PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\.$#"
+			message: "#^Parameter \\#1 \\$scripts of method Composer\\\\Package\\\\CompletePackage\\:\\:setScripts\\(\\) expects array\\<string, array\\<string\\>\\>, array\\<string, string\\> given\\.$#"
 			count: 1
-			path: repo/tests/Composer/Test/Util/GitTest.php
+			path: repo/tests/Composer/Test/Util/MetadataMinifierTest.php
 
 		-
-			message: "#^Property Composer\\\\Test\\\\Util\\\\GitTest\\:\\:\\$config \\(Composer\\\\Config&PHPUnit_Framework_MockObject_MockObject\\) does not accept PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/GitTest.php
-
-		-
-			message: "#^Property Composer\\\\Test\\\\Util\\\\GitTest\\:\\:\\$process \\(Composer\\\\Util\\\\ProcessExecutor&PHPUnit_Framework_MockObject_MockObject\\) does not accept PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/GitTest.php
-
-		-
-			message: "#^Property Composer\\\\Test\\\\Util\\\\GitTest\\:\\:\\$fs \\(Composer\\\\Util\\\\Filesystem&PHPUnit_Framework_MockObject_MockObject\\) does not accept PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/GitTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of class Composer\\\\Util\\\\Git constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/GitTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$config of class Composer\\\\Util\\\\Git constructor expects Composer\\\\Config, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/GitTest.php
-
-		-
-			message: "#^Parameter \\#3 \\$process of class Composer\\\\Util\\\\Git constructor expects Composer\\\\Util\\\\ProcessExecutor, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/GitTest.php
-
-		-
-			message: "#^Parameter \\#4 \\$fs of class Composer\\\\Util\\\\Git constructor expects Composer\\\\Util\\\\Filesystem, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/GitTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of class Composer\\\\Util\\\\HttpDownloader constructor expects Composer\\\\IO\\\\IOInterface, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/HttpDownloaderTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$io of class Composer\\\\Util\\\\ProcessExecutor constructor expects Composer\\\\IO\\\\IOInterface\\|null, PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Util/ProcessExecutorTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$defaultOptions of static method Composer\\\\Util\\\\StreamContextFactory\\:\\:getContext\\(\\) expects array\\('http' \\=\\> array\\(\\?'follow_location' \\=\\> int, \\?'max_redirects' \\=\\> int, \\?'header' \\=\\> array\\<string, int\\|string\\>\\|string\\)\\), array\\('http' \\=\\> array\\('method' \\=\\> 'GET', 'header' \\=\\> array\\('User\\-Agent\\: foo', 'X\\-Foo\\: bar'\\), 'request_fulluri' \\=\\> false\\)\\) given\\.$#"
+			message: "#^Parameter \\#2 \\$defaultOptions of static method Composer\\\\Util\\\\StreamContextFactory\\:\\:getContext\\(\\) expects array\\(\\?'http' \\=\\> array\\(\\?'follow_location' \\=\\> int, \\?'max_redirects' \\=\\> int, \\?'header' \\=\\> array\\<string, int\\|string\\>\\|string\\)\\), array\\('http' \\=\\> array\\('method' \\=\\> 'GET', 'header' \\=\\> array\\('User\\-Agent\\: foo', 'X\\-Foo\\: bar'\\), 'request_fulluri' \\=\\> false\\)\\) given\\.$#"
 			count: 1
 			path: repo/tests/Composer/Test/Util/StreamContextFactoryTest.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 8
+			path: repo/tests/Composer/Test/Util/ZipTest.php
 
