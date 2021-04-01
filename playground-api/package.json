@@ -26,6 +26,6 @@
 		"serverless-offline": "6.8.0",
 		"serverless-plugin-typescript": "^1.1.9",
 		"tslint": "^6.1.3",
-		"typescript": "^4.1.3"
+		"typescript": "^4.2.3"
 	}
 }
