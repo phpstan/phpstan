@@ -6065,10 +6065,10 @@ pretty@^2.0.0:
     extend-shallow "^2.0.1"
     js-beautify "^1.6.12"
 
-prism-themes@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/prism-themes/-/prism-themes-1.5.0.tgz#92925e4aa0ab5e0afefcea1032df7d61bbcdc1a5"
-  integrity sha512-aqKD610WNYO90MVXm0xM8P1pX5jPHyTjbAefV0TtWFLZk7eNWnGqLGx+HH6Xxlf9hiC66VjBeCP7m3P72FS+ZQ==
+prism-themes@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/prism-themes/-/prism-themes-1.6.0.tgz#3bdb4f0780588a4abd770f70537e5cc4898198d1"
+  integrity sha512-L7pbxbUvFj8bVIWpcHCwDFOykhozk6Dja9sxqdcFCWwUI77tSFsWE7imf9OQQAmezLNLaBxRlXNcD2k0VCE/0w==
 
 prismjs@^1.17.1:
   version "1.23.0"

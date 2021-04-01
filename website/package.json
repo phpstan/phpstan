@@ -9,7 +9,7 @@
 		"jquery": "^3.6.0",
 		"knockout": "^3.5.1",
 		"littlefoot": "^3.4.1",
-		"prism-themes": "^1.5.0"
+		"prism-themes": "^1.6.0"
 	},
 	"devDependencies": {
 		"@11ty/eleventy": "^0.10.0",
