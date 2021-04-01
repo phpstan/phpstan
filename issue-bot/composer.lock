@@ -360,16 +360,16 @@
         },
         {
             "name": "knplabs/github-api",
-            "version": "v3.0.0",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/php-github-api.git",
-                "reference": "adf4ecaafc96e2c7a43370e229b58d722f2ad97a"
+                "reference": "95a5ced277a62e9a1253b12b9435e637603a2cbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/php-github-api/zipball/adf4ecaafc96e2c7a43370e229b58d722f2ad97a",
-                "reference": "adf4ecaafc96e2c7a43370e229b58d722f2ad97a",
+                "url": "https://api.github.com/repos/KnpLabs/php-github-api/zipball/95a5ced277a62e9a1253b12b9435e637603a2cbf",
+                "reference": "95a5ced277a62e9a1253b12b9435e637603a2cbf",
                 "shasum": ""
             },
             "require": {
@@ -434,7 +434,7 @@
             ],
             "support": {
                 "issues": "https://github.com/KnpLabs/php-github-api/issues",
-                "source": "https://github.com/KnpLabs/php-github-api/tree/v3.0.0"
+                "source": "https://github.com/KnpLabs/php-github-api/tree/v3.1.0"
             },
             "funding": [
                 {
@@ -442,7 +442,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-12-21T18:38:02+00:00"
+            "time": "2021-03-11T20:13:37+00:00"
         },
         {
             "name": "league/commonmark",
@@ -1530,7 +1530,7 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v5.2.3",
+            "version": "v5.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
@@ -1579,7 +1579,7 @@
                 "options"
             ],
             "support": {
-                "source": "https://github.com/symfony/options-resolver/tree/v5.2.3"
+                "source": "https://github.com/symfony/options-resolver/tree/v5.2.4"
             },
             "funding": [
                 {
