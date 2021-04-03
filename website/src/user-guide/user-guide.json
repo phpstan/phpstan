@@ -55,6 +55,10 @@
         {
             "title": "Extension Library",
             "link": "/user-guide/extension-library"
-        }
+        },
+		{
+			"title": "Backward Compatibility Promise",
+			"link": "/user-guide/backward-compatibility-promise"
+		}
     ]
 }
