@@ -22,8 +22,8 @@
 </head>
 <body>
 
-<div class="h-screen bg-white flex flex-col main-area">
-	<nav class="bg-white border-b border-gray-200 flex-shrink z-10">
+<div class="bg-white flex flex-col main-area">
+	<nav class="bg-white border-b border-gray-200 flex-shrink z-10 nav-header">
 		<!-- ko with: mainMenu -->
 			<div class="max-w-5xl mx-auto px-4 md:px-6">
 				<div class="flex justify-between h-16">
@@ -86,7 +86,7 @@
 			</div>
 		<!-- /ko -->
 	</nav>
-	<div class="overflow-y-auto">
+	<div>
 		<main>
 			<div class="max-w-5xl mx-auto md:px-6">
 				{% block content %}{% endblock %}
