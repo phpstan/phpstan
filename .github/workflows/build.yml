@@ -302,6 +302,12 @@ jobs:
             git checkout 0766952f3921f84fe15ef9269a262cac6b645e0f
             composer install --ignore-platform-reqs
             ../../../phpstan.phar analyse -c ../pocketmine.neon --memory-limit=2G
+          - |
+            git clone https://github.com/nextras/orm.git e2e/integration/repo
+            cd e2e/integration/repo
+            git checkout 97e9e89ef3baf39a526bc5f098923293e21d9d86
+            composer install
+            ../../../phpstan.phar analyse -c .phpstan.neon
 
     steps:
       - name: "Checkout"
