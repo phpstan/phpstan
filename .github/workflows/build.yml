@@ -209,6 +209,10 @@ jobs:
           - |
             cd e2e/autoload-better-reflection
             php test.php
+          - |
+            cd e2e/autoloader-require
+            ../../phpstan analyse
+            ../../phpstan analyse tests/ClassATest.php
         include:
           - php-version: 8.0
             operating-system: ubuntu-latest
