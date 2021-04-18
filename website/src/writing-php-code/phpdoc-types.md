@@ -125,7 +125,7 @@ Other advanced string types
 
 There's also `callable-string` and `numeric-string`.
 
-Type aliases
+Global type aliases
 -------------------------
 
 Type aliases (also known as `typedef`) are a popular feature in other languages like TypeScript or C++. Defining type aliases will allow you to reference complex types in your PHPDocs by their alias.
@@ -151,6 +151,11 @@ function foo($arg)
 	// $arg is string|(callable(): string)
 }
 ```
+
+Local type aliases
+-------------------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 0.12.84</div>
 
 You can also define and use local aliases in PHPDocs using the `@phpstan-type` annotation. These are scoped to the class that defines them:
 
