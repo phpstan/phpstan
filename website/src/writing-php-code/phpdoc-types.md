@@ -128,9 +128,11 @@ There's also `callable-string` and `numeric-string`.
 Type aliases
 -------------------------
 
-Type aliases (also known as `typedef`) are a popular feature in other languages like TypeScript or C++. Using the following configuration in the [configuration file](/config-reference) will allow you to reference these types in your PHPDocs:
+Type aliases (also known as `typedef`) are a popular feature in other languages like TypeScript or C++. Defining type aliases will allow you to reference complex types in your PHPDocs by their alias.
 
-```yaml
+You can define global type aliases in the [configuration file](/config-reference):
+
+```neon
 parameters:
 	typeAliases:
 		Name: 'string'
@@ -138,7 +140,7 @@ parameters:
 		NameOrResolver: 'Name|NameResolver'
 ```
 
-Your code can look like this:
+Then you can use these aliases in your codebase:
 
 ```php
 /**
@@ -147,6 +149,47 @@ Your code can look like this:
 function foo($arg)
 {
 	// $arg is string|(callable(): string)
+}
+```
+
+You can also define and use local aliases in PHPDocs using the `@phpstan-type` annotation. These are scoped to the class that defines them:
+
+```php
+/**
+ * @phpstan-type UserAddress array{street: string, city: string, zip: string}
+ */
+class User
+{
+	/**
+	 * @var UserAddress
+	 */
+	private $address; // is of type array{street: string, city: string, zip: string}
+}
+```
+
+To use a local type alias elsewhere, you can import it using the `@phpstan-import-type` annotation:
+
+```php
+/**
+ * @phpstan-import-type UserAddress from User
+ */
+class Order
+{
+	/** @var UserAddress */
+	private $deliveryAddress; // is of type array{street: string, city: string, zip: string}
+}
+```
+
+You can optionally change the name of the imported alias:
+
+```php
+/**
+ * @phpstan-import-type UserAddress from User as DeliveryAddress
+ */
+class Order
+{
+	/** @var DeliveryAddress */
+	private $deliveryAddress; // is of type array{street: string, city: string, zip: string}
 }
 ```
 
