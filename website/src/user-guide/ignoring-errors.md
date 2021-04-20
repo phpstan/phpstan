@@ -135,6 +135,8 @@ In this case, you want to analyse the whole `src` directory, but want to exclude
 
 ```yaml
 parameters:
+    paths:
+        - src
     excludePaths:
         analyse:
             - src/thirdparty
@@ -144,6 +146,8 @@ Additionally, there might be a `src/broken` directory which contains files that 
 
 ```yaml
 parameters:
+    paths:
+        - src
     excludePaths:
         analyse:
             - src/thirdparty
