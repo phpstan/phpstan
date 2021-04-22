@@ -213,6 +213,10 @@ jobs:
             cd e2e/autoloader-require
             ../../phpstan analyse
             ../../phpstan analyse tests/ClassATest.php
+          - |
+            cd e2e/autoloader-issue-stream-eof
+            composer install
+            ../../phpstan
         include:
           - php-version: 8.0
             operating-system: ubuntu-latest
