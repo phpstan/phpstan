@@ -42,6 +42,10 @@
         {
             "title": "Type-Specifying Extensions",
             "link": "/developing-extensions/type-specifying-extensions"
-        }
+        },
+		{
+			"title": "Testing",
+			"link": "/developing-extensions/testing"
+		}
     ]
 }
