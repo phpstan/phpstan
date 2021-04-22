@@ -213,10 +213,6 @@ jobs:
             cd e2e/autoloader-require
             ../../phpstan analyse
             ../../phpstan analyse tests/ClassATest.php
-          - |
-            cd e2e/autoloader-issue-stream-eof
-            composer install
-            ../../phpstan
         include:
           - php-version: 8.0
             operating-system: ubuntu-latest
@@ -237,6 +233,12 @@ jobs:
               composer install
               cp ../../phpstan vendor/bin/phpstan
               vendor/bin/phpstan analyse -l 8 src/
+          - php-version: 7.3
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/autoloader-issue-stream-eof
+              composer install
+              ../../phpstan
 
     steps:
       - name: "Checkout"
