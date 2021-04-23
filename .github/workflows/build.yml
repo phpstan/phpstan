@@ -215,11 +215,13 @@ jobs:
             ../../phpstan analyse tests/ClassATest.php
         include:
           - php-version: 8.0
+            ini-values: memory_limit=256M
             operating-system: ubuntu-latest
             script: |
               cd e2e/union-type
               ../../phpstan analyse -l 8 test.php
           - php-version: 7.4
+            ini-values: memory_limit=256M
             operating-system: ubuntu-latest
             script: |
               cd e2e/phpstorm-stubs
@@ -227,6 +229,7 @@ jobs:
               ../../phpstan analyse -l 8 test.php
               vendor/bin/phpunit ExampleTest.php
           - php-version: 7.4
+            ini-values: memory_limit=256M
             operating-system: windows-latest
             script: |
               cd e2e/name-conflict
@@ -234,6 +237,8 @@ jobs:
               cp ../../phpstan vendor/bin/phpstan
               vendor/bin/phpstan analyse -l 8 src/
           - php-version: 7.3
+            extensions: opcache
+            ini-values: memory_limit=256M, opcache.memory_consumption=128, opcache.interned_strings_buffer=8, opcache.max_accelerated_files=4000, opcache.revalidate_freq=60, opcache.fast_shutdown=1, opcache.enable_cli=1, opcache.enable=1
             operating-system: ubuntu-latest
             script: |
               cd e2e/autoloader-issue-stream-eof
@@ -249,7 +254,8 @@ jobs:
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
-          ini-values: memory_limit=256M
+          ini-values: " ${{ matrix.ini-values }}"
+          extensions: "${{ matrix.extensions }}"
 
       - name: "Disable MongoDB extension"
         if: matrix.operating-system != 'windows-latest'
