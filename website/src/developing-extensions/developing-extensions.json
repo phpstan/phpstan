@@ -39,6 +39,10 @@
             "title": "Dynamic Return Type Extensions",
             "link": "/developing-extensions/dynamic-return-type-extensions"
         },
+		{
+			"title": "Dynamic Throw Type Extensions",
+			"link": "/developing-extensions/dynamic-throw-type-extensions"
+		},
         {
             "title": "Type-Specifying Extensions",
             "link": "/developing-extensions/type-specifying-extensions"
