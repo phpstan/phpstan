@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"@tailwindcss/ui": "^0.7.2",
-		"codemirror": "^5.59.4",
+		"codemirror": "^5.61.0",
 		"docsearch.js": "2",
 		"jquery": "^3.6.0",
 		"knockout": "^3.5.1",
