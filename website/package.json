@@ -26,7 +26,7 @@
 		"parcel-bundler": "^1.12.4",
 		"parcel-plugin-clean-dist": "^0.0.6",
 		"postcss-modules": "^3.2.2",
-		"posthtml": "^0.15.1",
+		"posthtml": "^0.15.2",
 		"posthtml-noopener": "^1.0.5",
 		"reading-time": "^1.2.1",
 		"tailwindcss": "^1.9.6",
