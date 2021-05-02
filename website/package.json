@@ -18,7 +18,7 @@
 		"@tailwindcss/custom-forms": "^0.2.1",
 		"@types/jquery": "^3.5.5",
 		"autoprefixer": "^9.8.6",
-		"luxon": "^1.25.0",
+		"luxon": "^1.26.0",
 		"markdown-it-abbr": "^1.0.4",
 		"markdown-it-anchor": "^6.0.1",
 		"markdown-it-footnote": "^3.0.2",
