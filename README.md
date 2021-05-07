@@ -47,6 +47,8 @@ can be checked before you run the actual line.
 <a href="https://zol.fr?utm_source=phpstan"><img src="https://i.imgur.com/dzDgd4s.png" alt="ZOL" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://kocourek.uk/"><img src="https://i.imgur.com/EX29z98.png" alt="Stepan Kocourek" width="294" height="64"></a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://www.shopware.com/en/"><img src="https://i.imgur.com/L4X5w9s.png" alt="Shopware" width="284" height="64"></a>
 
 ## Documentation
 
