@@ -1,0 +1,18 @@
+{
+  "require": {
+    "php": ">=7.2",
+    "duccio/apns-php": "1.0.*"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable" : true,
+  "require-dev": {
+    "phpstan/phpstan": "^0.12.85"
+  },
+  "scripts": {
+    "phpstan": [
+      "phpstan analyse -c phpstan.neon --no-progress"
+    ]
+  },
+  "name": "rokclimb15/phpstan-issue-4953",
+  "description": "Reproduction case for PHPStan issue 4953"
+}

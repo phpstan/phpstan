@@ -1,0 +1,101 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "03e46ab2e95f6b88dafe34d5871c4364",
+    "packages": [
+        {
+            "name": "duccio/apns-php",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/immobiliare/ApnsPHP.git",
+                "reference": "43e706e82236da2ece6e4932f63268298e5a7e83"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/immobiliare/ApnsPHP/zipball/43e706e82236da2ece6e4932f63268298e5a7e83",
+                "reference": "43e706e82236da2ece6e4932f63268298e5a7e83",
+                "shasum": ""
+            },
+            "require": {
+                "lib-openssl": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "ApnsPHP/Autoload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Apple Push Notification & Feedback Provider",
+            "homepage": "https://github.com/immobiliare/ApnsPHP",
+            "keywords": [
+                "apns",
+                "apple",
+                "notification",
+                "push"
+            ],
+            "time": "2016-02-07T21:17:51+00:00"
+        }
+    ],
+    "packages-dev": [
+        {
+            "name": "phpstan/phpstan",
+            "version": "0.12.85",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpstan/phpstan.git",
+                "reference": "20e6333c0067875ad7697cd8acdf245c6ef69d03"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/20e6333c0067875ad7697cd8acdf245c6ef69d03",
+                "reference": "20e6333c0067875ad7697cd8acdf245c6ef69d03",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1|^8.0"
+            },
+            "conflict": {
+                "phpstan/phpstan-shim": "*"
+            },
+            "bin": [
+                "phpstan",
+                "phpstan.phar"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.12-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "PHPStan - PHP Static Analysis Tool",
+            "time": "2021-04-27T14:13:16+00:00"
+        }
+    ],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": [],
+    "prefer-stable": true,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.2"
+    },
+    "platform-dev": []
+}

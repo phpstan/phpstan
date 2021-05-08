@@ -213,6 +213,10 @@ jobs:
             cd e2e/autoloader-require
             ../../phpstan analyse
             ../../phpstan analyse tests/ClassATest.php
+          - |
+            cd e2e/phpstan-issue-4953
+            composer install
+            ../../phpstan
         include:
           - php-version: 8.0
             ini-values: memory_limit=256M
