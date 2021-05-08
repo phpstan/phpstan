@@ -10,3 +10,6 @@ parameters:
 		-
 			message: '#^Cannot cast \(array<string>&nonEmpty\)\|string\|true to string\.$#'
 			path: repo/src/Configuration/Configuration.php
+		-
+			message: '#Class with base "PhpVersionFactory" name is already used in "PHPStan\\Php\\PhpVersionFactory", "Rector\\Core\\Util\\PhpVersionFactory"\. Use unique name to make classes easy to recognize#'
+			path: repo/src/Util/PhpVersionFactory.php
