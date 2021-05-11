@@ -76,6 +76,10 @@
             "link": "#stricter-analysis"
         },
         {
+            "title": "Exceptions",
+            "link": "#exceptions"
+        },
+        {
             "title": "Vague typehints",
             "link": "#vague-typehints"
         },

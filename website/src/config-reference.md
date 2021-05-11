@@ -423,6 +423,15 @@ public function setFoo(int $foo): void
 }
 ```
 
+Exceptions
+------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 0.12.87</div>
+
+Advanced exceptions-related rules are available. [Read this article for more details »](/blog/bring-your-exceptions-under-control).
+
+Related config keys: `implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.tooWideThrowType`
+
 Vague typehints
 ------------
 
