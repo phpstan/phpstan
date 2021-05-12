@@ -1,0 +1,12 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
+			count: 1
+			path: repo/src/Collection/Helpers/ArrayCollectionHelper.php
+
+		-
+			message: "#^Strict comparison using \\!\\=\\= between array\\(Nextras\\\\Orm\\\\Entity\\\\IEntity, array\\<string\\>, Nextras\\\\Orm\\\\Entity\\\\Reflection\\\\EntityMetadata\\) and null will always evaluate to true\\.$#"
+			count: 1
+			path: repo/src/Collection/Helpers/ArrayCollectionHelper.php
+

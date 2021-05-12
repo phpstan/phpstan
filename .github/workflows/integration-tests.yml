@@ -70,7 +70,7 @@ jobs:
             cd e2e/integration/repo
             git checkout 97e9e89ef3baf39a526bc5f098923293e21d9d86
             composer install
-            ../../../phpstan.phar analyse -c .phpstan.neon
+            ../../../phpstan.phar analyse -c ../nextras-orm.neon
 
     steps:
       - name: "Checkout"
