@@ -44,7 +44,7 @@ It's better to let them bubble up to the topmost layer of the code, log them, al
 
 Unlike Java, PHPStan lets the user decide which exceptions are going to be checked and unchecked. These criteria will be different for a database abstraction library, for a web application, and for the static analyser itself.
 
-PHPStan's [configuration](/config-reference) allows marking exception classes as unchecked in two different ways:
+All exceptions are checked by default. PHPStan's [configuration](/config-reference) allows marking exception classes as unchecked in two different ways:
 
 * Mark a class and its subclasses as unchecked with `exceptions.uncheckedExceptionClasses`
 * Mark a specific class name (without the subclasses) using regular exceptions with `exceptions.uncheckedExceptionRegexes`
