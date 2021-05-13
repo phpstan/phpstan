@@ -1,5 +1,3 @@
-# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
-
 name: "Integration tests"
 
 on:
@@ -17,60 +15,78 @@ jobs:
   integration-tests:
     name: "Integration Tests"
 
-    runs-on: "ubuntu-latest"
+    runs-on: "${{ matrix.operating-system }}"
 
     strategy:
       fail-fast: false
       matrix:
+        operating-system:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+        phpts:
+          - nts
+          - ts
         script:
           - |
-            git clone https://github.com/sebastianbergmann/phpunit.git e2e/integration/repo
+            {0}git clone https://github.com/sebastianbergmann/phpunit.git e2e/integration/repo
             cd e2e/integration/repo
-            git checkout 9.2.3
-            export COMPOSER_ROOT_VERSION=9.2.3
-            composer install
-            ../../../phpstan.phar analyse -l 8 -c ../phpunit.neon src tests
+            {0}git checkout 9.2.3
+            {0}set COMPOSER_ROOT_VERSION=9.2.3 || export COMPOSER_ROOT_VERSION=9.2.3
+            {0}composer install
+            {1} ../../../phpstan.phar analyse -l 8 -c ../phpunit.neon src tests
           - |
-            git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
+            {0}git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
             cd e2e/integration/repo
-            git checkout ca98347313e20fe84daf22c08a31a550153f3be9
-            composer install
-            ../../../phpstan.phar analyse
+            {0}git checkout ca98347313e20fe84daf22c08a31a550153f3be9
+            {0}composer install
+            {1} ../../../phpstan.phar analyse
           - |
-            git clone https://github.com/rectorphp/rector.git e2e/integration/repo
+            {0}git clone https://github.com/rectorphp/rector.git e2e/integration/repo
             cd e2e/integration/repo
-            git checkout 0.10.0
-            cp ../rector-composer.lock composer.lock
-            composer install
-            ../../../phpstan.phar analyse -c ../rector.neon
+            {0}git checkout 0.10.0
+            {0}cp ../rector-composer.lock composer.lock
+            {0}composer install
+            {1} ../../../phpstan.phar analyse -c ../rector.neon
           - |
-            git clone https://github.com/slevomat/coding-standard.git e2e/integration/repo
+            {0}git clone https://github.com/slevomat/coding-standard.git e2e/integration/repo
             cd e2e/integration/repo
-            git checkout 6.4.1
-            composer install
-            ../../../phpstan.phar analyse -c ../slevomat-cs.neon -l 7 SlevomatCodingStandard
-            ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon -l 7 tests
+            {0}git checkout 6.4.1
+            {0}composer install
+            {1} ../../../phpstan.phar analyse -c ../slevomat-cs.neon -l 7 SlevomatCodingStandard
+            {1} ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon -l 7 tests
           - |
-            git clone https://github.com/composer/composer.git e2e/integration/repo
+            {0}git clone https://github.com/composer/composer.git e2e/integration/repo
             cd e2e/integration/repo
-            git checkout 4940009f8377d06b9fb48df0cbe67193e0989830
-            composer install
-            composer config platform --unset && composer update
-            bin/composer require --dev phpunit/phpunit:^7.5 --with-all-dependencies
-            bin/composer require --dev phpstan/phpstan-phpunit
-            ../../../phpstan.phar analyse -c ../composer.neon -l 5 src tests
+            {0}git checkout 4940009f8377d06b9fb48df0cbe67193e0989830
+            {0}composer install
+            {0}composer config platform --unset && composer update
+            {0}bin/composer require --dev phpunit/phpunit:^7.5 --with-all-dependencies
+            {0}bin/composer require --dev phpstan/phpstan-phpunit
+            {1} ../../../phpstan.phar analyse -c ../composer.neon -l 5 src tests
           - |
-            git clone https://github.com/pmmp/PocketMine-MP.git e2e/integration/repo
+            {0}git clone https://github.com/pmmp/PocketMine-MP.git e2e/integration/repo
             cd e2e/integration/repo
-            git checkout 0766952f3921f84fe15ef9269a262cac6b645e0f
-            composer install --ignore-platform-reqs
-            ../../../phpstan.phar analyse -c ../pocketmine.neon --memory-limit=2G
+            {0}git checkout 0766952f3921f84fe15ef9269a262cac6b645e0f
+            {0}composer install --ignore-platform-reqs
+            {1} ../../../phpstan.phar analyse -c ../pocketmine.neon --memory-limit=2G
           - |
-            git clone https://github.com/nextras/orm.git e2e/integration/repo
+            {0}git clone https://github.com/nextras/orm.git e2e/integration/repo
             cd e2e/integration/repo
-            git checkout 97e9e89ef3baf39a526bc5f098923293e21d9d86
-            composer install
-            ../../../phpstan.phar analyse -c ../nextras-orm.neon
+            {0}git checkout 97e9e89ef3baf39a526bc5f098923293e21d9d86
+            {0}composer install
+            {1} ../../../phpstan.phar analyse -c ../nextras-orm.neon
+          - |
+            {0}git clone https://github.com/atk4/ui.git e2e/integration/repo
+            cd e2e/integration/repo
+            {0}git checkout 1499be0fad747211316ad444055f335d5ea10ae2
+            {0}composer install --ignore-platform-reqs
+            {1} ../../../phpstan.phar analyse --memory-limit=2G
+        exclude:
+          - operating-system: ubuntu-latest
+            phpts: ts
+          - operating-system: macos-latest
+            phpts: ts
 
     steps:
       - name: "Checkout"
@@ -81,9 +97,17 @@ jobs:
         with:
           coverage: "none"
           php-version: "7.4"
+        env:
+          phpts: "${{ matrix.phpts }}"
 
-      - name: "Install dependencies"
+      - name: "Install phpstan dependencies"
         run: "composer update --no-interaction --no-progress --no-suggest"
 
-      - name: "Tests"
-        run: "${{ matrix.script }}"
+      - name: "Install tests dependencies"
+        run: "${{ format(matrix.script, '', '# ') }}"
+
+      - name: "Run tests"
+        run: "${{ format(matrix.script, '# ', 'php') }}"
+
+      - name: "Run tests /w special php.ini values"
+        run: "${{ format(format('{0}\n{1}', '{1} -i', matrix.script), '# ', 'php -d open_basedir=\"/home/runner/work:/tmp/phpstan:/Users/runner/work:/var/folders:/winxx;C:\\\\Users;D:\\\\a\" -d disable_functions=\"proc_open\"') }}"
