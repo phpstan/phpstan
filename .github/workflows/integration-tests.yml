@@ -109,5 +109,6 @@ jobs:
       - name: "Run tests"
         run: "${{ format(matrix.script, '# ', 'php') }}"
 
-      - name: "Run tests /w special php.ini values"
+      - name: "Run tests /w special php.ini values (slow/skip on MacOS)"
+        if: matrix.operating-system != 'macos-latest'
         run: "${{ format(format('{0}\n{1}', '{1} -i', matrix.script), '# ', 'php -d open_basedir=\"/home/runner/work:/tmp/phpstan:/Users/runner/work:/var/folders:/winxx;C:\\\\Users;D:\\\\a\" -d disable_functions=\"proc_open\"') }}"
