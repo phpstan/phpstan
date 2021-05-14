@@ -109,6 +109,11 @@ jobs:
       - name: "Run tests"
         run: "${{ format(matrix.script, '# ', 'php') }}"
 
+        # phpstan must work with:
+        # - open_basedir set
+        # - exec, proc_open and similar disabled functions (implies max. 1 CPU)
+        # - commonly disabled functions like symlink
+        # - opcache enabled even for CLI
       - name: "Run tests /w special php.ini values (slow/skip on MacOS)"
         if: matrix.operating-system != 'macos-latest'
-        run: "${{ format(format('{0}\n{1}', '{1} -i', matrix.script), '# ', 'php -d open_basedir=\"/home/runner/work:/tmp/phpstan:/Users/runner/work:/var/folders:/winxx;C:\\\\Users;D:\\\\a\" -d disable_functions=\"proc_open\"') }}"
+        run: "${{ format(format('{0}\n{1}', '{1} -i', matrix.script), '# ', 'php -d open_basedir=\"/home/runner/work:/tmp/phpstan:/Users/runner/work:/var/folders:/winxx;C:\\\\Users;D:\\\\a\" -d disable_functions=exec,passthru,proc_open,popen,pcntl_exec,pcntl_fork,shell_exec,system,symlink,link,readlink,chgrp,chown,lchgrp,lchown -d opcache.enable=1 -d opcache.enable_cli=1') }}"
