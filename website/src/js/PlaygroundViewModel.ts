@@ -270,10 +270,23 @@ export class PlaygroundViewModel {
 			'\t}\n' +
 			'}'
 		);
-		this.analyse(false).always(() => {
-			initCallback();
-			this.startAcceptingChanges();
-		});
+		initCallback();
+		this.tabs([
+			new PlaygroundTabViewModel([
+				{
+					message: 'Parameter $date of method HelloWorld::sayHello() has invalid typehint type DateTimeImutable.',
+					line: 5,
+				},
+				{
+					message: 'Call to method format() on an unknown class DateTimeImutable.',
+					line: 7,
+				},
+			], '', true),
+		]);
+		this.currentTabIndex(0);
+		this.legacyResult(null);
+		this.upToDateTabs(null);
+		this.startAcceptingChanges();
 	}
 
 	areTabsDifferent(tabs: PlaygroundTabViewModel[], upToDateTabs: PlaygroundTabViewModel[]): boolean {
