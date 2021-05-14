@@ -23,5 +23,5 @@ if [[ "$STATIC_REFLECTION" == "true" ]]; then
   cp ../e2e/bootstrap-static-reflection.php tests/bootstrap.php
 fi
 
-vendor/bin/phing tests
-vendor/bin/phing phpstan
+make tests
+make phpstan
