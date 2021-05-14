@@ -61,6 +61,17 @@ parameters:
 			- 'RuntimeException' # Mark RuntimeException and child classes as unchecked
 ```
 
+Since version 0.12.88 PHPStan also supports marking all exceptions as unchecked by default, and list the criteria for the only checked exception classes:
+
+```neon
+parameters:
+	exceptions:
+		checkedExceptionRegexes:
+			- '#^Foo\\Bar\\#' # Mark exceptions from Foo\Bar namespace as checked
+		checkedExceptionClasses:
+			- 'LogicException' # Mark LogicException and child classes as unchecked
+```
+
 Enforce declaring thrown checked exceptions in `@throws`
 ------------------------
 
