@@ -7,9 +7,9 @@ set -o nounset
 git clone $1 extension
 cd extension
 
-if [[ "$PHP_VERSION" == "8.0" ]]; then
-  composer install --ignore-platform-reqs
-  composer require --dev phpunit/phpunit:'^9.3' --update-with-dependencies --ignore-platform-reqs
+if [[ "$PHP_VERSION" == "7.1" || "$PHP_VERSION" == "7.2" ]]; then
+  composer install --no-interaction --no-suggest
+  composer require --dev phpunit/phpunit:'^7.5.20' --update-with-dependencies
 else
   composer install
 fi;
