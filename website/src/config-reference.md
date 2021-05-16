@@ -76,6 +76,18 @@ parameters:
 
 Relative paths in the `includes` section are resolved based on the directory of the config file is in. So in this example, `phpstan.neon.dist` and `phpstan.neon` are next to each other in the same directory.
 
+Adding an IDE link to the output
+---------------------
+
+By adding an `editorUrl` config key, you can add an additional line to the output, containing a clickable link to open the referenced code file directly in your IDE.
+Here's an example for Atom. The placeholders `%%file%%` and `%%line%%` will be replaced by the full path to the file and the line number of the error.
+
+```yaml
+parameters:
+    editorUrl: 'atom://core/open/file?filename=%%file%%&line=%%line%%'
+```
+To make the text really clickable, you need to register the protocol in your system; for Atom you can use [eclemens/atom-url-handler](https://github.com/eclemens/atom-url-handler).
+
 Ignoring errors
 -------------------
 
