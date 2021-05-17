@@ -55,4 +55,4 @@ parameters:
 	editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
 ```
 
-To make the text really clickable in your terminal, you might need to register the protocol in your system; see [eclemens/atom-url-handler](https://github.com/eclemens/atom-url-handler) for an example.
+To make the text really clickable in your terminal you might need to register the protocol in your system; see [eclemens/atom-url-handler](https://github.com/eclemens/atom-url-handler) for an example.
