@@ -521,7 +521,7 @@ Parallel processing is also disabled when running with [`--debug`](/user-guide/c
 Clickable editor URL
 -----------------
 
-You can configure PHPStan to show clickable editor URL leading to the file and line with error in the default `table` error formatter. [Learn more](/user-guide/output-format#opening-file-in-an-editor)
+You can configure PHPStan to show a clickable URL in the default `table` error formatter, to open the file with the error directly in your IDE. [Learn more](/user-guide/output-format#opening-file-in-an-editor)
 
 Related config key: `editorUrl`
 
