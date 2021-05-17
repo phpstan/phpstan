@@ -4,12 +4,17 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-git clone $1 extension
+git clone https://github.com/phpstan/$1.git extension
 cd extension
 
 if [[ "$PHP_VERSION" == "7.1" || "$PHP_VERSION" == "7.2" ]]; then
   composer install --no-interaction --no-suggest
-  composer require --dev phpunit/phpunit:'^7.5.20' --update-with-dependencies
+
+  if [[ "$1" == "phpstan-mockery" ]]; then
+    composer require --dev phpunit/phpunit:'^7.5.20' mockery/mockery:^1.3 --update-with-dependencies
+  else
+    composer require --dev phpunit/phpunit:'^7.5.20' --update-with-dependencies
+  fi;
 else
   composer install
 fi;
