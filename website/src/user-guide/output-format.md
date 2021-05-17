@@ -24,12 +24,12 @@ Opening file in an editor
 The default `table` error formatter offers a configuration parmaeter `editorUrl` that lets you specify a URL with placeholders that will be printed next to the error message in the output:
 
 ```
- ------ ----------------------------------------------------------------------------
+ ------ -------------------------------------------------------------------
   Line   test.php
- ------ ----------------------------------------------------------------------------
+ ------ -------------------------------------------------------------------
   3      Parameter #1 (stdClass) of echo cannot be converted to string.
          ✏️  phpstorm://open?file=/home/dev/test.php&line=3
- ------ ----------------------------------------------------------------------------
+ ------ -------------------------------------------------------------------
 ```
 
 Here's how the parameter can be set in the [configuration file](/config-reference):
@@ -44,3 +44,13 @@ Examples of URLs for the most common editors are:
 * PhpStorm: `'phpstorm://open?file=%%file%%&line=%%line%%'`
 * Visual Studio Code: `'vscode://file/%%file%%:%%line%%'`
 * Atom: `'atom://core/open/file?filename=%%file%%&line=%%line%%'`
+
+Setting this parameter should most likely be done in [your local configuration file](/config-reference#multiple-files) that isn't commited to version control. The common pattern is to have `phpstan.neon.dist` with project-specific settings shared by everyone on the team, and `phpstan.neon` that includes `phpstan.neon.dist` and overrides values specific to a single developer:
+
+```neon
+includes:
+	- phpstan.neon.dist
+
+parameters:
+	editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
+```
