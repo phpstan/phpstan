@@ -21,7 +21,7 @@ You can also implement your own custom error formatter. [Learn how »](/developi
 Opening file in an editor
 --------------
 
-The default `table` error formatter offers a configuration parmaeter `editorUrl` that lets you specify a URL with placeholders that will be printed next to the error message in the output:
+The default `table` error formatter offers a configuration parameter `editorUrl` that lets you specify a URL with placeholders that will be printed next to the error message in the output:
 
 ```
  ------ -------------------------------------------------------------------
