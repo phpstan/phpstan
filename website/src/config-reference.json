@@ -91,6 +91,10 @@
             "title": "Parallel processing",
             "link": "#parallel-processing"
         },
+		{
+			"title": "Clickable editor URL",
+			"link": "#clickable-editor-url"
+		},
         {
             "title": "Miscellaneous parameters",
             "link": "#miscellaneous-parameters"

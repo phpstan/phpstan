@@ -518,6 +518,13 @@ Parallel processing is also disabled when running with [`--debug`](/user-guide/c
 
 [^notWantToRunWithDebug]: Although you don't want to always run PHPStan with this option.
 
+Clickable editor URL
+-----------------
+
+You can configure PHPStan to show clickable editor URL leading to the file and line with error in the default `table` error formatter. [Learn more](/user-guide/output-format#opening-file-in-an-editor)
+
+Related config key: `editorUrl`
+
 Miscellaneous parameters
 -----------------
 
