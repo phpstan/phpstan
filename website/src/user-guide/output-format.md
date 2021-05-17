@@ -17,3 +17,30 @@ You can pass the following keywords to the `--error-format=X` CLI option of the 
 - `teamcity`: Creates TeamCity compatible output.
 
 You can also implement your own custom error formatter. [Learn how »](/developing-extensions/error-formatters)
+
+Opening file in an editor
+--------------
+
+The default `table` error formatter offers a configuration parmaeter `editorUrl` that lets you specify a URL with placeholders that will be printed next to the error message in the output:
+
+```
+ ------ ----------------------------------------------------------------------------
+  Line   test.php
+ ------ ----------------------------------------------------------------------------
+  3      Parameter #1 (stdClass) of echo cannot be converted to string.
+         ✏️  phpstorm://open?file=/home/dev/test.php&line=3
+ ------ ----------------------------------------------------------------------------
+```
+
+Here's how the parameter can be set in the [configuration file](/config-reference):
+
+```neon
+parameters:
+	editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
+```
+
+Examples of URLs for the most common editors are:
+
+* PhpStorm: `'phpstorm://open?file=%%file%%&line=%%line%%'`
+* Visual Studio Code: `'vscode://file/%%file%%:%%line%%'`
+* Atom: `'atom://core/open/file?filename=%%file%%&line=%%line%%'`
