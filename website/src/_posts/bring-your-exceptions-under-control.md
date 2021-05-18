@@ -69,7 +69,7 @@ parameters:
 		checkedExceptionRegexes:
 			- '#^Foo\\Bar\\#' # Mark exceptions from Foo\Bar namespace as checked
 		checkedExceptionClasses:
-			- 'LogicException' # Mark LogicException and child classes as unchecked
+			- 'LogicException' # Mark LogicException and child classes as checked
 ```
 
 Enforce declaring thrown checked exceptions in `@throws`
