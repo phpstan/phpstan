@@ -22,6 +22,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        php-version:
+          - 7.4
         script:
           - |
             git clone https://github.com/sebastianbergmann/phpunit.git e2e/integration/repo
@@ -36,13 +38,6 @@ jobs:
             git checkout ca98347313e20fe84daf22c08a31a550153f3be9
             composer install
             ../../../phpstan.phar analyse
-          - |
-            git clone https://github.com/rectorphp/rector.git e2e/integration/repo
-            cd e2e/integration/repo
-            git checkout 0.10.0
-            cp ../rector-composer.lock composer.lock
-            composer install
-            ../../../phpstan.phar analyse -c ../rector.neon
           - |
             git clone https://github.com/slevomat/coding-standard.git e2e/integration/repo
             cd e2e/integration/repo
@@ -71,6 +66,15 @@ jobs:
             git checkout 97e9e89ef3baf39a526bc5f098923293e21d9d86
             composer install
             ../../../phpstan.phar analyse -c ../nextras-orm.neon
+        include:
+          - php-version: 8.0
+            script: |
+              git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout 0.11.5
+              cp ../rector-composer.lock composer.lock
+              composer install
+              ../../../phpstan.phar analyse -c ../rector.neon
 
     steps:
       - name: "Checkout"
@@ -80,7 +84,7 @@ jobs:
         uses: "shivammathur/setup-php@v2"
         with:
           coverage: "none"
-          php-version: "7.4"
+          php-version: "${{ matrix.php-version }}"
 
       - name: "Install dependencies"
         run: "composer update --no-interaction --no-progress --no-suggest"
