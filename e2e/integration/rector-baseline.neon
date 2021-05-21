@@ -1,47 +1,42 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
+			message: "#^Creating new PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Type\\\\AggregateSourceLocator is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
-			path: repo/packages/ReadWrite/NodeAnalyzer/ReadWritePropertyAnalyzer.php
+			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/RectorBetterReflectionSourceLocatorFactory.php
 
 		-
-			message: "#^Offset mixed does not exist on array\\<PhpParser\\\\Node\\\\Stmt\\>\\|null\\.$#"
+			message: "#^Creating new PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Type\\\\MemoizingSourceLocator is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
-			path: repo/rules/DeadCode/Rector/FunctionLike/RemoveCodeAfterReturnRector.php
+			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/RectorBetterReflectionSourceLocatorFactory.php
 
 		-
-			message: "#^Offset int\\<0, max\\> does not exist on array\\<PhpParser\\\\Node\\\\Stmt\\>\\|null\\.$#"
+			message: "#^Creating new PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Type\\\\AggregateSourceLocator is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
-			path: repo/rules/Defluent/Rector/ClassMethod/NormalToFluentRector.php
+			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/SourceLocatorProvider/DynamicSourceLocatorProvider.php
 
 		-
-			message: "#^Offset int does not exist on array\\<PhpParser\\\\Node\\\\Stmt\\>\\|null\\.$#"
+			message: "#^Creating new PHPStan\\\\Reflection\\\\BetterReflection\\\\SourceLocator\\\\OptimizedDirectorySourceLocator is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
-			path: repo/rules/Defluent/Rector/ClassMethod/NormalToFluentRector.php
+			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/SourceLocatorProvider/DynamicSourceLocatorProvider.php
 
 		-
-			message: "#^Cannot access property \\$right on PhpParser\\\\Node\\\\Expr\\|null\\.$#"
+			message: "#^Creating new PHPStan\\\\Reflection\\\\BetterReflection\\\\SourceLocator\\\\OptimizedSingleFileSourceLocator is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
-			path: repo/rules/EarlyReturn/Rector/Return_/ReturnBinaryAndToEarlyReturnRector.php
+			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/SourceLocatorProvider/DynamicSourceLocatorProvider.php
 
 		-
-			message: "#^Cannot access property \\$right on PhpParser\\\\Node\\\\Expr\\|null\\.$#"
+			message: "#^Creating new PHPStan\\\\Type\\\\Generic\\\\TemplateObjectType is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
-			path: repo/rules/EarlyReturn/Rector/Return_/ReturnBinaryOrToEarlyReturnRector.php
+			path: repo/rules/Generics/NodeType/ExtendsTemplateTypeMapFallbackFactory.php
 
 		-
-			message: "#^Parameter \\#1 \\$binaryOp of method Rector\\\\Php70\\\\Rector\\\\If_\\\\IfToSpaceshipRector\\:\\:areVariablesEqual\\(\\) expects PhpParser\\\\Node\\\\Expr\\\\BinaryOp, PhpParser\\\\Node\\\\Expr given\\.$#"
+			message: "#^Creating new PHPStan\\\\Type\\\\Generic\\\\TemplateTypeParameterStrategy is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
-			path: repo/rules/Php70/Rector/If_/IfToSpaceshipRector.php
+			path: repo/rules/Generics/NodeType/ExtendsTemplateTypeMapFallbackFactory.php
 
 		-
-			message: "#^Parameter 1 should use \"PhpParser\\\\Node\\\\Expr\" type as the only type passed to this method$#"
+			message: "#^Creating new PHPStan\\\\Reflection\\\\Native\\\\NativeFunctionReflection is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
-			path: repo/rules/Php70/Rector/If_/IfToSpaceshipRector.php
-
-		-
-			message: "#^If condition is always false\\.$#"
-			count: 1
-			path: repo/src/NodeManipulator/ClassManipulator.php
+			path: repo/src/PHPStan/Reflection/TypeToCallReflectionResolver/ClosureTypeToCallReflectionResolver.php
 

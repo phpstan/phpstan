@@ -3,6 +3,8 @@ includes:
 	- rector-baseline.neon
 
 parameters:
+	featureToggles:
+		apiRules: true
 	ignoreErrors:
 		-
 			message: '#^Cannot cast PhpParser\\Node\\Expr\|PhpParser\\Node\\Name to string\.$#'
