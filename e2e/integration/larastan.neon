@@ -1,0 +1,7 @@
+includes:
+	- repo/phpstan.neon.dist
+	- larastan-baseline.neon
+
+parameters:
+	featureToggles:
+		apiRules: true

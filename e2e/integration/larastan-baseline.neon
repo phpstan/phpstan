@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Creating new PHPStan\\\\Reflection\\\\Php\\\\DummyParameter is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/src/Methods/BuilderHelper.php
+
+		-
+			message: "#^Creating new PHPStan\\\\Reflection\\\\Dummy\\\\DummyMethodReflection is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/src/Methods/HigherOrderTapProxyExtension.php
