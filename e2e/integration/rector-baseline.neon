@@ -26,6 +26,11 @@ parameters:
 			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/SourceLocatorProvider/DynamicSourceLocatorProvider.php
 
 		-
+			message: "#^Extending PHPStan\\\\Type\\\\StaticType is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/packages/StaticTypeMapper/ValueObject/Type/ParentStaticType.php
+
+		-
 			message: "#^Creating new PHPStan\\\\Type\\\\Generic\\\\TemplateObjectType is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/rules/Generics/NodeType/ExtendsTemplateTypeMapFallbackFactory.php
