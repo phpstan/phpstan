@@ -307,22 +307,6 @@ When set to `false` it prevents reading variables set in `for` loop initial stat
 
 When set to `false` it prevents reading key and value variables set in foreach when iterating over a non-empty array.
 
-### `polluteCatchScopeWithTryAssignments`
-
-**default**: `false`
-
-If you use some variables from a try block in your catch blocks, set this parameter to `true`.
-
-```php
-try {
-	$author = $this->getLoggedInUser();
-	$post = $this->postRepository->getById($id);
-} catch (PostNotFoundException $e) {
-	// $author is probably defined here
-	throw new ArticleByAuthorCannotBePublished($author);
-}
-```
-
 ### `checkAlwaysTrueCheckTypeFunctionCall`
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
