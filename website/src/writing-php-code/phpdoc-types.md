@@ -97,7 +97,7 @@ Generics
 class-string
 -------------------------
 
-`class-string` type can be used wherever a valid class name string is expected. [Generic](/blog/generics-in-php-using-phpdocs) variant `class-string<T>` also works.
+`class-string` type can be used wherever a valid class name string is expected. [Generic](/blog/generics-in-php-using-phpdocs) variant `class-string<T>` also works, or you can use class-string<Foo> to only accept valid class names that are subtypes of Foo.
 
 ```php
 /**
