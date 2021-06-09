@@ -4,6 +4,12 @@ title: Backward Compatibility Promise
 
 There are multiple aspects to backward compatibility in case of PHPStan. This article talks about what users can expect when upgrading minor versions and how PHPStan honors [semantic versioning](https://semver.org/).
 
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+
+To read about backward compatibility from the point of view of developing PHPStan extensions, <a href="/developing-extensions/backward-compatibility-promise">head here</a>.
+
+</div>
+
 In context of PHPStan, upgrading a minor version means increasing `y` in `0.x.y` before 1.0, and increasing `y` in `x.y.z` after 1.0 release.
 
 CLI arguments and options

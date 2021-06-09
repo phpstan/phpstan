@@ -50,6 +50,10 @@
 		{
 			"title": "Testing",
 			"link": "/developing-extensions/testing"
+		},
+		{
+			"title": "Backward Compatibility Promise",
+			"link": "/developing-extensions/backward-compatibility-promise"
 		}
     ]
 }
