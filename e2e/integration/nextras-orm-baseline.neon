@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Property Nextras\\\\Orm\\\\Collection\\\\ArrayCollection\\:\\:\\$onEntityFetch type has no value type specified in iterable type Traversable\\.$#"
+			count: 1
+			path: repo/src/Collection/ArrayCollection.php
+
+		-
+			message: "#^Property Nextras\\\\Orm\\\\Collection\\\\DbalCollection\\:\\:\\$onEntityFetch type has no value type specified in iterable type Traversable\\.$#"
+			count: 1
+			path: repo/src/Collection/DbalCollection.php
+
+		-
 			message: "#^Call to function assert\\(\\) with true will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/Collection/Helpers/ArrayCollectionHelper.php
