@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Calling PHPStan\\\\Type\\\\TypehintHelper\\:\\:decideTypeFromReflection\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/src/Analyser/Scope.php
+
+		-
+			message: "#^Calling PHPStan\\\\Type\\\\Generic\\\\TemplateTypeHelper\\:\\:resolveTemplateTypes\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/src/Methods/BuilderHelper.php
+
+		-
 			message: "#^Creating new PHPStan\\\\Reflection\\\\Php\\\\DummyParameter is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/src/Methods/BuilderHelper.php
@@ -11,7 +21,67 @@ parameters:
 			path: repo/src/Methods/HigherOrderTapProxyExtension.php
 
 		-
+			message: "#^Implementing PHPStan\\\\Reflection\\\\Php\\\\BuiltinMethodReflection is not covered by backward compatibility promise\\. The interface might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/src/Methods/Macro.php
+
+		-
+			message: "#^Calling PHPStan\\\\Reflection\\\\Php\\\\PhpMethodReflectionFactory\\:\\:create\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/src/Methods/Pipes/BuilderLocalMacros.php
+
+		-
+			message: "#^Calling PHPStan\\\\Type\\\\TypehintHelper\\:\\:decideTypeFromReflection\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/src/Methods/Pipes/BuilderLocalMacros.php
+
+		-
+			message: "#^Calling PHPStan\\\\Reflection\\\\Php\\\\PhpMethodReflectionFactory\\:\\:create\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/src/Methods/Pipes/Macros.php
+
+		-
+			message: "#^Calling PHPStan\\\\Type\\\\TypehintHelper\\:\\:decideTypeFromReflection\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/src/Properties/ContainerProperty.php
+
+		-
+			message: "#^Calling PHPStan\\\\File\\\\FileHelper\\:\\:absolutizePath\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/src/Properties/MigrationHelper.php
+
+		-
+			message: "#^Calling PHPStan\\\\Parser\\\\CachedParser\\:\\:parseFile\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/src/Properties/MigrationHelper.php
+
+		-
 			message: "#^Creating new PHPStan\\\\File\\\\FileHelper is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/src/Properties/MigrationHelper.php
+
+		-
+			message: "#^Calling PHPStan\\\\PhpDoc\\\\TypeStringResolver\\:\\:resolve\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 2
+			path: repo/src/Properties/ModelPropertyExtension.php
+
+		-
+			message: "#^Calling PHPStan\\\\Reflection\\\\Annotations\\\\AnnotationsPropertiesClassReflectionExtension\\:\\:hasProperty\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/src/Properties/ModelPropertyExtension.php
+
+		-
+			message: "#^Calling PHPStan\\\\Reflection\\\\Annotations\\\\AnnotationsPropertiesClassReflectionExtension\\:\\:hasProperty\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/src/Properties/ModelRelationsExtension.php
+
+		-
+			message: "#^Calling PHPStan\\\\Reflection\\\\Dummy\\\\DummyMethodReflection\\:\\:getName\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/src/ReturnTypes/EloquentBuilderExtension.php
+
+		-
+			message: "#^Calling PHPStan\\\\Parser\\\\CachedParser\\:\\:parseFile\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/src/Types/RelationParserHelper.php
 
