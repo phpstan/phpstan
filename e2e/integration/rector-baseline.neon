@@ -1,19 +1,24 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Creating new PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Type\\\\AggregateSourceLocator is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
+			message: "#^Calling PHPStan\\\\Dependency\\\\DependencyResolver\\:\\:resolveDependencies\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
-			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/RectorBetterReflectionSourceLocatorFactory.php
+			path: repo/packages/Caching/FileSystem/DependencyResolver.php
 
 		-
-			message: "#^Creating new PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Type\\\\MemoizingSourceLocator is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
+			message: "#^Calling PHPStan\\\\File\\\\FileHelper\\:\\:normalizePath\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
-			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/RectorBetterReflectionSourceLocatorFactory.php
+			path: repo/packages/Caching/FileSystem/DependencyResolver.php
 
 		-
-			message: "#^Creating new PHPStan\\\\BetterReflection\\\\SourceLocator\\\\Type\\\\AggregateSourceLocator is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
+			message: "#^Calling PHPStan\\\\Type\\\\UnionTypeHelper\\:\\:sortTypes\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
-			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/SourceLocatorProvider/DynamicSourceLocatorProvider.php
+			path: repo/packages/NodeTypeResolver/PHPStan/TypeHasher.php
+
+		-
+			message: "#^Calling PHPStan\\\\Reflection\\\\BetterReflection\\\\BetterReflectionSourceLocatorFactory\\:\\:create\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/RectorBetterReflectionSourceLocatorFactory.php
 
 		-
 			message: "#^Creating new PHPStan\\\\Reflection\\\\BetterReflection\\\\SourceLocator\\\\OptimizedDirectorySourceLocator is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
@@ -26,9 +31,19 @@ parameters:
 			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/SourceLocatorProvider/DynamicSourceLocatorProvider.php
 
 		-
-			message: "#^Extending PHPStan\\\\Type\\\\StaticType is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
+			message: "#^Calling PHPStan\\\\Reflection\\\\Native\\\\NativeFunctionReflection\\:\\:getName\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
-			path: repo/packages/StaticTypeMapper/ValueObject/Type/ParentStaticType.php
+			path: repo/packages/ReadWrite/Guard/VariableToConstantGuard.php
+
+		-
+			message: "#^Calling PHPStan\\\\Type\\\\TypehintHelper\\:\\:decideTypeFromReflection\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/rules/DowngradePhp72/NodeAnalyzer/NativeTypeClassTreeResolver.php
+
+		-
+			message: "#^Calling PHPStan\\\\Type\\\\Generic\\\\TemplateTypeScope\\:\\:createWithClass\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/rules/Generics/NodeType/ExtendsTemplateTypeMapFallbackFactory.php
 
 		-
 			message: "#^Creating new PHPStan\\\\Type\\\\Generic\\\\TemplateObjectType is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
@@ -39,6 +54,16 @@ parameters:
 			message: "#^Creating new PHPStan\\\\Type\\\\Generic\\\\TemplateTypeParameterStrategy is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/rules/Generics/NodeType/ExtendsTemplateTypeMapFallbackFactory.php
+
+		-
+			message: "#^Calling PHPStan\\\\Type\\\\Generic\\\\TemplateTypeHelper\\:\\:resolveTemplateTypes\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/rules/Generics/NodeType/GenericTypeSpecifier.php
+
+		-
+			message: "#^Calling PHPStan\\\\Analyser\\\\MutatingScope\\:\\:assignExpression\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 2
+			path: repo/rules/Php70/Rector/FuncCall/NonVariableToVariableOnFunctionCallRector.php
 
 		-
 			message: "#^Creating new PHPStan\\\\Reflection\\\\Native\\\\NativeFunctionReflection is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
