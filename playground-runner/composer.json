@@ -2,7 +2,7 @@
 	"require": {
 		"php": "^8.0",
 		"bref/bref": "^1.1.4",
-		"jean85/pretty-package-versions": "^2.0.4",
+		"jean85/pretty-package-versions": "^1.6.0",
 		"nette/neon": "^3.0",
 		"nikic/php-parser": "^4.3.0",
 		"php-http/curl-client": "^2.2",
