@@ -16,4 +16,4 @@ functions:
         description: ''
         timeout: 20
         layers:
-            - ${bref:layer.php-74}
+            - ${bref:layer.php-80}

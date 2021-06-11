@@ -1,13 +1,14 @@
 {
 	"require": {
-		"php": "~7.2",
+		"php": "^8.0",
 		"bref/bref": "^1.1.4",
-		"jean85/pretty-package-versions": "^1.2",
+		"jean85/pretty-package-versions": "^2.0.4",
 		"nette/neon": "^3.0",
 		"nikic/php-parser": "^4.3.0",
+		"php-http/curl-client": "^2.2",
 		"phpstan/phpstan": "^0.12.78",
 		"phpstan/phpstan-strict-rules": "^0.12.99",
-		"sentry/sentry": "^1.9"
+		"sentry/sentry": "^3.3"
 	},
 	"config": {
 		"sort-packages": true

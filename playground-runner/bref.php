@@ -5,11 +5,14 @@ require __DIR__.'/vendor/autoload.php';
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-$client = new Raven_Client('https://35e1e4a8936c4b70b8377056a5eeaeeb@sentry.io/1319523');
-$errorHandler = new Raven_ErrorHandler($client);
-$errorHandler->registerExceptionHandler();
-$errorHandler->registerErrorHandler();
-$errorHandler->registerShutdownFunction();
+\Sentry\init([
+	'dsn' => 'https://35e1e4a8936c4b70b8377056a5eeaeeb@sentry.io/1319523',
+	'integrations' => [
+		new \Sentry\Integration\ExceptionListenerIntegration(),
+		new \Sentry\Integration\ErrorListenerIntegration(),
+		new \Sentry\Integration\FatalErrorListenerIntegration(),
+	]
+]);
 
 function clearTemp(): void
 {
