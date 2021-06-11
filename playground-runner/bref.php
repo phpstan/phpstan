@@ -5,6 +5,8 @@ require __DIR__.'/vendor/autoload.php';
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
+$phpstanVersion = \Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
+
 \Sentry\init([
 	'dsn' => 'https://35e1e4a8936c4b70b8377056a5eeaeeb@sentry.io/1319523',
 	'integrations' => [
@@ -27,7 +29,7 @@ function clearTemp(): void
 	}
 }
 
-return function ($event) {
+return function ($event) use ($phpstanVersion) {
 	clearTemp();
 	$code = $event['code'];
 	$level = $event['level'];
@@ -87,5 +89,5 @@ return function ($event) {
 		];
 	}
 
-	return ['result' => $errors, 'version' => \Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion()];
+	return ['result' => $errors, 'version' => $phpstanVersion];
 };
