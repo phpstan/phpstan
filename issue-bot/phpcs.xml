@@ -7,7 +7,7 @@
 	<file>src</file>
 	<file>tests</file>
 
-	<rule ref="vendor/consistence/coding-standard/Consistence/ruleset.xml">
+	<rule ref="vendor/consistence-community/coding-standard/Consistence/ruleset.xml">
 		<exclude name="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.InvalidFormat"/>
 		<exclude name="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration.MissingVariable"/>
 		<exclude name="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameAfterKeyword"/>
