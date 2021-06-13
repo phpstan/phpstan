@@ -1,8 +1,0 @@
-version: "3.5"
-services:
-  sut:
-    build:
-      context: .
-      args:
-        - "PHPSTAN_VERSION=dev-master#${SOURCE_COMMIT}"
-    command: "--version"
