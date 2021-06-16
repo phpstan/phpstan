@@ -51,6 +51,8 @@ jobs:
           - extension-name: "phpstan-symfony"
             php-version: "7.1"
             static-reflection: "false"
+          - extension-name: "phpstan-doctrine"
+            php-version: "8.1"
 
     steps:
       - name: "Checkout"
