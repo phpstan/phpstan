@@ -1,6 +1,10 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Cannot access offset \\(float\\|int\\) on mixed\\.$#"
+			count: 1
+			path: repo/src/pocketmine/CrashDump.php
+		-
 			message: "#^Property pocketmine\\\\CrashDump\\:\\:\\$encodedData \\(string\\) does not accept string\\|false\\.$#"
 			count: 1
 			path: repo/src/pocketmine/CrashDump.php
