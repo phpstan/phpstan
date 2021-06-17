@@ -10,6 +10,7 @@ Basic types
 * `int`, `integer`
 * `positive-int`, `negative-int`
 * `string`
+* `array-key`
 * `bool`, `boolean`
 * `true`
 * `false`
