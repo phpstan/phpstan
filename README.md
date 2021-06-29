@@ -1,7 +1,7 @@
 <h1 align="center">PHPStan - PHP Static Analysis Tool</h1>
 
 <p align="center">
-	<img src="https://i.imgur.com/MOt7taM.png" alt="PHPStan" width="300" height="300">
+	<img src="https://i.imgur.com/WaRKPlC.png" alt="PHPStan" width="300" height="300">
 </p>
 
 <p align="center">
