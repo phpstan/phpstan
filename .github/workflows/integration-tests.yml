@@ -26,13 +26,6 @@ jobs:
           - 7.4
         script:
           - |
-            git clone https://github.com/sebastianbergmann/phpunit.git e2e/integration/repo
-            cd e2e/integration/repo
-            git checkout 9.2.3
-            export COMPOSER_ROOT_VERSION=9.2.3
-            composer install
-            ../../../phpstan.phar analyse -l 8 -c ../phpunit.neon src tests
-          - |
             git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
             cd e2e/integration/repo
             git checkout ca98347313e20fe84daf22c08a31a550153f3be9
@@ -75,6 +68,14 @@ jobs:
               cp ../rector-composer.lock composer.lock
               composer install
               ../../../phpstan.phar analyse -c ../rector.neon
+          - php-version: 8.0
+            script: |
+              git clone https://github.com/sebastianbergmann/phpunit.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout 9.5.6
+              export COMPOSER_ROOT_VERSION=9.5.6
+              composer install
+              ../../../phpstan.phar analyse -l 8 -c ../phpunit.neon src tests
 
     steps:
       - name: "Checkout"
