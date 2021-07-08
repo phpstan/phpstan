@@ -41,12 +41,12 @@ jobs:
           - |
             git clone https://github.com/composer/composer.git e2e/integration/repo
             cd e2e/integration/repo
-            git checkout 4940009f8377d06b9fb48df0cbe67193e0989830
+            git checkout c65890d2d3364c62236651bb277987e00835b608
             composer install
             composer config platform --unset && composer update
             bin/composer require --dev phpunit/phpunit:^7.5 --with-all-dependencies
             bin/composer require --dev phpstan/phpstan-phpunit
-            ../../../phpstan.phar analyse -c ../composer.neon -l 5 src tests
+            ../../../phpstan.phar analyse -c phpstan/config.neon src tests
           - |
             git clone https://github.com/pmmp/PocketMine-MP.git e2e/integration/repo
             cd e2e/integration/repo
