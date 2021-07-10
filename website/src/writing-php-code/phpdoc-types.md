@@ -124,7 +124,7 @@ function bar(string $name): void
 Other advanced string types
 -------------------------
 
-There's also `callable-string` and `numeric-string`.
+There's also `callable-string`, `numeric-string`, and `non-empty-string`.
 
 Global type aliases
 -------------------------
