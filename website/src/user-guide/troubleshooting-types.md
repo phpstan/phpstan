@@ -61,6 +61,19 @@ Dynamic return type extensions
 
 There are many [dynamic return type extensions](/developing-extensions/dynamic-return-type-extensions) registered for built-in PHP functions. They might come from [PHPStan extensions](/user-guide/extension-library) and from your own project configuration too.
 
+Debugging
+---------
+
+You can use `PHPStan\dumpType()` function in your code to see what type PHPStan resolve an expression to:
+
+```php
+\PHPStan\dumpType(1 + 1); // Reports: Dumped type: 2
+```
+
+Re-run the PHPStan analysis on the code that has this function call to see the result.
+
+Of course this function should never become part of code running in production, so don't forget to delete it!
+
 What PHPStan doesn't do
 ---------
 
