@@ -561,7 +561,7 @@ parameters:
 			path: repo/src/Framework/Assert.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of function implode expects array, array\\<int, string\\>\\|false given\\.$#"
+			message: "#^Parameter \\#2 \\$array of function implode expects array\\|null, array\\<int, string\\>\\|false given\\.$#"
 			count: 1
 			path: repo/src/Framework/Assert.php
 
