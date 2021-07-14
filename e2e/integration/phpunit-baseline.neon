@@ -3716,6 +3716,11 @@ parameters:
 			path: repo/src/Util/TextTestListRenderer.php
 
 		-
+			message: "#^Property PHPUnit\\\\Util\\\\VersionComparisonOperator\\:\\:\\$operator \\(non\\-empty\\-string\\) does not accept string\\.$#"
+			count: 1
+			path: repo/src/Util/VersionComparisonOperator.php
+
+		-
 			message: "#^Method PHPUnit\\\\Util\\\\XdebugFilterScriptGenerator\\:\\:getItems\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Util/XdebugFilterScriptGenerator.php
