@@ -46,11 +46,6 @@ parameters:
 			path: repo/src/Properties/ContainerProperty.php
 
 		-
-			message: "#^Calling PHPStan\\\\File\\\\FileHelper\\:\\:absolutizePath\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
-			count: 1
-			path: repo/src/Properties/MigrationHelper.php
-
-		-
 			message: "#^Calling PHPStan\\\\Parser\\\\CachedParser\\:\\:parseFile\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/src/Properties/MigrationHelper.php
