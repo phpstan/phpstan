@@ -18,16 +18,18 @@ Result cache also gets disabled when running with [`--debug`](/user-guide/comman
 
 </div>
 
-Reflection
+Abstract Syntax Tree
+-----------------
+
+The way analysed source code is represented in the static analyser so that it can be queried for useful information. [Learn more »](/developing-extensions/abstract-syntax-tree)
+
+Scope
 -----------------
 
 Type System
 -----------------
 
-Abstract Syntax Tree
------------------
-
-Scope
+Reflection
 -----------------
 
 Dependency Injection
