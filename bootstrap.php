@@ -14,7 +14,7 @@ final class PharAutoloader
 			return;
 		}
 
-		if (strpos($class, '_HumbugBox') === 0) {
+		if (strpos($class, '_PHPStan_') === 0) {
 			if (!in_array('phar', stream_get_wrappers(), true)) {
 				throw new \Exception('Phar wrapper is not registered. Please review your php.ini settings.');
 			}
