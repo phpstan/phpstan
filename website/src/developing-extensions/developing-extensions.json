@@ -28,6 +28,10 @@
             "link": "/developing-extensions/abstract-syntax-tree"
         },
         {
+            "title": "Scope",
+            "link": "/developing-extensions/scope"
+        },
+        {
             "title": "Custom Rules",
             "link": "/developing-extensions/rules"
         },

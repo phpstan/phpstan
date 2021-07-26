@@ -35,7 +35,7 @@ The AST doesn't care how is the code formatted - it throws away information abou
 Statements vs. expressions
 -----------------
 
-There are two main types of nodes in the AST: statements and expressions.
+There are two main categories of nodes in the AST: statements and expressions.
 
 Statements are usually controlling the flow of the program, and declare new symbols. They usually come with their own keyword. Statements themselves cannot have a type. Examples of statements are:
 
