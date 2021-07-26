@@ -48,3 +48,5 @@ Expressions usually consist of other expressions, and can be resolved to a type.
 * PhpParser\Node\Expr\Variable (variable like `$foo`, type is the type of the variable)
 * PhpParser\Node\Expr\PropertyFetch (accessing a property: `$this->foo`, type is the type of the property)
 * PhpParser\Node\Expr\Instanceof_ (the `instanceof` keyword, type is either `true` or `false`)
+
+To retrieve the type of an expression, you need to call the `getType()` method on the [Scope](/developing-extensions/scope) object. You'll obtain an object implementing the `PHPStan\Type\Type` interface. See the article about [the type system](/developing-extensions/type-system) to learn how to use it.

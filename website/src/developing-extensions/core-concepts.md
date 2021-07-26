@@ -15,6 +15,8 @@ The Scope object can be used to get more information about the code, like types 
 Type System
 -----------------
 
+PHPStan's type system is a collection of classes implementing the common `PHPStan\Type\Type` interface to inform the analyser about relationships between types, and their behaviour. [Learn more »](/developing-extensions/type-system)
+
 Reflection
 -----------------
 

@@ -32,6 +32,10 @@
             "link": "/developing-extensions/scope"
         },
         {
+            "title": "Type System",
+            "link": "/developing-extensions/type-system"
+        },
+        {
             "title": "Custom Rules",
             "link": "/developing-extensions/rules"
         },
