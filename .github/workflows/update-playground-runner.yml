@@ -43,7 +43,8 @@ jobs:
         working-directory: ./playground-runner
         run: |
           cp ../phpstan.phar vendor/phpstan/phpstan/phpstan.phar && \
-          cp ../phpstan vendor/phpstan/phpstan/phpstan
+          cp ../phpstan vendor/phpstan/phpstan/phpstan && \
+          cp ../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
 
       - name: "Clean Git directory"
         working-directory: ./playground-runner
