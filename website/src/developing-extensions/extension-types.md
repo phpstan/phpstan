@@ -2,12 +2,6 @@
 title: Extension Types
 ---
 
-<div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4" role="alert">
-
-Please note that this website section is under development as of May 2021. The plan is to write about development of custom extensions in much more detail. Thanks for understanding.
-
-</div>
-
 PHPStan's behavior can be customized in various ways.
 
 [Learn about core concepts »](/developing-extensions/core-concepts)
