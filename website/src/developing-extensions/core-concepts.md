@@ -17,6 +17,11 @@ Type System
 
 PHPStan's type system is a collection of classes implementing the common `PHPStan\Type\Type` interface to inform the analyser about relationships between types, and their behaviour. [Learn more »](/developing-extensions/type-system)
 
+Trinary Logic
+-----------------
+
+Many methods in PHPStan do not return a two-state boolean, but a three-state `PHPStan\TrinaryLogic` object. [Learn more »](/developing-extensions/trinary-logic)
+
 Reflection
 -----------------
 
