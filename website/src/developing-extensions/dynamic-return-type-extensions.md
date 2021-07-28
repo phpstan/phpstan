@@ -4,6 +4,8 @@ title: Dynamic Return Type Extensions
 
 If the return type of a method is not always the same, but depends on an argument passed to the method, you can specify the return type by writing and registering an extension.
 
+The implementation is all about applying the [core concepts](/developing-extensions/core-concepts) so check out that guide first and then continue here.
+
 <!-- TODO link generics -->
 <!-- TODO different example - ParameterBag -->
 

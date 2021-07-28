@@ -96,6 +96,8 @@ There are methods that answer questions about properties, methods, and constants
 * `hasConstant(string $constantName): TrinaryLogic`
 * `getConstant(string $constantName): ConstantReflection`
 
+It's safe to call a `get*` method only after making sure that call to `has*` method with the same argument returns `yes`.
+
 Querying a specific type
 -----------------
 

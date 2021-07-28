@@ -40,6 +40,10 @@
             "link": "/developing-extensions/trinary-logic"
         },
         {
+            "title": "Reflection",
+            "link": "/developing-extensions/reflection"
+        },
+        {
             "title": "Custom Rules",
             "link": "/developing-extensions/rules"
         },

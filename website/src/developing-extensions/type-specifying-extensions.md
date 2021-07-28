@@ -4,6 +4,8 @@ title: Type-Specifying Extensions
 
 These extensions allow you to specify types of expressions based on certain type-checking function and method calls, like `is_int()` or `self::assertNotNull()`.
 
+The implementation is all about applying the [core concepts](/developing-extensions/core-concepts) so check out that guide first and then continue here.
+
 ```php
 if (is_int($variable)) {
     // here we can be sure that $variable is integer

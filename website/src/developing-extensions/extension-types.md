@@ -34,6 +34,13 @@ If the return type of a method is not always the same, but depends on an argumen
 
 [Learn more »](/developing-extensions/dynamic-return-type-extensions)
 
+Dynamic throw type extensions
+-------------------
+
+To support [precise try-catch-finally analysis](/blog/precise-try-catch-finally-analysis), you can write a dynamic throw type extension to describe functions and methods that might throw an exception only when specific types of arguments are passed during a call.
+
+[Learn more »](/developing-extensions/dynamic-throw-type-extensions)
+
 Type-specifying extensions
 -------------------
 

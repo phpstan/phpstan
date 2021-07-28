@@ -25,5 +25,7 @@ Many methods in PHPStan do not return a two-state boolean, but a three-state `PH
 Reflection
 -----------------
 
+PHPStan has its own reflection layer for asking about functions, classes, properties, methods, and constants. [Learn more »](/developing-extensions/reflection)
+
 Dependency Injection
 -----------------

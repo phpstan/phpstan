@@ -6,6 +6,8 @@ Classes in PHP can expose "magic" properties and methods decided in run-time usi
 
 When PHPStan stumbles upon a property or a method that is unknown to built-in class reflection, it iterates over all registered class reflection extensions until it finds one that defines the property or method.
 
+The implementation is all about applying the [core concepts](/developing-extensions/core-concepts) so check out that guide first and then continue here.
+
 Properties class reflection extensions
 ---------------------
 

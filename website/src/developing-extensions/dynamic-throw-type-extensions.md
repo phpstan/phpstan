@@ -6,6 +6,8 @@ title: Dynamic Throw Type Extensions
 
 To support [precise try-catch-finally analysis](/blog/precise-try-catch-finally-analysis), you can write a dynamic throw type extension to describe functions and methods that might throw an exception only when specific types of arguments are passed during a call.
 
+The implementation is all about applying the [core concepts](/developing-extensions/core-concepts) so check out that guide first and then continue here.
+
 Because you have to write the code with the type-resolving logic, it can be as complex as you want.
 
 This is the interface for dynamic throw type extension:
@@ -41,10 +43,10 @@ public function getComponent(string $name, bool $throw): ?Component
 		if ($throw) {
 			throw new ComponentNotFoundException($name);
 		}
-		
+
 		return null;
 	}
-	
+
 	return $this->components[$name];
 }
 ```
