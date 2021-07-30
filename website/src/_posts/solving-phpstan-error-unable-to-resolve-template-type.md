@@ -25,3 +25,8 @@ The function takes an input array and will return the first element in case the 
 PHPStan needs to resolve what `T` is when calling the function. If it's not able to do it, it will report "Unable to resolve the template type T in call to function firstOrNull".
 
 For example, when `mixed` is passed to the function, it's not considered an argument type error, but because a generic function is called, the expectation is that `T` will be something concrete. To prevent `mixed` to be propagated further down the line, PHPStan reports this error and wants the user to pass a more specific argument to the function. So instead of `mixed`, it wants an array of elements so that it can extract `T` from it, like an array of integers `int[]` will resolve `T` to be `int`.
+
+---
+
+Do you like PHPStan and use it every day? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!
+

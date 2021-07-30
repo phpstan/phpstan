@@ -366,3 +366,7 @@ $generator->getReturn(); // Bar
 Now that you understand what generics are for, it’s up to you to come up with possible uses inside the codebases you work with. They allow you to describe more specific types coming to and from functions and methods. So anywhere you currently use `mixed` and `object` but could take advantage of more precise types, generics could come in handy. They bring type safety to otherwise unapproachable places.
 
 PHPStan 0.12 with generics support (and much much more!) is coming out this week.
+
+---
+
+Do you like PHPStan and use it every day? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!

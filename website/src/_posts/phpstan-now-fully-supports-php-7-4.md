@@ -136,3 +136,5 @@ $array = [1, 2, ...$someIterator, 4, 5, 6]; // array<int, int>
 ---
 
 PHP 7.4 will most likely [be released](https://wiki.php.net/todo/php74) at the end of November. You can try beta 2 today along with [PHPStan 0.11.13](https://github.com/phpstan/phpstan/releases/tag/0.11.13) and taste the future!
+
+Do you like these features? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!

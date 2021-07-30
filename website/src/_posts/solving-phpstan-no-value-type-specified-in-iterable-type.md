@@ -84,7 +84,7 @@ The error can also be solved by using [generics](/blog/generics-in-php-using-php
 * `Iterator<TKey, TValue>`
 * `IteratorAggregate<TKey, TValue>`
 * `Traversable<TKey, TValue>`
- 
+
 You need to decide whether the iterated value will always going to be the same with the class, or if it's going to be different depending on the usage.  You might have a `DogCollection` that always iterates over instances of `Dog`, and you might have a `Collection` where you want the user to always decide what the `Collection` consists of.
 
 In case of `DogCollection` the usage would look like this:
@@ -103,7 +103,7 @@ In case of general `Collection` it would look like this:
 /**
  * @template TKey
  * @template TValue
- * @implements \IteratorAggregate<TKey, TValue> 
+ * @implements \IteratorAggregate<TKey, TValue>
  */
 class Collection implements \IteratorAggregate
 {
@@ -116,7 +116,7 @@ Or if the keys are always going to be the same:
 ```php
 /**
  * @template TValue
- * @implements \IteratorAggregate<int, TValue> 
+ * @implements \IteratorAggregate<int, TValue>
  */
 class Collection implements \IteratorAggregate
 {
@@ -152,3 +152,7 @@ parameters:
 ```
 
 But using [the baseline](/user-guide/baseline) to defer solving this error in an already existing codebase while preserving the check in newly written code is much more recommended.
+
+---
+
+Do you like PHPStan and use it every day? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!

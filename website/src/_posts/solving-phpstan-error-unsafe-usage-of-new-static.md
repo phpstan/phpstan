@@ -15,7 +15,7 @@ class Foo
 {
 
     public function __construct(int $i) { }
-    
+
     public function doFoo(): void
     {
         new static(1); // PHPStan reports: Unsafe usage of new static()
@@ -25,9 +25,9 @@ class Foo
 
 class Bar extends Foo
 {
-    
+
     public function __construct(string $s) { }
-    
+
 }
 
 (new Foo(1))->doFoo(); // works, returns Foo
@@ -83,6 +83,10 @@ class Foo implements FooInterface
 {
 
     public function __construct(int $i) { ... }
-    
+
     ...
 ```
+
+---
+
+Do you like PHPStan and use it every day? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!

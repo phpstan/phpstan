@@ -89,7 +89,7 @@ public function refactor(Node $node): ?Node
     if ($node->stmts === null) {
         return null;
     }
-    
+
     // $node->stmts cannot be null here
 
     $classMethodStatementCount = count($node->stmts);
@@ -178,3 +178,8 @@ clearstatcache();
 \PHPStan\dumpType(is_dir($dir)); // bool
 
 ```
+
+---
+
+Do you like PHPStan and use it every day? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!
+

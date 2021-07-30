@@ -41,7 +41,7 @@ try {
     // $foo is surely defined in all catch blocks
     // because the literal 1 doesn't throw anything
     $foo = 1;
-    
+
     $bar = doBar(); // might throw InvalidArgumentException
     $baz = doBaz(); // might throw RuntimeException
 } catch (\InvalidArgumentException $e) {
@@ -60,3 +60,8 @@ By default, functions without any `@throws` annotation are considered to throw a
 But once you start adding `@throws` to your functions and methods, they will take priority over the ones with only implicit `@throws`. As you add more `@throws` annotations, you get rewarded with more precise analysis!
 
 There will be more exception-related features in the near future, stay tuned!
+
+---
+
+Do you like PHPStan and use it every day? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!
+

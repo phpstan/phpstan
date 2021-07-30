@@ -197,3 +197,8 @@ parameters:
 And the extension's `isInitialized` method is there to tell PHPStan that a property is always initialized even if it's not being assigned in the constructor. The [Doctrine extension](https://github.com/phpstan/phpstan-src/blob/587943766fbcfda7651d6728b544011dcb5063f2/src/Rules/Properties/ReadWritePropertiesExtension.php) does it for all persisted properties in read-only entities without a constructor, because they're most likely inserted directly into the database without ORM's involvement.
 
 Also, the [phpstan-phpunit](https://github.com/phpstan/phpstan-phpunit) will consider the TestCase's `setUp()` method as a constructor and will mark properties assigned there as initialized.
+
+---
+
+Do you like PHPStan and use it every day? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!
+

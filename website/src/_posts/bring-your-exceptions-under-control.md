@@ -153,3 +153,8 @@ There might be more opportunities for more rules to explore in the future. Some 
 -----------------
 
 I can't wait for everyone to try out these features and send back some feedback to improve them!
+
+---
+
+Do you like PHPStan and use it every day? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!
+

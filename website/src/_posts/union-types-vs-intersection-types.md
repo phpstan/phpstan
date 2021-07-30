@@ -115,3 +115,8 @@ public function doSomethingUseful($object)
 ```
 
 This is really nice because it supports designing your codebase with small and simple interfaces.
+
+---
+
+Do you like PHPStan and use it every day? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!
+

@@ -59,3 +59,5 @@ It will let PHPStan know about the entity type the repository represents in the 
 ---
 
 [Upgrade today](https://github.com/phpstan/phpstan-doctrine/releases/tag/0.11.1) and let me know what kinds of errors were lurking in your codebases 😉
+
+Do you like these features? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!
