@@ -4,7 +4,7 @@ title: Reflection
 
 PHPStan has its own reflection layer for asking details about functions, classes, properties, methods, and constants.
 
-Various reflection objects can be obtained either on `PHPStan\Type\Type` implementations (see [type system](/type-system#what-can-a-type-tell-us%3F)), or on [`PHPStan\Reflection\ReflectionProvider`](https://github.com/phpstan/phpstan-src/blob/master/src/Reflection/ReflectionProvider.php) object by asking for it in the constructor of your extension:
+Various reflection objects can be obtained either on `PHPStan\Type\Type` implementations (see [type system](/developing-extensions/type-system#what-can-a-type-tell-us%3F)), or on [`PHPStan\Reflection\ReflectionProvider`](https://github.com/phpstan/phpstan-src/blob/master/src/Reflection/ReflectionProvider.php) object by asking for it in the constructor of your extension:
 
 ```php
 private ReflectionProvider $reflectionProvider;
@@ -84,7 +84,7 @@ Property reflections can be obtained by using these methods on `ClassReflection`
 
 Class reflection works closely with [class reflection extensions](/developing-extensions/class-reflection-extensions) to also return information about magically implemented properties using `__get()` and `__set()`. If you want to only get information about native properties with no regard to `__get()` and `__set()`, use `ClassReflection::hasNativeProperty()` and `ClassReflection::getNativeProperty()` instead of `ClassReflection::hasProperty()` and `ClassReflection::getProperty()`.
 
-Property reflections can also be obtained using methods on `PHPStan\Type\Type`. See [type system](/type-system) for more details.
+Property reflections can also be obtained using methods on `PHPStan\Type\Type`. See [type system](/developing-extensions/type-system) for more details.
 
 The returned [`PropertyReflection`](https://github.com/phpstan/phpstan-src/blob/master/src/Reflection/PropertyReflection.php) object can be used to ask about property's type, visibility, declaring class, and PHPDoc.
 
@@ -98,7 +98,7 @@ Method reflections can be obtained by using these methods on `ClassReflection`:
 
 Class reflection works closely with [class reflection extensions](/developing-extensions/class-reflection-extensions) to also return information about magically implemented methods using `__call()` and `__callStatic()`. If you want to only get information about native methods with no regard to `__call()` and `__callStatic()`, use `ClassReflection::hasNativeMethod()` and `ClassReflection::getNativeMethod()` instead of `ClassReflection::hasMethod()` and `ClassReflection::getMethod()`.
 
-Method reflections can also be obtained using methods on `PHPStan\Type\Type`. See [type system](/type-system) for more details.
+Method reflections can also be obtained using methods on `PHPStan\Type\Type`. See [type system](/developing-extensions/type-system) for more details.
 
 The returned [`MethodReflection`](https://github.com/phpstan/phpstan-src/blob/master/src/Reflection/MethodReflection.php) object can be used to ask about method's visibility, declaring class, PHPDoc, etc.
 
@@ -124,7 +124,7 @@ Class constant reflections can be obtained by using these methods on `ClassRefle
 * `public function hasConstant(string $name): bool`
 * `public function getConstant(string $name): ConstantReflection`
 
-Class constant reflections can also be obtained using methods on `PHPStan\Type\Type`. See [type system](/type-system) for more details.
+Class constant reflections can also be obtained using methods on `PHPStan\Type\Type`. See [type system](/developing-extensions/type-system) for more details.
 
 The returned [`ConstantReflection`](https://github.com/phpstan/phpstan-src/blob/master/src/Reflection/ConstantReflection.php) can be used to ask about constant's visibility, declaring class, PHPDoc, and the value [type](/developing-extensions/type-system) with the `getValueType(): Type` method.
 
