@@ -74,7 +74,7 @@ jobs:
             script: |
               git clone https://github.com/pmmp/PocketMine-MP.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 0766952f3921f84fe15ef9269a262cac6b645e0f
+              git checkout 01fe497c491c6e6ab6922fc6cc441d812a394f73
               composer install --ignore-platform-reqs
               ../../../phpstan.phar analyse -c ../pocketmine.neon --memory-limit=2G
 
