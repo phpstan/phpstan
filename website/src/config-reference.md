@@ -514,9 +514,9 @@ Miscellaneous parameters
 
 ### `phpVersion`
 
-**default**: `null`
+**default**: `null` (current PHP version is used)
 
-If you want to analyse a codebase as if it was written for an older PHP version, change `phpVersion` in your phpstan.neon
+If you want to analyse a codebase as if it was written for a different PHP version than you're currently running, change the `phpVersion` parameter:
 
 ```yaml
 parameters:
