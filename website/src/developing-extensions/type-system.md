@@ -8,7 +8,7 @@ To retrieve the type of an [AST](/developing-extensions/abstract-syntax-tree) ex
 
 Each type that we can encounter in PHP language and [in PHPDocs](/writing-php-code/phpdoc-types) has an implementation counterpart in PHPStan:
 
-<details>
+<details class="typesystem-types">
     <summary class="text-blue-500 font-bold">Show table of <code>PHPStan\Type\Type</code> implementations</summary>
 
 | Type                          | PHPStan class                                        |
