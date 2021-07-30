@@ -512,6 +512,17 @@ Related config key: `editorUrl`
 Miscellaneous parameters
 -----------------
 
+### `phpVersion`
+
+**default**: `null` (current PHP version is used)
+
+If you want to analyse a codebase as if it was written for a different PHP version than you're currently running, change the `phpVersion` parameter:
+
+```yaml
+parameters:
+    phpVersion: 70400 # PHP 7.4
+```
+
 ### `inferPrivatePropertyTypeFromConstructor`
 
 **default**: `false`
