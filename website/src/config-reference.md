@@ -512,6 +512,17 @@ Related config key: `editorUrl`
 Miscellaneous parameters
 -----------------
 
+### `phpVersion`
+
+**default**: `null`
+
+If you want to analyse a codebase as if it was written for an older PHP version, change `phpVersion` in your phpstan.neon
+
+```yaml
+parameters:
+    phpVersion: 70400 # PHP 7.4
+```
+
 ### `inferPrivatePropertyTypeFromConstructor`
 
 **default**: `false`
