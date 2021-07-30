@@ -8,7 +8,6 @@ Basic types
 -------------------------
 
 * `int`, `integer`
-* `positive-int`, `negative-int`
 * `string`
 * `array-key`
 * `bool`, `boolean`
@@ -37,6 +36,15 @@ Classes and interfaces
 A fully-qualified name (FQN) like `\Foo\Bar\Baz`, or a relative name like `Baz` resolved based on the current namespace and `use` statements can be used.
 
 Trait names cannot be used in PHPDocs, as they [don't work as native PHP typehints](https://3v4l.org/Ifr2J) either.
+
+Integer ranges
+-----------------------
+
+* `positive-int`
+* `negative-int`
+* `int<0, 100>`
+* `int<min, 100>`
+* `int<50, max>`
 
 General arrays
 -------------------------
