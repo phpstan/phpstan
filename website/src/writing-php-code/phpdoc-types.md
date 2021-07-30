@@ -16,6 +16,7 @@ Basic types
 * `null`
 * `float`
 * `double`
+* `scalar`
 * `array`
 * `iterable`
 * `callable`
