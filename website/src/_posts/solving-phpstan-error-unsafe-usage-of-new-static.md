@@ -71,7 +71,7 @@ abstract public function __construct(int $i);
 Enforce constructor signature through an interface
 ========================
 
-Making the constructor abstract can be also achieved by an interface while keeping the implementation in the parent class. The child class don't have to define their own constructor, they'll inherit the parent one, but in case they define their own constructor, its signature will be enforced by PHP (and PHPStan).
+Making the constructor abstract can be also achieved by an interface while keeping the implementation in the parent class. Child classes don't have to define their own constructor, they'll inherit the parent one, but in case they define their own constructor, its signature will be enforced by PHP (and PHPStan).
 
 ```php
 interface FooInterface
