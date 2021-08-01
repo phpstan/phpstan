@@ -8,7 +8,7 @@
 		"php-http/client-common": "^2.3",
 		"php-http/discovery": "^1.13",
 		"sebastian/diff": "^4.0",
-		"league/commonmark": "^1.5"
+		"league/commonmark": "^2.0"
 	},
 	"autoload": {
 		"psr-4": {
