@@ -20,7 +20,7 @@
 		"autoprefixer": "^9.8.6",
 		"luxon": "^1.27.0",
 		"markdown-it-abbr": "^1.0.4",
-		"markdown-it-anchor": "^7.1.0",
+		"markdown-it-anchor": "^8.1.2",
 		"markdown-it-footnote": "^3.0.3",
 		"npm-run-all": "^4.1.5",
 		"parcel-bundler": "^1.12.5",
