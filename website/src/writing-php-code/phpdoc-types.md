@@ -2,7 +2,7 @@
 title: PHPDoc Types
 ---
 
-A PHPDoc type is what's written in place of `[Type]` in annotations like `@var [Type]` or `@param [Type] $foo`.
+A PHPDoc type is what's written in place of `[Type]` in annotations like `@var [Type]` or `@param [Type] $foo`. [Learn more about PHPDoc basics »](/writing-php-code/phpdocs-basics)
 
 Basic types
 -------------------------
