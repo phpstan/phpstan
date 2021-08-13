@@ -8,6 +8,8 @@ Valid PHPDocs start with `/**`. Variants starting only with `/*` or line comment
 
 [^phpdocs]: Only the `/**` style comments are supported because they're represented [with different tokens](https://www.php.net/manual/en/tokens.php) (`T_DOC_COMMENT`) by the PHP parser and only this token type is supposed to represent a PHPDoc.
 
+[Learn more about PHPDoc types »](/writing-php-code/phpdoc-types) you can use in the tags described below.
+
 Methods and functions
 ----------
 
