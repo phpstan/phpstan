@@ -16,7 +16,12 @@ Custom rules
 
 namespace App\PHPStan;
 
-class MyRuleTest extends \PHPStan\Testing\RuleTestCase
+use PHPStan\Testing\RuleTestCase;
+
+/**
+ * @extends RuleTestCase<MyRule>
+ */
+class MyRuleTest extends RuleTestCase
 {
 
 	protected function getRule() : \PHPStan\Rules\Rule
