@@ -24,7 +24,7 @@ use PHPStan\Testing\RuleTestCase;
 class MyRuleTest extends RuleTestCase
 {
 
-	protected function getRule() : \PHPStan\Rules\Rule
+	protected function getRule(): \PHPStan\Rules\Rule
 	{
 		// getRule() method needs to return an instance of the tested rule
 		return new MyRule();
