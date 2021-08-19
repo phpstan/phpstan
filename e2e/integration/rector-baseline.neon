@@ -6,9 +6,9 @@ parameters:
 			path: repo/packages/Caching/FileSystem/DependencyResolver.php
 
 		-
-			message: "#^Calling PHPStan\\\\File\\\\FileHelper\\:\\:normalizePath\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			message: "#^Calling PHPStan\\\\File\\\\FileWriter\\:\\:write\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
-			path: repo/packages/Caching/FileSystem/DependencyResolver.php
+			path: repo/packages/Caching/ValueObject/Storage/FileCacheStorage.php
 
 		-
 			message: "#^Calling PHPStan\\\\Type\\\\UnionTypeHelper\\:\\:sortTypes\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
@@ -36,37 +36,52 @@ parameters:
 			path: repo/packages/ReadWrite/Guard/VariableToConstantGuard.php
 
 		-
-			message: "#^Calling PHPStan\\\\Type\\\\TypehintHelper\\:\\:decideTypeFromReflection\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
-			count: 1
-			path: repo/rules/DowngradePhp72/NodeAnalyzer/NativeTypeClassTreeResolver.php
+			message: "#^Creating new PHPStan\\\\Php\\\\PhpVersion is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
+			count: 2
+			path: repo/packages/VersionBonding/Application/MissedRectorDueVersionChecker.php
 
 		-
-			message: "#^Calling PHPStan\\\\Type\\\\Generic\\\\TemplateTypeScope\\:\\:createWithClass\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			message: "#^Calling PHPStan\\\\Reflection\\\\Php\\\\PhpFunctionReflection\\:\\:getFileName\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
-			path: repo/rules/Generics/NodeType/ExtendsTemplateTypeMapFallbackFactory.php
+			path: repo/rules/CodingStyle/Reflection/VendorLocationDetector.php
 
 		-
-			message: "#^Creating new PHPStan\\\\Type\\\\Generic\\\\TemplateObjectType is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
+			message: "#^Creating new PHPStan\\\\Reflection\\\\Php\\\\PhpParameterReflection is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
-			path: repo/rules/Generics/NodeType/ExtendsTemplateTypeMapFallbackFactory.php
+			path: repo/rules/DowngradePhp80/NodeAnalyzer/NamedToUnnamedArgs.php
 
 		-
-			message: "#^Creating new PHPStan\\\\Type\\\\Generic\\\\TemplateTypeParameterStrategy is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
+			message: "#^Calling PHPStan\\\\Reflection\\\\Native\\\\NativeFunctionReflection\\:\\:getName\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
-			path: repo/rules/Generics/NodeType/ExtendsTemplateTypeMapFallbackFactory.php
+			path: repo/rules/DowngradePhp80/NodeAnalyzer/UnnamedArgumentResolver.php
 
 		-
-			message: "#^Calling PHPStan\\\\Type\\\\Generic\\\\TemplateTypeHelper\\:\\:resolveTemplateTypes\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
-			count: 1
-			path: repo/rules/Generics/NodeType/GenericTypeSpecifier.php
+			message: "#^Parameter \\#1 \\$separator of function explode expects non\\-empty\\-string, string given\\.$#"
+			count: 2
+			path: repo/rules/PSR4/FileRelocationResolver.php
 
 		-
 			message: "#^Calling PHPStan\\\\Analyser\\\\MutatingScope\\:\\:assignExpression\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
-			count: 2
+			count: 1
 			path: repo/rules/Php70/Rector/FuncCall/NonVariableToVariableOnFunctionCallRector.php
+
+		-
+			message: "#^Parameter \\#1 \\$separator of function explode expects non\\-empty\\-string, string given\\.$#"
+			count: 1
+			path: repo/rules/Privatization/Rector/Class_/RepeatedLiteralToClassConstantRector.php
 
 		-
 			message: "#^Creating new PHPStan\\\\Reflection\\\\Native\\\\NativeFunctionReflection is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/src/PHPStan/Reflection/TypeToCallReflectionResolver/ClosureTypeToCallReflectionResolver.php
+
+		-
+			message: "#^Calling PHPStan\\\\Reflection\\\\Php\\\\PhpFunctionReflection\\:\\:getFileName\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/src/PhpParser/AstResolver.php
+
+		-
+			message: "#^Calling PHPStan\\\\Reflection\\\\Php\\\\PhpFunctionReflection\\:\\:getName\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			count: 6
+			path: repo/src/PhpParser/AstResolver.php
 
