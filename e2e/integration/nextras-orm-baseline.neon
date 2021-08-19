@@ -20,3 +20,13 @@ parameters:
 			count: 1
 			path: repo/src/Collection/Helpers/ArrayCollectionHelper.php
 
+		-
+			message: "#^Unsafe access to private property Nextras\\\\Orm\\\\Model\\\\MetadataStorage\\:\\:\\$metadata through static\\:\\:\\.$#"
+			count: 4
+			path: repo/src/Model/MetadataStorage.php
+
+		-
+			message: "#^Unsafe call to private method Nextras\\\\Orm\\\\Repository\\\\RemovalHelper\\:\\:setNulls\\(\\) through static\\:\\:\\.$#"
+			count: 1
+			path: repo/src/Repository/RemovalHelper.php
+
