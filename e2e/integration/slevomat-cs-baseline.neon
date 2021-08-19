@@ -1,6 +1,61 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Parameter \\#5 \\$contentNode of class SlevomatCodingStandard\\\\Helpers\\\\Annotation\\\\ExtendsAnnotation constructor expects PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\ExtendsTagValueNode\\|null, PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagValueNode\\|null given\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationHelper.php
+
+		-
+			message: "#^Parameter \\#5 \\$contentNode of class SlevomatCodingStandard\\\\Helpers\\\\Annotation\\\\ImplementsAnnotation constructor expects PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\ImplementsTagValueNode\\|null, PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagValueNode\\|null given\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationHelper.php
+
+		-
+			message: "#^Parameter \\#5 \\$contentNode of class SlevomatCodingStandard\\\\Helpers\\\\Annotation\\\\MethodAnnotation constructor expects PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\MethodTagValueNode\\|null, PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagValueNode\\|null given\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationHelper.php
+
+		-
+			message: "#^Parameter \\#5 \\$contentNode of class SlevomatCodingStandard\\\\Helpers\\\\Annotation\\\\MixinAnnotation constructor expects PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\MixinTagValueNode\\|null, PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagValueNode\\|null given\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationHelper.php
+
+		-
+			message: "#^Parameter \\#5 \\$contentNode of class SlevomatCodingStandard\\\\Helpers\\\\Annotation\\\\ParameterAnnotation constructor expects PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\ParamTagValueNode\\|null, PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagValueNode\\|null given\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationHelper.php
+
+		-
+			message: "#^Parameter \\#5 \\$contentNode of class SlevomatCodingStandard\\\\Helpers\\\\Annotation\\\\PropertyAnnotation constructor expects PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PropertyTagValueNode\\|null, PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagValueNode\\|null given\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationHelper.php
+
+		-
+			message: "#^Parameter \\#5 \\$contentNode of class SlevomatCodingStandard\\\\Helpers\\\\Annotation\\\\ReturnAnnotation constructor expects PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\ReturnTagValueNode\\|null, PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagValueNode\\|null given\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationHelper.php
+
+		-
+			message: "#^Parameter \\#5 \\$contentNode of class SlevomatCodingStandard\\\\Helpers\\\\Annotation\\\\TemplateAnnotation constructor expects PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\TemplateTagValueNode\\|null, PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagValueNode\\|null given\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationHelper.php
+
+		-
+			message: "#^Parameter \\#5 \\$contentNode of class SlevomatCodingStandard\\\\Helpers\\\\Annotation\\\\ThrowsAnnotation constructor expects PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\ThrowsTagValueNode\\|null, PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagValueNode\\|null given\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationHelper.php
+
+		-
+			message: "#^Parameter \\#5 \\$contentNode of class SlevomatCodingStandard\\\\Helpers\\\\Annotation\\\\UseAnnotation constructor expects PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\UsesTagValueNode\\|null, PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagValueNode\\|null given\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationHelper.php
+
+		-
+			message: "#^Parameter \\#5 \\$contentNode of class SlevomatCodingStandard\\\\Helpers\\\\Annotation\\\\VariableAnnotation constructor expects PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\VarTagValueNode\\|null, PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagValueNode\\|null given\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationHelper.php
+
+		-
 			message: "#^Anonymous function should return string but returns array\\<int, int\\|string\\>\\|int\\|string\\.$#"
 			count: 1
 			path: repo/SlevomatCodingStandard/Helpers/YodaHelper.php
