@@ -3721,7 +3721,7 @@ parameters:
 			path: repo/src/Util/TextTestListRenderer.php
 
 		-
-			message: "#^Property PHPUnit\\\\Util\\\\VersionComparisonOperator\\:\\:\\$operator \\(non\\-empty\\-string\\) does not accept string\\.$#"
+			message: "#^Property PHPUnit\\\\Util\\\\VersionComparisonOperator\\:\\:\\$operator \\('\\!\\='\\|'\\<'\\|'\\<\\='\\|'\\<\\>'\\|'\\='\\|'\\=\\='\\|'\\>'\\|'\\>\\='\\|'eq'\\|'ge'\\|'gt'\\|'le'\\|'lt'\\|'ne'\\) does not accept string\\.$#"
 			count: 1
 			path: repo/src/Util/VersionComparisonOperator.php
 
