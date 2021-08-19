@@ -1301,6 +1301,11 @@ parameters:
 			path: repo/src/Framework/MockObject/ConfigurableMethod.php
 
 		-
+			message: "#^Constant PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:EXCLUDED_METHOD_NAMES type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/Framework/MockObject/Generator.php
+
+		-
 			message: "#^Method PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:generate\\(\\) has parameter \\$methods with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/Generator.php
@@ -1387,11 +1392,6 @@ parameters:
 
 		-
 			message: "#^Method PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:getObjectForTrait\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/Framework/MockObject/Generator.php
-
-		-
-			message: "#^PHPDoc tag @var has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/Generator.php
 
