@@ -6156,6 +6156,11 @@ parameters:
 			path: repo/tests/unit/Framework/Constraint/BinaryOperatorTestCase.php
 
 		-
+			message: "#^Parameter \\#2 \\$count of function array_fill expects int\\<0, max\\>, int\\<min, 3\\> given\\.$#"
+			count: 1
+			path: repo/tests/unit/Framework/Constraint/BinaryOperatorTestCase.php
+
+		-
 			message: "#^Method PHPUnit\\\\Framework\\\\Constraint\\\\CallbackTest\\:\\:callbackReturningTrue\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: repo/tests/unit/Framework/Constraint/CallbackTest.php
