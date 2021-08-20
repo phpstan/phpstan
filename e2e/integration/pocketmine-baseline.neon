@@ -70,3 +70,8 @@ parameters:
 			count: 1
 			path: repo/src/pocketmine/level/format/io/leveldb/LevelDB.php
 
+		-
+			message: "#^Parameter \\#2 \\$count of function array_fill expects int\\<0, max\\>, int given\\.$#"
+			count: 2
+			path: repo/src/pocketmine/level/generator/noise/Noise.php
+
