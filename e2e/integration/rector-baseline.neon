@@ -66,6 +66,11 @@ parameters:
 			path: repo/rules/Php70/Rector/FuncCall/NonVariableToVariableOnFunctionCallRector.php
 
 		-
+			message: "#^Parameter \\#2 \\$length of function str_split expects int\\<1, max\\>, int given\\.$#"
+			count: 1
+			path: repo/rules/Php74/Rector/LNumber/AddLiteralSeparatorToNumberRector.php
+
+		-
 			message: "#^Parameter \\#1 \\$separator of function explode expects non\\-empty\\-string, string given\\.$#"
 			count: 1
 			path: repo/rules/Privatization/Rector/Class_/RepeatedLiteralToClassConstantRector.php
