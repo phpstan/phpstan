@@ -1,3 +1,0 @@
-includes:
-	- repo/.phpstan.neon
-	- nextras-orm-baseline.neon

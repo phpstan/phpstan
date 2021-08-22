@@ -50,9 +50,9 @@ jobs:
           - |
             git clone https://github.com/nextras/orm.git e2e/integration/repo
             cd e2e/integration/repo
-            git checkout 97e9e89ef3baf39a526bc5f098923293e21d9d86
+            git checkout 336140091ecc6053ec5161b3f48e2803f13be3ad
             composer install
-            ../../../phpstan.phar analyse -c ../nextras-orm.neon
+            ../../../phpstan.phar analyse -c .phpstan.neon
         include:
           - php-version: 8.0
             script: |
