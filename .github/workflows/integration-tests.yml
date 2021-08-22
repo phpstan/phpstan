@@ -41,7 +41,7 @@ jobs:
           - |
             git clone https://github.com/composer/composer.git e2e/integration/repo
             cd e2e/integration/repo
-            git checkout 79093d664b231531623debfce168c2520242a6a6
+            git checkout d3c176ec696c2aaf98e482fed44edf92e8975c34
             composer install
             composer config platform --unset && composer update
             bin/composer require --dev phpunit/phpunit:^7.5 --with-all-dependencies
