@@ -6379,10 +6379,10 @@ readdirp@~3.4.0:
   dependencies:
     picomatch "^2.2.1"
 
-reading-time@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/reading-time/-/reading-time-1.3.0.tgz#d13e74431589a4a9038669f24d5acbc08bbb015d"
-  integrity sha512-RJ8J5O6UvrclfZpcPSPuKusrdRfoY7uXXoYOOdeswZNtSkQaewT3919yz6RyloDBR+iwcUyz5zGOUjhgvfuv3g==
+reading-time@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/reading-time/-/reading-time-1.4.0.tgz#53fd822ceed6ca44e07497b3e975af1712ba5a86"
+  integrity sha512-0I9aP583rqQhm6T6Y+pYgYaM4w649VHgQPC24xSWXpn/4qRs08Zu6KgXRf0da6/k7IHoC6idm76fU6vz4mmzHQ==
 
 recursive-copy@^2.0.10:
   version "2.0.11"
