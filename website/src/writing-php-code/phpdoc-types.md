@@ -135,6 +135,8 @@ Other advanced string types
 
 There's also `callable-string`, `numeric-string`, and `non-empty-string`.
 
+Security-focused `literal-string` inspired by [`is_literal()` RFC](https://wiki.php.net/rfc/is_literal) is also available.
+
 Global type aliases
 -------------------------
 
