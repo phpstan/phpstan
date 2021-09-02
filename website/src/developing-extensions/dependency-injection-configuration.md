@@ -4,7 +4,7 @@ title: Dependency Injection & Configuration
 
 Dependency injection controls the way how extension objects are constructed for usage by PHPStan.
 
-PHPStan is like any other application that utilizes dependency injection. The objects that exist during PHPStan's run fall into two categories: services and value objects
+PHPStan is like any other application that utilizes dependency injection. The objects that exist during PHPStan's run fall into two categories: services and value objects.
 
 Services
 ------------
