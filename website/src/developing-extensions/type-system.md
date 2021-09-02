@@ -56,6 +56,7 @@ Some advanced types are implemented by combining different types in an intersect
 | `non-empty-string`            | `PHPStan\Type\StringType`  | `PHPStan\Type\Accessory\AccessoryNonEmptyStringType` |
 | `numeric-string`              | `PHPStan\Type\StringType`  | `PHPStan\Type\Accessory\AccessoryNumericStringType`  |
 | `callable-string`             | `PHPStan\Type\StringType`  | `PHPStan\Type\CallableType`                          |
+| `literal-string`              | `PHPStan\Type\StringType`  | `PHPStan\Type\Accessory\AccessoryLiteralStringType`  |
 | `non-empty-array`             | `PHPStan\Type\ArrayType`   | `PHPStan\Type\Accessory\NonEmptyArrayType`           |
 | After asking about `method_exists()` | Any object type     | `PHPStan\Type\Accessory\HasMethodType`               |
 | After asking about `property_exists()` | Any object type     | `PHPStan\Type\Accessory\HasPropertyType`           |
