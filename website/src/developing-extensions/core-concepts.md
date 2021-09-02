@@ -27,5 +27,7 @@ Reflection
 
 PHPStan has its own reflection layer for asking about functions, classes, properties, methods, and constants. [Learn more »](/developing-extensions/reflection)
 
-Dependency Injection
+Dependency Injection & Configuration
 -----------------
+
+Dependency injection controls the way how extension objects are constructed for usage by PHPStan. [Learn more »](/developing-extensions/dependency-injection-configuration)

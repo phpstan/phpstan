@@ -44,6 +44,10 @@
             "link": "/developing-extensions/reflection"
         },
         {
+            "title": "Dependency Injection & Configuration",
+            "link": "/developing-extensions/dependency-injection-configuration"
+        },
+        {
             "title": "Custom Rules",
             "link": "/developing-extensions/rules"
         },
