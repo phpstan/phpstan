@@ -29,7 +29,7 @@ class MyRuleTest extends RuleTestCase
 		// getRule() method needs to return an instance of the tested rule
 		return new MyRule();
 	}
-	
+
 	public function testRule(): void
 	{
 		// first argument: path to the example file that contains some errors that should be reported by MyRule
@@ -41,11 +41,11 @@ class MyRuleTest extends RuleTestCase
 				15, // asserted error line
 			],
 		]);
-		
+
 		// the test fails, if the expected error does not occur,
-		// or if there other errors reported beside the expected one
+		// or if there are other errors reported beside the expected one
 	}
-	
+
 }
 ```
 
@@ -110,13 +110,13 @@ use function PHPStan\Testing\assertType;
 
 class Foo
 {
-	
+
 	public function doFoo(\App\MyContainer $container): void
 	{
 		// arguments: string with the expected type, actual type
 		assertType(FooService::class, $container->getService('foo'));
 		assertType(BarService::class, $container->getService('bar'));
-		
+
 		assertType('bool', $container->getParameter('isProduction'));
 	}
 

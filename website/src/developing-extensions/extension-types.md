@@ -4,6 +4,11 @@ title: Extension Types
 
 PHPStan's behavior can be customized in various ways.
 
+Core concepts
+-------------------
+
+Many basic concepts about static analysis are shared among all the extension types.
+
 [Learn about core concepts »](/developing-extensions/core-concepts)
 
 Custom rules
