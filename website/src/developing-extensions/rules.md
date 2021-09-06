@@ -375,20 +375,12 @@ use PHPStan\Rules\RuleErrorBuilder;
 class ImmutableObjectRule implements Rule
 {
 
-	/**
-	 * @return string
-	 */
 	public function getNodeType(): string
 	{
 		// we're interested only in assignments
 		return Node\Expr\Assign::class;
 	}
 
-	/**
-	 * @param \PhpParser\Node\Expr\Assign $node
-	 * @param \PHPStan\Analyser\Scope $scope
-	 * @return string[]
-	 */
 	public function processNode(Node $node, Scope $scope): array
 	{
 		if (!$scope->isInClass()) {
