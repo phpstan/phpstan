@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a037718a4a0b9d3e405ef970edad5fc",
+    "content-hash": "f909517b3fb965354c7bb7ac6774e2ff",
     "packages": [
         {
             "name": "async-aws/core",
@@ -1297,16 +1297,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.97",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "a8867e63a00e606589faf8d3613164f20722c4ee"
+                "reference": "ad96e5efd921513113c96245e0e3ed369c5544d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/a8867e63a00e606589faf8d3613164f20722c4ee",
-                "reference": "a8867e63a00e606589faf8d3613164f20722c4ee",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ad96e5efd921513113c96245e0e3ed369c5544d4",
+                "reference": "ad96e5efd921513113c96245e0e3ed369c5544d4",
                 "shasum": ""
             },
             "require": {
@@ -1315,6 +1315,7 @@
             "conflict": {
                 "phpstan/phpstan-shim": "*"
             },
+            "default-branch": true,
             "bin": [
                 "phpstan",
                 "phpstan.phar"
@@ -1322,7 +1323,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.12-dev"
+                    "dev-master": "1.0-dev"
                 }
             },
             "autoload": {
@@ -1337,7 +1338,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/0.12.97"
+                "source": "https://github.com/phpstan/phpstan/tree/master"
             },
             "funding": [
                 {
@@ -1357,7 +1358,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-09-01T10:51:52+00:00"
+            "time": "2021-09-12T20:30:21+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
@@ -1365,28 +1366,28 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-strict-rules.git",
-                "reference": "63cec251637e873d896618cd73843c36f6e83f2f"
+                "reference": "6a7b2714e4e05d9db2cacad9ec2c245d63565607"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/63cec251637e873d896618cd73843c36f6e83f2f",
-                "reference": "63cec251637e873d896618cd73843c36f6e83f2f",
+                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/6a7b2714e4e05d9db2cacad9ec2c245d63565607",
+                "reference": "6a7b2714e4e05d9db2cacad9ec2c245d63565607",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1 || ^8.0",
-                "phpstan/phpstan": "^0.12.66"
+                "phpstan/phpstan": "^1.0"
             },
             "require-dev": {
                 "php-parallel-lint/php-parallel-lint": "^1.2",
-                "phpstan/phpstan-phpunit": "^0.12.16",
+                "phpstan/phpstan-phpunit": "^1.0",
                 "phpunit/phpunit": "^9.5"
             },
             "default-branch": true,
             "type": "phpstan-extension",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.12-dev"
+                    "dev-master": "1.0-dev"
                 },
                 "phpstan": {
                     "includes": [
@@ -1408,7 +1409,7 @@
                 "issues": "https://github.com/phpstan/phpstan-strict-rules/issues",
                 "source": "https://github.com/phpstan/phpstan-strict-rules/tree/master"
             },
-            "time": "2021-06-09T13:42:17+00:00"
+            "time": "2021-09-12T20:26:32+00:00"
         },
         {
             "name": "psr/cache",
