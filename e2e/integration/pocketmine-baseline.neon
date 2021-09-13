@@ -1,39 +1,9 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#2 \\$callback of function array_filter expects \\(callable\\(mixed, mixed\\)\\: bool\\)\\|null, Closure\\(pocketmine\\\\Player\\)\\: bool given\\.$#"
-			count: 1
-			path: repo/src/pocketmine/Server.php
-
-		-
-			message: "#^Parameter \\#2 \\$callback of function array_filter expects \\(callable\\(mixed, mixed\\)\\: bool\\)\\|null, Closure\\(string\\)\\: bool given\\.$#"
-			count: 1
-			path: repo/src/pocketmine/Server.php
-
-		-
-			message: "#^Parameter \\#2 \\$callback of function array_filter expects \\(callable\\(mixed, mixed\\)\\: bool\\)\\|null, Closure\\(pocketmine\\\\Player\\)\\: bool given\\.$#"
-			count: 1
-			path: repo/src/pocketmine/command/defaults/ListCommand.php
-
-		-
-			message: "#^Parameter \\#2 \\$callback of function array_filter expects \\(callable\\(mixed, mixed\\)\\: bool\\)\\|null, Closure\\(pocketmine\\\\entity\\\\Attribute\\)\\: bool given\\.$#"
-			count: 1
-			path: repo/src/pocketmine/entity/AttributeMap.php
-
-		-
-			message: "#^Parameter \\#2 \\$callback of function array_filter expects \\(callable\\(mixed, mixed\\)\\: bool\\)\\|null, Closure\\(pocketmine\\\\item\\\\Item\\)\\: bool given\\.$#"
-			count: 1
-			path: repo/src/pocketmine/entity/Human.php
-
-		-
 			message: "#^Parameter \\#2 \\$callback of function usort expects callable\\(mixed, mixed\\)\\: int, array\\('pocketmine\\\\\\\\inventory\\\\\\\\CraftingManager', 'sort'\\) given\\.$#"
 			count: 1
 			path: repo/src/pocketmine/inventory/CraftingManager.php
-
-		-
-			message: "#^Parameter \\#2 \\$callback of function array_filter expects \\(callable\\(mixed, mixed\\)\\: bool\\)\\|null, Closure\\(string\\)\\: bool given\\.$#"
-			count: 1
-			path: repo/src/pocketmine/lang/BaseLang.php
 
 		-
 			message: "#^Cannot call method getBlockData\\(\\) on pocketmine\\\\level\\\\format\\\\SubChunkInterface\\|null\\.$#"
@@ -91,9 +61,9 @@ parameters:
 			path: repo/src/pocketmine/level/format/Chunk.php
 
 		-
-			message: "#^Parameter \\#2 \\$callback of function array_filter expects \\(callable\\(mixed, mixed\\)\\: bool\\)\\|null, Closure\\(pocketmine\\\\entity\\\\Entity\\)\\: bool given\\.$#"
+			message: "#^Dead catch \\- ReflectionException is never thrown in the try block\\.$#"
 			count: 1
-			path: repo/src/pocketmine/level/format/Chunk.php
+			path: repo/src/pocketmine/level/format/io/LevelProviderManager.php
 
 		-
 			message: "#^Cannot call method getBlockDataArray\\(\\) on pocketmine\\\\level\\\\format\\\\SubChunkInterface\\|null\\.$#"
@@ -111,14 +81,14 @@ parameters:
 			path: repo/src/pocketmine/level/format/io/leveldb/LevelDB.php
 
 		-
-			message: "#^Parameter \\#2 \\$callback of function array_filter expects \\(callable\\(mixed, mixed\\)\\: bool\\)\\|null, Closure\\(string\\)\\: bool given\\.$#"
-			count: 1
-			path: repo/src/pocketmine/level/format/io/region/McRegion.php
-
-		-
 			message: "#^Parameter \\#2 \\$count of function array_fill expects int\\<0, max\\>, int given\\.$#"
 			count: 2
 			path: repo/src/pocketmine/level/generator/noise/Noise.php
+
+		-
+			message: "#^Dead catch \\- ErrorException is never thrown in the try block\\.$#"
+			count: 1
+			path: repo/src/pocketmine/resourcepacks/ResourcePackManager.php
 
 		-
 			message: "#^Parameter \\#1 \\$signature of static method pocketmine\\\\utils\\\\Utils\\:\\:validateCallableSignature\\(\\) expects callable\\(mixed, mixed, mixed, mixed, mixed, mixed, mixed, mixed, mixed, mixed\\)\\: mixed, Closure\\(int\\)\\: void given\\.$#"
@@ -149,4 +119,9 @@ parameters:
 			message: "#^Method pocketmine\\\\utils\\\\Internet\\:\\:simpleCurl\\(\\) should return array\\(string, array\\<int, array\\<string, string\\>\\>, int\\) but returns array\\(string, array\\<int, array\\<string, string\\>\\>&nonEmpty, mixed\\)\\.$#"
 			count: 1
 			path: repo/src/pocketmine/utils/Internet.php
+
+		-
+			message: "#^Dead catch \\- ReflectionException is never thrown in the try block\\.$#"
+			count: 2
+			path: repo/src/pocketmine/utils/Utils.php
 

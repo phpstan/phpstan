@@ -77,6 +77,8 @@ jobs:
               cd e2e/integration/repo
               git checkout 01fe497c491c6e6ab6922fc6cc441d812a394f73
               composer install --ignore-platform-reqs
+              composer config minimum-stability dev
+              composer require --dev phpstan/phpstan:^1.0 phpstan/phpstan-strict-rules:^1.0 phpstan/phpstan-phpunit:^1.0 --ignore-platform-reqs
               ../../../phpstan.phar analyse -c ../pocketmine.neon --memory-limit=2G
           - php-version: 8.0
             script: |
