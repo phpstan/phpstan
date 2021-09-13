@@ -353,14 +353,6 @@ When set to `true`, it reports function and method calls with incorrect name cas
 
 When set to `true`, it reports references to built-in classes with incorrect name case.
 
-### `checkMissingClosureNativeReturnTypehintRule`
-
-**default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
-
-**example**: [with `false`](https://phpstan.org/r/c3373d13-4ab1-443b-8e97-55c5b795b2a2), [with `true`](https://phpstan.org/r/7066aec7-ae60-45c5-ad96-08b1c3f2e5c0)
-
-When set to `true`, it reports closures that could have a native return typehint.
-
 ### `reportMaybesInMethodSignatures`
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
