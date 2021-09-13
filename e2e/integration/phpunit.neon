@@ -7,11 +7,12 @@ parameters:
 			- exitWithErrorMessage
 	featureToggles:
 		disableRuntimeReflectionProvider: true
-	excludes_analyse:
+	excludePaths:
 		- repo/tests/end-to-end/regression/GitHub/4232/Issue4232Test.php
 		- repo/tests/_files/ClassWithUnionReturnTypes.php
 		- repo/tests/unit/Framework/MockObject/MockObjectTest.php
 		- repo/tests/_files/mock-object/ClassWithoutParentButParentReturnType.php
 		- repo/tests/end-to-end/regression/GitHub/3904/Issue3904Test.php
+		- repo/tests/_files/ClassWithStaticReturnTypes.php
 	bootstrapFiles:
 		- phar://%currentWorkingDirectory%/tests/_files/phpunit-example-extension/tools/phpunit.d/phpunit-example-extension-3.0.3.phar/phpunit-example-extension/TestCaseTrait.php

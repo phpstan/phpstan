@@ -1306,6 +1306,11 @@ parameters:
 			path: repo/src/Framework/MockObject/Generator.php
 
 		-
+			message: "#^Dead catch \\- ReflectionException is never thrown in the try block\\.$#"
+			count: 5
+			path: repo/src/Framework/MockObject/Generator.php
+
+		-
 			message: "#^Method PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:generate\\(\\) has parameter \\$methods with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/Generator.php
@@ -1671,6 +1676,16 @@ parameters:
 			path: repo/src/Framework/MockObject/Stub/Stub.php
 
 		-
+			message: "#^Dead catch \\- PHPUnit\\\\Framework\\\\IncompleteTestError is never thrown in the try block\\.$#"
+			count: 1
+			path: repo/src/Framework/TestBuilder.php
+
+		-
+			message: "#^Dead catch \\- PHPUnit\\\\Framework\\\\SkippedTestError is never thrown in the try block\\.$#"
+			count: 1
+			path: repo/src/Framework/TestBuilder.php
+
+		-
 			message: "#^Method PHPUnit\\\\Framework\\\\TestBuilder\\:\\:build\\(\\) has parameter \\$theClass with generic class ReflectionClass but does not specify its types\\: T$#"
 			count: 1
 			path: repo/src/Framework/TestBuilder.php
@@ -1703,6 +1718,11 @@ parameters:
 		-
 			message: "#^Argument of an invalid type Prophecy\\\\Prophecy\\\\MethodProphecy supplied for foreach, only iterables are supported\\.$#"
 			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			message: "#^Dead catch \\- ReflectionException is never thrown in the try block\\.$#"
+			count: 2
 			path: repo/src/Framework/TestCase.php
 
 		-
@@ -2001,6 +2021,11 @@ parameters:
 			path: repo/src/Framework/TestResult.php
 
 		-
+			message: "#^Dead catch \\- ReflectionException is never thrown in the try block\\.$#"
+			count: 1
+			path: repo/src/Framework/TestResult.php
+
+		-
 			message: "#^Method PHPUnit\\\\Framework\\\\TestResult\\:\\:endTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
 			count: 1
 			path: repo/src/Framework/TestResult.php
@@ -2071,6 +2096,11 @@ parameters:
 			path: repo/src/Framework/TestSuite.php
 
 		-
+			message: "#^Dead catch \\- ReflectionException is never thrown in the try block\\.$#"
+			count: 3
+			path: repo/src/Framework/TestSuite.php
+
+		-
 			message: "#^Method PHPUnit\\\\Framework\\\\TestSuite\\:\\:__construct\\(\\) has parameter \\$theClass with generic class ReflectionClass but does not specify its types\\: T$#"
 			count: 1
 			path: repo/src/Framework/TestSuite.php
@@ -2131,6 +2161,11 @@ parameters:
 			path: repo/src/Framework/TestSuite.php
 
 		-
+			message: "#^Class PHPUnit\\\\Framework\\\\TestSuiteIterator implements generic interface RecursiveIterator but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: repo/src/Framework/TestSuiteIterator.php
+
+		-
 			message: "#^Method PHPUnit\\\\Framework\\\\TestSuiteIterator\\:\\:__construct\\(\\) has parameter \\$testSuite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
 			count: 1
 			path: repo/src/Framework/TestSuiteIterator.php
@@ -2181,6 +2216,11 @@ parameters:
 			path: repo/src/Runner/Filter/GroupFilterIterator.php
 
 		-
+			message: "#^Method PHPUnit\\\\Runner\\\\Filter\\\\GroupFilterIterator\\:\\:__construct\\(\\) has parameter \\$iterator with generic interface RecursiveIterator but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: repo/src/Runner/Filter/GroupFilterIterator.php
+
+		-
 			message: "#^Method PHPUnit\\\\Runner\\\\Filter\\\\GroupFilterIterator\\:\\:__construct\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
 			count: 1
 			path: repo/src/Runner/Filter/GroupFilterIterator.php
@@ -2189,6 +2229,11 @@ parameters:
 			message: "#^Method PHPUnit\\\\Runner\\\\Filter\\\\GroupFilterIterator\\:\\:doAccept\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: repo/src/Runner/Filter/GroupFilterIterator.php
+
+		-
+			message: "#^Method PHPUnit\\\\Runner\\\\Filter\\\\NameFilterIterator\\:\\:__construct\\(\\) has parameter \\$iterator with generic interface RecursiveIterator but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: repo/src/Runner/Filter/NameFilterIterator.php
 
 		-
 			message: "#^Method PHPUnit\\\\Runner\\\\TestListenerAdapter\\:\\:endTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
@@ -2314,6 +2359,11 @@ parameters:
 			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: repo/src/Runner/PhptTestCase.php
+
+		-
+			message: "#^Dead catch \\- ReflectionException is never thrown in the try block\\.$#"
+			count: 1
+			path: repo/src/Runner/StandardTestSuiteLoader.php
 
 		-
 			message: "#^Method PHPUnit\\\\Runner\\\\StandardTestSuiteLoader\\:\\:load\\(\\) return type with generic class ReflectionClass does not specify its types\\: T$#"
@@ -2571,6 +2621,11 @@ parameters:
 			path: repo/src/TextUI/CliArguments/Mapper.php
 
 		-
+			message: "#^Dead catch \\- ReflectionException is never thrown in the try block\\.$#"
+			count: 2
+			path: repo/src/TextUI/Command.php
+
+		-
 			message: "#^Method PHPUnit\\\\TextUI\\\\Command\\:\\:configurationFileInDirectory\\(\\) should return string\\|null but returns string\\|false\\.$#"
 			count: 1
 			path: repo/src/TextUI/Command.php
@@ -2662,11 +2717,6 @@ parameters:
 
 		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
-			count: 1
-			path: repo/src/TextUI/Command.php
-
-		-
-			message: "#^Variable \\$arguments in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/src/TextUI/Command.php
 
@@ -3191,6 +3241,11 @@ parameters:
 			path: repo/src/Util/Annotation/DocBlock.php
 
 		-
+			message: "#^Dead catch \\- ReflectionException is never thrown in the try block\\.$#"
+			count: 1
+			path: repo/src/Util/Annotation/Registry.php
+
+		-
 			message: "#^Method PHPUnit\\\\Util\\\\Color\\:\\:optimizeColor\\(\\) should return string but returns string\\|null\\.$#"
 			count: 1
 			path: repo/src/Util/Color.php
@@ -3288,6 +3343,11 @@ parameters:
 		-
 			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\Test\\:\\:getName\\(\\)\\.$#"
 			count: 2
+			path: repo/src/Util/Log/JUnit.php
+
+		-
+			message: "#^Dead catch \\- ReflectionException is never thrown in the try block\\.$#"
+			count: 1
 			path: repo/src/Util/Log/JUnit.php
 
 		-
@@ -3721,6 +3781,11 @@ parameters:
 			path: repo/src/Util/TextTestListRenderer.php
 
 		-
+			message: "#^Dead catch \\- Throwable is never thrown in the try block\\.$#"
+			count: 1
+			path: repo/src/Util/Type.php
+
+		-
 			message: "#^Property PHPUnit\\\\Util\\\\VersionComparisonOperator\\:\\:\\$operator \\('\\!\\='\\|'\\<'\\|'\\<\\='\\|'\\<\\>'\\|'\\='\\|'\\=\\='\\|'\\>'\\|'\\>\\='\\|'eq'\\|'ge'\\|'gt'\\|'le'\\|'lt'\\|'ne'\\) does not accept string\\.$#"
 			count: 1
 			path: repo/src/Util/VersionComparisonOperator.php
@@ -4029,21 +4094,6 @@ parameters:
 			message: "#^Property PHPUnit\\\\TestFixture\\\\ClassWithNonPublicAttributes\\:\\:\\$publicStaticAttribute has no typehint specified\\.$#"
 			count: 1
 			path: repo/tests/_files/ClassWithNonPublicAttributes.php
-
-		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\ClassWithStaticReturnTypes\\:\\:returnsStatic\\(\\) should return static\\(PHPUnit\\\\TestFixture\\\\ClassWithStaticReturnTypes\\) but return statement is missing\\.$#"
-			count: 1
-			path: repo/tests/_files/ClassWithStaticReturnTypes.php
-
-		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\ClassWithStaticReturnTypes\\:\\:returnsStaticOrNull\\(\\) should return static\\(PHPUnit\\\\TestFixture\\\\ClassWithStaticReturnTypes\\)\\|null but return statement is missing\\.$#"
-			count: 1
-			path: repo/tests/_files/ClassWithStaticReturnTypes.php
-
-		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\ClassWithStaticReturnTypes\\:\\:returnsUnionWithStatic\\(\\) should return static\\(PHPUnit\\\\TestFixture\\\\ClassWithStaticReturnTypes\\)\\|stdClass but return statement is missing\\.$#"
-			count: 1
-			path: repo/tests/_files/ClassWithStaticReturnTypes.php
 
 		-
 			message: "#^Method PHPUnit\\\\TestFixture\\\\ClassWithVariadicArgumentMethod\\:\\:foo\\(\\) has no return typehint specified\\.$#"
