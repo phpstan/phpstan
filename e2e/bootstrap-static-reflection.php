@@ -2,4 +2,4 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-\PHPStan\Testing\TestCase::$useStaticReflectionProvider = true;
+\PHPStan\Testing\PHPStanTestCase::$useStaticReflectionProvider = true;
