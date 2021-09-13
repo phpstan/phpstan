@@ -1,5 +1,5 @@
 parameters:
-	autoload_directories:
+	scanDirectories:
 		- tests
 	ignoreErrors:
 		-

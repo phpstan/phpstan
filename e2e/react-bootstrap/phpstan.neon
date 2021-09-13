@@ -1,2 +1,3 @@
 parameters:
-	bootstrap: bootstrap.php
+	bootstrapFiles:
+		- bootstrap.php
