@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Argument of an invalid type PHPStan\\\\Dependency\\\\NodeDependencies supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: repo/packages/Caching/FileSystem/DependencyResolver.php
+
+		-
 			message: "#^Calling PHPStan\\\\Dependency\\\\DependencyResolver\\:\\:resolveDependencies\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/packages/Caching/FileSystem/DependencyResolver.php
@@ -46,6 +51,11 @@ parameters:
 			path: repo/rules/CodingStyle/Reflection/VendorLocationDetector.php
 
 		-
+			message: "#^Parameter \\#1 \\$callback of function array_map expects callable\\(PhpParser\\\\Node\\\\Expr\\\\ArrayItem\\|null\\)\\: mixed, Closure\\(PhpParser\\\\Node\\\\Expr\\\\ArrayItem\\)\\: PhpParser\\\\Node\\\\Arg given\\.$#"
+			count: 1
+			path: repo/rules/DowngradePhp74/Rector/Array_/DowngradeArraySpreadRector.php
+
+		-
 			message: "#^Creating new PHPStan\\\\Reflection\\\\Php\\\\PhpParameterReflection is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/rules/DowngradePhp80/NodeAnalyzer/NamedToUnnamedArgs.php
@@ -56,24 +66,19 @@ parameters:
 			path: repo/rules/DowngradePhp80/NodeAnalyzer/UnnamedArgumentResolver.php
 
 		-
-			message: "#^Parameter \\#1 \\$separator of function explode expects non\\-empty\\-string, string given\\.$#"
-			count: 2
-			path: repo/rules/PSR4/FileRelocationResolver.php
-
-		-
 			message: "#^Calling PHPStan\\\\Analyser\\\\MutatingScope\\:\\:assignExpression\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/rules/Php70/Rector/FuncCall/NonVariableToVariableOnFunctionCallRector.php
 
 		-
-			message: "#^Parameter \\#2 \\$length of function str_split expects int\\<1, max\\>, int given\\.$#"
+			message: "#^Call to an undefined method PHPStan\\\\Reflection\\\\ClassReflection\\:\\:getNativeMethods\\(\\)\\.$#"
 			count: 1
-			path: repo/rules/Php74/Rector/LNumber/AddLiteralSeparatorToNumberRector.php
+			path: repo/rules/Transform/NodeTypeAnalyzer/TypeProvidingExprFromClassResolver.php
 
 		-
-			message: "#^Parameter \\#1 \\$separator of function explode expects non\\-empty\\-string, string given\\.$#"
+			message: "#^Unable to resolve the template type T in call to method static method PHPStan\\\\Reflection\\\\ParametersAcceptorSelector\\:\\:selectSingle\\(\\)$#"
 			count: 1
-			path: repo/rules/Privatization/Rector/Class_/RepeatedLiteralToClassConstantRector.php
+			path: repo/rules/Transform/NodeTypeAnalyzer/TypeProvidingExprFromClassResolver.php
 
 		-
 			message: "#^Creating new PHPStan\\\\Reflection\\\\Native\\\\NativeFunctionReflection is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
