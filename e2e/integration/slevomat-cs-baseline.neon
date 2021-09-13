@@ -54,9 +54,3 @@ parameters:
 			message: "#^Parameter \\#5 \\$contentNode of class SlevomatCodingStandard\\\\Helpers\\\\Annotation\\\\VariableAnnotation constructor expects PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\VarTagValueNode\\|null, PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocTagValueNode\\|null given\\.$#"
 			count: 1
 			path: repo/SlevomatCodingStandard/Helpers/AnnotationHelper.php
-
-		-
-			message: "#^Anonymous function should return string but returns array\\<int, int\\|string\\>\\|int\\|string\\.$#"
-			count: 1
-			path: repo/SlevomatCodingStandard/Helpers/YodaHelper.php
-
