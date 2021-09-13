@@ -36,14 +36,49 @@ parameters:
 			path: repo/src/Methods/Pipes/BuilderLocalMacros.php
 
 		-
+			message: "#^Method NunoMaduro\\\\Larastan\\\\Methods\\\\Pipes\\\\Contracts\\:\\:concretes\\(\\) should return array\\<string\\> but returns array\\<int, class\\-string\\|false\\>\\.$#"
+			count: 1
+			path: repo/src/Methods/Pipes/Contracts.php
+
+		-
+			message: "#^Parameter \\#1 \\$class of method NunoMaduro\\\\Larastan\\\\Contracts\\\\Methods\\\\PassableContract\\:\\:sendToPipeline\\(\\) expects string, class\\-string\\|false given\\.$#"
+			count: 1
+			path: repo/src/Methods/Pipes/Facades.php
+
+		-
 			message: "#^Calling PHPStan\\\\Reflection\\\\Php\\\\PhpMethodReflectionFactory\\:\\:create\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/src/Methods/Pipes/Macros.php
 
 		-
+			message: "#^Parameter \\#1 \\$className of class NunoMaduro\\\\Larastan\\\\Methods\\\\Macro constructor expects class\\-string, class\\-string\\|string given\\.$#"
+			count: 1
+			path: repo/src/Methods/Pipes/Macros.php
+
+		-
+			message: "#^Parameter \\#1 \\$className of method PHPStan\\\\Broker\\\\Broker\\:\\:getClass\\(\\) expects string, class\\-string\\|false given\\.$#"
+			count: 1
+			path: repo/src/Methods/Pipes/Macros.php
+
+		-
+			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<object\\>\\|object, class\\-string\\|false given\\.$#"
+			count: 1
+			path: repo/src/Methods/Pipes/Macros.php
+
+		-
+			message: "#^Parameter \\#1 \\$class of method NunoMaduro\\\\Larastan\\\\Contracts\\\\Methods\\\\PassableContract\\:\\:sendToPipeline\\(\\) expects string, class\\-string\\|false given\\.$#"
+			count: 1
+			path: repo/src/Methods/Pipes/Managers.php
+
+		-
 			message: "#^Calling PHPStan\\\\Type\\\\TypehintHelper\\:\\:decideTypeFromReflection\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/src/Properties/ContainerProperty.php
+
+		-
+			message: "#^Parameter \\#1 \\$className of method PHPStan\\\\Broker\\\\Broker\\:\\:getClass\\(\\) expects string, class\\-string\\|false given\\.$#"
+			count: 2
+			path: repo/src/Properties/Extension.php
 
 		-
 			message: "#^Calling PHPStan\\\\Parser\\\\CachedParser\\:\\:parseFile\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
@@ -74,6 +109,16 @@ parameters:
 			message: "#^Calling PHPStan\\\\Reflection\\\\Dummy\\\\DummyMethodReflection\\:\\:getName\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/src/ReturnTypes/EloquentBuilderExtension.php
+
+		-
+			message: "#^Parameter \\#1 \\$className of class PHPStan\\\\Type\\\\ObjectType constructor expects string, class\\-string\\|false given\\.$#"
+			count: 1
+			path: repo/src/ReturnTypes/Helpers/AppExtension.php
+
+		-
+			message: "#^Parameter \\#1 \\$className of class PHPStan\\\\Type\\\\ObjectType constructor expects string, class\\-string\\|false given\\.$#"
+			count: 1
+			path: repo/src/ReturnTypes/Helpers/AuthExtension.php
 
 		-
 			message: "#^Calling PHPStan\\\\Parser\\\\CachedParser\\:\\:parseFile\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
