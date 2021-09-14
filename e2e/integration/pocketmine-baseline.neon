@@ -121,6 +121,16 @@ parameters:
 			path: repo/src/pocketmine/utils/Internet.php
 
 		-
+			message: "#^Backtick operator is not allowed\\. Use shell_exec\\(\\) instead\\.$#"
+			count: 46
+			path: repo/src/pocketmine/utils/Terminal.php
+
+		-
+			message: "#^Backtick operator is not allowed\\. Use shell_exec\\(\\) instead\\.$#"
+			count: 2
+			path: repo/src/pocketmine/utils/Utils.php
+
+		-
 			message: "#^Dead catch \\- ReflectionException is never thrown in the try block\\.$#"
 			count: 2
 			path: repo/src/pocketmine/utils/Utils.php
