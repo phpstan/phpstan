@@ -16,6 +16,11 @@ parameters:
 			path: repo/packages/Caching/ValueObject/Storage/FileCacheStorage.php
 
 		-
+			message: "#^Parameter \\#1 \\$classReflection of class PHPStan\\\\Type\\\\ThisType constructor expects PHPStan\\\\Reflection\\\\ClassReflection, string given\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/PHPStan/Type/TypeFactory.php
+
+		-
 			message: "#^Calling PHPStan\\\\Type\\\\UnionTypeHelper\\:\\:sortTypes\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/packages/NodeTypeResolver/PHPStan/TypeHasher.php
@@ -39,6 +44,16 @@ parameters:
 			message: "#^Calling PHPStan\\\\Reflection\\\\Native\\\\NativeFunctionReflection\\:\\:getName\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/packages/ReadWrite/Guard/VariableToConstantGuard.php
+
+		-
+			message: "#^Parameter \\#1 \\$classReflection of class PHPStan\\\\Type\\\\StaticType constructor expects PHPStan\\\\Reflection\\\\ClassReflection, string given\\.$#"
+			count: 1
+			path: repo/packages/StaticTypeMapper/PhpDocParser/IdentifierTypeMapper.php
+
+		-
+			message: "#^Parameter \\#1 \\$classReflection of class Rector\\\\StaticTypeMapper\\\\ValueObject\\\\Type\\\\ParentStaticType constructor expects PHPStan\\\\Reflection\\\\ClassReflection, string given\\.$#"
+			count: 1
+			path: repo/packages/StaticTypeMapper/PhpDocParser/IdentifierTypeMapper.php
 
 		-
 			message: "#^Creating new PHPStan\\\\Php\\\\PhpVersion is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
@@ -66,6 +81,11 @@ parameters:
 			path: repo/rules/DowngradePhp80/NodeAnalyzer/UnnamedArgumentResolver.php
 
 		-
+			message: "#^Parameter \\#1 \\$classReflection of class PHPStan\\\\Type\\\\StaticType constructor expects PHPStan\\\\Reflection\\\\ClassReflection, class\\-string given\\.$#"
+			count: 1
+			path: repo/rules/DowngradePhp80/Rector/ClassMethod/DowngradeStaticTypeDeclarationRector.php
+
+		-
 			message: "#^Calling PHPStan\\\\Analyser\\\\MutatingScope\\:\\:assignExpression\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/rules/Php70/Rector/FuncCall/NonVariableToVariableOnFunctionCallRector.php
@@ -79,6 +99,11 @@ parameters:
 			message: "#^Unable to resolve the template type T in call to method static method PHPStan\\\\Reflection\\\\ParametersAcceptorSelector\\:\\:selectSingle\\(\\)$#"
 			count: 1
 			path: repo/rules/Transform/NodeTypeAnalyzer/TypeProvidingExprFromClassResolver.php
+
+		-
+			message: "#^Parameter \\#1 \\$classReflection of class PHPStan\\\\Type\\\\ThisType constructor expects PHPStan\\\\Reflection\\\\ClassReflection, string given\\.$#"
+			count: 2
+			path: repo/rules/TypeDeclaration/TypeInferer/ReturnTypeInferer.php
 
 		-
 			message: "#^Creating new PHPStan\\\\Reflection\\\\Native\\\\NativeFunctionReflection is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
