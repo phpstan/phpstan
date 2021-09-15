@@ -20,7 +20,7 @@ Classes
 ---------
 
 * Non-final classes with `@api` in their PHPDoc can be extended.
-* Objects of classes with `@api` in their PHPDoc cannot be created via `new` unless there's also `@api` above the public constructor. This encourages using dependency injection (asking for the class via constructor) in case the class is registered as a service in the dependency injection container.
+* Objects of classes with `@api` in their PHPDoc cannot be created via `new` unless there's also `@api` above the public constructor. This encourages using [dependency injection](/developing-extensions/dependency-injection-configuration) in case the class is registered as a service in the dependency injection container.
 * All public methods from classes with `@api` in their PHPDoc can be called.
 
 Interfaces
