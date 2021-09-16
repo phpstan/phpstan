@@ -1301,6 +1301,11 @@ parameters:
 			path: repo/src/Framework/MockObject/ConfigurableMethod.php
 
 		-
+			message: "#^Call to an undefined method object\\:\\:__phpunit_setOriginalObject\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Framework/MockObject/Generator.php
+
+		-
 			message: "#^Constant PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:EXCLUDED_METHOD_NAMES type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/Generator.php
@@ -1517,6 +1522,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$originalClassName of method PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:getMockForAbstractClass\\(\\) expects class\\-string\\<object\\>, string given\\.$#"
+			count: 1
+			path: repo/src/Framework/MockObject/MockBuilder.php
+
+		-
+			message: "#^Parameter \\#1 \\$traitName of method PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:getMockForTrait\\(\\) expects class\\-string, string given\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/MockBuilder.php
 
@@ -6156,6 +6166,41 @@ parameters:
 			path: repo/tests/unit/Framework/AssertTest.php
 
 		-
+			message: "#^Call to an undefined method object\\:\\:arity\\(\\)\\.$#"
+			count: 1
+			path: repo/tests/unit/Framework/Constraint/BinaryOperatorTestCase.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:count\\(\\)\\.$#"
+			count: 1
+			path: repo/tests/unit/Framework/Constraint/BinaryOperatorTestCase.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:evaluate\\(\\)\\.$#"
+			count: 1
+			path: repo/tests/unit/Framework/Constraint/BinaryOperatorTestCase.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:operator\\(\\)\\.$#"
+			count: 1
+			path: repo/tests/unit/Framework/Constraint/BinaryOperatorTestCase.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:precedence\\(\\)\\.$#"
+			count: 1
+			path: repo/tests/unit/Framework/Constraint/BinaryOperatorTestCase.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:setConstraints\\(\\)\\.$#"
+			count: 3
+			path: repo/tests/unit/Framework/Constraint/BinaryOperatorTestCase.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:toString\\(\\)\\.$#"
+			count: 1
+			path: repo/tests/unit/Framework/Constraint/BinaryOperatorTestCase.php
+
+		-
 			message: "#^Method PHPUnit\\\\Framework\\\\Constraint\\\\BinaryOperatorTestCase\\:\\:evaluateExpectedResult\\(\\) has parameter \\$input with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/tests/unit/Framework/Constraint/BinaryOperatorTestCase.php
@@ -6496,6 +6541,36 @@ parameters:
 			path: repo/tests/unit/Framework/Constraint/OperatorTestCase.php
 
 		-
+			message: "#^Call to an undefined method object\\:\\:arity\\(\\)\\.$#"
+			count: 1
+			path: repo/tests/unit/Framework/Constraint/UnaryOperatorTestCase.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:count\\(\\)\\.$#"
+			count: 1
+			path: repo/tests/unit/Framework/Constraint/UnaryOperatorTestCase.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:evaluate\\(\\)\\.$#"
+			count: 3
+			path: repo/tests/unit/Framework/Constraint/UnaryOperatorTestCase.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:operator\\(\\)\\.$#"
+			count: 1
+			path: repo/tests/unit/Framework/Constraint/UnaryOperatorTestCase.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:precedence\\(\\)\\.$#"
+			count: 1
+			path: repo/tests/unit/Framework/Constraint/UnaryOperatorTestCase.php
+
+		-
+			message: "#^Call to an undefined method object\\:\\:toString\\(\\)\\.$#"
+			count: 11
+			path: repo/tests/unit/Framework/Constraint/UnaryOperatorTestCase.php
+
+		-
 			message: "#^Method PHPUnit\\\\Framework\\\\Constraint\\\\UnaryOperatorTestCase\\:\\:providerToStringWithNativeTransformations\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: repo/tests/unit/Framework/Constraint/UnaryOperatorTestCase.php
@@ -6612,6 +6687,16 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$originalClassName of method PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:getMockForAbstractClass\\(\\) expects class\\-string\\<Tux\\>, string given\\.$#"
+			count: 1
+			path: repo/tests/unit/Framework/MockObject/GeneratorTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$traitName of method PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:getMockForTrait\\(\\) expects class\\-string, string given\\.$#"
+			count: 1
+			path: repo/tests/unit/Framework/MockObject/GeneratorTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$traitName of method PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:getObjectForTrait\\(\\) expects class\\-string, string given\\.$#"
 			count: 1
 			path: repo/tests/unit/Framework/MockObject/GeneratorTest.php
 
@@ -7182,6 +7267,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$path of function realpath expects string, string\\|false given\\.$#"
+			count: 1
+			path: repo/tests/unit/Util/TestClassTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$test of static method PHPUnit\\\\Util\\\\Test\\:\\:requiresCodeCoverageDataCollection\\(\\) expects PHPUnit\\\\Framework\\\\TestCase, object given\\.$#"
 			count: 1
 			path: repo/tests/unit/Util/TestClassTest.php
 
