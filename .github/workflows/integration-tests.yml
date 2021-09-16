@@ -47,7 +47,7 @@ jobs:
             composer config platform --unset && composer update
             bin/composer require --dev phpunit/phpunit:^7.5 --with-all-dependencies
             bin/composer require --dev phpstan/phpstan-phpunit
-            ../../../phpstan.phar analyse -c phpstan/config.neon src tests
+            ../../../phpstan.phar analyse -c ../composer.neon src tests
           #- |
           #  git clone https://github.com/nextras/orm.git e2e/integration/repo
           #  cd e2e/integration/repo
