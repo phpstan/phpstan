@@ -56,7 +56,7 @@ export class PlaygroundViewModel {
 
 		this.upToDateTabs = ko.observable(null);
 
-		this.level = ko.observable('8');
+		this.level = ko.observable('9');
 		this.strictRules = ko.observable(false);
 		this.bleedingEdge = ko.observable(false);
 		this.treatPhpDocTypesAsCertain = ko.observable(true);
