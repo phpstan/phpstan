@@ -61,6 +61,26 @@ parameters:
 			path: repo/packages/VersionBonding/Application/MissedRectorDueVersionChecker.php
 
 		-
+			message: "#^Method Rector\\\\CodeQuality\\\\Rector\\\\Assign\\\\CombinedAssignRector\\:\\:refactor\\(\\) should return PhpParser\\\\Node\\|null but returns object\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/Assign/CombinedAssignRector.php
+
+		-
+			message: "#^Method Rector\\\\CodeQuality\\\\Rector\\\\Identical\\\\SimplifyConditionsRector\\:\\:createInversedBooleanOp\\(\\) should return PhpParser\\\\Node\\\\Expr\\\\BinaryOp\\|null but returns object\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/Identical/SimplifyConditionsRector.php
+
+		-
+			message: "#^Property PhpParser\\\\Node\\\\Stmt\\\\Return_\\:\\:\\$expr \\(PhpParser\\\\Node\\\\Expr\\|null\\) does not accept object\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/Return_/SimplifyUselessVariableRector.php
+
+		-
+			message: "#^Method Rector\\\\CodeQuality\\\\Rector\\\\Ternary\\\\UnnecessaryTernaryExpressionRector\\:\\:refactor\\(\\) should return PhpParser\\\\Node\\|null but returns object\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/Ternary/UnnecessaryTernaryExpressionRector.php
+
+		-
 			message: "#^Calling PHPStan\\\\Reflection\\\\Php\\\\PhpFunctionReflection\\:\\:getFileName\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/rules/CodingStyle/Reflection/VendorLocationDetector.php
@@ -104,6 +124,21 @@ parameters:
 			message: "#^Parameter \\#1 \\$classReflection of class PHPStan\\\\Type\\\\ThisType constructor expects PHPStan\\\\Reflection\\\\ClassReflection, string given\\.$#"
 			count: 2
 			path: repo/rules/TypeDeclaration/TypeInferer/ReturnTypeInferer.php
+
+		-
+			message: "#^Method Rector\\\\Core\\\\NodeManipulator\\\\BinaryOpManipulator\\:\\:inverseBinaryOp\\(\\) should return PhpParser\\\\Node\\\\Expr\\\\BinaryOp\\|null but returns object\\.$#"
+			count: 1
+			path: repo/src/NodeManipulator/BinaryOpManipulator.php
+
+		-
+			message: "#^Method Rector\\\\Core\\\\NodeManipulator\\\\BinaryOpManipulator\\:\\:inverseNode\\(\\) should return PhpParser\\\\Node but returns object\\.$#"
+			count: 1
+			path: repo/src/NodeManipulator/BinaryOpManipulator.php
+
+		-
+			message: "#^Method Rector\\\\Core\\\\NodeManipulator\\\\BinaryOpManipulator\\:\\:invertCondition\\(\\) should return PhpParser\\\\Node\\\\Expr\\\\BinaryOp\\|null but returns object\\.$#"
+			count: 1
+			path: repo/src/NodeManipulator/BinaryOpManipulator.php
 
 		-
 			message: "#^Creating new PHPStan\\\\Reflection\\\\Native\\\\NativeFunctionReflection is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
