@@ -1,7 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#2 \\$cmp_function of function usort expects callable\\(Composer\\\\Package\\\\BasePackage, Composer\\\\Package\\\\BasePackage\\)\\: int, 'strcmp' given\\.$#"
+			message: "#^Parameter \\#2 \\$callback of function usort expects callable\\(Composer\\\\Package\\\\BasePackage, Composer\\\\Package\\\\BasePackage\\)\\: int, 'strcmp' given\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/ShowCommand.php
 
