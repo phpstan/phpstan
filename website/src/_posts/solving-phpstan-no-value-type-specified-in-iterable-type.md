@@ -43,6 +43,8 @@ function foo(array $items): void
 }
 ```
 
+If you have an `array` typehint and just want to make this error go away while keeping the possibility of the array holding any type, replace `array` with `mixed[]` or `array<mixed>`.
+
 If your codebase makes use of [arrays of various specific shapes](/writing-php-code/phpdoc-types#array-shapes) passed around functions and methods, PHPStan can check that the values in specified keys have the correct types. This is different from general arrays that mandate that all the keys and values must be of a specific homogeneous type. [Array shapes](/writing-php-code/phpdoc-types#array-shapes) allow each key and value to be different.
 
 * `array{'foo': int, "bar": string}`
