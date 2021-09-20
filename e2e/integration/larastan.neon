@@ -5,3 +5,4 @@ includes:
 parameters:
 	featureToggles:
 		apiRules: true
+	level: 8
