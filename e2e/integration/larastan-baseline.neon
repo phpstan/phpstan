@@ -6,6 +6,11 @@ parameters:
 			path: repo/src/Analyser/Scope.php
 
 		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\Analyser\\\\Scope\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: repo/src/Analyser/Scope.php
+
+		-
 			message: "#^Calling PHPStan\\\\Type\\\\Generic\\\\TemplateTypeHelper\\:\\:resolveTemplateTypes\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/src/Methods/BuilderHelper.php
@@ -21,9 +26,24 @@ parameters:
 			path: repo/src/Methods/HigherOrderTapProxyExtension.php
 
 		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\Methods\\\\Kernel\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: repo/src/Methods/Kernel.php
+
+		-
 			message: "#^Implementing PHPStan\\\\Reflection\\\\Php\\\\BuiltinMethodReflection is not covered by backward compatibility promise\\. The interface might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/src/Methods/Macro.php
+
+		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\Methods\\\\Passable\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: repo/src/Methods/Passable.php
+
+		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\Methods\\\\Pipes\\\\Auths\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: repo/src/Methods/Pipes/Auths.php
 
 		-
 			message: "#^Calling PHPStan\\\\Reflection\\\\Php\\\\PhpMethodReflectionFactory\\:\\:create\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
@@ -36,7 +56,17 @@ parameters:
 			path: repo/src/Methods/Pipes/BuilderLocalMacros.php
 
 		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\Methods\\\\Pipes\\\\BuilderLocalMacros\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: repo/src/Methods/Pipes/BuilderLocalMacros.php
+
+		-
 			message: "#^Method NunoMaduro\\\\Larastan\\\\Methods\\\\Pipes\\\\Contracts\\:\\:concretes\\(\\) should return array\\<string\\> but returns array\\<int, class\\-string\\|false\\>\\.$#"
+			count: 1
+			path: repo/src/Methods/Pipes/Contracts.php
+
+		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\Methods\\\\Pipes\\\\Contracts\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: repo/src/Methods/Pipes/Contracts.php
 
@@ -66,7 +96,17 @@ parameters:
 			path: repo/src/Methods/Pipes/Macros.php
 
 		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\Methods\\\\Pipes\\\\Macros\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: repo/src/Methods/Pipes/Macros.php
+
+		-
 			message: "#^Parameter \\#1 \\$class of method NunoMaduro\\\\Larastan\\\\Contracts\\\\Methods\\\\PassableContract\\:\\:sendToPipeline\\(\\) expects string, class\\-string\\|false given\\.$#"
+			count: 1
+			path: repo/src/Methods/Pipes/Managers.php
+
+		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\Methods\\\\Pipes\\\\Managers\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: repo/src/Methods/Pipes/Managers.php
 
@@ -78,6 +118,11 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$className of method PHPStan\\\\Broker\\\\Broker\\:\\:getClass\\(\\) expects string, class\\-string\\|false given\\.$#"
 			count: 2
+			path: repo/src/Properties/Extension.php
+
+		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\Properties\\\\Extension\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
 			path: repo/src/Properties/Extension.php
 
 		-
@@ -106,12 +151,42 @@ parameters:
 			path: repo/src/Properties/ModelRelationsExtension.php
 
 		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\Properties\\\\ModelRelationsExtension\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: repo/src/Properties/ModelRelationsExtension.php
+
+		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\ReturnTypes\\\\AuthExtension\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: repo/src/ReturnTypes/AuthExtension.php
+
+		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\ReturnTypes\\\\AuthManagerExtension\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: repo/src/ReturnTypes/AuthManagerExtension.php
+
+		-
 			message: "#^Calling PHPStan\\\\Reflection\\\\Dummy\\\\DummyMethodReflection\\:\\:getName\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/src/ReturnTypes/EloquentBuilderExtension.php
 
 		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\ReturnTypes\\\\GuardDynamicStaticMethodReturnTypeExtension\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: repo/src/ReturnTypes/GuardDynamicStaticMethodReturnTypeExtension.php
+
+		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\ReturnTypes\\\\GuardExtension\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: repo/src/ReturnTypes/GuardExtension.php
+
+		-
 			message: "#^Parameter \\#1 \\$className of class PHPStan\\\\Type\\\\ObjectType constructor expects string, class\\-string\\|false given\\.$#"
+			count: 1
+			path: repo/src/ReturnTypes/Helpers/AppExtension.php
+
+		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\ReturnTypes\\\\Helpers\\\\AppExtension\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
 			path: repo/src/ReturnTypes/Helpers/AppExtension.php
 
@@ -121,7 +196,42 @@ parameters:
 			path: repo/src/ReturnTypes/Helpers/AuthExtension.php
 
 		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\ReturnTypes\\\\Helpers\\\\AuthExtension\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: repo/src/ReturnTypes/Helpers/AuthExtension.php
+
+		-
+			message: "#^Property PhpParser\\\\Node\\\\Arg\\:\\:\\$value \\(PhpParser\\\\Node\\\\Expr\\) in isset\\(\\) is not nullable\\.$#"
+			count: 1
+			path: repo/src/ReturnTypes/Helpers/AuthExtension.php
+
+		-
+			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: repo/src/ReturnTypes/ModelExtension.php
+
+		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\ReturnTypes\\\\ModelExtension\\:\\:\\$reflectionProvider is never read, only written\\.$#"
+			count: 1
+			path: repo/src/ReturnTypes/ModelExtension.php
+
+		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\ReturnTypes\\\\StorageDynamicStaticMethodReturnTypeExtension\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: repo/src/ReturnTypes/StorageDynamicStaticMethodReturnTypeExtension.php
+
+		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\Types\\\\ModelRelationsDynamicMethodReturnTypeExtension\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: repo/src/Types/ModelRelationsDynamicMethodReturnTypeExtension.php
+
+		-
 			message: "#^Calling PHPStan\\\\Parser\\\\CachedParser\\:\\:parseFile\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/src/Types/RelationParserHelper.php
+
+		-
+			message: "#^Property NunoMaduro\\\\Larastan\\\\Types\\\\TypeResolver\\:\\:\\$container \\(Illuminate\\\\Contracts\\\\Container\\\\Container\\) on left side of \\?\\? is not nullable\\.$#"
+			count: 1
+			path: repo/src/Types/TypeResolver.php
 
