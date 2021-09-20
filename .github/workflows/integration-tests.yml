@@ -86,7 +86,7 @@ jobs:
               cd e2e/integration/repo
               git checkout 932e601d1e8063a51cbce95136d54367d6f3ece4
               composer install
-              ../../../phpstan.phar
+              ../../../phpstan.phar -c ../laravel.neon
 
     steps:
       - name: "Checkout"
