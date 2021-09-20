@@ -5,3 +5,33 @@ parameters:
 			count: 1
 			path: repo/src/Composer/Command/ShowCommand.php
 
+		-
+			message: "#^Property Composer\\\\Downloader\\\\PerforceDownloader\\:\\:\\$perforce \\(Composer\\\\Util\\\\Perforce\\) in empty\\(\\) is not falsy\\.$#"
+			count: 1
+			path: repo/src/Composer/Downloader/PerforceDownloader.php
+
+		-
+			message: "#^Property Composer\\\\Downloader\\\\ZipDownloader\\:\\:\\$zipArchiveObject is never written, only read\\.$#"
+			count: 1
+			path: repo/src/Composer/Downloader/ZipDownloader.php
+
+		-
+			message: "#^Offset 'access_token' on null in isset\\(\\) does not exist\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/Bitbucket.php
+
+		-
+			message: "#^Property Composer\\\\Util\\\\Http\\\\ProxyManager\\:\\:\\$lastProxy is never read, only written\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/Http/ProxyManager.php
+
+		-
+			message: "#^Property Composer\\\\Test\\\\Repository\\\\FilesystemRepositoryTest\\:\\:\\$root is never read, only written\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Repository/FilesystemRepositoryTest.php
+
+		-
+			message: "#^Property Composer\\\\Test\\\\Repository\\\\Vcs\\\\GitBitbucketDriverTest\\:\\:\\$originUrl is never read, only written\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Repository/Vcs/GitBitbucketDriverTest.php
+
