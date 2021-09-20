@@ -1476,6 +1476,11 @@ parameters:
 			path: repo/src/Framework/MockObject/Matcher.php
 
 		-
+			message: "#^Property PHPUnit\\\\Framework\\\\MockObject\\\\Matcher\\:\\:\\$afterMatchBuilderIsInvoked is never read, only written\\.$#"
+			count: 1
+			path: repo/src/Framework/MockObject/Matcher.php
+
+		-
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/Matcher.php
@@ -1592,6 +1597,11 @@ parameters:
 
 		-
 			message: "#^Property PHPUnit\\\\Framework\\\\MockObject\\\\Rule\\\\Parameters\\:\\:\\$parameterVerificationResult \\(bool\\|PHPUnit\\\\Framework\\\\ExpectationFailedException\\) does not accept null\\.$#"
+			count: 1
+			path: repo/src/Framework/MockObject/Rule/Parameters.php
+
+		-
+			message: "#^Property PHPUnit\\\\Framework\\\\MockObject\\\\Rule\\\\Parameters\\:\\:\\$parameterVerificationResult \\(bool\\|PHPUnit\\\\Framework\\\\ExpectationFailedException\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/Rule/Parameters.php
 
@@ -2216,6 +2226,11 @@ parameters:
 			path: repo/src/Runner/Filter/Factory.php
 
 		-
+			message: "#^Property PHPUnit\\\\Runner\\\\Filter\\\\Factory\\:\\:\\$filters type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/Runner/Filter/Factory.php
+
+		-
 			message: "#^Property PHPUnit\\\\Runner\\\\Filter\\\\Factory\\:\\:\\$filters with generic class ReflectionClass does not specify its types\\: T$#"
 			count: 1
 			path: repo/src/Runner/Filter/Factory.php
@@ -2242,6 +2257,11 @@ parameters:
 
 		-
 			message: "#^Method PHPUnit\\\\Runner\\\\Filter\\\\NameFilterIterator\\:\\:__construct\\(\\) has parameter \\$iterator with generic interface RecursiveIterator but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: repo/src/Runner/Filter/NameFilterIterator.php
+
+		-
+			message: "#^Property PHPUnit\\\\Runner\\\\Filter\\\\NameFilterIterator\\:\\:\\$filterMax \\(int\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: repo/src/Runner/Filter/NameFilterIterator.php
 
@@ -2432,6 +2452,16 @@ parameters:
 
 		-
 			message: "#^Method PHPUnit\\\\Runner\\\\TestSuiteSorter\\:\\:randomize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/Runner/TestSuiteSorter.php
+
+		-
+			message: "#^Method PHPUnit\\\\Runner\\\\TestSuiteSorter\\:\\:resolveDependencies\\(\\) has parameter \\$tests with no value type specified in iterable type PHPUnit\\\\Framework\\\\DataProviderTestSuite\\.$#"
+			count: 1
+			path: repo/src/Runner/TestSuiteSorter.php
+
+		-
+			message: "#^Method PHPUnit\\\\Runner\\\\TestSuiteSorter\\:\\:resolveDependencies\\(\\) return type has no value type specified in iterable type PHPUnit\\\\Framework\\\\DataProviderTestSuite\\.$#"
 			count: 1
 			path: repo/src/Runner/TestSuiteSorter.php
 
@@ -2731,6 +2761,11 @@ parameters:
 			path: repo/src/TextUI/Command.php
 
 		-
+			message: "#^Variable \\$arguments in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/TextUI/Command.php
+
+		-
 			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
 			count: 1
 			path: repo/src/TextUI/DefaultResultPrinter.php
@@ -2759,6 +2794,11 @@ parameters:
 			message: "#^Parameter \\#2 \\$length of function str_pad expects int, int\\|false given\\.$#"
 			count: 1
 			path: repo/src/TextUI/DefaultResultPrinter.php
+
+		-
+			message: "#^Offset 'arg' on array\\('arg' \\=\\> '\\-\\-atleast\\-version …'\\|'\\-\\-bootstrap \\<file\\>'\\|'\\-\\-cache\\-result'\\|'\\-\\-cache\\-result\\-file…'\\|'\\-\\-check\\-version'\\|'\\-\\-colors \\<flag\\>'\\|'\\-\\-columns \\<n\\>'\\|'\\-\\-columns max'\\|'\\-\\-coverage\\-cache …'\\|'\\-\\-coverage\\-clover …'\\|'\\-\\-coverage…'\\|'\\-\\-coverage\\-crap4j …'\\|'\\-\\-coverage\\-filter …'\\|'\\-\\-coverage\\-html …'\\|'\\-\\-coverage\\-php …'\\|'\\-\\-coverage\\-text\\=…'\\|'\\-\\-coverage\\-xml \\<dir\\>'\\|'\\-\\-covers \\<name\\>'\\|'\\-\\-debug'\\|'\\-\\-default\\-time…'\\|'\\-\\-disable\\-coverage…'\\|'\\-\\-disallow\\-resource…'\\|'\\-\\-disallow\\-test…'\\|'\\-\\-disallow\\-todo…'\\|'\\-\\-do\\-not\\-cache…'\\|'\\-\\-dont\\-report…'\\|'\\-\\-enforce\\-time\\-limit'\\|'\\-\\-exclude\\-group …'\\|'\\-\\-extensions …'\\|'\\-\\-fail\\-on\\-incomplete'\\|'\\-\\-fail\\-on\\-risky'\\|'\\-\\-fail\\-on\\-skipped'\\|'\\-\\-fail\\-on\\-warning'\\|'\\-\\-filter \\<pattern\\>'\\|'\\-\\-generate…'\\|'\\-\\-globals\\-backup'\\|'\\-\\-group \\<name\\>'\\|'\\-\\-include\\-path …'\\|'\\-\\-list\\-groups'\\|'\\-\\-list\\-suites'\\|'\\-\\-list\\-tests'\\|'\\-\\-list\\-tests\\-xml …'\\|'\\-\\-log\\-junit \\<file\\>'\\|'\\-\\-log\\-teamcity …'\\|'\\-\\-migrate…'\\|'\\-\\-no\\-configuration'\\|'\\-\\-no\\-coverage'\\|'\\-\\-no\\-extensions'\\|'\\-\\-no\\-interaction'\\|'\\-\\-no\\-logging'\\|'\\-\\-order\\-by \\<order\\>'\\|'\\-\\-path\\-coverage'\\|'\\-\\-prepend \\<file\\>'\\|'\\-\\-printer \\<printer\\>'\\|'\\-\\-process\\-isolation'\\|'\\-\\-random\\-order\\-seed…'\\|'\\-\\-repeat \\<times\\>'\\|'\\-\\-reverse\\-list'\\|'\\-\\-static\\-backup'\\|'\\-\\-stderr'\\|'\\-\\-stop\\-on\\-defect'\\|'\\-\\-stop\\-on\\-error'\\|'\\-\\-stop\\-on\\-failure'\\|'\\-\\-stop\\-on\\-incomplete'\\|'\\-\\-stop\\-on\\-risky'\\|'\\-\\-stop\\-on\\-skipped'\\|'\\-\\-stop\\-on\\-warning'\\|'\\-\\-strict\\-coverage'\\|'\\-\\-strict\\-global…'\\|'\\-\\-teamcity'\\|'\\-\\-test\\-suffix …'\\|'\\-\\-testdox'\\|'\\-\\-testdox\\-exclude…'\\|'\\-\\-testdox\\-group'\\|'\\-\\-testdox\\-html …'\\|'\\-\\-testdox\\-text …'\\|'\\-\\-testdox\\-xml \\<file\\>'\\|'\\-\\-testsuite \\<name\\>'\\|'\\-\\-uses \\<name\\>'\\|'\\-\\-version'\\|'\\-\\-warm\\-coverage…'\\|'\\-c\\|\\-\\-configuration …'\\|'\\-d \\<key\\[\\=value\\]\\>'\\|'\\-h\\|\\-\\-help'\\|'\\-v\\|\\-\\-verbose', 'desc' \\=\\> 'A comma separated…'\\|'A PHP script that…'\\|'A PHP script that…'\\|'Backup and restore …'\\|'Backup and restore…'\\|'Be strict about …'\\|'Be strict about…'\\|'Be strict about…'\\|'Be strict about…'\\|'Cache static…'\\|'Check whether…'\\|'Checks that version…'\\|'Disable annotations…'\\|'Disable TestDox…'\\|'Disallow @todo…'\\|'Display debugging…'\\|'Do not load PHPUnit…'\\|'Do not report tests…'\\|'Do not write test…'\\|'Enforce time limit…'\\|'Exclude tests from…'\\|'Export PHP…'\\|'Filter which tests…'\\|'Filter which…'\\|'Generate code…'\\|'Generate code…'\\|'Generate code…'\\|'Generate code…'\\|'Generate code…'\\|'Generate code…'\\|'Generate…'\\|'Ignore code…'\\|'Ignore default…'\\|'Ignore logging…'\\|'Include \\<dir\\> in…'\\|'List available test…'\\|'List available test…'\\|'List available tests'\\|'List available…'\\|'Log test execution…'\\|'Log test execution…'\\|'Migrate…'\\|'Number of columns…'\\|'Only include tests…'\\|'Only runs tests…'\\|'Only runs tests…'\\|'Only runs tests…'\\|'Only search for…'\\|'Output more verbose…'\\|'Perform path…'\\|'Prepend PHP\\\\'s…'\\|'Print defects in…'\\|'Prints the version…'\\|'Prints this usage…'\\|'Read configuration…'\\|'Report test…'\\|'Report test…'\\|'Run each test in a…'\\|'Run tests in order\\:…'\\|'Runs the test\\(s\\)…'\\|'Sets a php\\.ini value'\\|'Specify result…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'TestListener…'\\|'Timeout in seconds…'\\|'Treat incomplete…'\\|'Treat risky tests…'\\|'Treat skipped tests…'\\|'Treat tests with…'\\|'Use a specific…'\\|'Use colors in…'\\|'Use maximum number…'\\|'Warm static…'\\|'Write agile…'\\|'Write agile…'\\|'Write agile…'\\|'Write test results…'\\|'Write to STDERR…'\\) in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/TextUI/Help.php
 
 		-
 			message: "#^Method PHPUnit\\\\TextUI\\\\TestRunner\\:\\:createPrinter\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
@@ -2802,6 +2842,11 @@ parameters:
 
 		-
 			message: "#^Property PHPUnit\\\\TextUI\\\\TestRunner\\:\\:\\$loader \\(PHPUnit\\\\Runner\\\\TestSuiteLoader\\) does not accept PHPUnit\\\\Runner\\\\TestSuiteLoader\\|null\\.$#"
+			count: 1
+			path: repo/src/TextUI/TestRunner.php
+
+		-
+			message: "#^Static property PHPUnit\\\\TextUI\\\\TestRunner\\:\\:\\$versionStringPrinted is never read, only written\\.$#"
 			count: 1
 			path: repo/src/TextUI/TestRunner.php
 
@@ -3521,6 +3566,11 @@ parameters:
 			path: repo/src/Util/PHP/DefaultPhpProcess.php
 
 		-
+			message: "#^Variable \\$_SERVER on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/Util/PHP/DefaultPhpProcess.php
+
+		-
 			message: "#^Method PHPUnit\\\\Util\\\\PHP\\\\WindowsPhpProcess\\:\\:getCommand\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Util/PHP/WindowsPhpProcess.php
@@ -3766,6 +3816,11 @@ parameters:
 			path: repo/src/Util/TestDox/TestDoxPrinter.php
 
 		-
+			message: "#^Property PHPUnit\\\\Util\\\\TestDox\\\\TestDoxPrinter\\:\\:\\$testResults type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/Util/TestDox/TestDoxPrinter.php
+
+		-
 			message: "#^Method PHPUnit\\\\Util\\\\TestDox\\\\XmlResultPrinter\\:\\:endTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/XmlResultPrinter.php
@@ -3957,6 +4012,11 @@ parameters:
 
 		-
 			message: "#^Property PHPUnit\\\\TestFixture\\\\Author\\:\\:\\$name has no type specified\\.$#"
+			count: 1
+			path: repo/tests/_files/Author.php
+
+		-
+			message: "#^Property PHPUnit\\\\TestFixture\\\\Author\\:\\:\\$name is never read, only written\\.$#"
 			count: 1
 			path: repo/tests/_files/Author.php
 
@@ -5001,7 +5061,17 @@ parameters:
 			path: repo/tests/_files/ParentClassWithPrivateAttributes.php
 
 		-
+			message: "#^Property PHPUnit\\\\TestFixture\\\\ParentClassWithPrivateAttributes\\:\\:\\$privateParentAttribute is never read, only written\\.$#"
+			count: 1
+			path: repo/tests/_files/ParentClassWithPrivateAttributes.php
+
+		-
 			message: "#^Property PHPUnit\\\\TestFixture\\\\ParentClassWithPrivateAttributes\\:\\:\\$privateStaticParentAttribute has no type specified\\.$#"
+			count: 1
+			path: repo/tests/_files/ParentClassWithPrivateAttributes.php
+
+		-
+			message: "#^Static property PHPUnit\\\\TestFixture\\\\ParentClassWithPrivateAttributes\\:\\:\\$privateStaticParentAttribute is never read, only written\\.$#"
 			count: 1
 			path: repo/tests/_files/ParentClassWithPrivateAttributes.php
 
@@ -5326,6 +5396,11 @@ parameters:
 			path: repo/tests/_files/TestableCliTestDoxPrinter.php
 
 		-
+			message: "#^Property PHPUnit\\\\TestFixture\\\\TestableCliTestDoxPrinter\\:\\:\\$buffer is never written, only read\\.$#"
+			count: 1
+			path: repo/tests/_files/TestableCliTestDoxPrinter.php
+
+		-
 			message: "#^Interface PHPUnit\\\\TestFixture\\\\TraversableMockTestInterface extends generic interface Traversable but does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: repo/tests/_files/TraversableMockTestInterface.php
@@ -5381,6 +5456,16 @@ parameters:
 			path: repo/tests/_files/WrapperIteratorAggregate.php
 
 		-
+			message: "#^Property PHPUnit\\\\TestFixture\\\\WrapperIteratorAggregate\\:\\:\\$baseCollection type has no value type specified in iterable type Traversable\\.$#"
+			count: 1
+			path: repo/tests/_files/WrapperIteratorAggregate.php
+
+		-
+			message: "#^Property PHPUnit\\\\TestFixture\\\\WrapperIteratorAggregate\\:\\:\\$baseCollection type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/_files/WrapperIteratorAggregate.php
+
+		-
 			message: "#^Property PHPUnit\\\\TestFixture\\\\WrapperIteratorAggregate\\:\\:\\$baseCollection type has no value type specified in iterable type array\\|Traversable\\.$#"
 			count: 1
 			path: repo/tests/_files/WrapperIteratorAggregate.php
@@ -5401,6 +5486,11 @@ parameters:
 			path: repo/tests/_files/mock-object/AnotherClassUsingConfigurableMethods.php
 
 		-
+			message: "#^Static property PHPUnit\\\\TestFixture\\\\MockObject\\\\AnotherClassUsingConfigurableMethods\\:\\:\\$__phpunit_configurableMethods \\(array\\<PHPUnit\\\\Framework\\\\MockObject\\\\ConfigurableMethod\\>\\) in isset\\(\\) is not nullable\\.$#"
+			count: 1
+			path: repo/tests/_files/mock-object/AnotherClassUsingConfigurableMethods.php
+
+		-
 			message: "#^Method PHPUnit\\\\TestFixture\\\\MockObject\\\\ClassUsingConfigurableMethods\\:\\:__phpunit_setOriginalObject\\(\\) has parameter \\$originalObject with no type specified\\.$#"
 			count: 1
 			path: repo/tests/_files/mock-object/ClassUsingConfigurableMethods.php
@@ -5412,6 +5502,11 @@ parameters:
 
 		-
 			message: "#^Property PHPUnit\\\\TestFixture\\\\MockObject\\\\ClassUsingConfigurableMethods\\:\\:\\$__phpunit_invocationMocker \\(PHPUnit\\\\Framework\\\\MockObject\\\\InvocationHandler\\) does not accept null\\.$#"
+			count: 1
+			path: repo/tests/_files/mock-object/ClassUsingConfigurableMethods.php
+
+		-
+			message: "#^Static property PHPUnit\\\\TestFixture\\\\MockObject\\\\ClassUsingConfigurableMethods\\:\\:\\$__phpunit_configurableMethods \\(array\\<PHPUnit\\\\Framework\\\\MockObject\\\\ConfigurableMethod\\>\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: repo/tests/_files/mock-object/ClassUsingConfigurableMethods.php
 
@@ -5431,12 +5526,22 @@ parameters:
 			path: repo/tests/_files/mock-object/MockClassWithConfigurableMethods.php
 
 		-
+			message: "#^Static property PHPUnit\\\\TestFixture\\\\MockObject\\\\MockClassWithConfigurableMethods\\:\\:\\$__phpunit_configurableMethods \\(array\\<PHPUnit\\\\Framework\\\\MockObject\\\\ConfigurableMethod\\>\\) in isset\\(\\) is not nullable\\.$#"
+			count: 1
+			path: repo/tests/_files/mock-object/MockClassWithConfigurableMethods.php
+
+		-
 			message: "#^Method PHPUnit\\\\TestFixture\\\\MockObject\\\\ReinitializeConfigurableMethods\\:\\:__phpunit_setOriginalObject\\(\\) has parameter \\$originalObject with no type specified\\.$#"
 			count: 1
 			path: repo/tests/_files/mock-object/ReinitializeConfigurableMethods.php
 
 		-
 			message: "#^Property PHPUnit\\\\TestFixture\\\\MockObject\\\\ReinitializeConfigurableMethods\\:\\:\\$__phpunit_invocationMocker \\(PHPUnit\\\\Framework\\\\MockObject\\\\InvocationHandler\\) does not accept null\\.$#"
+			count: 1
+			path: repo/tests/_files/mock-object/ReinitializeConfigurableMethods.php
+
+		-
+			message: "#^Static property PHPUnit\\\\TestFixture\\\\MockObject\\\\ReinitializeConfigurableMethods\\:\\:\\$__phpunit_configurableMethods \\(array\\<PHPUnit\\\\Framework\\\\MockObject\\\\ConfigurableMethod\\>\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: repo/tests/_files/mock-object/ReinitializeConfigurableMethods.php
 
@@ -6779,6 +6884,11 @@ parameters:
 			message: "#^Method PHPUnit\\\\Framework\\\\TestBuilderTest\\:\\:provideWithAnnotationsAndDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/tests/unit/Framework/TestBuilderTest.php
+
+		-
+			message: "#^Method PHPUnit\\\\Framework\\\\TestCaseTest\\:\\:getAutoreferencedArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/unit/Framework/TestCaseTest.php
 
 		-
 			message: "#^Method PHPUnit\\\\Framework\\\\TestCaseTest\\:\\:providerInvalidName\\(\\) return type has no value type specified in iterable type array\\.$#"
