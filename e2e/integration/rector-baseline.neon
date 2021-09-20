@@ -126,6 +126,11 @@ parameters:
 			path: repo/rules/TypeDeclaration/TypeInferer/ReturnTypeInferer.php
 
 		-
+			message: "#^Offset 'includes' on array\\('includes' \\=\\> array\\('config/config\\.php'\\)\\) on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/Bootstrap/ExtensionConfigResolver.php
+
+		-
 			message: "#^Method Rector\\\\Core\\\\NodeManipulator\\\\BinaryOpManipulator\\:\\:inverseBinaryOp\\(\\) should return PhpParser\\\\Node\\\\Expr\\\\BinaryOp\\|null but returns object\\.$#"
 			count: 1
 			path: repo/src/NodeManipulator/BinaryOpManipulator.php
