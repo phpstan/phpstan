@@ -5,6 +5,7 @@ includes:
 parameters:
 	featureToggles:
 		apiRules: true
+	level: 8
 	ignoreErrors:
 		-
 			message: '#^Cannot cast PhpParser\\Node\\Expr\|PhpParser\\Node\\Name to string\.$#'
