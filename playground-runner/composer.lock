@@ -1301,12 +1301,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "92da0a88eeebbfa299bda5e08128362c0a0f1a39"
+                "reference": "666a231e5adf147ee15e8e53500724408e182e3b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/92da0a88eeebbfa299bda5e08128362c0a0f1a39",
-                "reference": "92da0a88eeebbfa299bda5e08128362c0a0f1a39",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/666a231e5adf147ee15e8e53500724408e182e3b",
+                "reference": "666a231e5adf147ee15e8e53500724408e182e3b",
                 "shasum": ""
             },
             "require": {
@@ -1358,7 +1358,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-09-22T21:04:09+00:00"
+            "time": "2021-09-23T08:32:37+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
@@ -1366,12 +1366,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-strict-rules.git",
-                "reference": "6c7a9815bb3af49113a6f85d073e3e2fc01f7ffa"
+                "reference": "a9b2cb1ee2668ac3a66b5f76f37122e64299c2ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/6c7a9815bb3af49113a6f85d073e3e2fc01f7ffa",
-                "reference": "6c7a9815bb3af49113a6f85d073e3e2fc01f7ffa",
+                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/a9b2cb1ee2668ac3a66b5f76f37122e64299c2ca",
+                "reference": "a9b2cb1ee2668ac3a66b5f76f37122e64299c2ca",
                 "shasum": ""
             },
             "require": {
@@ -1410,7 +1410,7 @@
                 "issues": "https://github.com/phpstan/phpstan-strict-rules/issues",
                 "source": "https://github.com/phpstan/phpstan-strict-rules/tree/master"
             },
-            "time": "2021-09-22T16:41:47+00:00"
+            "time": "2021-09-23T08:29:12+00:00"
         },
         {
             "name": "psr/cache",
