@@ -7,6 +7,7 @@ parameters:
 			- exitWithErrorMessage
 	featureToggles:
 		disableRuntimeReflectionProvider: true
+	phpVersion: 80000
 	excludePaths:
 		- repo/tests/end-to-end/regression/GitHub/4232/Issue4232Test.php
 		- repo/tests/_files/ClassWithUnionReturnTypes.php

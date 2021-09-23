@@ -1261,11 +1261,6 @@ parameters:
 			path: repo/src/Framework/Exception/SyntheticError.php
 
 		-
-			message: "#^Parameter \\#1 \\$t of class PHPUnit\\\\Framework\\\\ExceptionWrapper constructor expects Throwable, Throwable\\|null given\\.$#"
-			count: 1
-			path: repo/src/Framework/ExceptionWrapper.php
-
-		-
 			message: "#^Method PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\Identity\\:\\:id\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/Builder/Identity.php
@@ -1402,6 +1397,11 @@ parameters:
 
 		-
 			message: "#^Method PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:getObjectForTrait\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/Framework/MockObject/Generator.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_unique expects array, array\\|null given\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/Generator.php
 
@@ -1986,9 +1986,14 @@ parameters:
 			path: repo/src/Framework/TestCase.php
 
 		-
-			message: "#^Cannot call method getDiff\\(\\) on SebastianBergmann\\\\Comparator\\\\ComparisonFailure\\|null\\.$#"
+			message: "#^Template type RealInstanceType of method PHPUnit\\\\Framework\\\\TestCase\\:\\:getMockClass\\(\\) is not referenced in a parameter\\.$#"
 			count: 1
-			path: repo/src/Framework/TestFailure.php
+			path: repo/src/Framework/TestCase.php
+
+		-
+			message: "#^Template type RealInstanceType of method PHPUnit\\\\Framework\\\\TestCase\\:\\:getMockFromWsdl\\(\\) is not referenced in a parameter\\.$#"
+			count: 1
+			path: repo/src/Framework/TestCase.php
 
 		-
 			message: "#^Method PHPUnit\\\\Framework\\\\TestListener\\:\\:endTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
@@ -3329,21 +3334,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$path of function dirname expects string, string\\|false given\\.$#"
 			count: 1
 			path: repo/src/Util/ExcludeList.php
-
-		-
-			message: "#^Cannot call method getFile\\(\\) on Throwable\\|null\\.$#"
-			count: 1
-			path: repo/src/Util/Filter.php
-
-		-
-			message: "#^Cannot call method getLine\\(\\) on Throwable\\|null\\.$#"
-			count: 1
-			path: repo/src/Util/Filter.php
-
-		-
-			message: "#^Cannot call method getTrace\\(\\) on Throwable\\|null\\.$#"
-			count: 1
-			path: repo/src/Util/Filter.php
 
 		-
 			message: "#^Method PHPUnit\\\\Util\\\\Filter\\:\\:frameExists\\(\\) has parameter \\$trace with no value type specified in iterable type array\\.$#"
@@ -5491,6 +5481,11 @@ parameters:
 			path: repo/tests/_files/mock-object/AnotherClassUsingConfigurableMethods.php
 
 		-
+			message: "#^Unsafe access to private property PHPUnit\\\\TestFixture\\\\MockObject\\\\AnotherClassUsingConfigurableMethods\\:\\:\\$__phpunit_configurableMethods through static\\:\\:\\.$#"
+			count: 4
+			path: repo/tests/_files/mock-object/AnotherClassUsingConfigurableMethods.php
+
+		-
 			message: "#^Method PHPUnit\\\\TestFixture\\\\MockObject\\\\ClassUsingConfigurableMethods\\:\\:__phpunit_setOriginalObject\\(\\) has parameter \\$originalObject with no type specified\\.$#"
 			count: 1
 			path: repo/tests/_files/mock-object/ClassUsingConfigurableMethods.php
@@ -5508,6 +5503,11 @@ parameters:
 		-
 			message: "#^Static property PHPUnit\\\\TestFixture\\\\MockObject\\\\ClassUsingConfigurableMethods\\:\\:\\$__phpunit_configurableMethods \\(array\\<PHPUnit\\\\Framework\\\\MockObject\\\\ConfigurableMethod\\>\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
+			path: repo/tests/_files/mock-object/ClassUsingConfigurableMethods.php
+
+		-
+			message: "#^Unsafe access to private property PHPUnit\\\\TestFixture\\\\MockObject\\\\ClassUsingConfigurableMethods\\:\\:\\$__phpunit_configurableMethods through static\\:\\:\\.$#"
+			count: 4
 			path: repo/tests/_files/mock-object/ClassUsingConfigurableMethods.php
 
 		-
@@ -5531,6 +5531,11 @@ parameters:
 			path: repo/tests/_files/mock-object/MockClassWithConfigurableMethods.php
 
 		-
+			message: "#^Unsafe access to private property PHPUnit\\\\TestFixture\\\\MockObject\\\\MockClassWithConfigurableMethods\\:\\:\\$__phpunit_configurableMethods through static\\:\\:\\.$#"
+			count: 4
+			path: repo/tests/_files/mock-object/MockClassWithConfigurableMethods.php
+
+		-
 			message: "#^Method PHPUnit\\\\TestFixture\\\\MockObject\\\\ReinitializeConfigurableMethods\\:\\:__phpunit_setOriginalObject\\(\\) has parameter \\$originalObject with no type specified\\.$#"
 			count: 1
 			path: repo/tests/_files/mock-object/ReinitializeConfigurableMethods.php
@@ -5543,6 +5548,11 @@ parameters:
 		-
 			message: "#^Static property PHPUnit\\\\TestFixture\\\\MockObject\\\\ReinitializeConfigurableMethods\\:\\:\\$__phpunit_configurableMethods \\(array\\<PHPUnit\\\\Framework\\\\MockObject\\\\ConfigurableMethod\\>\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
+			path: repo/tests/_files/mock-object/ReinitializeConfigurableMethods.php
+
+		-
+			message: "#^Unsafe access to private property PHPUnit\\\\TestFixture\\\\MockObject\\\\ReinitializeConfigurableMethods\\:\\:\\$__phpunit_configurableMethods through static\\:\\:\\.$#"
+			count: 3
 			path: repo/tests/_files/mock-object/ReinitializeConfigurableMethods.php
 
 		-
@@ -5757,6 +5767,11 @@ parameters:
 
 		-
 			message: "#^Call to function implode\\(\\) on a separate line has no effect\\.$#"
+			count: 1
+			path: repo/tests/end-to-end/regression/GitHub/4663/Issue4663Test.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function implode expects array\\<string\\>, array\\<int, stdClass\\> given\\.$#"
 			count: 1
 			path: repo/tests/end-to-end/regression/GitHub/4663/Issue4663Test.php
 
@@ -6807,6 +6822,11 @@ parameters:
 
 		-
 			message: "#^Parameter \\#2 \\$methods of method PHPUnit\\\\Framework\\\\MockObject\\\\Generator\\:\\:getMock\\(\\) expects array\\|null, false given\\.$#"
+			count: 1
+			path: repo/tests/unit/Framework/MockObject/GeneratorTest.php
+
+		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
 			count: 1
 			path: repo/tests/unit/Framework/MockObject/GeneratorTest.php
 
