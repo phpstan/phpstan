@@ -16,6 +16,26 @@ parameters:
 			path: repo/packages/Caching/ValueObject/Storage/FileCacheStorage.php
 
 		-
+			message: "#^Parameter \\#1 \\$filename of method Symplify\\\\SmartFileSystem\\\\SmartFileSystem\\:\\:readFile\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: repo/packages/FamilyTree/Reflection/FamilyRelationsAnalyzer.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between string\\|null and false will always evaluate to false\\.$#"
+			count: 1
+			path: repo/packages/FamilyTree/Reflection/FamilyRelationsAnalyzer.php
+
+		-
+			message: "#^Cannot call method getName\\(\\) on PHPStan\\\\Reflection\\\\ClassReflection\\|null\\.$#"
+			count: 1
+			path: repo/packages/NodeCollector/ScopeResolver/ParentClassScopeResolver.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between PHPStan\\\\Reflection\\\\ClassReflection\\|null and false will always evaluate to false\\.$#"
+			count: 1
+			path: repo/packages/NodeCollector/ScopeResolver/ParentClassScopeResolver.php
+
+		-
 			message: "#^Parameter \\#1 \\$classReflection of class PHPStan\\\\Type\\\\ThisType constructor expects PHPStan\\\\Reflection\\\\ClassReflection, string given\\.$#"
 			count: 1
 			path: repo/packages/NodeTypeResolver/PHPStan/Type/TypeFactory.php
@@ -24,6 +44,11 @@ parameters:
 			message: "#^Calling PHPStan\\\\Type\\\\UnionTypeHelper\\:\\:sortTypes\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/packages/NodeTypeResolver/PHPStan/TypeHasher.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/PhpDocNodeVisitor/NameImportingPhpDocNodeVisitor.php
 
 		-
 			message: "#^Calling PHPStan\\\\Reflection\\\\BetterReflection\\\\BetterReflectionSourceLocatorFactory\\:\\:create\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
@@ -46,6 +71,11 @@ parameters:
 			path: repo/packages/ReadWrite/Guard/VariableToConstantGuard.php
 
 		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: repo/packages/ReadWrite/NodeAnalyzer/ReadWritePropertyAnalyzer.php
+
+		-
 			message: "#^Parameter \\#1 \\$classReflection of class PHPStan\\\\Type\\\\StaticType constructor expects PHPStan\\\\Reflection\\\\ClassReflection, string given\\.$#"
 			count: 1
 			path: repo/packages/StaticTypeMapper/PhpDocParser/IdentifierTypeMapper.php
@@ -54,6 +84,16 @@ parameters:
 			message: "#^Parameter \\#1 \\$classReflection of class Rector\\\\StaticTypeMapper\\\\ValueObject\\\\Type\\\\ParentStaticType constructor expects PHPStan\\\\Reflection\\\\ClassReflection, string given\\.$#"
 			count: 1
 			path: repo/packages/StaticTypeMapper/PhpDocParser/IdentifierTypeMapper.php
+
+		-
+			message: "#^Parameter \\#1 \\$originalPath of method Symplify\\\\SmartFileSystem\\\\Normalizer\\\\PathNormalizer\\:\\:normalizePath\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: repo/packages/VendorLocker/NodeVendorLocker/ClassMethodParamVendorLockResolver.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between string\\|null and false will always evaluate to false\\.$#"
+			count: 1
+			path: repo/packages/VendorLocker/NodeVendorLocker/ClassMethodParamVendorLockResolver.php
 
 		-
 			message: "#^Creating new PHPStan\\\\Php\\\\PhpVersion is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
@@ -86,6 +126,26 @@ parameters:
 			path: repo/rules/CodingStyle/Reflection/VendorLocationDetector.php
 
 		-
+			message: "#^Method Rector\\\\CodingStyle\\\\Reflection\\\\VendorLocationDetector\\:\\:resolveReflectionFileName\\(\\) should return string\\|false but returns string\\|null\\.$#"
+			count: 3
+			path: repo/rules/CodingStyle/Reflection/VendorLocationDetector.php
+
+		-
+			message: "#^Parameter \\#1 \\$originalPath of method Symplify\\\\SmartFileSystem\\\\Normalizer\\\\PathNormalizer\\:\\:normalizePath\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: repo/rules/Defluent/ConflictGuard/ParentClassMethodTypeOverrideGuard.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between string\\|null and false will always evaluate to false\\.$#"
+			count: 1
+			path: repo/rules/Defluent/ConflictGuard/ParentClassMethodTypeOverrideGuard.php
+
+		-
+			message: "#^PHPDoc tag @var for constant Rector\\\\Defluent\\\\Skipper\\\\FluentMethodCallSkipper\\:\\:ALLOWED_FLUENT_TYPES with type array\\<class\\-string\\> is not subtype of value array\\('Symfony\\\\\\\\Component…', 'Symfony\\\\\\\\Component…', 'Doctrine\\\\\\\\ORM…', 'Nette\\\\\\\\Utils\\\\\\\\Finder', 'Nette\\\\\\\\Forms…', 'Nette\\\\\\\\DI…', 'Nette\\\\\\\\DI…', 'Nette\\\\\\\\DI…', \\.\\.\\.\\)\\.$#"
+			count: 1
+			path: repo/rules/Defluent/Skipper/FluentMethodCallSkipper.php
+
+		-
 			message: "#^Parameter \\#1 \\$callback of function array_map expects callable\\(PhpParser\\\\Node\\\\Expr\\\\ArrayItem\\|null\\)\\: mixed, Closure\\(PhpParser\\\\Node\\\\Expr\\\\ArrayItem\\)\\: PhpParser\\\\Node\\\\Arg given\\.$#"
 			count: 1
 			path: repo/rules/DowngradePhp74/Rector/Array_/DowngradeArraySpreadRector.php
@@ -104,6 +164,11 @@ parameters:
 			message: "#^Parameter \\#1 \\$classReflection of class PHPStan\\\\Type\\\\StaticType constructor expects PHPStan\\\\Reflection\\\\ClassReflection, class\\-string given\\.$#"
 			count: 1
 			path: repo/rules/DowngradePhp80/Rector/ClassMethod/DowngradeStaticTypeDeclarationRector.php
+
+		-
+			message: "#^Elseif condition is always true\\.$#"
+			count: 1
+			path: repo/rules/DowngradePhp80/Reflection/DefaultParameterValueResolver.php
 
 		-
 			message: "#^Calling PHPStan\\\\Analyser\\\\MutatingScope\\:\\:assignExpression\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
@@ -146,6 +211,11 @@ parameters:
 			path: repo/src/NodeManipulator/BinaryOpManipulator.php
 
 		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: repo/src/NodeManipulator/ClassDependencyManipulator.php
+
+		-
 			message: "#^Creating new PHPStan\\\\Reflection\\\\Native\\\\NativeFunctionReflection is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/src/PHPStan/Reflection/TypeToCallReflectionResolver/ClosureTypeToCallReflectionResolver.php
@@ -159,4 +229,24 @@ parameters:
 			message: "#^Calling PHPStan\\\\Reflection\\\\Php\\\\PhpFunctionReflection\\:\\:getName\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 6
 			path: repo/src/PhpParser/AstResolver.php
+
+		-
+			message: "#^Parameter \\#1 \\$fileName of method Rector\\\\Core\\\\PhpParser\\\\AstResolver\\:\\:parseFileNameToDecoratedNodes\\(\\) expects string, string\\|null given\\.$#"
+			count: 2
+			path: repo/src/PhpParser/AstResolver.php
+
+		-
+			message: "#^Parameter \\#1 \\$filename of method Symplify\\\\SmartFileSystem\\\\SmartFileSystem\\:\\:readFile\\(\\) expects string, string\\|null given\\.$#"
+			count: 3
+			path: repo/src/PhpParser/AstResolver.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between string\\|null and false will always evaluate to false\\.$#"
+			count: 3
+			path: repo/src/PhpParser/AstResolver.php
+
+		-
+			message: "#^PHPDoc tag @var for constant Rector\\\\Core\\\\PhpParser\\\\Node\\\\AssignAndBinaryMap\\:\\:ASSIGN_OP_TO_BINARY_OP_CLASSES with type array\\<class\\-string\\<PhpParser\\\\Node\\\\Expr\\\\AssignOp\\>, class\\-string\\<PhpParser\\\\Node\\\\Expr\\\\AssignOp\\>\\> is incompatible with value array\\('PhpParser\\\\\\\\Node\\\\\\\\Expr\\\\\\\\AssignOp\\\\\\\\BitwiseOr' \\=\\> 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', 'PhpParser\\\\\\\\Node\\\\\\\\Expr\\\\\\\\AssignOp\\\\\\\\BitwiseAnd' \\=\\> 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', 'PhpParser\\\\\\\\Node\\\\\\\\Expr\\\\\\\\AssignOp\\\\\\\\BitwiseXor' \\=\\> 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', 'PhpParser\\\\\\\\Node\\\\\\\\Expr\\\\\\\\AssignOp\\\\\\\\Plus' \\=\\> 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', 'PhpParser\\\\\\\\Node\\\\\\\\Expr\\\\\\\\AssignOp\\\\\\\\Div' \\=\\> 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', 'PhpParser\\\\\\\\Node\\\\\\\\Expr\\\\\\\\AssignOp\\\\\\\\Mul' \\=\\> 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', 'PhpParser\\\\\\\\Node\\\\\\\\Expr\\\\\\\\AssignOp\\\\\\\\Minus' \\=\\> 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', 'PhpParser\\\\\\\\Node\\\\\\\\Expr\\\\\\\\AssignOp\\\\\\\\Concat' \\=\\> 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', \\.\\.\\.\\)\\.$#"
+			count: 1
+			path: repo/src/PhpParser/Node/AssignAndBinaryMap.php
 
