@@ -5,3 +5,18 @@ parameters:
 			count: 1
 			path: repo/SlevomatCodingStandard/Sniffs/TestCase.php
 
+		-
+			message: "#^Unsafe call to private method SlevomatCodingStandard\\\\Sniffs\\\\TestCase\\:\\:getSniffClassName\\(\\) through static\\:\\:\\.$#"
+			count: 3
+			path: repo/SlevomatCodingStandard/Sniffs/TestCase.php
+
+		-
+			message: "#^Unsafe call to private method SlevomatCodingStandard\\\\Sniffs\\\\TestCase\\:\\:getSniffClassReflection\\(\\) through static\\:\\:\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Sniffs/TestCase.php
+
+		-
+			message: "#^Unsafe call to private method SlevomatCodingStandard\\\\Sniffs\\\\TestCase\\:\\:getSniffName\\(\\) through static\\:\\:\\.$#"
+			count: 3
+			path: repo/SlevomatCodingStandard/Sniffs/TestCase.php
+
