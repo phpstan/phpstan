@@ -1301,12 +1301,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "ad96e5efd921513113c96245e0e3ed369c5544d4"
+                "reference": "92da0a88eeebbfa299bda5e08128362c0a0f1a39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ad96e5efd921513113c96245e0e3ed369c5544d4",
-                "reference": "ad96e5efd921513113c96245e0e3ed369c5544d4",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/92da0a88eeebbfa299bda5e08128362c0a0f1a39",
+                "reference": "92da0a88eeebbfa299bda5e08128362c0a0f1a39",
                 "shasum": ""
             },
             "require": {
@@ -1358,7 +1358,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-09-12T20:30:21+00:00"
+            "time": "2021-09-22T21:04:09+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
@@ -1366,12 +1366,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-strict-rules.git",
-                "reference": "6a7b2714e4e05d9db2cacad9ec2c245d63565607"
+                "reference": "6c7a9815bb3af49113a6f85d073e3e2fc01f7ffa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/6a7b2714e4e05d9db2cacad9ec2c245d63565607",
-                "reference": "6a7b2714e4e05d9db2cacad9ec2c245d63565607",
+                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/6c7a9815bb3af49113a6f85d073e3e2fc01f7ffa",
+                "reference": "6c7a9815bb3af49113a6f85d073e3e2fc01f7ffa",
                 "shasum": ""
             },
             "require": {
@@ -1379,6 +1379,7 @@
                 "phpstan/phpstan": "^1.0"
             },
             "require-dev": {
+                "nikic/php-parser": "^4.13.0",
                 "php-parallel-lint/php-parallel-lint": "^1.2",
                 "phpstan/phpstan-phpunit": "^1.0",
                 "phpunit/phpunit": "^9.5"
@@ -1409,7 +1410,7 @@
                 "issues": "https://github.com/phpstan/phpstan-strict-rules/issues",
                 "source": "https://github.com/phpstan/phpstan-strict-rules/tree/master"
             },
-            "time": "2021-09-12T20:26:32+00:00"
+            "time": "2021-09-22T16:41:47+00:00"
         },
         {
             "name": "psr/cache",
