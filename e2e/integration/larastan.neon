@@ -3,6 +3,4 @@ includes:
 	- larastan-baseline.neon
 
 parameters:
-	featureToggles:
-		apiRules: true
 	level: 8
