@@ -3,8 +3,6 @@ includes:
 	- rector-baseline.neon
 
 parameters:
-	featureToggles:
-		apiRules: true
 	level: 8
 	ignoreErrors:
 		-
