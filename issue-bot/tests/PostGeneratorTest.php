@@ -96,6 +96,20 @@ class PostGeneratorTest extends TestCase
 			],
 			null,
 		];
+
+		yield [
+			new PlaygroundResult('abc-def', ['foobar'], [
+				new PlaygroundResultTab('PHP 7.1', [
+					new PlaygroundResultError('abc', 1),
+				]),
+			], [
+				new PlaygroundResultTab('PHP 7.1', [
+					new PlaygroundResultError('Internal error', 1),
+				]),
+			]),
+			[],
+			null,
+		];
 	}
 
 	/**

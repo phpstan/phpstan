@@ -26,6 +26,16 @@ class PostGenerator
 	 */
 	public function createText(PlaygroundResult $result, array $botComments): ?string
 	{
+		foreach ($result->getCurrentTabs() as $tab) {
+			foreach ($tab->getErrors() as $error) {
+				if (strpos($error->getMessage(), 'Internal error') === false) {
+					continue;
+				}
+
+				return null;
+			}
+		}
+
 		$maxDigit = 1;
 		foreach (array_merge($result->getOriginalTabs(), $result->getCurrentTabs()) as $tab) {
 			foreach ($tab->getErrors() as $error) {
