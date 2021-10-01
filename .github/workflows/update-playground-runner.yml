@@ -11,6 +11,8 @@ on:
       - 'website/**'
       - 'playground-api/**'
 
+concurrency: playground_runner
+
 jobs:
   deploy:
     name: "Deploy"

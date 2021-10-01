@@ -6,6 +6,8 @@ on:
   repository_dispatch:
     types: [ run_issue_bot ]
 
+concurrency: issue_bot
+
 jobs:
   issue-bot:
     name: "Issue bot"

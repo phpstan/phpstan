@@ -10,6 +10,8 @@ on:
       - '.github/**'
       - 'playground-api/**'
 
+concurrency: playground_api
+
 jobs:
   build:
     name: "Build"

@@ -79,6 +79,7 @@ jobs:
       - typescript-check
       - build
     runs-on: "ubuntu-latest"
+    concurrency: website
     steps:
       - name: "Install Node"
         uses: "actions/setup-node@v2"
