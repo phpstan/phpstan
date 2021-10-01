@@ -4,7 +4,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"@tailwindcss/ui": "^0.7.2",
-		"codemirror": "^5.61.1",
+		"codemirror": "^5.63.1",
 		"docsearch.js": "2",
 		"jquery": "^3.6.0",
 		"knockout": "^3.5.1",
@@ -17,7 +17,7 @@
 		"@11ty/eleventy-plugin-syntaxhighlight": "^3.1.1",
 		"@tailwindcss/custom-forms": "^0.2.1",
 		"@types/jquery": "^3.5.5",
-		"autoprefixer": "^9.8.6",
+		"autoprefixer": "^9.8.7",
 		"luxon": "^1.27.0",
 		"markdown-it-abbr": "^1.0.4",
 		"markdown-it-anchor": "^7.1.0",
