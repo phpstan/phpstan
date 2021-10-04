@@ -59,6 +59,11 @@ return function ($event) use ($phpstanVersion) {
 			'treatPhpDocTypesAsCertain' => $event['treatPhpDocTypesAsCertain'] ?? true,
 			'phpVersion' => $event['phpVersion'] ?? 80000,
 		],
+		'services' => [
+			'currentPhpVersionSimpleParser!' => [
+				'factory' => '@currentPhpVersionRichParser',
+			],
+		],
 	]);
 	file_put_contents($finalConfigFile, $neon);
 
