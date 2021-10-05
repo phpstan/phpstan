@@ -101,6 +101,11 @@ parameters:
 			path: repo/packages/VersionBonding/Application/MissedRectorDueVersionChecker.php
 
 		-
+			message: "#^Method Rector\\\\VersionBonding\\\\PhpVersionedFilter\\:\\:filter\\(\\) should return array\\<T of Rector\\\\Core\\\\Contract\\\\Rector\\\\RectorInterface\\> but returns array\\<int, \\(Rector\\\\VersionBonding\\\\Contract\\\\MinPhpVersionInterface&T of Rector\\\\Core\\\\Contract\\\\Rector\\\\RectorInterface\\)\\|T of Rector\\\\Core\\\\Contract\\\\Rector\\\\RectorInterface\\>\\.$#"
+			count: 1
+			path: repo/packages/VersionBonding/PhpVersionedFilter.php
+
+		-
 			message: "#^Method Rector\\\\CodeQuality\\\\Rector\\\\Assign\\\\CombinedAssignRector\\:\\:refactor\\(\\) should return PhpParser\\\\Node\\|null but returns object\\.$#"
 			count: 1
 			path: repo/rules/CodeQuality/Rector/Assign/CombinedAssignRector.php
@@ -194,6 +199,11 @@ parameters:
 			message: "#^Offset 'includes' on array\\('includes' \\=\\> array\\('config/config\\.php'\\)\\) on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/src/Bootstrap/ExtensionConfigResolver.php
+
+		-
+			message: "#^Do not call parent method if parent method is empty$#"
+			count: 1
+			path: repo/src/Console/ConsoleApplication.php
 
 		-
 			message: "#^Method Rector\\\\Core\\\\NodeManipulator\\\\BinaryOpManipulator\\:\\:inverseBinaryOp\\(\\) should return PhpParser\\\\Node\\\\Expr\\\\BinaryOp\\|null but returns object\\.$#"
