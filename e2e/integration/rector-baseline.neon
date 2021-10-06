@@ -56,12 +56,22 @@ parameters:
 			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/RectorBetterReflectionSourceLocatorFactory.php
 
 		-
+			message: "#^Class PHPStan\\\\Reflection\\\\BetterReflection\\\\SourceLocator\\\\OptimizedDirectorySourceLocator constructor invoked with 2 parameters, 3 required\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/SourceLocatorProvider/DynamicSourceLocatorProvider.php
+
+		-
 			message: "#^Creating new PHPStan\\\\Reflection\\\\BetterReflection\\\\SourceLocator\\\\OptimizedDirectorySourceLocator is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/SourceLocatorProvider/DynamicSourceLocatorProvider.php
 
 		-
 			message: "#^Creating new PHPStan\\\\Reflection\\\\BetterReflection\\\\SourceLocator\\\\OptimizedSingleFileSourceLocator is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/SourceLocatorProvider/DynamicSourceLocatorProvider.php
+
+		-
+			message: "#^Parameter \\#2 \\$phpVersion of class PHPStan\\\\Reflection\\\\BetterReflection\\\\SourceLocator\\\\OptimizedDirectorySourceLocator constructor expects PHPStan\\\\Php\\\\PhpVersion, array\\<string\\> given\\.$#"
 			count: 1
 			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/SourceLocatorProvider/DynamicSourceLocatorProvider.php
 
@@ -151,7 +161,7 @@ parameters:
 			path: repo/rules/Defluent/Skipper/FluentMethodCallSkipper.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of function array_map expects callable\\(PhpParser\\\\Node\\\\Expr\\\\ArrayItem\\|null\\)\\: mixed, Closure\\(PhpParser\\\\Node\\\\Expr\\\\ArrayItem\\)\\: PhpParser\\\\Node\\\\Arg given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of function array_map expects \\(callable\\(PhpParser\\\\Node\\\\Expr\\\\ArrayItem\\|null\\)\\: mixed\\)\\|null, Closure\\(PhpParser\\\\Node\\\\Expr\\\\ArrayItem\\)\\: PhpParser\\\\Node\\\\Arg given\\.$#"
 			count: 1
 			path: repo/rules/DowngradePhp74/Rector/Array_/DowngradeArraySpreadRector.php
 
