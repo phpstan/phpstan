@@ -76,7 +76,6 @@ Unofficial extensions
 * [thecodingmachine / phpstan-strict-rules](https://github.com/thecodingmachine/phpstan-strict-rules)
 * [spaze / phpstan-disallowed-calls](https://github.com/spaze/phpstan-disallowed-calls)
 * [ergebnis / phpstan-rules](https://github.com/ergebnis/phpstan-rules)
-* [pepakriz / phpstan-exception-rules](https://github.com/pepakriz/phpstan-exception-rules)
 * [Slamdunk / phpstan-extensions](https://github.com/Slamdunk/phpstan-extensions)
 * [ekino / phpstan-banned-code](https://github.com/ekino/phpstan-banned-code)
 * [taptima / phpstan-custom](https://github.com/taptima/phpstan-custom)
