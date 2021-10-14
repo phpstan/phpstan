@@ -156,7 +156,7 @@ parameters:
 			path: repo/rules/Defluent/ConflictGuard/ParentClassMethodTypeOverrideGuard.php
 
 		-
-			message: "#^PHPDoc tag @var for constant Rector\\\\Defluent\\\\Skipper\\\\FluentMethodCallSkipper\\:\\:ALLOWED_FLUENT_TYPES with type array\\<class\\-string\\> is not subtype of value array\\('Symfony\\\\\\\\Component…', 'Symfony\\\\\\\\Component…', 'Doctrine\\\\\\\\ORM…', 'Nette\\\\\\\\Utils\\\\\\\\Finder', 'Nette\\\\\\\\Forms…', 'Nette\\\\\\\\DI…', 'Nette\\\\\\\\DI…', 'Nette\\\\\\\\DI…', \\.\\.\\.\\)\\.$#"
+			message: "#^PHPDoc tag @var for constant Rector\\\\Defluent\\\\Skipper\\\\FluentMethodCallSkipper\\:\\:ALLOWED_FLUENT_TYPES with type array\\<class\\-string\\> is not subtype of value array\\{'Symfony\\\\\\\\Component…', 'Symfony\\\\\\\\Component…', 'Doctrine\\\\\\\\ORM…', 'Nette\\\\\\\\Utils\\\\\\\\Finder', 'Nette\\\\\\\\Forms…', 'Nette\\\\\\\\DI…', 'Nette\\\\\\\\DI…', 'Nette\\\\\\\\DI…', \\.\\.\\.\\}\\.$#"
 			count: 1
 			path: repo/rules/Defluent/Skipper/FluentMethodCallSkipper.php
 
@@ -206,7 +206,7 @@ parameters:
 			path: repo/rules/TypeDeclaration/TypeInferer/ReturnTypeInferer.php
 
 		-
-			message: "#^Offset 'includes' on array\\('includes' \\=\\> array\\('config/config\\.php'\\)\\) on left side of \\?\\? always exists and is not nullable\\.$#"
+			message: "#^Offset 'includes' on array\\{includes\\: array\\{'config/config\\.php'\\}\\} on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/src/Bootstrap/ExtensionConfigResolver.php
 
@@ -266,7 +266,7 @@ parameters:
 			path: repo/src/PhpParser/AstResolver.php
 
 		-
-			message: "#^PHPDoc tag @var for constant Rector\\\\Core\\\\PhpParser\\\\Node\\\\AssignAndBinaryMap\\:\\:ASSIGN_OP_TO_BINARY_OP_CLASSES with type array\\<class\\-string\\<PhpParser\\\\Node\\\\Expr\\\\AssignOp\\>, class\\-string\\<PhpParser\\\\Node\\\\Expr\\\\AssignOp\\>\\> is incompatible with value array\\('PhpParser\\\\\\\\Node\\\\\\\\Expr\\\\\\\\AssignOp\\\\\\\\BitwiseOr' \\=\\> 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', 'PhpParser\\\\\\\\Node\\\\\\\\Expr\\\\\\\\AssignOp\\\\\\\\BitwiseAnd' \\=\\> 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', 'PhpParser\\\\\\\\Node\\\\\\\\Expr\\\\\\\\AssignOp\\\\\\\\BitwiseXor' \\=\\> 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', 'PhpParser\\\\\\\\Node\\\\\\\\Expr\\\\\\\\AssignOp\\\\\\\\Plus' \\=\\> 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', 'PhpParser\\\\\\\\Node\\\\\\\\Expr\\\\\\\\AssignOp\\\\\\\\Div' \\=\\> 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', 'PhpParser\\\\\\\\Node\\\\\\\\Expr\\\\\\\\AssignOp\\\\\\\\Mul' \\=\\> 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', 'PhpParser\\\\\\\\Node\\\\\\\\Expr\\\\\\\\AssignOp\\\\\\\\Minus' \\=\\> 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', 'PhpParser\\\\\\\\Node\\\\\\\\Expr\\\\\\\\AssignOp\\\\\\\\Concat' \\=\\> 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', \\.\\.\\.\\)\\.$#"
+			message: "#^PHPDoc tag @var for constant Rector\\\\Core\\\\PhpParser\\\\Node\\\\AssignAndBinaryMap\\:\\:ASSIGN_OP_TO_BINARY_OP_CLASSES with type array\\<class\\-string\\<PhpParser\\\\Node\\\\Expr\\\\AssignOp\\>, class\\-string\\<PhpParser\\\\Node\\\\Expr\\\\AssignOp\\>\\> is incompatible with value array\\{PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\BitwiseOr\\: 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\BitwiseAnd\\: 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\BitwiseXor\\: 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\Plus\\: 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\Div\\: 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\Mul\\: 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\Minus\\: 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\Concat\\: 'PhpParser\\\\\\\\Node\\\\\\\\Expr…', \\.\\.\\.\\}\\.$#"
 			count: 1
 			path: repo/src/PhpParser/Node/AssignAndBinaryMap.php
 
