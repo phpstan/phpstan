@@ -1556,7 +1556,7 @@ parameters:
 			path: repo/src/Framework/MockObject/MockClass.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of function call_user_func expects callable\\(\\)\\: mixed, array\\(class\\-string, '__phpunit…'\\) given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of function call_user_func expects callable\\(\\)\\: mixed, array\\{class\\-string, '__phpunit…'\\} given\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/MockClass.php
 
@@ -2071,7 +2071,7 @@ parameters:
 			path: repo/src/Framework/TestResult.php
 
 		-
-			message: "#^Parameter \\#1 \\$callable of method SebastianBergmann\\\\Invoker\\\\Invoker\\:\\:invoke\\(\\) expects callable\\(\\)\\: mixed, array\\(PHPUnit\\\\Framework\\\\Test, 'runBare'\\) given\\.$#"
+			message: "#^Parameter \\#1 \\$callable of method SebastianBergmann\\\\Invoker\\\\Invoker\\:\\:invoke\\(\\) expects callable\\(\\)\\: mixed, array\\{PHPUnit\\\\Framework\\\\Test, 'runBare'\\} given\\.$#"
 			count: 1
 			path: repo/src/Framework/TestResult.php
 
@@ -2166,7 +2166,7 @@ parameters:
 			path: repo/src/Framework/TestSuite.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of function call_user_func expects callable\\(\\)\\: mixed, array\\(class\\-string, mixed\\) given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of function call_user_func expects callable\\(\\)\\: mixed, array\\{class\\-string, mixed\\} given\\.$#"
 			count: 2
 			path: repo/src/Framework/TestSuite.php
 
@@ -2801,7 +2801,7 @@ parameters:
 			path: repo/src/TextUI/DefaultResultPrinter.php
 
 		-
-			message: "#^Offset 'arg' on array\\('arg' \\=\\> '\\-\\-atleast\\-version …'\\|'\\-\\-bootstrap \\<file\\>'\\|'\\-\\-cache\\-result'\\|'\\-\\-cache\\-result\\-file…'\\|'\\-\\-check\\-version'\\|'\\-\\-colors \\<flag\\>'\\|'\\-\\-columns \\<n\\>'\\|'\\-\\-columns max'\\|'\\-\\-coverage\\-cache …'\\|'\\-\\-coverage\\-clover …'\\|'\\-\\-coverage…'\\|'\\-\\-coverage\\-crap4j …'\\|'\\-\\-coverage\\-filter …'\\|'\\-\\-coverage\\-html …'\\|'\\-\\-coverage\\-php …'\\|'\\-\\-coverage\\-text\\=…'\\|'\\-\\-coverage\\-xml \\<dir\\>'\\|'\\-\\-covers \\<name\\>'\\|'\\-\\-debug'\\|'\\-\\-default\\-time…'\\|'\\-\\-disable\\-coverage…'\\|'\\-\\-disallow\\-resource…'\\|'\\-\\-disallow\\-test…'\\|'\\-\\-disallow\\-todo…'\\|'\\-\\-do\\-not\\-cache…'\\|'\\-\\-dont\\-report…'\\|'\\-\\-enforce\\-time\\-limit'\\|'\\-\\-exclude\\-group …'\\|'\\-\\-extensions …'\\|'\\-\\-fail\\-on\\-incomplete'\\|'\\-\\-fail\\-on\\-risky'\\|'\\-\\-fail\\-on\\-skipped'\\|'\\-\\-fail\\-on\\-warning'\\|'\\-\\-filter \\<pattern\\>'\\|'\\-\\-generate…'\\|'\\-\\-globals\\-backup'\\|'\\-\\-group \\<name\\>'\\|'\\-\\-include\\-path …'\\|'\\-\\-list\\-groups'\\|'\\-\\-list\\-suites'\\|'\\-\\-list\\-tests'\\|'\\-\\-list\\-tests\\-xml …'\\|'\\-\\-log\\-junit \\<file\\>'\\|'\\-\\-log\\-teamcity …'\\|'\\-\\-migrate…'\\|'\\-\\-no\\-configuration'\\|'\\-\\-no\\-coverage'\\|'\\-\\-no\\-extensions'\\|'\\-\\-no\\-interaction'\\|'\\-\\-no\\-logging'\\|'\\-\\-order\\-by \\<order\\>'\\|'\\-\\-path\\-coverage'\\|'\\-\\-prepend \\<file\\>'\\|'\\-\\-printer \\<printer\\>'\\|'\\-\\-process\\-isolation'\\|'\\-\\-random\\-order\\-seed…'\\|'\\-\\-repeat \\<times\\>'\\|'\\-\\-reverse\\-list'\\|'\\-\\-static\\-backup'\\|'\\-\\-stderr'\\|'\\-\\-stop\\-on\\-defect'\\|'\\-\\-stop\\-on\\-error'\\|'\\-\\-stop\\-on\\-failure'\\|'\\-\\-stop\\-on\\-incomplete'\\|'\\-\\-stop\\-on\\-risky'\\|'\\-\\-stop\\-on\\-skipped'\\|'\\-\\-stop\\-on\\-warning'\\|'\\-\\-strict\\-coverage'\\|'\\-\\-strict\\-global…'\\|'\\-\\-teamcity'\\|'\\-\\-test\\-suffix …'\\|'\\-\\-testdox'\\|'\\-\\-testdox\\-exclude…'\\|'\\-\\-testdox\\-group'\\|'\\-\\-testdox\\-html …'\\|'\\-\\-testdox\\-text …'\\|'\\-\\-testdox\\-xml \\<file\\>'\\|'\\-\\-testsuite \\<name\\>'\\|'\\-\\-uses \\<name\\>'\\|'\\-\\-version'\\|'\\-\\-warm\\-coverage…'\\|'\\-c\\|\\-\\-configuration …'\\|'\\-d \\<key\\[\\=value\\]\\>'\\|'\\-h\\|\\-\\-help'\\|'\\-v\\|\\-\\-verbose', 'desc' \\=\\> 'A comma separated…'\\|'A PHP script that…'\\|'A PHP script that…'\\|'Backup and restore …'\\|'Backup and restore…'\\|'Be strict about …'\\|'Be strict about…'\\|'Be strict about…'\\|'Be strict about…'\\|'Cache static…'\\|'Check whether…'\\|'Checks that version…'\\|'Disable annotations…'\\|'Disable TestDox…'\\|'Disallow @todo…'\\|'Display debugging…'\\|'Do not load PHPUnit…'\\|'Do not report tests…'\\|'Do not write test…'\\|'Enforce time limit…'\\|'Exclude tests from…'\\|'Export PHP…'\\|'Filter which tests…'\\|'Filter which…'\\|'Generate code…'\\|'Generate code…'\\|'Generate code…'\\|'Generate code…'\\|'Generate code…'\\|'Generate code…'\\|'Generate…'\\|'Ignore code…'\\|'Ignore default…'\\|'Ignore logging…'\\|'Include \\<dir\\> in…'\\|'List available test…'\\|'List available test…'\\|'List available tests'\\|'List available…'\\|'Log test execution…'\\|'Log test execution…'\\|'Migrate…'\\|'Number of columns…'\\|'Only include tests…'\\|'Only runs tests…'\\|'Only runs tests…'\\|'Only runs tests…'\\|'Only search for…'\\|'Output more verbose…'\\|'Perform path…'\\|'Prepend PHP\\\\'s…'\\|'Print defects in…'\\|'Prints the version…'\\|'Prints this usage…'\\|'Read configuration…'\\|'Report test…'\\|'Report test…'\\|'Run each test in a…'\\|'Run tests in order\\:…'\\|'Runs the test\\(s\\)…'\\|'Sets a php\\.ini value'\\|'Specify result…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'TestListener…'\\|'Timeout in seconds…'\\|'Treat incomplete…'\\|'Treat risky tests…'\\|'Treat skipped tests…'\\|'Treat tests with…'\\|'Use a specific…'\\|'Use colors in…'\\|'Use maximum number…'\\|'Warm static…'\\|'Write agile…'\\|'Write agile…'\\|'Write agile…'\\|'Write test results…'\\|'Write to STDERR…'\\) in isset\\(\\) always exists and is not nullable\\.$#"
+			message: "#^Offset 'arg' on array\\{arg\\: '\\-\\-atleast\\-version …'\\|'\\-\\-bootstrap \\<file\\>'\\|'\\-\\-cache\\-result'\\|'\\-\\-cache\\-result\\-file…'\\|'\\-\\-check\\-version'\\|'\\-\\-colors \\<flag\\>'\\|'\\-\\-columns \\<n\\>'\\|'\\-\\-columns max'\\|'\\-\\-coverage\\-cache …'\\|'\\-\\-coverage\\-clover …'\\|'\\-\\-coverage…'\\|'\\-\\-coverage\\-crap4j …'\\|'\\-\\-coverage\\-filter …'\\|'\\-\\-coverage\\-html …'\\|'\\-\\-coverage\\-php …'\\|'\\-\\-coverage\\-text\\=…'\\|'\\-\\-coverage\\-xml \\<dir\\>'\\|'\\-\\-covers \\<name\\>'\\|'\\-\\-debug'\\|'\\-\\-default\\-time…'\\|'\\-\\-disable\\-coverage…'\\|'\\-\\-disallow\\-resource…'\\|'\\-\\-disallow\\-test…'\\|'\\-\\-disallow\\-todo…'\\|'\\-\\-do\\-not\\-cache…'\\|'\\-\\-dont\\-report…'\\|'\\-\\-enforce\\-time\\-limit'\\|'\\-\\-exclude\\-group …'\\|'\\-\\-extensions …'\\|'\\-\\-fail\\-on\\-incomplete'\\|'\\-\\-fail\\-on\\-risky'\\|'\\-\\-fail\\-on\\-skipped'\\|'\\-\\-fail\\-on\\-warning'\\|'\\-\\-filter \\<pattern\\>'\\|'\\-\\-generate…'\\|'\\-\\-globals\\-backup'\\|'\\-\\-group \\<name\\>'\\|'\\-\\-include\\-path …'\\|'\\-\\-list\\-groups'\\|'\\-\\-list\\-suites'\\|'\\-\\-list\\-tests'\\|'\\-\\-list\\-tests\\-xml …'\\|'\\-\\-log\\-junit \\<file\\>'\\|'\\-\\-log\\-teamcity …'\\|'\\-\\-migrate…'\\|'\\-\\-no\\-configuration'\\|'\\-\\-no\\-coverage'\\|'\\-\\-no\\-extensions'\\|'\\-\\-no\\-interaction'\\|'\\-\\-no\\-logging'\\|'\\-\\-order\\-by \\<order\\>'\\|'\\-\\-path\\-coverage'\\|'\\-\\-prepend \\<file\\>'\\|'\\-\\-printer \\<printer\\>'\\|'\\-\\-process\\-isolation'\\|'\\-\\-random\\-order\\-seed…'\\|'\\-\\-repeat \\<times\\>'\\|'\\-\\-reverse\\-list'\\|'\\-\\-static\\-backup'\\|'\\-\\-stderr'\\|'\\-\\-stop\\-on\\-defect'\\|'\\-\\-stop\\-on\\-error'\\|'\\-\\-stop\\-on\\-failure'\\|'\\-\\-stop\\-on\\-incomplete'\\|'\\-\\-stop\\-on\\-risky'\\|'\\-\\-stop\\-on\\-skipped'\\|'\\-\\-stop\\-on\\-warning'\\|'\\-\\-strict\\-coverage'\\|'\\-\\-strict\\-global…'\\|'\\-\\-teamcity'\\|'\\-\\-test\\-suffix …'\\|'\\-\\-testdox'\\|'\\-\\-testdox\\-exclude…'\\|'\\-\\-testdox\\-group'\\|'\\-\\-testdox\\-html …'\\|'\\-\\-testdox\\-text …'\\|'\\-\\-testdox\\-xml \\<file\\>'\\|'\\-\\-testsuite \\<name\\>'\\|'\\-\\-uses \\<name\\>'\\|'\\-\\-version'\\|'\\-\\-warm\\-coverage…'\\|'\\-c\\|\\-\\-configuration …'\\|'\\-d \\<key\\[\\=value\\]\\>'\\|'\\-h\\|\\-\\-help'\\|'\\-v\\|\\-\\-verbose', desc\\: 'A comma separated…'\\|'A PHP script that…'\\|'A PHP script that…'\\|'Backup and restore …'\\|'Backup and restore…'\\|'Be strict about …'\\|'Be strict about…'\\|'Be strict about…'\\|'Be strict about…'\\|'Cache static…'\\|'Check whether…'\\|'Checks that version…'\\|'Disable annotations…'\\|'Disable TestDox…'\\|'Disallow @todo…'\\|'Display debugging…'\\|'Do not load PHPUnit…'\\|'Do not report tests…'\\|'Do not write test…'\\|'Enforce time limit…'\\|'Exclude tests from…'\\|'Export PHP…'\\|'Filter which tests…'\\|'Filter which…'\\|'Generate code…'\\|'Generate code…'\\|'Generate code…'\\|'Generate code…'\\|'Generate code…'\\|'Generate code…'\\|'Generate…'\\|'Ignore code…'\\|'Ignore default…'\\|'Ignore logging…'\\|'Include \\<dir\\> in…'\\|'List available test…'\\|'List available test…'\\|'List available tests'\\|'List available…'\\|'Log test execution…'\\|'Log test execution…'\\|'Migrate…'\\|'Number of columns…'\\|'Only include tests…'\\|'Only runs tests…'\\|'Only runs tests…'\\|'Only runs tests…'\\|'Only search for…'\\|'Output more verbose…'\\|'Perform path…'\\|'Prepend PHP\\\\'s…'\\|'Print defects in…'\\|'Prints the version…'\\|'Prints this usage…'\\|'Read configuration…'\\|'Report test…'\\|'Report test…'\\|'Run each test in a…'\\|'Run tests in order\\:…'\\|'Runs the test\\(s\\)…'\\|'Sets a php\\.ini value'\\|'Specify result…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'Stop execution upon…'\\|'TestListener…'\\|'Timeout in seconds…'\\|'Treat incomplete…'\\|'Treat risky tests…'\\|'Treat skipped tests…'\\|'Treat tests with…'\\|'Use a specific…'\\|'Use colors in…'\\|'Use maximum number…'\\|'Warm static…'\\|'Write agile…'\\|'Write agile…'\\|'Write agile…'\\|'Write test results…'\\|'Write to STDERR…'\\} in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/src/TextUI/Help.php
 
@@ -3251,7 +3251,7 @@ parameters:
 			path: repo/src/Util/Annotation/DocBlock.php
 
 		-
-			message: "#^Method PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:requirements\\(\\) should return array\\<'__OFFSET'\\|'extension_versions'\\|'setting', array\\<string, string\\>\\> but returns array\\<int\\|string, mixed\\>&nonEmpty\\.$#"
+			message: "#^Method PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:requirements\\(\\) should return array\\<'__OFFSET'\\|'extension_versions'\\|'setting', array\\<string, string\\>\\> but returns non\\-empty\\-array\\<int\\|string, mixed\\>\\.$#"
 			count: 1
 			path: repo/src/Util/Annotation/DocBlock.php
 
@@ -3296,7 +3296,7 @@ parameters:
 			path: repo/src/Util/Annotation/DocBlock.php
 
 		-
-			message: "#^Property PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:\\$parsedRequirements \\(array\\<'__OFFSET'\\|'extension_versions'\\|'setting', array\\<string, string\\>\\>\\|null\\) does not accept array\\<int\\|string, mixed\\>&nonEmpty\\.$#"
+			message: "#^Property PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:\\$parsedRequirements \\(array\\<'__OFFSET'\\|'extension_versions'\\|'setting', array\\<string, string\\>\\>\\|null\\) does not accept non\\-empty\\-array\\<int\\|string, mixed\\>\\.$#"
 			count: 1
 			path: repo/src/Util/Annotation/DocBlock.php
 
@@ -3691,32 +3691,32 @@ parameters:
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
 
 		-
-			message: "#^Offset 'default' does not exist on array\\('default' \\=\\> string, 'start' \\=\\> string, 'message' \\=\\> string, 'diff' \\=\\> string, 'trace' \\=\\> string, 'last' \\=\\> string\\)\\|string\\.$#"
+			message: "#^Offset 'default' does not exist on array\\{default\\: string, start\\: string, message\\: string, diff\\: string, trace\\: string, last\\: string\\}\\|string\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
 
 		-
-			message: "#^Offset 'diff' does not exist on array\\('default' \\=\\> string, 'start' \\=\\> string, 'message' \\=\\> string, 'diff' \\=\\> string, 'trace' \\=\\> string, 'last' \\=\\> string\\)\\|string\\.$#"
+			message: "#^Offset 'diff' does not exist on array\\{default\\: string, start\\: string, message\\: string, diff\\: string, trace\\: string, last\\: string\\}\\|string\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
 
 		-
-			message: "#^Offset 'last' does not exist on array\\('default' \\=\\> string, 'start' \\=\\> string, 'message' \\=\\> string, 'diff' \\=\\> string, 'trace' \\=\\> string, 'last' \\=\\> string\\)\\|string\\.$#"
+			message: "#^Offset 'last' does not exist on array\\{default\\: string, start\\: string, message\\: string, diff\\: string, trace\\: string, last\\: string\\}\\|string\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
 
 		-
-			message: "#^Offset 'message' does not exist on array\\('default' \\=\\> string, 'start' \\=\\> string, 'message' \\=\\> string, 'diff' \\=\\> string, 'trace' \\=\\> string, 'last' \\=\\> string\\)\\|string\\.$#"
+			message: "#^Offset 'message' does not exist on array\\{default\\: string, start\\: string, message\\: string, diff\\: string, trace\\: string, last\\: string\\}\\|string\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
 
 		-
-			message: "#^Offset 'start' does not exist on array\\('default' \\=\\> string, 'start' \\=\\> string, 'message' \\=\\> string, 'diff' \\=\\> string, 'trace' \\=\\> string, 'last' \\=\\> string\\)\\|string\\.$#"
+			message: "#^Offset 'start' does not exist on array\\{default\\: string, start\\: string, message\\: string, diff\\: string, trace\\: string, last\\: string\\}\\|string\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
 
 		-
-			message: "#^Offset 'trace' does not exist on array\\('default' \\=\\> string, 'start' \\=\\> string, 'message' \\=\\> string, 'diff' \\=\\> string, 'trace' \\=\\> string, 'last' \\=\\> string\\)\\|string\\.$#"
+			message: "#^Offset 'trace' does not exist on array\\{default\\: string, start\\: string, message\\: string, diff\\: string, trace\\: string, last\\: string\\}\\|string\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
 
@@ -6367,11 +6367,6 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"
-			count: 1
-			path: repo/tests/unit/Framework/Constraint/BinaryOperatorTestCase.php
-
-		-
-			message: "#^Parameter \\#2 \\$count of function array_fill expects int\\<0, max\\>, int\\<min, 3\\> given\\.$#"
 			count: 1
 			path: repo/tests/unit/Framework/Constraint/BinaryOperatorTestCase.php
 
