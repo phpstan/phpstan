@@ -41,5 +41,9 @@
 		"build:11ty": "eleventy",
 		"watch": "run-p watch:*",
 		"build": "yarn run build:11ty && yarn run build:parcel"
-	}
+	},
+	"browserslist": [
+		"defaults",
+		"not IE 11"
+	]
 }
