@@ -2,7 +2,7 @@
 title: "PHPStan 0.12 Released!"
 date: 2019-12-04
 tags: releases
-ogImage: /images/eu-fossa.jpg
+ogImage: /tmp/images/eu-fossa.jpg
 ---
 
 This is a massive release that has been in the works for the past six months. We’ve managed to churn out minor releases even during the development of this new major version. This continuous workflow was enabled by [feature toggles](https://github.com/phpstan/phpstan/releases/tag/0.11.4) — people were able to try out the new features even while using the stable version by opting in and give feedback.
@@ -94,7 +94,7 @@ With this feature, PHPStan again knows more about the code and is able to point 
 
 Integer range type was developed by [Jan Tvrdík](https://twitter.com/jantvrdik) also at the EU-FOSSA hackaton in Brussels.
 
-![EU-FOSSA hackaton PHPStan Team](/images/eu-fossa.jpg)
+![EU-FOSSA hackaton PHPStan Team](/tmp/images/eu-fossa.jpg)
 
 <p class="text-sm text-center text-gray-500">
 <a href="https://twitter.com/lookyman_">Lukáš Unger</a>, <a href="https://twitter.com/OndrejMirtes">Ondřej Mirtes</a>, <a href="https://twitter.com/jantvrdik">Jan Tvrdík</a>

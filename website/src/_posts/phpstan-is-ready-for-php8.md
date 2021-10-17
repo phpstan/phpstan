@@ -70,7 +70,7 @@ Changed function signatures
 
 Some functions changed their signatures, for example `curl_*` functions no longer return resource, [but a `CurlHandle` object](https://php.watch/versions/8.0/resource-CurlHandle). Many functions have removed `false` from possible returned values and [throw `ValueError` instead](https://php.watch/versions/8.0/ValueError).
 
-<a href="https://phpstan.org/r/5043c64b-59f1-418c-a0da-9341f9f4938e"><img src="/images/curl-php-8.png" class="mb-8 rounded-lg border border-gray-300 mx-auto"></a>
+<a href="https://phpstan.org/r/5043c64b-59f1-418c-a0da-9341f9f4938e"><img src="/tmp/images/curl-php-8.png" class="mb-8 rounded-lg border border-gray-300 mx-auto"></a>
 
 Fortunately, PHP 8 starts to offer [official stubs](https://github.com/search?q=repo%3Aphp%2Fphp-src+filename%3A*.stub.php&type=Code) that we can take advantage of here. I created a [new repository](https://github.com/phpstan/php-8-stubs) that allows including those stubs as a Composer dependency. It's automatically updated each night to mirror the latest changes in php-src.
 
@@ -85,7 +85,7 @@ I really like [this feature](https://php.watch/versions/8.0/constructor-property
 
 The most interesting part of the implementation was finding out how people would write additional type information with PHPDocs. Sure, we have typed properties since PHP 7.4, but for example in case of `array`, we need to know what's in it, so PHPDocs are still necessary in some cases.
 
-<blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">Which style of additional type info in PHPDoc for promoted properties will you prefer in PHP 8?<br><br>Poll in the thread 👇 <a href="https://t.co/R5DVAiRi1O">pic.twitter.com/R5DVAiRi1O</a></p>&mdash; Ondřej Mirtes (@OndrejMirtes) <a href="https://twitter.com/OndrejMirtes/status/1322924057428373504?ref_src=twsrc%5Etfw">November 1, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+<blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">Which style of additional type info in PHPDoc for promoted properties will you prefer in PHP 8?<br><br>Poll in the thread 👇 <a href="https://t.co/R5DVAiRi1O">pic.twitter.com/R5DVAiRi1O</a></p>&mdash; Ondřej Mirtes (@OndrejMirtes) <a href="https://twitter.com/OndrejMirtes/status/1322924057428373504?ref_src=twsrc%5Etfw">November 1, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 Since the Twitter poll ended with 74 %/26 % split, I decided to implement both variants. 26 % is still a lot of people.
 

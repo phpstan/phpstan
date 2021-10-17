@@ -20,7 +20,7 @@ Every time you change the definition of your Doctrine entity, you’re risking b
 
 But phpstan-doctrine has you covered. It will check the syntax and all referenced entities, associations and fields in all recognized DQL queries in the whole codebase!
 
-![phpstan-doctrine](/images/phpstan-doctrine.png)
+![phpstan-doctrine](/tmp/images/phpstan-doctrine.png)
 
 ## Validate method calls on EntityRepository
 

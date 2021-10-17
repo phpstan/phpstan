@@ -112,7 +112,7 @@ The best way to ask about a specific type is the `PHPStan\Type\Type::isSuperType
 
 This visual image of overlapping circles tells us how `isSuperTypeOf()` always responds. Let's say we draw a hierarchy of `Throwable` - `Exception` - `InvalidArgumentException`. It can look like this:
 
-<img class="ml-auto mr-auto w-96 mb-8" src="/images/issupertypeof-1.png" />
+<img class="ml-auto mr-auto w-96 mb-8" src="/tmp/images/issupertypeof-1.png" />
 
 Let's say we have three `Type` objects: `new ObjectType(\Throwable::class)` (T), `new ObjectType(\Exception::class)` (E), and `new ObjectType(\InvalidArgumentException)` (IAE). Asking both `T->isSuperTypeOf(E)` and `T->isSuperTypeOf(IAE)` will return `yes`. Because `T` is the largest circle and contains both `E` and `IAE`.
 

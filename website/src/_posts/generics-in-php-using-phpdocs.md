@@ -2,10 +2,10 @@
 title: "Generics in PHP using PHPDocs"
 date: 2019-12-02
 tags: guides
-ogImage: /images/generics.jpg
+ogImage: /tmp/images/generics.jpg
 ---
 
-![PHP code](/images/generics.jpg)
+![PHP code](/tmp/images/generics.jpg)
 
 Two years ago I wrote an impactful article on [union and intersection types](/blog/union-types-vs-intersection-types). It helped the PHP community to familiarize themselves with these concepts which eventually led to intersection types [support in PhpStorm](https://blog.jetbrains.com/phpstorm/2018/09/phpstorm-2018-3-eap-183-2635-12/).
 
@@ -165,7 +165,7 @@ class DogCollection implements Collection
 
 ## Covariance & contravariance
 
-<img class="float-none md:float-left md:w-1/2 md:mr-4 mb-2" src="/images/covariance-contravariance.png" alt="Covariance and contravariance" />
+<img class="float-none md:float-left md:w-1/2 md:mr-4 mb-2" src="/tmp/images/covariance-contravariance.png" alt="Covariance and contravariance" />
 
 There’s one more use case generics solve, but first I need to explain these two terms. Covariance and contravariance describe relationships between related types.
 

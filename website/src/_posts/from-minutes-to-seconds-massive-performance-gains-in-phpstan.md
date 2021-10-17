@@ -2,10 +2,10 @@
 title: "From Minutes to Seconds: Massive Performance Gains in PHPStan"
 date: 2020-03-01
 tags: releases
-ogImage: /images/f1-car.jpg
+ogImage: /tmp/images/f1-car.jpg
 ---
 
-![F1 Car](/images/f1-car.jpg)
+![F1 Car](/tmp/images/f1-car.jpg)
 
 Strongly-typed object-oriented code helps me tremendously during refactoring. When I realize I need to pass more information from one place to another, I usually take my first step by changing a return typehint, or adding a required parameter to a method. Running PHPStan after making these changes tells me about all the code I need to fix. So I run it many times an hour during my workday. I don’t even check the web app in the browser until PHPStan’s result is green.
 

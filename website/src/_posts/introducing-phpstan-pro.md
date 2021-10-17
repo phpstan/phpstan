@@ -2,7 +2,7 @@
 title: "Introducing PHPStan Pro – Save Your Keystrokes and Get More Productive!"
 date: 2020-09-29
 tags: releases
-ogImage: /images/phpstan-pro-twitter-card.png
+ogImage: /tmp/images/phpstan-pro-twitter-card.png
 pageType: pro
 ---
 
@@ -16,7 +16,7 @@ Web UI for browsing errors
 When you launch PHPStan Pro by adding `--pro` flag to the `analyse` command, it will automatically open your web browser with its user interface:
 
 <video width="688" height="574" class="mb-8 rounded-lg border border-gray-300" autoplay muted loop playsinline>
-  <source src="/images/phpstan-pro-1.mp4" type="video/mp4">
+  <source src="/tmp/images/phpstan-pro-1.mp4" type="video/mp4">
 </video>
 
 Instead of scrolling through a textual output of errors on the command line, you'll get a beautiful interactive UI that allows you to go back and forth between files, and see the surrounding code. This is especially nice if you have a large number of errors.
@@ -46,7 +46,7 @@ Continuous analysis (watch mode)
 Once you fix all the found errors and achieve [Error Zero](https://twitter.com/OndrejMirtes/status/1301760838144004098), PHPStan Pro keeps running in the background, watching files, and re-running analysis each time it detects a change. There's a loading indicator in the lower right corner for that:
 
 <video width="267" height="159" class="mb-8 rounded-lg border border-gray-300 mx-auto" autoplay muted loop playsinline>
-  <source src="/images/phpstan-pro-loader.mp4" type="video/mp4">
+  <source src="/tmp/images/phpstan-pro-loader.mp4" type="video/mp4">
 </video>
 
 Continuous analysis reflects and supports my preferred workflow when developing applications: when I realize that I have to pass an additional new value through multiple layers of a codebase, I start by changing method signatures – renaming them, adding parameters, changing return typehints. After that, I run PHPStan which essentially gives me a todo list of places to fix. But running PHPStan several times a minute to get instant feedback can become tedious. Having a persistent window that refreshes automatically and gives me an up-to-date view of the project is much nicer.
@@ -66,7 +66,7 @@ There's also the potential to educate users and give them the right fix accordin
 
 Fixer suggestions also show how they'll affect the result. It's not always so clear-cut that a fix would only solve the error it's supposed to fix, it can also introduce new errors and that's a good thing, although it might not sound like it.
 
-<img src="/images/phpstan-pro-delta.png" width="600" height="403" class="mb-8 rounded-lg border border-gray-300 mx-auto">
+<img src="/tmp/images/phpstan-pro-delta.png" width="600" height="403" class="mb-8 rounded-lg border border-gray-300 mx-auto">
 
 If you for example fix a missing return typehint of a function that returns integers by adding native `: int` or `@return int` PHPDoc, PHPStan will be able to point out all the places where the returned value is used as a string.
 

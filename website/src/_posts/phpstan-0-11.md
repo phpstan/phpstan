@@ -2,14 +2,14 @@
 title: "PHPStan 0.11"
 date: 2019-01-16
 tags: releases
-ogImage: /images/phpstan-0-11.jpg
+ogImage: /tmp/images/phpstan-0-11.jpg
 ---
 
 PHPStan has had a wonderful year 2018. The adoption increased from 3,200 daily downloads to 9,800. I released [9 new versions](https://github.com/phpstan/phpstan/releases), [wrote a feature article](https://www.phparch.com/2018/04/testing-strategy-with-the-help-of-static-analysis/) for php[arch] magazine, and talked about PHPStan at Dutch PHP in Amsterdam.
 
 But the moment I realized how big it has become happened at the [phpCE conference in Prague](https://2018.phpce.eu/en/) at the end of October. I’ve had a really awesome time there. First, I took advantage of many international speakers who contribute to PHPStan coming to town and organized “PHPStan dinner” at my favourite indian restaurant:
 
-![PHPStan phpCE Dinner](/images/phpstan-0-11.jpg)
+![PHPStan phpCE Dinner](/tmp/images/phpstan-0-11.jpg)
 
 <p class="text-sm text-center text-gray-500">
 PHPStan dinner with <a href="http://twitter.com/Ocramius" target="_blank" rel="noopener nofollow">@Ocramius</a> <a href="http://twitter.com/carusogabriel" target="_blank" rel="noopener nofollow">@carusogabriel</a> <a href="http://twitter.com/msvrtan" target="_blank" rel="noopener nofollow">@msvrtan</a> <a href="http://twitter.com/lookyman_" target="_blank" rel="noopener nofollow">@lookyman_</a> <a href="http://twitter.com/dantleech" target="_blank" rel="noopener nofollow">@dantleech</a> <a href="http://twitter.com/JanTvrdik" target="_blank" rel="noopener nofollow">@JanTvrdik</a> <a href="http://twitter.com/VasekPurchart" target="_blank" rel="noopener nofollow">@VasekPurchart</a> #phpce #phpce18 #phpce2018 If they poison our food, PHP is screwed 😂

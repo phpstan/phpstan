@@ -291,7 +291,7 @@ class MyRuleTest extends RuleTestCase
 Virtual nodes
 ---------------
 
-You might have noticed that some of the nodes in the [Choosing the right AST node](/developing-extensions/rules.html#choosing-the-right-ast-node) section do not come from the [PHP-Parser](https://github.com/nikic/php-parser) library but from PHPStan itself.
+You might have noticed that some of the nodes in the [Choosing the right AST node](/developing-extensions/rules#choosing-the-right-ast-node) section do not come from the [PHP-Parser](https://github.com/nikic/php-parser) library but from PHPStan itself.
 
 Some situations we want to report are hard to detect with the out-of-the-box [AST](/developing-extensions/abstract-syntax-tree). For example if we want to report that's something is missing in the AST (like a `return` statement), there's no node type to register our rule for.
 

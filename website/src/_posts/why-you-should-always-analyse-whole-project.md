@@ -23,7 +23,7 @@ Fast by default
 Fortunately PHPStan already bears this in mind. It uses [the result cache](/user-guide/result-cache) by default so that subsequent analysis runs are much faster than the initial one. It encourages always analysing the whole project because changing the list of analysed paths between runs actually invalidates the whole result cache.
 
 <video width="688" height="439" class="mb-8 rounded-lg border border-gray-300" autoplay muted loop playsinline>
-  <source src="/images/result-cache.mp4" type="video/mp4">
+  <source src="/tmp/images/result-cache.mp4" type="video/mp4">
 </video>
 
 Analysing traits
