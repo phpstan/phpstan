@@ -68,7 +68,7 @@ pageType: playground
 						</span>
 					<!-- /ko -->
 				<!-- /ko -->
-				<select class="form-select block mt-4 md:mt-0 mx-4 md:mx-0 md:ml-6" data-bind="value: level">
+				<select class="block mt-4 md:mt-0 mx-4 md:mx-0 md:ml-6" data-bind="value: level">
 					<option value="0">Level 0</option>
 					<option value="1">Level 1</option>
 					<option value="2">Level 2</option>
@@ -82,17 +82,17 @@ pageType: playground
 				</select>
 
 				<label class="inline-flex items-center px-4 mt-4 md:mt-0 ml-0 md:ml-4">
-					<input type="checkbox" class="form-checkbox" data-bind="checked: strictRules">
+					<input type="checkbox" data-bind="checked: strictRules">
 					<span class="ml-2">Strict rules</span>
 				</label>
 
 				<label class="inline-flex items-center px-4 mt-4 md:mt-0">
-					<input type="checkbox" class="form-checkbox" data-bind="checked: bleedingEdge">
+					<input type="checkbox" data-bind="checked: bleedingEdge">
 					<span class="ml-2">Bleeding edge</span>
 				</label>
 
 				<label class="inline-flex items-center px-4 mt-4 md:mt-0">
-					<input type="checkbox" class="form-checkbox" data-bind="checked: treatPhpDocTypesAsCertain">
+					<input type="checkbox" data-bind="checked: treatPhpDocTypesAsCertain">
 					<span class="ml-2">Treat PHPDoc types as certain</span>
 				</label>
 			</div>
@@ -154,7 +154,7 @@ pageType: playground
 						<tbody class="bg-white">
 							<!-- ko foreach: errors -->
 								<tr>
-									<td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-base leading-5 font-medium text-gray-500" data-bind="text: line"></td>
+									<td class="px-6 py-4 whitespace-nowrap border-b border-gray-200 text-base leading-5 font-medium text-gray-500" data-bind="text: line"></td>
 									<td class="px-6 py-4 border-b border-gray-200 text-base leading-5 text-gray-900" data-bind="text: message"></td>
 								</tr>
 							<!-- /ko -->
