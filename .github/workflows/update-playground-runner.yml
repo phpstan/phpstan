@@ -35,7 +35,7 @@ jobs:
 
       - name: "Install Serverless"
         working-directory: ./playground-runner
-        run: "sudo npm install -g serverless@1.83.0"
+        run: "sudo npm install -g serverless@2.63.0"
 
       - name: "Install PHP dependencies"
         working-directory: ./playground-runner
