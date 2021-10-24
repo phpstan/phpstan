@@ -52,6 +52,12 @@ jobs:
         with:
           node-version: "16"
 
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "8.0"
+
       - name: "Cache dependencies"
         uses: "actions/cache@v2"
         with:
@@ -66,6 +72,10 @@ jobs:
       - name: "Build"
         working-directory: ./website
         run: "yarn run build"
+
+      - name: "Fix Knockout.js"
+        working-directory: ./website
+        run: "php fix-js.php"
 
       - name: "Upload website dist"
         uses: actions/upload-artifact@v2
