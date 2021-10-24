@@ -11,7 +11,8 @@
 		"strictNullChecks": true,
 		"noImplicitReturns": true,
 		"allowSyntheticDefaultImports": true,
-		"esModuleInterop": true
+		"esModuleInterop": true,
+		"resolveJsonModule": true
 	},
 	"include": [
 		"src/js/**/*"
