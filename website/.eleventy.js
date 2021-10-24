@@ -64,6 +64,10 @@ module.exports = function (eleventyConfig) {
 		return array.slice(0, n);
 	});
 
+	eleventyConfig.addPairedNunjucksShortcode("markdown", (content) => {
+		return markdownLib.render(content);
+	});
+
 	return {
 		dir: {
 			input: "src",
