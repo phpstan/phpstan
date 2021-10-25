@@ -5,6 +5,7 @@ const readingTime = require('reading-time');
 
 module.exports = function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy('src/images');
+	eleventyConfig.addPassthroughCopy('src/images-emails');
 	eleventyConfig.addPassthroughCopy('src/js');
 	eleventyConfig.addPassthroughCopy('src/app.pcss');
 	eleventyConfig.addPassthroughCopy('src/robots.txt');

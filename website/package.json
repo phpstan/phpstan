@@ -27,6 +27,7 @@
 		"markdown-it-footnote": "^3.0.3",
 		"npm-run-all": "^4.1.5",
 		"parcel": "^2.0.0",
+		"parcel-reporter-static-files-copy": "^1.3.0",
 		"postcss": "^8.3.9",
 		"postcss-modules": "^3.2.2",
 		"posthtml": "^0.15.2",
@@ -48,5 +49,9 @@
 	"browserslist": [
 		"defaults",
 		"not IE 11"
-	]
+	],
+	"staticFiles": {
+		"staticPath": "tmp/images-emails",
+		"staticOutPath": "images-email"
+	}
 }
