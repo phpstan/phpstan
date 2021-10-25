@@ -66,11 +66,11 @@ public function getThrowTypeFromMethodCall(
 	Scope $scope
 ): ?Type
 {
-	if (count($methodCall->args) < 2) {
+	if (count($methodCall->getArgs()) < 2) {
 		return $methodReflection->getThrowType();
 	}
 
-	$argType = $scope->getType($methodCall->args[1]->value);
+	$argType = $scope->getType($methodCall->getArgs()[1]->value);
 	if ((new ConstantBooleanType(true))->isSuperTypeOf($argType)->yes()) {
 		return $methodReflection->getThrowType();
 	}

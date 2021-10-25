@@ -37,7 +37,7 @@ If you have the `PhpParser\Node\Expr\FuncCall` expression, you can obtain the ri
 ```php
 $variant = PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
 	$scope,
-	$funcCall->args,
+	$funcCall->getArgs(),
 	$functionReflection->getVariants()
 );
 $parameters = $variant->getParameters();
@@ -109,7 +109,7 @@ If you have the `PhpParser\Node\Expr\MethodCall` expression, you can obtain the 
 ```php
 $variant = PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
 	$scope,
-	$methodCall->args,
+	$methodCall->getArgs(),
 	$methodReflection->getVariants()
 );
 $parameters = $variant->getParameters();

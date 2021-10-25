@@ -69,7 +69,7 @@ public function isStaticMethodSupported(
 {
 	// The $context argument tells us if we're in an if condition or not (as in this case).
 	// Is assertNotNull called with at least 1 argument?
-	return $staticMethodReflection->getName() === 'assertNotNull' && $context->null() && isset($node->args[0]);
+	return $staticMethodReflection->getName() === 'assertNotNull' && $context->null() && isset($node->getArgs()[0]);
 }
 
 public function specifyTypes(
@@ -79,7 +79,7 @@ public function specifyTypes(
 	TypeSpecifierContext $context
 ): SpecifiedTypes
 {
-	$expr = $node->args[0]->value;
+	$expr = $node->getArgs()[0]->value;
 	$typeBefore = $scope->getType($expr);
 	$type = TypeCombinator::removeNull($typeBefore);
 

@@ -62,14 +62,14 @@ public function getTypeFromMethodCall(
 	Scope $scope
 ): Type
 {
-	if (count($methodCall->args) === 0) {
+	if (count($methodCall->getArgs()) === 0) {
 		return \PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
 			$scope,
-			$methodCall->args,
+			$methodCall->getArgs(),
 			$methodReflection->getVariants()
 		)->getReturnType();
 	}
-	$arg = $methodCall->args[0]->value;
+	$arg = $methodCall->getArgs()[0]->value;
 
 	return $scope->getType($arg);
 }
