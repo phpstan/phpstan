@@ -34,3 +34,4 @@ Here's a brief overview of what's checked on each level. Levels are cumulative -
 6. report missing typehints
 7. report partially wrong union types - if you call a method that only exists on some types in a union type, level 7 starts to report that; other possibly incorrect situations
 8. report calling methods and accessing properties on nullable types
+9. be strict about the `mixed` type - the only allowed operation you can do with it is to pass it to another `mixed`
