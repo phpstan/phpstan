@@ -52,6 +52,6 @@
 	],
 	"staticFiles": {
 		"staticPath": "tmp/images-emails",
-		"staticOutPath": "images-email"
+		"staticOutPath": "images-emails"
 	}
 }
