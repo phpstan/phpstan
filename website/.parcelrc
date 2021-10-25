@@ -3,5 +3,5 @@
   "transformers": {
     "*.txt": ["@parcel/transformer-raw"]
   },
-  "reporters":  ["parcel-reporter-static-files-copy"]
+  "reporters":  ["...", "parcel-reporter-static-files-copy"]
 }
