@@ -55,15 +55,15 @@ jobs:
           #  composer install
           #  ../../../phpstan.phar analyse -c .phpstan.neon
         include:
-          - php-version: 8.0
-            script: |
-              git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout 430041fd553aca364c8fd2379cf854ae320c247b
-              cp ../rector-composer.lock composer.lock
-              export COMPOSER_ROOT_VERSION=0.11.x-dev
-              composer install
-              ../../../phpstan.phar analyse -c ../rector.neon
+          #- php-version: 8.0
+          #  script: |
+          #    git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
+          #    cd e2e/integration/repo
+          #    git checkout 430041fd553aca364c8fd2379cf854ae320c247b
+          #    cp ../rector-composer.lock composer.lock
+          #   export COMPOSER_ROOT_VERSION=0.11.x-dev
+          #    composer install
+          #   ../../../phpstan.phar analyse -c ../rector.neon
           - php-version: 8.0
             script: |
               git clone https://github.com/sebastianbergmann/phpunit.git e2e/integration/repo
