@@ -25,7 +25,7 @@
 </head>
 <body>
 
-<div class="bg-white flex flex-col main-area">
+<div class="flex flex-col main-area" style="{% block bgColor %}background-color: #fff{% endblock %}">
 	<nav class="bg-white border-b border-gray-200 flex-shrink z-10 nav-header">
 		<!-- ko with: mainMenu -->
 			<div class="max-w-5xl mx-auto px-4 md:px-6">

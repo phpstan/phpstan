@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"license": "MIT",
 	"dependencies": {
+		"@stripe/stripe-js": "^1.20.3",
 		"codemirror": "^5.63.1",
 		"docsearch.js": "2",
 		"jquery": "^3.6.0",
@@ -18,7 +19,9 @@
 		"@parcel/packager-xml": "^2.0.0",
 		"@parcel/transformer-raw": "^2.0.0",
 		"@parcel/transformer-xml": "^2.0.0",
+		"@tailwindcss/aspect-ratio": "^0.3.0",
 		"@tailwindcss/forms": "^0.3.4",
+		"@tailwindcss/typography": "^0.4.1",
 		"@types/jquery": "^3.5.5",
 		"autoprefixer": "^10.3.7",
 		"luxon": "^1.27.0",
@@ -39,7 +42,8 @@
 	},
 	"scripts": {
 		"check": "tsc -p tsconfig.json --noEmit && tslint -p tsconfig.json -c tslint.json",
-		"watch:parcel": "parcel serve tmp/*.html tmp/**/*.html tmp/*.xml tmp/robots.txt --dist-dir dist/ --no-cache",
+		"fix": "tslint -p tsconfig.json -c tslint.json --fix",
+		"watch:parcel": "parcel serve tmp/*.html tmp/**/*.html tmp/*.xml tmp/robots.txt --dist-dir dist/ --no-cache --no-source-maps",
 		"watch:11ty": "eleventy --watch",
 		"build:parcel": "parcel build tmp/*.html tmp/**/*.html tmp/*.xml tmp/robots.txt --dist-dir dist/ --no-source-maps --public-url https://phpstan.org/",
 		"build:11ty": "eleventy",
