@@ -62,7 +62,7 @@ The [developer documentation](/developing-extensions/extension-types) is now als
 
 ## A Bright Future
 
-1.0 doesn't mean it's perfect or finished. Thanks to [GitHub Sponsors](https://github.com/sponsors/ondrejmirtes/dashboard), [PHPStan Pro](/blog/introducing-phpstan-pro), and other income sources, developing PHPStan is now my full-time job. There are many ideas in the pipeline and we can do much more with the knowledge of the code PHPStan has. I can't already wait for what's gonna be in the upcoming releases, starting with PHP 8.1 support.
+1.0 doesn't mean it's perfect or finished. Thanks to [GitHub Sponsors](https://github.com/sponsors/ondrejmirtes), [PHPStan Pro](/blog/introducing-phpstan-pro), and other income sources, developing PHPStan is now my full-time job. There are many ideas in the pipeline and we can do much more with the knowledge of the code PHPStan has. I can't already wait for what's gonna be in the upcoming releases, starting with PHP 8.1 support.
 
 Another area to look out for is that PHPStan also serves as a foundation to other innovative projects like [Rector](https://getrector.org/), and I want to continue taking care of that too.
 
