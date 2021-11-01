@@ -13,7 +13,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"@sentry/node": "^5.29.2",
-		"ansi-to-html": "^0.6.15",
+		"ansi-to-html": "^0.7.2",
 		"aws-sdk": "^2.918.0",
 		"middy": "^0.36.0",
 		"uuid": "^8.3.2"
