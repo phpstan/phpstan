@@ -349,7 +349,9 @@ When set to `true`, it reports function and method calls with incorrect name cas
 
 ### `checkInternalClassCaseSensitivity`
 
-**default**: `false`
+**default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
+
+**example**: [with `false`](https://phpstan.org/r/0c0a8ef1-945c-4fc9-abe2-5e4e286186aa), [with `true`](https://phpstan.org/r/a2c4e602-b7ec-4f5e-9c72-bdd67800f8f5)
 
 When set to `true`, it reports references to built-in classes with incorrect name case.
 
@@ -360,6 +362,14 @@ When set to `true`, it reports references to built-in classes with incorrect nam
 **example**: [with `false`](https://phpstan.org/r/34e1217e-8ac4-46b9-b753-49916ca74963), [with `true`](https://phpstan.org/r/772bbb00-21f7-4286-8856-f52f45a25c1a)
 
 When set to `true`, it reports violations of parameter type contravariance and return type covariance. By default, PHPStan only reports completely incompatible types in signatures, [see this example](https://phpstan.org/r/65d77b12-3421-48b4-b27c-b76a01a22f98).
+
+### `reportMaybesInPropertyPhpDocTypes`
+
+**default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
+
+**example**: [with `false`](https://phpstan.org/r/b9648bc4-619f-4fe5-8c75-d79b3cd2fc96), [with `true`](https://phpstan.org/r/4e2ad8f5-21b4-4382-a6d9-9a8a33e487a3)
+
+When set to `true`, it reports violations of property type invariance. By default, PHPStan only reports completely incompatible PHPDoc typescheckInternalClassCaseSensitivity, [see this example](https://phpstan.org/r/64857536-abc5-49c6-b7f8-1600df1460cf).
 
 ### `reportStaticMethodSignatures`
 
