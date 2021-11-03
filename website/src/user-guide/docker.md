@@ -8,7 +8,8 @@ It's hosted on [GitHub Container Registry](https://github.com/orgs/phpstan/packa
 
 ## Supported tags
 
-- `0.12`, `latest`
+- `1`, `latest`
+- `0.12`
 - `nightly` (dev-master)
 
 ## Installation
