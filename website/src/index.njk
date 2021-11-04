@@ -68,7 +68,7 @@ pageType: playground
 						</span>
 					<!-- /ko -->
 				<!-- /ko -->
-				<select class="block mt-4 md:mt-0 mx-4 md:mx-0 md:ml-6" data-bind="value: level">
+				<select class="block mt-4 md:mt-0 mx-4 md:mx-0 md:ml-6 rounded-md border border-gray-300" data-bind="value: level">
 					<option value="0">Level 0</option>
 					<option value="1">Level 1</option>
 					<option value="2">Level 2</option>
@@ -82,17 +82,17 @@ pageType: playground
 				</select>
 
 				<label class="inline-flex items-center px-4 mt-4 md:mt-0 ml-0 md:ml-4">
-					<input type="checkbox" data-bind="checked: strictRules">
+					<input type="checkbox" data-bind="checked: strictRules" class="border-gray-300 rounded">
 					<span class="ml-2">Strict rules</span>
 				</label>
 
 				<label class="inline-flex items-center px-4 mt-4 md:mt-0">
-					<input type="checkbox" data-bind="checked: bleedingEdge">
+					<input type="checkbox" data-bind="checked: bleedingEdge" class="border-gray-300 rounded">
 					<span class="ml-2">Bleeding edge</span>
 				</label>
 
 				<label class="inline-flex items-center px-4 mt-4 md:mt-0">
-					<input type="checkbox" data-bind="checked: treatPhpDocTypesAsCertain">
+					<input type="checkbox" data-bind="checked: treatPhpDocTypesAsCertain" class="border-gray-300 rounded">
 					<span class="ml-2">Treat PHPDoc types as certain</span>
 				</label>
 			</div>
