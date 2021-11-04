@@ -225,6 +225,16 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 		const strictRules = typeof json.config.strictRules !== 'undefined' ? json.config.strictRules : false;
 		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true;
+
+		const newResult = await analyseResultInternal(
+			json.code,
+			json.level,
+			strictRules,
+			bleedingEdge,
+			treatPhpDocTypesAsCertain,
+		);
+		const newTabs = createTabs(newResult);
+
 		const bodyJson: any = {
 			code: json.code,
 			errors: json.errors,
@@ -235,16 +245,43 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 				bleedingEdge,
 				treatPhpDocTypesAsCertain,
 			},
-			upToDateTabs: createTabs(await analyseResultInternal(
-				json.code,
-				json.level,
-				strictRules,
-				bleedingEdge,
-				treatPhpDocTypesAsCertain,
-			)),
+			upToDateTabs: newTabs,
 		};
 		if (typeof json.versionedErrors !== 'undefined') {
 			bodyJson.tabs = createTabs(json.versionedErrors);
+
+			const originalPhpVersions: number[] = json.versionedErrors.map((errors: {phpVersion: number, errors: PHPStanError[]}) => {
+				return errors.phpVersion;
+			});
+			const filteredNewResult = newResult.filter((errors) => {
+				return originalPhpVersions.indexOf(errors.phpVersion) !== -1;
+			});
+			const filteredNewTabs = createTabs(filteredNewResult);
+			if (filteredNewTabs.length === newTabs.length) {
+				const firstFilteredNewTab = filteredNewTabs[0];
+				const firstNewTab = newTabs[0];
+				if (firstFilteredNewTab.errors.length === firstNewTab.errors.length) {
+					let isSame = true;
+					for (let i = 0; i < firstFilteredNewTab.errors.length; i++) {
+						const error = firstFilteredNewTab.errors[i];
+						const otherError = firstNewTab.errors[i];
+
+						if (error.line !== otherError.line) {
+							isSame = false;
+							break;
+						}
+
+						if (error.message !== otherError.message) {
+							isSame = false;
+							break;
+						}
+					}
+
+					if (isSame) {
+						bodyJson.upToDateTabs = filteredNewTabs;
+					}
+				}
+			}
 		}
 		return Promise.resolve({
 			statusCode: 200,
