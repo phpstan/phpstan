@@ -126,11 +126,6 @@ function createTabs(versionedErrors: {phpVersion: number, errors: PHPStanError[]
 	versions.sort((a: {versions: number[], errors: PHPStanError[]}, b: {versions: number[], errors: PHPStanError[]}) => {
 		const aVersion = a.versions[a.versions.length - 1];
 		const bVersion = b.versions[b.versions.length - 1];
-		if (aVersion === 80000) {
-			return -1;
-		} else if (bVersion === 80000) {
-			return 1;
-		}
 
 		return bVersion - aVersion;
 	});
