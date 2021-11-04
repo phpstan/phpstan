@@ -1,11 +1,6 @@
 {
+	"extends": "@tsconfig/node14/tsconfig.json",
 	"compilerOptions": {
-		"module": "commonjs",
-		"target": "es6",
-		"lib": [
-			"es6",
-			"dom"
-		],
 		"moduleResolution": "node",
 		"rootDir": "./",
 		"sourceMap": true,
@@ -17,7 +12,6 @@
 		"noImplicitReturns": true,
 		"preserveConstEnums": true,
 		"suppressImplicitAnyIndexErrors": true,
-		"forceConsistentCasingInFileNames": true,
 		"esModuleInterop": true
 	},
 	"exclude": [
