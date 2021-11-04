@@ -188,9 +188,9 @@ foreach ($issuesIterator as $issue) {
 			$issueApi = $client->api('issue');
 			echo sprintf("Posting comment to issue https://github.com/phpstan/phpstan/issues/%d\n", $issue->getNumber());
 
-			/*$issueApi->comments()->create('phpstan', 'phpstan', $issue->getNumber(), [
+			$issueApi->comments()->create('phpstan', 'phpstan', $issue->getNumber(), [
 				'body' => $text,
-			]);*/
+			]);
 		}
 	}, function (\Throwable $e) {
 		echo sprintf("%s: %s\n", get_class($e), $e->getMessage());
