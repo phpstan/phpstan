@@ -1,5 +1,0 @@
-includes:
-	- repo/phpstan.neon.dist
-
-parameters:
-	level: 8
