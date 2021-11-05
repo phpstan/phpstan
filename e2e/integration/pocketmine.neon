@@ -6,7 +6,5 @@ parameters:
 	featureToggles:
 		disableRuntimeReflectionProvider: true
 	phpVersion: 80000
-	ignoreErrors:
-		- "#^Parameter \\#1 \\$string of function substr expects string#"
 	bootstrapFiles:
 		- pocketmine-constants.php
