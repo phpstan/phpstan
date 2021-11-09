@@ -73,10 +73,6 @@ jobs:
         working-directory: ./website
         run: "yarn run build"
 
-      - name: "Fix Knockout.js"
-        working-directory: ./website
-        run: "php fix-js.php"
-
       - name: "Upload website dist"
         uses: actions/upload-artifact@v2
         with:
