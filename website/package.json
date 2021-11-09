@@ -24,7 +24,7 @@
 		"@tailwindcss/typography": "^0.4.1",
 		"@types/jquery": "^3.5.5",
 		"autoprefixer": "^10.3.7",
-		"luxon": "^1.27.0",
+		"luxon": "^2.1.1",
 		"markdown-it-abbr": "^1.0.4",
 		"markdown-it-anchor": "^7.1.0",
 		"markdown-it-footnote": "^3.0.3",
