@@ -21,7 +21,7 @@ docker pull ghcr.io/phpstan/phpstan
 Alternatively, pull a specific version:
 
 ```bash
-docker pull ghcr.io/phpstan/phpstan:0.12
+docker pull ghcr.io/phpstan/phpstan:1
 ```
 
 ## Different PHP version?
