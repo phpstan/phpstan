@@ -53,9 +53,9 @@ Example: `--memory-limit 1G`
 
 ### `--xdebug`
 
-PHPStan turns off XDebug if it's enabled to achieve better performance. It does not accept any value.
+PHPStan turns off XDebug if it's enabled to achieve better performance.
 
-If you need to debug PHPStan itself or your [custom extensions](/developing-extensions/extension-types) and want to run PHPStan with XDebug enabled, pass this option.
+If you need to debug PHPStan itself or your [custom extensions](/developing-extensions/extension-types) and want to run PHPStan with XDebug enabled, pass this option. It does not accept any value.
 
 ### `--debug`
 
