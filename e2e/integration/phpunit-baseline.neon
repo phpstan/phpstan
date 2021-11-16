@@ -6846,11 +6846,6 @@ parameters:
 			path: repo/tests/unit/Framework/MockObject/MockBuilderTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$expected of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertInstanceOf\\(\\) expects class\\-string\\<ACustomClassName\\>, string given\\.$#"
-			count: 1
-			path: repo/tests/unit/Framework/MockObject/MockBuilderTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$classCode of class PHPUnit\\\\Framework\\\\MockObject\\\\MockClass constructor expects string, string\\|false given\\.$#"
 			count: 1
 			path: repo/tests/unit/Framework/MockObject/MockClassTest.php
@@ -7102,11 +7097,6 @@ parameters:
 
 		-
 			message: "#^Class ThisClassDoesNotExist not found\\.$#"
-			count: 1
-			path: repo/tests/unit/Util/Annotation/RegistryTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$class of method PHPUnit\\\\Util\\\\Annotation\\\\Registry\\:\\:forClassName\\(\\) expects class\\-string, string given\\.$#"
 			count: 1
 			path: repo/tests/unit/Util/Annotation/RegistryTest.php
 
