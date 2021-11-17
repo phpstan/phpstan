@@ -71,6 +71,14 @@
             "title": "Type-Specifying Extensions",
             "link": "/developing-extensions/type-specifying-extensions"
         },
+        {
+            "title": "Always-Read and Written Properties",
+            "link": "/developing-extensions/always-read-written-properties"
+        },
+        {
+            "title": "Always-Used Class Constants",
+            "link": "/developing-extensions/always-used-class-constants"
+        },
 		{
 			"title": "Testing",
 			"link": "/developing-extensions/testing"

@@ -151,6 +151,32 @@ For [Doctrine the logic](https://github.com/phpstan/phpstan-doctrine/blob/ecc4ae
 * Property is always read (it doesn't need a getter) if it's a persisted field or association. This is because we might save some data into the database without reading them in the code, only referencing the fields in DQL queries, or maybe having them read directly from the database by another company department.
 * Property is always written (it doesn't need assigning in code) if it's a primary key with a generated value, or if it's a [read-only entity](https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/annotations-reference.html#annref_entity) without a constructor. Records for read-only entities are usually inserted into the database through some other means and are for tables where data doesn't change often.
 
+Always-used class constants
+-----------------------
+
+A similar interface ([`AlwaysUsedClassConstantsExtension`](https://github.com/phpstan/phpstan-src/blob/ee6f540b3343ba8c8f3861c18c5b48de2b057113/src/Rules/Constants/AlwaysUsedClassConstantsExtension.php)) is available to mark private class constants as always-used. This is useful for custom implementations of enums where the only way these constants are read is through reflection.
+
+```php
+use PHPStan\Reflection\ConstantReflection;
+
+interface AlwaysUsedClassConstantsExtension
+{
+
+	public function isAlwaysUsed(ConstantReflection $constant): bool;
+
+}
+```
+
+Register your own implementation of this interface in phpstan.neon:
+
+```yaml
+services:
+	-
+		class: MyApp\PHPStan\ConstantsExtension
+		tags:
+			- phpstan.constants.alwaysUsedClassConstantsExtension
+```
+
 One more thing
 -----------------------
 

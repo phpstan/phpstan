@@ -52,3 +52,17 @@ Type-specifying extensions
 These extensions allow you to specify types of expressions based on certain type-checking function and method calls, like `is_int()` or `self::assertNotNull()`.
 
 [Learn more »](/developing-extensions/type-specifying-extensions)
+
+Always-read and written properties
+-------------------
+
+This extension allows you to mark private properties as always-read and written even if the surrounding code doesn't look like that.
+
+[Learn more »](/developing-extensions/always-read-written-properties)
+
+Always-used class constants
+-------------------
+
+This extension allows you to mark private class constants as always-used even if the surrounding code doesn't look like that.
+
+[Learn more »](/developing-extensions/always-used-class-constants)
