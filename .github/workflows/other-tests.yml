@@ -75,6 +75,7 @@ jobs:
             cd e2e/polyfills
             composer install
             ../../phpstan analyse -l 8 test.php
+            ../../phpstan analyse -l 8 test.php -a test.php
           - |
             cd e2e/composer-file
             composer install
