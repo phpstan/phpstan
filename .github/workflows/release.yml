@@ -19,31 +19,11 @@ jobs:
         uses: "actions/checkout@v2"
 
       - name: "Create release"
-        id: create-release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           draft: true
-
-      - name: "Upload phpstan.phar"
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./phpstan.phar
-          asset_name: phpstan.phar
-          asset_content_type: application/octet-stream
-
-      - name: "Upload phpstan.phar.asc"
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: ./phpstan.phar.asc
-          asset_name: phpstan.phar.asc
-          asset_content_type: application/pgp-signature
+          discussion_category_name: "General"
+          files: |
+            phpstan.phar
+            phpstan.phar.asc
