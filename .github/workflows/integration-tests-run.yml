@@ -1,0 +1,18 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Integration tests"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "master"
+    paths-ignore:
+      - 'issue-bot/**'
+      - 'website/**'
+      - 'playground-api/**'
+      - 'playground-runner/**'
+
+jobs:
+  integration-tests:
+    uses: phpstan/phpstan/.github/workflows/integration-tests.yml@master

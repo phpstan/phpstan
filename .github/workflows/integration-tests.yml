@@ -3,15 +3,7 @@
 name: "Integration tests"
 
 on:
-  pull_request:
-  push:
-    branches:
-      - "master"
-    paths-ignore:
-      - 'issue-bot/**'
-      - 'website/**'
-      - 'playground-api/**'
-      - 'playground-runner/**'
+  workflow_call:
 
 jobs:
   integration-tests:
