@@ -4,6 +4,11 @@ name: "Integration tests"
 
 on:
   workflow_call:
+    inputs:
+      ref:
+        description: 'phpstan/phpstan ref to checkout'
+        required: true
+        type: string
 
 jobs:
   integration-tests:
@@ -81,6 +86,9 @@ jobs:
     steps:
       - name: "Checkout"
         uses: "actions/checkout@v2"
+        with:
+          repository: "phpstan/phpstan"
+          ref: ${{ inputs.ref }}
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
@@ -90,6 +98,11 @@ jobs:
 
       - name: "Install dependencies"
         run: "composer update --no-interaction --no-progress --no-suggest"
+
+      - name: "Download phpstan.phar"
+        uses: actions/download-artifact@v2
+        with:
+          name: phar-file
 
       - name: "Tests"
         run: "${{ matrix.script }}"

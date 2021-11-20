@@ -14,5 +14,18 @@ on:
       - 'playground-runner/**'
 
 jobs:
+  upload-phar:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: phar-file
+          path: phpstan.phar
   integration-tests:
+    needs: upload-phar
     uses: phpstan/phpstan/.github/workflows/integration-tests.yml@master
+    with:
+      ref: ${{ github.ref }}
