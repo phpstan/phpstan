@@ -26,7 +26,7 @@ interface PropertiesClassReflectionExtension
 }
 ```
 
-Most likely you will also have to implement a new class implementing the [`PropertyReflection`](https://github.com/phpstan/phpstan-src/blob/master/src/Reflection/PropertyReflection.php) interface:
+Most likely you will also have to create a new class implementing the [`PropertyReflection`](https://github.com/phpstan/phpstan-src/blob/master/src/Reflection/PropertyReflection.php) interface:
 
 ```php
 namespace PHPStan\Reflection;
