@@ -10,6 +10,7 @@ export class MerchBannerViewModel {
 		const countDownDate = new Date(1637621999 * 1000).getTime(); // 'Nov 22, 2021 23:59:59' Europe/Prague
 		const currentDistance = countDownDate - (new Date().getTime());
 		if (currentDistance < 0) {
+			this.countdownText('The sale has ended.');
 			return;
 		}
 

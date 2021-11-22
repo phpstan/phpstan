@@ -29,6 +29,7 @@ type TShirtView = 'front' | 'back';
 
 export class MerchSaleViewModel {
 
+	canBuy: boolean;
 	countries: Country[];
 	tShirtTypes: TShirtType[];
 	colors: TShirtColor[];
@@ -98,6 +99,9 @@ export class MerchSaleViewModel {
 		countries.sort((a: Country, b: Country) => {
 			return a.country_name.localeCompare(b.country_name);
 		});
+		const endDate = new Date(1637621999 * 1000).getTime(); // 'Nov 22, 2021 23:59:59' Europe/Prague
+		this.canBuy = (endDate - (new Date().getTime())) > 0;
+
 		this.countries = countries;
 		this.tShirtTypes = [
 			{id: 'be46f470-235d-4522-87fa-6df97da342f7', htmlClass: 'bg-blue-800', name: 'Blue T-Shirt (straight cut)', price: 25, style: 'Straight', sizes: ['S', 'M', 'L', 'XL', 'XXL', '3XL']},

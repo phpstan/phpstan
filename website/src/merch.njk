@@ -344,7 +344,9 @@ ogImage: /tmp/images/og-merch.jpg
           <!-- /ko -->
 
           <div class="mt-3 flex sm:flex-col1">
+          <!-- ko if: canBuy -->
             <button type="submit" class="sm:max-w-sm lg:max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 sm:w-full">Add to cart</button>
+          <!-- /ko -->
           </div>
         </form>
       </div>
@@ -395,7 +397,9 @@ ogImage: /tmp/images/og-merch.jpg
           <!-- /ko -->
 
           <div class="mt-3 flex sm:flex-col1">
+          <!-- ko if: canBuy -->
             <button type="submit" class="sm:max-w-sm lg:max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 sm:w-full">Add to cart</button>
+          <!-- /ko -->
           </div>
         </form>
       </div>
@@ -403,9 +407,15 @@ ogImage: /tmp/images/og-merch.jpg
 
     <h2 class="sr-only">Checkout</h2>
 
-    <div class="mx-auto max-w-lg text-center mt-10 mb-10 text-gray-600 text-sm" data-bind="visible: isCartEmpty()">Cart will appear here once you add something to it.</div>
+    <!-- ko if: canBuy -->
+      <div class="mx-auto max-w-lg text-center mt-10 mb-10 text-gray-600 text-sm" data-bind="visible: isCartEmpty()">Cart will appear here once you add something to it.</div>
+    <!-- /ko -->
 
-    <form class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16 mt-16" data-bind="visible: !isCartEmpty(), submit: confirmOrder">
+    <!-- ko ifnot: canBuy -->
+      <div class="mx-auto max-w-lg text-center mt-10 mb-10 text-gray-600 text-sm">The sale has ended.</div>
+    <!-- /ko -->
+
+    <form class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16 mt-16" data-bind="visible: !isCartEmpty() && canBuy, submit: confirmOrder">
       <!-- Order summary -->
       <div class="mt-10 lg:mt-0 px-4">
         <h2 class="text-lg font-medium text-gray-900">Order summary</h2>
