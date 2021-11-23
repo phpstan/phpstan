@@ -587,21 +587,6 @@ export class MerchSaleViewModel {
 		try {
 			const jsonString = window.localStorage.getItem('phpstan-merch');
 			if (jsonString === null) {
-				$.ajax({
-					type: 'POST',
-					url: 'https://merch-api.phpstan.org/user-country',
-					contentType: 'application/json; charset=utf-8',
-					dataType: 'json',
-				}).done((result) => {
-					for (const country of this.countries) {
-						if (result.country !== country.country_code) {
-							continue;
-						}
-
-						this.billingCountry(result.country);
-						return;
-					}
-				});
 				return;
 			}
 
