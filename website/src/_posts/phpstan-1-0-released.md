@@ -2,7 +2,6 @@
 title: "PHPStan 1.0 Released!"
 date: 2021-11-01
 tags: releases
-hideMerchBanner: true
 ogImage: /tmp/images/phpstan-1-0.png
 ---
 

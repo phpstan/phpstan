@@ -2,7 +2,6 @@ import $ from 'jquery';
 import * as ko from 'knockout';
 import { MerchSaleViewModel } from './MerchSaleViewModel';
 import { MainMenuViewModel } from './MainMenuViewModel';
-import { MerchBannerViewModel } from './MerchBannerViewModel';
 
 $(async () => {
 
@@ -13,7 +12,6 @@ $(async () => {
 			hasFatalError: false,
 			mainMenu: new MainMenuViewModel(),
 			merchSale: new MerchSaleViewModel(),
-			merchBanner: new MerchBannerViewModel(true),
 		});
 	} catch (e) {
 		console.log(e);
