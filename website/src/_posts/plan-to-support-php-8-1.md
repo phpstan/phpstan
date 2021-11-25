@@ -16,7 +16,7 @@ So what's the current situation? Since 1.0 PHPStan was able to run on PHP 8.1 wi
 
 What remains to be implemented are new rules for `readonly` properties, update [stubs](https://github.com/phpstan/php-8-stubs) of changed function signatures, some miscellaneous things, and [enums](https://wiki.php.net/rfc/enumerations).
 
-While all the other features were a mere checklist items, enums are a project. A big project. The todolist now consists of approximately 40 items. It's now my priority to finish support for enums and I expect to work on it throughout the whole month of December. It's possible that at some point during development I'll consider the support as not complete, but sufficient, and release something half-way so that developers eager to use enums in their codebase can take advantage of them as soon as possible.
+While all the other features were a mere checklist items, enums are a project. A big project. The todolist now consists of approximately 40 items. It's my priority to finish support for enums and I expect to work on it throughout the whole month of December. It's possible that at some point during development I'll consider the support as not complete, but sufficient, and release something half-way so that developers eager to use enums in their codebase can take advantage of them as soon as possible.
 
 ---
 
