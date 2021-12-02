@@ -23,7 +23,7 @@ However, there are some advanced scenarios that might require some additional co
 Third party code outside of Composer dependencies
 ---------------------------
 
-If your project uses some code that isn't part of your Composer dependencies, but you don't wish to analyse it, you can take advantage of `scanFiles` and `scanDirectories` config options:
+If your project uses some code that isn't part of your Composer dependencies, but you wish to analyse it, you can take advantage of `scanFiles` and `scanDirectories` config options:
 
 ```yaml
 parameters:
