@@ -48,7 +48,7 @@ jobs:
           - |
             git clone https://github.com/nextras/orm.git e2e/integration/repo
             cd e2e/integration/repo
-            git checkout eff1b557836fd964fbc9d0c1022bcf49545476e8
+            git checkout ab1c6f18b610954062b35829959492ca711b99ca
             composer install
             ../../../phpstan.phar analyse -c .phpstan.neon
         include:
