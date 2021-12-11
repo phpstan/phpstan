@@ -132,16 +132,16 @@
         },
         {
             "name": "bref/bref",
-            "version": "1.2.13",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/bref.git",
-                "reference": "1bcd6bc50cb0696cf5dafc6ad8a4a09ad7f82fd0"
+                "reference": "c75867be52e65d3f54eec63c3c970956181d9bae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/bref/zipball/1bcd6bc50cb0696cf5dafc6ad8a4a09ad7f82fd0",
-                "reference": "1bcd6bc50cb0696cf5dafc6ad8a4a09ad7f82fd0",
+                "url": "https://api.github.com/repos/brefphp/bref/zipball/c75867be52e65d3f54eec63c3c970956181d9bae",
+                "reference": "c75867be52e65d3f54eec63c3c970956181d9bae",
                 "shasum": ""
             },
             "require": {
@@ -152,14 +152,14 @@
                 "mnapoli/silly": "^1.7",
                 "nyholm/psr7": "^1.2",
                 "php": ">=7.3.0",
-                "psr/container": "^1.0",
+                "psr/container": "^1.0|^2.0",
                 "psr/http-message": "^1.0",
                 "psr/http-server-handler": "^1.0",
                 "riverline/multipart-parser": "^2.0.6",
-                "symfony/filesystem": "^3.1|^4.0|^5.0",
-                "symfony/http-client": "^4.4|^5.0",
-                "symfony/process": "^3.3|^4.0|^5.0",
-                "symfony/yaml": "^3.1|^4.0|^5.0"
+                "symfony/filesystem": "^3.1|^4.0|^5.0|^6.0",
+                "symfony/http-client": "^4.4|^5.0|^6.0",
+                "symfony/process": "^4.2|^5.0|^6.0",
+                "symfony/yaml": "^3.1|^4.0|^5.0|^6.0"
             },
             "require-dev": {
                 "async-aws/core": "^1.0",
@@ -194,7 +194,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brefphp/bref/issues",
-                "source": "https://github.com/brefphp/bref/tree/1.2.13"
+                "source": "https://github.com/brefphp/bref/tree/1.4.1"
             },
             "funding": [
                 {
@@ -206,7 +206,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-08-30T08:06:15+00:00"
+            "time": "2021-12-07T12:26:08+00:00"
         },
         {
             "name": "clue/stream-filter",
