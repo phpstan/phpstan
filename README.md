@@ -53,6 +53,8 @@ can be checked before you run the actual line.
 <a href="https://craftcms.com/"><img src="https://i.imgur.com/xJWThke.png" alt="Craft CMS" width="283" height="64"></a>
 <br>
 <a href="https://www.worksome.com/"><img src="https://i.imgur.com/TQKSwOl.png" alt="Worksome" width="283" height="64"></a>
+&nbsp;&nbsp;&nbsp;
+<a href="https://www.campoint.net/"><img src="https://i.imgur.com/fR6eMUm.png" alt="campoint AG" width="283" height="64"></a>
 
 [**You can now sponsor my open-source work on PHPStan through GitHub Sponsors.**](https://github.com/sponsors/ondrejmirtes)
 
