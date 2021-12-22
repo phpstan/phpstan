@@ -13,8 +13,8 @@
         "symfony/yaml": "4.4.*"
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.12.30"
-    },
+		"phpstan/phpstan": "^1.0"
+	},
     "config": {
         "preferred-install": {
             "*": "dist"

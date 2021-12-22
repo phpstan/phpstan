@@ -1,6 +1,6 @@
 {
 	"autoload": {"classmap": ["src"]},
 	"require": {
-		"phpstan/phpstan": "^0.12.56"
+		"phpstan/phpstan": "^1.0"
 	}
 }
