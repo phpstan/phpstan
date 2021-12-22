@@ -102,7 +102,9 @@ jobs:
           - |
             cd e2e/name-conflict
             composer install
-            cp ../../phpstan vendor/bin/phpstan
+            cp ../../phpstan vendor/phpstan/phpstan/phpstan
+            cp ../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+            cp ../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
             vendor/bin/phpstan analyse -l 8 src/
           - |
             cd e2e/excludePaths
@@ -142,7 +144,9 @@ jobs:
             script: |
               cd e2e/name-conflict
               composer install
-              cp ../../phpstan vendor/bin/phpstan
+              cp ../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpstan analyse -l 8 src/
           - php-version: 7.3
             extensions: opcache
