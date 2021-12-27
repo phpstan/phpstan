@@ -141,7 +141,7 @@ Read more about these features in the [Generics guide](/blog/generics-in-php-usi
 Third party code
 ======================
 
-The above-mentioned ways of solving this problem can't be usually applied if the class you're typehinting comes from 3rd party code. Fortunately PHPStan comes with the [stub files](/user-guide/discovering-symbols) feature which is designed to override PHPDocs in 3rd party code.
+The above-mentioned ways of solving this problem can't be usually applied if the class you're typehinting comes from 3rd party code. Fortunately PHPStan comes with the [stub files](/user-guide/stub-files) feature which is designed to override PHPDocs in 3rd party code.
 
 Ignoring this error
 ======================
