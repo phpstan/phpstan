@@ -30,6 +30,7 @@ Each type that we can encounter in PHP language and [in PHPDocs](/writing-php-co
 | `callable`                    | `PHPStan\Type\CallableType`                          |
 | `iterable`                    | `PHPStan\Type\IterableType`                          |
 | `never`                       | `PHPStan\Type\NeverType`                             |
+| Enum case (Foo::LOREM)        | `PHPStan\Type\Enum\EnumCaseObjectType`               |
 
 
 In some cases PHPStan knows about the literal value of an expression. These classes implement the `PHPStan\Type\ConstantType` interface:
