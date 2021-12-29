@@ -31,6 +31,8 @@ If you already use the baseline, the path to the baseline file should match the 
 
 Please note that the exit code differs in this case. Exit code 0 means that the baseline generation was successful and the baseline is not empty. If there are no errors that the baseline would consist of, the exit code is 1.
 
+By default PHPStan will not generate an empty baseline. However you can pass `--allow-empty-baseline` alongside `--generate-baseline` to allow an empty baseline file to be generated.
+
 ### `--autoload-file|-a`
 
 If your application uses a custom autoloader, you should set it up and register in a PHP file that is passed to this CLI option. Relative paths are resolved based on the current working directory.
