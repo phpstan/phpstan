@@ -19,7 +19,7 @@
 		"@parcel/packager-xml": "^2.0.0",
 		"@parcel/transformer-raw": "^2.0.0",
 		"@parcel/transformer-xml": "^2.0.0",
-		"@tailwindcss/aspect-ratio": "^0.3.0",
+		"@tailwindcss/aspect-ratio": "^0.4.0",
 		"@tailwindcss/forms": "^0.3.4",
 		"@tailwindcss/typography": "^0.4.1",
 		"@types/jquery": "^3.5.5",
