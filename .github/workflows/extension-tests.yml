@@ -67,7 +67,7 @@ jobs:
           extensions: soap
 
       - name: "Install dependencies"
-        run: "composer update --no-interaction --no-progress --no-suggest --ignore-platform-reqs"
+        run: "composer update --no-interaction --no-progress --ignore-platform-reqs"
 
       - name: "Download phpstan.phar"
         uses: actions/download-artifact@v2

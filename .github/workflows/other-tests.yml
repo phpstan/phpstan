@@ -181,7 +181,7 @@ jobs:
         run: sudo phpdismod -v ${{ matrix.php-version }} mongodb
 
       - name: "Install dependencies"
-        run: "composer update --no-interaction --no-progress --no-suggest"
+        run: "composer update --no-interaction --no-progress"
 
       - name: "Tests"
         run: "${{ matrix.script }}"

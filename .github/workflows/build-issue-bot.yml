@@ -35,7 +35,7 @@ jobs:
 
       - name: "Install PHP dependencies"
         working-directory: ./issue-bot
-        run: "composer install --no-interaction --no-progress --no-suggest"
+        run: "composer install --no-interaction --no-progress"
 
       - name: "Script"
         working-directory: ./issue-bot

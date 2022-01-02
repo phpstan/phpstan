@@ -97,7 +97,7 @@ jobs:
           php-version: "${{ matrix.php-version }}"
 
       - name: "Install dependencies"
-        run: "composer update --no-interaction --no-progress --no-suggest"
+        run: "composer update --no-interaction --no-progress"
 
       - name: "Download phpstan.phar"
         uses: actions/download-artifact@v2
