@@ -4,6 +4,11 @@ name: "Extension tests"
 
 on:
   pull_request:
+    paths-ignore:
+      - 'issue-bot/**'
+      - 'website/**'
+      - 'playground-api/**'
+      - 'playground-runner/**'
   push:
     branches:
       - "master"
