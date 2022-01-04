@@ -66,14 +66,6 @@ jobs:
           ini-values: memory_limit=384M
           extensions: soap
 
-      - name: "Downgrade PHPUnit"
-        if: matrix.extension-name == 'phpstan-doctrine' && (matrix.php-version == '7.1' || matrix.php-version == '7.2' || matrix.php-version == '7.3')
-        run: "composer require --dev phpunit/phpunit:^7.5.20 --no-update --update-with-dependencies"
-
-      - name: "Downgrade Doctrine ORM"
-        if:  matrix.extension-name == 'phpstan-doctrine' && (matrix.php-version == '7.1')
-        run: "composer require --dev doctrine/orm:^2.7.5 doctrine/lexer:^1.0 --no-update --update-with-dependencies"
-
       - name: "Install dependencies"
         run: "composer update --no-interaction --no-progress --ignore-platform-reqs"
 
