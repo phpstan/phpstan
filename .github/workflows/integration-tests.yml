@@ -82,6 +82,13 @@ jobs:
               git checkout ceadf6ea68c5ef316abfc618879f2cf9290e45b3
               composer install
               ../../../phpstan.phar analyse
+          - php-version: 8.0
+            script: |
+              git clone https://github.com/Roave/BetterReflection.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout d2b412d80adc01d3e37e411f87d7505940925077
+              composer install
+              ../../../phpstan.phar
 
     steps:
       - name: "Checkout"
