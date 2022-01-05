@@ -525,7 +525,7 @@ parameters:
     phpVersion: 70400 # PHP 7.4
 ```
 
-PHPStan will automatically infer the `composer.platform.php` version from the last `composer.json` file it can find, if not configured in the PHPStan configuration file.
+PHPStan will automatically infer the `config.platform.php` version from the last `composer.json` file it can find, if not configured in the PHPStan configuration file.
 
 ### `inferPrivatePropertyTypeFromConstructor`
 
