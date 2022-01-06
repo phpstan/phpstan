@@ -130,6 +130,61 @@ function bar(string $name): void
 }
 ```
 
+You can also use `static` in generic to reffer the current class. This is useful in traits implementations:
+
+```php
+/**
+ * @template T
+ **/
+class Factory {
+    /**
+     * @var class-string<T>
+     */
+    public $className;
+
+    /**
+     * @return T
+     */
+    public function createInstance()
+    {
+        // ...
+    }
+}
+
+trait HasFactory {
+    // Here you are using `static` to be `Person`, `Animal` or any class that use this trait
+    /**
+     * @return Factory<static>
+     */
+    public static factory(): Factory
+    {
+        // . . .
+    }
+}
+
+
+class Person {
+    use HasFactory;
+
+    public $lastname;
+}
+
+class Animal {
+    use HasFactory;
+
+    public ?Person $owner
+}
+
+//...
+
+$person = Person::factory()->createInstance();
+$animal = Animal::factory()->createInstance();
+
+echo $person->lastName; // No type error
+
+$animal->owner = $person; // No type error
+```
+
 Other advanced string types
 -------------------------
 
