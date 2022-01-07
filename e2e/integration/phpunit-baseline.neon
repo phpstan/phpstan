@@ -5386,11 +5386,6 @@ parameters:
 			path: repo/tests/_files/TestableCliTestDoxPrinter.php
 
 		-
-			message: "#^Property PHPUnit\\\\TestFixture\\\\TestableCliTestDoxPrinter\\:\\:\\$buffer is never written, only read\\.$#"
-			count: 1
-			path: repo/tests/_files/TestableCliTestDoxPrinter.php
-
-		-
 			message: "#^Interface PHPUnit\\\\TestFixture\\\\TraversableMockTestInterface extends generic interface Traversable but does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: repo/tests/_files/TraversableMockTestInterface.php
