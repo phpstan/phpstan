@@ -69,6 +69,7 @@ Unofficial extensions
 * [moneyphp/money](https://github.com/JohnstonCode/phpstan-moneyphp)
 * [Nextras ORM](https://github.com/nextras/orm-phpstan)
 * [Sonata](https://github.com/ekino/phpstan-sonata)
+* [Magento](https://github.com/bitExpert/phpstan-magento)
 
 3rd party rules
 -----------------
