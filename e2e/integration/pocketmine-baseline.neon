@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Property pocketmine\\\\Player\\:\\:\\$needACK is never read, only written\\.$#"
+			count: 1
+			path: repo/src/pocketmine/Player.php
+
