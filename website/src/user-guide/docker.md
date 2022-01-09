@@ -4,7 +4,7 @@ title: Docker
 
 The image is based on [Alpine Linux](https://alpinelinux.org/) and updated automatically.
 
-It's hosted on [GitHub Container Registry](https://github.com/orgs/phpstan/packages/container/package/phpstan).
+It's hosted on [GitHub Container Registry](https://github.com/phpstan/phpstan/pkgs/container/phpstan).
 
 ## Supported tags
 
