@@ -133,9 +133,13 @@ function bar(string $name): void
 Other advanced string types
 -------------------------
 
-There's also `callable-string`, `numeric-string`, and `non-empty-string`.
+`callable-string` is a string that PHP considers a valid [`callable`](https://www.php.net/manual/en/language.types.callable.php).
 
-Security-focused `literal-string` inspired by [`is_literal()` RFC](https://wiki.php.net/rfc/is_literal) is also available.
+`numeric-string` is a string that would pass an [`is_numeric()`](https://www.php.net/manual/en/function.is-numeric.php) check.
+
+`non-empty-string` is any string except `''`. It does _not_ mean "empty" in the weird sense used by [`empty()`](https://www.php.net/manual/en/function.empty.php).
+
+Security-focused `literal-string` is inspired by the [`is_literal()` RFC](https://wiki.php.net/rfc/is_literal). In short, it means a string that is either written by a developer or composed only of developer-written strings.
 
 Global type aliases
 -------------------------
