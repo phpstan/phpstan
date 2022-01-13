@@ -2181,6 +2181,11 @@ parameters:
 			path: repo/src/Framework/TestSuite.php
 
 		-
+			message: "#^Property PHPUnit\\\\Framework\\\\TestSuite\\:\\:\\$groups \\(array\\<string, array\\<int, PHPUnit\\\\Framework\\\\Test\\>\\>\\) does not accept array\\<int\\|string, array\\<int, PHPUnit\\\\Framework\\\\Test\\>\\>\\.$#"
+			count: 2
+			path: repo/src/Framework/TestSuite.php
+
+		-
 			message: "#^Result of && is always false\\.$#"
 			count: 1
 			path: repo/src/Framework/TestSuite.php
@@ -2381,7 +2386,7 @@ parameters:
 			path: repo/src/Runner/PhptTestCase.php
 
 		-
-			message: "#^Parameter \\#1 \\$string of function rtrim expects string, int\\|string given\\.$#"
+			message: "#^Parameter \\#1 \\$string of function rtrim expects string, int\\<1, max\\>\\|string given\\.$#"
 			count: 1
 			path: repo/src/Runner/PhptTestCase.php
 
@@ -3326,12 +3331,12 @@ parameters:
 			path: repo/src/Util/ErrorHandler.php
 
 		-
-			message: "#^Array \\(array\\<string\\>\\) does not accept string\\|false\\.$#"
-			count: 2
+			message: "#^Parameter \\#1 \\$path of function dirname expects string, string\\|false given\\.$#"
+			count: 1
 			path: repo/src/Util/ExcludeList.php
 
 		-
-			message: "#^Parameter \\#1 \\$path of function dirname expects string, string\\|false given\\.$#"
+			message: "#^Static property PHPUnit\\\\Util\\\\ExcludeList\\:\\:\\$directories \\(array\\<string\\>\\) does not accept array\\<bool\\|string\\>\\.$#"
 			count: 1
 			path: repo/src/Util/ExcludeList.php
 
@@ -3381,11 +3386,6 @@ parameters:
 			path: repo/src/Util/Json.php
 
 		-
-			message: "#^Array \\(array\\<int\\>\\) does not accept float\\.$#"
-			count: 1
-			path: repo/src/Util/Log/JUnit.php
-
-		-
 			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\Test\\:\\:getName\\(\\)\\.$#"
 			count: 2
 			path: repo/src/Util/Log/JUnit.php
@@ -3417,6 +3417,11 @@ parameters:
 
 		-
 			message: "#^Property PHPUnit\\\\Util\\\\Log\\\\JUnit\\:\\:\\$currentTestCase \\(DOMElement\\) does not accept null\\.$#"
+			count: 1
+			path: repo/src/Util/Log/JUnit.php
+
+		-
+			message: "#^Property PHPUnit\\\\Util\\\\Log\\\\JUnit\\:\\:\\$testSuiteTimes \\(array\\<int\\>\\) does not accept array\\<float\\|int\\>\\.$#"
 			count: 1
 			path: repo/src/Util/Log/JUnit.php
 
@@ -3802,6 +3807,11 @@ parameters:
 
 		-
 			message: "#^Property PHPUnit\\\\Util\\\\TestDox\\\\TestDoxPrinter\\:\\:\\$originalExecutionOrder type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/Util/TestDox/TestDoxPrinter.php
+
+		-
+			message: "#^Property PHPUnit\\\\Util\\\\TestDox\\\\TestDoxPrinter\\:\\:\\$testNameResultIndex \\(array\\<string, int\\>\\) does not accept array\\<int\\|string, int\\>\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/TestDoxPrinter.php
 
@@ -4729,16 +4739,6 @@ parameters:
 			message: "#^Property PHPUnit\\\\TestFixture\\\\FinalClass\\:\\:\\$value has no type specified\\.$#"
 			count: 1
 			path: repo/tests/_files/FinalClass.php
-
-		-
-			message: "#^Call to an undefined method Bar\\:\\:doSomethingElse\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/_files/Foo.php
-
-		-
-			message: "#^Method Foo\\:\\:doSomething\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/tests/_files/Foo.php
 
 		-
 			message: "#^Method PHPUnit\\\\TestFixture\\\\FunctionCallbackWrapper\\:\\:functionCallback\\(\\) has no return type specified\\.$#"
@@ -7366,7 +7366,7 @@ parameters:
 			path: repo/tests/unit/Util/TestClassTest.php
 
 		-
-			message: "#^Offset int\\<min, 8\\> does not exist on array\\|null\\.$#"
+			message: "#^Offset int\\<0, 8\\> does not exist on array\\|null\\.$#"
 			count: 6
 			path: repo/tests/unit/Util/TestClassTest.php
 
