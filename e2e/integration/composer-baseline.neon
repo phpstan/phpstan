@@ -16,9 +16,29 @@ parameters:
 			path: repo/src/Composer/DependencyResolver/RuleSet.php
 
 		-
+			message: "#^Only booleans are allowed in &&, int\\<0, max\\> given on the left side\\.$#"
+			count: 1
+			path: repo/src/Composer/DependencyResolver/Solver.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, int\\<0, max\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/DependencyResolver/Solver.php
+
+		-
 			message: "#^Property Composer\\\\IO\\\\BaseIO\\:\\:\\$authentications \\(array\\<string, array\\{username\\: string, password\\: string\\}\\>\\) does not accept non\\-empty\\-array\\<string, array\\{username\\: string, password\\: string\\|null\\}\\>\\.$#"
 			count: 1
 			path: repo/src/Composer/IO/BaseIO.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, int\\<0, max\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Installer.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, int\\<min, 2\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Json/JsonFile.php
 
 		-
 			message: "#^Offset 'string' does not exist on array\\{added\\?\\: array\\<string\\>, changed\\?\\: array\\<string\\>, removed\\?\\: array\\<string\\>, string\\?\\: non\\-empty\\-array\\<int, non\\-empty\\-string\\>\\}\\.$#"
@@ -34,6 +54,11 @@ parameters:
 			message: "#^Property Composer\\\\Repository\\\\ArrayRepository\\:\\:\\$packages \\(array\\<Composer\\\\Package\\\\BasePackage\\>\\|null\\) does not accept array\\<Composer\\\\Package\\\\PackageInterface\\>\\.$#"
 			count: 1
 			path: repo/src/Composer/Repository/ArrayRepository.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, int\\<min, 2\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Repository/ComposerRepository.php
 
 		-
 			message: "#^Property Composer\\\\Repository\\\\ComposerRepository\\:\\:\\$partialPackagesByName \\(array\\<string, Composer\\\\Package\\\\PackageInterface\\>\\|null\\) does not accept array\\<string, array\\<int, mixed\\>\\|Composer\\\\Package\\\\PackageInterface\\>\\.$#"
