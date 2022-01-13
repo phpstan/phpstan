@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Property Nextras\\\\Orm\\\\Collection\\\\DbalCollection\\<E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\:\\:\\$result \\(array\\<int, E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\|null\\) does not accept array\\<int, Nextras\\\\Orm\\\\Entity\\\\IEntity\\|null\\>\\.$#"
+			count: 1
+			path: repo/src/Collection/DbalCollection.php
+
