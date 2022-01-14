@@ -1096,6 +1096,11 @@ parameters:
 			path: repo/src/Framework/Assert/Functions.php
 
 		-
+			message: "#^Unable to resolve the template type CallbackInput in call to method static method PHPUnit\\\\Framework\\\\Assert\\:\\:callback\\(\\)$#"
+			count: 1
+			path: repo/src/Framework/Assert/Functions.php
+
+		-
 			message: "#^Method PHPUnit\\\\Framework\\\\Constraint\\\\Count\\:\\:getCountOf\\(\\) has parameter \\$other with no type specified\\.$#"
 			count: 1
 			path: repo/src/Framework/Constraint/Cardinality/Count.php
