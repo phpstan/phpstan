@@ -17,6 +17,7 @@ Each type that we can encounter in PHP language and [in PHPDocs](/writing-php-co
 | `Foo` (object of class `Foo`) | `PHPStan\Type\ObjectType`                            |
 | `Foo<T>`                      | `PHPStan\Type\Generic\GenericObjectType`             |
 | `object`                      | `PHPStan\Type\ObjectWithoutClassType`                |
+| `array`                       | `PHPStan\Type\ArrayType`                             |
 | `int`                         | `PHPStan\Type\IntegerType`                           |
 | Integer interval              | `PHPStan\Type\IntegerRangeType`                      |
 | `float`                       | `PHPStan\Type\FloatType`                             |
