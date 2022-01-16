@@ -1,0 +1,24 @@
+name: Tweet release
+
+# More triggers
+# https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#release
+on:
+  release:
+    types: [published]
+
+jobs:
+  tweet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Eomm/why-don-t-you-tweet@v1
+        if: ${{ !github.event.repository.private }}
+        with:
+          # GitHub event payload
+          # https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#release
+          tweet-message: "New release: PHPStan ${{ github.event.release.tag_name }} ${{ github.event.release.html_url }} #phpstan"
+        env:
+          # Get your tokens from https://developer.twitter.com/apps
+          TWITTER_CONSUMER_API_KEY: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+          TWITTER_CONSUMER_API_SECRET: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
+          TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+          TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
