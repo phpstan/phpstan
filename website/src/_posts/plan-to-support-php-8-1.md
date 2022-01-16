@@ -16,7 +16,9 @@ So what's the current situation? Since 1.0 PHPStan was able to run on PHP 8.1 wi
 
 [PHPStan 1.3](https://github.com/phpstan/phpstan/releases/tag/1.3.0) brought support for enums.
 
-What remains to be implemented are new rules for `readonly` properties, update [stubs](https://github.com/phpstan/php-8-stubs) of changed function signatures, and some miscellaneous things.
+[PHPStan 1.4](https://github.com/phpstan/phpstan/releases/tag/1.4.0) brought support for readonly properties.
+
+What remains to be updated are [stubs](https://github.com/phpstan/php-8-stubs) of changed function signatures, and some miscellaneous things.
 
 ---
 
