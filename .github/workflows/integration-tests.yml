@@ -42,6 +42,12 @@ jobs:
             git checkout 4edfc4957494ec272899a8916f3f245c59c86d05
             composer install
             ../../../phpstan.phar analyse -c ../nextras.neon
+          - |
+            git clone https://github.com/bitExpert/phpstan-magento.git e2e/integration/repo
+            cd e2e/integration/repo
+            git checkout f845cd4dbdc49d2e005ec2646176ddfcf7d55d38
+            composer install
+            ../../../phpstan.phar analyse -c ../magento.neon
         include:
           - php-version: 8.1
             script: |
