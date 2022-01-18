@@ -128,6 +128,10 @@ jobs:
             cd e2e/phpstan-issue-4953
             composer install
             ../../phpstan
+          - |
+            cd e2e/api-platform-trait
+            composer install
+            ../../phpstan analyse -l 9 test.php
         include:
           - php-version: 8.0
             ini-values: memory_limit=256M

@@ -1,0 +1,9 @@
+{
+	"require": {
+		"api-platform/core": "^2.6",
+		"phpstan/phpstan": "^1.4",
+		"symfony/framework-bundle": "^5.4",
+		"phpunit/phpunit": "^9.5",
+		"symfony/http-client": "^5.4"
+	}
+}
