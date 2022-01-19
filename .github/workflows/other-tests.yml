@@ -132,6 +132,9 @@ jobs:
             cd e2e/api-platform-trait
             composer install
             ../../phpstan analyse -l 9 test.php
+          - |
+            cd e2e/attribute-74
+            ../../phpstan analyse -l 9 test.php -c test.neon
         include:
           - php-version: 8.0
             ini-values: memory_limit=256M
