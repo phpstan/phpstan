@@ -23,13 +23,13 @@ jobs:
           - 7.4
         script:
           - |
-            git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
+            git clone --filter=blob:none https://github.com/nunomaduro/larastan.git e2e/integration/repo
             cd e2e/integration/repo
             git checkout 48a09d12b1e6e9f22b81af370d44bbf91883cebe
             composer install
             ../../../phpstan.phar analyse -c ../larastan.neon
           - |
-            git clone https://github.com/slevomat/coding-standard.git e2e/integration/repo
+            git clone --filter=blob:none https://github.com/slevomat/coding-standard.git e2e/integration/repo
             cd e2e/integration/repo
             git checkout c6282eefa680e3c982ea41a8df4ce2e5402eed6a
             composer install
@@ -37,13 +37,13 @@ jobs:
             ../../../phpstan.phar analyse -c ../slevomat-cs.neon -l 7 SlevomatCodingStandard
             ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon -l 7 tests
           - |
-            git clone https://github.com/nextras/orm.git e2e/integration/repo
+            git clone --filter=blob:none https://github.com/nextras/orm.git e2e/integration/repo
             cd e2e/integration/repo
             git checkout 4edfc4957494ec272899a8916f3f245c59c86d05
             composer install
             ../../../phpstan.phar analyse -c ../nextras.neon
           - |
-            git clone https://github.com/bitExpert/phpstan-magento.git e2e/integration/repo
+            git clone --filter=blob:none https://github.com/bitExpert/phpstan-magento.git e2e/integration/repo
             cd e2e/integration/repo
             git checkout f845cd4dbdc49d2e005ec2646176ddfcf7d55d38
             composer install
@@ -51,7 +51,7 @@ jobs:
         include:
           - php-version: 8.1
             script: |
-              git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
+              git clone --filter=blob:none https://github.com/rectorphp/rector-src.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout a82a18edd366575db60151880ca44f1a8c2a0120
               cp ../rector-composer.lock composer.lock
@@ -59,7 +59,7 @@ jobs:
               ../../../phpstan.phar analyse -c ../rector.neon
           - php-version: 8.0
             script: |
-              git clone https://github.com/sebastianbergmann/phpunit.git e2e/integration/repo
+              git clone --filter=blob:none https://github.com/sebastianbergmann/phpunit.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout 9.5.6
               export COMPOSER_ROOT_VERSION=9.5.6
@@ -67,28 +67,28 @@ jobs:
               ../../../phpstan.phar analyse -l 8 -c ../phpunit.neon src tests
           - php-version: 8.0
             script: |
-              git clone https://github.com/pmmp/PocketMine-MP.git e2e/integration/repo
+              git clone --filter=blob:none https://github.com/pmmp/PocketMine-MP.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout e0b07ff3087b652407439a29c941f3b66ca92c86
               composer install --ignore-platform-reqs
               ../../../phpstan.phar analyse -c ../pocketmine.neon --memory-limit=2G
           - php-version: 8.0
             script: |
-              git clone https://github.com/laravel/framework.git e2e/integration/repo
+              git clone --filter=blob:none https://github.com/laravel/framework.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout ceadf6ea68c5ef316abfc618879f2cf9290e45b3
               composer install
               ../../../phpstan.phar analyse
           - php-version: 8.1
             script: |
-              git clone https://github.com/Roave/BetterReflection.git e2e/integration/repo
+              git clone --filter=blob:none https://github.com/Roave/BetterReflection.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout 50970c323d45c6b69d20eb620e03980374aac3dd
               composer install
               ../../../phpstan.phar
           - php-version: 8.1
             script: |
-              git clone https://github.com/composer/composer.git e2e/integration/repo
+              git clone --filter=blob:none https://github.com/composer/composer.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout b9c368a9c3146a9b4b7b387bbd4fba4c80b8e3b7
               composer install

@@ -34,7 +34,7 @@ jobs:
         script:
           - |
             cd e2e
-            git clone https://github.com/nikic/PHP-Parser.git
+            git clone --filter=blob:none https://github.com/nikic/PHP-Parser.git
             cd PHP-Parser
             git checkout v3.1.5
             composer install

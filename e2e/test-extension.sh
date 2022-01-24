@@ -4,7 +4,7 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-git clone https://github.com/phpstan/$1.git extension
+git clone --filter=blob:none https://github.com/phpstan/$1.git extension
 cd extension
 
 if [[ "$PHP_VERSION" == "7.1" || "$PHP_VERSION" == "7.2" ]]; then
