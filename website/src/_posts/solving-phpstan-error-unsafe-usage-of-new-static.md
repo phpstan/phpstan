@@ -39,7 +39,7 @@ So the PHPStan rule protects you from accidentally breaking your code when exten
 Let's go over possible solutions:
 
 Make the class final
-========================
+------------------------
 
 This is the easiest course of action - you might realize you actually don't want the class to be extended and it's been open for inheritance by mistake. Once you make the class final, the error is no longer reported. At that point you can also change `new static()` and make it just `new self()` without changing the functionality.
 
@@ -51,7 +51,7 @@ final class Foo
 ```
 
 Make the constructor final
-========================
+------------------------
 
 If you want the class open for extension, you can disallow overriding the constructor in child classes and make the code safe that way.
 
@@ -60,7 +60,7 @@ final public function __construct(int $i) { }
 ```
 
 Make the constructor abstract
-========================
+------------------------
 
 Signatures of abstract constructors are enforced in child classes. The disadvantage of this approach is that the child class must define its own constructor, it cannot inherit the parent one.
 
@@ -69,7 +69,7 @@ abstract public function __construct(int $i);
 ```
 
 Enforce constructor signature through an interface
-========================
+------------------------
 
 Making the constructor abstract can be also achieved by an interface while keeping the implementation in the parent class. Child classes don't have to define their own constructor, they'll inherit the parent one, but in case they define their own constructor, its signature will be enforced by PHP (and PHPStan).
 
