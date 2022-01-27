@@ -11,7 +11,7 @@ I'll leave the job of describing [all the new features and changes](https://php.
 Make sure you have [PHPStan 0.12.57](https://github.com/phpstan/phpstan/releases/tag/0.12.57) or later installed before you start experimenting with PHP 8! 💪
 
 Match expression
-======================
+------------------------
 
 [Ambitious language feature](https://wiki.php.net/rfc/match_expression_v2) from PHPStan contributor Ilija Tovilo that aims to be a better alternative to a switch statement.
 
@@ -35,7 +35,7 @@ function foo(int $i): void {
 ```
 
 Named arguments
-======================
+------------------------
 
 I'm a big fan of [named arguments](https://stitcher.io/blog/php-8-named-arguments). They will make function calls with multiple arguments more clear [^moreArguments].
 
@@ -66,7 +66,7 @@ When a named argument is used in the function call, it's much nicer to show this
 So that's what PHPStan does.
 
 Changed function signatures
-======================
+------------------------
 
 Some functions changed their signatures, for example `curl_*` functions no longer return resource, [but a `CurlHandle` object](https://php.watch/versions/8.0/resource-CurlHandle). Many functions have removed `false` from possible returned values and [throw `ValueError` instead](https://php.watch/versions/8.0/ValueError).
 
@@ -79,7 +79,7 @@ It wasn't straightforward to start using those stubs, because they don't contain
 Also, I didn't want to lose other metadata we already have in [functionMap.php](https://github.com/phpstan/phpstan-src/blob/3e956033ad718b56c607f026bd670613db02f151/resources/functionMap.php), like what value types are in typehinted arrays, or callback signatures. So in the end all of this information is merged together in the final definitions used during the analysis.
 
 Constructor property promotion
-======================
+------------------------
 
 I really like [this feature](https://php.watch/versions/8.0/constructor-property-promotion), because it decreases the number of times an injected property name needs to mentioned from 4 to 1. A lot of boilerplate will be simplified.
 
@@ -92,7 +92,7 @@ Since the Twitter poll ended with 74 %/26 % split, I decided to implement both v
 PHPStan will also check that you [haven't declared](https://phpstan.org/r/3c1a5fd2-8157-4808-8485-fd4035bd8f5b) duplicate properties with the same name, and that you haven't tried to write a promoted property in [another method than constructor](https://phpstan.org/r/83420326-6076-479b-a6f3-68761c3a101a) (which isn't a parse error).
 
 Nullsafe operator
-======================
+------------------------
 
 Adding support for [this one](https://wiki.php.net/rfc/nullsafe_operator) (also by Ilija Tovilo) was more work than I originally expected. [PHP-Parser](https://github.com/nikic/php-parser) added two new AST nodes to represent this operator: `NullsafeMethodCall` and `NullsafePropertyFetch`. So I had to go through all the code where the usual `MethodCall` and `PropertyFetch` nodes are mentioned[^mostCommon] and make sure it also makes sense for handling the nullsafe variants.
 
@@ -114,7 +114,7 @@ And the nullsafe operator cannot be used with [parameters passed by reference](h
 As I said - a lot of work 😅
 
 $object::class
-======================
+------------------------
 
 PHP 7 allows you to get a string with a class name with `Foo::class`. PHP 8 allows you to access `::class` on an object.
 
@@ -123,7 +123,7 @@ PHP 7 allows you to get a string with a class name with `Foo::class`. PHP 8 allo
 During the implementation I found out that the accessed variable cannot be a string, so PHPStan also [checks for that](https://phpstan.org/r/d4fd58ab-064a-4c4d-850d-239242e92bab).
 
 Attributes
-======================
+------------------------
 
 After finally [deciding on the syntax](https://wiki.php.net/rfc/shorter_attribute_syntax_change#voting), attributes have a bright future ahead. I'm especially looking forward to using them as part of Doctrine ORM entities instead of current PHPDoc-based annotations.
 
@@ -138,7 +138,7 @@ PHPStan provides the following checks related to attributes:
 * Non-repeatable attribute class cannot occur multiple times above the same element ([playground example](https://phpstan.org/r/b94dc461-5b9b-42d5-a4c6-c1dc33f44d91))
 
 New Docker image
-=========================
+------------------------
 
 If you prefer to run PHPStan through Docker, I recommend you to switch to a new image hosted in GitHub Container Registry: `ghcr.io/phpstan/phpstan`
 

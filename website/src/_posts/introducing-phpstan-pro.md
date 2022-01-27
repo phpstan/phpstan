@@ -11,7 +11,7 @@ I'm really excited to show everyone what I've been working on for the past 9 mon
 With PHPStan Pro you'll be able to sift through reported errors and fix them much faster. There are three parts that will enable that:
 
 Web UI for browsing errors
-============
+------------------------
 
 When you launch PHPStan Pro by adding `--pro` flag to the `analyse` command, it will automatically open your web browser with its user interface:
 
@@ -41,7 +41,7 @@ What's important to mention in this day and age of privacy nightmares and data l
 </p>
 
 Continuous analysis (watch mode)
-============
+------------------------
 
 Once you fix all the found errors and achieve [Error Zero](https://twitter.com/OndrejMirtes/status/1301760838144004098), PHPStan Pro keeps running in the background, watching files, and re-running analysis each time it detects a change. There's a loading indicator in the lower right corner for that:
 
@@ -52,7 +52,7 @@ Once you fix all the found errors and achieve [Error Zero](https://twitter.com/O
 Continuous analysis reflects and supports my preferred workflow when developing applications: when I realize that I have to pass an additional new value through multiple layers of a codebase, I start by changing method signatures – renaming them, adding parameters, changing return typehints. After that, I run PHPStan which essentially gives me a todo list of places to fix. But running PHPStan several times a minute to get instant feedback can become tedious. Having a persistent window that refreshes automatically and gives me an up-to-date view of the project is much nicer.
 
 Interactive fixer
-============
+------------------------
 
 During workshops and conference talks I often get questions about automatic fixing of found errors. I had been refusing this idea for a long time because there isn't a sole obvious fix for most of them. For example, if you have access to an undefined property, what should be the fix?
 
@@ -73,7 +73,7 @@ If you for example fix a missing return typehint of a function that returns inte
 And of course, some errors have obvious fixes, so they can be applied with a single click without having to choose from multiple alternatives.
 
 Pricing
-===============
+------------------------
 
 I want to address the [elephpant](https://elephpant.me/) in the room. As the name suggests, PHPStan Pro is a paid add-on for the free open-source PHPStan project.
 
@@ -96,7 +96,7 @@ If you decide to pay annually, you'll get PHPStan Pro for 12&nbsp;months for the
 There's a 30-day free trial period for all the plans. And there's no limit on the number of projects - you can run PHPStan Pro on any code you have on your computer.
 
 Start today!
-===============
+------------------------
 
 Make sure you have at least PHPStan 0.12.45 and launch PHPStan Pro by running the usual `analyse` command with one of these options:
 

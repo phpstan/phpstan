@@ -19,7 +19,7 @@ function foo(array $items): void
 How to solve this error depends on what type has been used.
 
 Arrays
-======================
+------------------------
 
 Solving this for arrays is straightforward - PHPStan needs to know what the array consists of. You can tell PHPStan the types of values and also keys in various ways in PHPDoc:
 
@@ -53,7 +53,7 @@ If your codebase makes use of [arrays of various specific shapes](/writing-php-c
 * `array{foo: int, bar: string}` (quotes around array keys aren't necessary)
 
 Iterable objects
-======================
+------------------------
 
 The error is also reported for these cases:
 
@@ -139,12 +139,12 @@ function foo(Collection $items): void
 Read more about these features in the [Generics guide](/blog/generics-in-php-using-phpdocs).
 
 Third party code
-======================
+------------------------
 
 The above-mentioned ways of solving this problem can't be usually applied if the class you're typehinting comes from 3rd party code. Fortunately PHPStan comes with the [stub files](/user-guide/stub-files) feature which is designed to override PHPDocs in 3rd party code.
 
 Ignoring this error
-======================
+------------------------
 
 PHPStan understands that not everyone wants to dive into solving these errors when they first increase the [rule level](/user-guide/rule-levels) to level 6 so it offers a [config parameter](https://phpstan.org/config-reference#vague-typehints) to disable this check:
 
