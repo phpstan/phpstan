@@ -53,7 +53,7 @@ jobs:
             script: |
               git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout a82a18edd366575db60151880ca44f1a8c2a0120
+              git checkout 303ecc342da1484619c4f875ad67850feeb4b52b
               cp ../rector-composer.lock composer.lock
               composer install
               ../../../phpstan.phar analyse -c ../rector.neon
