@@ -2036,11 +2036,6 @@ parameters:
 			path: repo/src/Framework/TestResult.php
 
 		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\Test\\:\\:getSize\\(\\)\\.$#"
-			count: 3
-			path: repo/src/Framework/TestResult.php
-
-		-
 			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\Test\\:\\:hasOutput\\(\\)\\.$#"
 			count: 1
 			path: repo/src/Framework/TestResult.php
@@ -2103,11 +2098,6 @@ parameters:
 		-
 			message: "#^Property PHPUnit\\\\Framework\\\\TestResult\\:\\:\\$passed type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: repo/src/Framework/TestResult.php
-
-		-
-			message: "#^Variable \\$_timeout might not be defined\\.$#"
-			count: 2
 			path: repo/src/Framework/TestResult.php
 
 		-
@@ -3736,6 +3726,11 @@ parameters:
 			path: repo/src/Util/TestDox/NamePrettifier.php
 
 		-
+			message: "#^Method PHPUnit\\\\Util\\\\TestDox\\\\NamePrettifier\\:\\:prettifyTestClass\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: repo/src/Util/TestDox/NamePrettifier.php
+
+		-
 			message: "#^Method PHPUnit\\\\Util\\\\TestDox\\\\ResultPrinter\\:\\:__construct\\(\\) has parameter \\$excludeGroups with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/ResultPrinter.php
@@ -4044,11 +4039,6 @@ parameters:
 			message: "#^Property PHPUnit\\\\TestFixture\\\\BankAccountWithCustomExtensionTest\\:\\:\\$ba has no type specified\\.$#"
 			count: 1
 			path: repo/tests/_files/BankAccountTest.test.php
-
-		-
-			message: "#^Property PHPUnit\\\\TestFixture\\\\BankAccountTest\\:\\:\\$ba has no type specified\\.$#"
-			count: 1
-			path: repo/tests/_files/BankAccountTest2.php
 
 		-
 			message: "#^Property PHPUnit\\\\TestFixture\\\\BeforeAndAfterTest\\:\\:\\$afterWasRun has no type specified\\.$#"
@@ -5556,6 +5546,11 @@ parameters:
 			path: repo/tests/_files/mock-object/ReinitializeConfigurableMethods.php
 
 		-
+			message: "#^Parameter \\#1 \\$json of function json_decode expects string, string\\|false given\\.$#"
+			count: 1
+			path: repo/tests/bootstrap.php
+
+		-
 			message: "#^Property PHPUnit\\\\Test\\\\Extension\\:\\:\\$amountOfInjectedArguments has no type specified\\.$#"
 			count: 1
 			path: repo/tests/end-to-end/_files/Extension.php
@@ -5659,11 +5654,6 @@ parameters:
 			message: "#^Method Issue1337Test\\:\\:testProvider\\(\\) has parameter \\$a with no type specified\\.$#"
 			count: 1
 			path: repo/tests/end-to-end/regression/GitHub/1337/Issue1337Test.php
-
-		-
-			message: "#^Property Issue1351Test\\:\\:\\$instance has no type specified\\.$#"
-			count: 1
-			path: repo/tests/end-to-end/regression/GitHub/1351/Issue1351Test.php
 
 		-
 			message: "#^Method Issue2137Test\\:\\:provideBrandService\\(\\) has no return type specified\\.$#"
@@ -7417,7 +7407,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$className of method PHPUnit\\\\Util\\\\TestDox\\\\NamePrettifier\\:\\:prettifyTestClass\\(\\) expects class\\-string, string given\\.$#"
-			count: 6
+			count: 8
 			path: repo/tests/unit/Util/TestDox/NamePrettifierTest.php
 
 		-
