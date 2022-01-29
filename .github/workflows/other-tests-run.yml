@@ -1,0 +1,36 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Other tests"
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'issue-bot/**'
+      - 'website/**'
+      - 'playground-api/**'
+      - 'playground-runner/**'
+  push:
+    branches:
+      - "master"
+    paths-ignore:
+      - 'issue-bot/**'
+      - 'website/**'
+      - 'playground-api/**'
+      - 'playground-runner/**'
+
+jobs:
+  upload-phar:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: phar-file
+          path: phpstan.phar
+  other-tests:
+    needs: upload-phar
+    uses: phpstan/phpstan/.github/workflows/other-tests.yml@master
+    with:
+      ref: ${{ github.ref }}
