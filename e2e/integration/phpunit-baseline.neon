@@ -1601,12 +1601,22 @@ parameters:
 			path: repo/src/Framework/MockObject/Rule/Parameters.php
 
 		-
+			message: "#^Property PHPUnit\\\\Framework\\\\MockObject\\\\Rule\\\\Parameters\\:\\:\\$invocation is never read, only written\\.$#"
+			count: 1
+			path: repo/src/Framework/MockObject/Rule/Parameters.php
+
+		-
 			message: "#^Property PHPUnit\\\\Framework\\\\MockObject\\\\Rule\\\\Parameters\\:\\:\\$parameterVerificationResult \\(bool\\|PHPUnit\\\\Framework\\\\ExpectationFailedException\\) does not accept null\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/Rule/Parameters.php
 
 		-
 			message: "#^Property PHPUnit\\\\Framework\\\\MockObject\\\\Rule\\\\Parameters\\:\\:\\$parameterVerificationResult \\(bool\\|PHPUnit\\\\Framework\\\\ExpectationFailedException\\) in isset\\(\\) is not nullable\\.$#"
+			count: 1
+			path: repo/src/Framework/MockObject/Rule/Parameters.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/Rule/Parameters.php
 
@@ -5471,8 +5481,13 @@ parameters:
 			path: repo/tests/_files/mock-object/AnotherClassUsingConfigurableMethods.php
 
 		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/tests/_files/mock-object/AnotherClassUsingConfigurableMethods.php
+
+		-
 			message: "#^Unsafe access to private property PHPUnit\\\\TestFixture\\\\MockObject\\\\AnotherClassUsingConfigurableMethods\\:\\:\\$__phpunit_configurableMethods through static\\:\\:\\.$#"
-			count: 4
+			count: 3
 			path: repo/tests/_files/mock-object/AnotherClassUsingConfigurableMethods.php
 
 		-
@@ -5496,8 +5511,13 @@ parameters:
 			path: repo/tests/_files/mock-object/ClassUsingConfigurableMethods.php
 
 		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/tests/_files/mock-object/ClassUsingConfigurableMethods.php
+
+		-
 			message: "#^Unsafe access to private property PHPUnit\\\\TestFixture\\\\MockObject\\\\ClassUsingConfigurableMethods\\:\\:\\$__phpunit_configurableMethods through static\\:\\:\\.$#"
-			count: 4
+			count: 3
 			path: repo/tests/_files/mock-object/ClassUsingConfigurableMethods.php
 
 		-
@@ -5521,8 +5541,13 @@ parameters:
 			path: repo/tests/_files/mock-object/MockClassWithConfigurableMethods.php
 
 		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/tests/_files/mock-object/MockClassWithConfigurableMethods.php
+
+		-
 			message: "#^Unsafe access to private property PHPUnit\\\\TestFixture\\\\MockObject\\\\MockClassWithConfigurableMethods\\:\\:\\$__phpunit_configurableMethods through static\\:\\:\\.$#"
-			count: 4
+			count: 3
 			path: repo/tests/_files/mock-object/MockClassWithConfigurableMethods.php
 
 		-
@@ -5541,8 +5566,13 @@ parameters:
 			path: repo/tests/_files/mock-object/ReinitializeConfigurableMethods.php
 
 		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/tests/_files/mock-object/ReinitializeConfigurableMethods.php
+
+		-
 			message: "#^Unsafe access to private property PHPUnit\\\\TestFixture\\\\MockObject\\\\ReinitializeConfigurableMethods\\:\\:\\$__phpunit_configurableMethods through static\\:\\:\\.$#"
-			count: 3
+			count: 2
 			path: repo/tests/_files/mock-object/ReinitializeConfigurableMethods.php
 
 		-
