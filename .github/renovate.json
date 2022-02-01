@@ -5,6 +5,10 @@
   "rangeStrategy": "update-lockfile",
   "packageRules": [
     {
+      "matchPackagePatterns": ["*"],
+      "enabled": false
+    },
+    {
       "matchPaths": ["+(composer.json)"],
       "enabled": true,
       "groupName": "website"
