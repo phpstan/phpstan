@@ -11,6 +11,11 @@ parameters:
 			path: repo/src/pocketmine/block/Liquid.php
 
 		-
+			message: "#^Parameter \\#2 \\$length of function array_chunk expects int\\<1, max\\>, int given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/command/defaults/HelpCommand.php
+
+		-
 			message: "#^Static property pocketmine\\\\entity\\\\Entity\\:\\:\\$saveNames \\(array\\<class\\-string\\<pocketmine\\\\entity\\\\Entity\\>, string\\>\\) does not accept array\\<class\\-string\\<pocketmine\\\\entity\\\\Entity\\>, bool\\|string\\>\\.$#"
 			count: 1
 			path: repo/src/pocketmine/entity/Entity.php
