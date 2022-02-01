@@ -20,7 +20,7 @@
 	},
 	"devDependencies": {
 		"@tsconfig/node14": "^1.0.1",
-		"@types/aws-lambda": "^8.10.76",
+		"@types/aws-lambda": "^8.10.92",
 		"@types/node": "^15.6.1",
 		"@types/uuid": "^8.3.0",
 		"serverless": "^2.63.0",
