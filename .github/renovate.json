@@ -1,11 +1,8 @@
 {
   "extends": [
-    "config:base",
-    "schedule:monthly",
-    ":prConcurrentLimit10"
+    "config:base"
   ],
   "rangeStrategy": "update-lockfile",
-  "rollbackPrs": true,
   "packageRules": [
     {
       "matchPaths": ["+(composer.json)"],
