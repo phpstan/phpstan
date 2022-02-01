@@ -1,0 +1,40 @@
+{
+	"extends": [
+		"config:base",
+		"schedule:monthly",
+		":prConcurrentLimit10"
+	],
+	"rangeStrategy": "update-lockfile",
+	"rollbackPrs": true,
+	"packageRules": [
+		{
+			"matchPackagePatterns": ["*"],
+			"enabled": false
+		},
+		{
+			"matchPaths": ["website/**"],
+			"enabled": true,
+			"groupName": "website"
+		},
+		{
+			"matchPaths": ["playground-api/**"],
+			"enabled": true,
+			"groupName": "playground-api"
+		},
+		{
+			"matchPaths": ["playground-runner/**"],
+			"enabled": true,
+			"groupName": "playground-runner"
+		},
+		{
+			"matchPaths": ["issue-bot/**"],
+			"enabled": true,
+			"groupName": "issue-bot"
+		},
+		{
+			"matchPaths": [".github/**"],
+			"enabled": true,
+			"groupName": "github-actions"
+		}
+	]
+}
