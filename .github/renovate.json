@@ -4,6 +4,7 @@
 		"schedule:monthly",
 		":prConcurrentLimit10"
 	],
+	"repositories": ["phpstan/phpstan"],
 	"rangeStrategy": "update-lockfile",
 	"rollbackPrs": true,
 	"packageRules": [
