@@ -23,7 +23,7 @@
 		"@tailwindcss/forms": "^0.3.4",
 		"@tailwindcss/typography": "^0.4.1",
 		"@types/jquery": "^3.5.5",
-		"autoprefixer": "^10.3.7",
+		"autoprefixer": "^10.4.2",
 		"luxon": "^1.27.0",
 		"markdown-it-abbr": "^1.0.4",
 		"markdown-it-anchor": "^7.1.0",
