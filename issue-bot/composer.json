@@ -8,7 +8,7 @@
 		"php-http/client-common": "^2.3",
 		"php-http/discovery": "^1.13",
 		"sebastian/diff": "^4.0",
-		"league/commonmark": "^1.5"
+		"league/commonmark": "^2.0"
 	},
 	"autoload": {
 		"psr-4": {
@@ -20,7 +20,7 @@
 	"require-dev": {
 		"phpunit/phpunit": "^9.5",
 		"consistence-community/coding-standard": "^3.10",
-		"slevomat/coding-standard": "^6.4",
+		"slevomat/coding-standard": "^7.0",
 		"dealerdirect/phpcodesniffer-composer-installer": "^0.7.1"
 	}
 }
