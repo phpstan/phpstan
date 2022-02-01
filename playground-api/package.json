@@ -22,7 +22,7 @@
 		"@tsconfig/node14": "^1.0.1",
 		"@types/aws-lambda": "^8.10.76",
 		"@types/node": "^15.6.1",
-		"@types/uuid": "^8.3.0",
+		"@types/uuid": "^8.3.4",
 		"serverless": "^2.63.0",
 		"serverless-offline": "7.0.0",
 		"serverless-plugin-typescript": "^1.1.9",
