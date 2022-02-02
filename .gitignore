@@ -4,6 +4,7 @@
 /e2e/composer.lock
 /e2e/vendor
 /vendor
-/.idea
+/.idea/*
+!.idea/icon.png
 /tests/tmp
 /tests/.phpunit.result.cache
