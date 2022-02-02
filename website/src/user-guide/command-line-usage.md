@@ -23,7 +23,7 @@ Specifies the [rule level](/user-guide/rule-levels) to run.
 
 Specifies the path to a [configuration file](/config-reference). Relative paths are resolved based on the current working directory.
 
-### `--generate-baseline`
+### `--generate-baseline|-b`
 
 Generates [the baseline](/user-guide/baseline) to a file. Accepts a path (`--generate-baseline foo.neon`) which defaults to `phpstan-baseline.neon`. Relative paths are resolved based on the current working directory.
 
