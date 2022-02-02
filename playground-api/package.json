@@ -12,7 +12,7 @@
 	"author": "",
 	"license": "MIT",
 	"dependencies": {
-		"@sentry/node": "^5.29.2",
+		"@sentry/node": "^6.0.0",
 		"ansi-to-html": "^0.7.0",
 		"aws-sdk": "^2.918.0",
 		"middy": "^0.36.0",
@@ -21,11 +21,11 @@
 	"devDependencies": {
 		"@tsconfig/node14": "^1.0.1",
 		"@types/aws-lambda": "^8.10.76",
-		"@types/node": "^15.6.1",
+		"@types/node": "^16.0.0",
 		"@types/uuid": "^8.3.0",
-		"serverless": "^2.63.0",
-		"serverless-offline": "7.1.0",
-		"serverless-plugin-typescript": "^1.1.9",
+		"serverless": "^3.0.0",
+		"serverless-offline": "8.4.0",
+		"serverless-plugin-typescript": "^2.0.0",
 		"tslint": "^6.1.3",
 		"typescript": "^4.3.2"
 	}
