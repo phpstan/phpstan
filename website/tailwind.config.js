@@ -14,18 +14,12 @@ module.exports = {
 		require('@tailwindcss/typography'),
 		require('@tailwindcss/aspect-ratio'),
 	],
-	purge: {
-		enabled: true,
-		content: [
-			'./tmp/*.html',
-			'./tmp/user-guide/*.html',
-			'./tmp/developing-extensions/*.html',
-			'./tmp/blog.html',
-			'./tmp/blog/*.html',
-			'./tmp/js/PlaygroundTabViewModel.ts',
-		],
-		options: {
-			whitelistPatterns: [/algolia/, /searchbox/, /littlefoot/],
-		}
-	},
+	content: [
+		'./tmp/*.html',
+		'./tmp/user-guide/*.html',
+		'./tmp/developing-extensions/*.html',
+		'./tmp/blog.html',
+		'./tmp/blog/*.html',
+		'./tmp/js/PlaygroundTabViewModel.ts',
+	]
 }
