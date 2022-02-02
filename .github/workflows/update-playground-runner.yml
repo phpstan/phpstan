@@ -27,15 +27,22 @@ jobs:
         with:
           node-version: "16"
 
+      - name: "Cache dependencies"
+        uses: "actions/cache@v2"
+        with:
+          path: "$(yarn cache dir)"
+          key: "${{ runner.os }}-yarn-${{ hashFiles('playground-runner/**/yarn.lock') }}"
+          restore-keys: "${{ runner.os }}-yarn-"
+
+      - name: "Install dependencies"
+        working-directory: ./playground-runner
+        run: "yarn install"
+
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
           coverage: "none"
           php-version: "8.1"
-
-      - name: "Install Serverless"
-        working-directory: ./playground-runner
-        run: "sudo npm install -g serverless@2.63.0"
 
       - name: "Install PHP dependencies"
         working-directory: ./playground-runner
@@ -58,7 +65,7 @@ jobs:
           AWS_DEFAULT_REGION: "eu-west-1"
           AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
-        run: "serverless deploy"
+        run: "yarn run deploy"
 
       - name: "Get PHPStan version"
         working-directory: ./playground-runner
