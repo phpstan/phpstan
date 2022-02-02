@@ -11,7 +11,7 @@
     {
       "matchPaths": ["+(composer.json)"],
       "enabled": true,
-      "groupName": "website"
+      "groupName": "root-composer"
     },
     {
       "matchPaths": ["website/**"],
