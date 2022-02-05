@@ -40,7 +40,7 @@ Global constants
 
 Global constants used in the analysed code need to be defined in bootstrap files.
 
-Create a file a that looks like this:
+Create a file that looks like this:
 
 ```php
 <?php
@@ -63,7 +63,7 @@ Class aliases
 
 This is similar to global constants above. Class aliases used in the analysed code need to be defined in bootstrap files.
 
-Create a file a that looks like this:
+Create a file that looks like this:
 
 ```php
 <?php
