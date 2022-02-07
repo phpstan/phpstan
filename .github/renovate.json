@@ -30,11 +30,6 @@
       "groupName": "playground-runner"
     },
     {
-      "matchPaths": ["issue-bot/**"],
-      "enabled": true,
-      "groupName": "issue-bot"
-    },
-    {
       "matchPaths": [".github/**"],
       "enabled": true,
       "groupName": "github-actions"
