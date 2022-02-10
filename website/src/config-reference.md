@@ -37,16 +37,17 @@ vendor/bin/phpstan analyse -c phpstan.neon
 
 When using a config file, you have to pass the `--level|-l` option to `analyse` command (default value `0` does not apply here), or provide it as a `level` parameter in the config file itself. [Learn more about other command line options »](/user-guide/command-line-usage)
 
-If you do not provide a config file explicitly, PHPStan will look for files named `phpstan.neon` or `phpstan.neon.dist` in current directory.
+If you do not provide a config file explicitly, PHPStan will look for files named `phpstan.neon`, `phpstan.neon.dist`, or `phpstan.dist.neon` in the current directory.
 
 The resolution priority is as such:
 
 1. If config file is provided as a command line option, it will be used.
 2. Otherwise, if `phpstan.neon` exists in the current working directory, it will be used.
 3. Otherwise, if `phpstan.neon.dist` exists in the current working directory, it will be used.
-4. If none of the above is true, no config will be used.
+4. Otherwise, if `phpstan.dist.neon` exists in the current working directory, it will be used.
+5. If none of the above is true, no config will be used.
 
-The usual practice is to have `phpstan.neon.dist` under version control, and allow the user to override certain settings in their environment (on their own computer or on a continuous integration server) by creating `phpstan.neon` that's present in `.gitignore` file. See [Multiple files](#multiple-files) for more details:
+The usual practice is to have `phpstan.neon.dist` or `phpstan.dist.neon` under version control, and allow the user to override certain settings in their environment (on their own computer or on a continuous integration server) by creating `phpstan.neon` that's present in `.gitignore` file. See [Multiple files](#multiple-files) for more details:
 
 Multiple files
 ---------------------
