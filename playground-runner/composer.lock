@@ -132,16 +132,16 @@
         },
         {
             "name": "bref/bref",
-            "version": "1.5.3",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/bref.git",
-                "reference": "7593c2f36477cd410b4894ab0c7586d966758938"
+                "reference": "f6ceb5ed3bd5f10ca82bbec8895228d4ca9afbc1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/bref/zipball/7593c2f36477cd410b4894ab0c7586d966758938",
-                "reference": "7593c2f36477cd410b4894ab0c7586d966758938",
+                "url": "https://api.github.com/repos/brefphp/bref/zipball/f6ceb5ed3bd5f10ca82bbec8895228d4ca9afbc1",
+                "reference": "f6ceb5ed3bd5f10ca82bbec8895228d4ca9afbc1",
                 "shasum": ""
             },
             "require": {
@@ -194,7 +194,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brefphp/bref/issues",
-                "source": "https://github.com/brefphp/bref/tree/1.5.3"
+                "source": "https://github.com/brefphp/bref/tree/1.5.4"
             },
             "funding": [
                 {
@@ -206,7 +206,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-03T09:24:53+00:00"
+            "time": "2022-02-18T13:14:07+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -2668,12 +2668,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Mbstring\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
