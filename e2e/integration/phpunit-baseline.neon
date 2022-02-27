@@ -1106,11 +1106,6 @@ parameters:
 			path: repo/src/Framework/Constraint/Cardinality/Count.php
 
 		-
-			message: "#^Method PHPUnit\\\\Framework\\\\Constraint\\\\Count\\:\\:getCountOfGenerator\\(\\) has parameter \\$generator with no value type specified in iterable type Generator\\.$#"
-			count: 1
-			path: repo/src/Framework/Constraint/Cardinality/Count.php
-
-		-
 			message: "#^Method PHPUnit\\\\Framework\\\\Constraint\\\\SameSize\\:\\:__construct\\(\\) has parameter \\$expected with no value type specified in iterable type iterable\\.$#"
 			count: 1
 			path: repo/src/Framework/Constraint/Cardinality/SameSize.php
@@ -1736,11 +1731,6 @@ parameters:
 			path: repo/src/Framework/TestBuilder.php
 
 		-
-			message: "#^Method PHPUnit\\\\Framework\\\\TestBuilder\\:\\:buildDataProviderTestSuite\\(\\) return type has no value type specified in iterable type PHPUnit\\\\Framework\\\\DataProviderTestSuite\\.$#"
-			count: 1
-			path: repo/src/Framework/TestBuilder.php
-
-		-
 			message: "#^Method PHPUnit\\\\Framework\\\\TestBuilder\\:\\:buildTestWithoutData\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: repo/src/Framework/TestBuilder.php
@@ -2011,16 +2001,6 @@ parameters:
 			path: repo/src/Framework/TestCase.php
 
 		-
-			message: "#^Method PHPUnit\\\\Framework\\\\TestListener\\:\\:endTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Framework/TestListener.php
-
-		-
-			message: "#^Method PHPUnit\\\\Framework\\\\TestListener\\:\\:startTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Framework/TestListener.php
-
-		-
 			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\Test\\:\\:addToAssertionCount\\(\\)\\.$#"
 			count: 2
 			path: repo/src/Framework/TestResult.php
@@ -2061,22 +2041,12 @@ parameters:
 			path: repo/src/Framework/TestResult.php
 
 		-
-			message: "#^Method PHPUnit\\\\Framework\\\\TestResult\\:\\:endTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Framework/TestResult.php
-
-		-
 			message: "#^Method PHPUnit\\\\Framework\\\\TestResult\\:\\:passed\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Framework/TestResult.php
 
 		-
 			message: "#^Method PHPUnit\\\\Framework\\\\TestResult\\:\\:passedClasses\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/Framework/TestResult.php
-
-		-
-			message: "#^Method PHPUnit\\\\Framework\\\\TestResult\\:\\:startTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
 			count: 1
 			path: repo/src/Framework/TestResult.php
 
@@ -2161,11 +2131,6 @@ parameters:
 			path: repo/src/Framework/TestSuite.php
 
 		-
-			message: "#^Method PHPUnit\\\\Framework\\\\TestSuite\\:\\:getIterator\\(\\) return type has no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: repo/src/Framework/TestSuite.php
-
-		-
 			message: "#^Method PHPUnit\\\\Framework\\\\TestSuite\\:\\:setGroupDetails\\(\\) has parameter \\$groups with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Framework/TestSuite.php
@@ -2201,16 +2166,6 @@ parameters:
 			path: repo/src/Framework/TestSuiteIterator.php
 
 		-
-			message: "#^Method PHPUnit\\\\Framework\\\\TestSuiteIterator\\:\\:__construct\\(\\) has parameter \\$testSuite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Framework/TestSuiteIterator.php
-
-		-
-			message: "#^Method PHPUnit\\\\Runner\\\\BaseTestRunner\\:\\:getTest\\(\\) return type has no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Runner/BaseTestRunner.php
-
-		-
 			message: "#^Method PHPUnit\\\\Runner\\\\BaseTestRunner\\:\\:loadSuiteClass\\(\\) return type with generic class ReflectionClass does not specify its types\\: T$#"
 			count: 1
 			path: repo/src/Runner/BaseTestRunner.php
@@ -2227,16 +2182,6 @@ parameters:
 
 		-
 			message: "#^Method PHPUnit\\\\Runner\\\\Filter\\\\Factory\\:\\:addFilter\\(\\) has parameter \\$filter with generic class ReflectionClass but does not specify its types\\: T$#"
-			count: 1
-			path: repo/src/Runner/Filter/Factory.php
-
-		-
-			message: "#^Method PHPUnit\\\\Runner\\\\Filter\\\\Factory\\:\\:factory\\(\\) has parameter \\$iterator with no value type specified in iterable type Iterator\\.$#"
-			count: 1
-			path: repo/src/Runner/Filter/Factory.php
-
-		-
-			message: "#^Method PHPUnit\\\\Runner\\\\Filter\\\\Factory\\:\\:factory\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
 			count: 1
 			path: repo/src/Runner/Filter/Factory.php
 
@@ -2261,11 +2206,6 @@ parameters:
 			path: repo/src/Runner/Filter/GroupFilterIterator.php
 
 		-
-			message: "#^Method PHPUnit\\\\Runner\\\\Filter\\\\GroupFilterIterator\\:\\:__construct\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Runner/Filter/GroupFilterIterator.php
-
-		-
 			message: "#^Method PHPUnit\\\\Runner\\\\Filter\\\\GroupFilterIterator\\:\\:doAccept\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: repo/src/Runner/Filter/GroupFilterIterator.php
@@ -2279,16 +2219,6 @@ parameters:
 			message: "#^Property PHPUnit\\\\Runner\\\\Filter\\\\NameFilterIterator\\:\\:\\$filterMax \\(int\\) in isset\\(\\) is not nullable\\.$#"
 			count: 1
 			path: repo/src/Runner/Filter/NameFilterIterator.php
-
-		-
-			message: "#^Method PHPUnit\\\\Runner\\\\TestListenerAdapter\\:\\:endTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Runner/Hook/TestListenerAdapter.php
-
-		-
-			message: "#^Method PHPUnit\\\\Runner\\\\TestListenerAdapter\\:\\:startTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Runner/Hook/TestListenerAdapter.php
 
 		-
 			message: "#^Argument of an invalid type array\\<int, string\\>\\|false supplied for foreach, only iterables are supported\\.$#"
@@ -2441,11 +2371,6 @@ parameters:
 			path: repo/src/Runner/TestSuiteLoader.php
 
 		-
-			message: "#^Method PHPUnit\\\\Runner\\\\TestSuiteSorter\\:\\:addSuiteToDefectSortOrder\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Runner/TestSuiteSorter.php
-
-		-
 			message: "#^Method PHPUnit\\\\Runner\\\\TestSuiteSorter\\:\\:calculateTestExecutionOrder\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Runner/TestSuiteSorter.php
@@ -2471,27 +2396,12 @@ parameters:
 			path: repo/src/Runner/TestSuiteSorter.php
 
 		-
-			message: "#^Method PHPUnit\\\\Runner\\\\TestSuiteSorter\\:\\:resolveDependencies\\(\\) has parameter \\$tests with no value type specified in iterable type PHPUnit\\\\Framework\\\\DataProviderTestSuite\\.$#"
-			count: 1
-			path: repo/src/Runner/TestSuiteSorter.php
-
-		-
-			message: "#^Method PHPUnit\\\\Runner\\\\TestSuiteSorter\\:\\:resolveDependencies\\(\\) return type has no value type specified in iterable type PHPUnit\\\\Framework\\\\DataProviderTestSuite\\.$#"
-			count: 1
-			path: repo/src/Runner/TestSuiteSorter.php
-
-		-
 			message: "#^Method PHPUnit\\\\Runner\\\\TestSuiteSorter\\:\\:reverse\\(\\) has parameter \\$tests with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Runner/TestSuiteSorter.php
 
 		-
 			message: "#^Method PHPUnit\\\\Runner\\\\TestSuiteSorter\\:\\:reverse\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/Runner/TestSuiteSorter.php
-
-		-
-			message: "#^Method PHPUnit\\\\Runner\\\\TestSuiteSorter\\:\\:sort\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
 			count: 1
 			path: repo/src/Runner/TestSuiteSorter.php
 
@@ -2696,21 +2606,6 @@ parameters:
 			path: repo/src/TextUI/Command.php
 
 		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\Command\\:\\:handleListGroups\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/TextUI/Command.php
-
-		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\Command\\:\\:handleListTests\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/TextUI/Command.php
-
-		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\Command\\:\\:handleListTestsXml\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/TextUI/Command.php
-
-		-
 			message: "#^Method PHPUnit\\\\TextUI\\\\Command\\:\\:handlePrinter\\(\\) should return PHPUnit\\\\Util\\\\Printer\\|string\\|null but returns object\\.$#"
 			count: 1
 			path: repo/src/TextUI/Command.php
@@ -2786,17 +2681,7 @@ parameters:
 			path: repo/src/TextUI/DefaultResultPrinter.php
 
 		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\DefaultResultPrinter\\:\\:endTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/TextUI/DefaultResultPrinter.php
-
-		-
 			message: "#^Method PHPUnit\\\\TextUI\\\\DefaultResultPrinter\\:\\:printDefects\\(\\) has parameter \\$defects with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/TextUI/DefaultResultPrinter.php
-
-		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\DefaultResultPrinter\\:\\:startTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
 			count: 1
 			path: repo/src/TextUI/DefaultResultPrinter.php
 
@@ -2831,17 +2716,7 @@ parameters:
 			path: repo/src/TextUI/TestRunner.php
 
 		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\TestRunner\\:\\:processSuiteFilters\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/TextUI/TestRunner.php
-
-		-
 			message: "#^Method PHPUnit\\\\TextUI\\\\TestRunner\\:\\:run\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/TextUI/TestRunner.php
-
-		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\TestRunner\\:\\:run\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
 			count: 1
 			path: repo/src/TextUI/TestRunner.php
 
@@ -2864,11 +2739,6 @@ parameters:
 			message: "#^Static property PHPUnit\\\\TextUI\\\\TestRunner\\:\\:\\$versionStringPrinted is never read, only written\\.$#"
 			count: 1
 			path: repo/src/TextUI/TestRunner.php
-
-		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\TestSuiteMapper\\:\\:map\\(\\) return type has no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/TextUI/TestSuiteMapper.php
 
 		-
 			message: "#^Method PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\CodeCoverage\\:\\:cacheDirectory\\(\\) should return PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\Directory but returns PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\Directory\\|null\\.$#"
@@ -3331,7 +3201,7 @@ parameters:
 			path: repo/src/Util/ErrorHandler.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of function set_error_handler expects \\(callable\\(int, string, string, int, array\\)\\: bool\\)\\|null, Closure\\(mixed, mixed\\)\\: false\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of function set_error_handler expects \\(callable\\(int, string, string, int\\)\\: bool\\)\\|null, Closure\\(mixed, mixed\\)\\: false\\|null given\\.$#"
 			count: 1
 			path: repo/src/Util/ErrorHandler.php
 
@@ -3401,17 +3271,7 @@ parameters:
 			path: repo/src/Util/Log/JUnit.php
 
 		-
-			message: "#^Method PHPUnit\\\\Util\\\\Log\\\\JUnit\\:\\:endTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Util/Log/JUnit.php
-
-		-
 			message: "#^Method PHPUnit\\\\Util\\\\Log\\\\JUnit\\:\\:getXML\\(\\) should return string but returns string\\|false\\.$#"
-			count: 1
-			path: repo/src/Util/Log/JUnit.php
-
-		-
-			message: "#^Method PHPUnit\\\\Util\\\\Log\\\\JUnit\\:\\:startTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
 			count: 1
 			path: repo/src/Util/Log/JUnit.php
 
@@ -3436,11 +3296,6 @@ parameters:
 			path: repo/src/Util/Log/TeamCity.php
 
 		-
-			message: "#^Method PHPUnit\\\\Util\\\\Log\\\\TeamCity\\:\\:endTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Util/Log/TeamCity.php
-
-		-
 			message: "#^Method PHPUnit\\\\Util\\\\Log\\\\TeamCity\\:\\:getFileName\\(\\) should return string but returns string\\|false\\.$#"
 			count: 1
 			path: repo/src/Util/Log/TeamCity.php
@@ -3452,11 +3307,6 @@ parameters:
 
 		-
 			message: "#^Method PHPUnit\\\\Util\\\\Log\\\\TeamCity\\:\\:printEvent\\(\\) has parameter \\$params with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/Util/Log/TeamCity.php
-
-		-
-			message: "#^Method PHPUnit\\\\Util\\\\Log\\\\TeamCity\\:\\:startTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
 			count: 1
 			path: repo/src/Util/Log/TeamCity.php
 
@@ -3751,16 +3601,6 @@ parameters:
 			path: repo/src/Util/TestDox/ResultPrinter.php
 
 		-
-			message: "#^Method PHPUnit\\\\Util\\\\TestDox\\\\ResultPrinter\\:\\:endTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Util/TestDox/ResultPrinter.php
-
-		-
-			message: "#^Method PHPUnit\\\\Util\\\\TestDox\\\\ResultPrinter\\:\\:startTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Util/TestDox/ResultPrinter.php
-
-		-
 			message: "#^Property PHPUnit\\\\Util\\\\TestDox\\\\ResultPrinter\\:\\:\\$excludeGroups type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/ResultPrinter.php
@@ -3831,24 +3671,9 @@ parameters:
 			path: repo/src/Util/TestDox/TestDoxPrinter.php
 
 		-
-			message: "#^Method PHPUnit\\\\Util\\\\TestDox\\\\XmlResultPrinter\\:\\:endTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Util/TestDox/XmlResultPrinter.php
-
-		-
-			message: "#^Method PHPUnit\\\\Util\\\\TestDox\\\\XmlResultPrinter\\:\\:startTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Util/TestDox/XmlResultPrinter.php
-
-		-
 			message: "#^Parameter \\#1 \\$buffer of method PHPUnit\\\\Util\\\\Printer\\:\\:write\\(\\) expects string, string\\|false given\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/XmlResultPrinter.php
-
-		-
-			message: "#^Method PHPUnit\\\\Util\\\\TextTestListRenderer\\:\\:render\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Util/TextTestListRenderer.php
 
 		-
 			message: "#^Parameter \\#1 \\$iterator of class RecursiveIteratorIterator constructor expects T of IteratorAggregate\\|RecursiveIterator, Iterator given\\.$#"
@@ -3911,11 +3736,6 @@ parameters:
 			path: repo/src/Util/Xml/SnapshotNodeList.php
 
 		-
-			message: "#^Method PHPUnit\\\\Util\\\\Xml\\\\SnapshotNodeList\\:\\:fromNodeList\\(\\) return type has no value type specified in iterable type PHPUnit\\\\Util\\\\Xml\\\\SnapshotNodeList\\.$#"
-			count: 1
-			path: repo/src/Util/Xml/SnapshotNodeList.php
-
-		-
 			message: "#^Method PHPUnit\\\\Util\\\\Xml\\\\SnapshotNodeList\\:\\:getIterator\\(\\) return type with generic class ArrayIterator does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: repo/src/Util/Xml/SnapshotNodeList.php
@@ -3929,11 +3749,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$source of method DOMDocument\\:\\:schemaValidateSource\\(\\) expects string, string\\|false given\\.$#"
 			count: 1
 			path: repo/src/Util/Xml/Validator.php
-
-		-
-			message: "#^Method PHPUnit\\\\Util\\\\XmlTestListRenderer\\:\\:render\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/src/Util/XmlTestListRenderer.php
 
 		-
 			message: "#^Parameter \\#1 \\$iterator of class RecursiveIteratorIterator constructor expects T of IteratorAggregate\\|RecursiveIterator, Iterator given\\.$#"
@@ -4097,11 +3912,6 @@ parameters:
 
 		-
 			message: "#^Method PHPUnit\\\\TestFixture\\\\ClassWithAllPossibleReturnTypes\\:\\:methodWithArrayReturnTypeDeclaration\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/tests/_files/ClassWithAllPossibleReturnTypes.php
-
-		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\ClassWithAllPossibleReturnTypes\\:\\:methodWithGeneratorReturnTypeDeclaration\\(\\) return type has no value type specified in iterable type Generator\\.$#"
 			count: 1
 			path: repo/tests/_files/ClassWithAllPossibleReturnTypes.php
 
@@ -4886,16 +4696,6 @@ parameters:
 			path: repo/tests/_files/MultipleDataProviderTest.php
 
 		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\MyTestListener\\:\\:endTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/tests/_files/MyTestListener.php
-
-		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\MyTestListener\\:\\:startTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/tests/_files/MyTestListener.php
-
-		-
 			message: "#^Property PHPUnit\\\\TestFixture\\\\MyTestListener\\:\\:\\$endCount has no type specified\\.$#"
 			count: 1
 			path: repo/tests/_files/MyTestListener.php
@@ -5111,36 +4911,6 @@ parameters:
 			path: repo/tests/_files/SampleArrayAccess.php
 
 		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\SampleArrayAccess\\:\\:offsetExists\\(\\) has parameter \\$offset with no type specified\\.$#"
-			count: 1
-			path: repo/tests/_files/SampleArrayAccess.php
-
-		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\SampleArrayAccess\\:\\:offsetGet\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/tests/_files/SampleArrayAccess.php
-
-		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\SampleArrayAccess\\:\\:offsetGet\\(\\) has parameter \\$offset with no type specified\\.$#"
-			count: 1
-			path: repo/tests/_files/SampleArrayAccess.php
-
-		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\SampleArrayAccess\\:\\:offsetSet\\(\\) has parameter \\$offset with no type specified\\.$#"
-			count: 1
-			path: repo/tests/_files/SampleArrayAccess.php
-
-		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\SampleArrayAccess\\:\\:offsetSet\\(\\) has parameter \\$value with no type specified\\.$#"
-			count: 1
-			path: repo/tests/_files/SampleArrayAccess.php
-
-		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\SampleArrayAccess\\:\\:offsetUnset\\(\\) has parameter \\$offset with no type specified\\.$#"
-			count: 1
-			path: repo/tests/_files/SampleArrayAccess.php
-
-		-
 			message: "#^Property PHPUnit\\\\TestFixture\\\\SampleArrayAccess\\:\\:\\$container has no type specified\\.$#"
 			count: 1
 			path: repo/tests/_files/SampleArrayAccess.php
@@ -5256,16 +5026,6 @@ parameters:
 			path: repo/tests/_files/TestIterator.php
 
 		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\TestIterator\\:\\:current\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/tests/_files/TestIterator.php
-
-		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\TestIterator\\:\\:key\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/tests/_files/TestIterator.php
-
-		-
 			message: "#^Property PHPUnit\\\\TestFixture\\\\TestIterator\\:\\:\\$array has no type specified\\.$#"
 			count: 1
 			path: repo/tests/_files/TestIterator.php
@@ -5286,16 +5046,6 @@ parameters:
 			path: repo/tests/_files/TestIterator2.php
 
 		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\TestIterator2\\:\\:current\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/tests/_files/TestIterator2.php
-
-		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\TestIterator2\\:\\:key\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/tests/_files/TestIterator2.php
-
-		-
 			message: "#^Property PHPUnit\\\\TestFixture\\\\TestIterator2\\:\\:\\$data has no type specified\\.$#"
 			count: 1
 			path: repo/tests/_files/TestIterator2.php
@@ -5311,11 +5061,6 @@ parameters:
 			path: repo/tests/_files/TestIteratorAggregate.php
 
 		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\TestIteratorAggregate\\:\\:getIterator\\(\\) return type has no value type specified in iterable type Traversable\\<mixed, mixed\\>\\.$#"
-			count: 1
-			path: repo/tests/_files/TestIteratorAggregate.php
-
-		-
 			message: "#^Property PHPUnit\\\\TestFixture\\\\TestIteratorAggregate\\:\\:\\$traversable has no type specified\\.$#"
 			count: 1
 			path: repo/tests/_files/TestIteratorAggregate.php
@@ -5327,11 +5072,6 @@ parameters:
 
 		-
 			message: "#^Method PHPUnit\\\\TestFixture\\\\TestIteratorAggregate2\\:\\:__construct\\(\\) has parameter \\$traversable with no value type specified in iterable type Traversable\\.$#"
-			count: 1
-			path: repo/tests/_files/TestIteratorAggregate2.php
-
-		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\TestIteratorAggregate2\\:\\:getIterator\\(\\) return type has no value type specified in iterable type Traversable\\<mixed, mixed\\>\\.$#"
 			count: 1
 			path: repo/tests/_files/TestIteratorAggregate2.php
 
@@ -5437,11 +5177,6 @@ parameters:
 
 		-
 			message: "#^Method PHPUnit\\\\TestFixture\\\\WrapperIteratorAggregate\\:\\:__construct\\(\\) has parameter \\$baseCollection with no type specified\\.$#"
-			count: 1
-			path: repo/tests/_files/WrapperIteratorAggregate.php
-
-		-
-			message: "#^Method PHPUnit\\\\TestFixture\\\\WrapperIteratorAggregate\\:\\:getIterator\\(\\) return type has no value type specified in iterable type Traversable\\<mixed, mixed\\>\\.$#"
 			count: 1
 			path: repo/tests/_files/WrapperIteratorAggregate.php
 
@@ -5586,16 +5321,6 @@ parameters:
 			path: repo/tests/end-to-end/_files/Extension.php
 
 		-
-			message: "#^Method PHPUnit\\\\Test\\\\NullPrinter\\:\\:endTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/tests/end-to-end/_files/NullPrinter.php
-
-		-
-			message: "#^Method PHPUnit\\\\Test\\\\NullPrinter\\:\\:startTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/tests/end-to-end/_files/NullPrinter.php
-
-		-
 			message: "#^Method MyCommand\\:\\:myHandler\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: repo/tests/end-to-end/cli/_files/MyCommand.php
@@ -5721,11 +5446,6 @@ parameters:
 			path: repo/tests/end-to-end/regression/GitHub/2366/Issue2366Test.php
 
 		-
-			message: "#^Method Issue2380Test\\:\\:generatorData\\(\\) return type has no value type specified in iterable type Generator\\.$#"
-			count: 1
-			path: repo/tests/end-to-end/regression/GitHub/2380/Issue2380Test.php
-
-		-
 			message: "#^Method Issue2380Test\\:\\:testGeneratorProvider\\(\\) has parameter \\$data with no type specified\\.$#"
 			count: 1
 			path: repo/tests/end-to-end/regression/GitHub/2380/Issue2380Test.php
@@ -5769,16 +5489,6 @@ parameters:
 			message: "#^Method Test\\\\Issue3156Test\\:\\:dataSelectOperatorsProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/tests/end-to-end/regression/GitHub/3156/Issue3156Test.php
-
-		-
-			message: "#^Method Issue3379TestListener\\:\\:endTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/tests/end-to-end/regression/GitHub/3379/Issue3379TestListener.php
-
-		-
-			message: "#^Method Issue3379TestListener\\:\\:startTestSuite\\(\\) has parameter \\$suite with no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/tests/end-to-end/regression/GitHub/3379/Issue3379TestListener.php
 
 		-
 			message: "#^Instantiated class C not found\\.$#"
@@ -6949,11 +6659,6 @@ parameters:
 			message: "#^Property PHPUnit\\\\Framework\\\\TestCaseTest\\:\\:\\$testStatic has no type specified\\.$#"
 			count: 1
 			path: repo/tests/unit/Framework/TestCaseTest.php
-
-		-
-			message: "#^Method PHPUnit\\\\Framework\\\\TestSuiteIteratorTest\\:\\:suiteWithEmptyTestCase\\(\\) return type has no value type specified in iterable type PHPUnit\\\\Framework\\\\TestSuite\\.$#"
-			count: 1
-			path: repo/tests/unit/Framework/TestSuiteIteratorTest.php
 
 		-
 			message: "#^Cannot call method thrownException\\(\\) on PHPUnit\\\\Framework\\\\TestFailure\\|null\\.$#"
