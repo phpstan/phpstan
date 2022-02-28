@@ -6,46 +6,6 @@ parameters:
 			path: repo/src/pocketmine/Player.php
 
 		-
-			message: "#^Static property pocketmine\\\\block\\\\BlockFactory\\:\\:\\$blastResistance \\(SplFixedArray\\<float\\>\\) does not accept SplFixedArray\\<mixed\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/block/BlockFactory.php
-
-		-
-			message: "#^Static property pocketmine\\\\block\\\\BlockFactory\\:\\:\\$diffusesSkyLight \\(SplFixedArray\\<bool\\>\\) does not accept SplFixedArray\\<mixed\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/block/BlockFactory.php
-
-		-
-			message: "#^Static property pocketmine\\\\block\\\\BlockFactory\\:\\:\\$fullList \\(SplFixedArray\\<pocketmine\\\\block\\\\Block\\>\\) does not accept SplFixedArray\\<mixed\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/block/BlockFactory.php
-
-		-
-			message: "#^Static property pocketmine\\\\block\\\\BlockFactory\\:\\:\\$hardness \\(SplFixedArray\\<float\\>\\) does not accept SplFixedArray\\<mixed\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/block/BlockFactory.php
-
-		-
-			message: "#^Static property pocketmine\\\\block\\\\BlockFactory\\:\\:\\$light \\(SplFixedArray\\<int\\>\\) does not accept SplFixedArray\\<mixed\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/block/BlockFactory.php
-
-		-
-			message: "#^Static property pocketmine\\\\block\\\\BlockFactory\\:\\:\\$lightFilter \\(SplFixedArray\\<int\\>\\) does not accept SplFixedArray\\<mixed\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/block/BlockFactory.php
-
-		-
-			message: "#^Static property pocketmine\\\\block\\\\BlockFactory\\:\\:\\$solid \\(SplFixedArray\\<bool\\>\\) does not accept SplFixedArray\\<mixed\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/block/BlockFactory.php
-
-		-
-			message: "#^Static property pocketmine\\\\block\\\\BlockFactory\\:\\:\\$transparent \\(SplFixedArray\\<bool\\>\\) does not accept SplFixedArray\\<mixed\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/block/BlockFactory.php
-
-		-
 			message: "#^Strict comparison using \\=\\=\\= between 3 and 3 will always evaluate to true\\.$#"
 			count: 3
 			path: repo/src/pocketmine/block/Liquid.php
@@ -61,84 +21,14 @@ parameters:
 			path: repo/src/pocketmine/entity/Entity.php
 
 		-
-			message: "#^Static property pocketmine\\\\item\\\\ItemFactory\\:\\:\\$list \\(SplFixedArray\\<pocketmine\\\\item\\\\Item\\>\\) does not accept SplFixedArray\\<mixed\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/item/ItemFactory.php
-
-		-
-			message: "#^Static property pocketmine\\\\item\\\\enchantment\\\\Enchantment\\:\\:\\$enchantments \\(SplFixedArray\\<pocketmine\\\\item\\\\enchantment\\\\Enchantment\\>\\) does not accept SplFixedArray\\<mixed\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/item/enchantment/Enchantment.php
-
-		-
 			message: "#^Property pocketmine\\\\level\\\\Level\\:\\:\\$blockCache \\(array\\<array\\<pocketmine\\\\block\\\\Block\\>\\>\\) does not accept array\\<array\\<pocketmine\\\\block\\\\Block\\|null\\>\\>\\.$#"
 			count: 1
 			path: repo/src/pocketmine/level/Level.php
 
 		-
-			message: "#^Static property pocketmine\\\\level\\\\biome\\\\Biome\\:\\:\\$biomes \\(SplFixedArray\\<pocketmine\\\\level\\\\biome\\\\Biome\\>\\) does not accept SplFixedArray\\<mixed\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/level/biome/Biome.php
-
-		-
 			message: "#^Property pocketmine\\\\level\\\\generator\\\\Flat\\:\\:\\$options \\(array\\<string, mixed\\>\\) does not accept array\\<int\\|string, mixed\\>\\.$#"
 			count: 1
 			path: repo/src/pocketmine/level/generator/Flat.php
-
-		-
-			message: "#^Cannot access offset int on mixed\\.$#"
-			count: 5
-			path: repo/src/pocketmine/level/generator/noise/Noise.php
-
-		-
-			message: "#^Cannot access offset int\\<0, max\\> on mixed\\.$#"
-			count: 1
-			path: repo/src/pocketmine/level/generator/noise/Noise.php
-
-		-
-			message: "#^Method pocketmine\\\\level\\\\generator\\\\noise\\\\Noise\\:\\:getFastNoise1D\\(\\) should return SplFixedArray\\<float\\> but returns SplFixedArray\\<mixed\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/level/generator/noise/Noise.php
-
-		-
-			message: "#^Method pocketmine\\\\level\\\\generator\\\\noise\\\\Noise\\:\\:getFastNoise2D\\(\\) should return SplFixedArray\\<SplFixedArray\\<float\\>\\> but returns SplFixedArray\\<mixed\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/level/generator/noise/Noise.php
-
-		-
-			message: "#^Parameter \\#3 \\$q00 of static method pocketmine\\\\level\\\\generator\\\\noise\\\\Noise\\:\\:bilinearLerp\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: repo/src/pocketmine/level/generator/noise/Noise.php
-
-		-
-			message: "#^Parameter \\#4 \\$q0 of static method pocketmine\\\\level\\\\generator\\\\noise\\\\Noise\\:\\:linearLerp\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: repo/src/pocketmine/level/generator/noise/Noise.php
-
-		-
-			message: "#^Parameter \\#4 \\$q01 of static method pocketmine\\\\level\\\\generator\\\\noise\\\\Noise\\:\\:bilinearLerp\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: repo/src/pocketmine/level/generator/noise/Noise.php
-
-		-
-			message: "#^Parameter \\#5 \\$q1 of static method pocketmine\\\\level\\\\generator\\\\noise\\\\Noise\\:\\:linearLerp\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: repo/src/pocketmine/level/generator/noise/Noise.php
-
-		-
-			message: "#^Parameter \\#5 \\$q10 of static method pocketmine\\\\level\\\\generator\\\\noise\\\\Noise\\:\\:bilinearLerp\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: repo/src/pocketmine/level/generator/noise/Noise.php
-
-		-
-			message: "#^Parameter \\#6 \\$q11 of static method pocketmine\\\\level\\\\generator\\\\noise\\\\Noise\\:\\:bilinearLerp\\(\\) expects float, mixed given\\.$#"
-			count: 1
-			path: repo/src/pocketmine/level/generator/noise/Noise.php
-
-		-
-			message: "#^Static property pocketmine\\\\network\\\\mcpe\\\\protocol\\\\PacketPool\\:\\:\\$pool \\(SplFixedArray\\<pocketmine\\\\network\\\\mcpe\\\\protocol\\\\DataPacket\\>\\) does not accept SplFixedArray\\<mixed\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/network/mcpe/protocol/PacketPool.php
 
 		-
 			message: "#^Cannot call method isFile\\(\\) on mixed\\.$#"
