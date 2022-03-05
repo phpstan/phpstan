@@ -235,6 +235,7 @@ rules:
 This only works if the rule class doesn't have a constructor, or all the constructor parameters can be [autowired](/developing-extensions/dependency-injection-configuration#autowiring). If we have non-autowirable parameters in the constructor, we need to resort the rule as a service in the `services` section of the configuration file, specify the arguments, and the `phpstan.rules.rule` tag:
 
 ```yaml
+services:
 	-
 		class: App\MyRule
 		arguments:
