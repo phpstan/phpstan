@@ -62,6 +62,7 @@ services:
 All the extension types have associated tags needed to recognize the extension:
 
 ```yaml
+services:
 	-
 		class: App\MyExtension
 		tags:
