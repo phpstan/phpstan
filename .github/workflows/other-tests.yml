@@ -170,7 +170,7 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
+        uses: actions/checkout@v3
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
@@ -191,7 +191,7 @@ jobs:
         run: "composer update --no-interaction --no-progress"
 
       - name: "Download phpstan.phar"
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: phar-file
 
