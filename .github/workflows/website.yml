@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
+        uses: actions/checkout@v3
 
       - name: "Install Node"
         uses: actions/setup-node@v3
@@ -45,7 +45,7 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
+        uses: actions/checkout@v3
 
       - name: "Install Node"
         uses: actions/setup-node@v3
@@ -74,7 +74,7 @@ jobs:
         run: "yarn run build"
 
       - name: "Upload website dist"
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: website-dist
           path: website/dist
@@ -93,7 +93,7 @@ jobs:
           node-version: "16"
 
       - name: "Download website dist"
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: website-dist
           path: dist
