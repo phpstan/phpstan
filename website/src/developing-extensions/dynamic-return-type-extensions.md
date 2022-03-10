@@ -75,7 +75,9 @@ public function getTypeFromMethodCall(
 }
 ```
 
-And finally, register the extension in the [configuration file](/config-reference):
+`ParametersAcceptorSelector::selectFromArgs(...)` is the default way to resolve the return type of a method call. Starting from PHPStan 1.5.0 the return type of `getTypeFromMethodCall()` is optional, so you can return `null` from it if you don't want to resolve to a specific `Type`.
+
+Finally, register the extension in the [configuration file](/config-reference):
 
 ```yaml
 services:
