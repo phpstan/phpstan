@@ -1,34 +1,5 @@
 import * as ko from 'knockout';
 import $ from 'jquery';
-import Prism from 'prismjs';
-
-const resizeToFitContent = (el: HTMLElement) => {
-	// http://stackoverflow.com/a/995374/3297291
-	el.style.height = '1px';
-	el.style.height = el.scrollHeight + 'px';
-}
-
-ko.bindingHandlers.autoResize = {
-	init: (element, valueAccessor) => {
-		ko.computed(() => {
-			ko.unwrap(valueAccessor());
-			resizeToFitContent(element);
-		})
-	}
-};
-
-ko.bindingHandlers.highlight = {
-	update: (element, valueAccessor) => {
-		const value = ko.unwrap(valueAccessor());
-
-		if (value !== undefined) { // allows highlighting static code
-			element.innerHTML = value;
-		}
-
-		Prism.highlightElement(element);
-	}
-
-};
 
 export class IgnoreErrorsWidgetModel {
 
