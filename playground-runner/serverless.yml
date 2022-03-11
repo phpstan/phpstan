@@ -6,6 +6,8 @@ provider:
     runtime: provided.al2
     stage: prod
     versionFunctions: false
+    httpApi:
+      cors: true
 
 plugins:
     - ./vendor/bref/bref
