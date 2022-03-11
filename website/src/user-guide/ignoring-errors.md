@@ -79,11 +79,12 @@ parameters:
 
 Relative paths in the `path` and `paths` keys are resolved based on the directory of the config file is in. So if your `phpstan.neon` is in the root directory of the project, and you want to ignore an error in `src/Foo/Bar.php`, your path key can simply be `src/Foo/Bar.php`.
 
-<div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 mb-4" role="alert">
+Generate an ignoreErrors entry
+------------------
 
-Don't forget that you're writing regular expressions, so special characters like `|`, `$`, `.`, `(` and `)` need to be escaped. When in doubt, use an online regex testing tool like [regex101.com](https://regex101.com/) to make sure you're ignoring what you intend to ignore.
+This helpful tool will generate an entry that you can put in `parameters.ignoreErrors` section of your [configuration file](/config-reference). It deals with the complexity of writing a matching regular expression from a plain string and encoding that regular expression into the neon format.
 
-</div>
+{% include 'ignoreErrorsWidget.njk' %}
 
 The Baseline
 ------------------

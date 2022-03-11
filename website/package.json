@@ -9,7 +9,8 @@
 		"jquery": "^3.6.0",
 		"knockout": "^3.5.1",
 		"littlefoot": "^3.4.1",
-		"prism-themes": "^1.7.0"
+		"prism-themes": "^1.7.0",
+		"prismjs": "^1.27.0"
 	},
 	"devDependencies": {
 		"@11ty/eleventy": "^1.0.0",
@@ -23,6 +24,7 @@
 		"@tailwindcss/forms": "^0.5.0",
 		"@tailwindcss/typography": "^0.5.0",
 		"@types/jquery": "^3.5.5",
+		"@types/prismjs": "^1.26.0",
 		"autoprefixer": "^10.3.7",
 		"luxon": "^2.0.0",
 		"markdown-it-abbr": "^1.0.4",
