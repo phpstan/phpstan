@@ -27,7 +27,7 @@ ko.bindingHandlers.highlight = {
 		const value = ko.unwrap(valueAccessor());
 
 		if (value !== undefined) { // allows highlighting static code
-			element.innerHTML = value;
+			ko.utils.setTextContent(element, value);
 		}
 
 		Prism.highlightElement(element);
