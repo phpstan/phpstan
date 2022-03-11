@@ -10,7 +10,7 @@ export class TShirtCartItem {
 		amount: number,
 		viewModel: MerchSaleViewModel,
 	) {
-		this.amount = ko.observable(amount);
+		this.amount = ko.observable<number | string>(amount);
 		this.amount.subscribe((value) => {
 			if (typeof value === 'string') {
 				const newAmount = window.prompt('Please enter the number of t-shirts:');

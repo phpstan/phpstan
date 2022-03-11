@@ -12,8 +12,8 @@ export class MainMenuViewModel {
 	sidebarOpen: ko.Observable<boolean>;
 
 	constructor() {
-		this.mainMenuOpen = ko.observable(false);
-		this.sidebarOpen = ko.observable(false);
+		this.mainMenuOpen = ko.observable<boolean>(false);
+		this.sidebarOpen = ko.observable<boolean>(false);
 	}
 
 	toggleMainMenu(): void {

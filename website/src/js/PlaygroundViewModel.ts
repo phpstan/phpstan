@@ -57,16 +57,16 @@ export class PlaygroundViewModel {
 		this.upToDateTabs = ko.observable(null);
 
 		this.level = ko.observable('9');
-		this.strictRules = ko.observable(false);
-		this.bleedingEdge = ko.observable(false);
-		this.treatPhpDocTypesAsCertain = ko.observable(true);
+		this.strictRules = ko.observable<boolean>(false);
+		this.bleedingEdge = ko.observable<boolean>(false);
+		this.treatPhpDocTypesAsCertain = ko.observable<boolean>(true);
 
-		this.isLoading = ko.observable(false);
-		this.isSharing = ko.observable(false);
+		this.isLoading = ko.observable<boolean>(false);
+		this.isSharing = ko.observable<boolean>(false);
 		this.xhr = null;
 		this.shareXhr = null;
 		this.id = null;
-		this.hasServerError = ko.observable(false);
+		this.hasServerError = ko.observable<boolean>(false);
 	}
 
 	switchTab(index: number): void {

@@ -113,8 +113,8 @@ export class MerchSaleViewModel {
 		this.styles = this.tShirtTypes.map((type) => {
 			return type.style;
 		});
-		this.selectedTShirtColor = ko.observable('bg-blue-800');
-		this.selectedTShirtStyle = ko.observable('Straight');
+		this.selectedTShirtColor = ko.observable<TShirtColor>('bg-blue-800');
+		this.selectedTShirtStyle = ko.observable<TShirtStyle>('Straight');
 		this.selectedTShirtSize = ko.observable(null);
 		this.selectedTShirtType = ko.pureComputed(() => {
 			const color = this.selectedTShirtColor();
@@ -145,14 +145,14 @@ export class MerchSaleViewModel {
 		this.tShirtErrorMessage = ko.observable(null);
 		this.tShirtSuccessMessage = ko.observable(null);
 		this.badgeSetSuccessMessage = ko.observable(null);
-		this.selectedTShirtView = ko.observable('front');
+		this.selectedTShirtView = ko.observable<TShirtView>('front');
 		this.cartTShirts = ko.observableArray();
 		this.cartTShirts.subscribe(() => {
 			this.updateShippingPrice();
 			this.updateLocalStorage();
 			this.getStripe();
 		});
-		this.cartBadgeSetAmount = ko.observable(0);
+		this.cartBadgeSetAmount = ko.observable<string | number>(0);
 		this.cartBadgeSetAmount.subscribe((value) => {
 			if (typeof value === 'string') {
 				const newAmount = window.prompt('Please enter the number of badge sets:');
@@ -280,7 +280,7 @@ export class MerchSaleViewModel {
 			this.updateLocalStorage();
 		});
 
-		this.deliveryAddressSameAsBillingAddress = ko.observable(true);
+		this.deliveryAddressSameAsBillingAddress = ko.observable<boolean>(true);
 		this.deliveryAddressSameAsBillingAddress.subscribe((value) => {
 			this.updateLocalStorage();
 
@@ -373,13 +373,13 @@ export class MerchSaleViewModel {
 
 			return euCountries.indexOf(this.billingCountry()) !== -1;
 		});
-		this.selectedPaymentMethod = ko.observable('cc');
+		this.selectedPaymentMethod = ko.observable<PaymentMethod>('cc');
 		this.selectedPaymentMethod.subscribe(() => {
 			this.updateLocalStorage();
 			this.confirmOrderErrors([]);
 		});
 
-		this.stripeLoading = ko.observable(true);
+		this.stripeLoading = ko.observable<boolean>(true);
 		this.stripePromise = null;
 		this.cardElement = null;
 
@@ -403,18 +403,18 @@ export class MerchSaleViewModel {
 			return 'VAT ID';
 		});
 
-		this.isConfirmingOrder = ko.observable(false);
+		this.isConfirmingOrder = ko.observable<boolean>(false);
 		this.confirmOrderErrors = ko.observableArray();
-		this.agreeToPrivacyPolicy = ko.observable(false);
+		this.agreeToPrivacyPolicy = ko.observable<boolean>(false);
 		this.agreeToPrivacyPolicy.subscribe(() => {
 			this.updateLocalStorage();
 		});
-		this.agreeToTerms = ko.observable(false);
+		this.agreeToTerms = ko.observable<boolean>(false);
 		this.agreeToTerms.subscribe(() => {
 			this.updateLocalStorage();
 		});
 
-		this.successfulOrder = ko.observable(false);
+		this.successfulOrder = ko.observable<boolean>(false);
 
 		this.restoreLocalStorage();
 	}
