@@ -17,3 +17,11 @@ functions:
         timeout: 20
         layers:
             - ${bref:layer.php-81}
+    ignoreErrors:
+        handler: ignoreErrors.php
+        layers:
+          - ${bref:layer.php-81-fpm}
+        events:
+          - httpApi:
+              method: 'GET'
+              path: /ignoreErrors
