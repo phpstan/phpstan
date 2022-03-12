@@ -5,7 +5,7 @@ name: "Issue Bot Build"
 on:
   push:
     branches:
-      - "master"
+      - "**"
     paths:
       - '.github/**'
       - 'issue-bot/**'

@@ -11,7 +11,7 @@ on:
       - 'playground-runner/**'
   push:
     branches:
-      - "master"
+      - "**"
     paths-ignore:
       - 'issue-bot/**'
       - 'website/**'
@@ -31,6 +31,6 @@ jobs:
           path: phpstan.phar
   extension-tests:
     needs: upload-phar
-    uses: phpstan/phpstan/.github/workflows/extension-tests.yml@master
+    uses: phpstan/phpstan/.github/workflows/extension-tests.yml@1.5.x
     with:
       ref: ${{ github.ref }}

@@ -7,7 +7,7 @@ name: Docker image nightly
 on:
   push:
     branches:
-      - "master"
+      - "1.5.x"
     paths-ignore:
       - 'issue-bot/**'
       - 'website/**'
@@ -50,7 +50,7 @@ jobs:
           context: ./docker
           file: ./docker/Dockerfile
           build-args: |
-            PHPSTAN_VERSION=dev-master#${{ github.sha }}
+            PHPSTAN_VERSION=dev#${{ github.sha }}
           push: true
           tags: ghcr.io/phpstan/phpstan:nightly
           platforms: linux/amd64,linux/arm64

@@ -11,7 +11,7 @@ on:
       - 'playground-runner/**'
   push:
     branches:
-      - "master"
+      - "**"
     paths-ignore:
       - 'issue-bot/**'
       - 'website/**'
