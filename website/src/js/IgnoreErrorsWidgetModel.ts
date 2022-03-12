@@ -36,7 +36,7 @@ export class IgnoreErrorsWidgetModel {
 			notify: 'always',
 			rateLimit: { timeout: 500, method: 'notifyWhenChangesStop' },
 		}).subscribe(() => {
-			$.get('https://ymln7gojyg.execute-api.eu-west-1.amazonaws.com/ignoreErrors', {
+			xhr = $.get('https://ymln7gojyg.execute-api.eu-west-1.amazonaws.com/ignoreErrors', {
 				message: this.message(),
 				path: this.path(),
 			}).done(((data) => {
@@ -49,6 +49,7 @@ export class IgnoreErrorsWidgetModel {
 				this.hasServerError(true);
 			}).always(() => {
 				this.loading(false);
+				xhr = null;
 			});
 		});
 	}
