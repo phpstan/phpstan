@@ -50,7 +50,7 @@ jobs:
           context: ./docker
           file: ./docker/Dockerfile
           build-args: |
-            PHPSTAN_VERSION=dev#${{ github.sha }}
+            PHPSTAN_VERSION=1.5.x-dev#${{ github.sha }}
           push: true
           tags: ghcr.io/phpstan/phpstan:nightly
           platforms: linux/amd64,linux/arm64
