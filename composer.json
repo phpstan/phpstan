@@ -12,11 +12,6 @@
 		"phpstan",
 		"phpstan.phar"
 	],
-	"extra": {
-		"branch-alias": {
-			"dev-master": "1.4-dev"
-		}
-	},
 	"autoload": {
 		"files": ["bootstrap.php"]
 	}
