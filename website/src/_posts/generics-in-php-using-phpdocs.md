@@ -13,6 +13,8 @@ I wrote that article because the differences between unions and intersections ar
 
 Today I have a similar goal. Generics are coming to PHPStan 0.12 later this week, I want to explain what they’re all about, and get everyone excited.
 
+> Also check out practical examples in the [Generics By Examples](/blog/generics-by-examples) article.
+
 ## Infinite number of signatures
 
 When we’re declaring a function, we’re used to attach a single signature to it. There’s no other option. So we declare that the function accepts an argument of a specific type, and also returns a specific type:
@@ -73,6 +75,8 @@ function foo($exception)
 ```
 
 Only objects of classes extending Exception will be accepted and returned by this function.
+
+In some situations the `@template-covariant` PHPDoc tag can be used instead. [Check out the guide on `@template-covariant` »](/blog/whats-up-with-template-covariant).
 
 ## Class names
 

@@ -209,14 +209,14 @@ Your code can look like this:
  */
 function foo($arg, ...$additional)
 {
-    
+
 }
 ```
 
 Generics
 ---------------
 
-PHPDoc tags `@template`, `@template-covariant`, `@extends`, and `@implements` are reserved for generics. [Learn more about generics »](/blog/generics-in-php-using-phpdocs)
+PHPDoc tags `@template`, `@template-covariant`, `@extends`, and `@implements` are reserved for generics. [Learn more about generics »](/blog/generics-in-php-using-phpdocs), also check out [Generics By Examples »](/blog/generics-by-examples).
 
 Prefixed tags
 ---------------

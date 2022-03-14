@@ -102,7 +102,7 @@ A narrower `@return $this` instead of `@return static` can also be used, and PHP
 Generics
 -------------------------
 
-[Generics »](/blog/generics-in-php-using-phpdocs)
+[Generics »](/blog/generics-in-php-using-phpdocs), [Generics By Examples »](/blog/generics-by-examples)
 
 class-string
 -------------------------
