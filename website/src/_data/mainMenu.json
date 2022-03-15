@@ -1,5 +1,10 @@
 [
     {
+        "title": "Home",
+        "link": "/",
+        "pageType": "home"
+    },
+    {
         "title": "Try",
         "link": "/try",
         "pageType": "playground"
@@ -9,19 +14,9 @@
         "link": "/user-guide/getting-started",
         "pageType": "documentation"
     },
-	{
-		"title": "PHPStan Pro",
-		"link": "/blog/introducing-phpstan-pro",
-		"pageType": "pro"
-	},
     {
         "title": "Blog",
         "link": "/blog",
         "pageType": "blog"
-    },
-	{
-		"title": "Help",
-		"link": "https://github.com/phpstan/phpstan/discussions",
-		"pageType": "support"
-	}
+    }
 ]
