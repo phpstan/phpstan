@@ -11,7 +11,7 @@ about: If something isn't working as expected 🤔.
 
 ### Code snippet that reproduces the problem
 
-<!-- Try to reproduce the issue you are facing using https://phpstan.org/ and post the unique URL here -->
+<!-- Try to reproduce the issue you are facing using https://phpstan.org/try and post the unique URL here -->
 
 ### Expected output
 
