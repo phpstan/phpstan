@@ -57,11 +57,26 @@ General arrays
 * `non-empty-array<int, Type>`
 
 
-Array keys or values
+Array/Iterables keys or values
 -------------------------
 
 * `key-of<Type::ARRAY_CONST>`
 * `value-of<Type::ARRAY_CONST>`
+
+```php
+class Foo {
+   public $WHEELER = [
+      'car' => 4,
+      'bike' => 2,
+   ];
+}
+
+/**
+ * @param key-of<Foo::WHEELER> $type
+ * @param value-of<Foo::WHEELER> $wheels
+ */
+function repair(string $type, int $wheels): void { ... }
+```
 
 Iterables
 -------------------------
