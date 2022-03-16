@@ -56,6 +56,13 @@ General arrays
 * `non-empty-array<Type>`
 * `non-empty-array<int, Type>`
 
+
+Array keys or values
+-------------------------
+
+* `key-of<Type::ARRAY_CONST>`
+* `value-of<Type::ARRAY_CONST>`
+
 Iterables
 -------------------------
 
