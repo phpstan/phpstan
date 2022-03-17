@@ -68,7 +68,7 @@ These notations specify the iterable key and value types in a foreach statement.
 
 These iterable rules are applied only when the `Collection` type isn't generic. When it's generic, [generics rules](/blog/generics-in-php-using-phpdocs) for class-level type variables are applied.
 
-If PHP encounters `Collection|Foo[]`, two possible paths are taken:
+If PHPStan encounters `Collection|Foo[]`, two possible paths are taken:
 
 1) `Collection` implements `Traversable` so `Collection|Foo[]` is interpreted as a `Collection` object that iterates over `Foo`. The array part isn't applied.
 2) `Collection` does not implement `Traversable` so `Collection|Foo[]` is interpreted as a `Collection` object or an array of `Foo` objects.
