@@ -57,7 +57,7 @@ General arrays
 * `non-empty-array<int, Type>`
 
 
-Array/Iterables keys or values
+Key and value types of arrays and iterables
 -------------------------
 
 * `key-of<Type::ARRAY_CONST>`
@@ -65,7 +65,7 @@ Array/Iterables keys or values
 
 ```php
 class Foo {
-   public $WHEELER = [
+   public const WHEELER = [
       'car' => 4,
       'bike' => 2,
    ];
@@ -75,7 +75,11 @@ class Foo {
  * @param key-of<Foo::WHEELER> $type
  * @param value-of<Foo::WHEELER> $wheels
  */
-function repair(string $type, int $wheels): void { ... }
+function repair(string $type, int $wheels): void
+{
+    // $type is 'bike'|'car'
+    // $wheels is 2|4
+}
 ```
 
 Iterables
