@@ -7,7 +7,7 @@ on:
     branches:
       - "**"
     paths:
-      - '.github/**'
+      - '.github/workflows/test-projects.yml'
       - 'phpstan'
       - 'phpstan.phar'
       - 'bootstrap.php'

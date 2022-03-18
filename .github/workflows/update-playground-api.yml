@@ -7,7 +7,7 @@ on:
     branches:
       - "1.5.x"
     paths:
-      - '.github/**'
+      - '.github/workflows/update-playground-api.yml'
       - 'playground-api/**'
 
 concurrency: playground_api
