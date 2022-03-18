@@ -57,7 +57,7 @@ General arrays
 * `non-empty-array<int, Type>`
 
 
-Key and value types of arrays and iterables
+Key and value types of arrays, iterables
 -------------------------
 
 * `key-of<Type::ARRAY_CONST>`
@@ -81,6 +81,8 @@ function repair(string $type, int $wheels): void
     // $wheels is 2|4
 }
 ```
+
+Additionally `value-of<BackedEnum>` is supported.
 
 Iterables
 -------------------------
