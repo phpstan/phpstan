@@ -34,3 +34,4 @@ jobs:
     uses: phpstan/phpstan/.github/workflows/integration-tests.yml@1.5.x
     with:
       ref: ${{ github.ref }}
+      phar-checksum: "always"

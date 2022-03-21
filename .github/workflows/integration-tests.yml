@@ -9,6 +9,10 @@ on:
         description: 'phpstan/phpstan ref to checkout'
         required: true
         type: string
+      phar-checksum:
+        description: 'PHAR checksum from reproducible build (please rebase)'
+        required: true
+        type: string
 
 jobs:
   integration-tests:
