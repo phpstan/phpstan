@@ -15,10 +15,34 @@ on:
         type: string
 
 jobs:
+  check-phar-checksum:
+    name: "Check PHAR checksum"
+    runs-on: "ubuntu-latest"
+    outputs:
+      checksum-result: ${{ steps.checksum-difference.outputs.result }}
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          repository: "phpstan/phpstan"
+          ref: ${{ inputs.ref }}
+      - name: "Check PHAR checksum"
+        id: checksum-difference
+        run: |
+          checksum=${{ inputs.phar-checksum }}
+          if [[ $(< .phar-checksum) != "$checksum" ]]; then
+            echo "::set-output name=result::different
+          else
+            echo "::set-output name=result::same
+          fi
+
   other-tests:
     name: "Other Tests"
 
     runs-on: ${{ matrix.operating-system }}
+
+    needs: check-phar-checksum
+    if: "needs.check-phar-checksum.outputs.checksum-result == 'different'"
 
     strategy:
       fail-fast: false
