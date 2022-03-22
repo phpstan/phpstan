@@ -72,7 +72,6 @@ jobs:
         exclude:
           - extension-name: "phpstan-phpunit"
             static-reflection: "true"
-            static-reflection: "false"
           - extension-name: "phpstan-doctrine"
             php-version: "8.1"
 
