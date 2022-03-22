@@ -3,7 +3,7 @@
 	"description": "PHPStan - PHP Static Analysis Tool",
 	"license": ["MIT"],
 	"require": {
-		"php": "^7.1|^8.0"
+		"php": "^7.2|^8.0"
 	},
 	"conflict": {
 		"phpstan/phpstan-shim": "*"

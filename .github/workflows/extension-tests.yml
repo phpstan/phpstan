@@ -48,7 +48,6 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - "7.1"
           - "7.2"
           - "7.3"
           - "7.4"
@@ -73,8 +72,6 @@ jobs:
         exclude:
           - extension-name: "phpstan-phpunit"
             static-reflection: "true"
-          - extension-name: "phpstan-symfony"
-            php-version: "7.1"
             static-reflection: "false"
           - extension-name: "phpstan-doctrine"
             php-version: "8.1"
