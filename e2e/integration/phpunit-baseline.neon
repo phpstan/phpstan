@@ -2821,12 +2821,12 @@ parameters:
 			path: repo/src/TextUI/XmlConfiguration/Group/GroupCollectionIterator.php
 
 		-
-			message: "#^Argument of an invalid type DOMNodeList\\|false supplied for foreach, only iterables are supported\\.$#"
+			message: "#^Argument of an invalid type DOMNodeList\\<DOMNode\\>\\|false supplied for foreach, only iterables are supported\\.$#"
 			count: 13
 			path: repo/src/TextUI/XmlConfiguration/Loader.php
 
 		-
-			message: "#^Cannot access property \\$length on DOMNodeList\\|false\\.$#"
+			message: "#^Cannot access property \\$length on DOMNodeList\\<DOMNode\\>\\|false\\.$#"
 			count: 5
 			path: repo/src/TextUI/XmlConfiguration/Loader.php
 
@@ -2841,7 +2841,7 @@ parameters:
 			path: repo/src/TextUI/XmlConfiguration/Loader.php
 
 		-
-			message: "#^Cannot call method item\\(\\) on DOMNodeList\\|false\\.$#"
+			message: "#^Cannot call method item\\(\\) on DOMNodeList\\<DOMNode\\>\\|false\\.$#"
 			count: 2
 			path: repo/src/TextUI/XmlConfiguration/Loader.php
 
@@ -2916,7 +2916,7 @@ parameters:
 			path: repo/src/TextUI/XmlConfiguration/Migration/Migrations/IntroduceCoverageElement.php
 
 		-
-			message: "#^Cannot call method item\\(\\) on DOMNodeList\\|false\\.$#"
+			message: "#^Cannot call method item\\(\\) on DOMNodeList\\<DOMNode\\>\\|false\\.$#"
 			count: 1
 			path: repo/src/TextUI/XmlConfiguration/Migration/Migrations/LogToReportMigration.php
 
