@@ -1,17 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Property Rector\\\\PostRector\\\\Collector\\\\PropertyToAddCollector\\:\\:\\$propertiesWithoutConstructorByClass \\(array\\<string, array\\<string, PHPStan\\\\Type\\\\Type\\>\\>\\) does not accept array\\<string, array\\<string, PHPStan\\\\Type\\\\Type\\|null\\>\\>\\.$#"
+			message: "#^Strict comparison using \\=\\=\\= between non\\-empty\\-string and '' will always evaluate to false\\.$#"
 			count: 1
-			path: repo/packages/PostRector/Collector/PropertyToAddCollector.php
-
-		-
-			message: "#^Access to an undefined property PhpParser\\\\Node\\\\FunctionLike\\:\\:\\$stmts\\.$#"
-			count: 1
-			path: repo/rules/DowngradePhp81/Rector/FunctionLike/DowngradeNewInInitializerRector.php
-
-		-
-			message: "#^Property PhpParser\\\\Node\\\\Stmt\\\\ClassMethod\\:\\:\\$stmts \\(array\\<PhpParser\\\\Node\\\\Stmt\\>\\|null\\) does not accept array\\<PhpParser\\\\Node\\\\Stmt\\|null\\>\\.$#"
-			count: 1
-			path: repo/rules/PhpSpecToPHPUnit/Rector/ClassMethod/PhpSpecMethodToPHPUnitMethodRector.php
+			path: repo/src/Stubs/PHPStanStubLoader.php
 
