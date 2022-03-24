@@ -11,9 +11,19 @@ parameters:
 			path: repo/src/Composer/Command/ReinstallCommand.php
 
 		-
+			message: "#^Only booleans are allowed in &&, array\\<string, array\\<int, array\\<string, string\\|null\\>\\>\\> given on the right side\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/ShowCommand.php
+
+		-
 			message: "#^Parameter \\#1 \\$pattern of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatch\\(\\) expects non\\-empty\\-string, string given\\.$#"
 			count: 3
 			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
+
+		-
+			message: "#^Binary operation \"\\.\" between 'They all replace '\\|'They both replace ' and array\\{package\\: Composer\\\\Package\\\\BasePackage\\}\\|array\\{packageName\\: string, constraint\\: Composer\\\\Semver\\\\Constraint\\\\ConstraintInterface\\}\\|Composer\\\\Package\\\\BasePackage\\|Composer\\\\Package\\\\Link\\|int\\|string results in an error\\.$#"
+			count: 1
+			path: repo/src/Composer/DependencyResolver/Rule.php
 
 		-
 			message: "#^Parameter \\#1 \\$pattern of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatch\\(\\) expects non\\-empty\\-string, string given\\.$#"
@@ -46,7 +56,27 @@ parameters:
 			path: repo/src/Composer/Repository/FilterRepository.php
 
 		-
+			message: "#^Offset 'namelookup_time' on array\\{url\\: string, content_type\\: string\\|null, http_code\\: int, header_size\\: int, request_size\\: int, filetime\\: int, ssl_verify_result\\: int, redirect_count\\: int, \\.\\.\\.\\} in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/Http/CurlDownloader.php
+
+		-
+			message: "#^Only booleans are allowed in &&, \\(array\\<string, mixed\\>\\|false\\) given on the right side\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/Http/CurlDownloader.php
+
+		-
 			message: "#^Property Composer\\\\Util\\\\Http\\\\CurlDownloader\\:\\:\\$jobs \\(array\\<array\\{url\\: string, origin\\: string, attributes\\: array\\{retryAuthFailure\\: bool, redirects\\: int, retries\\: int, storeAuth\\: bool\\}, options\\: array, progress\\: array, curlHandle\\: resource, filename\\: string\\|false, headerHandle\\: resource, \\.\\.\\.\\}\\>\\) does not accept non\\-empty\\-array\\<array\\{url\\: string, origin\\: string, attributes\\: array\\<literal\\-string&non\\-empty\\-string, bool\\|int\\>, options\\: array, progress\\: array, curlHandle\\: CurlHandle\\|resource, filename\\: string\\|false\\|null, headerHandle\\: resource, \\.\\.\\.\\}\\>\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/Http/CurlDownloader.php
+
+		-
+			message: "#^Parameter \\#2 \\$expectedLinks of method Composer\\\\Test\\\\Repository\\\\PlatformRepositoryTest\\:\\:assertPackageLinks\\(\\) expects array\\<string\\>, array\\|string\\|false\\|null given\\.$#"
+			count: 2
+			path: repo/tests/Composer/Test/Repository/PlatformRepositoryTest.php
+
+		-
+			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, array\\|string\\|null given\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Repository/PlatformRepositoryTest.php
 
