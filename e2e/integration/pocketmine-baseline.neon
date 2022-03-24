@@ -65,3 +65,8 @@ parameters:
 			count: 1
 			path: repo/src/pocketmine/tile/Tile.php
 
+		-
+			message: "#^Call to function is_int\\(\\) with int will always evaluate to true\\.$#"
+			count: 1
+			path: repo/src/pocketmine/utils/Internet.php
+
