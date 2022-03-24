@@ -6,6 +6,11 @@ parameters:
 			path: repo/src/pocketmine/Player.php
 
 		-
+			message: "#^Method pocketmine\\\\ThreadManager\\:\\:getAll\\(\\) should return array\\<pocketmine\\\\Thread\\|pocketmine\\\\Worker\\> but returns array\\<int\\|string, mixed\\>\\.$#"
+			count: 1
+			path: repo/src/pocketmine/ThreadManager.php
+
+		-
 			message: "#^Strict comparison using \\=\\=\\= between 3 and 3 will always evaluate to true\\.$#"
 			count: 3
 			path: repo/src/pocketmine/block/Liquid.php
