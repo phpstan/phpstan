@@ -1,6 +1,21 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Property PhpParser\\\\Node\\\\Expr\\\\MethodCall\\:\\:\\$args \\(array\\<PhpParser\\\\Node\\\\Arg\\|PhpParser\\\\Node\\\\VariadicPlaceholder\\>\\) does not accept array\\<PhpParser\\\\Node\\\\Arg\\|PhpParser\\\\Node\\\\Param\\>\\.$#"
+			count: 1
+			path: repo/rules/Php80/Rector/ClassMethod/OptionalParametersAfterRequiredRector.php
+
+		-
+			message: "#^Property PhpParser\\\\Node\\\\Expr\\\\New_\\:\\:\\$args \\(array\\<PhpParser\\\\Node\\\\Arg\\|PhpParser\\\\Node\\\\VariadicPlaceholder\\>\\) does not accept array\\<PhpParser\\\\Node\\\\Arg\\|PhpParser\\\\Node\\\\Param\\>\\.$#"
+			count: 1
+			path: repo/rules/Php80/Rector/ClassMethod/OptionalParametersAfterRequiredRector.php
+
+		-
+			message: "#^Unable to resolve the template type T in call to method Rector\\\\Php80\\\\NodeResolver\\\\ArgumentSorter\\:\\:sortArgsByExpectedParamOrder\\(\\)$#"
+			count: 2
+			path: repo/rules/Php80/Rector/ClassMethod/OptionalParametersAfterRequiredRector.php
+
+		-
 			message: "#^Strict comparison using \\=\\=\\= between non\\-empty\\-string and '' will always evaluate to false\\.$#"
 			count: 1
 			path: repo/src/Stubs/PHPStanStubLoader.php
