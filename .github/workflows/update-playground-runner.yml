@@ -28,7 +28,7 @@ jobs:
           node-version: "16"
 
       - name: "Cache dependencies"
-        uses: "actions/cache@v2"
+        uses: actions/cache@v3
         with:
           path: "$(yarn cache dir)"
           key: "${{ runner.os }}-yarn-${{ hashFiles('playground-runner/**/yarn.lock') }}"
@@ -72,7 +72,7 @@ jobs:
         id: phpstan_commit
         run: echo ::set-output name=sha::$(php extractVersion.php)
 
-      - uses: peter-evans/repository-dispatch@v1
+      - uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           event-type: run_issue_bot
