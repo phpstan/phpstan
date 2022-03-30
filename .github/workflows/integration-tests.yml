@@ -65,12 +65,6 @@ jobs:
             ../../../phpstan.phar analyse -c ../slevomat-cs.neon -l 7 SlevomatCodingStandard
             ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon -l 7 tests
           - |
-            git clone https://github.com/nextras/orm.git e2e/integration/repo
-            cd e2e/integration/repo
-            git checkout 4edfc4957494ec272899a8916f3f245c59c86d05
-            composer install
-            ../../../phpstan.phar analyse -c ../nextras.neon
-          - |
             git clone https://github.com/bitExpert/phpstan-magento.git e2e/integration/repo
             cd e2e/integration/repo
             git checkout f845cd4dbdc49d2e005ec2646176ddfcf7d55d38
@@ -123,6 +117,13 @@ jobs:
               composer config platform --unset && composer update
               vendor/bin/simple-phpunit --filter NO_TEST_JUST_AUTOLOAD_THANKS
               ../../../phpstan.phar analyse -c ../composer.neon
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/nextras/orm.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout 4edfc4957494ec272899a8916f3f245c59c86d05
+              composer install
+              ../../../phpstan.phar analyse -c ../nextras.neon
 
     steps:
       - name: "Checkout"
