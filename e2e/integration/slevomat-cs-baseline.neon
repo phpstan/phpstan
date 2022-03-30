@@ -1,22 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Property PHP_CodeSniffer\\\\Ruleset\\:\\:\\$sniffs \\(array\\<string, PHP_CodeSniffer\\\\Sniffs\\\\Sniff\\>\\) does not accept array\\<string, object\\>\\.$#"
+			message: "#^Method SlevomatCodingStandard\\\\Helpers\\\\AnnotationTypeHelper\\:\\:export\\(\\) should return string but returns string\\|false\\|null\\.$#"
 			count: 1
-			path: repo/SlevomatCodingStandard/Sniffs/TestCase.php
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationTypeHelper.php
 
 		-
-			message: "#^Unsafe call to private method SlevomatCodingStandard\\\\Sniffs\\\\TestCase\\:\\:getSniffClassName\\(\\) through static\\:\\:\\.$#"
-			count: 3
-			path: repo/SlevomatCodingStandard/Sniffs/TestCase.php
-
-		-
-			message: "#^Unsafe call to private method SlevomatCodingStandard\\\\Sniffs\\\\TestCase\\:\\:getSniffClassReflection\\(\\) through static\\:\\:\\.$#"
+			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|false\\|null given\\.$#"
 			count: 1
-			path: repo/SlevomatCodingStandard/Sniffs/TestCase.php
-
-		-
-			message: "#^Unsafe call to private method SlevomatCodingStandard\\\\Sniffs\\\\TestCase\\:\\:getSniffName\\(\\) through static\\:\\:\\.$#"
-			count: 3
-			path: repo/SlevomatCodingStandard/Sniffs/TestCase.php
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationTypeHelper.php
 
