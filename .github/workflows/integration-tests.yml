@@ -57,14 +57,6 @@ jobs:
             composer install
             ../../../phpstan.phar analyse -c ../larastan.neon
           - |
-            git clone https://github.com/slevomat/coding-standard.git e2e/integration/repo
-            cd e2e/integration/repo
-            git checkout c6282eefa680e3c982ea41a8df4ce2e5402eed6a
-            composer install
-            composer require --dev phpstan/phpstan:^1.0 phpstan/phpstan-strict-rules:^1.0 phpstan/phpstan-phpunit:^1.0 phpstan/phpstan-deprecation-rules:^1.0
-            ../../../phpstan.phar analyse -c ../slevomat-cs.neon -l 7 SlevomatCodingStandard
-            ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon -l 7 tests
-          - |
             git clone https://github.com/bitExpert/phpstan-magento.git e2e/integration/repo
             cd e2e/integration/repo
             git checkout f845cd4dbdc49d2e005ec2646176ddfcf7d55d38
@@ -124,6 +116,14 @@ jobs:
               git checkout 4edfc4957494ec272899a8916f3f245c59c86d05
               composer install
               ../../../phpstan.phar analyse -c ../nextras.neon
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/slevomat/coding-standard.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout 8c49f8e6e4e3661ee6e568a06676146475f73430
+              composer install
+              ../../../phpstan.phar analyse -c ../slevomat-cs.neon -l 7 SlevomatCodingStandard
+              ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon -l 7 tests
 
     steps:
       - name: "Checkout"
