@@ -7,7 +7,7 @@ name: Docker image nightly
 on:
   push:
     branches:
-      - "1.5.x"
+      - "1.6.x"
     paths-ignore:
       - 'issue-bot/**'
       - 'website/**'
