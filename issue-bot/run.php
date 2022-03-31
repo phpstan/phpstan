@@ -143,7 +143,14 @@ function searchBody(string $text, string $author): array
 	return $examples;
 }
 
-$postGenerator = new PostGenerator(new Differ(new UnifiedDiffOutputBuilder('')), $phpstanSrcCommit);
+exec('git branch --show-current', $gitBranchLines, $exitCode);
+if ($exitCode === 0) {
+	$gitBranch = implode("\n", $gitBranchLines);
+} else {
+	$gitBranch = 'dev-master';
+}
+
+$postGenerator = new PostGenerator(new Differ(new UnifiedDiffOutputBuilder('')), $gitBranch, $phpstanSrcCommit);
 $promiseResolver = new PromiseResolver();
 
 $issuesIterator = new AppendIterator();

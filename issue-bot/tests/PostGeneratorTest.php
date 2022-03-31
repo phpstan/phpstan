@@ -24,7 +24,7 @@ class PostGeneratorTest extends TestCase
 +1: def
 ';
 
-		$commentText = "@foobar After [the latest commit in dev-master](https://github.com/phpstan/phpstan-src/commit/abc123), PHPStan now reports different result with your [code snippet](https://phpstan.org/r/abc-def):
+		$commentText = "@foobar After [the latest commit in 1.6.x](https://github.com/phpstan/phpstan-src/commit/abc123), PHPStan now reports different result with your [code snippet](https://phpstan.org/r/abc-def):
 
 ```diff\n" . $diff . '```
 
@@ -122,7 +122,7 @@ class PostGeneratorTest extends TestCase
 		?string $expectedText
 	): void
 	{
-		$generator = new PostGenerator(new Differ(new UnifiedDiffOutputBuilder('')), 'abc123');
+		$generator = new PostGenerator(new Differ(new UnifiedDiffOutputBuilder('')), '1.6.x', 'abc123');
 		$text = $generator->createText(
 			$result,
 			$botComments
