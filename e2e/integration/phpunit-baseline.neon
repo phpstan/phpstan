@@ -2921,7 +2921,7 @@ parameters:
 			path: repo/src/TextUI/XmlConfiguration/Migration/Migrations/LogToReportMigration.php
 
 		-
-			message: "#^Cannot call method removeChild\\(\\) on DOMElement\\|null\\.$#"
+			message: "#^Cannot call method removeChild\\(\\) on DOMNode\\|null\\.$#"
 			count: 1
 			path: repo/src/TextUI/XmlConfiguration/Migration/Migrations/LogToReportMigration.php
 
@@ -2961,7 +2961,7 @@ parameters:
 			path: repo/src/TextUI/XmlConfiguration/Migration/Migrations/RemoveEmptyFilter.php
 
 		-
-			message: "#^Cannot call method removeChild\\(\\) on DOMElement\\|null\\.$#"
+			message: "#^Cannot call method removeChild\\(\\) on DOMNode\\|null\\.$#"
 			count: 2
 			path: repo/src/TextUI/XmlConfiguration/Migration/Migrations/RemoveEmptyFilter.php
 
