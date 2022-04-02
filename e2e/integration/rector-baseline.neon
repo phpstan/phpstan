@@ -1,6 +1,21 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Comparison operation \"\\>\" between int\\<2, max\\> and 1 is always true\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/NodeTypeResolver/TraitTypeResolver.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/NodeTypeResolver/TraitTypeResolver.php
+
+		-
+			message: "#^Casting to int something that's already int\\<0, max\\>\\.$#"
+			count: 1
+			path: repo/rules/Php71/Rector/FuncCall/RemoveExtraParametersRector.php
+
+		-
 			message: "#^Property PhpParser\\\\Node\\\\Expr\\\\MethodCall\\:\\:\\$args \\(array\\<PhpParser\\\\Node\\\\Arg\\|PhpParser\\\\Node\\\\VariadicPlaceholder\\>\\) does not accept array\\<PhpParser\\\\Node\\\\Arg\\|PhpParser\\\\Node\\\\Param\\>\\.$#"
 			count: 1
 			path: repo/rules/Php80/Rector/ClassMethod/OptionalParametersAfterRequiredRector.php
