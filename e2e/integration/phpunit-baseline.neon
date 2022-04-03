@@ -2446,11 +2446,6 @@ parameters:
 			path: repo/src/TextUI/CliArguments/Builder.php
 
 		-
-			message: "#^Parameter \\#3 \\$longOptions of method SebastianBergmann\\\\CliParser\\\\Parser\\:\\:parse\\(\\) expects array\\<int, string\\>\\|null, array given\\.$#"
-			count: 1
-			path: repo/src/TextUI/CliArguments/Builder.php
-
-		-
 			message: "#^Possibly invalid array key type \\(array\\|string\\)\\.$#"
 			count: 1
 			path: repo/src/TextUI/CliArguments/Builder.php
