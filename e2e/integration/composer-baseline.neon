@@ -6,6 +6,11 @@ parameters:
 			path: repo/src/Composer/Autoload/PhpFileCleaner.php
 
 		-
+			message: "#^Parameter \\#1 \\$needle of method Composer\\\\Repository\\\\InstalledRepository\\:\\:getDependents\\(\\) expects array\\<string\\>\\|string, array given\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/BaseDependencyCommand.php
+
+		-
 			message: "#^Parameter \\#1 \\$pattern of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatch\\(\\) expects non\\-empty\\-string, string given\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/ReinstallCommand.php
@@ -51,6 +56,11 @@ parameters:
 			path: repo/src/Composer/Package/Archiver/BaseExcludeFilter.php
 
 		-
+			message: "#^Only booleans are allowed in a negated boolean, int\\<0, 3\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Package/Comparer/Comparer.php
+
+		-
 			message: "#^Parameter \\#1 \\$pattern of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatch\\(\\) expects non\\-empty\\-string, string given\\.$#"
 			count: 1
 			path: repo/src/Composer/Plugin/PluginManager.php
@@ -63,6 +73,11 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$pattern of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatch\\(\\) expects non\\-empty\\-string, string given\\.$#"
 			count: 1
+			path: repo/src/Composer/Repository/ComposerRepository.php
+
+		-
+			message: "#^Property Composer\\\\Repository\\\\ComposerRepository\\:\\:\\$sourceMirrors \\(array\\<string, array\\<int, array\\{url\\: string, preferred\\: bool\\}\\>\\>\\|null\\) does not accept non\\-empty\\-array\\<string, array\\<int, array\\{url\\: mixed, preferred\\: bool\\}\\>\\>\\.$#"
+			count: 2
 			path: repo/src/Composer/Repository/ComposerRepository.php
 
 		-
@@ -84,6 +99,26 @@ parameters:
 			message: "#^Property Composer\\\\Util\\\\Http\\\\CurlDownloader\\:\\:\\$jobs \\(array\\<array\\{url\\: string, origin\\: string, attributes\\: array\\{retryAuthFailure\\: bool, redirects\\: int, retries\\: int, storeAuth\\: bool\\}, options\\: array, progress\\: array, curlHandle\\: resource, filename\\: string\\|false, headerHandle\\: resource, \\.\\.\\.\\}\\>\\) does not accept non\\-empty\\-array\\<array\\{url\\: string, origin\\: string, attributes\\: array\\{retryAuthFailure\\: bool, redirects\\: int, retries\\: int, storeAuth\\: bool\\}, options\\: array, progress\\: array, curlHandle\\: CurlHandle\\|resource, filename\\: string\\|false\\|null, headerHandle\\: resource, \\.\\.\\.\\}\\>\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/Http/CurlDownloader.php
+
+		-
+			message: "#^Offset 'info'\\|'warning' does not exist on array\\{warning\\?\\: string, info\\?\\: string, warning\\-versions\\?\\: string, info\\-versions\\?\\: string, warnings\\?\\: array\\<array\\{versions\\: string, message\\: string\\}\\>, infos\\?\\: array\\<array\\{versions\\: string, message\\: string\\}\\>\\}\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/HttpDownloader.php
+
+		-
+			message: "#^Offset 'info\\-versions'\\|'warning\\-versions' does not exist on array\\{warning\\?\\: string, info\\?\\: string, warning\\-versions\\?\\: string, info\\-versions\\?\\: string, warnings\\?\\: array\\<array\\{versions\\: string, message\\: string\\}\\>, infos\\?\\: array\\<array\\{versions\\: string, message\\: string\\}\\>\\}\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/HttpDownloader.php
+
+		-
+			message: "#^Offset 'infos'\\|'warnings' does not exist on array\\{warning\\?\\: string, info\\?\\: string, warning\\-versions\\?\\: string, info\\-versions\\?\\: string, warnings\\?\\: array\\<array\\{versions\\: string, message\\: string\\}\\>, infos\\?\\: array\\<array\\{versions\\: string, message\\: string\\}\\>\\}\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/HttpDownloader.php
+
+		-
+			message: "#^Property Composer\\\\Test\\\\Mock\\\\ProcessExecutorMock\\:\\:\\$expectations \\(array\\<array\\{cmd\\: array\\<int, string\\>\\|string, return\\: int, stdout\\: string, stderr\\: string, callback\\: \\(callable\\(\\)\\: mixed\\)\\|null\\}\\>\\|null\\) does not accept array\\<array\\{cmd\\: array\\<int, string\\>\\|string, return\\?\\: int, stdout\\?\\: string, stderr\\?\\: string, callback\\?\\: callable\\(\\)\\: mixed\\}\\>\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Mock/ProcessExecutorMock.php
 
 		-
 			message: "#^Parameter \\#2 \\$expectedLinks of method Composer\\\\Test\\\\Repository\\\\PlatformRepositoryTest\\:\\:assertPackageLinks\\(\\) expects array\\<string\\>, array\\|string\\|false\\|null given\\.$#"
