@@ -86,7 +86,7 @@ export class PlaygroundViewModel {
 	setId(id: string | null): void {
 		this.id = id;
 		if (id === null) {
-			window.history.replaceState({}, '', '/');
+			window.history.replaceState({}, '', '/try');
 		} else{
 			window.history.replaceState({}, '', '/r/' + id);
 		}
