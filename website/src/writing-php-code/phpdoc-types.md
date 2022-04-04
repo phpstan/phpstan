@@ -327,3 +327,14 @@ All of these names are equivalent:
 * `no-return`
 
 Marking a function or a method as `@return never` tells PHPStan the function always throws an exception, or contains a way to end the script execution, like `die()` or `exit()`. This is useful when [solving undefined variables](/writing-php-code/solving-undefined-variables).
+
+Int masks
+-------------------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.6</div>
+
+Some functions accept a bitmask composed by `|`-ing different integer values. `0` is always part of the possible values. Some examples:
+
+* `int-mask<1, 2, 4>` (accepts values that can be composed using `|` from the given integers, and 0)
+* `int-mask-of<1|2|4>` (the same as above, but writting as a union)
+* `int-mask-of<Foo::INT_*>` (accepts values from all constants on `Foo` that start with `INT_`)
