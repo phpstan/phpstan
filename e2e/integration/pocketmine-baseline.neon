@@ -6,6 +6,16 @@ parameters:
 			path: repo/src/pocketmine/Player.php
 
 		-
+			message: "#^Cannot access property \\$crashId on mixed\\.$#"
+			count: 1
+			path: repo/src/pocketmine/Server.php
+
+		-
+			message: "#^Cannot access property \\$error on mixed\\.$#"
+			count: 1
+			path: repo/src/pocketmine/Server.php
+
+		-
 			message: "#^Method pocketmine\\\\ThreadManager\\:\\:getAll\\(\\) should return array\\<pocketmine\\\\Thread\\|pocketmine\\\\Worker\\> but returns array\\<int\\|string, mixed\\>\\.$#"
 			count: 1
 			path: repo/src/pocketmine/ThreadManager.php
