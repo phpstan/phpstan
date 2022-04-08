@@ -301,6 +301,16 @@ Constant enumerations are also supported:
 * `self::SOME_*` (all constants on `self` that start with `SOME_`)
 * `Foo::*` (all constants on `Foo`)
 
+Global constants
+-------------------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.6</div>
+
+Constants are supported as long as they don't contain lowercase letters and a class with the same name doesn't exist:
+
+* `SOME_CONSTANT`
+* `SOME_CONSTANT|OTHER_CONSTANT`
+
 Callables
 -------------------------
 
