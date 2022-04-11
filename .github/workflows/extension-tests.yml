@@ -66,12 +66,12 @@ jobs:
           - "phpstan-dibi"
           - "phpstan-webmozart-assert"
           - "phpstan-beberlei-assert"
-        static-reflection:
+        runtime-reflection:
           - "true"
           - "false"
         exclude:
           - extension-name: "phpstan-phpunit"
-            static-reflection: "true"
+            runtime-reflection: "false"
           - extension-name: "phpstan-doctrine"
             php-version: "8.1"
 
@@ -100,6 +100,6 @@ jobs:
 
       - name: "Extension build"
         env:
-          STATIC_REFLECTION: ${{ matrix.static-reflection }}
+          RUNTIME_REFLECTION: ${{ matrix.runtime-reflection }}
           PHP_VERSION: ${{ matrix.php-version }}
         run: "./e2e/test-extension.sh ${{ matrix.extension-name }}"
