@@ -72,6 +72,9 @@ jobs:
         exclude:
           - extension-name: "phpstan-mockery"
             php-version: "7.2"
+          - extension-name: "phpstan-phpunit"
+            php-version: "7.2"
+            runtime-reflection: "false"
 
     steps:
       - name: "Checkout"
