@@ -70,10 +70,6 @@ jobs:
           - "true"
           - "false"
         exclude:
-          - extension-name: "phpstan-phpunit"
-            runtime-reflection: "false"
-          - extension-name: "phpstan-doctrine"
-            php-version: "8.1"
           - extension-name: "phpstan-mockery"
             php-version: "7.2"
 
