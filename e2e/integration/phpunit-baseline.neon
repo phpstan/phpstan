@@ -2686,7 +2686,7 @@ parameters:
 			path: repo/src/TextUI/DefaultResultPrinter.php
 
 		-
-			message: "#^Parameter \\#2 \\$length of function str_pad expects int, int\\|false given\\.$#"
+			message: "#^Parameter \\#2 \\$length of function str_pad expects int, int\\<0, max\\>\\|false given\\.$#"
 			count: 1
 			path: repo/src/TextUI/DefaultResultPrinter.php
 
