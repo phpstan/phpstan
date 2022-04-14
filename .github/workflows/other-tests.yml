@@ -155,6 +155,9 @@ jobs:
           - |
             cd e2e/attribute-74
             ../../phpstan analyse -l 9 test.php -c test.neon
+          - |
+            cd e2e/node-connecting
+            ../../phpstan analyse -a Rule.php
         include:
           - php-version: 8.0
             ini-values: memory_limit=256M

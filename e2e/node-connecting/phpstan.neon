@@ -1,0 +1,11 @@
+includes:
+	- phar://phpstan.phar/conf/bleedingEdge.neon
+	- baseline.neon
+
+parameters:
+	paths:
+		- src
+	level: 8
+
+rules:
+	- NodeConnectingRule\Rule
