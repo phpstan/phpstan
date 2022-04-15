@@ -107,10 +107,10 @@ public function processNode(Node $node, Scope $scope): array
 }
 ```
 
-When you run PHPStan with this rule registered on the small sample file we wrote above:
+When you run PHPStan with this rule registered on the small sample file we wrote above (note: we have to enable output from the rule by adding the `--debug` option):
 
 ```
-vendor/bin/phpstan analyse -l 8 test.php
+vendor/bin/phpstan analyse -l 8 --debug test.php
 ```
 
 You'll see PHP printing all the nodes the rule is called with:
