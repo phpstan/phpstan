@@ -1,9 +1,13 @@
 import * as ko from 'knockout';
 import $ from 'jquery';
 import littlefoot from 'littlefoot';
+import mermaid from 'mermaid';
 
 $(() => {
 	littlefoot();
+	mermaid.initialize({
+		startOnLoad: true,
+	});
 });
 
 export class MainMenuViewModel {
