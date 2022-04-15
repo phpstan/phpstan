@@ -222,6 +222,12 @@ return [
 ];
 ```
 
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+
+If you want to check out the surroundings of the node the rule was invoked for, like the parent node or the siblings (previous and next nodes), you have to write a custom node visitor that will preprocess the AST and gather the needed data for your custom rule. [Learn more »](/blog/preprocessing-ast-for-custom-rules)
+
+</div>
+
 Registering the rule in the configuration
 ---------------
 
