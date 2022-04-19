@@ -143,18 +143,6 @@ Third party code
 
 The above-mentioned ways of solving this problem can't be usually applied if the class you're typehinting comes from 3rd party code. Fortunately PHPStan comes with the [stub files](/user-guide/stub-files) feature which is designed to override PHPDocs in 3rd party code.
 
-Ignoring this error
-------------------------
-
-PHPStan understands that not everyone wants to dive into solving these errors when they first increase the [rule level](/user-guide/rule-levels) to level 6 so it offers a [config parameter](https://phpstan.org/config-reference#vague-typehints) to disable this check:
-
-```yaml
-parameters:
-	checkMissingIterableValueType: false
-```
-
-But using [the baseline](/user-guide/baseline) to defer solving this error in an already existing codebase while preserving the check in newly written code is much more recommended.
-
 ---
 
 Do you like PHPStan and use it every day? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!
