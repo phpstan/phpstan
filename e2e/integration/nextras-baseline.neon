@@ -5,3 +5,8 @@ parameters:
 			count: 1
 			path: repo/src/Collection/DbalCollection.php
 
+		-
+			message: "#^Call to __construct\\(\\) on an existing object is not allowed\\.$#"
+			count: 1
+			path: repo/tests/cases/unit/Entity/AbstractEntity.is_modified.phpt
+
