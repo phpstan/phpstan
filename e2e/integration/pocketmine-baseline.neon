@@ -46,6 +46,16 @@ parameters:
 			path: repo/src/pocketmine/level/generator/Flat.php
 
 		-
+			message: "#^Offset 0 does not exist on array\\<SimpleXMLElement\\>\\|null\\.$#"
+			count: 1
+			path: repo/src/pocketmine/network/upnp/UPnP.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\<SimpleXMLElement\\>\\|null given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/network/upnp/UPnP.php
+
+		-
 			message: "#^Cannot call method isFile\\(\\) on mixed\\.$#"
 			count: 1
 			path: repo/src/pocketmine/plugin/PluginBase.php
