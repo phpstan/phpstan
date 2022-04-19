@@ -15,7 +15,7 @@ mergeable:
       - do: comment
         payload:
           body: |
-            This bug report is missing a link to reproduction on [phpstan.org](https://phpstan.org/).
+            This bug report is missing a link to reproduction at [phpstan.org/try](https://phpstan.org/try).
 
             It will most likely be closed after manual review.
   - when: issues.opened
