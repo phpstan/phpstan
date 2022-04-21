@@ -409,6 +409,14 @@ public function setFoo(int $foo): void
 }
 ```
 
+### `checkDynamicProperties`
+
+**default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
+
+**example**: [with `false`](https://phpstan.org/r/3784cac0-9773-4975-8e10-2dc3412a059d), [with `true`](https://phpstan.org/r/e2c2a609-3181-44c5-ad04-e1fac42a40f8)
+
+When set to `true`, it reports use of dynamic properties as undefined.
+
 Exceptions
 ------------
 
