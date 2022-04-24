@@ -6,11 +6,6 @@ parameters:
 			path: repo/src/Composer/Autoload/PhpFileCleaner.php
 
 		-
-			message: "#^Parameter \\#1 \\$needle of method Composer\\\\Repository\\\\InstalledRepository\\:\\:getDependents\\(\\) expects array\\<string\\>\\|string, array given\\.$#"
-			count: 1
-			path: repo/src/Composer/Command/BaseDependencyCommand.php
-
-		-
 			message: "#^Parameter \\#1 \\$pattern of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatch\\(\\) expects non\\-empty\\-string, string given\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/ReinstallCommand.php
@@ -76,14 +71,14 @@ parameters:
 			path: repo/src/Composer/Repository/ComposerRepository.php
 
 		-
-			message: "#^Property Composer\\\\Repository\\\\ComposerRepository\\:\\:\\$sourceMirrors \\(array\\<string, array\\<int, array\\{url\\: string, preferred\\: bool\\}\\>\\>\\|null\\) does not accept non\\-empty\\-array\\<string, array\\<int, array\\{url\\: mixed, preferred\\: bool\\}\\>\\>\\.$#"
-			count: 2
-			path: repo/src/Composer/Repository/ComposerRepository.php
-
-		-
 			message: "#^Parameter \\#1 \\$pattern of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatch\\(\\) expects non\\-empty\\-string, string\\|null given\\.$#"
 			count: 1
 			path: repo/src/Composer/Repository/FilterRepository.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: repo/src/Composer/Repository/PlatformRepository.php
 
 		-
 			message: "#^Offset 'namelookup_time' on array\\{url\\: string, content_type\\: string\\|null, http_code\\: int, header_size\\: int, request_size\\: int, filetime\\: int, ssl_verify_result\\: int, redirect_count\\: int, \\.\\.\\.\\} in isset\\(\\) always exists and is not nullable\\.$#"
