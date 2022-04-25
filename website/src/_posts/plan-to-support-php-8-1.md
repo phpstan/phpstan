@@ -18,7 +18,7 @@ So what's the current situation? Since 1.0 PHPStan was able to run on PHP 8.1 wi
 
 [PHPStan 1.4](https://github.com/phpstan/phpstan/releases/tag/1.4.0) brought support for readonly properties.
 
-What remains to be updated are [stubs](https://github.com/phpstan/php-8-stubs) of changed function signatures, and some miscellaneous things.
+[PHPStan 1.6](https://github.com/phpstan/phpstan/releases/tag/1.6.0) updated changed function signatures. As of this release, **PHP 8.1 is fully supported**!
 
 ---
 

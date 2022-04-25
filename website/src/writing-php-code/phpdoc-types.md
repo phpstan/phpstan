@@ -132,6 +132,35 @@ Generics
 
 [Generics »](/blog/generics-in-php-using-phpdocs), [Generics By Examples »](/blog/generics-by-examples)
 
+Conditional return types
+-------------------------
+
+A simpler alternative to generics if you just want to infer the return type based on if-else logic.
+
+```php
+/**
+ * @return ($size is positive-int ? non-empty-array : array)
+ */
+function fillArray(int $size): array
+{
+	...
+}
+```
+
+It can be combined with generics as well in both the condition and the if-else types:
+
+```php
+/**
+ * @template T of int|array<int>
+ * @param T $id
+ * @return (T is int ? static : array<static>)
+ */
+public function fetch(int|array $id)
+{
+	...
+}
+```
+
 class-string
 -------------------------
 
