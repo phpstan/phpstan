@@ -165,6 +165,10 @@ jobs:
             cd e2e/event-dispatcher
             composer install
             ../../phpstan
+          - |
+            cd e2e/swift-mailer
+            composer install
+            ../../phpstan
         include:
           - php-version: 8.0
             ini-values: memory_limit=256M
