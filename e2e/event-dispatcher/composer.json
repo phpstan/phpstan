@@ -1,0 +1,5 @@
+{
+	"require": {
+		"symfony/event-dispatcher-contracts": "1.1.12"
+	}
+}

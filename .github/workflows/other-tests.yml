@@ -161,6 +161,10 @@ jobs:
           - |
             cd e2e/node-connecting
             ../../phpstan analyse -a Rule.php
+          - |
+            cd e2e/event-dispatcher
+            composer install
+            ../../phpstan
         include:
           - php-version: 8.0
             ini-values: memory_limit=256M
