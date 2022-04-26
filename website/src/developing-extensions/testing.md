@@ -46,6 +46,12 @@ class MyRuleTest extends RuleTestCase
 		// or if there are other errors reported beside the expected one
 	}
 
+	public static function getAdditionalConfigFiles(): array
+	{
+		// path to your project's phpstan.neon, or extension.neon in case of custom extension packages
+		return [__DIR__ . '/../extension.neon'];
+	}
+
 }
 ```
 
