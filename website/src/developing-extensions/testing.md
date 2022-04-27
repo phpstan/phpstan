@@ -49,6 +49,7 @@ class MyRuleTest extends RuleTestCase
 	public static function getAdditionalConfigFiles(): array
 	{
 		// path to your project's phpstan.neon, or extension.neon in case of custom extension packages
+		// this is only necessary if your custom rule relies on some extra configuration and other extensions
 		return [__DIR__ . '/../extension.neon'];
 	}
 
@@ -98,7 +99,6 @@ class MyContainerDynamicReturnTypeExtensionTest extends TypeInferenceTestCase
 	public static function getAdditionalConfigFiles(): array
 	{
 		// path to your project's phpstan.neon, or extension.neon in case of custom extension packages
-		// this is only necessary if your custom rule relies on some extra configuration and other extensions
 		return [__DIR__ . '/../extension.neon'];
 	}
 
