@@ -6,6 +6,11 @@ parameters:
 			path: repo/src/Collection/DbalCollection.php
 
 		-
+			message: "#^Loose comparison using \\!\\= between 1 and 1 will always evaluate to false\\.$#"
+			count: 2
+			path: repo/tests/cases/integration/Relationships/entity.relationships.phpt
+
+		-
 			message: "#^Call to __construct\\(\\) on an existing object is not allowed\\.$#"
 			count: 1
 			path: repo/tests/cases/unit/Entity/AbstractEntity.is_modified.phpt
