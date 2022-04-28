@@ -111,6 +111,16 @@ parameters:
 			path: repo/src/Composer/Util/HttpDownloader.php
 
 		-
+			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertFalse\\(\\) with false will always evaluate to true\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Filter/PlatformRequirementFilter/IgnoreNothingPlatformRequirementFilterTest.php
+
+		-
+			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with array\\{pretty_version\\: 'dev\\-master', version\\: 'dev\\-master', type\\: 'library', install_path\\: non\\-empty\\-string, aliases\\: array\\{'1\\.10\\.x\\-dev'\\}, reference\\: 'sourceref\\-by\\-default', name\\: '__root__', dev\\: true\\} and array\\{name\\: string, version\\: string, reference\\: string, pretty_version\\: string, aliases\\: array\\<string\\>, dev\\: bool, install_path\\: string, type\\: string\\} will always evaluate to false\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/InstalledVersionsTest.php
+
+		-
 			message: "#^Property Composer\\\\Test\\\\Mock\\\\ProcessExecutorMock\\:\\:\\$expectations \\(array\\<array\\{cmd\\: array\\<int, string\\>\\|string, return\\: int, stdout\\: string, stderr\\: string, callback\\: \\(callable\\(\\)\\: mixed\\)\\|null\\}\\>\\|null\\) does not accept array\\<array\\{cmd\\: array\\<int, string\\>\\|string, return\\?\\: int, stdout\\?\\: string, stderr\\?\\: string, callback\\?\\: callable\\(\\)\\: mixed\\}\\>\\.$#"
 			count: 1
 			path: repo/tests/Composer/Test/Mock/ProcessExecutorMock.php
