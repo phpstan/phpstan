@@ -66,15 +66,11 @@ jobs:
           - "phpstan-dibi"
           - "phpstan-webmozart-assert"
           - "phpstan-beberlei-assert"
-        runtime-reflection:
-          - "true"
-          - "false"
         exclude:
           - extension-name: "phpstan-mockery"
             php-version: "7.2"
           - extension-name: "phpstan-phpunit"
             php-version: "7.2"
-            runtime-reflection: "false"
 
     steps:
       - name: "Checkout"
@@ -101,6 +97,5 @@ jobs:
 
       - name: "Extension build"
         env:
-          RUNTIME_REFLECTION: ${{ matrix.runtime-reflection }}
           PHP_VERSION: ${{ matrix.php-version }}
         run: "./e2e/test-extension.sh ${{ matrix.extension-name }}"
