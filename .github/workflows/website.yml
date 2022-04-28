@@ -5,7 +5,7 @@ name: "Website Build"
 on:
   push:
     branches:
-      - "1.6.x"
+      - "1.7.x"
     paths:
       - '.github/workflows/website.yml'
       - 'website/**'
