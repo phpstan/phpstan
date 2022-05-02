@@ -4,6 +4,14 @@ title: Dynamic Return Type Extensions
 
 If the return type of a method is not always the same, but depends on an argument passed to the method, you can specify the return type by writing and registering an extension.
 
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+
+Most scenarios no longer require you to write an extension - only a PHPDoc to describe the behavior of your function.
+
+Check out [generics](/blog/generics-in-php-using-phpdocs) and [conditional return types](/phpdoc-types#conditional-return-types) to learn more.
+
+</div>
+
 The implementation is all about applying the [core concepts](/developing-extensions/core-concepts) so check out that guide first and then continue here.
 
 <!-- TODO link generics -->

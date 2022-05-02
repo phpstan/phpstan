@@ -13,7 +13,9 @@ I wrote that article because the differences between unions and intersections ar
 
 Today I have a similar goal. Generics are coming to PHPStan 0.12 later this week, I want to explain what they’re all about, and get everyone excited.
 
-> Also check out practical examples in the [Generics By Examples](/blog/generics-by-examples) article.
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+Also check out practical examples in the [Generics By Examples](/blog/generics-by-examples) article.
+</div>
 
 ## Infinite number of signatures
 
