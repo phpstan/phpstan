@@ -4,7 +4,7 @@ namespace Hoa;
 
 use Hoa\File\Read;
 
-class Foo extends Read
+abstract class Foo extends Read
 {
 
 	public function doFoo(): void

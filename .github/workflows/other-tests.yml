@@ -66,7 +66,7 @@ jobs:
           - |
             cd e2e/hoa
             composer install
-            ../../phpstan analyse -l 8 src
+            ../../phpstan
           - |
             cd e2e/different-php-parser
             composer install --ignore-platform-reqs

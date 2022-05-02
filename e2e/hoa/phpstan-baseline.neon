@@ -1,0 +1,6 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined static method Hoa\\\\File\\\\Read\\:\\:open\\(\\)\\.$#"
+			count: 1
+			path: src/Foo.php
