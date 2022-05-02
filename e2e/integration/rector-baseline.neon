@@ -11,6 +11,16 @@ parameters:
 			path: repo/packages/NodeTypeResolver/NodeTypeResolver/TraitTypeResolver.php
 
 		-
+			message: "#^Parameter 2 should use \"PHPStan\\\\BetterReflection\\\\Reflection\\\\Adapter\\\\ReflectionMethod\" type as the only type passed to this method$#"
+			count: 2
+			path: repo/rules/CodingStyle/Rector/ClassMethod/MakeInheritedMethodVisibilitySameAsParentRector.php
+
+		-
+			message: "#^Parameter \\#1 \\$reflection of class PHPStan\\\\Reflection\\\\Php\\\\PhpParameterReflection constructor expects PHPStan\\\\BetterReflection\\\\Reflection\\\\Adapter\\\\ReflectionParameter, ReflectionParameter given\\.$#"
+			count: 1
+			path: repo/rules/DowngradePhp80/NodeAnalyzer/NamedToUnnamedArgs.php
+
+		-
 			message: "#^Casting to int something that's already int\\<0, max\\>\\.$#"
 			count: 1
 			path: repo/rules/Php71/Rector/FuncCall/RemoveExtraParametersRector.php
