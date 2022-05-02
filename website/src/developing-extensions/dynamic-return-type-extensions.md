@@ -8,7 +8,7 @@ If the return type of a method is not always the same, but depends on an argumen
 
 Most scenarios no longer require you to write an extension - only a PHPDoc to describe the behavior of your function.
 
-Check out [generics](/blog/generics-in-php-using-phpdocs) and [conditional return types](/phpdoc-types#conditional-return-types) to learn more.
+Check out [generics](/blog/generics-in-php-using-phpdocs) and [conditional return types](/writing-php-code/phpdoc-types#conditional-return-types) to learn more.
 
 </div>
 
