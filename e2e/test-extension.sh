@@ -7,6 +7,14 @@ set -o nounset
 git clone https://github.com/phpstan/$1.git extension
 cd extension
 
+if [[ "$1" == "phpstan-strict-rules" ]]; then
+  git checkout c0b61e25933ca27ff65c66971336dd6e5061d756
+fi
+
+if [[ "$1" == "phpstan-nette" ]]; then
+  git checkout 85efe4bf3df379f5a0c84e44513556bca448f326
+fi
+
 if [[ "$PHP_VERSION" == "7.1" || "$PHP_VERSION" == "7.2" ]]; then
   if [[ "$1" == "phpstan-mockery" ]]; then
     composer require --dev phpunit/phpunit:'^7.5.20' mockery/mockery:^1.3 --update-with-dependencies
