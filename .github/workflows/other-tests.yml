@@ -173,6 +173,10 @@ jobs:
             cd e2e/rector-autoload
             composer install
             ../../phpstan
+          - |
+            cd e2e/undiscoverable-symbols-1
+            composer install
+            ../../phpstan
         include:
           - php-version: 8.0
             ini-values: memory_limit=256M
@@ -213,7 +217,13 @@ jobs:
               cd e2e/symfony-event
               composer install --ignore-platform-reqs
               ../../phpstan analyse -l 2 src
-
+          - php-version: 8.0
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/undiscoverable-symbols-2
+              composer install
+              ../../phpstan analyse
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
