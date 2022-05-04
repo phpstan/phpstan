@@ -169,6 +169,10 @@ jobs:
             cd e2e/swift-mailer
             composer install
             ../../phpstan
+          - |
+            cd e2e/rector-autoload
+            composer install
+            ../../phpstan
         include:
           - php-version: 8.0
             ini-values: memory_limit=256M
