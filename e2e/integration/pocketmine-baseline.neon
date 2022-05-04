@@ -6,6 +6,11 @@ parameters:
 			path: repo/src/pocketmine/Player.php
 
 		-
+			message: "#^Parameter \\#2 \\$string of function explode expects string, mixed given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/PocketMine.php
+
+		-
 			message: "#^Cannot access property \\$crashId on mixed\\.$#"
 			count: 1
 			path: repo/src/pocketmine/Server.php
