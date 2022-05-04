@@ -217,7 +217,7 @@ jobs:
               cd e2e/symfony-event
               composer install --ignore-platform-reqs
               ../../phpstan analyse -l 2 src
-          - php-version: 8.0
+          - php-version: 8.1
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
             script: |
