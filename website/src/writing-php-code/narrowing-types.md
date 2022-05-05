@@ -2,7 +2,7 @@
 title: Narrowing Types
 ---
 
-Narrowing a type is usually needed when we have a [union type](/blog/union-types-vs-intersection-types) like `bool|int` and we want to work only with one of the types in a branch. Other use case for narrowing is when we we want to execute code only for a specific subtype, for example when we're interested only in `InvalidArgumentException` but we've got `Exception` in a variable.
+Narrowing a type is usually needed when we have a [union type](/blog/union-types-vs-intersection-types) like `bool|int` and we want to work only with one of the types in a branch. Other use case for narrowing is when we want to execute code only for a specific subtype, for example when we're interested only in `InvalidArgumentException` but we've got `Exception` in a variable.
 
 PHPStan supports several ways of narrowing types.
 
