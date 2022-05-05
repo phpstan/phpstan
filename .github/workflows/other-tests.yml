@@ -227,6 +227,13 @@ jobs:
               cd e2e/undiscoverable-symbols-2
               composer install
               ../../phpstan analyse
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/undiscoverable-symbols-3
+              composer install
+              ../../phpstan
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
