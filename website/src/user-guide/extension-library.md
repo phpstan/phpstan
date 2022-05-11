@@ -80,5 +80,6 @@ Unofficial extensions
 * [Slamdunk / phpstan-extensions](https://github.com/Slamdunk/phpstan-extensions)
 * [ekino / phpstan-banned-code](https://github.com/ekino/phpstan-banned-code)
 * [taptima / phpstan-custom](https://github.com/taptima/phpstan-custom)
+* [voku / phpstan-rules](https://github.com/voku/phpstan-rules)
 
 [**Find more on Packagist!**](https://packagist.org/?type=phpstan-extension)
