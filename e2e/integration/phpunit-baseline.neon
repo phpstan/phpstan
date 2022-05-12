@@ -5696,6 +5696,11 @@ parameters:
 			path: repo/tests/unit/Framework/Assert/FunctionsTest.php
 
 		-
+			message: "#^ArrayObject\\<\\*NEVER\\*, \\*NEVER\\*\\> does not accept string\\.$#"
+			count: 4
+			path: repo/tests/unit/Framework/AssertTest.php
+
+		-
 			message: "#^Method PHPUnit\\\\Framework\\\\AssertTest\\:\\:equalProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/tests/unit/Framework/AssertTest.php

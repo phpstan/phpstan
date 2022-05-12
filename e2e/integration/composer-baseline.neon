@@ -31,6 +31,11 @@ parameters:
 			path: repo/src/Composer/Command/ShowCommand.php
 
 		-
+			message: "#^Parameter \\#1 \\$fd of static method Composer\\\\Util\\\\Platform\\:\\:isTty\\(\\) expects resource\\|null, resource\\|false given\\.$#"
+			count: 1
+			path: repo/src/Composer/Console/Application.php
+
+		-
 			message: "#^Parameter \\#1 \\$pattern of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatch\\(\\) expects non\\-empty\\-string, string given\\.$#"
 			count: 3
 			path: repo/src/Composer/DependencyResolver/PoolBuilder.php
@@ -109,6 +114,21 @@ parameters:
 			message: "#^Offset 'infos'\\|'warnings' does not exist on array\\{warning\\?\\: string, info\\?\\: string, warning\\-versions\\?\\: string, info\\-versions\\?\\: string, warnings\\?\\: array\\<array\\{versions\\: string, message\\: string\\}\\>, infos\\?\\: array\\<array\\{versions\\: string, message\\: string\\}\\>\\}\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/HttpDownloader.php
+
+		-
+			message: "#^Parameter \\#1 \\$file_descriptor of function posix_isatty expects int\\|resource, resource\\|false given\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/Platform.php
+
+		-
+			message: "#^Parameter \\#1 \\$stream of function fstat expects resource, resource\\|false given\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/Platform.php
+
+		-
+			message: "#^Parameter \\#1 \\$stream of function stream_isatty expects resource, resource\\|false given\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/Platform.php
 
 		-
 			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertFalse\\(\\) with false will always evaluate to true\\.$#"

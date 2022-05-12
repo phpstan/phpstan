@@ -16,7 +16,17 @@ parameters:
 			path: repo/rules/CodingStyle/Rector/ClassMethod/MakeInheritedMethodVisibilitySameAsParentRector.php
 
 		-
-			message: "#^Parameter \\#1 \\$reflection of class PHPStan\\\\Reflection\\\\Php\\\\PhpParameterReflection constructor expects PHPStan\\\\BetterReflection\\\\Reflection\\\\Adapter\\\\ReflectionParameter, ReflectionParameter given\\.$#"
+			message: "#^Class PHPStan\\\\Reflection\\\\Php\\\\PhpParameterReflection constructor invoked with 3 parameters, 4 required\\.$#"
+			count: 1
+			path: repo/rules/DowngradePhp80/NodeAnalyzer/NamedToUnnamedArgs.php
+
+		-
+			message: "#^Parameter \\#1 \\$initializerExprTypeResolver of class PHPStan\\\\Reflection\\\\Php\\\\PhpParameterReflection constructor expects PHPStan\\\\Reflection\\\\InitializerExprTypeResolver, ReflectionParameter given\\.$#"
+			count: 1
+			path: repo/rules/DowngradePhp80/NodeAnalyzer/NamedToUnnamedArgs.php
+
+		-
+			message: "#^Parameter \\#2 \\$reflection of class PHPStan\\\\Reflection\\\\Php\\\\PhpParameterReflection constructor expects PHPStan\\\\BetterReflection\\\\Reflection\\\\Adapter\\\\ReflectionParameter, null given\\.$#"
 			count: 1
 			path: repo/rules/DowngradePhp80/NodeAnalyzer/NamedToUnnamedArgs.php
 
