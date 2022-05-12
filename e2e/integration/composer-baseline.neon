@@ -46,6 +46,16 @@ parameters:
 			path: repo/src/Composer/DependencyResolver/Rule.php
 
 		-
+			message: "#^Offset int on array\\<0\\|1\\|4\\> in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/Composer/DependencyResolver/RuleSetIterator.php
+
+		-
+			message: "#^Offset int\\<0, max\\> on array\\<0\\|1\\|4\\> in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/Composer/DependencyResolver/RuleSetIterator.php
+
+		-
 			message: "#^Parameter \\#1 \\$pattern of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatch\\(\\) expects non\\-empty\\-string, string given\\.$#"
 			count: 3
 			path: repo/src/Composer/Filter/PlatformRequirementFilter/IgnoreListPlatformRequirementFilter.php
@@ -99,21 +109,6 @@ parameters:
 			message: "#^Property Composer\\\\Util\\\\Http\\\\CurlDownloader\\:\\:\\$jobs \\(array\\<array\\{url\\: string, origin\\: string, attributes\\: array\\{retryAuthFailure\\: bool, redirects\\: int, retries\\: int, storeAuth\\: bool\\}, options\\: array, progress\\: array, curlHandle\\: resource, filename\\: string\\|false, headerHandle\\: resource, \\.\\.\\.\\}\\>\\) does not accept non\\-empty\\-array\\<array\\{url\\: string, origin\\: string, attributes\\: array\\{retryAuthFailure\\: bool, redirects\\: int, retries\\: int, storeAuth\\: bool\\}, options\\: array, progress\\: array, curlHandle\\: CurlHandle\\|resource, filename\\: string\\|false\\|null, headerHandle\\: resource, \\.\\.\\.\\}\\>\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/Http/CurlDownloader.php
-
-		-
-			message: "#^Offset 'info'\\|'warning' does not exist on array\\{warning\\?\\: string, info\\?\\: string, warning\\-versions\\?\\: string, info\\-versions\\?\\: string, warnings\\?\\: array\\<array\\{versions\\: string, message\\: string\\}\\>, infos\\?\\: array\\<array\\{versions\\: string, message\\: string\\}\\>\\}\\.$#"
-			count: 1
-			path: repo/src/Composer/Util/HttpDownloader.php
-
-		-
-			message: "#^Offset 'info\\-versions'\\|'warning\\-versions' does not exist on array\\{warning\\?\\: string, info\\?\\: string, warning\\-versions\\?\\: string, info\\-versions\\?\\: string, warnings\\?\\: array\\<array\\{versions\\: string, message\\: string\\}\\>, infos\\?\\: array\\<array\\{versions\\: string, message\\: string\\}\\>\\}\\.$#"
-			count: 1
-			path: repo/src/Composer/Util/HttpDownloader.php
-
-		-
-			message: "#^Offset 'infos'\\|'warnings' does not exist on array\\{warning\\?\\: string, info\\?\\: string, warning\\-versions\\?\\: string, info\\-versions\\?\\: string, warnings\\?\\: array\\<array\\{versions\\: string, message\\: string\\}\\>, infos\\?\\: array\\<array\\{versions\\: string, message\\: string\\}\\>\\}\\.$#"
-			count: 1
-			path: repo/src/Composer/Util/HttpDownloader.php
 
 		-
 			message: "#^Parameter \\#1 \\$file_descriptor of function posix_isatty expects int\\|resource, resource\\|false given\\.$#"

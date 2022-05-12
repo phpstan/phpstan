@@ -3191,6 +3191,11 @@ parameters:
 			path: repo/src/Util/Color.php
 
 		-
+			message: "#^Offset string on array\\<string, string\\> on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/Util/Color.php
+
+		-
 			message: "#^Method PHPUnit\\\\Util\\\\ErrorHandler\\:\\:invokeIgnoringWarnings\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: repo/src/Util/ErrorHandler.php
