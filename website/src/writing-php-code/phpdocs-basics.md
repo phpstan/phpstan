@@ -253,3 +253,22 @@ To make PHPStan understand the passed argument must be an instance of a `Resourc
  */
 public function foo(Resource $var): void { ... }
 ```
+
+Readonly properties
+-------------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.7.0</div>
+
+PHPStan supports native PHP 8.1 [readonly properties](https://wiki.php.net/rfc/readonly_properties_v2) and validates their correct usage. For older PHP versions, PHPStan also understands the `@readonly` PHPDoc tag to apply similar rules.
+
+```php
+class Foo
+{
+	/** @readonly */
+	public string $bar;
+}
+
+(new Foo())->bar = 'baz'; // @readonly property Foo::$bar is assigned outside of its declaring class.
+```
+
+This feature needs to be enabled via feature toggle by opting in to [bleeding edge](https://phpstan.org/blog/what-is-bleeding-edge).
