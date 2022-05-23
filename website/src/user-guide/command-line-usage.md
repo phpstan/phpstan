@@ -116,6 +116,16 @@ If your application uses a custom autoloader, you should set it up and register 
 
 [Learn more »](/user-guide/discovering-symbols)
 
+### `--memory-limit`
+
+Specifies the memory limit in the same format `php.ini` accepts.
+
+Example: `--memory-limit 1G`
+
+### `--debug`
+
+If the `clear-result-cache` command is failing with an uncaught exception, run it again with `--debug` to see the stack trace.
+
 ### `--quiet|-q`
 
 Silences all the output. Useful if you're interested only in the exit code.
