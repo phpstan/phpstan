@@ -566,6 +566,17 @@ This might not be what you want in case you're writing a library whose users mig
 
 From time to time, PHPStan shows "💡 Tips of the Day" at the end of a successful analysis. You can turn this off by setting `tipsOfTheDay` key to `false`.
 
+### `errorFormat`
+
+**default**: `null`
+
+If you want to change the default [error formatter](/user-guide/output-format), you can specify that using:
+
+```yaml
+parameters:
+    errorFormat: json
+```
+
 Expanding paths
 -------------
 

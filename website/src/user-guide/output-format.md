@@ -18,6 +18,8 @@ You can pass the following keywords to the `--error-format=X` CLI option of the 
 
 You can also implement your own custom error formatter. [Learn how »](/developing-extensions/error-formatters)
 
+You can change the default error format in the configuration. [Learn how »](/config-reference#errorformat)
+
 Opening file in an editor
 --------------
 
