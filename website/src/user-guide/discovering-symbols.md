@@ -38,6 +38,11 @@ Relative paths in the `scanFiles` and `scanDirectories` keys are resolved based 
 Global constants
 ---------------------------
 
+As of [PHPStan 1.7.0](https://github.com/phpstan/phpstan/releases/tag/1.7.0) nothing special is required to analyse code with global constants.
+
+<details>
+    <summary class="text-blue-500 font-bold">Show obsolete instructions for older PHPStan versions</summary>
+    
 Global constants used in the analysed code need to be defined in bootstrap files.
 
 Create a file that looks like this:
@@ -57,6 +62,8 @@ parameters:
 ```
 
 Please note that bootstrap files will actually be executed by the PHP runtime.
+    
+</details>
 
 Class aliases
 ---------------------------
