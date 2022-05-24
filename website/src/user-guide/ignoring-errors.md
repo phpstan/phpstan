@@ -17,8 +17,6 @@ Please note that some selected serious errors (like autoloading issues, parent c
 Ignoring in code using PHPDocs
 -------------------
 
-<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 0.12.19</div>
-
 Errors can be ignored next to the violating line of code using PHPDoc tags in comments:
 
 * `@phpstan-ignore-line`

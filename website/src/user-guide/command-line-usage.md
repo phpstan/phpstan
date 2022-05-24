@@ -86,8 +86,6 @@ Outputs a summary of available CLI options, but not as in much detail as this pa
 Running without arguments
 --------------
 
-<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 0.12.81</div>
-
 You can analyse your project just by running `vendor/bin/phpstan` if you satisfy the following conditions:
 
 * You have `phpstan.neon` or `phpstan.neon.dist` in your current working directory

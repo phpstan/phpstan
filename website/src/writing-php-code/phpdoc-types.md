@@ -228,8 +228,6 @@ function foo($arg)
 Local type aliases
 -------------------------
 
-<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 0.12.84</div>
-
 You can also define and use local aliases in PHPDocs using the `@phpstan-type` annotation. These are scoped to the class that defines them:
 
 ```php
@@ -286,8 +284,6 @@ This is different from [general arrays](#general-arrays) that mandate that all t
 Literals and constants
 -------------------------
 
-<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 0.12.20</div>
-
 PHPStan allows specifying scalar values as types in PHPDocs:
 
 * `234` (integers)
@@ -326,8 +322,6 @@ Parameter types and return type are required. Use `mixed` if you don't want to u
 
 Bottom type
 -------------------------
-
-<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 0.12.54</div>
 
 All of these names are equivalent:
 

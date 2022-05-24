@@ -2,8 +2,6 @@
 title: Dynamic Throw Type Extensions
 ---
 
-<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 0.12.85</div>
-
 To support [precise try-catch-finally analysis](/blog/precise-try-catch-finally-analysis), you can write a dynamic throw type extension to describe functions and methods that might throw an exception only when specific types of arguments are passed during a call.
 
 The implementation is all about applying the [core concepts](/developing-extensions/core-concepts) so check out that guide first and then continue here.

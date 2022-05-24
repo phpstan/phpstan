@@ -38,7 +38,7 @@ parameters:
 		- redirect
 ```
 
-In PHPStan 0.12.54 and later, `@return never` above a function or a method can be used instead of configuring `earlyTerminatingFunctionCalls` or `earlyTerminatingMethodCalls`.
+PHPDoc tag `@return never` above a function or a method can be used instead of configuring `earlyTerminatingFunctionCalls` or `earlyTerminatingMethodCalls`.
 
 ---------
 

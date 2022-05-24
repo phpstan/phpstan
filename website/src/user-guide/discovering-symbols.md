@@ -3,14 +3,6 @@ title: Discovering Symbols
 showBanner: false
 ---
 
-<div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
-
-Discovering Symbols is a new feature in PHPStan 0.12.26. Make sure to upgrade to the latest version and take advantage of the latest features!
-
-Looking for the deprecated [autoloading](/user-guide/autoloading) instead?
-
-</div>
-
 PHPStan needs to be able to locate symbols (classes, functions, constants) used in the analysed codebase. By default, it looks for them in these two places:
 
 * Analysed paths (files and directories) passed as [command line arguments](/user-guide/command-line-usage) and in the [configuration file](/config-reference#analysed-files).
