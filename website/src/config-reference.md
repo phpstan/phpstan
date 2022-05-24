@@ -93,14 +93,6 @@ Learn more about discovering symbols in the [user guide](/user-guide/discovering
 Related config keys: [`scanFiles`](/user-guide/discovering-symbols#third-party-code-outside-of-composer-dependencies),
 [`scanDirectories`](/user-guide/discovering-symbols#third-party-code-outside-of-composer-dependencies).
 
-Autoloading
-------------------
-
-Autoloading has been deprecated in favor of [Discovering Symbols](/user-guide/discovering-symbols) in PHPStan 0.12.26.
-
-Related config keys: [`autoload_directories`](/user-guide/autoloading),
-[`autoload_files`](/user-guide/autoloading).
-
 Bootstrap
 ------------------
 
