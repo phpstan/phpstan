@@ -6,7 +6,7 @@ PHPStan supports different output formats through various so-called error format
 
 You can pass the following keywords to the `--error-format=X` CLI option of the `analyse` command in order to affect the output:
 
-- `table`: Default. Grouped errors by file, colorized. For human consumption.
+- `table`: Default. Grouped errors by file, colorized. For human consumption. Additionally, the `table` formatter will detect it runs in a Continuous Integration environment like GitHub Actions and TeamCity, and besides the table it will also output errors in the specific format for that environment.
 - `raw`: Contains one error per line, with path to file, line number, and error description
 - `checkstyle`: Creates a checkstyle.xml compatible output. Note that you'd have to redirect output into a file in order to capture the results for later processing.
 - `json`: Creates minified .json output without whitespaces. Note that you'd have to redirect output into a file in order to capture the results for later processing.

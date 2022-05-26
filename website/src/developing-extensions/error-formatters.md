@@ -45,3 +45,36 @@ vendor/bin/phpstan analyse -c phpstan.neon \
 	--error-format awesome \
 	src tests
 ```
+
+Special format for Continuous Integration (CI)
+---------
+
+PHPStan ships with `PHPStan\Command\ErrorFormatter\CiDetectedErrorFormatter` that can detect when PHPStan runs in a CI environment.
+
+If your error formatter is targeted for human consumption and is not supposed to be machine-readable, you can ask for `CiDetectedErrorFormatter` in your constructor and call it alongside your own format output.
+
+```php
+use PHPStan\Command\ErrorFormatter\CiDetectedErrorFormatter;
+
+final class MyCustomErrorFormat implements ErrorFormatter
+{
+    public function __construct(
+        private CiDetectedErrorFormatter $ciDetectedErrorFormatter,
+    ) {
+    }
+
+    public function formatErrors(AnalysisResult $analysisResult, Output $output) : int
+    {
+        // Output special CI format when supported CI is detected
+        $this->ciDetectedErrorFormatter->formatErrors($analysisResult, $output);
+
+        // Custom format here...
+
+        return 0;
+    }
+}
+```
+
+When PHPStan runs in CI, it's going to output errors according to the detected environment like GitHub Actions and TeamCity.
+
+When PHPStan does not run in CI, it's not going to output anything.
