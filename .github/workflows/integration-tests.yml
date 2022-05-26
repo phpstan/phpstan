@@ -124,6 +124,20 @@ jobs:
               composer install
               ../../../phpstan.phar analyse -c ../slevomat-cs.neon -l 7 SlevomatCodingStandard
               ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon -l 7 tests
+          #- php-version: 8.1
+          #  script: |
+          #    git clone git@github.com:ondrejmirtes/orocrm-phpstan-bugreport.git e2e/integration/repo
+          #    cd e2e/integration/repo
+          #    git checkout 0d429b658a6e7baff863b6f23f5e6fa35c88d6e7
+          #    composer install
+          #    ../../../phpstan
+          - php-version: 8.1
+            script: |
+              git clone git@github.com:ondrejmirtes/phpstan-magento-testcase.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout a0e87cf19b6112fb44265f23bf3cc6c56edd22aa
+              composer install
+              ../../../phpstan analyse -c ../magento-testcase.neon
 
     steps:
       - name: "Checkout"
