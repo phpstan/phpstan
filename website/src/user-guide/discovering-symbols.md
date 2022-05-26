@@ -97,8 +97,3 @@ parameters:
 ```
 
 Please note that the file with the autoloader will actually be executed by the PHP runtime.
-
-Custom autoloaders currently have some limitations:
-
-* They cannot perform file operations, only `include`/`require` of the file with the requested class.
-* They cannot cause other classes to be loaded. Classes required for the autoloader itself must be loaded eagerly by the bootstrap file before the autoloader is registered.
