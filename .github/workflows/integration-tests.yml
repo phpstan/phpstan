@@ -133,7 +133,7 @@ jobs:
           #    ../../../phpstan
           - php-version: 8.1
             script: |
-              git clone git@github.com:ondrejmirtes/phpstan-magento-testcase.git e2e/integration/repo
+              git clone https://github.com/ondrejmirtes/phpstan-magento-testcase.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout a0e87cf19b6112fb44265f23bf3cc6c56edd22aa
               composer install
