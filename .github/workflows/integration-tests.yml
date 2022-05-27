@@ -135,7 +135,7 @@ jobs:
             script: |
               git clone https://github.com/ondrejmirtes/phpstan-magento-testcase.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout a0e87cf19b6112fb44265f23bf3cc6c56edd22aa
+              git checkout f5d8c215569fe5dd22f7236795a353002c0ae58a
               composer install
               ../../../phpstan analyse -c ../magento-testcase.neon
 
