@@ -49,6 +49,8 @@ vendor/bin/phpstan analyse -c phpstan.neon \
 Special format for Continuous Integration (CI)
 ---------
 
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.7.2</div>
+
 PHPStan ships with `PHPStan\Command\ErrorFormatter\CiDetectedErrorFormatter` that can detect when PHPStan runs in a CI environment.
 
 If your error formatter is targeted for human consumption and is not supposed to be machine-readable, you can ask for `CiDetectedErrorFormatter` in your constructor and call it alongside your own format output.
