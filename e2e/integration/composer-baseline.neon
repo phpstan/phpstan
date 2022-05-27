@@ -6,6 +6,11 @@ parameters:
 			path: repo/src/Composer/Autoload/PhpFileCleaner.php
 
 		-
+			message: "#^Call to function method_exists\\(\\) with Symfony\\\\Component\\\\Console\\\\Input\\\\InputInterface and '__toString' will always evaluate to true\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/GlobalCommand.php
+
+		-
 			message: "#^Parameter \\#1 \\$pattern of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatch\\(\\) expects non\\-empty\\-string, string given\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/ReinstallCommand.php
