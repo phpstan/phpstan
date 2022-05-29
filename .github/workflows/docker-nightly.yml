@@ -17,6 +17,7 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    concurrency: docker-nightly-${{ github.ref }}
     strategy:
       fail-fast: false
       matrix:
