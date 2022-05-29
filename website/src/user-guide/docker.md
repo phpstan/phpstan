@@ -8,9 +8,10 @@ It's hosted on [GitHub Container Registry](https://github.com/phpstan/phpstan/pk
 
 ## Supported tags
 
-- `1`, `latest`
-- `0.12`
-- `nightly` (dev-master)
+- `1`, `1-php8.0`, `latest`, `latest-php8.0` (PHP 8.0)
+- `1-php8.1`, `latest-php8.1` (PHP 8.1)
+- `nightly`, `nightly-php8.0` - latest dev version (PHP 8.0)
+- `nightly-php8.1` - latest dev version (PHP 8.1)
 
 ## Installation
 
@@ -26,7 +27,7 @@ docker pull ghcr.io/phpstan/phpstan:1
 
 ## Different PHP version?
 
-The image is based on PHP 8. To force PHPStan consider the analysed source code to be for a different PHP version, set `phpVersion` in your `phpstan.neon`:
+The images are based on PHP 8.0 and PHP 8.1. To force PHPStan consider the analysed source code to be for a different PHP version, set `phpVersion` in your `phpstan.neon`:
 
 ```yaml
 parameters:
