@@ -17,6 +17,16 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - docker-file: "./docker/Dockerfile.php.8.0"
+            image-tag-suffix: ""
+          - docker-file: "./docker/Dockerfile.php.8.0"
+            image-tag-suffix: "-php8.0"
+          - docker-file: "./docker/Dockerfile.php.8.1"
+            image-tag-suffix: "-php8.1"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -48,11 +58,11 @@ jobs:
         with:
           builder: ${{ steps.buildx.outputs.name }}
           context: ./docker
-          file: ./docker/Dockerfile
+          file: "${{ matrix.docker-file }}"
           build-args: |
             PHPSTAN_VERSION=1.7.x-dev#${{ github.sha }}
           push: true
-          tags: ghcr.io/phpstan/phpstan:nightly
+          tags: "ghcr.io/phpstan/phpstan:nightly${{ matrix.image-tag-suffix }}"
           platforms: linux/amd64,linux/arm64
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
