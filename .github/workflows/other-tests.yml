@@ -249,13 +249,13 @@ jobs:
               composer install
               mkdir autoload
               ../../phpstan
-          #- php-version: 8.1
-          #  ini-values: memory_limit=256M
-          #  operating-system: ubuntu-latest
-          #  script: |
-          #    cd e2e/google_service
-          #    composer install
-          #    ../../phpstan
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/google_service
+              composer install
+              ../../phpstan
           - php-version: 8.1
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
