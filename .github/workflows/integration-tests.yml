@@ -126,7 +126,7 @@ jobs:
               ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon -l 7 tests
           - php-version: 8.1
             script: |
-              git clone git@github.com:ondrejmirtes/orocrm-phpstan-bugreport.git e2e/integration/repo
+              git clone https://github.com/ondrejmirtes/orocrm-phpstan-bugreport.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout 0d429b658a6e7baff863b6f23f5e6fa35c88d6e7
               composer install
