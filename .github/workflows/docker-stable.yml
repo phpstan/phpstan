@@ -12,7 +12,7 @@ on:
 jobs:
   docker:
     runs-on: ubuntu-latest
-    concurrency: docker-stable-${{ github.ref }}
+    concurrency: docker-stable-${{ github.ref }}-${{ matrix.docker-file }}
     strategy:
       fail-fast: false
       matrix:
