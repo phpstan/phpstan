@@ -118,6 +118,8 @@ parameters:
 
 Relative path in the `tmpDir` key is resolved based on the directory of the config file is in. In this example PHPStan cache will be stored in `tmp` directory that's next to the configuration file.
 
+If you're analyzing multiple projects on one machine, you should change `tmpDir` for each of the projects (and config files) to not overwrite other projects' caches.
+
 Analysed files
 -----------------------
 

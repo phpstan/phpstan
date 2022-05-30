@@ -10,7 +10,7 @@ You might notice the result cache isn't sometimes saved and PHPStan runs full an
 
 </div>
 
-The result cache is saved at `%tmpDir%/resultCache.php`. [Learn more about `tmpDir` configuration »](/config-reference#caching)
+The result cache is saved at `%tmpDir%/resultCache.php`. If you're analyzing multiple projects on one machine, you should set unique `tmpDir` for each of the projects (and config files) otherwise a result cache from one project will overwrite a cache from some other project. [Learn more about `tmpDir` configuration »](/config-reference#caching)
 
 Result cache contents
 --------------
