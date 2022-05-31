@@ -1,0 +1,10 @@
+<?php
+
+class ClassWithConstants
+{
+
+	const WARENGRUPPE_STOCKSCHIRME = 1;
+	const WARENGRUPPE_TASCHENSCHIRME = 1;
+	const WARENGRUPPE_SONNENSCHIRME = 1;
+
+}
