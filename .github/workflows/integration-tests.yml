@@ -138,6 +138,14 @@ jobs:
               git checkout f5d8c215569fe5dd22f7236795a353002c0ae58a
               composer install
               ../../../phpstan analyse -c ../magento-testcase.neon
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/symplify/symplify.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout 1bc2ca86613da4d86198d3ca33a2d76805daf568
+              cp ../symplify-composer.lock composer.lock
+              composer install
+              ../../../phpstan analyse -c ../symplify.neon
 
     steps:
       - name: "Checkout"
