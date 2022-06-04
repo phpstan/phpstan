@@ -18,6 +18,9 @@ on:
       - 'playground-api/**'
       - 'playground-runner/**'
 
+permissions:
+  contents: read
+
 jobs:
   tests:
     name: "Tests"

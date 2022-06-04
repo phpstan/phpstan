@@ -9,8 +9,13 @@ on:
 
 concurrency: release
 
+permissions:
+  contents: read
+
 jobs:
   deploy:
+    permissions:
+      contents: write  # for softprops/action-gh-release to create GitHub release
     name: "Deploy"
     runs-on: "ubuntu-latest"
 

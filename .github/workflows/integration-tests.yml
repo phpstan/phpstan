@@ -14,6 +14,9 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: read
+
 jobs:
   check-phar-checksum:
     name: "Check PHAR checksum"

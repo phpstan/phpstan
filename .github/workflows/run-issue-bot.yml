@@ -8,6 +8,9 @@ on:
 
 concurrency: issue_bot
 
+permissions:
+  contents: read
+
 jobs:
   issue-bot:
     name: "Issue bot"

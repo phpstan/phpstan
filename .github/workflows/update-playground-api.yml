@@ -12,6 +12,9 @@ on:
 
 concurrency: playground_api
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: "Build"

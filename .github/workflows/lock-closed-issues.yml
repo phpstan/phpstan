@@ -6,8 +6,13 @@ on:
 
 concurrency: lock_issues
 
+permissions:
+  contents: read
+
 jobs:
   lock:
+    permissions:
+      issues: write  # for dessant/lock-threads to lock issues
     runs-on: ubuntu-latest
     steps:
       - uses: dessant/lock-threads@v3

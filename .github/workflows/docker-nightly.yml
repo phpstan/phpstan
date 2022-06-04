@@ -14,6 +14,9 @@ on:
       - 'playground-api/**'
       - 'playground-runner/**'
 
+permissions:
+  contents: read
+
 jobs:
   docker:
     runs-on: ubuntu-latest
