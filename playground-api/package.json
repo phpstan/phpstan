@@ -12,7 +12,7 @@
 	"author": "",
 	"license": "MIT",
 	"dependencies": {
-		"@sentry/node": "^6.0.0",
+		"@sentry/node": "^7.0.0",
 		"ansi-to-html": "^0.7.0",
 		"aws-sdk": "^2.918.0",
 		"middy": "^0.36.0",
