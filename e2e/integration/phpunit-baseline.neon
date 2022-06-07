@@ -3206,6 +3206,11 @@ parameters:
 			path: repo/src/Util/ErrorHandler.php
 
 		-
+			message: "#^Class Symfony\\\\Polyfill\\\\Ctype\\\\Ctype not found\\.$#"
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
 			message: "#^Parameter \\#1 \\$path of function dirname expects string, string\\|false given\\.$#"
 			count: 1
 			path: repo/src/Util/ExcludeList.php
