@@ -6,12 +6,27 @@ parameters:
 			path: repo/src/Collection/DbalCollection.php
 
 		-
+			message: "#^Method Nextras\\\\Orm\\\\Model\\\\Model\\:\\:getLoadedRepositories\\(\\) return type with generic interface Nextras\\\\Orm\\\\Repository\\\\IRepository does not specify its types\\: E$#"
+			count: 1
+			path: repo/src/Model/Model.php
+
+		-
+			message: "#^PHPDoc tag @phpstan\\-return has invalid value \\(list\\<IRepository\\<\\\\Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\>\\>\\)\\: Unexpected token \"\\>\", expected TOKEN_HORIZONTAL_WS at offset 96$#"
+			count: 1
+			path: repo/src/Model/Model.php
+
+		-
 			message: "#^Loose comparison using \\!\\= between 1 and 1 will always evaluate to false\\.$#"
 			count: 2
 			path: repo/tests/cases/integration/Relationships/entity.relationships.phpt
 
 		-
-			message: "#^Call to __construct\\(\\) on an existing object is not allowed\\.$#"
+			message: "#^Method NextrasTests\\\\Orm\\\\Mapper\\\\Dbal\\\\DbalValueOperatorFunctionTest\\:\\:operatorTestProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: repo/tests/cases/unit/Entity/AbstractEntity.is_modified.phpt
+			path: repo/tests/cases/unit/Mapper/Dbal/DbalValueOperatorFunctionTest.phpt
+
+		-
+			message: "#^PHPDoc tag @return has invalid value \\(array\\<array\\{BaseCompareFunction, array\\<mixed\\>, array\\<mixed\\>\\}\\>\\>\\)\\: Unexpected token \"\\>\", expected TOKEN_HORIZONTAL_WS at offset 77$#"
+			count: 1
+			path: repo/tests/cases/unit/Mapper/Dbal/DbalValueOperatorFunctionTest.phpt
 
