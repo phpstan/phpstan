@@ -1,0 +1,6 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Instanceof between PHPStan\\\\Reflection\\\\ExtendedMethodReflection and NunoMaduro\\\\Larastan\\\\Reflection\\\\EloquentBuilderMethodReflection will always evaluate to false\\.$#"
+			count: 1
+			path: repo/src/Rules/ModelProperties/ModelPropertyStaticCallRule.php
