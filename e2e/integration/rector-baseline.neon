@@ -16,6 +16,11 @@ parameters:
 			path: repo/rules/CodingStyle/Rector/ClassMethod/MakeInheritedMethodVisibilitySameAsParentRector.php
 
 		-
+			message: "#^Parameter 2 should use \"PHPStan\\\\Reflection\\\\ExtendedMethodReflection\" type as the only type passed to this method$#"
+			count: 1
+			path: repo/rules/DeadCode/Comparator/CurrentAndParentClassMethodComparator.php
+
+		-
 			message: "#^Class PHPStan\\\\Reflection\\\\Php\\\\PhpParameterReflection constructor invoked with 3 parameters, 4 required\\.$#"
 			count: 1
 			path: repo/rules/DowngradePhp80/NodeAnalyzer/NamedToUnnamedArgs.php
