@@ -316,6 +316,7 @@ The `callable` typehint has been in PHP for a long time. But it doesn't allow en
 * `callable(int, int=): string` (second parameter is optional)
 * `callable(int $foo, string $bar): void` (accepts an integer and a string, doesn't return anything; parameter names are optional and insignificant)
 * `callable(string &$bar): mixed` (accepts a string parameter passed by reference, returns `mixed`)
+* `callable(float ...$floats): (int|null)` (accepts multiple variadic float arguments, returns integer or null)
 * `callable(float...): (int|null)` (accepts multiple variadic float arguments, returns integer or null)
 
 Parameter types and return type are required. Use `mixed` if you don't want to use a more specific type.
