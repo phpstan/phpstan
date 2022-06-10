@@ -36,6 +36,11 @@ parameters:
 			path: repo/rules/DowngradePhp80/NodeAnalyzer/NamedToUnnamedArgs.php
 
 		-
+			message: "#^Instanceof between PhpParser\\\\Node\\\\Stmt\\\\Case_ and PhpParser\\\\Node\\\\Stmt\\\\Case_ will always evaluate to true\\.$#"
+			count: 1
+			path: repo/rules/DowngradePhp80/Rector/Expression/DowngradeMatchToSwitchRector.php
+
+		-
 			message: "#^Casting to int something that's already int\\<0, max\\>\\.$#"
 			count: 1
 			path: repo/rules/Php71/Rector/FuncCall/RemoveExtraParametersRector.php
