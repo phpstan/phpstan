@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Cannot access offset float\\|int\\<1, max\\> on mixed\\.$#"
+			count: 1
+			path: repo/src/pocketmine/CrashDump.php
+
+		-
 			message: "#^Property pocketmine\\\\Player\\:\\:\\$needACK is never read, only written\\.$#"
 			count: 1
 			path: repo/src/pocketmine/Player.php
