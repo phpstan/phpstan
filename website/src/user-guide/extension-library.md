@@ -48,6 +48,7 @@ Check out as well [phpstan-deprecation-rules](https://github.com/phpstan/phpstan
 * [beberlei/assert](https://github.com/phpstan/phpstan-beberlei-assert)
 * [webmozart/assert](https://github.com/phpstan/phpstan-webmozart-assert)
 * [Mockery](https://github.com/phpstan/phpstan-mockery)
+* [azjezz/psl](https://github.com/php-standard-library/phpstan-extension)
 * [Nette Framework](https://github.com/phpstan/phpstan-nette)
 * [PHP-Parser](https://github.com/phpstan/phpstan-php-parser)
 * [Dibi - Database Abstraction Library](https://github.com/phpstan/phpstan-dibi)
