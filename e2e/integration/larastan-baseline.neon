@@ -1,6 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Instanceof between PHPStan\\\\Reflection\\\\ExtendedMethodReflection and NunoMaduro\\\\Larastan\\\\Reflection\\\\EloquentBuilderMethodReflection will always evaluate to false\\.$#"
+			message: "#^Function is_subclass_of\\(\\) is a runtime reflection concept that might not work in PHPStan because it uses fully static reflection engine\\. Use objects retrieved from ReflectionProvider instead\\.$#"
 			count: 1
-			path: repo/src/Rules/ModelProperties/ModelPropertyStaticCallRule.php
+			path: repo/src/Rules/NoUnnecessaryCollectionCallRule.php

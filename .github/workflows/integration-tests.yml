@@ -53,7 +53,7 @@ jobs:
           - |
             git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
             cd e2e/integration/repo
-            git checkout 48a09d12b1e6e9f22b81af370d44bbf91883cebe
+            git checkout f72a8b1dfaa2eeaf746a93b3257591090c668794
             composer install
             ../../../phpstan.phar analyse -c ../larastan.neon
           - |
