@@ -61,7 +61,7 @@ parameters:
 
 **Support for analysis executed in virtual environment**
 
-If you run PHPStan analysis within Docker container (or using other virtualisation tool) you may need to use `%rel_file%` instead of `%file%`. This will use file's path relative to your project's directory. In the end your `editorUrl` should have value like this: `phpstorm://open?file=/path/to/your/project/%%rel_file%%&line=%%line%%`.
+If you run PHPStan analysis within Docker container (or using other virtualisation tool) you may need to use `%relFile%` instead of `%file%`. This will use file's path relative to your project's directory. In the end your `editorUrl` should have value like this: `phpstorm://open?file=/path/to/your/project/%%relFile%%&line=%%line%%`.
 
 </div>
 
