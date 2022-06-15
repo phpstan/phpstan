@@ -51,12 +51,6 @@ jobs:
           - 7.4
         script:
           - |
-            git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
-            cd e2e/integration/repo
-            git checkout f72a8b1dfaa2eeaf746a93b3257591090c668794
-            composer install
-            ../../../phpstan.phar analyse -c ../larastan.neon
-          - |
             git clone https://github.com/bitExpert/phpstan-magento.git e2e/integration/repo
             cd e2e/integration/repo
             git checkout f845cd4dbdc49d2e005ec2646176ddfcf7d55d38
@@ -146,6 +140,13 @@ jobs:
               cp ../symplify-composer.lock composer.lock
               composer install
               ../../../phpstan analyse -c ../symplify.neon
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout f72a8b1dfaa2eeaf746a93b3257591090c668794
+              composer install
+              ../../../phpstan.phar analyse -c ../larastan.neon
 
     steps:
       - name: "Checkout"
