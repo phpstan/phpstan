@@ -61,6 +61,11 @@ parameters:
 			path: repo/rules/Php80/Rector/ClassMethod/OptionalParametersAfterRequiredRector.php
 
 		-
+			message: "#^Method Rector\\\\Core\\\\PhpParser\\\\Node\\\\BetterNodeFinder\\:\\:findParentType\\(\\) should return \\(T of PhpParser\\\\Node\\)\\|null but returns class\\-string\\<T of PhpParser\\\\Node\\>\\|T of PhpParser\\\\Node\\.$#"
+			count: 1
+			path: repo/src/PhpParser/Node/BetterNodeFinder.php
+
+		-
 			message: "#^Strict comparison using \\=\\=\\= between non\\-empty\\-string and '' will always evaluate to false\\.$#"
 			count: 1
 			path: repo/src/Stubs/PHPStanStubLoader.php
