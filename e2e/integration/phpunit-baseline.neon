@@ -3126,7 +3126,7 @@ parameters:
 			path: repo/src/Util/Annotation/DocBlock.php
 
 		-
-			message: "#^Method PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:requirements\\(\\) should return array\\<'__OFFSET'\\|'extension_versions'\\|'setting', array\\<string, string\\>\\> but returns non\\-empty\\-array\\<int\\|string, mixed\\>\\.$#"
+			message: "#^Method PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:requirements\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Util/Annotation/DocBlock.php
 
@@ -3171,7 +3171,7 @@ parameters:
 			path: repo/src/Util/Annotation/DocBlock.php
 
 		-
-			message: "#^Property PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:\\$parsedRequirements \\(array\\<'__OFFSET'\\|'extension_versions'\\|'setting', array\\<string, string\\>\\>\\|null\\) does not accept non\\-empty\\-array\\<int\\|string, mixed\\>\\.$#"
+			message: "#^Property PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:\\$parsedRequirements \\(array\\<string, mixed\\>\\|null\\) does not accept array\\<int\\|string, mixed\\>\\.$#"
 			count: 1
 			path: repo/src/Util/Annotation/DocBlock.php
 
