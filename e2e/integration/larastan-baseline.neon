@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Creating new ReflectionClass is a runtime reflection concept that might not work in PHPStan because it uses fully static reflection engine\\. Use objects retrieved from ReflectionProvider instead\\.$#"
+			count: 2
+			path: repo/src/Properties/ModelPropertyExtension.php
+
+		-
 			message: "#^Function is_subclass_of\\(\\) is a runtime reflection concept that might not work in PHPStan because it uses fully static reflection engine\\. Use objects retrieved from ReflectionProvider instead\\.$#"
 			count: 1
 			path: repo/src/Rules/NoUnnecessaryCollectionCallRule.php
+
+		-
+			message: "#^Although PHPStan\\\\Reflection\\\\Php\\\\PhpMethodReflection is covered by backward compatibility promise, this instanceof assumption might break because it's not guaranteed to always stay the same\\.$#"
+			count: 1
+			path: repo/src/Types/RelationParserHelper.php
