@@ -57,12 +57,8 @@ parameters:
 	editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
 ```
 
-<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
-
-**Support for analysis executed in virtual environment**
-
-If you run PHPStan analysis within Docker container (or using other virtualisation tool) you may need to use `%relFile%` instead of `%file%`. This will use file's path relative to your project's directory. In the end your `editorUrl` should have value like this: `phpstorm://open?file=/path/to/your/project/%%relFile%%&line=%%line%%`.
-
-</div>
-
 To make the text really clickable in your terminal you might need to register the protocol in your system; see [eclemens/atom-url-handler](https://github.com/eclemens/atom-url-handler) for an example.
+
+If you run PHPStan analysis within Docker container (or using other virtualization tools) you may need to use `%relFile%` instead of `%file%`. This will use file's path relative to your project's directory. In the end your `editorUrl` should look like this: `phpstorm://open?file=/path/to/your/project/%%relFile%%&line=%%line%%`.
+
+Since every team member working on the same project will likely have different absolute path to the project, machine-specific `editorUrl` should be used in `phpstan.neon` [paired with `phpstan.neon.dist` where all the common project settings live](/config-reference#multiple-files).
