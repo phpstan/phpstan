@@ -72,6 +72,10 @@ jobs:
             composer install --ignore-platform-reqs
             ../../phpstan analyse -l 8 test.php src
           - |
+            cd e2e/different-php-parser2
+            composer install
+            ../../phpstan analyse -l 5 src
+          - |
             cd e2e/different-phpdoc-parser
             composer install --ignore-platform-reqs
             ../../phpstan analyse -l 8 -a Test.php Test.php

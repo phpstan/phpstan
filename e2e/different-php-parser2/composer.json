@@ -1,0 +1,11 @@
+{
+	"require": {
+		"phpstan/phpstan": "^0.12.32",
+		"nikic/php-parser": "3.1.5"
+	},
+	"autoload": {
+		"psr-4": {
+			"App\\": "src"
+		}
+	}
+}
