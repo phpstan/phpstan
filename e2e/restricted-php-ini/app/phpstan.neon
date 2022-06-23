@@ -1,0 +1,13 @@
+parameters:
+    level: 9
+    paths:
+        - ./
+    parallel:
+        jobSize: 2
+        maximumNumberOfProcesses: 4
+        minimumNumberOfJobsPerProcess: 2
+    ignoreErrors:
+        -
+            message: '~^Undefined variable: \$x$~'
+            path: '*'
+            count: 4

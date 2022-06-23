@@ -177,6 +177,10 @@ jobs:
             cd e2e/rector-autoload
             composer install
             ../../phpstan
+          - |
+            cd e2e/restricted-php-ini
+            composer install
+            php -d open_basedir="$(cd ../.. && pwd):$(php -r 'echo sys_get_temp_dir();')" -d disable_functions="pcntl_exec,pcntl_fork,exec,passthru,proc_open,shell_exec,system,popen" -d auto_prepend_file=phpstan-preload.php ../../phpstan analyse -c app/phpstan.neon
         include:
           - php-version: 8.0
             ini-values: memory_limit=256M
