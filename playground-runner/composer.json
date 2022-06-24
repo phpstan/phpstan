@@ -7,8 +7,8 @@
 		"nette/neon": "^3.3",
 		"nikic/php-parser": "^4.3.0",
 		"php-http/curl-client": "^2.2",
-		"phpstan/phpstan": "^1.6",
-		"phpstan/phpstan-strict-rules": "^1.2",
+		"phpstan/phpstan": "^1.7.15",
+		"phpstan/phpstan-strict-rules": "^1.3",
 		"sentry/sentry": "^3.3"
 	},
 	"config": {
