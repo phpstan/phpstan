@@ -6,10 +6,12 @@ on:
   push:
     branches:
       - "1.8.x"
-    paths-ignore:
-      - 'issue-bot/**'
-      - 'website/**'
-      - 'playground-api/**'
+    paths:
+      - '.github/workflows/update-playground-runner.yml'
+      - 'playground-runner/**'
+      - 'phpstan'
+      - 'phpstan.phar'
+      - 'bootstrap.php'
 
 concurrency: playground_runner
 
