@@ -11,7 +11,7 @@ on:
       - 'playground-runner/**'
   push:
     branches:
-      - "1.7.x"
+      - "1.8.x"
     paths-ignore:
       - 'issue-bot/**'
       - 'website/**'
@@ -31,7 +31,7 @@ jobs:
           path: phpstan.phar
   other-tests:
     needs: upload-phar
-    uses: phpstan/phpstan/.github/workflows/other-tests.yml@1.7.x
+    uses: phpstan/phpstan/.github/workflows/other-tests.yml@1.8.x
     with:
       ref: ${{ github.ref }}
       phar-checksum: "always"
