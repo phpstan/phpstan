@@ -71,6 +71,8 @@ jobs:
             php-version: "7.2"
           - extension-name: "phpstan-phpunit"
             php-version: "7.2"
+          - extension-name: "phpstan-doctrine"
+            php-version: "7.2"
 
     steps:
       - name: "Checkout"
