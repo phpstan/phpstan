@@ -410,6 +410,45 @@ public function setFoo(int $foo): void
 
 When set to `true`, it reports use of dynamic properties as undefined.
 
+### `rememberPossiblyImpureFunctionValues`
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.8.0</div>
+
+**default**: `true`
+
+By default, PHPStan considers all functions that return a value to be pure. That means that second call to the same function in the same scope will return the same narrowed type:
+
+```php
+public function getName(): string
+{
+    return $this->name;
+}
+
+if ($this->getName() === 'Foo') {
+    echo $this->getName(); // still 'Foo'
+}
+```
+
+This is a sane default in case of getters but sometimes we have a function that can return different values based on a global state like a random number generator, database, or time.
+
+```php
+public function getRandomNumber(): int
+{
+    return rand();
+}
+
+if ($this->getRandomNumber() === 4) {
+    echo $this->getRandomNumber(); // it's not going to be 4 but PHPStan will think it is
+}
+```
+
+You can mark `getRandomNumber()` with `/** @phpstan-impure */` but if you have many functions like this in your codebase and don't want to assume functions return the same value when called multiple times, you can set `rememberPossiblyImpureFunctionValues` to `false`:
+
+```yaml
+parameters:
+	rememberPossiblyImpureFunctionValues: false
+```
+
 Exceptions
 ------------
 

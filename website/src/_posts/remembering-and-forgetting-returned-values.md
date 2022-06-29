@@ -58,6 +58,8 @@ if (impureFunction()) {
 }
 ```
 
+If the `impureFunction()` didn't have the `/** @phpstan-impure */` annotation, the value would be remembered for further calls. If you want to change this behaviour and don't want to assume functions returning a value are pure by default, set `rememberPossiblyImpureFunctionValues: false` in your configuration file (available in PHPStan 1.8.0). See [Config Reference](/config-reference#rememberpossiblyimpurefunctionvalues) for more details.
+
 If you call an impure method on an object that already has a remembered method value, it will be forgotten:
 
 ```php
