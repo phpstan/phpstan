@@ -109,3 +109,33 @@ foreach ($declaredTraits as [$file, $name, $line]) {
 
 return $errors;
 ```
+
+Testing collectors
+---------------
+
+Collectors are always [tested in addition to the rule](/developing-extensions/testing#custom-rules) that's using them. Besides implementing the `getRule(): Rule` method that returns the tested rule instance, override the `getCollectors()` method to return the collectors needed for the rule to work:
+
+```php
+protected function getRule(): Rule
+{
+	return new NotAnalysedTraitRule();
+}
+
+protected function getCollectors(): array
+{
+	return [
+		new TraitDeclarationCollector(),
+		new TraitUseCollector(),
+	];
+}
+
+public function testRule(): void
+{
+	$this->analyse([__DIR__ . '/data/not-analysed-trait.php'], [
+		[
+			'Trait NotAnalysedTrait\Bar is used zero times and is not analysed.',
+			10,
+		],
+	]);
+}
+```
