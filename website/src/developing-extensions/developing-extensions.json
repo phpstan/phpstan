@@ -52,6 +52,10 @@
             "link": "/developing-extensions/rules"
         },
         {
+            "title": "Collectors",
+            "link": "/developing-extensions/collectors"
+        },
+        {
             "title": "Error Formatters",
             "link": "/developing-extensions/error-formatters"
         },

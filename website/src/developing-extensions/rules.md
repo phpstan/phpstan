@@ -231,7 +231,7 @@ If you want to check out the surroundings of the node the rule was invoked for, 
 Registering the rule in the configuration
 ---------------
 
-PHPStan needs to know it's supposed to execute the rule. The simplest way is to add the rule class to the `rules` section if your [configuration file](/config-reference):
+PHPStan needs to know it's supposed to execute the rule. The simplest way is to add the rule class to the `rules` section in your [configuration file](/config-reference):
 
 ```yaml
 rules:
@@ -307,6 +307,17 @@ That's why PHPStan introduces custom virtual nodes to use in rules. Some of the 
 * We need to check something is at the beginning of each file, like `declare(strict_types = 1)` or a required namespace. We can use [`FileNode`](https://github.com/phpstan/phpstan-src/blob/master/src/Node/FileNode.php) for that.
 * Rules are called before the scope is updated with the information of the registered node type. That means if we're registering our rule for the `PhpParser\Node\Stmt\Class_` node, the scope will say we're not in a class. But if we use the virtual [`InClassNode`](https://github.com/phpstan/phpstan-src/blob/master/src/Node/InClassNode.php), `$scope->getClassReflection()` will contain the class reflection. Same goes for [`InClassMethodNode`](https://github.com/phpstan/phpstan-src/blob/master/src/Node/InClassMethodNode.php) and [`InFunctionNode`](https://github.com/phpstan/phpstan-src/blob/master/src/Node/InFunctionNode.php).
 * If we're interested in class properties regardless of whether they're traditional or [promoted](https://wiki.php.net/rfc/constructor_promotion), we can use the [`ClassPropertyNode`](https://github.com/phpstan/phpstan-src/blob/master/src/Node/ClassPropertyNode.php).
+
+Collectors
+---------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.8.0</div>
+
+If you want to write custom rules that take a look at the whole codebase instead of a single AST node, you can take advantage of collectors.
+
+PHPStan rules are executed in isolation across multiple processess so it's not possible to share information from all the executions.
+
+In order to write a specific category of rules like unused code detection, we need to use collectors. [Learn more »](/developing-extensions/collectors)
 
 More custom rules examples
 ---------------
