@@ -22,4 +22,4 @@ includes:
 	- vendor/phpstan/phpstan/conf/bleedingEdge.neon
 ```
 
-When a new feature is added to bleeding edge, it's referenced in the [release notes](https://github.com/phpstan/phpstan/releases/tag/0.12.79). All the current new features enabled in bleeding edge can be inspected by looking at the [configuration file](https://github.com/phpstan/phpstan-src/blob/master/conf/bleedingEdge.neon) in PHPStan's source code.
+When a new feature is added to bleeding edge, it's referenced in the [release notes](https://github.com/phpstan/phpstan/releases/tag/0.12.79). All the current new features enabled in bleeding edge can be inspected by looking at the [configuration file](https://github.com/phpstan/phpstan-src/blob/1.8.x/conf/bleedingEdge.neon) in PHPStan's source code.

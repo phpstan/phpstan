@@ -2,7 +2,7 @@
 title: Type System
 ---
 
-PHPStan's type system is a collection of classes implementing the common [`PHPStan\Type\Type`](https://github.com/phpstan/phpstan-src/blob/master/src/Type/Type.php) interface to inform the analyser about relationships between types, and their behaviour.
+PHPStan's type system is a collection of classes implementing the common [`PHPStan\Type\Type`](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Type/Type.php) interface to inform the analyser about relationships between types, and their behaviour.
 
 To retrieve the type of an [AST](/developing-extensions/abstract-syntax-tree) expression, you need to call the `getType()` method on the [Scope](/developing-extensions/scope) object.
 
@@ -81,7 +81,7 @@ Some advanced types are implemented by combining different types in an intersect
 What can a type tell us?
 -----------------
 
-The [`PHPStan\Type\Type`](https://github.com/phpstan/phpstan-src/blob/master/src/Type/Type.php) interface offers many methods to ask about the capabilities of values of this specific type. Following list is by no means complete, please see the interface code for more details.
+The [`PHPStan\Type\Type`](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Type/Type.php) interface offers many methods to ask about the capabilities of values of this specific type. Following list is by no means complete, please see the interface code for more details.
 
 The `describe()` method returns a string representation (description) of the type, which is useful for error messages. For example `StringType` returns `'string'`.
 

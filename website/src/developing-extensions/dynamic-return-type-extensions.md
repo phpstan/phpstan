@@ -97,5 +97,5 @@ services:
 
 There's also analogous functionality for:
 
-* **static methods** using [`DynamicStaticMethodReturnTypeExtension`](https://github.com/phpstan/phpstan-src/blob/master/src/Type/DynamicStaticMethodReturnTypeExtension.php) interface and `phpstan.broker.dynamicStaticMethodReturnTypeExtension` service tag.
-* **functions** using [`DynamicFunctionReturnTypeExtension`](https://github.com/phpstan/phpstan-src/blob/master/src/Type/DynamicFunctionReturnTypeExtension.php) interface and `phpstan.broker.dynamicFunctionReturnTypeExtension` service tag.
+* **static methods** using [`DynamicStaticMethodReturnTypeExtension`](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Type/DynamicStaticMethodReturnTypeExtension.php) interface and `phpstan.broker.dynamicStaticMethodReturnTypeExtension` service tag.
+* **functions** using [`DynamicFunctionReturnTypeExtension`](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Type/DynamicFunctionReturnTypeExtension.php) interface and `phpstan.broker.dynamicFunctionReturnTypeExtension` service tag.

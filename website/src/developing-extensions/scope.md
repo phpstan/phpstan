@@ -2,7 +2,7 @@
 title: Scope
 ---
 
-The [`PHPStan\Analyser\Scope`](https://github.com/phpstan/phpstan-src/blob/master/src/Analyser/Scope.php) object can be used to get more information about the code, like types of variables, or current file and namespace.
+The [`PHPStan\Analyser\Scope`](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Analyser/Scope.php) object can be used to get more information about the code, like types of variables, or current file and namespace.
 
 It's passed as a method parameter to these types of extensions:
 

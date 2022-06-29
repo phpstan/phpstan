@@ -4,7 +4,7 @@ title: Stub Files
 
 PHPStan depends on [PHPDocs](/writing-php-code/phpdocs-basics) in the analysed and used code. You might encounter a PHPDoc in your `vendor/` that's imprecise and causes an error in the analysis of your project that's a false positive.
 
-To mitigate this, you can write a stub file with the right PHPDoc. It's like source code, but PHPStan only reads PHPDocs from it. So the namespace and class/interface/trait/method/function names must match with the original source you're describing. But method bodies can stay empty, PHPStan is only interested in the PHPDocs. Get inspired by [the stubs PHPStan itself uses](https://github.com/phpstan/phpstan-src/tree/master/stubs) or by [the stubs from the phpstan-doctrine extension](https://github.com/phpstan/phpstan-doctrine/tree/master/stubs).
+To mitigate this, you can write a stub file with the right PHPDoc. It's like source code, but PHPStan only reads PHPDocs from it. So the namespace and class/interface/trait/method/function names must match with the original source you're describing. But method bodies can stay empty, PHPStan is only interested in the PHPDocs. Get inspired by [the stubs PHPStan itself uses](https://github.com/phpstan/phpstan-src/tree/1.8.x/stubs) or by [the stubs from the phpstan-doctrine extension](https://github.com/phpstan/phpstan-doctrine/tree/1.8.x/stubs).
 
 Stub files aren't a replacement for [discovering symbols](/user-guide/discovering-symbols) so if you're trying to fix errors like "Function not found" or "Class not found", check out the [discovering symbols](/user-guide/discovering-symbols) guide instead.
 

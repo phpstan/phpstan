@@ -31,7 +31,7 @@ In the example above we'd like to disallow `new Person()`.
 The Rule interface
 ---------------
 
-Custom rules are classes implementing the [`PHPStan\Rules\Rule` interface](https://github.com/phpstan/phpstan-src/blob/master/src/Rules/Rule.php). The interface has two methods:
+Custom rules are classes implementing the [`PHPStan\Rules\Rule` interface](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Rules/Rule.php). The interface has two methods:
 
 * `public function getNodeType(): string`
 * `public function processNode(PhpParser\Node $node, PHPStan\Analyser\Scope $scope): array`
@@ -162,7 +162,7 @@ class MyRule implements \PHPStan\Rules\Rule
 	...
 ```
 
-The [New_ node class](https://github.com/nikic/PHP-Parser/blob/master/lib/PhpParser/Node/Expr/New_.php) looks like this:
+The [New_ node class](https://github.com/nikic/PHP-Parser/blob/1.8.x/lib/PhpParser/Node/Expr/New_.php) looks like this:
 
 ```php
 class New_ extends Expr
@@ -212,7 +212,7 @@ public function processNode(Node $node, Scope $scope): array
 }
 ```
 
-What's left to do is to return an array of errors to report. The `processNode()` method can return either an array of strings, or an array of `RuleError` instances. These can't be instantiated directly, but only through [`PHPStan\Rules\RuleErrorBuilder`](https://github.com/phpstan/phpstan-src/blob/master/src/Rules/RuleErrorBuilder.php). It allows to attach more information to errors like a different error line, or making the error non-ignorable. The simplest way to use it is to create an instance using the static `message(string $message): RuleErrorBuilder` method and return `RuleError` instance using the `build(): RuleError` method:
+What's left to do is to return an array of errors to report. The `processNode()` method can return either an array of strings, or an array of `RuleError` instances. These can't be instantiated directly, but only through [`PHPStan\Rules\RuleErrorBuilder`](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Rules/RuleErrorBuilder.php). It allows to attach more information to errors like a different error line, or making the error non-ignorable. The simplest way to use it is to create an instance using the static `message(string $message): RuleErrorBuilder` method and return `RuleError` instance using the `build(): RuleError` method:
 
 ```php
 return [
@@ -304,9 +304,9 @@ Some situations we want to report are hard to detect with the out-of-the-box [AS
 
 That's why PHPStan introduces custom virtual nodes to use in rules. Some of the common use-cases are:
 
-* We need to check something is at the beginning of each file, like `declare(strict_types = 1)` or a required namespace. We can use [`FileNode`](https://github.com/phpstan/phpstan-src/blob/master/src/Node/FileNode.php) for that.
-* Rules are called before the scope is updated with the information of the registered node type. That means if we're registering our rule for the `PhpParser\Node\Stmt\Class_` node, the scope will say we're not in a class. But if we use the virtual [`InClassNode`](https://github.com/phpstan/phpstan-src/blob/master/src/Node/InClassNode.php), `$scope->getClassReflection()` will contain the class reflection. Same goes for [`InClassMethodNode`](https://github.com/phpstan/phpstan-src/blob/master/src/Node/InClassMethodNode.php) and [`InFunctionNode`](https://github.com/phpstan/phpstan-src/blob/master/src/Node/InFunctionNode.php).
-* If we're interested in class properties regardless of whether they're traditional or [promoted](https://wiki.php.net/rfc/constructor_promotion), we can use the [`ClassPropertyNode`](https://github.com/phpstan/phpstan-src/blob/master/src/Node/ClassPropertyNode.php).
+* We need to check something is at the beginning of each file, like `declare(strict_types = 1)` or a required namespace. We can use [`FileNode`](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Node/FileNode.php) for that.
+* Rules are called before the scope is updated with the information of the registered node type. That means if we're registering our rule for the `PhpParser\Node\Stmt\Class_` node, the scope will say we're not in a class. But if we use the virtual [`InClassNode`](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Node/InClassNode.php), `$scope->getClassReflection()` will contain the class reflection. Same goes for [`InClassMethodNode`](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Node/InClassMethodNode.php) and [`InFunctionNode`](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Node/InFunctionNode.php).
+* If we're interested in class properties regardless of whether they're traditional or [promoted](https://wiki.php.net/rfc/constructor_promotion), we can use the [`ClassPropertyNode`](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Node/ClassPropertyNode.php).
 
 Collectors
 ---------------

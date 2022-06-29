@@ -2,7 +2,7 @@
 title: Trinary Logic
 ---
 
-Many methods in PHPStan do not return a two-state boolean, but a three-state [`PHPStan\TrinaryLogic`](https://github.com/phpstan/phpstan-src/blob/master/src/TrinaryLogic.php) object.
+Many methods in PHPStan do not return a two-state boolean, but a three-state [`PHPStan\TrinaryLogic`](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/TrinaryLogic.php) object.
 
 The object can be created by calling one of the static methods:
 
@@ -26,7 +26,7 @@ The object is immutable. You can combine multiple instances either with AND or O
 Usage in practice
 -------------------
 
-PHPStan uses trinary logic in many places, especially on the [`PHPStan\Type\Type`](https://github.com/phpstan/phpstan-src/blob/master/src/Type/Type.php) interface (see the article about the [type system](/developing-extensions/type-system)).
+PHPStan uses trinary logic in many places, especially on the [`PHPStan\Type\Type`](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Type/Type.php) interface (see the article about the [type system](/developing-extensions/type-system)).
 
 For example, let's say we have a `new ObjectType(\Exception::class)` and we ask about `hasMethod('getMessage')`. This method will return TrinaryLogic's `yes` because the method always exists.
 

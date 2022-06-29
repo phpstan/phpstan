@@ -26,7 +26,7 @@ interface PropertiesClassReflectionExtension
 }
 ```
 
-Most likely you will also have to create a new class implementing the [`PropertyReflection`](https://github.com/phpstan/phpstan-src/blob/master/src/Reflection/PropertyReflection.php) interface:
+Most likely you will also have to create a new class implementing the [`PropertyReflection`](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Reflection/PropertyReflection.php) interface:
 
 ```php
 namespace PHPStan\Reflection;
@@ -79,7 +79,7 @@ services:
 Methods class reflection extensions
 ---------------------
 
-To describe magic methods from the `__call` method, an extension must implement the [`MethodsClassReflectionExtension`](https://github.com/phpstan/phpstan-src/blob/master/src/Reflection/MethodsClassReflectionExtension.php) interface:
+To describe magic methods from the `__call` method, an extension must implement the [`MethodsClassReflectionExtension`](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Reflection/MethodsClassReflectionExtension.php) interface:
 
 ```php
 namespace PHPStan\Reflection;
@@ -94,7 +94,7 @@ interface MethodsClassReflectionExtension
 }
 ```
 
-Most likely you will also have to implement a new class implementing the [`MethodReflection`](https://github.com/phpstan/phpstan-src/blob/master/src/Reflection/MethodReflection.php) interface:
+Most likely you will also have to implement a new class implementing the [`MethodReflection`](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Reflection/MethodReflection.php) interface:
 
 ```php
 namespace PHPStan\Reflection;
