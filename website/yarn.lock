@@ -17,9 +17,9 @@
     posthtml-urls "1.0.0"
 
 "@11ty/eleventy-plugin-syntaxhighlight@^4.0.0":
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/@11ty/eleventy-plugin-syntaxhighlight/-/eleventy-plugin-syntaxhighlight-4.0.0.tgz#108a72728c2f0c359e736f72126473a8dae36185"
-  integrity sha512-t95DIZQ7MnaspgpmXyKIgz2TpyN7EshMt9+SFfqVUYKTISU3+T3FTXFscoLownyNWb/5EC0od69BnCZwEcMzCg==
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@11ty/eleventy-plugin-syntaxhighlight/-/eleventy-plugin-syntaxhighlight-4.1.0.tgz#742fb1910c5f04d76421c6c95c38804b54155fc1"
+  integrity sha512-bLpV8DKFZRgh0kToh8JPCjABfalL5ydyP6rxj/aUgrlR2v9TheLGRNqoKMhfgwUETOas2nMo/rd7sCE4kSvBNQ==
   dependencies:
     linkedom "^0.13.2"
     prismjs "^1.26.0"
@@ -1837,7 +1837,7 @@ cross-spawn@^7.0.3:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-css-select@^4.1.3:
+css-select@^4.1.3, css-select@^4.2.1:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/css-select/-/css-select-4.3.0.tgz#db7129b2846662fd8628cfc496abb2b59e41529b"
   integrity sha512-wPpOYtnsVontu2mODhA19JrqWxNsfdatRKd64kmpRbQgh1KtItko5sTnEpPdpSaJszTOhEMlF/RPz28qj4HqhQ==
@@ -1848,17 +1848,6 @@ css-select@^4.1.3:
     domutils "^2.8.0"
     nth-check "^2.0.1"
 
-css-select@^4.2.1:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/css-select/-/css-select-4.2.1.tgz#9e665d6ae4c7f9d65dbe69d0316e3221fb274cdd"
-  integrity sha512-/aUslKhzkTNCQUB2qTX84lVmfia9NyjP3WpDGtj/WxhwBzWBYUV3DgUpurHTme8UTPcPlAD1DJ+b0nN/t50zDQ==
-  dependencies:
-    boolbase "^1.0.0"
-    css-what "^5.1.0"
-    domhandler "^4.3.0"
-    domutils "^2.8.0"
-    nth-check "^2.0.1"
-
 css-tree@^1.1.2, css-tree@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/css-tree/-/css-tree-1.1.3.tgz#eb4870fb6fd7707327ec95c2ff2ab09b5e8db91d"
@@ -1866,11 +1855,6 @@ css-tree@^1.1.2, css-tree@^1.1.3:
   dependencies:
     mdn-data "2.0.14"
     source-map "^0.6.1"
-
-css-what@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/css-what/-/css-what-5.1.0.tgz#3f7b707aadf633baf62c2ceb8579b545bb40f7fe"
-  integrity sha512-arSMRWIIFY0hV8pIxZMEfmMI47Wj3R/aWpZDDxWYCPEiOMv6tfOrnpDtgxBYPEQD4V0Y/958+1TdC3iWTFcUPw==
 
 css-what@^6.0.1:
   version "6.1.0"
@@ -1899,10 +1883,10 @@ d3-array@1, d3-array@^1.1.1, d3-array@^1.2.0:
   resolved "https://registry.yarnpkg.com/d3-array/-/d3-array-1.2.4.tgz#635ce4d5eea759f6f605863dbcfc30edc737f71f"
   integrity sha512-KHW6M86R+FUPYGb3R5XiYjXPq7VzwxZ22buHhAEVG5ztoEcZZMLov530mmccaqA1GghZArjQV46fuc8kUqhhHw==
 
-"d3-array@2 - 3", "d3-array@2.10.0 - 3", "d3-array@2.5.0 - 3", d3-array@3:
-  version "3.1.6"
-  resolved "https://registry.yarnpkg.com/d3-array/-/d3-array-3.1.6.tgz#0342c835925826f49b4d16eb7027aec334ffc97d"
-  integrity sha512-DCbBBNuKOeiR9h04ySRBMW52TFVc91O9wJziuyXw6Ztmy8D3oZbmCkOO3UHKC7ceNJsN2Mavo9+vwV8EAEUXzA==
+"d3-array@2 - 3", "d3-array@2.10.0 - 3", "d3-array@2.5.0 - 3", d3-array@3, d3-array@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/d3-array/-/d3-array-3.2.0.tgz#15bf96cd9b7333e02eb8de8053d78962eafcff14"
+  integrity sha512-3yXFQo0oG3QCxbF06rMPFyGRMGJNS7NvsV1+2joOjbBE+9xvWQ8+GcMJAjRCzw06zQ3/arXeJgbPYcjUCuC+3g==
   dependencies:
     internmap "1 - 2"
 
@@ -1975,12 +1959,12 @@ d3-contour@1:
   dependencies:
     d3-array "^1.1.1"
 
-d3-contour@3:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/d3-contour/-/d3-contour-3.0.1.tgz#2c64255d43059599cd0dba8fe4cc3d51ccdd9bbd"
-  integrity sha512-0Oc4D0KyhwhM7ZL0RMnfGycLN7hxHB8CMmwZ3+H26PWAG0ozNuYG5hXSDNgmP1SgJkQMrlG6cP20HoaSbvcJTQ==
+d3-contour@4:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/d3-contour/-/d3-contour-4.0.0.tgz#5a1337c6da0d528479acdb5db54bc81a0ff2ec6b"
+  integrity sha512-7aQo0QHUTu/Ko3cP9YK9yUTxtoDEiDGwnBHyLxG5M4vqlBkO/uixMRele3nfsfj6UXOcuReVpVXzAboGraYIJw==
   dependencies:
-    d3-array "2 - 3"
+    d3-array "^3.2.0"
 
 d3-delaunay@6:
   version "6.0.2"
@@ -2351,16 +2335,16 @@ d3@^5.14:
     d3-zoom "1"
 
 d3@^7.0.0:
-  version "7.4.4"
-  resolved "https://registry.yarnpkg.com/d3/-/d3-7.4.4.tgz#bfbf87487c37d3196efebd5a63e3a0ed8299d8ff"
-  integrity sha512-97FE+MYdAlV3R9P74+R3Uar7wUKkIFu89UWMjEaDhiJ9VxKvqaMxauImy8PC2DdBkdM2BxJOIoLxPrcZUyrKoQ==
+  version "7.6.1"
+  resolved "https://registry.yarnpkg.com/d3/-/d3-7.6.1.tgz#b21af9563485ed472802f8c611cc43be6c37c40c"
+  integrity sha512-txMTdIHFbcpLx+8a0IFhZsbp+PfBBPt8yfbmukZTQFroKuFqIwqswF0qE5JXWefylaAVpSXFoKm3yP+jpNLFLw==
   dependencies:
     d3-array "3"
     d3-axis "3"
     d3-brush "3"
     d3-chord "3"
     d3-color "3"
-    d3-contour "3"
+    d3-contour "4"
     d3-delaunay "6"
     d3-dispatch "3"
     d3-drag "3"
@@ -2574,7 +2558,7 @@ domhandler@^2.3.0:
   dependencies:
     domelementtype "1"
 
-domhandler@^4.2.0, domhandler@^4.2.2, domhandler@^4.3.0, domhandler@^4.3.1:
+domhandler@^4.2.0, domhandler@^4.2.2, domhandler@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/domhandler/-/domhandler-4.3.1.tgz#8d792033416f59d68bc03a5aa7b018c1ca89279c"
   integrity sha512-GrwoxYN+uWlzO8uhUXRl0P+kHE4GtVPfYzVLcUxPL7KNdHKj66vvlhiweIHqYYXWlw+T8iLMp42Lm67ghw4WMQ==
@@ -3653,9 +3637,9 @@ lines-and-columns@^1.1.6:
   integrity sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==
 
 linkedom@^0.13.2:
-  version "0.13.2"
-  resolved "https://registry.yarnpkg.com/linkedom/-/linkedom-0.13.2.tgz#455187a4eb9a00f41e8a736c5d362ea7e1cafc05"
-  integrity sha512-lQPdDnml1Rl/T8QW3j10jJ37LMRcZqryy5kwHDIw9AYMabeE4P6kMp2mqJXWjjeXxJ4ebJC05Qx9Xxs4jWhNMw==
+  version "0.13.7"
+  resolved "https://registry.yarnpkg.com/linkedom/-/linkedom-0.13.7.tgz#5d5584e73415911ac387a2794acd61933699e477"
+  integrity sha512-We9cyPHV/exsrC43KXtItjqSTxwrK9pLpOnG6TLzqXrmqwe/wqd3Gi6eAAU4YCqfTgy79R8g75hY2fS7723XUg==
   dependencies:
     css-select "^4.2.1"
     cssom "^0.5.0"
@@ -3866,9 +3850,9 @@ merge2@^1.3.0:
   integrity sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
 
 mermaid@^9.0.0:
-  version "9.1.2"
-  resolved "https://registry.yarnpkg.com/mermaid/-/mermaid-9.1.2.tgz#98cdc55603464240987fe1a15f68dd06304c07f1"
-  integrity sha512-RVf3hBKqiMfyORHboCaEjOAK1TomLO50hYRPvlTrZCXlCniM5pRpe8UlkHBjjpaLtioZnbdYv/vEVj7iKnwkJQ==
+  version "9.1.3"
+  resolved "https://registry.yarnpkg.com/mermaid/-/mermaid-9.1.3.tgz#15d08662c66250124ce31106a4620285061ac59c"
+  integrity sha512-jTIYiqKwsUXVCoxHUVkK8t0QN3zSKIdJlb9thT0J5jCnzXyc+gqTbZE2QmjRfavFTPPn5eRy5zaFp7V+6RhxYg==
   dependencies:
     "@braintree/sanitize-url" "^6.0.0"
     d3 "^7.0.0"
