@@ -25,7 +25,7 @@ jobs:
 
       - name: "Install dependencies"
         working-directory: ./issue-bot
-        run: "composer install --no-interaction --no-progress"
+        run: "composer install --no-interaction --no-progress --no-dev"
 
       - name: "Run bot"
         working-directory: ./issue-bot
