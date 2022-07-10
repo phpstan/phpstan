@@ -9,7 +9,7 @@ on:
     paths:
       - '.github/workflows/test-projects.yml'
       - 'phpstan'
-      - 'phpstan.phar'
+      - '.phar-checksum'
       - 'bootstrap.php'
 
 jobs:
