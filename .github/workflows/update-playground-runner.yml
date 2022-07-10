@@ -10,7 +10,7 @@ on:
       - '.github/workflows/update-playground-runner.yml'
       - 'playground-runner/**'
       - 'phpstan'
-      - 'phpstan.phar'
+      - '.phar-checksum'
       - 'bootstrap.php'
 
 concurrency: playground_runner
