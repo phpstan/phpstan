@@ -61,7 +61,7 @@ You can use different `Scope` methods to ask about the current whereabouts:
 Resolving special names
 --------------
 
-Although the instances of `PhpParser\Node\Name` in the AST in case of relative names are resolved according to the current namespace and `use` statements, certain special names like `self` remain unresolved.
+In the case of relative names, `PhpParser\Node\Name` AST node instances are resolved according to the current namespace and `use` statements, however certain special names like `self` remain unresolved.
 
 For example we can have `PhpParser\Node\Expr\StaticCall` that represents static method call like `self::doFoo()`. If we were to use the value in its `$class` property as a definitive class name, we'd work with `self`, but there's no `class self` defined in our code. We first need to resolve `self` to the correct name:
 
