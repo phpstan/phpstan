@@ -30,7 +30,7 @@ jobs:
         id: checksum-difference
         run: |
           checksum=${{ inputs.phar-checksum }}
-          if [[ $(< .phar-checksum) != "$checksum" ]]; then
+          if [[ $(cat .phar-checksum) != "$checksum" ]]; then
             echo "::set-output name=result::different
           else
             echo "::set-output name=result::same
