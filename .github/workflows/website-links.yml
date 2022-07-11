@@ -20,5 +20,6 @@ jobs:
           resolve_before_filtering: 'true'
           exclude_url_prefix: 'mailto:,https://twitter.com,https://www.startupjobs.cz,https://www.shopware.com'
           verbose: 'true'
-          max_retry_time: 30
-          max_retries: 5
+          max_retry_time: 10
+          max_retries: 1
+          connect_limit_per_host: 3
