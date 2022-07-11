@@ -4,19 +4,23 @@ name: "Other tests"
 
 on:
   pull_request:
-    paths-ignore:
-      - 'issue-bot/**'
-      - 'website/**'
-      - 'playground-api/**'
-      - 'playground-runner/**'
+    paths:
+      - '.github/workflows/other-tests.yml'
+      - '.github/workflows/other-tests-run.yml'
+      - 'e2e/**'
+      - 'phpstan'
+      - '.phar-checksum'
+      - 'bootstrap.php'
   push:
     branches:
       - "1.8.x"
-    paths-ignore:
-      - 'issue-bot/**'
-      - 'website/**'
-      - 'playground-api/**'
-      - 'playground-runner/**'
+    paths:
+      - '.github/workflows/other-tests.yml'
+      - '.github/workflows/other-tests-run.yml'
+      - 'e2e/**'
+      - 'phpstan'
+      - '.phar-checksum'
+      - 'bootstrap.php'
 
 jobs:
   upload-phar:

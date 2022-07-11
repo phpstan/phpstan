@@ -4,19 +4,21 @@ name: "Integration tests"
 
 on:
   pull_request:
-    paths-ignore:
-      - 'issue-bot/**'
-      - 'website/**'
-      - 'playground-api/**'
-      - 'playground-runner/**'
+    paths:
+      - '.github/workflows/integration-tests.yml'
+      - '.github/workflows/integration-tests-run.yml'
+      - 'phpstan'
+      - '.phar-checksum'
+      - 'bootstrap.php'
   push:
     branches:
       - "1.8.x"
-    paths-ignore:
-      - 'issue-bot/**'
-      - 'website/**'
-      - 'playground-api/**'
-      - 'playground-runner/**'
+    paths:
+      - '.github/workflows/integration-tests.yml'
+      - '.github/workflows/integration-tests-run.yml'
+      - 'phpstan'
+      - '.phar-checksum'
+      - 'bootstrap.php'
 
 jobs:
   upload-phar:

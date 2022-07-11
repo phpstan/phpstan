@@ -8,11 +8,12 @@ on:
   push:
     branches:
       - "1.8.x"
-    paths-ignore:
-      - 'issue-bot/**'
-      - 'website/**'
-      - 'playground-api/**'
-      - 'playground-runner/**'
+    paths:
+      - '.github/workflows/docker-nightly.yml'
+      - 'docker/**'
+      - 'phpstan'
+      - '.phar-checksum'
+      - 'bootstrap.php'
 
 jobs:
   docker:
