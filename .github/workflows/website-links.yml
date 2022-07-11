@@ -1,0 +1,23 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Check Website Links"
+
+on:
+  repository_dispatch:
+    types: [ check_website_links ]
+
+jobs:
+  website-links:
+    name: "Check for broken links"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Check for broken links"
+        uses: ScholliYT/Broken-Links-Crawler-Action@v3
+        with:
+          website_url: 'https://phpstan.org/'
+          resolve_before_filtering: 'true'
+          verbose: 'true'
+          max_retry_time: 30
+          max_retries: 5
+          max_depth: 1
