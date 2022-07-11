@@ -19,6 +19,6 @@ jobs:
           website_url: 'https://phpstan.org/'
           resolve_before_filtering: 'true'
           exclude_url_prefix: 'mailto:,https://twitter.com,https://www.startupjobs.cz,https://www.shopware.com,https://github.com/phpstan'
-          verbose: 'true'
+          verbose: 'warning'
           max_retry_time: 30
           max_retries: 5
