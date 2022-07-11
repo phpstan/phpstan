@@ -14,7 +14,7 @@ Before I dive into what's new in 0.9, I'd like to take a moment to thank [Roave]
 
 > [Roave](https://roave.com) is a full-service web development firm, offering services such as consulting, training, software development, and more. Roave employs some of the most recognized and accomplished experts in the industry to ensure that organizations have access to the talent they need, when they need it.
 
-If you look at their [Meet the Team](https://roave.com/team) page, you will definitely recognize some of the names from Twitter or from developer conferences. They are also responsible for many popular open-source projects. What a great bunch of folks!
+If you look at their [Meet the Team](https://roave.com/) page, you will definitely recognize some of the names from Twitter or from developer conferences. They are also responsible for many popular open-source projects. What a great bunch of folks!
 
 I'm really lucky that I'm able to work on something I really love and that I can justify spending time on open-source instead of traditional paid work. And it's thanks to sponsors like Roave and also my [patrons on Patreon](https://www.patreon.com/phpstan).
 

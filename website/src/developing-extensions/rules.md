@@ -162,7 +162,7 @@ class MyRule implements \PHPStan\Rules\Rule
 	...
 ```
 
-The [New_ node class](https://github.com/nikic/PHP-Parser/blob/1.8.x/lib/PhpParser/Node/Expr/New_.php) looks like this:
+The [New_ node class](https://apiref.phpstan.org/1.8.x/PhpParser.Node.Expr.New_.html) looks like this:
 
 ```php
 class New_ extends Expr

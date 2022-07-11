@@ -82,4 +82,4 @@ Creating PHPStan wouldn’t be possible without the excellent [PHP Parser](https
 
 PHP in 2016 has established and widely used tools for [package management](https://getcomposer.org/), [unit testing](https://phpunit.de/) and [coding standards](https://github.com/squizlabs/PHP_CodeSniffer). It’s a mystery to me there isn’t yet a widely used tool for finding bugs in code without running it. So I created one that is easy enough to use, fast, extensible, and doesn’t bother you with strict requirements on your codebase while still allowing you to benefit from various checks it performs. Check out the [GitHub repo](https://github.com/phpstan/phpstan) to find out how you can integrate it in your project today!
 
-It’s already used by [Slevomat](https://www.slevomat.cz/), [Hele](https://www.hele.cz/) and [Bonami](https://www.bonami.cz/) — several of the most prominent Czech startups. I hope yours will be next!
+It’s already used by [Slevomat](https://www.slevomat.cz/) and [Bonami](https://www.bonami.cz/) — several of the most prominent Czech startups. I hope yours will be next!
