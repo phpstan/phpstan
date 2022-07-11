@@ -13,13 +13,16 @@ class PostGenerator
 
 	private string $gitBranch;
 
-	private string $latestCommit;
+	private string $commitBefore;
 
-	public function __construct(Differ $differ, string $gitBranch, string $latestCommit)
+	private string $commitAfter;
+
+	public function __construct(Differ $differ, string $gitBranch, string $commitBefore, string $commitAfter)
 	{
 		$this->differ = $differ;
 		$this->gitBranch = $gitBranch;
-		$this->latestCommit = $latestCommit;
+		$this->commitBefore = $commitBefore;
+		$this->commitAfter = $commitAfter;
 	}
 
 	/**
@@ -68,12 +71,13 @@ class PostGenerator
 		}
 
 		$text = sprintf(
-			"%s After [the latest commit in %s](https://github.com/phpstan/phpstan-src/commit/%s), PHPStan now reports different result with your [code snippet](https://phpstan.org/r/%s):\n\n```diff\n%s```",
+			"%s After [the latest push in %s](https://github.com/phpstan/phpstan-src/compare/%s...%s), PHPStan now reports different result with your [code snippet](https://phpstan.org/r/%s):\n\n```diff\n%s```",
 			implode(' ', array_map(static function (string $user): string {
 				return sprintf('@%s', $user);
 			}, $result->getUsers())),
 			$this->gitBranch,
-			$this->latestCommit,
+			$this->commitBefore,
+			$this->commitAfter,
 			$result->getHash(),
 			$diff
 		);

@@ -21,7 +21,8 @@ use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 require_once __DIR__ . '/vendor/autoload.php';
 
 $token = $_SERVER['GITHUB_PAT'];
-$phpstanSrcCommit = $_SERVER['PHPSTAN_SRC_COMMIT'];
+$phpstanSrcCommitBefore = $_SERVER['PHPSTAN_SRC_COMMIT_BEFORE'];
+$phpstanSrcCommitAfter = $_SERVER['PHPSTAN_SRC_COMMIT_AFTER'];
 
 $rateLimitPlugin = new RateLimitPlugin();
 
@@ -150,7 +151,7 @@ if ($exitCode === 0) {
 	$gitBranch = 'dev-master';
 }
 
-$postGenerator = new PostGenerator(new Differ(new UnifiedDiffOutputBuilder('')), $gitBranch, $phpstanSrcCommit);
+$postGenerator = new PostGenerator(new Differ(new UnifiedDiffOutputBuilder('')), $gitBranch, $phpstanSrcCommitBefore, $phpstanSrcCommitAfter);
 $promiseResolver = new PromiseResolver();
 
 $issuesIterator = new AppendIterator();

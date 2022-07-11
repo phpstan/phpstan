@@ -31,5 +31,6 @@ jobs:
         working-directory: ./issue-bot
         env:
           GITHUB_PAT: ${{ secrets.ISSUE_BOT_TOKEN }}
-          PHPSTAN_SRC_COMMIT: ${{ github.event.client_payload.phpstan_src_commit }}
+          PHPSTAN_SRC_COMMIT_BEFORE: ${{ github.event.client_payload.phpstan_src_commit_before }}
+          PHPSTAN_SRC_COMMIT_AFTER: ${{ github.event.client_payload.phpstan_src_commit_after }}
         run: "php run.php"

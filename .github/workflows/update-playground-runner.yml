@@ -23,6 +23,8 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
 
       - name: "Install Node"
         uses: actions/setup-node@v3
@@ -69,13 +71,16 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
         run: "yarn run deploy"
 
-      - name: "Get PHPStan version"
-        working-directory: ./playground-runner
-        id: phpstan_commit
-        run: echo ::set-output name=sha::$(php extractVersion.php)
+      - name: "Get current PHPStan version"
+        id: phpstan_commit_after
+        run: echo ::set-output name=sha::$(sed -n '2p' .phar-checksum)
+
+      - name: "Get previous PHPStan version"
+        id: phpstan_commit_before
+        run: git checkout HEAD^ -- .phar-checksum && echo ::set-output name=sha::$(sed -n '2p' .phar-checksum)
 
       - uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           event-type: run_issue_bot
-          client-payload: '{"phpstan_src_commit": "${{ steps.phpstan_commit.outputs.sha }}"}'
+          client-payload: '{"phpstan_src_commit_before": "${{ steps.phpstan_commit_before.outputs.sha }}", "phpstan_src_commit_after": "${{ steps.phpstan_commit_after.outputs.sha }}"}'
