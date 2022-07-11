@@ -10,14 +10,14 @@ PHPStan rules are executed in isolation across multiple processess so it's not p
 
 In order to write a specific category of rules like unused code detection, we need to use collectors.
 
-Collectors are executed the same way as rules, in separate processes, and they collect various information about the codebase. All of the data collected by collectors is gathered into a single object [`CollectedDataNode`](https://github.com/phpstan/phpstan-src/blob/59fb0a3b23c91e5b736c7b67d8a9fd075fc08211/src/Node/CollectedDataNode.php), and traditional rules registered for this node type are executed in the main PHPStan process with all of the gathered data.
+Collectors are executed the same way as rules, in separate processes, and they collect various information about the codebase. All of the data collected by collectors is gathered into a single object [`CollectedDataNode`](https://apiref.phpstan.org/1.8.x/PHPStan.Node.CollectedDataNode.html), and traditional rules registered for this node type are executed in the main PHPStan process with all of the gathered data.
 
 Collectors are seamlessly integrated with the [result cache](/user-guide/result-cache) so even if you take advantage of them, PHPStan is going to be as fast as before.
 
 The Collector interface
 -------------------
 
-Collectors are classes implementing the [`PHPStan\Collectors\Collector` interface](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Collectors/Collector.php). The interface has two methods:
+Collectors are classes implementing the [`PHPStan\Collectors\Collector` interface](https://apiref.phpstan.org/1.8.x/PHPStan.Collectors.Collector.html). The interface has two methods:
 
 * `public function getNodeType(): string`
 * `public function processNode(PhpParser\Node $node, PHPStan\Analyser\Scope $scope): array`
@@ -75,7 +75,7 @@ services:
 Using collected data in a custom rule
 ---------------
 
-Custom rules need to be registered for the [`PHPStan\Node\CollectedDataNode` node](https://github.com/phpstan/phpstan-src/blob/1.8.x/src/Node/CollectedDataNode.php). This object contains all the gathered data from all the collectors, but it's only possible to get data from a single collector at a time:
+Custom rules need to be registered for the [`PHPStan\Node\CollectedDataNode` node](https://apiref.phpstan.org/1.8.x/PHPStan.Node.CollectedDataNode.html). This object contains all the gathered data from all the collectors, but it's only possible to get data from a single collector at a time:
 
 ```php
 public function getNodeType(): string

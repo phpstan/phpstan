@@ -121,7 +121,7 @@ class Article
 
 This is a [Doctrine](https://www.doctrine-project.org/projects/orm.html) entity. The property is never assigned because the value will be automatically filled by the framework when the entity is saved to the database. So we don't need to set it in our code, it's taken care of.
 
-For cases like this I added extension capability. Implement this [simple interface](https://github.com/phpstan/phpstan-src/blob/587943766fbcfda7651d6728b544011dcb5063f2/src/Rules/Properties/ReadWritePropertiesExtension.php) to tell PHPStan your properties are always read or written even if it might not seem like it in the code:
+For cases like this I added extension capability. Implement this [simple interface](https://apiref.phpstan.org/1.8.x/PHPStan.Rules.Properties.ReadWritePropertiesExtension.html) to tell PHPStan your properties are always read or written even if it might not seem like it in the code:
 
 ```php
 interface ReadWritePropertiesExtension
@@ -154,7 +154,7 @@ For [Doctrine the logic](https://github.com/phpstan/phpstan-doctrine/blob/ecc4ae
 Always-used class constants
 -----------------------
 
-A similar interface ([`AlwaysUsedClassConstantsExtension`](https://github.com/phpstan/phpstan-src/blob/ee6f540b3343ba8c8f3861c18c5b48de2b057113/src/Rules/Constants/AlwaysUsedClassConstantsExtension.php)) is available to mark private class constants as always-used. This is useful for custom implementations of enums where the only way these constants are read is through reflection.
+A similar interface ([`AlwaysUsedClassConstantsExtension`](https://apiref.phpstan.org/1.8.x/PHPStan.Rules.Constants.AlwaysUsedClassConstantsExtension.html)) is available to mark private class constants as always-used. This is useful for custom implementations of enums where the only way these constants are read is through reflection.
 
 ```php
 use PHPStan\Reflection\ConstantReflection;
@@ -220,7 +220,7 @@ parameters:
     checkUninitializedProperties: true
 ```
 
-And the extension's `isInitialized` method is there to tell PHPStan that a property is always initialized even if it's not being assigned in the constructor. The [Doctrine extension](https://github.com/phpstan/phpstan-src/blob/587943766fbcfda7651d6728b544011dcb5063f2/src/Rules/Properties/ReadWritePropertiesExtension.php) does it for all persisted properties in read-only entities without a constructor, because they're most likely inserted directly into the database without ORM's involvement.
+And the extension's `isInitialized` method is there to tell PHPStan that a property is always initialized even if it's not being assigned in the constructor. The [Doctrine extension](https://github.com/phpstan/phpstan-doctrine/blob/f855ebad8c685c6ab6430ae5825f1f3af3ec7b4b/src/Rules/Doctrine/ORM/PropertiesExtension.php) does it for all persisted properties in read-only entities without a constructor, because they're most likely inserted directly into the database without ORM's involvement.
 
 Also, the [phpstan-phpunit](https://github.com/phpstan/phpstan-phpunit) will consider the TestCase's `setUp()` method as a constructor and will mark properties assigned there as initialized.
 
