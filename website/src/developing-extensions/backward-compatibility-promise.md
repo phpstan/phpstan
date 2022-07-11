@@ -16,6 +16,8 @@ That's why not all the PHPStan's internal code is supposed to be a surface area 
 
 Here's the human-readable summary of these rules. If you want more code to be covered by this backward compatibility promise, please [open a discussion](https://github.com/phpstan/phpstan/discussions).
 
+You can browse all the backward compatibility-covered code in [**API Reference**](https://apiref.phpstan.org/1.8.x/namespace-PHPStan.html).
+
 Classes
 ---------
 
