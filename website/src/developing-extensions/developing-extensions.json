@@ -90,6 +90,10 @@
 		{
 			"title": "Backward Compatibility Promise",
 			"link": "/developing-extensions/backward-compatibility-promise"
+		},
+        {
+			"title": "API Reference",
+			"link": "https://apiref.phpstan.org/1.8.x/namespace-PHPStan.html"
 		}
     ]
 }
