@@ -6,6 +6,11 @@ on:
   workflow_dispatch:
   repository_dispatch:
     types: [ check_website_links ]
+  push:
+    branches:
+      - "1.8.x"
+    paths:
+      - '.github/workflows/website-links.yml'
 
 jobs:
   website-links:
