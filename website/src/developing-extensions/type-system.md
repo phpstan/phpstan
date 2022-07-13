@@ -6,7 +6,7 @@ PHPStan's type system is a collection of classes implementing the common [`PHPSt
 
 To retrieve the type of an [AST](/developing-extensions/abstract-syntax-tree) expression, you need to call the `getType()` method on the [Scope](/developing-extensions/scope) object.
 
-Each type that we can encounter in PHP language and [in PHPDocs](/writing-php-code/phpdoc-types) has an implementation counterpart in PHPStan:
+Each type that we can encounter in PHP language and [in PHPDocs](/writing-php-code/phpdoc-types) has [an implementation counterpart](https://apiref.phpstan.org/1.8.x/namespace-PHPStan.Type.html) in PHPStan:
 
 <details class="typesystem-types">
     <summary class="text-blue-500 font-bold">Show table of <code>PHPStan\Type\Type</code> implementations</summary>
