@@ -17,9 +17,6 @@ jobs:
           exclude-issue-created-before: ''
           exclude-any-issue-labels: ''
           add-issue-labels: ''
-          issue-comment: >
-            This thread has been automatically locked since there has not been
-            any recent activity after it was closed. Please open a new issue for
-            related bugs.
+          issue-comment: ''
           issue-lock-reason: 'resolved'
           process-only: 'issues'
