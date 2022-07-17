@@ -309,6 +309,13 @@ jobs:
             script: |
               cd e2e/autoload-psr/app
               ../../../phpstan analyse index.php -a autoload.php
+          - php-version: 8.1
+            extensions: phalcon5
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/phalcon5
+              ../../phpstan
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
