@@ -298,13 +298,6 @@ jobs:
               cd e2e/bug7441
               composer install
               ../../phpstan analyse -c app/phpstan.neon
-          - php-version: 8.1
-            extensions: phalcon5
-            ini-values: memory_limit=256M
-            operating-system: ubuntu-latest
-            script: |
-              cd e2e/phalcon5
-              ../../phpstan
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
@@ -313,7 +306,7 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@develop"
+        uses: "shivammathur/setup-php@v2"
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
