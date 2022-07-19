@@ -35,7 +35,7 @@ async function analyseResultInternal(
 	treatPhpDocTypesAsCertain: boolean,
 ): Promise<any[]> {
 	const lambdaPromises: [Promise<PromiseResult<Lambda.InvocationResponse, AWSError>>, number][] = [];
-	for (const phpVersion of [70100, 70200, 70300, 70400, 80000, 80100]) {
+	for (const phpVersion of [70100, 70200, 70300, 70400, 80000, 80100, 80200]) {
 		lambdaPromises.push([lambda.invoke({
 			FunctionName: 'phpstan-runner-prod-main',
 			Payload: JSON.stringify({
