@@ -29,6 +29,8 @@ jobs:
             image-tag-suffix: "-php8.0"
           - docker-file: "./docker/Dockerfile.php.8.1"
             image-tag-suffix: "-php8.1"
+          - docker-file: "./docker/Dockerfile.php.8.2"
+            image-tag-suffix: "-php8.2"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
