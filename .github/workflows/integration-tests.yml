@@ -151,7 +151,7 @@ jobs:
               cd e2e/integration/repo
               git checkout 6c3797271697278b31e2bd0905d54cea6131d335
               composer install
-              ../../../phpstan.phar
+              ../../../phpstan.phar analyse -c ../prestashop.neon
 
     steps:
       - name: "Checkout"

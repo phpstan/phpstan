@@ -1,0 +1,401 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\$translator of method CheckoutAddressesStepCore\\:\\:__construct\\(\\) has invalid type TranslatorInterface\\.$#"
+			count: 1
+			path: repo/classes/checkout/CheckoutAddressesStep.php
+
+		-
+			message: "#^Parameter \\$translator of method CheckoutPaymentStepCore\\:\\:__construct\\(\\) has invalid type TranslatorInterface\\.$#"
+			count: 1
+			path: repo/classes/checkout/CheckoutPaymentStep.php
+
+		-
+			message: "#^Parameter \\$translator of method CheckoutPersonalInformationStepCore\\:\\:__construct\\(\\) has invalid type TranslatorInterface\\.$#"
+			count: 1
+			path: repo/classes/checkout/CheckoutPersonalInformationStep.php
+
+		-
+			message: "#^Method HelperUploaderCore\\:\\:setName\\(\\) has invalid return type self\\.$#"
+			count: 1
+			path: repo/classes/helper/HelperUploader.php
+
+		-
+			message: "#^Method HelperUploaderCore\\:\\:setName\\(\\) should return self but returns \\$this\\(HelperUploaderCore\\)\\.$#"
+			count: 1
+			path: repo/classes/helper/HelperUploader.php
+
+		-
+			message: "#^Method AdminAttributesGroupsControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminAttributesGroupsController.php
+
+		-
+			message: "#^Method AdminAttributesGroupsControllerCore\\:\\:renderView\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminAttributesGroupsController.php
+
+		-
+			message: "#^Method AdminAttributesGroupsControllerCore\\:\\:renderView\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminAttributesGroupsController.php
+
+		-
+			message: "#^Method AdminCarrierWizardControllerCore\\:\\:renderView\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminCarrierWizardController.php
+
+		-
+			message: "#^Method AdminCarriersControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminCarriersController.php
+
+		-
+			message: "#^Method AdminCartRulesControllerCore\\:\\:afterAdd\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminCartRulesController.php
+
+		-
+			message: "#^Method AdminCartRulesControllerCore\\:\\:afterUpdate\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminCartRulesController.php
+
+		-
+			message: "#^Method AdminCartsControllerCore\\:\\:renderView\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminCartsController.php
+
+		-
+			message: "#^Method AdminCountriesControllerCore\\:\\:processBulkAffectZone\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminCountriesController.php
+
+		-
+			message: "#^Method AdminCountriesControllerCore\\:\\:processStatus\\(\\) should return ObjectModel\\|false but returns bool\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminCountriesController.php
+
+		-
+			message: "#^Method AdminCountriesControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminCountriesController.php
+
+		-
+			message: "#^Method AdminCustomerThreadsControllerCore\\:\\:renderView\\(\\) should return string but empty return statement found\\.$#"
+			count: 2
+			path: repo/controllers/admin/AdminCustomerThreadsController.php
+
+		-
+			message: "#^Method AdminFeaturesControllerCore\\:\\:renderView\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminFeaturesController.php
+
+		-
+			message: "#^Method AdminFeaturesControllerCore\\:\\:renderView\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminFeaturesController.php
+
+		-
+			message: "#^Method AdminGendersControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminGendersController.php
+
+		-
+			message: "#^Method AdminGroupsControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminGroupsController.php
+
+		-
+			message: "#^Method AdminGroupsControllerCore\\:\\:renderView\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminGroupsController.php
+
+		-
+			message: "#^Method AdminImportControllerCore\\:\\:renderForm\\(\\) should return string but returns bool\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminImportController.php
+
+		-
+			message: "#^Method AdminProductsControllerCore\\:\\:processBulkDelete\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminProductsController.php
+
+		-
+			message: "#^Method AdminProductsControllerCore\\:\\:processDelete\\(\\) should return ObjectModel\\|false but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminProductsController.php
+
+		-
+			message: "#^Method AdminProductsControllerCore\\:\\:processPosition\\(\\) should return ObjectModel\\|false but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminProductsController.php
+
+		-
+			message: "#^Method AdminRequestSqlControllerCore\\:\\:renderView\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminRequestSqlController.php
+
+		-
+			message: "#^Method AdminSearchConfControllerCore\\:\\:renderOptions\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminSearchConfController.php
+
+		-
+			message: "#^Method AdminShopControllerCore\\:\\:processAdd\\(\\) should return ObjectModel\\|false but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminShopController.php
+
+		-
+			message: "#^Method AdminShopControllerCore\\:\\:processDelete\\(\\) should return ObjectModel\\|false but returns bool\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminShopController.php
+
+		-
+			message: "#^Method AdminShopControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminShopController.php
+
+		-
+			message: "#^Method AdminShopGroupControllerCore\\:\\:afterAdd\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminShopGroupController.php
+
+		-
+			message: "#^Method AdminShopGroupControllerCore\\:\\:afterUpdate\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminShopGroupController.php
+
+		-
+			message: "#^Method AdminShopGroupControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminShopGroupController.php
+
+		-
+			message: "#^Method AdminShopGroupControllerCore\\:\\:renderOptions\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminShopGroupController.php
+
+		-
+			message: "#^Parameter \\#1 \\$shop_group of static method StockAvailableCore\\:\\:resetProductFromStockAvailableByShopGroup\\(\\) expects ShopGroup, ObjectModel given\\.$#"
+			count: 2
+			path: repo/controllers/admin/AdminShopGroupController.php
+
+		-
+			message: "#^Method AdminShopUrlControllerCore\\:\\:afterUpdate\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminShopUrlController.php
+
+		-
+			message: "#^Method AdminShopUrlControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminShopUrlController.php
+
+		-
+			message: "#^Method AdminStatesControllerCore\\:\\:processBulkAffectZone\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminStatesController.php
+
+		-
+			message: "#^Method AdminStoresControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminStoresController.php
+
+		-
+			message: "#^Method AdminSuppliersControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminSuppliersController.php
+
+		-
+			message: "#^Method AdminTabsControllerCore\\:\\:afterImageUpload\\(\\) should return bool but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminTabsController.php
+
+		-
+			message: "#^Method AdminTabsControllerCore\\:\\:afterImageUpload\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminTabsController.php
+
+		-
+			message: "#^Method AdminTabsControllerCore\\:\\:renderDetails\\(\\) should return string\\|false but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminTabsController.php
+
+		-
+			message: "#^Method AdminTagsControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminTagsController.php
+
+		-
+			message: "#^Method AdminTaxRulesGroupControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminTaxRulesGroupController.php
+
+		-
+			message: "#^Method PdfInvoiceControllerCore\\:\\:display\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/front/PdfInvoiceController.php
+
+		-
+			message: "#^Method PdfOrderReturnControllerCore\\:\\:display\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/front/PdfOrderReturnController.php
+
+		-
+			message: "#^Method PdfOrderSlipControllerCore\\:\\:display\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/front/PdfOrderSlipController.php
+
+		-
+			message: "#^Method BestSalesControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) has invalid return type ProductSearchProviderInterface\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/BestSalesController.php
+
+		-
+			message: "#^Method BestSalesControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) should return ProductSearchProviderInterface but returns PrestaShop\\\\PrestaShop\\\\Adapter\\\\BestSales\\\\BestSalesProductSearchProvider\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/BestSalesController.php
+
+		-
+			message: "#^Method BestSalesControllerCore\\:\\:getProductSearchQuery\\(\\) has invalid return type ProductSearchQuery\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/BestSalesController.php
+
+		-
+			message: "#^Method BestSalesControllerCore\\:\\:getProductSearchQuery\\(\\) should return ProductSearchQuery but returns PrestaShop\\\\PrestaShop\\\\Core\\\\Product\\\\Search\\\\ProductSearchQuery\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/BestSalesController.php
+
+		-
+			message: "#^Method CategoryControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) has invalid return type ProductSearchProviderInterface\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/CategoryController.php
+
+		-
+			message: "#^Method CategoryControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) should return ProductSearchProviderInterface but returns PrestaShop\\\\PrestaShop\\\\Adapter\\\\Category\\\\CategoryProductSearchProvider\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/CategoryController.php
+
+		-
+			message: "#^Method CategoryControllerCore\\:\\:getProductSearchQuery\\(\\) has invalid return type ProductSearchQuery\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/CategoryController.php
+
+		-
+			message: "#^Method CategoryControllerCore\\:\\:getProductSearchQuery\\(\\) should return ProductSearchQuery but returns PrestaShop\\\\PrestaShop\\\\Core\\\\Product\\\\Search\\\\ProductSearchQuery\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/CategoryController.php
+
+		-
+			message: "#^Method ManufacturerControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) has invalid return type ProductSearchProviderInterface\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/ManufacturerController.php
+
+		-
+			message: "#^Method ManufacturerControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) should return ProductSearchProviderInterface but returns PrestaShop\\\\PrestaShop\\\\Adapter\\\\Manufacturer\\\\ManufacturerProductSearchProvider\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/ManufacturerController.php
+
+		-
+			message: "#^Method ManufacturerControllerCore\\:\\:getProductSearchQuery\\(\\) has invalid return type ProductSearchQuery\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/ManufacturerController.php
+
+		-
+			message: "#^Method ManufacturerControllerCore\\:\\:getProductSearchQuery\\(\\) should return ProductSearchQuery but returns PrestaShop\\\\PrestaShop\\\\Core\\\\Product\\\\Search\\\\ProductSearchQuery\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/ManufacturerController.php
+
+		-
+			message: "#^Method NewProductsControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) has invalid return type ProductSearchProviderInterface\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/NewProductsController.php
+
+		-
+			message: "#^Method NewProductsControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) should return ProductSearchProviderInterface but returns PrestaShop\\\\PrestaShop\\\\Adapter\\\\NewProducts\\\\NewProductsProductSearchProvider\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/NewProductsController.php
+
+		-
+			message: "#^Method NewProductsControllerCore\\:\\:getProductSearchQuery\\(\\) has invalid return type ProductSearchQuery\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/NewProductsController.php
+
+		-
+			message: "#^Method NewProductsControllerCore\\:\\:getProductSearchQuery\\(\\) should return ProductSearchQuery but returns PrestaShop\\\\PrestaShop\\\\Core\\\\Product\\\\Search\\\\ProductSearchQuery\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/NewProductsController.php
+
+		-
+			message: "#^Method PricesDropControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) has invalid return type ProductSearchProviderInterface\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/PricesDropController.php
+
+		-
+			message: "#^Method PricesDropControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) should return ProductSearchProviderInterface but returns PrestaShop\\\\PrestaShop\\\\Adapter\\\\PricesDrop\\\\PricesDropProductSearchProvider\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/PricesDropController.php
+
+		-
+			message: "#^Method PricesDropControllerCore\\:\\:getProductSearchQuery\\(\\) has invalid return type ProductSearchQuery\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/PricesDropController.php
+
+		-
+			message: "#^Method PricesDropControllerCore\\:\\:getProductSearchQuery\\(\\) should return ProductSearchQuery but returns PrestaShop\\\\PrestaShop\\\\Core\\\\Product\\\\Search\\\\ProductSearchQuery\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/PricesDropController.php
+
+		-
+			message: "#^Method SearchControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) has invalid return type ProductSearchProviderInterface\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/SearchController.php
+
+		-
+			message: "#^Method SearchControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) should return ProductSearchProviderInterface but returns PrestaShop\\\\PrestaShop\\\\Adapter\\\\Search\\\\SearchProductSearchProvider\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/SearchController.php
+
+		-
+			message: "#^Method SearchControllerCore\\:\\:getProductSearchQuery\\(\\) has invalid return type ProductSearchQuery\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/SearchController.php
+
+		-
+			message: "#^Method SearchControllerCore\\:\\:getProductSearchQuery\\(\\) should return ProductSearchQuery but returns PrestaShop\\\\PrestaShop\\\\Core\\\\Product\\\\Search\\\\ProductSearchQuery\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/SearchController.php
+
+		-
+			message: "#^Method SupplierControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) has invalid return type ProductSearchProviderInterface\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/SupplierController.php
+
+		-
+			message: "#^Method SupplierControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) should return ProductSearchProviderInterface but returns PrestaShop\\\\PrestaShop\\\\Adapter\\\\Supplier\\\\SupplierProductSearchProvider\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/SupplierController.php
+
+		-
+			message: "#^Method SupplierControllerCore\\:\\:getProductSearchQuery\\(\\) has invalid return type ProductSearchQuery\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/SupplierController.php
+
+		-
+			message: "#^Method SupplierControllerCore\\:\\:getProductSearchQuery\\(\\) should return ProductSearchQuery but returns PrestaShop\\\\PrestaShop\\\\Core\\\\Product\\\\Search\\\\ProductSearchQuery\\.$#"
+			count: 1
+			path: repo/controllers/front/listing/SupplierController.php
+
+		-
+			message: "#^Method Tests\\\\Integration\\\\Behaviour\\\\Features\\\\Context\\\\Domain\\\\Product\\\\SpecificPriceContext\\:\\:createDeleteSpecificPriceCommand\\(\\) is unused\\.$#"
+			count: 1
+			path: repo/tests/Integration/Behaviour/Features/Context/Domain/Product/SpecificPriceContext.php
+
+		-
+			message: "#^Method Tests\\\\Integration\\\\Core\\\\Stock\\\\FakeStockAvailable4759\\:\\:update\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: repo/tests/Integration/Core/Stock/StockManagerTest.php
+
+		-
+			message: "#^Method Tests\\\\Integration\\\\PrestaShopBundle\\\\Routing\\\\Converter\\\\LegacyUrlConverterTest\\:\\:doTestConverterByParameters\\(\\) is unused\\.$#"
+			count: 1
+			path: repo/tests/Integration/PrestaShopBundle/Routing/Converter/LegacyUrlConverterTest.php
