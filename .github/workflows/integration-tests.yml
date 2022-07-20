@@ -145,6 +145,13 @@ jobs:
               git checkout f845cd4dbdc49d2e005ec2646176ddfcf7d55d38
               composer install
               ../../../phpstan.phar analyse -c ../magento.neon
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/PrestaShop/PrestaShop.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout 6c3797271697278b31e2bd0905d54cea6131d335
+              composer install
+              ../../../phpstan.phar
 
     steps:
       - name: "Checkout"
