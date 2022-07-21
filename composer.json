@@ -2,6 +2,7 @@
 	"name": "phpstan/phpstan",
 	"description": "PHPStan - PHP Static Analysis Tool",
 	"license": ["MIT"],
+	"keywords": ["dev", "static analysis"],
 	"require": {
 		"php": "^7.2|^8.0"
 	},
