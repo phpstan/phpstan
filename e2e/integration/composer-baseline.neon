@@ -66,6 +66,16 @@ parameters:
 			path: repo/src/Composer/Filter/PlatformRequirementFilter/IgnoreListPlatformRequirementFilter.php
 
 		-
+			message: "#^Method Composer\\\\InstalledVersions\\:\\:getRawData\\(\\) should return array\\{root\\: array\\{name\\: string, version\\: string, reference\\: string, pretty_version\\: string, aliases\\: array\\<string\\>, dev\\: bool, install_path\\: string, type\\: string\\}, versions\\: array\\<string, array\\{dev_requirement\\: bool, pretty_version\\?\\: string, version\\?\\: string, aliases\\?\\: array\\<string\\>, reference\\?\\: string, replaced\\?\\: array\\<string\\>, provided\\?\\: array\\<string\\>, install_path\\?\\: string, \\.\\.\\.\\}\\>\\} but returns array\\{\\}\\|array\\{root\\: array\\{name\\: string, version\\: string, reference\\: string, pretty_version\\: string, aliases\\: array\\<string\\>, dev\\: bool, install_path\\: string, type\\: string\\}, versions\\: array\\<string, array\\{dev_requirement\\: bool, pretty_version\\?\\: string, version\\?\\: string, aliases\\?\\: array\\<string\\>, reference\\?\\: string, replaced\\?\\: array\\<string\\>, provided\\?\\: array\\<string\\>, install_path\\?\\: string, \\.\\.\\.\\}\\>\\}\\.$#"
+			count: 1
+			path: repo/src/Composer/InstalledVersions.php
+
+		-
+			message: "#^Strict comparison using \\!\\=\\= between 'C' and 'C' will always evaluate to false\\.$#"
+			count: 2
+			path: repo/src/Composer/InstalledVersions.php
+
+		-
 			message: "#^Parameter \\#1 \\$pattern of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatch\\(\\) expects non\\-empty\\-string, string given\\.$#"
 			count: 1
 			path: repo/src/Composer/Package/Archiver/BaseExcludeFilter.php
@@ -74,6 +84,16 @@ parameters:
 			message: "#^Only booleans are allowed in a negated boolean, int\\<0, 3\\> given\\.$#"
 			count: 1
 			path: repo/src/Composer/Package/Comparer/Comparer.php
+
+		-
+			message: "#^Offset 'platform' on array\\<string, mixed\\> in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/Composer/Package/Locker.php
+
+		-
+			message: "#^Offset 'platform\\-dev' on array\\<string, mixed\\> in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/Composer/Package/Locker.php
 
 		-
 			message: "#^Only booleans are allowed in an if condition, \\(CapabilityClass of Composer\\\\Plugin\\\\Capability\\\\Capability\\)\\|null given\\.$#"
