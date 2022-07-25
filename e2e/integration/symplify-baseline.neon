@@ -6,6 +6,11 @@ parameters:
 			path: repo/packages/astral/src/NodeFinder/SimpleNodeFinder.php
 
 		-
+			message: "#^Add explicit array type to assigned \"\\$autoloadArray\" expression$#"
+			count: 1
+			path: repo/packages/monorepo-builder/packages/Merge/PathResolver/AutoloadPathNormalizer.php
+
+		-
 			message: "#^Class PHPStan\\\\Command\\\\AnalysisResult constructor invoked with 7 parameters, 8 required\\.$#"
 			count: 1
 			path: repo/packages/phpstan-extensions/tests/ErrorFormatter/SymplifyErrorFormatterTest.php
