@@ -531,11 +531,6 @@ parameters:
 			path: repo/src/Framework/Assert.php
 
 		-
-			message: "#^Parameter \\#1 \\$array of function array_shift expects array, array\\<int, string\\>\\|false given\\.$#"
-			count: 1
-			path: repo/src/Framework/Assert.php
-
-		-
 			message: "#^Parameter \\#1 \\$expected of class PHPUnit\\\\Framework\\\\Constraint\\\\SameSize constructor expects iterable, Countable\\|iterable given\\.$#"
 			count: 2
 			path: repo/src/Framework/Assert.php
