@@ -6,6 +6,14 @@ parameters:
 			path: repo/src/Collection/DbalCollection.php
 
 		-
+			message: """
+				#^Call to deprecated method getNameFqn\\(\\) of class Nextras\\\\Dbal\\\\Platforms\\\\Data\\\\Table\\:
+				Use getUnescapedFqn\\(\\)$#
+			"""
+			count: 6
+			path: repo/src/Mapper/Dbal/Conventions/Conventions.php
+
+		-
 			message: "#^Method Nextras\\\\Orm\\\\Model\\\\Model\\:\\:getLoadedRepositories\\(\\) return type with generic interface Nextras\\\\Orm\\\\Repository\\\\IRepository does not specify its types\\: E$#"
 			count: 1
 			path: repo/src/Model/Model.php
