@@ -18,9 +18,9 @@ PHPStan focuses on finding errors in your code without actually running it. It c
 even before you write tests for the code. It moves PHP closer to compiled languages in the sense that the correctness of each line of the code
 can be checked before you run the actual line.
 
-**[Read more about PHPStan in an introductory article »](https://phpstan.org/blog/find-bugs-in-your-code-without-writing-tests)**
+**[Read more about PHPStan »](https://phpstan.org/)**
 
-**[Try out PHPStan on the on-line playground! »](https://phpstan.org/)**
+**[Try out PHPStan on the on-line playground! »](https://phpstan.org/try)**
 
 ## Sponsors
 
