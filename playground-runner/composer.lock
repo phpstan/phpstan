@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "async-aws/core",
-            "version": "1.16.0",
+            "version": "1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/async-aws/core.git",
-                "reference": "f5a69caba5ddee8475c90b7ee1b6f6dfdfac4f53"
+                "reference": "3b58a4b3ddace0a9616028bde8f596fa7d7a2d7e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/async-aws/core/zipball/f5a69caba5ddee8475c90b7ee1b6f6dfdfac4f53",
-                "reference": "f5a69caba5ddee8475c90b7ee1b6f6dfdfac4f53",
+                "url": "https://api.github.com/repos/async-aws/core/zipball/3b58a4b3ddace0a9616028bde8f596fa7d7a2d7e",
+                "reference": "3b58a4b3ddace0a9616028bde8f596fa7d7a2d7e",
                 "shasum": ""
             },
             "require": {
@@ -38,7 +38,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.16-dev"
+                    "dev-master": "1.17-dev"
                 }
             },
             "autoload": {
@@ -59,7 +59,7 @@
                 "sts"
             ],
             "support": {
-                "source": "https://github.com/async-aws/core/tree/1.16.0"
+                "source": "https://github.com/async-aws/core/tree/1.17.0"
             },
             "funding": [
                 {
@@ -71,7 +71,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-07-01T15:02:57+00:00"
+            "time": "2022-08-01T16:46:07+00:00"
         },
         {
             "name": "async-aws/lambda",
@@ -132,16 +132,16 @@
         },
         {
             "name": "bref/bref",
-            "version": "1.7.2",
+            "version": "1.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/bref.git",
-                "reference": "ef4be1c983d21cf25df1c29b2b2532d240b89bf1"
+                "reference": "2f78b221b643e6c588bf83a675dddd3a58f275c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/bref/zipball/ef4be1c983d21cf25df1c29b2b2532d240b89bf1",
-                "reference": "ef4be1c983d21cf25df1c29b2b2532d240b89bf1",
+                "url": "https://api.github.com/repos/brefphp/bref/zipball/2f78b221b643e6c588bf83a675dddd3a58f275c9",
+                "reference": "2f78b221b643e6c588bf83a675dddd3a58f275c9",
                 "shasum": ""
             },
             "require": {
@@ -194,7 +194,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brefphp/bref/issues",
-                "source": "https://github.com/brefphp/bref/tree/1.7.2"
+                "source": "https://github.com/brefphp/bref/tree/1.7.4"
             },
             "funding": [
                 {
@@ -206,7 +206,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-07-25T07:46:36+00:00"
+            "time": "2022-08-05T11:03:42+00:00"
         },
         {
             "name": "clue/stream-filter",
