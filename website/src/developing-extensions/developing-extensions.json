@@ -93,7 +93,7 @@
 		},
         {
 			"title": "API Reference",
-			"link": "https://apiref.phpstan.org/1.8.x/namespace-PHPStan.html",
+			"link": "https://apiref.phpstan.org/",
             "external": true
 		}
     ]
