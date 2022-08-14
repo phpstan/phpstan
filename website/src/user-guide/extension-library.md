@@ -71,6 +71,8 @@ Unofficial extensions
 * [Nextras ORM](https://github.com/nextras/orm-phpstan)
 * [Sonata](https://github.com/ekino/phpstan-sonata)
 * [Magento](https://github.com/bitExpert/phpstan-magento)
+* [CakePHP](https://github.com/CakeDC/cakephp-phpstan)
+* [Safe PHP](https://github.com/thecodingmachine/phpstan-safe-rule)
 
 3rd party rules
 -----------------
