@@ -88,9 +88,9 @@ jobs:
               ../../../phpstan.phar
           - php-version: 8.1
             script: |
-              git clone https://github.com/composer/composer.git e2e/integration/repo
+              git clone https://github.com/ondrejmirtes/composer.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 3ae111140facdba8ae82adcd1085e4adfc7d715c
+              git checkout f8ebb4d8d6855457a129e01533ca3b09abb086ab
               composer install
               composer config platform --unset && composer update
               vendor/bin/simple-phpunit --filter NO_TEST_JUST_AUTOLOAD_THANKS
