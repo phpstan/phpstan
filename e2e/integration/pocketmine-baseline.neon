@@ -32,6 +32,11 @@ parameters:
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between 3 and 3 will always evaluate to true\\.$#"
+			count: 1
+			path: repo/src/pocketmine/block/Door.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between 3 and 3 will always evaluate to true\\.$#"
 			count: 3
 			path: repo/src/pocketmine/block/Liquid.php
 
@@ -39,11 +44,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$length of function array_chunk expects int\\<1, max\\>, int given\\.$#"
 			count: 1
 			path: repo/src/pocketmine/command/defaults/HelpCommand.php
-
-		-
-			message: "#^Static property pocketmine\\\\entity\\\\Entity\\:\\:\\$saveNames \\(array\\<class\\-string\\<pocketmine\\\\entity\\\\Entity\\>, string\\>\\) does not accept array\\<class\\-string\\<pocketmine\\\\entity\\\\Entity\\>, bool\\|string\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/entity/Entity.php
 
 		-
 			message: "#^Property pocketmine\\\\level\\\\Level\\:\\:\\$blockCache \\(array\\<array\\<pocketmine\\\\block\\\\Block\\>\\>\\) does not accept array\\<array\\<pocketmine\\\\block\\\\Block\\|null\\>\\>\\.$#"
@@ -81,24 +81,9 @@ parameters:
 			path: repo/src/pocketmine/plugin/PluginBase.php
 
 		-
-			message: "#^Property pocketmine\\\\plugin\\\\PluginDescription\\:\\:\\$authors \\(array\\<string\\>\\) does not accept array\\.$#"
-			count: 1
-			path: repo/src/pocketmine/plugin/PluginDescription.php
-
-		-
-			message: "#^Property pocketmine\\\\plugin\\\\PluginDescription\\:\\:\\$authors \\(array\\<string\\>\\) does not accept array\\<mixed\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/plugin/PluginDescription.php
-
-		-
 			message: "#^Property pocketmine\\\\plugin\\\\PluginDescription\\:\\:\\$extensions \\(array\\<string, array\\<int, string\\>\\>\\) does not accept array\\<int\\|string, array\\<string\\>\\>\\.$#"
 			count: 1
 			path: repo/src/pocketmine/plugin/PluginDescription.php
-
-		-
-			message: "#^Static property pocketmine\\\\tile\\\\Tile\\:\\:\\$saveNames \\(array\\<class\\-string\\<pocketmine\\\\tile\\\\Tile\\>, string\\>\\) does not accept array\\<class\\-string\\<pocketmine\\\\tile\\\\Tile\\>, bool\\|string\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/tile/Tile.php
 
 		-
 			message: "#^Call to function is_int\\(\\) with int will always evaluate to true\\.$#"
