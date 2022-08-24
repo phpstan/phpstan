@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Binary operation \"\\+\" between string and 1 results in an error\\.$#"
+			count: 1
+			path: repo/packages/BetterPhpDocParser/PhpDocParser/DoctrineAnnotationDecorator.php
+
+		-
+			message: "#^Offset \\(int\\|string\\) on non\\-empty\\-array\\<PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocChildNode\\> in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/packages/BetterPhpDocParser/PhpDocParser/DoctrineAnnotationDecorator.php
+
+		-
 			message: "#^Comparison operation \"\\>\" between int\\<2, max\\> and 1 is always true\\.$#"
 			count: 1
 			path: repo/packages/NodeTypeResolver/NodeTypeResolver/TraitTypeResolver.php
