@@ -1,6 +1,26 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Access to an offset on an unknown class UnitEnum\\.$#"
+			count: 1
+			path: repo/app/AppKernel.php
+
+		-
+			message: "#^Offset 'bits' on array in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/classes/ImageManager.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: repo/classes/Language.php
+
+		-
+			message: "#^Call to function ctype_digit\\(\\) with array\\|CategoryCore will always evaluate to false\\.$#"
+			count: 1
+			path: repo/classes/Link.php
+
+		-
 			message: "#^Parameter \\$translator of method CheckoutAddressesStepCore\\:\\:__construct\\(\\) has invalid type TranslatorInterface\\.$#"
 			count: 1
 			path: repo/classes/checkout/CheckoutAddressesStep.php
@@ -16,6 +36,11 @@ parameters:
 			path: repo/classes/checkout/CheckoutPersonalInformationStep.php
 
 		-
+			message: "#^Left side of \\|\\| is always false\\.$#"
+			count: 1
+			path: repo/classes/controller/FrontController.php
+
+		-
 			message: "#^Method HelperUploaderCore\\:\\:setName\\(\\) has invalid return type self\\.$#"
 			count: 1
 			path: repo/classes/helper/HelperUploader.php
@@ -24,6 +49,11 @@ parameters:
 			message: "#^Method HelperUploaderCore\\:\\:setName\\(\\) should return self but returns \\$this\\(HelperUploaderCore\\)\\.$#"
 			count: 1
 			path: repo/classes/helper/HelperUploader.php
+
+		-
+			message: "#^Offset 'hidden_fields' on array in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/classes/webservice/WebserviceRequest.php
 
 		-
 			message: "#^Method AdminAttributesGroupsControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
@@ -139,6 +169,16 @@ parameters:
 			message: "#^Method AdminSearchConfControllerCore\\:\\:renderOptions\\(\\) should return string but return statement is missing\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminSearchConfController.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminSearchController.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 3
+			path: repo/controllers/admin/AdminSearchController.php
 
 		-
 			message: "#^Method AdminShopControllerCore\\:\\:processAdd\\(\\) should return ObjectModel\\|false but empty return statement found\\.$#"
@@ -384,6 +424,21 @@ parameters:
 			message: "#^Method SupplierControllerCore\\:\\:getProductSearchQuery\\(\\) should return ProductSearchQuery but returns PrestaShop\\\\PrestaShop\\\\Core\\\\Product\\\\Search\\\\ProductSearchQuery\\.$#"
 			count: 1
 			path: repo/controllers/front/listing/SupplierController.php
+
+		-
+			message: "#^Offset 'seo' on array on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/Core/Form/IdentifiableObject/CommandBuilder/Product/SEOCommandsBuilder.php
+
+		-
+			message: "#^Offset 'admin_email' on array in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Install/Install.php
+
+		-
+			message: "#^Offset 'controller' on array\\<int\\|string, mixed\\> in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Routing/Converter/LegacyParametersConverter.php
 
 		-
 			message: "#^Method Tests\\\\Integration\\\\Behaviour\\\\Features\\\\Context\\\\Domain\\\\Product\\\\SpecificPriceContext\\:\\:createDeleteSpecificPriceCommand\\(\\) is unused\\.$#"
