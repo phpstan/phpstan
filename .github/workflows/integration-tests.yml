@@ -90,7 +90,7 @@ jobs:
             script: |
               git clone https://github.com/ondrejmirtes/composer.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 9b569d9b4650005c7e29cc716b1ecdf72e8a8f3a
+              git checkout 5ec1130a192efd046c681ca76543caf7285c31d7
               composer install
               composer config platform --unset && composer update
               vendor/bin/simple-phpunit --filter NO_TEST_JUST_AUTOLOAD_THANKS
