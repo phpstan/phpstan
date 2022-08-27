@@ -89,7 +89,7 @@ function getIssues(string $label): Iterator
  */
 function getComments(int $issueNumber): iterable
 {
-	if ($issueNumber === 7454) {
+	if ($issueNumber === 7454 || $issueNumber === 3610) {
 		return [];
 	}
 
