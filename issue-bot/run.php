@@ -99,10 +99,17 @@ function getComments(int $issueNumber): iterable
 	/** @var \Github\Api\Issue $api */
 	$api = $client->api('issue');
 	while (true) {
-		$newComments = $api->comments()->all('phpstan', 'phpstan', $issueNumber, [
-			'page' => $page,
-			'per_page' => 100,
-		]);
+		try {
+			$newComments = $api->comments()->all('phpstan', 'phpstan', $issueNumber, [
+				'page' => $page,
+				'per_page' => 100,
+			]);
+		} catch (\Github\Exception\RuntimeException $e) {
+			var_dump($e->getMessage());
+			var_dump($e->getCode());
+			var_dump($issueNumber, $page);
+			throw $e;
+		}
 		if (count($newComments) === 0) {
 			break;
 		}
