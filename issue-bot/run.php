@@ -89,6 +89,10 @@ function getIssues(string $label): Iterator
  */
 function getComments(int $issueNumber): iterable
 {
+	if ($issueNumber === 7454) {
+		return [];
+	}
+
 	/** @var Client */
 	global $client;
 	$page = 1;
