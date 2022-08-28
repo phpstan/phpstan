@@ -196,6 +196,8 @@ Other advanced string types
 
 `non-empty-string` is any string except `''`. It does _not_ mean "empty" in the weird sense used by [`empty()`](https://www.php.net/manual/en/function.empty.php).
 
+`non-falsy-string` (also known as `truthy-string`) is any string that is true after casting to boolean.
+
 Security-focused `literal-string` is inspired by the [`is_literal()` RFC](https://wiki.php.net/rfc/is_literal). In short, it means a string that is either written by a developer or composed only of developer-written strings.
 
 Global type aliases
