@@ -431,6 +431,11 @@ parameters:
 			path: repo/src/Core/Form/IdentifiableObject/CommandBuilder/Product/SEOCommandsBuilder.php
 
 		-
+			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed\\=\\)\\: bool, Closure\\(PrestaShop\\\\PrestaShop\\\\Core\\\\MailTemplate\\\\ThemeInterface\\)\\: bool given\\.$#"
+			count: 1
+			path: repo/src/Core/MailTemplate/ThemeCollection.php
+
+		-
 			message: "#^Offset 'admin_email' on array in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/src/PrestaShopBundle/Install/Install.php
