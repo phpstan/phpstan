@@ -65,9 +65,6 @@ function getIssues(string $label): Iterator
 			'sort' => 'created',
 			'direction' => 'desc',
 		]);
-		if (count($newIssues) === 0) {
-			break;
-		}
 
 		yield from array_map(function (array $issue): Issue {
 			return new Issue(
@@ -79,6 +76,11 @@ function getIssues(string $label): Iterator
 				searchBody($issue['body'], $issue['user']['login'])
 			);
 		}, $newIssues);
+
+		if (count($newIssues) < 100) {
+			break;
+		}
+
 		$page++;
 	}
 }
