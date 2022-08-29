@@ -568,9 +568,9 @@
   integrity sha512-0N5Y1XAdcl865nDdjbO0m3T6FdmQ4ijE89/urOHLREyTXbpMWbSafx9y7XIsgWGtwUP2iYTinLyyW3FatAxBLQ==
 
 "@types/node@^16.0.0":
-  version "16.11.52"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.52.tgz#d797437435455f237800c171d05639f0335c37b9"
-  integrity sha512-GnstYouCa9kbYokBCWEVrszJ1P2rGAQpKrqACHKuixkaT8XGu8nsqHvEUIGqDs5vwtsJ7LrYqnPDKRD1V+M39A==
+  version "16.11.56"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-16.11.56.tgz#dcbb617669481e158e0f1c6204d1c768cd675901"
+  integrity sha512-aFcUkv7EddxxOa/9f74DINReQ/celqH8DiB3fRYgVDM2Xm5QJL8sl80QKuAnGvwAsMn+H3IFA6WCrQh1CY7m1A==
 
 "@types/responselike@*", "@types/responselike@^1.0.0":
   version "1.0.0"
@@ -774,10 +774,10 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-aws-sdk@^2.1195.0, aws-sdk@^2.918.0:
-  version "2.1199.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1199.0.tgz#1279a2086c34232a450f032543fd43e98e3d8232"
-  integrity sha512-N51EMTCMsiVAJDSKCDTMUheLBlPZ7/c/qyCMGirdoF64/JU+gvZ/u+UqkYPhK7XE80b0GqTj676rtp9OkU1kyg==
+aws-sdk@^2.1195.0, aws-sdk@^2.1204.0, aws-sdk@^2.918.0:
+  version "2.1204.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1204.0.tgz#6e0c5d0b4b50ff122b66772bb0ab5453009e6106"
+  integrity sha512-H3dRQBdgzAfZ/e/dfiW44fhQrgAuCfIzWhI5y5J9122caI4uZY6TEUd003UXP4nXq2eMfuPWg0bA/mPwbj8RkA==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -2453,10 +2453,10 @@ jsonfile@^6.0.1:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-jsonpath-plus@^7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/jsonpath-plus/-/jsonpath-plus-7.0.0.tgz#b3c7648b33041c0013c5ff534fd17aadc817bf03"
-  integrity sha512-MH4UnrWrU1hJGVEyEyjvYgONkzNTO6Yol0nq18EMnUQ/ZC5cTuJheirXXIwu1b9mZ6t3XL0P79gPsu+zlTnDIQ==
+jsonpath-plus@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/jsonpath-plus/-/jsonpath-plus-7.1.0.tgz#9ac63c3d32a4d91ada68d57e056cb7983e73290a"
+  integrity sha512-gTaNRsPWO/K2KY6MrqaUFClF9kmuM6MFH5Dhg1VYDODgFbByw1yb7xu3hrViE/sz+dGOeMWgCzwUwQtAnCTE9g==
 
 jsonschema@^1.4.1:
   version "1.4.1"
@@ -2662,15 +2662,15 @@ lru_map@^0.3.3:
   resolved "https://registry.yarnpkg.com/lru_map/-/lru_map-0.3.3.tgz#b5c8351b9464cbd750335a79650a0ec0e56118dd"
   integrity sha512-Pn9cox5CsMYngeDbmChANltQl+5pi6XmTrraMSzhPmMBbmgcxmqWry0U3PGapCU1yB4/LqCcom7qhHZiF/jGfQ==
 
+luxon@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-3.0.1.tgz#6901111d10ad06fd267ad4e4128a84bef8a77299"
+  integrity sha512-hF3kv0e5gwHQZKz4wtm4c+inDtyc7elkanAsBq+fundaCdUBNJB1dHEGUZIM6SfSBUlbVFduPwEtNjFK8wLtcw==
+
 luxon@^1.26.0:
   version "1.28.0"
   resolved "https://registry.yarnpkg.com/luxon/-/luxon-1.28.0.tgz#e7f96daad3938c06a62de0fb027115d251251fbf"
   integrity sha512-TfTiyvZhwBYM/7QdAVDh+7dBTBA29v4ik0Ce9zda3Mnf8on1S5KJI8P2jKFZ8+5C0jhmr0KwJEO/Wdpm0VeWJQ==
-
-luxon@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/luxon/-/luxon-3.0.1.tgz#6901111d10ad06fd267ad4e4128a84bef8a77299"
-  integrity sha512-hF3kv0e5gwHQZKz4wtm4c+inDtyc7elkanAsBq+fundaCdUBNJB1dHEGUZIM6SfSBUlbVFduPwEtNjFK8wLtcw==
 
 make-dir@^1.0.0:
   version "1.3.0"
@@ -3401,27 +3401,27 @@ semver@^7.3.5, semver@^7.3.7:
   dependencies:
     lru-cache "^6.0.0"
 
-serverless-offline@9.2.6:
-  version "9.2.6"
-  resolved "https://registry.yarnpkg.com/serverless-offline/-/serverless-offline-9.2.6.tgz#bb9b2cccc4b6fbde7dcc7ed075b545aa7ddeaf04"
-  integrity sha512-Z97Fk6txUp5hJos2VOSiPNx8k9RKcQL0PzV5WloCEPA6AvCpZpB1M1VKn67pwltHQVJ+DEdNS5pXIWCxReVctw==
+serverless-offline@9.3.0:
+  version "9.3.0"
+  resolved "https://registry.yarnpkg.com/serverless-offline/-/serverless-offline-9.3.0.tgz#f0542c83f22861a477f727ca1a54179fb88e653a"
+  integrity sha512-MECAeLuW7HbbbqV4wHa/XARqU+dzRcLaQFT8VvQDQkBAlHPfEc2OpdoQXt+pnJF/Ac8+lrU6ttOeIOtiKaVDvA==
   dependencies:
     "@hapi/boom" "^10.0.0"
     "@hapi/h2o2" "^9.1.0"
     "@hapi/hapi" "^20.2.2"
     "@serverless/utils" "^6.7.0"
-    aws-sdk "^2.1195.0"
+    aws-sdk "^2.1204.0"
     boxen "^7.0.0"
     chalk "^5.0.1"
     execa "^6.1.0"
     fs-extra "^10.1.0"
     java-invoke-local "0.0.6"
     js-string-escape "^1.0.1"
-    jsonpath-plus "^7.0.0"
+    jsonpath-plus "^7.1.0"
     jsonschema "^1.4.1"
     jsonwebtoken "^8.5.1"
     jszip "^3.10.1"
-    luxon "^3.0.1"
+    luxon "3.0.1"
     node-fetch "^3.2.10"
     node-schedule "^2.1.0"
     object.hasown "^1.1.1"
@@ -3918,9 +3918,9 @@ type@^2.1.0, type@^2.5.0, type@^2.6.0, type@^2.7.2:
   integrity sha512-dzlvlNlt6AXU7EBSfpAscydQ7gXB+pPGsPnfJnZpiNJBDj7IaJzQlBZYGdEi4R9HmPdBv2XmWJ6YUtoTa7lmCw==
 
 typescript@^4.3.2:
-  version "4.7.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.7.4.tgz#1a88596d1cf47d59507a1bcdfb5b9dfe4d488235"
-  integrity sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==
+  version "4.8.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.8.2.tgz#e3b33d5ccfb5914e4eeab6699cf208adee3fd790"
+  integrity sha512-C0I1UsrrDHo2fYI5oaCGbSejwX4ch+9Y5jTQELvovfmFkK3HHSZJB8MSJcWLmCUBzQBchCrZ9rMRV6GuNrvGtw==
 
 unbox-primitive@^1.0.2:
   version "1.0.2"
