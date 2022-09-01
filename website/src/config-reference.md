@@ -449,6 +449,12 @@ parameters:
 	rememberPossiblyImpureFunctionValues: false
 ```
 
+### `checkImplicitMixed`
+
+**default**: `false`
+
+When set to `true` PHPStan is strict about about the unspecified (implicit mixed) type. It enables same checks rule level 9 do for explicitly specified mixed type when no type is specified.
+
 Exceptions
 ------------
 
