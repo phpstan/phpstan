@@ -241,6 +241,11 @@ parameters:
 			path: repo/controllers/admin/AdminStoresController.php
 
 		-
+			message: "#^Variable \\$encodedHours might not be defined\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminStoresController.php
+
+		-
 			message: "#^Method AdminSuppliersControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminSuppliersController.php
