@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Offset 'columns' on array\\{name\\: string, entities\\: array\\{\\}, columns\\: array\\}\\|array\\{name\\: string, entities\\: non\\-empty\\-array, columns\\: array\\} in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/ResultSetMappingBuilder.php
+
+		-
+			message: "#^Offset class\\-string on non\\-empty\\-array\\<class\\-string, array\\<string, mixed\\>\\> in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/UnitOfWork.php

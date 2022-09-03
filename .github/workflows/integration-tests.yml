@@ -157,7 +157,7 @@ jobs:
               git clone https://github.com/doctrine/orm.git -b 2.13.1 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
               composer install
-              ../../../phpstan.phar
+              ../../../phpstan.phar analyse -c ../doctrine-orm.neon
           - php-version: 8.1
             script: |
               git clone https://github.com/doctrine/collections.git e2e/integration/repo

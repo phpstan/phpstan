@@ -1,0 +1,6 @@
+includes:
+	- repo/phpstan.neon
+	- doctrine-orm-baseline.neon
+
+parameters:
+	reportUnmatchedIgnoredErrors: false
