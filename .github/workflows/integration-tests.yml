@@ -184,6 +184,12 @@ jobs:
               cd e2e/integration/repo
               composer install
               ../../../phpstan.phar analyse -c ../doctrine-persistence.neon
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/shipmonk-rnd/phpstan-rules.git -b 1.1.1 --depth 1 e2e/integration/repo
+              cd e2e/integration/repo
+              composer install
+              ../../../phpstan.phar && vendor/bin/phpunit tests
 
     steps:
       - name: "Checkout"
