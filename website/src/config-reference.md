@@ -453,7 +453,7 @@ parameters:
 
 **default**: `false`
 
-When set to `true` PHPStan is strict about about the unspecified (implicit mixed) type. It enables same checks rule level 9 do for explicitly specified mixed type when no type is specified.
+When set to `true`, PHPStan is strict about values with an unspecified (implicit `mixed`) type. It enables the same checks for values with no type specified that rule level 9 enables for explicitly specified `mixed` type values.
 
 Exceptions
 ------------
