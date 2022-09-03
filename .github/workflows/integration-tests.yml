@@ -153,6 +153,37 @@ jobs:
               git checkout 6c3797271697278b31e2bd0905d54cea6131d335
               composer install
               ../../../phpstan.phar analyse -c ../prestashop.neon
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/doctrine/orm.git -b 2.13.1 --depth 1 e2e/integration/repo
+              cd e2e/integration/repo
+              composer install
+              ../../../phpstan.phar
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/doctrine/collections.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout 5d08702084fed4ed71e74ec04a736071c581471c
+              composer install
+              ../../../phpstan.phar
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/doctrine/dbal.git -b 3.4.3 --depth 1 e2e/integration/repo
+              cd e2e/integration/repo
+              composer install
+              ../../../phpstan.phar
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/doctrine/common.git -b 3.4.0 --depth 1 e2e/integration/repo
+              cd e2e/integration/repo
+              composer install
+              ../../../phpstan.phar
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/doctrine/persistence.git -b 3.0.3 --depth 1 e2e/integration/repo
+              cd e2e/integration/repo
+              composer install
+              ../../../phpstan.phar analyse -c ../doctrine-persistence.neon
 
     steps:
       - name: "Checkout"
