@@ -774,7 +774,7 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-aws-sdk@^2.1195.0, aws-sdk@^2.1205.0, aws-sdk@^2.918.0:
+aws-sdk@^2.1195.0, aws-sdk@^2.1209.0, aws-sdk@^2.918.0:
   version "2.1209.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1209.0.tgz#fd7b9efd4047ab6b45bba2c890529d4c296a4b85"
   integrity sha512-m4Dd0HtyKeKBjwzP9rhe+NcmsRKR0wW+QXfpepu6vgXYhmcJuOB9TLUoeB7jiNDPimmwU+KxtL6eonRfeFhANw==
@@ -2453,10 +2453,10 @@ jsonfile@^6.0.1:
   optionalDependencies:
     graceful-fs "^4.1.6"
 
-jsonpath-plus@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/jsonpath-plus/-/jsonpath-plus-7.1.0.tgz#9ac63c3d32a4d91ada68d57e056cb7983e73290a"
-  integrity sha512-gTaNRsPWO/K2KY6MrqaUFClF9kmuM6MFH5Dhg1VYDODgFbByw1yb7xu3hrViE/sz+dGOeMWgCzwUwQtAnCTE9g==
+jsonpath-plus@^7.2.0:
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/jsonpath-plus/-/jsonpath-plus-7.2.0.tgz#7ad94e147b3ed42f7939c315d2b9ce490c5a3899"
+  integrity sha512-zBfiUPM5nD0YZSBT/o/fbCUlCcepMIdP0CJZxM1+KgA4f2T206f6VAg9e7mX35+KlMaIc5qXW34f3BnwJ3w+RA==
 
 jsonschema@^1.4.1:
   version "1.4.1"
@@ -3401,23 +3401,23 @@ semver@^7.3.5, semver@^7.3.7:
   dependencies:
     lru-cache "^6.0.0"
 
-serverless-offline@9.3.1:
-  version "9.3.1"
-  resolved "https://registry.yarnpkg.com/serverless-offline/-/serverless-offline-9.3.1.tgz#b06cc5ee5cdc6f6878886a4e796fc3b55a94281c"
-  integrity sha512-zODyqPPxqPWYXCKJFZiG+vvsKhjKOWiw/REkXqZQZRIa4Ps66sXL7uVJ3qtYf7FErzm9Oe03QyUyBi74weKX3Q==
+serverless-offline@10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/serverless-offline/-/serverless-offline-10.0.0.tgz#04efc9278b1131dde45676321893f4f252993bd5"
+  integrity sha512-s0CKcoS6QCbOF8cw2gwNNe5TorrU2CumdWPZwxuH1dRRp0+J87n8CggrBUl/bcPwLxnrSLldDGOxVTAxqysW9A==
   dependencies:
     "@hapi/boom" "^10.0.0"
     "@hapi/h2o2" "^9.1.0"
     "@hapi/hapi" "^20.2.2"
     "@serverless/utils" "^6.7.0"
-    aws-sdk "^2.1205.0"
+    aws-sdk "^2.1209.0"
     boxen "^7.0.0"
     chalk "^5.0.1"
     execa "^6.1.0"
     fs-extra "^10.1.0"
     java-invoke-local "0.0.6"
     js-string-escape "^1.0.1"
-    jsonpath-plus "^7.1.0"
+    jsonpath-plus "^7.2.0"
     jsonschema "^1.4.1"
     jsonwebtoken "^8.5.1"
     jszip "^3.10.1"
