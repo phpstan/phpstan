@@ -46,7 +46,7 @@ can be checked before you run the actual line.
 <br>
 <a href="https://zol.fr?utm_source=phpstan"><img src="https://i.imgur.com/dzDgd4s.png" alt="ZOL" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://kocourek.uk/"><img src="https://i.imgur.com/EX29z98.png" alt="Stepan Kocourek" width="294" height="64"></a>
+<a href="https://www.psyonix.com/"><img src="https://i.imgur.com/p8svxQZ.png" alt="Psyonix" width="254" height="65"></a>
 <br>
 <a href="https://www.shopware.com/en/"><img src="https://i.imgur.com/L4X5w9s.png" alt="Shopware" width="284" height="64"></a>
 &nbsp;&nbsp;&nbsp;
@@ -59,8 +59,7 @@ can be checked before you run the actual line.
 <a href="https://www.crisp.nl/"><img src="https://i.imgur.com/jRJyPve.png" alt="Crisp.nl" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://inviqa.com/"><img src="https://i.imgur.com/G99rj45.png" alt="Inviqa" width="254" height="65"></a>
-<br>
-<a href="https://www.psyonix.com/"><img src="https://i.imgur.com/p8svxQZ.png" alt="Psyonix" width="254" height="65"></a>
+
 
 [**You can now sponsor my open-source work on PHPStan through GitHub Sponsors.**](https://github.com/sponsors/ondrejmirtes)
 
