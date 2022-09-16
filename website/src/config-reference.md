@@ -77,6 +77,8 @@ parameters:
 
 Relative paths in the `includes` section are resolved based on the directory of the config file is in. So in this example, `phpstan.neon.dist` and `phpstan.neon` are next to each other in the same directory.
 
+`includes` can also reference PHP files that can be used to define dynamic configurations, see [ignore-by-php-version.neon.php](https://github.com/phpstan/phpstan-src/blob/1.8.5/build/ignore-by-php-version.neon.php) and [phpstan.neon](https://github.com/phpstan/phpstan-src/blob/1.8.5/build/phpstan.neon#L10) as examples.
+
 Ignoring errors
 -------------------
 
