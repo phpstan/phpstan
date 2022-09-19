@@ -16,7 +16,7 @@
 		"ansi-to-html": "^0.7.0",
 		"aws-sdk": "^2.918.0",
 		"middy": "^0.36.0",
-		"uuid": "^8.3.2"
+		"uuid": "^9.0.0"
 	},
 	"devDependencies": {
 		"@tsconfig/node14": "^1.0.1",
