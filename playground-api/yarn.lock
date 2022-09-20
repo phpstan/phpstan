@@ -774,10 +774,10 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-aws-sdk@^2.1195.0, aws-sdk@^2.1213.0, aws-sdk@^2.918.0:
-  version "2.1216.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1216.0.tgz#d2be6259f6374b214f9ea6a665b015d5ba54cdb5"
-  integrity sha512-sCgkIc9ZdFyf4dImsbRx+139gw9A6Xy924wwP4rAVrYeSbudBY0jDO4wJBAwUpPKqX5cxjSLmjP7gOi2CDwhjw==
+aws-sdk@^2.1195.0, aws-sdk@^2.1215.0, aws-sdk@^2.918.0:
+  version "2.1219.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1219.0.tgz#96d056fc4ebfd8417308f18a34f127dbaafc022e"
+  integrity sha512-KOGA0E3wZ/Zom1VDAd4ttsaq2LAVECXdHUs/i8OyJkuR3vSvmKQa/BOH4baIBNt4VMS062FhPA29UtT1YPTlwQ==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -3401,16 +3401,16 @@ semver@^7.3.5, semver@^7.3.7:
   dependencies:
     lru-cache "^6.0.0"
 
-serverless-offline@10.0.2:
-  version "10.0.2"
-  resolved "https://registry.yarnpkg.com/serverless-offline/-/serverless-offline-10.0.2.tgz#df68362a49dc5f18068b0f77e57df0df8ab11024"
-  integrity sha512-jaRtq/m9Zr03Kg2PqvXlYZXNivNDXX9JESVf8blosjaVhgsG8g50iznRAnYPnSBUEvKhX6oxEkd4Cb6UaJyHyQ==
+serverless-offline@10.1.0:
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/serverless-offline/-/serverless-offline-10.1.0.tgz#91e5e0ef485b4835d9343e8b7de3f32fff49c78f"
+  integrity sha512-wNfN+z2y7j08OSNw6U6ymxa3/mYctfotC8M5OAtTnaYuQcISccDzbQFYk9KgqJjI98rIng8Z+MWZKsvtb+Zg/Q==
   dependencies:
     "@hapi/boom" "^10.0.0"
     "@hapi/h2o2" "^9.1.0"
     "@hapi/hapi" "^20.2.2"
     "@serverless/utils" "^6.7.0"
-    aws-sdk "^2.1213.0"
+    aws-sdk "^2.1215.0"
     boxen "^7.0.0"
     chalk "^5.0.1"
     execa "^6.1.0"
