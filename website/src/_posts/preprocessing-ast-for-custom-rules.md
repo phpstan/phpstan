@@ -113,7 +113,7 @@ The new version looks at the new custom `tryCatchTypes` node attribute:
 private function isUnhandledMatchErrorCaught(Node $node): bool
 {
     /** @var string[]|null $tryCatchTypes */
-    $tryCatchTypes = $node->getAttribute('tryCatchTypes');
+    $tryCatchTypes = $node->getAttribute(TryCatchTypeVisitor::ATTRIBUTE_NAME); // 'tryCatchTypes'
     if ($tryCatchTypes === null) {
         return false;
     }
@@ -136,6 +136,7 @@ use PhpParser\NodeVisitorAbstract;
 
 final class TryCatchTypeVisitor extends NodeVisitorAbstract
 {
+    public const ATTRIBUTE_NAME = 'tryCatchTypes';
 
     /** @var array<int, array<int, string>|null> */
     private array $typeStack = [];
@@ -153,7 +154,7 @@ final class TryCatchTypeVisitor extends NodeVisitorAbstract
                 // set the attribute for each statement
                 // and match expression inside a try-catch block
                 $node->setAttribute(
-                    'tryCatchTypes',
+                    self::ATTRIBUTE_NAME,
                     $this->typeStack[count($this->typeStack) - 1],
                 );
             }
