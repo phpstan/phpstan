@@ -33,7 +33,7 @@ jobs:
           path: phpstan.phar
   integration-tests:
     needs: upload-phar
-    uses: phpstan/phpstan/.github/workflows/integration-tests.yml@1.8.x
+    uses: ./.github/workflows/integration-tests.yml
     with:
       ref: ${{ github.ref }}
       phar-checksum: "always"
