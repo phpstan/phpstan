@@ -2686,7 +2686,7 @@ parameters:
 			path: repo/src/TextUI/DefaultResultPrinter.php
 
 		-
-			message: "#^Offset 'arg' on array\\<literal\\-string&non\\-falsy\\-string, ''\\|\\(literal\\-string&non\\-falsy\\-string\\)\\> in isset\\(\\) always exists and is not nullable\\.$#"
+			message: "#^Offset 'arg' on array\\<literal\\-string&non\\-falsy\\-string, literal\\-string\\> in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/src/TextUI/Help.php
 
