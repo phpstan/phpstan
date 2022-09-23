@@ -169,6 +169,44 @@ This will get you rid of the following error:
 
 > Class Bar extends generic class Collection but does not specify its types: T
 
+Function accepts any string, but returns object of the same type if it's a class-string
+------------------------
+
+Typical scenario for the service locator (dependency injection container) pattern.
+
+The following code doesn't work because `string|class-string<T>` is [normalized](/developing-extensions/type-system#type-normalization) to `string`:
+
+```php
+class Container
+{
+	/**
+	 * @template T of object
+	 * @param string|class-string<T> $id $name
+	 * @return ($name is class-string ? T : object)
+	 */
+	public function get(string $name): object
+	{
+		// ...
+	}
+}
+```
+
+But the following code works as expected:
+
+```php
+class Container
+{
+	/**
+	 * @template T of object
+	 * @return ($name is class-string<T> ? T : object)
+	 */
+	public function get(string $name): object
+	{
+		// ...
+	}
+}
+```
+
 Couple relevant classes together
 ------------------------
 
