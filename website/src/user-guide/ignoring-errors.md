@@ -118,9 +118,9 @@ parameters:
 	reportUnmatchedIgnoredErrors: false
 	ignoreErrors:
 		- '#This message will not be reported as unmatched#'
-		- '#This message will not be reported as unmatched too#'
+		- '#This message will not be reported as unmatched either#'
 		-
-			message: '#But this one will#'
+			message: '#But this one will be reported#'
 			reportUnmatched: true
 ```
 ```
@@ -130,7 +130,7 @@ parameters:
 		- '#This message will be reported as unmatched#'
 		- '#This message will be reported as unmatched too#'
 		-
-			message: '#But this one will not#'
+			message: '#But this one will not be reported#'
 			reportUnmatched: false
 ```
 
