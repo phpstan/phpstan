@@ -55,7 +55,7 @@ parameters:
 		- '#Call to an undefined method [a-zA-Z0-9\\_]+::doBar\(\)#'
 ```
 
-To ignore errors by a regular expression only in a specific file, add an entry with `message` and `path` or `paths` keys. Wildcard patterns compatible with the PHP [`fnmatch()`](https://www.php.net/manual/en/function.fnmatch.php) are also supported. You can specify how many times the error is expected by using `count` (optional, applies only to `path`, not `paths`).
+To ignore errors by a regular expression only in a specific file, add an entry with `message` or `messages` and `path` or `paths` keys. Wildcard patterns compatible with the PHP [`fnmatch()`](https://www.php.net/manual/en/function.fnmatch.php) are also supported. You can specify how many times the error is expected by using `count` (optional, applies only to `message` not `messages` and `path`, not `paths`).
 
 ```yaml
 parameters:
@@ -64,14 +64,26 @@ parameters:
 			message: '#Access to an undefined property [a-zA-Z0-9\\_]+::\$foo#'
 			path: some/dir/SomeFile.php
 		-
-			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::doFoo\(\)#'
-			path: other/dir/DifferentFile.php
-			count: 2 # optional
-		-
 			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::doBar\(\)#'
 			paths:
 				- some/dir/*
 				- other/dir/*
+		-
+			messages: 
+				- '#Call to an undefined method [a-zA-Z0-9\\_]+::doFooFoo\(\)#'
+				- '#Call to an undefined method [a-zA-Z0-9\\_]+::doFooBar\(\)#'
+			path: other/dir/AnotherFile.php
+		-
+			messages: 
+				- '#Call to an undefined method [a-zA-Z0-9\\_]+::doFooFoo\(\)#'
+				- '#Call to an undefined method [a-zA-Z0-9\\_]+::doFooBar\(\)#'
+			paths:
+				- some/foo/dir/*
+				- other/foo/dir/*
+		-
+			message: '#Call to an undefined method [a-zA-Z0-9\\_]+::doFoo\(\)#'
+			path: other/dir/DifferentFile.php
+			count: 2 # optional
 		- '#Other error to ignore everywhere#'
 ```
 
@@ -97,6 +109,29 @@ If some of the ignored errors (both from configuration and PHPDocs) do not occur
 ```yaml
 parameters:
 	reportUnmatchedIgnoredErrors: false
+```
+
+You can turn on/off reporting unused ignores explicitly for each entry in `ignoredErrors`. This overwrites global `reportUnmatchedIgnoredErrors` setting.
+
+```
+parameters:
+	reportUnmatchedIgnoredErrors: false
+	ignoreErrors:
+		- '#This message will not be reported as unmatched#'
+		- '#This message will not be reported as unmatched either#'
+		-
+			message: '#But this one will be reported#'
+			reportUnmatched: true
+```
+```
+parameters:
+	reportUnmatchedIgnoredErrors: true
+	ignoreErrors:
+		- '#This message will be reported as unmatched#'
+		- '#This message will be reported as unmatched too#'
+		-
+			message: '#But this one will not be reported#'
+			reportUnmatched: false
 ```
 
 Excluding whole files
