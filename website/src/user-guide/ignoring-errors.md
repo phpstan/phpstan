@@ -113,7 +113,7 @@ parameters:
 
 You can turn on/off reporting unused ignores explicitly for each entry in `ignoredErrors`. This overwrites global `reportUnmatchedIgnoredErrors` setting.
 
-```
+```yaml
 parameters:
 	reportUnmatchedIgnoredErrors: false
 	ignoreErrors:
@@ -123,7 +123,8 @@ parameters:
 			message: '#But this one will be reported#'
 			reportUnmatched: true
 ```
-```
+
+```yaml
 parameters:
 	reportUnmatchedIgnoredErrors: true
 	ignoreErrors:
