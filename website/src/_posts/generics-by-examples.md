@@ -181,7 +181,7 @@ class Container
 {
 	/**
 	 * @template T of object
-	 * @param string|class-string<T> $id $name
+	 * @param string|class-string<T> $name
 	 * @return ($name is class-string ? T : object)
 	 */
 	public function get(string $name): object
