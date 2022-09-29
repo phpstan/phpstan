@@ -316,6 +316,13 @@ jobs:
             script: |
               cd e2e/phalcon5
               ../../phpstan
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/bug8054
+              composer install
+              ../../phpstan analyze -c application/fare.de/phpstan.neon.dist
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
