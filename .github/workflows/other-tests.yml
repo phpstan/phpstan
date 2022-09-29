@@ -321,7 +321,6 @@ jobs:
             operating-system: ubuntu-latest
             script: |
               cd e2e/bug8054
-              composer install
               ../../phpstan analyze -c application/fare.de/phpstan.neon.dist
     steps:
       - name: "Checkout"

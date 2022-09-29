@@ -4,6 +4,6 @@ class Bootstrap
 {
     protected function _initModuleCms()
     {
-        APPLICATION_ROOT;
+        echo APPLICATION_ROOT;
     }
 }
