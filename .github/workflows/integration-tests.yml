@@ -189,12 +189,12 @@ jobs:
               cd e2e/integration/repo
               composer install
               ../../../phpstan.phar && vendor/bin/phpunit tests
-          - php-version: 8.1
-            script: |
-              git clone https://git.drupalcode.org/project/drupal.git -b 10.0.x --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
-              composer install
-              ../../../phpstan.phar analyse -c core/phpstan.neon.dist
+          #- php-version: 8.1
+          #  script: |
+          #    git clone https://git.drupalcode.org/project/drupal.git -b 10.0.x --depth 1 e2e/integration/repo
+          #    cd e2e/integration/repo
+          #    composer install
+          #    ../../../phpstan.phar analyse -c core/phpstan.neon.dist
 
     steps:
       - name: "Checkout"
