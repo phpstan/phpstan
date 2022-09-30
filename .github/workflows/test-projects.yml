@@ -5,7 +5,7 @@ name: "Test projects"
 on:
   push:
     branches:
-      - "1.8.x"
+      - "1.9.x"
     paths:
       - '.github/workflows/test-projects.yml'
       - 'phpstan'
