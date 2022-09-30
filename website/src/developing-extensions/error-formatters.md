@@ -4,7 +4,7 @@ title: Error Formatters
 
 PHPStan outputs errors via so-called error formatters. See the [list of built-in error formatters](/user-guide/output-format).
 
-You can implement your own format by implementing the [`PHPStan\Command\ErrorFormatter\ErrorFormatter`](https://apiref.phpstan.org/1.8.x/PHPStan.Command.ErrorFormatter.ErrorFormatter.html) interface in a new class and add it to the configuration.
+You can implement your own format by implementing the [`PHPStan\Command\ErrorFormatter\ErrorFormatter`](https://apiref.phpstan.org/1.9.x/PHPStan.Command.ErrorFormatter.ErrorFormatter.html) interface in a new class and add it to the configuration.
 
 This is how the `ErrorFormatter` interface looks like:
 

@@ -2,7 +2,7 @@
 title: Trinary Logic
 ---
 
-Many methods in PHPStan do not return a two-state boolean, but a three-state [`PHPStan\TrinaryLogic`](https://apiref.phpstan.org/1.8.x/PHPStan.TrinaryLogic.html) object.
+Many methods in PHPStan do not return a two-state boolean, but a three-state [`PHPStan\TrinaryLogic`](https://apiref.phpstan.org/1.9.x/PHPStan.TrinaryLogic.html) object.
 
 The object can be created by calling one of the static methods:
 
