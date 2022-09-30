@@ -1,11 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Binary operation \"\\+\" between string and 1 results in an error\\.$#"
-			count: 1
-			path: repo/packages/BetterPhpDocParser/PhpDocParser/DoctrineAnnotationDecorator.php
-
-		-
 			message: "#^Offset \\(int\\|string\\) on non\\-empty\\-array\\<PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocChildNode\\> in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/packages/BetterPhpDocParser/PhpDocParser/DoctrineAnnotationDecorator.php
@@ -51,6 +46,11 @@ parameters:
 			path: repo/rules/DowngradePhp80/Rector/Expression/DowngradeMatchToSwitchRector.php
 
 		-
+			message: "#^Parameter \\#2 \\$appendingArgs of method Rector\\\\Core\\\\Rector\\\\AbstractRector\\:\\:appendArgs\\(\\) expects array\\<PhpParser\\\\Node\\\\Arg\\>, array\\<mixed, PhpParser\\\\Node\\\\Arg\\|PhpParser\\\\Node\\\\VariadicPlaceholder\\> given\\.$#"
+			count: 1
+			path: repo/rules/Php70/Rector/FuncCall/CallUserMethodRector.php
+
+		-
 			message: "#^Casting to int something that's already int\\<0, max\\>\\.$#"
 			count: 1
 			path: repo/rules/Php71/Rector/FuncCall/RemoveExtraParametersRector.php
@@ -74,6 +74,11 @@ parameters:
 			message: "#^Method Rector\\\\Core\\\\PhpParser\\\\Node\\\\BetterNodeFinder\\:\\:findParentType\\(\\) should return \\(T of PhpParser\\\\Node\\)\\|null but returns class\\-string\\<T of PhpParser\\\\Node\\>\\|T of PhpParser\\\\Node\\.$#"
 			count: 1
 			path: repo/src/PhpParser/Node/BetterNodeFinder.php
+
+		-
+			message: "#^Parameter \\#4 \\$namespace of static method PHPStan\\\\BetterReflection\\\\Reflection\\\\ReflectionClass\\:\\:createFromNode\\(\\) expects string\\|null, PhpParser\\\\Node\\\\Stmt\\\\Namespace_ given\\.$#"
+			count: 1
+			path: repo/src/StaticReflection/SourceLocator/ParentAttributeSourceLocator.php
 
 		-
 			message: "#^Strict comparison using \\=\\=\\= between non\\-empty\\-string and '' will always evaluate to false\\.$#"

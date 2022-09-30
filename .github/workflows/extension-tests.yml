@@ -89,7 +89,7 @@ jobs:
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
-          ini-values: memory_limit=512M
+          ini-values: memory_limit=768M
           extensions: soap
 
       - name: "Install dependencies"
