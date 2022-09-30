@@ -3,6 +3,7 @@
 name: "Website Build"
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - "1.9.x"
