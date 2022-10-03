@@ -7,6 +7,7 @@ on:
     paths:
       - '.github/workflows/integration-tests.yml'
       - '.github/workflows/integration-tests-run.yml'
+      - 'e2e/**'
       - 'phpstan'
       - '.phar-checksum'
       - 'bootstrap.php'
@@ -16,6 +17,7 @@ on:
     paths:
       - '.github/workflows/integration-tests.yml'
       - '.github/workflows/integration-tests-run.yml'
+      - 'e2e/**'
       - 'phpstan'
       - '.phar-checksum'
       - 'bootstrap.php'
