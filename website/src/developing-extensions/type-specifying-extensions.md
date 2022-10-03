@@ -4,6 +4,14 @@ title: Type-Specifying Extensions
 
 These extensions allow you to specify types of expressions based on certain type-checking function and method calls, like `is_int()` or `self::assertNotNull()`.
 
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+
+Most scenarios no longer require you to write an extension - only a PHPDoc to describe the behavior of your function.
+
+Check out [narrowing types](/writing-php-code/narrowing-types) to learn more.
+
+</div>
+
 The implementation is all about applying the [core concepts](/developing-extensions/core-concepts) so check out that guide first and then continue here.
 
 ```php
