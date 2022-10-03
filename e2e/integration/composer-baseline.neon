@@ -1,6 +1,91 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Parameter \\#5 \\$suggestedValues of class Composer\\\\Console\\\\Input\\\\InputArgument constructor expects array\\<string\\>\\|\\(Closure\\(Symfony\\\\Component\\\\Console\\\\Completion\\\\CompletionInput, Symfony\\\\Component\\\\Console\\\\Completion\\\\CompletionSuggestions\\)\\: list\\<string\\|Symfony\\\\Component\\\\Console\\\\Completion\\\\Suggestion\\>\\), Closure\\(\\)\\: array\\<string\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/ExecCommand.php
+
+		-
+			message: "#^Parameter \\#1 \\$values of method Symfony\\\\Component\\\\Console\\\\Completion\\\\CompletionSuggestions\\:\\:suggestValues\\(\\) expects list\\<string\\|Symfony\\\\Component\\\\Console\\\\Completion\\\\Suggestion\\>, array\\<non\\-falsy\\-string\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/GlobalCommand.php
+
+		-
+			message: "#^Only booleans are allowed in &&, array\\<int, array\\<string, bool\\|string\\|null\\>\\> given on the left side\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/SearchCommand.php
+
+		-
+			message: "#^Method Composer\\\\Command\\\\ShowCommand\\:\\:appendAutoload\\(\\) should return array\\<string, array\\<string\\>\\|string\\|null\\> but returns array\\<string, array\\<array\\<int\\<0, max\\>\\|string, array\\<string\\>\\|string\\>\\|string\\>\\|string\\|null\\>\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/ShowCommand.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, array\\<string, array\\<int\\<0, max\\>\\|string, array\\<string\\>\\|string\\>\\> given\\.$#"
+			count: 2
+			path: repo/src/Composer/Command/ShowCommand.php
+
+		-
+			message: "#^Parameter \\#1 \\$values of method Symfony\\\\Component\\\\Console\\\\Completion\\\\CompletionSuggestions\\:\\:suggestValues\\(\\) expects list\\<string\\|Symfony\\\\Component\\\\Console\\\\Completion\\\\Suggestion\\>, non\\-empty\\-array\\<string\\|Symfony\\\\Component\\\\Console\\\\Completion\\\\Suggestion\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Console/Input/InputArgument.php
+
+		-
+			message: "#^Parameter \\#1 \\$values of method Symfony\\\\Component\\\\Console\\\\Completion\\\\CompletionSuggestions\\:\\:suggestValues\\(\\) expects list\\<string\\|Symfony\\\\Component\\\\Console\\\\Completion\\\\Suggestion\\>, non\\-empty\\-array\\<string\\|Symfony\\\\Component\\\\Console\\\\Completion\\\\Suggestion\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Console/Input/InputOption.php
+
+		-
+			message: "#^Method Composer\\\\DependencyResolver\\\\Problem\\:\\:condenseVersionList\\(\\) should return list\\<string\\> but returns array\\<string\\>\\.$#"
+			count: 1
+			path: repo/src/Composer/DependencyResolver/Problem.php
+
+		-
+			message: "#^Method Composer\\\\DependencyResolver\\\\RuleSet\\:\\:getTypes\\(\\) should return array\\{0, 1, 4\\} but returns list\\<0\\|1\\|4\\>\\.$#"
+			count: 1
+			path: repo/src/Composer/DependencyResolver/RuleSet.php
+
+		-
+			message: "#^Parameter \\#1 \\$literals of class Composer\\\\DependencyResolver\\\\GenericRule constructor expects list\\<int\\>, non\\-empty\\-list\\<int\\|null\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/DependencyResolver/Solver.php
+
+		-
+			message: "#^Method Composer\\\\Installer\\:\\:getRootAliases\\(\\) should return list\\<array\\{package\\: string, version\\: string, alias\\: string, alias_normalized\\: string\\}\\> but returns array\\<array\\{package\\: string, version\\: string, alias\\: string, alias_normalized\\: string\\}\\>\\.$#"
+			count: 1
+			path: repo/src/Composer/Installer.php
+
+		-
+			message: "#^Parameter \\#5 \\$aliases of method Composer\\\\Package\\\\Locker\\:\\:setLockData\\(\\) expects list\\<array\\{package\\: string, version\\: string, alias\\: string, alias_normalized\\: string\\}\\>, array\\<array\\{package\\: string, version\\: string, alias\\: string, alias_normalized\\: string\\}\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Installer.php
+
+		-
+			message: "#^Parameter \\#2 \\$mirrors of method Composer\\\\Package\\\\Package\\:\\:getUrls\\(\\) expects list\\<array\\{url\\: string, preferred\\: bool\\}\\>\\|null, array\\<int, array\\{url\\: string, preferred\\: bool\\}\\>\\|null given\\.$#"
+			count: 2
+			path: repo/src/Composer/Package/Package.php
+
+		-
+			message: "#^Parameter \\#1 \\$versions of method Composer\\\\Package\\\\Loader\\\\ArrayLoader\\:\\:loadPackages\\(\\) expects list\\<array\\>, non\\-empty\\-array given\\.$#"
+			count: 1
+			path: repo/src/Composer/Repository/ComposerRepository.php
+
+		-
+			message: "#^Only booleans are allowed in a ternary operator condition, array\\<int, array\\<int, array\\<string, bool\\|string\\|null\\>\\>\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Repository/CompositeRepository.php
+
+		-
+			message: "#^Method Composer\\\\Repository\\\\RepositoryUtils\\:\\:filterRequiredPackages\\(\\) should return list\\<T of Composer\\\\Package\\\\PackageInterface\\> but returns array\\<T of Composer\\\\Package\\\\PackageInterface\\>\\.$#"
+			count: 1
+			path: repo/src/Composer/Repository/RepositoryUtils.php
+
+		-
+			message: "#^Method Composer\\\\Util\\\\ConfigValidator\\:\\:validate\\(\\) should return array\\{list\\<string\\>, list\\<string\\>, list\\<string\\>\\} but returns array\\{array\\<string\\>, list\\<string\\>, array\\<string\\>\\}\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/ConfigValidator.php
+
+		-
 			message: "#^Parameter \\#3 \\$value of function curl_setopt expects non\\-empty\\-string, string given\\.$#"
 			count: 2
 			path: repo/src/Composer/Util/Http/CurlDownloader.php
@@ -14,3 +99,28 @@ parameters:
 			message: "#^Property Composer\\\\Util\\\\Http\\\\CurlDownloader\\:\\:\\$jobs \\(array\\<array\\{url\\: string, origin\\: string, attributes\\: array\\{retryAuthFailure\\: bool, redirects\\: int\\<0, max\\>, retries\\: int\\<0, max\\>, storeAuth\\: 'prompt'\\|bool\\}, options\\: array, progress\\: array, curlHandle\\: resource, filename\\: string\\|null, headerHandle\\: resource, \\.\\.\\.\\}\\>\\) does not accept non\\-empty\\-array\\<array\\{url\\: string, origin\\: string, attributes\\: array\\{retryAuthFailure\\: bool, redirects\\: int\\<0, max\\>, retries\\: int\\<0, max\\>, storeAuth\\: 'prompt'\\|bool\\}, options\\: array, progress\\: array, curlHandle\\: CurlHandle\\|resource, filename\\: string\\|null, headerHandle\\: resource, \\.\\.\\.\\}\\>\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/Http/CurlDownloader.php
+
+		-
+			message: "#^Parameter \\#3 \\$headers of class Composer\\\\Util\\\\Http\\\\Response constructor expects list\\<string\\>, array\\<string\\> given\\.$#"
+			count: 2
+			path: repo/src/Composer/Util/HttpDownloader.php
+
+		-
+			message: "#^Method Composer\\\\Test\\\\DependencyResolver\\\\PoolBuilderTest\\:\\:getPackageResultSet\\(\\) should return array\\<string\\> but returns array\\<int, int\\|string\\>\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/DependencyResolver/PoolBuilderTest.php
+
+		-
+			message: "#^Parameter \\#3 \\$headers of class Composer\\\\Util\\\\Http\\\\Response constructor expects list\\<string\\>, array\\<string\\> given\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Mock/HttpDownloaderMock.php
+
+		-
+			message: "#^Property Composer\\\\Test\\\\Mock\\\\HttpDownloaderMock\\:\\:\\$expectations \\(array\\<array\\{url\\: string, options\\: array\\|null, status\\: int, body\\: string, headers\\: list\\<string\\>\\}\\>\\|null\\) does not accept array\\<array\\{url\\: string, options\\: array\\|null, status\\: int, body\\: string, headers\\: array\\<string\\>\\}\\>\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Mock/HttpDownloaderMock.php
+
+		-
+			message: "#^Offset 'cmd' on array\\{cmd\\: list\\<string\\>\\|string, return\\?\\: int, stdout\\?\\: string, stderr\\?\\: string, callback\\?\\: callable\\(\\)\\: mixed\\} on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Mock/ProcessExecutorMock.php
