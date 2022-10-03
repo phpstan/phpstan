@@ -2731,46 +2731,6 @@ parameters:
 			path: repo/src/TextUI/TestRunner.php
 
 		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\CodeCoverage\\:\\:cacheDirectory\\(\\) should return PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\Directory but returns PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\Directory\\|null\\.$#"
-			count: 1
-			path: repo/src/TextUI/XmlConfiguration/CodeCoverage/CodeCoverage.php
-
-		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\CodeCoverage\\:\\:clover\\(\\) should return PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\Report\\\\Clover but returns PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\Report\\\\Clover\\|null\\.$#"
-			count: 1
-			path: repo/src/TextUI/XmlConfiguration/CodeCoverage/CodeCoverage.php
-
-		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\CodeCoverage\\:\\:cobertura\\(\\) should return PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\Report\\\\Cobertura but returns PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\Report\\\\Cobertura\\|null\\.$#"
-			count: 1
-			path: repo/src/TextUI/XmlConfiguration/CodeCoverage/CodeCoverage.php
-
-		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\CodeCoverage\\:\\:crap4j\\(\\) should return PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\Report\\\\Crap4j but returns PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\Report\\\\Crap4j\\|null\\.$#"
-			count: 1
-			path: repo/src/TextUI/XmlConfiguration/CodeCoverage/CodeCoverage.php
-
-		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\CodeCoverage\\:\\:html\\(\\) should return PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\Report\\\\Html but returns PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\Report\\\\Html\\|null\\.$#"
-			count: 1
-			path: repo/src/TextUI/XmlConfiguration/CodeCoverage/CodeCoverage.php
-
-		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\CodeCoverage\\:\\:php\\(\\) should return PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\Report\\\\Php but returns PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\Report\\\\Php\\|null\\.$#"
-			count: 1
-			path: repo/src/TextUI/XmlConfiguration/CodeCoverage/CodeCoverage.php
-
-		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\CodeCoverage\\:\\:text\\(\\) should return PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\Report\\\\Text but returns PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\Report\\\\Text\\|null\\.$#"
-			count: 1
-			path: repo/src/TextUI/XmlConfiguration/CodeCoverage/CodeCoverage.php
-
-		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\CodeCoverage\\:\\:xml\\(\\) should return PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\Report\\\\Xml but returns PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\Report\\\\Xml\\|null\\.$#"
-			count: 1
-			path: repo/src/TextUI/XmlConfiguration/CodeCoverage/CodeCoverage.php
-
-		-
 			message: "#^Class PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\CodeCoverage\\\\Filter\\\\DirectoryCollection implements generic interface IteratorAggregate but does not specify its types\\: TKey, TValue$#"
 			count: 1
 			path: repo/src/TextUI/XmlConfiguration/CodeCoverage/Filter/DirectoryCollection.php
@@ -3684,11 +3644,6 @@ parameters:
 			message: "#^Dead catch \\- Throwable is never thrown in the try block\\.$#"
 			count: 1
 			path: repo/src/Util/Type.php
-
-		-
-			message: "#^Property PHPUnit\\\\Util\\\\VersionComparisonOperator\\:\\:\\$operator \\('\\!\\='\\|'\\<'\\|'\\<\\='\\|'\\<\\>'\\|'\\='\\|'\\=\\='\\|'\\>'\\|'\\>\\='\\|'eq'\\|'ge'\\|'gt'\\|'le'\\|'lt'\\|'ne'\\) does not accept string\\.$#"
-			count: 1
-			path: repo/src/Util/VersionComparisonOperator.php
 
 		-
 			message: "#^Method PHPUnit\\\\Util\\\\XdebugFilterScriptGenerator\\:\\:getItems\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -5561,11 +5516,6 @@ parameters:
 			path: repo/tests/end-to-end/regression/Trac/783/ParentSuite.php
 
 		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\consume\\(\\) should return null but returns object\\|null\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-empty.php
-
-		-
 			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertInstanceOf\\\\consume\\(\\) should return stdClass but returns object\\.$#"
 			count: 1
 			path: repo/tests/static-analysis/happy-path/assert-instance-of.php
@@ -5586,37 +5536,7 @@ parameters:
 			path: repo/tests/static-analysis/happy-path/assert-is-not-array.php
 
 		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotArray\\\\consume\\(\\) should return int but returns array\\|int\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-is-not-array.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotBool\\\\consume\\(\\) should return int but returns bool\\|int\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-is-not-bool.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsCallable\\\\consume\\(\\) should return int but returns \\(callable\\)\\|int\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-is-not-callable.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotClosedResource\\\\consume\\(\\) should return int but returns int\\|resource\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-is-not-closed-resource.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotFloat\\\\consume\\(\\) should return int but returns float\\|int\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-is-not-float.php
-
-		-
 			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotIterable\\\\consume\\(\\) has parameter \\$value with no value type specified in iterable type iterable\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-is-not-iterable.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotIterable\\\\consume\\(\\) should return int but returns int\\|iterable\\.$#"
 			count: 1
 			path: repo/tests/static-analysis/happy-path/assert-is-not-iterable.php
 
@@ -5629,56 +5549,6 @@ parameters:
 			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotNumeric\\\\consume\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/tests/static-analysis/happy-path/assert-is-not-numeric.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotNumeric\\\\consume\\(\\) should return array but returns array\\|float\\|int\\|string\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-is-not-numeric.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotObject\\\\consume\\(\\) should return int but returns int\\|object\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-is-not-object.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotResource\\\\consume\\(\\) should return int but returns int\\|resource\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-is-not-resource.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotScalar\\\\consume\\(\\) should return object but returns bool\\|float\\|int\\|object\\|string\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-is-not-scalar.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotString\\\\consume\\(\\) should return int but returns int\\|string\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-is-not-string.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertNotEmpty\\\\consume\\(\\) should return int but returns int\\|null\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-not-empty.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertNotFalse\\\\consume\\(\\) should return int but returns int\\|false\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-not-false.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertNotInstanceOf\\\\consume\\(\\) should return PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertNotInstanceOf\\\\B but returns PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertNotInstanceOf\\\\A\\|PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertNotInstanceOf\\\\B\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-not-instance-of.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertNotNull\\\\consume\\(\\) should return int but returns int\\|null\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-not-null.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertNotTrue\\\\consume\\(\\) should return int but returns int\\|true\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-not-true.php
 
 		-
 			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertSame\\\\consume\\(\\) should return stdClass but returns object\\.$#"
@@ -6294,21 +6164,6 @@ parameters:
 			message: "#^Method PHPUnit\\\\Framework\\\\Constraint\\\\JsonMatchesErrorMessageProviderTest\\:\\:translateTypeToPrefixDataprovider\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/tests/unit/Framework/Constraint/JsonMatchesErrorMessageProviderTest.php
-
-		-
-			message: "#^Cannot call method getActualAsString\\(\\) on SebastianBergmann\\\\Comparator\\\\ComparisonFailure\\|null\\.$#"
-			count: 1
-			path: repo/tests/unit/Framework/Constraint/JsonMatchesTest.php
-
-		-
-			message: "#^Cannot call method getExpectedAsString\\(\\) on SebastianBergmann\\\\Comparator\\\\ComparisonFailure\\|null\\.$#"
-			count: 1
-			path: repo/tests/unit/Framework/Constraint/JsonMatchesTest.php
-
-		-
-			message: "#^Cannot call method getMessage\\(\\) on SebastianBergmann\\\\Comparator\\\\ComparisonFailure\\|null\\.$#"
-			count: 1
-			path: repo/tests/unit/Framework/Constraint/JsonMatchesTest.php
 
 		-
 			message: "#^Method PHPUnit\\\\Framework\\\\Constraint\\\\JsonMatchesTest\\:\\:evaluateDataprovider\\(\\) return type has no value type specified in iterable type array\\.$#"
