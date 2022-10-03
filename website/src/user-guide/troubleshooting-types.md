@@ -54,7 +54,7 @@ Local type narrowing
 
 There are many ways how to narrow a type locally in a function body. [This guide](/writing-php-code/narrowing-types) talks about that.
 
-This includes custom [type-specifying extensions](/developing-extensions/type-specifying-extensions) and [inline PHPDoc `@var` tags](/writing-php-code/phpdocs-basics#inline-%40var).
+This includes custom [type-specifying extensions](/developing-extensions/type-specifying-extensions), `@phpstan-assert` tags, and [inline PHPDoc `@var` tags](/writing-php-code/phpdocs-basics#inline-%40var).
 
 Dynamic return type extensions
 ---------
