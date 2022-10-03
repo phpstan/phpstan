@@ -56,6 +56,13 @@ General arrays
 * `non-empty-array<Type>`
 * `non-empty-array<int, Type>`
 
+Lists
+-------------------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.9.0</div>
+
+* `list<Type>`
+* `non-empty-list<Type>`
 
 Key and value types of arrays and iterables
 -------------------------
