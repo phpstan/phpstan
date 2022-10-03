@@ -16,9 +16,84 @@ parameters:
 			path: repo/packages/NodeTypeResolver/NodeTypeResolver/TraitTypeResolver.php
 
 		-
+			message: "#^Property Rector\\\\Arguments\\\\Rector\\\\ClassMethod\\\\ArgumentAdderRector\\:\\:\\$addedArguments \\(array\\<Rector\\\\Arguments\\\\ValueObject\\\\ArgumentAdder\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Arguments\\\\ValueObject\\\\ArgumentAdder\\>\\|Rector\\\\Arguments\\\\ValueObject\\\\ArgumentAdder\\>\\.$#"
+			count: 1
+			path: repo/rules/Arguments/Rector/ClassMethod/ArgumentAdderRector.php
+
+		-
+			message: "#^Property Rector\\\\Arguments\\\\Rector\\\\ClassMethod\\\\ReplaceArgumentDefaultValueRector\\:\\:\\$replacedArguments \\(array\\<Rector\\\\Arguments\\\\ValueObject\\\\ReplaceArgumentDefaultValue\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Arguments\\\\ValueObject\\\\ReplaceArgumentDefaultValue\\>\\|Rector\\\\Arguments\\\\ValueObject\\\\ReplaceArgumentDefaultValue\\>\\.$#"
+			count: 1
+			path: repo/rules/Arguments/Rector/ClassMethod/ReplaceArgumentDefaultValueRector.php
+
+		-
+			message: "#^Property Rector\\\\Arguments\\\\Rector\\\\FuncCall\\\\FunctionArgumentDefaultValueReplacerRector\\:\\:\\$replacedArguments \\(array\\<Rector\\\\Arguments\\\\ValueObject\\\\ReplaceFuncCallArgumentDefaultValue\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Arguments\\\\ValueObject\\\\ReplaceFuncCallArgumentDefaultValue\\>\\|Rector\\\\Arguments\\\\ValueObject\\\\ReplaceFuncCallArgumentDefaultValue\\>\\.$#"
+			count: 1
+			path: repo/rules/Arguments/Rector/FuncCall/FunctionArgumentDefaultValueReplacerRector.php
+
+		-
+			message: "#^Property Rector\\\\Arguments\\\\Rector\\\\FuncCall\\\\SwapFuncCallArgumentsRector\\:\\:\\$functionArgumentSwaps \\(array\\<Rector\\\\Arguments\\\\ValueObject\\\\SwapFuncCallArguments\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Arguments\\\\ValueObject\\\\SwapFuncCallArguments\\>\\|Rector\\\\Arguments\\\\ValueObject\\\\SwapFuncCallArguments\\>\\.$#"
+			count: 1
+			path: repo/rules/Arguments/Rector/FuncCall/SwapFuncCallArgumentsRector.php
+
+		-
 			message: "#^Parameter 2 should use \"PHPStan\\\\BetterReflection\\\\Reflection\\\\Adapter\\\\ReflectionMethod\" type as the only type passed to this method$#"
 			count: 2
 			path: repo/rules/CodingStyle/Rector/ClassMethod/MakeInheritedMethodVisibilitySameAsParentRector.php
+
+		-
+			message: "#^Property Rector\\\\CodingStyle\\\\Rector\\\\ClassMethod\\\\ReturnArrayClassMethodToYieldRector\\:\\:\\$methodsToYields \\(array\\<Rector\\\\CodingStyle\\\\ValueObject\\\\ReturnArrayClassMethodToYield\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\CodingStyle\\\\ValueObject\\\\ReturnArrayClassMethodToYield\\>\\|Rector\\\\CodingStyle\\\\ValueObject\\\\ReturnArrayClassMethodToYield\\>\\.$#"
+			count: 1
+			path: repo/rules/CodingStyle/Rector/ClassMethod/ReturnArrayClassMethodToYieldRector.php
+
+		-
+			message: "#^Property Rector\\\\CodingStyle\\\\Rector\\\\MethodCall\\\\PreferThisOrSelfMethodCallRector\\:\\:\\$typeToPreference \\(array\\<Rector\\\\CodingStyle\\\\Enum\\\\PreferenceSelfThis\\>\\) does not accept array\\<class\\-string\\<Rector\\\\CodingStyle\\\\Enum\\\\PreferenceSelfThis\\>\\|Rector\\\\CodingStyle\\\\Enum\\\\PreferenceSelfThis\\>\\.$#"
+			count: 1
+			path: repo/rules/CodingStyle/Rector/MethodCall/PreferThisOrSelfMethodCallRector.php
+
+		-
+			message: "#^Parameter \\#1 \\$versionAwares of method Rector\\\\Composer\\\\Guard\\\\VersionGuard\\:\\:validate\\(\\) expects array\\<Rector\\\\Composer\\\\Contract\\\\VersionAwareInterface\\>, iterable\\<class\\-string\\<Rector\\\\Composer\\\\ValueObject\\\\PackageAndVersion\\>\\|Rector\\\\Composer\\\\ValueObject\\\\PackageAndVersion\\> given\\.$#"
+			count: 1
+			path: repo/rules/Composer/Rector/AddPackageToRequireComposerRector.php
+
+		-
+			message: "#^Property Rector\\\\Composer\\\\Rector\\\\AddPackageToRequireComposerRector\\:\\:\\$packagesAndVersions \\(array\\<Rector\\\\Composer\\\\ValueObject\\\\PackageAndVersion\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Composer\\\\ValueObject\\\\PackageAndVersion\\>\\|Rector\\\\Composer\\\\ValueObject\\\\PackageAndVersion\\>\\.$#"
+			count: 1
+			path: repo/rules/Composer/Rector/AddPackageToRequireComposerRector.php
+
+		-
+			message: "#^Parameter \\#1 \\$versionAwares of method Rector\\\\Composer\\\\Guard\\\\VersionGuard\\:\\:validate\\(\\) expects array\\<Rector\\\\Composer\\\\Contract\\\\VersionAwareInterface\\>, iterable\\<class\\-string\\<Rector\\\\Composer\\\\ValueObject\\\\PackageAndVersion\\>\\|Rector\\\\Composer\\\\ValueObject\\\\PackageAndVersion\\> given\\.$#"
+			count: 1
+			path: repo/rules/Composer/Rector/AddPackageToRequireDevComposerRector.php
+
+		-
+			message: "#^Property Rector\\\\Composer\\\\Rector\\\\AddPackageToRequireDevComposerRector\\:\\:\\$packageAndVersions \\(array\\<Rector\\\\Composer\\\\ValueObject\\\\PackageAndVersion\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Composer\\\\ValueObject\\\\PackageAndVersion\\>\\|Rector\\\\Composer\\\\ValueObject\\\\PackageAndVersion\\>\\.$#"
+			count: 1
+			path: repo/rules/Composer/Rector/AddPackageToRequireDevComposerRector.php
+
+		-
+			message: "#^Parameter \\#1 \\$versionAwares of method Rector\\\\Composer\\\\Guard\\\\VersionGuard\\:\\:validate\\(\\) expects array\\<Rector\\\\Composer\\\\Contract\\\\VersionAwareInterface\\>, iterable\\<class\\-string\\<Rector\\\\Composer\\\\ValueObject\\\\PackageAndVersion\\>\\|Rector\\\\Composer\\\\ValueObject\\\\PackageAndVersion\\> given\\.$#"
+			count: 1
+			path: repo/rules/Composer/Rector/ChangePackageVersionComposerRector.php
+
+		-
+			message: "#^Property Rector\\\\Composer\\\\Rector\\\\ChangePackageVersionComposerRector\\:\\:\\$packagesAndVersions \\(array\\<Rector\\\\Composer\\\\ValueObject\\\\PackageAndVersion\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Composer\\\\ValueObject\\\\PackageAndVersion\\>\\|Rector\\\\Composer\\\\ValueObject\\\\PackageAndVersion\\>\\.$#"
+			count: 1
+			path: repo/rules/Composer/Rector/ChangePackageVersionComposerRector.php
+
+		-
+			message: "#^Property Rector\\\\Composer\\\\Rector\\\\RenamePackageComposerRector\\:\\:\\$renamePackages \\(array\\<Rector\\\\Composer\\\\ValueObject\\\\RenamePackage\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Composer\\\\ValueObject\\\\RenamePackage\\>\\|Rector\\\\Composer\\\\ValueObject\\\\RenamePackage\\>\\.$#"
+			count: 1
+			path: repo/rules/Composer/Rector/RenamePackageComposerRector.php
+
+		-
+			message: "#^Parameter \\#1 \\$versionAwares of method Rector\\\\Composer\\\\Guard\\\\VersionGuard\\:\\:validate\\(\\) expects array\\<Rector\\\\Composer\\\\Contract\\\\VersionAwareInterface\\>, iterable\\<class\\-string\\<Rector\\\\Composer\\\\ValueObject\\\\ReplacePackageAndVersion\\>\\|Rector\\\\Composer\\\\ValueObject\\\\ReplacePackageAndVersion\\> given\\.$#"
+			count: 1
+			path: repo/rules/Composer/Rector/ReplacePackageAndVersionComposerRector.php
+
+		-
+			message: "#^Property Rector\\\\Composer\\\\Rector\\\\ReplacePackageAndVersionComposerRector\\:\\:\\$replacePackagesAndVersions \\(array\\<Rector\\\\Composer\\\\ValueObject\\\\ReplacePackageAndVersion\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Composer\\\\ValueObject\\\\ReplacePackageAndVersion\\>\\|Rector\\\\Composer\\\\ValueObject\\\\ReplacePackageAndVersion\\>\\.$#"
+			count: 1
+			path: repo/rules/Composer/Rector/ReplacePackageAndVersionComposerRector.php
 
 		-
 			message: "#^Parameter 2 should use \"PHPStan\\\\Reflection\\\\ExtendedMethodReflection\" type as the only type passed to this method$#"
@@ -41,9 +116,19 @@ parameters:
 			path: repo/rules/DowngradePhp80/NodeAnalyzer/NamedToUnnamedArgs.php
 
 		-
+			message: "#^Property Rector\\\\DowngradePhp80\\\\Rector\\\\Class_\\\\DowngradeAttributeToAnnotationRector\\:\\:\\$attributesToAnnotations \\(array\\<Rector\\\\DowngradePhp80\\\\ValueObject\\\\DowngradeAttributeToAnnotation\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\DowngradePhp80\\\\ValueObject\\\\DowngradeAttributeToAnnotation\\>\\|Rector\\\\DowngradePhp80\\\\ValueObject\\\\DowngradeAttributeToAnnotation\\>\\.$#"
+			count: 1
+			path: repo/rules/DowngradePhp80/Rector/Class_/DowngradeAttributeToAnnotationRector.php
+
+		-
 			message: "#^Instanceof between PhpParser\\\\Node\\\\Stmt\\\\Case_ and PhpParser\\\\Node\\\\Stmt\\\\Case_ will always evaluate to true\\.$#"
 			count: 1
 			path: repo/rules/DowngradePhp80/Rector/Expression/DowngradeMatchToSwitchRector.php
+
+		-
+			message: "#^Property Rector\\\\Generics\\\\Rector\\\\ClassMethod\\\\GenericClassMethodParamRector\\:\\:\\$genericClassMethodParams \\(array\\<Rector\\\\Generics\\\\ValueObject\\\\GenericClassMethodParam\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Generics\\\\ValueObject\\\\GenericClassMethodParam\\>\\|Rector\\\\Generics\\\\ValueObject\\\\GenericClassMethodParam\\>\\.$#"
+			count: 1
+			path: repo/rules/Generics/Rector/ClassMethod/GenericClassMethodParamRector.php
 
 		-
 			message: "#^Parameter \\#2 \\$appendingArgs of method Rector\\\\Core\\\\Rector\\\\AbstractRector\\:\\:appendArgs\\(\\) expects array\\<PhpParser\\\\Node\\\\Arg\\>, array\\<mixed, PhpParser\\\\Node\\\\Arg\\|PhpParser\\\\Node\\\\VariadicPlaceholder\\> given\\.$#"
@@ -69,6 +154,231 @@ parameters:
 			message: "#^Unable to resolve the template type T in call to method Rector\\\\Php80\\\\NodeResolver\\\\ArgumentSorter\\:\\:sortArgsByExpectedParamOrder\\(\\)$#"
 			count: 2
 			path: repo/rules/Php80/Rector/ClassMethod/OptionalParametersAfterRequiredRector.php
+
+		-
+			message: "#^Parameter \\#1 \\$annotationsToAttributes of method Rector\\\\PhpAttribute\\\\RemovableAnnotationAnalyzer\\:\\:configure\\(\\) expects array\\<Rector\\\\Php80\\\\ValueObject\\\\AnnotationToAttribute\\>, iterable\\<class\\-string\\<Rector\\\\Php80\\\\ValueObject\\\\AnnotationToAttribute\\>\\|Rector\\\\Php80\\\\ValueObject\\\\AnnotationToAttribute\\> given\\.$#"
+			count: 1
+			path: repo/rules/Php80/Rector/Class_/AnnotationToAttributeRector.php
+
+		-
+			message: "#^Parameter \\#1 \\$annotationsToAttributes of method Rector\\\\PhpAttribute\\\\UnwrapableAnnotationAnalyzer\\:\\:configure\\(\\) expects array\\<Rector\\\\Php80\\\\ValueObject\\\\AnnotationToAttribute\\>, iterable\\<class\\-string\\<Rector\\\\Php80\\\\ValueObject\\\\AnnotationToAttribute\\>\\|Rector\\\\Php80\\\\ValueObject\\\\AnnotationToAttribute\\> given\\.$#"
+			count: 1
+			path: repo/rules/Php80/Rector/Class_/AnnotationToAttributeRector.php
+
+		-
+			message: "#^Property Rector\\\\Php80\\\\Rector\\\\Class_\\\\AnnotationToAttributeRector\\:\\:\\$annotationsToAttributes \\(array\\<Rector\\\\Php80\\\\ValueObject\\\\AnnotationToAttribute\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Php80\\\\ValueObject\\\\AnnotationToAttribute\\>\\|Rector\\\\Php80\\\\ValueObject\\\\AnnotationToAttribute\\>\\.$#"
+			count: 1
+			path: repo/rules/Php80/Rector/Class_/AnnotationToAttributeRector.php
+
+		-
+			message: "#^Property Rector\\\\Removing\\\\Rector\\\\ClassMethod\\\\ArgumentRemoverRector\\:\\:\\$removedArguments \\(array\\<Rector\\\\Removing\\\\ValueObject\\\\ArgumentRemover\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Removing\\\\ValueObject\\\\ArgumentRemover\\>\\|Rector\\\\Removing\\\\ValueObject\\\\ArgumentRemover\\>\\.$#"
+			count: 1
+			path: repo/rules/Removing/Rector/ClassMethod/ArgumentRemoverRector.php
+
+		-
+			message: "#^Property Rector\\\\Removing\\\\Rector\\\\FuncCall\\\\RemoveFuncCallArgRector\\:\\:\\$removedFunctionArguments \\(array\\<Rector\\\\Removing\\\\ValueObject\\\\RemoveFuncCallArg\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Removing\\\\ValueObject\\\\RemoveFuncCallArg\\>\\|Rector\\\\Removing\\\\ValueObject\\\\RemoveFuncCallArg\\>\\.$#"
+			count: 1
+			path: repo/rules/Removing/Rector/FuncCall/RemoveFuncCallArgRector.php
+
+		-
+			message: "#^Property Rector\\\\Removing\\\\Rector\\\\FuncCall\\\\RemoveFuncCallRector\\:\\:\\$removeFuncCalls \\(array\\<Rector\\\\Removing\\\\ValueObject\\\\RemoveFuncCall\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Removing\\\\ValueObject\\\\RemoveFuncCall\\>\\|Rector\\\\Removing\\\\ValueObject\\\\RemoveFuncCall\\>\\.$#"
+			count: 1
+			path: repo/rules/Removing/Rector/FuncCall/RemoveFuncCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Renaming\\\\Rector\\\\ClassConstFetch\\\\RenameClassConstFetchRector\\:\\:\\$renameClassConstFetches \\(array\\<Rector\\\\Renaming\\\\Contract\\\\RenameClassConstFetchInterface\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Renaming\\\\Contract\\\\RenameClassConstFetchInterface\\>\\|Rector\\\\Renaming\\\\Contract\\\\RenameClassConstFetchInterface\\>\\.$#"
+			count: 1
+			path: repo/rules/Renaming/Rector/ClassConstFetch/RenameClassConstFetchRector.php
+
+		-
+			message: "#^Property Rector\\\\Renaming\\\\Rector\\\\ClassMethod\\\\RenameAnnotationRector\\:\\:\\$renameAnnotations \\(array\\<Rector\\\\Renaming\\\\Contract\\\\RenameAnnotationInterface\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Renaming\\\\Contract\\\\RenameAnnotationInterface\\>\\|Rector\\\\Renaming\\\\Contract\\\\RenameAnnotationInterface\\>\\.$#"
+			count: 1
+			path: repo/rules/Renaming/Rector/ClassMethod/RenameAnnotationRector.php
+
+		-
+			message: "#^Property Rector\\\\Renaming\\\\Rector\\\\FileWithoutNamespace\\\\PseudoNamespaceToNamespaceRector\\:\\:\\$pseudoNamespacesToNamespaces \\(array\\<Rector\\\\Renaming\\\\ValueObject\\\\PseudoNamespaceToNamespace\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Renaming\\\\ValueObject\\\\PseudoNamespaceToNamespace\\>\\|Rector\\\\Renaming\\\\ValueObject\\\\PseudoNamespaceToNamespace\\>\\.$#"
+			count: 1
+			path: repo/rules/Renaming/Rector/FileWithoutNamespace/PseudoNamespaceToNamespaceRector.php
+
+		-
+			message: "#^Parameter \\#1 \\$methodCallRenames of method Rector\\\\Renaming\\\\Collector\\\\MethodCallRenameCollector\\:\\:addMethodCallRenames\\(\\) expects array\\<Rector\\\\Renaming\\\\Contract\\\\MethodCallRenameInterface\\>, iterable\\<class\\-string\\<Rector\\\\Renaming\\\\Contract\\\\MethodCallRenameInterface\\>\\|Rector\\\\Renaming\\\\Contract\\\\MethodCallRenameInterface\\> given\\.$#"
+			count: 1
+			path: repo/rules/Renaming/Rector/MethodCall/RenameMethodRector.php
+
+		-
+			message: "#^Property Rector\\\\Renaming\\\\Rector\\\\MethodCall\\\\RenameMethodRector\\:\\:\\$methodCallRenames \\(array\\<Rector\\\\Renaming\\\\Contract\\\\MethodCallRenameInterface\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Renaming\\\\Contract\\\\MethodCallRenameInterface\\>\\|Rector\\\\Renaming\\\\Contract\\\\MethodCallRenameInterface\\>\\.$#"
+			count: 1
+			path: repo/rules/Renaming/Rector/MethodCall/RenameMethodRector.php
+
+		-
+			message: "#^Property Rector\\\\Renaming\\\\Rector\\\\PropertyFetch\\\\RenamePropertyRector\\:\\:\\$renamedProperties \\(array\\<Rector\\\\Renaming\\\\ValueObject\\\\RenameProperty\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Renaming\\\\ValueObject\\\\RenameProperty\\>\\|Rector\\\\Renaming\\\\ValueObject\\\\RenameProperty\\>\\.$#"
+			count: 1
+			path: repo/rules/Renaming/Rector/PropertyFetch/RenamePropertyRector.php
+
+		-
+			message: "#^Property Rector\\\\Renaming\\\\Rector\\\\StaticCall\\\\RenameStaticMethodRector\\:\\:\\$staticMethodRenames \\(array\\<Rector\\\\Renaming\\\\ValueObject\\\\RenameStaticMethod\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Renaming\\\\ValueObject\\\\RenameStaticMethod\\>\\|Rector\\\\Renaming\\\\ValueObject\\\\RenameStaticMethod\\>\\.$#"
+			count: 1
+			path: repo/rules/Renaming/Rector/StaticCall/RenameStaticMethodRector.php
+
+		-
+			message: "#^Parameter \\#1 \\.\\.\\.\\$arrays of function array_merge expects array, iterable\\<class\\-string\\<Rector\\\\Restoration\\\\ValueObject\\\\CompleteImportForPartialAnnotation\\>\\|Rector\\\\Restoration\\\\ValueObject\\\\CompleteImportForPartialAnnotation\\> given\\.$#"
+			count: 1
+			path: repo/rules/Restoration/Rector/Namespace_/CompleteImportForPartialAnnotationRector.php
+
+		-
+			message: "#^Property Rector\\\\Restoration\\\\Rector\\\\Namespace_\\\\CompleteImportForPartialAnnotationRector\\:\\:\\$useImportsToRestore \\(array\\<Rector\\\\Restoration\\\\ValueObject\\\\CompleteImportForPartialAnnotation\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Restoration\\\\ValueObject\\\\CompleteImportForPartialAnnotation\\>\\|Rector\\\\Restoration\\\\ValueObject\\\\CompleteImportForPartialAnnotation\\>\\.$#"
+			count: 1
+			path: repo/rules/Restoration/Rector/Namespace_/CompleteImportForPartialAnnotationRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\Assign\\\\DimFetchAssignToMethodCallRector\\:\\:\\$dimFetchAssignToMethodCalls \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\DimFetchAssignToMethodCall\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\DimFetchAssignToMethodCall\\>\\|Rector\\\\Transform\\\\ValueObject\\\\DimFetchAssignToMethodCall\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/Assign/DimFetchAssignToMethodCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\Assign\\\\GetAndSetToMethodCallRector\\:\\:\\$getAndSetToMethodCalls \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\GetAndSetToMethodCall\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\GetAndSetToMethodCall\\>\\|Rector\\\\Transform\\\\ValueObject\\\\GetAndSetToMethodCall\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/Assign/GetAndSetToMethodCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\Assign\\\\PropertyAssignToMethodCallRector\\:\\:\\$propertyAssignsToMethodCalls \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\PropertyAssignToMethodCall\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\PropertyAssignToMethodCall\\>\\|Rector\\\\Transform\\\\ValueObject\\\\PropertyAssignToMethodCall\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/Assign/PropertyAssignToMethodCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\Assign\\\\PropertyFetchToMethodCallRector\\:\\:\\$propertiesToMethodCalls \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\PropertyFetchToMethodCall\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\PropertyFetchToMethodCall\\>\\|Rector\\\\Transform\\\\ValueObject\\\\PropertyFetchToMethodCall\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/Assign/PropertyFetchToMethodCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\Attribute\\\\AttributeKeyToClassConstFetchRector\\:\\:\\$attributeKeysToClassConstFetches \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\AttributeKeyToClassConstFetch\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\AttributeKeyToClassConstFetch\\>\\|Rector\\\\Transform\\\\ValueObject\\\\AttributeKeyToClassConstFetch\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/Attribute/AttributeKeyToClassConstFetchRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\ClassMethod\\\\SingleToManyMethodRector\\:\\:\\$singleToManyMethods \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\SingleToManyMethod\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\SingleToManyMethod\\>\\|Rector\\\\Transform\\\\ValueObject\\\\SingleToManyMethod\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/ClassMethod/SingleToManyMethodRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\ClassMethod\\\\WrapReturnRector\\:\\:\\$typeMethodWraps \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\WrapReturn\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\WrapReturn\\>\\|Rector\\\\Transform\\\\ValueObject\\\\WrapReturn\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/ClassMethod/WrapReturnRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\Class_\\\\ParentClassToTraitsRector\\:\\:\\$parentClassToTraits \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\ParentClassToTraits\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\ParentClassToTraits\\>\\|Rector\\\\Transform\\\\ValueObject\\\\ParentClassToTraits\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/Class_/ParentClassToTraitsRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\FuncCall\\\\ArgumentFuncCallToMethodCallRector\\:\\:\\$argumentFuncCallToMethodCalls \\(array\\<Rector\\\\Transform\\\\Contract\\\\ValueObject\\\\ArgumentFuncCallToMethodCallInterface\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Transform\\\\Contract\\\\ValueObject\\\\ArgumentFuncCallToMethodCallInterface\\>\\|Rector\\\\Transform\\\\Contract\\\\ValueObject\\\\ArgumentFuncCallToMethodCallInterface\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/FuncCall/ArgumentFuncCallToMethodCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\FuncCall\\\\FuncCallToMethodCallRector\\:\\:\\$funcNameToMethodCallNames \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\FuncCallToMethodCall\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\FuncCallToMethodCall\\>\\|Rector\\\\Transform\\\\ValueObject\\\\FuncCallToMethodCall\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/FuncCall/FuncCallToMethodCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\FuncCall\\\\FuncCallToStaticCallRector\\:\\:\\$funcCallsToStaticCalls \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\FuncCallToStaticCall\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\FuncCallToStaticCall\\>\\|Rector\\\\Transform\\\\ValueObject\\\\FuncCallToStaticCall\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/FuncCall/FuncCallToStaticCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\Isset_\\\\UnsetAndIssetToMethodCallRector\\:\\:\\$issetUnsetToMethodCalls \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\UnsetAndIssetToMethodCall\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\UnsetAndIssetToMethodCall\\>\\|Rector\\\\Transform\\\\ValueObject\\\\UnsetAndIssetToMethodCall\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/Isset_/UnsetAndIssetToMethodCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\MethodCall\\\\CallableInMethodCallToVariableRector\\:\\:\\$callableInMethodCallToVariable \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\CallableInMethodCallToVariable\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\CallableInMethodCallToVariable\\>\\|Rector\\\\Transform\\\\ValueObject\\\\CallableInMethodCallToVariable\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/MethodCall/CallableInMethodCallToVariableRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\MethodCall\\\\MethodCallToAnotherMethodCallWithArgumentsRector\\:\\:\\$methodCallRenamesWithAddedArguments \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\MethodCallToAnotherMethodCallWithArguments\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\MethodCallToAnotherMethodCallWithArguments\\>\\|Rector\\\\Transform\\\\ValueObject\\\\MethodCallToAnotherMethodCallWithArguments\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/MethodCall/MethodCallToAnotherMethodCallWithArgumentsRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\MethodCall\\\\MethodCallToMethodCallRector\\:\\:\\$methodCallsToMethodsCalls \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\MethodCallToMethodCall\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\MethodCallToMethodCall\\>\\|Rector\\\\Transform\\\\ValueObject\\\\MethodCallToMethodCall\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/MethodCall/MethodCallToMethodCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\MethodCall\\\\MethodCallToStaticCallRector\\:\\:\\$methodCallsToStaticCalls \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\MethodCallToStaticCall\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\MethodCallToStaticCall\\>\\|Rector\\\\Transform\\\\ValueObject\\\\MethodCallToStaticCall\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/MethodCall/MethodCallToStaticCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\MethodCall\\\\ReplaceParentCallByPropertyCallRector\\:\\:\\$parentCallToProperties \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\ReplaceParentCallByPropertyCall\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\ReplaceParentCallByPropertyCall\\>\\|Rector\\\\Transform\\\\ValueObject\\\\ReplaceParentCallByPropertyCall\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/MethodCall/ReplaceParentCallByPropertyCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\MethodCall\\\\ServiceGetterToConstructorInjectionRector\\:\\:\\$methodCallToServices \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\ServiceGetterToConstructorInjection\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\ServiceGetterToConstructorInjection\\>\\|Rector\\\\Transform\\\\ValueObject\\\\ServiceGetterToConstructorInjection\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/MethodCall/ServiceGetterToConstructorInjectionRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\New_\\\\NewArgToMethodCallRector\\:\\:\\$newArgsToMethodCalls \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\NewArgToMethodCall\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\NewArgToMethodCall\\>\\|Rector\\\\Transform\\\\ValueObject\\\\NewArgToMethodCall\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/New_/NewArgToMethodCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\New_\\\\NewToMethodCallRector\\:\\:\\$newsToMethodCalls \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\NewToMethodCall\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\NewToMethodCall\\>\\|Rector\\\\Transform\\\\ValueObject\\\\NewToMethodCall\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/New_/NewToMethodCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\New_\\\\NewToStaticCallRector\\:\\:\\$typeToStaticCalls \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\NewToStaticCall\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\NewToStaticCall\\>\\|Rector\\\\Transform\\\\ValueObject\\\\NewToStaticCall\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/New_/NewToStaticCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\StaticCall\\\\StaticCallToFuncCallRector\\:\\:\\$staticCallsToFunctions \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\StaticCallToFuncCall\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\StaticCallToFuncCall\\>\\|Rector\\\\Transform\\\\ValueObject\\\\StaticCallToFuncCall\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/StaticCall/StaticCallToFuncCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\StaticCall\\\\StaticCallToMethodCallRector\\:\\:\\$staticCallsToMethodCalls \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\StaticCallToMethodCall\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\StaticCallToMethodCall\\>\\|Rector\\\\Transform\\\\ValueObject\\\\StaticCallToMethodCall\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/StaticCall/StaticCallToMethodCallRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\StaticCall\\\\StaticCallToNewRector\\:\\:\\$staticCallsToNews \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\StaticCallToNew\\>\\) does not accept iterable\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\StaticCallToNew\\>\\|Rector\\\\Transform\\\\ValueObject\\\\StaticCallToNew\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/StaticCall/StaticCallToNewRector.php
+
+		-
+			message: "#^Property Rector\\\\Transform\\\\Rector\\\\String_\\\\StringToClassConstantRector\\:\\:\\$stringsToClassConstants \\(array\\<Rector\\\\Transform\\\\ValueObject\\\\StringToClassConstant\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Transform\\\\ValueObject\\\\StringToClassConstant\\>\\|Rector\\\\Transform\\\\ValueObject\\\\StringToClassConstant\\>\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/String_/StringToClassConstantRector.php
+
+		-
+			message: "#^Property Rector\\\\TypeDeclaration\\\\Rector\\\\ClassMethod\\\\AddParamTypeDeclarationRector\\:\\:\\$addParamTypeDeclarations \\(array\\<Rector\\\\TypeDeclaration\\\\ValueObject\\\\AddParamTypeDeclaration\\>\\) does not accept array\\<class\\-string\\<Rector\\\\TypeDeclaration\\\\ValueObject\\\\AddParamTypeDeclaration\\>\\|Rector\\\\TypeDeclaration\\\\ValueObject\\\\AddParamTypeDeclaration\\>\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/ClassMethod/AddParamTypeDeclarationRector.php
+
+		-
+			message: "#^Property Rector\\\\TypeDeclaration\\\\Rector\\\\ClassMethod\\\\AddReturnTypeDeclarationRector\\:\\:\\$methodReturnTypes \\(array\\<Rector\\\\TypeDeclaration\\\\ValueObject\\\\AddReturnTypeDeclaration\\>\\) does not accept array\\<class\\-string\\<Rector\\\\TypeDeclaration\\\\ValueObject\\\\AddReturnTypeDeclaration\\>\\|Rector\\\\TypeDeclaration\\\\ValueObject\\\\AddReturnTypeDeclaration\\>\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/ClassMethod/AddReturnTypeDeclarationRector.php
+
+		-
+			message: "#^Property Rector\\\\TypeDeclaration\\\\Rector\\\\Property\\\\AddPropertyTypeDeclarationRector\\:\\:\\$addPropertyTypeDeclarations \\(array\\<Rector\\\\TypeDeclaration\\\\ValueObject\\\\AddPropertyTypeDeclaration\\>\\) does not accept array\\<class\\-string\\<Rector\\\\TypeDeclaration\\\\ValueObject\\\\AddPropertyTypeDeclaration\\>\\|Rector\\\\TypeDeclaration\\\\ValueObject\\\\AddPropertyTypeDeclaration\\>\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/Property/AddPropertyTypeDeclarationRector.php
+
+		-
+			message: "#^Property Rector\\\\Visibility\\\\Rector\\\\ClassConst\\\\ChangeConstantVisibilityRector\\:\\:\\$classConstantVisibilityChanges \\(array\\<Rector\\\\Visibility\\\\ValueObject\\\\ChangeConstantVisibility\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Visibility\\\\ValueObject\\\\ChangeConstantVisibility\\>\\|Rector\\\\Visibility\\\\ValueObject\\\\ChangeConstantVisibility\\>\\.$#"
+			count: 1
+			path: repo/rules/Visibility/Rector/ClassConst/ChangeConstantVisibilityRector.php
+
+		-
+			message: "#^Property Rector\\\\Visibility\\\\Rector\\\\ClassMethod\\\\ChangeMethodVisibilityRector\\:\\:\\$methodVisibilities \\(array\\<Rector\\\\Visibility\\\\ValueObject\\\\ChangeMethodVisibility\\>\\) does not accept array\\<class\\-string\\<Rector\\\\Visibility\\\\ValueObject\\\\ChangeMethodVisibility\\>\\|Rector\\\\Visibility\\\\ValueObject\\\\ChangeMethodVisibility\\>\\.$#"
+			count: 1
+			path: repo/rules/Visibility/Rector/ClassMethod/ChangeMethodVisibilityRector.php
 
 		-
 			message: "#^Method Rector\\\\Core\\\\PhpParser\\\\Node\\\\BetterNodeFinder\\:\\:findParentType\\(\\) should return \\(T of PhpParser\\\\Node\\)\\|null but returns class\\-string\\<T of PhpParser\\\\Node\\>\\|T of PhpParser\\\\Node\\.$#"
