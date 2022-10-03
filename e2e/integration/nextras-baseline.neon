@@ -1,9 +1,99 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Property Nextras\\\\Orm\\\\Collection\\\\DbalCollection\\<E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\:\\:\\$result \\(array\\<int, E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\|null\\) does not accept array\\<int, Nextras\\\\Orm\\\\Entity\\\\IEntity\\|null\\>\\.$#"
+			message: "#^Method Nextras\\\\Orm\\\\Collection\\\\ArrayCollection\\:\\:fetchAll\\(\\) should return list\\<E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\> but returns array\\<int, E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\.$#"
+			count: 1
+			path: repo/src/Collection/ArrayCollection.php
+
+		-
+			message: "#^Parameter \\#1 \\$expr of method Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\ArrayCollectionHelper\\:\\:createFilter\\(\\) expects array\\<int\\<0, max\\>\\|string, mixed\\>, array\\<int\\|string, mixed\\> given\\.$#"
+			count: 1
+			path: repo/src/Collection/ArrayCollection.php
+
+		-
+			message: "#^Method Nextras\\\\Orm\\\\Collection\\\\DbalCollection\\:\\:fetchAll\\(\\) should return list\\<E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\> but returns array\\<int, E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\.$#"
 			count: 1
 			path: repo/src/Collection/DbalCollection.php
+
+		-
+			message: "#^Property Nextras\\\\Orm\\\\Collection\\\\DbalCollection\\<E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\:\\:\\$result \\(list\\<E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\|null\\) does not accept non\\-empty\\-list\\<Nextras\\\\Orm\\\\Entity\\\\IEntity\\|null\\>\\.$#"
+			count: 1
+			path: repo/src/Collection/DbalCollection.php
+
+		-
+			message: "#^Parameter \\#2 \\.\\.\\.\\$args of method Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\DbalExpressionResult\\:\\:append\\(\\) expects list\\<mixed\\>, mixed given\\.$#"
+			count: 1
+			path: repo/src/Collection/Functions/CompareEqualsFunction.php
+
+		-
+			message: "#^Parameter \\#2 \\.\\.\\.\\$args of method Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\DbalExpressionResult\\:\\:append\\(\\) expects list\\<mixed\\>, non\\-empty\\-array given\\.$#"
+			count: 1
+			path: repo/src/Collection/Functions/CompareEqualsFunction.php
+
+		-
+			message: "#^Parameter \\#2 \\.\\.\\.\\$args of method Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\DbalExpressionResult\\:\\:append\\(\\) expects list\\<mixed\\>, mixed given\\.$#"
+			count: 1
+			path: repo/src/Collection/Functions/CompareNotEqualsFunction.php
+
+		-
+			message: "#^Parameter \\#2 \\.\\.\\.\\$args of method Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\DbalExpressionResult\\:\\:append\\(\\) expects list\\<mixed\\>, non\\-empty\\-array given\\.$#"
+			count: 1
+			path: repo/src/Collection/Functions/CompareNotEqualsFunction.php
+
+		-
+			message: "#^Parameter \\#1 \\$args of method Nextras\\\\Orm\\\\Collection\\\\Functions\\\\ConjunctionOperatorFunction\\:\\:normalizeFunctions\\(\\) expects array\\<int\\<0, max\\>\\|string, mixed\\>, array\\<int\\|string, mixed\\> given\\.$#"
+			count: 2
+			path: repo/src/Collection/Functions/ConjunctionOperatorFunction.php
+
+		-
+			message: "#^Parameter \\#1 \\$args of method Nextras\\\\Orm\\\\Collection\\\\Functions\\\\DisjunctionOperatorFunction\\:\\:normalizeFunctions\\(\\) expects array\\<int\\<0, max\\>\\|string, mixed\\>, array\\<int\\|string, mixed\\> given\\.$#"
+			count: 2
+			path: repo/src/Collection/Functions/DisjunctionOperatorFunction.php
+
+		-
+			message: "#^Method Nextras\\\\Orm\\\\Collection\\\\HasManyCollection\\:\\:fetchAll\\(\\) should return list\\<E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\> but returns array\\<E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\.$#"
+			count: 1
+			path: repo/src/Collection/HasManyCollection.php
+
+		-
+			message: "#^Parameter \\#2 \\$args of class Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\DbalExpressionResult constructor expects list\\<mixed\\>, array given\\.$#"
+			count: 1
+			path: repo/src/Collection/Helpers/DbalExpressionResult.php
+
+		-
+			message: "#^Method Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\DbalQueryBuilderHelper\\:\\:processOrderDirection\\(\\) should return array\\{string, list\\<mixed\\>\\} but returns array\\{'%%ex ASC NULLS FIRST', array\\}\\.$#"
+			count: 1
+			path: repo/src/Collection/Helpers/DbalQueryBuilderHelper.php
+
+		-
+			message: "#^Method Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\DbalQueryBuilderHelper\\:\\:processOrderDirection\\(\\) should return array\\{string, list\\<mixed\\>\\} but returns array\\{'%%ex ASC', array\\}\\.$#"
+			count: 3
+			path: repo/src/Collection/Helpers/DbalQueryBuilderHelper.php
+
+		-
+			message: "#^Method Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\DbalQueryBuilderHelper\\:\\:processOrderDirection\\(\\) should return array\\{string, list\\<mixed\\>\\} but returns array\\{'%%ex DESC NULLS LAST', array\\}\\.$#"
+			count: 1
+			path: repo/src/Collection/Helpers/DbalQueryBuilderHelper.php
+
+		-
+			message: "#^Method Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\DbalQueryBuilderHelper\\:\\:processOrderDirection\\(\\) should return array\\{string, list\\<mixed\\>\\} but returns array\\{'%%ex DESC', array\\}\\.$#"
+			count: 3
+			path: repo/src/Collection/Helpers/DbalQueryBuilderHelper.php
+
+		-
+			message: "#^Method Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\DbalQueryBuilderHelper\\:\\:processOrderDirection\\(\\) should return array\\{string, list\\<mixed\\>\\} but returns array\\{'%%ex IS NOT NULL, …', array, array\\}\\.$#"
+			count: 1
+			path: repo/src/Collection/Helpers/DbalQueryBuilderHelper.php
+
+		-
+			message: "#^Method Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\DbalQueryBuilderHelper\\:\\:processOrderDirection\\(\\) should return array\\{string, list\\<mixed\\>\\} but returns array\\{'%%ex IS NULL, %%ex ASC', array, array\\}\\.$#"
+			count: 1
+			path: repo/src/Collection/Helpers/DbalQueryBuilderHelper.php
+
+		-
+			message: "#^Method Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\DbalQueryBuilderHelper\\:\\:processOrderDirection\\(\\) should return array\\{string, list\\<mixed\\>\\} but returns array\\{'CASE WHEN %%ex IS…', array, array\\}\\.$#"
+			count: 2
+			path: repo/src/Collection/Helpers/DbalQueryBuilderHelper.php
 
 		-
 			message: """
@@ -24,9 +114,29 @@ parameters:
 			path: repo/src/Model/Model.php
 
 		-
+			message: "#^Method Nextras\\\\Orm\\\\Relationships\\\\ManyHasMany\\:\\:getEntitiesForPersistence\\(\\) should return list\\<Nextras\\\\Orm\\\\Entity\\\\IEntity\\> but returns array\\<Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\.$#"
+			count: 1
+			path: repo/src/Relationships/ManyHasMany.php
+
+		-
+			message: "#^Method Nextras\\\\Orm\\\\Relationships\\\\OneHasMany\\:\\:getEntitiesForPersistence\\(\\) should return list\\<Nextras\\\\Orm\\\\Entity\\\\IEntity\\> but returns array\\<Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\.$#"
+			count: 1
+			path: repo/src/Relationships/OneHasMany.php
+
+		-
+			message: "#^Parameter \\#1 \\$ids of method Nextras\\\\Orm\\\\Repository\\\\Repository\\<E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\:\\:findByIds\\(\\) expects list\\<mixed\\>, array given\\.$#"
+			count: 1
+			path: repo/src/Repository/Repository.php
+
+		-
 			message: "#^Loose comparison using \\!\\= between 1 and 1 will always evaluate to false\\.$#"
 			count: 2
 			path: repo/tests/cases/integration/Relationships/entity.relationships.phpt
+
+		-
+			message: "#^Parameter \\#1 \\$entities of class Nextras\\\\Orm\\\\Collection\\\\ArrayCollection constructor expects list\\<NextrasTests\\\\Orm\\\\Author\\>, array\\{1\\: NextrasTests\\\\Orm\\\\Author\\} given\\.$#"
+			count: 1
+			path: repo/tests/cases/unit/Collection/ArrayCollectionTest.phpt
 
 		-
 			message: "#^Method NextrasTests\\\\Orm\\\\Mapper\\\\Dbal\\\\DbalValueOperatorFunctionTest\\:\\:operatorTestProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
