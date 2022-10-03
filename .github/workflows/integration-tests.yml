@@ -160,11 +160,16 @@ jobs:
               ../../../phpstan.phar analyse -c ../doctrine-orm.neon
           - php-version: 8.1
             script: |
-              git clone https://github.com/doctrine/collections.git e2e/integration/repo
+              git clone https://github.com/doctrine/collections.git -b 1.8.0 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 5d08702084fed4ed71e74ec04a736071c581471c
               composer install
-              ../../../phpstan.phar
+              ../../../phpstan.phar analyse -c ../doctrine-collections.neon
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/doctrine/collections.git -b 2.0.1 --depth 1 e2e/integration/repo
+              cd e2e/integration/repo
+              composer install
+              ../../../phpstan.phar analyse -c ../doctrine-collections.neon
           - php-version: 8.1
             script: |
               git clone https://github.com/doctrine/dbal.git -b 3.4.3 --depth 1 e2e/integration/repo
