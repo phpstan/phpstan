@@ -46,6 +46,16 @@ parameters:
 			path: repo/src/pocketmine/block/Liquid.php
 
 		-
+			message: "#^Cannot call method getDescription\\(\\) on array\\<pocketmine\\\\command\\\\Command\\>\\|pocketmine\\\\command\\\\Command\\.$#"
+			count: 1
+			path: repo/src/pocketmine/command/defaults/HelpCommand.php
+
+		-
+			message: "#^Cannot call method getName\\(\\) on array\\<pocketmine\\\\command\\\\Command\\>\\|pocketmine\\\\command\\\\Command\\.$#"
+			count: 1
+			path: repo/src/pocketmine/command/defaults/HelpCommand.php
+
+		-
 			message: "#^Parameter \\#2 \\$length of function array_chunk expects int\\<1, max\\>, int given\\.$#"
 			count: 1
 			path: repo/src/pocketmine/command/defaults/HelpCommand.php
