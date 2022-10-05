@@ -1,9 +1,19 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Method Doctrine\\\\ORM\\\\Mapping\\\\ClassMetadataInfo\\:\\:fullyQualifiedClassName\\(\\) should return class\\-string\\|null but returns string\\|null\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/ClassMetadataInfo.php
+
+		-
 			message: "#^Conditional return type uses subject type TMaybeContained which is not part of PHPDoc @template tags\\.$#"
 			count: 1
 			path: repo/lib/Doctrine/ORM/PersistentCollection.php
+
+		-
+			message: "#^Parameter \\#1 \\$parameters of method Doctrine\\\\ORM\\\\AbstractQuery\\:\\:iterate\\(\\) expects \\(Doctrine\\\\Common\\\\Collections\\\\ArrayCollection&iterable\\)\\|null, array\\<string, mixed\\>\\|Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<int, Doctrine\\\\ORM\\\\Query\\\\Parameter\\>\\|null given\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query.php
 
 		-
 			message: "#^Offset class\\-string on non\\-empty\\-array\\<class\\-string, array\\<string, mixed\\>\\> in isset\\(\\) always exists and is not nullable\\.$#"
