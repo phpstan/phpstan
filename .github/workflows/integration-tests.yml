@@ -138,6 +138,7 @@ jobs:
               git checkout a2567963b61ee35dedf87aac95136ac4944e86fa
               composer install
               ../../../phpstan.phar analyse -c ../larastan.neon
+              composer run-script test:unit
           - php-version: 7.4
             script: |
               git clone https://github.com/bitExpert/phpstan-magento.git e2e/integration/repo
