@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Only booleans are allowed in a negated boolean, array\\<int\\|string, mixed\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/DiagnoseCommand.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, array\\<int\\|string, string\\|true\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/DiagnoseCommand.php
+
+		-
 			message: "#^Parameter \\#5 \\$suggestedValues of class Composer\\\\Console\\\\Input\\\\InputArgument constructor expects array\\<string\\>\\|\\(Closure\\(Symfony\\\\Component\\\\Console\\\\Completion\\\\CompletionInput, Symfony\\\\Component\\\\Console\\\\Completion\\\\CompletionSuggestions\\)\\: list\\<string\\|Symfony\\\\Component\\\\Console\\\\Completion\\\\Suggestion\\>\\), Closure\\(\\)\\: array\\<string\\> given\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/ExecCommand.php
