@@ -135,7 +135,7 @@ jobs:
             script: |
               git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout f72a8b1dfaa2eeaf746a93b3257591090c668794
+              git checkout a2567963b61ee35dedf87aac95136ac4944e86fa
               composer install
               ../../../phpstan.phar analyse -c ../larastan.neon
           - php-version: 7.4
