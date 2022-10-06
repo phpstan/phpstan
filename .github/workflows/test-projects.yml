@@ -21,6 +21,7 @@ jobs:
       matrix:
         repository:
           - "ondrejmirtes/lorem"
+          - "ondrejmirtes/ipsum"
 
     steps:
       - uses: peter-evans/repository-dispatch@v2
