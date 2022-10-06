@@ -20,8 +20,8 @@ jobs:
     strategy:
       matrix:
         repository:
-          - "ondrejmirtes/lorem"
-          - "ondrejmirtes/ipsum"
+          - "phpstan/lorem"
+          - "phpstan/ipsum"
 
     steps:
       - uses: peter-evans/repository-dispatch@v2
