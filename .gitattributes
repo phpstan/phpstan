@@ -7,5 +7,4 @@
 /issue-bot export-ignore
 /playground-api export-ignore
 /playground-runner export-ignore
-/website export-ignore
-website/* linguist-vendored
+/website export-ignore linguist-vendored
