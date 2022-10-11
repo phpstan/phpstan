@@ -57,6 +57,20 @@ if ($exception instanceof \InvalidArgumentException) {
 
 The `instanceof` operator can either be used in conditions, or in an `assert()` call.
 
+
+PHPDoc Types
+----------------------
+
+The best way to enforce more specific types throughout your codebase is to [use them in PHPDocs](/writing-php-code/phpdoc-types) and have them checked by PHPStan.
+
+For example: If you call a function from your code that requires a `non-empty-string`:
+
+> `Parameter #1 $contents of function doFoo() expects non-empty-string, string given.`
+
+You can eliminate the empty string `''` before proceeding further with a call like `assert($s !== '')`, but that still allows your function to be called with `''` and crash after the fact.
+
+If you also annotate your function with `@param non-empty-string $s`, this spreads the type throughout your whole codebase, making it overall safer.
+
 Custom type-checking functions and methods
 ----------------------
 
