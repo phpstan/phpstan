@@ -63,7 +63,6 @@ jobs:
           - "phpdoc-parser"
           - "phpstan-nette"
           - "phpstan-dibi"
-          - "phpstan-beberlei-assert"
         exclude:
           - extension-name: "phpstan-mockery"
             php-version: "7.2"
