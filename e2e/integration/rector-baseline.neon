@@ -136,6 +136,11 @@ parameters:
 			path: repo/rules/Php70/Rector/FuncCall/CallUserMethodRector.php
 
 		-
+			message: "#^Method PHPStan\\\\Analyser\\\\MutatingScope\\:\\:assignExpression\\(\\) invoked with 2 parameters, 3 required\\.$#"
+			count: 1
+			path: repo/rules/Php70/Rector/FuncCall/NonVariableToVariableOnFunctionCallRector.php
+
+		-
 			message: "#^Casting to int something that's already int\\<0, max\\>\\.$#"
 			count: 1
 			path: repo/rules/Php71/Rector/FuncCall/RemoveExtraParametersRector.php
