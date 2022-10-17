@@ -57,6 +57,30 @@ jobs:
               cp ../rector-composer.lock composer.lock
               composer install
               ../../../phpstan.phar analyse -c ../rector.neon
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout 71b1142ee41eceef21d9c3d3a1bf5bc4f67ad9d2
+              cp ../rector-composer.lock composer.lock
+              composer install
+              vendor/bin/paratest tests
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout 71b1142ee41eceef21d9c3d3a1bf5bc4f67ad9d2
+              cp ../rector-composer.lock composer.lock
+              composer install
+              vendor/bin/paratest rules-tests
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout 71b1142ee41eceef21d9c3d3a1bf5bc4f67ad9d2
+              cp ../rector-composer.lock composer.lock
+              composer install
+              vendor/bin/paratest packages-tests
           - php-version: 8.0
             script: |
               git clone https://github.com/sebastianbergmann/phpunit.git -b 9.5.12 --depth 1 e2e/integration/repo
