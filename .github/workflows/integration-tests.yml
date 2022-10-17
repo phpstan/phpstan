@@ -64,6 +64,9 @@ jobs:
               git checkout 71b1142ee41eceef21d9c3d3a1bf5bc4f67ad9d2
               cp ../rector-composer.lock composer.lock
               composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/paratest tests
           - php-version: 8.1
             script: |
@@ -72,6 +75,9 @@ jobs:
               git checkout 71b1142ee41eceef21d9c3d3a1bf5bc4f67ad9d2
               cp ../rector-composer.lock composer.lock
               composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/paratest rules-tests
           - php-version: 8.1
             script: |
@@ -80,6 +86,9 @@ jobs:
               git checkout 71b1142ee41eceef21d9c3d3a1bf5bc4f67ad9d2
               cp ../rector-composer.lock composer.lock
               composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/paratest packages-tests
           - php-version: 8.0
             script: |
