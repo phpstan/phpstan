@@ -188,6 +188,9 @@ jobs:
               git clone https://github.com/shipmonk-rnd/phpstan-rules.git -b 1.1.1 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
               composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               ../../../phpstan.phar && vendor/bin/phpunit tests
           #- php-version: 8.1
           #  script: |
