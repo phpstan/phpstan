@@ -160,7 +160,7 @@ jobs:
             script: |
               git clone https://github.com/symplify/symplify.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 1bc2ca86613da4d86198d3ca33a2d76805daf568
+              git checkout 92e9b42fba42e75acf5ab89a4dd690340632e352
               cp ../symplify-composer.lock composer.lock
               composer install
               ../../../phpstan analyse -c ../symplify.neon
