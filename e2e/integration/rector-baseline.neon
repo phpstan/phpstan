@@ -61,7 +61,12 @@ parameters:
 			path: repo/packages/StaticTypeMapper/ValueObject/Type/SimpleStaticType.php
 
 		-
-			message: "#^Method PHPStan\\\\Analyser\\\\MutatingScope\\:\\:assignExpression\\(\\) invoked with 2 parameters, 3 required\\.$#"
+			message: "#^Casting to string something that's already string\\.$#"
 			count: 2
-			path: repo/rules/Php70/Rector/FuncCall/NonVariableToVariableOnFunctionCallRector.php
+			path: repo/src/Application/VersionResolver.php
+
+		-
+			message: "#^Parameter \\#2 \\$variants of class PHPStan\\\\Reflection\\\\Native\\\\NativeFunctionReflection constructor expects array\\<PHPStan\\\\Reflection\\\\ParametersAcceptorWithPhpDocs\\>, array\\<PHPStan\\\\Reflection\\\\ParametersAcceptor\\> given\\.$#"
+			count: 1
+			path: repo/src/PHPStan/Reflection/TypeToCallReflectionResolver/ClosureTypeToCallReflectionResolver.php
 
