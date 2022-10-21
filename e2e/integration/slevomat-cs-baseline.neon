@@ -10,3 +10,8 @@ parameters:
 			count: 1
 			path: repo/SlevomatCodingStandard/Helpers/AnnotationTypeHelper.php
 
+		-
+			message: "#^Strict comparison using \\!\\=\\= between array\\<string\\> and null will always evaluate to true\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/TypeHelper.php
+
