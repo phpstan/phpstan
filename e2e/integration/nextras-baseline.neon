@@ -56,6 +56,11 @@ parameters:
 			path: repo/src/Collection/HasManyCollection.php
 
 		-
+			message: "#^Parameter \\#2 \\$string of function explode expects string, string\\|null given\\.$#"
+			count: 1
+			path: repo/src/Collection/Helpers/ConditionParser.php
+
+		-
 			message: "#^Parameter \\#2 \\$args of class Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\DbalExpressionResult constructor expects list\\<mixed\\>, array given\\.$#"
 			count: 1
 			path: repo/src/Collection/Helpers/DbalExpressionResult.php
@@ -131,6 +136,11 @@ parameters:
 		-
 			message: "#^Loose comparison using \\!\\= between 1 and 1 will always evaluate to false\\.$#"
 			count: 2
+			path: repo/tests/cases/integration/Relationships/entity.relationships.phpt
+
+		-
+			message: "#^Parameter \\#1 \\$array of function sort contains unresolvable type\\.$#"
+			count: 1
 			path: repo/tests/cases/integration/Relationships/entity.relationships.phpt
 
 		-
