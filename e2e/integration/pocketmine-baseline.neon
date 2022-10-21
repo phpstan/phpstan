@@ -106,6 +106,11 @@ parameters:
 			path: repo/src/pocketmine/utils/Internet.php
 
 		-
+			message: "#^Binary operation \"\\-\" between string and string results in an error\\.$#"
+			count: 1
+			path: repo/src/pocketmine/utils/Utils.php
+
+		-
 			message: "#^Comparison operation \"\\<\" between int\\<\\-2147483648, 133143986400\\> and \\-2147483648 is always false\\.$#"
 			count: 1
 			path: repo/src/pocketmine/utils/Utils.php
