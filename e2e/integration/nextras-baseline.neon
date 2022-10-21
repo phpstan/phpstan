@@ -101,6 +101,11 @@ parameters:
 			path: repo/src/Collection/Helpers/DbalQueryBuilderHelper.php
 
 		-
+			message: "#^Casting to string something that's already string\\.$#"
+			count: 1
+			path: repo/src/Entity/Reflection/MetadataParser.php
+
+		-
 			message: """
 				#^Call to deprecated method getNameFqn\\(\\) of class Nextras\\\\Dbal\\\\Platforms\\\\Data\\\\Table\\:
 				Use getUnescapedFqn\\(\\)$#
