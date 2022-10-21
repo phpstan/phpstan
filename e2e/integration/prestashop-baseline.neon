@@ -21,29 +21,14 @@ parameters:
 			path: repo/classes/Link.php
 
 		-
-			message: "#^Parameter \\$translator of method CheckoutAddressesStepCore\\:\\:__construct\\(\\) has invalid type TranslatorInterface\\.$#"
+			message: "#^Strict comparison using \\=\\=\\= between null and mixed will always evaluate to false\\.$#"
 			count: 1
-			path: repo/classes/checkout/CheckoutAddressesStep.php
+			path: repo/classes/controller/FrontController.php
 
 		-
-			message: "#^Parameter \\$translator of method CheckoutPaymentStepCore\\:\\:__construct\\(\\) has invalid type TranslatorInterface\\.$#"
+			message: "#^Offset 0 does not exist on non\\-empty\\-array\\<mixed, string\\>\\.$#"
 			count: 1
-			path: repo/classes/checkout/CheckoutPaymentStep.php
-
-		-
-			message: "#^Parameter \\$translator of method CheckoutPersonalInformationStepCore\\:\\:__construct\\(\\) has invalid type TranslatorInterface\\.$#"
-			count: 1
-			path: repo/classes/checkout/CheckoutPersonalInformationStep.php
-
-		-
-			message: "#^Method HelperUploaderCore\\:\\:setName\\(\\) has invalid return type self\\.$#"
-			count: 1
-			path: repo/classes/helper/HelperUploader.php
-
-		-
-			message: "#^Method HelperUploaderCore\\:\\:setName\\(\\) should return self but returns \\$this\\(HelperUploaderCore\\)\\.$#"
-			count: 1
-			path: repo/classes/helper/HelperUploader.php
+			path: repo/classes/webservice/SQLUtils.php
 
 		-
 			message: "#^Offset 'hidden_fields' on array in isset\\(\\) always exists and is not nullable\\.$#"
@@ -286,146 +271,6 @@ parameters:
 			path: repo/controllers/front/PdfOrderSlipController.php
 
 		-
-			message: "#^Method BestSalesControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) has invalid return type ProductSearchProviderInterface\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/BestSalesController.php
-
-		-
-			message: "#^Method BestSalesControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) should return ProductSearchProviderInterface but returns PrestaShop\\\\PrestaShop\\\\Adapter\\\\BestSales\\\\BestSalesProductSearchProvider\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/BestSalesController.php
-
-		-
-			message: "#^Method BestSalesControllerCore\\:\\:getProductSearchQuery\\(\\) has invalid return type ProductSearchQuery\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/BestSalesController.php
-
-		-
-			message: "#^Method BestSalesControllerCore\\:\\:getProductSearchQuery\\(\\) should return ProductSearchQuery but returns PrestaShop\\\\PrestaShop\\\\Core\\\\Product\\\\Search\\\\ProductSearchQuery\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/BestSalesController.php
-
-		-
-			message: "#^Method CategoryControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) has invalid return type ProductSearchProviderInterface\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/CategoryController.php
-
-		-
-			message: "#^Method CategoryControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) should return ProductSearchProviderInterface but returns PrestaShop\\\\PrestaShop\\\\Adapter\\\\Category\\\\CategoryProductSearchProvider\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/CategoryController.php
-
-		-
-			message: "#^Method CategoryControllerCore\\:\\:getProductSearchQuery\\(\\) has invalid return type ProductSearchQuery\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/CategoryController.php
-
-		-
-			message: "#^Method CategoryControllerCore\\:\\:getProductSearchQuery\\(\\) should return ProductSearchQuery but returns PrestaShop\\\\PrestaShop\\\\Core\\\\Product\\\\Search\\\\ProductSearchQuery\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/CategoryController.php
-
-		-
-			message: "#^Method ManufacturerControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) has invalid return type ProductSearchProviderInterface\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/ManufacturerController.php
-
-		-
-			message: "#^Method ManufacturerControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) should return ProductSearchProviderInterface but returns PrestaShop\\\\PrestaShop\\\\Adapter\\\\Manufacturer\\\\ManufacturerProductSearchProvider\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/ManufacturerController.php
-
-		-
-			message: "#^Method ManufacturerControllerCore\\:\\:getProductSearchQuery\\(\\) has invalid return type ProductSearchQuery\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/ManufacturerController.php
-
-		-
-			message: "#^Method ManufacturerControllerCore\\:\\:getProductSearchQuery\\(\\) should return ProductSearchQuery but returns PrestaShop\\\\PrestaShop\\\\Core\\\\Product\\\\Search\\\\ProductSearchQuery\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/ManufacturerController.php
-
-		-
-			message: "#^Method NewProductsControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) has invalid return type ProductSearchProviderInterface\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/NewProductsController.php
-
-		-
-			message: "#^Method NewProductsControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) should return ProductSearchProviderInterface but returns PrestaShop\\\\PrestaShop\\\\Adapter\\\\NewProducts\\\\NewProductsProductSearchProvider\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/NewProductsController.php
-
-		-
-			message: "#^Method NewProductsControllerCore\\:\\:getProductSearchQuery\\(\\) has invalid return type ProductSearchQuery\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/NewProductsController.php
-
-		-
-			message: "#^Method NewProductsControllerCore\\:\\:getProductSearchQuery\\(\\) should return ProductSearchQuery but returns PrestaShop\\\\PrestaShop\\\\Core\\\\Product\\\\Search\\\\ProductSearchQuery\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/NewProductsController.php
-
-		-
-			message: "#^Method PricesDropControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) has invalid return type ProductSearchProviderInterface\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/PricesDropController.php
-
-		-
-			message: "#^Method PricesDropControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) should return ProductSearchProviderInterface but returns PrestaShop\\\\PrestaShop\\\\Adapter\\\\PricesDrop\\\\PricesDropProductSearchProvider\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/PricesDropController.php
-
-		-
-			message: "#^Method PricesDropControllerCore\\:\\:getProductSearchQuery\\(\\) has invalid return type ProductSearchQuery\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/PricesDropController.php
-
-		-
-			message: "#^Method PricesDropControllerCore\\:\\:getProductSearchQuery\\(\\) should return ProductSearchQuery but returns PrestaShop\\\\PrestaShop\\\\Core\\\\Product\\\\Search\\\\ProductSearchQuery\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/PricesDropController.php
-
-		-
-			message: "#^Method SearchControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) has invalid return type ProductSearchProviderInterface\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/SearchController.php
-
-		-
-			message: "#^Method SearchControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) should return ProductSearchProviderInterface but returns PrestaShop\\\\PrestaShop\\\\Adapter\\\\Search\\\\SearchProductSearchProvider\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/SearchController.php
-
-		-
-			message: "#^Method SearchControllerCore\\:\\:getProductSearchQuery\\(\\) has invalid return type ProductSearchQuery\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/SearchController.php
-
-		-
-			message: "#^Method SearchControllerCore\\:\\:getProductSearchQuery\\(\\) should return ProductSearchQuery but returns PrestaShop\\\\PrestaShop\\\\Core\\\\Product\\\\Search\\\\ProductSearchQuery\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/SearchController.php
-
-		-
-			message: "#^Method SupplierControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) has invalid return type ProductSearchProviderInterface\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/SupplierController.php
-
-		-
-			message: "#^Method SupplierControllerCore\\:\\:getDefaultProductSearchProvider\\(\\) should return ProductSearchProviderInterface but returns PrestaShop\\\\PrestaShop\\\\Adapter\\\\Supplier\\\\SupplierProductSearchProvider\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/SupplierController.php
-
-		-
-			message: "#^Method SupplierControllerCore\\:\\:getProductSearchQuery\\(\\) has invalid return type ProductSearchQuery\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/SupplierController.php
-
-		-
-			message: "#^Method SupplierControllerCore\\:\\:getProductSearchQuery\\(\\) should return ProductSearchQuery but returns PrestaShop\\\\PrestaShop\\\\Core\\\\Product\\\\Search\\\\ProductSearchQuery\\.$#"
-			count: 1
-			path: repo/controllers/front/listing/SupplierController.php
-
-		-
 			message: "#^Offset 'seo' on array on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/src/Core/Form/IdentifiableObject/CommandBuilder/Product/SEOCommandsBuilder.php
@@ -474,3 +319,28 @@ parameters:
 			message: "#^Parameter \\#2 \\$haystack of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertCount\\(\\) expects Countable\\|iterable, null given\\.$#"
 			count: 33
 			path: repo/tests/Unit/Adapter/ContextStateManagerTest.php
+
+		-
+			message: "#^Access to an undefined property PrestaShop\\\\PrestaShop\\\\Core\\\\Localization\\\\CLDR\\\\CurrencyData\\:\\:\\$foo\\.$#"
+			count: 1
+			path: repo/tests/Unit/Core/Localization/CLDR/DataLayer/CurrencyCacheTest.php
+
+		-
+			message: "#^Access to an undefined property PrestaShop\\\\PrestaShop\\\\Core\\\\Localization\\\\CLDR\\\\LocaleData\\:\\:\\$foo\\.$#"
+			count: 1
+			path: repo/tests/Unit/Core/Localization/CLDR/DataLayer/LocaleCacheTest.php
+
+		-
+			message: "#^Access to an undefined property PrestaShop\\\\PrestaShop\\\\Core\\\\Localization\\\\CLDR\\\\LocaleData\\:\\:\\$foo\\.$#"
+			count: 1
+			path: repo/tests/Unit/Core/Localization/CLDR/DataLayer/LocaleReferenceTest.php
+
+		-
+			message: "#^Access to an undefined property PrestaShop\\\\PrestaShop\\\\Core\\\\Localization\\\\Currency\\\\CurrencyData\\:\\:\\$foo\\.$#"
+			count: 1
+			path: repo/tests/Unit/Core/Localization/DataLayer/CurrencyCacheTest.php
+
+		-
+			message: "#^Access to an undefined property PrestaShop\\\\PrestaShop\\\\Core\\\\Localization\\\\CLDR\\\\LocaleData\\:\\:\\$foo\\.$#"
+			count: 1
+			path: repo/tests/Unit/Core/Localization/LocaleCacheDataLayerTest.php
