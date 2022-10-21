@@ -1181,6 +1181,11 @@ parameters:
 			path: repo/src/Framework/Constraint/Operator/LogicalNot.php
 
 		-
+			message: "#^Parameter \\#2 \\$replacement of function preg_replace expects array\\|string, string\\|null given\\.$#"
+			count: 1
+			path: repo/src/Framework/Constraint/Operator/LogicalNot.php
+
+		-
 			message: "#^Method PHPUnit\\\\Framework\\\\Constraint\\\\Operator\\:\\:checkConstraint\\(\\) has parameter \\$constraint with no type specified\\.$#"
 			count: 1
 			path: repo/src/Framework/Constraint/Operator/Operator.php
@@ -1396,6 +1401,16 @@ parameters:
 			path: repo/src/Framework/MockObject/Generator.php
 
 		-
+			message: "#^Offset 0 does not exist on array\\{string, int\\}\\|null\\.$#"
+			count: 2
+			path: repo/src/Framework/MockObject/Generator.php
+
+		-
+			message: "#^Offset 1 does not exist on array\\{string, int\\}\\|null\\.$#"
+			count: 1
+			path: repo/src/Framework/MockObject/Generator.php
+
+		-
 			message: "#^Parameter \\#1 \\$array of function array_unique expects array, array\\|null given\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/Generator.php
@@ -1554,6 +1569,11 @@ parameters:
 			message: "#^Parameter \\#1 \\$callback of function call_user_func expects callable\\(\\)\\: mixed, array\\{class\\-string, '__phpunit…'\\} given\\.$#"
 			count: 1
 			path: repo/src/Framework/MockObject/MockClass.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function trim expects string, string\\|null given\\.$#"
+			count: 1
+			path: repo/src/Framework/MockObject/MockMethod.php
 
 		-
 			message: "#^Method PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:__phpunit_setOriginalObject\\(\\) has parameter \\$originalObject with no type specified\\.$#"
@@ -3046,6 +3066,11 @@ parameters:
 			path: repo/src/Util/Annotation/DocBlock.php
 
 		-
+			message: "#^Cannot assign new offset to array\\<int\\|string, PharIo\\\\Version\\\\VersionConstraint\\|string\\>\\|string\\.$#"
+			count: 1
+			path: repo/src/Util/Annotation/DocBlock.php
+
+		-
 			message: "#^Method PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:extractAnnotationsFromReflector\\(\\) has parameter \\$reflector with generic class ReflectionClass but does not specify its types\\: T$#"
 			count: 1
 			path: repo/src/Util/Annotation/DocBlock.php
@@ -3123,11 +3148,6 @@ parameters:
 		-
 			message: "#^Parameter \\#6 \\$fileName of class PHPUnit\\\\Util\\\\Annotation\\\\DocBlock constructor expects string, string\\|false given\\.$#"
 			count: 2
-			path: repo/src/Util/Annotation/DocBlock.php
-
-		-
-			message: "#^Property PHPUnit\\\\Util\\\\Annotation\\\\DocBlock\\:\\:\\$parsedRequirements \\(array\\<string, mixed\\>\\|null\\) does not accept array\\<int\\|string, mixed\\>\\.$#"
-			count: 1
 			path: repo/src/Util/Annotation/DocBlock.php
 
 		-
@@ -3344,6 +3364,11 @@ parameters:
 			message: "#^Parameter \\#2 \\$e of method PHPUnit\\\\Framework\\\\TestResult\\:\\:addWarning\\(\\) expects PHPUnit\\\\Framework\\\\Warning, PHPUnit\\\\Framework\\\\Exception given\\.$#"
 			count: 1
 			path: repo/src/Util/PHP/AbstractPhpProcess.php
+
+		-
+			message: "#^Comparison operation \"\\>\" between int\\<1, max\\> and 0 is always true\\.$#"
+			count: 1
+			path: repo/src/Util/PHP/DefaultPhpProcess.php
 
 		-
 			message: "#^Method PHPUnit\\\\Util\\\\PHP\\\\DefaultPhpProcess\\:\\:getHandles\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -5516,11 +5541,6 @@ parameters:
 			path: repo/tests/end-to-end/regression/Trac/783/ParentSuite.php
 
 		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertInstanceOf\\\\consume\\(\\) should return stdClass but returns object\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-instance-of.php
-
-		-
 			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsArray\\\\consume\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/tests/static-analysis/happy-path/assert-is-array.php
@@ -5549,11 +5569,6 @@ parameters:
 			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertIsNotNumeric\\\\consume\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/tests/static-analysis/happy-path/assert-is-not-numeric.php
-
-		-
-			message: "#^Function PHPUnit\\\\Framework\\\\StaticAnalysis\\\\HappyPath\\\\AssertSame\\\\consume\\(\\) should return stdClass but returns object\\.$#"
-			count: 1
-			path: repo/tests/static-analysis/happy-path/assert-same.php
 
 		-
 			message: "#^Method PHPUnit\\\\Framework\\\\FunctionsTest\\:\\:provideStaticAssertionMethodNames\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -5882,7 +5897,7 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method object\\:\\:arity\\(\\)\\.$#"
-			count: 1
+			count: 2
 			path: repo/tests/unit/Framework/Constraint/BinaryOperatorTestCase.php
 
 		-
@@ -6454,11 +6469,6 @@ parameters:
 			message: "#^Cannot call method getTestName\\(\\) on PHPUnit\\\\Framework\\\\TestFailure\\|null\\.$#"
 			count: 1
 			path: repo/tests/unit/Framework/SkippedTestCaseTest.php
-
-		-
-			message: "#^Call to an undefined method PHPUnit\\\\Framework\\\\Test\\:\\:getGroupDetails\\(\\)\\.$#"
-			count: 1
-			path: repo/tests/unit/Framework/TestBuilderTest.php
 
 		-
 			message: "#^Method PHPUnit\\\\Framework\\\\TestBuilderTest\\:\\:provideWithAnnotations\\(\\) return type has no value type specified in iterable type array\\.$#"
