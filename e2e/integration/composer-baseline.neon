@@ -1,12 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Only booleans are allowed in a negated boolean, array\\<int\\|string, mixed\\> given\\.$#"
-			count: 1
-			path: repo/src/Composer/Command/DiagnoseCommand.php
-
-		-
-			message: "#^Only booleans are allowed in a negated boolean, array\\<int\\|string, string\\|true\\> given\\.$#"
+			message: "#^Only booleans are allowed in a negated boolean, array\\<string, string\\|true\\> given\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/DiagnoseCommand.php
 
@@ -34,6 +29,21 @@ parameters:
 			message: "#^Only booleans are allowed in an if condition, array\\<string, array\\<int\\<0, max\\>\\|string, array\\<string\\>\\|string\\>\\> given\\.$#"
 			count: 2
 			path: repo/src/Composer/Command/ShowCommand.php
+
+		-
+			message: "#^Call to function is_numeric\\(\\) with int will always evaluate to true\\.$#"
+			count: 1
+			path: repo/src/Composer/Console/Application.php
+
+		-
+			message: "#^Casting to int something that's already int\\.$#"
+			count: 1
+			path: repo/src/Composer/Console/Application.php
+
+		-
+			message: "#^Else branch is unreachable because previous condition is always true\\.$#"
+			count: 1
+			path: repo/src/Composer/Console/Application.php
 
 		-
 			message: "#^Parameter \\#1 \\$values of method Symfony\\\\Component\\\\Console\\\\Completion\\\\CompletionSuggestions\\:\\:suggestValues\\(\\) expects list\\<string\\|Symfony\\\\Component\\\\Console\\\\Completion\\\\Suggestion\\>, non\\-empty\\-array\\<string\\|Symfony\\\\Component\\\\Console\\\\Completion\\\\Suggestion\\> given\\.$#"
@@ -97,7 +107,7 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$value of function curl_setopt expects non\\-empty\\-string, string given\\.$#"
-			count: 2
+			count: 1
 			path: repo/src/Composer/Util/Http/CurlDownloader.php
 
 		-
@@ -129,8 +139,3 @@ parameters:
 			message: "#^Property Composer\\\\Test\\\\Mock\\\\HttpDownloaderMock\\:\\:\\$expectations \\(array\\<array\\{url\\: string, options\\: array\\|null, status\\: int, body\\: string, headers\\: list\\<string\\>\\}\\>\\|null\\) does not accept array\\<array\\{url\\: string, options\\: array\\|null, status\\: int, body\\: string, headers\\: array\\<string\\>\\}\\>\\.$#"
 			count: 1
 			path: repo/tests/Composer/Test/Mock/HttpDownloaderMock.php
-
-		-
-			message: "#^Offset 'cmd' on array\\{cmd\\: list\\<string\\>\\|string, return\\?\\: int, stdout\\?\\: string, stderr\\?\\: string, callback\\?\\: callable\\(\\)\\: mixed\\} on left side of \\?\\? always exists and is not nullable\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/Mock/ProcessExecutorMock.php
