@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Binary operation \"\\.\" between non\\-falsy\\-string and list\\<string\\>\\|string\\|null results in an error\\.$#"
+			count: 1
+			path: repo/src/Composer/Autoload/AutoloadGenerator.php
+
+		-
 			message: "#^Only booleans are allowed in a negated boolean, array\\<string, string\\|true\\> given\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/DiagnoseCommand.php
