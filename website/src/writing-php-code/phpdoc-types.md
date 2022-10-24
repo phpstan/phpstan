@@ -64,6 +64,8 @@ Lists
 * `list<Type>`
 * `non-empty-list<Type>`
 
+Lists are arrays with sequential integer keys starting at 0.
+
 Key and value types of arrays and iterables
 -------------------------
 
