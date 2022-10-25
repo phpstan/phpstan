@@ -216,6 +216,26 @@ Generics
 
 PHPDoc tags `@template`, `@template-covariant`, `@extends`, and `@implements` are reserved for generics. [Learn more about generics »](/blog/generics-in-php-using-phpdocs), also check out [Generics By Examples »](/blog/generics-by-examples).
 
+Setting parameter type passed by reference
+---------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.9.0</div>
+
+PHPDoc tag `@param-out` can be used to set a parameter type passed by reference:
+
+```php
+/**
+ * @param-out int $i
+ */
+function foo(mixed &$i): void
+{
+    $i = 5;
+}
+
+foo($a);
+\PHPStan\dumpType($a); // int
+```
+
 Prefixed tags
 ---------------
 
