@@ -244,7 +244,6 @@ Change type of current object after calling a method
 PHPDoc tags `@phpstan-self-out` or `@phpstan-this-out` can be used to change the type of the current object after calling a method on it. This is useful for generic mutable objects.
 
 ```php
-
 /**
  * @template TValue
  */
