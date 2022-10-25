@@ -236,6 +236,43 @@ foo($a);
 \PHPStan\dumpType($a); // int
 ```
 
+Change type of current object after calling a method
+---------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.9.0</div>
+
+PHPDoc tags `@phpstan-self-out` or `@phpstan-this-out` can be used to change the type of the current object after calling a method on it. This is useful for generic mutable objects.
+
+```php
+
+/**
+ * @template TValue
+ */
+class Collection
+{
+	
+	// ...
+	
+	/**
+	 * @template TItemValue
+	 * @param TItemValue $item
+	 * @phpstan-self-out self<TValue|TItemValue>
+	 */
+	public function add($item): void
+	{
+		// ...
+	}
+	
+}
+
+/** @param Collection<int> $c */
+function foo(Collection $c, string $s): void
+{
+	$c->add($s);
+	\PHPStan\dumpType($c); // Collection<int|string>
+}
+```
+
 Prefixed tags
 ---------------
 
