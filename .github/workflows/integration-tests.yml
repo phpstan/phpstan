@@ -56,7 +56,7 @@ jobs:
               git checkout 71b1142ee41eceef21d9c3d3a1bf5bc4f67ad9d2
               cp ../rector-composer.lock composer.lock
               composer install
-              ../../../phpstan.phar analyse -c ../rector.neon -v
+              ../../../phpstan.phar analyse -c ../rector.neon
           - php-version: 8.1
             script: |
               git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
@@ -96,28 +96,28 @@ jobs:
               cd e2e/integration/repo
               export COMPOSER_ROOT_VERSION=9.5.12
               composer install
-              ../../../phpstan.phar analyse -l 8 -c ../phpunit.neon src tests -v
+              ../../../phpstan.phar analyse -l 8 -c ../phpunit.neon src tests
           - php-version: 8.0
             script: |
               git clone https://github.com/pmmp/PocketMine-MP.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout e0b07ff3087b652407439a29c941f3b66ca92c86
               composer install --ignore-platform-reqs
-              ../../../phpstan.phar analyse -c ../pocketmine.neon --memory-limit=2G -v
+              ../../../phpstan.phar analyse -c ../pocketmine.neon --memory-limit=2G
           - php-version: 8.0
             script: |
               git clone https://github.com/laravel/framework.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout ceadf6ea68c5ef316abfc618879f2cf9290e45b3
               composer install
-              ../../../phpstan.phar analyse -v
+              ../../../phpstan.phar analyse
           - php-version: 8.1
             script: |
               git clone https://github.com/Roave/BetterReflection.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout 50970c323d45c6b69d20eb620e03980374aac3dd
               composer install
-              ../../../phpstan.phar analyse -v
+              ../../../phpstan.phar
           - php-version: 8.1
             script: |
               git clone https://github.com/composer/composer.git e2e/integration/repo
@@ -126,36 +126,36 @@ jobs:
               composer install
               composer config platform --unset && composer update
               vendor/bin/simple-phpunit --filter NO_TEST_JUST_AUTOLOAD_THANKS
-              ../../../phpstan.phar analyse -c ../composer.neon -v
+              ../../../phpstan.phar analyse -c ../composer.neon
           - php-version: 8.1
             script: |
               git clone https://github.com/nextras/orm.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout 4edfc4957494ec272899a8916f3f245c59c86d05
               composer install
-              ../../../phpstan.phar analyse -c ../nextras.neon -v
+              ../../../phpstan.phar analyse -c ../nextras.neon
           - php-version: 8.1
             script: |
               git clone https://github.com/slevomat/coding-standard.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout 8c49f8e6e4e3661ee6e568a06676146475f73430
               composer install
-              ../../../phpstan.phar analyse -c ../slevomat-cs.neon -l 7 SlevomatCodingStandard -v
-              ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon -l 7 tests -v
+              ../../../phpstan.phar analyse -c ../slevomat-cs.neon -l 7 SlevomatCodingStandard
+              ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon -l 7 tests
           - php-version: 8.1
             script: |
               git clone https://github.com/ondrejmirtes/orocrm-phpstan-bugreport.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout 0d429b658a6e7baff863b6f23f5e6fa35c88d6e7
               composer install
-              ../../../phpstan analyse -v
+              ../../../phpstan
           - php-version: 8.1
             script: |
               git clone https://github.com/ondrejmirtes/phpstan-magento-testcase.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout f5d8c215569fe5dd22f7236795a353002c0ae58a
               composer install
-              ../../../phpstan analyse -c ../magento-testcase.neon -v
+              ../../../phpstan analyse -c ../magento-testcase.neon
           - php-version: 8.1
             script: |
               git clone https://github.com/symplify/symplify.git e2e/integration/repo
@@ -163,14 +163,14 @@ jobs:
               git checkout 92e9b42fba42e75acf5ab89a4dd690340632e352
               cp ../symplify-composer.lock composer.lock
               composer install
-              ../../../phpstan analyse -c ../symplify.neon -v
+              ../../../phpstan analyse -c ../symplify.neon
           - php-version: 8.1
             script: |
               git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout a2567963b61ee35dedf87aac95136ac4944e86fa
               composer install
-              ../../../phpstan.phar analyse -c ../larastan.neon -v
+              ../../../phpstan.phar analyse -c ../larastan.neon
               composer run-script test:unit
           - php-version: 7.4
             script: |
@@ -178,49 +178,49 @@ jobs:
               cd e2e/integration/repo
               git checkout f845cd4dbdc49d2e005ec2646176ddfcf7d55d38
               composer install
-              ../../../phpstan.phar analyse -c ../magento.neon -v
+              ../../../phpstan.phar analyse -c ../magento.neon
           - php-version: 8.1
             script: |
               git clone https://github.com/PrestaShop/PrestaShop.git -b 8.0.0-rc.1 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
               composer install
-              ../../../phpstan.phar analyse -c ../prestashop.neon -v
+              ../../../phpstan.phar analyse -c ../prestashop.neon
           - php-version: 8.1
             script: |
               git clone https://github.com/doctrine/orm.git -b 2.13.1 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
               composer install
-              ../../../phpstan.phar analyse -c ../doctrine-orm.neon -v
+              ../../../phpstan.phar analyse -c ../doctrine-orm.neon
           - php-version: 8.1
             script: |
               git clone https://github.com/doctrine/collections.git -b 1.8.0 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
               composer install
-              ../../../phpstan.phar analyse -c ../doctrine-collections.neon -v
+              ../../../phpstan.phar analyse -c ../doctrine-collections.neon
           - php-version: 8.1
             script: |
               git clone https://github.com/doctrine/collections.git -b 2.0.1 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
               composer install
-              ../../../phpstan.phar analyse -c ../doctrine-collections.neon -v
+              ../../../phpstan.phar analyse -c ../doctrine-collections.neon
           - php-version: 8.1
             script: |
               git clone https://github.com/doctrine/dbal.git -b 3.4.3 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
               composer install
-              ../../../phpstan.phar analyse -c ../doctrine-dbal.neon -v
+              ../../../phpstan.phar analyse -c ../doctrine-dbal.neon
           - php-version: 8.1
             script: |
               git clone https://github.com/doctrine/common.git -b 3.4.0 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
               composer install
-              ../../../phpstan.phar analyse -v
+              ../../../phpstan.phar
           - php-version: 8.1
             script: |
               git clone https://github.com/doctrine/persistence.git -b 3.0.3 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
               composer install
-              ../../../phpstan.phar analyse -c ../doctrine-persistence.neon -v
+              ../../../phpstan.phar analyse -c ../doctrine-persistence.neon
           - php-version: 8.1
             script: |
               git clone https://github.com/shipmonk-rnd/phpstan-rules.git -b 1.1.1 --depth 1 e2e/integration/repo
@@ -229,7 +229,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-              ../../../phpstan.phar analyse -v && vendor/bin/phpunit tests
+              ../../../phpstan.phar && vendor/bin/phpunit tests
           #- php-version: 8.1
           #  script: |
           #    git clone https://git.drupalcode.org/project/drupal.git -b 10.0.x --depth 1 e2e/integration/repo
