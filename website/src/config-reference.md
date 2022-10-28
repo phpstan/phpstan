@@ -463,7 +463,7 @@ When set to `true`, PHPStan is strict about values with an unspecified (implicit
 
 **default**: `false`
 
-PHPStan has defined some benevolent union types. Those unions are not checked by the `checkUnionTypes` option enabled on level 7:
+PHPStan defines some benevolent union types, such as `array-key`. Benevolent unions are ignored by the `checkUnionTypes` option enabled on level 7:
 
 ```php
 public function requireInt(int $value): void {}
@@ -482,7 +482,7 @@ public function test(int|string $value1, int|string $value2): int
 }
 ```
 
-If you want a stricter analysis with union types, you can enable this option:
+Enable stricter analysis of benevolent union types with the `checkBenevolentUnionTypes` option:
 
 ```yaml
 parameters:
