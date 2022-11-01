@@ -8,7 +8,7 @@ These extensions allow you to specify types of expressions based on certain type
 
 Most scenarios no longer require you to write an extension - only a PHPDoc to describe the behavior of your function.
 
-Check out [narrowing types](/writing-php-code/narrowing-types) to learn more.
+Check out [narrowing types](/writing-php-code/narrowing-types#custom-type-checking-functions-and-methods) to learn more.
 
 </div>
 
