@@ -129,6 +129,7 @@ public function isStdClass(mixed $arg): bool
 {
     return $arg instanceof \stdClass;
 }
+```
 
 These `@phpstan-assert` tags also seamlessly work with [generics](/blog/generics-in-php-using-phpdocs):
 
