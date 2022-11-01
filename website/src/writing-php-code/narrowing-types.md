@@ -87,7 +87,7 @@ public function foo(object $object): void
 
 public function checkType(object $object): void
 {
-    if (!$object instanceof \BarService) {
+    if (!$object instanceof BarService) {
         throw new WrongObjectTypeException();
     }
 }
@@ -95,8 +95,23 @@ public function checkType(object $object): void
 
 During the analysis of the `foo()` method, PHPStan doesn't understand that the type of `$object` was narrowed to `BarService` because it doesn't descend to called functions and symbols, it just reads their typehints and PHPDocs.
 
-Recommended ways of solving this problem are:
+PHPStan 1.9.0 and newer supports custom PHPDoc tags `@phpstan-assert`, `@phpstan-assert-if-true`, `@phpstan-assert-if-false` to tell the analyzer about what's going on inside the called function and how types are narrowed. Besides arguments, it also supports narrowing types of properties and returned values from other methods on the same object.
 
-1) Switching to inlined type check - having `instanceof` right in the `foo()` method.
-2) Switching to an assertion library like [webmozart/assert](https://github.com/webmozart/assert) or [beberlei/assert](https://github.com/beberlei/assert) and using it directly in the `foo()` method.
-3) Writing a custom [type-specifying extension](/developing-extensions/type-specifying-extensions) for the `checkType()` method.
+```php
+public function foo(object $object): void
+{
+    $this->checkType($object);
+    $object->doSomething(); // No error
+    \PHPStan\dumpType($object); // BarService
+}
+
+/** @phpstan-assert BarService $object */
+public function checkType(object $object): void
+{
+    if (!$object instanceof BarService) {
+        throw new WrongObjectTypeException();
+    }
+}
+```
+
+Instead of writing custom PHPDoc tags, you can also implement a custom [type-specifying extension](/developing-extensions/type-specifying-extensions).
