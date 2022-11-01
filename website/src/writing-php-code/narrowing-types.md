@@ -74,8 +74,6 @@ If you also annotate your function with `@param non-empty-string $s`, this sprea
 Custom type-checking functions and methods
 ----------------------
 
-Narrowing types can also be performed by assertion libraries like [webmozart/assert](https://github.com/webmozart/assert) and [beberlei/assert](https://github.com/beberlei/assert). You can install [PHPStan extensions](/user-guide/extension-library) for these libraries so that PHPStan can understand how these custom function calls narrow down types.
-
 Let's consider a custom type-checking function like this:
 
 ```php
@@ -163,3 +161,5 @@ Type-specifying extensions
 ----------------------
 
 Instead of writing custom PHPDoc tags, you can also implement a custom [type-specifying extension](/developing-extensions/type-specifying-extensions).
+
+Narrowing types can also be performed by assertion libraries like [webmozart/assert](https://github.com/webmozart/assert) and [beberlei/assert](https://github.com/beberlei/assert). You can install [PHPStan extensions](/user-guide/extension-library) for these libraries so that PHPStan can understand how these custom function calls narrow down types.
