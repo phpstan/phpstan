@@ -145,6 +145,20 @@ public function isObjectOfClass(string $class, object $object): bool
 }
 ```
 
+Type negation is also supported:
+
+```php
+/**
+ * @phpstan-assert !string $arg
+ */
+public function checkNotString(mixed $arg): void
+{
+    if (!is_string($arg)) {
+        throw new \Exception();
+    }
+}
+```
+
 Type-specifying extensions
 ----------------------
 
