@@ -114,4 +114,24 @@ public function checkType(object $object): void
 }
 ```
 
+If the called function doesn't throw an exception, but indicates the type via `bool` return type:
+
+```php
+public function foo(mixed $arg): void
+{
+    if ($this->isStdClass($arg)) {
+        \PHPStan\dumpType($arg); // stdClass
+    }
+}
+
+/** @phpstan-assert-if-true \stdClass $arg */
+public function isStdClass(mixed $arg): bool
+{
+    return $arg instanceof \stdClass;
+}
+```
+
+Type-specifying extensions
+----------------------
+
 Instead of writing custom PHPDoc tags, you can also implement a custom [type-specifying extension](/developing-extensions/type-specifying-extensions).
