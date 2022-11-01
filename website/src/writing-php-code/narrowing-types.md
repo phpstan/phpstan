@@ -157,6 +157,21 @@ public function checkNotString(mixed $arg): void
 }
 ```
 
+When an object has "hassers" and "getters", PHPStan can be informed about their relation:
+
+```php
+/** @phpstan-assert-if-true !null $this->getName() */
+public function hasName(): bool
+{
+    return $this->name !== null;
+}
+
+public function getName(): ?string
+{
+    return $this->name;
+}
+```
+
 Type-specifying extensions
 ----------------------
 
