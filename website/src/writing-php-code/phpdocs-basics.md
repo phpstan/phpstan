@@ -216,6 +216,13 @@ Generics
 
 PHPDoc tags `@template`, `@template-covariant`, `@extends`, and `@implements` are reserved for generics. [Learn more about generics »](/blog/generics-in-php-using-phpdocs), also check out [Generics By Examples »](/blog/generics-by-examples).
 
+Narrowing types after function call
+----------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.9.0</div>
+
+PHPDoc tags `@phpstan-assert`, `@phpstan-assert-if-true`, `@phpstan-assert-if-false` are used to inform PHPStan about type-narrowing happening inside called functions and methods. [Learn more »](/writing-php-code/narrowing-types#custom-type-checking-functions-and-methods)
+
 Setting parameter type passed by reference
 ---------------
 
