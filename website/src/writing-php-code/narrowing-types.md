@@ -129,6 +129,19 @@ public function isStdClass(mixed $arg): bool
 {
     return $arg instanceof \stdClass;
 }
+
+These `@phpstan-assert` tags also seamlessly work with [generics](/blog/generics-in-php-using-phpdocs):
+
+```php
+/**
+ * @template T of object
+ * @param class-string<T> $class
+ * @phpstan-assert-if-true T $object
+ */
+public function isObjectOfClass(string $class, object $object): bool
+{
+    return $object instanceof $class;
+}
 ```
 
 Type-specifying extensions
