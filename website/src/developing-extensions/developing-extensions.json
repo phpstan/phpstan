@@ -83,6 +83,10 @@
             "title": "Always-Used Class Constants",
             "link": "/developing-extensions/always-used-class-constants"
         },
+        {
+            "title": "Allowed Subtypes",
+            "link": "/developing-extensions/allowed-subtypes"
+        },
 		{
 			"title": "Testing",
 			"link": "/developing-extensions/testing"

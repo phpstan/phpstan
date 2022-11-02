@@ -66,3 +66,10 @@ Always-used class constants
 This extension allows you to mark private class constants as always-used even if the surrounding code doesn't look like that.
 
 [Learn more »](/developing-extensions/always-used-class-constants)
+
+Allowed subtypes
+-------------------
+
+PHP language doesn't have a concept of sealed classes - a way to restrict class hierarchies and provide more control over inheritance. So any interface or non-final class can have an infinite number of child classes. But PHPStan provides an extension type to tell the analyzer the complete list of allowed child classes.
+
+[Learn more »](/developing-extensions/allowed-subtypes)
