@@ -31,6 +31,9 @@ interface DynamicMethodThrowTypeExtension
 }
 ```
 
+An example
+----------------
+
 Let's say you have a method with an implementation that looks like this:
 
 ```php

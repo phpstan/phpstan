@@ -41,6 +41,9 @@ When you implement this extension, it has a couple of effects:
 * Smarter type inference when subtracting types from each other
 * Error reporting when a disallowed class implements the restricted interface/extends a restricted parent class
 
+An example
+----------------
+
 Let's say you have a class `Foo` and you want only `Bar` and `Baz` to be its child classes:
 
 ```php

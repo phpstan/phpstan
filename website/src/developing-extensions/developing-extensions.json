@@ -76,6 +76,10 @@
             "link": "/developing-extensions/type-specifying-extensions"
         },
         {
+            "title": "Custom PHPDoc Types",
+            "link": "/developing-extensions/custom-phpdoc-types"
+        },
+        {
             "title": "Always-Read and Written Properties",
             "link": "/developing-extensions/always-read-written-properties"
         },

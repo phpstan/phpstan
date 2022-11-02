@@ -53,6 +53,13 @@ These extensions allow you to specify types of expressions based on certain type
 
 [Learn more »](/developing-extensions/type-specifying-extensions)
 
+Custom PHPDoc Types
+-------------------
+
+PHPStan lets you override how it converts PHPDoc AST coming from its phpdoc-parser library into its typesystem representation. This can be used to introduce custom utility types.
+
+[Learn more »](/developing-extensions/custom-phpdoc-types)
+
 Always-read and written properties
 -------------------
 
