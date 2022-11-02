@@ -457,6 +457,38 @@ parameters:
 
 When set to `true`, PHPStan is strict about values with an unspecified (implicit `mixed`) type. It enables the same checks for values with no type specified that rule level 9 enables for explicitly specified `mixed` type values.
 
+### `checkBenevolentUnionTypes`
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.9.0</div>
+
+**default**: `false`
+
+PHPStan defines benevolent union types, such as `array-key`. Benevolent unions aren't checked strictly even at the highest level:
+
+```php
+public function requireInt(int $value): void {}
+public function requireString(string $value): void {}
+
+/**
+ * @param array-key  $value1 // array-key is a benevolent union (int|string)
+ * @param int|string $value2
+ */
+public function test($value1, int|string $value2): int
+{
+    $this->requireInt($value1);    // No error
+    $this->requireString($value1); // No error
+    $this->requireInt($value2);    // Error
+    $this->requireString($value2); // Error
+}
+```
+
+Enable stricter analysis of benevolent union types with the `checkBenevolentUnionTypes` option (needs level 7 or higher):
+
+```yaml
+parameters:
+    checkBenevolentUnionTypes: true
+```
+
 Exceptions
 ------------
 
