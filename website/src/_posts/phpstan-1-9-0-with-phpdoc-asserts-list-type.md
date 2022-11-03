@@ -201,17 +201,11 @@ It's all fine and dandy. Until one day when someone requests to take on multiple
 
 And that's where we are with the [type system](https://apiref.phpstan.org/1.9.x/PHPStan.Type.Type.html).
 
-When implementing custom extensions, or working in PHPStan internals, asking `$type instanceof *Type` has always been a source of tricky bugs. The documentation [talks about it](/developing-extensions/type-system#querying-a-specific-type), but I'll summarize it:
+PHP is a complex language. A type often stands in for a different type. A string can be a callable. A callable can be an array. Asking `$type instanceof StringType` doesn't cover all possible situations, because a lot of other Type implementations can be a string too.
 
-Asking about `$type instanceof ArrayType` will work in simple cases but falls apart quickly because quite often you're dealing with `IntersectionType` (that doesn't extend ArrayType, naturally) - if it's a `non-empty-array`, that's actually an [`IntersectionType`](https://apiref.phpstan.org/1.9.x/PhpParser.Node.IntersectionType.html) of [`ArrayType`](https://apiref.phpstan.org/1.9.x/PHPStan.Type.ArrayType.html) and [`NonEmptyArrayType`](https://apiref.phpstan.org/1.9.x/PHPStan.Type.Accessory.NonEmptyArrayType.html).
+So we changed the preferred way to ask "is this an array?" to `Type::isArray(): TrinaryLogic`. And "is this a string?" to `Type::isString(): TrinaryLogic`. Every step like that helps us to get rid of a lot of bugs.
 
-So we changed the preferred way to ask "is this an array?" to `Type::isArray(): TrinaryLogic`. Every step like that helps us to get rid of a lot of bugs.
-
-Doing `$type instanceof StringType` also isn't valid, because it can be an intersection type for `non-empty-string`. But also `callable` type might also be a string, so you probably want to handle that in your code too.
-
-Many places in PHPStan used to use methods on [`TypeUtils`](https://apiref.phpstan.org/1.9.x/PHPStan.Type.TypeUtils.html). Their job is extract the types we're interested in from the given `Type` object. And we work with these types to figure out things like "how big is this array?", or "what the result of calling `array_keys` is going to look like?". The problem with this approach is that it also enables and hides bugs. When we refactored that to specific methods on the `Type` interface, like `Type::getArraySize(): Type` and `Type::getKeysArray(): Type`, it enabled us to have conversations about each `Type` implementation, making problems much more apparent, and easier to fix.
-
-When we replace all `TypeUtils` methods and all instances of `$type instanceof *Type`, the [`Type` interface](https://apiref.phpstan.org/1.9.x/PHPStan.Type.Type.html) is going to have hundreds of methods. And I'm persuaded it's the correct solution to this problem 🤣
+When we replace all instances of `$type instanceof *Type`, the [`Type` interface](https://apiref.phpstan.org/1.9.x/PHPStan.Type.Type.html) is going to have hundreds of methods. And I'm persuaded it's the correct solution to this problem 🤣
 
 And once we deprecate and eradicate `$type instanceof *Type` from all 3rd party PHPStan extensions as well, we'll finally be able to decouple types from each other, which will allow us to do cool stuff, e.g. support all template type bounds automatically [^templateTypes], or make all types subtractable automatically [^subtractable] as well.
 
