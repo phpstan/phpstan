@@ -183,7 +183,7 @@ PHP language doesn't have a concept of sealed classes - a way to restrict class 
 
 This extension type can be used simply to hardcode a set of classes. But it can also be used [to read custom PHPDocs](/developing-extensions/reflection#retrieving-custom-phpdocs) or class attributes.
 
-I'm sure that Jiří Pudil himself will take advantage of it in [his custom package](https://github.com/jiripudil/phpstan-sealed-classes) that adds a `#[Sealed]` attribute!
+I'm sure that Jiří Pudil himself will take advantage of it in [his custom package](https://github.com/jiripudil/phpstan-sealed-classes) that adds a `#[Sealed]` attribute! *UPDATE: And he already did in 1.0.0!*
 
 Type refactoring has begun!
 --------------------
