@@ -1,6 +1,2 @@
 parameters:
-	ignoreErrors:
-		-
-			message: "#^Strict comparison using \\=\\=\\= between PHPStan\\\\Reflection\\\\ClassReflection and null will always evaluate to false\\.$#"
-			count: 2
-			path: repo/src/Rules/ModelProperties/ModelPropertyStaticCallRule.php
+	ignoreErrors: []
