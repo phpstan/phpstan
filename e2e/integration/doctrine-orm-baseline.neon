@@ -16,6 +16,11 @@ parameters:
 			path: repo/lib/Doctrine/ORM/Query.php
 
 		-
+			message: "#^Parameter \\#2 \\$array of function implode expects array\\<string\\>, array\\<int, object\\|string\\> given\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/Expr/Base.php
+
+		-
 			message: "#^Offset class\\-string on non\\-empty\\-array\\<class\\-string, array\\<string, mixed\\>\\> in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/lib/Doctrine/ORM/UnitOfWork.php
