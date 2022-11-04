@@ -3511,11 +3511,6 @@ parameters:
 			path: repo/src/Util/Test.php
 
 		-
-			message: "#^Parameter \\#2 \\$string of function explode expects string, array\\<int, string\\>\\|string\\|null given\\.$#"
-			count: 1
-			path: repo/src/Util/Test.php
-
-		-
 			message: "#^Property PHPUnit\\\\Util\\\\Test\\:\\:\\$hookMethods type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Util/Test.php
@@ -3582,11 +3577,6 @@ parameters:
 
 		-
 			message: "#^Method PHPUnit\\\\Util\\\\TestDox\\\\NamePrettifier\\:\\:prettifyTestClass\\(\\) should return string but returns string\\|null\\.$#"
-			count: 1
-			path: repo/src/Util/TestDox/NamePrettifier.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function trim expects string, array\\<int, string\\>\\|string\\|null given\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/NamePrettifier.php
 
