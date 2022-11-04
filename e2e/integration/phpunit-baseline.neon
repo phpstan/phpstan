@@ -3571,6 +3571,11 @@ parameters:
 			path: repo/src/Util/TestDox/CliTestDoxPrinter.php
 
 		-
+			message: "#^Cannot cast object to string\\.$#"
+			count: 1
+			path: repo/src/Util/TestDox/NamePrettifier.php
+
+		-
 			message: "#^Method PHPUnit\\\\Util\\\\TestDox\\\\NamePrettifier\\:\\:mapTestMethodParameterNamesToProvidedDataValues\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/Util/TestDox/NamePrettifier.php
