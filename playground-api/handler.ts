@@ -294,6 +294,45 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 	}
 }
 
+async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
+	try {
+		const id = request.queryStringParameters.id;
+		const object = await s3.getObject({
+			Bucket: 'phpstan-playground',
+			Key: 'api/results/' + id + '.json',
+		}).promise();
+		const json = JSON.parse(object.Body as string);
+		const strictRules = typeof json.config.strictRules !== 'undefined' ? json.config.strictRules : false;
+		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
+		const treatPhpDocTypesAsCertain = typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true;
+
+		const bodyJson: any = {
+			code: json.code,
+			errors: json.errors,
+			version: json.version,
+			level: json.level,
+			config: {
+				strictRules,
+				bleedingEdge,
+				treatPhpDocTypesAsCertain,
+			},
+		};
+		if (typeof json.versionedErrors !== 'undefined') {
+			bodyJson.versionedErrors = json.versionedErrors;
+		} else {
+			bodyJson.versionedErrors = [{errors: json.errors, title: 'PHP 7.4'}];
+		}
+		return Promise.resolve({
+			statusCode: 200,
+			body: JSON.stringify(bodyJson),
+		});
+	} catch (e) {
+		console.error(e);
+		captureException(e);
+		return Promise.resolve({statusCode: 500});
+	}
+}
+
 async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse> {
 	try {
 		const id = request.queryStringParameters.id;
@@ -343,5 +382,6 @@ const corsMiddleware = cors();
 module.exports = {
 	analyseResult: middy(analyseResult).use(corsMiddleware),
 	retrieveResult: middy(retrieveResult).use(corsMiddleware),
+	retrieveSample: middy(retrieveSample).use(corsMiddleware),
 	retrieveLegacyResult: middy(retrieveLegacyResult).use(corsMiddleware),
 };

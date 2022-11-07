@@ -29,6 +29,15 @@ functions:
         path: /result
         cors: true
 
+  retrieveSample:
+    handler: handler.retrieveSample
+    role: arn:aws:iam::928192134594:role/lambda-phpstan-playground
+    events:
+      - http:
+          method: get
+          path: /sample
+          cors: true
+
   retrieveLegacyResult:
     handler: handler.retrieveLegacyResult
     role: arn:aws:iam::928192134594:role/lambda-phpstan-playground
