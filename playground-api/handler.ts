@@ -320,7 +320,7 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 		if (typeof json.versionedErrors !== 'undefined') {
 			bodyJson.versionedErrors = json.versionedErrors;
 		} else {
-			bodyJson.versionedErrors = [{errors: json.errors, title: 'PHP 7.4'}];
+			bodyJson.versionedErrors = [{phpVersion: 70400, errors: json.errors}];
 		}
 		return Promise.resolve({
 			statusCode: 200,
