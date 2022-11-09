@@ -594,16 +594,19 @@ Miscellaneous parameters
 
 ### `phpVersion`
 
-**default**: `null` (current PHP version is used)
+**default**: `null`
 
-If you want to analyse a codebase as if it was written for a different PHP version than you're currently running, change the `phpVersion` parameter:
+PHPStan can be configured to analyse the codebase as if it was written for a different PHP version than you're currently running.
 
+It determines the PHP version it should use for the analysis in the following order of priority:
+
+1. The `phpVersion` parameter
 ```yaml
 parameters:
     phpVersion: 70400 # PHP 7.4
 ```
-
-PHPStan will automatically infer the `config.platform.php` version from the last `composer.json` file it can find, if not configured in the PHPStan configuration file.
+2. `config.platform.php` version from the last `composer.json` file it can find.
+3. currently running PHP version
 
 ### `inferPrivatePropertyTypeFromConstructor`
 
