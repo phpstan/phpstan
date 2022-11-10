@@ -59,6 +59,13 @@ PHPStan turns off XDebug if it's enabled to achieve better performance.
 
 If you need to debug PHPStan itself or your [custom extensions](/developing-extensions/extension-types) and want to run PHPStan with XDebug enabled, pass this option. It does not accept any value.
 
+Note that PHPStan issues a warning if you run with XDebug enabled but not this option. You should consider disabling
+XDebug while running by setting the `XDEBUG_MODE` environment variable to `off`. To do this just while running PHPStan
+you can prefix the command line invocation:
+```bash
+XDEBUG_MODE=off vendor/bin/phpstan analyse [options] [<paths>...]
+```
+
 ### `--debug`
 
 Instead of the progress bar, it outputs lines with each analysed file before its analysis.
