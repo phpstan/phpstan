@@ -135,3 +135,19 @@ Instead of clearing the result cache, it just outputs the current PHPStan versio
 ### `--help`
 
 Outputs a summary of available CLI options, but not as in much detail as this page.
+
+
+Debug the configuration
+-----------------------
+
+To get an idea which config PHPStan effectly uses, you can use the `dump-parameters` command.
+That way you get a dump of all settings, after config/include resolving has happened.
+
+
+```bash
+vendor/bin/phpstan dump-parameters [options]
+```
+
+### `--configuration|-c`
+
+Specifies the path to a [configuration file](/config-reference). Relative paths are resolved based on the current working directory.
