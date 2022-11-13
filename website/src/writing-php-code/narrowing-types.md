@@ -151,7 +151,7 @@ Type negation is also supported:
  */
 public function checkNotString(mixed $arg): void
 {
-    if (!is_string($arg)) {
+    if (is_string($arg)) {
         throw new \Exception();
     }
 }
