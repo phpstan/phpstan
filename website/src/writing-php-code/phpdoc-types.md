@@ -352,5 +352,5 @@ Integer masks
 Some functions accept a bitmask composed by `|`-ing different integer values. `0` is always part of the possible values. Some examples:
 
 * `int-mask<1, 2, 4>` (accepts values that can be composed using `|` from the given integers, and 0)
-* `int-mask-of<1|2|4>` (the same as above, but writting as a union)
+* `int-mask-of<1|2|4>` (the same as above, but written as a union)
 * `int-mask-of<Foo::INT_*>` (accepts values from all constants on `Foo` that start with `INT_`)
