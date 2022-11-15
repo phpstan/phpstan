@@ -41,7 +41,7 @@ Type-checking functions
 * `is_scalar()`
 * `is_string()`
 * `is_subclass_of()`
-* `is_a`
+* `is_a()`
 
 These functions can either be used in conditions, or in an `assert()` call.
 
