@@ -63,7 +63,6 @@ To make the text really clickable in your terminal you might need to register th
 
 If you run PHPStan analysis within Docker container (or using other virtualization tools) you may need to use `%relFile%` instead of `%file%`. This will use file's path relative to the current working directory. In the end your `editorUrl` should look like this: `phpstorm://open?file=/path/to/your/project/%%relFile%%&line=%%line%%`.
 
-Since every team member working on the same project will likely have different absolute path to the project, machine-specific `editorUrl` should be used in `phpstan.neon` [paired with `phpstan.neon.dist` where all the common project settings live](/config-reference#multiple-files).
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.9.3</div>
 
@@ -72,3 +71,7 @@ You may also want to change the default title of the clickable link to contain l
 parameters:
 	editorUrlTitle: '%%relFile%%:%%line%%'
 ```
+
+--------------------
+
+Since every team member working on the same project will likely have different absolute path to the project, machine-specific `editorUrl` should be used in `phpstan.neon` [paired with `phpstan.neon.dist` where all the common project settings live](/config-reference#multiple-files).
