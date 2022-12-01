@@ -65,6 +65,8 @@ If you run PHPStan analysis within Docker container (or using other virtualizati
 
 Since every team member working on the same project will likely have different absolute path to the project, machine-specific `editorUrl` should be used in `phpstan.neon` [paired with `phpstan.neon.dist` where all the common project settings live](/config-reference#multiple-files).
 
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.9.3</div>
+
 You may also want to change the default title of the clickable link to contain line to be able to quickly copy-paste it to your IDE when used within an environment that is not clickable (like CI output). Here is how:
 ```neon
 parameters:
