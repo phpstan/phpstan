@@ -6,6 +6,11 @@ parameters:
 			path: repo/packages/NodeTypeResolver/PHPStan/ObjectWithoutClassTypeWithParentTypes.php
 
 		-
+			message: "#^Instanceof between PHPStan\\\\Type\\\\ObjectType and Rector\\\\StaticTypeMapper\\\\ValueObject\\\\Type\\\\AliasedObjectType will always evaluate to false\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/PHPStan/TypeHasher.php
+
+		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
 			path: repo/packages/StaticTypeMapper/ValueObject/Type/AliasedObjectType.php
