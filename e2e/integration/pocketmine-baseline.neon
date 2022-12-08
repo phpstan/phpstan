@@ -26,7 +26,7 @@ parameters:
 			path: repo/src/pocketmine/Server.php
 
 		-
-			message: "#^Offset \\(int\\|string\\) on non\\-empty\\-array\\<pocketmine\\\\level\\\\Level\\> in isset\\(\\) always exists and is not nullable\\.$#"
+			message: "#^Offset \\(int\\|string\\) on array\\<pocketmine\\\\level\\\\Level\\> in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/src/pocketmine/Server.php
 
