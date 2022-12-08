@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Offset \\(int\\|string\\) on array\\<PHPStan\\\\PhpDocParser\\\\Ast\\\\PhpDoc\\\\PhpDocChildNode\\> in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/packages/BetterPhpDocParser/PhpDocParser/DoctrineAnnotationDecorator.php
+
+		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
 			path: repo/packages/NodeTypeResolver/PHPStan/ObjectWithoutClassTypeWithParentTypes.php
@@ -9,6 +14,16 @@ parameters:
 			message: "#^Instanceof between PHPStan\\\\Type\\\\ObjectType and Rector\\\\StaticTypeMapper\\\\ValueObject\\\\Type\\\\AliasedObjectType will always evaluate to false\\.$#"
 			count: 1
 			path: repo/packages/NodeTypeResolver/PHPStan/TypeHasher.php
+
+		-
+			message: "#^Add explicit array type to assigned \"\\$types\" expression$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeAnalyzer.php
+
+		-
+			message: "#^Add explicit array type to assigned \"\\$items\" expression$#"
+			count: 1
+			path: repo/packages/PhpAttribute/NodeAnalyzer/ExprParameterReflectionTypeCorrector.php
 
 		-
 			message: "#^Only abstract classes can be extended$#"
@@ -66,9 +81,19 @@ parameters:
 			path: repo/packages/StaticTypeMapper/ValueObject/Type/SimpleStaticType.php
 
 		-
+			message: "#^Add explicit array type to assigned \"\\$chunks\" expression$#"
+			count: 1
+			path: repo/rules/Php74/Rector/LNumber/AddLiteralSeparatorToNumberRector.php
+
+		-
 			message: "#^Casting to string something that's already string\\.$#"
 			count: 2
 			path: repo/src/Application/VersionResolver.php
+
+		-
+			message: "#^Add explicit array type to assigned \"\\$resolvedValue\" expression$#"
+			count: 1
+			path: repo/src/Configuration/ValueObjectInliner.php
 
 		-
 			message: "#^Parameter \\#2 \\$variants of class PHPStan\\\\Reflection\\\\Native\\\\NativeFunctionReflection constructor expects array\\<PHPStan\\\\Reflection\\\\ParametersAcceptorWithPhpDocs\\>, array\\<PHPStan\\\\Reflection\\\\ParametersAcceptor\\> given\\.$#"
