@@ -19,6 +19,7 @@ export class PlaygroundViewModel {
 	upToDateTabs: ko.Observable<PlaygroundTabViewModel[] | null>;
 
 	level: ko.Observable<string>;
+	exceptions: ko.Observable<boolean>;
 	strictRules: ko.Observable<boolean>;
 	bleedingEdge: ko.Observable<boolean>;
 	treatPhpDocTypesAsCertain: ko.Observable<boolean>;
@@ -57,6 +58,7 @@ export class PlaygroundViewModel {
 		this.upToDateTabs = ko.observable(null);
 
 		this.level = ko.observable('9');
+		this.exceptions = ko.observable<boolean>(false);
 		this.strictRules = ko.observable<boolean>(false);
 		this.bleedingEdge = ko.observable<boolean>(false);
 		this.treatPhpDocTypesAsCertain = ko.observable<boolean>(true);
@@ -115,6 +117,7 @@ export class PlaygroundViewModel {
 			data: JSON.stringify({
 				code: this.code(),
 				level: this.level(),
+				exceptions: this.exceptions(),
 				strictRules: this.strictRules(),
 				bleedingEdge: this.bleedingEdge(),
 				treatPhpDocTypesAsCertain: this.treatPhpDocTypesAsCertain(),
@@ -184,6 +187,7 @@ export class PlaygroundViewModel {
 			this.analyse(false);
 		};
 		this.level.subscribe(instantAnalyse);
+		this.exceptions.subscribe(instantAnalyse);
 		this.strictRules.subscribe(instantAnalyse);
 		this.bleedingEdge.subscribe(instantAnalyse);
 		this.treatPhpDocTypesAsCertain.subscribe(instantAnalyse);
@@ -248,6 +252,7 @@ export class PlaygroundViewModel {
 					this.upToDateTabs(this.createTabs(data.upToDateTabs));
 				}
 				this.level(data.level);
+				this.exceptions(data.config.exceptions);
 				this.strictRules(data.config.strictRules);
 				this.bleedingEdge(data.config.bleedingEdge);
 				this.treatPhpDocTypesAsCertain(data.config.treatPhpDocTypesAsCertain);

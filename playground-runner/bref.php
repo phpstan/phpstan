@@ -59,6 +59,13 @@ return function ($event) use ($phpstanVersion) {
 			'featureToggles' => [
 				'disableRuntimeReflectionProvider' => true,
 			],
+            'exceptions' => [
+                'check' => [
+                    'missingCheckedExceptionInThrows' => $event['exceptions'] ?? false,
+                    'tooWideThrowType' => $event['exceptions'] ?? false,
+                    'implicitThrows' => $event['exceptions'] ?? true,
+                ]
+            ]
 		],
 		'services' => [
 			'currentPhpVersionSimpleParser!' => [
