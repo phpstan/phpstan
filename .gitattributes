@@ -6,4 +6,6 @@
 /e2e export-ignore
 /playground-api export-ignore
 /playground-runner export-ignore
-/website export-ignore linguist-vendored
+/website/ export-ignore
+
+/website/** -linguist-detectable
