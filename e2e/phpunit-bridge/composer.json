@@ -1,0 +1,8 @@
+{
+    "require-dev": {
+        "symfony/phpunit-bridge": "^6.2"
+    },
+    "require": {
+        "symfony/framework-bundle": "^6.2"
+    }
+}
