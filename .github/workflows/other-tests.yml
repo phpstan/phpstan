@@ -185,11 +185,6 @@ jobs:
             cd e2e/bug6933
             composer install
             ../../phpstan analyse -l 8 Module
-          - |
-            cd e2e/phpunit-bridge
-            composer install
-            vendor/bin/simple-phpunit --filter NO_TEST_JUST_AUTOLOAD_THANKS
-            ../../phpstan
         include:
           - php-version: 8.0
             ini-values: memory_limit=256M
@@ -327,6 +322,15 @@ jobs:
             script: |
               cd e2e/bug8054
               ../../phpstan analyze -c application/fare.de/phpstan.neon.dist
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/phpunit-bridge
+              composer install
+              vendor/bin/simple-phpunit --filter NO_TEST_JUST_AUTOLOAD_THANKS
+              ../../phpstan
+
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
