@@ -166,6 +166,14 @@ jobs:
               ../../../phpstan analyse -c ../symplify.neon
           - php-version: 8.1
             script: |
+              git clone https://github.com/symplify/symplify.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout 92e9b42fba42e75acf5ab89a4dd690340632e352
+              cp ../symplify-composer.lock composer.lock
+              composer install
+              vendor/bin/phpunit
+          - php-version: 8.1
+            script: |
               git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout 1a11021385b8d79dfb5f5c5a24ba1e82521a7fac
