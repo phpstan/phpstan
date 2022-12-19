@@ -149,6 +149,11 @@ export class PlaygroundViewModel {
 		this.analyse(true).done((data) => {
 			this.setId(data.id);
 			this.copyId();
+
+			const anyWindow = (window as any);
+			if (typeof anyWindow.fathom !== 'undefined') {
+				anyWindow.fathom.trackGoal('N702LGVH', 0);
+			}
 		}).always(() => {
 			this.isSharing(false);
 		});
@@ -176,7 +181,12 @@ export class PlaygroundViewModel {
 			this.preanalyse();
 		});
 		this.codeDelayed.subscribe(() => {
-			this.analyse(false);
+			this.analyse(false).done(() => {
+				const anyWindow = (window as any);
+				if (typeof anyWindow.fathom !== 'undefined') {
+					anyWindow.fathom.trackGoal('BGQV3HAP', 0);
+				}
+			});
 		});
 
 		const instantAnalyse = () => {

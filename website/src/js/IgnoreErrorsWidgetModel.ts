@@ -41,6 +41,11 @@ export class IgnoreErrorsWidgetModel {
 				path: this.path(),
 			}).done(((data) => {
 				this.result(data.neon.trim());
+
+				const anyWindow = (window as any);
+				if (typeof anyWindow.fathom !== 'undefined') {
+					anyWindow.fathom.trackGoal('ESXYRAMV', 0);
+				}
 			})).fail((xhrr, textStatus) => {
 				if (textStatus === 'abort') {
 					return;
