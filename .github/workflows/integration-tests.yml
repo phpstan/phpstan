@@ -222,8 +222,9 @@ jobs:
               ../../../phpstan.phar analyse -c ../doctrine-dbal.neon
           - php-version: 8.1
             script: |
-              git clone https://github.com/doctrine/common.git -b 3.4.0 --depth 1 e2e/integration/repo
+              git clone https://github.com/ondrejmirtes/common.git e2e/integration/repo
               cd e2e/integration/repo
+              git checkout 9a63097e0aac554a37962f5249d9c5f2ba458819
               composer install
               ../../../phpstan.phar
           - php-version: 8.1
