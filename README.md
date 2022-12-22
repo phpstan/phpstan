@@ -54,10 +54,12 @@ can be checked before you run the actual line.
 <br>
 <a href="https://www.worksome.com/"><img src="https://i.imgur.com/TQKSwOl.png" alt="Worksome" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://www.crisp.nl/"><img src="https://i.imgur.com/jRJyPve.png" alt="Crisp.nl" width="283" height="64"></a>
+<a href="https://www.campoint.net/"><img src="https://i.imgur.com/fR6eMUm.png" alt="campoint AG" width="283" height="64"></a>
 <br>
-<a href="https://inviqa.com/"><img src="https://i.imgur.com/G99rj45.png" alt="Inviqa" width="254" height="65"></a>
+<a href="https://www.crisp.nl/"><img src="https://i.imgur.com/jRJyPve.png" alt="Crisp.nl" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
+<a href="https://inviqa.com/"><img src="https://i.imgur.com/G99rj45.png" alt="Inviqa" width="254" height="65"></a>
+<br>
 <a href="https://www.cdn77.com/"><img src="https://i.imgur.com/Oo3wA3m.png" alt="CDN77" width="283" height="64"></a>
 
 
