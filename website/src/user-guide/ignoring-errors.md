@@ -92,7 +92,7 @@ Relative paths in the `path` and `paths` keys are resolved based on the director
 Generate an ignoreErrors entry
 ------------------
 
-This helpful tool will generate an entry that you can put in `parameters.ignoreErrors` section of your [configuration file](/config-reference). It deals with the complexity of writing a matching regular expression from a plain string and encoding that regular expression into the neon format.
+Using the fields below, you can generate an entry that you can put in the `parameters.ignoreErrors` section of your [configuration file](/config-reference). It deals with the complexity of writing a matching regular expression from a plain string and encoding that regular expression into the neon format.
 
 {% include 'ignoreErrorsWidget.njk' %}
 
