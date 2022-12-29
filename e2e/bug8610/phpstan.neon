@@ -4,3 +4,6 @@ parameters:
         - .
     bootstrapFiles:
             - autoloader.php
+
+    ignoreErrors:
+        - '#Instantiated class DoesNotExist not found.#'
