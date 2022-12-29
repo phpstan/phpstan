@@ -1,0 +1,6 @@
+parameters:
+    level: max
+    paths:
+        - .
+    bootstrapFiles:
+            - autoloader.php
