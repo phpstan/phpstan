@@ -1,0 +1,6 @@
+includes:
+	- repo/core/phpstan.neon.dist
+	- drupal-baseline.neon
+
+parameters:
+	reportUnmatchedIgnoredErrors: false

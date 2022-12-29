@@ -1,0 +1,16 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Variable \\$rand1 might not be defined\\.$#"
+			count: 2
+			path: repo/core/modules/views/tests/src/Kernel/Plugin/StyleTest.php
+
+		-
+			message: "#^Variable \\$rand2 might not be defined\\.$#"
+			count: 2
+			path: repo/core/modules/views/tests/src/Kernel/Plugin/StyleTest.php
+
+		-
+			message: "#^Variable \\$rand3 might not be defined\\.$#"
+			count: 2
+			path: repo/core/modules/views/tests/src/Kernel/Plugin/StyleTest.php
