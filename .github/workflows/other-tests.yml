@@ -347,7 +347,7 @@ jobs:
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
             script: |
-              cd e2e/bug8610
+              cd e2e/bug8610b
               ../../phpstan
     steps:
       - name: "Checkout"
