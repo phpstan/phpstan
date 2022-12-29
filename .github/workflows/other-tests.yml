@@ -187,7 +187,6 @@ jobs:
             ../../phpstan analyse -l 8 Module
           - |
             cd e2e/bug8610
-            composer install
             ../../phpstan
         include:
           - php-version: 8.0
