@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Instantiated class DoesNotExist not found\\.$#"
+			count: 1
+			path: trigger-autoload.php
+
