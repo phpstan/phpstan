@@ -1,9 +1,9 @@
+includes:
+    - phpstan-baseline.neon
+
 parameters:
     level: max
     paths:
         - .
     bootstrapFiles:
             - autoloader.php
-
-    ignoreErrors:
-        - '#Instantiated class DoesNotExist not found.#'
