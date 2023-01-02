@@ -248,6 +248,12 @@ jobs:
               cd e2e/integration/repo
               composer install
               ../../../phpstan.phar analyse -c ../drupal.neon
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/webmozarts/assert.git -b 1.11.0 --depth 1 e2e/integration/repo
+              cd e2e/integration/repo
+              composer install
+              ../../../phpstan.phar analyse -l 9 tests/static-analysis -c ../webmozart.neon
 
     steps:
       - name: "Checkout"

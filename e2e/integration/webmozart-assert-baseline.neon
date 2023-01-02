@@ -1,0 +1,461 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allCount\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-count.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-count.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrCount\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-count.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-count.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\count\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-count.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\count\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-count.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrCount\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-count.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-count.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allCountBetween\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-countBetween.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allCountBetween\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-countBetween.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrCountBetween\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-countBetween.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrCountBetween\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-countBetween.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\countBetween\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-countBetween.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\countBetween\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-countBetween.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrCountBetween\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-countBetween.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrCountBetween\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-countBetween.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allInArray\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-inArray.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrInArray\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-inArray.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\inArray\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-inArray.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrInArray\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-inArray.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allIsArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isArray.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrIsArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isArray.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\isArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isArray.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isArray.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allIsArrayAccessible\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isArrayAccessible.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allIsArrayAccessible\\(\\) return type with generic interface ArrayAccess does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isArrayAccessible.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrIsArrayAccessible\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isArrayAccessible.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrIsArrayAccessible\\(\\) return type with generic interface ArrayAccess does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isArrayAccessible.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\isArrayAccessible\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isArrayAccessible.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\isArrayAccessible\\(\\) return type with generic interface ArrayAccess does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isArrayAccessible.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsArrayAccessible\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isArrayAccessible.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsArrayAccessible\\(\\) return type with generic interface ArrayAccess does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isArrayAccessible.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\isEmptyArray\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isEmpty.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsEmpty\\(\\) never returns '' so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isEmpty.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsEmpty\\(\\) never returns '0' so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isEmpty.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsEmpty\\(\\) never returns 0 so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isEmpty.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsEmpty\\(\\) never returns 0\\.0 so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isEmpty.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsEmpty\\(\\) never returns array\\{\\} so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isEmpty.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsEmpty\\(\\) never returns false so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isEmpty.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allIsIterable\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isIterable.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrIsIterable\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isIterable.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\isIterable\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isIterable.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsIterable\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isIterable.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allIsTraversable\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isTraversable.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\isTraversable\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isTraversable.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsTraversable\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-isTraversable.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allKeyExists\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-keyExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allKeyExists\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-keyExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrKeyExists\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-keyExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrKeyExists\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-keyExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\keyExists\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-keyExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\keyExists\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-keyExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrKeyExists\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-keyExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrKeyExists\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-keyExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allKeyNotExists\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-keyNotExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allKeyNotExists\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-keyNotExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrKeyNotExists\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-keyNotExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrKeyNotExists\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-keyNotExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\keyNotExists\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-keyNotExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\keyNotExists\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-keyNotExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrKeyNotExists\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-keyNotExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrKeyNotExists\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-keyNotExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allMaxCount\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-maxCount.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allMaxCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-maxCount.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrMaxCount\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-maxCount.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrMaxCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-maxCount.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\maxCount\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-maxCount.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\maxCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-maxCount.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrMaxCount\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-maxCount.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrMaxCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-maxCount.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allMinCount\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-minCount.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allMinCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-minCount.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrMinCount\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-minCount.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrMinCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-minCount.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\minCount\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-minCount.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\minCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-minCount.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrMinCount\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-minCount.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrMinCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-minCount.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\notEmptyArray\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-notEmpty.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\notEmptyArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-notEmpty.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrOneOf\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-oneOf.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allOneOf\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-oneOf.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrOneOf\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-oneOf.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\oneOf\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-oneOf.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrUniqueValues\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-uniqueValues.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrUniqueValues\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-uniqueValues.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allUniqueValues\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-uniqueValues.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allUniqueValues\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-uniqueValues.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrUniqueValues\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-uniqueValues.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrUniqueValues\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-uniqueValues.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\uniqueValues\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-uniqueValues.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\uniqueValues\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-uniqueValues.php
