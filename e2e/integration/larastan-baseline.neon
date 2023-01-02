@@ -1,2 +1,21 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: "#^Cannot access property \\$table on PhpMyAdmin\\\\SqlParser\\\\Components\\\\Expression\\|null\\.$#"
+			count: 3
+			path: repo/src/Properties/SquashedMigrationHelper.php
+
+		-
+			message: "#^Cannot call method has\\(\\) on PhpMyAdmin\\\\SqlParser\\\\Components\\\\OptionsArray\\|null\\.$#"
+			count: 1
+			path: repo/src/Properties/SquashedMigrationHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$key of function array_key_exists expects int\\|string, string\\|null given\\.$#"
+			count: 1
+			path: repo/src/Properties/SquashedMigrationHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of class NunoMaduro\\\\Larastan\\\\Properties\\\\SchemaTable constructor expects string, string\\|null given\\.$#"
+			count: 1
+			path: repo/src/Properties/SquashedMigrationHelper.php
