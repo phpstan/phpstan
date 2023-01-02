@@ -6,14 +6,19 @@ parameters:
 			path: repo/lib/Doctrine/ORM/Mapping/ClassMetadataInfo.php
 
 		-
+			message: "#^Method Doctrine\\\\ORM\\\\Mapping\\\\Driver\\\\AnnotationDriver\\:\\:getMethodCallbacks\\(\\) should return array\\<callable\\(\\)\\: mixed\\> but returns array\\<int, array\\{string, 'postLoad'\\|'postPersist'\\|'postRemove'\\|'postUpdate'\\|'preFlush'\\|'prePersist'\\|'preRemove'\\|'preUpdate'\\}\\>\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/Driver/AnnotationDriver.php
+
+		-
+			message: "#^Method Doctrine\\\\ORM\\\\Mapping\\\\Driver\\\\AttributeDriver\\:\\:getMethodCallbacks\\(\\) should return array\\<callable\\(\\)\\: mixed\\> but returns array\\<int, array\\{string, 'postLoad'\\|'postPersist'\\|'postRemove'\\|'postUpdate'\\|'preFlush'\\|'prePersist'\\|'preRemove'\\|'preUpdate'\\}\\>\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/Driver/AttributeDriver.php
+
+		-
 			message: "#^Conditional return type uses subject type TMaybeContained which is not part of PHPDoc @template tags\\.$#"
 			count: 1
 			path: repo/lib/Doctrine/ORM/PersistentCollection.php
-
-		-
-			message: "#^Parameter \\#1 \\$parameters of method Doctrine\\\\ORM\\\\AbstractQuery\\:\\:iterate\\(\\) expects \\(Doctrine\\\\Common\\\\Collections\\\\ArrayCollection&iterable\\)\\|null, array\\<string, mixed\\>\\|Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<int, Doctrine\\\\ORM\\\\Query\\\\Parameter\\>\\|null given\\.$#"
-			count: 1
-			path: repo/lib/Doctrine/ORM/Query.php
 
 		-
 			message: "#^Parameter \\#2 \\$array of function implode expects array\\<string\\>, array\\<int, object\\|string\\> given\\.$#"
