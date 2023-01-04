@@ -343,6 +343,18 @@ jobs:
             script: |
               cd e2e/bug8610
               ../../phpstan
+          - php-version: 8.2
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/progress-bar-crash
+              ../../phpstan analyse -l 8 src/test.php
+          - php-version: 8.2
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/progress-bar-crash
+              ../../phpstan analyse -l 8 src/test.php -vvv
 
     steps:
       - name: "Checkout"
