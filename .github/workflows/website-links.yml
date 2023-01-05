@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: "Check for broken links"
-        uses: ScholliYT/Broken-Links-Crawler-Action@v3
+        uses: ScholliYT/Broken-Links-Crawler-Action@master
         with:
           website_url: 'https://phpstan.org/'
           resolve_before_filtering: 'true'
