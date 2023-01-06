@@ -7,11 +7,11 @@ set -o nounset
 git clone https://github.com/phpstan/$1.git extension
 cd extension
 
-if [[ "$PHP_VERSION" == "7.1" || "$PHP_VERSION" == "7.2" ]]; then
+if [[ "$PHP_VERSION" == "7.2" ]]; then
   if [[ "$1" == "phpstan-mockery" ]]; then
-    composer require --dev phpunit/phpunit:'^7.5.20' mockery/mockery:^1.3 --update-with-dependencies
+    composer require --dev phpunit/phpunit:'^8.5.31' mockery/mockery:^1.3 --update-with-dependencies
   else
-    composer require --dev phpunit/phpunit:'^7.5.20' --update-with-dependencies
+    composer require --dev phpunit/phpunit:'^8.5.31' --update-with-dependencies
   fi;
 
   composer install --no-interaction
