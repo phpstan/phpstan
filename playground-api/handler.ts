@@ -228,17 +228,18 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true;
 
-		let phpVersionsToAnalyse: number[] = [70400];
+		let phpVersionsToAnalyse: number[] = [70100, 70200, 70300, 70400, 80000];
 		if (typeof json.versionedErrors !== 'undefined') {
 			phpVersionsToAnalyse = json.versionedErrors.map((errors: {phpVersion: number, errors: PHPStanError[]}) => {
 				return errors.phpVersion;
 			});
-			if (!phpVersionsToAnalyse.includes(80100)) {
-				phpVersionsToAnalyse.push(80100);
-			}
-			if (!phpVersionsToAnalyse.includes(80200)) {
-				phpVersionsToAnalyse.push(80200);
-			}
+		}
+
+		if (!phpVersionsToAnalyse.includes(80100)) {
+			phpVersionsToAnalyse.push(80100);
+		}
+		if (!phpVersionsToAnalyse.includes(80200)) {
+			phpVersionsToAnalyse.push(80200);
 		}
 
 		const newResult = await analyseResultInternal(
