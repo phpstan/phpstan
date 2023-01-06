@@ -33,9 +33,10 @@ async function analyseResultInternal(
 	runStrictRules: boolean,
 	runBleedingEdge: boolean,
 	treatPhpDocTypesAsCertain: boolean,
+	phpVersions: number[],
 ): Promise<any[]> {
 	const lambdaPromises: [Promise<PromiseResult<Lambda.InvocationResponse, AWSError>>, number][] = [];
-	for (const phpVersion of [70200, 70300, 70400, 80000, 80100, 80200]) {
+	for (const phpVersion of phpVersions) {
 		lambdaPromises.push([lambda.invoke({
 			FunctionName: 'phpstan-runner-prod-main',
 			Payload: JSON.stringify({
@@ -175,7 +176,8 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 			json.level,
 			runStrictRules,
 			runBleedingEdge,
-			treatPhpDocTypesAsCertain
+			treatPhpDocTypesAsCertain,
+			[70200, 70300, 70400, 80000, 80100, 80200],
 		);
 		const response: any = {
 			tabs: createTabs(versionedErrors),
@@ -226,12 +228,26 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true;
 
+		let phpVersionsToAnalyse: number[] = [70400];
+		if (typeof json.versionedErrors !== 'undefined') {
+			phpVersionsToAnalyse = json.versionedErrors.map((errors: {phpVersion: number, errors: PHPStanError[]}) => {
+				return errors.phpVersion;
+			});
+			if (!phpVersionsToAnalyse.includes(80100)) {
+				phpVersionsToAnalyse.push(80100);
+			}
+			if (!phpVersionsToAnalyse.includes(80200)) {
+				phpVersionsToAnalyse.push(80200);
+			}
+		}
+
 		const newResult = await analyseResultInternal(
 			json.code,
 			json.level,
 			strictRules,
 			bleedingEdge,
 			treatPhpDocTypesAsCertain,
+			phpVersionsToAnalyse,
 		);
 		const newTabs = createTabs(newResult);
 
@@ -360,6 +376,7 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 					false,
 					false,
 					true,
+					[70200, 70300, 70400, 80000, 80100, 80200],
 				)),
 				version: inputJson.phpStanVersion,
 				level: inputJson.level.toString(),
