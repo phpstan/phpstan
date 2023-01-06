@@ -1,0 +1,4 @@
+includes:
+    - ../extension.neon
+parameters:
+    checkFoo: true

@@ -355,6 +355,16 @@ jobs:
             script: |
               cd e2e/progress-bar-crash
               ../../phpstan analyse -l 8 src/test.php -vvv
+          - php-version: 8.2
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/discussion-8502
+              composer install
+              cp ../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              vendor/bin/phpunit tests
 
     steps:
       - name: "Checkout"
