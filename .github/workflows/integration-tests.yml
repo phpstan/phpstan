@@ -267,6 +267,7 @@ jobs:
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
+          ini-file: development
 
       - name: "Install dependencies"
         run: "composer update --no-interaction --no-progress"

@@ -47,6 +47,7 @@ jobs:
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
+          ini-file: development
           extensions: mbstring
 
       - name: "Install dependencies"

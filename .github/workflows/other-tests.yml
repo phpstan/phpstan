@@ -378,6 +378,7 @@ jobs:
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
+          ini-file: development
           ini-values: " ${{ matrix.ini-values }}"
           extensions: "${{ matrix.extensions }}"
 
