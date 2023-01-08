@@ -41,6 +41,6 @@ When PHPStan stops reporting a false-positive, it reports an [ignored error](/us
 
 Users usually welcome when PHPStan gets smarter so using the [caret version range](https://getcomposer.org/doc/articles/versions.md#caret-version-range-) (like `"phpstan/phpstan": "^0.12.82"`) in `composer.json` is encouraged. In combination with [committed `composer.lock`](https://www.amitmerchant.com/why-you-should-always-commit-the-composer-lock-file/) your build will be stable anyway, but you'll get new PHPStan versions when you run `composer update`.
 
-If you value build stability over everything else, and you don't have a commited `composer.lock` file [^oss], lock PHPStan version to a specific patch version: `"phpstan/phpstan": "0.12.82"` and use [Dependabot](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically) or a similar solution to get notified about new releases and perform automatic upgrades.
+If you value build stability over everything else, and you don't have a committed `composer.lock` file [^oss], lock PHPStan version to a specific patch version: `"phpstan/phpstan": "0.12.82"` and use [Dependabot](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically) or a similar solution to get notified about new releases and perform automatic upgrades.
 
 [^oss]: Which is typical for open-source projects that need to stay compatible with a range of dependencies versions.
