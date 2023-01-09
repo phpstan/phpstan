@@ -29,7 +29,7 @@
 		"@types/mermaid": "^8.2.9",
 		"@types/prismjs": "^1.26.0",
 		"autoprefixer": "^10.3.7",
-		"luxon": "^2.0.0",
+		"luxon": "^2.5.2",
 		"markdown-it-abbr": "^1.0.4",
 		"markdown-it-anchor": "^8.0.0",
 		"markdown-it-attrs": "^4.1.3",
