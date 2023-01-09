@@ -176,7 +176,7 @@ jobs:
             script: |
               git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 32ad25904dc8fbfdae4d4e431a27ba3bad2979cc
+              git checkout 7b5ce797138f380343b353c73d307567a743ebb2
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
