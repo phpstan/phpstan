@@ -233,7 +233,7 @@ parameters:
 	customRulesetUsed: true
 ```
 
-You can then choose your own ruleset by copying parts of the [level configuration files](https://github.com/phpstan/phpstan-src/tree/1.9.x/conf) from PHPStan sources, or include your own custom rules.
+You can then choose your own ruleset by copying parts of the [level configuration files](https://github.com/phpstan/phpstan-src/tree/1.10.x/conf) from PHPStan sources, or include your own custom rules.
 
 Solving undefined variables
 -------------------

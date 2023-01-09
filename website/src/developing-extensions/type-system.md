@@ -2,11 +2,11 @@
 title: Type System
 ---
 
-PHPStan's type system is a collection of classes implementing the common [`PHPStan\Type\Type`](https://apiref.phpstan.org/1.9.x/PHPStan.Type.Type.html) interface to inform the analyser about relationships between types, and their behaviour.
+PHPStan's type system is a collection of classes implementing the common [`PHPStan\Type\Type`](https://apiref.phpstan.org/1.10.x/PHPStan.Type.Type.html) interface to inform the analyser about relationships between types, and their behaviour.
 
 To retrieve the type of an [AST](/developing-extensions/abstract-syntax-tree) expression, you need to call the `getType()` method on the [Scope](/developing-extensions/scope) object.
 
-Each type that we can encounter in PHP language and [in PHPDocs](/writing-php-code/phpdoc-types) has [an implementation counterpart](https://apiref.phpstan.org/1.9.x/namespace-PHPStan.Type.html) in PHPStan:
+Each type that we can encounter in PHP language and [in PHPDocs](/writing-php-code/phpdoc-types) has [an implementation counterpart](https://apiref.phpstan.org/1.10.x/namespace-PHPStan.Type.html) in PHPStan:
 
 <details class="typesystem-types">
     <summary class="text-blue-500 font-bold">Show table of <code>PHPStan\Type\Type</code> implementations</summary>
@@ -81,7 +81,7 @@ Some advanced types are implemented by combining different types in an intersect
 What can a type tell us?
 -----------------
 
-The [`PHPStan\Type\Type`](https://apiref.phpstan.org/1.9.x/PHPStan.Type.Type.html) interface offers many methods to ask about the capabilities of values of this specific type. Following list is by no means complete, please see the interface code for more details.
+The [`PHPStan\Type\Type`](https://apiref.phpstan.org/1.10.x/PHPStan.Type.Type.html) interface offers many methods to ask about the capabilities of values of this specific type. Following list is by no means complete, please see the interface code for more details.
 
 The `describe()` method returns a string representation (description) of the type, which is useful for error messages. For example `StringType` returns `'string'`.
 
