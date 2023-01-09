@@ -7,7 +7,7 @@ name: Docker image nightly
 on:
   push:
     branches:
-      - "1.9.x"
+      - "1.10.x"
     paths:
       - '.github/workflows/docker-nightly.yml'
       - 'docker/**'
