@@ -56,7 +56,7 @@ jobs:
           context: ./docker
           file: "${{ matrix.docker-file }}"
           build-args: |
-            PHPSTAN_VERSION=1.9.x-dev#${{ github.sha }}
+            PHPSTAN_VERSION=1.10.x-dev#${{ github.sha }}
           push: true
           tags: "ghcr.io/phpstan/phpstan:nightly${{ matrix.image-tag-suffix }}"
           platforms: linux/amd64,linux/arm64
