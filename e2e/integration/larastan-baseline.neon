@@ -1,21 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Cannot access property \\$table on PhpMyAdmin\\\\SqlParser\\\\Components\\\\Expression\\|null\\.$#"
-			count: 3
-			path: repo/src/Properties/SquashedMigrationHelper.php
-
-		-
-			message: "#^Cannot call method has\\(\\) on PhpMyAdmin\\\\SqlParser\\\\Components\\\\OptionsArray\\|null\\.$#"
+			message: "#^Instanceof between PhpMyAdmin\\\\SqlParser\\\\Components\\\\CreateDefinition and PhpMyAdmin\\\\SqlParser\\\\Components\\\\CreateDefinition will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/Properties/SquashedMigrationHelper.php
 
 		-
-			message: "#^Parameter \\#1 \\$key of function array_key_exists expects int\\|string, string\\|null given\\.$#"
+			message: "#^Instanceof between PhpParser\\\\Node\\\\Expr and PhpParser\\\\Node\\\\Expr will always evaluate to true\\.$#"
 			count: 1
-			path: repo/src/Properties/SquashedMigrationHelper.php
+			path: repo/src/Rules/ModelProperties/ModelPropertiesRuleHelper.php
 
 		-
-			message: "#^Parameter \\#1 \\$name of class NunoMaduro\\\\Larastan\\\\Properties\\\\SchemaTable constructor expects string, string\\|null given\\.$#"
+			message: "#^Instanceof between PhpParser\\\\Node\\\\Name and PhpParser\\\\Node\\\\Name will always evaluate to true\\.$#"
 			count: 1
-			path: repo/src/Properties/SquashedMigrationHelper.php
+			path: repo/src/Rules/NoUnnecessaryCollectionCallRule.php
