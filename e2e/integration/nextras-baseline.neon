@@ -114,6 +114,14 @@ parameters:
 			path: repo/src/Mapper/Dbal/Conventions/Conventions.php
 
 		-
+			message: """
+				#^Fetching deprecated class constant FILES of class Nette\\\\Caching\\\\Cache\\:
+				use Cache\\:\\:Files$#
+			"""
+			count: 1
+			path: repo/src/Model/MetadataStorage.php
+
+		-
 			message: "#^Method Nextras\\\\Orm\\\\Model\\\\Model\\:\\:getLoadedRepositories\\(\\) return type with generic interface Nextras\\\\Orm\\\\Repository\\\\IRepository does not specify its types\\: E$#"
 			count: 1
 			path: repo/src/Model/Model.php
@@ -162,4 +170,28 @@ parameters:
 			message: "#^PHPDoc tag @return has invalid value \\(array\\<array\\{BaseCompareFunction, array\\<mixed\\>, array\\<mixed\\>\\}\\>\\>\\)\\: Unexpected token \"\\>\", expected TOKEN_HORIZONTAL_WS at offset 77$#"
 			count: 1
 			path: repo/tests/cases/unit/Mapper/Dbal/DbalValueOperatorFunctionTest.phpt
+
+		-
+			message: """
+				#^Call to deprecated method addParameters\\(\\) of class Nette\\\\Bootstrap\\\\Configurator\\:
+				use addStaticParameters\\(\\)$#
+			"""
+			count: 2
+			path: repo/tests/inc/TestCase.php
+
+		-
+			message: """
+				#^Call to deprecated method enableDebugger\\(\\) of class Nette\\\\Bootstrap\\\\Configurator\\:
+				use enableTracy\\(\\)$#
+			"""
+			count: 1
+			path: repo/tests/inc/TestCase.php
+
+		-
+			message: """
+				#^Instantiation of deprecated class Nette\\\\Configurator\\:
+				use Nette\\\\Bootstrap\\\\Configurator$#
+			"""
+			count: 1
+			path: repo/tests/inc/TestCase.php
 
