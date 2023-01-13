@@ -8,6 +8,11 @@ parameters:
 		-
 			message: "#^Instanceof between PhpParser\\\\Node\\\\Expr and PhpParser\\\\Node\\\\Expr will always evaluate to true\\.$#"
 			count: 1
+			path: repo/src/ReturnTypes/ModelFindExtension.php
+
+		-
+			message: "#^Instanceof between PhpParser\\\\Node\\\\Expr and PhpParser\\\\Node\\\\Expr will always evaluate to true\\.$#"
+			count: 1
 			path: repo/src/Rules/ModelProperties/ModelPropertiesRuleHelper.php
 
 		-
