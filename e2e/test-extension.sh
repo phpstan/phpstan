@@ -4,8 +4,14 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-git clone https://github.com/phpstan/$1.git extension
+IFS=" " read -r -a config <<< "${1//:/ }"
+
+git clone "https://github.com/phpstan/${config[0]}.git" extension
 cd extension
+
+if [[ ${#config[@]} -eq 2 ]]; then
+  git checkout "${config[1]}"
+fi;
 
 if [[ "$PHP_VERSION" == "7.2" ]]; then
   if [[ "$1" == "phpstan-mockery" ]]; then
