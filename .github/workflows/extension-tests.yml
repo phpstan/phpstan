@@ -70,9 +70,9 @@ jobs:
         exclude:
           - extension-name: "phpstan-mockery"
             php-version: "7.2"
-          - extension-name: "phpstan-phpunit"
+          - extension-name: "phpstan-phpunit bf47c49afb7dc6e897d1f3c9b61b4bd82cc4d6e6"
             php-version: "7.2"
-          - extension-name: "phpstan-doctrine"
+          - extension-name: "phpstan-doctrine 4534559a8c08ab3648c6fa09289478780e190ae7"
             php-version: "7.2"
 
     steps:
