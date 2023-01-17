@@ -55,24 +55,16 @@ jobs:
           - "8.1"
           - "8.2"
         extension-name:
-          - "phpstan-phpunit"
-          - "phpstan-strict-rules"
           - "phpstan-mockery"
-          - "phpstan-doctrine"
           - "phpstan-symfony"
           - "phpstan-php-parser"
           - "phpstan-deprecation-rules"
           - "phpdoc-parser"
           - "phpstan-nette"
           - "phpstan-dibi"
-          - "phpstan-webmozart-assert"
           - "phpstan-beberlei-assert"
         exclude:
           - extension-name: "phpstan-mockery"
-            php-version: "7.2"
-          - extension-name: "phpstan-phpunit"
-            php-version: "7.2"
-          - extension-name: "phpstan-doctrine"
             php-version: "7.2"
 
     steps:
