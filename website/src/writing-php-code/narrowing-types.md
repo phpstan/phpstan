@@ -22,7 +22,7 @@ These operators can either be used in conditions, or in an `assert()` call:
 ```php
 assert($stringOrBool === true);
 
-// $intOrString is true after the assert() call
+// $stringOrBool is true after the assert() call
 ```
 
 Type-checking functions
