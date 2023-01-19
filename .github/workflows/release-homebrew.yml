@@ -11,7 +11,7 @@ on:
     types: [published]
 
 jobs:
-  tweet:
+  bump:
     runs-on: ubuntu-latest
     steps:
       - name: Update Homebrew formula
