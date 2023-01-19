@@ -6,6 +6,11 @@ parameters:
 			path: repo/packages/NodeTypeResolver/PHPStan/ObjectWithoutClassTypeWithParentTypes.php
 
 		-
+			message: "#^Parameter 3 should use \"PHPStan\\\\Reflection\\\\ParameterReflectionWithPhpDocs\" type as the only type passed to this method$#"
+			count: 1
+			path: repo/packages/PhpAttribute/NodeAnalyzer/ExprParameterReflectionTypeCorrector.php
+
+		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
 			path: repo/packages/StaticTypeMapper/ValueObject/Type/AliasedObjectType.php
@@ -59,4 +64,9 @@ parameters:
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
 			path: repo/packages/StaticTypeMapper/ValueObject/Type/SimpleStaticType.php
+
+		-
+			message: "#^Parameters should use \"PHPStan\\\\Reflection\\\\ParameterReflectionWithPhpDocs\\|PhpParser\\\\Node\\\\Param\" types as the only types passed to this method$#"
+			count: 1
+			path: repo/rules/DeadCode/Comparator/Parameter/ParameterDefaultsComparator.php
 
