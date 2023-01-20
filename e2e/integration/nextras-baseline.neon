@@ -16,9 +16,19 @@ parameters:
 			path: repo/src/Collection/DbalCollection.php
 
 		-
+			message: "#^PHPDoc tag @var with type array\\<int, mixed\\>\\|string is not subtype of native type string\\|hasOffset\\(int\\)\\.$#"
+			count: 1
+			path: repo/src/Collection/DbalCollection.php
+
+		-
 			message: "#^Property Nextras\\\\Orm\\\\Collection\\\\DbalCollection\\<E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\:\\:\\$result \\(list\\<E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\|null\\) does not accept non\\-empty\\-list\\<Nextras\\\\Orm\\\\Entity\\\\IEntity\\|null\\>\\.$#"
 			count: 1
 			path: repo/src/Collection/DbalCollection.php
+
+		-
+			message: "#^PHPDoc tag @var with type array\\<string, string\\>\\|false is not subtype of native type array\\.$#"
+			count: 1
+			path: repo/src/Collection/Functions/CompareEqualsFunction.php
 
 		-
 			message: "#^Parameter \\#2 \\.\\.\\.\\$args of method Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\DbalExpressionResult\\:\\:append\\(\\) expects list\\<mixed\\>, mixed given\\.$#"
@@ -29,6 +39,11 @@ parameters:
 			message: "#^Parameter \\#2 \\.\\.\\.\\$args of method Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\DbalExpressionResult\\:\\:append\\(\\) expects list\\<mixed\\>, non\\-empty\\-array given\\.$#"
 			count: 1
 			path: repo/src/Collection/Functions/CompareEqualsFunction.php
+
+		-
+			message: "#^PHPDoc tag @var with type array\\<string, string\\>\\|false is not subtype of native type array\\.$#"
+			count: 1
+			path: repo/src/Collection/Functions/CompareNotEqualsFunction.php
 
 		-
 			message: "#^Parameter \\#2 \\.\\.\\.\\$args of method Nextras\\\\Orm\\\\Collection\\\\Helpers\\\\DbalExpressionResult\\:\\:append\\(\\) expects list\\<mixed\\>, mixed given\\.$#"
@@ -101,9 +116,9 @@ parameters:
 			path: repo/src/Collection/Helpers/DbalQueryBuilderHelper.php
 
 		-
-			message: "#^Casting to string something that's already string\\.$#"
+			message: "#^PHPDoc tag @var with type int is not subtype of native type numeric\\-string\\.$#"
 			count: 1
-			path: repo/src/Entity/Reflection/MetadataParser.php
+			path: repo/src/Entity/Reflection/ModifierParser.php
 
 		-
 			message: """
@@ -132,12 +147,27 @@ parameters:
 			path: repo/src/Model/Model.php
 
 		-
+			message: "#^PHPDoc tag @var with type callable\\(\\)\\: array\\{array\\<string, Nextras\\\\Orm\\\\Entity\\\\IEntity\\>, array\\<string, Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\} is not subtype of native type Closure\\(\\)\\: array\\{mixed, mixed\\}\\.$#"
+			count: 1
+			path: repo/src/Relationships/HasMany.php
+
+		-
 			message: "#^Method Nextras\\\\Orm\\\\Relationships\\\\ManyHasMany\\:\\:getEntitiesForPersistence\\(\\) should return list\\<Nextras\\\\Orm\\\\Entity\\\\IEntity\\> but returns array\\<Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\.$#"
 			count: 1
 			path: repo/src/Relationships/ManyHasMany.php
 
 		-
+			message: "#^PHPDoc tag @var with type callable\\(Traversable\\<mixed, Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\)\\: void is not subtype of native type Closure\\(Traversable\\)\\: void\\.$#"
+			count: 1
+			path: repo/src/Relationships/ManyHasMany.php
+
+		-
 			message: "#^Method Nextras\\\\Orm\\\\Relationships\\\\OneHasMany\\:\\:getEntitiesForPersistence\\(\\) should return list\\<Nextras\\\\Orm\\\\Entity\\\\IEntity\\> but returns array\\<Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\.$#"
+			count: 1
+			path: repo/src/Relationships/OneHasMany.php
+
+		-
+			message: "#^PHPDoc tag @var with type callable\\(Traversable\\<mixed, Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\)\\: void is not subtype of native type Closure\\(mixed\\)\\: void\\.$#"
 			count: 1
 			path: repo/src/Relationships/OneHasMany.php
 
