@@ -66,7 +66,7 @@ jobs:
           - "phpstan-nette"
           - "phpstan-dibi"
           - "phpstan-webmozart-assert a1dfe1fef24e8ca78b79a2f16f82d4083fcafb10"
-          - "phpstan-beberlei-assert"
+          - "phpstan-beberlei-assert 94f5f0f59fa5744868f9830046c7d365f1ecd448"
         exclude:
           - extension-name: "phpstan-mockery"
             php-version: "7.2"
