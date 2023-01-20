@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^PHPDoc tag @var with type string is not subtype of native type non\\-empty\\-string\\|false\\.$#"
+			count: 1
+			path: repo/src/ApplicationResolver.php
+
+		-
 			message: "#^Instanceof between PhpMyAdmin\\\\SqlParser\\\\Components\\\\CreateDefinition and PhpMyAdmin\\\\SqlParser\\\\Components\\\\CreateDefinition will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/Properties/SquashedMigrationHelper.php
