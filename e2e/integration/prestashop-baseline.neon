@@ -1,14 +1,24 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Access to an offset on an unknown class UnitEnum\\.$#"
+			message: "#^If condition is always true\\.$#"
 			count: 1
-			path: repo/app/AppKernel.php
+			path: repo/classes/CartRule.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: repo/classes/Hook.php
 
 		-
 			message: "#^Offset 'bits' on array in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/classes/ImageManager.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: repo/classes/Language.php
 
 		-
 			message: "#^Ternary operator condition is always true\\.$#"
@@ -21,14 +31,44 @@ parameters:
 			path: repo/classes/Link.php
 
 		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: repo/classes/Mail.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 3
+			path: repo/classes/ObjectModel.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 3
+			path: repo/classes/controller/AdminController.php
+
+		-
 			message: "#^Strict comparison using \\=\\=\\= between null and mixed will always evaluate to false\\.$#"
 			count: 1
 			path: repo/classes/controller/FrontController.php
 
 		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: repo/classes/stock/StockManager.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: repo/classes/stock/SupplyOrderDetail.php
+
+		-
 			message: "#^Offset 0 does not exist on non\\-empty\\-array\\<mixed, string\\>\\.$#"
 			count: 1
 			path: repo/classes/webservice/SQLUtils.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: repo/classes/webservice/WebserviceRequest.php
 
 		-
 			message: "#^Offset 'hidden_fields' on array in isset\\(\\) always exists and is not nullable\\.$#"
@@ -72,6 +112,11 @@ parameters:
 
 		-
 			message: "#^Method AdminCartsControllerCore\\:\\:renderView\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminCartsController.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminCartsController.php
 
@@ -126,6 +171,16 @@ parameters:
 			path: repo/controllers/admin/AdminImportController.php
 
 		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminImportController.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminImportController.php
+
+		-
 			message: "#^Variable \\$current_id_customer in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 2
 			path: repo/controllers/admin/AdminImportController.php
@@ -139,6 +194,11 @@ parameters:
 			message: "#^Variable \\$current_id_shop_group in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminImportController.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminPdfController.php
 
 		-
 			message: "#^Method AdminProductsControllerCore\\:\\:processBulkDelete\\(\\) should return bool but return statement is missing\\.$#"
@@ -167,6 +227,11 @@ parameters:
 
 		-
 			message: "#^Method AdminSearchConfControllerCore\\:\\:renderOptions\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminSearchConfController.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminSearchConfController.php
 
@@ -218,6 +283,11 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$shop_group of static method StockAvailableCore\\:\\:resetProductFromStockAvailableByShopGroup\\(\\) expects ShopGroup, ObjectModel given\\.$#"
 			count: 2
+			path: repo/controllers/admin/AdminShopGroupController.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
 			path: repo/controllers/admin/AdminShopGroupController.php
 
 		-
@@ -286,14 +356,74 @@ parameters:
 			path: repo/controllers/front/PdfOrderSlipController.php
 
 		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: repo/install-dev/controllers/console/process.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: repo/src/Adapter/Import/Handler/ProductImportHandler.php
+
+		-
+			message: "#^Left side of && is always false\\.$#"
+			count: 1
+			path: repo/src/Adapter/Import/Handler/ProductImportHandler.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: repo/src/Adapter/Import/Handler/ProductImportHandler.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 1
+			path: repo/src/Adapter/Import/Handler/ProductImportHandler.php
+
+		-
 			message: "#^Offset 'seo' on array on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/src/Core/Form/IdentifiableObject/CommandBuilder/Product/SEOCommandsBuilder.php
 
 		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/src/Core/Grid/Query/CustomerAddressQueryBuilder.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 8
+			path: repo/src/Core/Localization/Specification/Number.php
+
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 11
+			path: repo/src/Core/Localization/Specification/NumberSymbolList.php
+
+		-
 			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed\\=\\)\\: bool, Closure\\(PrestaShop\\\\PrestaShop\\\\Core\\\\MailTemplate\\\\ThemeInterface\\)\\: bool given\\.$#"
 			count: 1
 			path: repo/src/Core/MailTemplate/ThemeCollection.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Bridge/Helper/Listing/HelperBridge/HelperListBridge.php
+
+		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Component/CsvResponse.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Component/CsvResponse.php
 
 		-
 			message: "#^Offset 'admin_email' on array in isset\\(\\) always exists and is not nullable\\.$#"
