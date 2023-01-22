@@ -569,9 +569,9 @@ parameters:
 Type aliases
 -------------
 
-Learn more about type aliases in [Writing PHP Code](/writing-php-code/phpdoc-types#type-aliases).
+Learn more about type aliases in [Writing PHP Code](/writing-php-code/phpdoc-types#global-type-aliases).
 
-Related config key: [`typeAliases`](/writing-php-code/phpdoc-types#type-aliases).
+Related config key: [`typeAliases`](/writing-php-code/phpdoc-types#global-type-aliases).
 
 Parallel processing
 ----------------
