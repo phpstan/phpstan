@@ -1,5 +1,7 @@
 <?php declare(strict_types = 1);
 
+use Symfony\Component\Console\Formatter\OutputFormatter;
+
 require __DIR__.'/vendor/autoload.php';
 
 error_reporting(E_ALL);
@@ -88,19 +90,16 @@ return function ($event) use ($phpstanVersion) {
 	error_clear_last();
 
 	$errors = [];
+	$tipFormatter = new OutputFormatter(false);
 	foreach ($results as $result) {
-		if (is_string($result)) {
-			$errors[] = [
-				'message' => $result,
-				'line' => 1,
-			];
-			continue;
-		}
-
-		$errors[] = [
+		$error = [
 			'message' => $result->getMessage(),
 			'line' => $result->getLine(),
 		];
+		if ($result->getTip() !== null) {
+			$error['tip'] = $tipFormatter->format($result->getTip());
+		}
+		$errors[] = $error;
 	}
 
 	return ['result' => $errors, 'version' => $phpstanVersion];
