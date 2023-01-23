@@ -22,7 +22,7 @@ interface HttpResponse {
 interface PHPStanError {
 	message: string,
 	line: number,
-	tip: string | null,
+	tip?: string,
 }
 
 const lambda = new Lambda();
@@ -61,11 +61,15 @@ async function analyseResultInternal(
 		versionedErrors.push({
 			phpVersion: phpVersion,
 			errors: jsonResponse.result.map((error: any): PHPStanError => {
-				return {
+				const obj: PHPStanError = {
 					line: error.line,
 					message: error.message,
-					tip: error.tip ? error.tip : null,
 				};
+				if (error.tip) {
+					obj.tip = error.tip;
+				}
+
+				return obj;
 			}),
 		});
 	}
