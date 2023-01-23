@@ -22,6 +22,7 @@ interface HttpResponse {
 interface PHPStanError {
 	message: string,
 	line: number,
+	tip?: string,
 }
 
 const lambda = new Lambda();
@@ -59,11 +60,16 @@ async function analyseResultInternal(
 		const jsonResponse = JSON.parse(lambdaResult.Payload as string);
 		versionedErrors.push({
 			phpVersion: phpVersion,
-			errors: jsonResponse.result.map((error: any) => {
-				return {
+			errors: jsonResponse.result.map((error: any): PHPStanError => {
+				const obj: PHPStanError = {
 					line: error.line,
 					message: error.message,
 				};
+				if (error.tip) {
+					obj.tip = error.tip;
+				}
+
+				return obj;
 			}),
 		});
 	}
@@ -106,6 +112,12 @@ function createTabs(versionedErrors: {phpVersion: number, errors: PHPStanError[]
 				break;
 			}
 			if (error.message !== lastError.message) {
+				versions.push(last);
+				last = current;
+				merge = false;
+				break;
+			}
+			if (error.tip !== lastError.tip) {
 				versions.push(last);
 				last = current;
 				merge = false;
@@ -289,6 +301,11 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 						}
 
 						if (error.message !== otherError.message) {
+							isSame = false;
+							break;
+						}
+
+						if (error.tip !== otherError.tip) {
 							isSame = false;
 							break;
 						}
