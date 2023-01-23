@@ -3,6 +3,7 @@ import {PHPStanError} from './PHPStanError';
 import $ from 'jquery';
 import {MainMenuViewModel} from './MainMenuViewModel';
 import {PlaygroundTabViewModel} from './PlaygroundTabViewModel';
+import linkifyStr from 'linkify-string';
 
 export class PlaygroundViewModel {
 
@@ -31,6 +32,8 @@ export class PlaygroundViewModel {
 	hasServerError: ko.Observable<boolean>;
 
 	apiBaseUrl: string = 'https://api.phpstan.org';
+
+	linkify: typeof linkifyStr;
 
 	constructor() {
 		this.mainMenu = new MainMenuViewModel();
@@ -67,6 +70,13 @@ export class PlaygroundViewModel {
 		this.shareXhr = null;
 		this.id = null;
 		this.hasServerError = ko.observable<boolean>(false);
+
+		this.linkify = (text: string, options) => {
+			return linkifyStr(text, {
+				className: () => 'underline hover:no-underline',
+				target: '_blank',
+			})
+		};
 	}
 
 	switchTab(index: number): void {

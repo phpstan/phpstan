@@ -3180,6 +3180,16 @@ linkify-it@^3.0.1:
   dependencies:
     uc.micro "^1.0.1"
 
+linkify-string@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/linkify-string/-/linkify-string-4.1.0.tgz#c1bd6bd26a6a574e1ffa04cde333c2736b0d3d03"
+  integrity sha512-mw4KyPoE/vP0lamGbFFtDsutxOw0b+3g2/lH5bwS7X4tRHQyLBoJ60avPVGUoHfU8G1bLS329u13hhpxBIqFiA==
+
+linkifyjs@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/linkifyjs/-/linkifyjs-4.1.0.tgz#0460bfcc37d3348fa80e078d92e7bbc82588db15"
+  integrity sha512-Ffv8VoY3+ixI1b3aZ3O+jM6x17cOsgwfB1Wq7pkytbo1WlyRp6ZO0YDMqiWT/gQPY/CmtiGuKfzDIVqxh1aCTA==
+
 liquidjs@^9.40.0:
   version "9.42.0"
   resolved "https://registry.yarnpkg.com/liquidjs/-/liquidjs-9.42.0.tgz#e0d98730c0bf410320970c6046c819716de90fd1"
