@@ -52,7 +52,7 @@
 		"fix": "tslint -p tsconfig.json -c tslint.json --fix",
 		"watch:parcel": "parcel serve tmp/*.html tmp/**/*.html tmp/*.xml tmp/robots.txt --dist-dir dist/ --no-cache --no-source-maps",
 		"watch:11ty": "eleventy --watch",
-		"build:parcel": "parcel build tmp/*.html tmp/**/*.html tmp/*.xml tmp/robots.txt --dist-dir dist/ --no-source-maps --public-url https://phpstan.org/",
+		"build:parcel": "parcel build tmp/*.json tmp/*.html tmp/**/*.html tmp/*.xml tmp/robots.txt --dist-dir dist/ --no-source-maps --public-url https://phpstan.org/",
 		"build:11ty": "eleventy",
 		"watch": "run-p watch:*",
 		"build": "yarn run build:11ty && yarn run build:parcel"
