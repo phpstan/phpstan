@@ -328,6 +328,9 @@ export class PlaygroundViewModel {
 				if (error.line !== upToDateError.line) {
 					return true;
 				}
+				if (error.tip !== upToDateError.tip) {
+					return true;
+				}
 			}
 		}
 
