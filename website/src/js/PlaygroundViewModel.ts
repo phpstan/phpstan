@@ -4,6 +4,7 @@ import $ from 'jquery';
 import {MainMenuViewModel} from './MainMenuViewModel';
 import {PlaygroundTabViewModel} from './PlaygroundTabViewModel';
 import linkifyStr from 'linkify-string';
+import * as pages from '../pages.json';
 
 export class PlaygroundViewModel {
 
@@ -75,7 +76,17 @@ export class PlaygroundViewModel {
 			return linkifyStr(text, {
 				className: () => 'underline hover:no-underline',
 				target: '_blank',
-			})
+				format: (value, type) => {
+					if (type === 'url' && value.startsWith('https://phpstan.org/')) {
+						const path = value.substring('https://phpstan.org'.length);
+						if (path in pages) {
+							// @ts-ignore
+							return pages[path];
+						}
+					}
+					return value;
+				},
+			}).replace('%configurationFile%', '<a class="underline hover:no-underline" target="_blank" href="/config-reference">configuration file</a>');
 		};
 	}
 
