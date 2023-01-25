@@ -134,7 +134,7 @@ I quickly realized that most of the memory is occupied by [AST](/developing-exte
 
 [^refcount]: That's called reference counting.
 
-<pre class="mermaid">
+{% mermaid %}
     flowchart LR;
     TryCatch== stmts ==>array
     array== 0 ==>Stmt1
@@ -147,7 +147,7 @@ I quickly realized that most of the memory is occupied by [AST](/developing-exte
     Stmt2== next ==>Stmt3
     Stmt2== prev ==>Stmt1
     Stmt3== prev ==>Stmt2
-</pre>
+{% endmermaid %}
 
 Sure, there's also the garbage collector that [collects cycles](https://www.php.net/manual/en/features.gc.collecting-cycles.php) like these. But PHPStan had it [turned off](https://github.com/phpstan/phpstan-src/blob/1f3ecf8512008fb60fea2258ba53f914118d900f/bin/phpstan#L9) because it improved performance time-wise. When there's a lot of cycles, applications that haven't called `gc_disable()` are burning a lot of CPU time.
 

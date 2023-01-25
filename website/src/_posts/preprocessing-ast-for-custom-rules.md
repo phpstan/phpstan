@@ -18,17 +18,17 @@ PHPStan 1.6.0 focuses on reducing the consumed memory by the analysis, but it do
 
 The consumed memory is reduced by breaking up reference cycles between objects and avoiding memory leaks. This is how the default AST of a try-catch block looks like:
 
-<pre class="mermaid">
+{% mermaid %}
     flowchart LR;
     TryCatch== stmts ==>array
     array== 0 ==>Stmt1
     array== 1 ==>Stmt2
     array== 2 ==>Stmt3
-</pre>
+{% endmermaid %}
 
 In comparison the object graph of AST nodes with `parent`/`previous`/`next` attributes looks like this:
 
-<pre class="mermaid">
+{% mermaid %}
     flowchart LR;
     TryCatch== stmts ==>array
     array== 0 ==>Stmt1
@@ -41,7 +41,7 @@ In comparison the object graph of AST nodes with `parent`/`previous`/`next` attr
     Stmt2== next ==>Stmt3
     Stmt2== prev ==>Stmt1
     Stmt3== prev ==>Stmt2
-</pre>
+{% endmermaid %}
 
 What a mess, right? No wonder the PHP runtime cannot free this memory once the AST is no longer used. So our goal is to have the AST object graph to look like the first picture, but we don't want to lose any features.
 

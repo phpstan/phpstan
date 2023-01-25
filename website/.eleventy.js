@@ -2,6 +2,9 @@ const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginRss = require("@11ty/eleventy-plugin-rss");
 const { DateTime } = require("luxon");
 const readingTime = require('reading-time');
+const mermaid = require("headless-mermaid");
+const fs = require("fs");
+const crypto = require("crypto");
 
 module.exports = function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy('src/images');
@@ -72,6 +75,15 @@ module.exports = function (eleventyConfig) {
 
 	eleventyConfig.addPairedNunjucksShortcode("markdown", (content) => {
 		return markdownLib.render(content);
+	});
+
+	eleventyConfig.addPairedShortcode('mermaid', async (content) => {
+		const svg = await mermaid.execute(content);
+		const id = crypto.createHash('sha256').update(svg).digest('hex');
+		const name = 'tmp/images/mermaid-' + id + '.svg';
+		fs.writeFileSync(name, svg);
+
+		return '<img class="mb-8" src="/' + name + '" />'
 	});
 
 	return {
