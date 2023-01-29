@@ -23,6 +23,12 @@ export class MainMenuViewModel {
 			indexName: 'phpstan',
 			apiKey: '38f6379285feb01cc915c6967c715ec2',
 		});
+		docsearch({
+			container: '#docsearch-mobile',
+			appId: '563YUB35R3',
+			indexName: 'phpstan',
+			apiKey: '38f6379285feb01cc915c6967c715ec2',
+		});
 	}
 
 	toggleMainMenu(): void {
