@@ -6,7 +6,7 @@
 	<!-- ko with: mainMenu -->
 		<div class="sidebar w-64 md:block hidden flex-none pr-4 border-r border-gray-200 fixed bg-white overflow-y-auto top-0 bottom-0 mt-16 pt-6 pl-4 md:pl-0" data-bind="css: { hidden: !sidebarOpen() }, event: { click: handleSidebarClick }">
 			<div class="flex items-center">
-				<span class="group flex-grow items-center px-3 py-2 text-lg leading-5 font-bold text-gray-900">{{ sectionTitle }}</span>
+				<span id="sectionTitle" class="group flex-grow items-center px-3 py-2 text-lg leading-5 font-bold text-gray-900">{{ sectionTitle }}</span>
 				<a href="#" class="md:hidden text-gray-400 hover:text-gray-500" data-bind="click: closeSidebar">
 					<svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
