@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"license": "MIT",
 	"dependencies": {
+		"@docsearch/js": "3",
 		"@stripe/stripe-js": "^1.20.3",
 		"codemirror": "^5.64.0",
 		"docsearch.js": "2",

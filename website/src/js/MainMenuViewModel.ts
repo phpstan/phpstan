@@ -1,6 +1,8 @@
 import * as ko from 'knockout';
 import $ from 'jquery';
 import littlefoot from 'littlefoot';
+import docsearch from '@docsearch/js';
+import '@docsearch/css';
 
 $(() => {
 	littlefoot();
@@ -14,6 +16,13 @@ export class MainMenuViewModel {
 	constructor() {
 		this.mainMenuOpen = ko.observable<boolean>(false);
 		this.sidebarOpen = ko.observable<boolean>(false);
+
+		docsearch({
+			container: '#docsearch',
+			appId: '563YUB35R3',
+			indexName: 'phpstan',
+			apiKey: '38f6379285feb01cc915c6967c715ec2',
+		});
 	}
 
 	toggleMainMenu(): void {
