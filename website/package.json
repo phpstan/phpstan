@@ -6,7 +6,6 @@
 		"@docsearch/js": "3",
 		"@stripe/stripe-js": "^1.20.3",
 		"codemirror": "^5.64.0",
-		"docsearch.js": "2",
 		"jquery": "^3.6.0",
 		"knockout": "^3.5.1",
 		"linkify-string": "^4.1.0",
