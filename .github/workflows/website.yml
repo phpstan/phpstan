@@ -119,6 +119,15 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
 
+      - name: Algolia crawler
+        uses: algolia/algoliasearch-crawler-github-actions@v1.0.10
+        with:
+          crawler-user-id: ${{ secrets.ALGOLIA_CRAWLER_USER_ID }}
+          crawler-api-key: ${{ secrets.ALGOLIA_CRAWLER_API_KEY }}
+          algolia-app-id: ${{ secrets.ALGOLIA_APP_ID }}
+          algolia-api-key: ${{ secrets.ALGOLIA_API_KEY }}
+          site-url: 'https://phpstan.org/'
+
       - uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
