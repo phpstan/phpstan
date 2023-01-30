@@ -10,6 +10,12 @@ Valid PHPDocs start with `/**`. Variants starting only with `/*` or line comment
 
 [Learn more about PHPDoc types »](/writing-php-code/phpdoc-types) you can use in the tags described below.
 
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+	
+Would you like to fix incorrect PHPDocs in 3<sup>rd</sup> party code you have in /vendor? You can! Check out [Stub Files »](/user-guide/stub-files)
+
+</div>
+
 Methods and functions
 ----------
 
