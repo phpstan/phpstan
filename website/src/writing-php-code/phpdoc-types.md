@@ -293,7 +293,7 @@ This feature enables usage of strong types in codebases where arrays of various 
 
 * `array{'foo': int, "bar": string}`
 * `array{0: int, 1?: int}` (key `1` is optional in the array)
-* `array{int, int}` (keys are `0` and `1`)
+* `array{int, int}` (keys are `0` and `1`, also known as a tuple)
 * `array{foo: int, bar: string}` (quotes around array keys for simple strings aren't necessary)
 
 This is different from [general arrays](#general-arrays) that mandate that all the keys and values must be of a specific homogeneous type. Array shapes allow each key and value to be different.
