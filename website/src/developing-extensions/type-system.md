@@ -144,6 +144,14 @@ if ($isString->yes()) {
 }
 ```
 
+In PHPStan 1.10 and later there are also new and easy shortcut methods like `Type::isString(): TrinaryLogic` that will tell you the same thing.
+
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+
+Read an article on the same topic: [Why Is instanceof *Type Wrong and Getting Deprecated?](/blog/why-is-instanceof-type-wrong-and-getting-deprecated)
+
+</div>
+
 Type normalization
 -----------------
 
