@@ -56,4 +56,4 @@ if ($foo) {
 }
 ```
 
-Forunately this has been understood by PHPStan since version [0.12.64](https://github.com/phpstan/phpstan/releases/tag/0.12.64). So if you're still experiencing this problem, make sure to upgrade to the latest version.
+Fortunately this has been understood by PHPStan since version [0.12.64](https://github.com/phpstan/phpstan/releases/tag/0.12.64). So if you're still experiencing this problem, make sure to upgrade to the latest version.
