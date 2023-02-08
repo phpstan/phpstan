@@ -26,7 +26,7 @@ The object is immutable. You can combine multiple instances either with AND or O
 Usage in practice
 -------------------
 
-PHPStan uses trinary logic in many places, especially on the [`PHPStan\Type\Type`]() interface (see the article about the [type system](/developing-extensions/type-system)).
+PHPStan uses trinary logic in many places, especially on the [`PHPStan\Type\Type`](https://apiref.phpstan.org/1.10.x/PHPStan.Type.Type.html) interface (see the article about the [type system](/developing-extensions/type-system)).
 
 For example, let's say we have a `new ObjectType(\Exception::class)` and we ask about `hasMethod('getMessage')`. This method will return TrinaryLogic's `yes` because the method always exists.
 
