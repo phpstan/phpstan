@@ -4,3 +4,7 @@ parameters:
 			message: "#^Parameter \\#1 \\$url of function parse_url expects string, array\\<int, string\\>\\|string\\|null given\\.$#"
 			count: 1
 			path: repo/src/DriverManager.php
+		-
+			message: "#^Parameter \\#1 \\$callback of static method Doctrine\\\\DBAL\\\\Driver\\\\API\\\\SQLite\\\\UserDefinedFunctions\\:\\:register\\(\\) expects callable\\(string, callable\\(\\)\\: mixed, int\\)\\: bool, array\\{PDO, 'sqliteCreateFunction'\\} given\\.$#"
+			count: 1
+			path: src/Driver/PDO/SQLite/Driver.php
