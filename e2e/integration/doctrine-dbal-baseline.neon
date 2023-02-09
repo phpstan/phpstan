@@ -7,4 +7,4 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$callback of static method Doctrine\\\\DBAL\\\\Driver\\\\API\\\\SQLite\\\\UserDefinedFunctions\\:\\:register\\(\\) expects callable\\(string, callable\\(\\)\\: mixed, int\\)\\: bool, array\\{PDO, 'sqliteCreateFunction'\\} given\\.$#"
 			count: 1
-			path: src/Driver/PDO/SQLite/Driver.php
+			path: repo/src/Driver/PDO/SQLite/Driver.php
