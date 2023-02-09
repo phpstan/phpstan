@@ -6,13 +6,13 @@ tags: guides
 
 This one is for developers of [custom rules](/developing-extensions/rules) and [other extension types](/developing-extensions/extension-types). PHPStan can be extended by writing your own code. Many users take advantage of that and write custom rules for their proprietary code. Some of the [most notable public extensions](/user-guide/extension-library) are [phpstan-doctrine](https://github.com/phpstan/phpstan-doctrine) and [Larastan](https://github.com/nunomaduro/larastan). PHPStan also serves as the foundation for tools like [Rector](https://github.com/rectorphp/rector). The points and changes described below are important for developers of all those packages.
 
-The upcoming release of PHPStan 1.10 is going to deprecate using `instanceof *Type` for many [Type](/developing-extensions/type-system) interface implementations. We have many good reasons to do so. If you're gonna rewrite your code based on the guidelines below, you're gonna have edge cases solved for free, and therefore have less bugs. By doing the same thing in PHPStan itself we've also fixed many bug reports.
+The upcoming release of PHPStan 1.10 is going to deprecate using `instanceof *Type` for many [Type](/developing-extensions/type-system) interface implementations. We have many good reasons to do so. If you rewrite your code based on the guidelines below, you're going to have edge cases solved for free, and therefore have less bugs. By doing the same thing in PHPStan itself we've also fixed many bug reports.
 
 
 StringType
 -------------------
 
-Let's say you're writing a custom rule and you want to check something about strings. If you follow dump-driven development [^ddd], you're gonna write a piece of code to test your rule against, and in the rule you're gonna `var_dump()` the type representing an expression to figure out how to implement the rule:
+Let's say you're writing a custom rule and you want to check something about strings. If you follow dump-driven development [^ddd], you would write a piece of code to test your rule against, and in that rule you would `var_dump()` the type representing an expression to figure out how to implement the rule:
 
 [^ddd]: If you've just started working with the AST and with PHPStan's typesystem, you don't have much choice than to start orientating yourself by `var_dump`-ing what's going on.
 
@@ -45,7 +45,7 @@ For a reliable check there's a new method `PHPStan\Type\Type::isString(): Trinar
 * This might be a string (e.g. `mixed`, `int|string`)
 * This is a string (e.g. `string`, `non-empty-string`, `'a'`)
 
-In most situations you're gonna be interested in the last case with `$type->isString()->yes()` but it's useful to be aware of all possibilities.
+In most situations you would be interested in the last case with `$type->isString()->yes()` but it's useful to be aware of all possibilities.
 
 
 ConstantStringType
@@ -110,7 +110,7 @@ Many things in PHP can be a callable, not just the `callable` typehint. Doing `i
 * A `Closure` is a callable
 * An object of a class with an `__invoke()` method is a callable
 
-If you ask `Type::isCallable(): TrinaryLogic` it's gonna account for all of these types. And you can get the actual callable signatures with `Type::getCallableParametersAcceptors(): ParametersAcceptor[]` as well.
+If you ask `Type::isCallable(): TrinaryLogic` it will account for all of these types. And you can get the actual callable signatures with `Type::getCallableParametersAcceptors(): ParametersAcceptor[]` as well.
 
 ConstantBooleanType
 --------------------
