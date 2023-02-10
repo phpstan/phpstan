@@ -122,4 +122,9 @@ jobs:
       - uses: peter-evans/repository-dispatch@v2
         with:
           token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+          event-type: meilisearch_crawler
+
+      - uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
           event-type: check_website_links

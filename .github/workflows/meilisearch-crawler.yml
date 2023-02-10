@@ -1,0 +1,38 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Meilisearch crawler"
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types: [ meilisearch_crawler ]
+  push:
+    branches:
+      - "1.10.x"
+    paths:
+      - '.github/workflows/meilisearch-crawler.yml'
+      - '.github/meilisearch.json'
+
+concurrency:
+  group: meilisearch
+  cancel-in-progress: true
+
+jobs:
+  Run crawler:
+    name: "Check for broken links"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: Run crawler
+        env:
+          HOST_URL: ${{ secrets.MEILISEARCH_HOST_URL }}
+          API_KEY: ${{ secrets.MEILISEARCH_API_KEY }}
+          CONFIG_FILE_PATH: ${{ env.GITHUB_WORKSPACE }}/.github/meilisearch.json
+        run: |
+          docker run -t --rm \
+            -e MEILISEARCH_HOST_URL=$HOST_URL \
+            -e MEILISEARCH_API_KEY=$API_KEY \
+            -v $CONFIG_FILE_PATH:/docs-scraper/config.json \
+            getmeili/docs-scraper:latest pipenv run ./docs_scraper config.json
