@@ -33,5 +33,5 @@ jobs:
           docker run -t --rm \
             -e MEILISEARCH_HOST_URL=$HOST_URL \
             -e MEILISEARCH_API_KEY=$API_KEY \
-            -v ${{ env.GITHUB_WORKSPACE }}/.github/meilisearch.json:/docs-scraper/config.json \
+            -v $GITHUB_WORKSPACE/.github/meilisearch.json:/docs-scraper/config.json \
             getmeili/docs-scraper:v0.12.7 pipenv run ./docs_scraper config.json
