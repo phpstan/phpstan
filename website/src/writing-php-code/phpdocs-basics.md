@@ -285,6 +285,21 @@ function foo(Collection $c, string $s): void
 }
 ```
 
+Impure functions
+---------------
+
+By default, [PHPStan considers all functions that return a value to be pure](https://phpstan.org/blog/remembering-and-forgetting-returned-values). That means that a second call to the same function in the same scope will return the same narrowed type. If you have a function that may return different values on successive calls based on a global state like a random number generator, database, or time, then the function is impure. You can tell PHPStan about impure functions and methods with the `@phpstan-impure` tag:
+
+```php
+/** @phpstan-impure */
+function impureFunction(): bool
+{
+    return rand(0, 1) === 0 ? true : false;
+}
+```
+
+The `@phpstan-pure` tag is also available should you need it, for example if you've set `rememberPossiblyImpureFunctionValues: false` in your configuration file (available in PHPStan 1.8.0). See [Config Reference](https://phpstan.org/config-reference#rememberpossiblyimpurefunctionvalues) for more details.
+
 Prefixed tags
 ---------------
 
