@@ -8,7 +8,7 @@ pageType: pro
 
 I'm really excited to show everyone what I've been working on for the past 9 months. It's a new product aimed to enhance user experience when using PHPStan. I want to challenge a common presumption that developer tools like PHPStan are usually constrained to CLI, limiting their visual side, and possible interactions.
 
-With PHPStan Pro you'll be able to sift through reported errors and fix them much faster. There are three parts that will enable that:
+With PHPStan Pro you'll be able to sift through reported errors much faster.
 
 Web UI for browsing errors
 ------------------------
@@ -50,27 +50,6 @@ Once you fix all the found errors and achieve [Error Zero](https://twitter.com/O
 </video>
 
 Continuous analysis reflects and supports my preferred workflow when developing applications: when I realize that I have to pass an additional new value through multiple layers of a codebase, I start by changing method signatures – renaming them, adding parameters, changing return typehints. After that, I run PHPStan which essentially gives me a todo list of places to fix. But running PHPStan several times a minute to get instant feedback can become tedious. Having a persistent window that refreshes automatically and gives me an up-to-date view of the project is much nicer.
-
-Interactive fixer
-------------------------
-
-During workshops and conference talks I often get questions about automatic fixing of found errors. I had been refusing this idea for a long time because there isn't a sole obvious fix for most of them. For example, if you have access to an undefined property, what should be the fix?
-
-1. Define the property in the class.
-2. Define the property as `@property` PHPDoc above the class.
-3. Renaming the accessed property to a one that exists.
-
-Errors like this can't be fixed automatically. But one day I had a revelation – we can give the user a choice which fix should be applied! That's why this feature is called an **interactive** fixer.
-
-There's also the potential to educate users and give them the right fix according to best practices, instead of letting them shoot themselves in the foot with something that suppresses the error to the [letter of the rule but not in the spirit of the rule](https://en.wikipedia.org/wiki/Letter_and_spirit_of_the_law).
-
-Fixer suggestions also show how they'll affect the result. It's not always so clear-cut that a fix would only solve the error it's supposed to fix, it can also introduce new errors and that's a good thing, although it might not sound like it.
-
-<img src="/tmp/images/phpstan-pro-delta.png" width="600" height="403" class="mb-8 rounded-lg border border-gray-300 mx-auto">
-
-If you for example fix a missing return typehint of a function that returns integers by adding native `: int` or `@return int` PHPDoc, PHPStan will be able to point out all the places where the returned value is used as a string.
-
-And of course, some errors have obvious fixes, so they can be applied with a single click without having to choose from multiple alternatives.
 
 Pricing
 ------------------------
