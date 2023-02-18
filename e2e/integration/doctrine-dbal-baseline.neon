@@ -1,10 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#1 \\$alias of static method Doctrine\\\\DBAL\\\\Query\\\\QueryException\\:\\:nonUniqueAlias\\(\\) expects string, int\\|string given\\.$#"
+			message: "#^Method Doctrine\\\\DBAL\\\\Driver\\\\Mysqli\\\\Result\\:\\:rowCount\\(\\) should return int but returns int\\<\\-1, max\\>\\|string\\.$#"
 			count: 1
-			path: repo/src/Query/QueryBuilder.php
-		-
-			message: "#^Parameter \\#1 \\$callback of static method Doctrine\\\\DBAL\\\\Driver\\\\API\\\\SQLite\\\\UserDefinedFunctions\\:\\:register\\(\\) expects callable\\(string, callable\\(\\)\\: mixed, int\\)\\: bool, array\\{PDO, 'sqliteCreateFunction'\\} given\\.$#"
-			count: 1
-			path: repo/src/Driver/PDO/SQLite/Driver.php
+			path: repo/src/Driver/Mysqli/Result.php
