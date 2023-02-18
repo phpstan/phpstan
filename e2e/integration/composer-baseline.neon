@@ -6,9 +6,19 @@ parameters:
 			path: repo/src/Composer/Command/InitCommand.php
 
 		-
+			message: "#^Method Composer\\\\DependencyResolver\\\\Solver\\:\\:enableDisableLearnedRules\\(\\) is unused\\.$#"
+			count: 1
+			path: repo/src/Composer/DependencyResolver/Solver.php
+
+		-
 			message: "#^PHPDoc tag @var with type non\\-empty\\-array\\<array\\{base\\: non\\-empty\\-string, processed\\: non\\-empty\\-string, cacheKey\\: string\\}\\> is not subtype of native type array\\{\\}\\.$#"
 			count: 1
 			path: repo/src/Composer/Downloader/FileDownloader.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/Composer/PHPStan/ConfigReturnTypeExtension.php
 
 		-
 			message: "#^Class Composer\\\\Package\\\\Archiver\\\\ArchivableFilesFilter extends generic class FilterIterator but does not specify its types\\: TKey, TValue, TIterator$#"
