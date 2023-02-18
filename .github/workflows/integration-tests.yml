@@ -224,7 +224,7 @@ jobs:
             script: |
               git clone https://github.com/ondrejmirtes/common.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 9a63097e0aac554a37962f5249d9c5f2ba458819
+              git checkout 51cdabdbbe2c379af3de74e6da4814383181ae55
               composer install
               ../../../phpstan.phar
           - php-version: 8.1
