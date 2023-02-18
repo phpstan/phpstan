@@ -291,6 +291,11 @@ parameters:
 			path: repo/src/Core/Form/IdentifiableObject/CommandBuilder/Product/SEOCommandsBuilder.php
 
 		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/src/Core/Grid/Query/CustomerAddressQueryBuilder.php
+
+		-
 			message: "#^Parameter \\#1 \\$p of method Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<\\(int\\|string\\),mixed\\>\\:\\:filter\\(\\) expects Closure\\(mixed\\=\\)\\: bool, Closure\\(PrestaShop\\\\PrestaShop\\\\Core\\\\MailTemplate\\\\ThemeInterface\\)\\: bool given\\.$#"
 			count: 1
 			path: repo/src/Core/MailTemplate/ThemeCollection.php
