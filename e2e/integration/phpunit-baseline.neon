@@ -1756,11 +1756,6 @@ parameters:
 			path: repo/src/Framework/TestBuilder.php
 
 		-
-			message: "#^Argument of an invalid type Prophecy\\\\Prophecy\\\\MethodProphecy supplied for foreach, only iterables are supported\\.$#"
-			count: 1
-			path: repo/src/Framework/TestCase.php
-
-		-
 			message: "#^Dead catch \\- ReflectionException is never thrown in the try block\\.$#"
 			count: 2
 			path: repo/src/Framework/TestCase.php
@@ -1867,6 +1862,11 @@ parameters:
 
 		-
 			message: "#^Method PHPUnit\\\\Framework\\\\TestCase\\:\\:onConsecutiveCalls\\(\\) has parameter \\$args with no type specified\\.$#"
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			message: "#^Method PHPUnit\\\\Framework\\\\TestCase\\:\\:prophesize\\(\\) return type with generic class Prophecy\\\\Prophecy\\\\ObjectProphecy does not specify its types\\: T$#"
 			count: 1
 			path: repo/src/Framework/TestCase.php
 
