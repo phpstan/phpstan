@@ -241,7 +241,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-              ../../../phpstan.phar && vendor/bin/phpunit tests
+              ../../../phpstan.phar analyse -c ../shipmonk.neon && vendor/bin/phpunit tests
           - php-version: 8.1
             script: |
               git clone https://git.drupalcode.org/project/drupal.git -b 10.0.0 --depth 1 e2e/integration/repo

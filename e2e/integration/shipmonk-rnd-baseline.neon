@@ -1,0 +1,31 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/Helper/EnumTypeHelper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/Helper/EnumTypeHelper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
+			count: 3
+			path: repo/src/Rule/ForbidCustomFunctionsRule.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Generic\\\\GenericClassStringType is error\\-prone and deprecated\\. Use Type\\:\\:isClassStringType\\(\\) and Type\\:\\:getClassStringObjectType\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/Rule/ForbidCustomFunctionsRule.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/Rule/ForbidUnusedExceptionRule.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\VoidType is error\\-prone and deprecated\\. Use Type\\:\\:isVoid\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/Rule/ForbidUselessNullableReturnRule.php
