@@ -1,14 +1,414 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantArrayType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/BetterPhpDocParser/PhpDocManipulator/PhpDocTypeChanger.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeCollector/NodeAnalyzer/ArrayCallableMethodMatcher.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/NodeTypeCorrector/GenericClassStringTypeCorrector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/NodeTypeCorrector/PregMatchTypeCorrector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\FloatType is error\\-prone and deprecated\\. Use Type\\:\\:isFloat\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/NodeTypeResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\IntegerType is error\\-prone and deprecated\\. Use Type\\:\\:isInteger\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/NodeTypeResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\NullType is error\\-prone and deprecated\\. Use Type\\:\\:isNull\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/NodeTypeResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 4
+			path: repo/packages/NodeTypeResolver/NodeTypeResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/NodeTypeResolver/PropertyFetchTypeResolver.php
+
+		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
 			path: repo/packages/NodeTypeResolver/PHPStan/ObjectWithoutClassTypeWithParentTypes.php
 
 		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/PHPStan/Type/StaticTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/PHPStan/Type/StaticTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantArrayType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/PHPStan/Type/StaticTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\FloatType is error\\-prone and deprecated\\. Use Type\\:\\:isFloat\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/PHPStan/Type/StaticTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\IntegerType is error\\-prone and deprecated\\. Use Type\\:\\:isInteger\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/PHPStan/Type/StaticTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\NullType is error\\-prone and deprecated\\. Use Type\\:\\:isNull\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/NodeTypeResolver/PHPStan/Type/StaticTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/PHPStan/Type/StaticTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantArrayType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/PHPStan/Type/TypeFactory.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantBooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isTrue\\(\\) or Type\\:\\:isFalse\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/PHPStan/Type/TypeFactory.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/PHPStan/Type/TypeFactory.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/PHPStan/TypeHasher.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Generic\\\\GenericObjectType is error\\-prone and deprecated\\.$#"
+			count: 2
+			path: repo/packages/NodeTypeResolver/PHPStan/TypeHasher.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/NodeTypeResolver/PHPStan/TypeHasher.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/PHPStan/TypeHasher.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/PhpDocNodeVisitor/ClassRenamePhpDocNodeVisitor.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/NodeTypeResolver/PhpDocNodeVisitor/NameImportingPhpDocNodeVisitor.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/NodeTypeResolver/PhpDocNodeVisitor/UnderscoreRenamePhpDocNodeVisitor.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 3
+			path: repo/packages/NodeTypeResolver/TypeAnalyzer/ArrayTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\IterableType is error\\-prone and deprecated\\. Use Type\\:\\:isIterable\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/TypeAnalyzer/ArrayTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantArrayType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantArrays\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/NodeTypeResolver/TypeComparator/ArrayTypeComparator.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 3
+			path: repo/packages/NodeTypeResolver/TypeComparator/ScalarTypeComparator.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ClassStringType is error\\-prone and deprecated\\. Use Type\\:\\:isClassStringType\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/NodeTypeResolver/TypeComparator/ScalarTypeComparator.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\FloatType is error\\-prone and deprecated\\. Use Type\\:\\:isFloat\\(\\) instead\\.$#"
+			count: 3
+			path: repo/packages/NodeTypeResolver/TypeComparator/ScalarTypeComparator.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\IntegerType is error\\-prone and deprecated\\. Use Type\\:\\:isInteger\\(\\) instead\\.$#"
+			count: 3
+			path: repo/packages/NodeTypeResolver/TypeComparator/ScalarTypeComparator.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\StringType is error\\-prone and deprecated\\. Use Type\\:\\:isString\\(\\) instead\\.$#"
+			count: 5
+			path: repo/packages/NodeTypeResolver/TypeComparator/ScalarTypeComparator.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 6
+			path: repo/packages/NodeTypeResolver/TypeComparator/TypeComparator.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantArrayType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantArrays\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/NodeTypeResolver/TypeComparator/TypeComparator.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantBooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isTrue\\(\\) or Type\\:\\:isFalse\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/TypeComparator/TypeComparator.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Generic\\\\GenericClassStringType is error\\-prone and deprecated\\. Use Type\\:\\:isClassStringType\\(\\) and Type\\:\\:getClassStringObjectType\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/NodeTypeResolver/TypeComparator/TypeComparator.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 6
+			path: repo/packages/NodeTypeResolver/TypeComparator/TypeComparator.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/DoctrineTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/DoctrineTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/BoolUnionTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\NullType is error\\-prone and deprecated\\. Use Type\\:\\:isNull\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/BoolUnionTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\FloatType is error\\-prone and deprecated\\. Use Type\\:\\:isFloat\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\IntegerType is error\\-prone and deprecated\\. Use Type\\:\\:isInteger\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\IterableType is error\\-prone and deprecated\\. Use Type\\:\\:isIterable\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\NullType is error\\-prone and deprecated\\. Use Type\\:\\:isNull\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectWithoutClassType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\StringType is error\\-prone and deprecated\\. Use Type\\:\\:isString\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeCommonTypeNarrower.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Generic\\\\GenericClassStringType is error\\-prone and deprecated\\. Use Type\\:\\:isClassStringType\\(\\) and Type\\:\\:getClassStringObjectType\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeCommonTypeNarrower.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/PHPStanStaticTypeMapper/TypeAnalyzer/UnionTypeCommonTypeNarrower.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/ArrayShapeTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/ArrayTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantArrayType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantArrays\\(\\) instead\\.$#"
+			count: 4
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/ArrayTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Generic\\\\GenericClassStringType is error\\-prone and deprecated\\. Use Type\\:\\:isClassStringType\\(\\) and Type\\:\\:getClassStringObjectType\\(\\) instead\\.$#"
+			count: 3
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/ArrayTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\IntegerType is error\\-prone and deprecated\\. Use Type\\:\\:isInteger\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/ArrayTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/ArrayTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantBooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isTrue\\(\\) or Type\\:\\:isFalse\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/BooleanTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Generic\\\\GenericClassStringType is error\\-prone and deprecated\\. Use Type\\:\\:isClassStringType\\(\\) and Type\\:\\:getClassStringObjectType\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/ClassStringTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/GenericClassStringTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/IntersectionTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectWithoutClassType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/IntersectionTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Generic\\\\GenericObjectType is error\\-prone and deprecated\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/ObjectTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantBooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isTrue\\(\\) or Type\\:\\:isFalse\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/UnionTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\IterableType is error\\-prone and deprecated\\. Use Type\\:\\:isIterable\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/UnionTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\NullType is error\\-prone and deprecated\\. Use Type\\:\\:isNull\\(\\) instead\\.$#"
+			count: 3
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/UnionTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/UnionTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/UnionTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\VoidType is error\\-prone and deprecated\\. Use Type\\:\\:isVoid\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/TypeMapper/UnionTypeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PHPStanStaticTypeMapper/Utils/TypeUnwrapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantBooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isTrue\\(\\) or Type\\:\\:isFalse\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PhpAttribute/AnnotationToAttributeMapper/ConstExprNodeAnnotationToAttributeMapper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PhpAttribute/NodeAnalyzer/ExprParameterReflectionTypeCorrector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\IntegerType is error\\-prone and deprecated\\. Use Type\\:\\:isInteger\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/PhpAttribute/NodeAnalyzer/ExprParameterReflectionTypeCorrector.php
+
+		-
 			message: "#^Parameter 3 should use \"PHPStan\\\\Reflection\\\\ParameterReflectionWithPhpDocs\" type as the only type passed to this method$#"
 			count: 1
 			path: repo/packages/PhpAttribute/NodeAnalyzer/ExprParameterReflectionTypeCorrector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/packages/StaticTypeMapper/ValueObject/Type/AliasedObjectType.php
 
 		-
 			message: "#^Only abstract classes can be extended$#"
@@ -66,7 +466,655 @@ parameters:
 			path: repo/packages/StaticTypeMapper/ValueObject/Type/SimpleStaticType.php
 
 		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\VoidType is error\\-prone and deprecated\\. Use Type\\:\\:isVoid\\(\\) instead\\.$#"
+			count: 2
+			path: repo/packages/VendorLocker/NodeVendorLocker/ClassMethodReturnTypeOverrideGuard.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/NodeManipulator/ExprBoolCaster.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/Catch_/ThrowWithPreviousExceptionRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 3
+			path: repo/rules/CodeQuality/Rector/Empty_/SimplifyEmptyCheckOnEmptyArrayRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/Equal/UseIdenticalOverEqualWithSameTypeRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/Expression/InlineIfToExplicitIfRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/Foreach_/ForeachToInArrayRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/Foreach_/SimplifyForeachToArrayFilterRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/Foreach_/UnusedForeachValueToArrayKeysRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantArrayType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/FuncCall/CompactToVariablesRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/FuncCall/CompactToVariablesRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Generic\\\\GenericClassStringType is error\\-prone and deprecated\\. Use Type\\:\\:isClassStringType\\(\\) and Type\\:\\:getClassStringObjectType\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/FuncCall/InlineIsAInstanceOfRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/FuncCall/InlineIsAInstanceOfRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectWithoutClassType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/FuncCall/InlineIsAInstanceOfRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/FuncCall/InlineIsAInstanceOfRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 4
+			path: repo/rules/CodeQuality/Rector/Identical/BooleanNotIdenticalToNotIdenticalRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/Identical/FlipTypeControlToUseExclusiveTypeRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 3
+			path: repo/rules/CodeQuality/Rector/Identical/SimplifyBoolIdenticalTrueRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/If_/ExplicitBoolCompareRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\FloatType is error\\-prone and deprecated\\. Use Type\\:\\:isFloat\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/If_/ExplicitBoolCompareRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\IntegerType is error\\-prone and deprecated\\. Use Type\\:\\:isInteger\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/If_/ExplicitBoolCompareRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\NullType is error\\-prone and deprecated\\. Use Type\\:\\:isNull\\(\\) instead\\.$#"
+			count: 3
+			path: repo/rules/CodeQuality/Rector/If_/SimplifyIfNullableReturnRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/If_/SimplifyIfNullableReturnRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/Isset_/IssetOnPropertyObjectToPropertyExistsRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 2
+			path: repo/rules/CodeQuality/Rector/PropertyFetch/ExplicitMethodCallOverMagicGetSetRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 3
+			path: repo/rules/CodeQuality/Rector/Ternary/UnnecessaryTernaryExpressionRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodingStyle/NodeFactory/ArrayCallableToMethodCallFactory.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodingStyle/Rector/ClassConst/VarConstantCommentRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantArrayType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantArrays\\(\\) instead\\.$#"
+			count: 2
+			path: repo/rules/CodingStyle/Rector/ClassConst/VarConstantCommentRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodingStyle/Rector/Property/AddFalseDefaultToBoolPropertyRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\IterableType is error\\-prone and deprecated\\. Use Type\\:\\:isIterable\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/CodingStyle/TypeAnalyzer/IterableTypeAnalyzer.php
+
+		-
 			message: "#^Parameters should use \"PHPStan\\\\Reflection\\\\ParameterReflectionWithPhpDocs\\|PhpParser\\\\Node\\\\Param\" types as the only types passed to this method$#"
 			count: 1
 			path: repo/rules/DeadCode/Comparator/Parameter/ParameterDefaultsComparator.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/DeadCode/NodeAnalyzer/CallCollectionAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/DeadCode/NodeManipulator/LivingCodeManipulator.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/DeadCode/Rector/FunctionLike/RemoveDuplicatedIfReturnRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantBooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isTrue\\(\\) or Type\\:\\:isFalse\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/DeadCode/Rector/If_/RemoveAlwaysTrueIfConditionRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/DeadCode/Rector/MethodCall/RemoveEmptyMethodCallRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/DeadCode/Rector/StmtsAwareInterface/RemoveJustPropertyFetchRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/DeadCode/Rector/Ternary/TernaryToBooleanOrFalseToBooleanAndRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 2
+			path: repo/rules/DependencyInjection/Rector/Class_/ActionInjectionToConstructorInjectionRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Naming/ExpectedNameResolver/MatchParamTypeExpectedNameResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Naming/ExpectedNameResolver/MatchPropertyTypeExpectedNameResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Naming/Guard/BreakingVariableRenameGuard.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Naming/Guard/DateTimeAtNamingConventionGuard.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 3
+			path: repo/rules/Naming/Naming/ExpectedNameResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 2
+			path: repo/rules/Naming/Naming/ExpectedNameResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Generic\\\\GenericObjectType is error\\-prone and deprecated\\.$#"
+			count: 1
+			path: repo/rules/Naming/Naming/PropertyNaming.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 2
+			path: repo/rules/Naming/Naming/PropertyNaming.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Naming/Naming/PropertyNaming.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Php70/Rector/StaticCall/StaticCallOnNonStaticToInstanceCallRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantArrayType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Php71/NodeAnalyzer/CountableAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Php71/NodeAnalyzer/CountableAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Php71/Rector/BinaryOp/BinaryOpBetweenNumberAndStringRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Php71/Rector/FuncCall/CountOnNullRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\NullType is error\\-prone and deprecated\\. Use Type\\:\\:isNull\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Php71/Rector/FuncCall/CountOnNullRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\VoidType is error\\-prone and deprecated\\. Use Type\\:\\:isVoid\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Php72/NodeFactory/AnonymousFunctionFactory.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\NullType is error\\-prone and deprecated\\. Use Type\\:\\:isNull\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Php72/Rector/FuncCall/GetClassOnNullRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Php74/Rector/FuncCall/ArrayKeyExistsOnPropertyRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Php74/Rector/FuncCall/ArraySpreadInsteadOfArrayMergeRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\IntegerType is error\\-prone and deprecated\\. Use Type\\:\\:isInteger\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Php74/Rector/FuncCall/MbStrrposEncodingArgumentPositionRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Php74/Rector/MethodCall/ChangeReflectionTypeToStringToGetNameRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\IntegerType is error\\-prone and deprecated\\. Use Type\\:\\:isInteger\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Php80/NodeAnalyzer/SwitchAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\NullType is error\\-prone and deprecated\\. Use Type\\:\\:isNull\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Php81/Rector/FuncCall/NullToStrictStringFuncCallArgRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Php81/Rector/FunctionLike/IntersectionTypesRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantBooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isTrue\\(\\) or Type\\:\\:isFalse\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Privatization/TypeManipulator/TypeNormalizer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 3
+			path: repo/rules/Strict/NodeFactory/ExactCompareFactory.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\IntegerType is error\\-prone and deprecated\\. Use Type\\:\\:isInteger\\(\\) instead\\.$#"
+			count: 2
+			path: repo/rules/Strict/NodeFactory/ExactCompareFactory.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\NullType is error\\-prone and deprecated\\. Use Type\\:\\:isNull\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Strict/NodeFactory/ExactCompareFactory.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 2
+			path: repo/rules/Strict/NodeFactory/ExactCompareFactory.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/Transform/NodeTypeAnalyzer/TypeProvidingExprFromClassResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\NullType is error\\-prone and deprecated\\. Use Type\\:\\:isNull\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/Helper/PhpDocNullableTypeHelper.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\NullType is error\\-prone and deprecated\\. Use Type\\:\\:isNull\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/NodeAnalyzer/CallTypesResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/NodeAnalyzer/CallTypesResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 2
+			path: repo/rules/TypeDeclaration/NodeAnalyzer/CallTypesResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\CallableType is error\\-prone and deprecated\\. Use Type\\:\\:isCallable\\(\\) and Type\\:\\:getCallableParametersAcceptors\\(\\) instead\\.$#"
+			count: 2
+			path: repo/rules/TypeDeclaration/NodeAnalyzer/ClassMethodParamTypeCompleter.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 2
+			path: repo/rules/TypeDeclaration/NodeAnalyzer/ClassMethodParamTypeCompleter.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/NodeAnalyzer/ReturnTypeAnalyzer/StrictReturnNewAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantArrayType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/NodeTypeAnalyzer/DetailedTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Generic\\\\GenericObjectType is error\\-prone and deprecated\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/NodeTypeAnalyzer/DetailedTypeAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Generic\\\\GenericObjectType is error\\-prone and deprecated\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/PHPStan/ObjectTypeSpecifier.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\VoidType is error\\-prone and deprecated\\. Use Type\\:\\:isVoid\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/ArrowFunction/AddArrowFunctionReturnTypeRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantArrayType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantArrays\\(\\) instead\\.$#"
+			count: 2
+			path: repo/rules/TypeDeclaration/Rector/ClassMethod/AddParamTypeBasedOnPHPUnitDataProviderRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantArrayType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantArrays\\(\\) instead\\.$#"
+			count: 3
+			path: repo/rules/TypeDeclaration/Rector/ClassMethod/ArrayShapeFromConstantArrayReturnRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/ClassMethod/ArrayShapeFromConstantArrayReturnRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantArrayType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantArrays\\(\\) instead\\.$#"
+			count: 2
+			path: repo/rules/TypeDeclaration/Rector/ClassMethod/ReturnTypeFromStrictNewArrayRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/ClassMethod/ReturnTypeFromStrictNewArrayRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\NullType is error\\-prone and deprecated\\. Use Type\\:\\:isNull\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/ClassMethod/ReturnTypeFromStrictTypedCallRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 2
+			path: repo/rules/TypeDeclaration/Rector/ClassMethod/ReturnTypeFromStrictTypedCallRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\VoidType is error\\-prone and deprecated\\. Use Type\\:\\:isVoid\\(\\) instead\\.$#"
+			count: 2
+			path: repo/rules/TypeDeclaration/Rector/ClassMethod/ReturnTypeFromStrictTypedCallRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/Empty_/EmptyOnNullableObjectToInstanceOfRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Generic\\\\GenericObjectType is error\\-prone and deprecated\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/FunctionLike/AddParamTypeSplFixedArrayRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/FunctionLike/AddParamTypeSplFixedArrayRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/Property/TypedPropertyFromStrictConstructorRector.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/TypeAnalyzer/AlwaysStrictScalarExprAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/TypeAnalyzer/AlwaysStrictScalarExprAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\FloatType is error\\-prone and deprecated\\. Use Type\\:\\:isFloat\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/TypeAnalyzer/AlwaysStrictScalarExprAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\IntegerType is error\\-prone and deprecated\\. Use Type\\:\\:isInteger\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/TypeAnalyzer/AlwaysStrictScalarExprAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 3
+			path: repo/rules/TypeDeclaration/TypeAnalyzer/GenericClassStringTypeNormalizer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ClassStringType is error\\-prone and deprecated\\. Use Type\\:\\:isClassStringType\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/TypeAnalyzer/GenericClassStringTypeNormalizer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/TypeAnalyzer/GenericClassStringTypeNormalizer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Generic\\\\GenericClassStringType is error\\-prone and deprecated\\. Use Type\\:\\:isClassStringType\\(\\) and Type\\:\\:getClassStringObjectType\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/TypeAnalyzer/GenericClassStringTypeNormalizer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\NullType is error\\-prone and deprecated\\. Use Type\\:\\:isNull\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/TypeInferer/PropertyTypeInferer/TrustedClassMethodPropertyTypeInferer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\IntegerType is error\\-prone and deprecated\\. Use Type\\:\\:isInteger\\(\\) instead\\.$#"
+			count: 2
+			path: repo/rules/TypeDeclaration/TypeInferer/ReturnTypeInferer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/TypeInferer/ReturnTypeInferer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\VoidType is error\\-prone and deprecated\\. Use Type\\:\\:isVoid\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/TypeInferer/ReturnTypeInferer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/TypeInferer/ReturnTypeInferer/ReturnedNodesReturnTypeInfererTypeInferer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\VoidType is error\\-prone and deprecated\\. Use Type\\:\\:isVoid\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/TypeInferer/ReturnTypeInferer/ReturnedNodesReturnTypeInfererTypeInferer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Generic\\\\GenericObjectType is error\\-prone and deprecated\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/TypeInferer/SplArrayFixedTypeNarrower.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/TypeInferer/SplArrayFixedTypeNarrower.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ArrayType is error\\-prone and deprecated\\. Use Type\\:\\:isArray\\(\\) or Type\\:\\:getArrays\\(\\) instead\\.$#"
+			count: 3
+			path: repo/rules/TypeDeclaration/TypeNormalizer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantArrayType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantArrays\\(\\) instead\\.$#"
+			count: 3
+			path: repo/rules/TypeDeclaration/TypeNormalizer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\CallableType is error\\-prone and deprecated\\. Use Type\\:\\:isCallable\\(\\) and Type\\:\\:getCallableParametersAcceptors\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/NodeAnalyzer/PropertyAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\NullType is error\\-prone and deprecated\\. Use Type\\:\\:isNull\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/NodeAnalyzer/PropertyAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/NodeAnalyzer/PropertyAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 2
+			path: repo/src/NodeAnalyzer/PropertyPresenceChecker.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Generic\\\\GenericObjectType is error\\-prone and deprecated\\.$#"
+			count: 1
+			path: repo/src/NodeDecorator/PropertyTypeDecorator.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/NodeManipulator/MagicPropertyFetchAnalyzer.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantArrayType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantArrays\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/PHPStan/Reflection/TypeToCallReflectionResolver/ConstantArrayTypeToCallReflectionResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
+			count: 2
+			path: repo/src/PHPStan/Reflection/TypeToCallReflectionResolver/ConstantArrayTypeToCallReflectionResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/PHPStan/Reflection/TypeToCallReflectionResolver/ConstantStringTypeToCallReflectionResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/PHPStan/Reflection/TypeToCallReflectionResolver/ObjectTypeToCallReflectionResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/PhpParser/AstResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\BooleanType is error\\-prone and deprecated\\. Use Type\\:\\:isBoolean\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/PhpParser/Node/AssignAndBinaryMap.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantArrayType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantArrays\\(\\) instead\\.$#"
+			count: 2
+			path: repo/src/PhpParser/Node/Value/ValueResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/PhpParser/Node/Value/ValueResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/PhpParser/NodeFinder/LocalConstantFinder.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/PhpParser/NodeFinder/LocalMethodCallFinder.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 1
+			path: repo/src/PhpParser/NodeFinder/PropertyFetchFinder.php
+
+		-
+			message: """
+				#^Call to deprecated method getDirectClassNames\\(\\) of class PHPStan\\\\Type\\\\TypeUtils\\:
+				Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#
+			"""
+			count: 1
+			path: repo/src/Reflection/ReflectionResolver.php
+
+		-
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			count: 4
+			path: repo/src/Reflection/ReflectionResolver.php
 
