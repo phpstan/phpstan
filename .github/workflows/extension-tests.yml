@@ -58,7 +58,7 @@ jobs:
           - "phpstan-phpunit bf47c49afb7dc6e897d1f3c9b61b4bd82cc4d6e6"
           - "phpstan-strict-rules a606515d75bb2f996e1488c267630a7367544480"
           - "phpstan-mockery"
-          - "phpstan-doctrine 4534559a8c08ab3648c6fa09289478780e190ae7"
+          - "phpstan-doctrine ab7afcf443ce637b3ba725e2a03ff9b82bd92e3c"
           - "phpstan-symfony"
           - "phpstan-php-parser"
           - "phpstan-deprecation-rules 0f05c71ae0200620b68b00c32d5f6f530650a74b"
