@@ -16,16 +16,6 @@ parameters:
 			path: repo/src/Helper/EnumTypeHelper.php
 
 		-
-			message: "#^Doing instanceof PHPStan\\\\Type\\\\UnionType is error\\-prone and deprecated\\.$#"
-			count: 1
-			path: repo/src/Helper/EnumTypeHelper.php
-
-		-
-			message: "#^Doing instanceof PHPStan\\\\Type\\\\UnionType is error\\-prone and deprecated\\.$#"
-			count: 1
-			path: repo/src/Rule/AllowComparingOnlyComparableTypesRule.php
-
-		-
 			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
 			count: 3
 			path: repo/src/Rule/ForbidCustomFunctionsRule.php
