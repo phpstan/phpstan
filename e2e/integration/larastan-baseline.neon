@@ -81,11 +81,6 @@ parameters:
 			path: repo/src/ReturnTypes/CollectionGenericStaticMethodDynamicMethodReturnTypeExtension.php
 
 		-
-			message: "#^Doing instanceof PHPStan\\\\Type\\\\UnionType is error\\-prone and deprecated\\.$#"
-			count: 2
-			path: repo/src/ReturnTypes/CollectionGenericStaticMethodDynamicMethodReturnTypeExtension.php
-
-		-
 			message: "#^Doing instanceof PHPStan\\\\Type\\\\Generic\\\\GenericObjectType is error\\-prone and deprecated\\.$#"
 			count: 1
 			path: repo/src/ReturnTypes/CollectionGenericStaticMethodDynamicStaticMethodReturnTypeExtension.php
@@ -93,11 +88,6 @@ parameters:
 		-
 			message: "#^Doing instanceof PHPStan\\\\Type\\\\ObjectType is error\\-prone and deprecated\\. Use Type\\:\\:isObject\\(\\) or Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
 			count: 1
-			path: repo/src/ReturnTypes/CollectionGenericStaticMethodDynamicStaticMethodReturnTypeExtension.php
-
-		-
-			message: "#^Doing instanceof PHPStan\\\\Type\\\\UnionType is error\\-prone and deprecated\\.$#"
-			count: 2
 			path: repo/src/ReturnTypes/CollectionGenericStaticMethodDynamicStaticMethodReturnTypeExtension.php
 
 		-
@@ -146,11 +136,6 @@ parameters:
 			path: repo/src/ReturnTypes/RelationFindExtension.php
 
 		-
-			message: "#^Doing instanceof PHPStan\\\\Type\\\\UnionType is error\\-prone and deprecated\\.$#"
-			count: 1
-			path: repo/src/Rules/ModelProperties/ModelPropertiesRuleHelper.php
-
-		-
 			message: "#^Instanceof between PhpParser\\\\Node\\\\Expr and PhpParser\\\\Node\\\\Expr will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/Rules/ModelProperties/ModelPropertiesRuleHelper.php
@@ -192,11 +177,6 @@ parameters:
 
 		-
 			message: "#^Doing instanceof PHPStan\\\\Type\\\\IntersectionType is error\\-prone and deprecated\\.$#"
-			count: 1
-			path: repo/src/Types/ModelProperty/GenericModelPropertyType.php
-
-		-
-			message: "#^Doing instanceof PHPStan\\\\Type\\\\UnionType is error\\-prone and deprecated\\.$#"
 			count: 1
 			path: repo/src/Types/ModelProperty/GenericModelPropertyType.php
 
