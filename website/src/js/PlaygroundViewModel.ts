@@ -86,7 +86,7 @@ export class PlaygroundViewModel {
 					}
 					return value;
 				},
-			}).replace('%configurationFile%', '<a class="underline hover:no-underline" target="_blank" href="/config-reference">configuration file</a>');
+			}).replace('%configurationFile%', '<a class="underline hover:no-underline" target="_blank" href="/config-reference">configuration file</a>').replace('&lt;br /&gt;', '<br />');
 		};
 	}
 
