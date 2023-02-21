@@ -489,6 +489,43 @@ parameters:
     checkBenevolentUnionTypes: true
 ```
 
+### `reportAlwaysTrueInLastCondition`
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.10.0 + Bleeding Edge</div>
+
+**default**: `false`
+
+By default PHPStan does not report always true last condition in a series of `elseif` branches and match expression arms:
+
+```php
+// $o is A|B
+if ($o instanceof A) {
+    // ...
+} elseif ($o instanceof B) { // "Instanceof between B and B will always evaluate to true." IS NOT reported
+    // ...
+}
+```
+
+By setting `reportAlwaysTrueInLastCondition` to `true` the error in `elseif` will be reported.
+
+### `reportWrongPhpDocTypeInVarTag`
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.10.0 + Bleeding Edge</div>
+
+**default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
+
+**example**: [with `true`](https://phpstan.org/r/55f53970-7db4-41e9-8444-473fb1475690), [with `false`](https://phpstan.org/r/25b91a89-848a-4873-8c2f-5422b32ed217)
+
+By default PHPStan reports wrong type in `@var` tag only for native types on the right side of `=`. With `reportWrongPhpDocTypeInVarTag` set to `true` it will consider PHPDoc types too.
+
+This effectively means that inline `@var` cast can only be used to narrow down original types. PHPStan offers many utilities to use instead:
+
+* [Conditional return types](/writing-php-code/phpdoc-types#conditional-return-types)
+* [`@phpstan-assert`](/writing-php-code/narrowing-types#custom-type-checking-functions-and-methods)
+* [Generics](/blog/generics-in-php-using-phpdocs)
+* [Stub files](/user-guide/stub-files) for overriding 3rd party PHPDocs
+* [Dynamic return type extensions](/developing-extensions/dynamic-return-type-extensions)
+
 Exceptions
 ------------
 
