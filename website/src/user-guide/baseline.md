@@ -65,6 +65,29 @@ parameters:
 	reportUnmatchedIgnoredErrors: false
 ```
 
+PHP baseline format instead of NEON
+------------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.10.2</div>
+
+If you choose a filename ending in `.php` passed to `--generate-baseline`, PHPStan will generate the baseline as PHP code instead of NEON:
+
+```bash
+vendor/bin/phpstan analyse --generate-baseline phpstan-baseline.php
+```
+
+You can include this file in your [configuration file](/config-reference):
+
+```yaml
+includes:
+	- phpstan-baseline.php
+
+parameters:
+	# your usual configuration options
+```
+
+This might help with parsing performance and memory consumption in excessive baseline files that are megabytes in size. PHP code will be interpreted quicker than an equivalent .neon file.
+
 The use-cases
 ------------------
 
