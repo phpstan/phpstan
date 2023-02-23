@@ -65,28 +65,6 @@ parameters:
 	reportUnmatchedIgnoredErrors: false
 ```
 
-PHP baseline format instead of NEON
-------------------
-
-<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.10.2</div>
-
-If you choose a filename ending in `.php` passed to `--generate-baseline`, PHPStan will generate the baseline as PHP code instead of NEON:
-
-```bash
-vendor/bin/phpstan analyse --generate-baseline phpstan-baseline.php
-```
-
-You can include this file in your [configuration file](/config-reference):
-
-```yaml
-includes:
-	- phpstan-baseline.php
-
-parameters:
-	# your usual configuration options
-```
-
-This might help with parsing performance and memory consumption in excessive baseline files that are megabytes in size. PHP code will be interpreted quicker than an equivalent .neon file.
 
 The use-cases
 ------------------
@@ -110,3 +88,27 @@ With the baseline you can for example run PHPStan on level 5, and export all rep
 One strategy to fight technical debt is to come up with best practices you want to follow and gradually apply them to the codebase and especially to new code you write.
 
 With the baseline, you can enable [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-rules) or exquisite rules from the [ergebnis/phpstan-rules](https://github.com/ergebnis/phpstan-rules) package and have them applied only to new code. For example, if you choose to never extend any class again (because inheritance is evil and you should only use composition), you can enable this rule but don’t have to deal with all existing classes with parents right away.
+
+
+PHP baseline format instead of NEON
+------------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.10.2</div>
+
+If you choose a filename ending in `.php` passed to `--generate-baseline`, PHPStan will generate the baseline as PHP code instead of NEON:
+
+```bash
+vendor/bin/phpstan analyse --generate-baseline phpstan-baseline.php
+```
+
+You can include this file in your [configuration file](/config-reference):
+
+```yaml
+includes:
+	- phpstan-baseline.php
+
+parameters:
+	# your usual configuration options
+```
+
+This might help with parsing performance and memory consumption in excessive baseline files that are megabytes in size. PHP code will be interpreted quicker than an equivalent .neon file.
