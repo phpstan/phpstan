@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^PHPDoc tag @var with type array\\<Composer\\\\Package\\\\Link\\> is not subtype of type non\\-empty\\-list\\<array\\{array\\{array\\{Composer\\\\Package\\\\Link\\}\\|Composer\\\\Package\\\\Link\\}\\|Composer\\\\Package\\\\Link\\}\\|Composer\\\\Package\\\\Link\\>\\|Composer\\\\Package\\\\Link\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/CheckPlatformReqsCommand.php
+
+		-
 			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/InitCommand.php
