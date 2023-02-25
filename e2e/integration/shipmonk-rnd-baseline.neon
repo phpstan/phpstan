@@ -11,7 +11,7 @@ parameters:
 			path: repo/src/Helper/EnumTypeHelper.php
 
 		-
-			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) or Type\\:\\:getObjectClassReflections\\(\\) instead\\.$#"
 			count: 1
 			path: repo/src/Helper/EnumTypeHelper.php
 
@@ -26,7 +26,7 @@ parameters:
 			path: repo/src/Rule/ForbidCustomFunctionsRule.php
 
 		-
-			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) instead\\.$#"
+			message: "#^Doing instanceof PHPStan\\\\Type\\\\TypeWithClassName is error\\-prone and deprecated\\. Use Type\\:\\:getObjectClassNames\\(\\) or Type\\:\\:getObjectClassReflections\\(\\) instead\\.$#"
 			count: 1
 			path: repo/src/Rule/ForbidUnusedExceptionRule.php
 
