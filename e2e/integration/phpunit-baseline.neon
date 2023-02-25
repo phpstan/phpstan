@@ -6,22 +6,7 @@ parameters:
 			path: repo/src/Framework/Assert.php
 
 		-
-			message: "#^Cannot access property \\$length on DOMNamedNodeMap\\|null\\.$#"
-			count: 3
-			path: repo/src/Framework/Assert.php
-
-		-
 			message: "#^Cannot access property \\$name on DOMNode\\|null\\.$#"
-			count: 1
-			path: repo/src/Framework/Assert.php
-
-		-
-			message: "#^Cannot call method getNamedItem\\(\\) on DOMNamedNodeMap\\|null\\.$#"
-			count: 1
-			path: repo/src/Framework/Assert.php
-
-		-
-			message: "#^Cannot call method item\\(\\) on DOMNamedNodeMap\\|null\\.$#"
 			count: 1
 			path: repo/src/Framework/Assert.php
 
@@ -2919,11 +2904,6 @@ parameters:
 			message: "#^Cannot call method removeAttribute\\(\\) on DOMElement\\|null\\.$#"
 			count: 1
 			path: repo/src/TextUI/XmlConfiguration/Migration/Migrations/RemoveCacheTokensAttribute.php
-
-		-
-			message: "#^Cannot access property \\$length on DOMNamedNodeMap\\|null\\.$#"
-			count: 1
-			path: repo/src/TextUI/XmlConfiguration/Migration/Migrations/RemoveEmptyFilter.php
 
 		-
 			message: "#^Cannot call method removeChild\\(\\) on DOMNode\\|null\\.$#"
