@@ -37,6 +37,8 @@ Mixed
 
 PHPStan has a concept of implicit and explicit `mixed`. Missing typehint is implicit `mixed` - no type was specified as a parameter type or a return type. Explicit `mixed` is written in the PHPDoc. PHPStan's [rule level 6](/user-guide/rule-levels) isn't satisfied with implicit `mixed`, but an explicit one is sufficient.
 
+[Rule level 9](/user-guide/rule-levels) is stricter about the `mixed` type. The only allowed operation you can do with it is to pass it to another `mixed`.
+
 Classes and interfaces
 -------------------------
 
