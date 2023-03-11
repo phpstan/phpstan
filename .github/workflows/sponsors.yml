@@ -1,0 +1,91 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: Generate Sponsors
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 15 14 * * *
+
+env:
+  SPONSOR_TEMPLATE: '<li><a href="https://github.com/{{{ login }}}">{{{ name }}}</a></li>'
+
+jobs:
+  sponsors:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+
+      - name: Generate Sponsors
+        uses: JamesIves/github-sponsors-readme-action@v1
+        with:
+          token: ${{ secrets.SPONSORS_PAT }}
+          file: 'BACKERS.md'
+          minimum: 5
+          maximum: 29
+          marker: 'five'
+          template: ${{ env.SPONSOR_TEMPLATE }}
+
+      - name: Generate Sponsors
+        uses: JamesIves/github-sponsors-readme-action@v1
+        with:
+          token: ${{ secrets.SPONSORS_PAT }}
+          file: 'BACKERS.md'
+          minimum: 5
+          maximum: 29
+          organization: true
+          marker: 'five-org'
+          template: ${{ env.SPONSOR_TEMPLATE }}
+
+      - name: Generate Sponsors
+        uses: JamesIves/github-sponsors-readme-action@v1
+        with:
+          token: ${{ secrets.SPONSORS_PAT }}
+          file: 'BACKERS.md'
+          minimum: 30
+          maximum: 99
+          marker: 'thirty'
+          template: ${{ env.SPONSOR_TEMPLATE }}
+
+      - name: Generate Sponsors
+        uses: JamesIves/github-sponsors-readme-action@v1
+        with:
+          token: ${{ secrets.SPONSORS_PAT }}
+          file: 'BACKERS.md'
+          minimum: 30
+          maximum: 99
+          organization: true
+          marker: 'thirty-org'
+          template: ${{ env.SPONSOR_TEMPLATE }}
+
+      - name: Generate Sponsors
+        uses: JamesIves/github-sponsors-readme-action@v1
+        with:
+          token: ${{ secrets.SPONSORS_PAT }}
+          file: 'BACKERS.md'
+          minimum: 100
+          marker: 'hundred'
+          template: ${{ env.SPONSOR_TEMPLATE }}
+
+      - name: Generate Sponsors
+        uses: JamesIves/github-sponsors-readme-action@v1
+        with:
+          token: ${{ secrets.SPONSORS_PAT }}
+          file: 'BACKERS.md'
+          minimum: 100
+          organization: true
+          marker: 'hundred-org'
+          template: ${{ env.SPONSOR_TEMPLATE }}
+
+      - name: "Commit changes"
+        uses: "stefanzweifel/git-auto-commit-action@v4"
+        id: "commit"
+        with:
+          commit_message: "Update BACKERS.md"
+          commit_user_name: "phpstan-bot"
+          commit_user_email: "ondrej+phpstanbot@mirtes.cz"
+          commit_author: "phpstan-bot <ondrej+phpstanbot@mirtes.cz>"
