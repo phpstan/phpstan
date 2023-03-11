@@ -9,6 +9,13 @@ the logo of your company in PHPStan's README and the website.
 # $100+
 
 <ul>
+<li><a href="https://packagist.com/">Private Packagist</a></li>
+<li><a href="https://careers.tuigroup.com/jobs/">Musement</a></li>
+<li><a href="https://www.startupjobs.cz/startup/shipmonk">Shipmonk</a></li>
+<li><a href="https://www.contentkingapp.com/?ref=php-developer&utm_source=phpstan&utm_medium=referral&utm_campaign=sponsorship">ContentKing</a></li>
+<li><a href="https://www.shopware.com/en/">Shopware</a></li>
+<li><a href="https://www.campoint.net">campoint AG</a></li>
+
 <!-- hundred --><li><a href="https://github.com/yositosi"></a></li><li><a href="https://github.com/blackfireio">Blackfire</a></li><li><a href="https://github.com/RightCapitalHQ">RightCapital</a></li><li><a href="https://github.com/zolweb">ZOL</a></li><li><a href="https://github.com/TicketSwap">TicketSwap</a></li><li><a href="https://github.com/craftcms">Craft CMS</a></li><li><a href="https://github.com/worksome">Worksome</a></li><li><a href="https://github.com/cdn77">CDN77.com</a></li><li><a href="https://github.com/GensDeConfiance">GensDeConfiance</a></li><!-- hundred -->
 
 <!-- hundred-org --><li><a href="https://github.com/ohgoodlord">Goodlord</a></li><li><a href="https://github.com/crispnl">crispnl</a></li><li><a href="https://github.com/inviqa">Inviqa</a></li><li><a href="https://github.com/hephaist-io">Hephaist.io</a></li><li><a href="https://github.com/Psyonix-PsyNet">Psyonix</a></li><li><a href="https://github.com/AcroMedia">Acro Media</a></li><!-- hundred-org -->
