@@ -14,7 +14,7 @@ on:
       - 'BACKERS.md'
 
 env:
-  SPONSOR_TEMPLATE: '<li><a href="https://github.com/{{{ login }}}">{{{ name }}}</a></li>'
+  SPONSOR_TEMPLATE: '<li><a href="https://github.com/{{{ login }}}">{{{ name }}} ({{{ login }}})</a></li>'
 
 jobs:
   sponsors:
