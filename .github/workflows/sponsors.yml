@@ -13,9 +13,6 @@ on:
       - '.github/workflows/sponsors.yml'
       - 'BACKERS.md'
 
-env:
-  SPONSOR_TEMPLATE: '<li><a href="https://github.com/{{{ login }}}">{{{ name }}} ({{{ login }}})</a></li>'
-
 jobs:
   sponsors:
     runs-on: ubuntu-latest
@@ -26,6 +23,13 @@ jobs:
           ref: ${{ github.head_ref }}
           token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
 
+      - name: "Construct template"
+        id: template
+        run: |
+          echo "text<<MESSAGE" >> $GITHUB_OUTPUT
+          echo "<li><a href="https://github.com/{{{ login }}}">{{{ name }}} ({{{ login }}})</a></li>" >> $GITHUB_OUTPUT
+          echo 'MESSAGE' >> $GITHUB_OUTPUT
+
       - name: Generate Sponsors
         uses: JamesIves/github-sponsors-readme-action@v1
         with:
@@ -34,7 +38,7 @@ jobs:
           minimum: 500
           maximum: 2999
           marker: 'five'
-          template: ${{ env.SPONSOR_TEMPLATE }}
+          template: ${{ steps.template.outputs.text }}
 
       - name: Generate Sponsors
         uses: JamesIves/github-sponsors-readme-action@v1
@@ -45,7 +49,7 @@ jobs:
           maximum: 2999
           organization: true
           marker: 'five-org'
-          template: ${{ env.SPONSOR_TEMPLATE }}
+          template: ${{ steps.template.outputs.text }}
 
       - name: Generate Sponsors
         uses: JamesIves/github-sponsors-readme-action@v1
@@ -55,7 +59,7 @@ jobs:
           minimum: 3000
           maximum: 9999
           marker: 'thirty'
-          template: ${{ env.SPONSOR_TEMPLATE }}
+          template: ${{ steps.template.outputs.text }}
 
       - name: Generate Sponsors
         uses: JamesIves/github-sponsors-readme-action@v1
@@ -66,7 +70,7 @@ jobs:
           maximum: 9999
           organization: true
           marker: 'thirty-org'
-          template: ${{ env.SPONSOR_TEMPLATE }}
+          template: ${{ steps.template.outputs.text }}
 
       - name: Generate Sponsors
         uses: JamesIves/github-sponsors-readme-action@v1
@@ -75,7 +79,7 @@ jobs:
           file: 'BACKERS.md'
           minimum: 10000
           marker: 'hundred'
-          template: ${{ env.SPONSOR_TEMPLATE }}
+          template: ${{ steps.template.outputs.text }}
 
       - name: Generate Sponsors
         uses: JamesIves/github-sponsors-readme-action@v1
@@ -85,7 +89,7 @@ jobs:
           minimum: 10000
           organization: true
           marker: 'hundred-org'
-          template: ${{ env.SPONSOR_TEMPLATE }}
+          template: ${{ steps.template.outputs.text }}
 
       - name: "Commit changes"
         uses: "stefanzweifel/git-auto-commit-action@v4"
