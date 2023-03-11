@@ -10,6 +10,9 @@ the logo of your company in PHPStan's README and the website.
 
 <ul>
 <!-- hundred -->
+<!-- hundred -->
+
+<!-- hundred-org -->
 <!-- hundred-org -->
 </ul>
 
@@ -17,6 +20,9 @@ the logo of your company in PHPStan's README and the website.
 
 <ul>
 <!-- thirty -->
+<!-- thirty -->
+
+<!-- thirty-org -->
 <!-- thirty-org -->
 </ul>
 
@@ -24,5 +30,8 @@ the logo of your company in PHPStan's README and the website.
 
 <ul>
 <!-- five -->
+<!-- five -->
+
+<!-- five-org -->
 <!-- five-org -->
 </ul>
