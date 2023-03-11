@@ -95,3 +95,14 @@ jobs:
           commit_user_name: "phpstan-bot"
           commit_user_email: "ondrej+phpstanbot@mirtes.cz"
           commit_author: "phpstan-bot <ondrej+phpstanbot@mirtes.cz>"
+
+      - name: "Slack Notification"
+        if: steps.commit.outputs.changes_detected == 'true'
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: sponsors
+          SLACK_MESSAGE: 'https://github.com/phpstan/phpstan/commit/${{ steps.commit.outputs.commit_hash }}'
+          SLACK_TITLE: Sponsors changed!
+          SLACK_USERNAME: phpstan
+          SLACK_WEBHOOK: ${{ secrets.SLACK_SPONSORS_WEBHOOK }}
+          MSG_MINIMAL: true
