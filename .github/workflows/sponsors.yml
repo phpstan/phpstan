@@ -27,7 +27,8 @@ jobs:
         id: template
         run: |
           echo "text<<MESSAGE" >> $GITHUB_OUTPUT
-          echo "<li><a href="https://github.com/{{{ login }}}">{{{ name }}} ({{{ login }}})</a></li>" >> $GITHUB_OUTPUT
+          echo '<li><a href="https://github.com/{{{ login }}}">{{{ name }}} ({{{ login }}})</a></li>' >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
           echo 'MESSAGE' >> $GITHUB_OUTPUT
 
       - name: Generate Sponsors
