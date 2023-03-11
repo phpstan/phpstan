@@ -31,8 +31,8 @@ jobs:
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'BACKERS.md'
-          minimum: 5
-          maximum: 29
+          minimum: 500
+          maximum: 2999
           marker: 'five'
           template: ${{ env.SPONSOR_TEMPLATE }}
 
@@ -41,8 +41,8 @@ jobs:
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'BACKERS.md'
-          minimum: 5
-          maximum: 29
+          minimum: 500
+          maximum: 2999
           organization: true
           marker: 'five-org'
           template: ${{ env.SPONSOR_TEMPLATE }}
@@ -52,8 +52,8 @@ jobs:
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'BACKERS.md'
-          minimum: 30
-          maximum: 99
+          minimum: 3000
+          maximum: 9999
           marker: 'thirty'
           template: ${{ env.SPONSOR_TEMPLATE }}
 
@@ -62,8 +62,8 @@ jobs:
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'BACKERS.md'
-          minimum: 30
-          maximum: 99
+          minimum: 3000
+          maximum: 9999
           organization: true
           marker: 'thirty-org'
           template: ${{ env.SPONSOR_TEMPLATE }}
@@ -73,7 +73,7 @@ jobs:
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'BACKERS.md'
-          minimum: 100
+          minimum: 10000
           marker: 'hundred'
           template: ${{ env.SPONSOR_TEMPLATE }}
 
@@ -82,7 +82,7 @@ jobs:
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'BACKERS.md'
-          minimum: 100
+          minimum: 10000
           organization: true
           marker: 'hundred-org'
           template: ${{ env.SPONSOR_TEMPLATE }}
