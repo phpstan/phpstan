@@ -24,7 +24,7 @@ the logo of your company in PHPStan's README and the website.
 # $30+
 
 <ul>
-<!-- thirty --><li><a href="https://github.com/ondrejcech">Ondřej Čech (ondrejcech)</a></li><li><a href="https://github.com/martin-georgiev">Martin Georgiev (martin-georgiev)</a></li><li><a href="https://github.com/croct-tech">Croct (croct-tech)</a></li><li><a href="https://github.com/uppler">Uppler (uppler)</a></li><!-- thirty -->
+<!-- thirty --><li><a href="https://github.com/ondrejcech">Ondřej Čech (ondrejcech)</a></li><li><a href="https://github.com/martin-georgiev">Martin Georgiev (martin-georgiev)</a></li><li><a href="https://github.com/croct-tech">Croct (croct-tech)</a></li><li><a href="https://github.com/hyvor">HYVOR (hyvor)</a></li><li><a href="https://github.com/uppler">Uppler (uppler)</a></li><!-- thirty -->
 
 <!-- thirty-org --><!-- thirty-org -->
 </ul>
