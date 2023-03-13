@@ -15,7 +15,7 @@
 		"prismjs": "^1.27.0"
 	},
 	"devDependencies": {
-		"@11ty/eleventy": "^1.0.0",
+		"@11ty/eleventy": "^2.0.0",
 		"@11ty/eleventy-plugin-rss": "^1.0.7",
 		"@11ty/eleventy-plugin-syntaxhighlight": "^4.0.0",
 		"@parcel/config-default": "^2.0.0",
