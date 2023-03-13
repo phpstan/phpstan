@@ -2,7 +2,6 @@
 title: "PHPStan 0.12 Released!"
 date: 2019-12-04
 tags: releases
-ogImage: /tmp/images/eu-fossa.jpg
 ---
 
 This is a massive release that has been in the works for the past six months. We’ve managed to churn out minor releases even during the development of this new major version. This continuous workflow was enabled by [feature toggles](https://github.com/phpstan/phpstan/releases/tag/0.11.4) — people were able to try out the new features even while using the stable version by opting in and give feedback.

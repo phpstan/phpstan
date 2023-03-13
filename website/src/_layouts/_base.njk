@@ -8,13 +8,11 @@
 	<link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 	<link rel="stylesheet" href="/tmp/app.pcss">
 
-	{% if ogImage %}
-		<meta property="og:image" content="{{ ogImage }}" />
-		<meta name="twitter:image" content="{{ ogImage }}" />
-	{% else %}
+	{% block socialImages %}
 		<meta property="og:image" content="/tmp/images/logo-big.png" />
 		<meta name="twitter:image" content="/tmp/images/logo-big.png" />
-	{% endif %}
+	{% endblock %}
+
 	<link rel="icon" type="image/png" href="/tmp/images/favicon.png">
 	<link rel="alternate" type="application/rss+xml" title="PHPStan Blog" href="/tmp/rss.xml">
 

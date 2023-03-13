@@ -2,7 +2,6 @@
 title: "Introducing PHPStan Pro – Save Your Keystrokes and Get More Productive!"
 date: 2020-09-29
 tags: releases
-ogImage: /tmp/images/phpstan-pro-twitter-card.png
 pageType: pro
 ---
 

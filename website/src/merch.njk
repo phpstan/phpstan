@@ -2,13 +2,17 @@
 title: PHPStan 1.0 Merchandise Sale
 pageType: merch
 permalink: "/merch.html"
-ogImage: /tmp/images/og-merch.jpg
 ---
 
 {% extends "./_layouts/_base.njk" %}
 
 {% block scripts %}
 	<script src="/tmp/js/merch.ts" type="module"></script>
+{% endblock %}
+
+{% block socialImages %}
+  <meta property="og:image" content="/tmp/images/og-merch.jpg" />
+  <meta name="twitter:image" content="/tmp/images/og-merch.jpg" />
 {% endblock %}
 
 {% block bgColor %}background-color: #fefefe{% endblock %}

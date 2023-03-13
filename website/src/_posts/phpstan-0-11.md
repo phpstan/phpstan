@@ -2,7 +2,6 @@
 title: "PHPStan 0.11"
 date: 2019-01-16
 tags: releases
-ogImage: /tmp/images/phpstan-0-11.jpg
 ---
 
 PHPStan has had a wonderful year 2018. The adoption increased from 3,200 daily downloads to 9,800. I released [9 new versions](https://github.com/phpstan/phpstan/releases), [wrote a feature article](https://www.phparch.com/2018/04/testing-strategy-with-the-help-of-static-analysis/) for php[arch] magazine, and talked about PHPStan at Dutch PHP in Amsterdam.

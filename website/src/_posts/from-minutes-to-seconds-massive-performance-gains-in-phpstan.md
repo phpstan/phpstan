@@ -2,7 +2,6 @@
 title: "From Minutes to Seconds: Massive Performance Gains in PHPStan"
 date: 2020-03-01
 tags: releases
-ogImage: /tmp/images/f1-car.jpg
 ---
 
 ![F1 Car](/tmp/images/f1-car.jpg)

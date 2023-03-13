@@ -2,7 +2,6 @@
 title: "Generics in PHP using PHPDocs"
 date: 2019-12-02
 tags: guides
-ogImage: /tmp/images/generics.jpg
 ---
 
 ![PHP code](/tmp/images/generics.jpg)
