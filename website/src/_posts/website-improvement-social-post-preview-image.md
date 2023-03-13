@@ -23,7 +23,7 @@ And I wanted the same thing! I checked out some Eleventy plugins, but didn't fal
 
 So I've spent a few hours figuring it out, and designing the image. I love the result, both [the code that achieved that](https://github.com/phpstan/phpstan/commit/2304ef6326c4e29407e653f6be0cde04cc57b53e), and the look. See for yourself:
 
-![Social Image Preview](/tmp/images/social-phpstan-1-10-comes-with-lie-detector.png)
+<blockquote class="twitter-tweet" data-dnt="true"><p lang="en" dir="ltr">A short tale about how <a href="https://twitter.com/VotrubaT?ref_src=twsrc%5Etfw">@VotrubaT</a>&#39;s tweet inspired me to improve PHPStan&#39;s statically generated website.<a href="https://t.co/ivmHJeGCze">https://t.co/ivmHJeGCze</a></p>&mdash; Ondřej Mirtes (@OndrejMirtes) <a href="https://twitter.com/OndrejMirtes/status/1635298779510472705?ref_src=twsrc%5Etfw">March 13, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 ---
 
