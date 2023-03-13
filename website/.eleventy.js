@@ -5,6 +5,10 @@ const readingTime = require('reading-time');
 const mermaid = require("headless-mermaid");
 const fs = require("fs");
 const crypto = require("crypto");
+const { EleventyRenderPlugin } = require("@11ty/eleventy");
+const captureWebsite = import("capture-website");
+
+process.setMaxListeners(0);
 
 module.exports = function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy('src/images');
@@ -14,6 +18,7 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy('src/robots.txt');
 	eleventyConfig.addPlugin(syntaxHighlight);
 	eleventyConfig.addPlugin(pluginRss);
+	eleventyConfig.addPlugin(EleventyRenderPlugin);
 	eleventyConfig.setDataDeepMerge(true);
 
 	const markdownIt = require("markdown-it");
@@ -85,6 +90,26 @@ module.exports = function (eleventyConfig) {
 
 		return '<img class="mb-8" src="/' + name + '" />'
 	});
+
+	eleventyConfig.addAsyncShortcode('socialImages', async function (title) {
+		const content = await eleventyConfig.nunjucksAsyncShortcodes.renderFile('./src/_includes/social/socialImage.njk', {
+			title: title,
+			date: DateTime.fromJSDate(this.page.date, {zone: 'utc'}).toFormat('DDD'),
+		}, 'njk');
+		const capture = await captureWebsite;
+		const image = await capture.default.buffer(content, {
+			inputType: 'html',
+			width: 800,
+			height: 418,
+			fullPage: true,
+		});
+		const name = 'tmp/images/social-' + this.page.fileSlug + '.png';
+		fs.writeFileSync(name, image);
+
+		return '<meta name="twitter:image" content="/' + name + '" />'
+			+ "\n"
+			+ '<meta property="og:image" content="/' + name + '" />';
+	})
 
 	return {
 		dir: {

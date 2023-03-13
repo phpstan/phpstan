@@ -14,3 +14,7 @@ sectionTitle: Blog
 {% block postDate %}
 	<p class="text-sm text-gray-500">{{ date | htmlDateString }} · {{ content | readingTime }}</p>
 {% endblock %}
+
+{% block socialImages %}
+	{% socialImages title %}
+{% endblock %}
