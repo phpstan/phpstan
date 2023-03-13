@@ -132,16 +132,16 @@
         },
         {
             "name": "bref/bref",
-            "version": "1.7.22",
+            "version": "1.7.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/bref.git",
-                "reference": "4669bbe52feaf0c65ff93127bf083d3d4a4d81b6"
+                "reference": "cc9124dc6453bcc8061e2a3266972475934338fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/bref/zipball/4669bbe52feaf0c65ff93127bf083d3d4a4d81b6",
-                "reference": "4669bbe52feaf0c65ff93127bf083d3d4a4d81b6",
+                "url": "https://api.github.com/repos/brefphp/bref/zipball/cc9124dc6453bcc8061e2a3266972475934338fe",
+                "reference": "cc9124dc6453bcc8061e2a3266972475934338fe",
                 "shasum": ""
             },
             "require": {
@@ -194,7 +194,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brefphp/bref/issues",
-                "source": "https://github.com/brefphp/bref/tree/1.7.22"
+                "source": "https://github.com/brefphp/bref/tree/1.7.23"
             },
             "funding": [
                 {
@@ -206,7 +206,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-02-23T12:03:04+00:00"
+            "time": "2023-03-09T12:35:22+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -360,16 +360,16 @@
         },
         {
             "name": "guzzlehttp/psr7",
-            "version": "2.4.3",
+            "version": "2.4.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/psr7.git",
-                "reference": "67c26b443f348a51926030c83481b85718457d3d"
+                "reference": "3cf1b6d4f0c820a2cf8bcaec39fc698f3443b5cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/psr7/zipball/67c26b443f348a51926030c83481b85718457d3d",
-                "reference": "67c26b443f348a51926030c83481b85718457d3d",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/3cf1b6d4f0c820a2cf8bcaec39fc698f3443b5cf",
+                "reference": "3cf1b6d4f0c820a2cf8bcaec39fc698f3443b5cf",
                 "shasum": ""
             },
             "require": {
@@ -459,7 +459,7 @@
             ],
             "support": {
                 "issues": "https://github.com/guzzle/psr7/issues",
-                "source": "https://github.com/guzzle/psr7/tree/2.4.3"
+                "source": "https://github.com/guzzle/psr7/tree/2.4.4"
             },
             "funding": [
                 {
@@ -475,7 +475,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-10-26T14:07:24+00:00"
+            "time": "2023-03-09T13:19:02+00:00"
         },
         {
             "name": "hollodotme/fast-cgi-client",
@@ -1602,16 +1602,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.10.3",
+            "version": "1.10.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "5419375b5891add97dc74be71e6c1c34baaddf64"
+                "reference": "50d089a3e0904b0fe7e2cf2d4fd37d427d64235a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/5419375b5891add97dc74be71e6c1c34baaddf64",
-                "reference": "5419375b5891add97dc74be71e6c1c34baaddf64",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/50d089a3e0904b0fe7e2cf2d4fd37d427d64235a",
+                "reference": "50d089a3e0904b0fe7e2cf2d4fd37d427d64235a",
                 "shasum": ""
             },
             "require": {
@@ -1641,7 +1641,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/1.10.3"
+                "source": "https://github.com/phpstan/phpstan/tree/1.10.6"
             },
             "funding": [
                 {
@@ -1657,7 +1657,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-02-25T14:47:13+00:00"
+            "time": "2023-03-09T16:55:12+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
@@ -2179,16 +2179,16 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "3.13.1",
+            "version": "3.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "71c86fe4699a7f1a40c7d985f3dc7667045152f0"
+                "reference": "60dd3f74ab21cc2bf53f39bf7c342798bc185c23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/71c86fe4699a7f1a40c7d985f3dc7667045152f0",
-                "reference": "71c86fe4699a7f1a40c7d985f3dc7667045152f0",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/60dd3f74ab21cc2bf53f39bf7c342798bc185c23",
+                "reference": "60dd3f74ab21cc2bf53f39bf7c342798bc185c23",
                 "shasum": ""
             },
             "require": {
@@ -2246,7 +2246,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "BSD-3-Clause"
+                "MIT"
             ],
             "authors": [
                 {
@@ -2267,7 +2267,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-php/issues",
-                "source": "https://github.com/getsentry/sentry-php/tree/3.13.1"
+                "source": "https://github.com/getsentry/sentry-php/tree/3.14.0"
             },
             "funding": [
                 {
@@ -2279,7 +2279,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-02-10T10:17:57+00:00"
+            "time": "2023-03-05T21:31:25+00:00"
         },
         {
             "name": "symfony/console",
@@ -2675,16 +2675,16 @@
         },
         {
             "name": "symfony/options-resolver",
-            "version": "v6.2.5",
+            "version": "v6.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "e8324d44f5af99ec2ccec849934a242f64458f86"
+                "reference": "aa0e85b53bbb2b4951960efd61d295907eacd629"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/e8324d44f5af99ec2ccec849934a242f64458f86",
-                "reference": "e8324d44f5af99ec2ccec849934a242f64458f86",
+                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/aa0e85b53bbb2b4951960efd61d295907eacd629",
+                "reference": "aa0e85b53bbb2b4951960efd61d295907eacd629",
                 "shasum": ""
             },
             "require": {
@@ -2722,7 +2722,7 @@
                 "options"
             ],
             "support": {
-                "source": "https://github.com/symfony/options-resolver/tree/v6.2.5"
+                "source": "https://github.com/symfony/options-resolver/tree/v6.2.7"
             },
             "funding": [
                 {
@@ -2738,7 +2738,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-01-01T08:38:09+00:00"
+            "time": "2023-02-14T08:44:56+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
