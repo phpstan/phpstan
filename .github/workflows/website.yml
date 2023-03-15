@@ -88,11 +88,6 @@ jobs:
     runs-on: "ubuntu-latest"
     concurrency: website
     steps:
-      - name: "Install Node"
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18"
-
       - name: "Download website dist"
         uses: actions/download-artifact@v3
         with:
