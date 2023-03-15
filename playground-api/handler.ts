@@ -39,7 +39,7 @@ async function analyseResultInternal(
 	const lambdaPromises: [Promise<PromiseResult<Lambda.InvocationResponse, AWSError>>, number][] = [];
 	for (const phpVersion of phpVersions) {
 		lambdaPromises.push([lambda.invoke({
-			FunctionName: 'phpstan-runner2-prod-main',
+			FunctionName: 'phpstan-runner-prod-main',
 			Payload: JSON.stringify({
 				code: code,
 				level: level,

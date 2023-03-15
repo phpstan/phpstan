@@ -1,4 +1,4 @@
-service: phpstan-playground-api2
+service: phpstan-playground-api
 
 provider:
   name: aws
