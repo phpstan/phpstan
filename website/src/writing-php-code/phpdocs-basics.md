@@ -285,6 +285,60 @@ function foo(Collection $c, string $s): void
 }
 ```
 
+Deprecations
+---------------
+
+Use `@deprecated` tag to mark declarations as deprecated:
+
+```php
+/** @deprecated Optional description */
+class Foo
+{
+}
+```
+
+Install [`phpstan-deprecation-rules`](https://github.com/phpstan/phpstan-deprecation-rules) extension to have usages of deprecated symbols reported.
+
+The `@deprecated` PHPDoc tag is inherited to implicitly mark overriden methods in child classes also as deprecated:
+
+```php
+class Foo
+{
+	/** @deprecated */
+	public function doFoo(): void
+	{
+		// ...
+	}
+}
+
+class Bar extends Foo
+{
+	public function doFoo(): void
+	{
+		// ...
+	}
+}
+
+$bar = new Bar();
+$bar->doFoo(); // Call to deprecated method doFoo() of class Bar.
+```
+
+To break the inheritance chain and un-mark `Bar::doFoo()` as deprecated, use `@not-deprecated` PHPDoc tag:
+
+```php
+class Bar extends Foo
+{
+	/** @not-deprecated */
+	public function doFoo(): void
+	{
+		// ...
+	}
+}
+
+$bar = new Bar();
+$bar->doFoo(); // OK
+```
+
 Impure functions
 ---------------
 
