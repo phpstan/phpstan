@@ -1,4 +1,4 @@
-service: phpstan-runner2
+service: phpstan-runner
 
 provider:
     name: aws
