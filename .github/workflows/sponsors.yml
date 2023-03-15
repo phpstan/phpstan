@@ -43,7 +43,7 @@ jobs:
           echo 'MESSAGE' >> $GITHUB_OUTPUT
 
       - name: Generate Sponsors
-        uses: JamesIves/github-sponsors-readme-action@v1
+        uses: ondrejmirtes/github-sponsors-readme-action@v1
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'BACKERS.md'
@@ -53,7 +53,7 @@ jobs:
           template: ${{ steps.template.outputs.text }}
 
       - name: Generate Sponsors
-        uses: JamesIves/github-sponsors-readme-action@v1
+        uses: ondrejmirtes/github-sponsors-readme-action@v1
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'BACKERS.md'
@@ -64,7 +64,7 @@ jobs:
           template: ${{ steps.template.outputs.text }}
 
       - name: Generate Sponsors
-        uses: JamesIves/github-sponsors-readme-action@v1
+        uses: ondrejmirtes/github-sponsors-readme-action@v1
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'BACKERS.md'
@@ -74,7 +74,7 @@ jobs:
           template: ${{ steps.template.outputs.text }}
 
       - name: Generate Sponsors
-        uses: JamesIves/github-sponsors-readme-action@v1
+        uses: ondrejmirtes/github-sponsors-readme-action@v1
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'BACKERS.md'
@@ -85,7 +85,7 @@ jobs:
           template: ${{ steps.template.outputs.text }}
 
       - name: Generate Sponsors
-        uses: JamesIves/github-sponsors-readme-action@v1
+        uses: ondrejmirtes/github-sponsors-readme-action@v1
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'BACKERS.md'
@@ -94,7 +94,7 @@ jobs:
           template: ${{ steps.template.outputs.text }}
 
       - name: Generate Sponsors
-        uses: JamesIves/github-sponsors-readme-action@v1
+        uses: ondrejmirtes/github-sponsors-readme-action@v1
         with:
           token: ${{ secrets.SPONSORS_PAT }}
           file: 'BACKERS.md'
