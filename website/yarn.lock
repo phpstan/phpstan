@@ -4470,6 +4470,11 @@ typescript@^4.3.2:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.9.5.tgz#095979f9bcc0d09da324d58d03ce8f8374cbe65a"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
 
+typopo@^2.5.4:
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/typopo/-/typopo-2.5.4.tgz#eb95c85b863a4f098a198d621bdd65193e6568ce"
+  integrity sha512-/kakYdFEnOQsMJqwf49MJspvcHliaAzA1+fbJy6eryG+ywJNA5vNRtkjKuASMyT37Jx4e8CTfKpSml1UjbU4MQ==
+
 uc.micro@^1.0.1, uc.micro@^1.0.5:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/uc.micro/-/uc.micro-1.0.6.tgz#9c411a802a409a91fc6cf74081baba34b24499ac"

@@ -44,7 +44,7 @@
 			<a href="#" class="text-sm text-gray-400 md:hidden no-underline hover:underline" data-bind="click: openSidebar">Menu</a>
 		<!-- /ko -->
 
-		{% block mainTitle %}<h1 class="leading-tight">{{ title }}</h1>{% endblock %}
+		{% block mainTitle %}<h1 class="leading-tight">{{ title | fixTypos }}</h1>{% endblock %}
 		{% block postDate %}{% endblock %}
 
 		{% block innerContent %}

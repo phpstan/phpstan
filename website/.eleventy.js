@@ -7,6 +7,7 @@ const fs = require("fs");
 const crypto = require("crypto");
 const { EleventyRenderPlugin } = require("@11ty/eleventy");
 const captureWebsite = import("capture-website");
+const { fixTypos } = require('typopo');
 
 process.setMaxListeners(0);
 
@@ -72,6 +73,10 @@ module.exports = function (eleventyConfig) {
 		}
 
 		return array.slice(0, n);
+	});
+
+	eleventyConfig.addFilter('fixTypos', (text) => {
+		return fixTypos(text, 'en-us');
 	});
 
 	eleventyConfig.addShortcode("year", () => {
