@@ -1,9 +1,8 @@
-service: phpstan-runner
+service: phpstan-runner2
 
 provider:
     name: aws
     region: eu-west-1
-    runtime: provided.al2
     stage: prod
     versionFunctions: false
     httpApi:
@@ -17,12 +16,10 @@ functions:
         handler: bref.php
         description: ''
         timeout: 20
-        layers:
-            - ${bref:layer.php-81}
+        runtime: php-81
     ignoreErrors:
         handler: ignoreErrors.php
-        layers:
-          - ${bref:layer.php-81-fpm}
+        runtime: php-81-fpm
         events:
           - httpApi:
               method: 'GET'
