@@ -3,6 +3,7 @@ service: phpstan-runner2
 provider:
     name: aws
     region: eu-west-1
+    architecture: arm64
     stage: prod
     versionFunctions: false
     httpApi:
