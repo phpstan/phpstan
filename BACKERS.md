@@ -89,7 +89,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/j0k3r">Jérémy Benoist (j0k3r)</a></li>
 <li><a href="https://github.com/nicwortel">Nic Wortel (nicwortel)</a></li>
 <li><a href="https://github.com/customgento">CustomGento (customgento)</a></li>
-<li><a href="https://github.com/tlamy">Thomas Lamy (tlamy)</a></li>
 <li><a href="https://github.com/johnbillion">John Blackbourn (johnbillion)</a></li>
 <li><a href="https://github.com/dbu">David Buchmann (dbu)</a></li>
 <li><a href="https://github.com/mavrck">Bill Condo (mavrck)</a></li>
