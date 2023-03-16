@@ -15,5 +15,12 @@
 	],
 	"autoload": {
 		"files": ["bootstrap.php"]
+	},
+	"support": {
+		"issues": "https://github.com/phpstan/phpstan/issues",
+		"forum": "https://github.com/phpstan/phpstan/discussions",
+		"source": "https://github.com/phpstan/phpstan-src",
+		"docs": "https://phpstan.org/user-guide/getting-started",
+		"security": "https://github.com/phpstan/phpstan/security/policy"
 	}
 }
