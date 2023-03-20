@@ -35,3 +35,20 @@ Here's a brief overview of what's checked on each level. Levels are cumulative -
 7. report partially wrong union types - if you call a method that only exists on some types in a union type, level 7 starts to report that; other possibly incorrect situations
 8. report calling methods and accessing properties on nullable types
 9. be strict about the `mixed` type - the only allowed operation you can do with it is to pass it to another `mixed`
+
+Want to go further?
+------------
+
+If the level 9 isn't enough for you and you're looking for even more strictness and type safety, here are some tips. You can use them even alongside lower rule levels.
+
+Use [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-rules) extension. It configures PHPStan in a stricter way and offers additional rules that revolve around strictly and strongly typed code with no loose casting for those who want additional safety in extremely defensive programming.
+
+Enable [Bleeeding Edge](/blog/what-is-bleeding-edge). It's a preview of what's coming in the next major release of PHPStan, but shipping in the current stable release. Bleeding edge users are often rewarded with a more capable analysis sooner than the rest. It can also come with performance improvements. If you enable bleeding edge, and adopt new PHPStan features continuously, you're gonna have much less work to do when the next major version ships for everyone.
+
+If you use a popular framework like Symfony, Doctrine or Laravel etc., make sure you install a [corresponding extension](/user-guide/extension-library). It will improve understanding of your code, and also comes with extra rules for correct usage.
+
+Go through the extra [configuration options](/config-reference#stricter-analysis) for stricter analysis. Some of them are enabled when you install phpstan-strict-rules, but there are some extra options that aren't part of any rule level, nor phpstan-strict-rules. A few examples:
+
+* [`checkUninitializedProperties`](/config-reference#checkuninitializedproperties): Report typed properties not set in constructor
+* [`checkImplicitMixed`](/config-reference#checkimplicitmixed): Level 9 on steroids
+* [`checkBenevolentUnionTypes`](/config-reference#checkbenevolentuniontypes): Report wrong usage of unknown array keys, and other types
