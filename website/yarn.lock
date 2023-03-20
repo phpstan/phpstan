@@ -292,7 +292,7 @@
     "@types/firefox-webext-browser" "^109.0.0"
     tldts-experimental "^5.6.21"
 
-"@codemirror/autocomplete@^6.0.0", "@codemirror/autocomplete@^6.4.2":
+"@codemirror/autocomplete@^6.0.0":
   version "6.4.2"
   resolved "https://registry.yarnpkg.com/@codemirror/autocomplete/-/autocomplete-6.4.2.tgz#938b25223bd21f97b2a6d85474643355f98b505b"
   integrity sha512-8WE2xp+D0MpWEv5lZ6zPW1/tf4AGb358T5GWYiKEuCP8MvFfT3tH2mIF9Y2yr2e3KbHuSvsVhosiEyqCpiJhZQ==
