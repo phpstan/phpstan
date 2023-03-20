@@ -1111,9 +1111,9 @@
     lodash.deburr "^4.1.0"
 
 "@stripe/stripe-js@^1.20.3":
-  version "1.48.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.48.0.tgz#53d07ebc32da03ee3d76eb6aebf4447c160807fd"
-  integrity sha512-Kw2BRXk6z/wnTU9m2IJOhxJNrx9xzmpFSbk6D/Z0x6LJntMafiHeHFag2PvSF30O2quMb1UUdWsnZqGVDruZww==
+  version "1.49.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.49.0.tgz#d0a129d35d77417351a010a7368fd713ee9bd23b"
+  integrity sha512-wcXxHtfb3hkwQnOfLzu4fO3J+1laWjrxE9Jfyvpk+fCUAxs8Rif9WrsSZ8m6BRFazQqGoGKvqzXB7gsVB5phJw==
 
 "@swc/helpers@^0.4.12":
   version "0.4.14"
