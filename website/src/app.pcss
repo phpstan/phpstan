@@ -1,5 +1,3 @@
-@import './../node_modules/codemirror/lib/codemirror.css';
-@import './../node_modules/codemirror/theme/ttcn.css';
 @import './../node_modules/prism-themes/themes/prism-ghcolors.css';
 @import './../node_modules/littlefoot/dist/littlefoot.css';
 
@@ -8,16 +6,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* purgecss ignore */
-.CodeMirror {
+.cm-editor {
 	font-size: 15px;
-	height: auto;
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-	@apply border rounded-md my-8;
+	@apply border rounded-md my-8 outline-0;
+}
+
+.cm-editor.cm-focused {
+	@apply outline-0;
 }
 
 @media(max-width: theme('screens.sm')) {
-	.CodeMirror {
+	.cm-editor {
 		@apply mx-4;
 	}
 }
