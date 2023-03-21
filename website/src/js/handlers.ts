@@ -2,21 +2,36 @@ import * as ko from 'knockout';
 import {EditorView} from '@codemirror/view'
 import {keymap, highlightSpecialChars, drawSelection,
 	lineNumbers, Decoration, DecorationSet} from '@codemirror/view'
-import {EditorState, RangeSetBuilder, StateField, StateEffect, StateEffectType} from '@codemirror/state'
+import {EditorState, RangeSetBuilder, StateField, StateEffect, StateEffectType, Text} from '@codemirror/state'
 import {defaultHighlightStyle, syntaxHighlighting, indentOnInput, indentUnit, bracketMatching} from '@codemirror/language'
 import {defaultKeymap, history, historyKeymap, indentWithTab} from '@codemirror/commands'
 import {closeBrackets, closeBracketsKeymap} from '@codemirror/autocomplete'
 import {php} from '@codemirror/lang-php'
+
+const buildErrorLines = (doc: Text, lines: number[]) => {
+	const errorLineDecoration = Decoration.line({class: 'bg-red-100'});
+	const builder = new RangeSetBuilder<Decoration>();
+	for (let i = 0; i < doc.lines; i++) {
+		const line = doc.line(i + 1);
+		if (lines.includes(line.number - 1)) {
+			builder.add(line.from, line.from, errorLineDecoration);
+		}
+	}
+
+	return builder.finish();
+};
 
 ko.bindingHandlers.codeMirror = {
 	init: (element, valueAccessor, allBindings, viewModel, bindingContext) => {
 		// from https://github.com/codemirror/basic-setup/blob/78d1a916147c8c19678838cbdbf9396a8d1a6460/src/codemirror.ts
 		// options explained here: https://codemirror.net/docs/ref/
 
+		const text: string = ko.unwrap(valueAccessor());
 		const changeErrorLines: StateEffectType<DecorationSet> = StateEffect.define();
 		const errorLines = StateField.define<DecorationSet>({
 			create() {
-				return Decoration.none
+				const doc = Text.of(text.split('\n'));
+				return buildErrorLines(doc, allBindings.get('codeMirrorLines'))
 			},
 			update(lines, tr) {
 				lines = lines.map(tr.changes);
@@ -30,7 +45,7 @@ ko.bindingHandlers.codeMirror = {
 			provide: f => EditorView.decorations.from(f)
 		})
 		const startState = EditorState.create({
-			doc: ko.unwrap(valueAccessor()),
+			doc: text,
 			extensions: [
 				lineNumbers(),
 				// highlightActiveLineGutter(),
@@ -82,36 +97,14 @@ ko.bindingHandlers.codeMirror = {
 		ko.utils.domData.set(element, 'codeMirror', editor);
 		ko.utils.domData.set(element, 'codeMirrorChangeErrorLines', changeErrorLines);
 	},
-	update: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) => {
-		const editor: EditorView = ko.utils.domData.get(element, 'codeMirror');
-		const newValue = ko.unwrap(valueAccessor());
-
-		editor.dispatch({
-			changes: {from: 0, to: editor.state.doc.length, insert: newValue},
-		});
-	},
 };
 
 ko.bindingHandlers.codeMirrorLines = {
 	update: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) => {
 		const editor: EditorView = ko.utils.domData.get(element, 'codeMirror');
 		const changeErrorLines: StateEffectType<DecorationSet> = ko.utils.domData.get(element, 'codeMirrorChangeErrorLines');
-		const newLines = ko.unwrap(valueAccessor());
-		const errorLineDecoration = Decoration.line({class: 'bg-red-100'});
-		const builder = new RangeSetBuilder<Decoration>();
-
-		for (const {from, to} of editor.visibleRanges) {
-			for (let pos = from; pos <= to;) {
-				const line = editor.state.doc.lineAt(pos);
-				if (newLines.includes(line.number - 1)) {
-					builder.add(line.from, line.from, errorLineDecoration);
-				}
-				pos = line.to + 1;
-			}
-		}
-
 		editor.dispatch({
-			effects: changeErrorLines.of(builder.finish()),
+			effects: changeErrorLines.of(buildErrorLines(editor.state.doc, ko.unwrap(valueAccessor()))),
 		});
 	},
 };
