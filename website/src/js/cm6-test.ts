@@ -1,7 +1,7 @@
 import {EditorView} from '@codemirror/view'
 import {keymap, highlightSpecialChars, drawSelection,
-	lineNumbers, Decoration} from '@codemirror/view'
-import {EditorState, RangeSet, RangeSetBuilder, Compartment} from '@codemirror/state'
+	lineNumbers, Decoration, DecorationSet} from '@codemirror/view'
+import {EditorState, RangeSetBuilder, StateField} from '@codemirror/state'
 import {defaultHighlightStyle, syntaxHighlighting, indentOnInput, indentUnit, bracketMatching} from '@codemirror/language'
 import {defaultKeymap, history, historyKeymap, indentWithTab} from '@codemirror/commands'
 import {closeBrackets, closeBracketsKeymap} from '@codemirror/autocomplete'
@@ -9,7 +9,15 @@ import {php} from '@codemirror/lang-php'
 
 
 (() => {
-	const errorLines = new Compartment();
+	const errorLines = StateField.define<DecorationSet>({
+		create() {
+			return Decoration.none
+		},
+		update(lines, tr) {
+			return lines.map(tr.changes);
+		},
+		provide: f => EditorView.decorations.from(f)
+	})
 	const startState = EditorState.create({
 		doc: '<?php declare(strict_types = 1);\n' +
 		'\n' +
@@ -60,7 +68,7 @@ import {php} from '@codemirror/lang-php'
 				const observable = valueAccessor();
 				observable(update.state.doc.toString());
 			}),*/
-			errorLines.of(EditorView.decorations.of(RangeSet.empty)),
+			EditorView.decorations.from(errorLines),
 		],
 	})
 
@@ -89,9 +97,10 @@ import {php} from '@codemirror/lang-php'
 			}
 		}
 
-		editor.dispatch({
+		// ???
+		/* editor.dispatch({
 			effects: errorLines.reconfigure(EditorView.decorations.of(builder.finish())),
-		});
+		}); */
 	}, 1500);
 
 })();
