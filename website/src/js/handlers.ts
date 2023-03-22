@@ -1,5 +1,5 @@
 import * as ko from 'knockout';
-import {EditorView} from '@codemirror/view'
+import {EditorView, hoverTooltip} from '@codemirror/view'
 import {keymap, highlightSpecialChars, drawSelection,
 	lineNumbers, Decoration, DecorationSet} from '@codemirror/view'
 import {EditorState, RangeSetBuilder, StateField, StateEffect, StateEffectType, Text} from '@codemirror/state'
@@ -10,7 +10,7 @@ import {php} from '@codemirror/lang-php'
 import { PHPStanError } from './PHPStanError';
 
 const buildErrorLines = (doc: Text, lines: number[]) => {
-	const errorLineDecoration = Decoration.line({class: 'bg-red-200/50'});
+	const errorLineDecoration = Decoration.line({class: 'bg-red-200/50 hover:bg-red-300/50'});
 	const builder = new RangeSetBuilder<Decoration>();
 	for (let i = 0; i < doc.lines; i++) {
 		const line = doc.line(i + 1);
@@ -38,6 +38,47 @@ ko.bindingHandlers.codeMirror = {
 			}
 			lines.push(line - 1);
 		}
+
+		const hover = hoverTooltip((view, pos, side) => {
+			const currentErrors: PHPStanError[] = allBindings.get('codeMirrorErrors');
+			const line = view.state.doc.lineAt(pos);
+			const lineErrors: string[] = [];
+			for (const error of currentErrors) {
+				if (error.line === line.number) {
+					lineErrors.push(error.message);
+				}
+			}
+
+			if (lineErrors.length === 0) {
+				return null;
+			}
+
+			return {
+				pos: line.from,
+				end: line.to,
+				above: true,
+				create() {
+					const dom = document.createElement('div')
+					dom.className = 'bg-red-800 text-white rounded-lg px-3 py-1 border-0 text-xs flex flex-col gap-2';
+					for (const error of lineErrors) {
+						const errorDom = document.createElement('div');
+						errorDom.className = '';
+						errorDom.textContent = error;
+						dom.appendChild(errorDom);
+					}
+
+					const outerDom = document.createElement('div');
+					outerDom.className = 'pb-1';
+					outerDom.appendChild(dom);
+
+					return {
+						dom: outerDom,
+					}
+				}
+			}
+		}, {
+			hoverTime: 5,
+		});
 
 		const errorLines = StateField.define<DecorationSet>({
 			create() {
@@ -98,6 +139,7 @@ ko.bindingHandlers.codeMirror = {
 					observable(update.state.doc.toString());
 				}),
 				errorLines,
+				hover,
 			],
 		})
 
