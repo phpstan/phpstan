@@ -8,6 +8,7 @@ import {defaultKeymap, history, historyKeymap, indentWithTab} from '@codemirror/
 import {closeBrackets, closeBracketsKeymap} from '@codemirror/autocomplete'
 import {php} from '@codemirror/lang-php'
 import { PHPStanError } from './PHPStanError';
+import { ttcn } from './ttcn-theme';
 
 const buildErrorLines = (doc: Text, lines: number[]) => {
 	const errorLineDecoration = Decoration.line({class: 'bg-red-200/50 hover:bg-red-300/50'});
@@ -140,6 +141,7 @@ ko.bindingHandlers.codeMirror = {
 				}),
 				errorLines,
 				hover,
+				ttcn,
 			],
 		})
 
