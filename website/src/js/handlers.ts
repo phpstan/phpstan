@@ -11,7 +11,7 @@ import { PHPStanError } from './PHPStanError';
 import { ttcn } from './ttcn-theme';
 
 const buildErrorLines = (doc: Text, lines: number[]) => {
-	const errorLineDecoration = Decoration.line({class: 'bg-red-200/50 hover:bg-red-300/50'});
+	const errorLineDecoration = Decoration.line({class: 'bg-red-200/50'});
 	const builder = new RangeSetBuilder<Decoration>();
 	for (let i = 0; i < doc.lines; i++) {
 		const line = doc.line(i + 1);
@@ -41,6 +41,7 @@ ko.bindingHandlers.codeMirror = {
 		}
 
 		const hover = hoverTooltip((view, pos, side) => {
+			console.log('here');
 			const currentErrors: PHPStanError[] = allBindings.get('codeMirrorErrors');
 			const line = view.state.doc.lineAt(pos);
 			const lineErrors: string[] = [];
@@ -54,8 +55,17 @@ ko.bindingHandlers.codeMirror = {
 				return null;
 			}
 
+			let from = line.from;
+			while (from < line.to && /\s/.test(line.text[from - line.from])) {
+				from++
+			}
+
+			if (from === line.to) {
+				from = line.from
+			}
+
 			return {
-				pos: line.from,
+				pos: from,
 				end: line.to,
 				above: true,
 				create() {
@@ -142,6 +152,11 @@ ko.bindingHandlers.codeMirror = {
 				errorLines,
 				hover,
 				ttcn,
+				EditorView.baseTheme({
+					'.cm-tooltip.cm-tooltip-hover': {
+						border: 'none',
+					},
+				}),
 			],
 		})
 
