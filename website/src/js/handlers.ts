@@ -7,6 +7,7 @@ import {defaultHighlightStyle, syntaxHighlighting, indentOnInput, indentUnit, br
 import {defaultKeymap, history, historyKeymap, indentWithTab} from '@codemirror/commands'
 import {closeBrackets, closeBracketsKeymap} from '@codemirror/autocomplete'
 import {php} from '@codemirror/lang-php'
+import { PHPStanError } from './PHPStanError';
 
 const buildErrorLines = (doc: Text, lines: number[]) => {
 	const errorLineDecoration = Decoration.line({class: 'bg-red-200/50'});
@@ -28,19 +29,29 @@ ko.bindingHandlers.codeMirror = {
 
 		const text: string = ko.unwrap(valueAccessor());
 		const changeErrorLines: StateEffectType<DecorationSet> = StateEffect.define();
+		const errors: PHPStanError[] = allBindings.get('codeMirrorErrors');
+		const lines: number[] = [];
+		for (const error of errors) {
+			const line = error.line;
+			if (line < 1) {
+				continue;
+			}
+			lines.push(line - 1);
+		}
+
 		const errorLines = StateField.define<DecorationSet>({
 			create() {
 				const doc = Text.of(text.split('\n'));
-				return buildErrorLines(doc, allBindings.get('codeMirrorLines'))
+				return buildErrorLines(doc, lines)
 			},
-			update(lines, tr) {
-				lines = lines.map(tr.changes);
+			update(textLines, tr) {
+				textLines = textLines.map(tr.changes);
 				for (const effect of tr.effects) {
 					if (effect.is(changeErrorLines)) {
-						lines = effect.value;
+						textLines = effect.value;
 					}
 				}
-				return lines;
+				return textLines;
 			},
 			provide: f => EditorView.decorations.from(f)
 		})
@@ -99,12 +110,22 @@ ko.bindingHandlers.codeMirror = {
 	},
 };
 
-ko.bindingHandlers.codeMirrorLines = {
+ko.bindingHandlers.codeMirrorErrors = {
 	update: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) => {
 		const editor: EditorView = ko.utils.domData.get(element, 'codeMirror');
 		const changeErrorLines: StateEffectType<DecorationSet> = ko.utils.domData.get(element, 'codeMirrorChangeErrorLines');
+		const errors: PHPStanError[] = ko.unwrap(valueAccessor());
+		const lines = [];
+		for (const error of errors) {
+			const line = error.line;
+			if (line < 1) {
+				continue;
+			}
+			lines.push(line - 1);
+		}
+
 		editor.dispatch({
-			effects: changeErrorLines.of(buildErrorLines(editor.state.doc, ko.unwrap(valueAccessor()))),
+			effects: changeErrorLines.of(buildErrorLines(editor.state.doc, lines)),
 		});
 	},
 };

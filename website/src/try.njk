@@ -19,7 +19,7 @@ permalink: "/try.html"
 		<div class="spinner"></div>
 	</div>
 	<div style="display: none" data-bind="visible: true">
-		<div data-bind="codeMirror: code, codeMirrorLines: currentTab() !== null ? currentTab().errorLines : []"></div>
+		<div data-bind="codeMirror: code, codeMirrorErrors: currentTab() !== null ? currentTab().errors : []"></div>
 
 		<div class="flex items-center mt-4 flex-col md:flex-row">
 			<!-- ko if: legacyResult() === null -->
