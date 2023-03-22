@@ -21,5 +21,6 @@ module.exports = {
 		'./tmp/blog.html',
 		'./tmp/blog/*.html',
 		'./tmp/js/PlaygroundTabViewModel.ts',
+		'./tmp/js/handlers.ts',
 	]
 }

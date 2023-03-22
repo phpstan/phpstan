@@ -9,7 +9,7 @@ import {closeBrackets, closeBracketsKeymap} from '@codemirror/autocomplete'
 import {php} from '@codemirror/lang-php'
 
 const buildErrorLines = (doc: Text, lines: number[]) => {
-	const errorLineDecoration = Decoration.line({class: 'bg-red-100'});
+	const errorLineDecoration = Decoration.line({class: 'bg-red-200/50'});
 	const builder = new RangeSetBuilder<Decoration>();
 	for (let i = 0; i < doc.lines; i++) {
 		const line = doc.line(i + 1);
