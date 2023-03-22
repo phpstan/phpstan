@@ -53,10 +53,8 @@ the logo of your company in PHPStan's README and the website.
 # $5+
 
 <ul>
-<!-- five --><li><a href="https://github.com/voku">Lars Moelleken (voku)</a></li>
-<li><a href="https://github.com/canvural">Can Vural (canvural)</a></li>
+<!-- five --><li><a href="https://github.com/canvural">Can Vural (canvural)</a></li>
 <li><a href="https://github.com/pyrech">Loïck Piera (pyrech)</a></li>
-<li><a href="https://github.com/mavimo">Marco Vito Moscaritolo (mavimo)</a></li>
 <li><a href="https://github.com/adamlundrigan">Adam Lundrigan (adamlundrigan)</a></li>
 <li><a href="https://github.com/escopecz">John Linhart (escopecz)</a></li>
 <li><a href="https://github.com/Ocramius">Marco Pivetta (Ocramius)</a></li>
