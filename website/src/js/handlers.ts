@@ -41,7 +41,6 @@ ko.bindingHandlers.codeMirror = {
 		}
 
 		const hover = hoverTooltip((view, pos, side) => {
-			console.log('here');
 			const currentErrors: PHPStanError[] = allBindings.get('codeMirrorErrors');
 			const line = view.state.doc.lineAt(pos);
 			const lineErrors: string[] = [];

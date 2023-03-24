@@ -16,7 +16,7 @@
 			2
 		],
 		"max-line-length": [false],
-		"no-console": [false],
+		"no-console": [true, "log"],
 		"no-require-imports": false,
 		"no-var-requires": false,
 		"object-literal-sort-keys": false,

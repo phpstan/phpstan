@@ -14,7 +14,7 @@ $(async () => {
 			merchSale: new MerchSaleViewModel(),
 		});
 	} catch (e) {
-		console.log(e);
+		console.error(e);
 		ko.applyBindings({
 			hasFatalError: true,
 			mainMenu: new MainMenuViewModel(),
