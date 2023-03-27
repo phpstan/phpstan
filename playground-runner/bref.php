@@ -97,7 +97,7 @@ return function ($event) use ($phpstanVersion) {
 			'line' => $result->getLine(),
 		];
 		if ($result->getTip() !== null) {
-			$error['tip'] = nl2br($tipFormatter->format($result->getTip()));
+			$error['tip'] = $tipFormatter->format($result->getTip());
 		}
 		$errors[] = $error;
 	}
