@@ -388,9 +388,9 @@
   integrity sha512-69QXtcrsc3RYtOtd+GsvczJ319udtBf1PTrr2KbLWM/e2CXUPnh0Nz9AUo8WfhSQ7GeL8dPVNUmhQVgpmuaNGA==
 
 "@codemirror/view@^6.0.0", "@codemirror/view@^6.2.2", "@codemirror/view@^6.6.0", "@codemirror/view@^6.9.2":
-  version "6.9.2"
-  resolved "https://registry.yarnpkg.com/@codemirror/view/-/view-6.9.2.tgz#c8ceb4ea36f17bb20fdecbe7534162d4b83185e9"
-  integrity sha512-ci0r/v6aKOSlzOs7/STMTYP3jX/+YMq2dAfAJcLIB6uom4ThtrUlzeuS7GTRGNqJJ+qAJR1vGWfXgu4CO/0myQ==
+  version "6.9.3"
+  resolved "https://registry.yarnpkg.com/@codemirror/view/-/view-6.9.3.tgz#4475dc0ff5d9a55f8144ad7484e7e17416861cce"
+  integrity sha512-BJ5mvEIhFM+SrNwc5X8pLIvMM9ffjkviVbxpg84Xk2OE8ZyKaEbId8kX+nAYEEso7+qnbwsXe1bkAHsasebMow==
   dependencies:
     "@codemirror/state" "^6.1.4"
     style-mod "^4.0.0"
@@ -1267,9 +1267,9 @@
     lodash.deburr "^4.1.0"
 
 "@stripe/stripe-js@^1.20.3":
-  version "1.49.0"
-  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.49.0.tgz#d0a129d35d77417351a010a7368fd713ee9bd23b"
-  integrity sha512-wcXxHtfb3hkwQnOfLzu4fO3J+1laWjrxE9Jfyvpk+fCUAxs8Rif9WrsSZ8m6BRFazQqGoGKvqzXB7gsVB5phJw==
+  version "1.52.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.52.0.tgz#39c5a074fcf45ae7c0567b198c9246ca6de7aafc"
+  integrity sha512-Ja2VlaTf3kM5tN4Y0sC8T3ibZAnfGUU/QzMAlk/G+Adz2fF1ycTabtSkdSuVP4/adXox8NkPPV4Xndx/EP4fMg==
 
 "@swc/helpers@^0.4.12":
   version "0.4.14"
@@ -3015,14 +3015,14 @@ linkify-it@^4.0.1:
     uc.micro "^1.0.1"
 
 linkify-string@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/linkify-string/-/linkify-string-4.1.0.tgz#c1bd6bd26a6a574e1ffa04cde333c2736b0d3d03"
-  integrity sha512-mw4KyPoE/vP0lamGbFFtDsutxOw0b+3g2/lH5bwS7X4tRHQyLBoJ60avPVGUoHfU8G1bLS329u13hhpxBIqFiA==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/linkify-string/-/linkify-string-4.1.1.tgz#461eb30b66752dec21f3557ebe55983ae3f5b195"
+  integrity sha512-9+kj8xr7GLiyNyO9ri7lIxq2ixVYjjqvtomPQpeYNNT56/PxQq6utzXFLm8HxOaGTiMpimj1UAQWwYYPV88L1g==
 
 linkifyjs@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/linkifyjs/-/linkifyjs-4.1.0.tgz#0460bfcc37d3348fa80e078d92e7bbc82588db15"
-  integrity sha512-Ffv8VoY3+ixI1b3aZ3O+jM6x17cOsgwfB1Wq7pkytbo1WlyRp6ZO0YDMqiWT/gQPY/CmtiGuKfzDIVqxh1aCTA==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/linkifyjs/-/linkifyjs-4.1.1.tgz#73d427e3bbaaf4ca8e71c589ad4ffda11a9a5fde"
+  integrity sha512-zFN/CTVmbcVef+WaDXT63dNzzkfRBKT1j464NJQkV7iSgJU0sLBus9W0HBwnXK13/hf168pbrx/V/bjEHOXNHA==
 
 liquidjs@^10.4.0:
   version "10.6.1"
