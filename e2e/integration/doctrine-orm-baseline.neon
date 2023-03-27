@@ -16,7 +16,7 @@ parameters:
 			path: repo/lib/Doctrine/ORM/Mapping/Driver/AttributeDriver.php
 
 		-
-			message: "#^Conditional return type uses subject type TMaybeContained which is not part of PHPDoc @template tags\\.$#"
+			message: "#^Condition \"TMaybeContained is mixed\" in conditional return type is always true\\.$#"
 			count: 1
 			path: repo/lib/Doctrine/ORM/PersistentCollection.php
 
