@@ -365,6 +365,12 @@ jobs:
               cp ../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit tests
+          - php-version: 8.2
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/bug8538
+              ../../phpstan analyze bug8538.php
 
     steps:
       - name: "Checkout"
