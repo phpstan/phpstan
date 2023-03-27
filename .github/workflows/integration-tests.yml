@@ -266,6 +266,15 @@ jobs:
               cd e2e/integration/repo
               composer install
               ../../../phpstan.phar
+          - php-version: 8.1
+            script: |
+              git clone https://github.com/efabrica-team/phpstan-latte.git -b 0.8.0 --depth 1 e2e/integration/repo
+              cd e2e/integration/repo
+              composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              ../../../phpstan.phar analyze src --level=max && vendor/bin/phpunit
 
     steps:
       - name: "Checkout"
