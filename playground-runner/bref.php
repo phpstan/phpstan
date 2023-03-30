@@ -101,6 +101,9 @@ return function ($event) use ($phpstanVersion) {
 		if ($result->getTip() !== null) {
 			$error['tip'] = $tipFormatter->format($result->getTip());
 		}
+		if ($result->getIdentifier() !== null) {
+			$error['identifier'] = $result->getIdentifier();
+		}
 		$errors[] = $error;
 	}
 
