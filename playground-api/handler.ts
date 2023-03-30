@@ -23,6 +23,7 @@ interface PHPStanError {
 	message: string,
 	line: number,
 	tip?: string,
+	identifier?: string,
 }
 
 const lambda = new Lambda();
@@ -67,6 +68,10 @@ async function analyseResultInternal(
 				};
 				if (error.tip) {
 					obj.tip = error.tip;
+				}
+
+				if (error.identifier) {
+					obj.identifier = error.identifier;
 				}
 
 				return obj;
@@ -118,6 +123,12 @@ function createTabs(versionedErrors: {phpVersion: number, errors: PHPStanError[]
 				break;
 			}
 			if (error.tip !== lastError.tip) {
+				versions.push(last);
+				last = current;
+				merge = false;
+				break;
+			}
+			if (error.identifier !== lastError.identifier) {
 				versions.push(last);
 				last = current;
 				merge = false;
@@ -306,6 +317,11 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 						}
 
 						if (error.tip !== otherError.tip) {
+							isSame = false;
+							break;
+						}
+
+						if (error.identifier !== otherError.identifier) {
 							isSame = false;
 							break;
 						}
