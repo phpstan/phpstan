@@ -39,7 +39,9 @@ return function ($event) use ($phpstanVersion) {
 	file_put_contents($codePath, $code);
 
 	$rootDir = getenv('LAMBDA_TASK_ROOT');
-	$configFiles = [];
+	$configFiles = [
+		$rootDir . '/playground.neon',
+	];
 	foreach ([
 		'strictRules' => $rootDir . '/vendor/phpstan/phpstan-strict-rules/rules.neon',
 		'bleedingEdge' => 'phar://' . $rootDir . '/vendor/phpstan/phpstan/phpstan.phar/conf/bleedingEdge.neon',

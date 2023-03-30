@@ -1,0 +1,3 @@
+rules:
+	- PHPStan\Rules\Playground\FunctionNeverRule
+	- PHPStan\Rules\Playground\MethodNeverRule
