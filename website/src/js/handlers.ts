@@ -168,6 +168,7 @@ ko.bindingHandlers.codeMirror = {
 				EditorView.baseTheme({
 					'.cm-tooltip.cm-tooltip-hover': {
 						border: 'none',
+						background: 'transparent',
 					},
 				}),
 			],
