@@ -10,13 +10,29 @@ import {php} from '@codemirror/lang-php'
 import { PHPStanError } from './PHPStanError';
 import { ttcn } from './ttcn-theme';
 
-const buildErrorLines = (doc: Text, lines: number[]) => {
+const buildErrorLines = (doc: Text, errors: PHPStanError[]) => {
 	const errorLineDecoration = Decoration.line({class: 'bg-red-200/50'});
+	const tipLineDecoration = Decoration.line({class: 'bg-yellow-200/50'});
 	const builder = new RangeSetBuilder<Decoration>();
+	const errorLines: number[] = [];
+	const tipLines: number[] = [];
+	for (const error of errors) {
+		if (error.line < 1) {
+			continue;
+		}
+		if (error.identifier && error.identifier.startsWith('phpstanPlayground.')) {
+			tipLines.push(error.line - 1);
+		} else {
+			errorLines.push(error.line - 1);
+		}
+	}
+
 	for (let i = 0; i < doc.lines; i++) {
 		const line = doc.line(i + 1);
-		if (lines.includes(line.number - 1)) {
+		if (errorLines.includes(line.number - 1)) {
 			builder.add(line.from, line.from, errorLineDecoration);
+		} else if (tipLines.includes(line.number - 1)) {
+			builder.add(line.from, line.from, tipLineDecoration);
 		}
 	}
 
@@ -31,22 +47,14 @@ ko.bindingHandlers.codeMirror = {
 		const text: string = ko.unwrap(valueAccessor());
 		const changeErrorLines: StateEffectType<DecorationSet> = StateEffect.define();
 		const errors: PHPStanError[] = allBindings.get('codeMirrorErrors');
-		const lines: number[] = [];
-		for (const error of errors) {
-			const line = error.line;
-			if (line < 1) {
-				continue;
-			}
-			lines.push(line - 1);
-		}
 
 		const hover = hoverTooltip((view, pos, side) => {
 			const currentErrors: PHPStanError[] = allBindings.get('codeMirrorErrors');
 			const line = view.state.doc.lineAt(pos);
-			const lineErrors: string[] = [];
+			const lineErrors: PHPStanError[] = [];
 			for (const error of currentErrors) {
 				if (error.line === line.number) {
-					lineErrors.push(error.message);
+					lineErrors.push(error);
 				}
 			}
 
@@ -69,13 +77,19 @@ ko.bindingHandlers.codeMirror = {
 				above: true,
 				create() {
 					const dom = document.createElement('div')
-					dom.className = 'bg-red-800 text-white rounded-lg px-3 py-1 border-0 text-xs flex flex-col gap-2';
+					let style = 'bg-yellow-100 text-black';
 					for (const error of lineErrors) {
 						const errorDom = document.createElement('div');
 						errorDom.className = '';
-						errorDom.textContent = error;
+						errorDom.textContent = error.message;
 						dom.appendChild(errorDom);
+
+						if (!error.identifier || !error.identifier.startsWith('phpstanPlayground.')) {
+							style = 'bg-red-800 text-white';
+						}
 					}
+
+					dom.className = 'rounded-lg px-3 py-1 border-0 text-xs flex flex-col gap-2 ' + style;
 
 					const outerDom = document.createElement('div');
 					outerDom.className = 'pb-1';
@@ -93,7 +107,7 @@ ko.bindingHandlers.codeMirror = {
 		const errorLines = StateField.define<DecorationSet>({
 			create() {
 				const doc = Text.of(text.split('\n'));
-				return buildErrorLines(doc, lines)
+				return buildErrorLines(doc, errors)
 			},
 			update(textLines, tr) {
 				textLines = textLines.map(tr.changes);
@@ -173,17 +187,9 @@ ko.bindingHandlers.codeMirrorErrors = {
 		const editor: EditorView = ko.utils.domData.get(element, 'codeMirror');
 		const changeErrorLines: StateEffectType<DecorationSet> = ko.utils.domData.get(element, 'codeMirrorChangeErrorLines');
 		const errors: PHPStanError[] = ko.unwrap(valueAccessor());
-		const lines = [];
-		for (const error of errors) {
-			const line = error.line;
-			if (line < 1) {
-				continue;
-			}
-			lines.push(line - 1);
-		}
 
 		editor.dispatch({
-			effects: changeErrorLines.of(buildErrorLines(editor.state.doc, lines)),
+			effects: changeErrorLines.of(buildErrorLines(editor.state.doc, errors)),
 		});
 	},
 };
