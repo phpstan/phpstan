@@ -246,8 +246,6 @@ Related config keys: [`earlyTerminatingMethodCalls`](/writing-php-code/solving-u
 Universal object crates
 ----------------
 
-<!-- TODO move to Solving undefined properties -->
-
 Classes without predefined structure are common in PHP applications. They are used as universal holders of data - any property can be set and read on them. Notable examples include `stdClass`, `SimpleXMLElement` (these are enabled by default), objects with results of database queries etc. Use `universalObjectCratesClasses` key to let PHPStan know which classes with these characteristics are used in your codebase:
 
 
