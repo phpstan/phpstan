@@ -166,3 +166,11 @@ h3:target code {
 .DocSearch-Input {
 	@apply focus:ring-0 focus:ring-offset-0;
 }
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+	-webkit-user-select: none;
+	user-select: none;
+}
