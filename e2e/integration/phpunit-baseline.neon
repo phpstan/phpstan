@@ -3041,7 +3041,7 @@ parameters:
 			path: repo/src/Util/Annotation/DocBlock.php
 
 		-
-			message: "#^Cannot assign new offset to array\\<int\\|string, PharIo\\\\Version\\\\VersionConstraint\\|string\\>\\|string\\.$#"
+			message: "#^Cannot assign new offset to array\\<int\\<0, max\\>\\|string, PharIo\\\\Version\\\\VersionConstraint\\|string\\>\\|string\\.$#"
 			count: 1
 			path: repo/src/Util/Annotation/DocBlock.php
 
