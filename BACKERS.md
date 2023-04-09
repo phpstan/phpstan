@@ -32,6 +32,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/hephaist-io">Hephaist.io (hephaist-io)</a></li>
 <li><a href="https://github.com/Psyonix-PsyNet">Psyonix (Psyonix-PsyNet)</a></li>
 <li><a href="https://github.com/AcroMedia">Acro Media (AcroMedia)</a></li>
+<li><a href="https://github.com/AmezmoOfficial">Amezmo (AmezmoOfficial)</a></li>
 <!-- hundred-org -->
 </ul>
 
