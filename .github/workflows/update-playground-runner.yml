@@ -52,6 +52,10 @@ jobs:
         working-directory: ./playground-runner
         run: "composer install --no-interaction --no-progress"
 
+      - name: "Analyse"
+        working-directory: ./playground-runner
+        run: "../phpstan"
+
       - name: "Copy current PHAR"
         working-directory: ./playground-runner
         run: |
