@@ -93,6 +93,7 @@ For custom `__call` methods logic, a `@method` PHPDoc tag can be placed above a 
  * @method int computeSum(int $a, int $b)
  * @method void doSomething()
  * @method static int staticMethod()
+ * @method int doMagic(int $a, int $b = 123)
  */
 class Foo { ... }
 ```
