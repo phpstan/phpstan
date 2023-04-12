@@ -301,6 +301,17 @@ This feature enables usage of strong types in codebases where arrays of various 
 
 This is different from [general arrays](#general-arrays) that mandate that all the keys and values must be of a specific homogeneous type. Array shapes allow each key and value to be different.
 
+Object shapes
+-------------------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.10.12</div>
+
+This feature is inspired by array shapes but represents objects with public properties with specified types:
+
+* `object{'foo': int, "bar": string}`
+* `object{'foo': int, "bar"?: string}` (property `bar` is optional in the object)
+* `object{foo: int, bar?: string}` (quotes around property names aren't necessary)
+
 Literals and constants
 -------------------------
 
