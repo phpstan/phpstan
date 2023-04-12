@@ -1,52 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^PHPDoc tag @var with type array\\<int, mixed\\>\\|string is not subtype of native type string\\|hasOffset\\(int\\)\\.$#"
+			message: "#^Call to static method executeFile\\(\\) on an unknown class Nextras\\\\Dbal\\\\Utils\\\\FileImporter\\.$#"
 			count: 1
-			path: repo/src/Collection/DbalCollection.php
+			path: repo/tests/inc/DataTestCase.php
 
 		-
-			message: "#^PHPDoc tag @var with type array\\<string, string\\>\\|false is not subtype of native type array\\.$#"
+			message: "#^Call to static method executeFile\\(\\) on an unknown class Nextras\\\\Dbal\\\\Utils\\\\FileImporter\\.$#"
 			count: 1
-			path: repo/src/Collection/Functions/CompareEqualsFunction.php
-
-		-
-			message: "#^PHPDoc tag @var with type array\\<string, string\\>\\|false is not subtype of native type array\\.$#"
-			count: 1
-			path: repo/src/Collection/Functions/CompareNotEqualsFunction.php
-
-		-
-			message: "#^Method Nextras\\\\Orm\\\\Entity\\\\AbstractEntity\\:\\:getterPrimaryProxy\\(\\) is unused\\.$#"
-			count: 1
-			path: repo/src/Entity/AbstractEntity.php
-
-		-
-			message: "#^Method Nextras\\\\Orm\\\\Entity\\\\AbstractEntity\\:\\:setterPrimaryProxy\\(\\) is unused\\.$#"
-			count: 1
-			path: repo/src/Entity/AbstractEntity.php
-
-		-
-			message: "#^PHPDoc tag @var with type int is not subtype of native type numeric\\-string\\.$#"
-			count: 1
-			path: repo/src/Entity/Reflection/ModifierParser.php
-
-		-
-			message: "#^PHPDoc tag @var with type callable\\(\\)\\: array\\{array\\<string, E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>, array\\<string, E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\} is not subtype of native type Closure\\(\\)\\: array\\{mixed, mixed\\}\\.$#"
-			count: 1
-			path: repo/src/Relationships/HasMany.php
-
-		-
-			message: "#^PHPDoc tag @var with type callable\\(Traversable\\<mixed, E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\)\\: void is not subtype of native type Closure\\(Traversable\\)\\: void\\.$#"
-			count: 1
-			path: repo/src/Relationships/ManyHasMany.php
-
-		-
-			message: "#^PHPDoc tag @var with type callable\\(Traversable\\<mixed, E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\)\\: void is not subtype of native type Closure\\(mixed\\)\\: void\\.$#"
-			count: 1
-			path: repo/src/Relationships/OneHasMany.php
-
-		-
-			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
-			count: 1
-			path: repo/tests/inc/phpstan/AssertTypeSpecifierExtension.php
+			path: repo/tests/inc/setup.php
 
