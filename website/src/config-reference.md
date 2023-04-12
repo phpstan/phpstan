@@ -256,6 +256,8 @@ parameters:
 		- Ratchet\ConnectionInterface
 ```
 
+See also [object shape](/writing-php-code/phpdoc-types#object-shapes) PHPDoc type for a better alternative that lets you describe types of properties of such objects.
+
 Constants
 ---------------
 
