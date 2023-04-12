@@ -3391,8 +3391,18 @@ parameters:
 			path: repo/src/Util/PHP/WindowsPhpProcess.php
 
 		-
-			message: "#^Property PHPUnit\\\\Util\\\\Printer\\:\\:\\$stream has no type specified\\.$#"
+			message: "#^If condition is always true\\.$#"
 			count: 1
+			path: repo/src/Util/Printer.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: repo/src/Util/Printer.php
+
+		-
+			message: "#^Property PHPUnit\\\\Util\\\\Printer\\:\\:\\$stream \\(resource\\) does not accept resource\\|false\\.$#"
+			count: 2
 			path: repo/src/Util/Printer.php
 
 		-
