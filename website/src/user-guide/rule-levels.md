@@ -43,7 +43,7 @@ If the level 9 isn't enough for you and you're looking for even more strictness 
 
 Use [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-rules) extension. It configures PHPStan in a stricter way and offers additional rules that revolve around strictly and strongly typed code with no loose casting for those who want additional safety in extremely defensive programming.
 
-Enable [Bleeeding Edge](/blog/what-is-bleeding-edge). It's a preview of what's coming in the next major release of PHPStan, but shipping in the current stable release. Bleeding edge users are often rewarded with a more capable analysis sooner than the rest. It can also come with performance improvements. If you enable bleeding edge, and adopt new PHPStan features continuously, you're gonna have much less work to do when the next major version ships for everyone.
+Enable [Bleeding Edge](/blog/what-is-bleeding-edge). It's a preview of what's coming in the next major release of PHPStan, but shipping in the current stable release. Bleeding edge users are often rewarded with a more capable analysis sooner than the rest. It can also come with performance improvements. If you enable bleeding edge, and adopt new PHPStan features continuously, you're gonna have much less work to do when the next major version ships for everyone.
 
 If you use a popular framework like Symfony, Doctrine or Laravel etc., make sure you install a [corresponding extension](/user-guide/extension-library). It will improve understanding of your code, and also comes with extra rules for correct usage.
 
