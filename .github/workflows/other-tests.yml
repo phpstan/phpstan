@@ -303,6 +303,13 @@ jobs:
               composer install
               ../../phpstan analyse -c app/phpstan.neon
           - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/bug7960
+              composer install
+              ../../phpstan analyse -c app/phpstan.neon
+          - php-version: 8.1
             extensions: autoload_psr-pprkut/autoload-psr@0.2.0
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
