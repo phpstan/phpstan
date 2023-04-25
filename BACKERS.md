@@ -65,6 +65,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/maciej-laskowski">Maciej Laskowski (maciej-laskowski)</a></li>
 <li><a href="https://github.com/stpnkcrk">Stepan Kocourek (stpnkcrk)</a></li>
 <li><a href="https://github.com/NicolasCARPi">Nicolas CARPi (NicolasCARPi)</a></li>
+<li><a href="https://github.com/DaveLiddament">Dave Liddament (DaveLiddament)</a></li>
 <li><a href="https://github.com/sustmi">Miroslav Šustek (sustmi)</a></li>
 <li><a href="https://github.com/ScottHelme">Scott Helme (ScottHelme)</a></li>
 <li><a href="https://github.com/AllenJB">AllenJB (AllenJB)</a></li>
