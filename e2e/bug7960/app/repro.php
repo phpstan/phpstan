@@ -1,6 +1,6 @@
 <?php
 
-// Repro_7960_xxx classes are defined in eval() in setup-autoloader.php
+// Repro_7960_xxx classes are autoloaded in setup-autoloader.php
 class Foo extends Repro_7960_A__extends_Repro_7960_ABase
 {
     public Repro_7960_B $objB;
