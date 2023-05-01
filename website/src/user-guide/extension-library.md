@@ -73,6 +73,7 @@ Unofficial extensions
 * [Magento](https://github.com/bitExpert/phpstan-magento)
 * [CakePHP](https://github.com/CakeDC/cakephp-phpstan)
 * [Safe PHP](https://github.com/thecodingmachine/phpstan-safe-rule)
+* [psr/log](https://github.com/struggle-for-php/sfp-phpstan-psr-log)
 
 3rd party rules
 -----------------
