@@ -41,7 +41,6 @@ the logo of your company in PHPStan's README and the website.
 <ul>
 <!-- thirty --><li><a href="https://github.com/ondrejcech">Ondřej Čech (ondrejcech)</a></li>
 <li><a href="https://github.com/martin-georgiev">Martin Georgiev (martin-georgiev)</a></li>
-<li><a href="https://github.com/croct-tech">Croct (croct-tech)</a></li>
 <li><a href="https://github.com/hyvor">HYVOR (hyvor)</a></li>
 <li><a href="https://github.com/uppler">Uppler (uppler)</a></li>
 <li><a href="https://github.com/dktapps">Dylan T. (dktapps)</a></li>
@@ -108,6 +107,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/SimoTod">Simone Todaro (SimoTod)</a></li>
 <li><a href="https://github.com/rajyan">Yohta Kimura (rajyan)</a></li>
 <li><a href="https://github.com/pavlakis">Adoni Pavlakis (pavlakis)</a></li>
+<li><a href="https://github.com/croct-tech">Croct (croct-tech)</a></li>
 <li><a href="https://github.com/p4veI">Pavel Karfík (p4veI)</a></li>
 <li><a href="https://github.com/pionl">Martin Kluska (pionl)</a></li>
 <li><a href="https://github.com/spagr">Martin Špaček (spagr)</a></li>
