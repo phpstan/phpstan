@@ -310,9 +310,9 @@
     "@lezer/common" "^1.0.0"
 
 "@codemirror/commands@^6.2.2":
-  version "6.2.3"
-  resolved "https://registry.yarnpkg.com/@codemirror/commands/-/commands-6.2.3.tgz#ec476fd588f7a4333f54584d4783dd3862befe3b"
-  integrity sha512-9uf0g9m2wZyrIim1SavcxMdwsu8wc/y5uSw6JRUBYIGWrN+RY4vSru/BqB+MyNWqx4C2uRhQ/Kh7Pw8lAyT3qQ==
+  version "6.2.4"
+  resolved "https://registry.yarnpkg.com/@codemirror/commands/-/commands-6.2.4.tgz#b8a0e5ce72448c092ba4c4b1d902e6f183948aec"
+  integrity sha512-42lmDqVH0ttfilLShReLXsDfASKLXzfyC36bzwcqzox9PlHulMcsUOfHXNo2X2aFMVNUoQ7j+d4q5bnfseYoOA==
   dependencies:
     "@codemirror/language" "^6.0.0"
     "@codemirror/state" "^6.2.0"
@@ -395,9 +395,9 @@
   integrity sha512-69QXtcrsc3RYtOtd+GsvczJ319udtBf1PTrr2KbLWM/e2CXUPnh0Nz9AUo8WfhSQ7GeL8dPVNUmhQVgpmuaNGA==
 
 "@codemirror/view@^6.0.0", "@codemirror/view@^6.2.2", "@codemirror/view@^6.6.0", "@codemirror/view@^6.9.2":
-  version "6.10.1"
-  resolved "https://registry.yarnpkg.com/@codemirror/view/-/view-6.10.1.tgz#b840a04db8941084ca88af1552c4678cc2980f37"
-  integrity sha512-Q3FAmkajqcoqBUlfrlD6p58lnuffYxS/6ImIrsLd4SZOZItCBysqAXvQ/OqWxMCyVuDoh5KaNErl9/FDlWM5IA==
+  version "6.11.0"
+  resolved "https://registry.yarnpkg.com/@codemirror/view/-/view-6.11.0.tgz#7840cec0b983c3ac36348fd005ce405a8e788e0c"
+  integrity sha512-PRpPRkqMkAKKxEuiUBxapE0YR+wqs9At92ujbJo93PwTZ0jEJDzx9wahrDcXEhQ43Pe0RK9DdZMLWrt+QN80DA==
   dependencies:
     "@codemirror/state" "^6.1.4"
     style-mod "^4.0.0"
