@@ -5,6 +5,7 @@ import {MainMenuViewModel} from './MainMenuViewModel';
 import {PlaygroundTabViewModel} from './PlaygroundTabViewModel';
 import linkifyStr from 'linkify-string';
 import * as pages from '../pages.json';
+import * as Sentry from '@sentry/browser';
 
 export class PlaygroundViewModel {
 
@@ -154,6 +155,9 @@ export class PlaygroundViewModel {
 
 
 			this.hasServerError(true);
+			const scope = new Sentry.Scope();
+			scope.setExtra('code', this.code());
+			Sentry.captureMessage('Server error - could not analyse code', scope);
 		}).always(() => {
 			this.isLoading(false);
 		});
@@ -284,6 +288,9 @@ export class PlaygroundViewModel {
 				this.treatPhpDocTypesAsCertain(data.config.treatPhpDocTypesAsCertain);
 			}).fail(() => {
 				this.hasServerError(true);
+				const scope = new Sentry.Scope();
+				scope.setExtra('id', id);
+				Sentry.captureMessage('Server error - could not get analysed result');
 			}).always(() => {
 				initCallback();
 				this.startAcceptingChanges();
