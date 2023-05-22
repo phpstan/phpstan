@@ -30,3 +30,4 @@ jobs:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           repository: "${{ matrix.repository }}"
           event-type: test_phpstan
+          client-payload: '{"ref": "${{ github.ref }}"}'
