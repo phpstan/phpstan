@@ -82,7 +82,6 @@ Unofficial extensions
 * [ergebnis / phpstan-rules](https://github.com/ergebnis/phpstan-rules)
 * [Slamdunk / phpstan-extensions](https://github.com/Slamdunk/phpstan-extensions)
 * [ekino / phpstan-banned-code](https://github.com/ekino/phpstan-banned-code)
-* [taptima / phpstan-custom](https://github.com/taptima/phpstan-custom)
 * [voku / phpstan-rules](https://github.com/voku/phpstan-rules)
 * [shipmonk / phpstan-rules](https://github.com/shipmonk-rnd/phpstan-rules)
 * [jiripudil / phpstan-sealed-classes](https://github.com/jiripudil/phpstan-sealed-classes)
