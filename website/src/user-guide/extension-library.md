@@ -66,7 +66,6 @@ Unofficial extensions
 * [myclabs/php-enum](https://github.com/timeweb/phpstan-enum)
 * [Yii2](https://github.com/proget-hq/phpstan-yii2)
 * [TYPO3](https://github.com/sascha-egerer/phpstan-typo3)
-* [moneyphp/money](https://github.com/JohnstonCode/phpstan-moneyphp)
 * [Nextras ORM](https://github.com/nextras/orm-phpstan)
 * [Sonata](https://github.com/ekino/phpstan-sonata)
 * [Magento](https://github.com/bitExpert/phpstan-magento)
