@@ -87,5 +87,6 @@ Unofficial extensions
 * [voku / phpstan-rules](https://github.com/voku/phpstan-rules)
 * [shipmonk / phpstan-rules](https://github.com/shipmonk-rnd/phpstan-rules)
 * [jiripudil / phpstan-sealed-classes](https://github.com/jiripudil/phpstan-sealed-classes)
+* [sidz / phpstan-rules](https://github.com/sidz/phpstan-rules)
 
 [**Find more on Packagist!**](https://packagist.org/?type=phpstan-extension)
