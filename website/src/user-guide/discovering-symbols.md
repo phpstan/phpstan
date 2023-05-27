@@ -97,3 +97,21 @@ parameters:
 ```
 
 Please note that the file with the autoloader will actually be executed by the PHP runtime.
+
+PHPUnit as a PHAR
+---------------------------
+
+When you install [PHPUnit](https://phpunit.de/) with [Phive](https://github.com/phar-io/phive), you might encounter similar errors when analysing your tests with PHPStan:
+
+* Class `App\MyTest` extends unknown class `PHPUnit\Framework\TestCase`.
+* Call to an undefined static method `App\MyTest::assertIsArray()`.
+
+That's because PHPStan does not see PHPUnit classes from inside `phpunit.phar`.
+
+The way to fix it is to put `phpunit.phar` in `bootstrapFiles` in your [configuration file](/config-reference):
+
+```yaml
+parameters:
+    bootstrapFiles:
+        - tools/phpunit.phar
+```
