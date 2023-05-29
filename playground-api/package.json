@@ -19,7 +19,7 @@
 		"uuid": "^9.0.0"
 	},
 	"devDependencies": {
-		"@tsconfig/node18": "^1.0.1",
+		"@tsconfig/node18": "^2.0.0",
 		"@types/aws-lambda": "^8.10.112",
 		"@types/node": "^18.15.3",
 		"@types/uuid": "^9.0.1",
