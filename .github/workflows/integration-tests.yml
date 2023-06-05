@@ -104,7 +104,7 @@ jobs:
               git checkout e0b07ff3087b652407439a29c941f3b66ca92c86
               composer install --ignore-platform-reqs
               ../../../phpstan.phar analyse -c ../pocketmine.neon --memory-limit=2G
-          - php-version: 8.0
+          - php-version: 8.1
             script: |
               git clone https://github.com/laravel/framework.git e2e/integration/repo
               cd e2e/integration/repo
