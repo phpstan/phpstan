@@ -3151,7 +3151,7 @@ parameters:
 			path: repo/src/Util/ErrorHandler.php
 
 		-
-			message: "#^Parameter \\#1 \\$callback of function set_error_handler expects \\(callable\\(int, string, string, int\\)\\: bool\\)\\|null, Closure\\(mixed, mixed\\)\\: false\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$callback of function set_error_handler expects \\(callable\\(int, string, string, int\\)\\: bool\\)\\|null, Closure\\(mixed, mixed\\)\\: \\(false\\|null\\) given\\.$#"
 			count: 1
 			path: repo/src/Util/ErrorHandler.php
 
