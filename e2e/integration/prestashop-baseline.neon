@@ -431,6 +431,11 @@ parameters:
 			path: repo/src/PrestaShopBundle/Install/Install.php
 
 		-
+			message: "#^Cannot access property \\$fields on null\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Install/XmlLoader.php
+
+		-
 			message: "#^Offset 'controller' on array\\<int\\|string, mixed\\> in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/src/PrestaShopBundle/Routing/Converter/LegacyParametersConverter.php
