@@ -6,14 +6,14 @@ parameters:
 			path: repo/lib/Doctrine/ORM/Mapping/ClassMetadataInfo.php
 
 		-
-			message: "#^Method Doctrine\\\\ORM\\\\Mapping\\\\Driver\\\\AnnotationDriver\\:\\:getMethodCallbacks\\(\\) should return array\\<callable\\(\\)\\: mixed\\> but returns array\\<int, array\\{string, 'postLoad'\\|'postPersist'\\|'postRemove'\\|'postUpdate'\\|'preFlush'\\|'prePersist'\\|'preRemove'\\|'preUpdate'\\}\\>\\.$#"
-			count: 1
-			path: repo/lib/Doctrine/ORM/Mapping/Driver/AnnotationDriver.php
-
-		-
 			message: "#^Method Doctrine\\\\ORM\\\\Mapping\\\\Driver\\\\AttributeDriver\\:\\:getMethodCallbacks\\(\\) should return array\\<callable\\(\\)\\: mixed\\> but returns array\\<int, array\\{string, 'postLoad'\\|'postPersist'\\|'postRemove'\\|'postUpdate'\\|'preFlush'\\|'prePersist'\\|'preRemove'\\|'preUpdate'\\}\\>\\.$#"
 			count: 1
 			path: repo/lib/Doctrine/ORM/Mapping/Driver/AttributeDriver.php
+
+		-
+			message: "#^Parameter \\#4 \\.\\.\\.\\$args of static method Doctrine\\\\Deprecations\\\\Deprecation\\:\\:trigger\\(\\) expects float\\|int\\|string, false given\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/Driver/DatabaseDriver.php
 
 		-
 			message: "#^Condition \"TMaybeContained is mixed\" in conditional return type is always true\\.$#"
