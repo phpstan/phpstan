@@ -108,9 +108,10 @@ jobs:
             script: |
               git clone https://github.com/laravel/framework.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout ceadf6ea68c5ef316abfc618879f2cf9290e45b3
+              git checkout b900458eb370409c81b42a0be0657641ecbd8e12
               composer install
-              ../../../phpstan.phar analyse
+              ../../../phpstan.phar analyse -c phpstan.src.neon.dist
+              ../../../phpstan.phar analyse -c phpstan.tests.neon.dist
           - php-version: 8.1
             script: |
               git clone https://github.com/Roave/BetterReflection.git e2e/integration/repo
