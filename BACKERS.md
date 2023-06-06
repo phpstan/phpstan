@@ -134,6 +134,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/midatechsro">midatechsro (midatechsro)</a></li>
 <li><a href="https://github.com/Schrank">Fabian Blechschmidt (Schrank)</a></li>
 <li><a href="https://github.com/ScottHelme">Scott Helme (ScottHelme)</a></li>
+<li><a href="https://github.com/aspirantzhang">Aspirant Zhang (aspirantzhang)</a></li>
 <li><a href="https://github.com/oliverklee">Oliver Klee (oliverklee)</a></li>
 <li><a href="https://github.com/OliverDaviesLtd">Oliver Davies Ltd (OliverDaviesLtd)</a></li>
 <li><a href="https://github.com/gogaille">Gogaille (gogaille)</a></li>
@@ -149,5 +150,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/8ctopus">8ctopus (8ctopus)</a></li>
 <li><a href="https://github.com/lucassabreu">Lucas dos Santos Abreu (lucassabreu)</a></li>
 <li><a href="https://github.com/matthewmincher">Matthew Mincher (matthewmincher)</a></li>
+<li><a href="https://github.com/loganmarchione">Logan Marchione (loganmarchione)</a></li>
 <!-- five-org -->
 </ul>
