@@ -20,6 +20,7 @@ jobs:
 
       - name: "Create release"
         uses: softprops/action-gh-release@v1
+        id: release
         with:
           token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
           draft: true
@@ -27,3 +28,6 @@ jobs:
           files: |
             phpstan.phar
             phpstan.phar.asc
+
+      - name: "Print release URL"
+        run: echo "${{ steps.release.outputs.url }}" >> $GITHUB_STEP_SUMMARY
