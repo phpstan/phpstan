@@ -1,0 +1,7 @@
+{
+	"autoload": {
+		"files": [
+			"setup-autoloader.php"
+		]
+	}
+}
