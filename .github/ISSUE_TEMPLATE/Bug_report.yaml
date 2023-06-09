@@ -12,7 +12,10 @@ body:
   - type: input
     attributes:
       label: Code snippet that reproduces the problem
-      description: Please reproduce the issue with the [on-line PHPStan playground](https://phpstan.org/try), get a unique URL with the **Share** button and post it here.
+      description: |
+        Please reproduce the issue with the [on-line PHPStan playground](https://phpstan.org/try), get a unique URL with the **Share** button and post it here.
+        
+        You can use `\PHPStan\dumpType($foo)` function to debug types in your code. See [Troubleshooting Types](https://phpstan.org/user-guide/troubleshooting-types) for more information.
       placeholder: https://phpstan.org/r/<unique_id>
 
   - type: textarea
