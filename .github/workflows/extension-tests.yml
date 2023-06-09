@@ -56,7 +56,7 @@ jobs:
           - "8.2"
         extension-name:
           - "phpstan-phpunit d96b5a45ace45892e55927d104e5089e354040c1"
-          - "phpstan-strict-rules"
+          - "phpstan-strict-rules 5c143aa605bbf392a90630773618eeaeeac7a49b"
           - "phpstan-mockery"
           - "phpstan-doctrine"
           - "phpstan-symfony"
