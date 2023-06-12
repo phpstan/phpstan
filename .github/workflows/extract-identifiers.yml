@@ -19,8 +19,8 @@ jobs:
     strategy:
       matrix:
         repository:
-          - "https://github.com/phpstan/phpstan-src.git"
-          - "https://github.com/phpstan/phpstan-strict-rules.git"
+          - "phpstan/phpstan-src"
+          - "phpstan/phpstan-strict-rules"
 
     steps:
       - name: "Checkout"
@@ -44,7 +44,7 @@ jobs:
 
       - name: "Repository name"
         id: repo-name
-        run: echo "name=$(basename -s .git "${{ matrix.repository }}")" >> $GITHUB_OUTPUT
+        run: echo "name=$(basename "${{ matrix.repository }}")" >> $GITHUB_OUTPUT
 
       - name: "Branch name"
         id: branch-name
