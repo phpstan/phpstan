@@ -31,7 +31,6 @@ class ErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorFormatter
 			}
 
 			$metadata = $error->getMetadata();
-			var_dump($metadata);
 			$json[] = [
 				'identifiers' => $metadata['identifiers'],
 				'class' => $metadata['class'],
