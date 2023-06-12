@@ -1,0 +1,22 @@
+includes:
+	- phar://phpstan.phar/conf/bleedingEdge.neon
+
+parameters:
+	customRulesetUsed: true
+	errorFormat: extractor
+	paths:
+		- repo/src
+
+rules:
+	- IdentifierExtractor\Rule
+
+services:
+	errorFormatter.extractor:
+		class: IdentifierExtractor\ErrorFormatter
+		arguments:
+			relativePathHelper: @simpleRelativePathHelper
+
+	-
+		class: IdentifierExtractor\RuleErrorBuilderCollector
+		tags:
+			- phpstan.collector

@@ -1,0 +1,64 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Extract identifiers"
+
+on:
+  push:
+    branches:
+      - "1.11.x"
+    paths:
+      - '.github/workflows/extract-identifiers.yml'
+      - 'identifier-extractor/**'
+      - '.phar-checksum'
+
+jobs:
+  extract:
+    name: "Extract identifiers"
+    runs-on: "ubuntu-latest"
+
+    strategy:
+      matrix:
+        repository:
+          - "https://github.com/phpstan/phpstan-src.git"
+          - "https://github.com/phpstan/phpstan-strict-rules.git"
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ matrix.repository }}
+          path: "identifier-extractor/repo"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "8.1"
+
+      - name: "Install extractor dependencies"
+        working-directory: "identifier-extractor"
+        run: "composer install --no-interaction --no-progress"
+
+      - name: "Repository name"
+        id: repo-name
+        run: echo "name=$(basename -s .git "${{ matrix.repository }}")" >> $GITHUB_OUTPUT
+
+      - name: "Branch name"
+        id: branch-name
+        working-directory: "identifier-extractor/repo"
+        run: echo "name=$(git branch --show)" >> $GITHUB_OUTPUT
+
+      - name: "Extract"
+        working-directory: "identifier-extractor/repo"
+        run: ../../phpstan analyse -c ../extractor.neon -a ../vendor/autoload.php > ${{ steps.repo-name.outputs.name }}.json
+        env:
+          REPO: ${{ matrix.repository }}
+          BRANCH: ${{ steps.branch-name.outputs.name }}
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: identifiers
+          path: identifier-extractor/${{ steps.repo-name.outputs.name }}.json

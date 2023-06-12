@@ -1,0 +1,40 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Build Identifier Extractor"
+
+on:
+  pull_request:
+    paths:
+      - 'identifier-extractor/**'
+      - '.github/workflows/build-identifier-extractor.yml'
+  push:
+    branches:
+      - "1.11.x"
+    paths:
+      - 'identifier-extractor/**'
+      - '.github/workflows/build-identifier-extractor.yml'
+
+jobs:
+  build-identifier-extractor:
+    name: "Build Identifier Extractor"
+
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 60
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "8.1"
+
+      - name: "Install Identifier Extractor dependencies"
+        working-directory: "identifier-extractor"
+        run: "composer install --no-interaction --no-progress"
+
+      - name: "PHPStan"
+        working-directory: "identifier-extractor"
+        run: ../phpstan
