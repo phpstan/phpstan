@@ -43,7 +43,7 @@ class ErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorFormatter
 			'repo' => $_SERVER['REPO'],
 			'branch' => $_SERVER['BRANCH'],
 			'data' => $json,
-		]));
+		], true));
 
 		return 0;
 	}
