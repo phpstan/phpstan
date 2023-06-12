@@ -4,7 +4,7 @@ description: If something isn't working as expected 🤔.
 body:
   - type: textarea
     attributes:
-      label: Bug description
+      label: Bug report
       description: Please describe your problem here
     validations:
       required: true
