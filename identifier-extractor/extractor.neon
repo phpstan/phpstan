@@ -25,3 +25,8 @@ services:
 		class: IdentifierExtractor\ErrorWithIdentifierCollector
 		tags:
 			- phpstan.collector
+
+	-
+		class: IdentifierExtractor\RuleConstructorParameterCollector
+		tags:
+			- phpstan.collector
