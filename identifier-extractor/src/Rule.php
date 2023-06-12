@@ -31,6 +31,15 @@ class Rule implements \PHPStan\Rules\Rule
 			}
 		}
 
+		foreach ($node->get(ErrorWithIdentifierCollector::class) as $rows) {
+			foreach ($rows as $row) {
+				$errors[] = RuleErrorBuilder::message('Metadata')
+					->identifier('phpstanIdentifierExtractor.data')
+					->metadata($row)
+					->build();
+			}
+		}
+
 		return $errors;
 	}
 
