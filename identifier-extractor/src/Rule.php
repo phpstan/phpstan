@@ -6,7 +6,6 @@ use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\CollectedDataNode;
 use PHPStan\Reflection\ReflectionProvider;
-use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\RuleErrorBuilder;
 use function array_pop;
 use function array_unique;
@@ -46,38 +45,25 @@ class Rule implements \PHPStan\Rules\Rule
 		}
 
 		foreach ($node->get(RuleErrorBuilderCollector::class) as $rows) {
-			foreach ($this->processRows($rows, $injected) as $error) {
-				$errors[] = $error;
+			foreach ($rows as $row) {
+				foreach ($this->findOrigins($row['class'], $injected) as $origin) {
+					$errors[] = RuleErrorBuilder::message('Metadata')
+						->identifier('phpstanIdentifierExtractor.data')
+						->metadata([
+							'identifiers' => $row['identifiers'],
+							'class' => $origin,
+							'file' => $row['file'],
+							'line' => $row['line'],
+						])->build();
+				}
 			}
 		}
 
 		foreach ($node->get(ErrorWithIdentifierCollector::class) as $rows) {
-			foreach ($this->processRows($rows, $injected) as $error) {
-				$errors[] = $error;
-			}
-		}
-
-		return $errors;
-	}
-
-	/**
-	 * @param list<array{identifiers: non-empty-list<string>, class: string, file: string, line: int}> $rows
-	 * @param array<string, list<string>> $injected
-	 * @return list<IdentifierRuleError>
-	 */
-	private function processRows(array $rows, array $injected): array
-	{
-		$errors = [];
-		foreach ($rows as $row) {
-			foreach ($this->findOrigins($row['class'], $injected) as $origin) {
+			foreach ($rows as $row) {
 				$errors[] = RuleErrorBuilder::message('Metadata')
 					->identifier('phpstanIdentifierExtractor.data')
-					->metadata([
-						'identifiers' => $row['identifiers'],
-						'class' => $origin,
-						'file' => $row['file'],
-						'line' => $row['line'],
-					])->build();
+					->metadata($row)->build();
 			}
 		}
 
@@ -111,6 +97,10 @@ class Rule implements \PHPStan\Rules\Rule
 				}
 				$stack[] = $v;
 			}
+		}
+
+		if (count($origins) === 0) {
+			return [$class];
 		}
 
 		return $origins;
