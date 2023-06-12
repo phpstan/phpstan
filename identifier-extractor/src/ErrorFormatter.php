@@ -40,8 +40,8 @@ class ErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorFormatter
 		}
 
 		$output->writeRaw(Json::encode([
-			'repo' => $_SERVER['REPO'],
-			'branch' => $_SERVER['BRANCH'],
+			'repo' => $_SERVER['REPO'] ?? 'unknown',
+			'branch' => $_SERVER['BRANCH'] ?? 'unknown',
 			'data' => $json,
 		], true));
 
