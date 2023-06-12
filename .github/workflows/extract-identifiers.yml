@@ -21,6 +21,16 @@ jobs:
         repository:
           - "phpstan/phpstan-src"
           - "phpstan/phpstan-strict-rules"
+          - "phpstan/phpstan-deprecation-rules"
+          - "phpstan/phpstan-doctrine"
+          - "phpstan/phpstan-symfony"
+          - "phpstan/phpstan-phpunit"
+          - "phpstan/phpstan-nette"
+          - "phpstan/phpstan-dibi"
+          - "phpstan/phpstan-php-parser"
+          - "phpstan/phpstan-beberlei-assert"
+          - "phpstan/phpstan-webmozart-rules"
+          - "phpstan/phpstan-mockery"
 
     steps:
       - name: "Checkout"
