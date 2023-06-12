@@ -29,7 +29,7 @@ jobs:
           - "phpstan/phpstan-dibi"
           #- "phpstan/phpstan-php-parser"
           - "phpstan/phpstan-beberlei-assert"
-          - "phpstan/phpstan-webmozart-rules"
+          - "phpstan/phpstan-webmozart-assert"
           - "phpstan/phpstan-mockery"
 
     steps:
