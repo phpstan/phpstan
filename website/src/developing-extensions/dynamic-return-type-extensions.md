@@ -46,7 +46,7 @@ interface DynamicMethodReturnTypeExtension
 		MethodReflection $methodReflection,
 		MethodCall $methodCall,
 		Scope $scope
-	): Type;
+	): ?Type;
 
 }
 ```
@@ -68,14 +68,10 @@ public function getTypeFromMethodCall(
 	MethodReflection $methodReflection,
 	MethodCall $methodCall,
 	Scope $scope
-): Type
+): ?Type
 {
 	if (count($methodCall->getArgs()) === 0) {
-		return \PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
-			$scope,
-			$methodCall->getArgs(),
-			$methodReflection->getVariants()
-		)->getReturnType();
+		return null;
 	}
 	$arg = $methodCall->getArgs()[0]->value;
 
