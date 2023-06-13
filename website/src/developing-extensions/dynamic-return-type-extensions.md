@@ -37,7 +37,6 @@ use PHPStan\Reflection\MethodReflection;
 
 interface DynamicMethodReturnTypeExtension
 {
-
 	public function getClass(): string;
 
 	public function isMethodSupported(MethodReflection $methodReflection): bool;
@@ -47,35 +46,45 @@ interface DynamicMethodReturnTypeExtension
 		MethodCall $methodCall,
 		Scope $scope
 	): ?Type;
-
 }
 ```
 
 And this is how you'd write the extension that correctly resolves the `EntityManager::merge()` return type:
 
 ```php
-public function getClass(): string
-{
-	return \Doctrine\ORM\EntityManager::class;
-}
+namespace App\PHPStan;
 
-public function isMethodSupported(MethodReflection $methodReflection): bool
-{
-	return $methodReflection->getName() === 'merge';
-}
+use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Type\DynamicMethodReturnTypeExtension;
+use PHPStan\Type\Type;
 
-public function getTypeFromMethodCall(
-	MethodReflection $methodReflection,
-	MethodCall $methodCall,
-	Scope $scope
-): ?Type
+class EntityManagerDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension
 {
-	if (count($methodCall->getArgs()) === 0) {
-		return null;
+	public function getClass(): string
+	{
+		return \Doctrine\ORM\EntityManager::class;
 	}
-	$arg = $methodCall->getArgs()[0]->value;
 
-	return $scope->getType($arg);
+	public function isMethodSupported(MethodReflection $methodReflection): bool
+	{
+		return $methodReflection->getName() === 'merge';
+	}
+
+	public function getTypeFromMethodCall(
+		MethodReflection $methodReflection,
+		MethodCall $methodCall,
+		Scope $scope
+	): ?Type
+	{
+		if (count($methodCall->getArgs()) === 0) {
+			return null;
+		}
+		$arg = $methodCall->getArgs()[0]->value;
+
+		return $scope->getType($arg);
+	}
 }
 ```
 
