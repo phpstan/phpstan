@@ -76,3 +76,51 @@ jobs:
         with:
           name: identifiers
           path: identifier-extractor/${{ steps.repo-name.outputs.name }}.json
+
+  merge:
+    name: "Merge and commit identifiers"
+    needs: extract
+
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "8.1"
+
+      - name: "Install extractor dependencies"
+        working-directory: "identifier-extractor"
+        run: "composer install --no-interaction --no-progress"
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: identifiers
+          path: identifier-extractor/tmp
+
+      - name: "Merge"
+        working-directory: "identifier-extractor"
+        run: "php merge.php > ../website/src/errorsIdentifiers.json"
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.GPG_PHPSTANBOT_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PHPSTANBOT_KEY_PASSPHRASE }}
+          git_config_global: true
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
+      - name: "Commit changes"
+        uses: "stefanzweifel/git-auto-commit-action@v4"
+        id: "commit"
+        with:
+          commit_message: "Update errors identifiers"
+          commit_user_name: "phpstan-bot"
+          commit_user_email: "ondrej+phpstanbot@mirtes.cz"
+          commit_author: "phpstan-bot <ondrej+phpstanbot@mirtes.cz>"
+          commit_options: "--gpg-sign"

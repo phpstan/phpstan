@@ -5,3 +5,4 @@ parameters:
 	level: 8
 	paths:
 		- src
+		- merge.php
