@@ -22,7 +22,7 @@ includes:
 	- phar://phpstan.phar/conf/bleedingEdge.neon
 ```
 
-When a new feature is added to bleeding edge, it's referenced in the [release notes](https://github.com/phpstan/phpstan/releases/tag/1.10.0).
+When a new feature is added to bleeding edge, it's referenced in the [release notes]([https://github.com/phpstan/phpstan/releases/tag/0.12.79](https://github.com/phpstan/phpstan/releases/tag/1.10.0)).
 
 Here's the current list of features and changes that Bleeding Edge introduces:
 
