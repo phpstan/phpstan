@@ -7,13 +7,16 @@
 		"nette/neon": "^3.3",
 		"nikic/php-parser": "^4.3.0",
 		"php-http/curl-client": "^2.2",
-		"phpstan/phpstan": "^1.10",
-		"phpstan/phpstan-strict-rules": "^1.5",
+		"phpstan/phpstan": "^1.11",
+		"phpstan/phpstan-strict-rules": "1.5.x-dev",
 		"sentry/sentry": "^3.3",
 		"symfony/console": "^6.2"
 	},
 	"config": {
-		"sort-packages": true
+		"sort-packages": true,
+		"allow-plugins": {
+			"php-http/discovery": false
+		}
 	},
 	"minimum-stability": "dev",
 	"prefer-stable": true
