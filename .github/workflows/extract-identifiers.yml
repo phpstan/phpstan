@@ -11,6 +11,10 @@ on:
       - 'identifier-extractor/**'
       - '.phar-checksum'
 
+concurrency:
+  group: extract-identifiers-${{ github.ref }} # will be canceled on subsequent pushes
+  cancel-in-progress: true
+
 jobs:
   extract:
     name: "Extract identifiers"
