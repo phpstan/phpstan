@@ -56,6 +56,10 @@
             "link": "#custom-ruleset"
         },
         {
+            "title": "Bleeding edge",
+            "link": "#bleeding-edge"
+        },
+        {
             "title": "Solving undefined variables",
             "link": "#solving-undefined-variables"
         },

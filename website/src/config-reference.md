@@ -235,6 +235,19 @@ parameters:
 
 You can then choose your own ruleset by copying parts of the [level configuration files](https://github.com/phpstan/phpstan-src/tree/1.11.x/conf) from PHPStan sources, or include your own custom rules.
 
+
+Bleeding edge
+-------------------
+
+Bleeding edge offers a preview of the next major version. When you enable Bleeding edge in your configuration file, you will get new rules, behaviour, and bug fixes that will be enabled for everyone later when the next PHPStan's major version is released.
+
+```yaml
+includes:
+	- phar://phpstan.phar/conf/bleedingEdge.neon
+```
+
+[Learn more](/blog/what-is-bleeding-edge) about bleeding edge.
+
 Solving undefined variables
 -------------------
 
