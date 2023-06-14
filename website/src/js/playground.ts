@@ -10,8 +10,8 @@ Sentry.init({
 
 $(() => {
 
-	const playgroundViewModel = new PlaygroundViewModel();
-	playgroundViewModel.init(window.location.pathname, () => {
+	const playgroundViewModel = new PlaygroundViewModel(window.location.pathname);
+	playgroundViewModel.init(() => {
 		ko.applyBindings(playgroundViewModel);
 	});
 

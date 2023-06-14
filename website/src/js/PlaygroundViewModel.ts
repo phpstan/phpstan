@@ -30,14 +30,16 @@ export class PlaygroundViewModel {
 	isSharing: ko.Observable<boolean>;
 	xhr: JQuery.jqXHR | null;
 	shareXhr: JQuery.jqXHR | null;
-	id: string | null;
+	id: ko.Observable<string | null>;
+	resultUrl: string | null;
+	isHashMatch: boolean;
 	hasServerError: ko.Observable<boolean>;
 
 	apiBaseUrl: string = 'https://api.phpstan.org';
 
 	linkify: typeof linkifyStr;
 
-	constructor() {
+	constructor(urlPath: string) {
 		this.mainMenu = new MainMenuViewModel();
 		this.code = ko.observable('');
 		this.codeDelayed = ko.pureComputed(this.code).extend({
@@ -70,7 +72,32 @@ export class PlaygroundViewModel {
 		this.isSharing = ko.observable<boolean>(false);
 		this.xhr = null;
 		this.shareXhr = null;
-		this.id = null;
+
+		const legacyHashMatch = urlPath.match(/^\/r\/([a-f0-9]{32})$/);
+		let resultUrl = null;
+		let id: string | null = null;
+		if (legacyHashMatch !== null) {
+			id = legacyHashMatch[1];
+			resultUrl = this.apiBaseUrl + '/legacyResult?id=' + id;
+		}
+
+		const hashMatch = urlPath.match(/^\/r\/([0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12})$/i);
+		if (hashMatch !== null) {
+			id = hashMatch[1];
+			resultUrl = this.apiBaseUrl + '/result?id=' + id;
+		}
+
+		this.resultUrl = resultUrl;
+		this.isHashMatch = hashMatch !== null;
+
+		this.id = ko.observable(id);
+		this.id.subscribe((value) => {
+			if (value === null) {
+				window.history.replaceState({}, '', '/try');
+			} else {
+				window.history.replaceState({}, '', '/r/' + value);
+			}
+		});
 		this.hasServerError = ko.observable<boolean>(false);
 
 		this.linkify = (text: string, options) => {
@@ -105,17 +132,8 @@ export class PlaygroundViewModel {
 		return index === this.currentTabIndex();
 	}
 
-	setId(id: string | null): void {
-		this.id = id;
-		if (id === null) {
-			window.history.replaceState({}, '', '/try');
-		} else{
-			window.history.replaceState({}, '', '/r/' + id);
-		}
-	}
-
 	preanalyse(): void {
-		this.setId(null);
+		this.id(null);
 		this.hasServerError(false);
 		if (this.xhr !== null) {
 			this.xhr.abort();
@@ -166,13 +184,13 @@ export class PlaygroundViewModel {
 	}
 
 	share(): void {
-		if (this.id !== null) {
+		if (this.id() !== null) {
 			this.copyId();
 			return;
 		}
 		this.isSharing(true);
 		this.analyse(true).done((data) => {
-			this.setId(data.id);
+			this.id(data.id);
 			this.copyId();
 
 			const anyWindow = (window as any);
@@ -234,29 +252,15 @@ export class PlaygroundViewModel {
 		this.currentTabIndex(0);
 		this.legacyResult(null);
 		this.upToDateTabs(null);
-		this.setId(null);
+		this.id(null);
 	}
 
-	init(path: string, initCallback: () => void): void {
-		const legacyHashMatch = path.match(/^\/r\/([a-f0-9]{32})$/);
-		let resultUrl = null;
-		let id: string | null = null;
-		if (legacyHashMatch !== null) {
-			id = legacyHashMatch[1];
-			resultUrl = this.apiBaseUrl + '/legacyResult?id=' + id;
-		}
-
-		const hashMatch = path.match(/^\/r\/([0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12})$/i);
-		if (hashMatch !== null) {
-			id = hashMatch[1];
-			resultUrl = this.apiBaseUrl + '/result?id=' + id;
-		}
-
-		if (resultUrl !== null) {
-			$.get(resultUrl).done((data) => {
+	init(initCallback: () => void): void {
+		if (this.resultUrl !== null) {
+			$.get(this.resultUrl).done((data) => {
 				this.code(data.code);
 
-				if (hashMatch !== null) {
+				if (this.isHashMatch) {
 					let tabs;
 					if (typeof data.tabs !== 'undefined') {
 						tabs = this.createTabs(data.tabs);
@@ -266,9 +270,6 @@ export class PlaygroundViewModel {
 					this.tabs(tabs);
 					this.currentTabIndex(0);
 					this.legacyResult(null);
-					if (id !== null) {
-						this.setId(id);
-					}
 
 					const upToDateTabs = this.createTabs(data.upToDateTabs);
 					if (this.areTabsDifferent(tabs, upToDateTabs)) {
@@ -289,7 +290,7 @@ export class PlaygroundViewModel {
 			}).fail(() => {
 				this.hasServerError(true);
 				const scope = new Sentry.Scope();
-				scope.setExtra('id', id);
+				scope.setExtra('id', this.id());
 				Sentry.captureMessage('Server error - could not get analysed result');
 			}).always(() => {
 				initCallback();
