@@ -59,4 +59,6 @@ foreach ($dataByIdentifier as $identifier => $row) {
 	}
 }
 
+ksort($dataByIdentifier);
+
 echo Json::encode($dataByIdentifier, true);
