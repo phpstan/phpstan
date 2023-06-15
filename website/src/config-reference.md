@@ -408,7 +408,7 @@ public function doFoo(): ?string
 When set to `true`, it reports properties with native types that weren't initialized in the class constructor.
 
 ```php
-// "Class has an uninitialized property $bar. Give it default value or assign it in the constructor."
+// "Class has an uninitialized property $foo. Give it default value or assign it in the constructor."
 private int $foo;
 
 public function setFoo(int $foo): void
