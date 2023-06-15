@@ -15,6 +15,9 @@ export class ErrorIdentifiersViewModel {
 		this.groupByIdentifier = ko.observable(
 			hash.startsWith('#gbr-') ? false : true,
 		);
+		this.groupByIdentifier.subscribe(() => {
+			document.documentElement.scrollIntoView({ behavior: 'smooth' });
+		});
 		this.list = ko.pureComputed(() => {
 			if (!this.groupByIdentifier()) {
 				return this.itemsByRule();
