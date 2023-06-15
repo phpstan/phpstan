@@ -32,30 +32,19 @@ $dataByIdentifier = [];
 foreach ($data as $row) {
 	foreach ($row['identifiers'] as $identifier) {
 		if (!isset($dataByIdentifier[$identifier])) {
-			$dataByIdentifier[$identifier] = [
-				'classes' => [
-					$row['class'],
-				],
-				'repos' => [
-					$row['repo'],
-				],
-				'urls' => [
-					$row['url'],
-				],
-			];
-			continue;
+			$dataByIdentifier[$identifier] = [];
+		}
+		$class = $row['class'];
+		if (!isset($dataByIdentifier[$identifier][$class])) {
+			$dataByIdentifier[$identifier][$class] = [];
 		}
 
-		$dataByIdentifier[$identifier]['classes'][] = $row['class'];
-		$dataByIdentifier[$identifier]['repos'][] = $row['repo'];
-		$dataByIdentifier[$identifier]['urls'][] = $row['url'];
-	}
-}
+		$repo = $row['repo'];
+		if (!isset($dataByIdentifier[$identifier][$class][$repo])) {
+			$dataByIdentifier[$identifier][$class][$repo] = [];
+		}
 
-foreach ($dataByIdentifier as $identifier => $row) {
-	foreach ($row as $k => $v) {
-		sort($v);
-		$dataByIdentifier[$identifier][$k] = array_values(array_unique($v));
+		$dataByIdentifier[$identifier][$class][$repo][] = $row['url'];
 	}
 }
 
