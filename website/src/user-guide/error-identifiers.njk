@@ -19,6 +19,22 @@ sectionTitle: User Guide
 
 {% block innerContent %}
 
+<script type="text/html" id="error-identifiers-text">
+	<h1 class="leading-tight">Error Identifiers</h1>
+	<p>Error identifiers are used to identify and categorize all errors reported by PHPStan. In PHPStan 1.11 and later identifiers can be used to ignore a specific kind of error:</p>
+
+{% markdown %}
+
+```php
+// @phpstan-ignore-next-line argument.type
+$this->foo->doSomethingWithString(1);
+```
+
+{% endmarkdown %}
+
+	<p>This page contains the list of all identifiers reported by PHPStan itself and its 1<sup>st</sup>&nbsp;party extensions. Each occurrence has a link to the source code where the identifier gets reported.</p>
+</script>
+
 <div data-bind="visible: false" class="mx-auto w-12 h-12 my-12">
 	<div class="spinner"></div>
 </div>
@@ -26,7 +42,9 @@ sectionTitle: User Guide
 <div style="display: none" data-bind="visible: true">
 <div class="pt-4 relative">
 
-	<div class="sticky top-24 flex justify-center drop-shadow-xl">
+	<div class="block md:hidden" data-bind="template: { name: 'error-identifiers-text' }"></div>
+
+	<div class="static md:sticky top-24 flex justify-center drop-shadow-xl">
 		<button type="button" class="relative inline-flex items-center rounded-l-md px-6 py-3 text-lg font-semibold text-gray-900 ring-1 ring-inset ring-gray-300  focus:z-10" data-bind="click: switchToIdentifier, css: {'bg-white hover:bg-gray-50': !groupByIdentifier(), 'bg-blue-500 text-white': groupByIdentifier}">Group by identifier</button>
 		<button type="button" class="relative -ml-px inline-flex items-center rounded-r-md bg-white px-6 py-3 text-lg font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10" data-bind="click: switchToRule, css: {'bg-white hover:bg-gray-50': groupByIdentifier, 'bg-blue-500 text-white': !groupByIdentifier()}">Group by rule</button>
 	</div>
@@ -68,21 +86,7 @@ sectionTitle: User Guide
 		<!-- /ko -->
 	</div>
 
-	<div class="sticky bottom-6 border border-slate-400 rounded-md drop-shadow-xl bg-white w-full pt-4 pb-1 px-6">
-		<h1 class="leading-tight">Error Identifiers</h1>
-		<p>Error identifiers are used to identify and categorize all errors reported by PHPStan. In PHPStan 1.11 and later identifiers can be used to ignore a specific kind of error:</p>
-
-{% markdown %}
-
-```php
-// @phpstan-ignore-next-line argument.type
-$this->foo->doSomethingWithString(1);
-```
-
-{% endmarkdown %}
-
-		<p>This page contains the list of all identifiers reported by PHPStan itself and its 1<sup>st</sup>&nbsp;party extensions. Each occurrence has a link to the source code where the identifier gets reported.</p>
-	</div>
+	<div class="hidden md:block sticky bottom-6 border border-slate-400 rounded-md drop-shadow-xl bg-white w-full pt-4 pb-1 px-6" data-bind="template: { name: 'error-identifiers-text' }"></div>
 
 </div>
 </div>
