@@ -6,6 +6,7 @@ import {PlaygroundTabViewModel} from './PlaygroundTabViewModel';
 import linkifyStr from 'linkify-string';
 import * as pages from '../pages.json';
 import * as Sentry from '@sentry/browser';
+import {slugify} from './ErrorIdentifiersViewModel';
 
 export class PlaygroundViewModel {
 
@@ -38,6 +39,8 @@ export class PlaygroundViewModel {
 	apiBaseUrl: string = 'https://api.phpstan.org';
 
 	linkify: typeof linkifyStr;
+
+	slugify: typeof slugify;
 
 	constructor(urlPath: string) {
 		this.mainMenu = new MainMenuViewModel();
@@ -116,6 +119,8 @@ export class PlaygroundViewModel {
 				},
 			}).replace('%configurationFile%', '<a class="underline hover:no-underline" target="_blank" href="/config-reference">configuration file</a>').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br/>' + '$2');
 		};
+
+		this.slugify = slugify;
 	}
 
 	switchTab(index: number): void {
@@ -315,10 +320,14 @@ export class PlaygroundViewModel {
 				{
 					message: 'Parameter $date of method HelloWorld::sayHello() has invalid typehint type DateTimeImutable.',
 					line: 5,
+					ignorable: true,
+					identifier: 'class.notFound',
 				},
 				{
 					message: 'Call to method format() on an unknown class DateTimeImutable.',
 					line: 7,
+					ignorable: true,
+					identifier: 'class.notFound',
 				},
 			], '', true),
 		]);

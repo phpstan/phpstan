@@ -3,4 +3,5 @@ export interface PHPStanError {
 	line: number,
 	tip?: string,
 	identifier?: string,
+	ignorable?: boolean,
 }

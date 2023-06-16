@@ -2,7 +2,7 @@ import * as ko from 'knockout';
 import { MainMenuViewModel } from './MainMenuViewModel';
 import * as errorIdentifiers from '../errorsIdentifiers.json';
 
-const slugify = (s: string) => encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, '-'))
+export const slugify = (s: string) => encodeURIComponent(String(s).trim().toLowerCase().replace(/\s+/g, '-'))
 
 export class ErrorIdentifiersViewModel {
 	mainMenu: MainMenuViewModel;
