@@ -43,6 +43,25 @@ function () {
 };
 ```
 
+Both `@phpstan-ignore-line` and `@phpstan-ignore-next-line` ignore all errors on the corresponding line.
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.11.0</div>
+
+If you want to ignore only a specific error, you can take advantage of [error identifiers](/error-identifiers) and use the new `@phpstan-ignore` tag that comes with two features:
+
+* It figures out automatically if you want to ignore an error on the current line or the next line. If there's no code on the line with the comment, it ignores the next line.
+* It requires an error identifier to only ignore a specific error instead of all errors
+
+```php
+function () {
+	// @phpstan-ignore argument.type
+	$this->foo->doSomethingWithString(1);
+
+	$this->foo->doSomethingWithString(2); // @phpstan-ignore argument.type
+};
+```
+
+
 Ignoring in configuration file
 -------------------
 
