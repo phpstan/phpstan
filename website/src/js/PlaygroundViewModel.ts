@@ -370,6 +370,16 @@ export class PlaygroundViewModel {
 				if (error.tip !== upToDateError.tip) {
 					return true;
 				}
+				if (typeof error.identifier !== 'undefined' && typeof upToDateError.identifier !== 'undefined') {
+					if (error.identifier !== upToDateError.identifier) {
+						return true;
+					}
+				}
+				if (typeof error.ignorable !== 'undefined' && typeof upToDateError.ignorable !== 'undefined') {
+					if (error.ignorable !== upToDateError.ignorable) {
+						return true;
+					}
+				}
 			}
 		}
 
