@@ -165,13 +165,13 @@ permalink: "/try.html"
 
 										<div class="flex flex-grow flex-shrink-0 justify-end">
 
-											<!-- ko if: ignorable === false -->
+											<!-- ko if: $data.ignorable === false -->
 												<div class="cursor-default text-xs font-semibold bg-red-700 text-white rounded-full px-2 py-1">Non-ignorable</div>
 											<!-- /ko -->
 
-											<!-- ko if: ignorable === true -->
-												<!-- ko if: identifier -->
-													<a target="_blank" class="text-xs font-semibold bg-gray-300 hover:bg-gray-400 text-white rounded-full px-2 py-1" data-bind="text: identifier, attr: { href: '/error-identifiers#gbi-' + $root.slugify(identifier) }"></a>
+											<!-- ko if: $data.ignorable === true -->
+												<!-- ko if: $data.identifier -->
+													<a target="_blank" class="text-xs font-semibold bg-gray-300 hover:bg-gray-400 text-white rounded-full px-2 py-1" data-bind="text: $data.identifier, attr: { href: '/error-identifiers#gbi-' + $root.slugify($data.identifier) }"></a>
 												<!-- /ko -->
 											<!-- /ko -->
 										</div>
