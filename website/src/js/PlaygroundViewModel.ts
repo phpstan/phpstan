@@ -272,14 +272,15 @@ export class PlaygroundViewModel {
 					} else {
 						tabs = this.createTabs([{errors: data.errors, title: 'PHP 7.4'}]);
 					}
-					this.tabs(tabs);
 					this.currentTabIndex(0);
 					this.legacyResult(null);
 
 					const upToDateTabs = this.createTabs(data.upToDateTabs);
 					if (this.areTabsDifferent(tabs, upToDateTabs)) {
+						this.tabs(tabs);
 						this.upToDateTabs(upToDateTabs);
 					} else {
+						this.tabs(upToDateTabs);
 						this.upToDateTabs(null);
 					}
 				} else {
