@@ -150,6 +150,7 @@ return function ($event) use ($phpstanVersion) {
 		$error = [
 			'message' => $result->getMessage(),
 			'line' => $result->getLine(),
+			'ignorable' => $result->canBeIgnored(),
 		];
 		if ($result->getTip() !== null) {
 			$error['tip'] = $tipFormatter->format($result->getTip());
