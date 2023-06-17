@@ -2287,11 +2287,6 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
-            ]
-        },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -2357,6 +2352,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\ExistingClassInClassExtendsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -2407,16 +2407,6 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
-        "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
-            ]
-        },
-        "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
-            ]
-        },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -2432,6 +2422,16 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\Exceptions\\CaughtExceptionExistenceRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -2439,16 +2439,6 @@
         }
     },
     "class.noParent": {
-        "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L107"
-            ]
-        },
-        "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L107"
-            ]
-        },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L104"
@@ -2457,6 +2447,16 @@
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L104"
+            ]
+        },
+        "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L107"
+            ]
+        },
+        "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L107"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
@@ -2476,6 +2476,19 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/CaughtExceptionExistenceRule.php#L47"
             ]
         },
+        "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L127",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
+            ]
+        },
+        "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L127",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
+            ]
+        },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertiesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/ExistingClassesInPropertiesRule.php#L77"
@@ -2490,19 +2503,6 @@
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L135",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
-            ]
-        },
-        "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L127",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
-            ]
-        },
-        "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L127",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
             ]
         },
@@ -2721,16 +2721,6 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
             ]
         },
-        "PHPStan\\Rules\\Arrays\\ArrayUnpackingRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
-            ]
-        },
-        "PHPStan\\Rules\\Arrays\\InvalidKeyInArrayDimFetchRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
-            ]
-        },
         "PHPStan\\Rules\\Generators\\YieldFromTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
@@ -2748,12 +2738,32 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/ClassConstantRule.php#L108"
             ]
         },
+        "PHPStan\\Rules\\Arrays\\ArrayUnpackingRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
+            ]
+        },
+        "PHPStan\\Rules\\Arrays\\InvalidKeyInArrayDimFetchRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
+            ]
+        },
         "PHPStan\\Rules\\Methods\\CallToMethodStatementWithoutSideEffectsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallToStaticMethodStatementWithoutSideEffectsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
+            ]
+        },
+        "PHPStan\\Rules\\Properties\\TypesAssignedToPropertiesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
+            ]
+        },
+        "PHPStan\\Rules\\Properties\\ReadingWriteOnlyPropertiesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
             ]
@@ -2783,16 +2793,6 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
             ]
         },
-        "PHPStan\\Rules\\Properties\\TypesAssignedToPropertiesRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
-            ]
-        },
-        "PHPStan\\Rules\\Properties\\ReadingWriteOnlyPropertiesRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
-            ]
-        },
         "PHPStan\\Rules\\Operators\\InvalidBinaryOperationRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
@@ -2813,6 +2813,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/ExistingClassInClassExtendsRule.php#L50"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L144"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L66"
@@ -2826,11 +2831,6 @@
         "PHPStan\\Rules\\Classes\\ExistingClassInInstanceOfRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/ExistingClassInInstanceOfRule.php#L74"
-            ]
-        },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L144"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
@@ -3577,11 +3577,6 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
-            ]
-        },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -3647,6 +3642,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\ExistingClassInClassExtendsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -3697,16 +3697,6 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
-        "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
-            ]
-        },
-        "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
-            ]
-        },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -3718,6 +3708,16 @@
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertiesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -4248,22 +4248,22 @@
         }
     },
     "generics.lessTypes": {
-        "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L63"
-            ]
-        },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L63"
-            ]
-        },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L63"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L63"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L63"
             ]
@@ -4320,22 +4320,22 @@
         }
     },
     "generics.moreTypes": {
-        "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L73"
-            ]
-        },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L73"
-            ]
-        },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L73"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L73"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L73"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L73"
             ]
@@ -4436,22 +4436,22 @@
         }
     },
     "generics.notGeneric": {
-        "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L46"
-            ]
-        },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L46"
-            ]
-        },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L46"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L46"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L46"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L46"
             ]
@@ -4508,22 +4508,22 @@
         }
     },
     "generics.notSubtype": {
-        "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L107"
-            ]
-        },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L107"
-            ]
-        },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L107"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L107"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L107"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L107"
             ]
@@ -4901,11 +4901,6 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
-            ]
-        },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -4971,6 +4966,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\ExistingClassInClassExtendsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -5021,16 +5021,6 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
-        "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
-            ]
-        },
-        "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
-            ]
-        },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -5042,6 +5032,16 @@
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertiesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -6378,14 +6378,14 @@
         }
     },
     "nullsafe.neverNull": {
-        "PHPStan\\Rules\\Properties\\NullsafePropertyFetchRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/NullsafePropertyFetchRule.php#L46"
-            ]
-        },
         "PHPStan\\Rules\\Methods\\NullsafeMethodCallRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/NullsafeMethodCallRule.php#L38"
+            ]
+        },
+        "PHPStan\\Rules\\Properties\\NullsafePropertyFetchRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/NullsafePropertyFetchRule.php#L46"
             ]
         },
         "PHPStan\\Rules\\Variables\\IssetRule": {
@@ -6474,16 +6474,6 @@
         }
     },
     "outOfClass.parent": {
-        "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L96"
-            ]
-        },
-        "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L96"
-            ]
-        },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L89"
@@ -6492,6 +6482,16 @@
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L89"
+            ]
+        },
+        "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L96"
+            ]
+        },
+        "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L96"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
@@ -6511,16 +6511,6 @@
         }
     },
     "outOfClass.self": {
-        "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L85"
-            ]
-        },
-        "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L85"
-            ]
-        },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L75"
@@ -6529,6 +6519,16 @@
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L75"
+            ]
+        },
+        "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L85"
+            ]
+        },
+        "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L85"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
@@ -6548,16 +6548,6 @@
         }
     },
     "outOfClass.static": {
-        "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L85"
-            ]
-        },
-        "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L85"
-            ]
-        },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L75"
@@ -6566,6 +6556,16 @@
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L75"
+            ]
+        },
+        "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L85"
+            ]
+        },
+        "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L85"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
@@ -6742,6 +6742,16 @@
         }
     },
     "parameter.notFound": {
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/AssertRuleHelper.php#L49"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/AssertRuleHelper.php#L49"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L81"
@@ -6755,16 +6765,6 @@
         "PHPStan\\Rules\\PhpDoc\\MethodConditionalReturnTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L77"
-            ]
-        },
-        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/AssertRuleHelper.php#L49"
-            ]
-        },
-        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/AssertRuleHelper.php#L49"
             ]
         }
     },
@@ -7209,12 +7209,12 @@
         }
     },
     "phpstanApi.varTagAssumption": {
-        "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
+        "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L107"
             ]
         },
-        "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
+        "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L107"
             ]
@@ -8804,11 +8804,6 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
-            ]
-        },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -8874,6 +8869,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\ExistingClassInClassExtendsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -8924,16 +8924,6 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
-        "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
-            ]
-        },
-        "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
-            ]
-        },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -8945,6 +8935,16 @@
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertiesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -9114,12 +9114,12 @@
         }
     },
     "varTag.nativeType": {
-        "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
+        "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L83"
             ]
         },
-        "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
+        "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L83"
             ]
@@ -9144,12 +9144,12 @@
         }
     },
     "varTag.type": {
-        "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
+        "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L95"
             ]
         },
-        "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
+        "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L95"
             ]
