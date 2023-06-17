@@ -2287,11 +2287,6 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
-            ]
-        },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -2353,6 +2348,11 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassesInClassImplementsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -2721,16 +2721,6 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
             ]
         },
-        "PHPStan\\Rules\\Arrays\\ArrayUnpackingRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
-            ]
-        },
-        "PHPStan\\Rules\\Arrays\\InvalidKeyInArrayDimFetchRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
-            ]
-        },
         "PHPStan\\Rules\\Generators\\YieldFromTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
@@ -2746,6 +2736,16 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/ClassConstantRule.php#L98",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/ClassConstantRule.php#L108"
+            ]
+        },
+        "PHPStan\\Rules\\Arrays\\ArrayUnpackingRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
+            ]
+        },
+        "PHPStan\\Rules\\Arrays\\InvalidKeyInArrayDimFetchRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallToMethodStatementWithoutSideEffectsRule": {
@@ -2813,6 +2813,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/ExistingClassInClassExtendsRule.php#L50"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L144"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L66"
@@ -2826,11 +2831,6 @@
         "PHPStan\\Rules\\Classes\\ExistingClassInInstanceOfRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/ExistingClassInInstanceOfRule.php#L74"
-            ]
-        },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L144"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
@@ -3577,11 +3577,6 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
-            ]
-        },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -3643,6 +3638,11 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassesInClassImplementsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -4248,22 +4248,22 @@
         }
     },
     "generics.lessTypes": {
-        "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L63"
-            ]
-        },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L63"
-            ]
-        },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L63"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L63"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L63"
             ]
@@ -4320,22 +4320,22 @@
         }
     },
     "generics.moreTypes": {
-        "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L73"
-            ]
-        },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L73"
-            ]
-        },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L73"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L73"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L73"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L73"
             ]
@@ -4436,22 +4436,22 @@
         }
     },
     "generics.notGeneric": {
-        "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L46"
-            ]
-        },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L46"
-            ]
-        },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L46"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L46"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L46"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L46"
             ]
@@ -4508,22 +4508,22 @@
         }
     },
     "generics.notSubtype": {
-        "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L107"
-            ]
-        },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L107"
-            ]
-        },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L107"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L107"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L107"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L107"
             ]
@@ -4901,11 +4901,6 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
-            ]
-        },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -4967,6 +4962,11 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassesInClassImplementsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -6742,6 +6742,16 @@
         }
     },
     "parameter.notFound": {
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/AssertRuleHelper.php#L49"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/AssertRuleHelper.php#L49"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L81"
@@ -6755,16 +6765,6 @@
         "PHPStan\\Rules\\PhpDoc\\MethodConditionalReturnTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L77"
-            ]
-        },
-        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/AssertRuleHelper.php#L49"
-            ]
-        },
-        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/AssertRuleHelper.php#L49"
             ]
         }
     },
@@ -7209,12 +7209,12 @@
         }
     },
     "phpstanApi.varTagAssumption": {
-        "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
+        "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L107"
             ]
         },
-        "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
+        "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L107"
             ]
@@ -8804,11 +8804,6 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
-        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
-            ]
-        },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -8870,6 +8865,11 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassesInClassImplementsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -9114,12 +9114,12 @@
         }
     },
     "varTag.nativeType": {
-        "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
+        "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L83"
             ]
         },
-        "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
+        "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L83"
             ]
@@ -9144,12 +9144,12 @@
         }
     },
     "varTag.type": {
-        "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
+        "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L95"
             ]
         },
-        "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
+        "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L95"
             ]
