@@ -259,7 +259,7 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true;
 
-		let phpVersionsToAnalyse: number[] = [70100, 70200, 70300, 70400, 80000];
+		let phpVersionsToAnalyse: number[] = [70200, 70300, 70400, 80000];
 		if (typeof json.versionedErrors !== 'undefined') {
 			phpVersionsToAnalyse = json.versionedErrors.map((errors: {phpVersion: number, errors: PHPStanError[]}) => {
 				return errors.phpVersion;
