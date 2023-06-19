@@ -51,6 +51,9 @@ Integer ranges
 
 * `positive-int`
 * `negative-int`
+* `non-positive-int`
+* `non-negative-int`
+* `non-zero-int`
 * `int<0, 100>`
 * `int<min, 100>`
 * `int<50, max>`
