@@ -3,8 +3,6 @@ includes:
 	- pocketmine-baseline.neon
 
 parameters:
-	featureToggles:
-		disableRuntimeReflectionProvider: true
 	phpVersion: 80000
 	bootstrapFiles:
 		- pocketmine-constants.php

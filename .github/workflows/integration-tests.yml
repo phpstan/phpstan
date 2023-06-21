@@ -311,3 +311,63 @@ jobs:
 
       - name: "Tests"
         run: "${{ matrix.script }}"
+
+  pmmp-tests:
+    name: "PMMP Tests"
+
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 30
+
+    needs: check-phar-checksum
+    if: "needs.check-phar-checksum.outputs.checksum-result == 'different'"
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "8.1"
+          - "8.2"
+        script:
+          - |
+            git clone https://github.com/pmmp/PocketMine-MP.git e2e/integration/repo
+            cd e2e/integration/repo
+            git checkout 8dedbb747108c45b7534b8ac6f05e8464ee8eb22
+            composer install --ignore-platform-reqs
+            ../../../phpstan.phar analyse -c ../pocketmine-ng.neon --memory-limit=2G
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          repository: "phpstan/phpstan"
+          ref: ${{ inputs.ref }}
+
+      - name: Setup PHP
+        uses: pmmp/setup-php-action@2.0.0
+        with:
+          php-version: ${{ matrix.php-version }}
+          install-path: "./bin"
+          pm-version-major: "5"
+
+      - name: "Install dependencies"
+        run: "composer update --no-interaction --no-progress"
+
+      - name: "Download phpstan.phar"
+        uses: actions/download-artifact@v3
+        with:
+          name: phar-file
+
+      - name: "Tests"
+        run: "${{ matrix.script }}"
+
+      - name: "Generate baseline"
+        if: ${{ failure() }}
+        run: |
+          cd e2e/integration/repo
+          ../../../phpstan.phar analyse -c ../pocketmine-ng.neon --memory-limit=2G -b ../pocketmine-ng-baseline.neon
+
+      - uses: actions/upload-artifact@v3
+        if: ${{ failure() }}
+        with:
+          name: pocketmine-ng-baseline.neon
+          path: e2e/integration/pocketmine-ng-baseline.neon
