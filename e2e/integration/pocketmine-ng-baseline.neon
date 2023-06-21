@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Unable to resolve the template type TKeyType in call to method static method pocketmine\\\\utils\\\\Utils\\:\\:stringifyKeys\\(\\)$#"
+			count: 1
+			path: repo/src/MemoryManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$str of function base64_decode expects string, mixed given\\.$#"
+			count: 1
+			path: repo/src/item/Item.php
