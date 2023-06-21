@@ -2654,6 +2654,31 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
             ]
         },
+        "PHPStan\\Rules\\Cast\\PrintRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
+            ]
+        },
+        "PHPStan\\Rules\\Functions\\ReturnTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
+            ]
+        },
+        "PHPStan\\Rules\\Functions\\ArrowFunctionReturnTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
+            ]
+        },
+        "PHPStan\\Rules\\Functions\\ClosureReturnTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
+            ]
+        },
+        "PHPStan\\Rules\\Methods\\ReturnTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
+            ]
+        },
         "PHPStan\\Rules\\Arrays\\IterableInForeachRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
@@ -2702,31 +2727,6 @@
             ]
         },
         "PHPStan\\Rules\\Arrays\\InvalidKeyInArrayDimFetchRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
-            ]
-        },
-        "PHPStan\\Rules\\Cast\\PrintRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
-            ]
-        },
-        "PHPStan\\Rules\\Functions\\ReturnTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
-            ]
-        },
-        "PHPStan\\Rules\\Functions\\ArrowFunctionReturnTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
-            ]
-        },
-        "PHPStan\\Rules\\Functions\\ClosureReturnTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
-            ]
-        },
-        "PHPStan\\Rules\\Methods\\ReturnTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
             ]
