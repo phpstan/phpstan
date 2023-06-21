@@ -359,3 +359,15 @@ jobs:
 
       - name: "Tests"
         run: "${{ matrix.script }}"
+
+      - name: "Generate baseline"
+        if: ${{ failure() }}
+        run: |
+          cd e2e/integration/repo
+          ../../../phpstan.phar analyse -c ../pocketmine-ng.neon --memory-limit=2G -b ../pocketmine-ng-baseline.neon
+
+      - uses: actions/upload-artifact@v3
+        if: ${{ failure() }}
+        with:
+          name: pocketmine-ng-baseline.neon
+          path: e2e/integration/repo/pocketmine-ng-baseline.neon
