@@ -33,6 +33,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/Psyonix-PsyNet">Psyonix (Psyonix-PsyNet)</a></li>
 <li><a href="https://github.com/AcroMedia">Acro Media (AcroMedia)</a></li>
 <li><a href="https://github.com/AmezmoOfficial">Amezmo (AmezmoOfficial)</a></li>
+<li><a href="https://github.com/mceglowski"> (mceglowski)</a></li>
 <!-- hundred-org -->
 </ul>
 
@@ -82,7 +83,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/rieschl">Thomas Rieschl (rieschl)</a></li>
 <li><a href="https://github.com/lampbristol">Lamp Bristol (lampbristol)</a></li>
 <li><a href="https://github.com/themasch">Mark Schmale (themasch)</a></li>
-<li><a href="https://github.com/j0k3r">Jérémy Benoist (j0k3r)</a></li>
 <li><a href="https://github.com/nicwortel">Nic Wortel (nicwortel)</a></li>
 <li><a href="https://github.com/customgento">CustomGento (customgento)</a></li>
 <li><a href="https://github.com/johnbillion">John Blackbourn (johnbillion)</a></li>
