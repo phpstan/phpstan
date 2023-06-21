@@ -370,4 +370,4 @@ jobs:
         if: ${{ failure() }}
         with:
           name: pocketmine-ng-baseline.neon
-          path: e2e/integration/repo/pocketmine-ng-baseline.neon
+          path: e2e/integration/pocketmine-ng-baseline.neon
