@@ -640,16 +640,16 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/RandomIntParametersRule.php#L67"
             ]
         },
-        "PHPStan\\Rules\\Symfony\\InvalidOptionDefaultValueRule": {
-            "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/1.2.x/src/Rules/Symfony/InvalidOptionDefaultValueRule.php#L71",
-                "https://github.com/phpstan/phpstan-symfony/blob/1.2.x/src/Rules/Symfony/InvalidOptionDefaultValueRule.php#L82"
-            ]
-        },
         "PHPStan\\Rules\\Symfony\\InvalidArgumentDefaultValueRule": {
             "phpstan/phpstan-symfony": [
                 "https://github.com/phpstan/phpstan-symfony/blob/1.2.x/src/Rules/Symfony/InvalidArgumentDefaultValueRule.php#L66",
                 "https://github.com/phpstan/phpstan-symfony/blob/1.2.x/src/Rules/Symfony/InvalidArgumentDefaultValueRule.php#L76"
+            ]
+        },
+        "PHPStan\\Rules\\Symfony\\InvalidOptionDefaultValueRule": {
+            "phpstan/phpstan-symfony": [
+                "https://github.com/phpstan/phpstan-symfony/blob/1.2.x/src/Rules/Symfony/InvalidOptionDefaultValueRule.php#L71",
+                "https://github.com/phpstan/phpstan-symfony/blob/1.2.x/src/Rules/Symfony/InvalidOptionDefaultValueRule.php#L82"
             ]
         }
     },
@@ -5421,11 +5421,6 @@
         }
     },
     "method.nameCase": {
-        "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
-            "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L179"
-            ]
-        },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodCallCheck.php#L138"
@@ -5434,6 +5429,11 @@
         "PHPStan\\Rules\\Methods\\MethodCallableRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodCallCheck.php#L138"
+            ]
+        },
+        "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L179"
             ]
         },
         "PHPStan\\Rules\\Methods\\WrongCaseOfInheritedMethodRule": {
@@ -6619,14 +6619,14 @@
         }
     },
     "parameter.deprecatedClass": {
-        "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
-            "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L58"
-            ]
-        },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
                 "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L61"
+            ]
+        },
+        "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
+            "phpstan/phpstan-deprecation-rules": [
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L58"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule": {
@@ -6637,14 +6637,14 @@
         }
     },
     "parameter.deprecatedEnum": {
-        "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
-            "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L58"
-            ]
-        },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
                 "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L61"
+            ]
+        },
+        "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
+            "phpstan/phpstan-deprecation-rules": [
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L58"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule": {
@@ -6655,14 +6655,14 @@
         }
     },
     "parameter.deprecatedInterface": {
-        "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
-            "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L58"
-            ]
-        },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
                 "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L61"
+            ]
+        },
+        "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
+            "phpstan/phpstan-deprecation-rules": [
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L58"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule": {
@@ -6673,14 +6673,14 @@
         }
     },
     "parameter.deprecatedTrait": {
-        "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
-            "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L58"
-            ]
-        },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
                 "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L61"
+            ]
+        },
+        "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
+            "phpstan/phpstan-deprecation-rules": [
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L58"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule": {
@@ -7276,17 +7276,17 @@
         }
     },
     "phpunit.covers": {
-        "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
+        "PHPStan\\Rules\\PHPUnit\\ClassMethodCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/ClassMethodCoversExistsRule.php#L97",
                 "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L77",
                 "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L122"
             ]
         },
-        "PHPStan\\Rules\\PHPUnit\\ClassMethodCoversExistsRule": {
+        "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L77",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L122",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/ClassMethodCoversExistsRule.php#L97"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L122"
             ]
         }
     },
@@ -7364,12 +7364,12 @@
         }
     },
     "phpunit.invalidPhpDoc": {
-        "PHPStan\\Rules\\PHPUnit\\NoMissingSpaceInClassAnnotationRule": {
+        "PHPStan\\Rules\\PHPUnit\\NoMissingSpaceInMethodAnnotationRule": {
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/AnnotationHelper.php#L60"
             ]
         },
-        "PHPStan\\Rules\\PHPUnit\\NoMissingSpaceInMethodAnnotationRule": {
+        "PHPStan\\Rules\\PHPUnit\\NoMissingSpaceInClassAnnotationRule": {
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/AnnotationHelper.php#L60"
             ]
@@ -7874,14 +7874,14 @@
         }
     },
     "return.deprecatedClass": {
-        "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
-            "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L69"
-            ]
-        },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
                 "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L73"
+            ]
+        },
+        "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
+            "phpstan/phpstan-deprecation-rules": [
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L69"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule": {
@@ -7892,14 +7892,14 @@
         }
     },
     "return.deprecatedEnum": {
-        "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
-            "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L69"
-            ]
-        },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
                 "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L73"
+            ]
+        },
+        "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
+            "phpstan/phpstan-deprecation-rules": [
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L69"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule": {
@@ -7910,14 +7910,14 @@
         }
     },
     "return.deprecatedInterface": {
-        "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
-            "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L69"
-            ]
-        },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
                 "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L73"
+            ]
+        },
+        "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
+            "phpstan/phpstan-deprecation-rules": [
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L69"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule": {
@@ -7928,14 +7928,14 @@
         }
     },
     "return.deprecatedTrait": {
-        "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
-            "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L69"
-            ]
-        },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
                 "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L73"
+            ]
+        },
+        "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
+            "phpstan/phpstan-deprecation-rules": [
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.1.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L69"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule": {
