@@ -7276,17 +7276,17 @@
         }
     },
     "phpunit.covers": {
-        "PHPStan\\Rules\\PHPUnit\\ClassMethodCoversExistsRule": {
-            "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/ClassMethodCoversExistsRule.php#L97",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L77",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L122"
-            ]
-        },
         "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L77",
                 "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L122"
+            ]
+        },
+        "PHPStan\\Rules\\PHPUnit\\ClassMethodCoversExistsRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L77",
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L122",
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/ClassMethodCoversExistsRule.php#L97"
             ]
         }
     },
@@ -7364,12 +7364,12 @@
         }
     },
     "phpunit.invalidPhpDoc": {
-        "PHPStan\\Rules\\PHPUnit\\NoMissingSpaceInMethodAnnotationRule": {
+        "PHPStan\\Rules\\PHPUnit\\NoMissingSpaceInClassAnnotationRule": {
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/AnnotationHelper.php#L60"
             ]
         },
-        "PHPStan\\Rules\\PHPUnit\\NoMissingSpaceInClassAnnotationRule": {
+        "PHPStan\\Rules\\PHPUnit\\NoMissingSpaceInMethodAnnotationRule": {
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/AnnotationHelper.php#L60"
             ]
