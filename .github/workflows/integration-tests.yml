@@ -53,7 +53,7 @@ jobs:
             script: |
               git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 14cc7d49406c55acd1ce7e83c7cddd23b9fd12a2
+              git checkout 11796980f4d5cc4c2b07d765fdef097697d40708
               cp ../rector-composer.lock composer.lock
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
@@ -64,7 +64,7 @@ jobs:
             script: |
               git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 14cc7d49406c55acd1ce7e83c7cddd23b9fd12a2
+              git checkout 11796980f4d5cc4c2b07d765fdef097697d40708
               cp ../rector-composer.lock composer.lock
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
@@ -75,7 +75,7 @@ jobs:
             script: |
               git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 14cc7d49406c55acd1ce7e83c7cddd23b9fd12a2
+              git checkout 11796980f4d5cc4c2b07d765fdef097697d40708
               cp ../rector-composer.lock composer.lock
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
@@ -170,7 +170,7 @@ jobs:
             setup: |
               git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 14cc7d49406c55acd1ce7e83c7cddd23b9fd12a2
+              git checkout 11796980f4d5cc4c2b07d765fdef097697d40708
               cp ../rector-composer.lock composer.lock
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../rector.neon
