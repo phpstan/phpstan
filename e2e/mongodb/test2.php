@@ -10,6 +10,8 @@ class MongoDBE2ETest
 	{
 		// connect
 		$manager = new Manager("mongodb://localhost:27017");
-		return $manager->executeBulkWrite("collection", new BulkWrite(true));
+		return $manager->executeBulkWrite("collection", new BulkWrite([
+			'bypassDocumentValidation' => true,
+		]));
 	}
 }
