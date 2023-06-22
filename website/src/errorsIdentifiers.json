@@ -2478,6 +2478,7 @@
         },
         "PHPStan\\Rules\\Arrays\\ArrayDestructuringRule": {
             "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
             ]
         },
@@ -2612,6 +2613,7 @@
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
             ]
         },
@@ -2742,9 +2744,9 @@
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L127",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L127"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallToMethodStatementWithoutSideEffectsRule": {
@@ -2782,8 +2784,8 @@
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L127"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L127",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
             ]
         },
         "PHPStan\\Rules\\Operators\\InvalidBinaryOperationRule": {
@@ -2813,14 +2815,14 @@
         },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L135"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L135",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L135"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L135",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L345"
             ]
         },
         "PHPStan\\Rules\\Properties\\DefaultValueTypesAssignedToPropertiesRule": {
@@ -5362,11 +5364,11 @@
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodSignatureRule.php#L105",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L186",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L258",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L286",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L306"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L306",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodSignatureRule.php#L105"
             ]
         }
     },
