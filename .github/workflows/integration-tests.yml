@@ -393,7 +393,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-            phpstan-command: ../../../phpstan.phar analyze src --level=max
+            phpstan-command: ../../../phpstan.phar analyze src --level=max -c ../efabrica-phpstan-latte.neon
             baseline-file: efabrica-phpstan-latte-baseline.neon
           - php-version: 8.1
             setup: |
