@@ -471,11 +471,11 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.phpstan-bot-token }}
-          branch: "create-pull-request/baselines-${{ inputs.ref }}"
+          branch: "create-pull-request/baselines-1.10.x"
           delete-branch: true
           title: "Update baselines for ${{ inputs.ref }}"
           committer: "phpstan-bot <ondrej+phpstanbot@mirtes.cz>"
-          commit-message: "Update PHP 8 stubs"
+          commit-message: "Update baselines"
 
   pmmp-tests:
     name: "PMMP Tests"
