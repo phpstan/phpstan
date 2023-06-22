@@ -13,6 +13,9 @@ on:
         description: 'PHAR checksum from reproducible build (please rebase)'
         required: true
         type: string
+    secrets:
+      phpstan-bot-token:
+        required: false
 
 jobs:
   check-phar-checksum:
@@ -455,7 +458,7 @@ jobs:
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
-          token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+          token: ${{ secrets.phpstan-bot-token }}
 
       - name: "Download baselines"
         uses: actions/download-artifact@v3
@@ -467,7 +470,7 @@ jobs:
         id: create-pr
         uses: peter-evans/create-pull-request@v4
         with:
-          token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+          token: ${{ secrets.phpstan-bot-token }}
           branch: "create-pull-request/baselines-${{ inputs.ref }}"
           delete-branch: true
           title: "Update baselines for ${{ inputs.ref }}"
