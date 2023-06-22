@@ -450,7 +450,7 @@ jobs:
     name: "Integration - Update baselines"
     runs-on: "ubuntu-latest"
     needs: integration-run-phpstan
-    if: "always() && github.repository_owner == 'phpstan' && inputs.ref == 'refs/heads/1.10.x'"
+    if: "failure() && github.repository_owner == 'phpstan' && inputs.ref == 'refs/heads/1.10.x'"
 
     steps:
       - name: "Checkout"
