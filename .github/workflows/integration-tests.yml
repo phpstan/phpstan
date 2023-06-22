@@ -99,7 +99,11 @@ jobs:
               ../../../phpstan.phar analyse -l 8 -c ../phpunit.neon src tests
           - php-version: 8.0
             script: |
-
+              git clone https://github.com/pmmp/PocketMine-MP.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout e0b07ff3087b652407439a29c941f3b66ca92c86
+              composer install --ignore-platform-reqs
+              ../../../phpstan.phar analyse -c ../pocketmine.neon --memory-limit=2G
           - php-version: 8.1
             script: |
               git clone https://github.com/laravel/framework.git e2e/integration/repo
@@ -320,8 +324,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        pm-version:
-          - "5"
         php-version:
           - "8.1"
           - "8.2"
@@ -332,15 +334,6 @@ jobs:
             git checkout 8dedbb747108c45b7534b8ac6f05e8464ee8eb22
             composer install --ignore-platform-reqs
             ../../../phpstan.phar analyse -c ../pocketmine-ng.neon --memory-limit=2G
-        include:
-          - php-version: "8.0"
-            pm-version: "3"
-            script: |
-              git clone https://github.com/pmmp/PocketMine-MP.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout e0b07ff3087b652407439a29c941f3b66ca92c86
-              composer install --ignore-platform-reqs
-              ../../../phpstan.phar analyse -c ../pocketmine.neon --memory-limit=2G
 
     steps:
       - name: "Checkout"
@@ -354,7 +347,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           install-path: "./bin"
-          pm-version-major: ${{ matrix.pm-version }}
+          pm-version-major: "5"
 
       - name: "Install dependencies"
         run: "composer update --no-interaction --no-progress"
