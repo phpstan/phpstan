@@ -53,6 +53,16 @@ ksort($dataByIdentifier);
 foreach ($dataByIdentifier as $identifier => $rows) {
 	ksort($rows);
 	$dataByIdentifier[$identifier] = $rows;
+	foreach ($rows as $class => $repos) {
+		foreach ($repos as $repo => $urls) {
+			$urls = array_values(array_unique($urls));
+			sort($urls);
+			$dataByIdentifier[$identifier][$class][$repo] = $urls;
+		}
+
+		ksort($repos);
+		$dataByIdentifier[$identifier][$class] = $repos;
+	}
 }
 
 echo Json::encode($dataByIdentifier, true);
