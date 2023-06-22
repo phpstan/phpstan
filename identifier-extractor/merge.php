@@ -57,7 +57,7 @@ foreach ($dataByIdentifier as $identifier => $rows) {
 		foreach ($repos as $repo => $urls) {
 			$urls = array_values(array_unique($urls));
 			sort($urls);
-			$dataByIdentifier[$identifier][$class][$repo] = $urls;
+			$repos[$repo] = $urls;
 		}
 
 		ksort($repos);
