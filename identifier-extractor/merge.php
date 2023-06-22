@@ -50,4 +50,9 @@ foreach ($data as $row) {
 
 ksort($dataByIdentifier);
 
+foreach ($dataByIdentifier as $identifier => $rows) {
+	ksort($rows);
+	$dataByIdentifier[$identifier] = $rows;
+}
+
 echo Json::encode($dataByIdentifier, true);
