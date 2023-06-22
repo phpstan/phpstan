@@ -16,21 +16,6 @@ parameters:
 			path: repo/src/Carbon/CarbonInterval.php
 
 		-
-			message: "#^PHPDoc tag @var for constant Carbon\\\\CarbonPeriod\\:\\:END_DATE_FILTER with type callable\\(\\)\\: mixed is incompatible with value array\\{'Carbon\\\\\\\\CarbonPeriod', 'filterEndDate'\\}\\.$#"
-			count: 1
-			path: repo/src/Carbon/CarbonPeriod.php
-
-		-
-			message: "#^PHPDoc tag @var for constant Carbon\\\\CarbonPeriod\\:\\:END_ITERATION with type callable\\(\\)\\: mixed is incompatible with value array\\{'Carbon\\\\\\\\CarbonPeriod', 'endIteration'\\}\\.$#"
-			count: 1
-			path: repo/src/Carbon/CarbonPeriod.php
-
-		-
-			message: "#^PHPDoc tag @var for constant Carbon\\\\CarbonPeriod\\:\\:RECURRENCES_FILTER with type callable\\(\\)\\: mixed is incompatible with value array\\{'Carbon\\\\\\\\CarbonPeriod', 'filterRecurrences'\\}\\.$#"
-			count: 1
-			path: repo/src/Carbon/CarbonPeriod.php
-
-		-
 			message: "#^Result of method Symfony\\\\Contracts\\\\Translation\\\\LocaleAwareInterface\\:\\:setLocale\\(\\) \\(void\\) is used\\.$#"
 			count: 1
 			path: repo/src/Carbon/CarbonPeriod.php
