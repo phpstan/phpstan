@@ -39,3 +39,5 @@ jobs:
     with:
       ref: ${{ github.ref }}
       phar-checksum: "always"
+    secrets:
+      phpstan-bot-token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
