@@ -468,6 +468,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+          branch: "create-pull-request/baselines-${{ inputs.ref }}"
           delete-branch: true
           title: "Update baselines for ${{ inputs.ref }}"
           committer: "phpstan-bot <ondrej+phpstanbot@mirtes.cz>"
