@@ -4,7 +4,5 @@ includes:
 
 parameters:
 	phpVersion: 80000
-	bootstrapFiles:
-		- pocketmine-constants.php
 	dynamicConstantNames:
 		- pocketmine\GIT_COMMIT
