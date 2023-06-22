@@ -1,0 +1,6 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method Efabrica\\\\PHPStanLatte\\\\LatteTemplateResolver\\\\LatteTemplateResolverResult\\:\\:addErrorFromBuilder\\(\\) has parameter \\$error with generic class PHPStan\\\\Rules\\\\RuleErrorBuilder but does not specify its types\\: T$#"
+			count: 1
+			path: repo/src/LatteTemplateResolver/LatteTemplateResolverResult.php
