@@ -1,0 +1,61 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method NunoMaduro\\\\Larastan\\\\Rules\\\\CheckDispatchArgumentTypesCompatibleWithClassConstructorRule\\:\\:processNode\\(\\) should return list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\> but returns array\\{PHPStan\\\\Rules\\\\RuleError\\}\\.$#"
+			count: 1
+			path: repo/src/Rules/CheckDispatchArgumentTypesCompatibleWithClassConstructorRule.php
+
+		-
+			message: "#^Method NunoMaduro\\\\Larastan\\\\Rules\\\\DeferrableServiceProviderMissingProvidesRule\\:\\:processNode\\(\\) should return list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\> but returns array\\{PHPStan\\\\Rules\\\\LineRuleError\\}\\.$#"
+			count: 1
+			path: repo/src/Rules/DeferrableServiceProviderMissingProvidesRule.php
+
+		-
+			message: "#^Return type \\(array\\<string\\>\\) of method NunoMaduro\\\\Larastan\\\\Rules\\\\ModelProperties\\\\ModelPropertyRule\\:\\:processNode\\(\\) should be compatible with return type \\(list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\>\\) of method PHPStan\\\\Rules\\\\Rule\\<PhpParser\\\\Node\\\\Expr\\\\MethodCall\\>\\:\\:processNode\\(\\)$#"
+			count: 1
+			path: repo/src/Rules/ModelProperties/ModelPropertyRule.php
+
+		-
+			message: "#^Return type \\(array\\<string\\>\\) of method NunoMaduro\\\\Larastan\\\\Rules\\\\ModelProperties\\\\ModelPropertyStaticCallRule\\:\\:processNode\\(\\) should be compatible with return type \\(list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\>\\) of method PHPStan\\\\Rules\\\\Rule\\<PhpParser\\\\Node\\\\Expr\\\\StaticCall\\>\\:\\:processNode\\(\\)$#"
+			count: 1
+			path: repo/src/Rules/ModelProperties/ModelPropertyStaticCallRule.php
+
+		-
+			message: "#^Return type \\(array\\<string\\>\\) of method NunoMaduro\\\\Larastan\\\\Rules\\\\NoUnnecessaryCollectionCallRule\\:\\:processNode\\(\\) should be compatible with return type \\(list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\>\\) of method PHPStan\\\\Rules\\\\Rule\\<PhpParser\\\\Node\\\\Expr\\\\MethodCall\\>\\:\\:processNode\\(\\)$#"
+			count: 1
+			path: repo/src/Rules/NoUnnecessaryCollectionCallRule.php
+
+		-
+			message: "#^Method NunoMaduro\\\\Larastan\\\\Rules\\\\OctaneCompatibilityRule\\:\\:processNode\\(\\) should return list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\> but returns array\\<PHPStan\\\\Rules\\\\RuleError\\>\\.$#"
+			count: 1
+			path: repo/src/Rules/OctaneCompatibilityRule.php
+
+		-
+			message: "#^Method NunoMaduro\\\\Larastan\\\\Rules\\\\OctaneCompatibilityRule\\:\\:processNode\\(\\) should return list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\> but returns non\\-empty\\-array\\<PHPStan\\\\Rules\\\\RuleError\\>\\.$#"
+			count: 1
+			path: repo/src/Rules/OctaneCompatibilityRule.php
+
+		-
+			message: "#^Method NunoMaduro\\\\Larastan\\\\Rules\\\\RelationExistenceRule\\:\\:processNode\\(\\) should return list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\> but returns array\\<0, PHPStan\\\\Rules\\\\RuleError\\>&list\\.$#"
+			count: 1
+			path: repo/src/Rules/RelationExistenceRule.php
+
+		-
+			message: "#^Method NunoMaduro\\\\Larastan\\\\Rules\\\\RelationExistenceRule\\:\\:processNode\\(\\) should return list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\> but returns array\\{PHPStan\\\\Rules\\\\RuleError\\}\\.$#"
+			count: 1
+			path: repo/src/Rules/RelationExistenceRule.php
+
+		-
+			message: "#^Method NunoMaduro\\\\Larastan\\\\Rules\\\\UnusedViewsRule\\:\\:processNode\\(\\) should return list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\> but returns list\\<PHPStan\\\\Rules\\\\FileRuleError&PHPStan\\\\Rules\\\\LineRuleError\\>\\.$#"
+			count: 1
+			path: repo/src/Rules/UnusedViewsRule.php
+
+		-
+			message: "#^Method NunoMaduro\\\\Larastan\\\\Rules\\\\UselessConstructs\\\\NoUselessValueFunctionCallsRule\\:\\:processNode\\(\\) should return list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\> but returns array\\{PHPStan\\\\Rules\\\\LineRuleError\\}\\.$#"
+			count: 1
+			path: repo/src/Rules/UselessConstructs/NoUselessValueFunctionCallsRule.php
+
+		-
+			message: "#^Method NunoMaduro\\\\Larastan\\\\Rules\\\\UselessConstructs\\\\NoUselessWithFunctionCallsRule\\:\\:processNode\\(\\) should return list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\> but returns array\\{PHPStan\\\\Rules\\\\LineRuleError\\}\\.$#"
+			count: 2
+			path: repo/src/Rules/UselessConstructs/NoUselessWithFunctionCallsRule.php
