@@ -1,0 +1,3 @@
+includes:
+	- repo/phpstan.neon
+	- efabrica-phpstan-latte-baseline.neon
