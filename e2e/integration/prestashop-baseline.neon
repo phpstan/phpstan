@@ -11,8 +11,13 @@ parameters:
 			path: repo/classes/Hook.php
 
 		-
-			message: "#^Offset 'bits' on array in isset\\(\\) always exists and is not nullable\\.$#"
+			message: "#^Offset 'bits' on array\\{0\\: int, 1\\: int, 2\\: int, 3\\: string, mime\\: string, channels\\?\\: int, bits\\: int\\} in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
+			path: repo/classes/ImageManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$type of static method ImageManagerCore\\:\\:create\\(\\) expects string, int given\\.$#"
+			count: 2
 			path: repo/classes/ImageManager.php
 
 		-
@@ -449,6 +454,11 @@ parameters:
 			message: "#^Method Tests\\\\Integration\\\\Behaviour\\\\Features\\\\Context\\\\Domain\\\\Product\\\\SpecificPriceContext\\:\\:createDeleteSpecificPriceCommand\\(\\) is unused\\.$#"
 			count: 1
 			path: repo/tests/Integration/Behaviour/Features/Context/Domain/Product/SpecificPriceContext.php
+
+		-
+			message: "#^Cannot call method format\\(\\) on array\\|bool\\|float\\|int\\|object\\|resource\\|string\\.$#"
+			count: 1
+			path: repo/tests/Integration/Behaviour/Features/Context/Util/PrimitiveUtils.php
 
 		-
 			message: "#^Method Tests\\\\Integration\\\\Core\\\\Stock\\\\FakeStockAvailable4759\\:\\:update\\(\\) should return bool but return statement is missing\\.$#"

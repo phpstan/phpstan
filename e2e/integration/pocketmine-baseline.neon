@@ -6,6 +6,11 @@ parameters:
 			path: repo/src/pocketmine/CrashDump.php
 
 		-
+			message: "#^Parameter \\#1 \\$str of function base64_decode expects string, mixed given\\.$#"
+			count: 7
+			path: repo/src/pocketmine/Player.php
+
+		-
 			message: "#^Property pocketmine\\\\Player\\:\\:\\$needACK is never read, only written\\.$#"
 			count: 1
 			path: repo/src/pocketmine/Player.php
@@ -26,24 +31,9 @@ parameters:
 			path: repo/src/pocketmine/Server.php
 
 		-
-			message: "#^Offset \\(int\\|string\\) on array\\<pocketmine\\\\level\\\\Level\\> in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 1
-			path: repo/src/pocketmine/Server.php
-
-		-
 			message: "#^Method pocketmine\\\\ThreadManager\\:\\:getAll\\(\\) should return array\\<pocketmine\\\\Thread\\|pocketmine\\\\Worker\\> but returns array\\<int\\|string, mixed\\>\\.$#"
 			count: 1
 			path: repo/src/pocketmine/ThreadManager.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between 3 and 3 will always evaluate to true\\.$#"
-			count: 1
-			path: repo/src/pocketmine/block/Door.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between 3 and 3 will always evaluate to true\\.$#"
-			count: 3
-			path: repo/src/pocketmine/block/Liquid.php
 
 		-
 			message: "#^Cannot call method getDescription\\(\\) on array\\<pocketmine\\\\command\\\\Command\\>\\|pocketmine\\\\command\\\\Command\\.$#"
@@ -99,11 +89,6 @@ parameters:
 			message: "#^Property pocketmine\\\\plugin\\\\PluginDescription\\:\\:\\$extensions \\(array\\<string, array\\<int, string\\>\\>\\) does not accept array\\<int\\|string, array\\<string\\>\\>\\.$#"
 			count: 1
 			path: repo/src/pocketmine/plugin/PluginDescription.php
-
-		-
-			message: "#^Call to function is_int\\(\\) with int will always evaluate to true\\.$#"
-			count: 1
-			path: repo/src/pocketmine/utils/Internet.php
 
 		-
 			message: "#^Method pocketmine\\\\utils\\\\Timezone\\:\\:parseOffset\\(\\) should return string\\|false but returns string\\|null\\.$#"
