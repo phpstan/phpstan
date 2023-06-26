@@ -1,56 +1,51 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^PHPDoc tag @var with type array\\<Composer\\\\Package\\\\Link\\> is not subtype of type non\\-empty\\-list\\<array\\{array\\{array\\{Composer\\\\Package\\\\Link\\}\\|Composer\\\\Package\\\\Link\\}\\|Composer\\\\Package\\\\Link\\}\\|Composer\\\\Package\\\\Link\\>\\|Composer\\\\Package\\\\Link\\.$#"
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
 			count: 1
-			path: repo/src/Composer/Command/CheckPlatformReqsCommand.php
+			path: repo/tests/Composer/Test/Autoload/AutoloadGeneratorTest.php
 
 		-
-			message: "#^Construct empty\\(\\) is not allowed\\. Use more strict comparison\\.$#"
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
 			count: 1
-			path: repo/src/Composer/Command/InitCommand.php
+			path: repo/tests/Composer/Test/Downloader/DownloadManagerTest.php
 
 		-
-			message: "#^Method Composer\\\\DependencyResolver\\\\Solver\\:\\:enableDisableLearnedRules\\(\\) is unused\\.$#"
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
 			count: 1
-			path: repo/src/Composer/DependencyResolver/Solver.php
+			path: repo/tests/Composer/Test/Downloader/FileDownloaderTest.php
 
 		-
-			message: "#^PHPDoc tag @var with type non\\-empty\\-array\\<array\\{base\\: non\\-empty\\-string, processed\\: non\\-empty\\-string, cacheKey\\: string\\}\\> is not subtype of native type array\\{\\}\\.$#"
-			count: 1
-			path: repo/src/Composer/Downloader/FileDownloader.php
-
-		-
-			message: "#^Doing instanceof PHPStan\\\\Type\\\\Constant\\\\ConstantStringType is error\\-prone and deprecated\\. Use Type\\:\\:getConstantStrings\\(\\) instead\\.$#"
-			count: 1
-			path: repo/src/Composer/PHPStan/ConfigReturnTypeExtension.php
-
-		-
-			message: "#^Class Composer\\\\Package\\\\Archiver\\\\ArchivableFilesFilter extends generic class FilterIterator but does not specify its types\\: TKey, TValue, TIterator$#"
-			count: 1
-			path: repo/src/Composer/Package/Archiver/ArchivableFilesFilter.php
-
-		-
-			message: "#^Class Composer\\\\Package\\\\Archiver\\\\ArchivableFilesFinder extends generic class FilterIterator but does not specify its types\\: TKey, TValue, TIterator$#"
-			count: 1
-			path: repo/src/Composer/Package/Archiver/ArchivableFilesFinder.php
-
-		-
-			message: "#^Strict comparison using \\!\\=\\= between null and array will always evaluate to true\\.$#"
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
 			count: 2
-			path: repo/src/Composer/Package/Version/VersionGuesser.php
+			path: repo/tests/Composer/Test/Downloader/GitDownloaderTest.php
 
 		-
-			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/InstallerTest.php
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
+			count: 2
+			path: repo/tests/Composer/Test/EventDispatcher/EventDispatcherTest.php
 
 		-
-			message: "#^PHPDoc tag @var with type array\\{cmd\\: list\\<string\\>\\|string, return\\: int, stdout\\: string, stderr\\: string, callback\\: callable\\(\\)\\: mixed\\} is not subtype of native type array\\{cmd\\: '', return\\: 0, stdout\\: '', stderr\\: '', callback\\: null\\}\\.$#"
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
 			count: 1
-			path: repo/tests/Composer/Test/Mock/ProcessExecutorMock.php
+			path: repo/tests/Composer/Test/IO/ConsoleIOTest.php
 
 		-
-			message: "#^PHPDoc tag @var with type Composer\\\\IO\\\\ConsoleIO is not subtype of native type PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\.$#"
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
+			count: 5
+			path: repo/tests/Composer/Test/Installer/SuggestedPackagesReporterTest.php
+
+		-
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
+			count: 6
+			path: repo/tests/Composer/Test/Util/BitbucketTest.php
+
+		-
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
 			count: 1
-			path: repo/tests/Composer/Test/Util/RemoteFilesystemTest.php
+			path: repo/tests/Composer/Test/Util/GitHubTest.php
+
+		-
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Util/GitLabTest.php
