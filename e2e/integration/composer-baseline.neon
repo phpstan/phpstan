@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Parameter \\#4 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, array\\|string given\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/ShowCommand.php
+
+		-
+			message: "#^Parameter \\#6 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, array\\|string given\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/ShowCommand.php
+
+		-
 			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
 			count: 1
 			path: repo/tests/Composer/Test/Autoload/AutoloadGeneratorTest.php
