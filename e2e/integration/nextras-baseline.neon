@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Parameter \\#1 \\$persisted of callable passed to call_user_func\\(\\) expects array\\<E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>, array\\<Nextras\\\\Orm\\\\Entity\\\\IEntity\\> given\\.$#"
+			count: 1
+			path: repo/src/Repository/Repository.php
+
+		-
+			message: "#^Parameter \\#2 \\$removed of callable passed to call_user_func\\(\\) expects array\\<E of Nextras\\\\Orm\\\\Entity\\\\IEntity\\>, array\\<Nextras\\\\Orm\\\\Entity\\\\IEntity\\> given\\.$#"
+			count: 1
+			path: repo/src/Repository/Repository.php
+
+		-
 			message: "#^Call to static method executeFile\\(\\) on an unknown class Nextras\\\\Dbal\\\\Utils\\\\FileImporter\\.$#"
 			count: 1
 			path: repo/tests/inc/DataTestCase.php
