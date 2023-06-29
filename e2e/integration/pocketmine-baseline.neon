@@ -61,6 +61,11 @@ parameters:
 			path: repo/src/pocketmine/level/generator/Flat.php
 
 		-
+			message: "#^Offset \\(int\\|string\\) does not exist on array\\<pocketmine\\\\nbt\\\\tag\\\\CompoundTag\\>\\|null\\.$#"
+			count: 1
+			path: repo/src/pocketmine/network/mcpe/convert/RuntimeBlockMapping.php
+
+		-
 			message: "#^Offset 0 does not exist on array\\<SimpleXMLElement\\>\\|null\\.$#"
 			count: 1
 			path: repo/src/pocketmine/network/upnp/UPnP.php
