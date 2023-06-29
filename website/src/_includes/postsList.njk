@@ -1,0 +1,6 @@
+{% for post in postsList | reverse %}
+	<div class="text-xl{% if not loop.first %} mt-8{% endif %}">
+		<a class="flex" href="{{ post.url | trimDotHtml }}">{{ post.data.title }}</a>
+		<span class="text-sm text-gray-500">{{ post.date | htmlDateString }} · {{ post.templateContent | readingTime }}</span>
+	</div>
+{% endfor %}

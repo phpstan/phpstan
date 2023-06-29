@@ -1,0 +1,110 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Extension tests"
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: 'phpstan/phpstan ref to checkout'
+        required: true
+        type: string
+      phar-checksum:
+        description: 'PHAR checksum from reproducible build (please rebase)'
+        required: true
+        type: string
+
+jobs:
+  check-phar-checksum:
+    name: "Check PHAR checksum"
+    runs-on: "ubuntu-latest"
+    outputs:
+      checksum-result: ${{ steps.checksum-difference.outputs.result }}
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          repository: "phpstan/phpstan"
+          ref: ${{ inputs.ref }}
+      - name: "Check PHAR checksum"
+        id: checksum-difference
+        run: |
+          checksum=${{ inputs.phar-checksum }}
+          if [[ $(head -n 1 .phar-checksum) != "$checksum" ]]; then
+            echo "::set-output name=result::different
+          else
+            echo "::set-output name=result::same
+          fi
+
+  tests-extensions:
+    name: "Extension Tests"
+
+    runs-on: "ubuntu-latest"
+
+    needs: check-phar-checksum
+    if: "needs.check-phar-checksum.outputs.checksum-result == 'different'"
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
+        extension-name:
+          - "phpstan-phpunit"
+          - "phpstan-strict-rules"
+          - "phpstan-mockery"
+          - "phpstan-doctrine"
+          - "phpstan-symfony"
+          - "phpstan-php-parser"
+          - "phpstan-deprecation-rules"
+          - "phpdoc-parser"
+          - "phpstan-nette"
+          - "phpstan-dibi"
+          - "phpstan-webmozart-assert"
+          - "phpstan-beberlei-assert"
+        exclude:
+          - extension-name: "phpstan-mockery"
+            php-version: "7.2"
+          - extension-name: "phpstan-mockery"
+            php-version: "7.3"
+          - extension-name: "phpstan-phpunit"
+            php-version: "7.2"
+          - extension-name: "phpstan-doctrine"
+            php-version: "7.2"
+          - extension-name: "phpstan-doctrine"
+            php-version: "8.3"
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          repository: "phpstan/phpstan"
+          ref: ${{ inputs.ref }}
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "${{ matrix.php-version }}"
+          ini-file: development
+          ini-values: memory_limit=768M
+          extensions: soap
+
+      - name: "Install dependencies"
+        run: "composer update --no-interaction --no-progress --ignore-platform-reqs"
+
+      - name: "Download phpstan.phar"
+        uses: actions/download-artifact@v3
+        with:
+          name: phar-file
+
+      - name: "Extension build"
+        env:
+          PHP_VERSION: ${{ matrix.php-version }}
+        run: "./e2e/test-extension.sh ${{ matrix.extension-name }}"

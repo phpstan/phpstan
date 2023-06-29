@@ -1,0 +1,51 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Autoload/AutoloadGeneratorTest.php
+
+		-
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Downloader/DownloadManagerTest.php
+
+		-
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Downloader/FileDownloaderTest.php
+
+		-
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
+			count: 2
+			path: repo/tests/Composer/Test/Downloader/GitDownloaderTest.php
+
+		-
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
+			count: 2
+			path: repo/tests/Composer/Test/EventDispatcher/EventDispatcherTest.php
+
+		-
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/IO/ConsoleIOTest.php
+
+		-
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
+			count: 5
+			path: repo/tests/Composer/Test/Installer/SuggestedPackagesReporterTest.php
+
+		-
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
+			count: 6
+			path: repo/tests/Composer/Test/Util/BitbucketTest.php
+
+		-
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Util/GitHubTest.php
+
+		-
+			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Util/GitLabTest.php

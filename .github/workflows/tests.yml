@@ -1,0 +1,62 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Tests"
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/tests.yml'
+      - 'e2e/**'
+      - 'phpstan'
+      - '.phar-checksum'
+      - 'bootstrap.php'
+  push:
+    branches:
+      - "1.11.x"
+    paths:
+      - '.github/workflows/tests.yml'
+      - 'e2e/**'
+      - 'phpstan'
+      - '.phar-checksum'
+      - 'bootstrap.php'
+
+jobs:
+  tests:
+    name: "Tests"
+
+    runs-on: ${{ matrix.operating-system }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
+        operating-system: [ubuntu-latest, windows-latest]
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "${{ matrix.php-version }}"
+          ini-file: development
+          extensions: mbstring
+
+      - name: "Install dependencies"
+        run: "composer update --no-interaction --no-progress --ignore-platform-reqs"
+
+      - name: "Tests"
+        run: |
+          cd e2e
+          composer install --ignore-platform-reqs
+          # php testPharAutoloader.php
+          vendor/bin/phpunit PharTest.php

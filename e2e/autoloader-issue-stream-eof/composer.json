@@ -1,0 +1,11 @@
+{
+	"require": {
+		"squizlabs/php_codesniffer": "3.5.8",
+		"symfony/validator": "5.2.3"
+	},
+	"autoload": {
+		"psr-4": {
+			"App\\": "src"
+		}
+	}
+}

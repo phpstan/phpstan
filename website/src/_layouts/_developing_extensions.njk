@@ -1,0 +1,11 @@
+---
+permalink: "{{ page.filePathStem }}.html"
+pageType: documentation
+sectionTitle: Developing Extensions
+---
+
+{% extends "./_sidebar.njk" %}
+
+{% block scripts %}
+	<script src="/tmp/js/developing-extensions.ts" type="module"></script>
+{% endblock %}

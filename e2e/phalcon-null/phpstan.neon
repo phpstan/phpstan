@@ -1,0 +1,5 @@
+parameters:
+	paths:
+		- test.php
+	level: 5
+	reportMaybesInMethodSignatures: true

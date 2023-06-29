@@ -1,0 +1,67 @@
+{% extends "./_base.njk" %}
+
+{% block content %}
+
+<div class="flex">
+	<!-- ko with: mainMenu -->
+		<div class="sidebar w-64 md:block hidden flex-none pr-4 border-r border-gray-200 fixed bg-white overflow-y-auto top-0 bottom-0 mt-16 pt-6 pl-4 md:pl-0 z-10 md:z-auto" data-bind="css: { hidden: !sidebarOpen() }, event: { click: handleSidebarClick }">
+			<div class="flex items-center">
+				<span id="sectionTitle" class="group flex-grow items-center px-3 py-2 text-lg leading-5 font-bold text-gray-900">{{ sectionTitle }}</span>
+				<a href="#" class="md:hidden text-gray-400 hover:text-gray-500" data-bind="click: closeSidebar">
+					<svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+				</a>
+			</div>
+
+			<ul>
+				{% for item in sidebarItems %}
+					{% if item.link === page.filePathStem %}
+						<li><a class="flex px-3 py-2 text-sm leading-5 font-medium rounded-md bg-blue-500 text-white" href="{{ item.link }}">{{ item.title }}</a></li>
+					{% elif item.external %}
+						<li><a target="_blank" class="flex items-center px-3 py-2 text-sm leading-5 font-medium rounded-md hover:bg-gray-50 transition ease-in-out duration-150" href="{{ item.link }}">
+							<span>{{ item.title }}</span>
+							<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-4 h-4 ml-1"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+						</a></li>
+					{% else %}
+						<li><a class="flex px-3 py-2 text-sm leading-5 font-medium rounded-md hover:bg-gray-50 transition ease-in-out duration-150" href="{{ item.link }}">{{ item.title }}</a></li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+			<ul class="mt-12">
+				{% for item in sidebarOtherSections %}
+					<li>
+						<a href="{{ item.link }}" class="group flex items-center px-3 py-2 text-lg leading-5 font-medium text-gray-900 rounded-md hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:bg-gray-200 transition ease-in-out duration-150">
+							{{ item.title }}
+						</a>
+					</li>
+				{% endfor %}
+			</ul>
+			<div class="mt-12 rounded-lg bg-gradient-to-b from-blue-400 to-blue-700 to-80% text-white text-center font-semibold flex justify-center items-center text-2xl">
+				<a class="px-3 py-3 md:py-10" href="/sponsor">Sponsor PHPStan!</a>
+			</div>
+		</div>
+	<!-- /ko -->
+	<div class="content px-4 pt-4 min-w-0 w-full ml-0 md:ml-64">
+		<!-- ko with: mainMenu -->
+			<a href="#" class="text-sm text-gray-400 md:hidden no-underline hover:underline" data-bind="click: openSidebar">Menu</a>
+		<!-- /ko -->
+
+		{% block mainTitle %}<h1 class="leading-tight">{{ title | fixTypos }}</h1>{% endblock %}
+		{% block postDate %}{% endblock %}
+
+		{% block innerContent %}
+			{{ content | safe }}
+		{% endblock %}
+
+		{% block editPageLink %}
+			<p class="text-sm text-gray-400"><a href="https://github.com/phpstan/phpstan/edit/{{ git.branch }}/website/{{ page.inputPath | trimInputPath }}" class="inline-flex items-center"><svg fill="currentColor" viewBox="0 0 20 20" class="w-4 h-4 mr-1"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>Edit this page on GitHub</a></p>
+		{% endblock %}
+
+		<div class="mt-16">
+			{% include './../_includes/footer.njk' %}
+		</div>
+	</div>
+</div>
+
+{% endblock %}

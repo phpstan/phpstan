@@ -1,0 +1,7 @@
+{
+	"require": {
+		"myclabs/php-enum": "^1.8",
+		"symfony/property-access": "6.0.*",
+		"symfony/validator": "6.0.*"
+	}
+}

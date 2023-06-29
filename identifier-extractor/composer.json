@@ -1,0 +1,12 @@
+{
+	"require": {
+		"php": "^8.1",
+		"nette/utils": "^4.0",
+		"symfony/finder": "^6.3"
+	},
+	"autoload": {
+		"psr-4": {
+			"IdentifierExtractor\\": "src/"
+		}
+	}
+}

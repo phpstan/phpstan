@@ -1,0 +1,7 @@
+{
+	"autoload": {
+		"classmap": [
+			"composer-classes/"
+		]
+	}
+}

@@ -1,0 +1,3 @@
+parameters:
+	bootstrapFiles:
+		- bootstrap.php

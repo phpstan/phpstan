@@ -1,0 +1,33 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Test projects"
+
+on:
+  push:
+    branches:
+      - "1.11.x"
+    paths:
+      - '.github/workflows/test-projects.yml'
+      - 'phpstan'
+      - '.phar-checksum'
+      - 'bootstrap.php'
+
+jobs:
+  test-projects:
+    name: "Test projects"
+    runs-on: "ubuntu-latest"
+
+    strategy:
+      matrix:
+        repository:
+          - "phpstan/lorem"
+          - "phpstan/ipsum"
+          - "phpstan/dolor"
+
+    steps:
+      - uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: "${{ matrix.repository }}"
+          event-type: test_phpstan
+          client-payload: '{"ref": "${{ github.ref_name }}"}'

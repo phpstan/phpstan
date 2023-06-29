@@ -1,0 +1,9 @@
+<?php
+
+namespace Psr\Container;
+
+interface ContainerInterface
+{
+    /** @return foo-bar */
+    public function get(string $id);
+}

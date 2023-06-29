@@ -1,0 +1,41 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Other tests"
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/other-tests.yml'
+      - '.github/workflows/other-tests-run.yml'
+      - 'e2e/**'
+      - 'phpstan'
+      - '.phar-checksum'
+      - 'bootstrap.php'
+  push:
+    branches:
+      - "1.11.x"
+    paths:
+      - '.github/workflows/other-tests.yml'
+      - '.github/workflows/other-tests-run.yml'
+      - 'e2e/**'
+      - 'phpstan'
+      - '.phar-checksum'
+      - 'bootstrap.php'
+
+jobs:
+  upload-phar:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: phar-file
+          path: phpstan.phar
+  other-tests:
+    needs: upload-phar
+    uses: ./.github/workflows/other-tests.yml
+    with:
+      ref: ${{ github.ref }}
+      phar-checksum: "always"

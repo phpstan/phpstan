@@ -1,0 +1,35 @@
+{
+    "layout": "_writing_php_code.njk",
+    "sidebarOtherSections": [
+        {
+            "title": "User Guide",
+            "link": "/user-guide/getting-started"
+        },
+        {
+            "title": "Config Reference",
+            "link": "/config-reference"
+        },
+        {
+            "title": "Developing Extensions",
+            "link": "/developing-extensions/extension-types"
+        }
+    ],
+    "sidebarItems": [
+        {
+            "title": "PHPDocs Basics",
+            "link": "/writing-php-code/phpdocs-basics"
+        },
+        {
+            "title": "PHPDoc Types",
+            "link": "/writing-php-code/phpdoc-types"
+        },
+        {
+            "title": "Solving Undefined Variables",
+            "link": "/writing-php-code/solving-undefined-variables"
+        },
+        {
+            "title": "Narrowing Types",
+            "link": "/writing-php-code/narrowing-types"
+        }
+    ]
+}

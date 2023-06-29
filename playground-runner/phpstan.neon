@@ -1,0 +1,8 @@
+includes:
+	- phpstan-baseline.neon
+
+parameters:
+	level: 8
+	paths:
+		- bref.php
+		- ignoreErrors.php

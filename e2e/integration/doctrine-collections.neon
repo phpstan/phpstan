@@ -1,0 +1,5 @@
+includes:
+	- repo/phpstan.neon.dist
+
+parameters:
+	reportUnmatchedIgnoredErrors: false

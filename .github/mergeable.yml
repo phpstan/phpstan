@@ -1,0 +1,61 @@
+version: 2
+mergeable:
+  - when: issues.opened
+    validate:
+      - do: description
+        or:
+          - and:
+              - must_include:
+                  regex: '^### Bug report'
+              - must_include:
+                  regex: 'https:\/\/phpstan\.org\/r\/'
+          - must_exclude:
+              regex: '^### Bug report'
+    fail:
+      - do: comment
+        payload:
+          body: |
+            This bug report is missing a link to reproduction at [phpstan.org/try](https://phpstan.org/try).
+
+            It will most likely be closed after manual review.
+  - when: issues.opened
+    validate:
+      - do: description
+        or:
+          - must_include:
+              regex: '^### Bug report'
+          - must_include:
+              regex: '^### Feature request'
+          - must_include:
+              regex: 'https:\/\/phpstan\.org\/r\/'
+          - must_include:
+              regex: 'Internal error'
+    fail:
+      - do: comment
+        payload:
+          body: |
+            Hi there! :wave:
+
+            Looks like you opened an issue without following one of the issue templates:
+
+            Bug report 🐛 ([open an issue](https://github.com/phpstan/phpstan/issues/new?template=Bug_report.yaml))
+            ===============
+
+            If something isn't working as expected 🤔.
+
+            Feature request 🚀 ([open an issue](https://github.com/phpstan/phpstan/issues/new?template=Feature_request.yaml))
+            ===============
+
+            I have a suggestion (and may want to implement it 🙂)!
+
+            Support question ❓ ([open a discussion](https://github.com/phpstan/phpstan/discussions/new?category=support))
+            ===============
+
+            I need some help with my code because PHPStan doesn't like it.
+
+            ------------------
+
+            The current issue will be closed. This is a precaution to save maintainer's time, I hope you'll understand.
+
+            Sincerely, the bot 🤖
+      - do: close

@@ -1,0 +1,10 @@
+---
+title: Other
+---
+
+{% extends "./../_layouts/_blogList.njk" %}
+
+{% block postsList %}
+	{% set postsList = collections.other %}
+	{% include './../_includes/postsList.njk' %}
+{% endblock %}

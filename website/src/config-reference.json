@@ -1,0 +1,115 @@
+{
+    "layout": "_config_reference.njk",
+    "sidebarOtherSections": [
+        {
+            "title": "User Guide",
+            "link": "/user-guide/getting-started"
+        },
+        {
+            "title": "Writing PHP Code",
+            "link": "/writing-php-code/phpdocs-basics"
+        },
+        {
+            "title": "Developing Extensions",
+            "link": "/developing-extensions/extension-types"
+        }
+    ],
+    "sidebarItems": [
+        {
+            "title": "NEON format",
+            "link": "#neon-format"
+        },
+        {
+            "title": "Config file",
+            "link": "#config-file"
+        },
+        {
+            "title": "Multiple files",
+            "link": "#multiple-files"
+        },
+        {
+            "title": "Ignoring errors",
+            "link": "#ignoring-errors"
+        },
+        {
+            "title": "Discovering Symbols",
+            "link": "#discovering-symbols"
+        },
+        {
+            "title": "Bootstrap",
+            "link": "#bootstrap"
+        },
+        {
+            "title": "Caching",
+            "link": "#caching"
+        },
+        {
+            "title": "Analysed files",
+            "link": "#analysed-files"
+        },
+        {
+            "title": "Rule level",
+            "link": "#rule-level"
+        },
+        {
+            "title": "Custom ruleset",
+            "link": "#custom-ruleset"
+        },
+        {
+            "title": "Bleeding edge",
+            "link": "#bleeding-edge"
+        },
+        {
+            "title": "Solving undefined variables",
+            "link": "#solving-undefined-variables"
+        },
+        {
+            "title": "Universal object crates",
+            "link": "#universal-object-crates"
+        },
+        {
+            "title": "Constants",
+            "link": "#constants"
+        },
+        {
+            "title": "Stub files",
+            "link": "#stub-files"
+        },
+        {
+            "title": "Stricter analysis",
+            "link": "#stricter-analysis"
+        },
+        {
+            "title": "Exceptions",
+            "link": "#exceptions"
+        },
+        {
+            "title": "Vague typehints",
+            "link": "#vague-typehints"
+        },
+        {
+            "title": "Type aliases",
+            "link": "#type-aliases"
+        },
+        {
+            "title": "Parallel processing",
+            "link": "#parallel-processing"
+        },
+		{
+			"title": "Clickable editor URL",
+			"link": "#clickable-editor-url"
+		},
+        {
+            "title": "Miscellaneous parameters",
+            "link": "#miscellaneous-parameters"
+        },
+        {
+            "title": "Expanding paths",
+            "link": "#expanding-paths"
+        },
+        {
+            "title": "Custom parameters",
+            "link": "#custom-parameters"
+        }
+    ]
+}

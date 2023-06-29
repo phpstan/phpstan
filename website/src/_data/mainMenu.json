@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Home",
+        "link": "/",
+        "pageType": "home"
+    },
+    {
+        "title": "Try",
+        "link": "/try",
+        "pageType": "playground"
+    },
+    {
+        "title": "Documentation",
+        "link": "/user-guide/getting-started",
+        "pageType": "documentation"
+    },
+    {
+        "title": "Blog",
+        "link": "/blog",
+        "pageType": "blog"
+    }
+]

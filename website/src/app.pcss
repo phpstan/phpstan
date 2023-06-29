@@ -1,0 +1,174 @@
+@import './../node_modules/prism-themes/themes/prism-ghcolors.css';
+@import './../node_modules/littlefoot/dist/littlefoot.css';
+
+@tailwind base;
+
+@tailwind components;
+@tailwind utilities;
+
+.cm-editor {
+	font-size: 15px;
+	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+	@apply border rounded-md my-8 outline-0;
+}
+
+.cm-editor.cm-focused {
+	@apply outline-0;
+}
+
+@media(max-width: theme('screens.sm')) {
+	.cm-editor {
+		font-size: 16px;
+		@apply mx-4;
+	}
+}
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.spinner {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.spinner:before {
+	content: '';
+	box-sizing: border-box;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	height: 100%;
+	margin-top: -50%;
+	margin-left: -50%;
+	border-radius: 50%;
+	border: 3px solid #ccc;
+	border-top-color: #3f83f8;
+	animation: spinner .6s linear infinite;
+}
+
+.content {
+	@apply leading-relaxed;
+}
+
+.content h1 {
+	@apply text-2xl mb-4;
+}
+
+.content h2 {
+	@apply text-xl mb-4 mt-8 font-bold;
+}
+
+.content h3 {
+	@apply font-bold mb-4 mt-8;
+}
+
+.content p {
+	@apply mb-4;
+}
+
+.content a {
+	@apply underline;
+}
+
+.content a:hover {
+	@apply no-underline;
+}
+
+.content a.header-anchor {
+	@apply no-underline;
+}
+
+.content pre {
+	@apply mb-4 max-w-full overflow-x-auto;
+	tab-size: 4;
+}
+
+.content code {
+	@apply text-sm;
+}
+
+.content :not(pre) > code {
+	@apply bg-gray-100 px-2 py-1;
+}
+
+.content h3 code {
+	@apply max-w-full overflow-x-auto inline-block font-bold;
+}
+
+.content ol {
+	@apply list-decimal list-outside;
+}
+
+.content ul {
+	@apply list-disc list-outside;
+}
+
+.content ol, .content ul {
+	@apply mb-4 ml-12;
+}
+
+.content blockquote {
+	@apply border-l-4 border-gray-800 ml-4 pl-4 mb-4;
+}
+
+.algolia-autocomplete {
+	@apply flex-grow;
+}
+
+.content hr {
+	@apply w-4/5 mx-auto mt-8 mb-8 border-dashed border-2;
+}
+
+.nav-header {
+    position: fixed;
+    align-content: center;
+    width: 100%;
+}
+
+.content, .content-playground, .content-home {
+    margin-top: 4em;
+}
+
+.typesystem-types table {
+	@apply table-fixed mb-8;
+}
+
+.typesystem-types table th, .typesystem-types table td {
+	@apply border-2 p-2;
+}
+
+.content details {
+	@apply mb-8;
+}
+
+.content details summary {
+	@apply cursor-pointer;
+}
+
+h1:target,
+h2:target,
+h3:target code,
+h1.hash-target,
+h2.hash-target,
+h3.hash-target code {
+    @apply bg-blue-100 py-1 px-2 rounded-md;
+}
+
+.content h3 {
+	@apply flex items-center;
+}
+
+.DocSearch-Input {
+	@apply focus:ring-0 focus:ring-offset-0;
+}
+
+/* Make the + and - characters unselectable for copy/paste */
+.token.prefix.unchanged,
+.token.prefix.inserted,
+.token.prefix.deleted {
+	-webkit-user-select: none;
+	user-select: none;
+}

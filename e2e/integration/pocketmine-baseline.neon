@@ -1,0 +1,112 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Cannot access offset float\\|int\\<1, max\\> on mixed\\.$#"
+			count: 1
+			path: repo/src/pocketmine/CrashDump.php
+
+		-
+			message: "#^Parameter \\#1 \\$str of function base64_decode expects string, mixed given\\.$#"
+			count: 7
+			path: repo/src/pocketmine/Player.php
+
+		-
+			message: "#^Property pocketmine\\\\Player\\:\\:\\$needACK is never read, only written\\.$#"
+			count: 1
+			path: repo/src/pocketmine/Player.php
+
+		-
+			message: "#^Parameter \\#2 \\$string of function explode expects string, mixed given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/PocketMine.php
+
+		-
+			message: "#^Cannot access property \\$crashId on mixed\\.$#"
+			count: 1
+			path: repo/src/pocketmine/Server.php
+
+		-
+			message: "#^Cannot access property \\$error on mixed\\.$#"
+			count: 1
+			path: repo/src/pocketmine/Server.php
+
+		-
+			message: "#^Method pocketmine\\\\ThreadManager\\:\\:getAll\\(\\) should return array\\<pocketmine\\\\Thread\\|pocketmine\\\\Worker\\> but returns array\\<int\\|string, mixed\\>\\.$#"
+			count: 1
+			path: repo/src/pocketmine/ThreadManager.php
+
+		-
+			message: "#^Cannot call method getDescription\\(\\) on array\\<pocketmine\\\\command\\\\Command\\>\\|pocketmine\\\\command\\\\Command\\.$#"
+			count: 1
+			path: repo/src/pocketmine/command/defaults/HelpCommand.php
+
+		-
+			message: "#^Cannot call method getName\\(\\) on array\\<pocketmine\\\\command\\\\Command\\>\\|pocketmine\\\\command\\\\Command\\.$#"
+			count: 1
+			path: repo/src/pocketmine/command/defaults/HelpCommand.php
+
+		-
+			message: "#^Parameter \\#2 \\$length of function array_chunk expects int\\<1, max\\>, int given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/command/defaults/HelpCommand.php
+
+		-
+			message: "#^Property pocketmine\\\\level\\\\Level\\:\\:\\$blockCache \\(array\\<array\\<pocketmine\\\\block\\\\Block\\>\\>\\) does not accept array\\<array\\<pocketmine\\\\block\\\\Block\\|null\\>\\>\\.$#"
+			count: 1
+			path: repo/src/pocketmine/level/Level.php
+
+		-
+			message: "#^Property pocketmine\\\\level\\\\generator\\\\Flat\\:\\:\\$options \\(array\\<string, mixed\\>\\) does not accept array\\<int\\|string, mixed\\>\\.$#"
+			count: 1
+			path: repo/src/pocketmine/level/generator/Flat.php
+
+		-
+			message: "#^Offset 0 does not exist on array\\<SimpleXMLElement\\>\\|null\\.$#"
+			count: 1
+			path: repo/src/pocketmine/network/upnp/UPnP.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, array\\<SimpleXMLElement\\>\\|null given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/network/upnp/UPnP.php
+
+		-
+			message: "#^Cannot call method isFile\\(\\) on mixed\\.$#"
+			count: 1
+			path: repo/src/pocketmine/plugin/PluginBase.php
+
+		-
+			message: "#^Cannot cast mixed to string\\.$#"
+			count: 1
+			path: repo/src/pocketmine/plugin/PluginBase.php
+
+		-
+			message: "#^Method pocketmine\\\\plugin\\\\PluginBase\\:\\:getResources\\(\\) should return array\\<SplFileInfo\\> but returns array\\<string, mixed\\>\\.$#"
+			count: 1
+			path: repo/src/pocketmine/plugin/PluginBase.php
+
+		-
+			message: "#^Property pocketmine\\\\plugin\\\\PluginDescription\\:\\:\\$extensions \\(array\\<string, array\\<int, string\\>\\>\\) does not accept array\\<int\\|string, array\\<string\\>\\>\\.$#"
+			count: 1
+			path: repo/src/pocketmine/plugin/PluginDescription.php
+
+		-
+			message: "#^Method pocketmine\\\\utils\\\\Timezone\\:\\:parseOffset\\(\\) should return string\\|false but returns string\\|null\\.$#"
+			count: 1
+			path: repo/src/pocketmine/utils/Timezone.php
+
+		-
+			message: "#^Binary operation \"\\-\" between string and string results in an error\\.$#"
+			count: 1
+			path: repo/src/pocketmine/utils/Utils.php
+
+		-
+			message: "#^Comparison operation \"\\<\" between int\\<\\-2147483648, 133143986400\\> and \\-2147483648 is always false\\.$#"
+			count: 1
+			path: repo/src/pocketmine/utils/Utils.php
+
+		-
+			message: "#^Property pocketmine\\\\network\\\\mcpe\\\\StupidJsonDecodeTest\\:\\:\\$stupidJsonDecodeFunc \\(Closure\\(string, bool\\=\\)\\: mixed\\) does not accept Closure\\|null\\.$#"
+			count: 1
+			path: repo/tests/phpunit/network/mcpe/StupidJsonDecodeTest.php
+

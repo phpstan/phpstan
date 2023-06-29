@@ -1,0 +1,33 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Create release"
+
+on:
+  push:
+    tags:
+      - '*'
+
+concurrency: release
+
+jobs:
+  deploy:
+    name: "Deploy"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "Create release"
+        uses: softprops/action-gh-release@v1
+        id: release
+        with:
+          token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+          draft: true
+          discussion_category_name: "General"
+          files: |
+            phpstan.phar
+            phpstan.phar.asc
+
+      - name: "Print release URL"
+        run: echo "${{ steps.release.outputs.url }}" >> $GITHUB_STEP_SUMMARY

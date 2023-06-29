@@ -1,0 +1,11 @@
+{
+	"require-dev": {
+		"hoa/stream": "1.17.02.21",
+		"hoa/file": "1.17.07.11"
+	},
+	"autoload": {
+		"psr-4": {
+			"Hoa\\": "src"
+		}
+	}
+}

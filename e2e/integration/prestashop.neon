@@ -1,0 +1,3 @@
+includes:
+	- repo/phpstan.neon.dist
+	- prestashop-baseline.neon

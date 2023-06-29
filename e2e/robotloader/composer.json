@@ -1,0 +1,5 @@
+{
+    "require": {
+        "nette/robot-loader": "^3.4"
+    }
+}

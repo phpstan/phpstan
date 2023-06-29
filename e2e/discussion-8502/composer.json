@@ -1,0 +1,28 @@
+{
+    "name": "canvural/bug",
+    "type": "phpstan-extension",
+    "require": {
+        "php": "^8",
+        "phpstan/phpstan": "^1.9",
+        "psr/container": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Canvural\\Bug\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Can Vural",
+            "email": "can9119@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    }
+}

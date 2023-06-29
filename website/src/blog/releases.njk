@@ -1,0 +1,10 @@
+---
+title: Releases
+---
+
+{% extends "./../_layouts/_blogList.njk" %}
+
+{% block postsList %}
+	{% set postsList = collections.releases %}
+	{% include './../_includes/postsList.njk' %}
+{% endblock %}

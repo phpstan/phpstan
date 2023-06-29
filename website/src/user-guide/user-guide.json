@@ -1,0 +1,68 @@
+{
+    "layout": "_user_guide.njk",
+    "showBanner": true,
+    "sidebarOtherSections": [
+        {
+            "title": "Config Reference",
+            "link": "/config-reference"
+        },
+        {
+            "title": "Writing PHP Code",
+            "link": "/writing-php-code/phpdocs-basics"
+        },
+        {
+            "title": "Developing Extensions",
+            "link": "/developing-extensions/extension-types"
+        }
+    ],
+    "sidebarItems": [
+        {
+            "title": "Getting Started",
+            "link": "/user-guide/getting-started"
+        },
+        {
+            "title": "Command Line Usage",
+            "link": "/user-guide/command-line-usage"
+        },
+        {
+            "title": "Rule Levels",
+            "link": "/user-guide/rule-levels"
+        },
+        {
+            "title": "The Baseline",
+            "link": "/user-guide/baseline"
+        },
+        {
+            "title": "Discovering Symbols",
+            "link": "/user-guide/discovering-symbols"
+        },
+        {
+            "title": "Output Format",
+            "link": "/user-guide/output-format"
+        },
+        {
+            "title": "Ignoring Errors",
+            "link": "/user-guide/ignoring-errors"
+        },
+        {
+            "title": "Stub Files",
+            "link": "/user-guide/stub-files"
+        },
+        {
+            "title": "Troubleshooting Types",
+            "link": "/user-guide/troubleshooting-types"
+        },
+        {
+            "title": "Result Cache",
+            "link": "/user-guide/result-cache"
+        },
+        {
+            "title": "Extension Library",
+            "link": "/user-guide/extension-library"
+        },
+		{
+			"title": "Backward Compatibility Promise",
+			"link": "/user-guide/backward-compatibility-promise"
+		}
+    ]
+}

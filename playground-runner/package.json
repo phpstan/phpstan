@@ -1,0 +1,13 @@
+{
+	"name": "phpstan-playground-runner",
+	"version": "1.0.0",
+	"description": "",
+	"scripts": {
+		"deploy": "serverless deploy"
+	},
+	"author": "",
+	"license": "MIT",
+	"devDependencies": {
+		"serverless": "^3.0.0"
+	}
+}

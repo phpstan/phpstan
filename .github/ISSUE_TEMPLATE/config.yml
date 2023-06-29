@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Support question ❓
+    url: https://github.com/phpstan/phpstan/discussions/new
+    about: Please open a new discussion instead. Thank you.

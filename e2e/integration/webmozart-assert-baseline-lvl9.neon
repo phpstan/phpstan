@@ -1,0 +1,36 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#1 \\$array of static method Webmozart\\\\Assert\\\\Assert\\:\\:allCount\\(\\) expects iterable\\<array\\|Countable\\>, iterable\\<array\\|Countable\\|null\\> given\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-count.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of static method Webmozart\\\\Assert\\\\Assert\\:\\:allMaxLength\\(\\) expects iterable\\<string\\>, iterable\\<string\\|null\\> given\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-maxLength.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of static method Webmozart\\\\Assert\\\\Assert\\:\\:allNotRegex\\(\\) expects iterable\\<string\\>, iterable\\<string\\|null\\> given\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-notRegex.php
+
+		-
+			message: "#^Parameter \\#1 \\$classOrObject of static method Webmozart\\\\Assert\\\\Assert\\:\\:allPropertyExists\\(\\) expects iterable\\<class\\-string\\|object\\>, iterable\\<class\\-string\\|object\\|null\\> given\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-propertyExists.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\preserveContainerAllArrayIterator\\(\\) should return ArrayIterator\\<string, string\\> but returns ArrayIterator\\<string, mixed\\>&iterable\\<string\\>\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-psalm-preserveContainerType.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of static method Webmozart\\\\Assert\\\\Assert\\:\\:allRegex\\(\\) expects iterable\\<string\\>, iterable\\<string\\|null\\> given\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-regex.php
+
+		-
+			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrThrows\\(\\) should return iterable\\<Closure\\> but returns iterable\\<Closure\\|null\\>\\.$#"
+			count: 1
+			path: repo/tests/static-analysis/assert-throws.php

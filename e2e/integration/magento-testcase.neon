@@ -1,0 +1,3 @@
+includes:
+	- magento-testcase-baseline.neon
+	- repo/phpstan.neon

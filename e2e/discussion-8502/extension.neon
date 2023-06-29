@@ -1,0 +1,15 @@
+parameters:
+    checkFoo: false
+    stubFiles:
+        - stubs/Container.stub
+
+parametersSchema:
+    checkFoo: bool()
+
+services:
+    -
+        class: Canvural\Bug\FooTypeNodeResolverExtension
+        tags:
+            - phpstan.phpDoc.typeNodeResolverExtension
+        arguments:
+            active: %checkFoo%

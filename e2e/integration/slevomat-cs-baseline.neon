@@ -1,0 +1,17 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method SlevomatCodingStandard\\\\Helpers\\\\AnnotationTypeHelper\\:\\:export\\(\\) should return string but returns string\\|false\\|null\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationTypeHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function substr expects string, string\\|false\\|null given\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationTypeHelper.php
+
+		-
+			message: "#^Strict comparison using \\!\\=\\= between array\\<string\\> and null will always evaluate to true\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/TypeHelper.php
+

@@ -1,0 +1,6 @@
+includes:
+	- repo/phpstan.neon.dist
+	- larastan-baseline.neon
+
+parameters:
+	level: 8

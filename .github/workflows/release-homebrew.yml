@@ -1,0 +1,23 @@
+name: Bump Homebrew formula
+
+# More triggers
+# https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#release
+
+# GitHub event payload
+# https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Update Homebrew formula
+        uses: dawidd6/action-homebrew-bump-formula@v3
+        with:
+          token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+          formula: phpstan
+          tag: ${{ github.event.release.tag_name }}
+          revision: ${{ github.event.release.target_commitish }}

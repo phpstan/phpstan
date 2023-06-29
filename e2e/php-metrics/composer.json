@@ -1,0 +1,7 @@
+{
+	"require": {
+		"phpstan/phpstan": "^1.0",
+		"nikic/php-parser": "4.4.0",
+		"phpmetrics/phpmetrics": "^2.6"
+	}
+}

@@ -1,0 +1,9 @@
+{
+	"name": "test/test",
+	"type": "project",
+	"autoload": {
+		"psr-4": {
+			"Z\\": "."
+		}
+	}
+}

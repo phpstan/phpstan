@@ -1,0 +1,76 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Update playground runner"
+
+on:
+  push:
+    branches:
+      - "1.11.x"
+    paths:
+      - '.github/workflows/update-playground-runner.yml'
+      - 'playground-runner/**'
+      - 'phpstan'
+      - '.phar-checksum'
+      - 'bootstrap.php'
+
+concurrency: playground_runner
+
+jobs:
+  deploy:
+    name: "Deploy"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+
+      - name: "Install Node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: "Cache dependencies"
+        uses: actions/cache@v3
+        with:
+          path: "$(yarn cache dir)"
+          key: "${{ runner.os }}-yarn-${{ hashFiles('playground-runner/**/yarn.lock') }}"
+          restore-keys: "${{ runner.os }}-yarn-"
+
+      - name: "Install dependencies"
+        working-directory: ./playground-runner
+        run: "yarn install"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "8.1"
+
+      - name: "Install PHP dependencies"
+        working-directory: ./playground-runner
+        run: "composer install --no-interaction --no-progress"
+
+      - name: "Analyse"
+        working-directory: ./playground-runner
+        run: "../phpstan"
+
+      - name: "Copy current PHAR"
+        working-directory: ./playground-runner
+        run: |
+          cp ../phpstan.phar vendor/phpstan/phpstan/phpstan.phar && \
+          cp ../phpstan vendor/phpstan/phpstan/phpstan && \
+          cp ../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+
+      - name: "Clean Git directory"
+        working-directory: ./playground-runner
+        run: rm -rf vendor/phpstan/phpstan/.git
+
+      - name: "Deploy"
+        working-directory: ./playground-runner
+        env:
+          AWS_DEFAULT_REGION: "eu-west-1"
+          AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
+        run: "yarn run deploy"

@@ -1,0 +1,17 @@
+<!-- ko with: ignoreErrors -->
+
+<label for="ignore-message" class="block text-md font-medium text-gray-700">Error message</label>
+<textarea rows="1" name="ignore-message" id="ignore-message" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full text-md border-gray-300 rounded-md font-mono resize-none placeholder:italic placeholder:text-slate-400" data-bind="textInput: message, autoResize: message" placeholder="Error message"></textarea>
+
+<label for="ignore-path" class="block text-md font-medium text-gray-700 mt-8">Optional path</label>
+<textarea rows="1" name="ignore-path" id="ignore-path" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full text-md border-gray-300 rounded-md font-mono resize-none placeholder:italic placeholder:text-slate-400" data-bind="textInput: path, autoResize: path" placeholder="path/to/File.php"></textarea>
+
+<span class="block text-md font-medium text-gray-700 mt-8">Copy the following to your phpstan.neon:</span>
+
+<!-- ko if: hasServerError -->
+	<span class="block text-red-500">An error occurred. Please try again later.</span>
+<!-- /ko -->
+
+<pre class="language-yaml" data-bind="highlight: result"></pre>
+
+<!-- /ko -->

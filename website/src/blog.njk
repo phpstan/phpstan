@@ -1,0 +1,13 @@
+---
+permalink: /blog.html
+title: Blog
+eleventyExcludeFromCollections: true
+layout: null
+---
+
+{% extends "./_layouts/_blogList.njk" %}
+
+{% block postsList %}
+	{% set postsList = collections.blog %}
+	{% include './_includes/postsList.njk' %}
+{% endblock %}

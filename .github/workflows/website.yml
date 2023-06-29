@@ -1,0 +1,120 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Website Build"
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "1.11.x"
+    paths:
+      - '.github/workflows/website.yml'
+      - 'website/**'
+
+jobs:
+  typescript-check:
+    name: "TypeScript check"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "Install Node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: "Cache dependencies"
+        uses: actions/cache@v3
+        with:
+          path: "$(yarn cache dir)"
+          key: "${{ runner.os }}-yarn-${{ hashFiles('website/**/yarn.lock') }}"
+          restore-keys: "${{ runner.os }}-yarn-"
+
+      - name: "Install dependencies"
+        working-directory: ./website
+        run: "yarn install"
+
+      - name: "TypeScript check"
+        working-directory: ./website
+        run: "yarn run check"
+
+  build:
+    name: "Build"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "Install Node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "8.0"
+
+      - name: "Cache dependencies"
+        uses: actions/cache@v3
+        with:
+          path: "$(yarn cache dir)"
+          key: "${{ runner.os }}-yarn-${{ hashFiles('website/**/yarn.lock') }}"
+          restore-keys: "${{ runner.os }}-yarn-"
+
+      - name: "Install dependencies"
+        working-directory: ./website
+        run: "yarn install"
+
+      - name: "Build"
+        working-directory: ./website
+        run: "yarn run build"
+
+      - name: "Upload website dist"
+        uses: actions/upload-artifact@v3
+        with:
+          name: website-dist
+          path: website/dist
+
+  deploy:
+    name: "Deploy"
+    needs:
+      - typescript-check
+      - build
+    runs-on: "ubuntu-latest"
+    concurrency: website
+    steps:
+      - name: "Download website dist"
+        uses: actions/download-artifact@v3
+        with:
+          name: website-dist
+          path: dist
+
+      - name: "Sync with S3"
+        uses: jakejarvis/s3-sync-action@v0.5.1
+        with:
+          args: --exclude '.git*/*' --follow-symlinks
+        env:
+          SOURCE_DIR: './dist'
+          AWS_REGION: 'eu-west-1'
+          AWS_S3_BUCKET: "web-phpstan.org"
+          AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
+
+      - name: "Invalidate CloudFront"
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          DISTRIBUTION: "E1W83FJ5FCYXPT"
+          PATHS: '/*'
+          AWS_REGION: 'eu-west-1'
+          AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
+
+      - uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+          event-type: check_website_links

@@ -1,0 +1,6 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Offset 'row' on string\\|null on left side of \\?\\? does not exist\\.$#"
+			count: 2
+			path: app/Domains/Log/Model/Log.php

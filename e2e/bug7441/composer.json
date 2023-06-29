@@ -1,0 +1,7 @@
+{
+	"autoload": {
+		"files": [
+			"preload.php"
+		]
+	}
+}

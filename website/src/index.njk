@@ -1,0 +1,157 @@
+---
+title: Find Bugs Without Writing Tests
+pageType: home
+---
+
+{% extends "./_layouts/_base.njk" %}
+
+{% block scripts %}
+	<script src="/tmp/js/home.ts" type="module"></script>
+{% endblock %}
+
+{% block bgColor %}background-color: rgb(249, 250, 251){% endblock %}
+
+{% block content %}
+
+<div class="content-home">
+
+	<main class="mt-16 mx-auto max-w-7xl px-4 mt-24">
+      <div class="text-center">
+        <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+          <span id="sectionTitle" class="hidden">Homepage</span>
+          <span class="block">Meet The Next</span>
+          <span class="block"><span class="text-blue-600">Member of Your Team</span>!</span>
+        </h1>
+        <p class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl"><span class="font-bold">PHPStan</span> finds bugs in your code without writing tests. It's open-source and free.</p>
+        <div class="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
+          <div class="rounded-md shadow">
+            <a href="/user-guide/getting-started" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10"> Get Started </a>
+          </div>
+          <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
+            <a href="/try" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"> Try It Online </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+</div>
+
+
+<div class="relative mt-12 px-4 lg:px-0 lg:mt-24 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
+	<div class="relative">
+		<h3 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl">Find bugs before they reach production</h3>
+		<p class="mt-3 text-lg text-gray-500">PHPStan scans your whole codebase and looks for both obvious &amp; tricky bugs. Even in those rarely executed if statements that certainly aren't covered by tests.</p>
+		<p class="mt-3 text-lg text-gray-500">You can run it on your machine and in CI to prevent those bugs ever reaching your customers in production.</p>
+	</div>
+
+	<div class="mt-10 -mx-4 relative lg:mt-0" aria-hidden="true">
+		<img class="relative mx-auto" width="680" src="/tmp/images/home-find-bugs.png" alt="">
+	</div>
+</div>
+
+<div class="relative mt-12 sm:mt-16 lg:mt-24">
+	<div class="px-4 lg:px-0 lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:gap-8 lg:items-center">
+		<div class="lg:col-start-2">
+			<h3 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl">Gradual integration</h3>
+			<p class="mt-3 text-lg text-gray-500">Thanks to <a href="/user-guide/rule-levels" class="underline hover:no-underline">rule levels</a> you don't get overwhelmed with thousands of errors on the first run.</p>
+			<p class="mt-3 text-lg text-gray-500">You can increase PHPStan's capabilities on your code at your own pace. It makes work feel like a game.</p>
+		</div>
+
+		<div class="mt-10 -mx-4 relative lg:mt-0 lg:col-start-1 flex justify-center text-blue-400">
+			<div class="h-20 flex items-center text-6xl italic">Level Up!</div>
+			<div class="h-20 flex items-center pl-5">
+				<svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16" viewBox="0 0 20 20" fill="currentColor">
+					<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z" clip-rule="evenodd" />
+				</svg>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="relative mt-12 px-4 lg:px-0 lg:mt-24 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
+	<div class="relative">
+		<h3 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl">Legacy-friendly</h3>
+		<p class="mt-3 text-lg text-gray-500">No autoloader? No problem.</p>
+		<p class="mt-3 text-lg text-gray-500">It doesn't matter how old your code is, PHPStan is here to help you improve it. Thanks to <a href="/user-guide/baseline" class="underline hover:no-underline">the baseline</a>, you can start writing better code today.</p>
+	</div>
+
+	<div class="mt-10 -mx-4 relative lg:mt-0" aria-hidden="true">
+		<img class="relative mx-auto rounded-lg border border-slate-200" width="490" src="/tmp/images/home-bad-code.png" alt="">
+	</div>
+</div>
+
+<div class="relative mt-12 sm:mt-16 lg:mt-24">
+	<div class="px-4 lg:px-0 lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:gap-8 lg:items-center">
+		<div class="lg:col-start-2">
+			<h3 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl">Third-party frameworks are first-class citizens.</h3>
+			<p class="mt-3 text-lg text-gray-500">PHPStan offers <a href="/user-guide/extension-library" class="underline hover:no-underline">extensions for popular frameworks</a> like Symfony, Laravel or Doctrine. Even code taking advantage of magic methods and properties is understood well.</p>
+		</div>
+
+		<div class="mt-10 -mx-4 relative lg:mt-0 lg:col-start-1 grid gap-8 grid-cols-2 items-center p-8">
+			<!-- logos -->
+			<img class="relative mx-auto" width="180" src="/tmp/images/home-symfony.png" alt="">
+			<img class="relative mx-auto" width="180" src="/tmp/images/home-drupal.png" alt="">
+			<img class="relative mx-auto" width="200" src="/tmp/images/home-laravel.png" alt="">
+			<img class="relative mx-auto" width="200" src="/tmp/images/home-nette.png" alt="">
+
+		</div>
+	</div>
+</div>
+
+<div class="relative mt-12 px-4 lg:px-0 lg:mt-24 lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
+	<div class="relative">
+		<h3 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl">Impatient about new language features?</h3>
+		<p class="mt-3 text-lg text-gray-500">Enjoy new language features before they come to PHP. Do you dream of <a href="/blog/generics-in-php-using-phpdocs" class="underline hover:no-underline">generics</a>? <a href="/writing-php-code/phpdoc-types#array-shapes" class="underline hover:no-underline">Array shapes</a>? <a href="/blog/bring-your-exceptions-under-control" class="underline hover:no-underline">Checked exceptions</a>? With PHPStan you can use these today by leveraging the power of <a href="/writing-php-code/phpdocs-basics" class="underline hover:no-underline">PHPDocs</a>.</p>
+	</div>
+
+	<div class="mt-10 -mx-4 relative lg:mt-0" aria-hidden="true">
+		<img class="relative mx-auto" width="490" src="/tmp/images/home-phpdocs.png" alt="">
+	</div>
+</div>
+
+<div class="relative mt-12 sm:mt-16 lg:mt-24">
+	<div class="px-4 lg:px-0 lg:grid lg:grid-flow-row-dense lg:grid-cols-2 lg:gap-8 lg:items-center">
+		<div class="lg:col-start-2">
+			<h3 class="text-2xl font-extrabold text-gray-900 tracking-tight sm:text-3xl">PHPStan Pro</h3>
+			<p class="mt-3 text-lg text-gray-500">PHPStan in a <a href="/blog/introducing-phpstan-pro" class="underline hover:no-underline">premium package with extra features</a>. Beautiful web UI instead of CLI to browse your errors, auto-refresh with continuous analysis in the background.</p>
+			<p class="mt-3 text-lg text-gray-500"><a href="https://account.phpstan.com/register" class="underline hover:no-underline">Subscribe today</a> and support the development of PHPStan!</p>
+		</div>
+
+		<div class="mt-10 -mx-4 relative lg:mt-0 lg:col-start-1">
+			<img src="/tmp/images/phpstan-pro-delta.png" width="450" class="mb-8 rounded-lg border border-gray-300 mx-auto">
+		</div>
+	</div>
+</div>
+
+<div class="bg-white rounded-lg px-16 py-8 mt-16 border border-slate-200">
+	<div class="relative">
+	  <h2 class="text-center text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">Sponsors</h2>
+	  <p class="mt-4 max-w-3xl mx-auto text-center text-xl text-gray-500">The development of PHPStan is made possible thanks to these generous companies and individuals.</p>
+	</div>
+
+	<div class="grid grid-flow-row-dense grid-cols-2 lg:grid-cols-3 gap-8 items-center mt-8">
+	<a href="https://coders.thecodingmachine.com/phpstan"><img src="https://i.imgur.com/kQhNOTP.png" alt="TheCodingMachine" width="247" height="64"></a>
+	<a href="https://packagist.com/?utm_source=phpstan&utm_medium=readme&utm_campaign=sponsorlogo"><img src="https://i.imgur.com/B2T63Do.png" alt="Private Packagist" width="283" height="64"></a>
+	<a href="https://careers.tuigroup.com/jobs/"><img src="https://i.imgur.com/uw5rAlR.png" alt="Musement" width="247" height="49"></a>
+	<a href="https://blackfire.io/docs/introduction?utm_source=phpstan&utm_medium=github_readme&utm_campaign=logo"><img src="https://i.imgur.com/zR8rsqk.png" alt="Blackfire.io" width="254" height="64"></a>
+	<a href="https://www.iodigital.com/"><img src="https://i.imgur.com/fJlw1n9.png" alt="iO" width="254" height="65"></a>
+	<a href="https://jobs.ticketswap.com/"><img src="https://i.imgur.com/lhzcutK.png" alt="TicketSwap" width="269" height="64"></a>
+	<a href="https://www.startupjobs.cz/startup/shipmonk"><img src="https://i.imgur.com/bAC47za.jpg" alt="ShipMonk" width="290" height="64"></a>
+	<a href="https://togetter.com/"><img src="https://i.imgur.com/x9n5cj3.png" alt="Togetter" width="283" height="64"></a>
+	<a href="https://join.rightcapital.com/?utm_source=phpstan&utm_medium=github&utm_campaign=sponsorship"><img src="https://i.imgur.com/1AhB5tW.png" alt="RightCapital" width="283" height="64"></a>
+	<a href="https://www.contentkingapp.com/?ref=php-developer&utm_source=phpstan&utm_medium=referral&utm_campaign=sponsorship"><img src="https://i.imgur.com/HHhbPGN.png" alt="ContentKing" width="283" height="64"></a>
+	<a href="https://zol.fr?utm_source=phpstan"><img src="https://i.imgur.com/dzDgd4s.png" alt="ZOL" width="283" height="64"></a>
+	<a href="https://www.shopware.com/en/"><img src="https://i.imgur.com/L4X5w9s.png" alt="Shopware" width="284" height="64"></a>
+	<a href="https://craftcms.com/"><img src="https://i.imgur.com/xJWThke.png" alt="Craft CMS" width="283" height="64"></a>
+	<a href="https://www.worksome.com/"><img src="https://i.imgur.com/TQKSwOl.png" alt="Worksome" width="283" height="64"></a>
+	<a href="https://www.campoint.net/"><img src="https://i.imgur.com/fR6eMUm.png" alt="campoint AG" width="283" height="64"></a>
+	<a href="https://www.crisp.nl/"><img src="https://i.imgur.com/jRJyPve.png" alt="Crisp.nl" width="283" height="64"></a>
+	<a href="https://inviqa.com/"><img src="https://i.imgur.com/G99rj45.png" alt="Inviqa" width="254" height="65"></a>
+	<a href="https://www.psyonix.com/"><img src="https://i.imgur.com/p8svxQZ.png" alt="Psyonix" width="254" height="65"></a>
+	<a href="https://www.cdn77.com/"><img src="https://i.imgur.com/Oo3wA3m.png" alt="CDN77" width="283" height="64"></a>
+	</div>
+</div>
+
+{% include './_includes/footer.njk' %}
+
+{% endblock %}

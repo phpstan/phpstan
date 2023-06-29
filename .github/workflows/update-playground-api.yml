@@ -1,0 +1,50 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Update playground API"
+
+on:
+  push:
+    branches:
+      - "1.11.x"
+    paths:
+      - '.github/workflows/update-playground-api.yml'
+      - 'playground-api/**'
+
+concurrency: playground_api
+
+jobs:
+  build:
+    name: "Build"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "Install Node"
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: "Cache dependencies"
+        uses: actions/cache@v3
+        with:
+          path: "$(yarn cache dir)"
+          key: "${{ runner.os }}-yarn-${{ hashFiles('playground-api/**/yarn.lock') }}"
+          restore-keys: "${{ runner.os }}-yarn-"
+
+      - name: "Install dependencies"
+        working-directory: ./playground-api
+        run: "yarn install"
+
+      - name: "Check"
+        working-directory: ./playground-api
+        run: "yarn run check"
+
+      - name: "Deploy"
+        working-directory: ./playground-api
+        env:
+          AWS_DEFAULT_REGION: "eu-west-1"
+          AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
+        run: "yarn run deploy"

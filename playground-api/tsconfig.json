@@ -1,0 +1,24 @@
+{
+	"extends": "@tsconfig/node18/tsconfig.json",
+	"compilerOptions": {
+		"moduleResolution": "node",
+		"rootDir": "./",
+		"sourceMap": true,
+		"allowJs": true,
+		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		"noImplicitReturns": true,
+		"preserveConstEnums": true,
+		"esModuleInterop": true
+	},
+	"exclude": [
+		"node_modules",
+		"build",
+		"webpack"
+	],
+	"types": [
+		"typePatches"
+	]
+}

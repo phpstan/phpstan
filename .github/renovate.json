@@ -1,0 +1,38 @@
+{
+  "extends": [
+    "config:base",
+    "schedule:weekly"
+  ],
+  "rangeStrategy": "update-lockfile",
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["*"],
+      "enabled": false
+    },
+    {
+      "matchPaths": ["+(composer.json)"],
+      "enabled": true,
+      "groupName": "root-composer"
+    },
+    {
+      "matchPaths": ["website/**"],
+      "enabled": true,
+      "groupName": "website"
+    },
+    {
+      "matchPaths": ["playground-api/**"],
+      "enabled": true,
+      "groupName": "playground-api"
+    },
+    {
+      "matchPaths": ["playground-runner/**"],
+      "enabled": true,
+      "groupName": "playground-runner"
+    },
+    {
+      "matchPaths": [".github/**"],
+      "enabled": true,
+      "groupName": "github-actions"
+    }
+  ]
+}

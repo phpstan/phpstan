@@ -1,0 +1,6 @@
+parameters:
+    level: 5
+    paths:
+        - src/
+    bootstrapFiles:
+        - bootstrap.php

@@ -1,0 +1,9 @@
+/build/phpstan-generated.neon
+/composer.lock
+/conf/config.local.yml
+/e2e/vendor
+/vendor
+/.idea/*
+!.idea/icon.png
+/tests/tmp
+/tests/.phpunit.result.cache

@@ -1,0 +1,128 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Extract identifiers"
+
+on:
+  push:
+    branches:
+      - "1.11.x"
+    paths:
+      - '.github/workflows/extract-identifiers.yml'
+      - 'identifier-extractor/**'
+      - '.phar-checksum'
+
+concurrency:
+  group: extract-identifiers-${{ github.ref }} # will be canceled on subsequent pushes
+  cancel-in-progress: true
+
+jobs:
+  extract:
+    name: "Extract identifiers"
+    runs-on: "ubuntu-latest"
+
+    strategy:
+      matrix:
+        repository:
+          - "phpstan/phpstan-src"
+          - "phpstan/phpstan-strict-rules"
+          - "phpstan/phpstan-deprecation-rules"
+          - "phpstan/phpstan-doctrine"
+          - "phpstan/phpstan-symfony"
+          - "phpstan/phpstan-phpunit"
+          - "phpstan/phpstan-nette"
+          - "phpstan/phpstan-dibi"
+          #- "phpstan/phpstan-php-parser"
+          - "phpstan/phpstan-beberlei-assert"
+          - "phpstan/phpstan-webmozart-assert"
+          - "phpstan/phpstan-mockery"
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ matrix.repository }}
+          path: "identifier-extractor/repo"
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "8.1"
+
+      - name: "Install extractor dependencies"
+        working-directory: "identifier-extractor"
+        run: "composer install --no-interaction --no-progress"
+
+      - name: "Repository name"
+        id: repo-name
+        run: echo "name=$(basename "${{ matrix.repository }}")" >> $GITHUB_OUTPUT
+
+      - name: "Branch name"
+        id: branch-name
+        working-directory: "identifier-extractor/repo"
+        run: echo "name=$(git branch --show)" >> $GITHUB_OUTPUT
+
+      - name: "Extract"
+        working-directory: "identifier-extractor/repo"
+        run: ../../phpstan analyse -c ../extractor.neon -a ../vendor/autoload.php > ../${{ steps.repo-name.outputs.name }}.json
+        env:
+          REPO: ${{ matrix.repository }}
+          BRANCH: ${{ steps.branch-name.outputs.name }}
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: identifiers
+          path: identifier-extractor/${{ steps.repo-name.outputs.name }}.json
+
+  merge:
+    name: "Merge and commit identifiers"
+    needs: extract
+
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "8.1"
+
+      - name: "Install extractor dependencies"
+        working-directory: "identifier-extractor"
+        run: "composer install --no-interaction --no-progress"
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: identifiers
+          path: identifier-extractor/tmp
+
+      - name: "Merge"
+        working-directory: "identifier-extractor"
+        run: "php merge.php > ../website/src/errorsIdentifiers.json"
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.GPG_PHPSTANBOT_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PHPSTANBOT_KEY_PASSPHRASE }}
+          git_config_global: true
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
+      - name: "Commit changes"
+        uses: "stefanzweifel/git-auto-commit-action@v4"
+        id: "commit"
+        with:
+          commit_message: "Update errors identifiers"
+          commit_user_name: "phpstan-bot"
+          commit_user_email: "ondrej+phpstanbot@mirtes.cz"
+          commit_author: "phpstan-bot <ondrej+phpstanbot@mirtes.cz>"
+          commit_options: "--gpg-sign"

@@ -1,0 +1,43 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Integration tests"
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/integration-tests.yml'
+      - '.github/workflows/integration-tests-run.yml'
+      - 'e2e/**'
+      - 'phpstan'
+      - '.phar-checksum'
+      - 'bootstrap.php'
+  push:
+    branches:
+      - "1.11.x"
+    paths:
+      - '.github/workflows/integration-tests.yml'
+      - '.github/workflows/integration-tests-run.yml'
+      - 'e2e/**'
+      - 'phpstan'
+      - '.phar-checksum'
+      - 'bootstrap.php'
+
+jobs:
+  upload-phar:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: phar-file
+          path: phpstan.phar
+  integration-tests:
+    needs: upload-phar
+    uses: ./.github/workflows/integration-tests.yml
+    with:
+      ref: ${{ github.ref }}
+      phar-checksum: "always"
+    secrets:
+      phpstan-bot-token: ${{ secrets.PHPSTAN_BOT_TOKEN }}

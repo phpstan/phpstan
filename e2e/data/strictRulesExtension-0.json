@@ -1,0 +1,7 @@
+[
+    {
+        "message": "Dynamic call to static method PHPStan\\E2E\\DynamicCallToStaticMethod::bar().",
+        "line": 10,
+        "ignorable": true
+    }
+]

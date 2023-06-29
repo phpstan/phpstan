@@ -1,0 +1,108 @@
+{
+    "layout": "_developing_extensions.njk",
+    "sidebarOtherSections": [
+        {
+            "title": "User Guide",
+            "link": "/user-guide/getting-started"
+        },
+        {
+            "title": "Config Reference",
+            "link": "/config-reference"
+        },
+        {
+            "title": "Writing PHP Code",
+            "link": "/writing-php-code/phpdocs-basics"
+        }
+    ],
+    "sidebarItems": [
+        {
+            "title": "Extension Types",
+            "link": "/developing-extensions/extension-types"
+        },
+        {
+            "title": "Core Concepts",
+            "link": "/developing-extensions/core-concepts"
+        },
+        {
+            "title": "Abstract Syntax Tree",
+            "link": "/developing-extensions/abstract-syntax-tree"
+        },
+        {
+            "title": "Scope",
+            "link": "/developing-extensions/scope"
+        },
+        {
+            "title": "Type System",
+            "link": "/developing-extensions/type-system"
+        },
+        {
+            "title": "Trinary Logic",
+            "link": "/developing-extensions/trinary-logic"
+        },
+        {
+            "title": "Reflection",
+            "link": "/developing-extensions/reflection"
+        },
+        {
+            "title": "Dependency Injection & Configuration",
+            "link": "/developing-extensions/dependency-injection-configuration"
+        },
+        {
+            "title": "Custom Rules",
+            "link": "/developing-extensions/rules"
+        },
+        {
+            "title": "Collectors",
+            "link": "/developing-extensions/collectors"
+        },
+        {
+            "title": "Error Formatters",
+            "link": "/developing-extensions/error-formatters"
+        },
+        {
+            "title": "Class Reflection Extensions",
+            "link": "/developing-extensions/class-reflection-extensions"
+        },
+        {
+            "title": "Dynamic Return Type Extensions",
+            "link": "/developing-extensions/dynamic-return-type-extensions"
+        },
+		{
+			"title": "Dynamic Throw Type Extensions",
+			"link": "/developing-extensions/dynamic-throw-type-extensions"
+		},
+        {
+            "title": "Type-Specifying Extensions",
+            "link": "/developing-extensions/type-specifying-extensions"
+        },
+        {
+            "title": "Custom PHPDoc Types",
+            "link": "/developing-extensions/custom-phpdoc-types"
+        },
+        {
+            "title": "Always-Read and Written Properties",
+            "link": "/developing-extensions/always-read-written-properties"
+        },
+        {
+            "title": "Always-Used Class Constants",
+            "link": "/developing-extensions/always-used-class-constants"
+        },
+        {
+            "title": "Allowed Subtypes",
+            "link": "/developing-extensions/allowed-subtypes"
+        },
+		{
+			"title": "Testing",
+			"link": "/developing-extensions/testing"
+		},
+		{
+			"title": "Backward Compatibility Promise",
+			"link": "/developing-extensions/backward-compatibility-promise"
+		},
+        {
+			"title": "API Reference",
+			"link": "https://apiref.phpstan.org/",
+            "external": true
+		}
+    ]
+}

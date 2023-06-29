@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"target": "ES6",
+		"module": "commonjs",
+		"strict": true,
+		"moduleResolution": "node",
+		"lib": ["dom", "es2015"],
+		"noImplicitAny": true,
+		"noUnusedLocals": true,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		"noImplicitReturns": true,
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"skipLibCheck": true
+	},
+	"include": [
+		"src/js/**/*"
+	]
+}

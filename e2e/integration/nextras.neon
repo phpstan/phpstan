@@ -1,0 +1,6 @@
+includes:
+	- repo/.phpstan.neon
+	- nextras-baseline.neon
+
+parameters:
+	reportUnmatchedIgnoredErrors: false

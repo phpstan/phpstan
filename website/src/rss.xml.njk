@@ -1,0 +1,35 @@
+---
+permalink: /rss.xml
+eleventyExcludeFromCollections: true
+metadata:
+  title: PHPStan Blog
+  subtitle: Find Bugs In Your Code Without Writing Tests!
+  url: "https://phpstan.org/"
+  feedUrl: "https://phpstan.org/rss.xml"
+  author:
+	name: Ondřej Mirtes
+	email: ondrej@mirtes.cz
+---
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+	<title>{{ metadata.title }}</title>
+	<subtitle>{{ metadata.subtitle }}</subtitle>
+	<link href="{{ metadata.feedUrl }}" rel="self"/>
+	<link href="{{ metadata.url | trimDotHtml }}"/>
+	<updated>{{ collections.blog | rssLastUpdatedDate }}</updated>
+	<id>{{ metadata.url }}</id>
+	<author>
+		<name>{{ metadata.author.name }}</name>
+		<email>{{ metadata.author.email }}</email>
+	</author>
+	{% for post in collections.blog | reverse | head(10) %}
+		{% set absolutePostUrl %}{{ post.url | url | absoluteUrl(metadata.url) | trimDotHtml }}{% endset %}
+		<entry>
+			<title>{{ post.data.title }}</title>
+			<link href="{{ absolutePostUrl }}"/>
+			<updated>{{ post.date | rssDate }}</updated>
+			<id>{{ absolutePostUrl }}</id>
+			<content type="html" xml:base="https://phpstan.org">{{ post.templateContent }}</content>
+		</entry>
+	{% endfor %}
+</feed>

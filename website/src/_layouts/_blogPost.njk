@@ -1,0 +1,20 @@
+---
+pageType: blog
+sectionTitle: Blog
+---
+
+{% extends "./_sidebar.njk" %}
+
+{% block editPageLink %}{% endblock %}
+
+{% block scripts %}
+	<script src="/tmp/js/blog.ts" type="module"></script>
+{% endblock %}
+
+{% block postDate %}
+	<p class="text-sm text-gray-500">{{ date | htmlDateString }} · {{ content | readingTime }}</p>
+{% endblock %}
+
+{% block socialImages %}
+	{% socialImages title %}
+{% endblock %}

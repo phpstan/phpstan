@@ -1,0 +1,415 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Other tests"
+
+on:
+  workflow_call:
+    inputs:
+      ref:
+        description: 'phpstan/phpstan ref to checkout'
+        required: true
+        type: string
+      phar-checksum:
+        description: 'PHAR checksum from reproducible build (please rebase)'
+        required: true
+        type: string
+
+jobs:
+  check-phar-checksum:
+    name: "Check PHAR checksum"
+    runs-on: "ubuntu-latest"
+    outputs:
+      checksum-result: ${{ steps.checksum-difference.outputs.result }}
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          repository: "phpstan/phpstan"
+          ref: ${{ inputs.ref }}
+      - name: "Check PHAR checksum"
+        id: checksum-difference
+        run: |
+          checksum=${{ inputs.phar-checksum }}
+          if [[ $(head -n 1 .phar-checksum) != "$checksum" ]]; then
+            echo "::set-output name=result::different
+          else
+            echo "::set-output name=result::same
+          fi
+
+  other-tests:
+    name: "Other Tests"
+
+    runs-on: ${{ matrix.operating-system }}
+
+    needs: check-phar-checksum
+    if: "needs.check-phar-checksum.outputs.checksum-result == 'different'"
+
+    strategy:
+      fail-fast: false
+      matrix:
+        operating-system: [ubuntu-latest]
+        php-version:
+          - "7.4"
+          - "8.0"
+        script:
+          - |
+            cd e2e
+            git clone https://github.com/nikic/PHP-Parser.git
+            cd PHP-Parser
+            git checkout v3.1.5
+            composer install
+            ../../phpstan analyse -l 0 -c ../php-parser-baseline.neon lib
+          - |
+            cd e2e/react-promise
+            composer install
+            ../../phpstan analyse -l 8 src
+          - |
+            cd e2e/hoa
+            composer install
+            ../../phpstan
+          - |
+            cd e2e/different-php-parser
+            composer install --ignore-platform-reqs
+            ../../phpstan analyse -l 8 test.php src
+          - |
+            cd e2e/different-php-parser2
+            composer install
+            ../../phpstan analyse -l 5 src
+          - |
+            cd e2e/different-phpdoc-parser
+            composer install --ignore-platform-reqs
+            ../../phpstan analyse -l 8 -a Test.php Test.php
+          - |
+            cd e2e/php-metrics
+            composer install --ignore-platform-reqs
+            ../../phpstan analyse -l 8 test.php
+          - |
+            cd e2e/react-bootstrap
+            composer install --ignore-platform-reqs
+            ../../phpstan analyse -l 8 -c phpstan.neon test.php
+          - |
+            cd e2e/no-autoloader
+            composer install --ignore-platform-reqs
+            ../../phpstan analyse -l 8 -c phpstan.neon src tests
+          - |
+            cd e2e/mongodb
+            ../../phpstan analyse -l 8 test.php test2.php
+          - |
+            cd e2e/alias-event
+            ../../phpstan analyse -l 8 -a alias.php test.php
+          - |
+            cd e2e/alias-event
+            ../../phpstan analyse -l 8 -a alias.php -c staticReflection.neon test.php
+          - |
+            cd e2e/polyfills
+            composer install
+            ../../phpstan analyse -l 8 test.php
+            ../../phpstan analyse -l 8 test.php -a test.php
+          - |
+            cd e2e/composer-file
+            composer install
+            ../../phpstan analyse -l 8 test.php
+          - |
+            cd e2e/php8
+            ../../phpstan analyse -l 8 -c php74.neon test.php
+          - |
+            cd e2e/php8
+            ../../phpstan analyse -l 8 -c php80.neon test.php
+          - |
+            cd e2e/attributes
+            ../../phpstan analyse -l 8 test.php
+          - |
+            cd e2e/attributes
+            ../../phpstan analyse -l 8 -c php80.neon test.php
+          - |
+            cd e2e/baseline
+            ../../phpstan analyse -l 8 src/
+            ../../phpstan analyse -l 8 src/ --generate-baseline
+            ../../phpstan analyse -l 8 src/
+            ../../phpstan analyse -l 8 src/ --generate-baseline
+            ../../phpstan analyse -l 8 src/
+          - |
+            cd e2e/name-conflict
+            composer install
+            cp ../../phpstan vendor/phpstan/phpstan/phpstan
+            cp ../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+            cp ../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+            vendor/bin/phpstan analyse -l 8 src/
+          - |
+            cd e2e/excludePaths
+            ../../phpstan analyse
+          - |
+            cd e2e/excludePaths2
+            ../../phpstan analyse
+          - |
+            cd e2e/autoload-better-reflection
+            php test.php
+          - |
+            cd e2e/autoloader-require
+            ../../phpstan analyse
+            ../../phpstan analyse tests/ClassATest.php
+          - |
+            cd e2e/phpstan-issue-4953
+            composer install
+            ../../phpstan
+          - |
+            cd e2e/api-platform-trait
+            composer install
+            ../../phpstan analyse -l 9 test.php
+          - |
+            cd e2e/attribute-74
+            ../../phpstan analyse -l 9 test.php -c test.neon
+          - |
+            cd e2e/dup-classes
+            ../../phpstan
+          - |
+            cd e2e/node-connecting
+            ../../phpstan analyse -a Rule.php
+          - |
+            cd e2e/event-dispatcher
+            composer install
+            ../../phpstan
+          - |
+            cd e2e/swift-mailer
+            composer install
+            ../../phpstan
+          - |
+            cd e2e/rector-autoload
+            composer install
+            ../../phpstan
+          - |
+            cd e2e/restricted-php-ini
+            composer install
+            php -d open_basedir="$(cd ../.. && pwd):$(php -r 'echo sys_get_temp_dir();')" -d disable_functions="pcntl_exec,pcntl_fork,exec,passthru,proc_open,shell_exec,system,popen" -d auto_prepend_file=phpstan-preload.php ../../phpstan analyse -c app/phpstan.neon
+          - |
+            cd e2e/bug6933
+            composer install
+            ../../phpstan analyse -l 8 Module
+        include:
+          - php-version: 8.0
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/union-type
+              ../../phpstan analyse -l 8 test.php
+          - php-version: 7.4
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/phpstorm-stubs
+              composer install --ignore-platform-reqs
+              ../../phpstan analyse -l 8 test.php
+              vendor/bin/phpunit ExampleTest.php
+          - php-version: 7.4
+            ini-values: memory_limit=256M
+            operating-system: windows-latest
+            script: |
+              cd e2e/name-conflict
+              composer install
+              cp ../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              vendor/bin/phpstan analyse -l 8 src/
+          - php-version: 7.3
+            extensions: opcache
+            ini-values: memory_limit=256M, opcache.memory_consumption=128, opcache.interned_strings_buffer=8, opcache.max_accelerated_files=4000, opcache.revalidate_freq=60, opcache.fast_shutdown=1, opcache.enable_cli=1, opcache.enable=1
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/autoloader-issue-stream-eof
+              composer install
+              ../../phpstan
+          - php-version: 8.0
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/symfony-event
+              composer install --ignore-platform-reqs
+              ../../phpstan analyse -l 2 src
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/undiscoverable-symbols-1
+              composer install
+              ../../phpstan analyse
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/undiscoverable-symbols-2
+              composer install
+              ../../phpstan analyse
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/undiscoverable-symbols-3
+              composer install
+              ../../phpstan
+          - php-version: 7.4
+            extensions: phalcon4
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/phalcon-null
+              ../../phpstan
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/zeta-components
+              composer install
+              mkdir autoload
+              ../../phpstan
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/google_service
+              composer install
+              ../../phpstan
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/robotloader
+              composer install
+              ../../phpstan
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/bug7308
+              composer install
+              ../../phpstan analyse -c app/phpstan.neon
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/bug3634
+              composer install
+              ../../phpstan analyse -c app/phpstan.neon
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/bug7365
+              ../../phpstan analyse -c app/phpstan.neon
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/bug7441
+              composer install
+              ../../phpstan analyse -c app/phpstan.neon
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/bug7960
+              composer install
+              ../../phpstan analyse -c app/phpstan.neon
+          - php-version: 8.1
+            extensions: autoload_psr-pprkut/autoload-psr@0.2.0
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/autoload-psr/app
+              ../../../phpstan analyse index.php -a autoload.php
+          - php-version: 8.1
+            extensions: phalcon5
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/phalcon5
+              ../../phpstan
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/bug8054
+              ../../phpstan analyze -c application/fare.de/phpstan.neon.dist
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/phpunit-bridge
+              composer install
+              vendor/bin/simple-phpunit --filter NO_TEST_JUST_AUTOLOAD_THANKS
+              ../../phpstan
+          - php-version: 8.1
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/bug8543
+              composer install
+              ../../phpstan
+          - php-version: 8.2
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/bug8610
+              ../../phpstan
+          - php-version: 8.2
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/progress-bar-crash
+              ../../phpstan analyse -l 8 src/test.php
+          - php-version: 8.2
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/progress-bar-crash
+              ../../phpstan analyse -l 8 src/test.php -vvv
+          - php-version: 8.2
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/discussion-8502
+              composer install
+              cp ../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              vendor/bin/phpunit tests
+          - php-version: 8.2
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/phpunit-10-test
+              composer install
+              cp ../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              vendor/bin/phpunit && ../../phpstan
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          repository: "phpstan/phpstan"
+          ref: ${{ inputs.ref }}
+
+      - name: "Install PHP"
+        uses: "shivammathur/setup-php@v2"
+        with:
+          coverage: "none"
+          php-version: "${{ matrix.php-version }}"
+          ini-file: development
+          ini-values: " ${{ matrix.ini-values }}"
+          extensions: "${{ matrix.extensions }}"
+
+      - name: "Disable MongoDB extension"
+        if: matrix.operating-system != 'windows-latest'
+        run: sudo phpdismod -v ${{ matrix.php-version }} mongodb
+
+      - name: "Install dependencies"
+        run: "composer update --no-interaction --no-progress"
+
+      - name: "Download phpstan.phar"
+        uses: actions/download-artifact@v3
+        with:
+          name: phar-file
+
+      - name: "Tests"
+        run: "${{ matrix.script }}"

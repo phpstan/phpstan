@@ -1,0 +1,125 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: Generate Sponsors
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 15 14 * * *
+  push:
+    branches:
+      - "1.11.x"
+    paths:
+      - '.github/workflows/sponsors.yml'
+      - 'BACKERS.md'
+
+jobs:
+  sponsors:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Import GPG key
+        id: import-gpg
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          gpg_private_key: ${{ secrets.GPG_PHPSTANBOT_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PHPSTANBOT_KEY_PASSPHRASE }}
+          git_config_global: true
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+
+      - name: "Checkout"
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+
+      - name: "Construct template"
+        id: template
+        run: |
+          echo "text<<MESSAGE" >> $GITHUB_OUTPUT
+          echo '<li><a href="https://github.com/{{{ login }}}">{{{ name }}} ({{{ login }}})</a></li>' >> $GITHUB_OUTPUT
+          echo "" >> $GITHUB_OUTPUT
+          echo 'MESSAGE' >> $GITHUB_OUTPUT
+
+      - name: Generate Sponsors
+        uses: ondrejmirtes/github-sponsors-readme-action@v1
+        with:
+          token: ${{ secrets.SPONSORS_PAT }}
+          file: 'BACKERS.md'
+          minimum: 500
+          maximum: 2999
+          marker: 'five'
+          template: ${{ steps.template.outputs.text }}
+
+      - name: Generate Sponsors
+        uses: ondrejmirtes/github-sponsors-readme-action@v1
+        with:
+          token: ${{ secrets.SPONSORS_PAT }}
+          file: 'BACKERS.md'
+          minimum: 500
+          maximum: 2999
+          organization: true
+          marker: 'five-org'
+          template: ${{ steps.template.outputs.text }}
+
+      - name: Generate Sponsors
+        uses: ondrejmirtes/github-sponsors-readme-action@v1
+        with:
+          token: ${{ secrets.SPONSORS_PAT }}
+          file: 'BACKERS.md'
+          minimum: 3000
+          maximum: 9999
+          marker: 'thirty'
+          template: ${{ steps.template.outputs.text }}
+
+      - name: Generate Sponsors
+        uses: ondrejmirtes/github-sponsors-readme-action@v1
+        with:
+          token: ${{ secrets.SPONSORS_PAT }}
+          file: 'BACKERS.md'
+          minimum: 3000
+          maximum: 9999
+          organization: true
+          marker: 'thirty-org'
+          template: ${{ steps.template.outputs.text }}
+
+      - name: Generate Sponsors
+        uses: ondrejmirtes/github-sponsors-readme-action@v1
+        with:
+          token: ${{ secrets.SPONSORS_PAT }}
+          file: 'BACKERS.md'
+          minimum: 10000
+          marker: 'hundred'
+          template: ${{ steps.template.outputs.text }}
+
+      - name: Generate Sponsors
+        uses: ondrejmirtes/github-sponsors-readme-action@v1
+        with:
+          token: ${{ secrets.SPONSORS_PAT }}
+          file: 'BACKERS.md'
+          minimum: 10000
+          organization: true
+          marker: 'hundred-org'
+          template: ${{ steps.template.outputs.text }}
+
+      - name: "Commit changes"
+        uses: "stefanzweifel/git-auto-commit-action@v4"
+        id: "commit"
+        with:
+          commit_message: "Update BACKERS.md"
+          commit_user_name: "phpstan-bot"
+          commit_user_email: "ondrej+phpstanbot@mirtes.cz"
+          commit_author: "phpstan-bot <ondrej+phpstanbot@mirtes.cz>"
+          commit_options: "--gpg-sign"
+
+      - name: "Slack Notification"
+        if: steps.commit.outputs.changes_detected == 'true'
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: sponsors
+          SLACK_MESSAGE: 'https://github.com/phpstan/phpstan/commit/${{ steps.commit.outputs.commit_hash }}'
+          SLACK_TITLE: Sponsors changed!
+          SLACK_USERNAME: phpstan
+          SLACK_WEBHOOK: ${{ secrets.SLACK_SPONSORS_WEBHOOK }}
+          MSG_MINIMAL: true

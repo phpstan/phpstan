@@ -1,0 +1,12 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to static method executeFile\\(\\) on an unknown class Nextras\\\\Dbal\\\\Utils\\\\FileImporter\\.$#"
+			count: 1
+			path: repo/tests/inc/DataTestCase.php
+
+		-
+			message: "#^Call to static method executeFile\\(\\) on an unknown class Nextras\\\\Dbal\\\\Utils\\\\FileImporter\\.$#"
+			count: 1
+			path: repo/tests/inc/setup.php
+

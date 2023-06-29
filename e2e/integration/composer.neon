@@ -1,0 +1,3 @@
+includes:
+	- repo/phpstan/config.neon
+	- composer-baseline.neon

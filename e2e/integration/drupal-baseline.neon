@@ -1,0 +1,71 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\Core\\\\\\\\Access\\\\\\\\RouteProcessorCsrf', 'renderPlaceholderCs…'\\} at key '0' is not callable\\.$#"
+			count: 1
+			path: repo/core/lib/Drupal/Core/Access/RouteProcessorCsrf.php
+
+		-
+			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\Core\\\\\\\\Form\\\\\\\\FormBuilder', 'renderFormTokenPlac…'\\} at key '0' is not callable\\.$#"
+			count: 1
+			path: repo/core/lib/Drupal/Core/Form/FormBuilder.php
+
+		-
+			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\Core\\\\\\\\Form\\\\\\\\FormBuilder', 'renderPlaceholderFo…'\\} at key '0' is not callable\\.$#"
+			count: 1
+			path: repo/core/lib/Drupal/Core/Form/FormBuilder.php
+
+		-
+			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\Core\\\\\\\\Access\\\\\\\\RouteProcessorCsrf', 'renderPlaceholderCs…'\\} at key '0' is not callable\\.$#"
+			count: 1
+			path: repo/core/modules/big_pipe/tests/modules/big_pipe_test/src/BigPipePlaceholderTestCases.php
+
+		-
+			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\Core\\\\\\\\Form\\\\\\\\FormBuilder', 'renderPlaceholderFo…'\\} at key '0' is not callable\\.$#"
+			count: 1
+			path: repo/core/modules/big_pipe/tests/modules/big_pipe_test/src/BigPipePlaceholderTestCases.php
+
+		-
+			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\comment\\\\\\\\CommentLazyBuilders', 'renderLinks'\\} at key '0' is not callable\\.$#"
+			count: 1
+			path: repo/core/modules/comment/src/CommentViewBuilder.php
+
+		-
+			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\comment\\\\\\\\CommentLazyBuilders', 'renderForm'\\} at key '0' is not callable\\.$#"
+			count: 1
+			path: repo/core/modules/comment/src/Plugin/Field/FieldFormatter/CommentDefaultFormatter.php
+
+		-
+			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\shortcut\\\\\\\\ShortcutLazyBuilders', 'lazyLinks'\\} at key '0' is not callable\\.$#"
+			count: 1
+			path: repo/core/modules/shortcut/shortcut.module
+
+		-
+			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\user\\\\\\\\ToolbarLinkBuilder', 'renderDisplayName'\\} at key '0' is not callable\\.$#"
+			count: 1
+			path: repo/core/modules/user/user.module
+
+		-
+			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\user\\\\\\\\ToolbarLinkBuilder', 'renderToolbarLinks'\\} at key '0' is not callable\\.$#"
+			count: 1
+			path: repo/core/modules/user/user.module
+
+		-
+			message: "#^Variable \\$rand1 might not be defined\\.$#"
+			count: 2
+			path: repo/core/modules/views/tests/src/Kernel/Plugin/StyleTest.php
+
+		-
+			message: "#^Variable \\$rand2 might not be defined\\.$#"
+			count: 2
+			path: repo/core/modules/views/tests/src/Kernel/Plugin/StyleTest.php
+
+		-
+			message: "#^Variable \\$rand3 might not be defined\\.$#"
+			count: 2
+			path: repo/core/modules/views/tests/src/Kernel/Plugin/StyleTest.php
+
+		-
+			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\Core\\\\\\\\Access\\\\\\\\RouteProcessorCsrf', 'renderPlaceholderCs…'\\} at key '0' is not callable\\.$#"
+			count: 3
+			path: repo/core/tests/Drupal/Tests/Core/Access/RouteProcessorCsrfTest.php

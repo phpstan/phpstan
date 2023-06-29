@@ -1,0 +1,201 @@
+---
+title: Playground
+pageType: playground
+permalink: "/try.html"
+---
+
+{% extends "./_layouts/_base.njk" %}
+
+{% block scripts %}
+	<script src="/tmp/js/playground.ts" type="module"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="content-playground">
+	<span id="sectionTitle" class="hidden">Playground</span>
+	<p class="mb-4 px-4 md:px-0 pt-4">Try out PHPStan and all of its features here in the editor. <a href="/" class="underline hover:no-underline">Learn more about PHPStan »</a></p>
+	<div data-bind="visible: false" class="mx-auto w-12 h-12 my-12">
+		<div class="spinner"></div>
+	</div>
+	<div style="display: none" data-bind="visible: true">
+		<div data-bind="codeMirror: code, codeMirrorErrors: currentTab() !== null ? currentTab().errors : []"></div>
+
+		<div class="flex items-center mt-4 flex-col md:flex-row">
+			<!-- ko if: legacyResult() === null -->
+				<!-- ko if: !isSharing() -->
+					<a href="#" data-bind="click: share" class="inline-flex flex-grow md:flex-grow-0 mx-4 md:mx-0 items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 hover:bg-gray-200 w-auto md:w-32 h-10 justify-center border-gray-300 border">
+						<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+						<span class="ml-2" data-bind="text: shareText"></span>
+					</a>
+				<!-- /ko -->
+
+				<!-- ko if: isSharing() -->
+					<span class="inline-flex flex-grow md:flex-grow-0 mx-4 md:mx-0  items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 w-auto md:w-32 h-10 justify-center border-gray-300 border">
+						<!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL -->
+						<svg width="120" height="30" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#3f83f8" class="h-12 w-12">
+							<circle cx="15" cy="15" r="15">
+								<animate attributeName="r" from="15" to="15"
+											begin="0s" dur="0.8s"
+											values="15;9;15" calcMode="linear"
+											repeatCount="indefinite" />
+								<animate attributeName="fill-opacity" from="1" to="1"
+											begin="0s" dur="0.8s"
+											values="1;.5;1" calcMode="linear"
+											repeatCount="indefinite" />
+							</circle>
+							<circle cx="60" cy="15" r="9" fill-opacity="0.3">
+								<animate attributeName="r" from="9" to="9"
+											begin="0s" dur="0.8s"
+											values="9;15;9" calcMode="linear"
+											repeatCount="indefinite" />
+								<animate attributeName="fill-opacity" from="0.5" to="0.5"
+											begin="0s" dur="0.8s"
+											values=".5;1;.5" calcMode="linear"
+											repeatCount="indefinite" />
+							</circle>
+							<circle cx="105" cy="15" r="15">
+								<animate attributeName="r" from="15" to="15"
+											begin="0s" dur="0.8s"
+											values="15;9;15" calcMode="linear"
+											repeatCount="indefinite" />
+								<animate attributeName="fill-opacity" from="1" to="1"
+											begin="0s" dur="0.8s"
+											values="1;.5;1" calcMode="linear"
+											repeatCount="indefinite" />
+							</circle>
+						</svg>
+					</span>
+				<!-- /ko -->
+			<!-- /ko -->
+			<select class="block mt-4 md:mt-0 mx-4 md:mx-0 md:ml-6 rounded-md border border-gray-300" data-bind="value: level">
+				<option value="0">Level 0</option>
+				<option value="1">Level 1</option>
+				<option value="2">Level 2</option>
+				<option value="3">Level 3</option>
+				<option value="4">Level 4</option>
+				<option value="5">Level 5</option>
+				<option value="6">Level 6</option>
+				<option value="7">Level 7</option>
+				<option value="8">Level 8</option>
+				<option value="9">Level 9</option>
+			</select>
+
+			<label class="inline-flex items-center px-4 mt-4 md:mt-0 ml-0 md:ml-4">
+				<input type="checkbox" data-bind="checked: strictRules" class="border-gray-300 rounded">
+				<span class="ml-2">Strict rules</span>
+			</label>
+
+			<label class="inline-flex items-center px-4 mt-4 md:mt-0">
+				<input type="checkbox" data-bind="checked: bleedingEdge" class="border-gray-300 rounded">
+				<span class="ml-2">Bleeding edge</span>
+			</label>
+
+			<label class="inline-flex items-center px-4 mt-4 md:mt-0">
+				<input type="checkbox" data-bind="checked: treatPhpDocTypesAsCertain" class="border-gray-300 rounded">
+				<span class="ml-2">Treat PHPDoc types as certain</span>
+			</label>
+		</div>
+
+		<!-- ko if: isLoading -->
+		<div class="m-auto w-12 h-12 mt-8">
+			<div class="spinner"></div>
+		</div>
+		<!-- /ko -->
+
+		<!-- ko if: hasServerError -->
+		<span class="inline-flex text-red-500 mb-8">An error occured. Please try again later.</span>
+		<!-- /ko -->
+
+		<!-- ko ifnot: hasServerError -->
+
+		<div class="pt-4">
+
+		<!-- ko if: upToDateTabs() !== null && !isLoading() -->
+			<div class="flex content-center justify-center">
+				<div class="inline-block bg-yellow-100 rounded-lg px-2 py-1 text-sm">This result is out of date. <a href="#" class="text-blue-700" data-bind="click: showUpToDateTabs">Show the latest result</a></div>
+			</div>
+		<!-- /ko -->
+
+		<!-- ko if: tabs().length > 1 && !isLoading() && legacyResult() === null -->
+			<nav class="flex mt-4 border-b border-gray-400">
+				<!-- ko foreach: tabs -->
+					<a href="#" class="relative px-3 py-2 font-medium text-md mr-4 leading-5 rounded-md rounded-b-none text-gray-500 border-l border-t border-r" data-bind="click: $parent.switchTab.bind($parent, $index()), text: title, class: tabClass, style: { 'top': isActive() ? '1px' : '0' }"></a>
+				<!-- /ko -->
+			</nav>
+		<!-- /ko -->
+
+		<!-- ko if: currentTab() !== null && !isLoading() && legacyResult() === null -->
+			<!-- ko with: currentTab() -->
+				<div class="flex items-stretch mx-4 md:mx-0">
+					<!-- ko if: errors.length > 0 && $parent.tabs().length < 2 -->
+					<span class="inline-flex flex-grow justify-center md:flex-grow-0 items-center px-4 py-3 h-12 rounded-lg text-lg font-medium leading-4 bg-red-100 text-red-900 mt-4" data-bind="text: errorsText"></span>
+					<!-- /ko -->
+
+					<!-- ko if: errors.length === 0 -->
+					<span class="inline-flex flex-grow justify-center md:flex-grow-0 items-center px-4 py-3 h-12 rounded-lg text-lg font-medium leading-4 bg-green-100 text-green-900 mt-4">
+											No errors!
+										</span>
+					<!-- /ko -->
+				</div>
+				<!-- ko if: errors.length > 0 -->
+					<table class="w-full mt-8">
+						<thead>
+						<tr>
+							<th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-base leading-4 font-medium text-gray-500 tracking-wider">
+								Line
+							</th>
+							<th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-base leading-4 font-medium text-gray-500 tracking-wider">
+								Error
+							</th>
+						</tr>
+						</thead>
+						<tbody class="bg-white">
+							<!-- ko foreach: errors -->
+								<tr>
+									<td class="px-6 py-4 whitespace-nowrap border-b border-gray-200 text-base leading-5 font-medium text-gray-500" data-bind="text: line"></td>
+									<td class="px-6 py-4 border-b border-gray-200 text-base leading-5 text-gray-900">
+										<div class="flex md:items-center flex-col md:flex-row">
+											<div class="flex-shrink">
+												<div data-bind="text: message"></div>
+												<!-- ko if: $data.tip -->
+													<div class="mt-2 text-gray-500 text-sm" data-bind="html: $root.linkify($data.tip)"></div>
+												<!-- /ko -->
+											</div>
+
+
+											<div class="flex flex-grow flex-shrink-0 mt-2 md:mt-0 md:justify-end md:ml-4">
+
+												<!-- ko if: $data.ignorable === false -->
+													<div class="cursor-default text-xs font-semibold bg-red-700 text-white rounded-full px-2 py-1">Non-ignorable</div>
+												<!-- /ko -->
+
+												<!-- ko if: $data.ignorable === true -->
+													<!-- ko if: $data.identifier -->
+														<a target="_blank" class="text-xs font-semibold bg-gray-300 hover:bg-gray-400 text-white rounded-full px-2 py-1" data-bind="text: $data.identifier, attr: { href: '/error-identifiers#gbi-' + $root.slugify($data.identifier) }"></a>
+													<!-- /ko -->
+												<!-- /ko -->
+											</div>
+										</div>
+									</td>
+								</tr>
+							<!-- /ko -->
+						</tbody>
+					</table>
+				<!-- /ko -->
+			<!-- /ko -->
+		<!-- /ko -->
+
+		<!-- ko if: legacyResult() !== null && !isLoading() -->
+			<pre data-bind="html: legacyResult" class="bg-gray-800 w-auto p-4 mt-4 leading-none"></pre>
+		<!-- /ko -->
+
+		</div>
+		<!-- /ko -->
+
+		{% include './_includes/footer.njk' %}
+	</div>
+
+</div>
+
+{% endblock %}

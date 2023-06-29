@@ -1,0 +1,31 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method Doctrine\\\\ORM\\\\Mapping\\\\ClassMetadataInfo\\:\\:fullyQualifiedClassName\\(\\) should return class\\-string\\|null but returns string\\|null\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/ClassMetadataInfo.php
+
+		-
+			message: "#^Method Doctrine\\\\ORM\\\\Mapping\\\\Driver\\\\AttributeDriver\\:\\:getMethodCallbacks\\(\\) should return array\\<callable\\(\\)\\: mixed\\> but returns array\\<int, array\\{string, 'postLoad'\\|'postPersist'\\|'postRemove'\\|'postUpdate'\\|'preFlush'\\|'prePersist'\\|'preRemove'\\|'preUpdate'\\}\\>\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/Driver/AttributeDriver.php
+
+		-
+			message: "#^Parameter \\#4 \\.\\.\\.\\$args of static method Doctrine\\\\Deprecations\\\\Deprecation\\:\\:trigger\\(\\) expects float\\|int\\|string, false given\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/Driver/DatabaseDriver.php
+
+		-
+			message: "#^Condition \"TMaybeContained is mixed\" in conditional return type is always true\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/PersistentCollection.php
+
+		-
+			message: "#^Parameter \\#2 \\$array of function implode expects array\\<string\\>, array\\<int, object\\|string\\> given\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/Expr/Base.php
+
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Helper\\\\HelperInterface\\:\\:getEntityManager\\(\\)\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/Console/Command/AbstractEntityManagerCommand.php

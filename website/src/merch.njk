@@ -1,0 +1,809 @@
+---
+title: PHPStan 1.0 Merchandise Sale
+pageType: merch
+permalink: "/merch.html"
+---
+
+{% extends "./_layouts/_base.njk" %}
+
+{% block scripts %}
+	<script src="/tmp/js/merch.ts" type="module"></script>
+{% endblock %}
+
+{% block socialImages %}
+  <meta property="og:image" content="/tmp/images/og-merch.jpg" />
+  <meta name="twitter:image" content="/tmp/images/og-merch.jpg" />
+{% endblock %}
+
+{% block bgColor %}background-color: #fefefe{% endblock %}
+
+{% block content %}
+
+<script type="text/html" id="priceSummary">
+<div class="flex items-center justify-between">
+  <dt class="text-sm">
+    Subtotal
+  </dt>
+  <dd class="text-sm font-medium text-gray-900" data-bind="text: subtotalPrice() + ' €'"></dd>
+</div>
+<div class="flex items-center justify-between">
+  <dt class="text-sm">
+    Shipping
+  </dt>
+  <dd class="text-sm font-medium text-gray-900">
+    <div data-bind="visible: shippingPriceLoading" class="mx-auto w-4 h-4">
+      <div class="spinner"></div>
+    </div>
+    <dd class="text-sm font-medium text-gray-900" data-bind="visible: !shippingPriceLoading(), text: shippingPrice() + ' €'"></dd>
+  </dd>
+</div>
+<div class="flex items-center justify-between border-t border-gray-200 pt-6">
+  <dt class="text-base font-medium">
+    Total
+  </dt>
+  <dd class="text-base font-medium text-gray-900">
+    <div data-bind="visible: shippingPriceLoading" class="mx-auto w-4 h-4">
+      <div class="spinner"></div>
+    </div>
+    <dd class="text-base font-medium text-gray-900" data-bind="visible: !shippingPriceLoading(), text: totalPrice() + ' €'"></dd>
+  </dd>
+</div>
+</script>
+
+<div class="content-merch mt-24" style="background-color: #fefefe">
+
+  <div class="text-center">
+    <!-- <h2 class="text-base font-semibold text-indigo-600 tracking-wide uppercase">Merch</h2> -->
+    <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">Celebrate PHPStan 1.0!</p>
+    <p class="max-w-xl mt-5 mx-auto text-xl text-gray-500 px-4">Long-awaited <a href="/blog/phpstan-1-0-released" class="underline hover:no-underline">PHPStan 1.0 is out</a>. Express your support by proudly wearing a&nbsp;PHPStan T-shirt. Show off your rule level with a&nbsp;badge. Put a&nbsp;PHPStan sticker on your laptop.</p>
+  </div>
+
+  <div style="display: none" data-bind="visible: hasFatalError">
+
+    <div class="rounded-md bg-red-50 p-4 mt-8">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <!-- Heroicon name: solid/x-circle -->
+          <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-sm font-medium text-red-800">
+            A fatal error occurred during initialization. Please contact us at <a href="mailto:merch@phpstan.com" class="underline hover:no-underline">merch@phpstan.com</a>
+          </h3>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="text-sm px-3 py-2 mt-1 mb-3 text-gray-500">
+    <div class="text-center">The sale has ended.</div>
+  </div>
+
+  <div data-bind="visible: false" class="mx-auto w-12 h-12 my-12">
+		<div class="spinner"></div>
+	</div>
+
+  <div style="display: none" data-bind="visible: merchSale.successfulOrder()">
+    <div class="rounded-md bg-green-50 p-4 mx-auto w-3/4">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <!-- Heroicon name: solid/check-circle -->
+          <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+        </div>
+        <div class="ml-3">
+          <h3 class="text-lg font-medium text-green-800">
+            Order completed
+          </h3>
+          <div class="mt-2 text-md text-green-700">
+            <p>
+              Thank you for your purchase. We really appreciate your support!
+            </p>
+            <p data-bind="visible: merchSale.selectedPaymentMethod() === 'cc'">You will receive an email with the invoice and order summary.</p>
+            <p data-bind="visible: merchSale.selectedPaymentMethod() === 'sepa'">You will receive an email with SEPA payment details and order summary.</p>
+            <div class="mt-4">
+              <div class="-mx-2 -my-1.5 flex">
+                <a href="/merch" class="block bg-green-50 px-2 py-1.5 rounded-md text-sm font-medium text-green-800 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-50 focus:ring-green-600">
+                  Continue shopping
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: none" data-bind="visible: !merchSale.successfulOrder(), with: merchSale">
+    <div class="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start mt-8">
+      <!-- Image gallery -->
+      <div class="px-4 hidden lg:block">
+        <div class="w-full aspect-w-1 aspect-h-1">
+          <!-- ko if: selectedTShirtView() === 'front' -->
+            <!-- ko if: selectedTShirtType().htmlClass === 'bg-white' -->
+              <!-- ko if: selectedTShirtType().style === 'Straight' -->
+                <img src="/tmp/images/tshirt-white-front.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+              <!-- /ko -->
+              <!-- ko if: selectedTShirtType().style === 'Fitted' -->
+                <img src="/tmp/images/tshirt-white-front-fitted.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+              <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko if: selectedTShirtType().htmlClass === 'bg-blue-800' -->
+              <!-- ko if: selectedTShirtType().style === 'Straight' -->
+                <img src="/tmp/images/tshirt-blue-front.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+              <!-- /ko -->
+              <!-- ko if: selectedTShirtType().style === 'Fitted' -->
+                <img src="/tmp/images/tshirt-blue-front-fitted.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+              <!-- /ko -->
+            <!-- /ko -->
+          <!-- /ko -->
+
+          <!-- ko if: selectedTShirtView() === 'back' -->
+            <!-- ko if: selectedTShirtType().htmlClass === 'bg-white' -->
+              <!-- ko if: selectedTShirtType().style === 'Straight' -->
+                <img src="/tmp/images/tshirt-white-back.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+              <!-- /ko -->
+              <!-- ko if: selectedTShirtType().style === 'Fitted' -->
+                <img src="/tmp/images/tshirt-white-back-fitted.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+              <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko if: selectedTShirtType().htmlClass === 'bg-blue-800' -->
+              <!-- ko if: selectedTShirtType().style === 'Straight' -->
+                <img src="/tmp/images/tshirt-blue-back.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+              <!-- /ko -->
+              <!-- ko if: selectedTShirtType().style === 'Fitted' -->
+                <img src="/tmp/images/tshirt-blue-back-fitted.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+              <!-- /ko -->
+            <!-- /ko -->
+          <!-- /ko -->
+        </div>
+      </div>
+      <!-- Product info -->
+      <div class="mt-10 px-4 lg:mt-0">
+        <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">PHPStan T-Shirt</h1>
+
+        <div class="mt-6">
+          <h3 class="sr-only">Description</h3>
+
+          <div class="text-base text-gray-700 space-y-6">
+            <p class="block lg:hidden">PHPStan elephant logo on the front, text on the back of the neck.</p>
+
+            <!-- ko if: selectedTShirtView() === 'front' -->
+              <p class="hidden lg:block">PHPStan elephant logo on the front, text <a href="#" class="underline hover:no-underline" data-bind="click: switchToBack">on the back</a> of the neck.</p>
+            <!-- /ko -->
+
+            <!-- ko if: selectedTShirtView() === 'back' -->
+              <p class="hidden lg:block">PHPStan elephant logo <a href="#" class="underline hover:no-underline" data-bind="click: switchToFront">on the front</a>, text on the back of the neck.</p>
+            <!-- /ko -->
+
+            <p>Two materials and colors to choose from: Comfortable blue tri-blend with white logo, or traditional white cotton with blue logo.</p>
+            <p>You'll also get a set of four PHPStan stickers with each T-shirt for free!</p>
+          </div>
+        </div>
+
+        <form class="mt-6" data-bind="submit: addTShirtToCart">
+          <!-- Colors -->
+          <div class="mt-8">
+            <h3 class="text-sm text-gray-600">Color</h3>
+
+            <fieldset class="mt-2">
+              <legend class="sr-only">
+                Choose a color
+              </legend>
+              <div class="flex items-center space-x-3">
+                <!-- ko foreach: colors -->
+                  <!--
+                    Active and Checked: "ring ring-offset-1"
+                    Not Active and Checked: "ring-2"
+                  -->
+                  <label class="-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none ring-gray-500" data-bind="click: $parent.selectTShirtColor.bind($parent, $data), css: { 'ring ring-offset-1': $data === $parent.selectedTShirtType().htmlClass }">
+                    <input type="radio" name="color-choice" value="White" class="sr-only" aria-labelledby="color-choice-0-label">
+                    <p id="color-choice-0-label" class="sr-only" data-bind="text: name"></p>
+                    <span aria-hidden="true" class="h-8 w-8 border border-black border-opacity-10 rounded-full" data-bind="class: $data"></span>
+                  </label>
+                <!-- /ko -->
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="mt-8">
+            <h3 class="text-sm text-gray-600">Style</h3>
+            <!-- Style selector -->
+            <fieldset>
+              <legend class="sr-only">
+                Choose the style
+              </legend>
+              <div class="mt-1 grid gap-4 grid-cols-2">
+                <!-- Active: "ring-2 ring-indigo-500" -->
+                <label class="relative block border border-gray-300 rounded-lg p-4 cursor-pointer focus:outline-none" data-bind="css: { 'ring-2 ring-indigo-500': selectedTShirtType().style === 'Straight' }, click: selectTShirtStyle.bind($data, 'Straight')">
+                  <input type="radio" name="size-choice" value="18L" class="sr-only" aria-labelledby="size-choice-0-label" aria-describedby="size-choice-0-description">
+                  <p id="size-choice-0-label" class="text-base font-medium text-gray-900">
+                    Straight cut
+                  </p>
+                  <p id="size-choice-0-description" class="mt-1 text-sm text-gray-500">
+                    Also known as "men's"
+                  </p>
+                </label>
+
+                <!-- Active: "ring-2 ring-indigo-500" -->
+                <label class="relative block border border-gray-300 rounded-lg p-4 cursor-pointer focus:outline-none" data-bind="css: { 'ring-2 ring-indigo-500': selectedTShirtType().style === 'Fitted' }, click: selectTShirtStyle.bind($data, 'Fitted')">
+                  <input type="radio" name="size-choice" value="20L" class="sr-only" aria-labelledby="size-choice-1-label" aria-describedby="size-choice-1-description">
+                  <p id="size-choice-1-label" class="text-base font-medium text-gray-900">
+                    Fitted cut
+                  </p>
+                  <p id="size-choice-1-description" class="mt-1 text-sm text-gray-500">
+                    Also known as "women's"
+                  </p>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+
+          <!-- Image gallery -->
+          <div class="mt-8 block lg:hidden">
+            <div class="w-full aspect-w-2 aspect-h-1">
+              <!-- ko if: selectedTShirtType().htmlClass === 'bg-white' -->
+                <!-- ko if: selectedTShirtType().style === 'Straight' -->
+                  <img src="/tmp/images/tshirt-white.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+                <!-- /ko -->
+                <!-- ko if: selectedTShirtType().style === 'Fitted' -->
+                  <img src="/tmp/images/tshirt-white-fitted.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+                <!-- /ko -->
+              <!-- /ko -->
+              <!-- ko if: selectedTShirtType().htmlClass === 'bg-blue-800' -->
+                <!-- ko if: selectedTShirtType().style === 'Straight' -->
+                  <img src="/tmp/images/tshirt-blue.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+                <!-- /ko -->
+                <!-- ko if: selectedTShirtType().style === 'Fitted' -->
+                  <img src="/tmp/images/tshirt-blue-fitted.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+                <!-- /ko -->
+              <!-- /ko -->
+            </div>
+          </div>
+
+          <!-- Size picker -->
+          <div class="mt-8">
+            <div class="flex items-center justify-between">
+              <h3 class="text-sm text-gray-600">Size</h3>
+              <div class="flex flex-grow justify-end">
+                <!-- ko if: selectedTShirtType().htmlClass === 'bg-white' -->
+                  <!-- ko if: selectedTShirtType().style === 'Straight' -->
+                    <a href="/tmp/images/malfini-white-sizing-chart.pdf" target="_blank" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Sizing chart</a>
+                  <!-- /ko -->
+                  <!-- ko if: selectedTShirtType().style === 'Fitted' -->
+                    <a href="/tmp/images/malfini-white-sizing-chart-fitted.pdf" target="_blank" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Sizing chart</a>
+                  <!-- /ko -->
+                <!-- /ko -->
+
+                <!-- ko if: selectedTShirtType().htmlClass === 'bg-blue-800' -->
+                  <!-- ko if: selectedTShirtType().style === 'Straight' -->
+                    <a href="/tmp/images/nakedshirt-blue-sizing-chart.pdf" target="_blank" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Sizing chart</a>
+                  <!-- /ko -->
+                  <!-- ko if: selectedTShirtType().style === 'Fitted' -->
+                    <a href="/tmp/images/nakedshirt-blue-sizing-chart-fitted.pdf" target="_blank" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Sizing chart</a>
+                  <!-- /ko -->
+                <!-- /ko -->
+              </div>
+            </div>
+
+            <fieldset class="mt-2">
+              <legend class="sr-only">
+                Choose a size
+              </legend>
+              <div class="grid grid-cols-3 gap-3 sm:grid-cols-6">
+                <!--
+                  In Stock: "cursor-pointer", Out of Stock: "opacity-25 cursor-not-allowed"
+                  Active: "ring-2 ring-offset-2 ring-indigo-500"
+                  Checked: "bg-indigo-600 border-transparent text-white hover:bg-indigo-700", Not Checked: "bg-white border-gray-200 text-gray-900 hover:bg-gray-50"
+                -->
+
+                <!-- ko foreach: sizes -->
+                  <label class="border rounded-md py-3 px-3 flex items-center justify-center text-sm font-medium uppercase sm:flex-1 cursor-pointer focus:outline-none" data-bind="css: { 'bg-indigo-600 border-transparent text-white ring-2 ring-offset-2 ring-indigo-500': $parent.selectedTShirtSize() === $data, 'bg-white border-gray-200 text-gray-900 hover:bg-gray-50': $parent.selectedTShirtSize() !== $data }, click: $parent.selectTShirtSize.bind($parent, $data)">
+                    <input type="radio" name="size-choice" class="sr-only" aria-labelledby="size-choice-0-label" data-bind="attr: { 'value': $data }">
+                    <p id="size-choice-0-label" data-bind="text: $data"></p>
+                  </label>
+                <!-- /ko -->
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="mt-6">
+            <p class="text-3xl text-gray-900" data-bind="text: selectedTShirtType().price + ' €'"></p>
+          </div>
+
+          <!-- ko if: tShirtErrorMessage() !== null -->
+            <div class="rounded-md bg-red-50 p-4 mt-4">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <!-- Heroicon name: solid/x-circle -->
+                  <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div class="ml-3">
+                  <h3 class="text-sm font-medium text-red-800" data-bind="text: tShirtErrorMessage"></h3>
+                </div>
+              </div>
+            </div>
+          <!-- /ko -->
+
+          <!-- ko if: tShirtSuccessMessage() !== null -->
+            <div class="rounded-md bg-green-50 p-4 mt-4">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <!-- Heroicon name: solid/x-circle -->
+                  <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div class="ml-3">
+                  <h3 class="text-sm font-medium text-green-700" data-bind="text: tShirtSuccessMessage"></h3>
+                </div>
+              </div>
+            </div>
+          <!-- /ko -->
+
+          <div class="mt-3 flex sm:flex-col1">
+          <!-- ko if: canBuy -->
+            <button type="submit" class="sm:max-w-sm lg:max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 sm:w-full">Add to cart</button>
+          <!-- /ko -->
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="lg:grid lg:grid-cols-2 lg:gap-x-8 lg:items-start mt-24">
+      <!-- Image gallery -->
+      <div class="px-4 hidden lg:block">
+        <img src="/tmp/images/badges.jpg" alt="Level badges" class="mx-auto w-3/4 h-3/4 object-center object-cover rounded-lg">
+      </div>
+      <!-- Product info -->
+      <div class="mt-10 px-4 lg:mt-0">
+        <h1 class="text-3xl font-extrabold tracking-tight text-gray-900">Rule level badges</h1>
+
+        <div class="mt-6">
+          <h3 class="sr-only">Description</h3>
+
+          <div class="text-base text-gray-700 space-y-6">
+            <p>A set of 10 badges for rule levels 0-9 to show off the code quality of your project on your clothes or bags. As in-person conferences slowly come back, wearing these badges will be a great conversation starter!</p>
+            <p>You'll also get a couple of PHPStan stickers with each badge set for free!</p>
+          </div>
+        </div>
+
+        <form class="mt-6" data-bind="submit: addBadgeSetToCart">
+          <!-- Image gallery -->
+          <div class="mt-8 block lg:hidden">
+            <img src="/tmp/images/badges.jpg" alt="Level badges" class="mx-auto w-3/4 h-3/4 object-center object-cover rounded-lg">
+          </div>
+
+          <div class="mt-6">
+            <p class="text-3xl text-gray-900">9 €</p>
+          </div>
+
+          <!-- ko if: badgeSetSuccessMessage() !== null -->
+            <div class="rounded-md bg-green-50 p-4 mt-4">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <!-- Heroicon name: solid/x-circle -->
+                  <svg class="h-5 w-5 text-green-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div class="ml-3">
+                  <h3 class="text-sm font-medium text-green-700" data-bind="text: badgeSetSuccessMessage"></h3>
+                </div>
+              </div>
+            </div>
+          <!-- /ko -->
+
+          <div class="mt-3 flex sm:flex-col1">
+          <!-- ko if: canBuy -->
+            <button type="submit" class="sm:max-w-sm lg:max-w-xs flex-1 bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 sm:w-full">Add to cart</button>
+          <!-- /ko -->
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <h2 class="sr-only">Checkout</h2>
+
+    <!-- ko if: canBuy -->
+      <div class="mx-auto max-w-lg text-center mt-10 mb-10 text-gray-600 text-sm" data-bind="visible: isCartEmpty()">Cart will appear here once you add something to it.</div>
+    <!-- /ko -->
+
+    <!-- ko ifnot: canBuy -->
+      <div class="mx-auto max-w-lg text-center mt-10 mb-10 text-gray-600 text-sm">The sale has ended.</div>
+    <!-- /ko -->
+
+    <form class="lg:grid lg:grid-cols-2 lg:gap-x-12 xl:gap-x-16 mt-16" data-bind="visible: !isCartEmpty() && canBuy, submit: confirmOrder">
+      <!-- Order summary -->
+      <div class="mt-10 lg:mt-0 px-4">
+        <h2 class="text-lg font-medium text-gray-900">Order summary</h2>
+
+        <div class="mt-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+          <h3 class="sr-only">Items in your cart</h3>
+          <ul role="list" class="divide-y divide-gray-200">
+            <!-- ko foreach: cartTShirts -->
+              <li class="flex py-6 px-4 sm:px-6">
+                <div class="flex-shrink-0">
+                  <!-- ko if: tShirtType.htmlClass === 'bg-white' -->
+                    <!-- ko if: tShirtType.style === 'Straight' -->
+                      <img src="/tmp/images/tshirt-white-front.jpg" alt="White T-shirt" class="w-20 rounded-md">
+                    <!-- /ko -->
+                    <!-- ko if: tShirtType.style === 'Fitted' -->
+                      <img src="/tmp/images/tshirt-white-front-fitted.jpg" alt="White T-shirt" class="w-20 rounded-md">
+                    <!-- /ko -->
+                  <!-- /ko -->
+                  <!-- ko if: tShirtType.htmlClass === 'bg-blue-800' -->
+                    <!-- ko if: tShirtType.style === 'Straight' -->
+                      <img src="/tmp/images/tshirt-blue-front.jpg" alt="Blue T-shirt" class="w-20 rounded-md">
+                    <!-- /ko -->
+                    <!-- ko if: tShirtType.style === 'Fitted' -->
+                      <img src="/tmp/images/tshirt-blue-front-fitted.jpg" alt="Blue T-shirt" class="w-20 rounded-md">
+                    <!-- /ko -->
+                  <!-- /ko -->
+                </div>
+
+                <div class="ml-6 flex-1 flex flex-col">
+                  <div class="flex">
+                    <div class="min-w-0 flex-1">
+                      <h4 class="text-sm font-medium text-gray-700"><!-- ko text: tShirtType.name --><!-- /ko --></h4>
+                      <p class="mt-1 text-sm text-gray-500">Size <!-- ko text: size --><!-- /ko --></p>
+                      <p class="mt-1 text-sm text-gray-500">Free stickers</p>
+                    </div>
+
+                    <div class="ml-4 flex-shrink-0 flow-root">
+                      <button type="button" class="-m-2.5 bg-white p-2.5 flex items-center justify-center text-gray-400 hover:text-gray-500" data-bind="click: $parent.removeTShirtFromCart.bind($parent, $index())">
+                        <span class="sr-only">Remove</span>
+                        <!-- Heroicon name: solid/trash -->
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="flex-1 pt-2 flex items-end justify-between">
+                    <p class="mt-1 text-sm font-medium text-gray-900" data-bind="text: tShirtType.price + ' €'"></p>
+
+                    <div class="ml-4">
+                      <label for="quantity" class="sr-only">Quantity</label>
+                      <select id="quantity" name="quantity" class="rounded-md border border-gray-300 text-base font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="options: amountOptions, value: amount">
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            <!-- /ko -->
+
+            <!-- ko if: cartBadgeSetAmount() > 0 -->
+            <li class="flex py-6 px-4 sm:px-6">
+              <div class="flex-shrink-0">
+                <img src="/tmp/images/badges.jpg" alt="White T-shirt" class="w-20 rounded-md">
+              </div>
+
+              <div class="ml-6 flex-1 flex flex-col">
+                <div class="flex">
+                  <div class="min-w-0 flex-1">
+                    <h4 class="text-sm font-medium text-gray-700">Rule level badges</h4>
+                    <p class="mt-1 text-sm text-gray-500">Set of 10</p>
+                    <p class="mt-1 text-sm text-gray-500">Free stickers</p>
+                  </div>
+
+                  <div class="ml-4 flex-shrink-0 flow-root">
+                    <button type="button" class="-m-2.5 bg-white p-2.5 flex items-center justify-center text-gray-400 hover:text-gray-500" data-bind="click: removeBadgeSetsFromCart">
+                      <span class="sr-only">Remove</span>
+                      <!-- Heroicon name: solid/trash -->
+                      <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="flex-1 pt-2 flex items-end justify-between">
+                  <p class="mt-1 text-sm font-medium text-gray-900">9 €</p>
+
+                  <div class="ml-4">
+                    <label for="quantity" class="sr-only">Quantity</label>
+                    <select id="quantity" name="quantity" class="rounded-md border border-gray-300 text-base font-medium text-gray-700 text-left shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="options: badgeSetAmountOptions, value: cartBadgeSetAmount">
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <!-- /ko -->
+          </ul>
+          <dl class="border-t border-gray-200 py-6 px-4 space-y-6 sm:px-6" data-bind="template: 'priceSummary'"></dl>
+        </div>
+      </div>
+
+      <div class="mt-10 lg:mt-0 px-4 lg:px-0">
+        <div>
+          <h2 class="text-lg font-medium text-gray-900">Billing information</h2>
+
+          <div class="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+            <div>
+              <label for="billing-first-name" class="block text-sm font-medium text-gray-700">First name</label>
+              <div class="mt-1">
+                <input type="text" id="billing-first-name" name="billing-first-name" autocomplete="given-name" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: billingName">
+              </div>
+            </div>
+
+            <div>
+              <label for="billing-last-name" class="block text-sm font-medium text-gray-700">Last name</label>
+              <div class="mt-1">
+                <input type="text" id="billing-last-name" name="billing-last-name" autocomplete="family-name" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: billingSurname">
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="billing-company" class="block text-sm font-medium text-gray-700">Company</label>
+              <div class="mt-1">
+                <input type="text" name="billing-company" id="billing-company" autocomplete="organization" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: billingCompany">
+              </div>
+            </div>
+
+            <div>
+              <label for="billing-street-address" class="block text-sm font-medium text-gray-700">Street</label>
+              <div class="mt-1">
+                <input type="text" name="billing-street-address" id="billing-street-address" autocomplete="street-address" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: billingStreet">
+              </div>
+            </div>
+
+            <div>
+              <label for="billing-house-number" class="block text-sm font-medium text-gray-700">House number</label>
+              <div class="mt-1">
+                <input type="text" name="billing-house-number" id="billing-house-number"  class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: billingHouseNumber">
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="billing-city" class="block text-sm font-medium text-gray-700">City</label>
+              <div class="mt-1">
+                <input type="text" name="billing-city" id="billing-city" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: billingCity">
+              </div>
+            </div>
+
+            <div>
+              <label for="billing-postal-code" class="block text-sm font-medium text-gray-700">Postal code</label>
+              <div class="mt-1">
+                <input type="text" name="billing-postal-code" id="billing-postal-code" autocomplete="postal-code" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: billingZip">
+              </div>
+            </div>
+
+            <div>
+              <label for="billing-country" class="block text-sm font-medium text-gray-700">Country</label>
+              <div class="mt-1">
+                <select id="billing-country" name="billing-country" autocomplete="country" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="options: countries, optionsText: 'country_name', optionsValue: 'country_code', value: billingCountry"></select>
+              </div>
+            </div>
+
+            <div>
+              <label for="billing-registration-number" class="block text-sm font-medium text-gray-700" data-bind="text: registrationNumberLabel"></label>
+              <div class="mt-1">
+                <input type="text" name="billing-registration-number" id="billing-registration-number" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: billingRegistrationNumber">
+              </div>
+            </div>
+
+            <div>
+              <label for="billing-vat-id" class="block text-sm font-medium text-gray-700" data-bind="text: vatIdLabel"></label>
+              <div class="mt-1">
+                <input type="text" name="billing-vat-id" id="billing-vat-id" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: billingVatId">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 border-t border-gray-200 pt-10">
+          <h2 class="text-lg font-medium text-gray-900">Delivery address</h2>
+
+          <div class="mt-4 flex items-center">
+            <input id="same-as-billing" name="same-as-billing" type="checkbox" class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500" data-bind="checked: deliveryAddressSameAsBillingAddress">
+            <div class="ml-2">
+              <label for="same-as-billing" class="text-sm font-medium text-gray-900">Same as billing address</label>
+            </div>
+          </div>
+
+          <div class="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4" data-bind="visible: !deliveryAddressSameAsBillingAddress()">
+            <div>
+              <label for="delivery-first-name" class="block text-sm font-medium text-gray-700">First name</label>
+              <div class="mt-1">
+                <input type="text" id="delivery-first-name" name="delivery-first-name" autocomplete="given-name" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: deliveryName">
+              </div>
+            </div>
+
+            <div>
+              <label for="delivery-last-name" class="block text-sm font-medium text-gray-700">Last name</label>
+              <div class="mt-1">
+                <input type="text" id="delivery-last-name" name="delivery-last-name" autocomplete="family-name" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: deliverySurname">
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="delivery-company" class="block text-sm font-medium text-gray-700">Company</label>
+              <div class="mt-1">
+                <input type="text" name="delivery-company" autocomplete="organization" id="delivery-company" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: deliveryCompany">
+              </div>
+            </div>
+
+            <div>
+              <label for="delivery-street-address" class="block text-sm font-medium text-gray-700">Street</label>
+              <div class="mt-1">
+                <input type="text" name="delivery-street-address" id="delivery-street-address" autocomplete="street-address" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: deliveryStreet">
+              </div>
+            </div>
+
+            <div>
+              <label for="delivery-house-number" class="block text-sm font-medium text-gray-700">House number</label>
+              <div class="mt-1">
+                <input type="text" name="delivery-house-number" id="delivery-house-number"  class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: deliveryHouseNumber">
+              </div>
+            </div>
+
+            <div class="sm:col-span-2">
+              <label for="delivery-city" class="block text-sm font-medium text-gray-700">City</label>
+              <div class="mt-1">
+                <input type="text" name="delivery-city" id="delivery-city" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: deliveryCity">
+              </div>
+            </div>
+
+            <div>
+              <label for="delivery-postal-code" class="block text-sm font-medium text-gray-700">Postal code</label>
+              <div class="mt-1">
+                <input type="text" name="delivery-postal-code" id="delivery-postal-code" autocomplete="postal-code" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: deliveryZip">
+              </div>
+            </div>
+
+            <div>
+              <label for="delivery-country" class="block text-sm font-medium text-gray-700">Country</label>
+              <div class="mt-1">
+                <select id="delivery-country" name="delivery-country" autocomplete="country" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="options: countries, optionsText: 'country_name', optionsValue: 'country_code', value: deliveryCountry"></select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 border-t border-gray-200 pt-10">
+          <h2 class="text-lg font-medium text-gray-900">Contact information</h2>
+
+          <div class="mt-4 grid grid-cols-3 gap-y-6 gap-x-4">
+            <div class="col-span-3">
+              <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
+              <div class="mt-1">
+                <input type="email" id="email-address" name="email-address" autocomplete="email" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: email">
+              </div>
+            </div>
+
+            <div>
+              <label for="phone-number" class="block text-sm font-medium text-gray-700">Phone</label>
+              <div class="mt-1">
+                <select id="phone-prefix" name="phone-prefix" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="options: countries, optionsText: phonePrefixOptionText.bind($data), optionsValue: 'country_code', value: phonePrefix"></select>
+              </div>
+            </div>
+
+            <div class="col-span-2">
+              <span class="block text-sm font-normal text-gray-500">Only for delivery purposes</span>
+              <div class="mt-1">
+                <input type="tel" name="phone-number" id="phone-number" autocomplete="tel" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" data-bind="value: phoneNumber">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment -->
+        <div class="mt-10 border-t border-gray-200 pt-10">
+          <h2 class="text-lg font-medium text-gray-900">Payment</h2>
+
+          <div class="block lg:hidden mt-4 bg-white border border-gray-200 rounded-lg shadow-sm mb-10">
+            <dl class="py-6 px-4 space-y-6 sm:px-6" data-bind="template: 'priceSummary'"></dl>
+          </div>
+
+          <!-- ko if: isBillingCountryInSepa -->
+            <fieldset class="mt-4">
+              <legend class="sr-only">Payment type</legend>
+              <div class="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
+                <div class="flex items-center">
+                  <input id="credit-card" name="payment-type" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" value="cc" data-bind="checked: selectedPaymentMethod">
+                  <label for="credit-card" class="ml-3 block text-sm font-medium text-gray-700">
+                    Credit Card
+                  </label>
+                </div>
+
+                <div class="flex items-center">
+                  <input id="sepa" name="payment-type" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300" value="sepa" data-bind="checked: selectedPaymentMethod">
+                  <label for="sepa" class="ml-3 block text-sm font-medium text-gray-700">
+                    SEPA Bank Transfer (IBAN)
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+          <!-- /ko -->
+
+          <!-- ko foreach: confirmOrderErrors -->
+            <div class="rounded-md bg-red-50 p-4 mt-4">
+              <div class="flex">
+                <div class="flex-shrink-0">
+                  <!-- Heroicon name: solid/x-circle -->
+                  <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <div class="ml-3">
+                  <h3 class="text-sm font-medium text-red-800" data-bind="text: $data"></h3>
+                </div>
+              </div>
+            </div>
+          <!-- /ko -->
+          <div data-bind="visible: selectedPaymentMethod() === 'cc'">
+            <!-- ko if: stripeLoading -->
+              <div class="mt-10 mx-auto w-8 h-8">
+                <div class="spinner"></div>
+              </div>
+            <!-- /ko -->
+
+            <div data-bind="visible: !stripeLoading()">
+              <div class="mt-4">
+                <div class="mb-6 text-sm text-gray-500">Payment is handled by Stripe.</div>
+                <div id="card-element" class="p-2 rounded-md border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"><!--Stripe.js injects the Card Element--></div>
+              </div>
+              <div class="mt-4 flex items-center">
+                <input id="privacy-policy-card" name="privacy-policy-card" type="checkbox" class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500" data-bind="checked: agreeToPrivacyPolicy">
+                <div class="ml-2">
+                  <label for="privacy-policy-card" class="text-sm font-medium text-gray-900">Agree to <a target="_blank" href="/merch-privacy-policy" class="underline hover:no-underline text-indigo-800">Privacy Policy</a></label>
+                </div>
+              </div>
+              <div class="mt-1 flex items-center">
+                <input id="terms-card" name="terms-card" type="checkbox" class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500" data-bind="checked: agreeToTerms">
+                <div class="ml-2">
+                  <label for="terms-card" class="text-sm font-medium text-gray-900">Agree to <a target="_blank" href="/merch-terms" class="underline hover:no-underline text-indigo-800">Terms &amp; Conditions</a></label>
+                </div>
+              </div>
+              <div class="py-6 mt-2" data-bind="visible: !isConfirmingOrder()">
+                <button type="submit" class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">Confirm order</button>
+              </div>
+              <div class="my-10 mx-auto w-8 h-8" data-bind="visible: isConfirmingOrder">
+                <div class="spinner"></div>
+              </div>
+              <div class="text-center text-sm text-gray-700" data-bind="visible: confirmOrderErrors().length > 0">In case of technical difficulties please contact us at <a href="mailto:merch@phpstan.com" class="underline hover:no-underline">merch@phpstan.com</a>.</div>
+            </div>
+          </div>
+
+          <!-- ko if: selectedPaymentMethod() === 'sepa' -->
+            <div class="mt-4">
+              <div class="text-sm text-gray-500">You will receive the SEPA payment details by email after confirming the order.</div>
+            </div>
+            <div class="mt-4 flex items-center">
+              <input id="privacy-policy-sepa" name="privacy-policy-sepa" type="checkbox" class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500" data-bind="checked: agreeToPrivacyPolicy">
+              <div class="ml-2">
+                <label for="privacy-policy-sepa" class="text-sm font-medium text-gray-900">Agree to <a target="_blank" href="/merch-privacy-policy" class="underline hover:no-underline text-indigo-800">Privacy Policy</a></label>
+              </div>
+            </div>
+            <div class="mt-1 flex items-center">
+              <input id="terms-sepa" name="terms-sepa" type="checkbox" class="h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500" data-bind="checked: agreeToTerms">
+              <div class="ml-2">
+                <label for="terms-sepa" class="text-sm font-medium text-gray-900">Agree to <a target="_blank" href="/merch-terms" class="underline hover:no-underline text-indigo-800">Terms &amp; Conditions</a></label>
+              </div>
+            </div>
+            <div class="py-6" data-bind="visible: !isConfirmingOrder()">
+              <button type="submit" class="w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500">Confirm order</button>
+            </div>
+            <div class="my-8 mx-auto w-8 h-8" data-bind="visible: isConfirmingOrder">
+              <div class="spinner"></div>
+            </div>
+            <div class="text-center text-sm text-gray-700" data-bind="visible: confirmOrderErrors().length > 0">In case of technical difficulties please contact us at <a href="mailto:merch@phpstan.com" class="underline hover:no-underline">merch@phpstan.com</a>.</div>
+          <!-- /ko -->
+        </div>
+      </div>
+    </form>
+  </div>
+
+	{% include './_includes/footer.njk' %}
+
+</div>
+
+{% endblock %}

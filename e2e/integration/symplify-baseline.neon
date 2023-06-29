@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Add explicit array type to assigned \"\\$_SERVER\" expression$#"
+			count: 1
+			path: repo/packages/package-builder/src/Console/Style/SymfonyStyleFactory.php
+
+		-
+			message: "#^On passing a constant, the method should have an enum type\\. See https\\://phpstan\\.org/writing\\-php\\-code/phpdoc\\-types\\#literals\\-and\\-constants$#"
+			count: 1
+			path: repo/packages/phpstan-rules/src/TypeAnalyzer/CallableTypeAnalyzer.php

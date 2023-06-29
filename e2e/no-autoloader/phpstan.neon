@@ -1,0 +1,9 @@
+parameters:
+	scanDirectories:
+		- tests
+	ignoreErrors:
+		-
+			message: '~Parameter #1 \$i of function App\\f expects int, string given\.~'
+			paths:
+				- src/Test.php
+				- src/f.php
