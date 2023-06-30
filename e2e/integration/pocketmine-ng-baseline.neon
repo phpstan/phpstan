@@ -9,3 +9,8 @@ parameters:
 			message: "#^Parameter \\#1 \\$str of function base64_decode expects string, mixed given\\.$#"
 			count: 1
 			path: repo/src/item/Item.php
+
+		-
+			message: "#^Match arm comparison between 1\\|2\\|3\\|4 and 0 is always false\\.$#"
+			count: 1
+			path: repo/src/network/mcpe/handler/InGamePacketHandler.php
