@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Method Composer\\\\Command\\\\ShowCommand\\:\\:getPackage\\(\\) should return array\\{Composer\\\\Package\\\\CompletePackageInterface\\|null, array\\<string, string\\>\\} but returns array\\{Composer\\\\Package\\\\BasePackage\\|null, array\\<string, string\\>\\}\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/ShowCommand.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, Composer\\\\Package\\\\BasePackage\\|null given\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/ShowCommand.php
+
+		-
 			message: "#^Parameter \\#4 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, array\\|string given\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/ShowCommand.php
