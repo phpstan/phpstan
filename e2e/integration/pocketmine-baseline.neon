@@ -16,6 +16,16 @@ parameters:
 			path: repo/src/pocketmine/Player.php
 
 		-
+			message: "#^Binary operation \"\\.\" between 'Composer autoloader…' and array\\<int, mixed\\>\\|string\\|false results in an error\\.$#"
+			count: 1
+			path: repo/src/pocketmine/PocketMine.php
+
+		-
+			message: "#^Parameter \\#1 \\$filename of function is_file expects string, array\\<int, mixed\\>\\|string given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/PocketMine.php
+
+		-
 			message: "#^Parameter \\#2 \\$string of function explode expects string, mixed given\\.$#"
 			count: 1
 			path: repo/src/pocketmine/PocketMine.php
