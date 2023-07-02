@@ -216,7 +216,7 @@ jobs:
               cd e2e/integration/repo
               git checkout 4c8b5f7fa01b4727451e8395bb45ba985fd61f9b
               composer install
-            phpstan-command: ../../../phpstan.phar
+            phpstan-command: ../../../phpstan.phar analyse
             baseline-file: better-reflection-baseline.neon
           - php-version: 8.1
             setup: |
@@ -258,7 +258,7 @@ jobs:
               cd e2e/integration/repo
               git checkout 0d429b658a6e7baff863b6f23f5e6fa35c88d6e7
               composer install
-            phpstan-command: ../../../phpstan
+            phpstan-command: ../../../phpstan analyse
             baseline-file: orocrm-phpstan-bugreport-baseline.neon
           - php-version: 8.1
             setup: |
@@ -337,7 +337,7 @@ jobs:
               cd e2e/integration/repo
               git checkout 51cdabdbbe2c379af3de74e6da4814383181ae55
               composer install
-            phpstan-command: ../../../phpstan.phar
+            phpstan-command: ../../../phpstan.phar analyse
             baseline-file: doctrine-common-baseline.neon
           - php-version: 8.1
             setup: |
@@ -383,7 +383,7 @@ jobs:
               git clone https://github.com/nikic/PHP-Parser.git -b v5.0.0alpha2 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
               composer install
-            phpstan-command: ../../../phpstan.phar
+            phpstan-command: ../../../phpstan.phar analyse
             baseline-file: php-parser-baseline.neon
           - php-version: 8.1
             setup: |
@@ -403,7 +403,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-            phpstan-command: ../../../phpstan.phar
+            phpstan-command: ../../../phpstan.phar analyse
             baseline-file: bladestan-baseline.neon
 
     steps:
