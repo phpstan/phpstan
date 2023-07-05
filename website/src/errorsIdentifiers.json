@@ -3221,7 +3221,7 @@
         },
         "PHPStan\\Rules\\Methods\\IllegalConstructorStaticCallRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/IllegalConstructorStaticCallRule.php#L36"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/IllegalConstructorStaticCallRule.php#L38"
             ]
         }
     },
