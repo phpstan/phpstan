@@ -1,0 +1,5 @@
+parameters:
+    level: 0
+    phpVersion: 70100
+    paths:
+        - test.php
