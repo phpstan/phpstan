@@ -7661,9 +7661,9 @@
     "property.invalidPromoted": {
         "PHPStan\\Rules\\Classes\\InvalidPromotedPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/InvalidPromotedPropertiesRule.php#L69",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/InvalidPromotedPropertiesRule.php#L77",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/InvalidPromotedPropertiesRule.php#L98"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/InvalidPromotedPropertiesRule.php#L100",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/InvalidPromotedPropertiesRule.php#L71",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/InvalidPromotedPropertiesRule.php#L79"
             ]
         }
     },
