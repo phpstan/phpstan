@@ -6,6 +6,11 @@ parameters:
 			path: repo/core/lib/Drupal/Core/Access/RouteProcessorCsrf.php
 
 		-
+			message: "#^Call to method getDefinitions\\(\\) on an unknown class Drupal\\\\Core\\\\Plugin\\\\CategorizingPluginManagerTrait\\.$#"
+			count: 1
+			path: repo/core/lib/Drupal/Core/Block/BlockManager.php
+
+		-
 			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\Core\\\\\\\\Form\\\\\\\\FormBuilder', 'renderFormTokenPlac…'\\} at key '0' is not callable\\.$#"
 			count: 1
 			path: repo/core/lib/Drupal/Core/Form/FormBuilder.php
