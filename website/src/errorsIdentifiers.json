@@ -3232,6 +3232,14 @@
             ]
         }
     },
+    "constructor.returnType": {
+        "PHPStan\\Rules\\Methods\\ConstructorReturnTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/ConstructorReturnTypeRule.php#L35",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/ConstructorReturnTypeRule.php#L57"
+            ]
+        }
+    },
     "constructor.unusedParameter": {
         "PHPStan\\Rules\\Classes\\UnusedConstructorParametersRule": {
             "phpstan/phpstan-src": [
@@ -5911,7 +5919,7 @@
         },
         "PHPStan\\Rules\\Methods\\MissingMethodReturnTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MissingMethodReturnTypehintRule.php#L80"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MissingMethodReturnTypehintRule.php#L87"
             ]
         },
         "PHPStan\\Rules\\Properties\\MissingPropertyTypehintRule": {
@@ -5980,7 +5988,7 @@
         },
         "PHPStan\\Rules\\Methods\\MissingMethodReturnTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MissingMethodReturnTypehintRule.php#L70"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MissingMethodReturnTypehintRule.php#L77"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
@@ -6017,7 +6025,7 @@
         },
         "PHPStan\\Rules\\Methods\\MissingMethodReturnTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MissingMethodReturnTypehintRule.php#L57"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MissingMethodReturnTypehintRule.php#L64"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
@@ -6058,7 +6066,7 @@
         },
         "PHPStan\\Rules\\Methods\\MissingMethodReturnTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MissingMethodReturnTypehintRule.php#L43"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MissingMethodReturnTypehintRule.php#L50"
             ]
         }
     },
