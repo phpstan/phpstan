@@ -2257,29 +2257,29 @@
     "class.duplicateConstant": {
         "PHPStan\\Rules\\Classes\\DuplicateDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L62"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L59"
             ]
         }
     },
     "class.duplicateEnumCase": {
         "PHPStan\\Rules\\Classes\\DuplicateDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L48"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L45"
             ]
         }
     },
     "class.duplicateMethod": {
         "PHPStan\\Rules\\Classes\\DuplicateDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L124"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L121"
             ]
         }
     },
     "class.duplicateProperty": {
         "PHPStan\\Rules\\Classes\\DuplicateDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L110",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L81"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L107",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L78"
             ]
         }
     },
@@ -2675,7 +2675,7 @@
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/MixinRule.php#L91"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/MixinRule.php#L88"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
@@ -3581,29 +3581,29 @@
     "enum.duplicateConstant": {
         "PHPStan\\Rules\\Classes\\DuplicateDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L62"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L59"
             ]
         }
     },
     "enum.duplicateEnumCase": {
         "PHPStan\\Rules\\Classes\\DuplicateDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L48"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L45"
             ]
         }
     },
     "enum.duplicateMethod": {
         "PHPStan\\Rules\\Classes\\DuplicateDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L124"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L121"
             ]
         }
     },
     "enum.duplicateProperty": {
         "PHPStan\\Rules\\Classes\\DuplicateDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L110",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L81"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L107",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L78"
             ]
         }
     },
@@ -3617,7 +3617,7 @@
     "enum.generic": {
         "PHPStan\\Rules\\Generics\\EnumTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/EnumTemplateTypeRule.php#L43"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/EnumTemplateTypeRule.php#L40"
             ]
         }
     },
@@ -4943,29 +4943,29 @@
     "interface.duplicateConstant": {
         "PHPStan\\Rules\\Classes\\DuplicateDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L62"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L59"
             ]
         }
     },
     "interface.duplicateEnumCase": {
         "PHPStan\\Rules\\Classes\\DuplicateDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L48"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L45"
             ]
         }
     },
     "interface.duplicateMethod": {
         "PHPStan\\Rules\\Classes\\DuplicateDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L124"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L121"
             ]
         }
     },
     "interface.duplicateProperty": {
         "PHPStan\\Rules\\Classes\\DuplicateDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L110",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L81"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L107",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L78"
             ]
         }
     },
@@ -5943,7 +5943,7 @@
     "missingType.generics": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/MixinRule.php#L84"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/MixinRule.php#L81"
             ]
         },
         "PHPStan\\Rules\\Constants\\MissingClassConstantTypehintRule": {
@@ -6073,21 +6073,21 @@
     "mixin.nonObject": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/MixinRule.php#L55"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/MixinRule.php#L52"
             ]
         }
     },
     "mixin.trait": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/MixinRule.php#L96"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/MixinRule.php#L93"
             ]
         }
     },
     "mixin.unresolvableType": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/MixinRule.php#L64"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/MixinRule.php#L61"
             ]
         }
     },
@@ -8884,29 +8884,29 @@
     "trait.duplicateConstant": {
         "PHPStan\\Rules\\Classes\\DuplicateDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L62"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L59"
             ]
         }
     },
     "trait.duplicateEnumCase": {
         "PHPStan\\Rules\\Classes\\DuplicateDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L48"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L45"
             ]
         }
     },
     "trait.duplicateMethod": {
         "PHPStan\\Rules\\Classes\\DuplicateDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L124"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L121"
             ]
         }
     },
     "trait.duplicateProperty": {
         "PHPStan\\Rules\\Classes\\DuplicateDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L110",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L81"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L107",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/DuplicateDeclarationRule.php#L78"
             ]
         }
     },
