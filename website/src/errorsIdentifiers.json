@@ -1222,14 +1222,14 @@
     "assign.readOnlyProperty": {
         "PHPStan\\Rules\\Properties\\MissingReadOnlyPropertyAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyPropertyAssignRule.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyPropertyAssignRule.php#L74"
             ]
         }
     },
     "assign.readOnlyPropertyByPhpDoc": {
         "PHPStan\\Rules\\Properties\\MissingReadOnlyByPhpDocPropertyAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyByPhpDocPropertyAssignRule.php#L76"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyByPhpDocPropertyAssignRule.php#L72"
             ]
         }
     },
@@ -5931,7 +5931,7 @@
     "missingType.checkedException": {
         "PHPStan\\Rules\\Exceptions\\MissingCheckedExceptionInFunctionThrowsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/MissingCheckedExceptionInFunctionThrowsRule.php#L45"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/MissingCheckedExceptionInFunctionThrowsRule.php#L40"
             ]
         },
         "PHPStan\\Rules\\Exceptions\\MissingCheckedExceptionInMethodThrowsRule": {
@@ -7350,7 +7350,7 @@
     "phpstanPlayground.never": {
         "PHPStan\\Rules\\Playground\\FunctionNeverRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Playground/FunctionNeverRule.php#L53"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Playground/FunctionNeverRule.php#L48"
             ]
         },
         "PHPStan\\Rules\\Playground\\MethodNeverRule": {
@@ -7715,14 +7715,14 @@
     "property.onlyRead": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L188"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L184"
             ]
         }
     },
     "property.onlyWritten": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L181"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L177"
             ]
         }
     },
@@ -7909,24 +7909,24 @@
     "property.uninitialized": {
         "PHPStan\\Rules\\Properties\\UninitializedPropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/UninitializedPropertyRule.php#L50",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/UninitializedPropertyRule.php#L64"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/UninitializedPropertyRule.php#L46",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/UninitializedPropertyRule.php#L60"
             ]
         }
     },
     "property.uninitializedReadonly": {
         "PHPStan\\Rules\\Properties\\MissingReadOnlyPropertyAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyPropertyAssignRule.php#L50",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyPropertyAssignRule.php#L64"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyPropertyAssignRule.php#L46",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyPropertyAssignRule.php#L60"
             ]
         }
     },
     "property.uninitializedReadonlyByPhpDoc": {
         "PHPStan\\Rules\\Properties\\MissingReadOnlyByPhpDocPropertyAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyByPhpDocPropertyAssignRule.php#L50",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyByPhpDocPropertyAssignRule.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyByPhpDocPropertyAssignRule.php#L46",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyByPhpDocPropertyAssignRule.php#L59"
             ]
         }
     },
@@ -7947,7 +7947,7 @@
     "property.unused": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L176"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L172"
             ]
         }
     },
@@ -8275,7 +8275,7 @@
         },
         "PHPStan\\Rules\\TooWideTypehints\\TooWideFunctionReturnTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideFunctionReturnTypehintRule.php#L87"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideFunctionReturnTypehintRule.php#L82"
             ]
         },
         "PHPStan\\Rules\\TooWideTypehints\\TooWideMethodReturnTypehintRule": {
@@ -8846,7 +8846,7 @@
     "throws.unusedType": {
         "PHPStan\\Rules\\Exceptions\\TooWideFunctionThrowTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/TooWideFunctionThrowTypeRule.php#L49"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/TooWideFunctionThrowTypeRule.php#L44"
             ]
         },
         "PHPStan\\Rules\\Exceptions\\TooWideMethodThrowTypeRule": {
@@ -8858,7 +8858,7 @@
     "throws.void": {
         "PHPStan\\Rules\\Exceptions\\ThrowsVoidFunctionWithExplicitThrowPointRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/ThrowsVoidFunctionWithExplicitThrowPointRule.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/ThrowsVoidFunctionWithExplicitThrowPointRule.php#L63"
             ]
         },
         "PHPStan\\Rules\\Exceptions\\ThrowsVoidMethodWithExplicitThrowPointRule": {
