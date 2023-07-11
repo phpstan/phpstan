@@ -150,5 +150,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/lucassabreu">Lucas dos Santos Abreu (lucassabreu)</a></li>
 <li><a href="https://github.com/matthewmincher">Matthew Mincher (matthewmincher)</a></li>
 <li><a href="https://github.com/loganmarchione">Logan Marchione (loganmarchione)</a></li>
+<li><a href="https://github.com/olliescase">Oliver Scase (olliescase)</a></li>
 <!-- five-org -->
 </ul>
