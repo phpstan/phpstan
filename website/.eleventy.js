@@ -18,7 +18,13 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy('src/errorsIdentifiers.json');
 	eleventyConfig.addPassthroughCopy('src/app.pcss');
 	eleventyConfig.addPassthroughCopy('src/robots.txt');
-	eleventyConfig.addPlugin(syntaxHighlight);
+	eleventyConfig.addPlugin(syntaxHighlight, {
+		codeAttributes: {
+			"class": function({ language }) {
+				return "language-diff-" + language + " diff-highlight";
+			}
+		},
+	});
 	eleventyConfig.addPlugin(pluginRss);
 	eleventyConfig.addPlugin(EleventyRenderPlugin);
 	eleventyConfig.setDataDeepMerge(true);
