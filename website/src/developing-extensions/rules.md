@@ -36,7 +36,7 @@ Custom rules are classes implementing the [`PHPStan\Rules\Rule` interface](https
 * `public function getNodeType(): string`
 * `public function processNode(PhpParser\Node $node, PHPStan\Analyser\Scope $scope): array`
 
-The `getNodeType()` method returns the [AST](/developing-extensions/abstract-syntax-tree) node type. Every time the analyser encounters the node of this type, the second method `processNode()` is called with that AST node as the first argument, and the current [Scope](/developing-extensions/scope) as the second argument. The goal of the `processNode()` method is to return an array of errors to report to the user.
+The `getNodeType()` method returns the [AST](/developing-extensions/abstract-syntax-tree) node type. Every time the analyser encounters the node of this type, the second method `processNode()` is called with that AST node as the first argument, and the current [Scope](/developing-extensions/scope) as the second argument. The goal of the `processNode()` method is to return an array of errors to report to the user [using RuleErrorBuilder](/blog/using-rule-error-builder).
 
 Choosing the right AST node
 ---------------
@@ -212,7 +212,7 @@ public function processNode(Node $node, Scope $scope): array
 }
 ```
 
-What's left to do is to return an array of errors to report. The `processNode()` method can return either an array of strings, or an array of `RuleError` instances. These can't be instantiated directly, but only through [`PHPStan\Rules\RuleErrorBuilder`](https://apiref.phpstan.org/1.11.x/PHPStan.Rules.RuleErrorBuilder.html). It allows to attach more information to errors like a different error line, or making the error non-ignorable. The simplest way to use it is to create an instance using the static `message(string $message): RuleErrorBuilder` method and return `RuleError` instance using the `build(): RuleError` method:
+What's left to do is to return an array of errors to report. The `processNode()` method can return either an array of strings, or an array of `RuleError` instances. These can't be instantiated directly, but only through [`PHPStan\Rules\RuleErrorBuilder`](https://apiref.phpstan.org/1.11.x/PHPStan.Rules.RuleErrorBuilder.html). It allows to attach more information to errors like a different error line, or making the error non-ignorable. The simplest way to use it is to create an instance using the static `message(string $message): RuleErrorBuilder` method and return `RuleError` instance using the `build(): RuleError` method. [Learn more about RuleErrorBuilder »](/blog/using-rule-error-builder)
 
 ```php
 return [
