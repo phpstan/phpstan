@@ -14,7 +14,7 @@ When writing [custom rules](/developing-extensions/rules) for PHPStan, developer
 public function processNode(Node $node, Scope $scope): array;
 ```
 
-The former is a way to attach additional information to the reported errors.
+The latter is a way to attach additional information to the reported errors.
 
 RuleError [is just an interface](https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleError.php). The way you create an instance is through [RuleErrorBuilder](https://apiref.phpstan.org/1.11.x/PHPStan.Rules.RuleErrorBuilder.html):
 
