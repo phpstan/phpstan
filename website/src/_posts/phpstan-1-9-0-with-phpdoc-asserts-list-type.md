@@ -6,7 +6,7 @@ tags: releases
 
 [PHPStan 1.9.0](https://github.com/phpstan/phpstan/releases/tag/1.9.0) has been a real community effort. You'll notice that every headlining feature of this release has been contributed by someone other than me, the maintainer. It's not that I don't like writing code anymore, but others get around to implementing new features faster while I'm down in the weeds hunting mysterious bugs.
 
-I'm now pressing the green "merge" button multiple times a day. My role has shifted from the main code contributor to quality assurance, project vision [^sayno], and taking care of the continous integration pipeline. I acknowledged this in [a recent letter to contributors](https://github.com/phpstan/phpstan/discussions/8228) which is well worth your read even if you don't contribute code yourself.
+I'm now pressing the green "merge" button multiple times a day. My role has shifted from the main code contributor to quality assurance, project vision [^sayno], and taking care of the continuous integration pipeline. I acknowledged this in [a recent letter to contributors](https://github.com/phpstan/phpstan/discussions/8228) which is well worth your read even if you don't contribute code yourself.
 
 [^sayno]: [A thousand No's for every Yes](https://www.youtube.com/watch?v=XAEPqUtra6E).
 

@@ -4,7 +4,7 @@ date: 2021-01-13
 tags: guides
 ---
 
-This error is reported for `new static()` calls that might break once the class is extended, and the constructor is overriden with different parameters.
+This error is reported for `new static()` calls that might break once the class is extended, and the constructor is overridden with different parameters.
 
 Consider this example:
 

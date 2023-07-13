@@ -176,4 +176,4 @@ $resolvedPhpDoc = $this->fileTypeMapper->getResolvedPhpDoc(
 );
 ```
 
-It returns the `ResolvedPhpDocBlock` object. The [phpstan/phpdoc-parser](https://github.com/phpstan/phpdoc-parser) AST can be obtained by calling `getPhpDocNodes(): PhpDocNode[]` method. The whole PHPDoc is represented by a single root node. So why it returns an array of nodes? Because PHPStan merges PHPDocs from overriden methods to get the complete picture, so all of these nodes are available as a returned value from the `getPhpDocNodes()` method.
+It returns the `ResolvedPhpDocBlock` object. The [phpstan/phpdoc-parser](https://github.com/phpstan/phpdoc-parser) AST can be obtained by calling `getPhpDocNodes(): PhpDocNode[]` method. The whole PHPDoc is represented by a single root node. So why it returns an array of nodes? Because PHPStan merges PHPDocs from overridden methods to get the complete picture, so all of these nodes are available as a returned value from the `getPhpDocNodes()` method.
