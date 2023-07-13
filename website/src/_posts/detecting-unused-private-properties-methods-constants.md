@@ -211,7 +211,7 @@ class Foo
 }
 ```
 
-The only way to reliably prevent this error is to always assign typed properties in the constructor. But there's a catch: PHP doesn't require this. The only language requirement is that you assign the property before you access it. You can also ask about unitialized state using `isset($this->count)` - that doesn't trigger the error.
+The only way to reliably prevent this error is to always assign typed properties in the constructor. But there's a catch: PHP doesn't require this. The only language requirement is that you assign the property before you access it. You can also ask about uninitialized state using `isset($this->count)` - that doesn't trigger the error.
 
 So it doesn't feel right to require the property assignment in the constructor in every case. PHPStan doesn't know the object's lifecycle, it's possible it's used correctly from the outside and that the code isn't actually broken. But for those who want to enforce typed properties being assigned in the constructor, there's a setting:
 

@@ -58,11 +58,11 @@ Until now, the only fallback that could be used for values like this was `mixed[
 
 It's also possible to say what types of keys are in an array or an iterable, inspired by generics syntax from other languages: `array<KeyType, ValueType>`, `iterable<KeyType, ValueType>`.
 
-I believe that these possibilities will allow to move the ecosystem of PHP applications forward. I'd like to position PHPStan as the driver of innovation — thanks to less baggage, shorter feedback loops and rapid releases, it's able to fullfil real world needs faster than the language itself and even than IDEs. Let's hope they will follow suit and the support for intersection types and complex array notation comes sooner rather than later.
+I believe that these possibilities will allow to move the ecosystem of PHP applications forward. I'd like to position PHPStan as the driver of innovation — thanks to less baggage, shorter feedback loops and rapid releases, it's able to fulfil real world needs faster than the language itself and even than IDEs. Let's hope they will follow suit and the support for intersection types and complex array notation comes sooner rather than later.
 
 ## PHPUnit support
 
-If you've already used PHPStan along with PHPUnit, you might be familar with these errors:
+If you've already used PHPStan along with PHPUnit, you might be familiar with these errors:
 
 ```
 Parameter #3 $foo of class App\FooService constructor expects App\Foo, PHPUnit_Framework_MockObject_MockObject given.
@@ -79,7 +79,7 @@ I love deleting dead code. Having less code means there's less to maintain and r
 PHPStan is in a unique position of knowing the type of each variable so it can do advanced analysis of what code can be safely deleted. In 0.9, it's now able to detect:
 
 - Always false/always true calls to type-checking functions like `is_int`, `is_bool`, `is_array`.
-- Always false/always true occurences of `instanceof` with incompatible types and unknown classes on the right side.
+- Always false/always true occurrences of `instanceof` with incompatible types and unknown classes on the right side.
 - Always false comparison of different types on both sides of `===`and `!==`operators.
 - Variables in `isset()` that can never be defined, or they're always defined and non-nullable. This is especially useful if you use it for checking whether an array contains a specific key. Call to`isset($foo['key'])`might hide the fact that `$foo`does not exist at all, but PHPStan can tell you about it.
 

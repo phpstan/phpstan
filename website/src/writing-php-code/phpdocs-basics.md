@@ -300,7 +300,7 @@ class Foo
 
 Install [`phpstan-deprecation-rules`](https://github.com/phpstan/phpstan-deprecation-rules) extension to have usages of deprecated symbols reported.
 
-The `@deprecated` PHPDoc tag is inherited to implicitly mark overriden methods in child classes also as deprecated:
+The `@deprecated` PHPDoc tag is inherited to implicitly mark overridden methods in child classes also as deprecated:
 
 ```php
 class Foo

@@ -315,7 +315,7 @@ Collectors
 
 If you want to write custom rules that take a look at the whole codebase instead of a single AST node, you can take advantage of collectors.
 
-PHPStan rules are executed in isolation across multiple processess so it's not possible to share information from all the executions.
+PHPStan rules are executed in isolation across multiple processes so it's not possible to share information from all the executions.
 
 In order to write a specific category of rules like unused code detection, we need to use collectors. [Learn more »](/developing-extensions/collectors)
 
