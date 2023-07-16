@@ -40,8 +40,7 @@ the logo of your company in PHPStan's README and the website.
 # $30+
 
 <ul>
-<!-- thirty --><li><a href="https://github.com/ondrejcech">Ondřej Čech (ondrejcech)</a></li>
-<li><a href="https://github.com/martin-georgiev">Martin Georgiev (martin-georgiev)</a></li>
+<!-- thirty --><li><a href="https://github.com/martin-georgiev">Martin Georgiev (martin-georgiev)</a></li>
 <li><a href="https://github.com/uppler">Uppler (uppler)</a></li>
 <li><a href="https://github.com/dktapps">Dylan T. (dktapps)</a></li>
 <!-- thirty -->
