@@ -40,7 +40,7 @@ jobs:
           fi
 
   integration-tests:
-    name: "Integration Tests"
+    name: "Integration - ${{ matrix.name }}"
 
     runs-on: "ubuntu-latest"
     timeout-minutes: 30
@@ -53,6 +53,7 @@ jobs:
       matrix:
         include:
           - php-version: 8.1
+            name: Rector tests
             script: |
               git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
               cd e2e/integration/repo
@@ -64,6 +65,7 @@ jobs:
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit tests
           - php-version: 8.1
+            name: Rector rules-tests
             script: |
               git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
               cd e2e/integration/repo
@@ -75,6 +77,7 @@ jobs:
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit rules-tests
           - php-version: 8.1
+            name: Rector packages-tests
             script: |
               git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
               cd e2e/integration/repo
@@ -86,6 +89,7 @@ jobs:
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit packages-tests
           - php-version: 8.1
+            name: Symplify tests
             script: |
               git clone https://github.com/symplify/symplify.git e2e/integration/repo
               cd e2e/integration/repo
@@ -94,6 +98,7 @@ jobs:
               composer install
               vendor/bin/phpunit
           - php-version: 8.1
+            name: Larastan tests
             script: |
               git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
               cd e2e/integration/repo
@@ -104,6 +109,7 @@ jobs:
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               composer run-script test:unit
           - php-version: 8.1
+            name: shipmonk-rnd/phpstan-rules tests
             script: |
               git clone https://github.com/shipmonk-rnd/phpstan-rules.git -b 1.1.1 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
@@ -113,6 +119,7 @@ jobs:
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit tests
           - php-version: 8.1
+            name: efabrica-team/phpstan-latte tests
             script: |
               git clone https://github.com/efabrica-team/phpstan-latte.git -b 0.8.0 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
@@ -122,6 +129,7 @@ jobs:
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit
           - php-version: 8.1
+            name: Bladestan tests
             script: |
               git clone https://github.com/TomasVotruba/bladestan.git -b 0.2.1 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
