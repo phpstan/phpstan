@@ -405,6 +405,13 @@ jobs:
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
             phpstan-command: ../../../phpstan.phar analyse
             baseline-file: bladestan-baseline.neon
+          - php-version: 8.2
+            setup: |
+              git clone https://github.com/reactphp/promise.git -b v3.0.0 --depth 1 e2e/integration/repo
+              cd e2e/integration/repo
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse
+            baseline-file: react-promise-baseline.neon
 
     steps:
       - name: "Checkout"
