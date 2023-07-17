@@ -4,3 +4,8 @@ parameters:
 			message: "#^Method Efabrica\\\\PHPStanLatte\\\\LatteTemplateResolver\\\\LatteTemplateResolverResult\\:\\:addErrorFromBuilder\\(\\) has parameter \\$error with generic class PHPStan\\\\Rules\\\\RuleErrorBuilder but does not specify its types\\: T$#"
 			count: 1
 			path: repo/src/LatteTemplateResolver/LatteTemplateResolverResult.php
+
+		-
+			message: "#^Method Efabrica\\\\PHPStanLatte\\\\Rule\\\\LatteTemplatesRule\\:\\:processNode\\(\\) should return list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\> but returns array\\<PHPStan\\\\Rules\\\\RuleError\\>\\.$#"
+			count: 1
+			path: repo/src/Rule/LatteTemplatesRule.php
