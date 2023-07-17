@@ -3092,7 +3092,7 @@
     "classConstant.unused": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivateConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/UnusedPrivateConstantRule.php#L89"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/UnusedPrivateConstantRule.php#L85"
             ]
         }
     },
@@ -5756,7 +5756,7 @@
     "method.unused": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivateMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/UnusedPrivateMethodRule.php#L162"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/UnusedPrivateMethodRule.php#L158"
             ]
         }
     },
@@ -5936,7 +5936,7 @@
         },
         "PHPStan\\Rules\\Exceptions\\MissingCheckedExceptionInMethodThrowsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/MissingCheckedExceptionInMethodThrowsRule.php#L46"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/MissingCheckedExceptionInMethodThrowsRule.php#L41"
             ]
         }
     },
@@ -7355,7 +7355,7 @@
         },
         "PHPStan\\Rules\\Playground\\MethodNeverRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Playground/MethodNeverRule.php#L54"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Playground/MethodNeverRule.php#L49"
             ]
         }
     },
@@ -8280,7 +8280,7 @@
         },
         "PHPStan\\Rules\\TooWideTypehints\\TooWideMethodReturnTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideMethodReturnTypehintRule.php#L109"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideMethodReturnTypehintRule.php#L104"
             ]
         }
     },
@@ -8851,7 +8851,7 @@
         },
         "PHPStan\\Rules\\Exceptions\\TooWideMethodThrowTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/TooWideMethodThrowTypeRule.php#L69"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/TooWideMethodThrowTypeRule.php#L60"
             ]
         }
     },
@@ -8863,7 +8863,7 @@
         },
         "PHPStan\\Rules\\Exceptions\\ThrowsVoidMethodWithExplicitThrowPointRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/ThrowsVoidMethodWithExplicitThrowPointRule.php#L69"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/ThrowsVoidMethodWithExplicitThrowPointRule.php#L64"
             ]
         }
     },
