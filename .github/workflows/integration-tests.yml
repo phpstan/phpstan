@@ -157,7 +157,7 @@ jobs:
         run: "${{ matrix.script }}"
 
   integration-run-phpstan:
-    name: "Integration - Run PHPStan"
+    name: "Integration - ${{ matrix.repo }}"
 
     runs-on: "ubuntu-latest"
     timeout-minutes: 30
@@ -170,118 +170,105 @@ jobs:
       matrix:
         include:
           - php-version: 8.1
+            repo: rectorphp/rector-src
+            ref: 11796980f4d5cc4c2b07d765fdef097697d40708
             setup: |
-              git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout 11796980f4d5cc4c2b07d765fdef097697d40708
               cp ../rector-composer.lock composer.lock
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../rector.neon
             baseline-file: rector-baseline.neon
           - php-version: 8.0
+            repo: sebastianbergmann/phpunit
+            ref: 9.5.12
             setup: |
-              git clone https://github.com/sebastianbergmann/phpunit.git -b 9.5.12 --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
               export COMPOSER_ROOT_VERSION=9.5.12
               composer install
             phpstan-command: ../../../phpstan.phar analyse -l 8 -c ../phpunit.neon src tests
             baseline-file: phpunit-baseline.neon
           - php-version: 8.0
+            repo: pmmp/PocketMine-MP
+            ref: e0b07ff3087b652407439a29c941f3b66ca92c86
             setup: |
-              git clone https://github.com/pmmp/PocketMine-MP.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout e0b07ff3087b652407439a29c941f3b66ca92c86
               composer install --ignore-platform-reqs
             phpstan-command: ../../../phpstan.phar analyse -c ../pocketmine.neon --memory-limit=2G
             baseline-file: pocketmine-baseline.neon
           - php-version: 8.1
+            repo: laravel/framework
+            ref: b900458eb370409c81b42a0be0657641ecbd8e12
             setup: |
-              git clone https://github.com/laravel/framework.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout b900458eb370409c81b42a0be0657641ecbd8e12
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c phpstan.src.neon.dist
             baseline-file: laravel-baseline.neon
           - php-version: 8.1
+            repo: laravel/framework
+            ref: b900458eb370409c81b42a0be0657641ecbd8e12
             setup: |
-              git clone https://github.com/laravel/framework.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout b900458eb370409c81b42a0be0657641ecbd8e12
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c phpstan.types.neon.dist
             baseline-file: laravel-types-baseline.neon
           - php-version: 8.1
+            repo: Roave/BetterReflection
+            ref: 4c8b5f7fa01b4727451e8395bb45ba985fd61f9b
             setup: |
-              git clone https://github.com/Roave/BetterReflection.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout 4c8b5f7fa01b4727451e8395bb45ba985fd61f9b
               composer install
             phpstan-command: ../../../phpstan.phar analyse
             baseline-file: better-reflection-baseline.neon
           - php-version: 8.1
+            repo: composer/composer
+            ref: 776ff2ea51bfa83335b14fa9a85fab5fc7d35050
             setup: |
-              git clone https://github.com/composer/composer.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout 776ff2ea51bfa83335b14fa9a85fab5fc7d35050
               composer install
               composer config platform --unset && composer update
               vendor/bin/simple-phpunit --filter NO_TEST_JUST_AUTOLOAD_THANKS
             phpstan-command: ../../../phpstan.phar analyse -c ../composer.neon
             baseline-file: composer-baseline.neon
           - php-version: 8.1
+            repo: nextras/orm
+            ref: e8a90db35772103f8f035f2fec9bc28ec520ac81
             setup: |
-              git clone https://github.com/nextras/orm.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout e8a90db35772103f8f035f2fec9bc28ec520ac81
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../nextras.neon
             baseline-file: nextras-baseline.neon
           - php-version: 8.1
+            repo: slevomat/coding-standard
+            ref: 02fd9823d970c993b38502263de78fa4161c006a
             setup: |
-              git clone https://github.com/slevomat/coding-standard.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout 02fd9823d970c993b38502263de78fa4161c006a
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../slevomat-cs.neon -l 7 SlevomatCodingStandard
             baseline-file: slevomat-cs-baseline.neon
           - php-version: 8.1
+            repo: slevomat/coding-standard
+            ref: 02fd9823d970c993b38502263de78fa4161c006a
             setup: |
-              git clone https://github.com/slevomat/coding-standard.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout 02fd9823d970c993b38502263de78fa4161c006a
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon -l 7 tests
             baseline-file: slevomat-cs-tests-baseline.neon
           - php-version: 8.1
+            repo: orocrm-phpstan-bugreport
+            ref: 0d429b658a6e7baff863b6f23f5e6fa35c88d6e7
             setup: |
-              git clone https://github.com/ondrejmirtes/orocrm-phpstan-bugreport.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout 0d429b658a6e7baff863b6f23f5e6fa35c88d6e7
               composer install
             phpstan-command: ../../../phpstan analyse
             baseline-file: orocrm-phpstan-bugreport-baseline.neon
           - php-version: 8.1
+            repo: ondrejmirtes/phpstan-magento-testcase
+            ref: f5d8c215569fe5dd22f7236795a353002c0ae58a
             setup: |
-              git clone https://github.com/ondrejmirtes/phpstan-magento-testcase.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout f5d8c215569fe5dd22f7236795a353002c0ae58a
               composer install
             phpstan-command: ../../../phpstan analyse -c ../magento-testcase.neon
             baseline-file: magento-testcase-baseline.neon
           - php-version: 8.1
+            repo: symplify/symplify
+            ref: 92e9b42fba42e75acf5ab89a4dd690340632e352
             setup: |
-              git clone https://github.com/symplify/symplify.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout 92e9b42fba42e75acf5ab89a4dd690340632e352
               cp ../symplify-composer.lock composer.lock
               composer install
             phpstan-command: ../../../phpstan analyse -c ../symplify.neon
             baseline-file: symplify-baseline.neon
           - php-version: 8.1
+            repo: nunomaduro/larastan
+            ref: 11bdd132565d37e808e4ac985a580b492c2d8887
             setup: |
-              git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout 11bdd132565d37e808e4ac985a580b492c2d8887
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
@@ -289,67 +276,65 @@ jobs:
             phpstan-command: ../../../phpstan.phar analyse -c ../larastan.neon
             baseline-file: larastan-baseline.neon
           - php-version: 7.4
+            repo: bitExpert/phpstan-magento
+            ref: f845cd4dbdc49d2e005ec2646176ddfcf7d55d38
             setup: |
-              git clone https://github.com/bitExpert/phpstan-magento.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout f845cd4dbdc49d2e005ec2646176ddfcf7d55d38
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../magento.neon
             baseline-file: magento-baseline.neon
           - php-version: 8.1
+            repo: PrestaShop/PrestaShop
+            ref: 8.0.0
             setup: |
-              git clone https://github.com/PrestaShop/PrestaShop.git -b 8.0.0 --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../prestashop.neon
             baseline-file: prestashop-baseline.neon
           - php-version: 8.1
+            repo: doctrine/orm
+            ref: 2.13.1
             setup: |
-              git clone https://github.com/doctrine/orm.git -b 2.13.1 --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-orm.neon
             baseline-file: doctrine-orm-baseline.neon
           - php-version: 8.1
+            repo: doctrine/collections
+            ref: 1.8.0
             setup: |
-              git clone https://github.com/doctrine/collections.git -b 1.8.0 --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-collections.neon
             baseline-file: doctrine-collections-baseline.neon
           - php-version: 8.1
+            repo: doctrine/collections
+            ref: 2.0.1
             setup: |
-              git clone https://github.com/doctrine/collections.git -b 2.0.1 --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-collections.neon
             baseline-file: doctrine-collections-baseline.neon
           - php-version: 8.1
+            repo: doctrine/dbal
+            ref: 3.6.0
             setup: |
-              git clone https://github.com/doctrine/dbal.git -b 3.6.0 --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-dbal.neon
             baseline-file: doctrine-dbal-baseline.neon
           - php-version: 8.1
+            repo: ondrejmirtes/common
+            ref: 51cdabdbbe2c379af3de74e6da4814383181ae55
             setup: |
-              git clone https://github.com/ondrejmirtes/common.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout 51cdabdbbe2c379af3de74e6da4814383181ae55
               composer install
             phpstan-command: ../../../phpstan.phar analyse
             baseline-file: doctrine-common-baseline.neon
           - php-version: 8.1
+            repo: doctrine/persistence
+            ref: 3.0.3
             setup: |
-              git clone https://github.com/doctrine/persistence.git -b 3.0.3 --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-persistence.neon
             baseline-file: doctrine-persistence-baseline.neon
           - php-version: 8.1
+            repo: shipmonk-rnd/phpstan-rules
+            ref: 1.1.1
             setup: |
-              git clone https://github.com/shipmonk-rnd/phpstan-rules.git -b 1.1.1 --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
@@ -357,38 +342,37 @@ jobs:
             phpstan-command: ../../../phpstan.phar analyse -c ../shipmonk.neon
             baseline-file: shipmonk-rnd-baseline.neon
           - php-version: 8.1
+            repo: drupal/drupal
+            ref: 10.0.0
             setup: |
-              git clone https://git.drupalcode.org/project/drupal.git -b 10.0.0 --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../drupal.neon
             baseline-file: drupal-baseline.neon
           - php-version: 8.1
+            repo: webmozarts/assert
+            ref: 1.11.0
             setup: |
-              git clone https://github.com/webmozarts/assert.git -b 1.11.0 --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
               composer install
             phpstan-command: ../../../phpstan.phar analyse -l 9 tests/static-analysis -c ../webmozart.neon
             baseline-file: webmozart-assert-baseline.neon
           - php-version: 8.1
+            repo: briannesbitt/Carbon
+            ref: 0af369fba2435afe17a97cfa9a02a8e84d6c6640
             setup: |
-              git clone https://github.com/briannesbitt/Carbon.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout 0af369fba2435afe17a97cfa9a02a8e84d6c6640
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../carbon.neon
             baseline-file: carbon-baseline.neon
           - php-version: 8.2
+            repo: nikic/PHP-Parser
+            ref: v5.0.0alpha2
             setup: |
-              git clone https://github.com/nikic/PHP-Parser.git -b v5.0.0alpha2 --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
               composer install
             phpstan-command: ../../../phpstan.phar analyse
             baseline-file: php-parser-baseline.neon
           - php-version: 8.1
+            repo: efabrica-team/phpstan-latte
+            ref: 0.13.2
             setup: |
-              git clone https://github.com/efabrica-team/phpstan-latte.git -b 0.8.0 --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
@@ -396,9 +380,9 @@ jobs:
             phpstan-command: ../../../phpstan.phar analyze src --level=max -c ../efabrica-phpstan-latte.neon
             baseline-file: efabrica-phpstan-latte-baseline.neon
           - php-version: 8.1
+            repo: TomasVotruba/bladestan
+            ref: 0.2.1
             setup: |
-              git clone https://github.com/TomasVotruba/bladestan.git -b 0.2.1 --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
@@ -406,9 +390,9 @@ jobs:
             phpstan-command: ../../../phpstan.phar analyse
             baseline-file: bladestan-baseline.neon
           - php-version: 8.2
+            repo: reactphp/promise
+            ref: v3.0.0
             setup: |
-              git clone https://github.com/reactphp/promise.git -b v3.0.0 --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
               composer install
             phpstan-command: ../../../phpstan.phar analyse
             baseline-file: react-promise-baseline.neon
@@ -435,7 +419,15 @@ jobs:
         with:
           name: phar-file
 
+      - name: "Checkout project"
+        uses: actions/checkout@v3
+        with:
+          repository: "${{ matrix.repo }}"
+          ref: "${{ matrix.ref }}"
+          path: e2e/integration/repo
+
       - name: "Setup"
+        working-directory: e2e/integration/repo
         run: "${{ matrix.setup }}"
 
       - name: "PHPStan"
