@@ -244,7 +244,7 @@ jobs:
             phpstan-command: ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon -l 7 tests
             baseline-file: slevomat-cs-tests-baseline.neon
           - php-version: 8.1
-            repo: orocrm-phpstan-bugreport
+            repo: ondrejmirtes/orocrm-phpstan-bugreport
             ref: 0d429b658a6e7baff863b6f23f5e6fa35c88d6e7
             setup: |
               composer install
