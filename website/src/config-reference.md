@@ -549,7 +549,7 @@ Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedException
 Vague typehints
 ------------
 
-[Level 6](#rule-level) checks for missing typehints. Not only it reports when there's no typehing at all, but also when it's not specific enough. PHPStan needs to know about array item types. So `array` isn't specific enough but `int[]` is.
+[Level 6](#rule-level) checks for missing typehints. Not only it reports when there's no typehint at all, but also when it's not specific enough. PHPStan needs to know about array item types. So `array` isn't specific enough but `int[]` is.
 
 If you want to use level 6 to report missing typehints, but are fine with `array` instead of `int[]`, you can disable this behaviour by setting `checkMissingIterableValueType` key to false:
 
