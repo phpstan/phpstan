@@ -30,7 +30,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/crispnl">crispnl (crispnl)</a></li>
 <li><a href="https://github.com/inviqa">Inviqa (inviqa)</a></li>
 <li><a href="https://github.com/hephaist-io">Hephaist.io (hephaist-io)</a></li>
-<li><a href="https://github.com/Psyonix-PsyNet">Psyonix (Psyonix-PsyNet)</a></li>
 <li><a href="https://github.com/AcroMedia">Acro Media (AcroMedia)</a></li>
 <li><a href="https://github.com/AmezmoOfficial">Amezmo (AmezmoOfficial)</a></li>
 <li><a href="https://github.com/mceglowski"> (mceglowski)</a></li>
@@ -41,7 +40,6 @@ the logo of your company in PHPStan's README and the website.
 
 <ul>
 <!-- thirty --><li><a href="https://github.com/martin-georgiev">Martin Georgiev (martin-georgiev)</a></li>
-<li><a href="https://github.com/uppler">Uppler (uppler)</a></li>
 <li><a href="https://github.com/dktapps">Dylan T. (dktapps)</a></li>
 <li><a href="https://github.com/glami">GLAMI (glami)</a></li>
 <!-- thirty -->
