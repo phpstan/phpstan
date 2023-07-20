@@ -1222,14 +1222,14 @@
     "assign.readOnlyProperty": {
         "PHPStan\\Rules\\Properties\\MissingReadOnlyPropertyAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyPropertyAssignRule.php#L74"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyPropertyAssignRule.php#L75"
             ]
         }
     },
     "assign.readOnlyPropertyByPhpDoc": {
         "PHPStan\\Rules\\Properties\\MissingReadOnlyByPhpDocPropertyAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyByPhpDocPropertyAssignRule.php#L72"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyByPhpDocPropertyAssignRule.php#L73"
             ]
         }
     },
@@ -7910,7 +7910,7 @@
         "PHPStan\\Rules\\Properties\\UninitializedPropertyRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/UninitializedPropertyRule.php#L46",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/UninitializedPropertyRule.php#L60"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/UninitializedPropertyRule.php#L61"
             ]
         }
     },
@@ -7918,7 +7918,7 @@
         "PHPStan\\Rules\\Properties\\MissingReadOnlyPropertyAssignRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyPropertyAssignRule.php#L46",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyPropertyAssignRule.php#L60"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/MissingReadOnlyPropertyAssignRule.php#L61"
             ]
         }
     },
