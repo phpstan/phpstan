@@ -34,7 +34,7 @@ can be checked before you run the actual line.
 <br>
 <a href="https://www.iodigital.com/"><img src="https://i.imgur.com/fJlw1n9.png" alt="iO" width="254" height="65"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://jobs.ticketswap.com/"><img src="https://i.imgur.com/lhzcutK.png" alt="TicketSwap" width="269" height="64"></a>
+<a href="https://www.amezmo.com"><img src="https://i.imgur.com/BsF2Twn.png" alt="Amezmo" width="283" height="64"></a>
 <br>
 <a href="https://www.startupjobs.cz/startup/shipmonk"><img src="https://i.imgur.com/bAC47za.jpg" alt="ShipMonk" width="290" height="64"></a>
 &nbsp;&nbsp;&nbsp;
@@ -62,7 +62,7 @@ can be checked before you run the actual line.
 <br>
 <a href="https://www.cdn77.com/"><img src="https://i.imgur.com/Oo3wA3m.png" alt="CDN77" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://www.amezmo.com"><img src="https://i.imgur.com/BsF2Twn.png" alt="Amezmo" width="283" height="64"></a>
+
 
 
 [**You can now sponsor my open-source work on PHPStan through GitHub Sponsors.**](https://github.com/sponsors/ondrejmirtes)
