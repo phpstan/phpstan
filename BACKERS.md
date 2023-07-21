@@ -20,7 +20,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/blackfireio">Blackfire (blackfireio)</a></li>
 <li><a href="https://github.com/RightCapitalHQ">RightCapital (RightCapitalHQ)</a></li>
 <li><a href="https://github.com/zolweb">ZOL (zolweb)</a></li>
-<li><a href="https://github.com/TicketSwap">TicketSwap (TicketSwap)</a></li>
 <li><a href="https://github.com/craftcms">Craft CMS (craftcms)</a></li>
 <li><a href="https://github.com/worksome">Worksome (worksome)</a></li>
 <li><a href="https://github.com/cdn77">CDN77.com (cdn77)</a></li>
@@ -42,6 +41,7 @@ the logo of your company in PHPStan's README and the website.
 <!-- thirty --><li><a href="https://github.com/martin-georgiev">Martin Georgiev (martin-georgiev)</a></li>
 <li><a href="https://github.com/dktapps">Dylan T. (dktapps)</a></li>
 <li><a href="https://github.com/glami">GLAMI (glami)</a></li>
+<li><a href="https://github.com/jbelien">Jonathan Beliën (jbelien)</a></li>
 <!-- thirty -->
 
 <!-- thirty-org --><!-- thirty-org -->
