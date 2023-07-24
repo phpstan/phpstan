@@ -5060,7 +5060,7 @@
     "ignore.unmatchedLine": {
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L210"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L200"
             ]
         }
     },
@@ -7283,9 +7283,9 @@
         },
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L100",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L136",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L221"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L103",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L127",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L211"
             ]
         },
         "PHPStan\\Command\\AnalyseApplication": {
@@ -7314,35 +7314,35 @@
     "phpstan.parse": {
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L215",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L218"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L205",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L208"
             ]
         }
     },
     "phpstan.path": {
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L228",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L230"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L218",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L220"
             ]
         }
     },
     "phpstan.php": {
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L328"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L270"
             ]
         }
     },
     "phpstan.reflection": {
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L103",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L106",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L139",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L142",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L223",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L225"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L109",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L130",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L133",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L213",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L215"
             ]
         },
         "PHPStan\\Command\\AnalyseApplication": {
