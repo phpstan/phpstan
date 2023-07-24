@@ -408,9 +408,9 @@
   integrity sha512-RupHSZ8+OjNT38zU9fKH2sv+Dnlr8Eb8sl4NOnnqz95mCFTZUaiRP8Xv5MeeaG0px2b8Bnfe7YGwCV3nsBhbuw==
 
 "@codemirror/view@^6.0.0", "@codemirror/view@^6.2.2", "@codemirror/view@^6.6.0", "@codemirror/view@^6.9.2":
-  version "6.14.1"
-  resolved "https://registry.yarnpkg.com/@codemirror/view/-/view-6.14.1.tgz#22cbc9b95887c996d1e886e6a85a8bb353cacce6"
-  integrity sha512-ofcsI7lRFo4N0rfnd+V3Gh2boQU3DmaaSKhDOvXUWjeOeuupMXer2e/3i9TUFN7aEIntv300EFBWPEiYVm2svg==
+  version "6.15.3"
+  resolved "https://registry.yarnpkg.com/@codemirror/view/-/view-6.15.3.tgz#b26dac3e1812821daa6da25f59ffb26c9b9b75f3"
+  integrity sha512-chNgR8H7Ipx7AZUt0+Kknk7BCow/ron3mHd1VZdM7hQXiI79+UlWqcxpCiexTxZQ+iSkqndk3HHAclJOcjSuog==
   dependencies:
     "@codemirror/state" "^6.1.4"
     style-mod "^4.0.0"
@@ -1461,57 +1461,57 @@
   resolved "https://registry.yarnpkg.com/@remusao/trie/-/trie-1.4.1.tgz#755d09f8a007476334e611f42719b2d581f00720"
   integrity sha512-yvwa+aCyYI/UjeD39BnpMypG8N06l86wIDW1/PAc6ihBRnodIfZDwccxQN3n1t74wduzaz74m4ZMHZnB06567Q==
 
-"@sentry-internal/tracing@7.58.1":
-  version "7.58.1"
-  resolved "https://registry.yarnpkg.com/@sentry-internal/tracing/-/tracing-7.58.1.tgz#9be915092793da7f1e63eb0c56c7663c6e639933"
-  integrity sha512-kOWKqyjYdDgvO6CacXneE9UrFQHT3BXF1UpCAlnHchW/TqRFmg89sJAEUjEPGzN7y6IaX1G4j2dBPDE0OFQi3w==
+"@sentry-internal/tracing@7.60.0":
+  version "7.60.0"
+  resolved "https://registry.yarnpkg.com/@sentry-internal/tracing/-/tracing-7.60.0.tgz#4f101d936a45965b086e042a3fba7ec7683cc034"
+  integrity sha512-2qvxmR954H+K7u4o92sS2u+hntzshem9XwfHAqDvBe51arNbFVy8LfJTJ5fffgZq/6jXlozCO0/6aR5yLR5mBg==
   dependencies:
-    "@sentry/core" "7.58.1"
-    "@sentry/types" "7.58.1"
-    "@sentry/utils" "7.58.1"
+    "@sentry/core" "7.60.0"
+    "@sentry/types" "7.60.0"
+    "@sentry/utils" "7.60.0"
     tslib "^2.4.1 || ^1.9.3"
 
 "@sentry/browser@^7.52.1":
-  version "7.58.1"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-7.58.1.tgz#ad6ab07339f814c46add84e5dc4390b738f38730"
-  integrity sha512-7+6Z/T7m0A/2/ImMCakpMOaWTPxmENzTdaojhkyVQKuYUZr7mCe4nco0jsongwY634zSUziuVsibi0jxMMTdBA==
+  version "7.60.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-7.60.0.tgz#feb49746c9b650a968cfa58fa8e6ae43448d7821"
+  integrity sha512-WznY6zrJxCUHZns8jTvDsZw3aaHriSP+jqD+wkXZG3ceooQwFn0RkAstUuoG7YyP4Foinznn3+caeQD4ZjWaXQ==
   dependencies:
-    "@sentry-internal/tracing" "7.58.1"
-    "@sentry/core" "7.58.1"
-    "@sentry/replay" "7.58.1"
-    "@sentry/types" "7.58.1"
-    "@sentry/utils" "7.58.1"
+    "@sentry-internal/tracing" "7.60.0"
+    "@sentry/core" "7.60.0"
+    "@sentry/replay" "7.60.0"
+    "@sentry/types" "7.60.0"
+    "@sentry/utils" "7.60.0"
     tslib "^2.4.1 || ^1.9.3"
 
-"@sentry/core@7.58.1":
-  version "7.58.1"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.58.1.tgz#d4010f2b0bcfe87b57fa490c0c7ab7a567ed4707"
-  integrity sha512-hpeB5fZ5T6Jg1CBqz486jHgWuJ5R/HD0wyYX+S3LDDsHCJo6V3TxNuoxYDlTTerRRfZdTwr9GYJXskehpU26IA==
+"@sentry/core@7.60.0":
+  version "7.60.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.60.0.tgz#c256d1305b52210d608e71de8d8f365ca9377f15"
+  integrity sha512-B02OlFMoqdkfDZlbQfmk7tL2vObShofk7ySd/7mp+oRdUuCvX0tyrGlwI87YJvd8YWSZOCKINs3aVYivw/b6gg==
   dependencies:
-    "@sentry/types" "7.58.1"
-    "@sentry/utils" "7.58.1"
+    "@sentry/types" "7.60.0"
+    "@sentry/utils" "7.60.0"
     tslib "^2.4.1 || ^1.9.3"
 
-"@sentry/replay@7.58.1":
-  version "7.58.1"
-  resolved "https://registry.yarnpkg.com/@sentry/replay/-/replay-7.58.1.tgz#daa389ba215f90f6579c388f67a9cf34b613c3a9"
-  integrity sha512-KKlpIxGrH1deTr/R3BErX8y16MnOzEylBVVn2I31BglLoZETFS9JAle6JNOgGxS5apFjwdQmD+69vX/mlVhMow==
+"@sentry/replay@7.60.0":
+  version "7.60.0"
+  resolved "https://registry.yarnpkg.com/@sentry/replay/-/replay-7.60.0.tgz#9f59dfb8e7acff5b269ed8752a13c7b1d0f2bb75"
+  integrity sha512-iVSs+mhgjeK0qqLdCqbCa1P4I6hETHCUq14pTYp0bwGrI1D/a1Ho/6wLkwXv47Gnrwaba/7JFM+IxZcN4FzfmQ==
   dependencies:
-    "@sentry/core" "7.58.1"
-    "@sentry/types" "7.58.1"
-    "@sentry/utils" "7.58.1"
+    "@sentry/core" "7.60.0"
+    "@sentry/types" "7.60.0"
+    "@sentry/utils" "7.60.0"
 
-"@sentry/types@7.58.1":
-  version "7.58.1"
-  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.58.1.tgz#c67f99f9af82ea930cdf895d71ae049575e38bf7"
-  integrity sha512-OnKG+yrilPBeVNQK3biF0u/4IDjwH+boJU1XzJOnYdMRO8uzTWxvaRqpt0C8sVE9VAetRi2eutkzOgCXZISRrw==
+"@sentry/types@7.60.0":
+  version "7.60.0"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.60.0.tgz#e3e5f16436feff802b1b126a16dba537000cef55"
+  integrity sha512-MSEuF9YjE0j+UKdqee2AzcNlMnShVNTkCB2Wnng6Bc5hHhn4fyYeTLbuFpNxL0ffN65lxblaWx6doDsMcvRxcA==
 
-"@sentry/utils@7.58.1":
-  version "7.58.1"
-  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.58.1.tgz#b5e8ee53ce2f8ba7833a4a4e28044eaa1da9fa2f"
-  integrity sha512-iC9xZJBHp4+MDrZjKwcmMUhI5sTmpUcttwmsJL9HA6ACW+L1XX2eGSDky5pSlhhVFR7q7jJnQ7YUlMQ/jcd8eQ==
+"@sentry/utils@7.60.0":
+  version "7.60.0"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.60.0.tgz#a96d772dcc2d007f73a5bcf67dcc66f6a7085736"
+  integrity sha512-Oc/PQqzeNDOSy4ZzVj6h9U+GEGRkg2PEVn9PC2V9/v3HDD20mndFqR/S2B5OOgDb/6pNGyz8XiZYI5rb29WFHA==
   dependencies:
-    "@sentry/types" "7.58.1"
+    "@sentry/types" "7.60.0"
     tslib "^2.4.1 || ^1.9.3"
 
 "@sindresorhus/slugify@^1.1.2":
@@ -4065,9 +4065,9 @@ postcss-value-parser@^4.0.0, postcss-value-parser@^4.1.0, postcss-value-parser@^
   integrity sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==
 
 postcss@^8.3.9, postcss@^8.4.23:
-  version "8.4.26"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.26.tgz#1bc62ab19f8e1e5463d98cf74af39702a00a9e94"
-  integrity sha512-jrXHFF8iTloAenySjM/ob3gSj7pCu0Ji49hnjqzsgSRa50hkWCKD0HQ+gMNJkW38jBI68MpAAg7ZWwHwX8NMMw==
+  version "8.4.27"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.27.tgz#234d7e4b72e34ba5a92c29636734349e0d9c3057"
+  integrity sha512-gY/ACJtJPSmUFPDCHtX78+01fHa64FaU4zaaWfuh1MhGJISufJAH4cun6k/8fwsHYeK4UQmENQK+tRLCFJE8JQ==
   dependencies:
     nanoid "^3.3.6"
     picocolors "^1.0.0"
