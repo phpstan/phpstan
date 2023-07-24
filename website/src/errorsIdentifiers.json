@@ -5632,7 +5632,7 @@
         },
         "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodSignatureRule.php#L105"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodSignatureRule.php#L137"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
@@ -5641,19 +5641,19 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L258",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L286",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L306",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodSignatureRule.php#L105"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodSignatureRule.php#L137"
             ]
         }
     },
     "method.childReturnType": {
         "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodSignatureRule.php#L80"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodSignatureRule.php#L87"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodSignatureRule.php#L80",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodSignatureRule.php#L87",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L195",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L208"
             ]
@@ -8369,7 +8369,8 @@
         },
         "PHPStan\\Rules\\Methods\\ReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L103"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L103",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/ReturnTypeRule.php#L107"
             ]
         }
     },
