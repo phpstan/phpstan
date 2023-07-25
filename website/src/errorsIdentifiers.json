@@ -5043,17 +5043,17 @@
         }
     },
     "ignore.count": {
-        "PHPStan\\Analyser\\IgnoredErrorHelperResult": {
+        "PHPStan\\Analyser\\Ignore\\IgnoredErrorHelperResult": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/IgnoredErrorHelperResult.php#L185",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/IgnoredErrorHelperResult.php#L211"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L186",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L212"
             ]
         }
     },
     "ignore.unmatched": {
-        "PHPStan\\Analyser\\IgnoredErrorHelperResult": {
+        "PHPStan\\Analyser\\Ignore\\IgnoredErrorHelperResult": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/IgnoredErrorHelperResult.php#L226"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L227"
             ]
         }
     },
