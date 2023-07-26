@@ -28,7 +28,7 @@ can be checked before you run the actual line.
 &nbsp;&nbsp;&nbsp;
 <a href="https://packagist.com/?utm_source=phpstan&utm_medium=readme&utm_campaign=sponsorlogo"><img src="https://i.imgur.com/B2T63Do.png" alt="Private Packagist" width="283" height="64"></a>
 <br>
-<a href="https://careers.tuigroup.com/jobs/"><img src="https://i.imgur.com/uw5rAlR.png" alt="Musement" width="247" height="49"></a>
+<a href="https://www.cdn77.com/"><img src="https://i.imgur.com/Oo3wA3m.png" alt="CDN77" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://blackfire.io/docs/introduction?utm_source=phpstan&utm_medium=github_readme&utm_campaign=logo"><img src="https://i.imgur.com/zR8rsqk.png" alt="Blackfire.io" width="254" height="64"></a>
 <br>
@@ -59,10 +59,6 @@ can be checked before you run the actual line.
 <a href="https://www.crisp.nl/"><img src="https://i.imgur.com/jRJyPve.png" alt="Crisp.nl" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
 <a href="https://inviqa.com/"><img src="https://i.imgur.com/G99rj45.png" alt="Inviqa" width="254" height="65"></a>
-<br>
-<a href="https://www.cdn77.com/"><img src="https://i.imgur.com/Oo3wA3m.png" alt="CDN77" width="283" height="64"></a>
-&nbsp;&nbsp;&nbsp;
-
 
 
 [**You can now sponsor my open-source work on PHPStan through GitHub Sponsors.**](https://github.com/sponsors/ondrejmirtes)
