@@ -390,7 +390,7 @@ jobs:
               cd test
               ../../../phpstan
           - php-version: 8.1
-            extensions: none
+            extensions: none, mbstring
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
             script: |
