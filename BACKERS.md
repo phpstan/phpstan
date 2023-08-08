@@ -10,7 +10,6 @@ the logo of your company in PHPStan's README and the website.
 
 <ul>
 <li><a href="https://packagist.com/">Private Packagist</a></li>
-<li><a href="https://careers.tuigroup.com/jobs/">Musement</a></li>
 <li><a href="https://www.startupjobs.cz/startup/shipmonk">Shipmonk</a></li>
 <li><a href="https://www.contentkingapp.com/?ref=php-developer&utm_source=phpstan&utm_medium=referral&utm_campaign=sponsorship">ContentKing</a></li>
 <li><a href="https://www.shopware.com/en/">Shopware</a></li>
