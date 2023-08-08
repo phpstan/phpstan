@@ -1,37 +1,32 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductInterface\\:\\:getCategoryIds\\(\\)\\.$#"
+			message: "#^Call to method create\\(\\) on an unknown class Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtensionFactory\\.$#"
 			count: 1
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
 
 		-
-			message: "#^Call to an undefined method Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtensionInterface\\:\\:setDdgBrand\\(\\)\\.$#"
-			count: 1
-			path: repo/Ui/DataProvider/WebBehaviourTracking.php
-
-		-
-			message: "#^Call to an undefined method Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtensionInterface\\:\\:setDdgCategories\\(\\)\\.$#"
-			count: 1
-			path: repo/Ui/DataProvider/WebBehaviourTracking.php
-
-		-
-			message: "#^Call to an undefined method Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtensionInterface\\:\\:setDdgDescription\\(\\)\\.$#"
-			count: 1
-			path: repo/Ui/DataProvider/WebBehaviourTracking.php
-
-		-
-			message: "#^Call to an undefined method Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtensionInterface\\:\\:setDdgImage\\(\\)\\.$#"
-			count: 1
-			path: repo/Ui/DataProvider/WebBehaviourTracking.php
-
-		-
-			message: "#^Call to an undefined method Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtensionInterface\\:\\:setDdgSku\\(\\)\\.$#"
+			message: "#^Call to method create\\(\\) on an unknown class Magento\\\\Catalog\\\\Model\\\\ResourceModel\\\\Category\\\\CollectionFactory\\.$#"
 			count: 1
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
 
 		-
 			message: "#^Call to method getBrandAttributeByWebsiteId\\(\\) on an unknown class Dotdigitalgroup\\\\Email\\\\Helper\\\\Data\\.$#"
+			count: 1
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Call to method getCategoryIds\\(\\) on an unknown class Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductInterface\\.$#"
+			count: 1
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Call to method getCustomAttribute\\(\\) on an unknown class Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductInterface\\.$#"
+			count: 2
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Call to method getExtensionAttributes\\(\\) on an unknown class Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderInterface\\.$#"
 			count: 1
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
 
@@ -46,6 +41,16 @@ parameters:
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
 
 		-
+			message: "#^Call to method getSku\\(\\) on an unknown class Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductInterface\\.$#"
+			count: 1
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Call to method getStore\\(\\) on an unknown class Magento\\\\Store\\\\Model\\\\StoreManagerInterface\\.$#"
+			count: 3
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
 			message: "#^Call to method isEnabled\\(\\) on an unknown class Dotdigitalgroup\\\\Email\\\\Helper\\\\Data\\.$#"
 			count: 1
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
@@ -56,13 +61,38 @@ parameters:
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
 
 		-
+			message: "#^Call to method setExtensionAttributes\\(\\) on an unknown class Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderInterface\\.$#"
+			count: 1
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Caught class Magento\\\\Framework\\\\Exception\\\\LocalizedException not found\\.$#"
+			count: 1
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Caught class Magento\\\\Framework\\\\Exception\\\\NoSuchEntityException not found\\.$#"
+			count: 1
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Method Dotdigitalgroup\\\\Email\\\\Ui\\\\DataProvider\\\\WebBehaviourTracking\\:\\:collect\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
 			message: "#^Method Dotdigitalgroup\\\\Email\\\\Ui\\\\DataProvider\\\\WebBehaviourTracking\\:\\:getProductBrand\\(\\) should return string\\|null but return statement is missing\\.$#"
 			count: 1
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
+			message: "#^PHPDoc tag @var for variable \\$extensionAttributes contains unknown class Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtension\\.$#"
 			count: 1
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Parameter \\$categoryCollectionFactory of method Dotdigitalgroup\\\\Email\\\\Ui\\\\DataProvider\\\\WebBehaviourTracking\\:\\:__construct\\(\\) has invalid type Magento\\\\Catalog\\\\Model\\\\ResourceModel\\\\Category\\\\CollectionFactory\\.$#"
+			count: 2
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
 
 		-
@@ -81,6 +111,46 @@ parameters:
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
 
 		-
+			message: "#^Parameter \\$product of method Dotdigitalgroup\\\\Email\\\\Ui\\\\DataProvider\\\\WebBehaviourTracking\\:\\:collect\\(\\) has invalid type Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductInterface\\.$#"
+			count: 2
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Parameter \\$product of method Dotdigitalgroup\\\\Email\\\\Ui\\\\DataProvider\\\\WebBehaviourTracking\\:\\:getProductBrand\\(\\) has invalid type Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductInterface\\.$#"
+			count: 2
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Parameter \\$product of method Dotdigitalgroup\\\\Email\\\\Ui\\\\DataProvider\\\\WebBehaviourTracking\\:\\:getProductCategories\\(\\) has invalid type Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductInterface\\.$#"
+			count: 2
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Parameter \\$product of method Dotdigitalgroup\\\\Email\\\\Ui\\\\DataProvider\\\\WebBehaviourTracking\\:\\:getProductImage\\(\\) has invalid type Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductInterface\\.$#"
+			count: 2
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Parameter \\$productRender of method Dotdigitalgroup\\\\Email\\\\Ui\\\\DataProvider\\\\WebBehaviourTracking\\:\\:collect\\(\\) has invalid type Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderInterface\\.$#"
+			count: 2
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Parameter \\$productRenderExtensionFactory of method Dotdigitalgroup\\\\Email\\\\Ui\\\\DataProvider\\\\WebBehaviourTracking\\:\\:__construct\\(\\) has invalid type Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtensionFactory\\.$#"
+			count: 2
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Parameter \\$storeManager of method Dotdigitalgroup\\\\Email\\\\Ui\\\\DataProvider\\\\WebBehaviourTracking\\:\\:__construct\\(\\) has invalid type Magento\\\\Store\\\\Model\\\\StoreManagerInterface\\.$#"
+			count: 2
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Property Dotdigitalgroup\\\\Email\\\\Ui\\\\DataProvider\\\\WebBehaviourTracking\\:\\:\\$categoryCollectionFactory has unknown class Magento\\\\Catalog\\\\Model\\\\ResourceModel\\\\Category\\\\CollectionFactory as its type\\.$#"
+			count: 1
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
 			message: "#^Property Dotdigitalgroup\\\\Email\\\\Ui\\\\DataProvider\\\\WebBehaviourTracking\\:\\:\\$helper has unknown class Dotdigitalgroup\\\\Email\\\\Helper\\\\Data as its type\\.$#"
 			count: 1
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
@@ -92,6 +162,16 @@ parameters:
 
 		-
 			message: "#^Property Dotdigitalgroup\\\\Email\\\\Ui\\\\DataProvider\\\\WebBehaviourTracking\\:\\:\\$imageType has unknown class Dotdigitalgroup\\\\Email\\\\Model\\\\Product\\\\ImageType\\\\Context\\\\AbandonedBrowse as its type\\.$#"
+			count: 1
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Property Dotdigitalgroup\\\\Email\\\\Ui\\\\DataProvider\\\\WebBehaviourTracking\\:\\:\\$productRenderExtensionFactory has unknown class Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtensionFactory as its type\\.$#"
+			count: 1
+			path: repo/Ui/DataProvider/WebBehaviourTracking.php
+
+		-
+			message: "#^Property Dotdigitalgroup\\\\Email\\\\Ui\\\\DataProvider\\\\WebBehaviourTracking\\:\\:\\$storeManager has unknown class Magento\\\\Store\\\\Model\\\\StoreManagerInterface as its type\\.$#"
 			count: 1
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
 
