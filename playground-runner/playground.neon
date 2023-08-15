@@ -1,4 +1,5 @@
 rules:
 	- PHPStan\Rules\Playground\FunctionNeverRule
 	- PHPStan\Rules\Playground\MethodNeverRule
+	- PHPStan\Rules\Playground\NotAnalysedTraitRule
 	- PHPStan\Rules\Playground\NoPhpCodeRule
