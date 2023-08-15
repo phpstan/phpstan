@@ -35,7 +35,7 @@ $phpstanVersion = \Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPret
 function getCollectedDataErrors(\PHPStan\DependencyInjection\Container $container, array $collectedData): array
 {
 	$nodeType = CollectedDataNode::class;
-	$node = new CollectedDataNode($collectedData);
+	$node = new CollectedDataNode($collectedData, true);
 	$file = 'N/A';
 	$scope = $container->getByType(ScopeFactory::class)->create(ScopeContext::create($file));
 	$ruleRegistry = $container->getByType(\PHPStan\Rules\Registry::class);
