@@ -115,3 +115,14 @@ parameters:
     bootstrapFiles:
         - tools/phpunit.phar
 ```
+
+Other PHAR files
+---------------------------
+
+If you have difficulties discovering symbols from PHAR files and the above PHPUnit trick does not work for you, try this instead:
+
+```yaml
+parameters:
+    scanDirectories:
+        - phar://%currentWorkingDirectory%/bin/robo.phar
+```
