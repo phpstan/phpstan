@@ -98,14 +98,10 @@ parameters:
 			tooWideThrowType: true
 ```
 
-Dead catch reporting in bleeding edge
+Dead catch reporting
 ------------------------
 
-This rule is actually going to be enabled by default for everyone in the [next major version](/blog/what-is-bleeding-edge), because I believe it's useful regardless of anyone's view of how exceptions should be categorized and handled.
-
-This error will be reported when there's a `catch` block for an exception that isn't thrown in the `try` block.
-
-Try it today with [bleeding edge](/blog/what-is-bleeding-edge):
+Error will be reported when there's a `catch` block for an exception that isn't thrown in the `try` block. It works even for multi-catch statements if you enable [bleedingEdge](/blog/what-is-bleeding-edge) (since [1.10.16](https://github.com/phpstan/phpstan/releases/tag/1.10.16)). This will be enabled by default in next major version as I believe it's useful regardless of anyone's view of how exceptions should be categorized and handled.
 
 ```neon
 includes:
