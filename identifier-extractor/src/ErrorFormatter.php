@@ -23,7 +23,7 @@ class ErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorFormatter
 
 		$json = [];
 		foreach ($analysisResult->getFileSpecificErrors() as $error) {
-			if ($error->getIdentifier() === 'ignore.unmatchedLine') {
+			if ($error->getIdentifier() === 'ignore.unmatchedLine' || $error->getIdentifier() === 'ignore.unmatchedIdentifier') {
 				continue;
 			}
 			if ($error->getIdentifier() !== 'phpstanIdentifierExtractor.data') {
