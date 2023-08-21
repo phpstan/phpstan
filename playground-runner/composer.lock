@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "bref/bref",
-            "version": "2.1.1",
+            "version": "2.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/bref.git",
-                "reference": "3a4a335981b7a9fd4c603041c70a098af91e4029"
+                "reference": "e2488b4ffa6a7a1355ef88a6da0678c147c28363"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/bref/zipball/3a4a335981b7a9fd4c603041c70a098af91e4029",
-                "reference": "3a4a335981b7a9fd4c603041c70a098af91e4029",
+                "url": "https://api.github.com/repos/brefphp/bref/zipball/e2488b4ffa6a7a1355ef88a6da0678c147c28363",
+                "reference": "e2488b4ffa6a7a1355ef88a6da0678c147c28363",
                 "shasum": ""
             },
             "require": {
@@ -43,7 +43,8 @@
                 "guzzlehttp/guzzle": "^7.5",
                 "phpstan/phpstan": "^1.10.26",
                 "phpunit/phpunit": "^9.6.10",
-                "symfony/console": "^4.4|^5.0|^6.0|^7.0"
+                "symfony/console": "^4.4|^5.0|^6.0|^7.0",
+                "symfony/yaml": "^4.4|^5.0|^6.0|^7.0"
             },
             "bin": [
                 "bref",
@@ -70,7 +71,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brefphp/bref/issues",
-                "source": "https://github.com/brefphp/bref/tree/2.1.1"
+                "source": "https://github.com/brefphp/bref/tree/2.1.2"
             },
             "funding": [
                 {
@@ -82,7 +83,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-08-07T13:53:50+00:00"
+            "time": "2023-08-14T13:24:35+00:00"
         },
         {
             "name": "clue/stream-filter",
