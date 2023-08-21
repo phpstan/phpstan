@@ -41,7 +41,6 @@ the logo of your company in PHPStan's README and the website.
 <!-- thirty --><li><a href="https://github.com/martin-georgiev">Martin Georgiev (martin-georgiev)</a></li>
 <li><a href="https://github.com/dktapps">Dylan T. (dktapps)</a></li>
 <li><a href="https://github.com/glami">GLAMI (glami)</a></li>
-<li><a href="https://github.com/jbelien">Jonathan Beliën (jbelien)</a></li>
 <!-- thirty -->
 
 <!-- thirty-org --><!-- thirty-org -->
@@ -152,5 +151,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/loganmarchione">Logan Marchione (loganmarchione)</a></li>
 <li><a href="https://github.com/olliescase">Oliver Scase (olliescase)</a></li>
 <li><a href="https://github.com/zajca">Martin Zajíc (zajca)</a></li>
+<li><a href="https://github.com/o0h">Hideki Kinjyo (o0h)</a></li>
+<li><a href="https://github.com/tenkoma">Koji Tanaka (tenkoma)</a></li>
 <!-- five-org -->
 </ul>
