@@ -16,7 +16,7 @@ You can ask what value the object represents by calling one of these instance me
 * `PHPStan\TrinaryLogic::yes(): bool`
 * `PHPStan\TrinaryLogic::maybe(): bool`
 * `PHPStan\TrinaryLogic::no(): bool`
-* `PHPStan\TrinaryLogic::no(self $other): bool`
+* `PHPStan\TrinaryLogic::equals(self $other): bool`
 
 The object is immutable. You can combine multiple instances either with AND or OR logical operations. These methods return new instances:
 
