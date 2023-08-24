@@ -6,6 +6,21 @@ parameters:
 			path: repo/packages/NodeTypeResolver/PHPStan/ObjectWithoutClassTypeWithParentTypes.php
 
 		-
+			message: "#^Class PHPStan\\\\Reflection\\\\BetterReflection\\\\SourceLocator\\\\OptimizedDirectorySourceLocator constructor invoked with 3 parameters, 4 required\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/SourceLocatorProvider/DynamicSourceLocatorProvider.php
+
+		-
+			message: "#^Parameter \\#2 \\$classToFile of class PHPStan\\\\Reflection\\\\BetterReflection\\\\SourceLocator\\\\OptimizedDirectorySourceLocator constructor expects array\\<string, string\\>, PHPStan\\\\Php\\\\PhpVersion given\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/SourceLocatorProvider/DynamicSourceLocatorProvider.php
+
+		-
+			message: "#^Parameter \\#3 \\$functionToFiles of class PHPStan\\\\Reflection\\\\BetterReflection\\\\SourceLocator\\\\OptimizedDirectorySourceLocator constructor expects array\\<string, array\\<int, string\\>\\>, array\\<string\\> given\\.$#"
+			count: 1
+			path: repo/packages/NodeTypeResolver/Reflection/BetterReflection/SourceLocatorProvider/DynamicSourceLocatorProvider.php
+
+		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
 			path: repo/packages/StaticTypeMapper/ValueObject/Type/AliasedObjectType.php
