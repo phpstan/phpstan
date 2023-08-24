@@ -1196,9 +1196,9 @@
   integrity sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==
 
 "@tsconfig/node18@^18.0.0":
-  version "18.2.0"
-  resolved "https://registry.yarnpkg.com/@tsconfig/node18/-/node18-18.2.0.tgz#d6b5358b3fa85fe89b13b46cb1e996e4d79d6a07"
-  integrity sha512-yhxwIlFVSVcMym3O31HoMnRXpoenmpIxcj4Yoes2DUpe+xCJnA7ECQP1Vw889V0jTt/2nzvpLQ/UuMYCd3JPIg==
+  version "18.2.1"
+  resolved "https://registry.yarnpkg.com/@tsconfig/node18/-/node18-18.2.1.tgz#ebf5e6b8d94e9de072e712bc197d6441a325ed61"
+  integrity sha512-RDDZFuofwkcKpl8Vpj5wFbY+H53xOtqK7ckEL1sXsbPwvKwDdjQf3LkHbtt9sxIHn9nWIEwkmCwBRZ6z5TKU2A==
 
 "@types/aws-lambda@^8.10.112", "@types/aws-lambda@^8.10.45":
   version "8.10.119"
@@ -1256,9 +1256,9 @@
   integrity sha512-bUBrPjEry2QUTsnuEjzjbS7voGWCc30W0qzgMf90GPeDGFRakvrz47ju+oqDAKCXLUCe39u57/ORMl/O/04/9g==
 
 "@types/node@^18.15.3":
-  version "18.17.5"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.17.5.tgz#c58b12bca8c2a437b38c15270615627e96dd0bc5"
-  integrity sha512-xNbS75FxH6P4UXTPUJp/zNPq6/xsfdJKussCWNOnz4aULWIRwMgP1LgaB5RiBnMX1DPCYenuqGZfnIAx5mbFLA==
+  version "18.17.11"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-18.17.11.tgz#c04054659d88bfeba94095f41ef99a8ddf4e1813"
+  integrity sha512-r3hjHPBu+3LzbGBa8DHnr/KAeTEEOrahkcL+cZc4MaBMTM+mk8LtXR+zw+nqfjuDZZzYTYgTcpHuP+BEQk069g==
 
 "@types/responselike@^1.0.0":
   version "1.0.0"
@@ -1483,9 +1483,9 @@ available-typed-arrays@^1.0.5:
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
 aws-sdk@^2.1335.0, aws-sdk@^2.1404.0:
-  version "2.1435.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1435.0.tgz#cc80204e3bc9b8c533233c8d77f2ce75ed02f14e"
-  integrity sha512-G/dyQIGZHPDIbqbhpBrTU9cddzykLXhQTYwv/7x/3KY4u/M0eTjtQ3CmiykTvoIoCUnQIpsrgMIMHumJpniORw==
+  version "2.1444.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1444.0.tgz#eb3a6ab794e35c41b4ba0e68d2cc7ce0da1c9572"
+  integrity sha512-Bdr7MN9JF2O7W5hdzi3m6bTR538bVjdyRUk+Y/ZRsbpsiIyNv+q6m1mXODPG1roZXNLxqUC9IH+s3yqCR/u3VA==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -4698,9 +4698,9 @@ typed-array-length@^1.0.4:
     is-typed-array "^1.1.9"
 
 typescript@^5.0.2:
-  version "5.1.6"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.1.6.tgz#02f8ac202b6dad2c0dd5e0913745b47a37998274"
-  integrity sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.2.2.tgz#5ebb5e5a5b75f085f22bc3f8460fba308310fa78"
+  integrity sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==
 
 unbox-primitive@^1.0.2:
   version "1.0.2"
