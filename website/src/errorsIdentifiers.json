@@ -5725,7 +5725,7 @@
         },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L179"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/DataProviderHelper.php#L179"
             ]
         }
     },
@@ -7556,144 +7556,144 @@
     "phpunit.assertCount": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameWithCountRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L47",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L63"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L47",
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L63"
             ]
         }
     },
     "phpunit.assertFalse": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameBooleanExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L50"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L50"
             ]
         }
     },
     "phpunit.assertNull": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameNullExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/AssertSameNullExpectedRule.php#L44"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/AssertSameNullExpectedRule.php#L44"
             ]
         }
     },
     "phpunit.assertTrue": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameBooleanExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L44"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L44"
             ]
         }
     },
     "phpunit.callParent": {
         "PHPStan\\Rules\\PHPUnit\\ShouldCallParentMethodsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/ShouldCallParentMethodsRule.php#L60"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/ShouldCallParentMethodsRule.php#L60"
             ]
         }
     },
     "phpunit.covers": {
         "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L122",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L77"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L122",
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L77"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\ClassMethodCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/ClassMethodCoversExistsRule.php#L97",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L122",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L77"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/ClassMethodCoversExistsRule.php#L97",
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L122",
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L77"
             ]
         }
     },
     "phpunit.coversClass": {
         "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/ClassCoversExistsRule.php#L79"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/ClassCoversExistsRule.php#L79"
             ]
         }
     },
     "phpunit.coversDuplicate": {
         "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/ClassCoversExistsRule.php#L66"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/ClassCoversExistsRule.php#L66"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\ClassMethodCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/ClassMethodCoversExistsRule.php#L105"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/ClassMethodCoversExistsRule.php#L105"
             ]
         }
     },
     "phpunit.coversInterface": {
         "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L104"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L104"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\ClassMethodCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L104"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L104"
             ]
         }
     },
     "phpunit.coversMethod": {
         "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L111",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L122"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L111",
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L122"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\ClassMethodCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L111",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/CoversHelper.php#L122"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L111",
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L122"
             ]
         }
     },
     "phpunit.dataProviderClass": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L151"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/DataProviderHelper.php#L151"
             ]
         }
     },
     "phpunit.dataProviderMethod": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L165"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/DataProviderHelper.php#L165"
             ]
         }
     },
     "phpunit.dataProviderPublic": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L189"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/DataProviderHelper.php#L189"
             ]
         }
     },
     "phpunit.dataProviderStatic": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L199"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/DataProviderHelper.php#L199"
             ]
         }
     },
     "phpunit.invalidPhpDoc": {
         "PHPStan\\Rules\\PHPUnit\\NoMissingSpaceInClassAnnotationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/AnnotationHelper.php#L60"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/AnnotationHelper.php#L60"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\NoMissingSpaceInMethodAnnotationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/AnnotationHelper.php#L60"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/AnnotationHelper.php#L60"
             ]
         }
     },
     "phpunit.mockMethod": {
         "PHPStan\\Rules\\PHPUnit\\MockMethodCallRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/MockMethodCallRule.php#L68",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.1.x/src/Rules/PHPUnit/MockMethodCallRule.php#L86"
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/MockMethodCallRule.php#L68",
+                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/MockMethodCallRule.php#L86"
             ]
         }
     },
