@@ -1,7 +1,7 @@
 {
 	"extends": "@tsconfig/node18/tsconfig.json",
 	"compilerOptions": {
-		"moduleResolution": "node",
+		"moduleResolution": "node16",
 		"rootDir": "./",
 		"sourceMap": true,
 		"allowJs": true,
