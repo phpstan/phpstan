@@ -697,6 +697,25 @@ parameters:
     errorFormat: json
 ```
 
+
+Environment variables
+-------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.10.33</div>
+
+Parameters can reference environment variables:
+
+```yaml
+parameters:
+    tmpDir: %env.PHPSTAN_TMP_DIR%
+```
+
+This example assumes you've set an environment variable called `PHPSTAN_TMP_DIR` before running PHPStan:
+
+```
+export PHPSTAN_TMP_DIR=/home/ondrej/phpstan-temp
+```
+
 Expanding paths
 -------------
 

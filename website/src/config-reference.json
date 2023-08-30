@@ -103,6 +103,10 @@
             "title": "Miscellaneous parameters",
             "link": "#miscellaneous-parameters"
         },
+		{
+			"title": "Environment variables",
+			"link": "#environment-variables"
+		},
         {
             "title": "Expanding paths",
             "link": "#expanding-paths"
