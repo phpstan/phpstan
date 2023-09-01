@@ -352,6 +352,7 @@ The `callable` typehint has been in PHP for a long time. But it doesn't allow en
 * `callable(string &$bar): mixed` (accepts a string parameter passed by reference, returns `mixed`)
 * `callable(float ...$floats): (int|null)` (accepts multiple variadic float arguments, returns integer or null)
 * `callable(float...): (int|null)` (accepts multiple variadic float arguments, returns integer or null)
+* `\Closure(int, int): string` (narrower `Closure` type can also be used instead of `callable`)
 
 Parameter types and return type are required. Use `mixed` if you don't want to use a more specific type.
 
