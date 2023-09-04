@@ -141,6 +141,15 @@ parameters:
 
 The reported error has to match both the `message` pattern and the `identifier` in order to be ignored.
 
+You can also use only the `identifier` key to ignore all errors of the same type:
+
+```yaml
+parameters:
+	ignoreErrors:
+		-
+			identifier: property.notFound
+```
+
 Generate an ignoreErrors entry
 ------------------
 
