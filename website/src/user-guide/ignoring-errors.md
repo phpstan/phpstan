@@ -126,6 +126,21 @@ parameters:
 
 Relative paths in the `path` and `paths` keys are resolved based on the directory of the config file is in. So if your `phpstan.neon` is in the root directory of the project, and you want to ignore an error in `src/Foo/Bar.php`, your path key can simply be `src/Foo/Bar.php`.
 
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.11.0</div>
+
+If you want to ignore only a specific error, you can take advantage of [error identifiers](/error-identifiers) in the `identifier` key:
+
+```yaml
+parameters:
+	ignoreErrors:
+		-
+			message: '#Access to an undefined property [a-zA-Z0-9\\_]+::\$foo#'
+			identifier: property.notFound
+			path: some/dir/SomeFile.php
+```
+
+The reported error has to match both the `message` pattern and the `identifier` in order to be ignored.
+
 Generate an ignoreErrors entry
 ------------------
 
