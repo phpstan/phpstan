@@ -1,6 +1,2 @@
 parameters:
 	ignoreErrors:
-		-
-			message: "#^Method Bug8778\\\\A\\:\\:foo\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: classes/A.php
