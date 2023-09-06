@@ -1,0 +1,41 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method Composer\\\\Autoload\\\\ClassLoader\\:\\:findFile\\(\\) should return string\\|false but returns mixed\\.$#"
+			count: 1
+			path: vendor/composer/ClassLoader.php
+
+		-
+			message: "#^Method Composer\\\\Autoload\\\\ClassLoader\\:\\:getPrefixes\\(\\) should return array\\<string, array\\<int, string\\>\\> but returns mixed\\.$#"
+			count: 1
+			path: vendor/composer/ClassLoader.php
+
+		-
+			message: "#^Parameter \\#1 \\$callback of function spl_autoload_register expects \\(callable\\(string\\)\\: void\\)\\|null, array\\{\\$this\\(Composer\\\\Autoload\\\\ClassLoader\\), 'loadClass'\\} given\\.$#"
+			count: 1
+			path: vendor/composer/ClassLoader.php
+
+		-
+			message: "#^Method ComposerAutoloaderInit3972f822f51661c38eed93a684dacfbe\\:\\:loadClassLoader\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: vendor/composer/autoload_real.php
+
+		-
+			message: "#^Method ComposerAutoloaderInit3972f822f51661c38eed93a684dacfbe\\:\\:loadClassLoader\\(\\) has parameter \\$class with no type specified\\.$#"
+			count: 1
+			path: vendor/composer/autoload_real.php
+
+		-
+			message: "#^Property ComposerAutoloaderInit3972f822f51661c38eed93a684dacfbe\\:\\:\\$loader has no type specified\\.$#"
+			count: 1
+			path: vendor/composer/autoload_real.php
+
+		-
+			message: "#^Method Composer\\\\Autoload\\\\ComposerStaticInit3972f822f51661c38eed93a684dacfbe\\:\\:getInitializer\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: vendor/composer/autoload_static.php
+
+		-
+			message: "#^Property Composer\\\\Autoload\\\\ComposerStaticInit3972f822f51661c38eed93a684dacfbe\\:\\:\\$classMap has no type specified\\.$#"
+			count: 1
+			path: vendor/composer/autoload_static.php
