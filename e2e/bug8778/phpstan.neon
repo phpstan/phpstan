@@ -5,4 +5,4 @@ includes:
 parameters:
     level: max
     paths:
-        - .
+        - classes/
