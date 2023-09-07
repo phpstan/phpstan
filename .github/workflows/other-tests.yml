@@ -405,8 +405,8 @@ jobs:
               cd e2e/bug8778
               composer dump
               ../../phpstan clear-result-cache -vvv -q
-              ../../phpstan analyse -vvv --generate-baseline 2>&1
-              ! ../../phpstan analyse -vvv -q | grep "Result cache not used because the metadata do not match"
+              ../../phpstan analyse -vvv --generate-baseline -q
+              ! ../../phpstan analyse -vvv 2>&1 | grep "Result cache not used because the metadata do not match"
 
     steps:
       - name: "Checkout"
