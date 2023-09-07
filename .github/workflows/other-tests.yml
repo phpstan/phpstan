@@ -406,7 +406,7 @@ jobs:
               composer dump
               ../../phpstan clear-result-cache -q
               ../../phpstan analyse --generate-baseline -q
-              ../../phpstan analyse -vvv --generate-baseline --error-format=failWithoutResultCache
+              ../../phpstan analyse -vvv --error-format=failWithoutResultCache
 
     steps:
       - name: "Checkout"
