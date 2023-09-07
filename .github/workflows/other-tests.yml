@@ -389,7 +389,7 @@ jobs:
               cd e2e/bug-9574
               cd test
               ../../../phpstan
-          - php-version: 8.2
+          - php-version: 8.2 # same test as below but different order of commands
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
             script: |
@@ -398,6 +398,15 @@ jobs:
               ../../phpstan clear-result-cache -vvv -q
               ../../phpstan analyse -vvv -q
               ! ../../phpstan analyse -vvv --generate-baseline 2>&1 | grep "Result cache not used because the metadata do not match"
+          - php-version: 8.2 # same test as above but different order of commands
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/bug8778
+              composer dump
+              ../../phpstan clear-result-cache -vvv -q
+              ../../phpstan analyse -vvv --generate-baseline 2>&1
+              ! ../../phpstan analyse -vvv -q | grep "Result cache not used because the metadata do not match"
 
     steps:
       - name: "Checkout"
