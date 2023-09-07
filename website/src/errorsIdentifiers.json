@@ -7339,7 +7339,7 @@
         },
         "PHPStan\\Command\\AnalyseApplication": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L163"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L166"
             ]
         },
         "PHPStan\\Command\\FixerWorkerCommand": {
@@ -7396,8 +7396,8 @@
         },
         "PHPStan\\Command\\AnalyseApplication": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L166",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L169"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L169",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L172"
             ]
         },
         "PHPStan\\Command\\FixerWorkerCommand": {
