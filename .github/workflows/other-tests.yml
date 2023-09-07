@@ -389,17 +389,17 @@ jobs:
               cd e2e/bug-9574
               cd test
               ../../../phpstan
-          - php-version: 8.2 # same test as below but different order of commands
+          - php-version: 8.2
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
             script: |
               cd e2e/bug8778
               composer dump
               ../../phpstan clear-result-cache -q
-              ../../phpstan analyse -vvv --generate-baseline 2>&1 | grep "Result cache not used because the metadata do not match"
               ../../phpstan analyse -q
               ! ../../phpstan analyse -vvv --generate-baseline 2>&1 | grep "Result cache not used because the metadata do not match"
-          - php-version: 8.2 # same test as above but different order of commands
+              ../../phpstan analyse -vvv --generate-baseline --level=1 2>&1 | grep "Result cache not used because the metadata do not match"
+          - php-version: 8.2
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
             script: |
