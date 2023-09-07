@@ -397,7 +397,7 @@ jobs:
               composer dump
               ../../phpstan clear-result-cache -q
               ../../phpstan analyse -q
-              ! ../../phpstan analyse -vvv --generate-baseline 2>&1 | grep "Result cache not used because the metadata do not match"
+              ../../phpstan analyse -vvv --generate-baseline --error-format=failWithoutResultCache
           - php-version: 8.2 # same test as above but different order of commands
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
@@ -406,7 +406,7 @@ jobs:
               composer dump
               ../../phpstan clear-result-cache -q
               ../../phpstan analyse --generate-baseline -q
-              ! ../../phpstan analyse -vvv 2>&1 | grep "Result cache not used because the metadata do not match"
+              ../../phpstan analyse -vvv --generate-baseline --error-format=failWithoutResultCache
 
     steps:
       - name: "Checkout"
