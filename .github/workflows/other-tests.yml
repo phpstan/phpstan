@@ -399,6 +399,7 @@ jobs:
               ../../phpstan analyse -vvv --generate-baseline 2>&1 | grep "Result cache not used because the cache file does not exist"
               ../../phpstan analyse -q
               ../../phpstan analyse -vvv --generate-baseline 2>&1 | grep "Result cache not used because the metadata do not match"; test $? -eq 1
+              ../../phpstan analyse -vvv --generate-baseline 2>&1 | grep "Result cache not used because the metadata do not match"
           - php-version: 8.2
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
