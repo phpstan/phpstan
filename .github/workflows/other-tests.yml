@@ -397,7 +397,7 @@ jobs:
               composer dump
               ../../phpstan clear-result-cache -q
               ../../phpstan analyse -q
-              PHPSTAN_FAIL_WITHOUT_RESULT_CACHE=true ../../phpstan analyse -vvv --generate-baseline
+              ../../phpstan analyse -vvv --generate-baseline --fail-without-result-cache
           - php-version: 8.2
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
@@ -406,7 +406,7 @@ jobs:
               composer dump
               ../../phpstan clear-result-cache -q
               ../../phpstan analyse --generate-baseline -q
-              PHPSTAN_FAIL_WITHOUT_RESULT_CACHE=true ../../phpstan analyse -vvv
+              ../../phpstan analyse -vvv --fail-without-result-cache
 
     steps:
       - name: "Checkout"
