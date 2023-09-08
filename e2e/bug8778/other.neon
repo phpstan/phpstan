@@ -1,0 +1,3 @@
+services:
+	-
+		class: Bug8778\SomeService
