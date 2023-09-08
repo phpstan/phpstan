@@ -1,0 +1,11 @@
+{
+    "name": "phpstan/bug8778",
+    "type": "project",
+    "description": "PROJECT",
+    "license": "MIT",
+    "autoload": {
+        "classmap": [
+            "classes/"
+        ]
+    }
+}
