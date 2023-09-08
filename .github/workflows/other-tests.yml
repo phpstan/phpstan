@@ -396,10 +396,8 @@ jobs:
               cd e2e/bug8778
               composer dump
               ../../phpstan clear-result-cache -q
-              ../../phpstan analyse -vvv --generate-baseline 2>&1 | grep "Result cache not used because the cache file does not exist"
               ../../phpstan analyse -q
-              ../../phpstan analyse -vvv --generate-baseline 2>&1 | grep "Result cache not used because the metadata do not match"; test $? -eq 1
-              ../../phpstan analyse -vvv --generate-baseline 2>&1 | grep "Result cache not used because the metadata do not match"
+              PHPSTAN_FAIL_WITHOUT_RESULT_CACHE=1 ../../phpstan analyse -vvv --generate-baseline
           - php-version: 8.2
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
@@ -408,7 +406,7 @@ jobs:
               composer dump
               ../../phpstan clear-result-cache -q
               ../../phpstan analyse --generate-baseline -q
-              ../../phpstan analyse -vvv --error-format=failWithoutResultCache
+              PHPSTAN_FAIL_WITHOUT_RESULT_CACHE=1 ../../phpstan analyse -vvv
 
     steps:
       - name: "Checkout"
