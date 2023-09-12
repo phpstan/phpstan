@@ -3553,7 +3553,7 @@
     "enum.abstractMethod": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/EnumSanityRule.php#L55"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/EnumSanityRule.php#L56"
             ]
         }
     },
@@ -3581,14 +3581,14 @@
     "enum.constructor": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/EnumSanityRule.php#L69"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/EnumSanityRule.php#L70"
             ]
         }
     },
     "enum.destructor": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/EnumSanityRule.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/EnumSanityRule.php#L79"
             ]
         }
     },
@@ -3652,15 +3652,15 @@
     "enum.magicMethod": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/EnumSanityRule.php#L88"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/EnumSanityRule.php#L89"
             ]
         }
     },
     "enum.methodRedeclaration": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/EnumSanityRule.php#L101",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/EnumSanityRule.php#L120"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/EnumSanityRule.php#L102",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/EnumSanityRule.php#L121"
             ]
         }
     },
