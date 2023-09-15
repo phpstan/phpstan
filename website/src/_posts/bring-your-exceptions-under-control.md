@@ -116,7 +116,7 @@ PHPStan needs to be careful with interpreting of the existing code. No tool unti
 * Function throws some undocumented exceptions
 * Function doesn't throw any exception
 
-The first option is safer so that's what PHPStan does by default. In this mode you can write `@throws void` to mark a function that definitely doesn't throw an exception.
+The first option is safer so that's what PHPStan usually does by default. In this mode you can write `@throws void` to mark a function that definitely doesn't throw an exception. However, if any function called in a scope declares `@throws`, PHPStan will always follow the second option for that scope.
 
 To flip the switch and always interpret the absent `@throws` as no exception being thrown, turn `exceptions.implicitThrows` off in your configuration:
 
