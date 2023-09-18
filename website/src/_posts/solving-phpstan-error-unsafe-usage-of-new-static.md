@@ -92,7 +92,7 @@ Add `@phpstan-consistent-constructor` to the class
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.7.0 with bleeding edge</div>
 
-You can add `@phpstan-consistent-constructor` tag to the class, which ensures that any constructor in a child class has the same signature as the parent constructor.
+You can add `@phpstan-consistent-constructor` tag to the class, which ensures that any constructor in a child class satisfies the signature of the parent constructor.
 
 ```php
 /** @phpstan-consistent-constructor */
