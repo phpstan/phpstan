@@ -22,7 +22,7 @@ jobs:
       checksum-result: ${{ steps.checksum-difference.outputs.result }}
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
@@ -82,7 +82,7 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}

@@ -20,7 +20,7 @@ jobs:
       -
         name: Import GPG key
         id: import-gpg
-        uses: crazy-max/ghaction-import-gpg@v5
+        uses: crazy-max/ghaction-import-gpg@v6
         with:
           gpg_private_key: ${{ secrets.GPG_PHPSTANBOT_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PHPSTANBOT_KEY_PASSPHRASE }}
@@ -29,7 +29,7 @@ jobs:
           git_commit_gpgsign: true
 
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.head_ref }}
           token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
