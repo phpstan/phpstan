@@ -38,10 +38,10 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ matrix.repository }}
           path: "identifier-extractor/repo"
@@ -85,7 +85,7 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
 
@@ -109,7 +109,7 @@ jobs:
         run: "php merge.php > ../website/src/errorsIdentifiers.json"
 
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v5
+        uses: crazy-max/ghaction-import-gpg@v6
         with:
           gpg_private_key: ${{ secrets.GPG_PHPSTANBOT_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PHPSTANBOT_KEY_PASSPHRASE }}
