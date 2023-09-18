@@ -399,7 +399,7 @@ jobs:
             baseline-file: bladestan-baseline.neon
           - php-version: 8.2
             repo: reactphp/promise
-            ref: v3.0.0
+            ref: 7053e3ca49a9a8225f081c8f67f785f80cb4d82e
             setup: |
               composer install
             phpstan-command: ../../../phpstan.phar analyse
