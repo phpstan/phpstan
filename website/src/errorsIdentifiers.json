@@ -2576,89 +2576,89 @@
     "class.notFound": {
         "PHPStan\\Rules\\Arrays\\AppendedArrayItemTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Arrays\\ArrayDestructuringRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Arrays\\ArrayUnpackingRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Arrays\\InvalidKeyInArrayDimFetchRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Arrays\\IterableInForeachRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Arrays\\NonexistentOffsetInArrayDimFetchRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Arrays\\OffsetAccessAssignOpRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Arrays\\OffsetAccessAssignmentRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Arrays\\OffsetAccessValueAssignmentRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Arrays\\UnpackIterableInArrayRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Cast\\EchoRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Cast\\InvalidCastRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Cast\\InvalidPartOfEncapsedStringRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Cast\\PrintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/ClassConstantRule.php#L108",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/ClassConstantRule.php#L98",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassInClassExtendsRule": {
@@ -2674,7 +2674,7 @@
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/InstantiationRule.php#L125",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
@@ -2694,7 +2694,7 @@
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Exceptions\\CaughtExceptionExistenceRule": {
@@ -2704,37 +2704,37 @@
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
@@ -2763,37 +2763,37 @@
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Functions\\ImplodeFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Functions\\ReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Generators\\YieldFromTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Generators\\YieldTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
@@ -2843,23 +2843,23 @@
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L127",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallToMethodStatementWithoutSideEffectsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallToStaticMethodStatementWithoutSideEffectsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
@@ -2872,33 +2872,33 @@
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Methods\\ReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L127",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Operators\\InvalidBinaryOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Operators\\InvalidComparisonOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
@@ -2908,29 +2908,29 @@
         },
         "PHPStan\\Rules\\Properties\\AccessPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L135",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/AccessStaticPropertiesRule.php#L135",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Properties\\DefaultValueTypesAssignedToPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertiesRule": {
@@ -2940,32 +2940,32 @@
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Properties\\ReadingWriteOnlyPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Properties\\TypesAssignedToPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Properties\\WritingToReadOnlyPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Variables\\ThrowTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
         "PHPStan\\Rules\\Variables\\VariableCloningRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L346"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         }
     },
@@ -4314,72 +4314,72 @@
     "generics.callSiteVarianceConflict": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
         "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
         "PHPStan\\Rules\\Generics\\TraitTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
         "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         }
     },
@@ -4408,72 +4408,72 @@
     "generics.callSiteVarianceRedundant": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\Generics\\TraitTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         }
     },
@@ -4551,144 +4551,144 @@
     "generics.lessTypes": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\Generics\\TraitTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         }
     },
     "generics.moreTypes": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         },
         "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         },
         "PHPStan\\Rules\\Generics\\TraitTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         },
         "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         }
     },
@@ -4739,144 +4739,144 @@
     "generics.notGeneric": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
         "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
         "PHPStan\\Rules\\Generics\\TraitTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
         "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         }
     },
     "generics.notSubtype": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L140"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L146"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L140"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L146"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L140"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L146"
             ]
         },
         "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L140"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L146"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L140"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L146"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L140"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L146"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L140"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L146"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L140"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L146"
             ]
         },
         "PHPStan\\Rules\\Generics\\TraitTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L140"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L146"
             ]
         },
         "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L140"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L146"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L140"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L146"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L140"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L146"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L140"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L146"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L140"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/GenericObjectTypeCheck.php#L146"
             ]
         }
     },
