@@ -1,6 +1,6 @@
 ---
 title: "A guide to call-site generic variance"
-date: 2023-09-18
+date: 2023-09-19
 tags: guides
 ---
 PHPStan has supported what is called declaration-site variance for a long time. An example you might be familiar with is the infamous [`@template-covariant`](/blog/whats-up-with-template-covariant). And although not as often useful, it also has [a contravariant counterpart](https://jiripudil.cz/blog/contravariant-template-types).
