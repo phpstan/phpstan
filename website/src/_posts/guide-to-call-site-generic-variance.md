@@ -87,7 +87,7 @@ function foo(Collection $animals): void
 
 Correspondingly, the error has moved from the declaration to the call-site: if the implementation does something that would break type safety, like adding a `Dog` into the collection above, PHPStan will tell us:
 
-> Parameter #1 $item of method Collection<covariant Animal>::add() expects never, Dog given.
+> Parameter #1 $item of method `Collection<covariant Animal>::add()` expects never, Dog given.
 
 
 ## Call-site contravariance
@@ -149,7 +149,7 @@ function printSize(Collection $collection): int
 
 Obviously, we cannot make any assumptions about the collection's item type _whatsoever_. In other words, star projections combine the limitations of covariant and contravariant projections. If we were to `add()` anything into the collection inside this `printSize` function, we would get a similar error as above:
 
-> Parameter #1 $item of method Collection<*>::add() expects never, Dog given.
+> Parameter #1 $item of method `Collection<*>::add()` expects never, Dog given.
 
 And if we wanted to `get` a value from the collection, it would be `mixed`:
 
