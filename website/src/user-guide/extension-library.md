@@ -50,7 +50,6 @@ Check out as well [phpstan-deprecation-rules](https://github.com/phpstan/phpstan
 * [Mockery](https://github.com/phpstan/phpstan-mockery)
 * [azjezz/psl](https://github.com/php-standard-library/phpstan-extension)
 * [Nette Framework](https://github.com/phpstan/phpstan-nette)
-* [PHP-Parser](https://github.com/phpstan/phpstan-php-parser)
 * [Dibi - Database Abstraction Library](https://github.com/phpstan/phpstan-dibi)
 
 Unofficial extensions
