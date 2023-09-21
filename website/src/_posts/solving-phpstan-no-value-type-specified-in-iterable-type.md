@@ -81,7 +81,7 @@ public function getIterator(): \Traversable
 }
 ```
 
-The error can also be solved by using [generics](/blog/generics-in-php-using-phpdocs) with the help of `@extends` and `@implements` annotations. All three basic iterable types (`Iterator`, `IteratorAggregate`, `Traversable`) accept two type variables:
+The error can also be solved by using [generics](/blog/generics-in-php-using-phpdocs) with the help of `@extends`, `@implements` and `@use` annotations. All three basic iterable types (`Iterator`, `IteratorAggregate`, `Traversable`) accept two type variables:
 
 * `Iterator<TKey, TValue>`
 * `IteratorAggregate<TKey, TValue>`
