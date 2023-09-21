@@ -147,7 +147,7 @@ When implementing a generic interface or extending a generic class, you have two
 - Preserve the genericness of the parent, the child class will also be generic
 - Specify the type variable of the interface/parent class. The child class will not be generic.
 
-Preserving the genericness is done by repeating the same `@template` tags above the child class and passing it to `@extends` and `@implements` tags:
+Preserving the genericness is done by repeating the same `@template` tags above the child class and passing it to `@extends`, `@implements` and `@use` tags:
 
 ```php
 /**

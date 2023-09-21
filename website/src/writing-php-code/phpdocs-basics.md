@@ -221,7 +221,7 @@ function foo($arg, ...$additional)
 Generics
 ---------------
 
-PHPDoc tags `@template`, `@template-covariant`, `@template-contravariant`, `@extends`, `@implements`, and `@uses` are reserved for generics. Learn more about [generics »](/blog/generics-in-php-using-phpdocs), [covariance »](/blog/whats-up-with-template-covariant), [contravariance »](https://jiripudil.cz/blog/contravariant-template-types), and [type projections »](/blog/guide-to-call-site-generic-variance). Also check out [Generics By Examples »](/blog/generics-by-examples).
+PHPDoc tags `@template`, `@template-covariant`, `@template-contravariant`, `@extends`, `@implements`, and `@use` are reserved for generics. Learn more about [generics »](/blog/generics-in-php-using-phpdocs), [covariance »](/blog/whats-up-with-template-covariant), [contravariance »](https://jiripudil.cz/blog/contravariant-template-types), and [type projections »](/blog/guide-to-call-site-generic-variance). Also check out [Generics By Examples »](/blog/generics-by-examples).
 
 Narrowing types after function call
 ----------------

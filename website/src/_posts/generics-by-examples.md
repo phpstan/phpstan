@@ -288,3 +288,31 @@ $d = foo(new MyOriginal());
 ```
 
 [Link to this example on the playground »](https://phpstan.org/r/a2f3ac06-8daf-4d59-a5da-4ef4f0a1ebe8)
+
+Specify template type variable of a generic trait when using it
+------------------------
+
+Traits can be generic too:
+
+```php
+/** @template T of Foo */
+trait Part
+{
+    /** @param T $item */
+    public function bar(Foo $item): void
+    {
+        // ...
+    }
+}
+```
+
+Into a class using a generic trait, the `@use` tag can be defined on the PHPDoc of the use clause:
+
+```php
+/** @template T of Foo */
+class Bar
+{
+    /** @use Part<T> */
+    use Part;
+}
+```
