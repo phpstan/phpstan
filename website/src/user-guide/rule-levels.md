@@ -52,3 +52,4 @@ Go through the extra [configuration options](/config-reference#stricter-analysis
 * [`checkUninitializedProperties`](/config-reference#checkuninitializedproperties): Report typed properties not set in constructor
 * [`checkImplicitMixed`](/config-reference#checkimplicitmixed): Level 9 on steroids
 * [`checkBenevolentUnionTypes`](/config-reference#checkbenevolentuniontypes): Report wrong usage of unknown array keys, and other types
+* [Bring your exceptions under control with `@throws`](/blog/bring-your-exceptions-under-control)
