@@ -684,14 +684,14 @@
         },
         "PHPStan\\Rules\\Symfony\\InvalidArgumentDefaultValueRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/1.2.x/src/Rules/Symfony/InvalidArgumentDefaultValueRule.php#L66",
-                "https://github.com/phpstan/phpstan-symfony/blob/1.2.x/src/Rules/Symfony/InvalidArgumentDefaultValueRule.php#L76"
+                "https://github.com/phpstan/phpstan-symfony/blob/1.4.x/src/Rules/Symfony/InvalidArgumentDefaultValueRule.php#L66",
+                "https://github.com/phpstan/phpstan-symfony/blob/1.4.x/src/Rules/Symfony/InvalidArgumentDefaultValueRule.php#L76"
             ]
         },
         "PHPStan\\Rules\\Symfony\\InvalidOptionDefaultValueRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/1.2.x/src/Rules/Symfony/InvalidOptionDefaultValueRule.php#L71",
-                "https://github.com/phpstan/phpstan-symfony/blob/1.2.x/src/Rules/Symfony/InvalidOptionDefaultValueRule.php#L82"
+                "https://github.com/phpstan/phpstan-symfony/blob/1.4.x/src/Rules/Symfony/InvalidOptionDefaultValueRule.php#L71",
+                "https://github.com/phpstan/phpstan-symfony/blob/1.4.x/src/Rules/Symfony/InvalidOptionDefaultValueRule.php#L82"
             ]
         }
     },
@@ -8992,28 +8992,28 @@
     "symfonyConsole.argumentNotFound": {
         "PHPStan\\Rules\\Symfony\\UndefinedArgumentRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/1.2.x/src/Rules/Symfony/UndefinedArgumentRule.php#L79"
+                "https://github.com/phpstan/phpstan-symfony/blob/1.4.x/src/Rules/Symfony/UndefinedArgumentRule.php#L79"
             ]
         }
     },
     "symfonyConsole.optionNotFound": {
         "PHPStan\\Rules\\Symfony\\UndefinedOptionRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/1.2.x/src/Rules/Symfony/UndefinedOptionRule.php#L79"
+                "https://github.com/phpstan/phpstan-symfony/blob/1.4.x/src/Rules/Symfony/UndefinedOptionRule.php#L79"
             ]
         }
     },
     "symfonyContainer.privateService": {
         "PHPStan\\Rules\\Symfony\\ContainerInterfacePrivateServiceRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/1.2.x/src/Rules/Symfony/ContainerInterfacePrivateServiceRule.php#L74"
+                "https://github.com/phpstan/phpstan-symfony/blob/1.4.x/src/Rules/Symfony/ContainerInterfacePrivateServiceRule.php#L74"
             ]
         }
     },
     "symfonyContainer.serviceNotFound": {
         "PHPStan\\Rules\\Symfony\\ContainerInterfaceUnknownServiceRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/1.2.x/src/Rules/Symfony/ContainerInterfaceUnknownServiceRule.php#L75"
+                "https://github.com/phpstan/phpstan-symfony/blob/1.4.x/src/Rules/Symfony/ContainerInterfaceUnknownServiceRule.php#L75"
             ]
         }
     },
