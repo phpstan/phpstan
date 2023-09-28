@@ -2236,14 +2236,14 @@
     "catch.alreadyCaught": {
         "PHPStan\\Rules\\Exceptions\\CatchWithUnthrownExceptionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/CatchWithUnthrownExceptionRule.php#L33"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/CatchWithUnthrownExceptionRule.php#L40"
             ]
         }
     },
     "catch.neverThrown": {
         "PHPStan\\Rules\\Exceptions\\CatchWithUnthrownExceptionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/CatchWithUnthrownExceptionRule.php#L43"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/CatchWithUnthrownExceptionRule.php#L64"
             ]
         }
     },
