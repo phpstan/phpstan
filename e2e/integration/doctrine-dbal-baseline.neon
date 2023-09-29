@@ -11,6 +11,11 @@ parameters:
 			path: repo/src/Driver/IBMDB2/Result.php
 
 		-
+			message: "#^Method Doctrine\\\\DBAL\\\\Driver\\\\Mysqli\\\\Connection\\:\\:exec\\(\\) should return int but returns int\\<\\-1, max\\>\\|string\\.$#"
+			count: 1
+			path: repo/src/Driver/Mysqli/Connection.php
+
+		-
 			message: "#^Method Doctrine\\\\DBAL\\\\Driver\\\\Mysqli\\\\Result\\:\\:rowCount\\(\\) should return int but returns int\\<\\-1, max\\>\\|string\\.$#"
 			count: 1
 			path: repo/src/Driver/Mysqli/Result.php
