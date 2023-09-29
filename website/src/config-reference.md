@@ -544,7 +544,7 @@ Exceptions
 
 Advanced exceptions-related rules are available. [Read this article for more details »](/blog/bring-your-exceptions-under-control).
 
-Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.tooWideThrowType`
+Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.tooWideThrowType`
 
 Vague typehints
 ------------
