@@ -108,6 +108,16 @@ includes:
 	- vendor/phpstan/phpstan/conf/bleedingEdge.neon
 ```
 
+Since version 1.10.36 PHPStan allows to disable the dead catch reporting for unchecked exception with the following setting:
+
+```neon
+parameters:
+	exceptions:
+		reportUncheckedExceptionDeadCatch: false
+```
+
+This option will be useful if you don't plan to annotate `@throws` tag for unchecked exceptions but still occasionally catch them.
+
 What does absent `@throws` above a function mean?
 ------------------------
 
@@ -154,4 +164,3 @@ I can't wait for everyone to try out these features and send back some feedback 
 ---
 
 Do you like PHPStan and use it every day? [**Consider supporting further development of PHPStan on GitHub Sponsors**](https://github.com/sponsors/ondrejmirtes/). I’d really appreciate it!
-
