@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Switch condition type \\('apc_cli'\\|'curlwrappers'\\|'onedrive'\\|'openssl_version'\\|'sigchild'\\|'xdebug_loaded'\\|'zlib'\\) does not match case condition 'xdebug_profile' \\(string\\)\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/DiagnoseCommand.php
+
+		-
 			message: "#^Method Composer\\\\Command\\\\ShowCommand\\:\\:getPackage\\(\\) should return array\\{Composer\\\\Package\\\\CompletePackageInterface\\|null, array\\<string, string\\>\\} but returns array\\{Composer\\\\Package\\\\BasePackage\\|null, array\\<string, string\\>\\}\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/ShowCommand.php
