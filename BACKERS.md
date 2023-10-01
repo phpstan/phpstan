@@ -95,7 +95,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/joelclermont">Joel Clermont (joelclermont)</a></li>
 <li><a href="https://github.com/spaze">Michal Špaček (spaze)</a></li>
 <li><a href="https://github.com/DavidBadura">David Badura (DavidBadura)</a></li>
-<li><a href="https://github.com/kevinpapst">Kevin Papst (kevinpapst)</a></li>
 <li><a href="https://github.com/kento-oka">Kento Oka (kento-oka)</a></li>
 <li><a href="https://github.com/tpetry">Tobias Petry (tpetry)</a></li>
 <li><a href="https://github.com/SimoTod">Simone Todaro (SimoTod)</a></li>
@@ -109,7 +108,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/MaximePinot">Maxime Pinot (MaximePinot)</a></li>
 <li><a href="https://github.com/marmichalski">Marcin Michalski (marmichalski)</a></li>
 <li><a href="https://github.com/mad-briller">Brad Miller (mad-briller)</a></li>
-<li><a href="https://github.com/getsentry">Sentry (getsentry)</a></li>
 <li><a href="https://github.com/romm">Romain Canon (romm)</a></li>
 <li><a href="https://github.com/RVxLab"> (RVxLab)</a></li>
 <li><a href="https://github.com/yesdevnull">Dan Barrett (yesdevnull)</a></li>
@@ -137,7 +135,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/andrewwoods">Andrew Woods (andrewwoods)</a></li>
 <li><a href="https://github.com/Stollie">Remco Raaijmakers (Stollie)</a></li>
 <li><a href="https://github.com/acelaya">Alejandro Celaya (acelaya)</a></li>
-<li><a href="https://github.com/getsentry">Sentry (getsentry)</a></li>
 <li><a href="https://github.com/fusonic">Fusonic GmbH (fusonic)</a></li>
 <li><a href="https://github.com/eliashaeussler">Elias Häußler (eliashaeussler)</a></li>
 <li><a href="https://github.com/tomasnorre">Tomas Norre Mikkelsen (tomasnorre)</a></li>
