@@ -826,6 +826,11 @@ parameters:
 			path: repo/controllers/admin/AdminProductsController.php
 
 		-
+			message: "#^Call to function method_exists\\(\\) with QuickAccess and 'add' will always evaluate to true\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminQuickAccessesController.php
+
+		-
 			message: "#^Method AdminRequestSqlControllerCore\\:\\:renderView\\(\\) should return string but empty return statement found\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminRequestSqlController.php

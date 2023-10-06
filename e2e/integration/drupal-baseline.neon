@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Access to an undefined property Drupal\\\\Component\\\\Diff\\\\Engine\\\\DiffEngine\\:\\:\\$xchanged\\.$#"
+			count: 4
+			path: repo/core/lib/Drupal/Component/Diff/Engine/DiffEngine.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Component\\\\Diff\\\\Engine\\\\DiffEngine\\:\\:\\$ychanged\\.$#"
+			count: 3
+			path: repo/core/lib/Drupal/Component/Diff/Engine/DiffEngine.php
+
+		-
 			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\Core\\\\\\\\Access\\\\\\\\RouteProcessorCsrf', 'renderPlaceholderCs…'\\} at key '0' is not callable\\.$#"
 			count: 1
 			path: repo/core/lib/Drupal/Core/Access/RouteProcessorCsrf.php
