@@ -17,7 +17,7 @@ It's hosted on [GitHub Container Registry](https://github.com/phpstan/phpstan/pk
 
 ## Installation
 
-```yaml
+```bash
 docker pull ghcr.io/phpstan/phpstan
 ```
 
@@ -25,6 +25,12 @@ Alternatively, pull a specific version:
 
 ```bash
 docker pull ghcr.io/phpstan/phpstan:1
+```
+
+If you have your own Docker image and just want to put PHPStan there, you can with this command in your `Dockerfile`:
+
+```docker
+COPY --from=ghcr.io/phpstan/phpstan:[TAG] /composer/vendor/phpstan/phpstan/phpstan.phar /app/phpstan.phar
 ```
 
 ## Different PHP version?
