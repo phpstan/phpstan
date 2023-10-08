@@ -6773,8 +6773,8 @@
     "offsetAccess.nonOffsetAccessible": {
         "PHPStan\\Rules\\Arrays\\NonexistentOffsetInArrayDimFetchRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchRule.php#L75",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchRule.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchRule.php#L79",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchRule.php#L87"
             ]
         }
     },
