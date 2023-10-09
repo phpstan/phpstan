@@ -15,7 +15,7 @@
 		"knockout": "^3.5.1",
 		"linkify-string": "^4.1.0",
 		"linkifyjs": "^4.1.0",
-		"littlefoot": "^4.0.0",
+		"littlefoot": "^3.4.1",
 		"prism-themes": "^1.7.0",
 		"prismjs": "^1.27.0",
 		"process": "^0.11.10"

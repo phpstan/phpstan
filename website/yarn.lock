@@ -637,22 +637,22 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@pacote/get-style@2.0.2", "@pacote/get-style@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@pacote/get-style/-/get-style-2.0.2.tgz#1709512d2ae1d1469b747b3e6c6b536911af0f02"
-  integrity sha512-5Pwu8fOk0TNjP/yAsw8WgwgOnC1r890i51utJ1vjSjUolbrjv3TEtZHMKY00NzeEXIl3Gt5v8W5po3H/ftdhWw==
+"@pacote/get-style@^1.0.0", "@pacote/get-style@^1.1.7":
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/@pacote/get-style/-/get-style-1.1.7.tgz#b02d146f8eb7593f4733fc515b7d6702a4975c27"
+  integrity sha512-TGg2mrHvLtQC/d9dPy/GpVDIdvCT1PfYvbjsOQR0nU8o4ofuPy4NHRsPDUYjZXXbpMC5uPK6N/yitHO0Pon/lA==
 
-"@pacote/pixels@2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@pacote/pixels/-/pixels-2.0.2.tgz#753059aa1dac2ae3a91457244a374b426e5557b2"
-  integrity sha512-VkvJ595J6xZ0hIRoD2rJtR0J+k7b5hCs8vzkMvr1/JIlk74MltOGYhCcr4u/iGQeSwkYCi28iLORwO4X4si5XQ==
+"@pacote/pixels@^1.0.0":
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/@pacote/pixels/-/pixels-1.1.7.tgz#385e7f1a0a593cbb5690888f873b28a31f5808b8"
+  integrity sha512-yztATcpzvQR4Y1iflLKQybTc/pr31LfAUAX2y2EE+62nqf9Q2gir5fcnVSSDYcEIONHAQHN+Pbb/V95Pg/fi7Q==
   dependencies:
-    "@pacote/get-style" "^2.0.2"
+    "@pacote/get-style" "^1.1.7"
 
-"@pacote/throttle@2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@pacote/throttle/-/throttle-2.0.2.tgz#34f8c7f781bb29d4635d31514c917662bb6a39aa"
-  integrity sha512-Yn8SbAAFRTiVXBvh8E0aGG44TUZOueQFtHqjIwfYkoKJHknchc3PjktiMbRFBFUCWZiS68lHP9K1gXdGu/Z1vQ==
+"@pacote/throttle@^1.0.0":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@pacote/throttle/-/throttle-1.0.7.tgz#1967f2b56259d1bbaa2c8bcef47311a78b811cad"
+  integrity sha512-7iO/ehc4UFeBcdwRjS5gxJwB/SSbeCzrUVR+R0R2Dxxz96TE2KpKN32UdRuv/4WNc+oRgu1g0Jyq/+U6/mr01A==
 
 "@parcel/bundler-default@2.9.3":
   version "2.9.3"
@@ -2192,6 +2192,13 @@ define-properties@^1.1.3:
   dependencies:
     object-keys "^1.0.12"
 
+delegated-events@^1.0.10:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/delegated-events/-/delegated-events-1.1.2.tgz#741a4ba320718096fb8f7db4ddfaadcb0daa5986"
+  integrity sha512-PjEw4Z5mrvXimyf60HGqMJ3BMcqqWZpBqSDGnEMBdkAtF4P7ltoa6N+UJXhbMMUxPLYFtykCmRs6Ra8I8pwzPQ==
+  dependencies:
+    selector-set "^1.1.5"
+
 dependency-graph@^0.11.0:
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/dependency-graph/-/dependency-graph-0.11.0.tgz#ac0ce7ed68a54da22165a85e97a01d53f5eb2e27"
@@ -3185,14 +3192,15 @@ list-to-array@^1.1.0:
   resolved "https://registry.yarnpkg.com/list-to-array/-/list-to-array-1.1.0.tgz#ca7dff640606433cac75cbe8446acd864b15bf6f"
   integrity sha512-+dAZZ2mM+/m+vY9ezfoueVvrgnHIGi5FvgSymbIgJOFwiznWyA59mav95L+Mc6xPtL3s9gm5eNTlNtxJLbNM1g==
 
-littlefoot@^4.0.0:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/littlefoot/-/littlefoot-4.0.1.tgz#347eb3d872941675e495312a097637a7a596af15"
-  integrity sha512-qdkT83Cq99TIa+TuhBedxlArVOXRC57IOT+FZrC4f6FLreeCu30R3CXMYnefw3NIep+QGlbBm/yoH0bbh6OBBw==
+littlefoot@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/littlefoot/-/littlefoot-3.4.1.tgz#f0bd43d2ba07ad9689ef4fe11fc844de2266816e"
+  integrity sha512-P5gVZCqRLWPn5WndTQT+bTiGtWv6cEuhTYjDaDAH2vwLvRIK4q2WoD10SuI8NytRKgGdR3vUIW2G7vLUHJR5jQ==
   dependencies:
-    "@pacote/get-style" "2.0.2"
-    "@pacote/pixels" "2.0.2"
-    "@pacote/throttle" "2.0.2"
+    "@pacote/get-style" "^1.0.0"
+    "@pacote/pixels" "^1.0.0"
+    "@pacote/throttle" "^1.0.0"
+    delegated-events "^1.0.10"
 
 lmdb@2.7.11:
   version "2.7.11"
@@ -4384,6 +4392,11 @@ section-matter@^1.0.0:
   dependencies:
     extend-shallow "^2.0.1"
     kind-of "^6.0.0"
+
+selector-set@^1.1.5:
+  version "1.1.5"
+  resolved "https://registry.yarnpkg.com/selector-set/-/selector-set-1.1.5.tgz#60c135aea482b6f46a2d95ad72058927690a8634"
+  integrity sha512-6SQw6yMew5iOZ8/cDHDEnJWRM4ot2mxP6szZyF5ptrBogw4AcS4EXRj/8BUfgAMwVfdL84qpModlBMOl2NVrsQ==
 
 semver-compare@^1.0.0:
   version "1.0.0"
