@@ -6,8 +6,8 @@
 	"scripts": {
 		"deploy": "serverless deploy",
 		"offline": "serverless offline start",
-		"check": "tsc -p tsconfig.json --noEmit && tslint -p tsconfig.json -c tslint.json",
-		"check-fix": "tslint --fix -p tsconfig.json -c tslint.json"
+		"check": "tsc -p tsconfig.json --noEmit && eslint -c .eslintrc.js --ext .ts",
+		"check-fix": "eslint -c .eslintrc.js --fix --ext .ts"
 	},
 	"author": "",
 	"license": "MIT",
@@ -23,10 +23,12 @@
 		"@types/aws-lambda": "^8.10.112",
 		"@types/node": "^18.15.3",
 		"@types/uuid": "^9.0.1",
+		"@typescript-eslint/eslint-plugin": "^6.7.5",
+		"@typescript-eslint/parser": "^6.7.5",
+		"eslint": "^8.51.0",
 		"serverless": "^3.0.0",
 		"serverless-offline": "12.0.4",
 		"serverless-plugin-typescript": "^2.0.0",
-		"tslint": "^6.1.3",
 		"typescript": "^5.0.2"
 	}
 }
