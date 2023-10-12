@@ -150,7 +150,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/zajca">Martin Zajíc (zajca)</a></li>
 <li><a href="https://github.com/o0h">Hideki Kinjyo (o0h)</a></li>
 <li><a href="https://github.com/tenkoma">Koji Tanaka (tenkoma)</a></li>
-<li><a href="https://github.com/thePanz">Emanuele Panzeri (thePanz)</a></li>
 <li><a href="https://github.com/codecov">Codecov (codecov)</a></li>
 <!-- five-org -->
 </ul>
