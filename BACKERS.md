@@ -31,6 +31,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/AcroMedia">Acro Media (AcroMedia)</a></li>
 <li><a href="https://github.com/AmezmoOfficial">Amezmo (AmezmoOfficial)</a></li>
 <li><a href="https://github.com/mceglowski"> (mceglowski)</a></li>
+<li><a href="https://github.com/MacPaw">MacPaw Inc. (MacPaw)</a></li>
 <!-- hundred-org -->
 </ul>
 
