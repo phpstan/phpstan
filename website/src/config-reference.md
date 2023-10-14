@@ -586,6 +586,31 @@ Learn more about type aliases in [Writing PHP Code](/writing-php-code/phpdoc-typ
 
 Related config key: [`typeAliases`](/writing-php-code/phpdoc-types#global-type-aliases).
 
+
+PHPStan Pro
+-------------
+
+You can override the DNS servers PHPStan Pro uses to download the application:
+
+```yaml
+parameters:
+	pro:
+		dnsServers:
+			- '8.8.8.8'
+```
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.10.39</div>
+
+By default, PHPStan Pro stores its files in `sys_get_temp_dir() . '/phpstan-fixer'`. If that does not work for you for example because of multi-user environment, you can change this setting. You can also take advantage of [environment variables](#environment-variables):
+
+```yaml
+parameters:
+	pro:
+		tmpDir: tmp
+```
+
+Relative path in the `pro.tmpDir` key is resolved based on the directory of the config file is in. In this example PHPStan cache will be stored in `tmp` directory that's next to the configuration file.
+
 Parallel processing
 ----------------
 

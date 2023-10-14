@@ -91,6 +91,10 @@
             "title": "Type aliases",
             "link": "#type-aliases"
         },
+		{
+			"title": "PHPStan Pro",
+			"link": "#phpstan-pro"
+		},
         {
             "title": "Parallel processing",
             "link": "#parallel-processing"
