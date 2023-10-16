@@ -5073,8 +5073,8 @@
     "ignore.count": {
         "PHPStan\\Analyser\\Ignore\\IgnoredErrorHelperResult": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L186",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L212"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L190",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L214"
             ]
         }
     },
@@ -5088,7 +5088,7 @@
     "ignore.unmatched": {
         "PHPStan\\Analyser\\Ignore\\IgnoredErrorHelperResult": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L227"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L229"
             ]
         }
     },
@@ -7339,7 +7339,7 @@
         },
         "PHPStan\\Command\\AnalyseApplication": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L166"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L158"
             ]
         },
         "PHPStan\\Command\\FixerWorkerCommand": {
@@ -7396,8 +7396,8 @@
         },
         "PHPStan\\Command\\AnalyseApplication": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L169",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L172"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L161",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L164"
             ]
         },
         "PHPStan\\Command\\FixerWorkerCommand": {
