@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "bref/bref",
-            "version": "2.1.3",
+            "version": "2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/bref.git",
-                "reference": "6311b7efad39bf8f771c14cc0bd30e8b77f18203"
+                "reference": "1991e74b3a0336c5acc23448248e2bb330d6ba40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/bref/zipball/6311b7efad39bf8f771c14cc0bd30e8b77f18203",
-                "reference": "6311b7efad39bf8f771c14cc0bd30e8b77f18203",
+                "url": "https://api.github.com/repos/brefphp/bref/zipball/1991e74b3a0336c5acc23448248e2bb330d6ba40",
+                "reference": "1991e74b3a0336c5acc23448248e2bb330d6ba40",
                 "shasum": ""
             },
             "require": {
@@ -71,7 +71,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brefphp/bref/issues",
-                "source": "https://github.com/brefphp/bref/tree/2.1.3"
+                "source": "https://github.com/brefphp/bref/tree/2.1.4"
             },
             "funding": [
                 {
@@ -83,7 +83,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-09-11T09:13:40+00:00"
+            "time": "2023-10-11T09:26:14+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -402,16 +402,16 @@
         },
         {
             "name": "nette/di",
-            "version": "v3.1.5",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/di.git",
-                "reference": "00ea0afa643b3b4383a5cd1a322656c989ade498"
+                "reference": "3b69f36529a793460d557503bbbae38ef19cbf1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/di/zipball/00ea0afa643b3b4383a5cd1a322656c989ade498",
-                "reference": "00ea0afa643b3b4383a5cd1a322656c989ade498",
+                "url": "https://api.github.com/repos/nette/di/zipball/3b69f36529a793460d557503bbbae38ef19cbf1d",
+                "reference": "3b69f36529a793460d557503bbbae38ef19cbf1d",
                 "shasum": ""
             },
             "require": {
@@ -419,7 +419,7 @@
                 "nette/neon": "^3.3 || ^4.0",
                 "nette/php-generator": "^3.5.4 || ^4.0",
                 "nette/robot-loader": "^3.2 || ~4.0.0",
-                "nette/schema": "^1.2",
+                "nette/schema": "^1.2.5",
                 "nette/utils": "^3.2.5 || ~4.0.0",
                 "php": "7.2 - 8.3"
             },
@@ -468,9 +468,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/di/issues",
-                "source": "https://github.com/nette/di/tree/v3.1.5"
+                "source": "https://github.com/nette/di/tree/v3.1.6"
             },
-            "time": "2023-10-02T19:58:38+00:00"
+            "time": "2023-10-15T12:31:50+00:00"
         },
         {
             "name": "nette/neon",
