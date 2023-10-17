@@ -1,0 +1,20 @@
+{
+    "name": "madbriller/phpstan-repro",
+    "require": {
+        "phpstan/phpstan": "^1.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "Madbriller\\PhpstanRepro\\": "src/"
+        },
+        "files": [
+            "phpstan-bootstrap.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Brad Miller",
+            "email": "28307684+mad-briller@users.noreply.github.com"
+        }
+    ]
+}
