@@ -20,7 +20,6 @@ module.exports = {
 		'./tmp/developing-extensions/*.html',
 		'./tmp/blog.html',
 		'./tmp/blog/*.html',
-		'./tmp/js/PlaygroundTabViewModel.ts',
-		'./tmp/js/handlers.ts',
+		'./tmp/js/**/*.ts',
 	]
 }

@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import * as ko from 'knockout';
 import {PlaygroundViewModel} from './PlaygroundViewModel';
-import './handlers';
+import './codeMirror';
 import * as Sentry from '@sentry/browser';
 
 Sentry.init({
