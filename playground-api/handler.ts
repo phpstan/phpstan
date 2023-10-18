@@ -212,6 +212,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 		);
 		const response: any = {
 			tabs: createTabs(versionedErrors),
+			versionedErrors,
 		};
 
 		if (saveResult) {
@@ -297,7 +298,14 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 				treatPhpDocTypesAsCertain,
 			},
 			upToDateTabs: newTabs,
+			upToDateVersionedErrors: newResult,
 		};
+
+		if (typeof json.versionedErrors !== 'undefined') {
+			bodyJson.versionedErrors = json.versionedErrors;
+		} else {
+			bodyJson.versionedErrors = [{phpVersion: 70400, errors: json.errors}];
+		}
 		if (typeof json.versionedErrors !== 'undefined') {
 			bodyJson.tabs = createTabs(json.versionedErrors);
 
@@ -415,19 +423,22 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 		const inputJson = JSON.parse(inputObject.Body as string);
 		const AnsiToHtml = require('ansi-to-html');
 		const convert = new AnsiToHtml();
+		const result = await analyseResultInternal(
+			inputJson.phpCode,
+			inputJson.level.toString(),
+			false,
+			false,
+			true,
+			[70200, 70300, 70400, 80000, 80100, 80200, 80300],
+		);
+
 		return Promise.resolve({
 			statusCode: 200,
 			body: JSON.stringify({
 				code: inputJson.phpCode,
 				htmlErrors: convert.toHtml(JSON.parse(outputObject.Body as string).output),
-				upToDateTabs: createTabs(await analyseResultInternal(
-					inputJson.phpCode,
-					inputJson.level.toString(),
-					false,
-					false,
-					true,
-					[70200, 70300, 70400, 80000, 80100, 80200, 80300],
-				)),
+				upToDateTabs: createTabs(result),
+				upToDateVersionedErrors: result,
 				version: inputJson.phpStanVersion,
 				level: inputJson.level.toString(),
 				config: {
