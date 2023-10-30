@@ -8,7 +8,7 @@
 		"nikic/php-parser": "^4.3.0",
 		"php-http/curl-client": "^2.2",
 		"phpstan/phpstan": "^1.11",
-		"phpstan/phpstan-strict-rules": "1.5.x-dev",
+		"phpstan/phpstan-strict-rules": "^1.6",
 		"sentry/sentry": "^3.3",
 		"symfony/console": "^6.2"
 	},
