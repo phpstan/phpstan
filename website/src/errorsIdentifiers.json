@@ -2803,7 +2803,7 @@
         },
         "PHPStan\\Rules\\Generics\\ClassTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L87"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L89"
             ]
         },
         "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
@@ -2813,7 +2813,7 @@
         },
         "PHPStan\\Rules\\Generics\\FunctionTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L87"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L89"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
@@ -2823,17 +2823,17 @@
         },
         "PHPStan\\Rules\\Generics\\InterfaceTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L87"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L89"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L87"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L89"
             ]
         },
         "PHPStan\\Rules\\Generics\\TraitTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L87"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L89"
             ]
         },
         "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
@@ -4480,54 +4480,54 @@
     "generics.existingClass": {
         "PHPStan\\Rules\\Generics\\ClassTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L72"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L74"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L72"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L74"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L72"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L74"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L72"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L74"
             ]
         },
         "PHPStan\\Rules\\Generics\\TraitTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L72"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L74"
             ]
         }
     },
     "generics.existingTypeAlias": {
         "PHPStan\\Rules\\Generics\\ClassTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L80"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L80"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L80"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L80"
             ]
         },
         "PHPStan\\Rules\\Generics\\TraitTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L80"
             ]
         }
     },
@@ -4883,54 +4883,54 @@
     "generics.notSupportedBound": {
         "PHPStan\\Rules\\Generics\\ClassTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L128"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L130"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L128"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L130"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L128"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L130"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L128"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L130"
             ]
         },
         "PHPStan\\Rules\\Generics\\TraitTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L128"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L130"
             ]
         }
     },
     "generics.traitBound": {
         "PHPStan\\Rules\\Generics\\ClassTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L98"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L100"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L98"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L100"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L98"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L100"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L98"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L100"
             ]
         },
         "PHPStan\\Rules\\Generics\\TraitTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L98"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/TemplateTypeCheck.php#L100"
             ]
         }
     },
@@ -5839,7 +5839,7 @@
     "method.shadowTemplate": {
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/MethodTemplateTypeRule.php#L77"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/MethodTemplateTypeRule.php#L78"
             ]
         }
     },
