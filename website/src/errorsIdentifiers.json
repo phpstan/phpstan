@@ -1830,7 +1830,7 @@
     "backtick.notAllowed": {
         "PHPStan\\Rules\\DisallowedConstructs\\DisallowedBacktickRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/DisallowedConstructs/DisallowedBacktickRule.php#L26"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/DisallowedConstructs/DisallowedBacktickRule.php#L26"
             ]
         }
     },
@@ -1872,7 +1872,7 @@
     "booleanAnd.leftNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanAndRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php#L48"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php#L48"
             ]
         }
     },
@@ -1893,7 +1893,7 @@
     "booleanAnd.rightNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanAndRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php#L58"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php#L58"
             ]
         }
     },
@@ -1914,7 +1914,7 @@
     "booleanNot.exprNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanNotRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/BooleansInConditions/BooleanInBooleanNotRule.php#L44"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanNotRule.php#L44"
             ]
         }
     },
@@ -1949,7 +1949,7 @@
     "booleanOr.leftNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanOrRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L48"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L48"
             ]
         }
     },
@@ -1970,7 +1970,7 @@
     "booleanOr.rightNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanOrRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L58"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L58"
             ]
         }
     },
@@ -2229,7 +2229,7 @@
     "cast.useless": {
         "PHPStan\\Rules\\Cast\\UselessCastRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Cast/UselessCastRule.php#L65"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Cast/UselessCastRule.php#L65"
             ]
         }
     },
@@ -3162,7 +3162,7 @@
     "closure.useThis": {
         "PHPStan\\Rules\\Functions\\ClosureUsesThisRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Functions/ClosureUsesThisRule.php#L46"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Functions/ClosureUsesThisRule.php#L46"
             ]
         }
     },
@@ -3242,7 +3242,7 @@
     "constructor.missingParentCall": {
         "PHPStan\\Rules\\Classes\\RequireParentConstructCallRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Classes/RequireParentConstructCallRule.php#L63"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Classes/RequireParentConstructCallRule.php#L63"
             ]
         }
     },
@@ -3284,14 +3284,14 @@
     "div.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticDivisionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Operators/OperandsInArithmeticDivisionRule.php#L56"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticDivisionRule.php#L56"
             ]
         }
     },
     "div.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticDivisionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Operators/OperandsInArithmeticDivisionRule.php#L64"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticDivisionRule.php#L64"
             ]
         }
     },
@@ -3445,7 +3445,7 @@
     "elseif.condNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInElseIfConditionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/BooleansInConditions/BooleanInElseIfConditionRule.php#L44"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInElseIfConditionRule.php#L44"
             ]
         }
     },
@@ -3476,7 +3476,7 @@
     "empty.notAllowed": {
         "PHPStan\\Rules\\DisallowedConstructs\\DisallowedEmptyRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/DisallowedConstructs/DisallowedEmptyRule.php#L26"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/DisallowedConstructs/DisallowedEmptyRule.php#L26"
             ]
         }
     },
@@ -3905,7 +3905,7 @@
     "equal.notAllowed": {
         "PHPStan\\Rules\\DisallowedConstructs\\DisallowedLooseComparisonRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/DisallowedConstructs/DisallowedLooseComparisonRule.php#L31"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/DisallowedConstructs/DisallowedLooseComparisonRule.php#L31"
             ]
         }
     },
@@ -3927,7 +3927,7 @@
     "for.variableOverwrite": {
         "PHPStan\\Rules\\ForLoop\\OverwriteVariablesWithForLoopInitRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/ForLoop/OverwriteVariablesWithForLoopInitRule.php#L55"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/ForLoop/OverwriteVariablesWithForLoopInitRule.php#L55"
             ]
         }
     },
@@ -3941,7 +3941,7 @@
     "foreach.keyOverwrite": {
         "PHPStan\\Rules\\ForeachLoop\\OverwriteVariablesWithForeachRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/ForeachLoop/OverwriteVariablesWithForeachRule.php#L35"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/ForeachLoop/OverwriteVariablesWithForeachRule.php#L35"
             ]
         }
     },
@@ -3955,7 +3955,7 @@
     "foreach.valueOverwrite": {
         "PHPStan\\Rules\\ForeachLoop\\OverwriteVariablesWithForeachRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/ForeachLoop/OverwriteVariablesWithForeachRule.php#L58"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/ForeachLoop/OverwriteVariablesWithForeachRule.php#L58"
             ]
         }
     },
@@ -4049,8 +4049,8 @@
     "function.strict": {
         "PHPStan\\Rules\\StrictCalls\\StrictFunctionCallsRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/StrictCalls/StrictFunctionCallsRule.php#L70",
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/StrictCalls/StrictFunctionCallsRule.php#L82"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/StrictCalls/StrictFunctionCallsRule.php#L78",
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/StrictCalls/StrictFunctionCallsRule.php#L90"
             ]
         }
     },
@@ -5066,7 +5066,7 @@
     "if.condNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInIfConditionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/BooleansInConditions/BooleanInIfConditionRule.php#L44"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInIfConditionRule.php#L44"
             ]
         }
     },
@@ -5523,7 +5523,7 @@
     "logicalAnd.leftNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanAndRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php#L48"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php#L48"
             ]
         }
     },
@@ -5544,7 +5544,7 @@
     "logicalAnd.rightNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanAndRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php#L58"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php#L58"
             ]
         }
     },
@@ -5579,7 +5579,7 @@
     "logicalOr.leftNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanOrRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L48"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L48"
             ]
         }
     },
@@ -5600,7 +5600,7 @@
     "logicalOr.rightNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanOrRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L58"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L58"
             ]
         }
     },
@@ -5719,12 +5719,12 @@
     "method.dynamicName": {
         "PHPStan\\Rules\\VariableVariables\\VariableMethodCallRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/VariableVariables/VariableMethodCallRule.php#L34"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/VariableVariables/VariableMethodCallRule.php#L34"
             ]
         },
         "PHPStan\\Rules\\VariableVariables\\VariableMethodCallableRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/VariableVariables/VariableMethodCallableRule.php#L34"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/VariableVariables/VariableMethodCallableRule.php#L34"
             ]
         }
     },
@@ -5755,7 +5755,7 @@
         },
         "PHPStan\\Rules\\Methods\\WrongCaseOfInheritedMethodRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Methods/WrongCaseOfInheritedMethodRule.php#L83"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Methods/WrongCaseOfInheritedMethodRule.php#L83"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
@@ -6100,14 +6100,14 @@
     "minus.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticSubtractionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Operators/OperandsInArithmeticSubtractionRule.php#L56"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticSubtractionRule.php#L56"
             ]
         }
     },
     "minus.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticSubtractionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Operators/OperandsInArithmeticSubtractionRule.php#L64"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticSubtractionRule.php#L64"
             ]
         }
     },
@@ -6309,28 +6309,28 @@
     "mod.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticModuloRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Operators/OperandsInArithmeticModuloRule.php#L56"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticModuloRule.php#L56"
             ]
         }
     },
     "mod.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticModuloRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Operators/OperandsInArithmeticModuloRule.php#L64"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticModuloRule.php#L64"
             ]
         }
     },
     "mul.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticMultiplicationRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Operators/OperandsInArithmeticMultiplicationRule.php#L56"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticMultiplicationRule.php#L56"
             ]
         }
     },
     "mul.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticMultiplicationRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Operators/OperandsInArithmeticMultiplicationRule.php#L64"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticMultiplicationRule.php#L64"
             ]
         }
     },
@@ -6597,7 +6597,7 @@
     "notEqual.notAllowed": {
         "PHPStan\\Rules\\DisallowedConstructs\\DisallowedLooseComparisonRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/DisallowedConstructs/DisallowedLooseComparisonRule.php#L40"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/DisallowedConstructs/DisallowedLooseComparisonRule.php#L40"
             ]
         }
     },
@@ -7735,14 +7735,14 @@
     "plus.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticAdditionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Operators/OperandsInArithmeticAdditionRule.php#L62"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticAdditionRule.php#L62"
             ]
         }
     },
     "plus.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticAdditionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Operators/OperandsInArithmeticAdditionRule.php#L68"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticAdditionRule.php#L68"
             ]
         }
     },
@@ -7756,7 +7756,7 @@
     "postDec.nonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandInArithmeticIncrementOrDecrementRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php#L49"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php#L49"
             ]
         }
     },
@@ -7777,7 +7777,7 @@
     "postInc.nonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandInArithmeticIncrementOrDecrementRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php#L49"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php#L49"
             ]
         }
     },
@@ -7791,14 +7791,14 @@
     "pow.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticExponentiationRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Operators/OperandsInArithmeticExponentiationRule.php#L56"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticExponentiationRule.php#L56"
             ]
         }
     },
     "pow.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticExponentiationRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Operators/OperandsInArithmeticExponentiationRule.php#L64"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticExponentiationRule.php#L64"
             ]
         }
     },
@@ -7812,7 +7812,7 @@
     "preDec.nonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandInArithmeticIncrementOrDecrementRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php#L49"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php#L49"
             ]
         }
     },
@@ -7833,7 +7833,7 @@
     "preInc.nonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandInArithmeticIncrementOrDecrementRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php#L49"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php#L49"
             ]
         }
     },
@@ -7869,7 +7869,7 @@
     "property.dynamicName": {
         "PHPStan\\Rules\\VariableVariables\\VariablePropertyFetchRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/VariableVariables/VariablePropertyFetchRule.php#L62"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/VariableVariables/VariablePropertyFetchRule.php#L62"
             ]
         }
     },
@@ -8668,24 +8668,24 @@
     "staticMethod.dynamicCall": {
         "PHPStan\\Rules\\StrictCalls\\DynamicCallOnStaticMethodsCallableRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/StrictCalls/DynamicCallOnStaticMethodsCallableRule.php#L61"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/StrictCalls/DynamicCallOnStaticMethodsCallableRule.php#L61"
             ]
         },
         "PHPStan\\Rules\\StrictCalls\\DynamicCallOnStaticMethodsRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/StrictCalls/DynamicCallOnStaticMethodsRule.php#L72"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/StrictCalls/DynamicCallOnStaticMethodsRule.php#L72"
             ]
         }
     },
     "staticMethod.dynamicName": {
         "PHPStan\\Rules\\VariableVariables\\VariableStaticMethodCallRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/VariableVariables/VariableStaticMethodCallRule.php#L40"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/VariableVariables/VariableStaticMethodCallRule.php#L40"
             ]
         },
         "PHPStan\\Rules\\VariableVariables\\VariableStaticMethodCallableRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/VariableVariables/VariableStaticMethodCallableRule.php#L40"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/VariableVariables/VariableStaticMethodCallableRule.php#L40"
             ]
         }
     },
@@ -8928,7 +8928,7 @@
     "staticProperty.dynamicName": {
         "PHPStan\\Rules\\VariableVariables\\VariableStaticPropertyFetchRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/VariableVariables/VariableStaticPropertyFetchRule.php#L40"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/VariableVariables/VariableStaticPropertyFetchRule.php#L40"
             ]
         }
     },
@@ -8985,7 +8985,7 @@
     "switch.type": {
         "PHPStan\\Rules\\SwitchConditions\\MatchingTypeInSwitchCaseConditionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/SwitchConditions/MatchingTypeInSwitchCaseConditionRule.php#L54"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/SwitchConditions/MatchingTypeInSwitchCaseConditionRule.php#L54"
             ]
         }
     },
@@ -9034,7 +9034,7 @@
     "ternary.condNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInTernaryOperatorRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/BooleansInConditions/BooleanInTernaryOperatorRule.php#L48"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInTernaryOperatorRule.php#L48"
             ]
         }
     },
@@ -9048,7 +9048,7 @@
     "ternary.shortNotAllowed": {
         "PHPStan\\Rules\\DisallowedConstructs\\DisallowedShortTernaryRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/DisallowedConstructs/DisallowedShortTernaryRule.php#L30"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/DisallowedConstructs/DisallowedShortTernaryRule.php#L30"
             ]
         }
     },
@@ -9540,15 +9540,15 @@
     "variable.dynamicName": {
         "PHPStan\\Rules\\VariableVariables\\VariableVariablesRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/VariableVariables/VariableVariablesRule.php#L31"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/VariableVariables/VariableVariablesRule.php#L31"
             ]
         }
     },
     "variable.implicitArray": {
         "PHPStan\\Rules\\DisallowedConstructs\\DisallowedImplicitArrayCreationRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/DisallowedConstructs/DisallowedImplicitArrayCreationRule.php#L49",
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.5.x/src/Rules/DisallowedConstructs/DisallowedImplicitArrayCreationRule.php#L57"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/DisallowedConstructs/DisallowedImplicitArrayCreationRule.php#L49",
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/DisallowedConstructs/DisallowedImplicitArrayCreationRule.php#L57"
             ]
         }
     },
