@@ -121,7 +121,7 @@ jobs:
           - php-version: 8.1
             name: efabrica-team/phpstan-latte tests
             script: |
-              git clone https://github.com/efabrica-team/phpstan-latte.git -b 0.8.0 --depth 1 e2e/integration/repo
+              git clone https://github.com/efabrica-team/phpstan-latte.git -b 0.16.1 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
@@ -379,7 +379,7 @@ jobs:
             baseline-file: php-parser-baseline.neon
           - php-version: 8.1
             repo: efabrica-team/phpstan-latte
-            ref: 0.13.2
+            ref: 0.16.1
             setup: |
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
