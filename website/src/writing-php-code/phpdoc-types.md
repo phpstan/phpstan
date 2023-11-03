@@ -378,3 +378,72 @@ Some functions accept a bitmask composed by `|`-ing different integer values. `0
 * `int-mask<1, 2, 4>` (accepts values that can be composed using `|` from the given integers, and 0)
 * `int-mask-of<1|2|4>` (the same as above, but written as a union)
 * `int-mask-of<Foo::INT_*>` (accepts values from all constants on `Foo` that start with `INT_`)
+
+Offset access
+-------------------------
+
+You can access a value type of a specific array key:
+
+```php
+/**
+ * @phpstan-type MyArray array{foo: int, bar: string}
+ */
+class HelloWorld
+{
+
+	/** @return MyArray['bar'] */
+	public function getBar()
+	{
+		// this needs to return a string...
+	}
+}
+```
+
+This feature shines when combined with generics. It allows to represent key-value pairs backed by an array:
+
+```php
+/**
+ * @template T of array<string, mixed>
+ */
+trait AttributeTrait
+{
+	/** @var T */
+	private array $attributes;
+
+	/**
+	 * @template K of key-of<T>
+	 * @param K $key
+	 * @param T[K] $val
+	 */
+	public function setAttribute(string $key, $val): void
+	{
+		// ...
+	}
+
+	/**
+	 * @template K of key-of<T>
+	 * @param K $key
+	 * @return T[K]|null
+	 */
+	public function getAttribute(string $key)
+	{
+		return $this->attributes[$key] ?? null;
+	}
+}
+
+class Foo {
+
+	/** @use AttributeTrait<array{foo?: string, bar?: 5|6|7, baz?: bool}> */
+	use AttributeTrait;
+
+}
+```
+
+When we try to use class `Foo` in practice, PHPStan reports expected type errors:
+
+```php
+$f = new Foo;
+$f->setAttribute('bar', 5); // OK, bar can be 5
+$f->setAttribute('foo', 3); // error, foo cannot be 3
+$f->getAttribute('unknown'); // error, unknown key
+```
