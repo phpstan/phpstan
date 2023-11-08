@@ -154,5 +154,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/codecov">Codecov (codecov)</a></li>
 <li><a href="https://github.com/noondaysun">Feighen Oosterbroek (noondaysun)</a></li>
 <li><a href="https://github.com/wandoliver">Oliver Wand (wandoliver)</a></li>
+<li><a href="https://github.com/swissspidy">Pascal Birchler (swissspidy)</a></li>
 <!-- five-org -->
 </ul>
