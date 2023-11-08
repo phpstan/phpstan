@@ -3046,6 +3046,13 @@
             ]
         }
     },
+    "classConstant.inTrait": {
+        "PHPStan\\Rules\\Traits\\ConstantsInTraitsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Traits/ConstantsInTraitsRule.php#L47"
+            ]
+        }
+    },
     "classConstant.missingNativeType": {
         "PHPStan\\Rules\\Constants\\OverridingConstantRule": {
             "phpstan/phpstan-src": [
