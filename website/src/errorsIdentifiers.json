@@ -2247,6 +2247,13 @@
             ]
         }
     },
+    "catch.nonCapturingNotSupported": {
+        "PHPStan\\Rules\\Exceptions\\NoncapturingCatchRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/NoncapturingCatchRule.php#L42"
+            ]
+        }
+    },
     "catch.notThrowable": {
         "PHPStan\\Rules\\Exceptions\\CaughtExceptionExistenceRule": {
             "phpstan/phpstan-src": [
