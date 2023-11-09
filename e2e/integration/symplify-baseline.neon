@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^sprintf\\(\\) call mask types does not match provided arguments types$#"
+			count: 1
+			path: repo/packages/easy-coding-standard/packages/Caching/FileHashComputer.php
+
+		-
 			message: "#^Add explicit array type to assigned \"\\$_SERVER\" expression$#"
 			count: 1
 			path: repo/packages/package-builder/src/Console/Style/SymfonyStyleFactory.php
