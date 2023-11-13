@@ -78,6 +78,7 @@ Start today!
 
 Make sure you have at least PHPStan 0.12.45 and launch PHPStan Pro by running the usual `analyse` command with one of these options:
 
+* `--pro`
 * `--fix`
 * `--watch`
 
