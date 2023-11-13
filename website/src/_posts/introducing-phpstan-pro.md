@@ -79,7 +79,6 @@ Start today!
 Make sure you have at least PHPStan 0.12.45 and launch PHPStan Pro by running the usual `analyse` command with one of these options:
 
 * `--pro`
-* `--fix`
 * `--watch`
 
 They all do the same thing so you can choose which one you like. PHPStan will download the PHPStan Pro PHAR file and open your web browser pointing to a locally hosted website. After that, you can follow the on-screen instructions and create an account.
