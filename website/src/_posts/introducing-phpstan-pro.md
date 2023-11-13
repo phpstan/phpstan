@@ -14,8 +14,8 @@ Web UI for browsing errors
 
 When you launch PHPStan Pro by adding `--pro` flag to the `analyse` command, it will automatically open your web browser with its user interface:
 
-<video width="688" height="574" class="mb-8 rounded-lg border border-gray-300" autoplay muted loop playsinline>
-  <source src="/tmp/images/phpstan-pro-1.mp4" type="video/mp4">
+<video class="w-full aspect-[2310/2022] mb-8 rounded-lg border border-gray-300" autoplay muted loop playsinline>
+  <source src="/tmp/images/phpstan-pro-2.mp4" type="video/mp4">
 </video>
 
 Instead of scrolling through a textual output of errors on the command line, you'll get a beautiful interactive UI that allows you to go back and forth between files, and see the surrounding code. This is especially nice if you have a large number of errors.
