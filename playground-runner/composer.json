@@ -9,7 +9,7 @@
 		"php-http/curl-client": "^2.2",
 		"phpstan/phpstan": "^1.11",
 		"phpstan/phpstan-strict-rules": "^1.6",
-		"sentry/sentry": "^3.3",
+		"sentry/sentry": "^4.0",
 		"symfony/console": "^6.2"
 	},
 	"config": {
