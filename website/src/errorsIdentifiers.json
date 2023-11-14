@@ -3044,6 +3044,11 @@
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L73"
             ]
+        },
+        "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L166"
+            ]
         }
     },
     "classConstant.finalNotSupported": {
@@ -3065,6 +3070,11 @@
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L125"
             ]
+        },
+        "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L200"
+            ]
         }
     },
     "classConstant.nativeType": {
@@ -3072,12 +3082,25 @@
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L114"
             ]
+        },
+        "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L185",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L217"
+            ]
         }
     },
     "classConstant.nativeTypeNotSupported": {
         "PHPStan\\Rules\\Constants\\NativeTypedClassConstantRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/NativeTypedClassConstantRule.php#L38"
+            ]
+        }
+    },
+    "classConstant.nonFinal": {
+        "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L154"
             ]
         }
     },
@@ -3157,6 +3180,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L129",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L83"
             ]
+        },
+        "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L241"
+            ]
         }
     },
     "classConstant.visibility": {
@@ -3164,6 +3192,16 @@
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L85",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L94"
+            ]
+        },
+        "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L104",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L115",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L128",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L139",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L80",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L91"
             ]
         }
     },
@@ -5752,8 +5790,8 @@
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodSignatureRule.php#L89",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L257",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L270"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L263",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L276"
             ]
         }
     },
@@ -5835,7 +5873,7 @@
     "method.nonStatic": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L135"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L138"
             ]
         }
     },
@@ -5851,10 +5889,17 @@
             ]
         }
     },
+    "method.override": {
+        "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L95"
+            ]
+        }
+    },
     "method.parentMethodFinal": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L112",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L115",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L68"
             ]
         }
@@ -5862,7 +5907,7 @@
     "method.parentMethodFinalByPhpDoc": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L121",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L124",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L80"
             ]
         }
@@ -5910,7 +5955,7 @@
     "method.static": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L147"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L150"
             ]
         }
     },
@@ -5951,7 +5996,7 @@
     "method.tentativeReturnType": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L208"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L214"
             ]
         }
     },
@@ -6079,7 +6124,8 @@
     "method.visibility": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L172"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L166",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L178"
             ]
         }
     },
@@ -7329,6 +7375,13 @@
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L202"
+            ]
+        }
+    },
+    "parameter.variadicNotLast": {
+        "PHPStan\\Rules\\Functions\\VariadicParametersDeclarationRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/VariadicParametersDeclarationRule.php#L44"
             ]
         }
     },
