@@ -2561,12 +2561,12 @@
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L104"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L105"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L104"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L105"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
@@ -2855,7 +2855,7 @@
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L127",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L128",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
@@ -2894,7 +2894,7 @@
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L127",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L128",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
             ]
         },
@@ -5748,12 +5748,12 @@
     "method.callToAbstract": {
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L271"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L272"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L271"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L272"
             ]
         }
     },
@@ -5969,12 +5969,12 @@
     "method.staticCall": {
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L242"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L243"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L242"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L243"
             ]
         }
     },
@@ -6949,12 +6949,12 @@
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L89"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L90"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L89"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L90"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
@@ -6986,12 +6986,12 @@
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L75"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L76"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L75"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L76"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
@@ -7023,12 +7023,12 @@
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L75"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L76"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L75"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L76"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
@@ -8746,12 +8746,12 @@
     "staticMethod.callToAbstract": {
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L271"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L272"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L271"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L272"
             ]
         }
     },
@@ -8829,60 +8829,60 @@
     "staticMethod.nameCase": {
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L294"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L295"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L294"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L295"
             ]
         }
     },
     "staticMethod.nonObject": {
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L183"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L184"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L183"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L184"
             ]
         }
     },
     "staticMethod.notFound": {
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L209"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L209"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L210"
             ]
         }
     },
     "staticMethod.private": {
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L258"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L259"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L258"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L259"
             ]
         }
     },
     "staticMethod.protected": {
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L258"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L259"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L258"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/StaticMethodCallCheck.php#L259"
             ]
         }
     },
