@@ -539,6 +539,34 @@ This effectively means that inline `@var` cast can only be used to narrow down o
 * [Stub files](/user-guide/stub-files) for overriding 3rd party PHPDocs
 * [Dynamic return type extensions](/developing-extensions/dynamic-return-type-extensions)
 
+### `checkMissingOverrideMethodAttribute`
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.10.42</div>
+
+**default**: `false`
+
+When set to `true`, PHPStan reports missing `#[Override]` attribute above methods that override a method coming from their parent classes, implemented interfaces, or abstract method from a used trait.
+
+```php
+class Foo
+{
+	public function doFoo(): void
+	{
+
+	}
+}
+
+class Bar extends Foo
+{
+	public function doFoo(): void
+	{
+		// missing #[Override] above this method
+	}
+}
+```
+
+Please note that aside from setting this config parameter to `true`, you also need to set [`phpVersion`](#phpversion) to `80300` or higher. If you're not changing `phpVersion` in your config, make sure you're running PHPStan with PHP 8.3 or newer.
+
 Exceptions
 ------------
 
