@@ -29,7 +29,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/crispnl">crispnl (crispnl)</a></li>
 <li><a href="https://github.com/inviqa">Inviqa (inviqa)</a></li>
 <li><a href="https://github.com/hephaist-io">Hephaist.io (hephaist-io)</a></li>
-<li><a href="https://github.com/AcroMedia">Acro Commerce (AcroMedia)</a></li>
 <li><a href="https://github.com/AmezmoOfficial">Amezmo (AmezmoOfficial)</a></li>
 <li><a href="https://github.com/mceglowski"> (mceglowski)</a></li>
 <li><a href="https://github.com/MacPaw">MacPaw Inc. (MacPaw)</a></li>
@@ -93,7 +92,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/voda">Ondřej Vodáček (voda)</a></li>
 <li><a href="https://github.com/o0h">Hideki Kinjyo (o0h)</a></li>
 <li><a href="https://github.com/brotkrueml">Chris Müller (brotkrueml)</a></li>
-<li><a href="https://github.com/JanMikes">Jan Mikeš (JanMikes)</a></li>
 <li><a href="https://github.com/joelclermont">Joel Clermont (joelclermont)</a></li>
 <li><a href="https://github.com/spaze">Michal Špaček (spaze)</a></li>
 <li><a href="https://github.com/DavidBadura">David Badura (DavidBadura)</a></li>
