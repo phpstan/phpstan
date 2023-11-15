@@ -3407,8 +3407,8 @@
     "doctrine.columnType": {
         "PHPStan\\Rules\\Doctrine\\ORM\\EntityColumnRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L182",
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L198"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L181",
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L197"
             ]
         }
     },
@@ -3422,7 +3422,7 @@
     "doctrine.descriptorNotFound": {
         "PHPStan\\Rules\\Doctrine\\ORM\\EntityColumnRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L110"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L109"
             ]
         }
     },
@@ -3434,14 +3434,14 @@
         },
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L121"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L140"
             ]
         }
     },
     "doctrine.enumType": {
         "PHPStan\\Rules\\Doctrine\\ORM\\EntityColumnRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L131"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L130"
             ]
         }
     },
@@ -3476,7 +3476,7 @@
     "doctrine.internalError": {
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L80"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L99"
             ]
         }
     },
@@ -3490,14 +3490,14 @@
     "doctrine.queryBuilderDynamic": {
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L67"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L86"
             ]
         }
     },
     "doctrine.queryBuilderDynamicArgument": {
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L90"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L109"
             ]
         }
     },
@@ -7676,12 +7676,12 @@
     "phpstanApi.varTagAssumption": {
         "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L109"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L109"
             ]
         }
     },
@@ -9613,12 +9613,12 @@
     "varTag.nativeType": {
         "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L85"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L85"
             ]
         }
     },
@@ -9643,12 +9643,12 @@
     "varTag.type": {
         "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L95"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L97"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L95"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L97"
             ]
         }
     },
