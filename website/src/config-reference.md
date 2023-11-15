@@ -545,7 +545,7 @@ This effectively means that inline `@var` cast can only be used to narrow down o
 
 **default**: `false`
 
-When set to `true`, PHPStan reports missing `#[Override]` attribute above methods that override a method coming from their parent classes, implemented interfaces, or abstract method from a used trait.
+When set to `true`, PHPStan reports missing `#[\Override]` attribute above methods that override a method coming from their parent classes, implemented interfaces, or abstract method from a used trait.
 
 ```php
 class Foo
@@ -560,7 +560,7 @@ class Bar extends Foo
 {
 	public function doFoo(): void
 	{
-		// missing #[Override] above this method
+		// missing #[\Override] above this method
 	}
 }
 ```
