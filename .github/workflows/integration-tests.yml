@@ -219,7 +219,7 @@ jobs:
             ref: 4c8b5f7fa01b4727451e8395bb45ba985fd61f9b
             setup: |
               composer install
-            phpstan-command: ../../../phpstan.phar analyse
+            phpstan-command: ../../../phpstan.phar analyse -c ../better-reflection.neon
             baseline-file: better-reflection-baseline.neon
           - php-version: 8.1
             repo: composer/composer
