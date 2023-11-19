@@ -5691,6 +5691,34 @@
             ]
         }
     },
+    "magicConstant.outOfClass": {
+        "PHPStan\\Rules\\Constants\\MagicConstantContextRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/MagicConstantContextRule.php#L34"
+            ]
+        }
+    },
+    "magicConstant.outOfFunction": {
+        "PHPStan\\Rules\\Constants\\MagicConstantContextRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/MagicConstantContextRule.php#L61"
+            ]
+        }
+    },
+    "magicConstant.outOfNamespace": {
+        "PHPStan\\Rules\\Constants\\MagicConstantContextRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/MagicConstantContextRule.php#L68"
+            ]
+        }
+    },
+    "magicConstant.outOfTrait": {
+        "PHPStan\\Rules\\Constants\\MagicConstantContextRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/MagicConstantContextRule.php#L44"
+            ]
+        }
+    },
     "match.alwaysFalse": {
         "PHPStan\\Rules\\Comparison\\MatchExpressionRule": {
             "phpstan/phpstan-src": [
