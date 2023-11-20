@@ -118,7 +118,7 @@ jobs:
           git_commit_gpgsign: true
 
       - name: "Commit changes"
-        uses: "stefanzweifel/git-auto-commit-action@v4"
+        uses: "stefanzweifel/git-auto-commit-action@v5"
         id: "commit"
         with:
           commit_message: "Update errors identifiers"
