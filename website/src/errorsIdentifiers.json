@@ -2699,6 +2699,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/MixinRule.php#L90"
             ]
         },
+        "PHPStan\\Rules\\Constants\\DynamicClassConstantFetchRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
+            ]
+        },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
@@ -3032,6 +3037,13 @@
             ]
         }
     },
+    "classConstant.dynamicFetch": {
+        "PHPStan\\Rules\\Constants\\DynamicClassConstantFetchRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/DynamicClassConstantFetchRule.php#L41"
+            ]
+        }
+    },
     "classConstant.dynamicString": {
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
@@ -3074,6 +3086,13 @@
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L200"
+            ]
+        }
+    },
+    "classConstant.nameType": {
+        "PHPStan\\Rules\\Constants\\DynamicClassConstantFetchRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/DynamicClassConstantFetchRule.php#L65"
             ]
         }
     },
@@ -3170,7 +3189,7 @@
     "classConstant.unused": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivateConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/UnusedPrivateConstantRule.php#L93"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/UnusedPrivateConstantRule.php#L98"
             ]
         }
     },
