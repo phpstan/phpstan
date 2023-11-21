@@ -5791,6 +5791,13 @@
             ]
         }
     },
+    "method.abstractPrivate": {
+        "PHPStan\\Rules\\Methods\\AbstractPrivateMethodRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/AbstractPrivateMethodRule.php#L52"
+            ]
+        }
+    },
     "method.alreadyNarrowedType": {
         "PHPStan\\Rules\\Comparison\\ImpossibleCheckTypeMethodCallRule": {
             "phpstan/phpstan-src": [
@@ -7198,6 +7205,13 @@
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
                 "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L61"
+            ]
+        }
+    },
+    "parameter.duplicate": {
+        "PHPStan\\Rules\\Functions\\RedefinedParametersRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/RedefinedParametersRule.php#L52"
             ]
         }
     },
