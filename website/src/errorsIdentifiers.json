@@ -8560,22 +8560,22 @@
     "return.empty": {
         "PHPStan\\Rules\\Functions\\ArrowFunctionReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L70"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L70"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\Functions\\ReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L70"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\Methods\\ReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L70"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L69"
             ]
         }
     },
@@ -8590,22 +8590,22 @@
     "return.never": {
         "PHPStan\\Rules\\Functions\\ArrowFunctionReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L45"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L44"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L45"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L44"
             ]
         },
         "PHPStan\\Rules\\Functions\\ReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L45"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L44"
             ]
         },
         "PHPStan\\Rules\\Methods\\ReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L45"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L44"
             ]
         },
         "PHPStan\\Rules\\Missing\\MissingReturnRule": {
@@ -8673,22 +8673,22 @@
     "return.type": {
         "PHPStan\\Rules\\Functions\\ArrowFunctionReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L103"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L103"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\Functions\\ReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L103"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\Methods\\ReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L103",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L102",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/ReturnTypeRule.php#L107"
             ]
         }
@@ -8773,22 +8773,22 @@
     "return.void": {
         "PHPStan\\Rules\\Functions\\ArrowFunctionReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L89"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L88"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L89"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L88"
             ]
         },
         "PHPStan\\Rules\\Functions\\ReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L89"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L88"
             ]
         },
         "PHPStan\\Rules\\Methods\\ReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L89"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionReturnTypeCheck.php#L88"
             ]
         }
     },
@@ -9332,7 +9332,7 @@
     "throws.notThrowable": {
         "PHPStan\\Rules\\PhpDoc\\InvalidThrowsPhpDocValueRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/InvalidThrowsPhpDocValueRule.php#L73"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/InvalidThrowsPhpDocValueRule.php#L72"
             ]
         }
     },
