@@ -60,3 +60,8 @@ parameters:
 			count: 1
 			path: repo/packages/StaticTypeMapper/ValueObject/Type/SimpleStaticType.php
 
+		-
+			message: "#^Parameter \\#1 \\$expr of method Rector\\\\Php81\\\\Rector\\\\MethodCall\\\\MyCLabsMethodCallToEnumConstRector\\:\\:getPropertyFetchOrVariable\\(\\) expects PhpParser\\\\Node\\\\Expr\\\\PropertyFetch\\|PhpParser\\\\Node\\\\Expr\\\\Variable, PhpParser\\\\Node given\\.$#"
+			count: 1
+			path: repo/rules/Php81/Rector/MethodCall/MyCLabsMethodCallToEnumConstRector.php
+
