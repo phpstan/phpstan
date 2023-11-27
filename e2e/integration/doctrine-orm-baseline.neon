@@ -16,6 +16,11 @@ parameters:
 			path: repo/lib/Doctrine/ORM/Mapping/Driver/DatabaseDriver.php
 
 		-
+			message: "#^Offset 'version' on \\*NEVER\\* in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/Driver/XmlDriver.php
+
+		-
 			message: "#^Condition \"TMaybeContained is mixed\" in conditional return type is always true\\.$#"
 			count: 1
 			path: repo/lib/Doctrine/ORM/PersistentCollection.php
