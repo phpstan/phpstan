@@ -3271,10 +3271,29 @@
             ]
         }
     },
+    "closure.useDuplicate": {
+        "PHPStan\\Rules\\Functions\\InvalidLexicalVariablesInClosureUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/InvalidLexicalVariablesInClosureUseRule.php#L90"
+            ]
+        }
+    },
+    "closure.useSuperGlobal": {
+        "PHPStan\\Rules\\Functions\\InvalidLexicalVariablesInClosureUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/InvalidLexicalVariablesInClosureUseRule.php#L78"
+            ]
+        }
+    },
     "closure.useThis": {
         "PHPStan\\Rules\\Functions\\ClosureUsesThisRule": {
             "phpstan/phpstan-strict-rules": [
                 "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Functions/ClosureUsesThisRule.php#L46"
+            ]
+        },
+        "PHPStan\\Rules\\Functions\\InvalidLexicalVariablesInClosureUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/InvalidLexicalVariablesInClosureUseRule.php#L69"
             ]
         }
     },
@@ -3390,6 +3409,20 @@
         "PHPStan\\Rules\\DeadCode\\UnreachableStatementRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/UnreachableStatementRule.php#L26"
+            ]
+        }
+    },
+    "declareStrictTypes.notFirst": {
+        "PHPStan\\Rules\\Keywords\\DeclareStrictTypesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Keywords/DeclareStrictTypesRule.php#L76"
+            ]
+        }
+    },
+    "declareStrictTypes.value": {
+        "PHPStan\\Rules\\Keywords\\DeclareStrictTypesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Keywords/DeclareStrictTypesRule.php#L52"
             ]
         }
     },
@@ -6189,6 +6222,11 @@
         }
     },
     "method.visibility": {
+        "PHPStan\\Rules\\Methods\\MethodVisibilityInInterfaceRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MethodVisibilityInInterfaceRule.php#L43"
+            ]
+        },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/OverridingMethodRule.php#L183",
@@ -6868,6 +6906,27 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/IssetCheck.php#L250",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/IssetCheck.php#L301",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/IssetCheck.php#L65"
+            ]
+        }
+    },
+    "nullableType.mixed": {
+        "PHPStan\\Rules\\Types\\InvalidTypesInUnionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Types/InvalidTypesInUnionRule.php#L115"
+            ]
+        }
+    },
+    "nullableType.never": {
+        "PHPStan\\Rules\\Types\\InvalidTypesInUnionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Types/InvalidTypesInUnionRule.php#L115"
+            ]
+        }
+    },
+    "nullableType.void": {
+        "PHPStan\\Rules\\Types\\InvalidTypesInUnionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Types/InvalidTypesInUnionRule.php#L115"
             ]
         }
     },
@@ -9643,6 +9702,27 @@
         "PHPStan\\Rules\\Operators\\InvalidUnaryOperationRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Operators/InvalidUnaryOperationRule.php#L50"
+            ]
+        }
+    },
+    "unionType.mixed": {
+        "PHPStan\\Rules\\Types\\InvalidTypesInUnionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Types/InvalidTypesInUnionRule.php#L99"
+            ]
+        }
+    },
+    "unionType.never": {
+        "PHPStan\\Rules\\Types\\InvalidTypesInUnionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Types/InvalidTypesInUnionRule.php#L99"
+            ]
+        }
+    },
+    "unionType.void": {
+        "PHPStan\\Rules\\Types\\InvalidTypesInUnionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Types/InvalidTypesInUnionRule.php#L99"
             ]
         }
     },
