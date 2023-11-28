@@ -19,3 +19,8 @@ parameters:
 			message: "#^Result of method Symfony\\\\Contracts\\\\Translation\\\\LocaleAwareInterface\\:\\:setLocale\\(\\) \\(void\\) is used\\.$#"
 			count: 1
 			path: repo/src/Carbon/CarbonPeriod.php
+
+		-
+			message: "#^Variable \\$date might not be defined\\.$#"
+			count: 1
+			path: repo/tests/CarbonPeriod/ToArrayTest.php

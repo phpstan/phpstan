@@ -41,6 +41,11 @@ parameters:
 			path: repo/core/modules/big_pipe/tests/modules/big_pipe_test/src/BigPipePlaceholderTestCases.php
 
 		-
+			message: "#^Undefined variable\\: \\$book_links$#"
+			count: 1
+			path: repo/core/modules/book/book.module
+
+		-
 			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\comment\\\\\\\\CommentLazyBuilders', 'renderLinks'\\} at key '0' is not callable\\.$#"
 			count: 1
 			path: repo/core/modules/comment/src/CommentViewBuilder.php
