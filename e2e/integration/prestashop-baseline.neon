@@ -426,18 +426,18 @@ parameters:
 			path: repo/classes/controller/AdminController.php
 
 		-
-			message: "#^Strict comparison using \\!\\=\\= between ''\\|'0'\\|null and false will always evaluate to true\\.$#"
-			count: 4
-			path: repo/classes/controller/AdminController.php
-
-		-
 			message: "#^Strict comparison using \\!\\=\\= between int and false will always evaluate to true\\.$#"
 			count: 1
 			path: repo/classes/controller/AdminController.php
 
 		-
+			message: "#^Strict comparison using \\!\\=\\= between string\\|null and false will always evaluate to true\\.$#"
+			count: 4
+			path: repo/classes/controller/AdminController.php
+
+		-
 			message: "#^Strict comparison using \\=\\=\\= between 0 and 0 will always evaluate to true\\.$#"
-			count: 2
+			count: 1
 			path: repo/classes/controller/AdminController.php
 
 		-
@@ -788,6 +788,16 @@ parameters:
 		-
 			message: "#^Strict comparison using \\!\\=\\= between string and false will always evaluate to true\\.$#"
 			count: 3
+			path: repo/controllers/admin/AdminModulesController.php
+
+		-
+			message: "#^Undefined variable\\: \\$modules_list_save$#"
+			count: 1
+			path: repo/controllers/admin/AdminModulesController.php
+
+		-
+			message: "#^Variable \\$modules_list_save in isset\\(\\) is never defined\\.$#"
+			count: 1
 			path: repo/controllers/admin/AdminModulesController.php
 
 		-
