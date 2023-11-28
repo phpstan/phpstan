@@ -32,6 +32,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/AmezmoOfficial">Amezmo (AmezmoOfficial)</a></li>
 <li><a href="https://github.com/mceglowski"> (mceglowski)</a></li>
 <li><a href="https://github.com/MacPaw">MacPaw Inc. (MacPaw)</a></li>
+<li><a href="https://github.com/mautic">Mautic (mautic)</a></li>
 <!-- hundred-org -->
 </ul>
 
@@ -155,5 +156,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/noondaysun">Feighen Oosterbroek (noondaysun)</a></li>
 <li><a href="https://github.com/wandoliver">Oliver Wand (wandoliver)</a></li>
 <li><a href="https://github.com/swissspidy">Pascal Birchler (swissspidy)</a></li>
+<li><a href="https://github.com/stafftastic">stafftastic GmbH (stafftastic)</a></li>
 <!-- five-org -->
 </ul>
