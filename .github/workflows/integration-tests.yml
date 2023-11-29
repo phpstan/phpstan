@@ -91,11 +91,14 @@ jobs:
           - php-version: 8.1
             name: Symplify tests
             script: |
-              git clone https://github.com/symplify/symplify.git e2e/integration/repo
+              git clone https://github.com/symplify/phpstan-rules.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 92e9b42fba42e75acf5ab89a4dd690340632e352
+              git checkout bb4027c1e61be0aac879ddf8c47738d344547d8a
               cp ../symplify-composer.lock composer.lock
               composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit
           - php-version: 8.1
             name: Larastan tests
