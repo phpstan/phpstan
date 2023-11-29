@@ -269,8 +269,8 @@ jobs:
             phpstan-command: ../../../phpstan analyse -c ../magento-testcase.neon
             baseline-file: magento-testcase-baseline.neon
           - php-version: 8.1
-            repo: symplify/symplify
-            ref: 92e9b42fba42e75acf5ab89a4dd690340632e352
+            repo: symplify/phpstan-rules
+            ref: bb4027c1e61be0aac879ddf8c47738d344547d8a
             setup: |
               cp ../symplify-composer.lock composer.lock
               composer install
