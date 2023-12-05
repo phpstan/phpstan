@@ -55,7 +55,7 @@ Check out as well [phpstan-deprecation-rules](https://github.com/phpstan/phpstan
 Unofficial extensions
 -----------------
 
-* Laravel ([Larastan](https://github.com/nunomaduro/larastan) and [Bladestan](https://github.com/TomasVotruba/bladestan))
+* Laravel ([Larastan](https://github.com/larastan/larastan) and [Bladestan](https://github.com/TomasVotruba/bladestan))
 * [Drupal](https://github.com/mglaman/phpstan-drupal)
 * [WordPress](https://github.com/szepeviktor/phpstan-wordpress)
 * [Laminas](https://github.com/Slamdunk/phpstan-laminas-framework)
