@@ -103,9 +103,9 @@ jobs:
           - php-version: 8.1
             name: Larastan tests
             script: |
-              git clone https://github.com/nunomaduro/larastan.git e2e/integration/repo
+              git clone https://github.com/larastan/larastan.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 51028c0aba0d8756f7d9e9972ed74e7d34976958
+              git checkout fa78fdf244afcd02b63c690e59de717847cb1e88
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
@@ -277,8 +277,8 @@ jobs:
             phpstan-command: ../../../phpstan analyse -c ../symplify.neon
             baseline-file: symplify-baseline.neon
           - php-version: 8.1
-            repo: nunomaduro/larastan
-            ref: 51028c0aba0d8756f7d9e9972ed74e7d34976958
+            repo: larastan/larastan
+            ref: fa78fdf244afcd02b63c690e59de717847cb1e88
             setup: |
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
