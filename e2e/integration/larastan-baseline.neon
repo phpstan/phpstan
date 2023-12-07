@@ -1,0 +1,16 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method NunoMaduro\\\\Larastan\\\\ReturnTypes\\\\AppMakeDynamicReturnTypeExtension\\:\\:getTypeFromStaticMethodCall\\(\\) never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/src/ReturnTypes/AppMakeDynamicReturnTypeExtension.php
+
+		-
+			message: "#^Method NunoMaduro\\\\Larastan\\\\ReturnTypes\\\\ApplicationMakeDynamicReturnTypeExtension\\:\\:getTypeFromMethodCall\\(\\) never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/src/ReturnTypes/ApplicationMakeDynamicReturnTypeExtension.php
+
+		-
+			message: "#^Method NunoMaduro\\\\Larastan\\\\ReturnTypes\\\\ContainerMakeDynamicReturnTypeExtension\\:\\:getTypeFromMethodCall\\(\\) never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/src/ReturnTypes/ContainerMakeDynamicReturnTypeExtension.php
