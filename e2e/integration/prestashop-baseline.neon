@@ -1446,6 +1446,21 @@ parameters:
 			path: repo/src/Core/Domain/Cart/ValueObject/CartId.php
 
 		-
+			message: "#^Method PrestaShop\\\\PrestaShop\\\\Core\\\\Domain\\\\CartRule\\\\ValueObject\\\\CartRuleAction\\\\AmountDiscountAction\\:\\:getAmountDiscount\\(\\) never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/src/Core/Domain/CartRule/ValueObject/CartRuleAction/AmountDiscountAction.php
+
+		-
+			message: "#^Method PrestaShop\\\\PrestaShop\\\\Core\\\\Domain\\\\CartRule\\\\ValueObject\\\\CartRuleAction\\\\GiftProductAction\\:\\:getGiftProduct\\(\\) never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/src/Core/Domain/CartRule/ValueObject/CartRuleAction/GiftProductAction.php
+
+		-
+			message: "#^Method PrestaShop\\\\PrestaShop\\\\Core\\\\Domain\\\\CartRule\\\\ValueObject\\\\CartRuleAction\\\\PercentageDiscountAction\\:\\:getPercentageDiscount\\(\\) never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/src/Core/Domain/CartRule/ValueObject/CartRuleAction/PercentageDiscountAction.php
+
+		-
 			message: "#^Call to function is_bool\\(\\) with bool will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/Core/Domain/Category/Command/AddCategoryCommand.php
@@ -1826,6 +1841,16 @@ parameters:
 			path: repo/src/Core/Hook/HookDispatcherAwareTrait.php
 
 		-
+			message: "#^Method PrestaShop\\\\PrestaShop\\\\Core\\\\Kpi\\\\Row\\\\HookableKpiRowFactory\\:\\:build\\(\\) never returns void so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/src/Core/Kpi/Row/HookableKpiRowFactory.php
+
+		-
+			message: "#^Method PrestaShop\\\\PrestaShop\\\\Core\\\\Localization\\\\CLDR\\\\Currency\\:\\:getDisplayName\\(\\) never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/src/Core/Localization/CLDR/Currency.php
+
+		-
 			message: "#^Strict comparison using \\!\\=\\= between null and int will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/Core/Localization/CLDR/CurrencyData.php
@@ -1896,6 +1921,11 @@ parameters:
 			path: repo/src/Core/Localization/Specification/NumberSymbolList.php
 
 		-
+			message: "#^Method PrestaShop\\\\PrestaShop\\\\Core\\\\MailTemplate\\\\FolderThemeScanner\\:\\:scan\\(\\) never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/src/Core/MailTemplate/FolderThemeScanner.php
+
+		-
 			message: "#^Strict comparison using \\!\\=\\= between null and PrestaShop\\\\PrestaShop\\\\Core\\\\MailTemplate\\\\ThemeInterface will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/Core/MailTemplate/MailThemeConfiguration.php
@@ -1909,6 +1939,11 @@ parameters:
 			message: "#^Call to function is_int\\(\\) with int will always evaluate to true\\.$#"
 			count: 2
 			path: repo/src/Core/Product/Search/Pagination.php
+
+		-
+			message: "#^Method PrestaShop\\\\PrestaShop\\\\Core\\\\Search\\\\SearchParameters\\:\\:getFiltersFromRepository\\(\\) never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/src/Core/Search/SearchParameters.php
 
 		-
 			message: "#^Strict comparison using \\!\\=\\= between int\\|null and '' will always evaluate to true\\.$#"
