@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Method Efabrica\\\\PHPStanLatte\\\\Compiler\\\\NodeVisitor\\\\AddFormClassesNodeVisitor\\:\\:leaveNode\\(\\) never returns int so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/src/Compiler/NodeVisitor/AddFormClassesNodeVisitor.php
+
+		-
+			message: "#^Method Efabrica\\\\PHPStanLatte\\\\LatteContext\\\\Collector\\\\RelatedFilesCollector\\:\\:collectData\\(\\) never returns null so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/src/LatteContext/Collector/RelatedFilesCollector.php
+
+		-
 			message: "#^Method Efabrica\\\\PHPStanLatte\\\\LatteTemplateResolver\\\\LatteTemplateResolverResult\\:\\:addErrorFromBuilder\\(\\) has parameter \\$error with generic class PHPStan\\\\Rules\\\\RuleErrorBuilder but does not specify its types\\: T$#"
 			count: 1
 			path: repo/src/LatteTemplateResolver/LatteTemplateResolverResult.php
