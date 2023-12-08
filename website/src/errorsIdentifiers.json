@@ -1876,6 +1876,13 @@
             ]
         }
     },
+    "booleanAnd.resultUnused": {
+        "PHPStan\\Rules\\DeadCode\\NoopRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/NoopRule.php#L80"
+            ]
+        }
+    },
     "booleanAnd.rightAlwaysFalse": {
         "PHPStan\\Rules\\Comparison\\BooleanAndConstantConditionRule": {
             "phpstan/phpstan-src": [
@@ -1950,6 +1957,13 @@
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanOrRule": {
             "phpstan/phpstan-strict-rules": [
                 "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L48"
+            ]
+        }
+    },
+    "booleanOr.resultUnused": {
+        "PHPStan\\Rules\\DeadCode\\NoopRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/NoopRule.php#L80"
             ]
         }
     },
@@ -4057,7 +4071,7 @@
     "expr.resultUnused": {
         "PHPStan\\Rules\\DeadCode\\NoopRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/NoopRule.php#L104"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/NoopRule.php#L112"
             ]
         }
     },
@@ -5672,6 +5686,13 @@
             ]
         }
     },
+    "logicalAnd.resultUnused": {
+        "PHPStan\\Rules\\DeadCode\\NoopRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/NoopRule.php#L63"
+            ]
+        }
+    },
     "logicalAnd.rightAlwaysFalse": {
         "PHPStan\\Rules\\Comparison\\BooleanAndConstantConditionRule": {
             "phpstan/phpstan-src": [
@@ -5728,6 +5749,13 @@
             ]
         }
     },
+    "logicalOr.resultUnused": {
+        "PHPStan\\Rules\\DeadCode\\NoopRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/NoopRule.php#L63"
+            ]
+        }
+    },
     "logicalOr.rightAlwaysFalse": {
         "PHPStan\\Rules\\Comparison\\BooleanOrConstantConditionRule": {
             "phpstan/phpstan-src": [
@@ -5746,6 +5774,41 @@
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanOrRule": {
             "phpstan/phpstan-strict-rules": [
                 "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L58"
+            ]
+        }
+    },
+    "logicalXor.leftAlwaysFalse": {
+        "PHPStan\\Rules\\Comparison\\LogicalXorConstantConditionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Comparison/LogicalXorConstantConditionRule.php#L58"
+            ]
+        }
+    },
+    "logicalXor.leftAlwaysTrue": {
+        "PHPStan\\Rules\\Comparison\\LogicalXorConstantConditionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Comparison/LogicalXorConstantConditionRule.php#L58"
+            ]
+        }
+    },
+    "logicalXor.resultUnused": {
+        "PHPStan\\Rules\\DeadCode\\NoopRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/NoopRule.php#L46"
+            ]
+        }
+    },
+    "logicalXor.rightAlwaysFalse": {
+        "PHPStan\\Rules\\Comparison\\LogicalXorConstantConditionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Comparison/LogicalXorConstantConditionRule.php#L91"
+            ]
+        }
+    },
+    "logicalXor.rightAlwaysTrue": {
+        "PHPStan\\Rules\\Comparison\\LogicalXorConstantConditionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Comparison/LogicalXorConstantConditionRule.php#L91"
             ]
         }
     },
@@ -9312,6 +9375,13 @@
         "PHPStan\\Rules\\Comparison\\UnreachableTernaryElseBranchRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Comparison/UnreachableTernaryElseBranchRule.php#L57"
+            ]
+        }
+    },
+    "ternary.resultUnused": {
+        "PHPStan\\Rules\\DeadCode\\NoopRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/NoopRule.php#L98"
             ]
         }
     },
