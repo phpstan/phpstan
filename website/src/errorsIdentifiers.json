@@ -4057,7 +4057,7 @@
     "expr.resultUnused": {
         "PHPStan\\Rules\\DeadCode\\NoopRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/NoopRule.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/NoopRule.php#L104"
             ]
         }
     },
