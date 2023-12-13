@@ -21,13 +21,13 @@
 	"devDependencies": {
 		"@tsconfig/node18": "^18.0.0",
 		"@types/aws-lambda": "^8.10.112",
-		"@types/node": "^18.15.3",
+		"@types/node": "^20.0.0",
 		"@types/uuid": "^9.0.1",
 		"@typescript-eslint/eslint-plugin": "^6.7.5",
 		"@typescript-eslint/parser": "^6.7.5",
 		"eslint": "^8.51.0",
 		"serverless": "^3.0.0",
-		"serverless-offline": "12.0.4",
+		"serverless-offline": "13.3.1",
 		"serverless-plugin-typescript": "^2.0.0",
 		"typescript": "^5.0.2"
 	}
