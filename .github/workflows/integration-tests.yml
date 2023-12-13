@@ -407,6 +407,13 @@ jobs:
               composer install
             phpstan-command: ../../../phpstan.phar analyse
             baseline-file: react-promise-baseline.neon
+          - php-version: 8.2
+            repo: WordPress/WordPress-Coding-Standards
+            ref: 5f0c8a7ebdde0314ea5e30f76375a10c7d6f3910
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../wp-cs.neon
+            baseline-file: wp-cs-baseline.neon
 
     steps:
       - name: "Checkout"
