@@ -24,7 +24,7 @@ You can also download the [latest PHAR](https://github.com/phpstan/phpstan/relea
 [Head here](/user-guide/docker) if you want to use PHPStan in Docker.
 
 First run
--------------
+---------
 
 To let PHPStan analyse your codebase, you have to use the `analyse` command and point it to the right directories.
 
@@ -53,3 +53,12 @@ PHPStan will probably find some errors, but don't worry, your code might be just
 **By default, PHPStan runs only the most basic checks. Head to [Rule Levels](/user-guide/rule-levels) to learn how to turn on stricter checks.**
 
 **Learn about all the configuration options in the [Config Reference](/config-reference).**
+
+Memory Limit
+------------
+
+If PHPStan crashes with an error message like:
+```
+Child process error (exit code 255): PHP Fatal error:  Allowed memory size of xxx bytes exhausted (tried to allocate xxx bytes) in ...
+```
+... then you need to increase the value of `memory_limit` in your `php.ini` for **CLI**. In Linux, this is `/etc/php/<x.x>/cli/php.ini`.
