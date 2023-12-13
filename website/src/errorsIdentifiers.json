@@ -8209,9 +8209,9 @@
     "property.invalidPromoted": {
         "PHPStan\\Rules\\Classes\\InvalidPromotedPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/InvalidPromotedPropertiesRule.php#L100",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/InvalidPromotedPropertiesRule.php#L63",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/InvalidPromotedPropertiesRule.php#L71",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/InvalidPromotedPropertiesRule.php#L79"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/InvalidPromotedPropertiesRule.php#L92"
             ]
         }
     },
@@ -8305,7 +8305,7 @@
     "property.promotedNotSupported": {
         "PHPStan\\Rules\\Classes\\InvalidPromotedPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/InvalidPromotedPropertiesRule.php#L58"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/InvalidPromotedPropertiesRule.php#L50"
             ]
         }
     },
