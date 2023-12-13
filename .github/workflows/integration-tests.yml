@@ -414,6 +414,13 @@ jobs:
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../wp-cs.neon
             baseline-file: wp-cs-baseline.neon
+          - php-version: 8.2
+            repo: PHPCSStandards/PHP_CodeSniffer
+            ref: 040f675a5020a62ddc9c46344d9cf26658e2b04e
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../phpcs.neon
+            baseline-file: phpcs-baseline.neon
 
     steps:
       - name: "Checkout"
