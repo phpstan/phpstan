@@ -26,6 +26,11 @@ parameters:
 			path: repo/lib/Doctrine/ORM/PersistentCollection.php
 
 		-
+			message: "#^Method Doctrine\\\\ORM\\\\Query\\\\AST\\\\IndexBy\\:\\:dispatch\\(\\) should return string but returns null\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/AST/IndexBy.php
+
+		-
 			message: "#^Parameter \\#2 \\$array of function implode expects array\\<string\\>, array\\<int, object\\|string\\> given\\.$#"
 			count: 1
 			path: repo/lib/Doctrine/ORM/Query/Expr/Base.php
