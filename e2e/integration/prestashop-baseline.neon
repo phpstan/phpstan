@@ -2256,6 +2256,11 @@ parameters:
 			path: repo/tests/Integration/Behaviour/Features/Context/Domain/Product/UpdateStockFeatureContext.php
 
 		-
+			message: "#^Method Tests\\\\Integration\\\\Behaviour\\\\Features\\\\Context\\\\Util\\\\CategoryTreeIterator\\:\\:getCategoryNodeId\\(\\) never returns void so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/tests/Integration/Behaviour/Features/Context/Util/CategoryTreeIterator.php
+
+		-
 			message: "#^Cannot call method format\\(\\) on array\\|bool\\|float\\|int\\|object\\|resource\\|string\\.$#"
 			count: 1
 			path: repo/tests/Integration/Behaviour/Features/Context/Util/PrimitiveUtils.php
