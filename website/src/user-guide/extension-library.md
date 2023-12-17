@@ -84,5 +84,7 @@ Unofficial extensions
 * [shipmonk / phpstan-rules](https://github.com/shipmonk-rnd/phpstan-rules)
 * [jiripudil / phpstan-sealed-classes](https://github.com/jiripudil/phpstan-sealed-classes)
 * [sidz / phpstan-rules](https://github.com/sidz/phpstan-rules)
+* [staabm / phpstan-todo-by](https://github.com/staabm/phpstan-todo-by)
+* [staabm / phpstan-dba](https://github.com/staabm/phpstan-dba)
 
 [**Find more on Packagist!**](https://packagist.org/?type=phpstan-extension)
