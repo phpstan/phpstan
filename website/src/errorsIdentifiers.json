@@ -7656,7 +7656,7 @@
         },
         "PHPStan\\Command\\FixerWorkerCommand": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/FixerWorkerCommand.php#L323"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/FixerWorkerCommand.php#L324"
             ]
         },
         "PHPStan\\PhpDoc\\StubValidator": {
@@ -7714,8 +7714,8 @@
         },
         "PHPStan\\Command\\FixerWorkerCommand": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/FixerWorkerCommand.php#L326",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/FixerWorkerCommand.php#L329"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/FixerWorkerCommand.php#L327",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/FixerWorkerCommand.php#L330"
             ]
         }
     },
