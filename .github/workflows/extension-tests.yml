@@ -48,8 +48,6 @@ jobs:
       fail-fast: false
       matrix:
         php-version:
-          - "7.2"
-          - "7.3"
           - "7.4"
           - "8.0"
           - "8.1"
@@ -70,14 +68,6 @@ jobs:
           - "phpstan-webmozart-assert"
           - "phpstan-beberlei-assert"
         exclude:
-          - extension-name: "phpstan-mockery"
-            php-version: "7.2"
-          - extension-name: "phpstan-mockery"
-            php-version: "7.3"
-          - extension-name: "phpstan-phpunit"
-            php-version: "7.2"
-          - extension-name: "phpstan-doctrine"
-            php-version: "7.2"
           - extension-name: "phpstan-doctrine"
             php-version: "8.3"
           - extension-name: "phpstan-doctrine"
