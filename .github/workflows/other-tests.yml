@@ -210,7 +210,7 @@ jobs:
               cp ../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpstan analyse -l 8 src/
-          - php-version: 7.3
+          - php-version: 7.4
             extensions: opcache
             ini-values: memory_limit=256M, opcache.memory_consumption=128, opcache.interned_strings_buffer=8, opcache.max_accelerated_files=4000, opcache.revalidate_freq=60, opcache.fast_shutdown=1, opcache.enable_cli=1, opcache.enable=1
             operating-system: ubuntu-latest
