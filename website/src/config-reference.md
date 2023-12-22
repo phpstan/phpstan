@@ -539,6 +539,16 @@ This effectively means that inline `@var` cast can only be used to narrow down o
 * [Stub files](/user-guide/stub-files) for overriding 3rd party PHPDocs
 * [Dynamic return type extensions](/developing-extensions/dynamic-return-type-extensions)
 
+### `stricterPhpDocTypeCheckInVarTag`
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.10.51 + Bleeding Edge</div>
+
+**default**: `false`
+
+This option strictens checks used in `reportWrongPhpDocTypeInVarTag`. Main difference is that this disallows array key widening in vardocs, so those would get reported:
+  - `list<int>` => `array<int>`
+  - `array<int, int>` => `array<int>`
+
 ### `checkMissingOverrideMethodAttribute`
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.10.42</div>
