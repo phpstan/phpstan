@@ -6,27 +6,27 @@ parameters:
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
 
 		-
-			message: "#^Call to an undefined method Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtensionInterface\\:\\:setDdgBrand\\(\\)\\.$#"
+			message: "#^Call to an undefined method Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtension\\:\\:setDdgBrand\\(\\)\\.$#"
 			count: 1
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
 
 		-
-			message: "#^Call to an undefined method Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtensionInterface\\:\\:setDdgCategories\\(\\)\\.$#"
+			message: "#^Call to an undefined method Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtension\\:\\:setDdgCategories\\(\\)\\.$#"
 			count: 1
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
 
 		-
-			message: "#^Call to an undefined method Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtensionInterface\\:\\:setDdgDescription\\(\\)\\.$#"
+			message: "#^Call to an undefined method Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtension\\:\\:setDdgDescription\\(\\)\\.$#"
 			count: 1
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
 
 		-
-			message: "#^Call to an undefined method Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtensionInterface\\:\\:setDdgImage\\(\\)\\.$#"
+			message: "#^Call to an undefined method Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtension\\:\\:setDdgImage\\(\\)\\.$#"
 			count: 1
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
 
 		-
-			message: "#^Call to an undefined method Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtensionInterface\\:\\:setDdgSku\\(\\)\\.$#"
+			message: "#^Call to an undefined method Magento\\\\Catalog\\\\Api\\\\Data\\\\ProductRenderExtension\\:\\:setDdgSku\\(\\)\\.$#"
 			count: 1
 			path: repo/Ui/DataProvider/WebBehaviourTracking.php
 
