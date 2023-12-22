@@ -7610,15 +7610,15 @@
     "phpDoc.parseError": {
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocTagValueRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/InvalidPhpDocTagValueRule.php#L104",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/InvalidPhpDocTagValueRule.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/InvalidPhpDocTagValueRule.php#L105",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/InvalidPhpDocTagValueRule.php#L93"
             ]
         }
     },
     "phpDoc.phpstanTag": {
         "PHPStan\\Rules\\PhpDoc\\InvalidPHPStanDocTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/InvalidPHPStanDocTagRule.php#L117"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/InvalidPHPStanDocTagRule.php#L118"
             ]
         }
     },
