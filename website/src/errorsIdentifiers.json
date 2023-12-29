@@ -2728,6 +2728,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/CaughtExceptionExistenceRule.php#L47"
             ]
         },
+        "PHPStan\\Rules\\Exceptions\\ThrowExprTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
+            ]
+        },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L347"
@@ -9400,6 +9405,11 @@
         }
     },
     "throw.notThrowable": {
+        "PHPStan\\Rules\\Exceptions\\ThrowExprTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Exceptions/ThrowExprTypeRule.php#L58"
+            ]
+        },
         "PHPStan\\Rules\\Variables\\ThrowTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Variables/ThrowTypeRule.php#L58"
