@@ -161,7 +161,7 @@ jobs:
         run: "composer update --no-interaction --no-progress"
 
       - name: "Download phpstan.phar"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: phar-file
 
@@ -441,7 +441,7 @@ jobs:
         run: "composer update --no-interaction --no-progress"
 
       - name: "Download phpstan.phar"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: phar-file
 
@@ -465,7 +465,7 @@ jobs:
         working-directory: e2e/integration/repo
         run: "${{ matrix.phpstan-command }} -b ../${{ matrix.baseline-file }}"
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: ${{ failure() }}
         with:
           name: baselines
@@ -486,7 +486,7 @@ jobs:
           token: ${{ secrets.phpstan-bot-token }}
 
       - name: "Download baselines"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: baselines
           path: "e2e/integration"
@@ -543,7 +543,7 @@ jobs:
         run: "composer update --no-interaction --no-progress"
 
       - name: "Download phpstan.phar"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: phar-file
 
@@ -556,7 +556,7 @@ jobs:
           cd e2e/integration/repo
           ../../../phpstan.phar analyse -c ../pocketmine-ng.neon --memory-limit=2G -b ../pocketmine-ng-baseline.neon
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: ${{ failure() }}
         with:
           name: pocketmine-ng-baseline.neon
