@@ -465,10 +465,10 @@ jobs:
         working-directory: e2e/integration/repo
         run: "${{ matrix.phpstan-command }} -b ../${{ matrix.baseline-file }}"
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: ${{ failure() }}
         with:
-          name: baselines
+          name: baselines-${{ matrix.baseline-file }}
           path: "e2e/integration/${{ matrix.baseline-file }}"
 
   integration-update-baseline:
@@ -486,9 +486,10 @@ jobs:
           token: ${{ secrets.phpstan-bot-token }}
 
       - name: "Download baselines"
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: baselines
+          name: baselines-*
+          merge-multiple: true
           path: "e2e/integration"
 
       - name: "Create Pull Request"
@@ -556,8 +557,8 @@ jobs:
           cd e2e/integration/repo
           ../../../phpstan.phar analyse -c ../pocketmine-ng.neon --memory-limit=2G -b ../pocketmine-ng-baseline.neon
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: ${{ failure() }}
         with:
-          name: pocketmine-ng-baseline.neon
+          name: pocketmine-ng-baseline-${{ matrix.php-version }}.neon
           path: e2e/integration/pocketmine-ng-baseline.neon
