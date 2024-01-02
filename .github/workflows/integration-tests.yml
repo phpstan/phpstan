@@ -63,31 +63,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-              vendor/bin/phpunit tests
-          - php-version: 8.2
-            name: Rector rules-tests
-            script: |
-              git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout 8724feefea91743e05006cb1329c5cd1675b5003
-              cp ../rector-composer.lock composer.lock
-              composer install
-              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-              vendor/bin/phpunit rules-tests
-          - php-version: 8.2
-            name: Rector packages-tests
-            script: |
-              git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout 8724feefea91743e05006cb1329c5cd1675b5003
-              cp ../rector-composer.lock composer.lock
-              composer install
-              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-              vendor/bin/phpunit packages-tests
+              vendor/bin/phpunit
           - php-version: 8.2
             name: Symplify tests
             script: |
