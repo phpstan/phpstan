@@ -74,7 +74,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: identifiers-${{ matrix.repository }}
+          name: identifiers-${{ steps.repo-name.outputs.name }}
           path: identifier-extractor/${{ steps.repo-name.outputs.name }}.json
 
   merge:
