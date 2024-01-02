@@ -464,7 +464,7 @@ jobs:
       - name: "Download baselines"
         uses: actions/download-artifact@v4
         with:
-          name: baselines-*
+          pattern: baselines-*
           merge-multiple: true
           path: "e2e/integration"
 
