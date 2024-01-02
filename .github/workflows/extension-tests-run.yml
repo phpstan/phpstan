@@ -27,7 +27,7 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@v4
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: phar-file
           path: phpstan.phar

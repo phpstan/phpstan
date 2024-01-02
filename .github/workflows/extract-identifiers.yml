@@ -72,9 +72,8 @@ jobs:
           REPO: ${{ matrix.repository }}
           BRANCH: ${{ steps.branch-name.outputs.name }}
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
-          name: identifiers
           path: identifier-extractor/${{ steps.repo-name.outputs.name }}.json
 
   merge:
@@ -99,9 +98,8 @@ jobs:
         working-directory: "identifier-extractor"
         run: "composer install --no-interaction --no-progress"
 
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
-          name: identifiers
           path: identifier-extractor/tmp
 
       - name: "Merge"
