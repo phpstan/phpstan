@@ -3,60 +3,60 @@ parameters:
 		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
-			path: repo/packages/NodeTypeResolver/PHPStan/ObjectWithoutClassTypeWithParentTypes.php
+			path: repo/src/NodeTypeResolver/PHPStan/ObjectWithoutClassTypeWithParentTypes.php
 
 		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
-			path: repo/packages/StaticTypeMapper/ValueObject/Type/AliasedObjectType.php
+			path: repo/src/StaticTypeMapper/ValueObject/Type/AliasedObjectType.php
 
 		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
-			path: repo/packages/StaticTypeMapper/ValueObject/Type/FullyQualifiedGenericObjectType.php
+			path: repo/src/StaticTypeMapper/ValueObject/Type/FullyQualifiedGenericObjectType.php
 
 		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
-			path: repo/packages/StaticTypeMapper/ValueObject/Type/FullyQualifiedObjectType.php
+			path: repo/src/StaticTypeMapper/ValueObject/Type/FullyQualifiedObjectType.php
 
 		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
-			path: repo/packages/StaticTypeMapper/ValueObject/Type/NonExistingObjectType.php
+			path: repo/src/StaticTypeMapper/ValueObject/Type/NonExistingObjectType.php
 
 		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
-			path: repo/packages/StaticTypeMapper/ValueObject/Type/ParentObjectWithoutClassType.php
+			path: repo/src/StaticTypeMapper/ValueObject/Type/ParentObjectWithoutClassType.php
 
 		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
-			path: repo/packages/StaticTypeMapper/ValueObject/Type/ParentStaticType.php
+			path: repo/src/StaticTypeMapper/ValueObject/Type/ParentStaticType.php
 
 		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
-			path: repo/packages/StaticTypeMapper/ValueObject/Type/SelfObjectType.php
+			path: repo/src/StaticTypeMapper/ValueObject/Type/SelfObjectType.php
 
 		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
-			path: repo/packages/StaticTypeMapper/ValueObject/Type/SelfStaticType.php
+			path: repo/src/StaticTypeMapper/ValueObject/Type/SelfStaticType.php
 
 		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
-			path: repo/packages/StaticTypeMapper/ValueObject/Type/ShortenedGenericObjectType.php
+			path: repo/src/StaticTypeMapper/ValueObject/Type/ShortenedGenericObjectType.php
 
 		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
-			path: repo/packages/StaticTypeMapper/ValueObject/Type/ShortenedObjectType.php
+			path: repo/src/StaticTypeMapper/ValueObject/Type/ShortenedObjectType.php
 
 		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
-			path: repo/packages/StaticTypeMapper/ValueObject/Type/SimpleStaticType.php
+			path: repo/src/StaticTypeMapper/ValueObject/Type/SimpleStaticType.php
 
