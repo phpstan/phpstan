@@ -23,6 +23,7 @@ jobs:
           - "phpstan/lorem"
           - "phpstan/ipsum"
           - "phpstan/dolor"
+          - "packagist/private-packagist"
 
     steps:
       - uses: peter-evans/repository-dispatch@v2
