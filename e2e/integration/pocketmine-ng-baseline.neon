@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Parameter \\#1 \\$pharPath of function pocketmine\\\\build\\\\server_phar\\\\buildPhar expects string, array\\<int, mixed\\>\\|string\\|false given\\.$#"
+			count: 1
+			path: repo/build/server-phar.php
+
+		-
 			message: "#^Unable to resolve the template type TKeyType in call to method static method pocketmine\\\\utils\\\\Utils\\:\\:stringifyKeys\\(\\)$#"
 			count: 1
 			path: repo/src/MemoryManager.php
@@ -9,108 +14,3 @@ parameters:
 			message: "#^Method pocketmine\\\\block\\\\CakeWithCandle\\:\\:onInteractCandle\\(\\) has parameter \\$returnedItems with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/block/CakeWithCandle.php
-
-		-
-			message: "#^Method pocketmine\\\\block\\\\utils\\\\BrewingStandSlot\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/block/utils/BrewingStandSlot.php
-
-		-
-			message: "#^Method pocketmine\\\\block\\\\utils\\\\CopperOxidation\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/block/utils/CopperOxidation.php
-
-		-
-			message: "#^Method pocketmine\\\\block\\\\utils\\\\CoralType\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/block/utils/CoralType.php
-
-		-
-			message: "#^Method pocketmine\\\\block\\\\utils\\\\DyeColor\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/block/utils/DyeColor.php
-
-		-
-			message: "#^Method pocketmine\\\\block\\\\utils\\\\LeavesType\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/block/utils/LeavesType.php
-
-		-
-			message: "#^Method pocketmine\\\\block\\\\utils\\\\LeverFacing\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/block/utils/LeverFacing.php
-
-		-
-			message: "#^Method pocketmine\\\\block\\\\utils\\\\MobHeadType\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/block/utils/MobHeadType.php
-
-		-
-			message: "#^Method pocketmine\\\\block\\\\utils\\\\RecordType\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/block/utils/RecordType.php
-
-		-
-			message: "#^Method pocketmine\\\\block\\\\utils\\\\SaplingType\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/block/utils/SaplingType.php
-
-		-
-			message: "#^Method pocketmine\\\\block\\\\utils\\\\WoodType\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/block/utils/WoodType.php
-
-		-
-			message: "#^Method pocketmine\\\\crafting\\\\FurnaceType\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/crafting/FurnaceType.php
-
-		-
-			message: "#^Method pocketmine\\\\item\\\\BoatType\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/item/BoatType.php
-
-		-
-			message: "#^Parameter \\#1 \\$str of function base64_decode expects string, mixed given\\.$#"
-			count: 1
-			path: repo/src/item/Item.php
-
-		-
-			message: "#^Method pocketmine\\\\item\\\\MedicineType\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/item/MedicineType.php
-
-		-
-			message: "#^Method pocketmine\\\\item\\\\PotionType\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/item/PotionType.php
-
-		-
-			message: "#^Method pocketmine\\\\item\\\\SuspiciousStewType\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/item/SuspiciousStewType.php
-
-		-
-			message: "#^Method pocketmine\\\\item\\\\ToolTier\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/item/ToolTier.php
-
-		-
-			message: "#^Match arm comparison between 1\\|2\\|3\\|4 and 0 is always false\\.$#"
-			count: 1
-			path: repo/src/network/mcpe/handler/InGamePacketHandler.php
-
-		-
-			message: "#^Method pocketmine\\\\player\\\\GameMode\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/player/GameMode.php
-
-		-
-			message: "#^Method pocketmine\\\\plugin\\\\PluginEnableOrder\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/plugin/PluginEnableOrder.php
-
-		-
-			message: "#^Method pocketmine\\\\world\\\\generator\\\\object\\\\TreeType\\:\\:Enum___construct\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: repo/src/world/generator/object/TreeType.php
