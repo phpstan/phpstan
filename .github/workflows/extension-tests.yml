@@ -100,9 +100,13 @@ jobs:
         run: "composer update --no-interaction --no-progress --ignore-platform-reqs"
 
       - name: "Download phpstan.phar"
-        uses: actions/download-artifact@v4
+        uses: Wandalen/wretry.action@v1.3.0
         with:
-          name: phar-file
+          action: actions/download-artifact@v4
+          with: |
+            name: phar-file
+          attempt_limit: 5
+          attempt_delay: 1000
 
       - name: "Extension build"
         env:
