@@ -101,6 +101,11 @@ parameters:
 			path: repo/classes/Hook.php
 
 		-
+			message: "#^Method ImageManagerCore\\:\\:createWhiteImage\\(\\) has invalid return type GdImage\\.$#"
+			count: 1
+			path: repo/classes/ImageManager.php
+
+		-
 			message: "#^Offset 'bits' on array\\{0\\: int, 1\\: int, 2\\: int, 3\\: string, mime\\: string, channels\\?\\: int, bits\\: int\\} in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/classes/ImageManager.php
