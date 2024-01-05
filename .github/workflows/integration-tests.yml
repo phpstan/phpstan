@@ -134,7 +134,8 @@ jobs:
             script: |
               git clone https://github.com/oliverklee/ext-seminars.git -b v5.5.1 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
-              composer require --dev phpstan/phpstan:${{ inputs.ref }}
+              composer config repositories.0 '{"type":"path","url":"../../.."}'
+              composer install
 
     steps:
       - name: "Checkout"
