@@ -135,6 +135,7 @@ jobs:
               git clone https://github.com/oliverklee/ext-seminars.git -b v5.5.1 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
               composer config repositories.0 '{"type":"path","url":"../../.."}'
+              composer config minimum-stability dev
               composer install
 
     steps:
