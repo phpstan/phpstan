@@ -109,6 +109,7 @@ final class PharAutoloader
 			if (
 				PHP_VERSION_ID < 80100
 				&& empty ($GLOBALS['__composer_autoload_files']['23c18046f52bef3eea034657bafda50f'])
+				&& !class_exists(\Symfony\Polyfill\Php81\Php81::class, false)
 			) {
 				$GLOBALS['__composer_autoload_files']['23c18046f52bef3eea034657bafda50f'] = true;
 				require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-php81/Php81.php';
