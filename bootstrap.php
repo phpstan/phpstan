@@ -3,6 +3,7 @@
 namespace PHPStan;
 
 use Composer\Autoload\ClassLoader;
+use function class_exists;
 use const PHP_VERSION_ID;
 
 final class PharAutoloader
@@ -46,40 +47,69 @@ final class PharAutoloader
 		if (!self::$polyfillsLoaded) {
 			self::$polyfillsLoaded = true;
 
-			if (PHP_VERSION_ID < 80000) {
+			if (
+				PHP_VERSION_ID < 80000
+				&& empty($GLOBALS['__composer_autoload_files']['a4a119a56e50fbb293281d9a48007e0e'])
+				&& !class_exists(\Symfony\Polyfill\Php80\Php80::class, false)
+			) {
 				$GLOBALS['__composer_autoload_files']['a4a119a56e50fbb293281d9a48007e0e'] = true;
 				require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-php80/Php80.php';
 				require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-php80/bootstrap.php';
 			}
 
-			$GLOBALS['__composer_autoload_files']['0e6d7bf4a5811bfa5cf40c5ccd6fae6a'] = true;
-			require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-mbstring/Mbstring.php';
-			require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-mbstring/bootstrap.php';
+			if (
+				empty($GLOBALS['__composer_autoload_files']['0e6d7bf4a5811bfa5cf40c5ccd6fae6a'])
+				&& !class_exists(\Symfony\Polyfill\Mbstring\Mbstring::class, false)
+			) {
+				$GLOBALS['__composer_autoload_files']['0e6d7bf4a5811bfa5cf40c5ccd6fae6a'] = true;
+				require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-mbstring/Mbstring.php';
+				require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-mbstring/bootstrap.php';
+			}
 
-			$GLOBALS['__composer_autoload_files']['e69f7f6ee287b969198c3c9d6777bd38'] = true;
-			require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-intl-normalizer/Normalizer.php';
-			require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-intl-normalizer/bootstrap.php';
+			if (
+				empty($GLOBALS['__composer_autoload_files']['e69f7f6ee287b969198c3c9d6777bd38'])
+				&& !class_exists(\Symfony\Polyfill\Intl\Normalizer\Normalizer::class, false)
+			) {
+				$GLOBALS['__composer_autoload_files']['e69f7f6ee287b969198c3c9d6777bd38'] = true;
+				require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-intl-normalizer/Normalizer.php';
+				require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-intl-normalizer/bootstrap.php';
+			}
 
-			if (PHP_VERSION_ID < 70300) {
+			if (
+				PHP_VERSION_ID < 70300
+				&& empty($GLOBALS['__composer_autoload_files']['0d59ee240a4cd96ddbb4ff164fccea4d'])
+				&& !class_exists(\Symfony\Polyfill\Php73\Php73::class, false)
+			) {
 				$GLOBALS['__composer_autoload_files']['0d59ee240a4cd96ddbb4ff164fccea4d'] = true;
 				// already loaded by bootstrap inside the hrtime condition
 				// require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-php73/Php73.php';
 				require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-php73/bootstrap.php';
 			}
 
-			if (PHP_VERSION_ID < 70400) {
+			if (
+				PHP_VERSION_ID < 70400
+				&& empty($GLOBALS['__composer_autoload_files']['b686b8e46447868025a15ce5d0cb2634'])
+				&& !class_exists(\Symfony\Polyfill\Php74\Php74::class, false)
+			) {
 				$GLOBALS['__composer_autoload_files']['b686b8e46447868025a15ce5d0cb2634'] = true;
 				require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-php74/Php74.php';
 				require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-php74/bootstrap.php';
 			}
 
-			if (!extension_loaded('intl')) {
+			if (
+				!extension_loaded('intl')
+				&& empty($GLOBALS['__composer_autoload_files']['8825ede83f2f289127722d4e842cf7e8'])
+				&& !class_exists(\Symfony\Polyfill\Intl\Grapheme\Grapheme::class, false)
+			) {
 				$GLOBALS['__composer_autoload_files']['8825ede83f2f289127722d4e842cf7e8'] = true;
 				require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-intl-grapheme/Grapheme.php';
 				require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-intl-grapheme/bootstrap.php';
 			}
 
-			if (PHP_VERSION_ID < 80100) {
+			if (
+				PHP_VERSION_ID < 80100
+				&& empty ($GLOBALS['__composer_autoload_files']['23c18046f52bef3eea034657bafda50f'])
+			) {
 				$GLOBALS['__composer_autoload_files']['23c18046f52bef3eea034657bafda50f'] = true;
 				require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-php81/Php81.php';
 				require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-php81/bootstrap.php';
