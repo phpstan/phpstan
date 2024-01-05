@@ -118,6 +118,17 @@ jobs:
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit
+          - php-version: 7.2
+            name: Rector with polyfills
+            script: |
+              mkdir e2e/integration/repo
+              cd e2e/integration/repo
+              yes | composer init --name some/prj
+              composer require --dev rector/rector:0.18.13
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              vendor/bin/rector list
 
     steps:
       - name: "Checkout"
