@@ -57,7 +57,8 @@ final class PharAutoloader
 			require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-intl-normalizer/bootstrap.php';
 
 			$GLOBALS['__composer_autoload_files']['0d59ee240a4cd96ddbb4ff164fccea4d'] = true;
-			require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-php73/Php73.php';
+			// already loaded by bootstrap inside the hrtime condition
+			// require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-php73/Php73.php';
 			require_once 'phar://' . __DIR__ . '/phpstan.phar/vendor/symfony/polyfill-php73/bootstrap.php';
 
 			$GLOBALS['__composer_autoload_files']['b686b8e46447868025a15ce5d0cb2634'] = true;
