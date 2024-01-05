@@ -3511,7 +3511,7 @@
         },
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L140"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L121"
             ]
         }
     },
@@ -3553,7 +3553,7 @@
     "doctrine.internalError": {
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L99"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L80"
             ]
         }
     },
@@ -3567,14 +3567,14 @@
     "doctrine.queryBuilderDynamic": {
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L86"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L67"
             ]
         }
     },
     "doctrine.queryBuilderDynamicArgument": {
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L109"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L90"
             ]
         }
     },
@@ -8826,7 +8826,7 @@
     "return.unusedType": {
         "PHPStan\\Rules\\TooWideTypehints\\TooWideArrowFunctionReturnTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideArrowFunctionReturnTypehintRule.php#L54"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideArrowFunctionReturnTypehintRule.php#L55"
             ]
         },
         "PHPStan\\Rules\\TooWideTypehints\\TooWideClosureReturnTypehintRule": {
