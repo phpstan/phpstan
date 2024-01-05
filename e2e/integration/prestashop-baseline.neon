@@ -431,13 +431,13 @@ parameters:
 			path: repo/classes/controller/AdminController.php
 
 		-
-			message: "#^Strict comparison using \\!\\=\\= between int and false will always evaluate to true\\.$#"
-			count: 1
+			message: "#^Strict comparison using \\!\\=\\= between ''\\|'0'\\|null and false will always evaluate to true\\.$#"
+			count: 4
 			path: repo/classes/controller/AdminController.php
 
 		-
-			message: "#^Strict comparison using \\!\\=\\= between string\\|null and false will always evaluate to true\\.$#"
-			count: 4
+			message: "#^Strict comparison using \\!\\=\\= between int and false will always evaluate to true\\.$#"
+			count: 1
 			path: repo/classes/controller/AdminController.php
 
 		-
