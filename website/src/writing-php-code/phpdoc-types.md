@@ -26,7 +26,7 @@ Basic types
 * `array`
 * `iterable`
 * `callable`
-* `resource`
+* `resource`, `closed-resource`, `open-resource`
 * `void`
 * `object`
 
