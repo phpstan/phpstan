@@ -25,6 +25,7 @@ jobs:
         with:
           node-version: "18"
           cache: "npm"
+          cache-dependency-path: website/package-lock.json
 
       - name: "Install dependencies"
         working-directory: ./website
@@ -47,6 +48,7 @@ jobs:
         with:
           node-version: "18"
           cache: "npm"
+          cache-dependency-path: website/package-lock.json
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
