@@ -62,7 +62,7 @@ jobs:
           - "phpstan-doctrine"
           - "phpstan-symfony"
           - "phpstan-php-parser"
-          - "phpstan-deprecation-rules 94d68d35f777aabd8829a55479213801df34cc57"
+          - "phpstan-deprecation-rules 674d785658fa319ad9c72e195c5ff29f6a52c08f"
           - "phpdoc-parser"
           - "phpstan-nette"
           - "phpstan-dibi"
