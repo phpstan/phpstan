@@ -24,21 +24,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "18"
-
-      - name: "Cache dependencies"
-        uses: actions/cache@v3
-        with:
-          path: "$(yarn cache dir)"
-          key: "${{ runner.os }}-yarn-${{ hashFiles('website/**/yarn.lock') }}"
-          restore-keys: "${{ runner.os }}-yarn-"
+          cache: "npm"
 
       - name: "Install dependencies"
         working-directory: ./website
-        run: "yarn install"
+        run: "npm ci"
 
       - name: "TypeScript check"
         working-directory: ./website
-        run: "yarn run check"
+        run: "npm run check"
 
   build:
     name: "Build"
@@ -52,6 +46,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "18"
+          cache: "npm"
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
@@ -59,20 +54,13 @@ jobs:
           coverage: "none"
           php-version: "8.0"
 
-      - name: "Cache dependencies"
-        uses: actions/cache@v3
-        with:
-          path: "$(yarn cache dir)"
-          key: "${{ runner.os }}-yarn-${{ hashFiles('website/**/yarn.lock') }}"
-          restore-keys: "${{ runner.os }}-yarn-"
-
       - name: "Install dependencies"
         working-directory: ./website
-        run: "yarn install"
+        run: "npm ci"
 
       - name: "Build"
         working-directory: ./website
-        run: "yarn run build"
+        run: "npm run build"
 
       - name: "Upload website dist"
         uses: actions/upload-artifact@v4

@@ -30,17 +30,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "18"
-
-      - name: "Cache dependencies"
-        uses: actions/cache@v3
-        with:
-          path: "$(yarn cache dir)"
-          key: "${{ runner.os }}-yarn-${{ hashFiles('playground-runner/**/yarn.lock') }}"
-          restore-keys: "${{ runner.os }}-yarn-"
+          cache: "npm"
 
       - name: "Install dependencies"
         working-directory: ./playground-runner
-        run: "yarn install"
+        run: "npm ci"
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
@@ -73,4 +67,4 @@ jobs:
           AWS_DEFAULT_REGION: "eu-west-1"
           AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
-        run: "yarn run deploy"
+        run: "npm run deploy"
