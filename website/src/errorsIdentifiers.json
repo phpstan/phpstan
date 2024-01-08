@@ -2562,6 +2562,13 @@
             ]
         }
     },
+    "class.nameInUse": {
+        "PHPStan\\Rules\\Names\\UsedNamesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Names/UsedNamesRule.php#L102"
+            ]
+        }
+    },
     "class.noParent": {
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
@@ -4017,6 +4024,13 @@
             ]
         }
     },
+    "enum.nameInUse": {
+        "PHPStan\\Rules\\Names\\UsedNamesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Names/UsedNamesRule.php#L102"
+            ]
+        }
+    },
     "enum.serializable": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
@@ -5344,8 +5358,8 @@
     "interface.extendsDeprecatedInterface": {
         "PHPStan\\Rules\\Deprecations\\InheritanceOfDeprecatedInterfaceRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/InheritanceOfDeprecatedInterfaceRule.php#L71",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/InheritanceOfDeprecatedInterfaceRule.php#L78"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/InheritanceOfDeprecatedInterfaceRule.php#L67",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/InheritanceOfDeprecatedInterfaceRule.php#L74"
             ]
         }
     },
@@ -5528,6 +5542,13 @@
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        }
+    },
+    "interface.nameInUse": {
+        "PHPStan\\Rules\\Names\\UsedNamesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Names/UsedNamesRule.php#L102"
             ]
         }
     },
@@ -9672,6 +9693,13 @@
             ]
         }
     },
+    "trait.nameInUse": {
+        "PHPStan\\Rules\\Names\\UsedNamesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Names/UsedNamesRule.php#L102"
+            ]
+        }
+    },
     "trait.notFound": {
         "PHPStan\\Rules\\Classes\\ExistingClassInTraitUseRule": {
             "phpstan/phpstan-src": [
@@ -9824,6 +9852,13 @@
         "PHPStan\\Rules\\Variables\\UnsetRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Variables/UnsetRule.php#L51"
+            ]
+        }
+    },
+    "use.nameInUse": {
+        "PHPStan\\Rules\\Names\\UsedNamesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Names/UsedNamesRule.php#L134"
             ]
         }
     },
