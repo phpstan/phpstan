@@ -7,6 +7,7 @@
 		"php": "^7.2|^8.0"
 	},
 	"conflict": {
+		"nikic/php-parser": ">= 5.0.0",
 		"phpstan/phpstan-shim": "*"
 	},
 	"bin": [
