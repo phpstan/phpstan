@@ -1,0 +1,51 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Property PhpParser\\\\Node\\\\Expr\\\\Array_\\:\\:\\$items \\(array\\<PhpParser\\\\Node\\\\ArrayItem\\>\\) does not accept array\\<PhpParser\\\\Node\\\\ArrayItem\\|PhpParser\\\\Node\\\\Expr\\\\ArrayItem\\>\\.$#"
+			count: 1
+			path: repo/src/NodeAnalyzer/CompactFunctionCallParameterResolver.php
+
+		-
+			message: "#^Property PhpParser\\\\Node\\\\Expr\\\\Array_\\:\\:\\$items \\(array\\<PhpParser\\\\Node\\\\ArrayItem\\>\\) does not accept array\\<PhpParser\\\\Node\\\\ArrayItem\\|PhpParser\\\\Node\\\\Expr\\\\ArrayItem\\>\\.$#"
+			count: 1
+			path: repo/src/NodeAnalyzer/LaravelViewFunctionMatcher.php
+
+		-
+			message: "#^Access to undefined constant PhpParser\\\\ParserFactory\\:\\:ONLY_PHP7\\.$#"
+			count: 1
+			path: repo/src/PhpParser/ArrayStringToArrayConverter.php
+
+		-
+			message: "#^Call to an undefined method PhpParser\\\\ParserFactory\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: repo/src/PhpParser/ArrayStringToArrayConverter.php
+
+		-
+			message: "#^Call to function assert\\(\\) with false will always evaluate to false\\.$#"
+			count: 1
+			path: repo/src/PhpParser/ArrayStringToArrayConverter.php
+
+		-
+			message: "#^Instanceof between PhpParser\\\\Node\\\\ArrayItem and PhpParser\\\\Node\\\\Expr\\\\ArrayItem will always evaluate to false\\.$#"
+			count: 1
+			path: repo/src/PhpParser/ArrayStringToArrayConverter.php
+
+		-
+			message: "#^Access to undefined constant PhpParser\\\\ParserFactory\\:\\:ONLY_PHP7\\.$#"
+			count: 1
+			path: repo/src/PhpParser/SimplePhpParser.php
+
+		-
+			message: "#^Call to an undefined method PhpParser\\\\ParserFactory\\:\\:create\\(\\)\\.$#"
+			count: 1
+			path: repo/src/PhpParser/SimplePhpParser.php
+
+		-
+			message: "#^Instanceof between PhpParser\\\\Node\\\\ArrayItem and PhpParser\\\\Node\\\\Expr\\\\ArrayItem will always evaluate to false\\.$#"
+			count: 1
+			path: repo/src/TemplateCompiler/TypeAnalyzer/TemplateVariableTypesResolver.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/src/TemplateCompiler/TypeAnalyzer/TemplateVariableTypesResolver.php
