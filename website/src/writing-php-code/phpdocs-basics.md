@@ -386,6 +386,8 @@ class Lorem extends Bar  implements Foo
 }
 ```
 
+This is useful for solving "Access to an undefined property" error when trying to access a property declared by PHPDoc tag `@property` on an interface on PHP 8.2+. [Learn more »](/blog/solving-phpstan-access-to-undefined-property#making-%40property-phpdoc-above-interfaces-work-on-php-8.2%2B)
+
 
 Enforcing implementing an interface for traits
 ---------------
