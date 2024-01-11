@@ -355,6 +355,70 @@ function impureFunction(): bool
 
 The `@phpstan-pure` tag is also available should you need it, for example if you've set `rememberPossiblyImpureFunctionValues: false` in your configuration file (available in PHPStan 1.8.0). See [Config Reference](https://phpstan.org/config-reference#rememberpossiblyimpurefunctionvalues) for more details.
 
+
+Enforcing class inheritance for interfaces and traits
+---------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.10.56</div>
+
+PHPDoc tag `@phpstan-require-extends` can be put above interfaces and traits. When this interface is implemented or trait is used by a class, this class has to extend a parent declared by this tag.
+
+```php
+class Bar
+{
+}
+
+/**
+ * @phpstan-require-extends Bar
+ */
+interface Foo
+{
+}
+
+// Error: Interface Foo requires implementing class to extend Bar, but Baz does not.
+class Baz implements Foo
+{
+}
+
+// OK
+class Lorem extends Bar  implements Foo
+{
+}
+```
+
+
+Enforcing implementing an interface for traits
+---------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.10.56</div>
+
+PHPDoc tag `@phpstan-require-implements` can be put above traits. When this trait is used by a class, this class has to implement an interface declared by this tag.
+
+```php
+interface Bar
+{
+}
+
+/**
+ * @phpstan-require-implements Bar
+ */
+trait Foo
+{
+}
+
+// Error: Trait Foo requires using class to implement Bar, but Baz does not.
+class Baz
+{
+	use Foo;
+}
+
+// OK
+class Lorem implements Bar
+{
+	use Foo;
+}
+```
+
 Prefixed tags
 ---------------
 

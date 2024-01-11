@@ -80,6 +80,55 @@ If the class features [magic properties](/writing-php-code/phpdocs-basics#magic-
 class Foo { ... }
 ```
 
+Making `@property` PHPDoc above interfaces work on PHP 8.2+
+----------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.10.56</div>
+
+You might find that the following code is not sufficient to declare a property on an interface when you analyse code in PHP 8.2 and newer:
+
+```php
+/**
+ * @property string $bar
+ */
+interface Foo
+{
+}
+
+function (Foo $foo): void {
+    // Error: Access to an undefined property Foo::$bar.
+    echo $foo->bar;
+};
+```
+
+That's because PHP 8.2 requires [extra steps to allow dynamic properties](#php-8.2%3A-add-%23[allowdynamicproperties]). And there's actually no way in the language to make these extra steps work on interfaces.
+
+Fortunately there's a PHPDoc feature that helps you get rid of this error. It's `@phpstan-require-extends`. Class implementing an interface that uses this PHPDoc tag is required to extend a parent referenced in this tag. If this parent class allows dynamic properties, it makes this error go away. Additionally, it makes all properties and methods from this parent class also available when working with the interface.
+
+```php
+/**
+ * @property string $bar
+ * @phpstan-require-extends Model
+ */
+interface Foo
+{
+}
+
+class Model
+{
+    public function __get(string $name): mixed
+    {
+        // some magic logic for dynamic properties
+    }
+}
+
+function (Foo $foo): void {
+    // OK - No error
+    echo $foo->bar;
+};
+```
+
+[Learn more about `@phpstan-require-extends` and `@phpstan-require-implements` »](/writing-php-code/phpdocs-basics#enforcing-class-inheritance-for-interfaces-and-traits)
 
 Mixin
 ----------------
