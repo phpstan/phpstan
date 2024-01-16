@@ -3533,7 +3533,7 @@
         },
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L121"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L140"
             ]
         }
     },
@@ -3575,7 +3575,7 @@
     "doctrine.internalError": {
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L80"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L99"
             ]
         }
     },
@@ -3589,14 +3589,14 @@
     "doctrine.queryBuilderDynamic": {
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L67"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L86"
             ]
         }
     },
     "doctrine.queryBuilderDynamicArgument": {
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L90"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.4.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L109"
             ]
         }
     },
