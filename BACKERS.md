@@ -144,7 +144,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/fusonic">Fusonic GmbH (fusonic)</a></li>
 <li><a href="https://github.com/eliashaeussler">Elias Häußler (eliashaeussler)</a></li>
 <li><a href="https://github.com/paranoiq">Vlasta Neubauer (paranoiq)</a></li>
-<li><a href="https://github.com/usox">Daniel Jakob (usox)</a></li>
 <li><a href="https://github.com/Enrise">Enrise (Enrise)</a></li>
 <li><a href="https://github.com/8ctopus">8ctopus (8ctopus)</a></li>
 <li><a href="https://github.com/lucassabreu">Lucas dos Santos Abreu (lucassabreu)</a></li>
