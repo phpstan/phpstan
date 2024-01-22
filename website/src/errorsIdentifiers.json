@@ -3095,7 +3095,7 @@
     "classConstant.final": {
         "PHPStan\\Rules\\Constants\\OverridingConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L73"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L69"
             ]
         },
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
@@ -3121,7 +3121,7 @@
     "classConstant.missingNativeType": {
         "PHPStan\\Rules\\Constants\\OverridingConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L125"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L121"
             ]
         },
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
@@ -3140,7 +3140,7 @@
     "classConstant.nativeType": {
         "PHPStan\\Rules\\Constants\\OverridingConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L114"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L110"
             ]
         },
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
@@ -3194,14 +3194,14 @@
     "classConstant.phpDocType": {
         "PHPStan\\Rules\\Constants\\ValueAssignedToClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L107",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L96"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L102",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L91"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatibleClassConstantPhpDocTypeRule.php#L101",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatibleClassConstantPhpDocTypeRule.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatibleClassConstantPhpDocTypeRule.php#L87",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatibleClassConstantPhpDocTypeRule.php#L96"
             ]
         }
     },
@@ -3222,14 +3222,14 @@
     "classConstant.type": {
         "PHPStan\\Rules\\Constants\\OverridingConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L146"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L142"
             ]
         }
     },
     "classConstant.unresolvableType": {
         "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatibleClassConstantPhpDocTypeRule.php#L82"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatibleClassConstantPhpDocTypeRule.php#L77"
             ]
         }
     },
@@ -3243,8 +3243,8 @@
     "classConstant.value": {
         "PHPStan\\Rules\\Constants\\ValueAssignedToClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L129",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L124",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L78"
             ]
         },
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
@@ -3256,8 +3256,8 @@
     "classConstant.visibility": {
         "PHPStan\\Rules\\Constants\\OverridingConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L85",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L94"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L81",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/OverridingConstantRule.php#L90"
             ]
         },
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
@@ -6462,7 +6462,7 @@
     "missingType.callable": {
         "PHPStan\\Rules\\Constants\\MissingClassConstantTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/MissingClassConstantTypehintRule.php#L89"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/MissingClassConstantTypehintRule.php#L92"
             ]
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionParameterTypehintRule": {
@@ -6511,7 +6511,7 @@
         },
         "PHPStan\\Rules\\Constants\\MissingClassConstantTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/MissingClassConstantTypehintRule.php#L79"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/MissingClassConstantTypehintRule.php#L82"
             ]
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionParameterTypehintRule": {
@@ -6568,7 +6568,7 @@
     "missingType.iterableValue": {
         "PHPStan\\Rules\\Constants\\MissingClassConstantTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/MissingClassConstantTypehintRule.php#L66"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Constants/MissingClassConstantTypehintRule.php#L69"
             ]
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionParameterTypehintRule": {
