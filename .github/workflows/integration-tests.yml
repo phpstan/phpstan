@@ -111,7 +111,7 @@ jobs:
           - php-version: 8.1
             name: Bladestan tests
             script: |
-              git clone https://github.com/TomasVotruba/bladestan.git -b 0.2.1 --depth 1 e2e/integration/repo
+              git clone https://github.com/TomasVotruba/bladestan.git -b 0.5.0 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
@@ -392,7 +392,7 @@ jobs:
             baseline-file: efabrica-phpstan-latte-baseline.neon
           - php-version: 8.1
             repo: TomasVotruba/bladestan
-            ref: 0.2.1
+            ref: 0.5.0
             setup: |
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
