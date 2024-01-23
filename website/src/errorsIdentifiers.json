@@ -2380,6 +2380,21 @@
             ]
         }
     },
+    "class.missingExtends": {
+        "PHPStan\\Rules\\Classes\\RequireExtendsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/RequireExtendsRule.php#L54",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/RequireExtendsRule.php#L79"
+            ]
+        }
+    },
+    "class.missingImplements": {
+        "PHPStan\\Rules\\Classes\\RequireImplementsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/RequireImplementsRule.php#L50"
+            ]
+        }
+    },
     "class.nameCase": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
@@ -2957,6 +2972,21 @@
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L146"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsCheck.php#L57"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsCheck.php#L57"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\RequireImplementsDefinitionTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireImplementsDefinitionTraitRule.php#L64"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessPropertiesInAssignRule": {
@@ -8616,6 +8646,181 @@
         "PHPStan\\Rules\\Regexp\\RegularExpressionPatternRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Regexp/RegularExpressionPatternRule.php#L39"
+            ]
+        }
+    },
+    "requireExtends.class": {
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsCheck.php#L64"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsCheck.php#L64"
+            ]
+        }
+    },
+    "requireExtends.duplicate": {
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsCheck.php#L38"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsCheck.php#L38"
+            ]
+        }
+    },
+    "requireExtends.enum": {
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsCheck.php#L64"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsCheck.php#L64"
+            ]
+        }
+    },
+    "requireExtends.finalClass": {
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsCheck.php#L68"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsCheck.php#L68"
+            ]
+        }
+    },
+    "requireExtends.interface": {
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsCheck.php#L64"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsCheck.php#L64"
+            ]
+        }
+    },
+    "requireExtends.nonObject": {
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsCheck.php#L46"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsCheck.php#L46"
+            ]
+        }
+    },
+    "requireExtends.onClass": {
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsDefinitionClassRule.php#L42"
+            ]
+        }
+    },
+    "requireExtends.onEnum": {
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsDefinitionClassRule.php#L42"
+            ]
+        }
+    },
+    "requireExtends.onInterface": {
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsDefinitionClassRule.php#L42"
+            ]
+        }
+    },
+    "requireExtends.onTrait": {
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsDefinitionClassRule.php#L42"
+            ]
+        }
+    },
+    "requireExtends.trait": {
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsCheck.php#L64"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireExtendsCheck.php#L64"
+            ]
+        }
+    },
+    "requireImplements.class": {
+        "PHPStan\\Rules\\PhpDoc\\RequireImplementsDefinitionTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireImplementsDefinitionTraitRule.php#L71"
+            ]
+        }
+    },
+    "requireImplements.enum": {
+        "PHPStan\\Rules\\PhpDoc\\RequireImplementsDefinitionTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireImplementsDefinitionTraitRule.php#L71"
+            ]
+        }
+    },
+    "requireImplements.interface": {
+        "PHPStan\\Rules\\PhpDoc\\RequireImplementsDefinitionTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireImplementsDefinitionTraitRule.php#L71"
+            ]
+        }
+    },
+    "requireImplements.nonObject": {
+        "PHPStan\\Rules\\PhpDoc\\RequireImplementsDefinitionTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireImplementsDefinitionTraitRule.php#L54"
+            ]
+        }
+    },
+    "requireImplements.onClass": {
+        "PHPStan\\Rules\\PhpDoc\\RequireImplementsDefinitionClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireImplementsDefinitionClassRule.php#L35"
+            ]
+        }
+    },
+    "requireImplements.onEnum": {
+        "PHPStan\\Rules\\PhpDoc\\RequireImplementsDefinitionClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireImplementsDefinitionClassRule.php#L35"
+            ]
+        }
+    },
+    "requireImplements.onInterface": {
+        "PHPStan\\Rules\\PhpDoc\\RequireImplementsDefinitionClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireImplementsDefinitionClassRule.php#L35"
+            ]
+        }
+    },
+    "requireImplements.onTrait": {
+        "PHPStan\\Rules\\PhpDoc\\RequireImplementsDefinitionClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireImplementsDefinitionClassRule.php#L35"
+            ]
+        }
+    },
+    "requireImplements.trait": {
+        "PHPStan\\Rules\\PhpDoc\\RequireImplementsDefinitionTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/RequireImplementsDefinitionTraitRule.php#L71"
             ]
         }
     },
