@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with non\\-empty\\-array\\<int, 'Foo\\\\\\\\Bar\\\\\\\\subDirClass'\\|'Foo\\\\\\\\global'\\|'Foo\\\\\\\\stdClass'\\> and array\\<int, class\\-string\\> will always evaluate to false\\.$#"
+			count: 1
+			path: repo/tests/Persistence/Mapping/SymfonyFileLocatorTest.php
+
+		-
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with non\\-empty\\-array\\<int, 'Foo\\\\\\\\Bar\\\\\\\\subDirClass'\\|'Foo\\\\\\\\stdClass'\\> and array\\<int, class\\-string\\> will always evaluate to false\\.$#"
+			count: 1
+			path: repo/tests/Persistence/Mapping/SymfonyFileLocatorTest.php
