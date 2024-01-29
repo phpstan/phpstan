@@ -1,0 +1,22 @@
+{
+    "name": "devnix/phpstan-reproducer-10449",
+    "type": "project",
+    "require-dev": {
+        "phpstan/phpstan": "^1.10"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Pablo Largo Mohedano",
+            "email": "devnix.code@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2"
+    }
+}
