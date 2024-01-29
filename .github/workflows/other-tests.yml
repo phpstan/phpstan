@@ -428,6 +428,16 @@ jobs:
               cd e2e/bug-10023
               composer install
               ../../phpstan
+          - php-version: 8.2
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/bug10449
+              composer install
+              ../../phpstan analyze --error-format=json --no-progress | jq '.files[].messages[].message' | grep "Dumped type: string"
+              git apply patch.diff
+              ../../phpstan analyze --error-format=json --no-progress | jq '.files[].messages[].message' | grep "Dumped type: int"
+
 
     steps:
       - name: "Checkout"
