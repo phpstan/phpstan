@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method App\\\\Example\\:\\:__invoke\\(\\) should return string but returns int\\.$#"
+			count: 1
+			path: src/Example.php
+
+		-
+			message: "#^Parameter \\#1 \\$s of method App\\\\Example\\:\\:needsString\\(\\) expects string, int given\\.$#"
+			count: 1
+			path: src/Example.php

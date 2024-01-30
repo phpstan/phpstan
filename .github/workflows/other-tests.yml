@@ -435,7 +435,9 @@ jobs:
               cd e2e/bug10449
               ../../phpstan analyze
               git apply patch.diff
-              ../../phpstan analyze --error-format=json --no-progress | jq '.files[].messages[].message' | grep "Dumped type: int"
+              rm phpstan-baseline.neon
+              mv after-phpstan-baseline.neon phpstan-baseline.neon
+              ../../phpstan analyze
 
 
     steps:
