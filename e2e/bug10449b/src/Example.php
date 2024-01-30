@@ -12,7 +12,7 @@ final class Example
     {
     }
 
-    public function __invoke($x): string
+    public function __invoke(mixed $x): string
     {
         if ($x instanceof Query\ExampleQuery)
         {
