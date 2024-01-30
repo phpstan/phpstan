@@ -1,7 +1,7 @@
-diff --git a/e2e/bug10449/src/Query/ExampleQueryHandler.php b/e2e/bug10449/src/Query/ExampleQueryHandler.php
+diff --git a/e2e/bug10449b/src/Query/ExampleQueryHandler.php b/e2e/bug10449b/src/Query/ExampleQueryHandler.php
 index e9bc1d59f..f5d1c07bf 100644
---- a/e2e/bug10449/src/Query/ExampleQueryHandler.php
-+++ b/e2e/bug10449/src/Query/ExampleQueryHandler.php
+--- a/e2e/bug10449b/src/Query/ExampleQueryHandler.php
++++ b/e2e/bug10449b/src/Query/ExampleQueryHandler.php
 @@ -7,13 +7,13 @@ namespace App\Query;
  use App\Bus\QueryHandlerInterface;
  
