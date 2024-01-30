@@ -15,7 +15,9 @@ final class Example
     public function __invoke(): string
     {
         $value = $this->queryBus->handle(new Query\ExampleQuery());
-        \PHPStan\dumpType($value);
+        $this->needsString($value);
         return $value;
     }
+
+    private function needsString(string $s):void {}
 }
