@@ -66,7 +66,7 @@
 		"build:parcel": "parcel build tmp/*.json tmp/*.html tmp/**/*.html tmp/*.xml tmp/robots.txt --dist-dir dist/ --no-source-maps --public-url https://phpstan.org/",
 		"build:11ty": "eleventy",
 		"watch": "run-p watch:*",
-		"build": "yarn run build:11ty && yarn run build:parcel"
+		"build": "npm run build:11ty && npm run build:parcel"
 	},
 	"browserslist": [
 		"defaults",
