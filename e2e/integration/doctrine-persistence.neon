@@ -1,5 +1,6 @@
 includes:
 	- repo/phpstan.neon
+	- doctrine-persistence-baseline.neon
 
 parameters:
 	reportUnmatchedIgnoredErrors: false
