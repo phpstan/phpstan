@@ -157,7 +157,7 @@ jobs:
         run: "composer update --no-interaction --no-progress"
 
       - name: "Download phpstan.phar"
-        uses: Wandalen/wretry.action@v1.3.0
+        uses: Wandalen/wretry.action@v1.4.4
         with:
           action: actions/download-artifact@v4
           with: |
@@ -442,7 +442,7 @@ jobs:
         run: "composer update --no-interaction --no-progress"
 
       - name: "Download phpstan.phar"
-        uses: Wandalen/wretry.action@v1.3.0
+        uses: Wandalen/wretry.action@v1.4.4
         with:
           action: actions/download-artifact@v4
           with: |
@@ -549,7 +549,7 @@ jobs:
         run: "composer update --no-interaction --no-progress"
 
       - name: "Download phpstan.phar"
-        uses: Wandalen/wretry.action@v1.3.0
+        uses: Wandalen/wretry.action@v1.4.4
         with:
           action: actions/download-artifact@v4
           with: |
