@@ -174,3 +174,19 @@ Consider using `PHPStan\Type\TypeCombinator` instead to kick off the type normal
 $union = TypeCombinator::union($a, $b, $c);
 $intersection = TypeCombinator::intersect($a, $b, $c);
 ```
+
+Considerations for custom types
+-----------------
+
+You can also implement a custom type, usually representing a subtype of a more general type. This is typically done by extending an existing Type implementation, like [`StringType`](https://apiref.phpstan.org/1.11.x/PHPStan.Type.StringType.html) or [`ObjectType`](https://apiref.phpstan.org/1.11.x/PHPStan.Type.ObjectType.html). The methods you'll always need to override in your implementation are:
+
+* `public function describe(VerbosityLevel $level): string`
+* `public function equals(Type $type): bool`
+* `public function isSuperTypeOf(Type $type): TrinaryLogic`
+* `public function accepts(Type $type, bool $strictTypes): TrinaryLogic`
+
+It's important to correctly implement and test the `isSuperTypeOf()` method. It tells the relationships between types - which one is more general and which one is more specific (see [Querying a specific type](#querying-a-specific-type). The best way to test this method is through `TypeCombinator::union()` (a more general type should win) and `TypeCombinator::intersect()` (a more specific type should win).
+
+For example if you're implementing your own `UuidStringType`, `TypeCombinator::union(new StringType(), new UuidStringType())` should result in `StringType`. On the other hand, `TypeCombinator::intersect(new StringType(), new UuidStringType())` should result in `UuidStringType`. PHPStan has excessive tests for the built-in types in [TypeCombinatorTest](https://github.com/phpstan/phpstan-src/blob/1.11.x/tests/PHPStan/Type/TypeCombinatorTest.php) which is a great starting point to learn from.
+
+Once you have your own `PHPStan\Type\Type` implementation, you can add support for it in PHPDocs [through a custom TypeNodeResolverExtension](/developing-extensions/custom-phpdoc-types).
