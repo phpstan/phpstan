@@ -1156,21 +1156,21 @@
     "arrayFilter.alwaysEmpty": {
         "PHPStan\\Rules\\Functions\\ArrayFilterRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/ArrayFilterRule.php#L87"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/ArrayFilterRule.php#L119"
             ]
         }
     },
     "arrayFilter.empty": {
         "PHPStan\\Rules\\Functions\\ArrayFilterRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/ArrayFilterRule.php#L64"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/ArrayFilterRule.php#L79"
             ]
         }
     },
     "arrayFilter.same": {
         "PHPStan\\Rules\\Functions\\ArrayFilterRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/ArrayFilterRule.php#L77"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/ArrayFilterRule.php#L99"
             ]
         }
     },
@@ -1185,6 +1185,20 @@
         "PHPStan\\Rules\\Arrays\\ArrayUnpackingRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/ArrayUnpackingRule.php#L61"
+            ]
+        }
+    },
+    "arrayValues.empty": {
+        "PHPStan\\Rules\\Functions\\ArrayValuesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/ArrayValuesRule.php#L84"
+            ]
+        }
+    },
+    "arrayValues.list": {
+        "PHPStan\\Rules\\Functions\\ArrayValuesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/ArrayValuesRule.php#L102"
             ]
         }
     },
