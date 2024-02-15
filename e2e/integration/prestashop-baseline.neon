@@ -556,11 +556,6 @@ parameters:
 			path: repo/classes/tree/TreeToolbar.php
 
 		-
-			message: "#^Offset 0 does not exist on non\\-empty\\-array\\<mixed, string\\>\\.$#"
-			count: 1
-			path: repo/classes/webservice/SQLUtils.php
-
-		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
 			count: 1
 			path: repo/classes/webservice/WebserviceKey.php
@@ -1049,6 +1044,11 @@ parameters:
 			message: "#^Call to function is_callable\\(\\) with 'getenv' will always evaluate to true\\.$#"
 			count: 1
 			path: repo/install-dev/controllers/http/system.php
+
+		-
+			message: "#^Parameter \\#1 \\$array \\(list\\<array\\{id_product\\: mixed\\}\\>\\) of array_values is already a list, call has no effect\\.$#"
+			count: 1
+			path: repo/src/Adapter/Attribute/AdminAttributeGeneratorControllerWrapper.php
 
 		-
 			message: "#^Call to function is_object\\(\\) with Product will always evaluate to true\\.$#"
