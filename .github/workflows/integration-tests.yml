@@ -499,7 +499,7 @@ jobs:
 
       - name: "Create Pull Request"
         id: create-pr
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.phpstan-bot-token }}
           branch: "create-pull-request/baselines-1.11.x"
@@ -539,7 +539,7 @@ jobs:
           ref: ${{ inputs.ref }}
 
       - name: Setup PHP
-        uses: pmmp/setup-php-action@2.0.0
+        uses: pmmp/setup-php-action@3.0.0
         with:
           php-version: ${{ matrix.php-version }}
           install-path: "./bin"
