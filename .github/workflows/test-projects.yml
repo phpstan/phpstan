@@ -26,7 +26,7 @@ jobs:
           - "packagist/private-packagist"
 
     steps:
-      - uses: peter-evans/repository-dispatch@v2
+      - uses: peter-evans/repository-dispatch@v3
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           repository: "${{ matrix.repository }}"

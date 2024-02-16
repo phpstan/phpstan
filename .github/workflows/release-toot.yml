@@ -10,7 +10,7 @@ jobs:
   toot:
     runs-on: ubuntu-latest
     steps:
-      - uses: cbrgm/mastodon-github-action@v1
+      - uses: cbrgm/mastodon-github-action@v2
         if: ${{ !github.event.repository.private }}
         with:
           # GitHub event payload
