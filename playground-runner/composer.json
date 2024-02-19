@@ -1,6 +1,6 @@
 {
 	"require": {
-		"php": "^8.1",
+		"php": "^8.3",
 		"bref/bref": "^2.0.0",
 		"jean85/pretty-package-versions": "^2.0.4",
 		"nette/di": "^3.0",

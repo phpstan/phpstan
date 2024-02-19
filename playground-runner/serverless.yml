@@ -17,10 +17,10 @@ functions:
         handler: bref.php
         description: ''
         timeout: 20
-        runtime: php-81
+        runtime: php-83
     ignoreErrors:
         handler: ignoreErrors.php
-        runtime: php-81-fpm
+        runtime: php-83-fpm
         events:
           - httpApi:
               method: 'GET'

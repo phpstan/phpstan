@@ -41,7 +41,7 @@ jobs:
         uses: "shivammathur/setup-php@v2"
         with:
           coverage: "none"
-          php-version: "8.1"
+          php-version: "8.3"
 
       - name: "Install PHP dependencies"
         working-directory: ./playground-runner
