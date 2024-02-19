@@ -18,6 +18,7 @@ module.exports = function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy('src/errorsIdentifiers.json');
 	eleventyConfig.addPassthroughCopy('src/app.pcss');
 	eleventyConfig.addPassthroughCopy('src/robots.txt');
+	eleventyConfig.addPassthroughCopy('src/release.txt');
 	eleventyConfig.addPlugin(syntaxHighlight, {
 		codeAttributes: {
 			"class": function({ language }) {
