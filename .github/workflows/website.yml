@@ -143,5 +143,6 @@ jobs:
           environment: production
           version: ${{ steps.vars.outputs.sha_short }}
           sourcemaps: './dist'
+          url_prefix: "https://phpstan.org"
           ignore_missing: true
           ignore_empty: true
