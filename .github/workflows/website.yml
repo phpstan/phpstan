@@ -151,3 +151,5 @@ jobs:
           environment: production
           version: ${{ steps.vars.outputs.sha_short }}
           sourcemaps: './dist'
+          ignore_missing: true
+          ignore_empty: true
