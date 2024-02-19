@@ -91,7 +91,7 @@ jobs:
       - name: "Sync with S3"
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
-          args: --exclude '.git*/*' --exclude '**/*.map' --follow-symlinks
+          args: --exclude '.git*/*' --exclude '*.map' --follow-symlinks
         env:
           SOURCE_DIR: './dist'
           AWS_REGION: 'eu-west-1'
