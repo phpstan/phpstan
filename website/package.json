@@ -63,12 +63,10 @@
 		"fix": "eslint -c .eslintrc.js --fix --ext .ts",
 		"watch:parcel": "parcel serve tmp/*.html tmp/**/*.html tmp/*.xml tmp/robots.txt --dist-dir dist/ --no-cache --no-source-maps",
 		"watch:11ty": "eleventy --watch",
-		"build:parcel": "parcel build tmp/*.json tmp/*.html tmp/**/*.html tmp/*.xml tmp/robots.txt --dist-dir dist/ --no-source-maps --public-url https://phpstan.org/",
-		"build:parcel-maps": "parcel build tmp/*.json tmp/*.html tmp/**/*.html tmp/*.xml tmp/robots.txt --dist-dir dist/ --public-url https://phpstan.org/",
+		"build:parcel": "parcel build tmp/*.json tmp/*.html tmp/**/*.html tmp/*.xml tmp/robots.txt --dist-dir dist/ --public-url https://phpstan.org/",
 		"build:11ty": "eleventy",
 		"watch": "run-p watch:*",
-		"build": "npm run build:11ty && npm run build:parcel",
-		"build-maps": "npm run build:11ty && npm run build:parcel-maps"
+		"build": "npm run build:11ty && npm run build:parcel"
 	},
 	"browserslist": [
 		"defaults",
