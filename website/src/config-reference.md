@@ -684,6 +684,20 @@ parameters:
     errorFormat: json
 ```
 
+### `additionalConstructors`
+
+**default**: `[]`
+
+If you want to avoid errors caused by writing to readonly properties outside of constructors, configure `additionalConstructors` to specify methods to treat as constructors:
+
+```yaml
+parameters:
+	additionalConstructors:
+		- PHPUnit\Framework\TestCase::setUp
+```
+
+This is useful when injecting dependencies with setter methods, or when writing "wither" methods on immutable objects.
+
 Expanding paths
 -------------
 
