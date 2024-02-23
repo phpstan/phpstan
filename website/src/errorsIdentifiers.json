@@ -6761,6 +6761,13 @@
             ]
         }
     },
+    "methodTag.shadowTemplate": {
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Generics/MethodTagTemplateTypeRule.php#L78"
+            ]
+        }
+    },
     "minus.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticSubtractionRule": {
             "phpstan/phpstan-strict-rules": [
