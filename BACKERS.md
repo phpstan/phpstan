@@ -104,7 +104,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/croct-tech">Croct (croct-tech)</a></li>
 <li><a href="https://github.com/p4veI">Pavel Karfík (p4veI)</a></li>
 <li><a href="https://github.com/pionl">Martin Kluska (pionl)</a></li>
-<li><a href="https://github.com/spagr">Martin Špaček (spagr)</a></li>
 <li><a href="https://github.com/akondas">Arkadiusz Kondas (akondas)</a></li>
 <li><a href="https://github.com/MaximePinot">Maxime Pinot (MaximePinot)</a></li>
 <li><a href="https://github.com/marmichalski">Marcin Michalski (marmichalski)</a></li>
