@@ -11,6 +11,11 @@ parameters:
 			path: repo/src/Composer/Autoload/AutoloadGenerator.php
 
 		-
+			message: "#^Parameter \\#3 \\$matches of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatchStrictGroups\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string, string\\|null\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/ConfigCommand.php
+
+		-
 			message: "#^Method Composer\\\\Command\\\\ShowCommand\\:\\:getPackage\\(\\) should return array\\{Composer\\\\Package\\\\CompletePackageInterface\\|null, array\\<string, string\\>\\} but returns array\\{Composer\\\\Package\\\\BasePackage\\|null, array\\<string, string\\>\\}\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/ShowCommand.php
@@ -29,6 +34,26 @@ parameters:
 			message: "#^Parameter \\#6 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, array\\|string given\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/ShowCommand.php
+
+		-
+			message: "#^Parameter \\#3 \\$matches of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatchStrictGroups\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string, string\\|null\\> given\\.$#"
+			count: 3
+			path: repo/src/Composer/Repository/PlatformRepository.php
+
+		-
+			message: "#^Parameter \\#3 \\$matches of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatchStrictGroups\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string, string\\|null\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Repository/Vcs/SvnDriver.php
+
+		-
+			message: "#^Parameter \\#2 \\$options of static method Composer\\\\Util\\\\Http\\\\ProxyHelper\\:\\:setRequestFullUri\\(\\) expects array, array\\|null given\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/Http/ProxyManager.php
+
+		-
+			message: "#^Parameter \\#3 \\$matches of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatchStrictGroups\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string, string\\|null\\> given\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/AllFunctionalTest.php
 
 		-
 			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
