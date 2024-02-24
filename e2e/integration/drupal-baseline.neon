@@ -56,9 +56,9 @@ parameters:
 			path: repo/core/modules/comment/src/Plugin/Field/FieldFormatter/CommentDefaultFormatter.php
 
 		-
-			message: "#^Variable \\$files in empty\\(\\) is never defined\\.$#"
+			message: "#^Call to an undefined static method Drupal\\\\Tests\\\\migrate\\\\Kernel\\\\MigrateTestBase\\:\\:migrateDumpAlter\\(\\)\\.$#"
 			count: 1
-			path: repo/core/modules/file/file.module
+			path: repo/core/modules/migrate/tests/src/Kernel/MigrateTestBase.php
 
 		-
 			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\shortcut\\\\\\\\ShortcutLazyBuilders', 'lazyLinks'\\} at key '0' is not callable\\.$#"
