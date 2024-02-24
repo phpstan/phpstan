@@ -426,6 +426,11 @@ parameters:
 			path: repo/classes/controller/AdminController.php
 
 		-
+			message: "#^Parameter \\#1 \\$module of method AdminControllerCore\\:\\:fillModuleData\\(\\) expects Module, stdClass given\\.$#"
+			count: 1
+			path: repo/classes/controller/AdminController.php
+
+		-
 			message: "#^Right side of && is always true\\.$#"
 			count: 3
 			path: repo/classes/controller/AdminController.php
@@ -783,6 +788,11 @@ parameters:
 		-
 			message: "#^Call to function is_array\\(\\) with non\\-empty\\-array will always evaluate to true\\.$#"
 			count: 1
+			path: repo/controllers/admin/AdminModulesController.php
+
+		-
+			message: "#^Parameter \\#1 \\$module of method AdminControllerCore\\:\\:fillModuleData\\(\\) expects Module, stdClass given\\.$#"
+			count: 2
 			path: repo/controllers/admin/AdminModulesController.php
 
 		-
@@ -1347,6 +1357,11 @@ parameters:
 
 		-
 			message: "#^Instanceof between ObjectModel and ObjectModel will always evaluate to true\\.$#"
+			count: 1
+			path: repo/src/Adapter/Presenter/Object/ObjectPresenter.php
+
+		-
+			message: "#^Parameter \\#2 \\$presentedObject of method PrestaShop\\\\PrestaShop\\\\Adapter\\\\Presenter\\\\Object\\\\ObjectPresenter\\:\\:filterHtmlContent\\(\\) expects ObjectModel, array\\<int\\|string, mixed\\> given\\.$#"
 			count: 1
 			path: repo/src/Adapter/Presenter/Object/ObjectPresenter.php
 
@@ -2186,11 +2201,6 @@ parameters:
 			path: repo/tests/Integration/Adapter/ContainerBuilderTest.php
 
 		-
-			message: "#^Parameter \\#2 \\$haystack of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertCount\\(\\) expects Countable\\|iterable, null given\\.$#"
-			count: 6
-			path: repo/tests/Integration/Adapter/ContextStateManagerTest.php
-
-		-
 			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertIsArray\\(\\) with array will always evaluate to true\\.$#"
 			count: 3
 			path: repo/tests/Integration/Adapter/Presenter/Product/ProductLazyArrayTest.php
@@ -2388,11 +2398,6 @@ parameters:
 		-
 			message: "#^Cannot access property \\$id on null\\.$#"
 			count: 2
-			path: repo/tests/Unit/Adapter/ContextStateManagerTest.php
-
-		-
-			message: "#^Parameter \\#2 \\$haystack of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertCount\\(\\) expects Countable\\|iterable, null given\\.$#"
-			count: 33
 			path: repo/tests/Unit/Adapter/ContextStateManagerTest.php
 
 		-
