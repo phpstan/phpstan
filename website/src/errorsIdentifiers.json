@@ -3065,6 +3065,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L390"
             ]
         },
+        "PHPStan\\Rules\\Variables\\ParameterOutAssignedTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L390"
+            ]
+        },
         "PHPStan\\Rules\\Variables\\ThrowTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L390"
@@ -7414,12 +7419,12 @@
     "nullsafe.neverNull": {
         "PHPStan\\Rules\\Methods\\NullsafeMethodCallRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/NullsafeMethodCallRule.php#L38"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/NullsafeMethodCallRule.php#L32"
             ]
         },
         "PHPStan\\Rules\\Properties\\NullsafePropertyFetchRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/NullsafePropertyFetchRule.php#L46"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Properties/NullsafePropertyFetchRule.php#L40"
             ]
         },
         "PHPStan\\Rules\\Variables\\EmptyRule": {
