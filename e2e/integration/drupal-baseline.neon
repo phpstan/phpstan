@@ -31,6 +31,16 @@ parameters:
 			path: repo/core/lib/Drupal/Core/Form/FormBuilder.php
 
 		-
+			message: "#^Variable \\$input in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/core/lib/Drupal/Core/Form/FormBuilder.php
+
+		-
+			message: "#^Variable \\$elements in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/core/lib/Drupal/Core/Render/Renderer.php
+
+		-
 			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\Core\\\\\\\\Access\\\\\\\\RouteProcessorCsrf', 'renderPlaceholderCs…'\\} at key '0' is not callable\\.$#"
 			count: 1
 			path: repo/core/modules/big_pipe/tests/modules/big_pipe_test/src/BigPipePlaceholderTestCases.php
