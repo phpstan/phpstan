@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#2 \\$errors of method Efabrica\\\\PHPStanLatte\\\\Rule\\\\LatteTemplatesRule\\:\\:compileTemplates\\(\\) expects array\\<PHPStan\\\\Rules\\\\RuleError\\>, array\\<PHPStan\\\\Rules\\\\RuleError\\|null\\> given\\.$#"
+			count: 1
+			path: repo/src/Rule/LatteTemplatesRule.php
+
+		-
+			message: "#^Parameter &\\$errors by\\-ref type of method Efabrica\\\\PHPStanLatte\\\\Rule\\\\LatteTemplatesRule\\:\\:compileTemplates\\(\\) expects array\\<PHPStan\\\\Rules\\\\RuleError\\>, array\\<PHPStan\\\\Rules\\\\RuleError\\|null\\> given\\.$#"
+			count: 6
+			path: repo/src/Rule/LatteTemplatesRule.php
