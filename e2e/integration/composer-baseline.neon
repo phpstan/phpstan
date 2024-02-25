@@ -11,6 +11,26 @@ parameters:
 			path: repo/src/Composer/Autoload/AutoloadGenerator.php
 
 		-
+			message: "#^Offset 0 might not exist on array\\<int, string\\>\\|null\\.$#"
+			count: 3
+			path: repo/src/Composer/Autoload/PhpFileCleaner.php
+
+		-
+			message: "#^Offset 2 might not exist on array\\<int, string\\>\\|null\\.$#"
+			count: 1
+			path: repo/src/Composer/Autoload/PhpFileCleaner.php
+
+		-
+			message: "#^Parameter \\#2 \\$match of method Composer\\\\Autoload\\\\PhpFileCleaner\\:\\:match\\(\\) expects array\\<int, string\\>\\|null, array\\<int\\|string, string\\|null\\>\\|null given\\.$#"
+			count: 1
+			path: repo/src/Composer/Autoload/PhpFileCleaner.php
+
+		-
+			message: "#^Parameter &\\$match by\\-ref type of method Composer\\\\Autoload\\\\PhpFileCleaner\\:\\:match\\(\\) expects array\\<int, string\\>\\|null, array\\<int\\|string, string\\|null\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Autoload/PhpFileCleaner.php
+
+		-
 			message: "#^Parameter \\#3 \\$matches of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatchStrictGroups\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string, string\\|null\\> given\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/ConfigCommand.php
@@ -36,6 +56,26 @@ parameters:
 			path: repo/src/Composer/Command/ShowCommand.php
 
 		-
+			message: "#^Only booleans are allowed in &&, array\\<string\\> given on the right side\\.$#"
+			count: 2
+			path: repo/src/Composer/Command/ValidateCommand.php
+
+		-
+			message: "#^Only booleans are allowed in a ternary operator condition, array\\<string\\> given\\.$#"
+			count: 2
+			path: repo/src/Composer/Command/ValidateCommand.php
+
+		-
+			message: "#^Parameter &\\$linkCache by\\-ref type of method Composer\\\\Package\\\\Loader\\\\ArrayLoader\\:\\:configureCachedLinks\\(\\) expects array\\<string, array\\<string, array\\<string, array\\<string, array\\{string, Composer\\\\Package\\\\Link\\}\\>\\>\\>\\>, non\\-empty\\-array\\<string, array\\<string, array\\<string, array\\<int\\|string, array\\{string, Composer\\\\Package\\\\Link\\}\\>\\>\\>\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Package/Loader/ArrayLoader.php
+
+		-
+			message: "#^Only booleans are allowed in a ternary operator condition, bool\\|null given\\.$#"
+			count: 4
+			path: repo/src/Composer/Repository/PlatformRepository.php
+
+		-
 			message: "#^Parameter \\#3 \\$matches of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatchStrictGroups\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string, string\\|null\\> given\\.$#"
 			count: 3
 			path: repo/src/Composer/Repository/PlatformRepository.php
@@ -46,9 +86,49 @@ parameters:
 			path: repo/src/Composer/Repository/Vcs/SvnDriver.php
 
 		-
+			message: "#^Parameter &\\$match by\\-ref type of method Composer\\\\Util\\\\Git\\:\\:isAuthenticationFailure\\(\\) expects array\\<string\\>, array\\<int\\|string, string\\|null\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/Git.php
+
+		-
+			message: "#^Parameter \\#2 \\$envName of static method Composer\\\\Util\\\\Http\\\\ProxyHelper\\:\\:checkProxy\\(\\) expects string, string\\|null given\\.$#"
+			count: 3
+			path: repo/src/Composer/Util/Http/ProxyHelper.php
+
+		-
 			message: "#^Parameter \\#2 \\$options of static method Composer\\\\Util\\\\Http\\\\ProxyHelper\\:\\:setRequestFullUri\\(\\) expects array, array\\|null given\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/Http/ProxyManager.php
+
+		-
+			message: "#^Offset 0 might not exist on array\\<string\\>\\|null\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/RemoteFilesystem.php
+
+		-
+			message: "#^Parameter \\#1 \\$headers of method Composer\\\\Downloader\\\\TransportException\\:\\:setHeaders\\(\\) expects array\\<string\\>, array\\<string\\>\\|null given\\.$#"
+			count: 2
+			path: repo/src/Composer/Util/RemoteFilesystem.php
+
+		-
+			message: "#^Parameter \\#1 \\$headers of static method Composer\\\\Util\\\\RemoteFilesystem\\:\\:findStatusCode\\(\\) expects array\\<string\\>, array\\<string\\>\\|null given\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/RemoteFilesystem.php
+
+		-
+			message: "#^Parameter \\#1 \\$http_response_header of method Composer\\\\Util\\\\RemoteFilesystem\\:\\:handleRedirect\\(\\) expects array\\<string\\>, array\\<string\\>\\|null given\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/RemoteFilesystem.php
+
+		-
+			message: "#^Parameter \\#2 \\$http_response_header of method Composer\\\\Util\\\\RemoteFilesystem\\:\\:decodeResult\\(\\) expects array\\<string\\>, array\\<string\\>\\|null given\\.$#"
+			count: 4
+			path: repo/src/Composer/Util/RemoteFilesystem.php
+
+		-
+			message: "#^Property Composer\\\\Util\\\\RemoteFilesystem\\:\\:\\$lastHeaders \\(list\\<string\\>\\) does not accept array\\<string\\>\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/RemoteFilesystem.php
 
 		-
 			message: "#^Parameter \\#3 \\$matches of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatchStrictGroups\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string, string\\|null\\> given\\.$#"
