@@ -41,6 +41,11 @@ parameters:
 			path: repo/classes/Carrier.php
 
 		-
+			message: "#^Parameter &\\$error by\\-ref type of method CartCore\\:\\:getDeliveryAddressesWithoutCarriers\\(\\) expects array, array\\|null given\\.$#"
+			count: 1
+			path: repo/classes/Cart.php
+
+		-
 			message: "#^Strict comparison using \\!\\=\\= between mixed and null will always evaluate to true\\.$#"
 			count: 1
 			path: repo/classes/Cart.php
@@ -262,7 +267,7 @@ parameters:
 
 		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
-			count: 1
+			count: 2
 			path: repo/classes/Search.php
 
 		-
@@ -279,6 +284,26 @@ parameters:
 			message: "#^Call to function is_array\\(\\) with non\\-empty\\-list\\<non\\-falsy\\-string\\> will always evaluate to true\\.$#"
 			count: 1
 			path: repo/classes/Search.php
+
+		-
+			message: "#^Parameter &\\$mtime by\\-ref type of method SmartyResourceModuleCore\\:\\:fetch\\(\\) expects int, int\\|false given\\.$#"
+			count: 1
+			path: repo/classes/Smarty/SmartyResourceModule.php
+
+		-
+			message: "#^Parameter &\\$source by\\-ref type of method SmartyResourceModuleCore\\:\\:fetch\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: repo/classes/Smarty/SmartyResourceModule.php
+
+		-
+			message: "#^Parameter &\\$mtime by\\-ref type of method SmartyResourceParentCore\\:\\:fetch\\(\\) expects int, int\\|false given\\.$#"
+			count: 1
+			path: repo/classes/Smarty/SmartyResourceParent.php
+
+		-
+			message: "#^Parameter &\\$source by\\-ref type of method SmartyResourceParentCore\\:\\:fetch\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: repo/classes/Smarty/SmartyResourceParent.php
 
 		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
@@ -501,6 +526,11 @@ parameters:
 			path: repo/classes/order/OrderDetail.php
 
 		-
+			message: "#^Property OrderDetailCore\\:\\:\\$specificPrice \\(Address\\|null\\) does not accept array\\|null\\.$#"
+			count: 1
+			path: repo/classes/order/OrderDetail.php
+
+		-
 			message: "#^Call to function is_numeric\\(\\) with int\\<min, \\-1\\>\\|int\\<1, max\\> will always evaluate to true\\.$#"
 			count: 1
 			path: repo/classes/order/OrderHistory.php
@@ -621,6 +651,16 @@ parameters:
 			path: repo/controllers/admin/AdminAttributesGroupsController.php
 
 		-
+			message: "#^Call to an undefined method ObjectModel\\:\\:deleteDeliveryPrice\\(\\)\\.$#"
+			count: 2
+			path: repo/controllers/admin/AdminCarrierWizardController.php
+
+		-
+			message: "#^Call to an undefined method ObjectModel\\:\\:setTaxRulesGroup\\(\\)\\.$#"
+			count: 2
+			path: repo/controllers/admin/AdminCarrierWizardController.php
+
+		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
 			count: 2
 			path: repo/controllers/admin/AdminCarrierWizardController.php
@@ -639,6 +679,16 @@ parameters:
 			message: "#^Method AdminCarrierWizardControllerCore\\:\\:renderView\\(\\) should return string but empty return statement found\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminCarrierWizardController.php
+
+		-
+			message: "#^Call to an undefined method ObjectModel\\:\\:copyCarrierData\\(\\)\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminCarriersController.php
+
+		-
+			message: "#^Call to an undefined method ObjectModel\\:\\:setTaxRulesGroup\\(\\)\\.$#"
+			count: 2
+			path: repo/controllers/admin/AdminCarriersController.php
 
 		-
 			message: "#^Method AdminCarriersControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
@@ -662,6 +712,11 @@ parameters:
 
 		-
 			message: "#^Method AdminCartsControllerCore\\:\\:renderView\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminCartsController.php
+
+		-
+			message: "#^Parameter \\#1 \\$product of static method ProductCore\\:\\:addProductCustomizationPrice\\(\\) expects array, Product given\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminCartsController.php
 
@@ -786,6 +841,16 @@ parameters:
 			path: repo/controllers/admin/AdminImportController.php
 
 		-
+			message: "#^Access to an undefined property Module\\:\\:\\$image\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminModulesController.php
+
+		-
+			message: "#^Access to an undefined property Module\\:\\:\\$price\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminModulesController.php
+
+		-
 			message: "#^Call to function is_array\\(\\) with non\\-empty\\-array will always evaluate to true\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminModulesController.php
@@ -816,6 +881,21 @@ parameters:
 			path: repo/controllers/admin/AdminPdfController.php
 
 		-
+			message: "#^Call to an undefined method ObjectModel\\:\\:getExistingImgPath\\(\\)\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminProductsController.php
+
+		-
+			message: "#^Call to an undefined method ObjectModel\\:\\:getType\\(\\)\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminProductsController.php
+
+		-
+			message: "#^Call to an undefined method ObjectModel\\:\\:updateCategories\\(\\)\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminProductsController.php
+
+		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
 			count: 2
 			path: repo/controllers/admin/AdminProductsController.php
@@ -837,6 +917,21 @@ parameters:
 
 		-
 			message: "#^Method AdminProductsControllerCore\\:\\:processPosition\\(\\) should return ObjectModel\\|false but return statement is missing\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminProductsController.php
+
+		-
+			message: "#^Parameter \\#1 \\$product of method AdminProductsControllerCore\\:\\:getPreviewUrl\\(\\) expects Product, ObjectModel given\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminProductsController.php
+
+		-
+			message: "#^Parameter \\#1 \\$product of method AdminProductsControllerCore\\:\\:updateDownloadProduct\\(\\) expects Product, ObjectModel given\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminProductsController.php
+
+		-
+			message: "#^Parameter \\#1 \\$product of method AdminProductsControllerCore\\:\\:updatePackItems\\(\\) expects Product, ObjectModel given\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminProductsController.php
 
@@ -876,6 +971,11 @@ parameters:
 			path: repo/controllers/admin/AdminSearchController.php
 
 		-
+			message: "#^Call to an undefined method ObjectModel\\:\\:associateSuperAdmins\\(\\)\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminShopController.php
+
+		-
 			message: "#^Method AdminShopControllerCore\\:\\:processAdd\\(\\) should return ObjectModel\\|false but empty return statement found\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminShopController.php
@@ -887,6 +987,11 @@ parameters:
 
 		-
 			message: "#^Method AdminShopControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminShopController.php
+
+		-
+			message: "#^Parameter \\#1 \\$new_shop of method AdminShopControllerCore\\:\\:afterAdd\\(\\) expects Shop, ObjectModel given\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminShopController.php
 
@@ -1094,6 +1199,11 @@ parameters:
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/Adapter/Cache/MemcacheServerManager.php
+
+		-
+			message: "#^Parameter \\#1 \\$product of static method ProductCore\\:\\:addProductCustomizationPrice\\(\\) expects array, Product given\\.$#"
+			count: 1
+			path: repo/src/Adapter/Cart/QueryHandler/GetCartForViewingHandler.php
 
 		-
 			message: "#^Call to function is_int\\(\\) with int will always evaluate to true\\.$#"
@@ -1361,6 +1471,11 @@ parameters:
 			path: repo/src/Adapter/Presenter/Object/ObjectPresenter.php
 
 		-
+			message: "#^Method PrestaShop\\\\PrestaShop\\\\Adapter\\\\Presenter\\\\Object\\\\ObjectPresenter\\:\\:present\\(\\) should return array\\<string, mixed\\> but returns ObjectModel\\.$#"
+			count: 1
+			path: repo/src/Adapter/Presenter/Object/ObjectPresenter.php
+
+		-
 			message: "#^Parameter \\#2 \\$presentedObject of method PrestaShop\\\\PrestaShop\\\\Adapter\\\\Presenter\\\\Object\\\\ObjectPresenter\\:\\:filterHtmlContent\\(\\) expects ObjectModel, array\\<int\\|string, mixed\\> given\\.$#"
 			count: 1
 			path: repo/src/Adapter/Presenter/Object/ObjectPresenter.php
@@ -1394,6 +1509,16 @@ parameters:
 			message: "#^PHPDoc tag @return has invalid value \\(array\\(Product\\) The products contained in this Pack, with special dynamic attributes \\[pack_quantity, id_pack_product_attribute\\]\\)\\: Unexpected token \"\\(\", expected TOKEN_HORIZONTAL_WS at offset 157 on line 7$#"
 			count: 1
 			path: repo/src/Adapter/Product/PackItemsManager.php
+
+		-
+			message: "#^Parameter &\\$specificPrice by\\-ref type of method PrestaShop\\\\PrestaShop\\\\Adapter\\\\Product\\\\PriceCalculator\\:\\:priceCalculation\\(\\) expects null, array\\|null given\\.$#"
+			count: 1
+			path: repo/src/Adapter/Product/PriceCalculator.php
+
+		-
+			message: "#^Parameter &\\$specificPriceOutput by\\-ref type of method PrestaShop\\\\PrestaShop\\\\Adapter\\\\Product\\\\PriceCalculator\\:\\:getProductPrice\\(\\) expects null, array\\|null given\\.$#"
+			count: 1
+			path: repo/src/Adapter/Product/PriceCalculator.php
 
 		-
 			message: "#^PHPDoc tag @return has invalid value \\(array\\(\\)\\)\\: Unexpected token \"\\(\", expected TOKEN_HORIZONTAL_WS at offset 87 on line 6$#"
