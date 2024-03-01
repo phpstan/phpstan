@@ -1,4 +1,4 @@
 <?php
 
 // wrongly defined type for constant to trigger the bug
-if(!defined("FILTER_VALIDATE_INT"))define("FILTER_VALIDATE_INT",false);
+if(!defined("FILTER_SANITIZE_MAGIC_QUOTES"))define("FILTER_SANITIZE_MAGIC_QUOTES",false);
