@@ -407,7 +407,7 @@ jobs:
               ../../phpstan clear-result-cache -q
               ../../phpstan analyse --generate-baseline -q
               ../../phpstan analyse -vvv --fail-without-result-cache
-          - php-version: 7.4
+          - php-version: 7.2
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
             script: |
