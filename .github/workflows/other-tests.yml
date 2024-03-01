@@ -409,7 +409,7 @@ jobs:
               ../../phpstan analyse -vvv --fail-without-result-cache
           - php-version: 8.2
             ini-values: memory_limit=256M
-            extensions: none
+            extensions: none, mbstring
             operating-system: ubuntu-latest
             script: |
               cd e2e/bug10483
