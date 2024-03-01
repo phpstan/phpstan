@@ -407,6 +407,13 @@ jobs:
               ../../phpstan clear-result-cache -q
               ../../phpstan analyse --generate-baseline -q
               ../../phpstan analyse -vvv --fail-without-result-cache
+          - php-version: 8.2
+            ini-values: memory_limit=256M
+            extensions: none
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/bug10483
+              ../../phpstan analyze
 
     steps:
       - name: "Checkout"
