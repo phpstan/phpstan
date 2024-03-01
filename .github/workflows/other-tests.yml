@@ -407,7 +407,7 @@ jobs:
               ../../phpstan clear-result-cache -q
               ../../phpstan analyse --generate-baseline -q
               ../../phpstan analyse -vvv --fail-without-result-cache
-          - php-version: 8.2
+          - php-version: 7.4
             ini-values: memory_limit=256M
             extensions: none, tokenizer, mbstring
             operating-system: ubuntu-latest
