@@ -2065,6 +2065,20 @@
             ]
         }
     },
+    "callable.shadowTemplate": {
+        "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/GenericCallableRuleHelper.php#L107",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/GenericCallableRuleHelper.php#L90"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/GenericCallableRuleHelper.php#L107",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/GenericCallableRuleHelper.php#L90"
+            ]
+        }
+    },
     "callable.unresolvableReturnType": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
@@ -7713,6 +7727,13 @@
             ]
         }
     },
+    "paramOut.type": {
+        "PHPStan\\Rules\\Variables\\ParameterOutAssignedTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Variables/ParameterOutAssignedTypeRule.php#L108"
+            ]
+        }
+    },
     "parameter.byRef": {
         "PHPStan\\Rules\\Methods\\ConsistentConstructorRule": {
             "phpstan/phpstan-src": [
@@ -8093,6 +8114,13 @@
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L123",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L318"
+            ]
+        }
+    },
+    "parameterByRef.type": {
+        "PHPStan\\Rules\\Variables\\ParameterOutAssignedTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Variables/ParameterOutAssignedTypeRule.php#L108"
             ]
         }
     },
