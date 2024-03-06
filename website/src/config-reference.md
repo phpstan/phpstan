@@ -545,9 +545,10 @@ This effectively means that inline `@var` cast can only be used to narrow down o
 
 **default**: `false`
 
-This option strictens checks used in `reportWrongPhpDocTypeInVarTag`. It strictly disallows any widening. Compared to default behaviour, it disallows array key widening in vardocs, so those would get reported:
-  - `list<int>` => `array<int>`
-  - `array<int, int>` => `array<int>`
+This option strictens checks used in `reportWrongPhpDocTypeInVarTag`. It strictly disallows any type widening. Compared to default behaviour, it disallows array key widening in inline PHPDoc `@var` tags, so those would get reported:
+
+* `list<int>` => `array<int>`
+* `array<int, int>` => `array<int>`
 
 ### `checkMissingOverrideMethodAttribute`
 
