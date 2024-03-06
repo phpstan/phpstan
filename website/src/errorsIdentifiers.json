@@ -7744,6 +7744,13 @@
             ]
         }
     },
+    "paramOut.unusedType": {
+        "PHPStan\\Rules\\TooWideTypehints\\TooWideParameterOutTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideParameterOutTypeRule.php#L98"
+            ]
+        }
+    },
     "parameter.byRef": {
         "PHPStan\\Rules\\Methods\\ConsistentConstructorRule": {
             "phpstan/phpstan-src": [
@@ -8131,6 +8138,13 @@
         "PHPStan\\Rules\\Variables\\ParameterOutAssignedTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Variables/ParameterOutAssignedTypeRule.php#L108"
+            ]
+        }
+    },
+    "parameterByRef.unusedType": {
+        "PHPStan\\Rules\\TooWideTypehints\\TooWideParameterOutTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideParameterOutTypeRule.php#L98"
             ]
         }
     },
