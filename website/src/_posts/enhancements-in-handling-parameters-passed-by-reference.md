@@ -70,7 +70,7 @@ This was because some internal built-in PHP functions have parameters passed by 
 
 However, PHPStan is now equipped to check the type in such cases, ensuring more comprehensive type validation moving forward.
 
-Assume the "out" type is the same as the "in" type
+Assumption of Output Type
 --------------------
 
 Instead of setting the type of the passed variable to `mixed`, we now assume that the user does not intend to change the type entirely:
