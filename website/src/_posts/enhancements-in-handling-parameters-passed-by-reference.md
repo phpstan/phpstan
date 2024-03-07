@@ -4,7 +4,7 @@ date: 2024-03-07
 tags: releases
 ---
 
-[PHPStan 1.10.60](https://github.com/phpstan/phpstan/releases/tag/1.10.59) introduces enhancements in handling parameters passed by reference. These parameters, besides typical returned values, also serve as a form of output that a called function can produce:
+[PHPStan 1.10.60](https://github.com/phpstan/phpstan/releases/tag/1.10.60) introduces enhancements in handling parameters passed by reference. These parameters, besides typical returned values, also serve as a form of output that a called function can produce:
 
 ```php
 function foo(&$p): void
