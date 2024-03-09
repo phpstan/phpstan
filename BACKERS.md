@@ -28,7 +28,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/crispnl">crispnl (crispnl)</a></li>
 <li><a href="https://github.com/inviqa">Inviqa (inviqa)</a></li>
 <li><a href="https://github.com/hephaist-io">Hephaist.io (hephaist-io)</a></li>
-<li><a href="https://github.com/AmezmoOfficial">Amezmo (AmezmoOfficial)</a></li>
 <li><a href="https://github.com/mceglowski"> (mceglowski)</a></li>
 <li><a href="https://github.com/MacPaw">MacPaw Inc. (MacPaw)</a></li>
 <li><a href="https://github.com/Edgenext2024"> (Edgenext2024)</a></li>
