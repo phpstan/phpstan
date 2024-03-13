@@ -7734,24 +7734,24 @@
     "paramOut.type": {
         "PHPStan\\Rules\\Variables\\ParameterOutAssignedTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Variables/ParameterOutAssignedTypeRule.php#L108"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Variables/ParameterOutAssignedTypeRule.php#L111"
             ]
         },
         "PHPStan\\Rules\\Variables\\ParameterOutExecutionEndTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Variables/ParameterOutExecutionEndTypeRule.php#L114"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Variables/ParameterOutExecutionEndTypeRule.php#L117"
             ]
         }
     },
     "paramOut.unusedType": {
         "PHPStan\\Rules\\TooWideTypehints\\TooWideFunctionParameterOutTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideFunctionParameterOutTypeRule.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideFunctionParameterOutTypeRule.php#L109"
             ]
         },
         "PHPStan\\Rules\\TooWideTypehints\\TooWideMethodParameterOutTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideMethodParameterOutTypeRule.php#L108"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideMethodParameterOutTypeRule.php#L110"
             ]
         }
     },
@@ -8141,19 +8141,19 @@
     "parameterByRef.type": {
         "PHPStan\\Rules\\Variables\\ParameterOutAssignedTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Variables/ParameterOutAssignedTypeRule.php#L108"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Variables/ParameterOutAssignedTypeRule.php#L111"
             ]
         }
     },
     "parameterByRef.unusedType": {
         "PHPStan\\Rules\\TooWideTypehints\\TooWideFunctionParameterOutTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideFunctionParameterOutTypeRule.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideFunctionParameterOutTypeRule.php#L109"
             ]
         },
         "PHPStan\\Rules\\TooWideTypehints\\TooWideMethodParameterOutTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideMethodParameterOutTypeRule.php#L108"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideMethodParameterOutTypeRule.php#L110"
             ]
         }
     },
