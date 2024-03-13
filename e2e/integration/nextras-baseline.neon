@@ -11,6 +11,11 @@ parameters:
 			path: repo/src/Collection/Helpers/DbalQueryBuilderHelper.php
 
 		-
+			message: "#^Method Nextras\\\\Orm\\\\Entity\\\\Reflection\\\\MetadataParser\\:\\:parseMetadata\\(\\) never assigns null to &\\$fileDependencies so it can be removed from the by\\-ref type\\.$#"
+			count: 1
+			path: repo/src/Entity/Reflection/MetadataParser.php
+
+		-
 			message: "#^Parameter \\#1 \\$array of function array_unique expects array, array\\<int, string\\>\\|null given\\.$#"
 			count: 1
 			path: repo/src/Entity/Reflection/MetadataParser.php
