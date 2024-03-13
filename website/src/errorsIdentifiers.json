@@ -3687,8 +3687,7 @@
     "constant.deprecated": {
         "PHPStan\\Rules\\Deprecations\\FetchingDeprecatedConstRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/FetchingDeprecatedConstRule.php#L63",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/FetchingDeprecatedConstRule.php#L72"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/FetchingDeprecatedConstRule.php#L53"
             ]
         }
     },
@@ -7745,9 +7744,14 @@
         }
     },
     "paramOut.unusedType": {
-        "PHPStan\\Rules\\TooWideTypehints\\TooWideParameterOutTypeRule": {
+        "PHPStan\\Rules\\TooWideTypehints\\TooWideFunctionParameterOutTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideParameterOutTypeRule.php#L98"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideFunctionParameterOutTypeRule.php#L107"
+            ]
+        },
+        "PHPStan\\Rules\\TooWideTypehints\\TooWideMethodParameterOutTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideMethodParameterOutTypeRule.php#L108"
             ]
         }
     },
@@ -8142,9 +8146,14 @@
         }
     },
     "parameterByRef.unusedType": {
-        "PHPStan\\Rules\\TooWideTypehints\\TooWideParameterOutTypeRule": {
+        "PHPStan\\Rules\\TooWideTypehints\\TooWideFunctionParameterOutTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideParameterOutTypeRule.php#L98"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideFunctionParameterOutTypeRule.php#L107"
+            ]
+        },
+        "PHPStan\\Rules\\TooWideTypehints\\TooWideMethodParameterOutTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideMethodParameterOutTypeRule.php#L108"
             ]
         }
     },
