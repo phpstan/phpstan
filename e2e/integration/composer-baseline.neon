@@ -11,6 +11,11 @@ parameters:
 			path: repo/src/Composer/Autoload/AutoloadGenerator.php
 
 		-
+			message: "#^Method Composer\\\\Autoload\\\\PhpFileCleaner\\:\\:match\\(\\) never assigns null to &\\$match so it can be removed from the by\\-ref type\\.$#"
+			count: 1
+			path: repo/src/Composer/Autoload/PhpFileCleaner.php
+
+		-
 			message: "#^Offset 0 might not exist on array\\<int, string\\>\\|null\\.$#"
 			count: 3
 			path: repo/src/Composer/Autoload/PhpFileCleaner.php
@@ -29,11 +34,6 @@ parameters:
 			message: "#^Parameter &\\$match by\\-ref type of method Composer\\\\Autoload\\\\PhpFileCleaner\\:\\:match\\(\\) expects array\\<int, string\\>\\|null, array\\<int\\|string, string\\|null\\> given\\.$#"
 			count: 1
 			path: repo/src/Composer/Autoload/PhpFileCleaner.php
-
-		-
-			message: "#^Parameter \\#3 \\$matches of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatchStrictGroups\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string, string\\|null\\> given\\.$#"
-			count: 1
-			path: repo/src/Composer/Command/ConfigCommand.php
 
 		-
 			message: "#^Method Composer\\\\Command\\\\ShowCommand\\:\\:getPackage\\(\\) should return array\\{Composer\\\\Package\\\\CompletePackageInterface\\|null, array\\<string, string\\>\\} but returns array\\{Composer\\\\Package\\\\BasePackage\\|null, array\\<string, string\\>\\}\\.$#"
@@ -71,19 +71,14 @@ parameters:
 			path: repo/src/Composer/Package/Loader/ArrayLoader.php
 
 		-
+			message: "#^Method Composer\\\\Platform\\\\Version\\:\\:parseOpenssl\\(\\) never assigns null to &\\$isFips so it can be removed from the by\\-ref type\\.$#"
+			count: 1
+			path: repo/src/Composer/Platform/Version.php
+
+		-
 			message: "#^Only booleans are allowed in a ternary operator condition, bool\\|null given\\.$#"
 			count: 4
 			path: repo/src/Composer/Repository/PlatformRepository.php
-
-		-
-			message: "#^Parameter \\#3 \\$matches of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatchStrictGroups\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string, string\\|null\\> given\\.$#"
-			count: 3
-			path: repo/src/Composer/Repository/PlatformRepository.php
-
-		-
-			message: "#^Parameter \\#3 \\$matches of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatchStrictGroups\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string, string\\|null\\> given\\.$#"
-			count: 1
-			path: repo/src/Composer/Repository/Vcs/SvnDriver.php
 
 		-
 			message: "#^Parameter &\\$match by\\-ref type of method Composer\\\\Util\\\\Git\\:\\:isAuthenticationFailure\\(\\) expects array\\<string\\>, array\\<int\\|string, string\\|null\\> given\\.$#"
@@ -99,6 +94,16 @@ parameters:
 			message: "#^Parameter \\#2 \\$options of static method Composer\\\\Util\\\\Http\\\\ProxyHelper\\:\\:setRequestFullUri\\(\\) expects array, array\\|null given\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/Http/ProxyManager.php
+
+		-
+			message: "#^Method Composer\\\\Util\\\\NoProxyPattern\\:\\:ipCheckData\\(\\) never assigns null to &\\$ipdata so it can be removed from the by\\-ref type\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/NoProxyPattern.php
+
+		-
+			message: "#^Method Composer\\\\Util\\\\RemoteFilesystem\\:\\:getRemoteContents\\(\\) never assigns null to &\\$responseHeaders so it can be removed from the by\\-ref type\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/RemoteFilesystem.php
 
 		-
 			message: "#^Offset 0 might not exist on array\\<string\\>\\|null\\.$#"
@@ -129,11 +134,6 @@ parameters:
 			message: "#^Property Composer\\\\Util\\\\RemoteFilesystem\\:\\:\\$lastHeaders \\(list\\<string\\>\\) does not accept array\\<string\\>\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/RemoteFilesystem.php
-
-		-
-			message: "#^Parameter \\#3 \\$matches of static method Composer\\\\Pcre\\\\Preg\\:\\:isMatchStrictGroups\\(\\) expects array\\<string\\>\\|null, array\\<int\\|string, string\\|null\\> given\\.$#"
-			count: 1
-			path: repo/tests/Composer/Test/AllFunctionalTest.php
 
 		-
 			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"

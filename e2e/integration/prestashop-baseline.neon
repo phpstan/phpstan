@@ -41,6 +41,26 @@ parameters:
 			path: repo/classes/Carrier.php
 
 		-
+			message: "#^Method CarrierCore\\:\\:getAvailableCarrierList\\(\\) never assigns null to &\\$error so it can be removed from the by\\-ref type\\.$#"
+			count: 1
+			path: repo/classes/Carrier.php
+
+		-
+			message: "#^Method CartCore\\:\\:getAverageProductsTaxRate\\(\\) never assigns null to &\\$cartAmountTaxExcluded so it can be removed from the by\\-ref type\\.$#"
+			count: 1
+			path: repo/classes/Cart.php
+
+		-
+			message: "#^Method CartCore\\:\\:getAverageProductsTaxRate\\(\\) never assigns null to &\\$cartAmountTaxIncluded so it can be removed from the by\\-ref type\\.$#"
+			count: 1
+			path: repo/classes/Cart.php
+
+		-
+			message: "#^Method CartCore\\:\\:getCartPriceFromCatalog\\(\\) never assigns false to &\\$specificPriceOutput so it can be removed from the by\\-ref type\\.$#"
+			count: 1
+			path: repo/classes/Cart.php
+
+		-
 			message: "#^Parameter &\\$error by\\-ref type of method CartCore\\:\\:getDeliveryAddressesWithoutCarriers\\(\\) expects array, array\\|null given\\.$#"
 			count: 1
 			path: repo/classes/Cart.php
@@ -107,6 +127,26 @@ parameters:
 
 		-
 			message: "#^Method ImageManagerCore\\:\\:createWhiteImage\\(\\) has invalid return type GdImage\\.$#"
+			count: 1
+			path: repo/classes/ImageManager.php
+
+		-
+			message: "#^Method ImageManagerCore\\:\\:resize\\(\\) never assigns null to &\\$sourceHeight so it can be removed from the by\\-ref type\\.$#"
+			count: 1
+			path: repo/classes/ImageManager.php
+
+		-
+			message: "#^Method ImageManagerCore\\:\\:resize\\(\\) never assigns null to &\\$sourceWidth so it can be removed from the by\\-ref type\\.$#"
+			count: 1
+			path: repo/classes/ImageManager.php
+
+		-
+			message: "#^Method ImageManagerCore\\:\\:resize\\(\\) never assigns null to &\\$targetHeight so it can be removed from the by\\-ref type\\.$#"
+			count: 1
+			path: repo/classes/ImageManager.php
+
+		-
+			message: "#^Method ImageManagerCore\\:\\:resize\\(\\) never assigns null to &\\$targetWidth so it can be removed from the by\\-ref type\\.$#"
 			count: 1
 			path: repo/classes/ImageManager.php
 
@@ -227,6 +267,11 @@ parameters:
 
 		-
 			message: "#^Call to function is_numeric\\(\\) with int\\<min, \\-1\\>\\|int\\<1, max\\> will always evaluate to true\\.$#"
+			count: 1
+			path: repo/classes/Product.php
+
+		-
+			message: "#^Method ProductCore\\:\\:priceCalculation\\(\\) never assigns null to &\\$specific_price so it can be removed from the by\\-ref type\\.$#"
 			count: 1
 			path: repo/classes/Product.php
 
