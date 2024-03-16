@@ -46,8 +46,13 @@ parameters:
 			path: repo/src/Repository/RemovalHelper.php
 
 		-
+			message: "#^Parameter &\\$pre by\\-ref type of method Nextras\\\\Orm\\\\Repository\\\\RemovalHelper\\:\\:setNulls\\(\\) expects array\\<string, Nextras\\\\Orm\\\\Entity\\\\IEntity\\|Nextras\\\\Orm\\\\Relationships\\\\IRelationshipCollection\\<Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\>, non\\-empty\\-array given\\.$#"
+			count: 2
+			path: repo/src/Repository/RemovalHelper.php
+
+		-
 			message: "#^Parameter &\\$pre by\\-ref type of method Nextras\\\\Orm\\\\Repository\\\\RemovalHelper\\:\\:setNulls\\(\\) expects array\\<string, Nextras\\\\Orm\\\\Entity\\\\IEntity\\|Nextras\\\\Orm\\\\Relationships\\\\IRelationshipCollection\\<Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\>, non\\-empty\\-array\\<int\\|string, mixed\\> given\\.$#"
-			count: 5
+			count: 3
 			path: repo/src/Repository/RemovalHelper.php
 
 		-
