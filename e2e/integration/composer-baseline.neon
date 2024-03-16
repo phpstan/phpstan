@@ -11,11 +11,6 @@ parameters:
 			path: repo/src/Composer/Autoload/AutoloadGenerator.php
 
 		-
-			message: "#^Method Composer\\\\Autoload\\\\PhpFileCleaner\\:\\:match\\(\\) never assigns null to &\\$match so it can be removed from the by\\-ref type\\.$#"
-			count: 1
-			path: repo/src/Composer/Autoload/PhpFileCleaner.php
-
-		-
 			message: "#^Offset 0 might not exist on array\\<int, string\\>\\|null\\.$#"
 			count: 3
 			path: repo/src/Composer/Autoload/PhpFileCleaner.php
@@ -66,6 +61,11 @@ parameters:
 			path: repo/src/Composer/Command/ValidateCommand.php
 
 		-
+			message: "#^Parameter \\#1 \\$array of function ksort expects array, array\\|string given\\.$#"
+			count: 1
+			path: repo/src/Composer/Package/Dumper/ArrayDumper.php
+
+		-
 			message: "#^Parameter &\\$linkCache by\\-ref type of method Composer\\\\Package\\\\Loader\\\\ArrayLoader\\:\\:configureCachedLinks\\(\\) expects array\\<string, array\\<string, array\\<string, array\\<string, array\\{string, Composer\\\\Package\\\\Link\\}\\>\\>\\>\\>, non\\-empty\\-array\\<string, array\\<string, array\\<string, array\\<int\\|string, array\\{string, Composer\\\\Package\\\\Link\\}\\>\\>\\>\\> given\\.$#"
 			count: 1
 			path: repo/src/Composer/Package/Loader/ArrayLoader.php
@@ -94,11 +94,6 @@ parameters:
 			message: "#^Parameter \\#2 \\$options of static method Composer\\\\Util\\\\Http\\\\ProxyHelper\\:\\:setRequestFullUri\\(\\) expects array, array\\|null given\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/Http/ProxyManager.php
-
-		-
-			message: "#^Method Composer\\\\Util\\\\NoProxyPattern\\:\\:ipCheckData\\(\\) never assigns null to &\\$ipdata so it can be removed from the by\\-ref type\\.$#"
-			count: 1
-			path: repo/src/Composer/Util/NoProxyPattern.php
 
 		-
 			message: "#^Method Composer\\\\Util\\\\RemoteFilesystem\\:\\:getRemoteContents\\(\\) never assigns null to &\\$responseHeaders so it can be removed from the by\\-ref type\\.$#"

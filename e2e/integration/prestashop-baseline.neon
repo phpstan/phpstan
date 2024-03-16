@@ -56,11 +56,6 @@ parameters:
 			path: repo/classes/Cart.php
 
 		-
-			message: "#^Method CartCore\\:\\:getCartPriceFromCatalog\\(\\) never assigns false to &\\$specificPriceOutput so it can be removed from the by\\-ref type\\.$#"
-			count: 1
-			path: repo/classes/Cart.php
-
-		-
 			message: "#^Parameter &\\$error by\\-ref type of method CartCore\\:\\:getDeliveryAddressesWithoutCarriers\\(\\) expects array, array\\|null given\\.$#"
 			count: 1
 			path: repo/classes/Cart.php
@@ -127,26 +122,6 @@ parameters:
 
 		-
 			message: "#^Method ImageManagerCore\\:\\:createWhiteImage\\(\\) has invalid return type GdImage\\.$#"
-			count: 1
-			path: repo/classes/ImageManager.php
-
-		-
-			message: "#^Method ImageManagerCore\\:\\:resize\\(\\) never assigns null to &\\$sourceHeight so it can be removed from the by\\-ref type\\.$#"
-			count: 1
-			path: repo/classes/ImageManager.php
-
-		-
-			message: "#^Method ImageManagerCore\\:\\:resize\\(\\) never assigns null to &\\$sourceWidth so it can be removed from the by\\-ref type\\.$#"
-			count: 1
-			path: repo/classes/ImageManager.php
-
-		-
-			message: "#^Method ImageManagerCore\\:\\:resize\\(\\) never assigns null to &\\$targetHeight so it can be removed from the by\\-ref type\\.$#"
-			count: 1
-			path: repo/classes/ImageManager.php
-
-		-
-			message: "#^Method ImageManagerCore\\:\\:resize\\(\\) never assigns null to &\\$targetWidth so it can be removed from the by\\-ref type\\.$#"
 			count: 1
 			path: repo/classes/ImageManager.php
 
@@ -1521,7 +1496,7 @@ parameters:
 			path: repo/src/Adapter/Presenter/Object/ObjectPresenter.php
 
 		-
-			message: "#^Parameter \\#2 \\$presentedObject of method PrestaShop\\\\PrestaShop\\\\Adapter\\\\Presenter\\\\Object\\\\ObjectPresenter\\:\\:filterHtmlContent\\(\\) expects ObjectModel, array\\<int\\|string, mixed\\> given\\.$#"
+			message: "#^Parameter \\#2 \\$presentedObject of method PrestaShop\\\\PrestaShop\\\\Adapter\\\\Presenter\\\\Object\\\\ObjectPresenter\\:\\:filterHtmlContent\\(\\) expects ObjectModel, array given\\.$#"
 			count: 1
 			path: repo/src/Adapter/Presenter/Object/ObjectPresenter.php
 
