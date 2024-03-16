@@ -2850,26 +2850,26 @@
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L142",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L201",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L341",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L393"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L148",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L207",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L347",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L399"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L142",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L201",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L341",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L393"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L148",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L207",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L347",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L399"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L142",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L201",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L341",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L393"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L148",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L207",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L347",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L399"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
@@ -2980,10 +2980,10 @@
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L142",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L201",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L341",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L393"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L148",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L207",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L347",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L399"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
@@ -6745,22 +6745,22 @@
     "method.templateTypeNotInParameter": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L449"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L455"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L449"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L455"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L449"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L455"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L449"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L455"
             ]
         }
     },
@@ -7991,22 +7991,22 @@
     "parameter.noParent": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L372"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L378"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L372"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L378"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L372"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L378"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L372"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L378"
             ]
         }
     },
@@ -8097,100 +8097,100 @@
     "parameter.requiredAfterOptional": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L477"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L491"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L477"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L491"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L477"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L491"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L477"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L491"
             ]
         }
     },
     "parameter.trait": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L151",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L355"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L157",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L361"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L151",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L355"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L157",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L361"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L151",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L355"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L157",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L361"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L151",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L355"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L157",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L361"
             ]
         }
     },
     "parameter.unionTypeNotSupported": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L110",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L279"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L116",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L285"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L110",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L279"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L116",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L285"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L110",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L279"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L116",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L285"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L110",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L279"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L116",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L285"
             ]
         }
     },
     "parameter.unresolvableNativeType": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L133",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L328"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L139",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L334"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L133",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L328"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L139",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L334"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L133",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L328"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L139",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L334"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L133",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L328"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L139",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L334"
             ]
         }
     },
@@ -8223,26 +8223,26 @@
     "parameter.void": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L123",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L318"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L129",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L324"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L123",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L318"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L129",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L324"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L123",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L318"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L129",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L324"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L123",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L318"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L129",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L324"
             ]
         }
     },
@@ -9307,22 +9307,22 @@
     "reeturn.unionTypeNotSupported": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L180"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L186"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L180"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L186"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L180"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L186"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L180"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L186"
             ]
         }
     },
@@ -9652,22 +9652,22 @@
     "return.noParent": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L417"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L423"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L417"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L423"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L417"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L423"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L417"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L423"
             ]
         }
     },
@@ -9682,26 +9682,26 @@
     "return.trait": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L209",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L403"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L215",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L409"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L209",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L403"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L215",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L409"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L209",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L403"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L215",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L409"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L209",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L403"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L215",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L409"
             ]
         }
     },
@@ -9731,48 +9731,48 @@
     "return.unionTypeNotSupported": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L289"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L295"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L289"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L295"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L289"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L295"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L289"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L295"
             ]
         }
     },
     "return.unresolvableNativeType": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L192",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L382"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L198",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L388"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L192",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L382"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L198",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L388"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L192",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L382"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L198",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L388"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L192",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L382"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L198",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L388"
             ]
         }
     },
