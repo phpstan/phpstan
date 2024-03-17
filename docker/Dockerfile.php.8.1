@@ -1,27 +1,25 @@
 FROM php:8.1-cli-alpine
 
-RUN php --version
-
-ENV COMPOSER_HOME /composer
-ENV COMPOSER_ALLOW_SUPERUSER 1
-ENV PATH /composer/vendor/bin:$PATH
-ENV PHP_CONF_DIR=/usr/local/etc/php/conf.d
-
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+ENV COMPOSER_HOME="/composer" \
+    COMPOSER_ALLOW_SUPERUSER="1" \
+    PATH="/composer/vendor/bin:$PATH" \
+    PHP_CONF_DIR="/usr/local/etc/php/conf.d" \
+    PHPSTAN_PRO_WEB_PORT="11111"
 
 RUN echo "memory_limit=-1" > $PHP_CONF_DIR/99_memory-limit.ini \
-    && apk add git \
-    && rm -rf /var/cache/apk/* /var/tmp/* /tmp/*
+    && apk add --no-cache git
+
+VOLUME ["/app"]
+
+WORKDIR /app
+
+EXPOSE 11111
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 ARG PHPSTAN_VERSION
 
 RUN composer global require phpstan/phpstan:"$PHPSTAN_VERSION" --prefer-dist \
 	&& composer clear-cache
-
-VOLUME ["/app"]
-WORKDIR /app
-
-ENV PHPSTAN_PRO_WEB_PORT=11111
-EXPOSE 11111
 
 ENTRYPOINT ["phpstan"]
