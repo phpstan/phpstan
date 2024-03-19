@@ -76,6 +76,11 @@ parameters:
 			path: repo/src/Repository/Repository.php
 
 		-
+			message: "#^Strict comparison using \\!\\=\\= between \\*NEVER\\* and 1 will always evaluate to true\\.$#"
+			count: 2
+			path: repo/tests/cases/integration/Relationships/entity.relationships.phpt
+
+		-
 			message: "#^Call to static method executeFile\\(\\) on an unknown class Nextras\\\\Dbal\\\\Utils\\\\FileImporter\\.$#"
 			count: 1
 			path: repo/tests/inc/DataTestCase.php

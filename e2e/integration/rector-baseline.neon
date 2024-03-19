@@ -1,9 +1,154 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Casting to bool something that's already false\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/Catch_/ThrowWithPreviousExceptionRector.php
+
+		-
+			message: "#^Negated boolean expression is always true\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/Catch_/ThrowWithPreviousExceptionRector.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/Catch_/ThrowWithPreviousExceptionRector.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/ClassConstFetch/ConvertStaticPrivateConstantToSelfRector.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/ClassMethod/LocallyCalledStaticMethodToNonStaticRector.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/rules/CodeQuality/Rector/New_/NewStaticToNewSelfRector.php
+
+		-
+			message: "#^Empty array passed to foreach\\.$#"
+			count: 1
+			path: repo/rules/CodingStyle/Rector/Catch_/CatchExceptionNameMatchingTypeRector.php
+
+		-
+			message: "#^Instanceof between null and PhpParser\\\\Node\\\\Expr\\\\CallLike will always evaluate to false\\.$#"
+			count: 1
+			path: repo/rules/DeadCode/NodeAnalyzer/IsClassMethodUsedAnalyzer.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/rules/DeadCode/PhpDoc/TagRemover/ParamTagRemover.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/rules/DeadCode/Rector/ClassMethod/RemoveUselessReturnExprInConstructRector.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/rules/DeadCode/Rector/If_/RemoveTypedPropertyDeadInstanceOfRector.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/rules/Naming/Rector/Foreach_/RenameForeachValueVariableToMatchMethodCallReturnTypeRector.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/rules/Php55/Rector/ClassConstFetch/StaticToSelfOnFinalClassRector.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/rules/Php71/Rector/Assign/AssignArrayToStringRector.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/rules/Php72/Rector/FuncCall/GetClassOnNullRector.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/rules/Php80/Rector/ClassConstFetch/ClassOnThisVariableObjectRector.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/rules/Privatization/Rector/MethodCall/PrivatizeLocalGetterToPropertyRector.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/FuncCall/FuncCallToMethodCallRector.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/rules/Transform/Rector/StaticCall/StaticCallToMethodCallRector.php
+
+		-
+			message: "#^Negated boolean expression is always true\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/AlreadyAssignDetector/ConstructorAssignDetector.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/AlreadyAssignDetector/ConstructorAssignDetector.php
+
+		-
+			message: "#^Method Rector\\\\TypeDeclaration\\\\Rector\\\\ClassMethod\\\\ReturnTypeFromStrictParamRector\\:\\:findCurrentScopeReturn\\(\\) never returns PhpParser\\\\Node\\\\Stmt\\\\Return_ so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/ClassMethod/ReturnTypeFromStrictParamRector.php
+
+		-
+			message: "#^Method Rector\\\\TypeDeclaration\\\\Rector\\\\ClassMethod\\\\StrictStringParamConcatRector\\:\\:resolveVariableConcattedFromParam\\(\\) never returns PhpParser\\\\Node\\\\Expr\\\\Variable so it can be removed from the return type\\.$#"
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/ClassMethod/StrictStringParamConcatRector.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between 0 and 2 will always evaluate to false\\.$#"
+			count: 1
+			path: repo/src/NodeManipulator/PropertyFetchAssignManipulator.php
+
+		-
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
 			path: repo/src/NodeTypeResolver/PHPStan/ObjectWithoutClassTypeWithParentTypes.php
+
+		-
+			message: "#^Comparison operation \"\\>\\=\" between \\(array\\|float\\|int\\) and 50 results in an error\\.$#"
+			count: 1
+			path: repo/src/Parallel/Application/ParallelFileProcessor.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/src/Parallel/Application/ParallelFileProcessor.php
+
+		-
+			message: "#^Use explicit names over dynamic ones$#"
+			count: 1
+			path: repo/src/Parallel/Application/ParallelFileProcessor.php
+
+		-
+			message: "#^Instanceof between null and PhpParser\\\\Node\\\\Stmt\\\\Trait_ will always evaluate to false\\.$#"
+			count: 1
+			path: repo/src/PhpParser/AstResolver.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/src/PhpParser/AstResolver.php
 
 		-
 			message: "#^Only abstract classes can be extended$#"
@@ -59,4 +204,19 @@ parameters:
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
 			path: repo/src/StaticTypeMapper/ValueObject/Type/SimpleStaticType.php
+
+		-
+			message: "#^Property Rector\\\\Utils\\\\Rector\\\\MoveAbstractRectorToChildrenRector\\:\\:\\$classDependencyManipulator is never read, only written\\.$#"
+			count: 1
+			path: repo/utils/Rector/MoveAbstractRectorToChildrenRector.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between array\\{\\} and array\\{\\} will always evaluate to true\\.$#"
+			count: 1
+			path: repo/utils/Rector/MoveAbstractRectorToChildrenRector.php
+
+		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/utils/Rector/MoveAbstractRectorToChildrenRector.php
 

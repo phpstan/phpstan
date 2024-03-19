@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Offset mixed on array\\{\\} in isset\\(\\) does not exist\\.$#"
+			count: 1
+			path: repo/src/Composer/Autoload/AutoloadGenerator.php
+
+		-
 			message: "#^Variable \\$baseDir might not be defined\\.$#"
 			count: 2
 			path: repo/src/Composer/Autoload/AutoloadGenerator.php
@@ -61,6 +66,16 @@ parameters:
 			path: repo/src/Composer/Command/ValidateCommand.php
 
 		-
+			message: "#^Only booleans are allowed in a negated boolean, array given\\.$#"
+			count: 1
+			path: repo/src/Composer/Downloader/DownloadManager.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, array given\\.$#"
+			count: 1
+			path: repo/src/Composer/Downloader/FileDownloader.php
+
+		-
 			message: "#^Parameter \\#1 \\$array of function ksort expects array, array\\|string given\\.$#"
 			count: 1
 			path: repo/src/Composer/Package/Dumper/ArrayDumper.php
@@ -86,6 +101,11 @@ parameters:
 			path: repo/src/Composer/Util/Git.php
 
 		-
+			message: "#^Binary operation \"\\.\\=\" between 0\\|0\\.0\\|array\\{\\}\\|string\\|false\\|null and string results in an error\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/Http/CurlDownloader.php
+
+		-
 			message: "#^Parameter \\#2 \\$envName of static method Composer\\\\Util\\\\Http\\\\ProxyHelper\\:\\:checkProxy\\(\\) expects string, string\\|null given\\.$#"
 			count: 3
 			path: repo/src/Composer/Util/Http/ProxyHelper.php
@@ -94,6 +114,21 @@ parameters:
 			message: "#^Parameter \\#2 \\$options of static method Composer\\\\Util\\\\Http\\\\ProxyHelper\\:\\:setRequestFullUri\\(\\) expects array, array\\|null given\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/Http/ProxyManager.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, Exception\\|null given\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/Loop.php
+
+		-
+			message: "#^Binary operation \"\\.\\=\" between 0\\|0\\.0\\|array\\{\\}\\|string\\|false\\|null and string results in an error\\.$#"
+			count: 2
+			path: repo/src/Composer/Util/RemoteFilesystem.php
+
+		-
+			message: "#^Left side of && is always false\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/RemoteFilesystem.php
 
 		-
 			message: "#^Method Composer\\\\Util\\\\RemoteFilesystem\\:\\:getRemoteContents\\(\\) never assigns null to &\\$responseHeaders so it can be removed from the by\\-ref type\\.$#"
@@ -151,6 +186,16 @@ parameters:
 			path: repo/tests/Composer/Test/Downloader/GitDownloaderTest.php
 
 		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Downloader/ZipDownloaderTest.php
+
+		-
+			message: "#^Only booleans are allowed in an if condition, null given\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Downloader/ZipDownloaderTest.php
+
+		-
 			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
 			count: 2
 			path: repo/tests/Composer/Test/EventDispatcher/EventDispatcherTest.php
@@ -164,6 +209,26 @@ parameters:
 			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
 			count: 5
 			path: repo/tests/Composer/Test/Installer/SuggestedPackagesReporterTest.php
+
+		-
+			message: "#^Cannot unset offset '_readme' on array\\{\\}\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/InstallerTest.php
+
+		-
+			message: "#^Cannot unset offset 'content\\-hash' on array\\{\\}\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/InstallerTest.php
+
+		-
+			message: "#^Cannot unset offset 'hash' on array\\{\\}\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/InstallerTest.php
+
+		-
+			message: "#^Cannot unset offset 'plugin\\-api\\-version' on array\\{\\}\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/InstallerTest.php
 
 		-
 			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"

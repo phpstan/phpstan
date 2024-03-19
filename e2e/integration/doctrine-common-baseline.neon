@@ -1,0 +1,6 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Undefined variable\\: \\$counter$#"
+			count: 11
+			path: repo/tests/Common/Proxy/ProxyMagicMethodsTest.php

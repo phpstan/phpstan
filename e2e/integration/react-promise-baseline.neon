@@ -1,0 +1,36 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 2
+			path: repo/src/functions.php
+
+		-
+			message: "#^Negated boolean expression is always true\\.$#"
+			count: 1
+			path: repo/src/functions.php
+
+		-
+			message: "#^Result of && is always false\\.$#"
+			count: 2
+			path: repo/src/functions.php
+
+		-
+			message: "#^Offset 0 does not exist on array\\{\\}\\.$#"
+			count: 1
+			path: repo/tests/DeferredTest.php
+
+		-
+			message: "#^Call to function assert\\(\\) with false will always evaluate to false\\.$#"
+			count: 2
+			path: repo/tests/PromiseTest.php
+
+		-
+			message: "#^Call to function is_callable\\(\\) with null will always evaluate to false\\.$#"
+			count: 2
+			path: repo/tests/PromiseTest.php
+
+		-
+			message: "#^Offset 0 does not exist on array\\{\\}\\.$#"
+			count: 1
+			path: repo/tests/PromiseTest.php

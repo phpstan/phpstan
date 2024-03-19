@@ -66,6 +66,11 @@ parameters:
 			path: repo/core/modules/comment/src/Plugin/Field/FieldFormatter/CommentDefaultFormatter.php
 
 		-
+			message: "#^Offset mixed on array\\{\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/core/modules/jsonapi/tests/src/Functional/ResourceTestBase.php
+
+		-
 			message: "#^Call to an undefined static method Drupal\\\\Tests\\\\migrate\\\\Kernel\\\\MigrateTestBase\\:\\:migrateDumpAlter\\(\\)\\.$#"
 			count: 1
 			path: repo/core/modules/migrate/tests/src/Kernel/MigrateTestBase.php
@@ -74,6 +79,11 @@ parameters:
 			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\shortcut\\\\\\\\ShortcutLazyBuilders', 'lazyLinks'\\} at key '0' is not callable\\.$#"
 			count: 1
 			path: repo/core/modules/shortcut/shortcut.module
+
+		-
+			message: "#^Variable \\$module_list in empty\\(\\) always exists and is always falsy\\.$#"
+			count: 1
+			path: repo/core/modules/system/system.install
 
 		-
 			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\user\\\\\\\\ToolbarLinkBuilder', 'renderDisplayName'\\} at key '0' is not callable\\.$#"
