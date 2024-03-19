@@ -319,6 +319,13 @@ PHPStan rules are executed in isolation across multiple processes so it's not po
 
 In order to write a specific category of rules like unused code detection, we need to use collectors. [Learn more »](/developing-extensions/collectors)
 
+Invalidate cache on changes
+---------------
+
+If you use your own rules, these should also be included in the files to be analyzed. Only then will changes to the rule be recognized and the PHPStan cache be invalidated.
+
+This affects only your own Rules in the repository because rules from a vendor package are already invalidated by the composer hash.
+
 More custom rules examples
 ---------------
 
