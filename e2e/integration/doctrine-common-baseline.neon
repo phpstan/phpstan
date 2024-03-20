@@ -1,0 +1,6 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Variable \\$counter might not be defined\\.$#"
+			count: 11
+			path: repo/tests/Common/Proxy/ProxyMagicMethodsTest.php
