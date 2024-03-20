@@ -103,7 +103,7 @@ jobs:
               git clone https://github.com/efabrica-team/phpstan-latte.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout 59701aed5a505f024487843cba2635e489b29681
-              composer require --dev nette/forms:3.1.15 -W # temporary
+              composer require --dev nette/forms:3.1.15 latte/latte:v3.0.13 -W # temporary
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
