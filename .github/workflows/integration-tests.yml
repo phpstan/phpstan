@@ -385,7 +385,7 @@ jobs:
             repo: efabrica-team/phpstan-latte
             ref: 59701aed5a505f024487843cba2635e489b29681
             setup: |
-              composer require --dev nette/forms:3.1.15 -W # temporary
+              composer require --dev nette/forms:3.1.15 latte:v3.0.13 -W # temporary
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
