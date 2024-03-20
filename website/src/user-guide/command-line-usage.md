@@ -49,7 +49,7 @@ Turns off the progress bar. Does not accept any value.
 
 ### `--memory-limit`
 
-Specifies the memory limit in the same format `php.ini` accepts.
+Specifies the per process/worker memory limit in the same format `php.ini` accepts.
 
 Example: `--memory-limit 1G`
 
