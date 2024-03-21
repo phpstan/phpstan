@@ -376,7 +376,7 @@ jobs:
             baseline-file: carbon-baseline.neon
           - php-version: 8.2
             repo: nikic/PHP-Parser
-            ref: v5.0.0alpha2
+            ref: v5.0.2
             setup: |
               composer install
             phpstan-command: ../../../phpstan.phar analyse
