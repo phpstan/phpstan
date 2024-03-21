@@ -6851,7 +6851,7 @@
     "method.unused": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivateMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/UnusedPrivateMethodRule.php#L166"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/UnusedPrivateMethodRule.php#L179"
             ]
         }
     },
@@ -8309,7 +8309,7 @@
         },
         "PHPStan\\Command\\AnalyseApplication": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L164"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L194"
             ]
         },
         "PHPStan\\Command\\FixerWorkerCommand": {
@@ -8366,8 +8366,8 @@
         },
         "PHPStan\\Command\\AnalyseApplication": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L167",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L170"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L197",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L200"
             ]
         },
         "PHPStan\\Command\\FixerWorkerCommand": {
