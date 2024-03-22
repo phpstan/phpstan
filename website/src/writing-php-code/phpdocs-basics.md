@@ -115,6 +115,37 @@ function doFoo(): void
 
 This is useful for [precise analysis of try-catch-finally](/blog/precise-try-catch-finally-analysis) blocks, and also for bringing exceptions under control by enforcing [documentation and handling of checked exceptions](/blog/bring-your-exceptions-under-control).
 
+
+Callables
+-------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.11.0</div>
+
+Aside from describing [callable signatures in PHPDoc types](/writing-php-code/phpdoc-types#callables), PHPStan also supports declaring whether the callable is executed immediately or saved for later when passed into a function or a method.
+
+By default PHPStan considers callables passed into function calls to be executed immediately, and callables passed into object method calls to be executed later. These defaults can be overriden with `@param-immediately-invoked-callable` and `@param-later-invoked-callable` PHPDoc tags:
+
+```php
+/**
+ * @param-later-invoked-callable $cb
+ */
+function acceptCallableAndCallLater(callable $cb): void
+{
+    // ...
+}
+
+class Foo
+{
+	/**
+	 * @param-immediately-invoked-callable $cb
+	 */
+	public function acceptAndCallCallableNow(callable $cb): void
+	{
+
+	}
+}
+```
+
 Mixins
 -------------
 
