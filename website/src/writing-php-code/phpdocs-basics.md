@@ -98,6 +98,23 @@ For custom `__call` methods logic, a `@method` PHPDoc tag can be placed above a 
 class Foo { ... }
 ```
 
+Exceptions
+-------------
+
+Functions and methods can be marked as throwing an exception with `@throws`:
+
+```php
+/**
+ * @throws \InvalidArgumentException
+ */
+function doFoo(): void
+{
+    // ...
+}
+```
+
+This is useful for [precise analysis of try-catch-finally](/blog/precise-try-catch-finally-analysis) blocks, and also for bringing exceptions under control by enforcing [documentation and handling of checked exceptions](/blog/bring-your-exceptions-under-control).
+
 Mixins
 -------------
 
