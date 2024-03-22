@@ -356,7 +356,7 @@ The `callable` typehint has been in PHP for a long time. But it doesn't allow en
 
 Parameter types and return type are required. Use `mixed` if you don't want to use a more specific type.
 
-Aside from describing callable signatures PHPStan also supports declaring whether the callable is [executed immediately or saved for later]((/writing-php-code/phpdoc-basics#callables) when passed into a function or a method.
+Aside from describing callable signatures PHPStan also supports declaring whether the callable is [executed immediately or saved for later](/writing-php-code/phpdoc-basics#callables) when passed into a function or a method.
 
 Bottom type
 -------------------------
