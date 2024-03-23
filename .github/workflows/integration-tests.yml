@@ -76,8 +76,19 @@ jobs:
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit
+          - php-version: 8.0
+            name: Larastan tests PHP 8.0
+            script: |
+              git clone https://github.com/larastan/larastan.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout a79b46b96060504b400890674b83f66aa7f5db6d
+              composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              composer run-script test:unit
           - php-version: 8.1
-            name: Larastan tests
+            name: Larastan tests PHP 8.1
             script: |
               git clone https://github.com/larastan/larastan.git e2e/integration/repo
               cd e2e/integration/repo
