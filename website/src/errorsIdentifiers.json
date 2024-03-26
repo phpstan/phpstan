@@ -2674,6 +2674,13 @@
             ]
         }
     },
+    "class.nonReadOnly": {
+        "PHPStan\\Rules\\Classes\\ExistingClassInClassExtendsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/ExistingClassInClassExtendsRule.php#L121"
+            ]
+        }
+    },
     "class.notFound": {
         "PHPStan\\Rules\\Arrays\\AppendedArrayItemTypeRule": {
             "phpstan/phpstan-src": [
@@ -3329,6 +3336,13 @@
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ClassForbiddenNameCheck.php#L75"
+            ]
+        }
+    },
+    "class.readOnly": {
+        "PHPStan\\Rules\\Classes\\ExistingClassInClassExtendsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Classes/ExistingClassInClassExtendsRule.php#L111"
             ]
         }
     },
