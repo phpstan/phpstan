@@ -7011,7 +7011,7 @@
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L111"
             ]
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionReturnTypehintRule": {
@@ -7021,7 +7021,7 @@
         },
         "PHPStan\\Rules\\Methods\\MissingMethodParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L103"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L115"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodReturnTypehintRule": {
@@ -7060,7 +7060,7 @@
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L91"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L101"
             ]
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionReturnTypehintRule": {
@@ -7090,7 +7090,7 @@
         },
         "PHPStan\\Rules\\Methods\\MissingMethodParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L104"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodReturnTypehintRule": {
@@ -7117,7 +7117,7 @@
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L88"
             ]
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionReturnTypehintRule": {
@@ -7127,7 +7127,7 @@
         },
         "PHPStan\\Rules\\Methods\\MissingMethodParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L90"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodReturnTypehintRule": {
@@ -7149,12 +7149,12 @@
     "missingType.parameter": {
         "PHPStan\\Rules\\Functions\\MissingFunctionParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L64"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L74"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L75"
             ]
         }
     },
@@ -8023,7 +8023,7 @@
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L157"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L168"
             ]
         }
     },
@@ -8040,7 +8040,7 @@
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L81"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L92"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
@@ -8089,8 +8089,8 @@
     "parameter.phpDocType": {
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L170",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L179"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L181",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L190"
             ]
         }
     },
@@ -8197,7 +8197,7 @@
     "parameter.unresolvableType": {
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L90"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L101"
             ]
         }
     },
@@ -8262,6 +8262,13 @@
         "PHPStan\\Rules\\TooWideTypehints\\TooWideMethodParameterOutTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/TooWideTypehints/TooWideParameterOutTypeCheck.php#L107"
+            ]
+        }
+    },
+    "parameterClosureThis.unresolvableType": {
+        "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L84"
             ]
         }
     },
@@ -9674,8 +9681,8 @@
     "return.phpDocType": {
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L215",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L222"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L226",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L233"
             ]
         }
     },
@@ -9779,7 +9786,7 @@
     "return.unresolvableType": {
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L196"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L207"
             ]
         }
     },
