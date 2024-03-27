@@ -358,6 +358,8 @@ Parameter types and return type are required. Use `mixed` if you don't want to u
 
 Aside from describing callable signatures PHPStan also supports declaring whether the callable is [executed immediately or saved for later](/writing-php-code/phpdocs-basics#callables) when passed into a function or a method.
 
+PHPStan also supports [changing the meaning of `$this`](/writing-php-code/phpdocs-basics#callables) inside a closure with `@param-closure-this` PHPDoc tag.
+
 Bottom type
 -------------------------
 
