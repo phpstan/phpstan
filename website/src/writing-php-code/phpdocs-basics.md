@@ -146,6 +146,23 @@ class Foo
 }
 ```
 
+When passing a closure (an anonymous function or an arrow function) into a function/method that binds the closure to a different object, changing the meaning of `$this` inside the closure, you can use `@param-closure-this` PHPDoc tag to declare what `$this` is going to be when this closure is called:
+
+```php
+/**
+ * @param-closure-this Bar $cb
+ */
+function doFoo(Closure $cb)
+{
+	$cb->bindTo(new Bar());
+	// ...
+}
+
+doFoo(function () {
+	// $this is Bar
+});
+```
+
 Mixins
 -------------
 
