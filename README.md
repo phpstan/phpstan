@@ -64,7 +64,7 @@ can be checked before you run the actual line.
 &nbsp;&nbsp;&nbsp;
 <a href="https://www.edgenext.com/"><img src="https://i.imgur.com/1sNDQF3.png" alt="EdgeNext" width="283" height="64"></a>
 <br>
-<a href="https://www.fame.fi/"><img src="https://i.imgur.com/r8YpI9e.png" alt="Fame Helsinki" width="283" height="64"></a>
+<a href="https://www.fame.fi/"><img src="https://i.imgur.com/SIA40Uv.png" alt="Fame Helsinki" width="283" height="64"></a>
 
 
 [**You can now sponsor my open-source work on PHPStan through GitHub Sponsors.**](https://github.com/sponsors/ondrejmirtes)
