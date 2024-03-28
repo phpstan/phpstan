@@ -1,6 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Parameter \\#1 \\$keys of function array_combine expects array\\<int\\|string\\>, mixed given\\.$#"
+			count: 1
+			path: repo/src/Compiler/NodeVisitor/AddParametersForBlockNodeVisitor.php
+
+		-
+			message: "#^Parameter \\#2 \\$values of function array_combine expects array, mixed given\\.$#"
+			count: 1
+			path: repo/src/Compiler/NodeVisitor/AddParametersForBlockNodeVisitor.php
+
+		-
 			message: "#^Method Efabrica\\\\PHPStanLatte\\\\LatteTemplateResolver\\\\LatteTemplateResolverResult\\:\\:addErrorFromBuilder\\(\\) has parameter \\$error with generic class PHPStan\\\\Rules\\\\RuleErrorBuilder but does not specify its types\\: T$#"
 			count: 1
 			path: repo/src/LatteTemplateResolver/LatteTemplateResolverResult.php
