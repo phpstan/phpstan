@@ -114,3 +114,13 @@ parameters:
 			message: "#^Return type \\(array\\<string\\>\\) of method class@anonymous/tests/Rule/AllRulesConfigTest\\.php\\:22\\:\\:processNode\\(\\) should be compatible with return type \\(list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\>\\) of method PHPStan\\\\Rules\\\\Rule\\<PhpParser\\\\Node\\>\\:\\:processNode\\(\\)$#"
 			count: 1
 			path: repo/tests/Rule/AllRulesConfigTest.php
+
+		-
+			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
+			count: 1
+			path: repo/tests/RuleTestCase.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of function trim expects string, mixed given\\.$#"
+			count: 1
+			path: repo/tests/RuleTestCase.php
