@@ -2171,6 +2171,11 @@ parameters:
 			path: repo/src/PrestaShopBundle/Bridge/Smarty/SmartyBridge.php
 
 		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Command/UpdateSchemaCommand.php
+
+		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: repo/src/PrestaShopBundle/Component/CsvResponse.php
@@ -2564,6 +2569,11 @@ parameters:
 			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with PrestaShop\\\\PrestaShop\\\\Adapter\\\\Routing\\\\AdminLinkBuilder will always evaluate to true\\.$#"
 			count: 1
 			path: repo/tests/Unit/Adapter/Routing/AdminLinkBuilderTest.php
+
+		-
+			message: "#^Method Tests\\\\Unit\\\\Classes\\\\ToolsTest\\:\\:setPostAndGet\\(\\) returns void but does not have any side effects\\.$#"
+			count: 1
+			path: repo/tests/Unit/Classes/ToolsTest.php
 
 		-
 			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertIsString\\(\\) with string will always evaluate to true\\.$#"
