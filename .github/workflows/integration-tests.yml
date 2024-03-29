@@ -477,10 +477,12 @@ jobs:
         run: "${{ matrix.phpstan-command }}"
 
       - name: "Generate baseline"
+        if: ${{ failure() }}
         working-directory: e2e/integration/repo
         run: "${{ matrix.phpstan-command }} -b ../${{ matrix.baseline-file }}"
 
       - uses: actions/upload-artifact@v4
+        if: ${{ failure() }}
         with:
           name: baselines-${{ matrix.baseline-file }}
           path: "e2e/integration/${{ matrix.baseline-file }}"
@@ -489,7 +491,7 @@ jobs:
     name: "Integration - Update baselines"
     runs-on: "ubuntu-latest"
     needs: integration-run-phpstan
-    if: "github.repository_owner == 'phpstan' && inputs.ref == 'refs/heads/1.11.x'"
+    if: "failure() && github.repository_owner == 'phpstan' && inputs.ref == 'refs/heads/1.11.x'"
 
     steps:
       - name: "Checkout"
@@ -570,11 +572,13 @@ jobs:
         run: "${{ matrix.script }}"
 
       - name: "Generate baseline"
+        if: ${{ failure() }}
         run: |
           cd e2e/integration/repo
           ../../../phpstan.phar analyse -c ../pocketmine-ng.neon --memory-limit=2G -b ../pocketmine-ng-baseline.neon
 
       - uses: actions/upload-artifact@v4
+        if: ${{ failure() }}
         with:
           name: pocketmine-ng-baseline-${{ matrix.php-version }}.neon
           path: e2e/integration/pocketmine-ng-baseline.neon
