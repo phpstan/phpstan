@@ -3716,14 +3716,14 @@
     "closure.useDuplicate": {
         "PHPStan\\Rules\\Functions\\InvalidLexicalVariablesInClosureUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/InvalidLexicalVariablesInClosureUseRule.php#L90"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/InvalidLexicalVariablesInClosureUseRule.php#L78"
             ]
         }
     },
     "closure.useSuperGlobal": {
         "PHPStan\\Rules\\Functions\\InvalidLexicalVariablesInClosureUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/InvalidLexicalVariablesInClosureUseRule.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/InvalidLexicalVariablesInClosureUseRule.php#L66"
             ]
         }
     },
@@ -3735,7 +3735,7 @@
         },
         "PHPStan\\Rules\\Functions\\InvalidLexicalVariablesInClosureUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/InvalidLexicalVariablesInClosureUseRule.php#L69"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/InvalidLexicalVariablesInClosureUseRule.php#L57"
             ]
         }
     },
