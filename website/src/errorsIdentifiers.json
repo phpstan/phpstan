@@ -8044,7 +8044,7 @@
         },
         "PHPStan\\Rules\\Methods\\IncompatibleDefaultParameterTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/IncompatibleDefaultParameterTypeRule.php#L66"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/IncompatibleDefaultParameterTypeRule.php#L67"
             ]
         }
     },
