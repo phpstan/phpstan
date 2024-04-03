@@ -61,6 +61,11 @@ parameters:
 			path: repo/src/Composer/Command/ValidateCommand.php
 
 		-
+			message: "#^Expression \"exit\\(1\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/src/Composer/Console/Application.php
+
+		-
 			message: "#^Parameter \\#1 \\$array of function ksort expects array, array\\|string given\\.$#"
 			count: 1
 			path: repo/src/Composer/Package/Dumper/ArrayDumper.php
@@ -129,6 +134,11 @@ parameters:
 			message: "#^Property Composer\\\\Util\\\\RemoteFilesystem\\:\\:\\$lastHeaders \\(list\\<string\\>\\) does not accept array\\<string\\>\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/RemoteFilesystem.php
+
+		-
+			message: "#^Expression \"exit\\(1\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/src/bootstrap.php
 
 		-
 			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"

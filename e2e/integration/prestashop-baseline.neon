@@ -381,6 +381,21 @@ parameters:
 			path: repo/classes/Tools.php
 
 		-
+			message: "#^Expression \"die\\(\\$msg\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/classes/Tools.php
+
+		-
+			message: "#^Expression \"die\\('END'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/classes/Tools.php
+
+		-
+			message: "#^Expression \"die\\('Error\\: \"install\" directory is missing'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/classes/Tools.php
+
+		-
 			message: "#^Parameter \\#2 \\$message_type of function error_log expects 0\\|1\\|2\\|3\\|4, int\\|null given\\.$#"
 			count: 1
 			path: repo/classes/Tools.php
@@ -456,6 +471,16 @@ parameters:
 			path: repo/classes/controller/AdminController.php
 
 		-
+			message: "#^Expression \"die\\(\\$popup_content\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/classes/controller/AdminController.php
+
+		-
+			message: "#^Expression \"die\\(1\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/classes/controller/AdminController.php
+
+		-
 			message: "#^Instanceof between Module and Module will always evaluate to true\\.$#"
 			count: 1
 			path: repo/classes/controller/AdminController.php
@@ -496,13 +521,28 @@ parameters:
 			path: repo/classes/controller/AdminController.php
 
 		-
+			message: "#^Unused result of ternary operator\\.$#"
+			count: 1
+			path: repo/classes/controller/AdminController.php
+
+		-
 			message: "#^Call to function is_numeric\\(\\) with int\\<0, max\\> will always evaluate to true\\.$#"
+			count: 1
+			path: repo/classes/controller/Controller.php
+
+		-
+			message: "#^Expression \"die\\('Fatal error\\: ' \\. \\$errstr \\. ' in ' \\. \\$errfile \\. ' on line ' \\. \\$errline\\)\" on a separate line does not do anything\\.$#"
 			count: 1
 			path: repo/classes/controller/Controller.php
 
 		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
 			count: 2
+			path: repo/classes/controller/FrontController.php
+
+		-
+			message: "#^Expression \"die\\('\\[Debug\\] This page has moved\\<br /\\>Please use the following URL instead\\: \\<a href\\=\"' \\. \\$final_url \\. '\"\\>' \\. \\$final_url \\. '\\</a\\>'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
 			path: repo/classes/controller/FrontController.php
 
 		-
@@ -527,6 +567,11 @@ parameters:
 
 		-
 			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
+			count: 1
+			path: repo/classes/log/FileLogger.php
+
+		-
+			message: "#^Expression \"die\\('Directory ' \\. \\\\dirname\\(\\$filename\\) \\. ' is not writable'\\)\" on a separate line does not do anything\\.$#"
 			count: 1
 			path: repo/classes/log/FileLogger.php
 
@@ -564,6 +609,11 @@ parameters:
 			message: "#^Instanceof between OrderState and OrderState will always evaluate to true\\.$#"
 			count: 1
 			path: repo/classes/order/OrderHistory.php
+
+		-
+			message: "#^Expression \"die\\('Wrong argument \\(\\$type\\) in Shop\\:\\:getSharedShops\\(\\) method'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/classes/shop/Shop.php
 
 		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
@@ -646,6 +696,11 @@ parameters:
 			path: repo/classes/webservice/WebserviceSpecificManagementAttachments.php
 
 		-
+			message: "#^Expression \"die\\('Error \\: please install \\<a href\\=\"https\\://getcomposer\\.org/\"\\>composer\\</a\\>\\. Then run \"php composer\\.phar install\"'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/config/config.inc.php
+
+		-
 			message: "#^Call to function is_array\\(\\) with non\\-empty\\-list\\<string\\> will always evaluate to true\\.$#"
 			count: 1
 			path: repo/config/defines.inc.php
@@ -693,6 +748,11 @@ parameters:
 		-
 			message: "#^Call to function is_object\\(\\) with Carrier will always evaluate to true\\.$#"
 			count: 2
+			path: repo/controllers/admin/AdminCarrierWizardController.php
+
+		-
+			message: "#^Expression \"die\\('\\<return result\\=\"error\" message\\=\"Cannot upload file\" /\\>'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
 			path: repo/controllers/admin/AdminCarrierWizardController.php
 
 		-
@@ -831,6 +891,11 @@ parameters:
 			path: repo/controllers/admin/AdminImportController.php
 
 		-
+			message: "#^Expression \"die\\('\\{\"id\" \\: \"' \\. \\$return\\[0\\]\\['id_import_match'\\] \\. '\", \"matchs\" \\: \"' \\. \\$return\\[0\\]\\['match'\\] \\. '\", \"skip\" \\: \"' \\. \\$return\\[0\\]\\['skip'\\] \\. '\"\\}'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminImportController.php
+
+		-
 			message: "#^Method AdminImportControllerCore\\:\\:renderForm\\(\\) should return string but returns bool\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminImportController.php
@@ -876,6 +941,11 @@ parameters:
 			path: repo/controllers/admin/AdminModulesController.php
 
 		-
+			message: "#^Expression \"die\\('OK'\\)\" on a separate line does not do anything\\.$#"
+			count: 3
+			path: repo/controllers/admin/AdminModulesController.php
+
+		-
 			message: "#^Parameter \\#1 \\$module of method AdminControllerCore\\:\\:fillModuleData\\(\\) expects Module, stdClass given\\.$#"
 			count: 2
 			path: repo/controllers/admin/AdminModulesController.php
@@ -894,6 +964,46 @@ parameters:
 			message: "#^Variable \\$modules_list_save in isset\\(\\) is never defined\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminModulesController.php
+
+		-
+			message: "#^Expression \"die\\('\\{\"hasError\" \\: false, \"errors\" \\: \"\"\\}'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminModulesPositionsController.php
+
+		-
+			message: "#^Expression \"die\\('\\{\"hasError\" \\: true, \"errors\" \\: \"Cannot update module position\\.\"\\}'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminModulesPositionsController.php
+
+		-
+			message: "#^Expression \"die\\('\\{\"hasError\" \\: true, \"errors\" \\: \"This module cannot be loaded\\.\"\\}'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminModulesPositionsController.php
+
+		-
+			message: "#^Expression \"die\\('\\{\"hasError\" \\: true, \"errors\" \\: \\[\"Live Edit\\: This functionality has been disabled\\.\"\\]\\}'\\)\" on a separate line does not do anything\\.$#"
+			count: 3
+			path: repo/controllers/admin/AdminModulesPositionsController.php
+
+		-
+			message: "#^Expression \"die\\('\\{\"hasError\" \\: true, \"errors\" \\: \\[\"Live Edit\\: module is invalid\\.\"\\]\\}'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminModulesPositionsController.php
+
+		-
+			message: "#^Expression \"die\\('\\{\"hasError\" \\: true, \"errors\" \\: \\[\"Live Edit\\: no module on this page\\.\"\\]\\}'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminModulesPositionsController.php
+
+		-
+			message: "#^Expression \"die\\('\\{\"hasError\" \\: true, \"errors\" \\: \\[\"Wrong module ID\\.\"\\]\\}'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminModulesPositionsController.php
+
+		-
+			message: "#^Expression \"die\\(\\\\true\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminModulesPositionsController.php
 
 		-
 			message: "#^If condition is always true\\.$#"
@@ -926,6 +1036,26 @@ parameters:
 			path: repo/controllers/admin/AdminProductsController.php
 
 		-
+			message: "#^Expression \"die\\(\\$bo_product_url\\)\" on a separate line does not do anything\\.$#"
+			count: 2
+			path: repo/controllers/admin/AdminProductsController.php
+
+		-
+			message: "#^Expression \"die\\('\\[' \\. \\\\implode\\(',', \\$jsonArray\\) \\. '\\]'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminProductsController.php
+
+		-
+			message: "#^Expression \"die\\('error\\: invalid id'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminProductsController.php
+
+		-
+			message: "#^Expression \"die\\('error\\: saving'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminProductsController.php
+
+		-
 			message: "#^Method AdminProductsControllerCore\\:\\:processBulkDelete\\(\\) should return bool but return statement is missing\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminProductsController.php
@@ -953,6 +1083,11 @@ parameters:
 		-
 			message: "#^Parameter \\#1 \\$product of method AdminProductsControllerCore\\:\\:updatePackItems\\(\\) expects Product, ObjectModel given\\.$#"
 			count: 1
+			path: repo/controllers/admin/AdminProductsController.php
+
+		-
+			message: "#^Unused result of ternary operator\\.$#"
+			count: 2
 			path: repo/controllers/admin/AdminProductsController.php
 
 		-
@@ -1054,6 +1189,11 @@ parameters:
 			message: "#^Method AdminShopUrlControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminShopUrlController.php
+
+		-
+			message: "#^Expression \"die\\(\\$list\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminStatesController.php
 
 		-
 			message: "#^Method AdminStatesControllerCore\\:\\:processBulkAffectZone\\(\\) should return bool but return statement is missing\\.$#"
@@ -1171,6 +1311,16 @@ parameters:
 			path: repo/install-dev/classes/controllerConsole.php
 
 		-
+			message: "#^Expression \"die\\('No language defined'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/install-dev/classes/controllerConsole.php
+
+		-
+			message: "#^Expression \"exit\\(1\\)\" on a separate line does not do anything\\.$#"
+			count: 2
+			path: repo/install-dev/classes/controllerConsole.php
+
+		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: repo/install-dev/controllers/console/process.php
@@ -1179,6 +1329,26 @@ parameters:
 			message: "#^Call to function is_callable\\(\\) with 'getenv' will always evaluate to true\\.$#"
 			count: 1
 			path: repo/install-dev/controllers/http/system.php
+
+		-
+			message: "#^Expression \"exit\\(0\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/install-dev/index_cli.php
+
+		-
+			message: "#^Expression \"exit\\(1\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/install-dev/index_cli.php
+
+		-
+			message: "#^Expression \"die\\('Error \\: please install \\<a href\\=\"https\\://getcomposer\\.org/\"\\>composer\\</a\\>\\. Then run \"php composer\\.phar install\"'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/install-dev/init.php
+
+		-
+			message: "#^Expression \"die\\('file_not_found'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/js/retro-compat.js.php
 
 		-
 			message: "#^Parameter \\#1 \\$array \\(list\\<array\\{id_product\\: mixed\\}\\>\\) of array_values is already a list, call has no effect\\.$#"
@@ -2906,6 +3076,41 @@ parameters:
 			path: repo/tests/Unit/PrestaShopBundle/Routing/Linter/NamingConventionLinterTest.php
 
 		-
+			message: "#^Expression \"exit\\(1\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/tests/bin/create-test-db.php
+
+		-
+			message: "#^Expression \"exit\\(0\\)\" on a separate line does not do anything\\.$#"
+			count: 2
+			path: repo/tools/build/CreateRelease.php
+
+		-
+			message: "#^Expression \"exit\\(1\\)\" on a separate line does not do anything\\.$#"
+			count: 2
+			path: repo/tools/build/CreateRelease.php
+
+		-
 			message: "#^Parameter \\#3 \\$value of function curl_setopt expects bool, int given\\.$#"
 			count: 2
 			path: repo/tools/build/Library/InstallUnpacker/classes/Download.php
+
+		-
+			message: "#^Expression \"die\\(1\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/tools/build/Library/InstallUnpacker/compile.php
+
+		-
+			message: "#^Expression \"die\\('You need at least PHP ' \\. \\\\_PS_INSTALL_MINIMUM_PHP_VERSION_ \\. ' to install PrestaShop\\. Your current PHP version is ' \\. \\\\PHP_VERSION\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/tools/build/Library/InstallUnpacker/index_template.php
+
+		-
+			message: "#^Expression \"die\\('You need at most PHP ' \\. \\\\_PS_INSTALL_MAXIMUM_PHP_VERSION_ \\. ' to install PrestaShop\\. Your current PHP version is ' \\. \\\\PHP_VERSION\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/tools/build/Library/InstallUnpacker/index_template.php
+
+		-
+			message: "#^Expression \"die\\('401 Unauthorized'\\)\" on a separate line does not do anything\\.$#"
+			count: 1
+			path: repo/webservice/dispatcher.php
