@@ -14,11 +14,3 @@ If there are any vulnerabilities in **PHPStan**, don't hesitate to _report them_
    Please **do not disclose the vulnerability publicly** until a fix is released!
 
 4. Once we have either a) published a fix, or b) declined to address the vulnerability for whatever reason, you are free to publicly disclose it.
-
-## Tidelift subscribers
-
-If you're a [Tidelift](https://tidelift.com/) subscriber, please use this route instead:
-
-To report a security vulnerability, please use the
-[Tidelift security contact](https://tidelift.com/security).
-Tidelift will coordinate the fix and disclosure.
