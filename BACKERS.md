@@ -31,7 +31,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/mceglowski"> (mceglowski)</a></li>
 <li><a href="https://github.com/MacPaw">MacPaw Inc. (MacPaw)</a></li>
 <li><a href="https://github.com/Edgenext2024"> (Edgenext2024)</a></li>
-<li><a href="https://github.com/FameHelsinki">Fame Helsinki (FameHelsinki)</a></li>
 <!-- hundred-org -->
 </ul>
 
