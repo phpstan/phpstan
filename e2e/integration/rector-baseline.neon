@@ -59,4 +59,3 @@ parameters:
 			message: "#^Only abstract classes can be extended$#"
 			count: 1
 			path: repo/src/StaticTypeMapper/ValueObject/Type/SimpleStaticType.php
-
