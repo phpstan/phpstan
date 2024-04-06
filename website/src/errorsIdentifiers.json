@@ -1251,6 +1251,14 @@
             ]
         }
     },
+    "arrayFilter.strict": {
+        "PHPStan\\Rules\\Functions\\ArrayFilterStrictRule": {
+            "phpstan/phpstan-strict-rules": [
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Functions/ArrayFilterStrictRule.php#L105",
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Functions/ArrayFilterStrictRule.php#L87"
+            ]
+        }
+    },
     "arrayUnpacking.nonIterable": {
         "PHPStan\\Rules\\Arrays\\UnpackIterableInArrayRule": {
             "phpstan/phpstan-src": [
