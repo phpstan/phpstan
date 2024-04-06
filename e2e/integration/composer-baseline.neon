@@ -31,6 +31,21 @@ parameters:
 			path: repo/src/Composer/Autoload/PhpFileCleaner.php
 
 		-
+			message: "#^Call to function array_filter\\(\\) requires parameter \\#2 to be passed to avoid loose comparison semantics\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/GlobalCommand.php
+
+		-
+			message: "#^Call to function array_filter\\(\\) requires parameter \\#2 to be passed to avoid loose comparison semantics\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/InitCommand.php
+
+		-
+			message: "#^Call to function array_filter\\(\\) requires parameter \\#2 to be passed to avoid loose comparison semantics\\.$#"
+			count: 2
+			path: repo/src/Composer/Command/ShowCommand.php
+
+		-
 			message: "#^Method Composer\\\\Command\\\\ShowCommand\\:\\:getPackage\\(\\) should return array\\{Composer\\\\Package\\\\CompletePackageInterface\\|null, array\\<string, string\\>\\} but returns array\\{Composer\\\\Package\\\\BasePackage\\|null, array\\<string, string\\>\\}\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/ShowCommand.php
@@ -51,6 +66,11 @@ parameters:
 			path: repo/src/Composer/Command/ShowCommand.php
 
 		-
+			message: "#^Call to function array_filter\\(\\) requires parameter \\#2 to be passed to avoid loose comparison semantics\\.$#"
+			count: 1
+			path: repo/src/Composer/Command/UpdateCommand.php
+
+		-
 			message: "#^Only booleans are allowed in &&, array\\<string\\> given on the right side\\.$#"
 			count: 2
 			path: repo/src/Composer/Command/ValidateCommand.php
@@ -59,6 +79,11 @@ parameters:
 			message: "#^Only booleans are allowed in a ternary operator condition, array\\<string\\> given\\.$#"
 			count: 2
 			path: repo/src/Composer/Command/ValidateCommand.php
+
+		-
+			message: "#^Call to function array_filter\\(\\) requires parameter \\#2 to be passed to avoid loose comparison semantics\\.$#"
+			count: 1
+			path: repo/src/Composer/Package/Archiver/ArchiveManager.php
 
 		-
 			message: "#^Parameter \\#1 \\$array of function ksort expects array, array\\|string given\\.$#"
@@ -76,9 +101,19 @@ parameters:
 			path: repo/src/Composer/Platform/Version.php
 
 		-
+			message: "#^Call to function array_filter\\(\\) requires parameter \\#2 to be passed to avoid loose comparison semantics\\.$#"
+			count: 3
+			path: repo/src/Composer/Repository/ComposerRepository.php
+
+		-
 			message: "#^Only booleans are allowed in a ternary operator condition, bool\\|null given\\.$#"
 			count: 4
 			path: repo/src/Composer/Repository/PlatformRepository.php
+
+		-
+			message: "#^Call to function array_filter\\(\\) requires parameter \\#2 to be passed to avoid loose comparison semantics\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/ErrorHandler.php
 
 		-
 			message: "#^Parameter &\\$match by\\-ref type of method Composer\\\\Util\\\\Git\\:\\:isAuthenticationFailure\\(\\) expects array\\<string\\>, array\\<int\\|string, string\\|null\\> given\\.$#"
@@ -131,6 +166,16 @@ parameters:
 			path: repo/src/Composer/Util/RemoteFilesystem.php
 
 		-
+			message: "#^Call to function array_filter\\(\\) requires parameter \\#2 to be passed to avoid loose comparison semantics\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/TlsHelper.php
+
+		-
+			message: "#^Call to function array_filter\\(\\) requires parameter \\#2 to be passed to avoid loose comparison semantics\\.$#"
+			count: 2
+			path: repo/tests/Composer/Test/Advisory/AuditorTest.php
+
+		-
 			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
 			count: 1
 			path: repo/tests/Composer/Test/Autoload/AutoloadGeneratorTest.php
@@ -164,6 +209,11 @@ parameters:
 			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
 			count: 5
 			path: repo/tests/Composer/Test/Installer/SuggestedPackagesReporterTest.php
+
+		-
+			message: "#^Call to function array_filter\\(\\) requires parameter \\#2 to be passed to avoid loose comparison semantics\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Repository/PlatformRepositoryTest.php
 
 		-
 			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
