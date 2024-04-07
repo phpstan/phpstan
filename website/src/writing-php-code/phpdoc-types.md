@@ -25,7 +25,7 @@ Basic types
 * `scalar`
 * `array`
 * `iterable`
-* `callable`
+* `callable`, `pure-callable`
 * `resource`, `closed-resource`, `open-resource`
 * `void`
 * `object`
@@ -353,6 +353,8 @@ The `callable` typehint has been in PHP for a long time. But it doesn't allow en
 * `callable(float ...$floats): (int|null)` (accepts multiple variadic float arguments, returns integer or null)
 * `callable(float...): (int|null)` (accepts multiple variadic float arguments, returns integer or null)
 * `\Closure(int, int): string` (narrower `Closure` type can also be used instead of `callable`)
+* `pure-callable(int, int): string` (callable that doesn't have any side effects when called)
+* `pure-Closure(int, int): string` (Closure that doesn't have any side effects when called)
 
 Parameter types and return type are required. Use `mixed` if you don't want to use a more specific type.
 
