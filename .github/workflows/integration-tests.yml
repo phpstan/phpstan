@@ -34,9 +34,9 @@ jobs:
         run: |
           checksum=${{ inputs.phar-checksum }}
           if [[ $(head -n 1 .phar-checksum) != "$checksum" ]]; then
-            echo "::set-output name=result::different
+            echo "result=different" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=result::same
+            echo "result=same" >> $GITHUB_OUTPUT
           fi
 
   integration-tests:
