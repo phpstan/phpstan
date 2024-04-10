@@ -65,7 +65,7 @@ There are many [dynamic return type extensions](/developing-extensions/dynamic-r
 Debugging
 ---------
 
-You can use `PHPStan\dumpType()` function in your code to see what type PHPStan resolve an expression to:
+You can use `PHPStan\dumpType()` function in your code to see what type PHPStan resolves an expression to:
 
 ```php
 \PHPStan\dumpType(1 + 1); // Reports: Dumped type: 2
