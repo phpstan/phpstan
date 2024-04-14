@@ -6,11 +6,6 @@ parameters:
 			path: repo/src/pocketmine/CrashDump.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function base64_decode expects string, mixed given\\.$#"
-			count: 7
-			path: repo/src/pocketmine/Player.php
-
-		-
 			message: "#^Property pocketmine\\\\Player\\:\\:\\$needACK is never read, only written\\.$#"
 			count: 1
 			path: repo/src/pocketmine/Player.php
@@ -41,11 +36,6 @@ parameters:
 			path: repo/src/pocketmine/Server.php
 
 		-
-			message: "#^Method pocketmine\\\\ThreadManager\\:\\:getAll\\(\\) should return array\\<pocketmine\\\\Thread\\|pocketmine\\\\Worker\\> but returns array\\<int\\|string, mixed\\>\\.$#"
-			count: 1
-			path: repo/src/pocketmine/ThreadManager.php
-
-		-
 			message: "#^Cannot call method getDescription\\(\\) on array\\<pocketmine\\\\command\\\\Command\\>\\|pocketmine\\\\command\\\\Command\\.$#"
 			count: 1
 			path: repo/src/pocketmine/command/defaults/HelpCommand.php
@@ -64,6 +54,16 @@ parameters:
 			message: "#^Property pocketmine\\\\level\\\\Level\\:\\:\\$blockCache \\(array\\<array\\<pocketmine\\\\block\\\\Block\\>\\>\\) does not accept array\\<array\\<pocketmine\\\\block\\\\Block\\|null\\>\\>\\.$#"
 			count: 1
 			path: repo/src/pocketmine/level/Level.php
+
+		-
+			message: "#^Undefined variable\\: \\$regionX$#"
+			count: 1
+			path: repo/src/pocketmine/level/format/io/region/McRegion.php
+
+		-
+			message: "#^Undefined variable\\: \\$regionZ$#"
+			count: 1
+			path: repo/src/pocketmine/level/format/io/region/McRegion.php
 
 		-
 			message: "#^Property pocketmine\\\\level\\\\generator\\\\Flat\\:\\:\\$options \\(array\\<string, mixed\\>\\) does not accept array\\<int\\|string, mixed\\>\\.$#"

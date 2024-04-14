@@ -66,6 +66,11 @@ parameters:
 			path: repo/classes/Cart.php
 
 		-
+			message: "#^Undefined variable\\: \\$errors$#"
+			count: 1
+			path: repo/classes/Cart.php
+
+		-
 			message: "#^If condition is always true\\.$#"
 			count: 1
 			path: repo/classes/CartRule.php
@@ -2434,6 +2439,11 @@ parameters:
 			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertIsInt\\(\\) with null will always evaluate to false\\.$#"
 			count: 2
 			path: repo/tests/Integration/Classes/LanguageTest.php
+
+		-
+			message: "#^Undefined variable\\: \\$import_url$#"
+			count: 1
+			path: repo/tests/Integration/Classes/MediaTest.php
 
 		-
 			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertIsArray\\(\\) with array will always evaluate to true\\.$#"
