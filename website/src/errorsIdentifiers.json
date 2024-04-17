@@ -4676,9 +4676,14 @@
         }
     },
     "function.resultUnused": {
+        "PHPStan\\Rules\\DeadCode\\CallToFunctionStatementWithoutImpurePointsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/CallToFunctionStatementWithoutImpurePointsRule.php#L46"
+            ]
+        },
         "PHPStan\\Rules\\Functions\\CallToFunctionStatementWithoutSideEffectsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/CallToFunctionStatementWithoutSideEffectsRule.php#L127"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/CallToFunctionStatementWithoutSideEffectsRule.php#L129"
             ]
         }
     },
