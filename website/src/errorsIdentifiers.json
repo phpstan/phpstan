@@ -7510,6 +7510,11 @@
         }
     },
     "new.resultUnused": {
+        "PHPStan\\Rules\\DeadCode\\CallToConstructorStatementWithoutImpurePointsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/CallToConstructorStatementWithoutImpurePointsRule.php#L46"
+            ]
+        },
         "PHPStan\\Rules\\Methods\\CallToConstructorStatementWithoutSideEffectsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/CallToConstructorStatementWithoutSideEffectsRule.php#L54",
