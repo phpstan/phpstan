@@ -156,11 +156,6 @@ parameters:
 			path: repo/classes/Language.php
 
 		-
-			message: "#^Ternary operator condition is always true\\.$#"
-			count: 1
-			path: repo/classes/Language.php
-
-		-
 			message: "#^Call to function ctype_digit\\(\\) with array\\|CategoryCore will always evaluate to false\\.$#"
 			count: 1
 			path: repo/classes/Link.php
@@ -979,16 +974,6 @@ parameters:
 			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminSearchConfController.php
-
-		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: repo/controllers/admin/AdminSearchController.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 3
-			path: repo/controllers/admin/AdminSearchController.php
 
 		-
 			message: "#^Call to an undefined method ObjectModel\\:\\:associateSuperAdmins\\(\\)\\.$#"
@@ -1916,6 +1901,11 @@ parameters:
 			path: repo/src/Core/Domain/Webservice/ValueObject/WebserviceKeyId.php
 
 		-
+			message: "#^Call to function PrestaShop\\\\PrestaShop\\\\Core\\\\File\\\\is_uploaded_file\\(\\) on a separate line has no effect\\.$#"
+			count: 1
+			path: repo/src/Core/File/FileUploader.php
+
+		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/Core/Filter/CollectionFilter.php
@@ -2109,6 +2099,11 @@ parameters:
 			message: "#^Method PrestaShop\\\\PrestaShop\\\\Core\\\\Search\\\\SearchParameters\\:\\:getFiltersFromRepository\\(\\) never returns null so it can be removed from the return type\\.$#"
 			count: 1
 			path: repo/src/Core/Search/SearchParameters.php
+
+		-
+			message: "#^Call to function PrestaShop\\\\PrestaShop\\\\Core\\\\Shop\\\\move_uploaded_file\\(\\) on a separate line has no effect\\.$#"
+			count: 1
+			path: repo/src/Core/Shop/LogoUploader.php
 
 		-
 			message: "#^Strict comparison using \\!\\=\\= between int\\|null and '' will always evaluate to true\\.$#"
@@ -2571,6 +2566,11 @@ parameters:
 			path: repo/tests/Unit/Adapter/Routing/AdminLinkBuilderTest.php
 
 		-
+			message: "#^Call to function cmpPriceAsc\\(\\) on a separate line has no effect\\.$#"
+			count: 1
+			path: repo/tests/Unit/Classes/ToolsTest.php
+
+		-
 			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertIsString\\(\\) with string will always evaluate to true\\.$#"
 			count: 1
 			path: repo/tests/Unit/Core/Crypto/HashingTest.php
@@ -2909,3 +2909,8 @@ parameters:
 			message: "#^Parameter \\#3 \\$value of function curl_setopt expects bool, int given\\.$#"
 			count: 2
 			path: repo/tools/build/Library/InstallUnpacker/classes/Download.php
+
+		-
+			message: "#^Call to function getZipErrorMessage\\(\\) on a separate line has no effect\\.$#"
+			count: 1
+			path: repo/tools/build/Library/InstallUnpacker/index_template.php
