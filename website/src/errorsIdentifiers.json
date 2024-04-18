@@ -4543,7 +4543,7 @@
     "expr.resultUnused": {
         "PHPStan\\Rules\\DeadCode\\BetterNoopRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/BetterNoopRule.php#L110"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/BetterNoopRule.php#L121"
             ]
         },
         "PHPStan\\Rules\\DeadCode\\NoopRule": {
