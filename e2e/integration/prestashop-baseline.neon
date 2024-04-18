@@ -156,11 +156,6 @@ parameters:
 			path: repo/classes/Language.php
 
 		-
-			message: "#^Ternary operator condition is always true\\.$#"
-			count: 1
-			path: repo/classes/Language.php
-
-		-
 			message: "#^Call to function ctype_digit\\(\\) with array\\|CategoryCore will always evaluate to false\\.$#"
 			count: 1
 			path: repo/classes/Link.php
@@ -791,6 +786,11 @@ parameters:
 			path: repo/controllers/admin/AdminFeaturesController.php
 
 		-
+			message: "#^Call to AdminControllerCore\\:\\:afterImageUpload\\(\\) on a separate line has no effect\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminGendersController.php
+
+		-
 			message: "#^Method AdminGendersControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminGendersController.php
@@ -981,16 +981,6 @@ parameters:
 			path: repo/controllers/admin/AdminSearchConfController.php
 
 		-
-			message: "#^Left side of && is always true\\.$#"
-			count: 1
-			path: repo/controllers/admin/AdminSearchController.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
-			count: 3
-			path: repo/controllers/admin/AdminSearchController.php
-
-		-
 			message: "#^Call to an undefined method ObjectModel\\:\\:associateSuperAdmins\\(\\)\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminShopController.php
@@ -1071,6 +1061,11 @@ parameters:
 			path: repo/controllers/admin/AdminStatsTabController.php
 
 		-
+			message: "#^Call to AdminControllerCore\\:\\:afterImageUpload\\(\\) on a separate line has no effect\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminStatusesController.php
+
+		-
 			message: "#^Method AdminStoresControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminStoresController.php
@@ -1134,6 +1129,11 @@ parameters:
 			message: "#^PHPDoc tag @var with type string is not subtype of native type mixed\\.$#"
 			count: 1
 			path: repo/controllers/front/GuestTrackingController.php
+
+		-
+			message: "#^Call to FrontControllerCore\\:\\:postProcess\\(\\) on a separate line has no effect\\.$#"
+			count: 1
+			path: repo/controllers/front/OrderController.php
 
 		-
 			message: "#^Method PdfInvoiceControllerCore\\:\\:display\\(\\) should return bool but return statement is missing\\.$#"
