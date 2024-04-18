@@ -126,6 +126,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/peterfox">Peter Fox (peterfox)</a></li>
 <li><a href="https://github.com/santigarcor">Santiago García (santigarcor)</a></li>
 <li><a href="https://github.com/BernhardK91">Bernhard Krämer (BernhardK91)</a></li>
+<li><a href="https://github.com/WyriHaximus">Cees-Jan Kiewiet (WyriHaximus)</a></li>
 <!-- five -->
 
 <!-- five-org --><li><a href="https://github.com/hxv">Michał Włodarczyk (hxv)</a></li>
@@ -161,5 +162,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/previousnext">PreviousNext (previousnext)</a></li>
 <li><a href="https://github.com/erik-perri">Erik Perri (erik-perri)</a></li>
 <li><a href="https://github.com/alisqi">AlisQI (alisqi)</a></li>
+<li><a href="https://github.com/WyriHaximus">Cees-Jan Kiewiet (WyriHaximus)</a></li>
 <!-- five-org -->
 </ul>
