@@ -11,6 +11,11 @@ parameters:
 			path: repo/src/Driver/IBMDB2/Result.php
 
 		-
+			message: "#^Offset 'uri' does not exist on array\\{timed_out\\: bool, blocked\\: bool, eof\\: bool, unread_bytes\\: int, stream_type\\: string, wrapper_type\\: string, wrapper_data\\: mixed, mode\\: string, \\.\\.\\.\\}\\.$#"
+			count: 1
+			path: repo/src/Driver/IBMDB2/Statement.php
+
+		-
 			message: "#^Method Doctrine\\\\DBAL\\\\Driver\\\\Mysqli\\\\Connection\\:\\:exec\\(\\) should return int but returns int\\<\\-1, max\\>\\|string\\.$#"
 			count: 1
 			path: repo/src/Driver/Mysqli/Connection.php
