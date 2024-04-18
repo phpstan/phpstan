@@ -6927,6 +6927,11 @@
         }
     },
     "method.resultUnused": {
+        "PHPStan\\Rules\\DeadCode\\CallToMethodStatementWithoutImpurePointsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/CallToMethodStatementWithoutImpurePointsRule.php#L60"
+            ]
+        },
         "PHPStan\\Rules\\Methods\\CallToMethodStatementWithoutSideEffectsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Methods/CallToMethodStatementWithoutSideEffectsRule.php#L83"
