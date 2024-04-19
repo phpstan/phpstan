@@ -1978,7 +1978,7 @@
     "booleanAnd.resultUnused": {
         "PHPStan\\Rules\\DeadCode\\BetterNoopRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/BetterNoopRule.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/BetterNoopRule.php#L70"
             ]
         }
     },
@@ -2062,7 +2062,7 @@
     "booleanOr.resultUnused": {
         "PHPStan\\Rules\\DeadCode\\BetterNoopRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/BetterNoopRule.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/BetterNoopRule.php#L70"
             ]
         }
     },
@@ -4543,7 +4543,7 @@
     "expr.resultUnused": {
         "PHPStan\\Rules\\DeadCode\\BetterNoopRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/BetterNoopRule.php#L121"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/BetterNoopRule.php#L133"
             ]
         },
         "PHPStan\\Rules\\DeadCode\\NoopRule": {
@@ -6514,7 +6514,7 @@
     "logicalAnd.resultUnused": {
         "PHPStan\\Rules\\DeadCode\\BetterNoopRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/BetterNoopRule.php#L51"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/BetterNoopRule.php#L53"
             ]
         }
     },
@@ -6577,7 +6577,7 @@
     "logicalOr.resultUnused": {
         "PHPStan\\Rules\\DeadCode\\BetterNoopRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/BetterNoopRule.php#L51"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/BetterNoopRule.php#L53"
             ]
         }
     },
@@ -6619,7 +6619,7 @@
     "logicalXor.resultUnused": {
         "PHPStan\\Rules\\DeadCode\\BetterNoopRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/BetterNoopRule.php#L37"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/BetterNoopRule.php#L39"
             ]
         }
     },
@@ -10694,7 +10694,7 @@
     "ternary.resultUnused": {
         "PHPStan\\Rules\\DeadCode\\BetterNoopRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/BetterNoopRule.php#L77"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/BetterNoopRule.php#L79"
             ]
         }
     },
