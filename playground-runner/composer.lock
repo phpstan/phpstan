@@ -1057,16 +1057,16 @@
         },
         {
             "name": "php-http/discovery",
-            "version": "1.19.2",
+            "version": "1.19.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/discovery.git",
-                "reference": "61e1a1eb69c92741f5896d9e05fb8e9d7e8bb0cb"
+                "reference": "0700efda8d7526335132360167315fdab3aeb599"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/discovery/zipball/61e1a1eb69c92741f5896d9e05fb8e9d7e8bb0cb",
-                "reference": "61e1a1eb69c92741f5896d9e05fb8e9d7e8bb0cb",
+                "url": "https://api.github.com/repos/php-http/discovery/zipball/0700efda8d7526335132360167315fdab3aeb599",
+                "reference": "0700efda8d7526335132360167315fdab3aeb599",
                 "shasum": ""
             },
             "require": {
@@ -1090,7 +1090,8 @@
                 "php-http/httplug": "^1.0 || ^2.0",
                 "php-http/message-factory": "^1.0",
                 "phpspec/phpspec": "^5.1 || ^6.1 || ^7.3",
-                "symfony/phpunit-bridge": "^6.2"
+                "sebastian/comparator": "^3.0.5 || ^4.0.8",
+                "symfony/phpunit-bridge": "^6.4.4 || ^7.0.1"
             },
             "type": "composer-plugin",
             "extra": {
@@ -1129,9 +1130,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-http/discovery/issues",
-                "source": "https://github.com/php-http/discovery/tree/1.19.2"
+                "source": "https://github.com/php-http/discovery/tree/1.19.4"
             },
-            "time": "2023-11-30T16:49:05+00:00"
+            "time": "2024-03-29T13:00:05+00:00"
         },
         {
             "name": "php-http/httplug",
@@ -1317,12 +1318,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "17515aabd21c7ff0aa28083e1d1d484b21b83786"
+                "reference": "cbae20525db442e9c9d5be1594e6df499a308399"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/17515aabd21c7ff0aa28083e1d1d484b21b83786",
-                "reference": "17515aabd21c7ff0aa28083e1d1d484b21b83786",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/cbae20525db442e9c9d5be1594e6df499a308399",
+                "reference": "cbae20525db442e9c9d5be1594e6df499a308399",
                 "shasum": ""
             },
             "require": {
@@ -1366,13 +1367,9 @@
                 {
                     "url": "https://github.com/phpstan",
                     "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/phpstan/phpstan",
-                    "type": "tidelift"
                 }
             ],
-            "time": "2024-02-19T08:59:59+00:00"
+            "time": "2024-04-19T12:50:44+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
@@ -1380,12 +1377,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-strict-rules.git",
-                "reference": "2bc39672669f0493b3b3833f13273cbedaaa121b"
+                "reference": "c7b4d283fbffd23b9405c01d1f68124739d698f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/2bc39672669f0493b3b3833f13273cbedaaa121b",
-                "reference": "2bc39672669f0493b3b3833f13273cbedaaa121b",
+                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/c7b4d283fbffd23b9405c01d1f68124739d698f6",
+                "reference": "c7b4d283fbffd23b9405c01d1f68124739d698f6",
                 "shasum": ""
             },
             "require": {
@@ -1422,7 +1419,7 @@
                 "issues": "https://github.com/phpstan/phpstan-strict-rules/issues",
                 "source": "https://github.com/phpstan/phpstan-strict-rules/tree/1.6.x"
             },
-            "time": "2024-02-19T08:54:33+00:00"
+            "time": "2024-04-19T14:52:46+00:00"
         },
         {
             "name": "psr/container",
