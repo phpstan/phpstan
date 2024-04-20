@@ -2,7 +2,7 @@ name: 'Lock Issues'
 
 on:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '2 0 * * *'
 
 concurrency: lock_issues
 
