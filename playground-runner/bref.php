@@ -1,15 +1,5 @@
 <?php declare(strict_types = 1);
 
-use PHPStan\AnalysedCodeException;
-use PHPStan\Analyser\Error;
-use PHPStan\Analyser\RuleErrorTransformer;
-use PHPStan\Analyser\ScopeContext;
-use PHPStan\Analyser\ScopeFactory;
-use PHPStan\BetterReflection\NodeCompiler\Exception\UnableToCompileNode;
-use PHPStan\BetterReflection\Reflection\Exception\CircularReference;
-use PHPStan\BetterReflection\Reflector\Exception\IdentifierNotFound;
-use PHPStan\Collectors\CollectedData;
-use PHPStan\Node\CollectedDataNode;
 use Symfony\Component\Console\Formatter\OutputFormatter;
 
 require __DIR__.'/vendor/autoload.php';
@@ -27,41 +17,6 @@ $phpstanVersion = \Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPret
 		new \Sentry\Integration\FatalErrorListenerIntegration(),
 	]
 ]);
-
-/**
- * @param CollectedData[] $collectedData
- * @return Error[]
- */
-function getCollectedDataErrors(\PHPStan\DependencyInjection\Container $container, array $collectedData): array
-{
-	$nodeType = CollectedDataNode::class;
-	$node = new CollectedDataNode($collectedData, true);
-	$file = 'N/A';
-	$scope = $container->getByType(ScopeFactory::class)->create(ScopeContext::create($file));
-	$ruleRegistry = $container->getByType(\PHPStan\Rules\Registry::class);
-	$ruleErrorTransformer = $container->getByType(RuleErrorTransformer::class);
-	$errors = [];
-	foreach ($ruleRegistry->getRules($nodeType) as $rule) {
-		try {
-			$ruleErrors = $rule->processNode($node, $scope);
-		} catch (AnalysedCodeException $e) {
-			$errors[] = new Error($e->getMessage(), $file, $node->getLine(), $e, null, null, $e->getTip());
-			continue;
-		} catch (IdentifierNotFound $e) {
-			$errors[] = new Error(sprintf('Reflection error: %s not found.', $e->getIdentifier()->getName()), $file, $node->getLine(), $e, null, null, 'Learn more at https://phpstan.org/user-guide/discovering-symbols');
-			continue;
-		} catch (UnableToCompileNode | CircularReference $e) {
-			$errors[] = new Error(sprintf('Reflection error: %s', $e->getMessage()), $file, $node->getLine(), $e);
-			continue;
-		}
-
-		foreach ($ruleErrors as $ruleError) {
-			$errors[] = $ruleErrorTransformer->transform($ruleError, $scope, $nodeType, $node->getLine());
-		}
-	}
-
-	return $errors;
-}
 
 function clearTemp(): void
 {
@@ -133,14 +88,11 @@ return function ($event) use ($phpstanVersion) {
 	/** @var \PHPStan\Analyser\Analyser $analyser */
 	$analyser = $container->getByType(\PHPStan\Analyser\Analyser::class);
 	$analyserResult = $analyser->analyse([$codePath], null, null, false, [$codePath]);
-	$hasInternalErrors = count($analyserResult->getInternalErrors()) > 0 || $analyserResult->hasReachedInternalErrorsCountLimit();
-	$results = $analyserResult->getErrors();
 
-	if (!$hasInternalErrors) {
-		foreach (getCollectedDataErrors($container, $analyserResult->getCollectedData()) as $error) {
-			$results[] = $error;
-		}
-	}
+	/** @var \PHPStan\Analyser\AnalyserResultFinalizer $analyserResultFinalizer */
+	$analyserResultFinalizer = $container->getByType(\PHPStan\Analyser\AnalyserResultFinalizer::class);
+	$analyserResult = $analyserResultFinalizer->finalize($analyserResult, true);
+	$results = $analyserResult->getErrors();
 
 	error_clear_last();
 
