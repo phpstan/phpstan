@@ -8535,21 +8535,16 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/Analyser.php#L102"
             ]
         },
+        "PHPStan\\Analyser\\AnalyserResultFinalizer": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L46"
+            ]
+        },
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L110",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L134",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L280"
-            ]
-        },
-        "PHPStan\\Command\\AnalyseApplication": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L196"
-            ]
-        },
-        "PHPStan\\Command\\FixerWorkerCommand": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/FixerWorkerCommand.php#L344"
             ]
         },
         "PHPStan\\PhpDoc\\StubValidator": {
@@ -8589,6 +8584,12 @@
         }
     },
     "phpstan.reflection": {
+        "PHPStan\\Analyser\\AnalyserResultFinalizer": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L49",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L52"
+            ]
+        },
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L113",
@@ -8597,18 +8598,6 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L140",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L282",
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L284"
-            ]
-        },
-        "PHPStan\\Command\\AnalyseApplication": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L199",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L202"
-            ]
-        },
-        "PHPStan\\Command\\FixerWorkerCommand": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/FixerWorkerCommand.php#L347",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/FixerWorkerCommand.php#L350"
             ]
         }
     },
