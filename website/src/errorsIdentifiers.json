@@ -5826,14 +5826,14 @@
     "ignore.unmatchedIdentifier": {
         "PHPStan\\Analyser\\AnalyserResultFinalizer": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L132"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L144"
             ]
         }
     },
     "ignore.unmatchedLine": {
         "PHPStan\\Analyser\\AnalyserResultFinalizer": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L121"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L133"
             ]
         }
     },
