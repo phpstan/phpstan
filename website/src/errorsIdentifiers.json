@@ -1254,8 +1254,8 @@
     "arrayFilter.strict": {
         "PHPStan\\Rules\\Functions\\ArrayFilterStrictRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Functions/ArrayFilterStrictRule.php#L123",
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Functions/ArrayFilterStrictRule.php#L141"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Functions/ArrayFilterStrictRule.php#L118",
+                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Functions/ArrayFilterStrictRule.php#L136"
             ]
         }
     },
@@ -8532,7 +8532,7 @@
     "phpstan.internal": {
         "PHPStan\\Analyser\\Analyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/Analyser.php#L97"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/Analyser.php#L102"
             ]
         },
         "PHPStan\\Analyser\\FileAnalyser": {
@@ -8544,7 +8544,7 @@
         },
         "PHPStan\\Command\\AnalyseApplication": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L194"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L196"
             ]
         },
         "PHPStan\\Command\\FixerWorkerCommand": {
@@ -8584,7 +8584,7 @@
     "phpstan.php": {
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L333"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/FileAnalyser.php#L349"
             ]
         }
     },
@@ -8601,8 +8601,8 @@
         },
         "PHPStan\\Command\\AnalyseApplication": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L197",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L200"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L199",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Command/AnalyseApplication.php#L202"
             ]
         },
         "PHPStan\\Command\\FixerWorkerCommand": {
