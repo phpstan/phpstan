@@ -1,17 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Calling PHPStan\\\\AnalysedCodeException\\:\\:getTip\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
-			count: 1
-			path: bref.php
-
-		-
 			message: "#^Calling PHPStan\\\\Analyser\\\\Analyser\\:\\:analyse\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
-			count: 1
-			path: bref.php
-
-		-
-			message: "#^Calling PHPStan\\\\Analyser\\\\AnalyserResult\\:\\:getCollectedData\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: bref.php
 
@@ -21,31 +11,6 @@ parameters:
 			path: bref.php
 
 		-
-			message: "#^Calling PHPStan\\\\Analyser\\\\AnalyserResult\\:\\:getInternalErrors\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
-			count: 1
-			path: bref.php
-
-		-
-			message: "#^Calling PHPStan\\\\Analyser\\\\AnalyserResult\\:\\:hasReachedInternalErrorsCountLimit\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
-			count: 1
-			path: bref.php
-
-		-
-			message: "#^Calling PHPStan\\\\Analyser\\\\RuleErrorTransformer\\:\\:transform\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
-			count: 1
-			path: bref.php
-
-		-
-			message: "#^Calling PHPStan\\\\Rules\\\\Registry\\:\\:getRules\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
-			count: 1
-			path: bref.php
-
-		-
-			message: "#^Creating new PHPStan\\\\Analyser\\\\Error is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
-			count: 3
-			path: bref.php
-
-		-
-			message: "#^Creating new PHPStan\\\\Node\\\\CollectedDataNode is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
+			message: "#^Calling PHPStan\\\\Analyser\\\\AnalyserResultFinalizer\\:\\:finalize\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: bref.php
