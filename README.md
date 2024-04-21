@@ -34,7 +34,7 @@ can be checked before you run the actual line.
 <br>
 <a href="https://www.iodigital.com/"><img src="https://i.imgur.com/fJlw1n9.png" alt="iO" width="254" height="65"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://www.amezmo.com"><img src="https://i.imgur.com/BsF2Twn.png" alt="Amezmo" width="283" height="64"></a>
+<a href="https://www.fame.fi/"><img src="https://i.imgur.com/SIA40Uv.png" alt="Fame Helsinki" width="283" height="64"></a>
 <br>
 <a href="https://www.startupjobs.cz/startup/shipmonk"><img src="https://i.imgur.com/bAC47za.jpg" alt="ShipMonk" width="290" height="64"></a>
 &nbsp;&nbsp;&nbsp;
@@ -46,7 +46,7 @@ can be checked before you run the actual line.
 <br>
 <a href="https://zol.fr?utm_source=phpstan"><img src="https://i.imgur.com/dzDgd4s.png" alt="ZOL" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://www.psyonix.com/"><img src="https://i.imgur.com/p8svxQZ.png" alt="Psyonix" width="254" height="65"></a>
+<a href="https://www.edgenext.com/"><img src="https://i.imgur.com/1sNDQF3.png" alt="EdgeNext" width="283" height="64"></a>
 <br>
 <a href="https://www.shopware.com/en/"><img src="https://i.imgur.com/L4X5w9s.png" alt="Shopware" width="284" height="64"></a>
 &nbsp;&nbsp;&nbsp;
@@ -61,10 +61,6 @@ can be checked before you run the actual line.
 <a href="https://inviqa.com/"><img src="https://i.imgur.com/G99rj45.png" alt="Inviqa" width="254" height="65"></a>
 <br>
 <a href="https://www.getresponse.com/"><img src="https://i.imgur.com/ZEO7Meg.png" alt="GetResponse" width="283" height="64"></a>
-&nbsp;&nbsp;&nbsp;
-<a href="https://www.edgenext.com/"><img src="https://i.imgur.com/1sNDQF3.png" alt="EdgeNext" width="283" height="64"></a>
-<br>
-<a href="https://www.fame.fi/"><img src="https://i.imgur.com/SIA40Uv.png" alt="Fame Helsinki" width="283" height="64"></a>
 
 
 [**You can now sponsor my open-source work on PHPStan through GitHub Sponsors.**](https://github.com/sponsors/ondrejmirtes)
