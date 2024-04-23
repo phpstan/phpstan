@@ -53,4 +53,6 @@ Go through the extra [configuration options](/config-reference#stricter-analysis
 * [`checkImplicitMixed`](/config-reference#checkimplicitmixed): Level 9 on steroids
 * [`checkBenevolentUnionTypes`](/config-reference#checkbenevolentuniontypes): Report wrong usage of unknown array keys, and other types
 * [`rememberPossiblyImpureFunctionValues: false`](/config-reference#rememberpossiblyimpurefunctionvalues): Do not remember return values of functions that are not marked as pure
+* [`reportPossiblyNonexistentGeneralArrayOffset`](/config-reference#reportpossiblynonexistentgeneralarrayoffset): Make sure offset exists before accessing it on a general array
+* [`reportPossiblyNonexistentConstantArrayOffset`](/config-reference#reportpossiblynonexistentconstantarrayoffset): Make sure offset exists before accessing it on an array shape
 * [Bring your exceptions under control with `@throws`](/blog/bring-your-exceptions-under-control)
