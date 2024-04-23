@@ -518,7 +518,7 @@ public function doFoo(array $array): int
 }
 ```
 
-By setting `reportPossiblyNonexistentGeneralArrayOffset` to `true` this will be reported as an error.
+By setting `reportPossiblyNonexistentGeneralArrayOffset` to `true` this will be reported as an error. This option has effect on [rule level](/user-guide/rule-levels) 7 and up.
 
 ### `reportPossiblyNonexistentConstantArrayOffset`
 
@@ -534,7 +534,7 @@ public function doFoo(string $s): void
 }
 ```
 
-By setting `reportPossiblyNonexistentConstantArrayOffset` to `true` this will be reported as an error.
+By setting `reportPossiblyNonexistentConstantArrayOffset` to `true` this will be reported as an error. This option has effect on [rule level](/user-guide/rule-levels) 7 and up.
 
 ### `reportAlwaysTrueInLastCondition`
 
