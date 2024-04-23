@@ -7922,16 +7922,16 @@
     "offsetAccess.notFound": {
         "PHPStan\\Rules\\Arrays\\ArrayDestructuringRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L58",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L91",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L97"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L110",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L116",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L60"
             ]
         },
         "PHPStan\\Rules\\Arrays\\NonexistentOffsetInArrayDimFetchRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L58",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L91",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L97"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L110",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L116",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L60"
             ]
         }
     },
