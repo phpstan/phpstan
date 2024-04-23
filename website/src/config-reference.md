@@ -502,6 +502,40 @@ parameters:
     checkBenevolentUnionTypes: true
 ```
 
+### `reportPossiblyNonexistentGeneralArrayOffset`
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.11.0</div>
+
+By default PHPStan does not report possibly nonexistent offset on general arrays:
+
+```php
+/**
+ * @param array<string, int> $array
+ */
+public function doFoo(array $array): int
+{
+    return $array['foo'];
+}
+```
+
+By setting `reportPossiblyNonexistentGeneralArrayOffset` to `true` this will be reported as an error.
+
+### `reportPossiblyNonexistentConstantArrayOffset`
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.11.0</div>
+
+By default PHPStan does not report possibly nonexistent offset on array shapes:
+
+```php
+public function doFoo(string $s): void
+{
+    $a = ['foo' => 1];
+    echo $a[$s];
+}
+```
+
+By setting `reportPossiblyNonexistentConstantArrayOffset` to `true` this will be reported as an error.
+
 ### `reportAlwaysTrueInLastCondition`
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.10.0 + Bleeding Edge</div>
