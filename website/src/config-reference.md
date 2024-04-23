@@ -502,7 +502,7 @@ parameters:
     checkBenevolentUnionTypes: true
 ```
 
-### `reportPossiblyNonexistentGeneralArrayOffset`
+### `reportPossiblyNonexistentGeneralArrayOffset`
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.11.0</div>
 
@@ -520,7 +520,7 @@ public function doFoo(array $array): int
 
 By setting `reportPossiblyNonexistentGeneralArrayOffset` to `true` this will be reported as an error.
 
-### `reportPossiblyNonexistentConstantArrayOffset`
+### `reportPossiblyNonexistentConstantArrayOffset`
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.11.0</div>
 
