@@ -841,6 +841,11 @@ parameters:
 			path: repo/controllers/admin/AdminImportController.php
 
 		-
+			message: "#^Offset 0 on non\\-empty\\-list\\<string\\> in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminImportController.php
+
+		-
 			message: "#^Result of && is always false\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminImportController.php
@@ -1396,6 +1401,11 @@ parameters:
 			path: repo/src/Adapter/Import/Handler/ProductImportHandler.php
 
 		-
+			message: "#^Offset 0 on non\\-empty\\-list\\<string\\> in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/Adapter/Import/Handler/ProductImportHandler.php
+
+		-
 			message: "#^Result of && is always false\\.$#"
 			count: 1
 			path: repo/src/Adapter/Import/Handler/ProductImportHandler.php
@@ -1916,6 +1926,11 @@ parameters:
 			path: repo/src/Core/Domain/Webservice/ValueObject/WebserviceKeyId.php
 
 		-
+			message: "#^Offset 0 on non\\-empty\\-list\\<string\\> in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 2
+			path: repo/src/Core/Email/EmailLister.php
+
+		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/Core/Filter/CollectionFilter.php
@@ -2071,6 +2086,11 @@ parameters:
 			path: repo/src/Core/Localization/Currency/DataLayer/CurrencyReference.php
 
 		-
+			message: "#^Offset 0 on non\\-empty\\-list\\<string\\> on left side of \\?\\? always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/Core/Localization/Specification/Factory.php
+
+		-
 			message: "#^Instanceof between PrestaShop\\\\PrestaShop\\\\Core\\\\Localization\\\\Specification\\\\NumberSymbolList and PrestaShop\\\\PrestaShop\\\\Core\\\\Localization\\\\Specification\\\\NumberSymbolList will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/Core/Localization/Specification/Number.php
@@ -2199,6 +2219,21 @@ parameters:
 			message: "#^PHPDoc tag @var with type PrestaShop\\\\PrestaShop\\\\Core\\\\MailTemplate\\\\Layout\\\\LayoutInterface is not subtype of native type null\\.$#"
 			count: 1
 			path: repo/src/PrestaShopBundle/Controller/Admin/Improve/Design/MailThemeController.php
+
+		-
+			message: "#^Offset 0 on non\\-empty\\-list\\<string\\> in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Controller/Admin/Improve/Design/PositionsController.php
+
+		-
+			message: "#^Parameter \\#1 \\$id of class Hook constructor expects int\\|null, string given\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Controller/Admin/Improve/Design/PositionsController.php
+
+		-
+			message: "#^Ternary operator condition is always true\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Controller/Admin/Improve/Design/PositionsController.php
 
 		-
 			message: "#^Strict comparison using \\!\\=\\= between null and string will always evaluate to true\\.$#"
