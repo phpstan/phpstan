@@ -40,6 +40,7 @@ the logo of your company in PHPStan's README and the website.
 <ul>
 <!-- thirty --><li><a href="https://github.com/martin-georgiev">Martin Georgiev (martin-georgiev)</a></li>
 <li><a href="https://github.com/glami">GLAMI (glami)</a></li>
+<li><a href="https://github.com/cpierce">Chris Pierce (cpierce)</a></li>
 <!-- thirty -->
 
 <!-- thirty-org --><li><a href="https://github.com/polylang">Polylang (polylang)</a></li>
