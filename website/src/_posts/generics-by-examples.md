@@ -243,11 +243,10 @@ class Container
 	];
 
 	/**
-	 * @template M of self::TYPES
-	 * @template T of key-of<M>
+	 * @template T of key-of<self::TYPES>
 	 * @param T $type
 	 *
-	 * @return new<M[T]>
+	 * @return new<self::TYPES[T]>
 	 */
 	public static function get(string $type) : object
 	{
