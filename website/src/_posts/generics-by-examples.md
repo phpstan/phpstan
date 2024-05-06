@@ -207,6 +207,57 @@ class Container
 }
 ```
 
+If your container only holds services that are named with their FQCN you could write it like:
+
+```php
+class Container
+{
+	/**
+	 * @template T of object
+	 * @param class-string<T> $name
+	 * @return T
+	 */
+	public function get(string $name): object
+	{
+		// ...
+	}
+}
+```
+
+Container with static services
+----------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.11</div>
+
+If you have a container with a static array of services, you can use `new` to return the correct type like this:
+
+```php
+class Container
+{
+	/**
+	 * @var array<string, class-string>
+	 */
+	private const TYPES = [
+		'foo' => DateTime::class,
+		'bar' => DateTimeImmutable::class,
+	];
+
+	/**
+	 * @template M of self::TYPES
+	 * @template T of key-of<M>
+	 * @param T $type
+	 *
+	 * @return new<M[T]>
+	 */
+	public static function get(string $type) : object
+	{
+		$class = self::TYPES[$type] ?? throw new InvalidArgumentException('Not found');
+
+		return new $class();
+	}
+}
+```
+
 Couple relevant classes together
 ------------------------
 
