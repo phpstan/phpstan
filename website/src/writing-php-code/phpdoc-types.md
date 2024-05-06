@@ -157,6 +157,7 @@ Conditional return types
 
 A simpler alternative to generics if you just want to infer the return type based on if-else logic.
 
+
 ```php
 /**
  * @return ($size is positive-int ? non-empty-array : array)
@@ -180,6 +181,14 @@ public function fetch(int|array $id)
 	...
 }
 ```
+
+Utility types for generics
+-------------------------
+
+`template-type` can be used to [get `@template` type from a passed object argument](https://phpstan.org/r/ceb59974-0a7c-492a-867a-5d5b7c30e52f). Related discussion [here](https://github.com/phpstan/phpstan/discussions/9053).
+
+`new` can be used to [create an object type from a class-string type](https://phpstan.org/r/a01e1e49-6f05-43a8-aac7-aded770cd88a).
+
 
 class-string
 -------------------------
