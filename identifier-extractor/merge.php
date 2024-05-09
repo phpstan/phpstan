@@ -9,6 +9,7 @@ $finder = new Finder();
 $tmpResults = [];
 
 $data = [];
+$classes = [];
 foreach ($finder->files()->name('*.json')->in(__DIR__ . '/tmp') as $resultFile) {
 	$contents = file_get_contents($resultFile->getPathname());
 	if ($contents === false) {
@@ -19,6 +20,7 @@ foreach ($finder->files()->name('*.json')->in(__DIR__ . '/tmp') as $resultFile) 
 	$branch = $json['branch'];
 
 	foreach ($json['data'] as $row) {
+		$classes[$row['class']] = true;
 		$data[] = [
 			'identifiers' => $row['identifiers'],
 			'class' => $row['class'],
@@ -64,5 +66,10 @@ foreach ($dataByIdentifier as $identifier => $rows) {
 		$dataByIdentifier[$identifier][$class] = $repos;
 	}
 }
+
+$identifierCount = count($dataByIdentifier);
+$classesCount = count($classes);
+
+fwrite(STDERR, sprintf("Total: %d identifiers in %d rules\n", $identifierCount, $classesCount));
 
 echo Json::encode($dataByIdentifier, true);
