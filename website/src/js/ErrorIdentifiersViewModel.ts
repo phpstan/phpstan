@@ -95,10 +95,12 @@ export class ErrorIdentifiersViewModel {
 
 	switchToIdentifier() {
 		this.groupByIdentifier(true);
+		window.history.replaceState({}, '', '#gbi-');
 	}
 
 	switchToRule() {
 		this.groupByIdentifier(false);
+		window.history.replaceState({}, '', '#gbr-');
 	}
 
 }
