@@ -5837,6 +5837,18 @@
             ]
         }
     },
+    "impure.betweenPhpTags": {
+        "PHPStan\\Rules\\Pure\\PureFunctionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Pure/FunctionPurityCheck.php#L84"
+            ]
+        },
+        "PHPStan\\Rules\\Pure\\PureMethodRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Pure/FunctionPurityCheck.php#L84"
+            ]
+        }
+    },
     "impure.die": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
@@ -8931,6 +8943,18 @@
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticAdditionRule": {
             "phpstan/phpstan-strict-rules": [
                 "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticAdditionRule.php#L68"
+            ]
+        }
+    },
+    "possiblyImpure.betweenPhpTags": {
+        "PHPStan\\Rules\\Pure\\PureFunctionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Pure/FunctionPurityCheck.php#L84"
+            ]
+        },
+        "PHPStan\\Rules\\Pure\\PureMethodRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Pure/FunctionPurityCheck.php#L84"
             ]
         }
     },
