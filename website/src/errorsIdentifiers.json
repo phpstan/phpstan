@@ -6953,7 +6953,7 @@
     "method.resultUnused": {
         "PHPStan\\Rules\\DeadCode\\CallToMethodStatementWithoutImpurePointsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/CallToMethodStatementWithoutImpurePointsRule.php#L60"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/DeadCode/CallToMethodStatementWithoutImpurePointsRule.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallToMethodStatementWithoutSideEffectsRule": {
