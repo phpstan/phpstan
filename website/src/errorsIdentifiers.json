@@ -5981,6 +5981,18 @@
             ]
         }
     },
+    "impure.propertyUnset": {
+        "PHPStan\\Rules\\Pure\\PureFunctionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Pure/FunctionPurityCheck.php#L84"
+            ]
+        },
+        "PHPStan\\Rules\\Pure\\PureMethodRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Pure/FunctionPurityCheck.php#L84"
+            ]
+        }
+    },
     "impure.require": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
@@ -9079,6 +9091,18 @@
         }
     },
     "possiblyImpure.propertyAssign": {
+        "PHPStan\\Rules\\Pure\\PureFunctionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Pure/FunctionPurityCheck.php#L84"
+            ]
+        },
+        "PHPStan\\Rules\\Pure\\PureMethodRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Pure/FunctionPurityCheck.php#L84"
+            ]
+        }
+    },
+    "possiblyImpure.propertyUnset": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Pure/FunctionPurityCheck.php#L84"
