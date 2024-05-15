@@ -16,6 +16,5 @@ jobs:
           # GitHub event payload
           # https://docs.github.com/en/developers/webhooks-and-events/webhooks/webhook-events-and-payloads#release
           message: "New release: PHPStan ${{ github.event.release.tag_name }} ${{ github.event.release.html_url }} #phpstan"
-        env:
-          MASTODON_URL: https://phpc.social
-          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+          url: https://phpc.social
+          access-token: ${{ secrets.MASTODON_ACCESS_TOKEN }}
