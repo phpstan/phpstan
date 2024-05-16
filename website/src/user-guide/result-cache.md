@@ -27,8 +27,8 @@ Result cache contents
   * [Stub files](/user-guide/stub-files) hashes
   * [Bootstrap files](/config-reference#bootstrap) hashes
   * [Autoload file](/user-guide/command-line-usage#--autoload-file%7C-a) hash
-* Errors in the last run
-* Dependency tree of project files. If file `A.php` was modified since the last run, `A.php` and all the files calling or otherwise referencing all the symbols in `A.php` are analysed again.
+  * Errors in the last run
+  * Dependency tree of project files. If file `A.php` was modified since the last run, `A.php` and all the files calling or otherwise referencing all the symbols in `A.php` are analysed again.
 
 Clearing the result cache
 ---------------
