@@ -95,16 +95,10 @@ Define a generic interface
 interface Collection
 {
     /** @param T $item */
-    public function add($item): void
-    {
-        // ...
-    }
+    public function add($item): void;
 
     /** @return T */
-    public function get()
-    {
-
-    }
+    public function get();
 }
 ```
 
