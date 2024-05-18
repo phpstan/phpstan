@@ -663,7 +663,7 @@ Related config key: [`typeAliases`](/writing-php-code/phpdoc-types#global-type-a
 PHPStan Pro
 -------------
 
-You can override the DNS servers PHPStan Pro uses to download the application:
+You can override the DNS servers [PHPStan Pro](https://phpstan.org/blog/introducing-phpstan-pro){.phpstan-pro-label} uses to download the application:
 
 ```yaml
 parameters:
@@ -674,7 +674,7 @@ parameters:
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.10.39</div>
 
-By default, PHPStan Pro stores its files in `sys_get_temp_dir() . '/phpstan-fixer'`. If that does not work for you for example because of multi-user environment, you can change this setting. You can also take advantage of [environment variables](#environment-variables):
+By default, [PHPStan Pro](https://phpstan.org/blog/introducing-phpstan-pro){.phpstan-pro-label} stores its files in `sys_get_temp_dir() . '/phpstan-fixer'`. If that does not work for you for example because of multi-user environment, you can change this setting. You can also take advantage of [environment variables](#environment-variables):
 
 ```yaml
 parameters:
