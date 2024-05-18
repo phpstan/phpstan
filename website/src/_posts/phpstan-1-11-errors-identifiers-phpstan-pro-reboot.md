@@ -96,7 +96,7 @@ What if you could snap your fingers and all of these comments magically turned i
 
 PHPStan Pro introduces a **migration wizard** that's going to do this for you! Let's run PHPStan with `--pro` CLI option and see it in action:
 
-<video class="w-full aspect-[1680/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline>
+<video class="w-full aspect-[1680/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/tmp/images/ignore-line-wizard-poster.jpg">
   <source src="/tmp/images/ignore-line-wizard.mp4" type="video/mp4">
 </video>
 
@@ -120,7 +120,7 @@ I could continue down this unending embarassing list of shortcomings of the prev
 
 The new version you'll get once you update to PHPStan 1.11 and launch Pro with `--pro` is much better. Let's have a look:
 
-<video class="w-full aspect-[1652/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline>
+<video class="w-full aspect-[1652/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/tmp/images/phpstan-pro-browsing-poster.jpg">
   <source src="/tmp/images/phpstan-pro-browsing.mp4" type="video/mp4">
 </video>
 
@@ -128,7 +128,7 @@ The layout is more natural and resembles an IDE. Each file is rendered just once
 
 PHPStan lets you see ignored errors too. If you've inherited a project and want to see what errors the previous team ignored, or if you want to check the errors lurking in your huge baseline, PHPStan Pro lets you do that with ease. By default it will show a small pill button you can use to see ignored errors near normally reported errors, but you can also change the setting to show and browse all ignored errors:
 
-<video class="w-full aspect-[1656/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline>
+<video class="w-full aspect-[1656/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/tmp/images/phpstan-pro-ignored-errors-poster.jpg">
   <source src="/tmp/images/phpstan-pro-ignored-errors.mp4" type="video/mp4">
 </video>
 

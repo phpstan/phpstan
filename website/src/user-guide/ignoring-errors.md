@@ -79,7 +79,7 @@ echo $foo;
 
 If your codebase is currently full of `@phpstan-ignore-line` & `@phpstan-ignore-next-line` and you'd like to switch to identifier-specific `@phpstan-ignore`, you can use automatic migration wizard in [PHPStan Pro](https://phpstan.org/blog/introducing-phpstan-pro){.phpstan-pro-label} that will do it for you:
 
-<video class="w-full aspect-[1680/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline>
+<video class="w-full aspect-[1680/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/tmp/images/ignore-line-wizard-poster.jpg">
   <source src="/tmp/images/ignore-line-wizard.mp4" type="video/mp4">
 </video>
 
@@ -160,7 +160,7 @@ Viewing ignored errors
 
 Did you know [PHPStan Pro](https://phpstan.org/blog/introducing-phpstan-pro){.phpstan-pro-label} lets you browse ignored errors in a beautiful web UI? It shows the errors right on the line where they'd be reported if they weren't ignored:
 
-<video class="w-full aspect-[1656/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline>
+<video class="w-full aspect-[1656/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/tmp/images/phpstan-pro-ignored-errors-poster.jpg">
   <source src="/tmp/images/phpstan-pro-ignored-errors.mp4" type="video/mp4">
 </video>
 

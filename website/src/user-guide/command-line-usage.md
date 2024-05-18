@@ -37,7 +37,7 @@ By default PHPStan will not generate an empty baseline. However you can pass `--
 
 Launches [PHPStan Pro](https://phpstan.org/blog/introducing-phpstan-pro){.phpstan-pro-label} which lets you browse errors (including ignored errors) in a beautiful web UI. Try it out by running PHPStan with `--pro` or by going to [account.phpstan.com](https://account.phpstan.com/) and creating an account.
 
-<video class="w-full aspect-[1652/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline>
+<video class="w-full aspect-[1652/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/tmp/images/phpstan-pro-browsing-poster.jpg">
   <source src="/tmp/images/phpstan-pro-browsing.mp4" type="video/mp4">
 </video>
 
