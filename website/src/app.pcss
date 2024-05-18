@@ -173,3 +173,24 @@ h3.hash-target code {
 	-webkit-user-select: none;
 	user-select: none;
 }
+
+/* From https://www.andrealves.dev/blog/how-to-make-an-animated-gradient-text-with-tailwindcss/ */
+.animate-gradient {
+  background-size: 300%;
+  -webkit-animation: animatedgradient 3s ease infinite alternate;
+  -moz-animation: animatedgradient 3s ease infinite alternate;
+  animation: animatedgradient 3s ease infinite alternate;
+}
+
+@keyframes animatedgradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.phpstan-pro-label {
+	@apply font-bold bg-gradient-to-r from-indigo-600 via-sky-300 to-blue-600 text-transparent bg-clip-text animate-gradient
+}

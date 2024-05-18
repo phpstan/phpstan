@@ -22,7 +22,7 @@ So let's say we have an error and we want to find out its identifier in order to
 
 ![Table error formatter running with -v showing error identifiers](/tmp/images/identifiers-table-v.png) {.border .border-gray-200 .rounded-lg .p-2}
 
-Or we can run [PHPStan Pro](/blog/introducing-phpstan-pro) by launching PHPStan with `--pro` CLI option and see the identifier in the UI next to the reported error:
+Or we can run [PHPStan Pro](/blog/introducing-phpstan-pro){.phpstan-pro-label} by launching PHPStan with `--pro` CLI option and see the identifier in the UI next to the reported error:
 
 ![PHPStan Pro showing error identifiers](/tmp/images/identifiers-pro-hover.png) {.border-2 .border-purple-600 .rounded-lg .overflow-hidden}
 

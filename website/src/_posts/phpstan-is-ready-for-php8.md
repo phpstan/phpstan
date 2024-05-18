@@ -155,4 +155,4 @@ The old image hosted on DockerHub is now deprecated.
 
 ---
 
-Do you like PHPStan and use it every day? Support the development by checking out and subscribing to [PHPStan Pro](/blog/introducing-phpstan-pro). Thank you!
+Do you like PHPStan and use it every day? Support the development by checking out and subscribing to [PHPStan Pro](/blog/introducing-phpstan-pro){.phpstan-pro-label}. Thank you!

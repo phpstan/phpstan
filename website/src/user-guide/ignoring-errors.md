@@ -58,7 +58,7 @@ echo $foo, $bar; // @phpstan-ignore variable.undefined, variable.undefined
 You can find out the error identifier for the error you're trying to ignore:
 
 * By running PHPStan with `-v` flag. The default `table` error formatter will output the error identifier below the error message.
-* By running [PHPStan Pro](https://phpstan.org/blog/introducing-phpstan-pro). It will output your errors along with their identifiers in a beautiful web UI.
+* By running [PHPStan Pro](https://phpstan.org/blog/introducing-phpstan-pro){.phpstan-pro-label}. It will output your errors along with their identifiers in a beautiful web UI.
 * By reproducing your error in the [playground](/try). It will output the identifier next to the error message.
 * Custom [error formatters](/user-guide/output-format) also have the error identifiers at their disposal in order to output them.
 
