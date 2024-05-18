@@ -17,40 +17,28 @@ Please note that some selected serious errors (like autoloading issues, parent c
 Ignoring in code using PHPDocs
 -------------------
 
-Errors can be ignored next to the violating line of code using PHPDoc tags in comments:
-
-* `@phpstan-ignore-line`
-* `@phpstan-ignore-next-line`
-
-All the PHP comment styles (`//`, `/* */`, `/** */`) can be used.
+Errors can be ignored next to the violating line of code using `@phpstan-ignore` PHPDoc tag. All the PHP comment styles (`//`, `/* */`, `/** */`) can be used.
 
 ```php
 function () {
-	/** @phpstan-ignore-next-line */
+	/** @phpstan-ignore variable.undefined */
 	echo $foo;
 
-	echo $foo; /** @phpstan-ignore-line */
+	echo $foo; /** @phpstan-ignore variable.undefined */
 
-	/* @phpstan-ignore-next-line */
+	/* @phpstan-ignore variable.undefined */
 	echo $foo;
 
-	echo $foo; /* @phpstan-ignore-line */
+	echo $foo; /* @phpstan-ignore variable.undefined */
 
-	// @phpstan-ignore-next-line
+	// @phpstan-ignore variable.undefined
 	echo $foo;
 
-	echo $foo; // @phpstan-ignore-line
+	echo $foo; // @phpstan-ignore variable.undefined
 };
 ```
 
-Both `@phpstan-ignore-line` and `@phpstan-ignore-next-line` ignore all errors on the corresponding line.
-
-<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.11.0</div>
-
-If you want to ignore only a specific error, you can take advantage of [error identifiers](/error-identifiers) and use the new `@phpstan-ignore` tag that comes with two features:
-
-* It figures out automatically if you want to ignore an error on the current line or the next line. If there's no code on the line with the comment, it ignores the next line.
-* It requires an error identifier to only ignore a specific error instead of all errors.
+The `@phpstan-ignore` comment requires an [error identifier](/error-identifiers) of the error you want to ignore. If the comment is the only thing on its line besides whitespace, it will look for an error to ignore on the next line. Otherwise it will ignore an error on its own line.
 
 ```php
 function () {
@@ -80,6 +68,16 @@ The reason why a certain error is ignored using `@phpstan-ignore` can be put int
 echo $foo; // @phpstan-ignore variable.undefined (Because we are lazy)
 ```
 
+You can also choose to ignore all errors on a specific line using `@phpstan-ignore-line` and `@phpstan-ignore-next-line`.
+
+```php
+echo $foo; // @phpstan-ignore-line
+
+// @phpstan-ignore-next-line
+echo $foo;
+```
+
+
 Ignoring in configuration file
 -------------------
 
@@ -106,12 +104,12 @@ parameters:
 				- some/dir/*
 				- other/dir/*
 		-
-			messages: 
+			messages:
 				- '#Call to an undefined method [a-zA-Z0-9\\_]+::doFooFoo\(\)#'
 				- '#Call to an undefined method [a-zA-Z0-9\\_]+::doFooBar\(\)#'
 			path: other/dir/AnotherFile.php
 		-
-			messages: 
+			messages:
 				- '#Call to an undefined method [a-zA-Z0-9\\_]+::doFooFoo\(\)#'
 				- '#Call to an undefined method [a-zA-Z0-9\\_]+::doFooBar\(\)#'
 			paths:
