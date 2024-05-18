@@ -59,6 +59,8 @@ parameters:
 
 To make the text really clickable in your terminal you might need to register the protocol in your system; see [eclemens/atom-url-handler](https://github.com/eclemens/atom-url-handler) for an example.
 
+The `editorUrl` parameter also applies to [PHPStan Pro](https://phpstan.org/blog/introducing-phpstan-pro){.phpstan-pro-label} which lets you browse reported errors (including ignored errors) in a beautiful web UI, and open files in your editor with a click.
+
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.7.15</div>
 
 If you run PHPStan analysis within Docker container (or using other virtualization tools) you may need to use `%relFile%` instead of `%file%`. This will use file's path relative to the current working directory. In the end your `editorUrl` should look like this: `phpstorm://open?file=/path/to/your/project/%%relFile%%&line=%%line%%`.

@@ -65,8 +65,18 @@ parameters:
 	reportUnmatchedIgnoredErrors: false
 ```
 
+Viewing the baselined errors
+------------------
 
-The use-cases
+Did you know [PHPStan Pro](https://phpstan.org/blog/introducing-phpstan-pro){.phpstan-pro-label} lets you browse ignored errors in a beautiful web UI, including those in your baseline? It shows the errors right on the line where they'd be reported if they weren't ignored:
+
+<video class="w-full aspect-[1656/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline>
+  <source src="/tmp/images/phpstan-pro-ignored-errors.mp4" type="video/mp4">
+</video>
+
+Try out [PHPStan Pro](https://phpstan.org/blog/introducing-phpstan-pro){.phpstan-pro-label} by running PHPStan with `--pro` or by going to [account.phpstan.com](https://account.phpstan.com/) and creating an account.
+
+Use-cases for the baseline
 ------------------
 
 Baseline successfully solves all the problems mentioned above.
