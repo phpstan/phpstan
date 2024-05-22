@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method React\\\\Promise\\\\Internal\\\\FulfilledPromise\\:\\:finally\\(\\) should return React\\\\Promise\\\\PromiseInterface\\<T\\> but returns React\\\\Promise\\\\PromiseInterface\\<\\(T of mixed\\)\\|null\\>\\.$#"
+			count: 1
+			path: repo/src/Internal/FulfilledPromise.php
+
+		-
+			message: "#^Method React\\\\Promise\\\\Promise\\:\\:finally\\(\\) should return React\\\\Promise\\\\PromiseInterface\\<T\\> but returns React\\\\Promise\\\\PromiseInterface\\<\\(T of mixed\\)\\|null\\>\\.$#"
+			count: 1
+			path: repo/src/Promise.php
