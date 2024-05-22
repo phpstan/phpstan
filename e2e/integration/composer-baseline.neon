@@ -41,11 +41,6 @@ parameters:
 			path: repo/src/Composer/Command/InitCommand.php
 
 		-
-			message: "#^Call to function array_filter\\(\\) requires parameter \\#2 to be passed to avoid loose comparison semantics\\.$#"
-			count: 2
-			path: repo/src/Composer/Command/ShowCommand.php
-
-		-
 			message: "#^Method Composer\\\\Command\\\\ShowCommand\\:\\:getPackage\\(\\) should return array\\{Composer\\\\Package\\\\CompletePackageInterface\\|null, array\\<string, string\\>\\} but returns array\\{Composer\\\\Package\\\\BasePackage\\|null, array\\<string, string\\>\\}\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/ShowCommand.php
@@ -81,6 +76,11 @@ parameters:
 			path: repo/src/Composer/Command/ValidateCommand.php
 
 		-
+			message: "#^Parameter \\#2 \\$replacement of static method Composer\\\\Pcre\\\\Preg\\:\\:replaceCallback\\(\\) expects callable\\(array\\<int\\|string, string\\|null\\>\\)\\: string, Closure\\(mixed\\)\\: \\(string\\|null\\) given\\.$#"
+			count: 1
+			path: repo/src/Composer/Json/JsonFormatter.php
+
+		-
 			message: "#^Call to function array_filter\\(\\) requires parameter \\#2 to be passed to avoid loose comparison semantics\\.$#"
 			count: 1
 			path: repo/src/Composer/Package/Archiver/ArchiveManager.php
@@ -101,19 +101,9 @@ parameters:
 			path: repo/src/Composer/Platform/Version.php
 
 		-
-			message: "#^Call to function array_filter\\(\\) requires parameter \\#2 to be passed to avoid loose comparison semantics\\.$#"
-			count: 3
-			path: repo/src/Composer/Repository/ComposerRepository.php
-
-		-
 			message: "#^Only booleans are allowed in a ternary operator condition, bool\\|null given\\.$#"
 			count: 4
 			path: repo/src/Composer/Repository/PlatformRepository.php
-
-		-
-			message: "#^Call to function array_filter\\(\\) requires parameter \\#2 to be passed to avoid loose comparison semantics\\.$#"
-			count: 1
-			path: repo/src/Composer/Util/ErrorHandler.php
 
 		-
 			message: "#^Parameter &\\$match by\\-ref type of method Composer\\\\Util\\\\Git\\:\\:isAuthenticationFailure\\(\\) expects array\\<string\\>, array\\<int\\|string, string\\|null\\> given\\.$#"
@@ -169,11 +159,6 @@ parameters:
 			message: "#^Call to function array_filter\\(\\) requires parameter \\#2 to be passed to avoid loose comparison semantics\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/TlsHelper.php
-
-		-
-			message: "#^Call to function array_filter\\(\\) requires parameter \\#2 to be passed to avoid loose comparison semantics\\.$#"
-			count: 2
-			path: repo/tests/Composer/Test/Advisory/AuditorTest.php
 
 		-
 			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
