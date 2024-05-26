@@ -53,7 +53,7 @@ $this->foo->doSomethingWithString(1);
 
 		<!-- ko foreach: list -->
 			<h2 data-bind="attr: {id: id}">
-				<!-- ko text: title --><!-- /ko -->
+				<a data-bind="attr: {href: '/error-identifiers/' + title}"><!-- ko text: title --><!-- /ko --></a>
 				<a class="header-anchor hover:text-black ml-1 text-gray-300" data-bind="attr: {href: '#' + id}">#</a>
 				<!-- ko if: label !== null && label !== 'phpstan-src' -->
 					<span class="inline-block whitespace-nowrap text-xs bg-gray-400 text-white font-semibold rounded py-1 px-2" data-bind="text: label"></span>

@@ -1,0 +1,83 @@
+---
+pagination:
+  data: errorIdentifiers
+  size: 1
+  alias: errorIdentifier
+permalink: "/error-identifiers/{{ errorIdentifier.identifier }}.html"
+pageType: documentation
+layout: null
+eleventyComputed:
+  title: "{{ errorIdentifier.identifier }}"
+sectionTitle: User Guide
+---
+
+{% extends "../_layouts/_sidebar.njk" %}
+
+{% block mainTitle %}{% endblock %}
+{% block editPageLink %}{% endblock %}
+
+{% block scripts %}
+	<script src="/tmp/js/error-identifier-detail.ts" type="module"></script>
+{% endblock %}
+
+{% set phpIgnore %}
+
+{% endset %}
+
+{% block innerContent %}
+
+<h1 class="leading-tight">Error Identifier: {{ errorIdentifier.identifier }}</h1>
+
+{% markdown %}
+
+<p>Error identifiers like <strong>{{ errorIdentifier.identifier }}</strong> in PHPStan can be used to ignore errors locally using a comment:</p>
+
+```php
+// @phpstan-ignore {{ errorIdentifier.identifier }}
+codeThatProducesTheError();
+```
+
+You can also use only the `identifier` key to ignore all errors of the same type in your [configuration file](/config-reference) in the `ignoreErrors` parameter:
+
+```yaml
+parameters:
+	ignoreErrors:
+		-
+			identifier: {{ errorIdentifier.identifier }}
+```
+
+You can see what identifiers are attached to reported errors by running PHPStan with `-v` and using the `table` [error formatter](/user-guide/output-format). Here's [a list of all error identifiers](/error-identifiers).
+
+You can also see error identifiers while browsing errors in [PHPStan Pro](/blog/introducing-phpstan-pro){.phpstan-pro-label}.
+
+This identifier is reported by these rules:
+
+{% endmarkdown %}
+
+<ul>
+
+{% for ruleData in errorIdentifier.rules %}
+
+	{% for links in ruleData.links %}
+	<li>
+		{{ ruleData.ruleName }}
+		{% for ruleLinks in ruleData.links %}
+			{% for link in ruleLinks.links %}
+				<a target="_blank" href="{{ link }}">[{{ loop.index }}]</a>
+			{% endfor %}
+			{% if ruleLinks.repo !== 'phpstan/phpstan-src' %}
+				<span class="inline-block whitespace-nowrap text-xs bg-gray-400 text-white font-semibold rounded py-1 px-2">{{ ruleLinks.repo }}</span>
+			{% endif %}
+		{% endfor %}
+	</li>
+	{% endfor %}
+
+{% endfor %}
+
+</ul>
+
+{% markdown %}
+
+{% endmarkdown %}
+
+{% endblock %}
