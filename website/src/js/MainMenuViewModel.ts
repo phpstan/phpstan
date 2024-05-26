@@ -35,6 +35,10 @@ export class MainMenuViewModel {
 				clickAnalytics: true,
 			},
 		});
+		const anyWindow = (window as any);
+		if (typeof anyWindow.fathom !== 'undefined') {
+			anyWindow.fathom.trackEvent(window.matchMedia('(prefers-color-scheme: dark)').matches ? 'darkMode' : 'lightMode');
+		}
 	}
 
 	toggleMainMenu(): void {
