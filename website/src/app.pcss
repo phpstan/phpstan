@@ -7,6 +7,14 @@
 @tailwind components;
 @tailwind utilities;
 
+html.dark {
+	@apply bg-white min-h-full;
+	@apply invert hue-rotate-180;
+	img {
+		@apply invert hue-rotate-180;
+	}
+}
+
 .cm-editor {
 	font-size: 15px;
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);

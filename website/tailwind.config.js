@@ -21,5 +21,6 @@ module.exports = {
 		'./tmp/blog.html',
 		'./tmp/blog/*.html',
 		'./tmp/js/**/*.ts',
-	]
+	],
+	darkMode: 'selector'
 }

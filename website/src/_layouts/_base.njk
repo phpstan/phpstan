@@ -21,6 +21,12 @@
 	<meta name="twitter:creator" content="@ondrejmirtes" />
 	<meta name="twitter:title" content="{{ title }}" />
 	<script src="https://cdn.usefathom.com/script.js" data-site="UDESFNRN" defer></script>
+	<script>
+		document.documentElement.classList.toggle(
+			'dark',
+			localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+		);
+	</script>
 </head>
 <body>
 
