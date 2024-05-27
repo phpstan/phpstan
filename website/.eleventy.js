@@ -91,9 +91,12 @@ module.exports = function (eleventyConfig) {
 		return new Date().getFullYear().toString();
 	});
 
-	eleventyConfig.addPairedNunjucksShortcode("markdown", (content) => {
-		return markdownLib.render(content);
+	eleventyConfig.addPairedNunjucksShortcode("markdown", (contentt) => {
+		return markdownLib.render(contentt);
 	});
+
+	const inspect = require("util").inspect;
+	eleventyConfig.addFilter("debug", (content) => `<pre>${inspect(content)}</pre>`);
 
 	eleventyConfig.addPairedShortcode('mermaid', async (content) => {
 		const svg = await mermaid.execute(content);

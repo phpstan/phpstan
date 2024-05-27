@@ -172,7 +172,7 @@ permalink: "/try.html"
 
 												<!-- ko if: $data.ignorable === true -->
 													<!-- ko if: $data.identifier -->
-														<a target="_blank" class="text-xs font-semibold bg-gray-300 hover:bg-gray-400 text-white rounded-full px-2 py-1" data-bind="text: $data.identifier, attr: { href: '/error-identifiers#gbi-' + $root.slugify($data.identifier) }"></a>
+														<a target="_blank" class="text-xs font-semibold bg-gray-300 hover:bg-gray-400 text-white rounded-full px-2 py-1" data-bind="text: $data.identifier, attr: { href: '/error-identifiers/' + $data.identifier }"></a>
 													<!-- /ko -->
 												<!-- /ko -->
 											</div>
