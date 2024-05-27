@@ -10,7 +10,7 @@
 html.dark {
 	@apply bg-white min-h-full;
 	@apply invert hue-rotate-180;
-	img {
+	img, video, .cm-editor {
 		@apply invert hue-rotate-180;
 	}
 }
@@ -18,7 +18,7 @@ html.dark {
 .cm-editor {
 	font-size: 15px;
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-	@apply border rounded-md my-8 outline-0;
+	@apply border rounded-md my-8 outline-0 bg-white;
 }
 
 .cm-editor.cm-focused {
