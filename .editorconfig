@@ -1,0 +1,11 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+[*.{md,njk,ts,pcss}]
+indent_style = tab
+
+[*.{php,json}]
+indent_style = space
