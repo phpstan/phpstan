@@ -56,6 +56,11 @@ parameters:
 			path: repo/src/pocketmine/level/Level.php
 
 		-
+			message: "#^Parameter \\#2 \\$length of function fread expects int\\<1, max\\>, int given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/level/format/io/region/RegionLoader.php
+
+		-
 			message: "#^Offset \\(int\\|string\\) does not exist on array\\<pocketmine\\\\nbt\\\\tag\\\\CompoundTag\\>\\|null\\.$#"
 			count: 1
 			path: repo/src/pocketmine/network/mcpe/convert/RuntimeBlockMapping.php
@@ -89,6 +94,11 @@ parameters:
 			message: "#^Property pocketmine\\\\plugin\\\\PluginDescription\\:\\:\\$extensions \\(array\\<string, array\\<int, string\\>\\>\\) does not accept array\\<int\\|string, array\\<string\\>\\>\\.$#"
 			count: 1
 			path: repo/src/pocketmine/plugin/PluginDescription.php
+
+		-
+			message: "#^Parameter \\#2 \\$length of function fread expects int\\<1, max\\>, int given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/resourcepacks/ZippedResourcePack.php
 
 		-
 			message: "#^Method pocketmine\\\\utils\\\\Timezone\\:\\:parseOffset\\(\\) should return string\\|false but returns string\\|null\\.$#"
