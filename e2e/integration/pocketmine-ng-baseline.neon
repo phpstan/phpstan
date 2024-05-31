@@ -14,3 +14,13 @@ parameters:
 			message: "#^Method pocketmine\\\\block\\\\CakeWithCandle\\:\\:onInteractCandle\\(\\) has parameter \\$returnedItems with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/block/CakeWithCandle.php
+
+		-
+			message: "#^Parameter \\#2 \\$length of function fread expects int\\<1, max\\>, int given\\.$#"
+			count: 1
+			path: repo/src/resourcepacks/ZippedResourcePack.php
+
+		-
+			message: "#^Parameter \\#2 \\$length of function fread expects int\\<1, max\\>, int given\\.$#"
+			count: 1
+			path: repo/src/world/format/io/region/RegionLoader.php
