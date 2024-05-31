@@ -1,2 +1,936 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: "#^Call to method get\\(\\) on an unknown class Illuminate\\\\Cache\\\\Repository\\.$#"
+			count: 3
+			path: repo/types/Cache/Repository.php
+
+		-
+			message: "#^Call to method pull\\(\\) on an unknown class Illuminate\\\\Cache\\\\Repository\\.$#"
+			count: 3
+			path: repo/types/Cache/Repository.php
+
+		-
+			message: "#^Call to method remember\\(\\) on an unknown class Illuminate\\\\Cache\\\\Repository\\.$#"
+			count: 1
+			path: repo/types/Cache/Repository.php
+
+		-
+			message: "#^Call to method rememberForever\\(\\) on an unknown class Illuminate\\\\Cache\\\\Repository\\.$#"
+			count: 1
+			path: repo/types/Cache/Repository.php
+
+		-
+			message: "#^Call to method sear\\(\\) on an unknown class Illuminate\\\\Cache\\\\Repository\\.$#"
+			count: 1
+			path: repo/types/Cache/Repository.php
+
+		-
+			message: "#^Class Illuminate\\\\Cache\\\\Repository not found\\.$#"
+			count: 1
+			path: repo/types/Cache/Repository.php
+
+		-
+			message: "#^Function now not found\\.$#"
+			count: 1
+			path: repo/types/Cache/Repository.php
+
+		-
+			message: "#^Function resolve not found\\.$#"
+			count: 1
+			path: repo/types/Cache/Repository.php
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$cache contains unknown class Illuminate\\\\Cache\\\\Repository\\.$#"
+			count: 1
+			path: repo/types/Cache/Repository.php
+
+		-
+			message: "#^Call to method get\\(\\) on an unknown class Illuminate\\\\Contracts\\\\Cache\\\\Repository\\.$#"
+			count: 3
+			path: repo/types/Contracts/Cache/Repository.php
+
+		-
+			message: "#^Call to method pull\\(\\) on an unknown class Illuminate\\\\Contracts\\\\Cache\\\\Repository\\.$#"
+			count: 3
+			path: repo/types/Contracts/Cache/Repository.php
+
+		-
+			message: "#^Call to method remember\\(\\) on an unknown class Illuminate\\\\Contracts\\\\Cache\\\\Repository\\.$#"
+			count: 1
+			path: repo/types/Contracts/Cache/Repository.php
+
+		-
+			message: "#^Call to method rememberForever\\(\\) on an unknown class Illuminate\\\\Contracts\\\\Cache\\\\Repository\\.$#"
+			count: 1
+			path: repo/types/Contracts/Cache/Repository.php
+
+		-
+			message: "#^Call to method sear\\(\\) on an unknown class Illuminate\\\\Contracts\\\\Cache\\\\Repository\\.$#"
+			count: 1
+			path: repo/types/Contracts/Cache/Repository.php
+
+		-
+			message: "#^Class Illuminate\\\\Contracts\\\\Cache\\\\Repository not found\\.$#"
+			count: 1
+			path: repo/types/Contracts/Cache/Repository.php
+
+		-
+			message: "#^Function now not found\\.$#"
+			count: 1
+			path: repo/types/Contracts/Cache/Repository.php
+
+		-
+			message: "#^Function resolve not found\\.$#"
+			count: 1
+			path: repo/types/Contracts/Cache/Repository.php
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$cache contains unknown class Illuminate\\\\Contracts\\\\Cache\\\\Repository\\.$#"
+			count: 1
+			path: repo/types/Contracts/Cache/Repository.php
+
+		-
+			message: "#^Call to static method castUsing\\(\\) on an unknown class Illuminate\\\\Database\\\\Eloquent\\\\Casts\\\\AsArrayObject\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Casts/Castable.php
+
+		-
+			message: "#^Call to static method castUsing\\(\\) on an unknown class Illuminate\\\\Database\\\\Eloquent\\\\Casts\\\\AsCollection\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Casts/Castable.php
+
+		-
+			message: "#^Call to static method castUsing\\(\\) on an unknown class Illuminate\\\\Database\\\\Eloquent\\\\Casts\\\\AsEncryptedArrayObject\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Casts/Castable.php
+
+		-
+			message: "#^Call to static method castUsing\\(\\) on an unknown class Illuminate\\\\Database\\\\Eloquent\\\\Casts\\\\AsEncryptedCollection\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Casts/Castable.php
+
+		-
+			message: "#^Call to static method castUsing\\(\\) on an unknown class Illuminate\\\\Database\\\\Eloquent\\\\Casts\\\\AsEnumArrayObject\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Casts/Castable.php
+
+		-
+			message: "#^Call to static method castUsing\\(\\) on an unknown class Illuminate\\\\Database\\\\Eloquent\\\\Casts\\\\AsEnumCollection\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Casts/Castable.php
+
+		-
+			message: "#^Call to static method castUsing\\(\\) on an unknown class Illuminate\\\\Database\\\\Eloquent\\\\Casts\\\\AsStringable\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Casts/Castable.php
+
+		-
+			message: "#^Call to an undefined method User\\:\\:getAttributes\\(\\)\\.$#"
+			count: 4
+			path: repo/types/Database/Eloquent/Casts/CastsAttributes.php
+
+		-
+			message: "#^Call to method get\\(\\) on an unknown class Illuminate\\\\Contracts\\\\Database\\\\Eloquent\\\\CastsAttributes\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Casts/CastsAttributes.php
+
+		-
+			message: "#^Call to method set\\(\\) on an unknown class Illuminate\\\\Contracts\\\\Database\\\\Eloquent\\\\CastsAttributes\\.$#"
+			count: 3
+			path: repo/types/Database/Eloquent/Casts/CastsAttributes.php
+
+		-
+			message: "#^Call to static method of\\(\\) on an unknown class Illuminate\\\\Support\\\\Str\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Casts/CastsAttributes.php
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$cast contains unknown class Illuminate\\\\Contracts\\\\Database\\\\Eloquent\\\\CastsAttributes\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Casts/CastsAttributes.php
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$cast contains unknown class Illuminate\\\\Support\\\\Stringable\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Casts/CastsAttributes.php
+
+		-
+			message: "#^Call to an undefined static method User\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Collection.php
+
+		-
+			message: "#^Call to an undefined static method UserFactory\\:\\:new\\(\\)\\.$#"
+			count: 3
+			path: repo/types/Database/Eloquent/Factories/Factory.php
+
+		-
+			message: "#^Call to static method guessFactoryNamesUsing\\(\\) on an unknown class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Factories/Factory.php
+
+		-
+			message: "#^Call to static method guessModelNamesUsing\\(\\) on an unknown class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Factories/Factory.php
+
+		-
+			message: "#^Class Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory not found\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Factories/Factory.php
+
+		-
+			message: "#^PHPDoc tag @extends has invalid type Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Factories/Factory.php
+
+		-
+			message: "#^Parameter \\$factory of anonymous function has invalid type Illuminate\\\\Database\\\\Eloquent\\\\Factories\\\\Factory\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Factories/Factory.php
+
+		-
+			message: "#^Call to an undefined static method User\\:\\:factory\\(\\)\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/Model.php
+
+		-
+			message: "#^Call to method getIds\\(\\) on an unknown class Illuminate\\\\Database\\\\Eloquent\\\\ModelNotFoundException\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/ModelNotFoundException.php
+
+		-
+			message: "#^Call to method getModel\\(\\) on an unknown class Illuminate\\\\Database\\\\Eloquent\\\\ModelNotFoundException\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/ModelNotFoundException.php
+
+		-
+			message: "#^Call to method setModel\\(\\) on an unknown class Illuminate\\\\Database\\\\Eloquent\\\\ModelNotFoundException\\.$#"
+			count: 4
+			path: repo/types/Database/Eloquent/ModelNotFoundException.php
+
+		-
+			message: "#^Instantiated class Illuminate\\\\Database\\\\Eloquent\\\\ModelNotFoundException not found\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/ModelNotFoundException.php
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$exception contains unknown class Illuminate\\\\Database\\\\Eloquent\\\\ModelNotFoundException\\.$#"
+			count: 1
+			path: repo/types/Database/Eloquent/ModelNotFoundException.php
+
+		-
+			message: "#^Call to static method format\\(\\) on an unknown class Illuminate\\\\Foundation\\\\Console\\\\AboutCommand\\.$#"
+			count: 1
+			path: repo/types/Foundation/AboutCommand.php
+
+		-
+			message: "#^Call to method stopIgnoring\\(\\) on an unknown class Illuminate\\\\Foundation\\\\Configuration\\\\Exceptions\\.$#"
+			count: 2
+			path: repo/types/Foundation/Configuration/Exceptions.php
+
+		-
+			message: "#^Class Illuminate\\\\Database\\\\Eloquent\\\\ModelNotFoundException not found\\.$#"
+			count: 1
+			path: repo/types/Foundation/Configuration/Exceptions.php
+
+		-
+			message: "#^Class Symfony\\\\Component\\\\HttpKernel\\\\Exception\\\\HttpException not found\\.$#"
+			count: 1
+			path: repo/types/Foundation/Configuration/Exceptions.php
+
+		-
+			message: "#^Instantiated class Illuminate\\\\Container\\\\Container not found\\.$#"
+			count: 1
+			path: repo/types/Foundation/Configuration/Exceptions.php
+
+		-
+			message: "#^Instantiated class Illuminate\\\\Foundation\\\\Configuration\\\\Exceptions not found\\.$#"
+			count: 1
+			path: repo/types/Foundation/Configuration/Exceptions.php
+
+		-
+			message: "#^Instantiated class Illuminate\\\\Foundation\\\\Exceptions\\\\Handler not found\\.$#"
+			count: 1
+			path: repo/types/Foundation/Configuration/Exceptions.php
+
+		-
+			message: "#^Access to constant HEADER_X_FORWARDED_AWS_ELB on an unknown class Illuminate\\\\Http\\\\Request\\.$#"
+			count: 2
+			path: repo/types/Foundation/Configuration/Middleware.php
+
+		-
+			message: "#^Call to method convertEmptyStringsToNull\\(\\) on an unknown class Illuminate\\\\Foundation\\\\Configuration\\\\Middleware\\.$#"
+			count: 1
+			path: repo/types/Foundation/Configuration/Middleware.php
+
+		-
+			message: "#^Call to method encryptCookies\\(\\) on an unknown class Illuminate\\\\Foundation\\\\Configuration\\\\Middleware\\.$#"
+			count: 2
+			path: repo/types/Foundation/Configuration/Middleware.php
+
+		-
+			message: "#^Call to method trimStrings\\(\\) on an unknown class Illuminate\\\\Foundation\\\\Configuration\\\\Middleware\\.$#"
+			count: 1
+			path: repo/types/Foundation/Configuration/Middleware.php
+
+		-
+			message: "#^Call to method trustHosts\\(\\) on an unknown class Illuminate\\\\Foundation\\\\Configuration\\\\Middleware\\.$#"
+			count: 3
+			path: repo/types/Foundation/Configuration/Middleware.php
+
+		-
+			message: "#^Call to method trustProxies\\(\\) on an unknown class Illuminate\\\\Foundation\\\\Configuration\\\\Middleware\\.$#"
+			count: 4
+			path: repo/types/Foundation/Configuration/Middleware.php
+
+		-
+			message: "#^Instantiated class Illuminate\\\\Foundation\\\\Configuration\\\\Middleware not found\\.$#"
+			count: 1
+			path: repo/types/Foundation/Configuration/Middleware.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Illuminate\\\\Http\\\\Request\\.$#"
+			count: 1
+			path: repo/types/Http/Request.php
+
+		-
+			message: "#^Call to an undefined static method CustomNotification\\:\\:all\\(\\)\\.$#"
+			count: 1
+			path: repo/types/Notifications/DatabaseNotificationCollection.php
+
+		-
+			message: "#^Call to static method all\\(\\) on an unknown class Illuminate\\\\Notifications\\\\DatabaseNotification\\.$#"
+			count: 1
+			path: repo/types/Notifications/DatabaseNotificationCollection.php
+
+		-
+			message: "#^PHPDoc tag @extends has invalid type Illuminate\\\\Notifications\\\\DatabaseNotificationCollection\\.$#"
+			count: 1
+			path: repo/types/Notifications/DatabaseNotificationCollection.php
+
+		-
+			message: "#^Call to static method first\\(\\) on an unknown class Illuminate\\\\Support\\\\Arr\\.$#"
+			count: 12
+			path: repo/types/Support/Arr.php
+
+		-
+			message: "#^Call to an undefined static method CustomCollection\\:\\:make\\(\\)\\.$#"
+			count: 1
+			path: repo/types/Support/Collection.php
+
+		-
+			message: "#^Call to method filter\\(\\) on an unknown class Illuminate\\\\Support\\\\Collection\\.$#"
+			count: 1
+			path: repo/types/Support/Collection.php
+
+		-
+			message: "#^Cannot call method getIterator\\(\\) on array\\.$#"
+			count: 1
+			path: repo/types/Support/Collection.php
+
+		-
+			message: "#^Cannot call method offsetUnset\\(\\) on array\\<int, User\\>\\.$#"
+			count: 1
+			path: repo/types/Support/Collection.php
+
+		-
+			message: "#^Cannot call method toArray\\(\\) on array\\.$#"
+			count: 1
+			path: repo/types/Support/Collection.php
+
+		-
+			message: "#^Empty array passed to foreach\\.$#"
+			count: 1
+			path: repo/types/Support/Collection.php
+
+		-
+			message: "#^Function collect not found\\.$#"
+			count: 12
+			path: repo/types/Support/Collection.php
+
+		-
+			message: "#^Method Zoo\\:\\:getWithoutZebras\\(\\) has invalid return type Illuminate\\\\Support\\\\Collection\\.$#"
+			count: 2
+			path: repo/types/Support/Collection.php
+
+		-
+			message: "#^PHPDoc tag @extends has invalid type Illuminate\\\\Support\\\\Collection\\.$#"
+			count: 1
+			path: repo/types/Support/Collection.php
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$arrayable contains unknown class Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\.$#"
+			count: 1
+			path: repo/types/Support/Collection.php
+
+		-
+			message: "#^Property Zoo\\:\\:\\$animals has unknown class Illuminate\\\\Support\\\\Collection as its type\\.$#"
+			count: 2
+			path: repo/types/Support/Collection.php
+
+		-
+			message: "#^Call to static method get\\(\\) on an unknown class Illuminate\\\\Support\\\\Facades\\\\Cache\\.$#"
+			count: 3
+			path: repo/types/Support/Facades/Cache.php
+
+		-
+			message: "#^Call to static method pull\\(\\) on an unknown class Illuminate\\\\Support\\\\Facades\\\\Cache\\.$#"
+			count: 3
+			path: repo/types/Support/Facades/Cache.php
+
+		-
+			message: "#^Call to static method remember\\(\\) on an unknown class Illuminate\\\\Support\\\\Facades\\\\Cache\\.$#"
+			count: 1
+			path: repo/types/Support/Facades/Cache.php
+
+		-
+			message: "#^Call to static method rememberForever\\(\\) on an unknown class Illuminate\\\\Support\\\\Facades\\\\Cache\\.$#"
+			count: 1
+			path: repo/types/Support/Facades/Cache.php
+
+		-
+			message: "#^Call to static method sear\\(\\) on an unknown class Illuminate\\\\Support\\\\Facades\\\\Cache\\.$#"
+			count: 1
+			path: repo/types/Support/Facades/Cache.php
+
+		-
+			message: "#^Function now not found\\.$#"
+			count: 1
+			path: repo/types/Support/Facades/Cache.php
+
+		-
+			message: "#^Access to offset 'age' on an unknown class Illuminate\\\\Support\\\\Fluent\\.$#"
+			count: 2
+			path: repo/types/Support/Fluent.php
+
+		-
+			message: "#^Access to offset 'name' on an unknown class Illuminate\\\\Support\\\\Fluent\\.$#"
+			count: 1
+			path: repo/types/Support/Fluent.php
+
+		-
+			message: "#^Call to method get\\(\\) on an unknown class Illuminate\\\\Support\\\\Fluent\\.$#"
+			count: 3
+			path: repo/types/Support/Fluent.php
+
+		-
+			message: "#^Call to method getAttributes\\(\\) on an unknown class Illuminate\\\\Support\\\\Fluent\\.$#"
+			count: 1
+			path: repo/types/Support/Fluent.php
+
+		-
+			message: "#^Call to method jsonSerialize\\(\\) on an unknown class Illuminate\\\\Support\\\\Fluent\\.$#"
+			count: 1
+			path: repo/types/Support/Fluent.php
+
+		-
+			message: "#^Call to method toArray\\(\\) on an unknown class Illuminate\\\\Support\\\\Fluent\\.$#"
+			count: 1
+			path: repo/types/Support/Fluent.php
+
+		-
+			message: "#^Instantiated class Illuminate\\\\Support\\\\Fluent not found\\.$#"
+			count: 4
+			path: repo/types/Support/Fluent.php
+
+		-
+			message: "#^Function once not found\\.$#"
+			count: 2
+			path: repo/types/Support/Helpers.php
+
+		-
+			message: "#^Function optional not found\\.$#"
+			count: 2
+			path: repo/types/Support/Helpers.php
+
+		-
+			message: "#^Function rescue not found\\.$#"
+			count: 3
+			path: repo/types/Support/Helpers.php
+
+		-
+			message: "#^Function transform not found\\.$#"
+			count: 8
+			path: repo/types/Support/Helpers.php
+
+		-
+			message: "#^Function with not found\\.$#"
+			count: 10
+			path: repo/types/Support/Helpers.php
+
+		-
+			message: "#^Call to method all\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method average\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 4
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method avg\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 4
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method chunk\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method chunkWhile\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method collapse\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method collect\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method contains\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method containsStrict\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method crossJoin\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method duplicates\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method duplicatesStrict\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method each\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 3
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method every\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method except\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method filter\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 4
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method first\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 4
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method firstOrFail\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 4
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method firstWhere\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method flatten\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method forPage\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method get\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 3
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method getIterator\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method groupBy\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 4
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method has\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method intersect\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method intersectByKeys\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method keyBy\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method keys\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method last\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 4
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method make\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 50
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method map\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method mapInto\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method median\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 3
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method mode\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 3
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method nth\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method only\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method pad\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method partition\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method pipe\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method pipeInto\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method range\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method reduce\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method reject\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method replace\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method replaceRecursive\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method reverse\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method shuffle\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method skip\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method skipUntil\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method skipWhile\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method slice\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method sliding\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method sole\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method some\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method sort\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method sortBy\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 5
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method sortByDesc\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 5
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method sortDesc\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method split\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method splitIn\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method take\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method takeUntil\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method takeUntilTimeout\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method takeWhile\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method tap\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method tapEach\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method toArray\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method unique\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method uniqueStrict\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method unless\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 3
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method unlessEmpty\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 3
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method unlessNotEmpty\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 3
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method unwrap\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method values\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method when\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 3
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method whenEmpty\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 3
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method whenNotEmpty\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 3
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method whereNotNull\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method whereNull\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method wrap\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 4
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method zip\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to static method empty\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to static method make\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 67
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to static method times\\(\\) on an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 2
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Instantiated class Illuminate\\\\Support\\\\LazyCollection not found\\.$#"
+			count: 8
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Iterating over an object of an unknown class Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^PHPDoc tag @extends has invalid type Illuminate\\\\Support\\\\LazyCollection\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^PHPDoc tag @var for variable \\$arrayable contains unknown class Illuminate\\\\Contracts\\\\Support\\\\Arrayable\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Call to method explode\\(\\) on an unknown class Illuminate\\\\Support\\\\Stringable\\.$#"
+			count: 1
+			path: repo/types/Support/Stringable.php
+
+		-
+			message: "#^Call to method split\\(\\) on an unknown class Illuminate\\\\Support\\\\Stringable\\.$#"
+			count: 1
+			path: repo/types/Support/Stringable.php
+
+		-
+			message: "#^Call to method ucsplit\\(\\) on an unknown class Illuminate\\\\Support\\\\Stringable\\.$#"
+			count: 1
+			path: repo/types/Support/Stringable.php
+
+		-
+			message: "#^Instantiated class Illuminate\\\\Support\\\\Stringable not found\\.$#"
+			count: 1
+			path: repo/types/Support/Stringable.php
+
+		-
+			message: "#^Call to method call\\(\\) on an unknown class Illuminate\\\\Support\\\\Timebox\\.$#"
+			count: 1
+			path: repo/types/Support/Timebox.php
+
+		-
+			message: "#^Instantiated class Illuminate\\\\Support\\\\Timebox not found\\.$#"
+			count: 1
+			path: repo/types/Support/Timebox.php

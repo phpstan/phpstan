@@ -1,0 +1,3496 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Auth/Console/ClearResetsCommand.php
+
+		-
+			message: "#^Method Illuminate\\\\Auth\\\\Middleware\\\\RedirectIfAuthenticated\\:\\:handle\\(\\) has invalid return type Symfony\\\\Component\\\\HttpFoundation\\\\Response\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Auth/Middleware/RedirectIfAuthenticated.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Auth/Notifications/VerifyEmail.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Auth/Passwords/DatabaseTokenRepository.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:parse\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Auth/Passwords/DatabaseTokenRepository.php
+
+		-
+			message: "#^Call to static method createFromGlobals\\(\\) on an unknown class Symfony\\\\Component\\\\HttpFoundation\\\\Request\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Auth/SessionGuard.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Broadcasting/BroadcastEvent.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Broadcasting/BroadcastEvent.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Bus/ChainedBatch.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Bus/ChainedBatch.php
+
+		-
+			message: "#^Call to static method assertSame\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Bus/ChainedBatch.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 5
+			path: repo/src/Illuminate/Bus/ChainedBatch.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Bus/ChainedBatch.php
+
+		-
+			message: "#^Call to static method now\\(\\) on an unknown class Carbon\\\\CarbonImmutable\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Bus/ChainedBatch.php
+
+		-
+			message: "#^Call to static method createFromTimestamp\\(\\) on an unknown class Carbon\\\\CarbonImmutable\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Bus/DatabaseBatchRepository.php
+
+		-
+			message: "#^Call to static method createFromTimestamp\\(\\) on an unknown class Carbon\\\\CarbonImmutable\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Bus/DynamoBatchRepository.php
+
+		-
+			message: "#^Method Illuminate\\\\Bus\\\\DynamoBatchRepository\\:\\:getDynamoClient\\(\\) has invalid return type Aws\\\\DynamoDb\\\\DynamoDbClient\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Bus/DynamoBatchRepository.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Cache/ArrayLock.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 5
+			path: repo/src/Illuminate/Cache/ArrayStore.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Cache/ArrayStore.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Cache/Console/CacheTableCommand.php
+
+		-
+			message: "#^Access to constant OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputArgument\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Cache/Console/ClearCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Cache/Console/ClearCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Cache/Console/ClearCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Cache/Console/ForgetCommand.php
+
+		-
+			message: "#^Access to constant OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputArgument\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Cache/Console/PruneStaleTagsCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Cache/Console/PruneStaleTagsCommand.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Cache/DatabaseStore.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Cache/DatabaseStore.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 6
+			path: repo/src/Illuminate/Cache/DynamoDbStore.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Cache/DynamoDbStore.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Cache/FileStore.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Cache/FileStore.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Cache/Lock.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Cache/Lock.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Cache/MemcachedStore.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Cache/MemcachedStore.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Cache/RateLimiter.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Cache/RateLimiter.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Cache/RedisTagSet.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 4
+			path: repo/src/Illuminate/Cache/Repository.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Cache/Repository.php
+
+		-
+			message: "#^Function dd not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Collections/Collection.php
+
+		-
+			message: "#^Function dump not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Collections/Collection.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Collections/LazyCollection.php
+
+		-
+			message: "#^Function dd not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Collections/LazyCollection.php
+
+		-
+			message: "#^Function dump not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Collections/LazyCollection.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Application.php
+
+		-
+			message: "#^Illuminate\\\\Console\\\\Application\\:\\:__construct\\(\\) calls parent\\:\\:__construct\\(\\) but Illuminate\\\\Console\\\\Application does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Application.php
+
+		-
+			message: "#^Illuminate\\\\Console\\\\Application\\:\\:addToParent\\(\\) calls parent\\:\\:add\\(\\) but Illuminate\\\\Console\\\\Application does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Application.php
+
+		-
+			message: "#^Illuminate\\\\Console\\\\Application\\:\\:getDefaultInputDefinition\\(\\) calls parent\\:\\:getDefaultInputDefinition\\(\\) but Illuminate\\\\Console\\\\Application does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Application.php
+
+		-
+			message: "#^Method Illuminate\\\\Console\\\\Application\\:\\:add\\(\\) has invalid return type Symfony\\\\Component\\\\Console\\\\Command\\\\Command\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Application.php
+
+		-
+			message: "#^Method Illuminate\\\\Console\\\\Application\\:\\:getDefaultInputDefinition\\(\\) has invalid return type Symfony\\\\Component\\\\Console\\\\Input\\\\InputDefinition\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Application.php
+
+		-
+			message: "#^Illuminate\\\\Console\\\\BufferedConsoleOutput\\:\\:doWrite\\(\\) calls parent\\:\\:doWrite\\(\\) but Illuminate\\\\Console\\\\BufferedConsoleOutput does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/BufferedConsoleOutput.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Console/CacheCommandMutex.php
+
+		-
+			message: "#^Call to static method hour\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/CacheCommandMutex.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/CacheCommandMutex.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Access to constant VERBOSITY_DEBUG on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Access to constant VERBOSITY_NORMAL on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Access to constant VERBOSITY_QUIET on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Access to constant VERBOSITY_VERBOSE on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Access to constant VERBOSITY_VERY_VERBOSE on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Access to undefined constant Illuminate\\\\Console\\\\Command\\:\\:SUCCESS\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Access to undefined constant static\\(Illuminate\\\\Console\\\\Command\\)\\:\\:FAILURE\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Call to static method fallbackUsing\\(\\) on an unknown class Laravel\\\\Prompts\\\\ConfirmPrompt\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Call to static method fallbackUsing\\(\\) on an unknown class Laravel\\\\Prompts\\\\MultiSearchPrompt\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Call to static method fallbackUsing\\(\\) on an unknown class Laravel\\\\Prompts\\\\MultiSelectPrompt\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Call to static method fallbackUsing\\(\\) on an unknown class Laravel\\\\Prompts\\\\PasswordPrompt\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Call to static method fallbackUsing\\(\\) on an unknown class Laravel\\\\Prompts\\\\SearchPrompt\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Call to static method fallbackUsing\\(\\) on an unknown class Laravel\\\\Prompts\\\\SelectPrompt\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Call to static method fallbackUsing\\(\\) on an unknown class Laravel\\\\Prompts\\\\SuggestPrompt\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Call to static method fallbackUsing\\(\\) on an unknown class Laravel\\\\Prompts\\\\TextPrompt\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Call to static method fallbackUsing\\(\\) on an unknown class Laravel\\\\Prompts\\\\TextareaPrompt\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Call to static method fallbackWhen\\(\\) on an unknown class Laravel\\\\Prompts\\\\Prompt\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Call to static method interactive\\(\\) on an unknown class Laravel\\\\Prompts\\\\Prompt\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Call to static method setOutput\\(\\) on an unknown class Laravel\\\\Prompts\\\\Prompt\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Call to static method validateUsing\\(\\) on an unknown class Laravel\\\\Prompts\\\\Prompt\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\text not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Illuminate\\\\Console\\\\Command\\:\\:__construct\\(\\) calls parent\\:\\:__construct\\(\\) but Illuminate\\\\Console\\\\Command does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Illuminate\\\\Console\\\\Command\\:\\:configureUsingFluentDefinition\\(\\) calls parent\\:\\:__construct\\(\\) but Illuminate\\\\Console\\\\Command does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Illuminate\\\\Console\\\\Command\\:\\:interact\\(\\) calls parent\\:\\:interact\\(\\) but Illuminate\\\\Console\\\\Command does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Illuminate\\\\Console\\\\Command\\:\\:run\\(\\) calls parent\\:\\:run\\(\\) but Illuminate\\\\Console\\\\Command does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Illuminate\\\\Console\\\\Command\\:\\:setHidden\\(\\) calls parent\\:\\:setHidden\\(\\) but Illuminate\\\\Console\\\\Command does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Command.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\text not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Concerns/PromptsForMissingInput.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/ConfirmableTrait.php
+
+		-
+			message: "#^Method Illuminate\\\\Console\\\\ContainerCommandLoader\\:\\:get\\(\\) has invalid return type Symfony\\\\Component\\\\Console\\\\Command\\\\Command\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/ContainerCommandLoader.php
+
+		-
+			message: "#^Access to constant REQUIRED on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputArgument\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/GeneratorCommand.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Symfony\\\\Component\\\\Finder\\\\Finder\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Console/GeneratorCommand.php
+
+		-
+			message: "#^Access to undefined constant Illuminate\\\\Console\\\\OutputStyle\\:\\:OUTPUT_NORMAL\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/OutputStyle.php
+
+		-
+			message: "#^Illuminate\\\\Console\\\\OutputStyle\\:\\:__construct\\(\\) calls parent\\:\\:__construct\\(\\) but Illuminate\\\\Console\\\\OutputStyle does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/OutputStyle.php
+
+		-
+			message: "#^Illuminate\\\\Console\\\\OutputStyle\\:\\:askQuestion\\(\\) calls parent\\:\\:askQuestion\\(\\) but Illuminate\\\\Console\\\\OutputStyle does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/OutputStyle.php
+
+		-
+			message: "#^Illuminate\\\\Console\\\\OutputStyle\\:\\:newLine\\(\\) calls parent\\:\\:newLine\\(\\) but Illuminate\\\\Console\\\\OutputStyle does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/OutputStyle.php
+
+		-
+			message: "#^Illuminate\\\\Console\\\\OutputStyle\\:\\:write\\(\\) calls parent\\:\\:write\\(\\) but Illuminate\\\\Console\\\\OutputStyle does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/OutputStyle.php
+
+		-
+			message: "#^Illuminate\\\\Console\\\\OutputStyle\\:\\:writeln\\(\\) calls parent\\:\\:writeln\\(\\) but Illuminate\\\\Console\\\\OutputStyle does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/OutputStyle.php
+
+		-
+			message: "#^Access to constant IS_ARRAY on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputArgument\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Console/Parser.php
+
+		-
+			message: "#^Access to constant OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputArgument\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Console/Parser.php
+
+		-
+			message: "#^Access to constant REQUIRED on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputArgument\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Console/Parser.php
+
+		-
+			message: "#^Access to constant VALUE_IS_ARRAY on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Console/Parser.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Parser.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 4
+			path: repo/src/Illuminate/Console/Parser.php
+
+		-
+			message: "#^Call to static method escape\\(\\) on an unknown class Symfony\\\\Component\\\\Console\\\\Formatter\\\\OutputFormatter\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Console/QuestionHelper.php
+
+		-
+			message: "#^Call to static method escapeTrailingBackslash\\(\\) on an unknown class Symfony\\\\Component\\\\Console\\\\Formatter\\\\OutputFormatter\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/QuestionHelper.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Console/Scheduling/Event.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:parse\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Console/Scheduling/Event.php
+
+		-
+			message: "#^Call to static method fromShellCommandline\\(\\) on an unknown class Symfony\\\\Component\\\\Process\\\\Process\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Scheduling/Event.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Scheduling/ScheduleClearCacheCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Scheduling/ScheduleFinishCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Scheduling/ScheduleInterruptCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Scheduling/ScheduleListCommand.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:instance\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Console/Scheduling/ScheduleListCommand.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Console/Scheduling/ScheduleListCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Scheduling/ScheduleRunCommand.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Scheduling/ScheduleRunCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Scheduling/ScheduleTestCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\select not found\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Console/Scheduling/ScheduleTestCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\select not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Scheduling/ScheduleTestCommand.php
+
+		-
+			message: "#^Access to constant VERBOSITY_NORMAL on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Scheduling/ScheduleWorkCommand.php
+
+		-
+			message: "#^Access to constant VERBOSITY_VERBOSE on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Scheduling/ScheduleWorkCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Scheduling/ScheduleWorkCommand.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 4
+			path: repo/src/Illuminate/Console/Scheduling/ScheduleWorkCommand.php
+
+		-
+			message: "#^Call to static method fromShellCommandline\\(\\) on an unknown class Symfony\\\\Component\\\\Process\\\\Process\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/Scheduling/ScheduleWorkCommand.php
+
+		-
+			message: "#^Access to property \\$signalHandlers on an unknown class Symfony\\\\Component\\\\Console\\\\SignalRegistry\\\\SignalRegistry\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Console/Signals.php
+
+		-
+			message: "#^Access to constant VERBOSITY_NORMAL on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/View/Components/Alert.php
+
+		-
+			message: "#^Access to constant VERBOSITY_NORMAL on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/View/Components/BulletList.php
+
+		-
+			message: "#^Class class@anonymous/Illuminate/Console/View/Components/Choice\\.php\\:40 does not have a constructor and must be instantiated without any parameters\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/View/Components/Choice.php
+
+		-
+			message: "#^Function Termwind\\\\render not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/View/Components/Component.php
+
+		-
+			message: "#^Function Termwind\\\\renderUsing not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/View/Components/Component.php
+
+		-
+			message: "#^Used function Termwind\\\\render not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/View/Components/Component.php
+
+		-
+			message: "#^Used function Termwind\\\\renderUsing not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/View/Components/Component.php
+
+		-
+			message: "#^Access to constant VERBOSITY_NORMAL on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/View/Components/Error.php
+
+		-
+			message: "#^Access to constant VERBOSITY_NORMAL on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/View/Components/Info.php
+
+		-
+			message: "#^Access to constant VERBOSITY_NORMAL on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/View/Components/Line.php
+
+		-
+			message: "#^Access to constant VERBOSITY_NORMAL on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/View/Components/Task.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Console/View/Components/Task.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/View/Components/Task.php
+
+		-
+			message: "#^Function Termwind\\\\terminal not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/View/Components/Task.php
+
+		-
+			message: "#^Used function Termwind\\\\terminal not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/View/Components/Task.php
+
+		-
+			message: "#^Access to constant VERBOSITY_NORMAL on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/View/Components/TwoColumnDetail.php
+
+		-
+			message: "#^Access to constant VERBOSITY_NORMAL on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Console/View/Components/Warn.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Cookie/CookieJar.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Cookie/CookieJar.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Database/Connection.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Connection.php
+
+		-
+			message: "#^Access to undefined constant Illuminate\\\\Console\\\\Command\\:\\:FAILURE\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/DbCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/DbCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/DumpCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Factories/FactoryMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Factories/FactoryMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_IS_ARRAY on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/FreshCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 6
+			path: repo/src/Illuminate/Database/Console/Migrations/FreshCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 4
+			path: repo/src/Illuminate/Database/Console/Migrations/FreshCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/FreshCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/FreshCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/InstallCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/InstallCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/MigrateCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Database/Console/Migrations/MigrateCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/MigrateCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/MigrateMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_IS_ARRAY on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/RefreshCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Database/Console/Migrations/RefreshCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 4
+			path: repo/src/Illuminate/Database/Console/Migrations/RefreshCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/RefreshCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/RefreshCommand.php
+
+		-
+			message: "#^Access to constant VALUE_IS_ARRAY on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/ResetCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Database/Console/Migrations/ResetCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Database/Console/Migrations/ResetCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/ResetCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/ResetCommand.php
+
+		-
+			message: "#^Access to constant VALUE_IS_ARRAY on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/RollbackCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Database/Console/Migrations/RollbackCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Database/Console/Migrations/RollbackCommand.php
+
+		-
+			message: "#^Access to constant VALUE_REQUIRED on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/RollbackCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/RollbackCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/RollbackCommand.php
+
+		-
+			message: "#^Access to constant VALUE_IS_ARRAY on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/StatusCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/StatusCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Database/Console/Migrations/StatusCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Migrations/StatusCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/MonitorCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/PruneCommand.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Symfony\\\\Component\\\\Finder\\\\Finder\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/PruneCommand.php
+
+		-
+			message: "#^Access to constant OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputArgument\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Seeds/SeedCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Seeds/SeedCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Database/Console/Seeds/SeedCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Seeds/SeedCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Seeds/SeedCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/Seeds/SeederMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/ShowCommand.php
+
+		-
+			message: "#^Access to constant VERBOSITY_VERBOSE on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/ShowModelCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/ShowModelCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/TableCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\select not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/TableCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\select not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/TableCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Database/Console/WipeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/WipeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/WipeCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Console/WipeCommand.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Faker\\\\Factory\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/DatabaseServiceProvider.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Eloquent/Factories/Factory.php
+
+		-
+			message: "#^Access to constant HALF_UP on an unknown class Brick\\\\Math\\\\RoundingMode\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Eloquent/Model.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:createFromFormat\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Eloquent/Model.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:instance\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Eloquent/Model.php
+
+		-
+			message: "#^Call to static method instance\\(\\) on an unknown class Carbon\\\\CarbonImmutable\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Eloquent/Model.php
+
+		-
+			message: "#^Call to static method of\\(\\) on an unknown class Brick\\\\Math\\\\BigDecimal\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Eloquent/Model.php
+
+		-
+			message: "#^Function dd not found\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Database/Query/Builder.php
+
+		-
+			message: "#^Function dump not found\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Database/Query/Builder.php
+
+		-
+			message: "#^Call to static method fromShellCommandLine\\(\\) on an unknown class Symfony\\\\Component\\\\Process\\\\Process\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Database/Schema/MySqlSchemaState.php
+
+		-
+			message: "#^Call to static method fromShellCommandline\\(\\) on an unknown class Symfony\\\\Component\\\\Process\\\\Process\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Database/Schema/SchemaState.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Events/CallQueuedListener.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Events/CallQueuedListener.php
+
+		-
+			message: "#^Call to static method assertSame\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Events/CallQueuedListener.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 5
+			path: repo/src/Illuminate/Events/CallQueuedListener.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Events/CallQueuedListener.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Symfony\\\\Component\\\\Finder\\\\Finder\\.$#"
+			count: 4
+			path: repo/src/Illuminate/Filesystem/Filesystem.php
+
+		-
+			message: "#^Access to constant PRIVATE on an unknown class League\\\\Flysystem\\\\Visibility\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Filesystem/FilesystemAdapter.php
+
+		-
+			message: "#^Access to constant PUBLIC on an unknown class League\\\\Flysystem\\\\Visibility\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Filesystem/FilesystemAdapter.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Filesystem/FilesystemAdapter.php
+
+		-
+			message: "#^Call to static method assertFalse\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Filesystem/FilesystemAdapter.php
+
+		-
+			message: "#^Call to static method assertSame\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Filesystem/FilesystemAdapter.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Filesystem/FilesystemAdapter.php
+
+		-
+			message: "#^Class Illuminate\\\\Http\\\\File does not have a constructor and must be instantiated without any parameters\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Filesystem/FilesystemAdapter.php
+
+		-
+			message: "#^Access to constant DISALLOW_LINKS on an unknown class League\\\\Flysystem\\\\Local\\\\LocalFilesystemAdapter\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Filesystem/FilesystemManager.php
+
+		-
+			message: "#^Access to constant PRIVATE on an unknown class League\\\\Flysystem\\\\Visibility\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Filesystem/FilesystemManager.php
+
+		-
+			message: "#^Access to constant PUBLIC on an unknown class League\\\\Flysystem\\\\Visibility\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Filesystem/FilesystemManager.php
+
+		-
+			message: "#^Access to constant SKIP_LINKS on an unknown class League\\\\Flysystem\\\\Local\\\\LocalFilesystemAdapter\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Filesystem/FilesystemManager.php
+
+		-
+			message: "#^Call to static method fromArray\\(\\) on an unknown class League\\\\Flysystem\\\\Ftp\\\\FtpConnectionOptions\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Filesystem/FilesystemManager.php
+
+		-
+			message: "#^Call to static method fromArray\\(\\) on an unknown class League\\\\Flysystem\\\\PhpseclibV3\\\\SftpConnectionProvider\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Filesystem/FilesystemManager.php
+
+		-
+			message: "#^Call to static method fromArray\\(\\) on an unknown class League\\\\Flysystem\\\\UnixVisibility\\\\PortableVisibilityConverter\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Filesystem/FilesystemManager.php
+
+		-
+			message: "#^Access to undefined constant Illuminate\\\\Foundation\\\\Application\\:\\:MAIN_REQUEST\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Application.php
+
+		-
+			message: "#^Method Illuminate\\\\Foundation\\\\Application\\:\\:handle\\(\\) has invalid return type Symfony\\\\Component\\\\HttpFoundation\\\\Response\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Application.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Symfony\\\\Component\\\\Finder\\\\Finder\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Dotenv\\\\Dotenv\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Bootstrap/LoadEnvironmentVariables.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/AboutCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ApiInstallCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/BroadcastingInstallCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Console/BroadcastingInstallCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/BroadcastingInstallCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Console/CastMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/CastMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ChannelListCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ChannelMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ChannelMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Console/ClassMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ClassMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ClearCompiledCommand.php
+
+		-
+			message: "#^Access to constant UNSET_CLOSURE_FILE_INFO on an unknown class Symfony\\\\Component\\\\VarDumper\\\\Caster\\\\ReflectionCaster\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/CliDumper.php
+
+		-
+			message: "#^Call to static method setHandler\\(\\) on an unknown class Symfony\\\\Component\\\\VarDumper\\\\VarDumper\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/CliDumper.php
+
+		-
+			message: "#^Illuminate\\\\Foundation\\\\Console\\\\CliDumper\\:\\:__construct\\(\\) calls parent\\:\\:__construct\\(\\) but Illuminate\\\\Foundation\\\\Console\\\\CliDumper does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/CliDumper.php
+
+		-
+			message: "#^Access to undefined constant static\\(Illuminate\\\\Foundation\\\\Console\\\\ClosureCommand\\)\\:\\:FAILURE\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ClosureCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 4
+			path: repo/src/Illuminate/Foundation/Console/ComponentMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ComponentMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ConfigCacheCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ConfigClearCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ConfigPublishCommand.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Symfony\\\\Component\\\\Finder\\\\Finder\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ConfigPublishCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\select not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ConfigPublishCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\select not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ConfigPublishCommand.php
+
+		-
+			message: "#^Access to undefined constant Illuminate\\\\Console\\\\Command\\:\\:FAILURE\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ConfigShowCommand.php
+
+		-
+			message: "#^Access to undefined constant Illuminate\\\\Console\\\\Command\\:\\:SUCCESS\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ConfigShowCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ConfigShowCommand.php
+
+		-
+			message: "#^Access to constant REQUIRED on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputArgument\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ConsoleMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Console/ConsoleMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ConsoleMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ConsoleMakeCommand.php
+
+		-
+			message: "#^Access to undefined constant Illuminate\\\\Console\\\\Command\\:\\:SUCCESS\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/DocsCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/DocsCommand.php
+
+		-
+			message: "#^Call to static method fromShellCommandline\\(\\) on an unknown class Symfony\\\\Component\\\\Process\\\\Process\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Console/DocsCommand.php
+
+		-
+			message: "#^Call to static method months\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Console/DocsCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\suggest not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/DocsCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\suggest not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/DocsCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/DownCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Foundation/Console/EnumMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/EnumMakeCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\select not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/EnumMakeCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\select not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/EnumMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/EnvironmentCommand.php
+
+		-
+			message: "#^Access to undefined constant Illuminate\\\\Console\\\\Command\\:\\:FAILURE\\.$#"
+			count: 5
+			path: repo/src/Illuminate/Foundation/Console/EnvironmentDecryptCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/EnvironmentDecryptCommand.php
+
+		-
+			message: "#^Access to undefined constant Illuminate\\\\Console\\\\Command\\:\\:FAILURE\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Foundation/Console/EnvironmentEncryptCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/EnvironmentEncryptCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/EventCacheCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/EventClearCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/EventGenerateCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/EventListCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/EventMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/EventMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Foundation/Console/ExceptionMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ExceptionMakeCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Console/ExceptionMakeCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ExceptionMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/InterfaceMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/InterfaceMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Foundation/Console/JobMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/JobMakeCommand.php
+
+		-
+			message: "#^Access to constant COMMAND on an unknown class Symfony\\\\Component\\\\Console\\\\ConsoleEvents\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/Kernel.php
+
+		-
+			message: "#^Access to constant TERMINATE on an unknown class Symfony\\\\Component\\\\Console\\\\ConsoleEvents\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/Kernel.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 5
+			path: repo/src/Illuminate/Foundation/Console/Kernel.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Symfony\\\\Component\\\\Finder\\\\Finder\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/Kernel.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/Kernel.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/KeyGenerateCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/KeyGenerateCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/LangPublishCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Foundation/Console/ListenerMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ListenerMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ListenerMakeCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\suggest not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ListenerMakeCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\suggest not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ListenerMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Console/MailMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Console/MailMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/MailMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 13
+			path: repo/src/Illuminate/Foundation/Console/ModelMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ModelMakeCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\multiselect not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ModelMakeCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\multiselect not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ModelMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Console/NotificationMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/NotificationMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/NotificationMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ObserverMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ObserverMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ObserverMakeCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\suggest not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ObserverMakeCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\suggest not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ObserverMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/OptimizeClearCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/OptimizeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/PackageDiscoverCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/PolicyMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Console/PolicyMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/PolicyMakeCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\suggest not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/PolicyMakeCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\suggest not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/PolicyMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ProviderMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ProviderMakeCommand.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/QueuedCommand.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Console/QueuedCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/RequestMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/RequestMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Console/ResourceMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ResourceMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/RouteCacheCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/RouteClearCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 4
+			path: repo/src/Illuminate/Foundation/Console/RouteListCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 6
+			path: repo/src/Illuminate/Foundation/Console/RouteListCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/RouteListCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Console/RuleMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/RuleMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ScopeMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ScopeMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ServeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Foundation/Console/ServeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ServeCommand.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:createFromFormat\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ServeCommand.php
+
+		-
+			message: "#^Function Termwind\\\\terminal not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ServeCommand.php
+
+		-
+			message: "#^Used function Termwind\\\\terminal not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ServeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/StorageLinkCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/StorageUnlinkCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/StubPublishCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 4
+			path: repo/src/Illuminate/Foundation/Console/TestMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/TestMakeCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\select not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/TestMakeCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\select not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/TestMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/TraitMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/TraitMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/UpCommand.php
+
+		-
+			message: "#^Access to constant PUBLIC on an unknown class League\\\\Flysystem\\\\Visibility\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/VendorPublishCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/VendorPublishCommand.php
+
+		-
+			message: "#^Call to static method fromArray\\(\\) on an unknown class League\\\\Flysystem\\\\UnixVisibility\\\\PortableVisibilityConverter\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/VendorPublishCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\search not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/VendorPublishCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\select not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/VendorPublishCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\search not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/VendorPublishCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\select not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/VendorPublishCommand.php
+
+		-
+			message: "#^Access to constant VERBOSITY_VERBOSE on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ViewCacheCommand.php
+
+		-
+			message: "#^Access to constant VERBOSITY_VERY_VERBOSE on an unknown class Symfony\\\\Component\\\\Console\\\\Output\\\\OutputInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ViewCacheCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ViewCacheCommand.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Symfony\\\\Component\\\\Finder\\\\Finder\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ViewCacheCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ViewClearCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Console/ViewMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ViewMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/ViewMakeCommand.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Symfony\\\\Component\\\\Finder\\\\Finder\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Events/DiscoverEvents.php
+
+		-
+			message: "#^Access to constant ERROR on an unknown class Psr\\\\Log\\\\LogLevel\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Exceptions/Handler.php
+
+		-
+			message: "#^Class Illuminate\\\\Http\\\\RedirectResponse does not have a constructor and must be instantiated without any parameters\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Exceptions/Handler.php
+
+		-
+			message: "#^Access to constant UNSET_CLOSURE_FILE_INFO on an unknown class Symfony\\\\Component\\\\VarDumper\\\\Caster\\\\ReflectionCaster\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Http/HtmlDumper.php
+
+		-
+			message: "#^Call to static method setHandler\\(\\) on an unknown class Symfony\\\\Component\\\\VarDumper\\\\VarDumper\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Http/HtmlDumper.php
+
+		-
+			message: "#^Illuminate\\\\Foundation\\\\Http\\\\HtmlDumper\\:\\:__construct\\(\\) calls parent\\:\\:__construct\\(\\) but Illuminate\\\\Foundation\\\\Http\\\\HtmlDumper does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Http/HtmlDumper.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 5
+			path: repo/src/Illuminate/Foundation/Http/Kernel.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Http/Kernel.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Http/MaintenanceModeBypassCookie.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php
+
+		-
+			message: "#^Access to static property \\$defaultCasters on an unknown class Symfony\\\\Component\\\\VarDumper\\\\Cloner\\\\AbstractCloner\\.$#"
+			count: 10
+			path: repo/src/Illuminate/Foundation/Providers/FoundationServiceProvider.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Testing/TestCase.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertStringContainsString\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Testing/TestCase.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertTrue\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Testing/TestCase.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:fail\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Testing/TestCase.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Symfony\\\\Component\\\\HttpFoundation\\\\Request\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Testing/TestCase.php
+
+		-
+			message: "#^Call to static method getInstance\\(\\) on an unknown class PHPUnit\\\\Metadata\\\\Annotation\\\\Parser\\\\Registry\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Testing/TestCase.php
+
+		-
+			message: "#^Call to static method mock\\(\\) on an unknown class Mockery\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Foundation/Testing/TestCase.php
+
+		-
+			message: "#^Call to static method spy\\(\\) on an unknown class Mockery\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/Testing/TestCase.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 9
+			path: repo/src/Illuminate/Foundation/Testing/Wormhole.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Faker\\\\Factory\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Foundation/helpers.php
+
+		-
+			message: "#^Call to static method assertCount\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Client/Factory.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Client/Factory.php
+
+		-
+			message: "#^Call to static method assertFalse\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Client/Factory.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Http/Client/Factory.php
+
+		-
+			message: "#^Call to static method mapRequest\\(\\) on an unknown class GuzzleHttp\\\\Middleware\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Client/Factory.php
+
+		-
+			message: "#^Call to static method mapResponse\\(\\) on an unknown class GuzzleHttp\\\\Middleware\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Client/Factory.php
+
+		-
+			message: "#^Call to static method promiseFor\\(\\) on an unknown class GuzzleHttp\\\\Promise\\\\Create\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Client/Factory.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class GuzzleHttp\\\\HandlerStack\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Client/PendingRequest.php
+
+		-
+			message: "#^Call to static method dump\\(\\) on an unknown class Symfony\\\\Component\\\\VarDumper\\\\VarDumper\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Http/Client/PendingRequest.php
+
+		-
+			message: "#^Call to static method expand\\(\\) on an unknown class GuzzleHttp\\\\UriTemplate\\\\UriTemplate\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Client/PendingRequest.php
+
+		-
+			message: "#^Call to static method fromArray\\(\\) on an unknown class GuzzleHttp\\\\Cookie\\\\CookieJar\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Client/PendingRequest.php
+
+		-
+			message: "#^Call to static method mapRequest\\(\\) on an unknown class GuzzleHttp\\\\Middleware\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Client/PendingRequest.php
+
+		-
+			message: "#^Call to static method mapResponse\\(\\) on an unknown class GuzzleHttp\\\\Middleware\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Client/PendingRequest.php
+
+		-
+			message: "#^Call to static method chooseHandler\\(\\) on an unknown class GuzzleHttp\\\\Utils\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Client/Pool.php
+
+		-
+			message: "#^Call to static method bodySummary\\(\\) on an unknown class GuzzleHttp\\\\Psr7\\\\Message\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Client/RequestException.php
+
+		-
+			message: "#^Illuminate\\\\Http\\\\Exceptions\\\\PostTooLargeException\\:\\:__construct\\(\\) calls parent\\:\\:__construct\\(\\) but Illuminate\\\\Http\\\\Exceptions\\\\PostTooLargeException does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Exceptions/PostTooLargeException.php
+
+		-
+			message: "#^Illuminate\\\\Http\\\\Exceptions\\\\ThrottleRequestsException\\:\\:__construct\\(\\) calls parent\\:\\:__construct\\(\\) but Illuminate\\\\Http\\\\Exceptions\\\\ThrottleRequestsException does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Exceptions/ThrottleRequestsException.php
+
+		-
+			message: "#^Illuminate\\\\Http\\\\JsonResponse\\:\\:__construct\\(\\) calls parent\\:\\:__construct\\(\\) but Illuminate\\\\Http\\\\JsonResponse does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/JsonResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:createFromTimestamp\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Middleware/SetCacheHeaders.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:parse\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Middleware/SetCacheHeaders.php
+
+		-
+			message: "#^Access to undefined constant Illuminate\\\\Http\\\\Request\\:\\:HEADER_X_FORWARDED_AWS_ELB\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Middleware/TrustProxies.php
+
+		-
+			message: "#^Access to undefined constant Illuminate\\\\Http\\\\Request\\:\\:HEADER_X_FORWARDED_FOR\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Middleware/TrustProxies.php
+
+		-
+			message: "#^Access to undefined constant Illuminate\\\\Http\\\\Request\\:\\:HEADER_X_FORWARDED_HOST\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Middleware/TrustProxies.php
+
+		-
+			message: "#^Access to undefined constant Illuminate\\\\Http\\\\Request\\:\\:HEADER_X_FORWARDED_PORT\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Middleware/TrustProxies.php
+
+		-
+			message: "#^Access to undefined constant Illuminate\\\\Http\\\\Request\\:\\:HEADER_X_FORWARDED_PROTO\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Middleware/TrustProxies.php
+
+		-
+			message: "#^Call to static method createFromGlobals\\(\\) on an unknown class Symfony\\\\Component\\\\HttpFoundation\\\\Request\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Request.php
+
+		-
+			message: "#^Function dd not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Request.php
+
+		-
+			message: "#^Function dump not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Request.php
+
+		-
+			message: "#^Illuminate\\\\Http\\\\Request\\:\\:duplicate\\(\\) calls parent\\:\\:duplicate\\(\\) but Illuminate\\\\Http\\\\Request does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Request.php
+
+		-
+			message: "#^Illuminate\\\\Http\\\\Request\\:\\:get\\(\\) calls parent\\:\\:get\\(\\) but Illuminate\\\\Http\\\\Request does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Request.php
+
+		-
+			message: "#^Method Illuminate\\\\Http\\\\Request\\:\\:getSession\\(\\) has invalid return type Symfony\\\\Component\\\\HttpFoundation\\\\Session\\\\SessionInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Request.php
+
+		-
+			message: "#^Illuminate\\\\Http\\\\Response\\:\\:setContent\\(\\) calls parent\\:\\:setContent\\(\\) but Illuminate\\\\Http\\\\Response does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Http/Response.php
+
+		-
+			message: "#^Access to constant Alert on an unknown class Monolog\\\\Level\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Log/LogManager.php
+
+		-
+			message: "#^Access to constant Critical on an unknown class Monolog\\\\Level\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Log/LogManager.php
+
+		-
+			message: "#^Access to constant Debug on an unknown class Monolog\\\\Level\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Log/LogManager.php
+
+		-
+			message: "#^Access to constant Emergency on an unknown class Monolog\\\\Level\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Log/LogManager.php
+
+		-
+			message: "#^Access to constant Error on an unknown class Monolog\\\\Level\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Log/LogManager.php
+
+		-
+			message: "#^Access to constant Info on an unknown class Monolog\\\\Level\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Log/LogManager.php
+
+		-
+			message: "#^Access to constant Notice on an unknown class Monolog\\\\Level\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Log/LogManager.php
+
+		-
+			message: "#^Access to constant OPERATING_SYSTEM on an unknown class Monolog\\\\Handler\\\\ErrorLogHandler\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Log/LogManager.php
+
+		-
+			message: "#^Access to constant Warning on an unknown class Monolog\\\\Level\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Log/LogManager.php
+
+		-
+			message: "#^Call to static method client\\(\\) on an unknown class Resend\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Mail/MailManager.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Symfony\\\\Component\\\\HttpClient\\\\HttpClient\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Mail/MailManager.php
+
+		-
+			message: "#^Call to static method assertStringContainsString\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Mail/Mailable.php
+
+		-
+			message: "#^Call to static method assertStringNotContainsString\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Mail/Mailable.php
+
+		-
+			message: "#^Call to static method assertThat\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Mail/Mailable.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 12
+			path: repo/src/Illuminate/Mail/Mailable.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Symfony\\\\Component\\\\Mailer\\\\Envelope\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Mail/Mailer.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Mail/SendQueuedMailable.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Mail/SendQueuedMailable.php
+
+		-
+			message: "#^Call to static method assertSame\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Mail/SendQueuedMailable.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 5
+			path: repo/src/Illuminate/Mail/SendQueuedMailable.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Mail/SendQueuedMailable.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Symfony\\\\Component\\\\Mailer\\\\Envelope\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Mail/Transport/ArrayTransport.php
+
+		-
+			message: "#^Method Illuminate\\\\Mail\\\\Transport\\\\ArrayTransport\\:\\:send\\(\\) has invalid return type Symfony\\\\Component\\\\Mailer\\\\SentMessage\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Mail/Transport/ArrayTransport.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Symfony\\\\Component\\\\Mailer\\\\Envelope\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Mail/Transport/LogTransport.php
+
+		-
+			message: "#^Method Illuminate\\\\Mail\\\\Transport\\\\LogTransport\\:\\:send\\(\\) has invalid return type Symfony\\\\Component\\\\Mailer\\\\SentMessage\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Mail/Transport/LogTransport.php
+
+		-
+			message: "#^Call to static method toEmail\\(\\) on an unknown class Symfony\\\\Component\\\\Mime\\\\MessageConverter\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Mail/Transport/ResendTransport.php
+
+		-
+			message: "#^Illuminate\\\\Mail\\\\Transport\\\\ResendTransport\\:\\:__construct\\(\\) calls parent\\:\\:__construct\\(\\) but Illuminate\\\\Mail\\\\Transport\\\\ResendTransport does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Mail/Transport/ResendTransport.php
+
+		-
+			message: "#^Property Illuminate\\\\Mail\\\\Transport\\\\ResendTransport\\:\\:\\$resend has unknown class Resend\\\\Contracts\\\\Client as its type\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Mail/Transport/ResendTransport.php
+
+		-
+			message: "#^Illuminate\\\\Mail\\\\Transport\\\\SesTransport\\:\\:__construct\\(\\) calls parent\\:\\:__construct\\(\\) but Illuminate\\\\Mail\\\\Transport\\\\SesTransport does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Mail/Transport/SesTransport.php
+
+		-
+			message: "#^Illuminate\\\\Mail\\\\Transport\\\\SesV2Transport\\:\\:__construct\\(\\) calls parent\\:\\:__construct\\(\\) but Illuminate\\\\Mail\\\\Transport\\\\SesV2Transport does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Mail/Transport/SesV2Transport.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Notifications/Console/NotificationTableCommand.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Notifications/Events/BroadcastNotificationCreated.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Notifications/Events/BroadcastNotificationCreated.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Notifications/Events/NotificationFailed.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Notifications/Events/NotificationFailed.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Notifications/Events/NotificationSending.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Notifications/Events/NotificationSending.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Notifications/Events/NotificationSent.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Notifications/Events/NotificationSent.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Notifications/Messages/BroadcastMessage.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Notifications/Messages/BroadcastMessage.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Notifications/SendQueuedNotifications.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Notifications/SendQueuedNotifications.php
+
+		-
+			message: "#^Call to static method assertSame\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Notifications/SendQueuedNotifications.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 5
+			path: repo/src/Illuminate/Notifications/SendQueuedNotifications.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Notifications/SendQueuedNotifications.php
+
+		-
+			message: "#^Illuminate\\\\Process\\\\Exceptions\\\\ProcessTimedOutException\\:\\:__construct\\(\\) calls parent\\:\\:__construct\\(\\) but Illuminate\\\\Process\\\\Exceptions\\\\ProcessTimedOutException does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Process/Exceptions/ProcessTimedOutException.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Process/Factory.php
+
+		-
+			message: "#^Call to static method assertSame\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Process/Factory.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Process/Factory.php
+
+		-
+			message: "#^Call to static method fromShellCommandline\\(\\) on an unknown class Symfony\\\\Component\\\\Process\\\\Process\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Process/FakeProcessDescription.php
+
+		-
+			message: "#^Call to static method fromShellCommandline\\(\\) on an unknown class Symfony\\\\Component\\\\Process\\\\Process\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Process/PendingProcess.php
+
+		-
+			message: "#^Access to constant DEFAULT_DELAY on an unknown class Pheanstalk\\\\Pheanstalk\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/BeanstalkdQueue.php
+
+		-
+			message: "#^Access to constant DEFAULT_PRIORITY on an unknown class Pheanstalk\\\\Pheanstalk\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Queue/BeanstalkdQueue.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Queue/CallQueuedClosure.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/CallQueuedClosure.php
+
+		-
+			message: "#^Call to static method assertSame\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/CallQueuedClosure.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 5
+			path: repo/src/Illuminate/Queue/CallQueuedClosure.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/CallQueuedClosure.php
+
+		-
+			message: "#^Call to static method now\\(\\) on an unknown class Carbon\\\\CarbonImmutable\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/CallQueuedClosure.php
+
+		-
+			message: "#^Access to constant DEFAULT_PORT on an unknown class Pheanstalk\\\\Contract\\\\SocketFactoryInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Connectors/BeanstalkdConnector.php
+
+		-
+			message: "#^Access to constant DEFAULT_TTR on an unknown class Pheanstalk\\\\Pheanstalk\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Connectors/BeanstalkdConnector.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Pheanstalk\\\\Pheanstalk\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Connectors/BeanstalkdConnector.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/BatchesTableCommand.php
+
+		-
+			message: "#^Access to constant OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputArgument\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/ClearCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/ClearCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/ClearCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/ClearCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/ClearCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/FailedTableCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/FlushFailedCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/ForgetFailedCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/ListFailedCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/ListenCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/MonitorCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/PruneBatchesCommand.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Queue/Console/PruneBatchesCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/PruneFailedJobsCommand.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/PruneFailedJobsCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/RestartCommand.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Queue/Console/RestartCommand.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/RestartCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/RetryBatchCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/RetryCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/TableCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/WorkCommand.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 5
+			path: repo/src/Illuminate/Queue/Console/WorkCommand.php
+
+		-
+			message: "#^Call to static method hasSttyAvailable\\(\\) on an unknown class Symfony\\\\Component\\\\Console\\\\Terminal\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/WorkCommand.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/WorkCommand.php
+
+		-
+			message: "#^Function Termwind\\\\terminal not found\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Queue/Console/WorkCommand.php
+
+		-
+			message: "#^Used function Termwind\\\\terminal not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Console/WorkCommand.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/DatabaseQueue.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:createFromTimestamp\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Queue/Failed/DynamoDbFailedJobProvider.php
+
+		-
+			message: "#^Access to constant DEFAULT_PRIORITY on an unknown class Pheanstalk\\\\Pheanstalk\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Jobs/BeanstalkdJob.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Queue/Jobs/DatabaseJobRecord.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Jobs/DatabaseJobRecord.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Queue/Jobs/Job.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Jobs/Job.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Queue/Middleware/RateLimitedWithRedis.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Middleware/RateLimitedWithRedis.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Queue/Middleware/ThrottlesExceptionsWithRedis.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Middleware/ThrottlesExceptionsWithRedis.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Queue/Middleware/WithoutOverlapping.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Middleware/WithoutOverlapping.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Queue/Queue.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/Queue.php
+
+		-
+			message: "#^Call to static method resolveUseVariablesUsing\\(\\) on an unknown class Laravel\\\\SerializableClosure\\\\SerializableClosure\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/QueueServiceProvider.php
+
+		-
+			message: "#^Call to static method transformUseVariablesUsing\\(\\) on an unknown class Laravel\\\\SerializableClosure\\\\SerializableClosure\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Queue/QueueServiceProvider.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Queue/Worker.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Redis/Limiters/ConcurrencyLimiterBuilder.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Redis/Limiters/ConcurrencyLimiterBuilder.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Redis/Limiters/DurationLimiterBuilder.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Redis/Limiters/DurationLimiterBuilder.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 8
+			path: repo/src/Illuminate/Routing/Console/ControllerMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_OPTIONAL on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Routing/Console/ControllerMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_REQUIRED on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Routing/Console/ControllerMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Routing/Console/ControllerMakeCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Routing/Console/ControllerMakeCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\select not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Routing/Console/ControllerMakeCommand.php
+
+		-
+			message: "#^Function Laravel\\\\Prompts\\\\suggest not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Routing/Console/ControllerMakeCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\confirm not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Routing/Console/ControllerMakeCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\select not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Routing/Console/ControllerMakeCommand.php
+
+		-
+			message: "#^Used function Laravel\\\\Prompts\\\\suggest not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Routing/Console/ControllerMakeCommand.php
+
+		-
+			message: "#^Access to constant VALUE_NONE on an unknown class Symfony\\\\Component\\\\Console\\\\Input\\\\InputOption\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Routing/Console/MiddlewareMakeCommand.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Routing/Console/MiddlewareMakeCommand.php
+
+		-
+			message: "#^Illuminate\\\\Routing\\\\Exceptions\\\\InvalidSignatureException\\:\\:__construct\\(\\) calls parent\\:\\:__construct\\(\\) but Illuminate\\\\Routing\\\\Exceptions\\\\InvalidSignatureException does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Routing/Exceptions/InvalidSignatureException.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Routing/Middleware/ThrottleRequests.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Routing/Middleware/ThrottleRequests.php
+
+		-
+			message: "#^Class Illuminate\\\\Http\\\\RedirectResponse does not have a constructor and must be instantiated without any parameters\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Routing/RedirectController.php
+
+		-
+			message: "#^Class Illuminate\\\\Http\\\\RedirectResponse does not have a constructor and must be instantiated without any parameters\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Routing/Redirector.php
+
+		-
+			message: "#^Access to undefined constant Illuminate\\\\Http\\\\JsonResponse\\:\\:DEFAULT_ENCODING_OPTIONS\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Routing/ResponseFactory.php
+
+		-
+			message: "#^Call to static method unsigned\\(\\) on an unknown class Laravel\\\\SerializableClosure\\\\SerializableClosure\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Routing/Route.php
+
+		-
+			message: "#^Access to undefined constant Illuminate\\\\Http\\\\Response\\:\\:HTTP_NOT_MODIFIED\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Routing/Router.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 4
+			path: repo/src/Illuminate/Routing/UrlGenerator.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Routing/UrlGenerator.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Session/ArraySessionHandler.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Session/ArraySessionHandler.php
+
+		-
+			message: "#^Attribute class Symfony\\\\Component\\\\Console\\\\Attribute\\\\AsCommand does not exist\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Session/Console/SessionTableCommand.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Session/CookieSessionHandler.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Session/CookieSessionHandler.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 4
+			path: repo/src/Illuminate/Session/DatabaseSessionHandler.php
+
+		-
+			message: "#^Call to static method milliseconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Session/DatabaseSessionHandler.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Session/FileSessionHandler.php
+
+		-
+			message: "#^Call to static method create\\(\\) on an unknown class Symfony\\\\Component\\\\Finder\\\\Finder\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Session/FileSessionHandler.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Session/Middleware/StartSession.php
+
+		-
+			message: "#^Method Illuminate\\\\Session\\\\SymfonySessionDecorator\\:\\:getBag\\(\\) has invalid return type Symfony\\\\Component\\\\HttpFoundation\\\\Session\\\\SessionBagInterface\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Session/SymfonySessionDecorator.php
+
+		-
+			message: "#^Method Illuminate\\\\Session\\\\SymfonySessionDecorator\\:\\:getMetadataBag\\(\\) has invalid return type Symfony\\\\Component\\\\HttpFoundation\\\\Session\\\\Storage\\\\MetadataBag\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Session/SymfonySessionDecorator.php
+
+		-
+			message: "#^Function dd not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Benchmark.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:createFromInterface\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Carbon.php
+
+		-
+			message: "#^Call to static method fromString\\(\\) on an unknown class Ramsey\\\\Uuid\\\\Uuid\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Carbon.php
+
+		-
+			message: "#^Call to static method fromString\\(\\) on an unknown class Symfony\\\\Component\\\\Uid\\\\Ulid\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Carbon.php
+
+		-
+			message: "#^Call to static method isValid\\(\\) on an unknown class Symfony\\\\Component\\\\Uid\\\\Ulid\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Carbon.php
+
+		-
+			message: "#^Call to static method setTestNow\\(\\) on an unknown class Carbon\\\\Carbon\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Carbon.php
+
+		-
+			message: "#^Call to static method setTestNow\\(\\) on an unknown class Carbon\\\\CarbonImmutable\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Carbon.php
+
+		-
+			message: "#^Function dd not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Carbon.php
+
+		-
+			message: "#^Function dump not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Carbon.php
+
+		-
+			message: "#^Call to static method createWithDefaultAdapters\\(\\) on an unknown class Dotenv\\\\Repository\\\\RepositoryBuilder\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Env.php
+
+		-
+			message: "#^Call to static method fromValue\\(\\) on an unknown class PhpOption\\\\Option\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Env.php
+
+		-
+			message: "#^Call to static method mock\\(\\) on an unknown class Mockery\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Support/Facades/Facade.php
+
+		-
+			message: "#^Call to static method spy\\(\\) on an unknown class Mockery\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Support/Facades/Facade.php
+
+		-
+			message: "#^Call to static method createForLanguage\\(\\) on an unknown class Doctrine\\\\Inflector\\\\InflectorFactory\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Pluralizer.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:createFromTimestamp\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Sleep.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Support/Sleep.php
+
+		-
+			message: "#^Call to static method assertSame\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Support/Sleep.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Support/Sleep.php
+
+		-
+			message: "#^Call to static method instance\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Sleep.php
+
+		-
+			message: "#^Call to static method microsecond\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Sleep.php
+
+		-
+			message: "#^Call to static method seconds\\(\\) on an unknown class Carbon\\\\CarbonInterval\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Sleep.php
+
+		-
+			message: "#^Call to static method generate\\(\\) on an unknown class Symfony\\\\Component\\\\Uid\\\\Ulid\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Str.php
+
+		-
+			message: "#^Call to static method isValid\\(\\) on an unknown class Symfony\\\\Component\\\\Uid\\\\Ulid\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Str.php
+
+		-
+			message: "#^Call to static method is_ascii\\(\\) on an unknown class voku\\\\helper\\\\ASCII\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Str.php
+
+		-
+			message: "#^Call to static method to_ascii\\(\\) on an unknown class voku\\\\helper\\\\ASCII\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Str.php
+
+		-
+			message: "#^Call to static method to_transliterate\\(\\) on an unknown class voku\\\\helper\\\\ASCII\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Str.php
+
+		-
+			message: "#^Call to static method uuid4\\(\\) on an unknown class Ramsey\\\\Uuid\\\\Uuid\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Str.php
+
+		-
+			message: "#^Function dd not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Stringable.php
+
+		-
+			message: "#^Function dump not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Stringable.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Testing/Fakes/BatchFake.php
+
+		-
+			message: "#^Call to static method now\\(\\) on an unknown class Carbon\\\\CarbonImmutable\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Testing/Fakes/BatchRepositoryFake.php
+
+		-
+			message: "#^Call to static method assertCount\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Support/Testing/Fakes/BusFake.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Support/Testing/Fakes/BusFake.php
+
+		-
+			message: "#^Call to static method assertSame\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Support/Testing/Fakes/BusFake.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 8
+			path: repo/src/Illuminate/Support/Testing/Fakes/BusFake.php
+
+		-
+			message: "#^Call to static method assertCount\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Testing/Fakes/EventFake.php
+
+		-
+			message: "#^Call to static method assertSame\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Support/Testing/Fakes/EventFake.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Support/Testing/Fakes/EventFake.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertEmpty\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Testing/Fakes/ExceptionHandlerFake.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertTrue\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Support/Testing/Fakes/ExceptionHandlerFake.php
+
+		-
+			message: "#^Call to static method assertSame\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Testing/Fakes/ExceptionHandlerFake.php
+
+		-
+			message: "#^Call to static method assertCount\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Support/Testing/Fakes/MailFake.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Support/Testing/Fakes/MailFake.php
+
+		-
+			message: "#^Call to static method assertSame\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 5
+			path: repo/src/Illuminate/Support/Testing/Fakes/MailFake.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Support/Testing/Fakes/MailFake.php
+
+		-
+			message: "#^Call to static method assertCount\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Testing/Fakes/NotificationFake.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Support/Testing/Fakes/NotificationFake.php
+
+		-
+			message: "#^Call to static method assertSame\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Support/Testing/Fakes/NotificationFake.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Testing/Fakes/NotificationFake.php
+
+		-
+			message: "#^Call to static method assertCount\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Testing/Fakes/QueueFake.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Testing/Fakes/QueueFake.php
+
+		-
+			message: "#^Call to static method assertSame\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Support/Testing/Fakes/QueueFake.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 6
+			path: repo/src/Illuminate/Support/Testing/Fakes/QueueFake.php
+
+		-
+			message: "#^Call to static method dump\\(\\) on an unknown class Symfony\\\\Component\\\\VarDumper\\\\VarDumper\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Support/ValidatedInput.php
+
+		-
+			message: "#^Call to static method assertThat\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/Assert.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertArrayHasKey\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/AssertableJsonString.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertCount\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/AssertableJsonString.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertEquals\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/AssertableJsonString.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertEqualsCanonicalizing\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/AssertableJsonString.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertFalse\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/AssertableJsonString.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertIsArray\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/AssertableJsonString.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertSame\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/AssertableJsonString.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertTrue\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/AssertableJsonString.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:fail\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/AssertableJsonString.php
+
+		-
+			message: "#^Call to static method assertContains\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/Fluent/AssertableJson.php
+
+		-
+			message: "#^Call to static method assertCount\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/Fluent/AssertableJson.php
+
+		-
+			message: "#^Call to static method assertEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/Fluent/AssertableJson.php
+
+		-
+			message: "#^Call to static method assertFalse\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/Fluent/AssertableJson.php
+
+		-
+			message: "#^Call to static method assertIsArray\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/Fluent/AssertableJson.php
+
+		-
+			message: "#^Call to static method assertNotEmpty\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/Fluent/AssertableJson.php
+
+		-
+			message: "#^Call to static method assertNotSame\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/Fluent/AssertableJson.php
+
+		-
+			message: "#^Call to static method assertNotTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/Fluent/AssertableJson.php
+
+		-
+			message: "#^Call to static method assertSame\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/Fluent/AssertableJson.php
+
+		-
+			message: "#^Call to static method assertTrue\\(\\) on an unknown class PHPUnit\\\\Framework\\\\Assert\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Testing/Fluent/AssertableJson.php
+
+		-
+			message: "#^Function dd not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/Fluent/AssertableJson.php
+
+		-
+			message: "#^Function dump not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/Fluent/AssertableJson.php
+
+		-
+			message: "#^Illuminate\\\\Testing\\\\ParallelConsoleOutput\\:\\:__construct\\(\\) calls parent\\:\\:__construct\\(\\) but Illuminate\\\\Testing\\\\ParallelConsoleOutput does not extend any class\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/ParallelConsoleOutput.php
+
+		-
+			message: "#^Access to constant FAILURE on an unknown class Symfony\\\\Component\\\\Console\\\\Command\\\\Command\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/PendingCommand.php
+
+		-
+			message: "#^Access to constant SUCCESS on an unknown class Symfony\\\\Component\\\\Console\\\\Command\\\\Command\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/PendingCommand.php
+
+		-
+			message: "#^Call to static method any\\(\\) on an unknown class Mockery\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/PendingCommand.php
+
+		-
+			message: "#^Call to static method mock\\(\\) on an unknown class Mockery\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/PendingCommand.php
+
+		-
+			message: "#^Call to static method on\\(\\) on an unknown class Mockery\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/PendingCommand.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertStringContainsString\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/TestComponent.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertStringNotContainsString\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/TestComponent.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertThat\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/TestComponent.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:createFromTimestamp\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Carbon\\:\\:now\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertArrayHasKey\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertContains\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertEmpty\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertEquals\\(\\)\\.$#"
+			count: 8
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertFalse\\(\\)\\.$#"
+			count: 7
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertInstanceOf\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertNotContains\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertNotEmpty\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertNotNull\\(\\)\\.$#"
+			count: 3
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertNull\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertSame\\(\\)\\.$#"
+			count: 5
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertSameSize\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertStringContainsString\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertStringNotContainsString\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertThat\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertTrue\\(\\)\\.$#"
+			count: 28
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:fail\\(\\)\\.$#"
+			count: 9
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Function dd not found\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Function dump not found\\.$#"
+			count: 5
+			path: repo/src/Illuminate/Testing/TestResponse.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertEmpty\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/TestView.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertEquals\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/TestView.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertFalse\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/TestView.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertInstanceOf\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/TestView.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertSameSize\\(\\)\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Testing/TestView.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertStringContainsString\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/TestView.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertStringNotContainsString\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/TestView.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertThat\\(\\)\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Testing/TestView.php
+
+		-
+			message: "#^Call to an undefined static method Illuminate\\\\Testing\\\\Assert\\:\\:assertTrue\\(\\)\\.$#"
+			count: 4
+			path: repo/src/Illuminate/Testing/TestView.php
+
+		-
+			message: "#^Method Illuminate\\\\Validation\\\\Concerns\\\\FilterEmailValidation\\:\\:getError\\(\\) has invalid return type Egulias\\\\EmailValidator\\\\Result\\\\InvalidEmail\\.$#"
+			count: 1
+			path: repo/src/Illuminate/Validation/Concerns/FilterEmailValidation.php
+
+		-
+			message: "#^Call to static method of\\(\\) on an unknown class Brick\\\\Math\\\\BigDecimal\\.$#"
+			count: 2
+			path: repo/src/Illuminate/Validation/Validator.php
+
+		-
+			message: "#^Call to static method of\\(\\) on an unknown class Brick\\\\Math\\\\BigNumber\\.$#"
+			count: 12
+			path: repo/src/Illuminate/Validation/Validator.php
