@@ -215,14 +215,14 @@ jobs:
               composer install --ignore-platform-reqs
             phpstan-command: ../../../phpstan.phar analyse -c ../pocketmine.neon --memory-limit=2G
             baseline-file: pocketmine-baseline.neon
-          - php-version: 8.1
+          - php-version: 8.3
             repo: laravel/framework
             ref: v11.9.2
             setup: |
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c phpstan.src.neon.dist
             baseline-file: laravel-baseline.neon
-          - php-version: 8.1
+          - php-version: 8.3
             repo: laravel/framework
             ref: v11.9.2
             setup: |
