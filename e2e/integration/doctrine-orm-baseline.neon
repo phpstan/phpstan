@@ -6,7 +6,7 @@ parameters:
 			path: repo/lib/Doctrine/ORM/Mapping/ClassMetadataInfo.php
 
 		-
-			message: "#^Method Doctrine\\\\ORM\\\\Mapping\\\\Driver\\\\AttributeDriver\\:\\:getMethodCallbacks\\(\\) should return array\\<callable\\(\\)\\: mixed\\> but returns array\\<int, array\\{string, 'postLoad'\\|'postPersist'\\|'postRemove'\\|'postUpdate'\\|'preFlush'\\|'prePersist'\\|'preRemove'\\|'preUpdate'\\}\\>\\.$#"
+			message: "#^Method Doctrine\\\\ORM\\\\Mapping\\\\Driver\\\\AttributeDriver\\:\\:getMethodCallbacks\\(\\) should return array\\<callable\\(\\)\\: mixed\\> but returns array\\<int, array\\{non\\-falsy\\-string, 'postLoad'\\|'postPersist'\\|'postRemove'\\|'postUpdate'\\|'preFlush'\\|'prePersist'\\|'preRemove'\\|'preUpdate'\\}\\>\\.$#"
 			count: 1
 			path: repo/lib/Doctrine/ORM/Mapping/Driver/AttributeDriver.php
 
