@@ -26,7 +26,7 @@
 		window.ThemeSwitcher = {
 			storageKey: 'color-theme',
 			reloadTheme: () => {
-				let theme = localStorage.getItem(ThemeSwitcher.storageKey);
+				let theme = localStorage.getItem(ThemeSwitcher.storageKey) || 'auto';
 				if (theme === 'auto') {
 					theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 				}
