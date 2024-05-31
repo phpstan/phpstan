@@ -217,14 +217,14 @@ jobs:
             baseline-file: pocketmine-baseline.neon
           - php-version: 8.1
             repo: laravel/framework
-            ref: v10.37.3
+            ref: v11.9.2
             setup: |
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c phpstan.src.neon.dist
             baseline-file: laravel-baseline.neon
           - php-version: 8.1
             repo: laravel/framework
-            ref: v10.37.3
+            ref: v11.9.2
             setup: |
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c phpstan.types.neon.dist
