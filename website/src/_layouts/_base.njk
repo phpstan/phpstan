@@ -23,20 +23,26 @@
 	<script src="https://cdn.usefathom.com/script.js" data-site="UDESFNRN" defer></script>
 
 	<script>
-		window.ThemeSwitcher = {
+		window.ThemeSwitcher = Object.freeze({
 			storageKey: 'color-theme',
-			reloadTheme: () => {
-				let theme = localStorage.getItem(ThemeSwitcher.storageKey) || 'auto';
-				if (theme === 'auto') {
-					theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-				}
+			get: () => {
+				const theme = localStorage.getItem(ThemeSwitcher.storageKey) || 'auto';
+				return theme === 'auto'
+					? window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+					: theme;
+			},
+			set: (theme) => {
+				localStorage.setItem(ThemeSwitcher.storageKey, theme);
+				this.reload();
+			},
+			reload: () => {
+				const theme = ThemeSwitcher.get();
 				document.documentElement.classList.toggle('dark', theme === 'dark');
-				// TODO This is only useful to be caught by other components to do the switch.
-				window.dispatchEvent(new CustomEvent('themechange', {detail: {theme}}));
+				window.dispatchEvent(new CustomEvent('themechange', {detail: theme}));
 			}
-		};
-		window.addEventListener('storage', ThemeSwitcher.reloadTheme);
-		ThemeSwitcher.reloadTheme();
+		});
+		window.addEventListener('storage', ThemeSwitcher.reload);
+		ThemeSwitcher.reload();
 	</script>
 	<script src="/tmp/js/ThemeSwitcher.ts" type="module"></script>
 </head>

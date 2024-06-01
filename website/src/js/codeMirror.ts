@@ -11,6 +11,7 @@ import { PHPStanError } from './PHPStanError';
 import { ttcn } from './ttcn-theme';
 import {errorsCompartment, errorsFacet, lineErrors, updateErrorsEffect} from "./editor/errors";
 import {hover} from "./editor/hover";
+import {Theme} from "./ThemeSwitcher";
 
 ko.bindingHandlers.codeMirror = {
 	init: (element, valueAccessor, allBindings, viewModel, bindingContext) => {
@@ -72,6 +73,12 @@ ko.bindingHandlers.codeMirror = {
 						background: 'transparent',
 					},
 				}),
+				// TODO Here we should switch to a dark theme when ThemeSwitcher.get() returns 'dark'.
+				//      I gave up digging through CM6's mess to figure this part out... it seems it has functionality
+				//      for dark mode and at the same time it doesn't. 🤯
+				//      - https://codemirror.net/docs/ref/#view.EditorView^darkTheme
+				//      - https://discuss.codemirror.net/t/dynamic-light-mode-dark-mode-how/4709/4
+				//      - https://discuss.codemirror.net/t/cm6-dynamically-switching-syntax-theme-w-reconfigure/2858/7
 			],
 		})
 
@@ -80,6 +87,11 @@ ko.bindingHandlers.codeMirror = {
 			parent: element,
 		});
 		ko.utils.domData.set(element, 'codeMirror', editor);
+
+		window.addEventListener('themechange', (ev: CustomEvent<Theme>): void => {
+			// TODO From my understanding, we need to "unload" or "load" a dark theme extension depending on ev.detail.
+			//      editor.dispatch({effects: ????.reconfigure([???????])});
+		});
 	},
 };
 
