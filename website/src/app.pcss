@@ -8,15 +8,14 @@
 @tailwind utilities;
 
 html.dark {
-	color: #000;
 	background-color: #000 !important;
 	color-scheme: dark;
-
 	@apply min-h-full;
-	@apply invert hue-rotate-180;
 
 	body {
+		color: #000;
 		color-scheme: auto;
+		@apply invert hue-rotate-180;
 	}
 
 	img, video, .cm-editor {
