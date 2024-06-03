@@ -3366,11 +3366,6 @@ parameters:
 			path: repo/src/Util/PHP/DefaultPhpProcess.php
 
 		-
-			message: "#^Property PHPUnit\\\\Util\\\\PHP\\\\DefaultPhpProcess\\:\\:\\$tempFile \\(string\\) does not accept string\\|false\\.$#"
-			count: 1
-			path: repo/src/Util/PHP/DefaultPhpProcess.php
-
-		-
 			message: "#^Variable \\$_SERVER on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/src/Util/PHP/DefaultPhpProcess.php
@@ -5736,26 +5731,6 @@ parameters:
 			path: repo/tests/unit/Framework/AssertTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$file of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertFileIsNotReadable\\(\\) expects string, string\\|false given\\.$#"
-			count: 2
-			path: repo/tests/unit/Framework/AssertTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$file of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertFileIsNotWritable\\(\\) expects string, string\\|false given\\.$#"
-			count: 2
-			path: repo/tests/unit/Framework/AssertTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$filename of function chmod expects string, string\\|false given\\.$#"
-			count: 4
-			path: repo/tests/unit/Framework/AssertTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$filename of function unlink expects string, string\\|false given\\.$#"
-			count: 2
-			path: repo/tests/unit/Framework/AssertTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$key of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertArrayHasKey\\(\\) expects int\\|string, null given\\.$#"
 			count: 1
 			path: repo/tests/unit/Framework/AssertTest.php
@@ -6509,16 +6484,6 @@ parameters:
 			message: "#^Property PHPUnit\\\\Framework\\\\TestSuiteTest\\:\\:\\$result \\(PHPUnit\\\\Framework\\\\TestResult\\) does not accept null\\.$#"
 			count: 1
 			path: repo/tests/unit/Framework/TestSuiteTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$filename of function unlink expects string, string\\|false given\\.$#"
-			count: 1
-			path: repo/tests/unit/Runner/DefaultTestResultCacheTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$filepath of class PHPUnit\\\\Runner\\\\DefaultTestResultCache constructor expects string\\|null, string\\|false given\\.$#"
-			count: 2
-			path: repo/tests/unit/Runner/DefaultTestResultCacheTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$iterator of class PHPUnit\\\\Runner\\\\Filter\\\\NameFilterIterator constructor expects RecursiveIterator, Iterator given\\.$#"
