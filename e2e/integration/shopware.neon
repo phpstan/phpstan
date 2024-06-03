@@ -1,0 +1,3 @@
+includes:
+	- repo/phpstan.neon.dist
+	- shopware-baseline.neon
