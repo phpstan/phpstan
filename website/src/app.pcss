@@ -7,6 +7,32 @@
 @tailwind components;
 @tailwind utilities;
 
+html.dark {
+	background-color: #000 !important;
+	color-scheme: dark;
+	@apply min-h-full;
+
+	body {
+		color: #000;
+		color-scheme: auto;
+		@apply invert hue-rotate-180;
+	}
+
+	img, video {
+		@apply invert hue-rotate-180;
+	}
+
+	.exclude-from-dark {
+		@apply invert hue-rotate-180;
+		background-color: #fff !important;
+		color-scheme: light;
+	}
+
+	.exclude-from-dark img, .exclude-from-dark video {
+		@apply invert-0 hue-rotate-0;
+	}
+}
+
 .cm-editor {
 	font-size: 15px;
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);

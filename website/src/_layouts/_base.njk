@@ -21,6 +21,24 @@
 	<meta name="twitter:creator" content="@ondrejmirtes" />
 	<meta name="twitter:title" content="{{ title }}" />
 	<script src="https://cdn.usefathom.com/script.js" data-site="UDESFNRN" defer></script>
+	<script>
+		const query = window.matchMedia('(prefers-color-scheme: dark)');
+		query.addEventListener('change', (event) => {
+			if ('theme' in localStorage) {
+				return;
+			}
+			if (event.matches) {
+				document.documentElement.classList.add('dark');
+			} else {
+				document.documentElement.classList.remove('dark');
+			}
+		});
+		if (localStorage.theme === 'dark' || (!('theme' in localStorage) && query.matches)) {
+			document.documentElement.classList.add('dark');
+		} else {
+			document.documentElement.classList.remove('dark');
+		}
+	</script>
 </head>
 <body>
 
