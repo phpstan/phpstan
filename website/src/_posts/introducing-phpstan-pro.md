@@ -29,8 +29,6 @@ Developers are also often slowed down by having to pull up the error location in
   <path fill-rule="evenodd" d="M8.646 5.646a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L10.293 8 8.646 6.354a.5.5 0 0 1 0-.708zm-1.292 0a.5.5 0 0 0-.708 0l-2 2a.5.5 0 0 0 0 .708l2 2a.5.5 0 0 0 .708-.708L5.707 8l1.647-1.646a.5.5 0 0 0 0-.708z"/>
 </svg>
 
-What a killer feature!
-
 <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
 
 What's important to mention in this day and age of privacy nightmares and data leaks is that PHPStan Pro runs locally on the client and no information about the analysed code is transmitted to a server.
@@ -38,6 +36,12 @@ What's important to mention in this day and age of privacy nightmares and data l
 </div>
 
 </p>
+
+PHPStan Pro can also show you ignored errors, right where they'd be reported if they weren't ignored:
+
+<video class="w-full aspect-[1656/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/tmp/images/phpstan-pro-ignored-errors-poster.jpg">
+  <source src="/tmp/images/phpstan-pro-ignored-errors.mp4" type="video/mp4">
+</video>
 
 Continuous analysis (watch mode)
 ------------------------
@@ -49,6 +53,18 @@ Once you fix all the found errors and achieve [Error Zero](https://twitter.com/O
 </video>
 
 Continuous analysis reflects and supports my preferred workflow when developing applications: when I realize that I have to pass an additional new value through multiple layers of a codebase, I start by changing method signatures – renaming them, adding parameters, changing return typehints. After that, I run PHPStan which essentially gives me a todo list of places to fix. But running PHPStan several times a minute to get instant feedback can become tedious. Having a persistent window that refreshes automatically and gives me an up-to-date view of the project is much nicer.
+
+
+Migration wizards for improving your codebase
+------------------------
+
+Besides providing a beautiful web UI for browsing reported (and ignored) errors, PHPStan Pro now offers migration wizards to improve your code:
+
+<video class="w-full aspect-[1680/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/tmp/images/ignore-line-wizard-poster.jpg">
+  <source src="/tmp/images/ignore-line-wizard.mp4" type="video/mp4">
+</video>
+
+Wizards let you update various aspects of your codebase related to static analysis and leave it in a better state. They improve typehints and add PHPDocs that will make PHPStan understand your code better and find more issues.
 
 Pricing
 ------------------------
