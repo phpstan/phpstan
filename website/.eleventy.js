@@ -108,6 +108,11 @@ module.exports = function (eleventyConfig) {
 	});
 
 	eleventyConfig.addAsyncShortcode('socialImages', async function (title) {
+		if (process.env.ELEVENTY_RUN_MODE === 'watch') {
+			return '<meta name="twitter:image" content="/tmp/images/logo-big.png" />'
+				+ "\n"
+				+ '<meta property="og:image" content="/tmp/images/logo-big.png" />';
+		}
 		const content = await eleventyConfig.nunjucksAsyncShortcodes.renderFile('./src/_includes/social/socialImage.njk', {
 			title: title,
 			date: DateTime.fromJSDate(this.page.date, {zone: 'utc'}).toFormat('DDD'),
