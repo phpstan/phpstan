@@ -8,13 +8,15 @@ pageType: documentation
 layout: null
 eleventyComputed:
   title: "{{ errorIdentifier.identifier }}"
-sectionTitle: Error Identifiers
+sectionTitle: User Guide
 ---
 
 {% extends "../_layouts/_sidebar.njk" %}
 
 {% block mainTitle %}{% endblock %}
 {% block editPageLink %}{% endblock %}
+
+{% block algoliaSectionTitle %}Error Identifiers{% endblock %}
 
 {% block scripts %}
 	<script src="/tmp/js/error-identifier-detail.ts" type="module"></script>
