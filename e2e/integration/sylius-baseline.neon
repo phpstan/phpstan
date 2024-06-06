@@ -1,6 +1,2096 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Negated boolean expression is always true\\.$#"
+			message: "#^Class PHP_CodeSniffer\\\\Standards\\\\Generic\\\\Sniffs\\\\Metrics\\\\CyclomaticComplexitySniff not found\\.$#"
 			count: 2
-			path: repo/src/Sylius/Bundle/UserBundle/Console/Command/AbstractRoleCommand.php
+			path: repo/project-base/app/ecs.php
+
+		-
+			message: "#^Class PHP_CodeSniffer\\\\Standards\\\\Generic\\\\Sniffs\\\\NamingConventions\\\\CamelCapsFunctionNameSniff not found\\.$#"
+			count: 1
+			path: repo/project-base/app/ecs.php
+
+		-
+			message: "#^Parameter \\#1 \\$checkerClass of method Symplify\\\\EasyCodingStandard\\\\Config\\\\ECSConfig\\:\\:rule\\(\\) expects class\\-string\\<PHP_CodeSniffer\\\\Sniffs\\\\Sniff\\|PhpCsFixer\\\\Fixer\\\\FixerInterface\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/ecs.php
+
+		-
+			message: "#^Call to method addError\\(\\) on an unknown class PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 1
+			path: repo/project-base/app/sniffer/ExtendedApiClassNamespaceSniffer.php
+
+		-
+			message: "#^Call to method findNext\\(\\) on an unknown class PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 3
+			path: repo/project-base/app/sniffer/ExtendedApiClassNamespaceSniffer.php
+
+		-
+			message: "#^Call to method getTokens\\(\\) on an unknown class PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 5
+			path: repo/project-base/app/sniffer/ExtendedApiClassNamespaceSniffer.php
+
+		-
+			message: "#^Constant T_SEMICOLON not found\\.$#"
+			count: 1
+			path: repo/project-base/app/sniffer/ExtendedApiClassNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$phpcsFile of method Sniffer\\\\ExtendedApiClassNamespaceSniffer\\:\\:checkNamespacesFromFrontendApi\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/ExtendedApiClassNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$phpcsFile of method Sniffer\\\\ExtendedApiClassNamespaceSniffer\\:\\:findNextUsePosition\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/ExtendedApiClassNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$phpcsFile of method Sniffer\\\\ExtendedApiClassNamespaceSniffer\\:\\:getContent\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/ExtendedApiClassNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$phpcsFile of method Sniffer\\\\ExtendedApiClassNamespaceSniffer\\:\\:getNamespacePartsArray\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/ExtendedApiClassNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$phpcsFile of method Sniffer\\\\ExtendedApiClassNamespaceSniffer\\:\\:getParentClassNameFromExtend\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/ExtendedApiClassNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$phpcsFile of method Sniffer\\\\ExtendedApiClassNamespaceSniffer\\:\\:getUseClassName\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/ExtendedApiClassNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$phpcsFile of method Sniffer\\\\ExtendedApiClassNamespaceSniffer\\:\\:isNextNsSeparator\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/ExtendedApiClassNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$phpcsFile of method Sniffer\\\\ExtendedApiClassNamespaceSniffer\\:\\:isNextSemicolon\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/ExtendedApiClassNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$phpcsFile of method Sniffer\\\\ExtendedApiClassNamespaceSniffer\\:\\:isNextSpace\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/ExtendedApiClassNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$phpcsFile of method Sniffer\\\\ExtendedApiClassNamespaceSniffer\\:\\:isNextString\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/ExtendedApiClassNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$phpcsFile of method Sniffer\\\\ExtendedApiClassNamespaceSniffer\\:\\:process\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 1
+			path: repo/project-base/app/sniffer/ExtendedApiClassNamespaceSniffer.php
+
+		-
+			message: "#^Call to method addError\\(\\) on an unknown class PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 3
+			path: repo/project-base/app/sniffer/FrontendApiNamespaceSniffer.php
+
+		-
+			message: "#^Call to method findNext\\(\\) on an unknown class PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 4
+			path: repo/project-base/app/sniffer/FrontendApiNamespaceSniffer.php
+
+		-
+			message: "#^Call to method getFilename\\(\\) on an unknown class PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/FrontendApiNamespaceSniffer.php
+
+		-
+			message: "#^Call to method getTokens\\(\\) on an unknown class PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 5
+			path: repo/project-base/app/sniffer/FrontendApiNamespaceSniffer.php
+
+		-
+			message: "#^Constant T_SEMICOLON not found\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/FrontendApiNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$file of method Sniffer\\\\FrontendApiNamespaceSniffer\\:\\:getClassnameOfFile\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/FrontendApiNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$file of method Sniffer\\\\FrontendApiNamespaceSniffer\\:\\:getNamespaceOfFile\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/FrontendApiNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$file of method Sniffer\\\\FrontendApiNamespaceSniffer\\:\\:getNamespacePartsIndexedByPosition\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/FrontendApiNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$file of method Sniffer\\\\FrontendApiNamespaceSniffer\\:\\:process\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/FrontendApiNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$file of method Sniffer\\\\FrontendApiNamespaceSniffer\\:\\:processCurrentNamespacePart\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/FrontendApiNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$file of method Sniffer\\\\FrontendApiNamespaceSniffer\\:\\:processDirectionApiNamespaceParts\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/FrontendApiNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$file of method Sniffer\\\\FrontendApiNamespaceSniffer\\:\\:processMutation\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/FrontendApiNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$file of method Sniffer\\\\FrontendApiNamespaceSniffer\\:\\:processParentFrontendApiNamespacePart\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/FrontendApiNamespaceSniffer.php
+
+		-
+			message: "#^Parameter \\$file of method Sniffer\\\\FrontendApiNamespaceSniffer\\:\\:processResolver\\(\\) has invalid type PHP_CodeSniffer\\\\Files\\\\File\\.$#"
+			count: 2
+			path: repo/project-base/app/sniffer/FrontendApiNamespaceSniffer.php
+
+		-
+			message: "#^Call to an undefined method Tests\\\\App\\\\Test\\\\Codeception\\\\AcceptanceTester\\:\\:selectOptionInSelect2ByCssAndValue\\(\\)\\.$#"
+			count: 1
+			path: repo/project-base/app/tests/App/Acceptance/acceptance/PageObject/Admin/ProductAdvancedSearchPage.php
+
+		-
+			message: "#^Class App_KernelDevDebugContainer not found\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Call to an undefined method Symfony\\\\Contracts\\\\HttpClient\\\\HttpClientInterface\\:\\:setLogger\\(\\)\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Call to static method staticProxyConstructor\\(\\) on an unknown class Domain_7f24fed\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Call to static method staticProxyConstructor\\(\\) on an unknown class Redis_ca5fc0f\\.$#"
+			count: 7
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Class Knp\\\\Menu\\\\Renderer\\\\PsrProvider constructor invoked with 4 parameters, 2 required\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Class Monolog\\\\Handler\\\\NullHandler constructor invoked with 2 parameters, 0\\-1 required\\.$#"
+			count: 12
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Method Doctrine\\\\Common\\\\Annotations\\\\AnnotationReader\\:\\:addGlobalIgnoredName\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Parameter \\#1 \\$currentLocale of method Prezent\\\\Doctrine\\\\Translatable\\\\EventListener\\\\TranslatableListener\\:\\:setCurrentLocale\\(\\) expects string, null given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Parameter \\#1 \\$fallbackLocale of method Prezent\\\\Doctrine\\\\Translatable\\\\EventListener\\\\TranslatableListener\\:\\:setFallbackLocale\\(\\) expects string, null given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Parameter \\#1 \\$params of method Doctrine\\\\Bundle\\\\DoctrineBundle\\\\ConnectionFactory\\:\\:createConnection\\(\\) expects array\\{application_name\\?\\: string, charset\\?\\: string, dbname\\?\\: string, defaultTableOptions\\?\\: array\\<string, mixed\\>, default_dbname\\?\\: string, driver\\?\\: 'ibm_db2'\\|'mysqli'\\|'oci8'\\|'pdo_mysql'\\|'pdo_oci'\\|'pdo_pgsql'\\|'pdo_sqlite'\\|'pdo_sqlsrv'\\|'pgsql'\\|'sqlite3'\\|'sqlsrv', driverClass\\?\\: class\\-string\\<Doctrine\\\\DBAL\\\\Driver\\>, driverOptions\\?\\: array, \\.\\.\\.\\}, array\\{driver\\: 'pdo_pgsql', host\\: mixed, port\\: mixed, dbname\\: mixed, user\\: mixed, password\\: mixed, charset\\: 'UTF8', driverOptions\\: array\\{\\}, \\.\\.\\.\\} given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Parameter \\#2 \\$priority of method Symfony\\\\Cmf\\\\Component\\\\Routing\\\\ChainRouter\\:\\:add\\(\\) expects int, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Service \"\\.container\\.private\\.cache_clearer\" is not registered in the container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Service \"\\.container\\.private\\.filesystem\" is not registered in the container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Service \"\\.container\\.private\\.form\\.factory\" is not registered in the container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Service \"\\.container\\.private\\.form\\.type\\.file\" is not registered in the container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Service \"\\.container\\.private\\.profiler\" is not registered in the container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Service \"\\.container\\.private\\.security\\.authorization_checker\" is not registered in the container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Service \"\\.container\\.private\\.security\\.csrf\\.token_manager\" is not registered in the container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Service \"\\.container\\.private\\.security\\.password_encoder\" is not registered in the container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Service \"\\.container\\.private\\.security\\.token_storage\" is not registered in the container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Service \"\\.container\\.private\\.session\" is not registered in the container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Service \"\\.container\\.private\\.twig\" is not registered in the container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Service \"\\.container\\.private\\.validator\" is not registered in the container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/App_KernelDevDebugContainer.php
+
+		-
+			message: "#^Class ContainerEpnprih\\\\AuthenticatedTokenHandler_e3677d3 extends @final class Scheb\\\\TwoFactorBundle\\\\Security\\\\TwoFactor\\\\Handler\\\\AuthenticatedTokenHandler\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/AuthenticatedTokenHandler_e3677d3.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\AuthenticatedTokenHandler_e3677d3\\:\\:__set\\(\\) with return type void returns mixed but should not return anything\\.$#"
+			count: 2
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/AuthenticatedTokenHandler_e3677d3.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, false given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/AuthenticatedTokenHandler_e3677d3.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, true given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/AuthenticatedTokenHandler_e3677d3.php
+
+		-
+			message: "#^Right side of \\|\\| is always true\\.$#"
+			count: 8
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/AuthenticatedTokenHandler_e3677d3.php
+
+		-
+			message: "#^Undefined variable\\: \\$valueHolderc7a89$#"
+			count: 16
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/AuthenticatedTokenHandler_e3677d3.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\CartFacade_f7448a3\\:\\:__set\\(\\) with return type void returns mixed but should not return anything\\.$#"
+			count: 2
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/CartFacade_f7448a3.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, false given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/CartFacade_f7448a3.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, true given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/CartFacade_f7448a3.php
+
+		-
+			message: "#^Right side of \\|\\| is always true\\.$#"
+			count: 24
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/CartFacade_f7448a3.php
+
+		-
+			message: "#^Undefined variable\\: \\$valueHolderc7a89$#"
+			count: 48
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/CartFacade_f7448a3.php
+
+		-
+			message: "#^Class ContainerEpnprih\\\\CodeGenerator_6e857fe extends @final class Scheb\\\\TwoFactorBundle\\\\Security\\\\TwoFactor\\\\Provider\\\\Email\\\\Generator\\\\CodeGenerator\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/CodeGenerator_6e857fe.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\CodeGenerator_6e857fe\\:\\:__set\\(\\) with return type void returns mixed but should not return anything\\.$#"
+			count: 2
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/CodeGenerator_6e857fe.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, false given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/CodeGenerator_6e857fe.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, true given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/CodeGenerator_6e857fe.php
+
+		-
+			message: "#^Right side of \\|\\| is always true\\.$#"
+			count: 9
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/CodeGenerator_6e857fe.php
+
+		-
+			message: "#^Undefined variable\\: \\$valueHolderc7a89$#"
+			count: 18
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/CodeGenerator_6e857fe.php
+
+		-
+			message: "#^Class ContainerEpnprih\\\\ConditionAuthenticationHandler_a1ee12f extends @final class Scheb\\\\TwoFactorBundle\\\\Security\\\\TwoFactor\\\\Handler\\\\ConditionAuthenticationHandler\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/ConditionAuthenticationHandler_a1ee12f.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\ConditionAuthenticationHandler_a1ee12f\\:\\:__set\\(\\) with return type void returns mixed but should not return anything\\.$#"
+			count: 2
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/ConditionAuthenticationHandler_a1ee12f.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, false given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/ConditionAuthenticationHandler_a1ee12f.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, true given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/ConditionAuthenticationHandler_a1ee12f.php
+
+		-
+			message: "#^Right side of \\|\\| is always true\\.$#"
+			count: 8
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/ConditionAuthenticationHandler_a1ee12f.php
+
+		-
+			message: "#^Undefined variable\\: \\$valueHolderc7a89$#"
+			count: 16
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/ConditionAuthenticationHandler_a1ee12f.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\DefaultTwoFactorFormRenderer_892ae3f\\:\\:__set\\(\\) with return type void returns mixed but should not return anything\\.$#"
+			count: 2
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/DefaultTwoFactorFormRenderer_892ae3f.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, false given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/DefaultTwoFactorFormRenderer_892ae3f.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, true given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/DefaultTwoFactorFormRenderer_892ae3f.php
+
+		-
+			message: "#^Right side of \\|\\| is always true\\.$#"
+			count: 8
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/DefaultTwoFactorFormRenderer_892ae3f.php
+
+		-
+			message: "#^Undefined variable\\: \\$valueHolderc7a89$#"
+			count: 16
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/DefaultTwoFactorFormRenderer_892ae3f.php
+
+		-
+			message: "#^Class ContainerEpnprih\\\\DoctrinePersister_a694024 extends @final class Scheb\\\\TwoFactorBundle\\\\Model\\\\Persister\\\\DoctrinePersister\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/DoctrinePersister_a694024.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\DoctrinePersister_a694024\\:\\:__set\\(\\) with return type void returns mixed but should not return anything\\.$#"
+			count: 2
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/DoctrinePersister_a694024.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, false given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/DoctrinePersister_a694024.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, true given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/DoctrinePersister_a694024.php
+
+		-
+			message: "#^Parameter \\$om of method ContainerEpnprih\\\\DoctrinePersister_a694024\\:\\:__construct\\(\\) has invalid type Doctrine\\\\Common\\\\Persistence\\\\ObjectManager\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/DoctrinePersister_a694024.php
+
+		-
+			message: "#^Right side of \\|\\| is always true\\.$#"
+			count: 8
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/DoctrinePersister_a694024.php
+
+		-
+			message: "#^Undefined variable\\: \\$valueHolderc7a89$#"
+			count: 16
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/DoctrinePersister_a694024.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\Domain_7f24fed\\:\\:__set\\(\\) with return type void returns mixed but should not return anything\\.$#"
+			count: 2
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Domain_7f24fed.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, false given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Domain_7f24fed.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, true given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Domain_7f24fed.php
+
+		-
+			message: "#^Right side of \\|\\| is always true\\.$#"
+			count: 23
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Domain_7f24fed.php
+
+		-
+			message: "#^Undefined variable\\: \\$valueHolderc7a89$#"
+			count: 46
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Domain_7f24fed.php
+
+		-
+			message: "#^Class ContainerEpnprih\\\\IpWhitelistHandler_06fe2b0 extends @final class Scheb\\\\TwoFactorBundle\\\\Security\\\\TwoFactor\\\\Handler\\\\IpWhitelistHandler\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/IpWhitelistHandler_06fe2b0.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\IpWhitelistHandler_06fe2b0\\:\\:__set\\(\\) with return type void returns mixed but should not return anything\\.$#"
+			count: 2
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/IpWhitelistHandler_06fe2b0.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, false given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/IpWhitelistHandler_06fe2b0.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, true given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/IpWhitelistHandler_06fe2b0.php
+
+		-
+			message: "#^Right side of \\|\\| is always true\\.$#"
+			count: 8
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/IpWhitelistHandler_06fe2b0.php
+
+		-
+			message: "#^Undefined variable\\: \\$valueHolderc7a89$#"
+			count: 16
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/IpWhitelistHandler_06fe2b0.php
+
+		-
+			message: "#^Call to an undefined method Redis\\:\\:sortAsc\\(\\)\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Redis_ca5fc0f.php
+
+		-
+			message: "#^Call to an undefined method Redis\\:\\:sortAscAlpha\\(\\)\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Redis_ca5fc0f.php
+
+		-
+			message: "#^Call to an undefined method Redis\\:\\:sortDesc\\(\\)\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Redis_ca5fc0f.php
+
+		-
+			message: "#^Call to an undefined method Redis\\:\\:sortDescAlpha\\(\\)\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Redis_ca5fc0f.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\Redis_ca5fc0f\\:\\:__set\\(\\) with return type void returns mixed but should not return anything\\.$#"
+			count: 2
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Redis_ca5fc0f.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, false given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Redis_ca5fc0f.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, true given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Redis_ca5fc0f.php
+
+		-
+			message: "#^Parameter \\#2 \\$member of method Redis\\:\\:geoRadiusByMember\\(\\) expects float, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Redis_ca5fc0f.php
+
+		-
+			message: "#^Parameter \\#2 \\$member of method Redis\\:\\:georadiusbymember_ro\\(\\) expects float, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Redis_ca5fc0f.php
+
+		-
+			message: "#^Parameter \\#2 \\$position of method Redis\\:\\:lInsert\\(\\) expects int, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Redis_ca5fc0f.php
+
+		-
+			message: "#^Parameter \\#4 \\$unit of method Redis\\:\\:georadiusbymember_ro\\(\\) expects float, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Redis_ca5fc0f.php
+
+		-
+			message: "#^Parameter \\#4 \\$units of method Redis\\:\\:geoRadiusByMember\\(\\) expects float, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Redis_ca5fc0f.php
+
+		-
+			message: "#^Parameter \\#5 \\$options of method Redis\\:\\:geoRadiusByMember\\(\\) expects string, array given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Redis_ca5fc0f.php
+
+		-
+			message: "#^Parameter \\#5 \\$options of method Redis\\:\\:georadiusbymember_ro\\(\\) expects string, array given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Redis_ca5fc0f.php
+
+		-
+			message: "#^Right side of \\|\\| is always true\\.$#"
+			count: 259
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Redis_ca5fc0f.php
+
+		-
+			message: "#^Undefined variable\\: \\$valueHolderc7a89$#"
+			count: 518
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/Redis_ca5fc0f.php
+
+		-
+			message: "#^Class ContainerEpnprih\\\\TwoFactorProviderHandler_3ecff6c extends @final class Scheb\\\\TwoFactorBundle\\\\Security\\\\TwoFactor\\\\Handler\\\\TwoFactorProviderHandler\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/TwoFactorProviderHandler_3ecff6c.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\TwoFactorProviderHandler_3ecff6c\\:\\:__set\\(\\) with return type void returns mixed but should not return anything\\.$#"
+			count: 2
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/TwoFactorProviderHandler_3ecff6c.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, false given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/TwoFactorProviderHandler_3ecff6c.php
+
+		-
+			message: "#^Parameter \\#1 \\$options of function debug_backtrace expects int, true given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/TwoFactorProviderHandler_3ecff6c.php
+
+		-
+			message: "#^Right side of \\|\\| is always true\\.$#"
+			count: 8
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/TwoFactorProviderHandler_3ecff6c.php
+
+		-
+			message: "#^Undefined variable\\: \\$valueHolderc7a89$#"
+			count: 16
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/TwoFactorProviderHandler_3ecff6c.php
+
+		-
+			message: "#^Call to static method staticProxyConstructor\\(\\) on an unknown class CartFacade_f7448a3\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCartFacade2Service.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\getChoseCategorySeoMixCombinationService\\:\\:do\\(\\) should return App\\\\Model\\\\CategorySeo\\\\ChoseCategorySeoMixCombination but return statement is missing\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getChoseCategorySeoMixCombinationService.php
+
+		-
+			message: "#^Call to static method staticProxyConstructor\\(\\) on an unknown class CodeGenerator_6e857fe\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCodeGeneratorInterfaceService.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\getConfigureMenuEventService\\:\\:do\\(\\) should return Shopsys\\\\FrameworkBundle\\\\Model\\\\AdminNavigation\\\\ConfigureMenuEvent but return statement is missing\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getConfigureMenuEventService.php
+
+		-
+			message: "#^Class Monolog\\\\Handler\\\\NullHandler constructor invoked with 2 parameters, 0\\-1 required\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getConsole_ErrorListenerService.php
+
+		-
+			message: "#^Offset '\\.debug\\.http_client' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig, Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\?\\: Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory, App\\\\Model\\\\Product\\\\Parameter\\\\ParameterGroupDataFactory\\?\\: App\\\\Model\\\\Product\\\\Parameter\\\\ParameterGroupDataFactory\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'Akeneo…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Component\\\\\\\\Error…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig, Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\?\\: Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Component\\\\\\\\Image…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Component…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\} on left side of \\?\\? does not exist\\.$#"
+			count: 3
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Cart…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Category…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig, Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\?\\: Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Category…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Customer…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Feed…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig, Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\?\\: Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Order…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig, Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\?\\: Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory, App\\\\Model\\\\Product\\\\Parameter\\\\ParameterGroupDataFactory\\?\\: App\\\\Model\\\\Product\\\\Parameter\\\\ParameterGroupDataFactory\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Order…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Product…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig, Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\?\\: Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory, App\\\\Model\\\\Product\\\\Parameter\\\\ParameterGroupDataFactory\\?\\: App\\\\Model\\\\Product\\\\Parameter\\\\ParameterGroupDataFactory\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Product…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig, Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\?\\: Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\} on left side of \\?\\? does not exist\\.$#"
+			count: 4
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Product…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\} on left side of \\?\\? does not exist\\.$#"
+			count: 8
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Sitemap…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig, Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\?\\: Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Transfer…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\} on left side of \\?\\? does not exist\\.$#"
+			count: 2
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Transport…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig, Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\?\\: Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory, App\\\\Model\\\\Product\\\\Parameter\\\\ParameterGroupDataFactory\\?\\: App\\\\Model\\\\Product\\\\Parameter\\\\ParameterGroupDataFactory\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'Shopsys\\\\\\\\ProductFeed…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig, Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\?\\: Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'Shopsys\\\\\\\\ProductFeed…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'Shopsys…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig, Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\?\\: Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory, App\\\\Model\\\\Product\\\\Parameter\\\\ParameterGroupDataFactory\\?\\: App\\\\Model\\\\Product\\\\Parameter\\\\ParameterGroupDataFactory\\} on left side of \\?\\? does not exist\\.$#"
+			count: 4
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'Shopsys…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig, Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\?\\: Shopsys\\\\ProductFeed\\\\HeurekaBundle\\\\Model\\\\HeurekaCategory\\\\HeurekaCategoryDataFactory\\} on left side of \\?\\? does not exist\\.$#"
+			count: 3
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Offset 'Shopsys…' on array\\{Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Cron\\\\Config\\\\CronConfig\\} on left side of \\?\\? does not exist\\.$#"
+			count: 8
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getCronConfigService.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\getDebug_FileLinkFormatter_UrlFormatService\\:\\:do\\(\\) has invalid return type string\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getDebug_FileLinkFormatter_UrlFormatService.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\getDebug_FileLinkFormatter_UrlFormatService\\:\\:do\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getDebug_FileLinkFormatter_UrlFormatService.php
+
+		-
+			message: "#^Anonymous function has an unused use \\$container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getDoctrine_Orm_Listeners_DoctrineTokenProviderSchemaSubscriberService.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\getExecutionContextInterfaceService\\:\\:do\\(\\) should return Symfony\\\\Component\\\\Validator\\\\Context\\\\ExecutionContextInterface but return statement is missing\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getExecutionContextInterfaceService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Component\\\\\\\\Image…' on array\\{Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\: Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getFeedRegistryService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Component…' on array\\{Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\: Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getFeedRegistryService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Category…' on array\\{Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\: Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\} on left side of \\?\\? does not exist\\.$#"
+			count: 2
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getFeedRegistryService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Product…' on array\\{Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\: Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getFeedRegistryService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\ProductFeed…' on array\\{Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\: Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getFeedRegistryService.php
+
+		-
+			message: "#^Offset 'Shopsys\\\\\\\\ProductFeed…' on array\\{Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\: Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\} on left side of \\?\\? does not exist\\.$#"
+			count: 2
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getFeedRegistryService.php
+
+		-
+			message: "#^Offset 'Shopsys…' on array\\{Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\: Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\} on left side of \\?\\? does not exist\\.$#"
+			count: 10
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getFeedRegistryService.php
+
+		-
+			message: "#^Offset 'monolog\\.logger' on array\\{Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\: Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getFeedRegistryService.php
+
+		-
+			message: "#^Parameter \\#2 \\$timeHours of method Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\:\\:registerFeed\\(\\) expects string, int given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getFeedRegistryService.php
+
+		-
+			message: "#^Parameter \\#3 \\$timeMinutes of method Shopsys\\\\FrameworkBundle\\\\Model\\\\Feed\\\\FeedRegistry\\:\\:registerFeed\\(\\) expects string, int given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getFeedRegistryService.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\getFlattenExceptionService\\:\\:do\\(\\) should return Symfony\\\\Component\\\\ErrorHandler\\\\Exception\\\\FlattenException but return statement is missing\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getFlattenExceptionService.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\getItemInterfaceService\\:\\:do\\(\\) should return Knp\\\\Menu\\\\ItemInterface but return statement is missing\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getItemInterfaceService.php
+
+		-
+			message: "#^Offset 'router' on array\\{knp_menu\\.factory\\: Knp\\\\Menu\\\\MenuFactory\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getKnpMenu_FactoryService.php
+
+		-
+			message: "#^Offset 'monolog\\.logger…' on array\\{messenger\\.bus\\.default\\.middleware\\.handle_message\\: Symfony\\\\Component\\\\Messenger\\\\Middleware\\\\HandleMessageMiddleware\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMessenger_Bus_Default_Middleware_HandleMessageService.php
+
+		-
+			message: "#^Parameter \\#1 \\$handlers of class Symfony\\\\Component\\\\Messenger\\\\Handler\\\\HandlersLocator constructor expects array\\<array\\<\\(callable\\(\\)\\: mixed\\)\\|Symfony\\\\Component\\\\Messenger\\\\Handler\\\\HandlerDescriptor\\>\\>, array\\{Presta\\\\SitemapBundle\\\\Messenger\\\\DumpSitemapMessage\\: Symfony\\\\Component\\\\DependencyInjection\\\\Argument\\\\RewindableGenerator, Symfony\\\\Component\\\\Mailer\\\\Messenger\\\\SendEmailMessage\\: Symfony\\\\Component\\\\DependencyInjection\\\\Argument\\\\RewindableGenerator, Shopsys\\\\FrameworkBundle\\\\Model\\\\Order\\\\Messenger\\\\PlacedOrderMessage\\: Symfony\\\\Component\\\\DependencyInjection\\\\Argument\\\\RewindableGenerator, Shopsys\\\\FrameworkBundle\\\\Model\\\\Product\\\\Recalculation\\\\DispatchAllProductsMessage\\: Symfony\\\\Component\\\\DependencyInjection\\\\Argument\\\\RewindableGenerator, Shopsys\\\\FrameworkBundle\\\\Model\\\\Product\\\\Recalculation\\\\AbstractProductRecalculationMessage\\: Symfony\\\\Component\\\\DependencyInjection\\\\Argument\\\\RewindableGenerator\\} given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMessenger_Bus_Default_Middleware_HandleMessageService.php
+
+		-
+			message: "#^Offset 'monolog\\.logger…' on array\\{messenger\\.middleware\\.send_message\\: Symfony\\\\Component\\\\Messenger\\\\Middleware\\\\SendMessageMiddleware\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMessenger_Middleware_SendMessageService.php
+
+		-
+			message: "#^Offset 'monolog\\.processor…' on array\\{monolog\\.handler\\.console_output\\: Symfony\\\\Bridge\\\\Monolog\\\\Handler\\\\ConsoleHandler\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMonolog_Handler_ConsoleOutputService.php
+
+		-
+			message: "#^Offset 'monolog\\.formatter…' on array\\{monolog\\.handler\\.cron_output\\: Monolog\\\\Handler\\\\StreamHandler, monolog\\.processor\\.psr_log_message\\?\\: Monolog\\\\Processor\\\\PsrLogMessageProcessor\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMonolog_Handler_CronOutputService.php
+
+		-
+			message: "#^Offset 'monolog\\.processor…' on array\\{monolog\\.handler\\.cron_output\\: Monolog\\\\Handler\\\\StreamHandler\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMonolog_Handler_CronOutputService.php
+
+		-
+			message: "#^Class Monolog\\\\Handler\\\\NullHandler constructor invoked with 2 parameters, 0\\-1 required\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMonolog_Logger_CronService.php
+
+		-
+			message: "#^Class Monolog\\\\Handler\\\\NullHandler constructor invoked with 2 parameters, 0\\-1 required\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMonolog_Logger_MailerService.php
+
+		-
+			message: "#^Offset 'debug\\.log_processor' on array\\{monolog\\.logger\\.mailer\\: Symfony\\\\Bridge\\\\Monolog\\\\Logger\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMonolog_Logger_MailerService.php
+
+		-
+			message: "#^Offset 'monolog\\.handler\\.log…' on array\\{monolog\\.logger\\.mailer\\: Symfony\\\\Bridge\\\\Monolog\\\\Logger, monolog\\.handler\\.main\\?\\: Monolog\\\\Handler\\\\NullHandler\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMonolog_Logger_MailerService.php
+
+		-
+			message: "#^Offset 'monolog\\.handler\\.main' on array\\{monolog\\.logger\\.mailer\\: Symfony\\\\Bridge\\\\Monolog\\\\Logger\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMonolog_Logger_MailerService.php
+
+		-
+			message: "#^Offset 'monolog\\.handler…' on array\\{monolog\\.logger\\.mailer\\: Symfony\\\\Bridge\\\\Monolog\\\\Logger, monolog\\.handler\\.main\\?\\: Monolog\\\\Handler\\\\NullHandler\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMonolog_Logger_MailerService.php
+
+		-
+			message: "#^Class Monolog\\\\Handler\\\\NullHandler constructor invoked with 2 parameters, 0\\-1 required\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMonolog_Logger_MessengerService.php
+
+		-
+			message: "#^Offset 'debug\\.log_processor' on array\\{monolog\\.logger\\.messenger\\: Symfony\\\\Bridge\\\\Monolog\\\\Logger\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMonolog_Logger_MessengerService.php
+
+		-
+			message: "#^Offset 'monolog\\.handler\\.log…' on array\\{monolog\\.logger\\.messenger\\: Symfony\\\\Bridge\\\\Monolog\\\\Logger, monolog\\.handler\\.main\\?\\: Monolog\\\\Handler\\\\NullHandler\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMonolog_Logger_MessengerService.php
+
+		-
+			message: "#^Offset 'monolog\\.handler\\.main' on array\\{monolog\\.logger\\.messenger\\: Symfony\\\\Bridge\\\\Monolog\\\\Logger\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMonolog_Logger_MessengerService.php
+
+		-
+			message: "#^Offset 'monolog\\.handler…' on array\\{monolog\\.logger\\.messenger\\: Symfony\\\\Bridge\\\\Monolog\\\\Logger, monolog\\.handler\\.main\\?\\: Monolog\\\\Handler\\\\NullHandler\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMonolog_Logger_MessengerService.php
+
+		-
+			message: "#^Class Monolog\\\\Handler\\\\NullHandler constructor invoked with 2 parameters, 0\\-1 required\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getMonolog_Logger_QueueService.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\getOverblogGraphql_Definition_BooleanTypeService\\:\\:do\\(\\) should return GraphQL\\\\Type\\\\Definition\\\\BooleanType but returns GraphQL\\\\Type\\\\Definition\\\\ScalarType\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getOverblogGraphql_Definition_BooleanTypeService.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\getOverblogGraphql_Definition_FloatTypeService\\:\\:do\\(\\) should return GraphQL\\\\Type\\\\Definition\\\\FloatType but returns GraphQL\\\\Type\\\\Definition\\\\ScalarType\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getOverblogGraphql_Definition_FloatTypeService.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\getOverblogGraphql_Definition_IdTypeService\\:\\:do\\(\\) should return GraphQL\\\\Type\\\\Definition\\\\IDType but returns GraphQL\\\\Type\\\\Definition\\\\ScalarType\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getOverblogGraphql_Definition_IdTypeService.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\getOverblogGraphql_Definition_IntTypeService\\:\\:do\\(\\) should return GraphQL\\\\Type\\\\Definition\\\\IntType but returns GraphQL\\\\Type\\\\Definition\\\\ScalarType\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getOverblogGraphql_Definition_IntTypeService.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\getOverblogGraphql_Definition_StringTypeService\\:\\:do\\(\\) should return GraphQL\\\\Type\\\\Definition\\\\StringType but returns GraphQL\\\\Type\\\\Definition\\\\ScalarType\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getOverblogGraphql_Definition_StringTypeService.php
+
+		-
+			message: "#^Offset 'overblog_graphql…' on array\\{overblog_graphql\\.request_executor\\: Overblog\\\\GraphQLBundle\\\\Request\\\\Executor\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getOverblogGraphql_RequestExecutorService.php
+
+		-
+			message: "#^Offset 'event_dispatcher' on array\\{overblog_graphql\\.type_resolver\\: Overblog\\\\GraphQLBundle\\\\Resolver\\\\TypeResolver\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getOverblogGraphql_TypeResolverService.php
+
+		-
+			message: "#^Call to static method staticProxyConstructor\\(\\) on an unknown class DoctrinePersister_a694024\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getPersisterInterfaceService.php
+
+		-
+			message: "#^Method ContainerEpnprih\\\\getPersisterInterfaceService\\:\\:do\\(\\) should return Scheb\\\\TwoFactorBundle\\\\Model\\\\Persister\\\\DoctrinePersister but returns Scheb\\\\TwoFactorBundle\\\\Model\\\\PersisterInterface\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getPersisterInterfaceService.php
+
+		-
+			message: "#^Call to static method staticProxyConstructor\\(\\) on an unknown class AuthenticatedTokenHandler_e3677d3\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getSchebTwoFactor_AuthenticatedTokenHandlerService.php
+
+		-
+			message: "#^Call to static method staticProxyConstructor\\(\\) on an unknown class ConditionAuthenticationHandler_a1ee12f\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getSchebTwoFactor_ConditionHandlerService.php
+
+		-
+			message: "#^Call to static method staticProxyConstructor\\(\\) on an unknown class IpWhitelistHandler_06fe2b0\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getSchebTwoFactor_IpWhitelistHandlerService.php
+
+		-
+			message: "#^Call to static method staticProxyConstructor\\(\\) on an unknown class TwoFactorProviderHandler_3ecff6c\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getSchebTwoFactor_ProviderHandlerService.php
+
+		-
+			message: "#^Call to static method staticProxyConstructor\\(\\) on an unknown class DefaultTwoFactorFormRenderer_892ae3f\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getSchebTwoFactor_Security_Email_DefaultFormRendererService.php
+
+		-
+			message: "#^Call to static method staticProxyConstructor\\(\\) on an unknown class DefaultTwoFactorFormRenderer_892ae3f\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getSchebTwoFactor_Security_Google_DefaultFormRendererService.php
+
+		-
+			message: "#^Class Scheb\\\\TwoFactorBundle\\\\Security\\\\Http\\\\Authentication\\\\DefaultAuthenticationRequiredHandler constructor invoked with 3 parameters, 2 required\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getSecurity_Authentication_AuthenticationRequiredHandler_TwoFactor_AdministrationService.php
+
+		-
+			message: "#^Class Scheb\\\\TwoFactorBundle\\\\Security\\\\Http\\\\Authentication\\\\DefaultAuthenticationSuccessHandler constructor invoked with 3 parameters, 2 required\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getSecurity_Authenticator_TwoFactor_AdministrationService.php
+
+		-
+			message: "#^Class Symfony\\\\Component\\\\Security\\\\Http\\\\RateLimiter\\\\DefaultLoginRateLimiter constructor invoked with 3 parameters, 2 required\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getSecurity_Listener_LoginThrottling_AdministrationService.php
+
+		-
+			message: "#^Class Symfony\\\\Component\\\\Security\\\\Http\\\\RateLimiter\\\\DefaultLoginRateLimiter constructor invoked with 3 parameters, 2 required\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getSecurity_LoginThrottling_FrontendApi_LimiterService.php
+
+		-
+			message: "#^Offset 'annotations\\.cached…' on array\\{stof_doctrine_extensions\\.listener\\.sortable\\: Gedmo\\\\Sortable\\\\SortableListener, stof_doctrine_extensions\\.metadata_cache\\?\\: Symfony\\\\Component\\\\Cache\\\\Adapter\\\\ArrayAdapter\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getStofDoctrineExtensions_Listener_SortableService.php
+
+		-
+			message: "#^Offset 'stof_doctrine…' on array\\{stof_doctrine_extensions\\.listener\\.sortable\\: Gedmo\\\\Sortable\\\\SortableListener\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getStofDoctrineExtensions_Listener_SortableService.php
+
+		-
+			message: "#^Offset 'annotations\\.cached…' on array\\{stof_doctrine_extensions\\.listener\\.tree\\: Gedmo\\\\Tree\\\\TreeListener, stof_doctrine_extensions\\.metadata_cache\\?\\: Symfony\\\\Component\\\\Cache\\\\Adapter\\\\ArrayAdapter\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getStofDoctrineExtensions_Listener_TreeService.php
+
+		-
+			message: "#^Offset 'stof_doctrine…' on array\\{stof_doctrine_extensions\\.listener\\.tree\\: Gedmo\\\\Tree\\\\TreeListener\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getStofDoctrineExtensions_Listener_TreeService.php
+
+		-
+			message: "#^Anonymous function has an unused use \\$container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_ProviderCollectionService.php
+
+		-
+			message: "#^Offset 'translation\\.loader…' on array\\{translation\\.reader\\: Symfony\\\\Component\\\\Translation\\\\Reader\\\\TranslationReader, translation\\.loader\\.yml\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\YamlFileLoader, translation\\.loader\\.xliff\\?\\: JMS\\\\TranslationBundle\\\\Translation\\\\Loader\\\\Symfony\\\\XliffLoader, translation\\.loader\\.php\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\PhpFileLoader, translation\\.loader\\.po\\?\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Translation\\\\PoFileLoader, translation\\.loader\\.mo\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\MoFileLoader, translation\\.loader\\.qt\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\QtFileLoader, translation\\.loader\\.csv\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\CsvFileLoader, \\.\\.\\.\\} on left side of \\?\\? does not exist\\.$#"
+			count: 3
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_ReaderService.php
+
+		-
+			message: "#^Offset 'translation\\.loader…' on array\\{translation\\.reader\\: Symfony\\\\Component\\\\Translation\\\\Reader\\\\TranslationReader, translation\\.loader\\.yml\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\YamlFileLoader, translation\\.loader\\.xliff\\?\\: JMS\\\\TranslationBundle\\\\Translation\\\\Loader\\\\Symfony\\\\XliffLoader, translation\\.loader\\.php\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\PhpFileLoader, translation\\.loader\\.po\\?\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Translation\\\\PoFileLoader, translation\\.loader\\.mo\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\MoFileLoader, translation\\.loader\\.qt\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\QtFileLoader, translation\\.loader\\.csv\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\CsvFileLoader\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_ReaderService.php
+
+		-
+			message: "#^Offset 'translation\\.loader…' on array\\{translation\\.reader\\: Symfony\\\\Component\\\\Translation\\\\Reader\\\\TranslationReader, translation\\.loader\\.yml\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\YamlFileLoader, translation\\.loader\\.xliff\\?\\: JMS\\\\TranslationBundle\\\\Translation\\\\Loader\\\\Symfony\\\\XliffLoader, translation\\.loader\\.php\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\PhpFileLoader, translation\\.loader\\.po\\?\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Translation\\\\PoFileLoader, translation\\.loader\\.mo\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\MoFileLoader, translation\\.loader\\.qt\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\QtFileLoader\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_ReaderService.php
+
+		-
+			message: "#^Offset 'translation\\.loader…' on array\\{translation\\.reader\\: Symfony\\\\Component\\\\Translation\\\\Reader\\\\TranslationReader, translation\\.loader\\.yml\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\YamlFileLoader, translation\\.loader\\.xliff\\?\\: JMS\\\\TranslationBundle\\\\Translation\\\\Loader\\\\Symfony\\\\XliffLoader, translation\\.loader\\.php\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\PhpFileLoader, translation\\.loader\\.po\\?\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Translation\\\\PoFileLoader, translation\\.loader\\.mo\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\MoFileLoader\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_ReaderService.php
+
+		-
+			message: "#^Offset 'translation\\.loader…' on array\\{translation\\.reader\\: Symfony\\\\Component\\\\Translation\\\\Reader\\\\TranslationReader, translation\\.loader\\.yml\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\YamlFileLoader, translation\\.loader\\.xliff\\?\\: JMS\\\\TranslationBundle\\\\Translation\\\\Loader\\\\Symfony\\\\XliffLoader, translation\\.loader\\.php\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\PhpFileLoader, translation\\.loader\\.po\\?\\: Shopsys\\\\FrameworkBundle\\\\Component\\\\Translation\\\\PoFileLoader\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_ReaderService.php
+
+		-
+			message: "#^Offset 'translation\\.loader…' on array\\{translation\\.reader\\: Symfony\\\\Component\\\\Translation\\\\Reader\\\\TranslationReader, translation\\.loader\\.yml\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\YamlFileLoader, translation\\.loader\\.xliff\\?\\: JMS\\\\TranslationBundle\\\\Translation\\\\Loader\\\\Symfony\\\\XliffLoader, translation\\.loader\\.php\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\PhpFileLoader\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_ReaderService.php
+
+		-
+			message: "#^Offset 'translation\\.loader…' on array\\{translation\\.reader\\: Symfony\\\\Component\\\\Translation\\\\Reader\\\\TranslationReader, translation\\.loader\\.yml\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\YamlFileLoader, translation\\.loader\\.xliff\\?\\: JMS\\\\TranslationBundle\\\\Translation\\\\Loader\\\\Symfony\\\\XliffLoader\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_ReaderService.php
+
+		-
+			message: "#^Offset 'translation\\.loader…' on array\\{translation\\.reader\\: Symfony\\\\Component\\\\Translation\\\\Reader\\\\TranslationReader, translation\\.loader\\.yml\\?\\: Symfony\\\\Component\\\\Translation\\\\Loader\\\\YamlFileLoader\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_ReaderService.php
+
+		-
+			message: "#^Offset 'translation\\.loader…' on array\\{translation\\.reader\\: Symfony\\\\Component\\\\Translation\\\\Reader\\\\TranslationReader\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_ReaderService.php
+
+		-
+			message: "#^Offset 'translation\\.dumper…' on array\\{translation\\.writer\\: Symfony\\\\Component\\\\Translation\\\\Writer\\\\TranslationWriter, translation\\.dumper\\.mo\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\MoFileDumper, translation\\.dumper\\.yaml\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\YamlFileDumper, translation\\.dumper\\.qt\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\QtFileDumper, translation\\.dumper\\.csv\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\CsvFileDumper, translation\\.dumper\\.ini\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\IniFileDumper, translation\\.dumper\\.json\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\JsonFileDumper\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_WriterService.php
+
+		-
+			message: "#^Offset 'translation\\.dumper…' on array\\{translation\\.writer\\: Symfony\\\\Component\\\\Translation\\\\Writer\\\\TranslationWriter, translation\\.dumper\\.mo\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\MoFileDumper, translation\\.dumper\\.yaml\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\YamlFileDumper, translation\\.dumper\\.qt\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\QtFileDumper, translation\\.dumper\\.csv\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\CsvFileDumper, translation\\.dumper\\.ini\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\IniFileDumper\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_WriterService.php
+
+		-
+			message: "#^Offset 'translation\\.dumper…' on array\\{translation\\.writer\\: Symfony\\\\Component\\\\Translation\\\\Writer\\\\TranslationWriter, translation\\.dumper\\.mo\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\MoFileDumper, translation\\.dumper\\.yaml\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\YamlFileDumper, translation\\.dumper\\.qt\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\QtFileDumper, translation\\.dumper\\.csv\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\CsvFileDumper\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_WriterService.php
+
+		-
+			message: "#^Offset 'translation\\.dumper…' on array\\{translation\\.writer\\: Symfony\\\\Component\\\\Translation\\\\Writer\\\\TranslationWriter, translation\\.dumper\\.mo\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\MoFileDumper, translation\\.dumper\\.yaml\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\YamlFileDumper, translation\\.dumper\\.qt\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\QtFileDumper\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_WriterService.php
+
+		-
+			message: "#^Offset 'translation\\.dumper…' on array\\{translation\\.writer\\: Symfony\\\\Component\\\\Translation\\\\Writer\\\\TranslationWriter, translation\\.dumper\\.mo\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\MoFileDumper, translation\\.dumper\\.yaml\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\YamlFileDumper\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_WriterService.php
+
+		-
+			message: "#^Offset 'translation\\.dumper…' on array\\{translation\\.writer\\: Symfony\\\\Component\\\\Translation\\\\Writer\\\\TranslationWriter, translation\\.dumper\\.mo\\?\\: Symfony\\\\Component\\\\Translation\\\\Dumper\\\\MoFileDumper\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_WriterService.php
+
+		-
+			message: "#^Offset 'translation\\.dumper…' on array\\{translation\\.writer\\: Symfony\\\\Component\\\\Translation\\\\Writer\\\\TranslationWriter\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTranslation_WriterService.php
+
+		-
+			message: "#^Call to static method staticProxyConstructor\\(\\) on an unknown class DefaultTwoFactorFormRenderer_892ae3f\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTwoFactorFormRendererInterfaceService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Component\\\\\\\\Image…' on array\\{Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener\\: Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTypeDecoratorListenerService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Component…' on array\\{Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener\\: Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTypeDecoratorListenerService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Category…' on array\\{Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener\\: Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTypeDecoratorListenerService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Customer…' on array\\{Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener\\: Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTypeDecoratorListenerService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Payment…' on array\\{Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener\\: Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener, Shopsys\\\\FrameworkBundle\\\\Model\\\\Store\\\\OpeningHours\\\\OpeningHoursRangeDataFactory\\?\\: Shopsys\\\\FrameworkBundle\\\\Model\\\\Store\\\\OpeningHours\\\\OpeningHoursRangeDataFactory\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTypeDecoratorListenerService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model\\\\\\\\Product…' on array\\{Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener\\: Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener\\} on left side of \\?\\? does not exist\\.$#"
+			count: 4
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTypeDecoratorListenerService.php
+
+		-
+			message: "#^Offset 'App\\\\\\\\Model…' on array\\{Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener\\: Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTypeDecoratorListenerService.php
+
+		-
+			message: "#^Offset 'Shopsys…' on array\\{Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener\\: Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener, Shopsys\\\\FrameworkBundle\\\\Model\\\\Store\\\\OpeningHours\\\\OpeningHoursRangeDataFactory\\?\\: Shopsys\\\\FrameworkBundle\\\\Model\\\\Store\\\\OpeningHours\\\\OpeningHoursRangeDataFactory\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTypeDecoratorListenerService.php
+
+		-
+			message: "#^Offset 'Shopsys…' on array\\{Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener\\: Overblog\\\\GraphQLBundle\\\\EventListener\\\\TypeDecoratorListener\\} on left side of \\?\\? does not exist\\.$#"
+			count: 13
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getTypeDecoratorListenerService.php
+
+		-
+			message: "#^Class Monolog\\\\Handler\\\\NullHandler constructor invoked with 2 parameters, 0\\-1 required\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getVarDumper_Command_ServerDumpService.php
+
+		-
+			message: "#^Offset 'debug\\.file_link…' on array\\{var_dumper\\.contextualized_cli_dumper\\.inner\\: Symfony\\\\Component\\\\VarDumper\\\\Dumper\\\\CliDumper\\} on left side of \\?\\? does not exist\\.$#"
+			count: 1
+			path: repo/project-base/app/var/cache/dev/ContainerEpnprih/getVarDumper_ContextualizedCliDumper_InnerService.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/AddOrderItemsToCartInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/AddProductResultType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/AddToCartInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/AddToCartResultType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/AdvertCodeType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 5
+			path: repo/project-base/app/var/overblogCompiledClasses/AdvertImageType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\AdvertPositionType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/AdvertPositionType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/AdvertType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/ApplyPromoCodeToCartInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/ArticleConnectionType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/ArticleEdgeType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/ArticleInterfaceType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/ArticleLinkType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\ArticlePlacementTypeEnumType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/ArticlePlacementTypeEnumType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 7
+			path: repo/project-base/app/var/overblogCompiledClasses/ArticleSiteType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\AvailabilityStatusEnumType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/AvailabilityStatusEnumType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/AvailabilityType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/BlogArticleConnectionType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/BlogArticleEdgeType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 12
+			path: repo/project-base/app/var/overblogCompiledClasses/BlogArticleType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 10
+			path: repo/project-base/app/var/overblogCompiledClasses/BlogCategoryType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/BrandFilterOptionType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 12
+			path: repo/project-base/app/var/overblogCompiledClasses/BrandType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/BreadcrumbType.php
+
+		-
+			message: "#^Parameter \\#1 \\$config of method GraphQL\\\\Type\\\\Definition\\\\InputObjectType\\:\\:__construct\\(\\) expects array\\{name\\?\\: string\\|null, description\\?\\: string\\|null, fields\\: \\(callable\\(\\)\\: iterable\\<array\\{name\\?\\: string, type\\: callable\\(\\)\\: \\(GraphQL\\\\Type\\\\Definition\\\\InputType&GraphQL\\\\Type\\\\Definition\\\\Type\\)\\|\\(GraphQL\\\\Type\\\\Definition\\\\InputType&GraphQL\\\\Type\\\\Definition\\\\Type\\), defaultValue\\?\\: mixed, description\\?\\: string\\|null, deprecationReason\\?\\: string\\|null, astNode\\?\\: GraphQL\\\\Language\\\\AST\\\\InputValueDefinitionNode\\|null\\}\\|callable\\(\\)\\: \\(array\\{name\\?\\: string, type\\: callable\\(\\)\\: \\(GraphQL\\\\Type\\\\Definition\\\\InputType&GraphQL\\\\Type\\\\Definition\\\\Type\\)\\|\\(GraphQL\\\\Type\\\\Definition\\\\InputType&GraphQL\\\\Type\\\\Definition\\\\Type\\), defaultValue\\?\\: mixed, description\\?\\: string\\|null, deprecationReason\\?\\: string\\|null, astNode\\?\\: GraphQL\\\\Language\\\\AST\\\\InputValueDefinitionNode\\|null\\}\\|GraphQL\\\\Type\\\\Definition\\\\InputObjectField\\|\\(GraphQL\\\\Type\\\\Definition\\\\InputType&GraphQL\\\\Type\\\\Definition\\\\Type\\)\\)\\|GraphQL\\\\Type\\\\Definition\\\\InputObjectField\\|\\(GraphQL\\\\Type\\\\Definition\\\\InputType&GraphQL\\\\Type\\\\Definition\\\\Type\\)\\>\\)\\|iterable\\<array\\{name\\?\\: string, type\\: \\(callable\\(\\)\\: \\(GraphQL\\\\Type\\\\Definition\\\\InputType&GraphQL\\\\Type\\\\Definition\\\\Type\\)\\)\\|\\(GraphQL\\\\Type\\\\Definition\\\\InputType&GraphQL\\\\Type\\\\Definition\\\\Type\\), defaultValue\\?\\: mixed, description\\?\\: string\\|null, deprecationReason\\?\\: string\\|null, astNode\\?\\: GraphQL\\\\Language\\\\AST\\\\InputValueDefinitionNode\\|null\\}\\|\\(callable\\(\\)\\: \\(array\\{name\\?\\: string, type\\: callable\\(\\)\\: \\(GraphQL\\\\Type\\\\Definition\\\\InputType&GraphQL\\\\Type\\\\Definition\\\\Type\\)\\|\\(GraphQL\\\\Type\\\\Definition\\\\InputType&GraphQL\\\\Type\\\\Definition\\\\Type\\), defaultValue\\?\\: mixed, description\\?\\: string\\|null, deprecationReason\\?\\: string\\|null, astNode\\?\\: GraphQL\\\\Language\\\\AST\\\\InputValueDefinitionNode\\|null\\}\\|GraphQL\\\\Type\\\\Definition\\\\InputObjectField\\|\\(GraphQL\\\\Type\\\\Definition\\\\InputType&GraphQL\\\\Type\\\\Definition\\\\Type\\)\\)\\)\\|GraphQL\\\\Type\\\\Definition\\\\InputObjectField\\|\\(GraphQL\\\\Type\\\\Definition\\\\InputType&GraphQL\\\\Type\\\\Definition\\\\Type\\)\\>, parseValue\\?\\: callable\\(array\\<string, mixed\\>\\)\\: mixed, astNode\\?\\: GraphQL\\\\Language\\\\AST\\\\InputObjectTypeDefinitionNode\\|null, extensionASTNodes\\?\\: array\\<int, GraphQL\\\\Language\\\\AST\\\\InputObjectTypeExtensionNode\\>\\|null\\}, array\\{name\\: 'CartInput', fields\\: Closure\\(\\)\\: array\\{cartUuid\\: array\\{type\\: Closure\\(\\)\\: \\(GraphQL\\\\Type\\\\Definition\\\\Type\\|null\\), description\\: 'Cart identifier, new cart will be created if not provided and customer is not logged in', defaultValue\\: null\\}\\}\\} given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/CartInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/CartInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 10
+			path: repo/project-base/app/var/overblogCompiledClasses/CartInterfaceType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/overblogCompiledClasses/CartItemModificationsResultType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/CartItemType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 5
+			path: repo/project-base/app/var/overblogCompiledClasses/CartModificationsResultType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/CartMultipleAddedProductModificationsResultType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 6
+			path: repo/project-base/app/var/overblogCompiledClasses/CartMutationType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\CartPaymentModificationsResultType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/CartPaymentModificationsResultType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\CartPromoCodeModificationsResultType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/CartPromoCodeModificationsResultType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/CartQueryType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\CartTransportModificationsResultType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/CartTransportModificationsResultType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 12
+			path: repo/project-base/app/var/overblogCompiledClasses/CartType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/CategoryConnectionType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/CategoryEdgeType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/CategoryHierarchyItemType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 7
+			path: repo/project-base/app/var/overblogCompiledClasses/CategoryQueryType.php
+
+		-
+			message: "#^Service \"argumentFactory\" is not registered in the container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/CategoryQueryType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 17
+			path: repo/project-base/app/var/overblogCompiledClasses/CategoryType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/ChangePasswordInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/ChangePaymentInCartInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/ChangePaymentInOrderInputType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\ChangePersonalDataInputType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/ChangePersonalDataInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/ChangeTransportInCartInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/CombinedArticleConnectionType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/CombinedArticleEdgeType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 5
+			path: repo/project-base/app/var/overblogCompiledClasses/CompanyCustomerUserType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/ContactFormMutationType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\ContactInputType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/ContactInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/CountryQueryType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\CountryType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/CountryType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/CreateOrderResultType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 6
+			path: repo/project-base/app/var/overblogCompiledClasses/CustomerMutationType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/overblogCompiledClasses/CustomerUserMutationType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/CustomerUserQueryType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/overblogCompiledClasses/CustomerUserType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/DeliveryAddressInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/DeliveryAddressType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\FileType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/FileType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/FlagFilterOptionType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/FlagQueryType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 12
+			path: repo/project-base/app/var/overblogCompiledClasses/FlagType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\GoPayBankSwiftType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/GoPayBankSwiftType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\GoPayCreatePaymentSetupType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/GoPayCreatePaymentSetupType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\GoPayPaymentMethodType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/GoPayPaymentMethodType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\HreflangLinkType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/HreflangLinkType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/HreflangType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\ImageType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/ImageType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/LanguageConstantQueryType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\LanguageConstantType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/LanguageConstantType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\LinkType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/LinkType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/LoginInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/LoginMutationType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/LoginResultType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 21
+			path: repo/project-base/app/var/overblogCompiledClasses/MainVariantType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 50
+			path: repo/project-base/app/var/overblogCompiledClasses/MutationType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/NavigationItemCategoriesByColumnsType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/NavigationItemType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/NavigationQueryType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/NewsletterSubscriberType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\NewsletterSubscriptionDataInputType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/NewsletterSubscriptionDataInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/NotBlogArticleInterfaceType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/NotificationBarQueryType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/NotificationBarType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/OpeningHoursOfDayType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\OpeningHoursRangeType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/OpeningHoursRangeType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/OpeningHoursType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/OrderConnectionType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/OrderEdgeType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 5
+			path: repo/project-base/app/var/overblogCompiledClasses/OrderInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/OrderItemType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/OrderMutationType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/OrderPaymentsConfigType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/OrderProductInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 7
+			path: repo/project-base/app/var/overblogCompiledClasses/OrderQueryType.php
+
+		-
+			message: "#^Service \"argumentFactory\" is not registered in the container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/OrderQueryType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 9
+			path: repo/project-base/app/var/overblogCompiledClasses/OrderType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\PageInfoType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/PageInfoType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/overblogCompiledClasses/ParameterCheckboxFilterOptionType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/overblogCompiledClasses/ParameterColorFilterOptionType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/ParameterFilterOptionInterfaceType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/ParameterFilterType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/ParameterSliderFilterOptionType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/ParameterType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/ParameterValueColorFilterOptionType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/ParameterValueFilterOptionType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/ParameterValueType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/PaymentInCartMutationType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/PaymentInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/PaymentSetupCreationDataType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 7
+			path: repo/project-base/app/var/overblogCompiledClasses/PaymentType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/PersonalDataAccessRequestInputType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\PersonalDataAccessRequestTypeEnumType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/PersonalDataAccessRequestTypeEnumType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/overblogCompiledClasses/PersonalDataMutationType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\PersonalDataPageType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/PersonalDataPageType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/PersonalDataQueryType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/PersonalDataType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/PriceDecoratorType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/PriceInputDecoratorType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/PriceInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/PriceInterfaceType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/overblogCompiledClasses/PriceType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\PricingSettingType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/PricingSettingType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 5
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductConnectionType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductEdgeType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 5
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductFilterOptionsType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 5
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductFilterType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductListInputDecoratorType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductListInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductListType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\ProductListTypeEnumType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductListTypeEnumType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductListUpdateInputDecoratorType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductListUpdateInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductListableType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\ProductOrderingModeEnumType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductOrderingModeEnumType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductPriceDecoratorType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductPriceType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 6
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductQueryType.php
+
+		-
+			message: "#^Service \"argumentFactory\" is not registered in the container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductQueryType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 16
+			path: repo/project-base/app/var/overblogCompiledClasses/ProductType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/overblogCompiledClasses/PromoCodeMutationType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 98
+			path: repo/project-base/app/var/overblogCompiledClasses/QueryType.php
+
+		-
+			message: "#^Service \"argumentFactory\" is not registered in the container\\.$#"
+			count: 7
+			path: repo/project-base/app/var/overblogCompiledClasses/QueryType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\RecommendationTypeType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/RecommendationTypeType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/RecoverPasswordInputType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\RefreshTokenInputType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/RefreshTokenInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/RegisterMutationType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 4
+			path: repo/project-base/app/var/overblogCompiledClasses/RegistrationDataInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 5
+			path: repo/project-base/app/var/overblogCompiledClasses/RegularCustomerUserType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 20
+			path: repo/project-base/app/var/overblogCompiledClasses/RegularProductType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/RemoveFromCartInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/RemovePromoCodeFromCartInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/SearchInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/SeoPageQueryType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/SeoPageType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\SeoSettingType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/SeoSettingType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/SettingsType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/SliderItemType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/SliderQueryType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/SlugQueryType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/SlugType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/StoreAvailabilityType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/StoreConnectionType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/StoreEdgeType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 3
+			path: repo/project-base/app/var/overblogCompiledClasses/StoreQueryType.php
+
+		-
+			message: "#^Service \"argumentFactory\" is not registered in the container\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/StoreQueryType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 7
+			path: repo/project-base/app/var/overblogCompiledClasses/StoreType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\TokenType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/TokenType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/TransportInputType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/TransportMutationType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 2
+			path: repo/project-base/app/var/overblogCompiledClasses/TransportQueryType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 8
+			path: repo/project-base/app/var/overblogCompiledClasses/TransportType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\TransportTypeType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/TransportTypeType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\UnitType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/UnitType.php
+
+		-
+			message: "#^Parameter \\#1 \\$typeName of method Overblog\\\\GraphQLBundle\\\\Definition\\\\GraphQLServices\\:\\:getType\\(\\) expects class\\-string\\<GraphQL\\\\Type\\\\Definition\\\\Type\\>, string given\\.$#"
+			count: 21
+			path: repo/project-base/app/var/overblogCompiledClasses/VariantType.php
+
+		-
+			message: "#^Constructor of class Overblog\\\\GraphQLBundle\\\\__DEFINITIONS__\\\\VideoTokenType has an unused parameter \\$services\\.$#"
+			count: 1
+			path: repo/project-base/app/var/overblogCompiledClasses/VideoTokenType.php
