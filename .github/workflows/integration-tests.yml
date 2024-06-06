@@ -333,6 +333,7 @@ jobs:
             repo: shopsys/shopsys
             ref: v14.0.0
             setup: |
+              cp ../shopsys-composer.lock composer.lock
               composer install
 
             # from build.xml
@@ -342,6 +343,7 @@ jobs:
             ref: v14.0.0
             setup: |
               cd project-base/app
+              cp ../../../shopsys-project-base-composer.lock composer.lock
               composer install
 
             # test project-base separately
