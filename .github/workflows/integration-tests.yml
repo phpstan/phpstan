@@ -342,6 +342,8 @@ jobs:
             repo: shopsys/shopsys
             ref: v14.0.0
             setup: |
+              cp ../shopsys-composer.lock composer.lock
+              composer install
               cd project-base/app
               cp ../../../shopsys-project-base-composer.lock composer.lock
               composer install
