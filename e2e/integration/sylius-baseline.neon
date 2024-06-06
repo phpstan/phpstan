@@ -1,0 +1,6 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Negated boolean expression is always true\\.$#"
+			count: 2
+			path: repo/src/Sylius/Bundle/UserBundle/Console/Command/AbstractRoleCommand.php
