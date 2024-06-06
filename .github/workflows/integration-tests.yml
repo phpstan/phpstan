@@ -328,13 +328,15 @@ jobs:
               cp ../sylius-composer.lock composer.lock
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../sylius.neon
-          - php-version: 8.2
+          - php-version: 8.3
             repo: shopsys/shopsys
             ref: v14.0.0
             setup: |
               export DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db
               composer install
-            phpstan-command: ../../../phpstan.phar analyse -c ../sylius.neon
+
+            # from build.xml
+            phpstan-command: ../../../phpstan.phar analyse -c ../shopsys.neon -l 5 packages/*/src packages/*/tests project-base/app project-base/app/src project-base/app/tests utils/*/src utils/*/tests
             baseline-file: sylius-baseline.neon
           - php-version: 8.1
             repo: doctrine/orm
