@@ -1,3 +1,6 @@
 includes:
 	- repo/phpstan.neon
 	- shopsys-baseline.neon
+
+parameters:
+	reportUnmatchedIgnoredErrors: false
