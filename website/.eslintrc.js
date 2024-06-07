@@ -20,7 +20,7 @@ module.exports = {
 			'error',
 			{'ts-ignore': 'allow-with-description'},
 		],
-		"indent": ["error", "tab"],
+		"indent": ["error", "tab", {"SwitchCase": 1}],
 		"no-console": "error"
 	}
 };
