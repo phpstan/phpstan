@@ -726,12 +726,17 @@
         },
         "PHPStan\\Rules\\Functions\\ImplodeFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/ImplodeFunctionRule.php#L74"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/ImplodeFunctionRule.php#L80"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionCallParametersCheck.php#L309"
+            ]
+        },
+        "PHPStan\\Rules\\Functions\\ParameterCastableToStringFunctionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/ParameterCastableToStringFunctionRule.php#L164"
             ]
         },
         "PHPStan\\Rules\\Functions\\RandomIntParametersRule": {
@@ -2980,6 +2985,11 @@
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L401"
+            ]
+        },
+        "PHPStan\\Rules\\Functions\\ParameterCastableToStringFunctionRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L401"
             ]
