@@ -86,6 +86,26 @@ parameters:
 			path: repo/src/Core/DevOps/StaticAnalyze/PHPStan/Rules/UseCLIContextRule.php
 
 		-
+			message: "#^Parameter \\#1 \\$array of function asort expects an array of values castable to string, array\\<int\\|string, array\\<string, mixed\\>\\|int\\> given\\.$#"
+			count: 1
+			path: repo/src/Core/Framework/Adapter/Twig/NamespaceHierarchy/BundleHierarchyBuilder.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_unique expects an array of values castable to string, array\\<array\\<string, string\\>\\|string\\> given\\.$#"
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Write/EntityWriteResultFactory.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function array_unique expects an array of values castable to string, array\\<array\\<string, string\\>\\|Shopware\\\\Core\\\\Framework\\\\Store\\\\Struct\\\\PermissionStruct\\> given\\.$#"
+			count: 1
+			path: repo/src/Core/Framework/Store/Struct/PermissionCollection.php
+
+		-
+			message: "#^Parameter \\#1 \\$array of function arsort expects an array of values castable to string, array\\<string, array\\|float\\> given\\.$#"
+			count: 1
+			path: repo/src/Storefront/Theme/Twig/ThemeInheritanceBuilder.php
+
+		-
 			message: "#^PHPDoc tag @var with type string is not subtype of native type \\(non\\-falsy\\-string\\|false\\)\\.$#"
 			count: 1
 			path: repo/tests/integration/Core/Content/ImportExport/Service/MappingServiceTest.php
