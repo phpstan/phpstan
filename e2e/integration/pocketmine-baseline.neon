@@ -51,6 +51,36 @@ parameters:
 			path: repo/src/pocketmine/command/defaults/HelpCommand.php
 
 		-
+			message: "#^Parameter \\#1 \\$chunkX of method pocketmine\\\\level\\\\Level\\:\\:getChunkLoaders\\(\\) expects int, float\\|int given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/level/Level.php
+
+		-
+			message: "#^Parameter \\#1 \\$chunkX of method pocketmine\\\\level\\\\Level\\:\\:getChunkPlayers\\(\\) expects int, float\\|int given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/level/Level.php
+
+		-
+			message: "#^Parameter \\#1 \\$x of static method pocketmine\\\\level\\\\Level\\:\\:chunkHash\\(\\) expects int, float\\|int given\\.$#"
+			count: 2
+			path: repo/src/pocketmine/level/Level.php
+
+		-
+			message: "#^Parameter \\#2 \\$chunkZ of method pocketmine\\\\level\\\\Level\\:\\:getChunkLoaders\\(\\) expects int, float\\|int given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/level/Level.php
+
+		-
+			message: "#^Parameter \\#2 \\$chunkZ of method pocketmine\\\\level\\\\Level\\:\\:getChunkPlayers\\(\\) expects int, float\\|int given\\.$#"
+			count: 1
+			path: repo/src/pocketmine/level/Level.php
+
+		-
+			message: "#^Parameter \\#2 \\$z of static method pocketmine\\\\level\\\\Level\\:\\:chunkHash\\(\\) expects int, float\\|int given\\.$#"
+			count: 2
+			path: repo/src/pocketmine/level/Level.php
+
+		-
 			message: "#^Property pocketmine\\\\level\\\\Level\\:\\:\\$blockCache \\(array\\<array\\<pocketmine\\\\block\\\\Block\\>\\>\\) does not accept array\\<array\\<pocketmine\\\\block\\\\Block\\|null\\>\\>\\.$#"
 			count: 1
 			path: repo/src/pocketmine/level/Level.php
@@ -114,9 +144,4 @@ parameters:
 			message: "#^Comparison operation \"\\<\" between int\\<\\-2147483648, 133143986400\\> and \\-2147483648 is always false\\.$#"
 			count: 1
 			path: repo/src/pocketmine/utils/Utils.php
-
-		-
-			message: "#^Property pocketmine\\\\network\\\\mcpe\\\\StupidJsonDecodeTest\\:\\:\\$stupidJsonDecodeFunc \\(Closure\\(string, bool\\=\\)\\: mixed\\) does not accept Closure\\|null\\.$#"
-			count: 1
-			path: repo/tests/phpunit/network/mcpe/StupidJsonDecodeTest.php
 

@@ -76,6 +76,16 @@ parameters:
 			path: repo/src/Composer/Command/ValidateCommand.php
 
 		-
+			message: "#^Method Composer\\\\DependencyResolver\\\\Rule\\:\\:getReason\\(\\) should return 2\\|3\\|6\\|7\\|10\\|12\\|13\\|14 but returns int\\<0, 255\\>\\.$#"
+			count: 1
+			path: repo/src/Composer/DependencyResolver/Rule.php
+
+		-
+			message: "#^Only booleans are allowed in a negated boolean, int\\<0, 255\\> given\\.$#"
+			count: 1
+			path: repo/src/Composer/DependencyResolver/Rule.php
+
+		-
 			message: "#^Parameter \\#2 \\$replacement of static method Composer\\\\Pcre\\\\Preg\\:\\:replaceCallback\\(\\) expects callable\\(array\\<int\\|string, string\\|null\\>\\)\\: string, Closure\\(mixed\\)\\: \\(string\\|null\\) given\\.$#"
 			count: 1
 			path: repo/src/Composer/Json/JsonFormatter.php
