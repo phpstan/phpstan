@@ -41,6 +41,11 @@ parameters:
 			path: repo/src/Composer/Command/InitCommand.php
 
 		-
+			message: "#^Offset 'name' on array\\{name\\: string, passwd\\: string, uid\\: int, gid\\: int, gecos\\: string, dir\\: string, shell\\: string\\} in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 2
+			path: repo/src/Composer/Command/SelfUpdateCommand.php
+
+		-
 			message: "#^Method Composer\\\\Command\\\\ShowCommand\\:\\:getPackage\\(\\) should return array\\{Composer\\\\Package\\\\CompletePackageInterface\\|null, array\\<string, string\\>\\} but returns array\\{Composer\\\\Package\\\\BasePackage\\|null, array\\<string, string\\>\\}\\.$#"
 			count: 1
 			path: repo/src/Composer/Command/ShowCommand.php
@@ -129,6 +134,16 @@ parameters:
 			message: "#^Parameter \\#2 \\$options of static method Composer\\\\Util\\\\Http\\\\ProxyHelper\\:\\:setRequestFullUri\\(\\) expects array, array\\|null given\\.$#"
 			count: 1
 			path: repo/src/Composer/Util/Http/ProxyManager.php
+
+		-
+			message: "#^Cannot access offset 'dir' on array\\{name\\: string, passwd\\: string, uid\\: int, gid\\: int, gecos\\: string, dir\\: string, shell\\: string\\}\\|false\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/Platform.php
+
+		-
+			message: "#^Only booleans are allowed in &&, array\\<string, int\\|string\\>\\|false given on the left side\\.$#"
+			count: 1
+			path: repo/src/Composer/Util/Platform.php
 
 		-
 			message: "#^Method Composer\\\\Util\\\\RemoteFilesystem\\:\\:getRemoteContents\\(\\) never assigns null to &\\$responseHeaders so it can be removed from the by\\-ref type\\.$#"
