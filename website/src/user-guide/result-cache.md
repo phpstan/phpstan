@@ -36,3 +36,39 @@ Clearing the result cache
 To clear the current state of the result cache, for example if you're developing [custom extensions](/developing-extensions/extension-types) and the result cache is getting stale too often, you can run the `clear-result-cache` command. [Learn more »](/user-guide/command-line-usage#clearing-the-result-cache)
 
 Result cache also gets disabled when running with [`--debug`](/user-guide/command-line-usage#--debug).
+
+
+Setup in GitHub Actions
+----------------
+
+Taking advantage of the result cache in your CI pipeline can make your build a lot faster.
+
+Here's an example of cache setup in GitHub Actions. First, set `tmpDir` in your [configuration file](/config-reference) to be inside your workspace:
+
+```yaml
+parameters:
+	tmpDir: tmp
+```
+
+Because GitHub Actions do not overwrite existing cache entries with the same key, we need to make sure the cache always has a unique key. Also, we can save the cache even for failing builds with reported errors. Here's how the steps in a workflow could look like:
+
+```yaml
+  # checkout, setup-php, composer install...
+  
+  - name: "Restore result cache"
+    uses: actions/cache/restore@v3
+    with:
+      path: tmp # same as in phpstan.neon
+      key: "phpstan-result-cache-${{ github.run_id }}"
+      restore-keys: |
+        phpstan-result-cache-
+
+  # run PHPStan...
+
+  - name: "Save result cache"
+    uses: actions/cache/save@v3
+    if: always()
+    with:
+      path: tmp # same as in phpstan.neon
+      key: "phpstan-result-cache-${{ github.run_id }}"
+```
