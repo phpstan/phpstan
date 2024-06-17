@@ -5836,14 +5836,14 @@
     "ignore.unmatchedIdentifier": {
         "PHPStan\\Analyser\\AnalyserResultFinalizer": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L180"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L196"
             ]
         }
     },
     "ignore.unmatchedLine": {
         "PHPStan\\Analyser\\AnalyserResultFinalizer": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L169"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L185"
             ]
         }
     },
@@ -8576,7 +8576,7 @@
         },
         "PHPStan\\Analyser\\AnalyserResultFinalizer": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L53"
             ]
         },
         "PHPStan\\Analyser\\FileAnalyser": {
@@ -8626,8 +8626,8 @@
     "phpstan.reflection": {
         "PHPStan\\Analyser\\AnalyserResultFinalizer": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L58",
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L66"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L61",
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Analyser/AnalyserResultFinalizer.php#L69"
             ]
         },
         "PHPStan\\Analyser\\FileAnalyser": {
