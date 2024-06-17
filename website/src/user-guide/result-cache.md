@@ -58,8 +58,8 @@ Because GitHub Actions do not overwrite existing cache entries with the same key
   - name: "Restore result cache"
     uses: actions/cache/restore@v3
     with:
-      path: tmp # same as in phpstan.neon
-      key: "phpstan-result-cache-${{ github.run_id }}"
+      path: tmp # same as in phpstan.neon
+      key: "phpstan-result-cache-{% raw %}${{ github.run_id }}"{% endraw %}
       restore-keys: |
         phpstan-result-cache-
 
@@ -69,6 +69,6 @@ Because GitHub Actions do not overwrite existing cache entries with the same key
     uses: actions/cache/save@v3
     if: always()
     with:
-      path: tmp # same as in phpstan.neon
-      key: "phpstan-result-cache-${{ github.run_id }}"
+      path: tmp # same as in phpstan.neon
+      key: "phpstan-result-cache-{% raw %}${{ github.run_id }}"{% endraw %}
 ```
