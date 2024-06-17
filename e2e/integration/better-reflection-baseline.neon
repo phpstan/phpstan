@@ -6,6 +6,6 @@ parameters:
 			path: repo/src/Reflection/Adapter/ReflectionEnum.php
 
 		-
-			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with 'Foo' and class\\-string\\<UnitEnum\\> will always evaluate to false\\.$#"
+			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertSame\\(\\) with 'another value…' and never will always evaluate to false\\.$#"
 			count: 1
-			path: repo/test/unit/Reflection/Adapter/ReflectionEnumTest.php
+			path: repo/test/unit/SourceLocator/Type/AutoloadSourceLocator/FileReadTrapStreamWrapperTest.php
