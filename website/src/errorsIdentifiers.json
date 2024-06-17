@@ -729,19 +729,29 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/ImplodeFunctionRule.php#L80"
             ]
         },
+        "PHPStan\\Rules\\Functions\\ImplodeParameterCastableToStringRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ParameterCastableToStringCheck.php#L49"
+            ]
+        },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionCallParametersCheck.php#L309"
             ]
         },
-        "PHPStan\\Rules\\Functions\\ParameterCastableToStringFunctionRule": {
+        "PHPStan\\Rules\\Functions\\ParameterCastableToStringRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/ParameterCastableToStringFunctionRule.php#L164"
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ParameterCastableToStringCheck.php#L49"
             ]
         },
         "PHPStan\\Rules\\Functions\\RandomIntParametersRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Functions/RandomIntParametersRule.php#L67"
+            ]
+        },
+        "PHPStan\\Rules\\Functions\\SortParameterCastableToStringRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/ParameterCastableToStringCheck.php#L49"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
@@ -2984,17 +2994,27 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L401"
             ]
         },
+        "PHPStan\\Rules\\Functions\\ImplodeParameterCastableToStringRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L401"
+            ]
+        },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L401"
             ]
         },
-        "PHPStan\\Rules\\Functions\\ParameterCastableToStringFunctionRule": {
+        "PHPStan\\Rules\\Functions\\ParameterCastableToStringRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L401"
             ]
         },
         "PHPStan\\Rules\\Functions\\ReturnTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L401"
+            ]
+        },
+        "PHPStan\\Rules\\Functions\\SortParameterCastableToStringRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleLevelHelper.php#L401"
             ]
