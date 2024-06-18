@@ -63,7 +63,8 @@ Because GitHub Actions do not overwrite existing cache entries with the same key
       restore-keys: |
         phpstan-result-cache-
 
-  # run PHPStan...
+  - name: "Run PHPStan"
+    run: "vendor/bin/phpstan"
 
   - name: "Save result cache"
     uses: actions/cache/save@v3
@@ -72,3 +73,5 @@ Because GitHub Actions do not overwrite existing cache entries with the same key
       path: tmp # same as in phpstan.neon
       key: "phpstan-result-cache-{% raw %}${{ github.run_id }}"{% endraw %}
 ```
+
+Learn more: [Workflow syntax for GitHub Actions](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions), [actions/cache](https://github.com/actions/cache)
