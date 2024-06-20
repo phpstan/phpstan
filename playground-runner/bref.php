@@ -91,7 +91,7 @@ return function ($event) use ($phpstanVersion) {
 
 	/** @var \PHPStan\Analyser\AnalyserResultFinalizer $analyserResultFinalizer */
 	$analyserResultFinalizer = $container->getByType(\PHPStan\Analyser\AnalyserResultFinalizer::class);
-	$analyserResult = $analyserResultFinalizer->finalize($analyserResult, true);
+	$analyserResult = $analyserResultFinalizer->finalize($analyserResult, true, false);
 	$results = $analyserResult->getErrors();
 
 	error_clear_last();
