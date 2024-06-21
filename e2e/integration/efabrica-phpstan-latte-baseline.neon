@@ -1,6 +1,21 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Offset 'block_name' might not exist on array\\{0\\?\\: string, define\\?\\: string, 1\\?\\: string, block_name\\?\\: string, 2\\?\\: string, parameters\\: string, 3\\?\\: string, line\\?\\: string, \\.\\.\\.\\}\\.$#"
+			count: 1
+			path: repo/src/Compiler/NodeVisitor/AddParametersForBlockNodeVisitor.php
+
+		-
+			message: "#^Offset 'define' might not exist on array\\{0\\?\\: string, define\\?\\: string, 1\\?\\: string, block_name\\?\\: string, 2\\?\\: string, parameters\\: string, 3\\?\\: string, line\\?\\: string, \\.\\.\\.\\}\\.$#"
+			count: 1
+			path: repo/src/Compiler/NodeVisitor/AddParametersForBlockNodeVisitor.php
+
+		-
+			message: "#^Offset 0 might not exist on array\\{0\\?\\: string, 1\\?\\: string, block\\: string, 2\\?\\: string\\}\\.$#"
+			count: 1
+			path: repo/src/Error/Transformer/BlockParameterErrorTransformer.php
+
+		-
 			message: "#^Method Efabrica\\\\PHPStanLatte\\\\LatteTemplateResolver\\\\LatteTemplateResolverResult\\:\\:addErrorFromBuilder\\(\\) has parameter \\$error with generic class PHPStan\\\\Rules\\\\RuleErrorBuilder but does not specify its types\\: T$#"
 			count: 1
 			path: repo/src/LatteTemplateResolver/LatteTemplateResolverResult.php

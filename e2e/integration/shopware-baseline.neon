@@ -11,6 +11,26 @@ parameters:
 			path: repo/src/Core/Content/Media/File/DownloadResponseGenerator.php
 
 		-
+			message: "#^Offset 1 might not exist on array\\{0\\?\\: string, 1\\?\\: string\\}\\.$#"
+			count: 2
+			path: repo/src/Core/Content/Product/Aggregate/ProductSearchConfigField/ProductSearchConfigFieldExceptionHandler.php
+
+		-
+			message: "#^Offset 1 might not exist on array\\{0\\?\\: string, 1\\?\\: string\\}\\.$#"
+			count: 2
+			path: repo/src/Core/Content/Product/DataAbstractionLayer/ProductExceptionHandler.php
+
+		-
+			message: "#^Offset 1 might not exist on array\\{0\\?\\: string, 1\\?\\: string\\}\\.$#"
+			count: 1
+			path: repo/src/Core/Content/Product/SalesChannel/Sorting/ProductSortingExceptionHandler.php
+
+		-
+			message: "#^Offset 1 might not exist on array\\{0\\?\\: string, 1\\?\\: string\\}\\.$#"
+			count: 1
+			path: repo/src/Core/Content/ProductExport/DataAbstractionLayer/ProductExportExceptionHandler.php
+
+		-
 			message: "#^Parameter \\#1 \\$matches of method Shopware\\\\Core\\\\Content\\\\Seo\\\\SeoUrlPlaceholderHandler\\:\\:createDefaultMapping\\(\\) expects array\\<string, string\\>, array\\<int, string\\> given\\.$#"
 			count: 1
 			path: repo/src/Core/Content/Seo/SeoUrlPlaceholderHandler.php
@@ -89,6 +109,11 @@ parameters:
 			message: "#^Parameter \\#1 \\$array of function array_unique expects an array of values castable to string, array\\<array\\<string, string\\>\\|string\\> given\\.$#"
 			count: 1
 			path: repo/src/Core/Framework/DataAbstractionLayer/Write/EntityWriteResultFactory.php
+
+		-
+			message: "#^Offset 'timestamp' might not exist on array\\{0\\?\\: string, name\\?\\: string, 1\\?\\: string, timestamp\\?\\: string, 2\\?\\: string\\}\\.$#"
+			count: 1
+			path: repo/src/Core/Migration/Test/MigrationNameAndTimestampTest.php
 
 		-
 			message: "#^PHPDoc tag @var with type string is not subtype of native type \\(non\\-falsy\\-string\\|false\\)\\.$#"
