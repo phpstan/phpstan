@@ -24,45 +24,45 @@ can be checked before you run the actual line.
 
 ## Sponsors
 
-<a href="https://coders.thecodingmachine.com/phpstan"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/tcm.png" alt="TheCodingMachine" width="247" height="64"></a>
+<a href="https://coders.thecodingmachine.com/phpstan"><img src="website/src/images/sponsor/tcm.png" alt="TheCodingMachine" width="247" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://packagist.com/?utm_source=phpstan&utm_medium=readme&utm_campaign=sponsorlogo"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/packagist.png" alt="Private Packagist" width="283" height="64"></a>
+<a href="https://packagist.com/?utm_source=phpstan&utm_medium=readme&utm_campaign=sponsorlogo"><img src="website/src/images/sponsor/packagist.png" alt="Private Packagist" width="283" height="64"></a>
 <br>
-<a href="https://www.cdn77.com/"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/cdn77.png" alt="CDN77" width="283" height="64"></a>
+<a href="https://www.cdn77.com/"><img src="website/src/images/sponsor/cdn77.png" alt="CDN77" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://blackfire.io/docs/introduction?utm_source=phpstan&utm_medium=github_readme&utm_campaign=logo"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/blackfire.png" alt="Blackfire.io" width="254" height="64"></a>
+<a href="https://blackfire.io/docs/introduction?utm_source=phpstan&utm_medium=github_readme&utm_campaign=logo"><img src="website/src/images/sponsor/blackfire.png" alt="Blackfire.io" width="254" height="64"></a>
 <br>
-<a href="https://www.iodigital.com/"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/io.png" alt="iO" width="254" height="65"></a>
+<a href="https://www.iodigital.com/"><img src="website/src/images/sponsor/io.png" alt="iO" width="254" height="65"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://www.fame.fi/"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/fame.png" alt="Fame Helsinki" width="283" height="64"></a>
+<a href="https://www.fame.fi/"><img src="website/src/images/sponsor/fame.png" alt="Fame Helsinki" width="283" height="64"></a>
 <br>
-<a href="https://www.startupjobs.cz/startup/shipmonk"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/shipmonk.jpg" alt="ShipMonk" width="290" height="64"></a>
+<a href="https://www.startupjobs.cz/startup/shipmonk"><img src="website/src/images/sponsor/shipmonk.jpg" alt="ShipMonk" width="290" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://togetter.com/"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/togetter.png" alt="Togetter" width="283" height="64"></a>
+<a href="https://togetter.com/"><img src="website/src/images/sponsor/togetter.png" alt="Togetter" width="283" height="64"></a>
 <br>
-<a href="https://join.rightcapital.com/?utm_source=phpstan&utm_medium=github&utm_campaign=sponsorship"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/rightcapital.png" alt="RightCapital" width="283" height="64"></a>
+<a href="https://join.rightcapital.com/?utm_source=phpstan&utm_medium=github&utm_campaign=sponsorship"><img src="website/src/images/sponsor/rightcapital.png" alt="RightCapital" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://www.contentkingapp.com/?ref=php-developer&utm_source=phpstan&utm_medium=referral&utm_campaign=sponsorship"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/contentking.png" alt="ContentKing" width="283" height="64"></a>
+<a href="https://www.contentkingapp.com/?ref=php-developer&utm_source=phpstan&utm_medium=referral&utm_campaign=sponsorship"><img src="website/src/images/sponsor/contentking.png" alt="ContentKing" width="283" height="64"></a>
 <br>
-<a href="https://zol.fr?utm_source=phpstan"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/zol.png" alt="ZOL" width="283" height="64"></a>
+<a href="https://zol.fr?utm_source=phpstan"><img src="website/src/images/sponsor/zol.png" alt="ZOL" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://www.edgenext.com/"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/edgenext.png" alt="EdgeNext" width="283" height="64"></a>
+<a href="https://www.edgenext.com/"><img src="website/src/images/sponsor/edgenext.png" alt="EdgeNext" width="283" height="64"></a>
 <br>
-<a href="https://www.shopware.com/en/"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/shopware.png" alt="Shopware" width="284" height="64"></a>
+<a href="https://www.shopware.com/en/"><img src="website/src/images/sponsor/shopware.png" alt="Shopware" width="284" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://craftcms.com/"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/craftcms.png" alt="Craft CMS" width="283" height="64"></a>
+<a href="https://craftcms.com/"><img src="website/src/images/sponsor/craftcms.png" alt="Craft CMS" width="283" height="64"></a>
 <br>
-<a href="https://www.worksome.com/"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/worksome.png" alt="Worksome" width="283" height="64"></a>
+<a href="https://www.worksome.com/"><img src="website/src/images/sponsor/worksome.png" alt="Worksome" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://www.campoint.net/"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/campoint.png" alt="campoint AG" width="283" height="64"></a>
+<a href="https://www.campoint.net/"><img src="website/src/images/sponsor/campoint.png" alt="campoint AG" width="283" height="64"></a>
 <br>
-<a href="https://www.crisp.nl/"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/crisp.png" alt="Crisp.nl" width="283" height="64"></a>
+<a href="https://www.crisp.nl/"><img src="website/src/images/sponsor/crisp.png" alt="Crisp.nl" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://inviqa.com/"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/inviqa.png" alt="Inviqa" width="254" height="65"></a>
+<a href="https://inviqa.com/"><img src="website/src/images/sponsor/inviqa.png" alt="Inviqa" width="254" height="65"></a>
 <br>
-<a href="https://www.getresponse.com/"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/getresponse.png" alt="GetResponse" width="283" height="64"></a>
+<a href="https://www.getresponse.com/"><img src="website/src/images/sponsor/getresponse.png" alt="GetResponse" width="283" height="64"></a>
 &nbsp;&nbsp;&nbsp;
-<a href="https://www.shoptet.cz/"><img src="https://media.githubusercontent.com/media/phpstan/phpstan/1.11.x/website/src/images/sponsor/shoptet.png" alt="Shoptet" width="283" height="64"></a>
+<a href="https://www.shoptet.cz/"><img src="website/src/images/sponsor/shoptet.png" alt="Shoptet" width="283" height="64"></a>
 
 
 [**You can now sponsor my open-source work on PHPStan through GitHub Sponsors.**](https://github.com/sponsors/ondrejmirtes)
