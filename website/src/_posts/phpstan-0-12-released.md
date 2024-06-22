@@ -65,7 +65,7 @@ So who has previously been on levels 5+ should now be able to jump at least one 
 
 ## PHAR distribution by default
 
-PHPStan has been offering `phpstan/phpstan-shim` Composer package that distributes PHPStan as a single PHAR file without risk of conflicting dependencies. Over its lifetime I’ve been removing differencies in usage between the mainstream `phpstan/phpstan` package and this one. It reached a point when it could be used by everyone without any downside. So why it shouldn’t be the default and only distribution method when it’s less hassle and allows more people (those that depend on the same packages as PHPStan itself) to upgrade to the latest version?
+PHPStan has been offering `phpstan/phpstan-shim` Composer package that distributes PHPStan as a single PHAR file without risk of conflicting dependencies. Over its lifetime I’ve been removing differences in usage between the mainstream `phpstan/phpstan` package and this one. It reached a point when it could be used by everyone without any downside. So why it shouldn’t be the default and only distribution method when it’s less hassle and allows more people (those that depend on the same packages as PHPStan itself) to upgrade to the latest version?
 
 With PHPStan 0.12, phpstan-shim is no longer needed and will not be updated anymore. All users should move to `phpstan/phpstan`. PHPStan extensions continue to work as expected.
 

@@ -125,7 +125,7 @@ $array = [1, 2, ...[3, 4, 5], 6, 7];
 // result is: [1, 2, 3, 4, 5, 6, 7);
 ```
 
-If the unpacked expression is a literal array, PHPStan expands it in a straightforwad way. When the unpacked expression is a general array or an unknown iterable, PHPStan has to generalize the final array — we can no longer be sure about how many items it will contain. So a literal array becomes `array<int, int>` for instance.
+If the unpacked expression is a literal array, PHPStan expands it in a straightforward way. When the unpacked expression is a general array or an unknown iterable, PHPStan has to generalize the final array — we can no longer be sure about how many items it will contain. So a literal array becomes `array<int, int>` for instance.
 
 ```php
 /** @var Iterator<int> */
