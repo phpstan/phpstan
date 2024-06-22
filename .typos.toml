@@ -1,10 +1,6 @@
 [files]
 extend-exclude = [
     ".git/",
-    "BACKERS.md",
-    "e2e/integration/drupal-baseline.neon",
-    "e2e/integration/phpunit-baseline.neon",
-    "website/src/errorsIdentifiers.json",
     "website/src/js/data/countries.json",
 ]
 ignore-hidden = false
@@ -13,9 +9,3 @@ ignore-hidden = false
 extend-ignore-re = [
     "'pk_live_[0-9A-Za-z]+'",
 ]
-
-[default.extend-words]
-encrypter = "encrypter"
-
-[default.extend-identifiers]
-MongoDBE2ETest = "MongoDBE2ETest"
