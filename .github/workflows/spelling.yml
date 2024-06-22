@@ -1,9 +1,10 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
-name: "Check Website Links"
+name: "Spelling"
 
 on:
   workflow_dispatch:
+  pull_request:
   push:
     branches:
       - "1.11.x"
@@ -14,5 +15,7 @@ jobs:
     runs-on: "ubuntu-latest"
 
     steps:
+      - name: "Checkout repository"
+        uses: "actions/checkout@v4"
       - name: "Check for typos"
-        uses: crate-ci/typos@master
+        uses: "crate-ci/typos@v1.22.8"
