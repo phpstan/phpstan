@@ -18,7 +18,7 @@ In this article, I'd like to share with you what I did to make sure that the pro
 
 ## Ship early, ship often
 
-Release the first version as soon as it’s useful. Don’t wait for it to be perfect. You don’t have to be satisifed with it. You’ll never be. But you should be eager for some feedback!
+Release the first version as soon as it’s useful. Don’t wait for it to be perfect. You don’t have to be satisfied with it. You’ll never be. But you should be eager for some feedback!
 
 When you add a useful feature to your project, you don't have to wait for anything to release it or deploy it. It just has to work. The feedback loop with inputs from other people will tell you whether what you're building makes sense or whether you should take it in other directions. It's good to get that feedback as soon as possible.
 

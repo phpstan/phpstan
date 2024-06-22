@@ -102,7 +102,7 @@ PHPStan Pro introduces a **migration wizard** that's going to do this for you! L
 
 With just a few clicks your codebase can be modernized and made safer thanks to this wizard.
 
-PHPStan Pro now ships with this single wizard, but I have a lot more ideas how wizards could be used to update various aspects of your codebases related to static analysis like typehints and PHPDocs and leave them in a better state. My plan is to do regular "wizard drops" (like feature drops). As the foundation has been layed out, it shouldn't take long for more awesome wizards to appear!
+PHPStan Pro now ships with this single wizard, but I have a lot more ideas how wizards could be used to update various aspects of your codebases related to static analysis like typehints and PHPDocs and leave them in a better state. My plan is to do regular "wizard drops" (like feature drops). As the foundation has been laid out, it shouldn't take long for more awesome wizards to appear!
 
 
 PHPStan Pro UI Revamp
@@ -116,7 +116,7 @@ You're probably familiar with this saying:
 
 Well I'm definitely not guilty of that 🤣 PHPStan Pro up until today did not have a good UI. Each error was rendered in a separate box so if you had multiple errors around neighbouring lines, you could quickly lose context. They weren't presented in a clear and understandable way. Additionally, you could lose the focus on currently showing file if you reloaded the webpage. The sidebar panel wasn't sticky so it shifted away if you scrolled a long file. It was not possible to remap Docker path to the host's filesystem.
 
-I could continue down this unending embarassing list of shortcomings of the previous version, but let me put an end to that.
+I could continue down this unending embarrassing list of shortcomings of the previous version, but let me put an end to that.
 
 The new version you'll get once you update to PHPStan 1.11 and launch Pro with `--pro` is much better. Let's have a look:
 

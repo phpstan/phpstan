@@ -530,7 +530,7 @@ export class MerchSaleViewModel {
 				return;
 			}
 
-			this.confirmOrderErrors(['Error occured while fetching the shipping price.']);
+			this.confirmOrderErrors(['Error occurred while fetching the shipping price.']);
 		});
 	}
 
@@ -821,7 +821,7 @@ export class MerchSaleViewModel {
 						return;
 					}
 
-					this.confirmOrderErrors(['Error occured while finishing the order.']);
+					this.confirmOrderErrors(['Error occurred while finishing the order.']);
 					return;
 				}
 
@@ -834,7 +834,7 @@ export class MerchSaleViewModel {
 				return;
 			}
 
-			this.confirmOrderErrors(['Error occured while finishing the order.']);
+			this.confirmOrderErrors(['Error occurred while finishing the order.']);
 		});
 	}
 
@@ -864,7 +864,7 @@ export class MerchSaleViewModel {
 				return;
 			}
 
-			this.confirmOrderErrors(['Error occured while finishing the order.']);
+			this.confirmOrderErrors(['Error occurred while finishing the order.']);
 		}).always(() => {
 			this.isConfirmingOrder(false);
 		});

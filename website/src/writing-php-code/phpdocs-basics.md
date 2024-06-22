@@ -123,7 +123,7 @@ Callables
 
 Aside from describing [callable signatures in PHPDoc types](/writing-php-code/phpdoc-types#callables), PHPStan also supports declaring whether the callable is executed immediately or saved for later when passed into a function or a method.
 
-By default PHPStan considers callables passed into function calls to be executed immediately, and callables passed into object method calls to be executed later. These defaults can be overriden with `@param-immediately-invoked-callable` and `@param-later-invoked-callable` PHPDoc tags:
+By default PHPStan considers callables passed into function calls to be executed immediately, and callables passed into object method calls to be executed later. These defaults can be overridden with `@param-immediately-invoked-callable` and `@param-later-invoked-callable` PHPDoc tags:
 
 ```php
 /**

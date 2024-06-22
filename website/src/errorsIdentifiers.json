@@ -9732,7 +9732,7 @@
             ]
         }
     },
-    "reeturn.unionTypeNotSupported": {
+    "return.unionTypeNotSupported": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/FunctionDefinitionCheck.php#L186"
