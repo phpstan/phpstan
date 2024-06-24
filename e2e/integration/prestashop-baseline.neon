@@ -56,11 +56,6 @@ parameters:
 			path: repo/classes/Cart.php
 
 		-
-			message: "#^Parameter \\#1 \\$array_arg of function arsort expects an array of values castable to string, array\\<int\\|string, array\\<int\\|string, int\\<0, max\\>\\>\\> given\\.$#"
-			count: 1
-			path: repo/classes/Cart.php
-
-		-
 			message: "#^Parameter &\\$error by\\-ref type of method CartCore\\:\\:getDeliveryAddressesWithoutCarriers\\(\\) expects array, array\\|null given\\.$#"
 			count: 1
 			path: repo/classes/Cart.php
@@ -192,6 +187,11 @@ parameters:
 
 		-
 			message: "#^Call to function is_object\\(\\) with DOMNodeList\\<DOMElement\\> will always evaluate to true\\.$#"
+			count: 1
+			path: repo/classes/Media.php
+
+		-
+			message: "#^Offset 1 on array\\{0\\: string, 1\\: string, 2\\?\\: string\\} in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/classes/Media.php
 
@@ -611,6 +611,11 @@ parameters:
 			path: repo/classes/tree/TreeToolbar.php
 
 		-
+			message: "#^Comparison operation \"\\>\" between 2 and 0 is always true\\.$#"
+			count: 1
+			path: repo/classes/webservice/SQLUtils.php
+
+		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
 			count: 1
 			path: repo/classes/webservice/WebserviceKey.php
@@ -1007,21 +1012,6 @@ parameters:
 
 		-
 			message: "#^Method AdminShopControllerCore\\:\\:renderForm\\(\\) should return string but empty return statement found\\.$#"
-			count: 1
-			path: repo/controllers/admin/AdminShopController.php
-
-		-
-			message: "#^Parameter \\#1 \\$array_arg of function sort expects an array of values castable to string, array\\<int\\|string, array\\<string, array\\<int\\|string, array\\<string, mixed\\>\\|string\\>\\>\\> given\\.$#"
-			count: 1
-			path: repo/controllers/admin/AdminShopController.php
-
-		-
-			message: "#^Parameter \\#1 \\$array_arg of function sort expects an array of values castable to string, array\\<int\\|string, array\\<string, array\\<int\\|string, mixed\\>\\>\\> given\\.$#"
-			count: 1
-			path: repo/controllers/admin/AdminShopController.php
-
-		-
-			message: "#^Parameter \\#1 \\$array_arg of function sort expects an array of values castable to string, array\\<int\\|string, array\\<string, array\\<string, array\\<string, string\\>\\|string\\>\\>\\> given\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminShopController.php
 
