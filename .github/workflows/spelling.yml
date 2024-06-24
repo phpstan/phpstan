@@ -3,7 +3,6 @@
 name: "Spelling"
 
 on:
-  workflow_dispatch:
   pull_request:
   push:
     branches:
@@ -15,8 +14,9 @@ jobs:
     runs-on: "ubuntu-latest"
 
     steps:
-      - name: "Checkout repository"
-        uses: "actions/checkout@v4"
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
       - name: "Check for typos"
         uses: "crate-ci/typos@v1.22.8"
         with:
