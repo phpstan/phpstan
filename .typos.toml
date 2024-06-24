@@ -1,0 +1,11 @@
+[files]
+extend-exclude = [
+    ".git/",
+    "website/src/js/data/countries.json",
+]
+ignore-hidden = false
+
+[default]
+extend-ignore-re = [
+    "'pk_live_[0-9A-Za-z]+'",
+]

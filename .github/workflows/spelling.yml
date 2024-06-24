@@ -1,0 +1,23 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+name: "Spelling"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - "1.11.x"
+
+jobs:
+  typos:
+    name: "Check for typos"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Check for typos"
+        uses: "crate-ci/typos@v1.22.8"
+        with:
+          files: "README.md website/"
