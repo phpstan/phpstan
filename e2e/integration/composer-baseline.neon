@@ -101,6 +101,16 @@ parameters:
 			path: repo/src/Composer/Package/Archiver/ArchiveManager.php
 
 		-
+			message: "#^Method Composer\\\\Package\\\\BasePackage\\:\\:packageNameToRegexp\\(\\) should return non\\-empty\\-string but returns string\\.$#"
+			count: 1
+			path: repo/src/Composer/Package/BasePackage.php
+
+		-
+			message: "#^Method Composer\\\\Package\\\\BasePackage\\:\\:packageNamesToRegexp\\(\\) should return non\\-empty\\-string but returns string\\.$#"
+			count: 1
+			path: repo/src/Composer/Package/BasePackage.php
+
+		-
 			message: "#^Parameter \\#1 \\$array of function ksort expects array, array\\|string given\\.$#"
 			count: 1
 			path: repo/src/Composer/Package/Dumper/ArrayDumper.php
