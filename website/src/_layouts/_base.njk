@@ -23,8 +23,9 @@
 	<script src="https://cdn.usefathom.com/script.js" data-site="UDESFNRN" defer></script>
 	<script>
 		const query = window.matchMedia('(prefers-color-scheme: dark)');
+		const themeKey = 'phpstanWebTheme';
 		query.addEventListener('change', (event) => {
-			if ('theme' in localStorage) {
+			if (themeKey in localStorage) {
 				return;
 			}
 			if (event.matches) {
@@ -33,7 +34,7 @@
 				document.documentElement.classList.remove('dark');
 			}
 		});
-		if (localStorage.theme === 'dark' || (!('theme' in localStorage) && query.matches)) {
+		if (localStorage[themeKey] === 'dark' || (!(themeKey in localStorage) && query.matches)) {
 			document.documentElement.classList.add('dark');
 		} else {
 			document.documentElement.classList.remove('dark');

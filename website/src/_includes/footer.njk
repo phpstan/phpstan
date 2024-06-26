@@ -1,5 +1,25 @@
 <div class="md:flex md:items-center md:justify-between mt-8 mb-8">
-	<div class="flex justify-center md:order-2">
+	<div class="flex justify-center items-center md:order-2 text-gray-400">
+		<span class="text-sm">Theme</span>
+		<div class="ml-2 flex flex-col" data-bind="with: mainMenu">
+			<div class="flex rounded border border-indigo-600 w-36 text-sm text-gray-900">
+				<div class="flex basis-0 flex-grow items-center justify-center py-1 font-medium text-base" data-bind="click: switchToAutoTheme, css: {'cursor-default text-white bg-indigo-600': theme() === 'auto', 'cursor-pointer hover:text-gray-500 border-r border-indigo-600': theme() !== 'auto'}">
+					<span>A</span>
+				</div>
+				<div class="flex basis-0 flex-grow items-center justify-center py-1" data-bind="click: switchToLightTheme, css: {'cursor-default text-white bg-indigo-600': theme() === 'light', 'cursor-pointer hover:text-gray-500 border-r border-indigo-600': theme() !== 'light'}">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+                    </svg>
+				</div>
+				<div class="flex basis-0 flex-grow items-center justify-center py-1" data-bind="click: switchToDarkTheme, css: {'cursor-default text-white bg-indigo-600': theme() === 'dark', 'cursor-pointer hover:text-gray-500 border-indigo-600': theme() !== 'dark'}">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+                    </svg>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="flex justify-center md:order-3 mt-8 md:mt-0">
 		<a href="https://twitter.com/phpstan" class="ml-6 text-gray-400 hover:text-gray-500" target="_blank">
 			<span class="sr-only">Twitter</span>
 			<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -31,6 +51,6 @@
 		</a>
 	</div>
 	<div class="mt-8 md:mt-0 md:order-1 flex items-center justify-center">
-		<div class="text-center text-base leading-6 text-gray-400">&copy; 2016–{% year %} Ondřej Mirtes</div>
+		<div class="text-center text-sm leading-6 text-gray-400">&copy; 2016–{% year %} Ondřej Mirtes</div>
 	</div>
 </div>
