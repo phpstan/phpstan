@@ -113,12 +113,16 @@ html.dark {
 	tab-size: 4;
 }
 
+.content pre[class*="language-"] {
+	@apply dark:border-gray-500;
+}
+
 .content code {
 	@apply text-sm;
 }
 
 .content :not(pre) > code {
-	@apply bg-gray-100 px-2 py-1;
+	@apply bg-gray-100 px-2 py-1 dark:border dark:border-gray-400;
 }
 
 .content h3 code {
@@ -146,7 +150,7 @@ html.dark {
 }
 
 .content hr {
-	@apply w-4/5 mx-auto mt-8 mb-8 border-dashed border-2;
+	@apply w-4/5 mx-auto mt-8 mb-8 border-dashed border-2 dark:border-gray-700;
 }
 
 .nav-header {
@@ -189,7 +193,11 @@ h3.hash-target code {
 }
 
 .DocSearch-Input {
-	@apply focus:ring-0 focus:ring-offset-0;
+	@apply focus:ring-0 focus:ring-offset-0 dark:text-gray-500;
+}
+
+.docsearch {
+	@apply dark:text-gray-500;
 }
 
 /* Make the + and - characters unselectable for copy/paste */
