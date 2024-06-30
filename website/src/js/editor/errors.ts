@@ -13,7 +13,7 @@ export const errorsCompartment = new Compartment();
 export const updateErrorsEffect: StateEffectType<boolean> = StateEffect.define();
 
 const buildErrorLines = (doc: Text, errors: PHPStanError[]) => {
-	const errorLineDecoration = Decoration.line({class: 'bg-red-200/50 dark:bg-rose-400/50'});
+	const errorLineDecoration = Decoration.line({class: 'bg-red-200/50 dark:bg-rose-600/50'});
 	const tipLineDecoration = Decoration.line({class: 'bg-yellow-200/50 dark:bg-amber-600/50'});
 	const builder = new RangeSetBuilder<Decoration>();
 	const errorLines: number[] = [];
