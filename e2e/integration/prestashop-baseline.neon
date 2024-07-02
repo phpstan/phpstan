@@ -126,12 +126,7 @@ parameters:
 			path: repo/classes/ImageManager.php
 
 		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: repo/classes/ImageManager.php
-
-		-
-			message: "#^Offset 'bits' on array\\{0\\: int\\<1, max\\>, 1\\: int\\<1, max\\>, 2\\: int, 3\\: string, mime\\: string, channels\\?\\: int, bits\\: int\\} in isset\\(\\) always exists and is not nullable\\.$#"
+			message: "#^Offset 'bits' on array\\{0\\: int\\<0, max\\>, 1\\: int\\<0, max\\>, 2\\: int, 3\\: string, mime\\: string, channels\\?\\: int, bits\\: int\\} in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/classes/ImageManager.php
 
@@ -654,11 +649,6 @@ parameters:
 			message: "#^PHPDoc tag @var with type ObjectModel is not subtype of native type Attachment\\.$#"
 			count: 1
 			path: repo/classes/webservice/WebserviceSpecificManagementAttachments.php
-
-		-
-			message: "#^Negated boolean expression is always false\\.$#"
-			count: 1
-			path: repo/classes/webservice/WebserviceSpecificManagementImages.php
 
 		-
 			message: "#^Call to function is_array\\(\\) with non\\-empty\\-list\\<string\\> will always evaluate to true\\.$#"
@@ -1376,7 +1366,7 @@ parameters:
 			path: repo/src/Adapter/Image/ImageRetriever.php
 
 		-
-			message: "#^Call to function is_array\\(\\) with array\\{0\\: int\\<1, max\\>, 1\\: int\\<1, max\\>, 2\\: int, 3\\: string, mime\\: string, channels\\?\\: int, bits\\?\\: int\\} will always evaluate to true\\.$#"
+			message: "#^Call to function is_array\\(\\) with array\\{0\\: int\\<0, max\\>, 1\\: int\\<0, max\\>, 2\\: int, 3\\: string, mime\\: string, channels\\?\\: int, bits\\?\\: int\\} will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/Adapter/Image/Uploader/CategoryThumbnailImageUploader.php
 
