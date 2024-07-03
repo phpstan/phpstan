@@ -1,22 +1,3 @@
 includes:
 	- phpunit-baseline.neon
-
-parameters:
-	earlyTerminatingMethodCalls:
-		PHPUnit\TextUI\Command:
-			- exitWithErrorMessage
-	featureToggles:
-		disableRuntimeReflectionProvider: true
-	phpVersion: 80000
-	excludePaths:
-		analyseAndScan:
-			- repo/tests/end-to-end/regression/GitHub/4232/Issue4232Test.php
-			- repo/tests/_files/ClassWithUnionReturnTypes.php
-			- repo/tests/unit/Framework/MockObject/MockObjectTest.php
-			- repo/tests/_files/mock-object/ClassWithoutParentButParentReturnType.php
-			- repo/tests/end-to-end/regression/GitHub/3904/Issue3904Test.php
-			- repo/tests/_files/ClassWithStaticReturnTypes.php
-		analyse:
-			- repo/tests/_files/Foo.php
-	bootstrapFiles:
-		- phar://%currentWorkingDirectory%/tests/_files/phpunit-example-extension/tools/phpunit.d/phpunit-example-extension-3.0.3.phar/phpunit-example-extension/TestCaseTrait.php
+	- repo/phpstan.neon
