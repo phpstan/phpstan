@@ -75,6 +75,12 @@ Additionally, it stops on the first internal error and prints a stack trace.
 
 This option also disables the [result cache](/user-guide/result-cache) and [parallel processing](/config-reference#parallel-processing) for debugging purposes.
 
+### `-v`, `-vv`, `-vvv`
+
+Increases the verbosity and makes PHPStan show various debugging information like consumed memory or [why result cache is not used](/user-guide/result-cache#debugging-the-result-cache).
+
+Combining `-vvv` with `--debug` is great for [identifying slow files](/blog/debugging-performance-identify-slow-files).
+
 ### `--ansi, --no-ansi`
 
 Overrides the autodetection of whether colors should be used in the output and how nice the progress bar should be.
