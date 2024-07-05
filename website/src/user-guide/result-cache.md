@@ -38,6 +38,18 @@ To clear the current state of the result cache, for example if you're developing
 Result cache also gets disabled when running with [`--debug`](/user-guide/command-line-usage#--debug).
 
 
+Debugging the result cache
+---------------
+
+If you run the `analyse` command with `-vvv`, PHPStan will output details about the result cache like:
+
+* "Result cache not used because the cache file does not exist."
+* "Result cache was not saved because of internal errors."
+* "Result cache not used because of debug mode."
+* "Result cache is saved."
+* etc.
+
+
 Setup in GitHub Actions
 ----------------
 
