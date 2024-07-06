@@ -7,7 +7,7 @@ name: Docker image nightly
 on:
   push:
     branches:
-      - "1.11.x"
+      - "1.12.x"
     paths:
       - '.github/workflows/docker-nightly.yml'
       - 'docker/**'
@@ -58,7 +58,7 @@ jobs:
           context: ./docker
           file: "${{ matrix.docker-file }}"
           build-args: |
-            PHPSTAN_VERSION=1.11.x-dev#${{ github.sha }}
+            PHPSTAN_VERSION=1.12.x-dev#${{ github.sha }}
           push: true
           tags: "ghcr.io/phpstan/phpstan:nightly${{ matrix.image-tag-suffix }}"
           platforms: linux/amd64,linux/arm64

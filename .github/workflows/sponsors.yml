@@ -8,7 +8,7 @@ on:
     - cron: 15 14 * * *
   push:
     branches:
-      - "1.11.x"
+      - "1.12.x"
     paths:
       - '.github/workflows/sponsors.yml'
       - 'BACKERS.md'

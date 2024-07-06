@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - "1.11.x"
+      - "1.12.x"
     paths:
       - '.github/workflows/website.yml'
       - 'website/**'
