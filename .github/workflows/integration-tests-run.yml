@@ -13,7 +13,7 @@ on:
       - 'bootstrap.php'
   push:
     branches:
-      - "1.11.x"
+      - "1.12.x"
     paths:
       - '.github/workflows/integration-tests.yml'
       - '.github/workflows/integration-tests-run.yml'
