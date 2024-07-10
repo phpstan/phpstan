@@ -149,3 +149,39 @@ Instead of clearing the result cache, it just outputs the current PHPStan versio
 ### `--help`
 
 Outputs a summary of available CLI options, but not as in much detail as this page.
+
+
+Diagnose problems
+--------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.11.8</div>
+
+To diagnose why PHPStan is behaving a certain way, you can run the `diagnose` command:
+
+```bash
+vendor/bin/phpstan diagnose [options]
+```
+
+It outputs useful information like current PHP runtime version, current PHP version for analysis (which might be different based on configuration), current PHPStan version etc. Custom extensions can also implement [`DiagnoseExtension interface`](https://apiref.phpstan.org/1.11.x/PHPStan.Diagnose.DiagnoseExtension.html) to add their own information that also gets printed when running the `diagnose` command.
+
+### `--configuration|-c`
+
+Specifies the path to a [configuration file](/config-reference). Relative paths are resolved based on the current working directory.
+
+### `--autoload-file|-a`
+
+If your application uses a custom autoloader, you should set it up and register in a PHP file that is passed to this CLI option. Relative paths are resolved based on the current working directory.
+
+### `--level|-l`
+
+Specifies the [rule level](/user-guide/rule-levels) to run.
+
+### `--memory-limit`
+
+Specifies the memory limit in the same format `php.ini` accepts.
+
+Example: `--memory-limit 1G`
+
+### `--debug`
+
+Thrown exceptions (internal errors) will not be caught and their stack trace will be printed in full when this option is added.
