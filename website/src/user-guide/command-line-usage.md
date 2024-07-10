@@ -81,6 +81,8 @@ Increases the verbosity and makes PHPStan show various debugging information lik
 
 Combining `-vvv` with `--debug` is great for [identifying slow files](/blog/debugging-performance-identify-slow-files).
 
+Running with `-vvv` will also print same information as the [`diagnose` command](/user-guide/command-line-usage#diagnose-problems).
+
 ### `--ansi, --no-ansi`
 
 Overrides the autodetection of whether colors should be used in the output and how nice the progress bar should be.
@@ -163,6 +165,8 @@ vendor/bin/phpstan diagnose [options]
 ```
 
 It outputs useful information like current PHP runtime version, current PHP version for analysis (which might be different based on configuration), current PHPStan version etc. Custom extensions can also implement [`DiagnoseExtension interface`](https://apiref.phpstan.org/1.11.x/PHPStan.Diagnose.DiagnoseExtension.html) to add their own information that also gets printed when running the `diagnose` command.
+
+The same information is also printed when you run [`analyse` command](/user-guide/command-line-usage#analysing-code) with `-vvv`.
 
 ### `--configuration|-c`
 
