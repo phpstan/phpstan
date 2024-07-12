@@ -1586,6 +1586,11 @@ parameters:
 			path: repo/src/Adapter/Profile/Employee/CommandHandler/EditEmployeeHandler.php
 
 		-
+			message: "#^Return value of function var_export\\(\\) is always true and the result is printed instead of being returned\\. Pass in true as parameter \\#2 \\$return to return the output instead\\.$#"
+			count: 1
+			path: repo/src/Adapter/SqlManager/CommandHandler/DeleteSqlRequestHandler.php
+
+		-
 			message: "#^Strict comparison using \\!\\=\\= between null and string will always evaluate to true\\.$#"
 			count: 2
 			path: repo/src/Adapter/SqlManager/CommandHandler/EditSqlRequestHandler.php
@@ -2406,6 +2411,11 @@ parameters:
 			path: repo/tests/Integration/Adapter/Presenter/Product/ProductLazyArrayTest.php
 
 		-
+			message: "#^Return value of function var_export\\(\\) is always true and the result is printed instead of being returned\\. Pass in true as parameter \\#2 \\$return to return the output instead\\.$#"
+			count: 2
+			path: repo/tests/Integration/Behaviour/Features/Context/Domain/CartRuleFeatureContext.php
+
+		-
 			message: "#^PHPDoc tag @var with type PrestaShop\\\\PrestaShop\\\\Core\\\\Domain\\\\Category\\\\Command\\\\EditCategoryCommand is not subtype of native type PrestaShop\\\\PrestaShop\\\\Core\\\\Domain\\\\Category\\\\Command\\\\AddRootCategoryCommand\\.$#"
 			count: 1
 			path: repo/tests/Integration/Behaviour/Features/Context/Domain/CategoryFeatureContext.php
@@ -2459,6 +2469,11 @@ parameters:
 			message: "#^Method Tests\\\\Integration\\\\Behaviour\\\\Features\\\\Context\\\\Domain\\\\Product\\\\SpecificPriceContext\\:\\:createDeleteSpecificPriceCommand\\(\\) is unused\\.$#"
 			count: 1
 			path: repo/tests/Integration/Behaviour/Features/Context/Domain/Product/SpecificPriceContext.php
+
+		-
+			message: "#^Return value of function var_export\\(\\) is always true and the result is printed instead of being returned\\. Pass in true as parameter \\#2 \\$return to return the output instead\\.$#"
+			count: 2
+			path: repo/tests/Integration/Behaviour/Features/Context/Domain/Product/UpdateCustomizationFieldsFeatureContext.php
 
 		-
 			message: "#^Call to static method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with DateTime will always evaluate to true\\.$#"
