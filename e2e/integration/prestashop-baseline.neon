@@ -566,6 +566,11 @@ parameters:
 			path: repo/classes/order/OrderHistory.php
 
 		-
+			message: "#^Binary operation \"\\+\" between float and array\\|float results in an error\\.$#"
+			count: 1
+			path: repo/classes/order/OrderInvoice.php
+
+		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
 			count: 1
 			path: repo/classes/stock/StockManager.php
@@ -976,9 +981,7 @@ parameters:
 			path: repo/controllers/admin/AdminProductsController.php
 
 		-
-			message: "#^Call to function method_exists\\(\\) with QuickAccess and 'add' will always evaluate to true\\.$#"
-			count: 1
-			path: repo/controllers/admin/AdminQuickAccessesController.php
+			message: "#esController.php
 
 		-
 			message: "#^Method AdminRequestSqlControllerCore\\:\\:renderView\\(\\) should return string but empty return statement found\\.$#"
@@ -2967,5 +2970,8 @@ parameters:
 
 		-
 			message: "#^Parameter \\#3 \\$value of function curl_setopt expects bool, int given\\.$#"
+			count: 2
+			path: repo/tools/build/Library/InstallUnpacker/classes/Download.php
+arameter \\#3 \\$value of function curl_setopt expects bool, int given\\.$#"
 			count: 2
 			path: repo/tools/build/Library/InstallUnpacker/classes/Download.php
