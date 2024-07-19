@@ -6,6 +6,34 @@ Narrowing a type is usually needed when we have a [union type](/blog/union-types
 
 PHPStan supports several ways of narrowing types.
 
+PHPDocs and native types
+----------------------
+
+The best way is to avoid this issue altogether. By using precise parameter types and asking for only the one type we want to work with, we don't need to do any further type-narrowing in the function body:
+
+```php
+function doFoo(Article $a): void
+{
+	// it only makes sense for this function to accept Articles
+	// do not make the parameter type unnecessarily wide enough
+}
+```
+
+Same applies to return types. Inform the code that calls your function about the precise type it returns:
+
+```php
+function doBar(): Article
+{
+	// write functions that only return a single precise type
+	// and not a general "object" or "mixed"
+
+	// ...
+	return $article;
+}
+```
+
+You can also take advantage of [advanced PHPDoc types in `@param` and `@return`](/writing-php-code/phpdoc-types). Also check out [Generics](/blog/generics-by-examples).
+
 Strict comparison operators
 ----------------------
 
