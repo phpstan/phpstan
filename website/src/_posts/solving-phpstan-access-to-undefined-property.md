@@ -19,6 +19,22 @@ The easiest situation you can find yourself in is that there's a typo in the sou
  	}
 ```
 
+Narrow the type the property is accessed on
+----------------
+
+If you encounter errors like:
+
+> Access to an undefined property object::$a.
+> Cannot access property $a on mixed.
+
+The problem isn't the name of the property but the type we're accessing the property on:
+
+```php
+// $object is object
+echo $object->a;
+```
+
+We can't be sure the property exists on this type because it can be an object of any class. The solution is to [narrow the type first](/writing-php-code/narrowing-types) and only then access the property.
 
 Declare the property
 ----------------
