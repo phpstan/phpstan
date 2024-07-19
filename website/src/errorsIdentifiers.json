@@ -1102,6 +1102,20 @@
             ]
         }
     },
+    "argument.vprintf": {
+        "PHPStan\\Rules\\Functions\\PrintfArrayParametersRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Functions/PrintfArrayParametersRule.php#L137"
+            ]
+        }
+    },
+    "argument.vsprintf": {
+        "PHPStan\\Rules\\Functions\\PrintfArrayParametersRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Functions/PrintfArrayParametersRule.php#L137"
+            ]
+        }
+    },
     "arguments.count": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
@@ -3135,6 +3149,11 @@
             ]
         },
         "PHPStan\\Rules\\Operators\\InvalidComparisonOperationRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/RuleLevelHelper.php#L401"
+            ]
+        },
+        "PHPStan\\Rules\\Operators\\InvalidUnaryOperationRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/RuleLevelHelper.php#L401"
             ]
@@ -11207,7 +11226,7 @@
     "unaryOp.invalid": {
         "PHPStan\\Rules\\Operators\\InvalidUnaryOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Operators/InvalidUnaryOperationRule.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Operators/InvalidUnaryOperationRule.php#L94"
             ]
         }
     },
