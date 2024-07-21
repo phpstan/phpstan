@@ -28,11 +28,11 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/crispnl">crispnl (crispnl)</a></li>
 <li><a href="https://github.com/inviqa">Inviqa (inviqa)</a></li>
 <li><a href="https://github.com/hephaist-io">Hephaist.io (hephaist-io)</a></li>
-<li><a href="https://github.com/mceglowski"> (mceglowski)</a></li>
 <li><a href="https://github.com/MacPaw">MacPaw Inc. (MacPaw)</a></li>
 <li><a href="https://github.com/Edgenext2024"> (Edgenext2024)</a></li>
 <li><a href="https://github.com/FameHelsinki">Fame Helsinki (FameHelsinki)</a></li>
 <li><a href="https://github.com/route4me">Route4Me Route Planner (route4me)</a></li>
+<li><a href="https://github.com/alnutile">Alfred Nutile (alnutile)</a></li>
 <!-- hundred-org -->
 </ul>
 
@@ -147,6 +147,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/lucassabreu">Lucas dos Santos Abreu (lucassabreu)</a></li>
 <li><a href="https://github.com/matthewmincher">Matthew Mincher (matthewmincher)</a></li>
 <li><a href="https://github.com/loganmarchione">Logan Marchione (loganmarchione)</a></li>
+<li><a href="https://github.com/mceglowski"> (mceglowski)</a></li>
 <li><a href="https://github.com/olliescase">Oliver Scase (olliescase)</a></li>
 <li><a href="https://github.com/zajca">Martin Zajíc (zajca)</a></li>
 <li><a href="https://github.com/o0h">Hideki Kinjyo (o0h)</a></li>
