@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Function install_download_translation\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: repo/core/includes/install.core.inc
+
+		-
 			message: "#^Access to an undefined property Drupal\\\\Component\\\\Diff\\\\Engine\\\\DiffEngine\\:\\:\\$xchanged\\.$#"
 			count: 4
 			path: repo/core/lib/Drupal/Component/Diff/Engine/DiffEngine.php
@@ -51,9 +56,19 @@ parameters:
 			path: repo/core/modules/big_pipe/tests/modules/big_pipe_test/src/BigPipePlaceholderTestCases.php
 
 		-
+			message: "#^Method Drupal\\\\block_content\\\\BlockContentForm\\:\\:save\\(\\) should return int but return statement is missing\\.$#"
+			count: 1
+			path: repo/core/modules/block_content/src/BlockContentForm.php
+
+		-
 			message: "#^Undefined variable\\: \\$book_links$#"
 			count: 1
 			path: repo/core/modules/book/book.module
+
+		-
+			message: "#^Method Drupal\\\\book\\\\Form\\\\BookOutlineForm\\:\\:save\\(\\) should return int but return statement is missing\\.$#"
+			count: 1
+			path: repo/core/modules/book/src/Form/BookOutlineForm.php
 
 		-
 			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\comment\\\\\\\\CommentLazyBuilders', 'renderLinks'\\} at key '0' is not callable\\.$#"
@@ -66,14 +81,69 @@ parameters:
 			path: repo/core/modules/comment/src/Plugin/Field/FieldFormatter/CommentDefaultFormatter.php
 
 		-
+			message: "#^Method Drupal\\\\contact\\\\MessageForm\\:\\:save\\(\\) should return int but return statement is missing\\.$#"
+			count: 1
+			path: repo/core/modules/contact/src/MessageForm.php
+
+		-
+			message: "#^Method Drupal\\\\field_ui\\\\Form\\\\FieldConfigEditForm\\:\\:save\\(\\) should return int but return statement is missing\\.$#"
+			count: 1
+			path: repo/core/modules/field_ui/src/Form/FieldConfigEditForm.php
+
+		-
+			message: "#^Method Drupal\\\\file\\\\Plugin\\\\Field\\\\FieldType\\\\FileFieldItemList\\:\\:postSave\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: repo/core/modules/file/src/Plugin/Field/FieldType/FileFieldItemList.php
+
+		-
+			message: "#^Function locale_translation_check_projects\\(\\) should return array but return statement is missing\\.$#"
+			count: 1
+			path: repo/core/modules/locale/locale.compare.inc
+
+		-
+			message: "#^Method Drupal\\\\locale\\\\LocaleDefaultConfigStorage\\:\\:read\\(\\) should return array but return statement is missing\\.$#"
+			count: 1
+			path: repo/core/modules/locale/src/LocaleDefaultConfigStorage.php
+
+		-
 			message: "#^Call to an undefined static method Drupal\\\\Tests\\\\migrate\\\\Kernel\\\\MigrateTestBase\\:\\:migrateDumpAlter\\(\\)\\.$#"
 			count: 1
 			path: repo/core/modules/migrate/tests/src/Kernel/MigrateTestBase.php
 
 		-
+			message: "#^Method Drupal\\\\node\\\\ConfigTranslation\\\\NodeTypeMapper\\:\\:setEntity\\(\\) should return bool but return statement is missing\\.$#"
+			count: 1
+			path: repo/core/modules/node/src/ConfigTranslation/NodeTypeMapper.php
+
+		-
+			message: "#^Method Drupal\\\\node\\\\NodeForm\\:\\:save\\(\\) should return int but return statement is missing\\.$#"
+			count: 1
+			path: repo/core/modules/node/src/NodeForm.php
+
+		-
+			message: "#^Method Drupal\\\\path\\\\Plugin\\\\Field\\\\FieldType\\\\PathItem\\:\\:postSave\\(\\) should return bool but return statement is missing\\.$#"
+			count: 2
+			path: repo/core/modules/path/src/Plugin/Field/FieldType/PathItem.php
+
+		-
+			message: "#^Method Drupal\\\\responsive_image\\\\ResponsiveImageStyleForm\\:\\:save\\(\\) should return int but return statement is missing\\.$#"
+			count: 1
+			path: repo/core/modules/responsive_image/src/ResponsiveImageStyleForm.php
+
+		-
 			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\shortcut\\\\\\\\ShortcutLazyBuilders', 'lazyLinks'\\} at key '0' is not callable\\.$#"
 			count: 1
 			path: repo/core/modules/shortcut/shortcut.module
+
+		-
+			message: "#^Method Drupal\\\\taxonomy\\\\TermForm\\:\\:validateForm\\(\\) should return Drupal\\\\Core\\\\Entity\\\\ContentEntityInterface but return statement is missing\\.$#"
+			count: 1
+			path: repo/core/modules/taxonomy/src/TermForm.php
+
+		-
+			message: "#^Method Drupal\\\\user\\\\RegisterForm\\:\\:save\\(\\) should return int but return statement is missing\\.$#"
+			count: 3
+			path: repo/core/modules/user/src/RegisterForm.php
 
 		-
 			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\user\\\\\\\\ToolbarLinkBuilder', 'renderDisplayName'\\} at key '0' is not callable\\.$#"
@@ -99,6 +169,16 @@ parameters:
 			message: "#^Variable \\$rand3 might not be defined\\.$#"
 			count: 2
 			path: repo/core/modules/views/tests/src/Kernel/Plugin/StyleTest.php
+
+		-
+			message: "#^Method Drupal\\\\views_ui\\\\ViewUI\\:\\:set\\(\\) should return \\$this\\(Drupal\\\\views_ui\\\\ViewUI\\) but return statement is missing\\.$#"
+			count: 1
+			path: repo/core/modules/views_ui/src/ViewUI.php
+
+		-
+			message: "#^Method Drupal\\\\workspaces\\\\Form\\\\WorkspaceForm\\:\\:save\\(\\) should return int but return statement is missing\\.$#"
+			count: 1
+			path: repo/core/modules/workspaces/src/Form/WorkspaceForm.php
 
 		-
 			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\Core\\\\\\\\Access\\\\\\\\RouteProcessorCsrf', 'renderPlaceholderCs…'\\} at key '0' is not callable\\.$#"
