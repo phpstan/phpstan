@@ -191,7 +191,7 @@ parameters:
 			path: repo/classes/Media.php
 
 		-
-			message: "#^Offset 1 on array\\{0\\: string, 1\\: string, 2\\?\\: string\\} in isset\\(\\) always exists and is not nullable\\.$#"
+			message: "#^Offset 1 on array\\{0\\: string, 1\\: non\\-empty\\-string, 2\\?\\: non\\-empty\\-string\\} in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/classes/Media.php
 
@@ -566,6 +566,11 @@ parameters:
 			path: repo/classes/order/OrderHistory.php
 
 		-
+			message: "#^Binary operation \"\\+\" between float and array\\|float results in an error\\.$#"
+			count: 1
+			path: repo/classes/order/OrderInvoice.php
+
+		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
 			count: 1
 			path: repo/classes/stock/StockManager.php
@@ -722,7 +727,7 @@ parameters:
 
 		-
 			message: "#^Method AdminCartRulesControllerCore\\:\\:afterAdd\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
+			count: 2
 			path: repo/controllers/admin/AdminCartRulesController.php
 
 		-
@@ -757,7 +762,7 @@ parameters:
 
 		-
 			message: "#^Method AdminCountriesControllerCore\\:\\:processBulkAffectZone\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
+			count: 2
 			path: repo/controllers/admin/AdminCountriesController.php
 
 		-
@@ -942,17 +947,17 @@ parameters:
 
 		-
 			message: "#^Method AdminProductsControllerCore\\:\\:processBulkDelete\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
+			count: 2
 			path: repo/controllers/admin/AdminProductsController.php
 
 		-
 			message: "#^Method AdminProductsControllerCore\\:\\:processDelete\\(\\) should return ObjectModel\\|false but return statement is missing\\.$#"
-			count: 1
+			count: 2
 			path: repo/controllers/admin/AdminProductsController.php
 
 		-
 			message: "#^Method AdminProductsControllerCore\\:\\:processPosition\\(\\) should return ObjectModel\\|false but return statement is missing\\.$#"
-			count: 1
+			count: 3
 			path: repo/controllers/admin/AdminProductsController.php
 
 		-
@@ -973,12 +978,7 @@ parameters:
 		-
 			message: "#^Variable \\$stock_manager in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
-			path: repo/controllers/admin/AdminProductsController.php
-
-		-
-			message: "#^Call to function method_exists\\(\\) with QuickAccess and 'add' will always evaluate to true\\.$#"
-			count: 1
-			path: repo/controllers/admin/AdminQuickAccessesController.php
+			path: repo/controllers/admin/AdminProductsControesController.php
 
 		-
 			message: "#^Method AdminRequestSqlControllerCore\\:\\:renderView\\(\\) should return string but empty return statement found\\.$#"
@@ -2962,6 +2962,14 @@ parameters:
 
 		-
 			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertTrue\\(\\) with true will always evaluate to true\\.$#"
+			count: 1
+			path: repo/tests/Unit/PrestaShopBundle/Routing/Linter/NamingConventionLinterTest.php
+
+		-
+			message: "#^Parameter \\#3 \\$value of function curl_setopt expects bool, int given\\.$#"
+			count: 2
+			path: repo/tools/build/Library/InstallUnpacker/classes/Download.php
+ always evaluate to true\\.$#"
 			count: 1
 			path: repo/tests/Unit/PrestaShopBundle/Routing/Linter/NamingConventionLinterTest.php
 
