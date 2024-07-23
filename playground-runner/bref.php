@@ -63,6 +63,7 @@ return function ($event) use ($phpstanVersion) {
 			'featureToggles' => [
 				'disableRuntimeReflectionProvider' => true,
 			],
+            'sourceLocatorPlaygroundMode' => true,
 		],
 		'services' => [
 			'currentPhpVersionSimpleParser!' => [
