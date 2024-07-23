@@ -236,6 +236,11 @@ parameters:
 			path: repo/tests/Composer/Test/Repository/PlatformRepositoryTest.php
 
 		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/tests/Composer/Test/Repository/VcsRepositoryTest.php
+
+		-
 			message: "#^Call to deprecated method withConsecutive\\(\\) of class PHPUnit\\\\Framework\\\\MockObject\\\\Builder\\\\InvocationMocker\\.$#"
 			count: 6
 			path: repo/tests/Composer/Test/Util/BitbucketTest.php
