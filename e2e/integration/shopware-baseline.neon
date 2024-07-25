@@ -11,6 +11,16 @@ parameters:
 			path: repo/src/Core/Content/Media/File/DownloadResponseGenerator.php
 
 		-
+			message: "#^Parameter \\#1 \\$width of function imagecreatetruecolor expects int\\<1, max\\>, int given\\.$#"
+			count: 1
+			path: repo/src/Core/Content/Media/Thumbnail/ThumbnailService.php
+
+		-
+			message: "#^Parameter \\#2 \\$height of function imagecreatetruecolor expects int\\<1, max\\>, int given\\.$#"
+			count: 1
+			path: repo/src/Core/Content/Media/Thumbnail/ThumbnailService.php
+
+		-
 			message: "#^Offset 1 might not exist on array\\{0\\?\\: string, 1\\?\\: string\\}\\.$#"
 			count: 2
 			path: repo/src/Core/Content/Product/Aggregate/ProductSearchConfigField/ProductSearchConfigFieldExceptionHandler.php
@@ -106,12 +116,22 @@ parameters:
 			path: repo/src/Core/DevOps/StaticAnalyze/PHPStan/Rules/UseCLIContextRule.php
 
 		-
+			message: "#^Call to function array_key_exists\\(\\) with 'technicalName' and array\\{0\\: string, technicalName\\: string, 1\\: string\\} will always evaluate to true\\.$#"
+			count: 2
+			path: repo/src/Core/Framework/DataAbstractionLayer/TechnicalNameExceptionHandler.php
+
+		-
+			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
+			count: 2
+			path: repo/src/Core/Framework/DataAbstractionLayer/TechnicalNameExceptionHandler.php
+
+		-
 			message: "#^Parameter \\#1 \\$array of function array_unique expects an array of values castable to string, array\\<array\\<string, string\\>\\|string\\> given\\.$#"
 			count: 1
 			path: repo/src/Core/Framework/DataAbstractionLayer/Write/EntityWriteResultFactory.php
 
 		-
-			message: "#^Offset 'timestamp' might not exist on array\\{0\\?\\: string, name\\?\\: string, 1\\?\\: string, timestamp\\?\\: string, 2\\?\\: string\\}\\.$#"
+			message: "#^Offset 'timestamp' might not exist on array\\{0\\?\\: string, name\\?\\: non\\-empty\\-string, 1\\?\\: non\\-empty\\-string, timestamp\\?\\: numeric\\-string, 2\\?\\: numeric\\-string\\}\\.$#"
 			count: 1
 			path: repo/src/Core/Migration/Test/MigrationNameAndTimestampTest.php
 
