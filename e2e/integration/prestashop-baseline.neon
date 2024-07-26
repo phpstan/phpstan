@@ -171,6 +171,11 @@ parameters:
 			path: repo/classes/Mail.php
 
 		-
+			message: "#^Call to preg_quote\\(\\) is missing delimiter / to be effective\\.$#"
+			count: 1
+			path: repo/classes/Mail.php
+
+		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: repo/classes/Mail.php
@@ -191,7 +196,7 @@ parameters:
 			path: repo/classes/Media.php
 
 		-
-			message: "#^Offset 1 on array\\{0\\: string, 1\\: string, 2\\?\\: string\\} in isset\\(\\) always exists and is not nullable\\.$#"
+			message: "#^Offset 1 on array\\{0\\: string, 1\\: non\\-empty\\-string, 2\\?\\: non\\-empty\\-string\\} in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/classes/Media.php
 
@@ -566,6 +571,11 @@ parameters:
 			path: repo/classes/order/OrderHistory.php
 
 		-
+			message: "#^Binary operation \"\\+\" between float and array\\|float results in an error\\.$#"
+			count: 1
+			path: repo/classes/order/OrderInvoice.php
+
+		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
 			count: 1
 			path: repo/classes/stock/StockManager.php
@@ -722,7 +732,7 @@ parameters:
 
 		-
 			message: "#^Method AdminCartRulesControllerCore\\:\\:afterAdd\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
+			count: 2
 			path: repo/controllers/admin/AdminCartRulesController.php
 
 		-
@@ -757,7 +767,7 @@ parameters:
 
 		-
 			message: "#^Method AdminCountriesControllerCore\\:\\:processBulkAffectZone\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
+			count: 2
 			path: repo/controllers/admin/AdminCountriesController.php
 
 		-
@@ -942,17 +952,17 @@ parameters:
 
 		-
 			message: "#^Method AdminProductsControllerCore\\:\\:processBulkDelete\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
+			count: 2
 			path: repo/controllers/admin/AdminProductsController.php
 
 		-
 			message: "#^Method AdminProductsControllerCore\\:\\:processDelete\\(\\) should return ObjectModel\\|false but return statement is missing\\.$#"
-			count: 1
+			count: 2
 			path: repo/controllers/admin/AdminProductsController.php
 
 		-
 			message: "#^Method AdminProductsControllerCore\\:\\:processPosition\\(\\) should return ObjectModel\\|false but return statement is missing\\.$#"
-			count: 1
+			count: 3
 			path: repo/controllers/admin/AdminProductsController.php
 
 		-
@@ -1052,7 +1062,7 @@ parameters:
 
 		-
 			message: "#^Method AdminShopUrlControllerCore\\:\\:afterUpdate\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
+			count: 2
 			path: repo/controllers/admin/AdminShopUrlController.php
 
 		-
@@ -1062,7 +1072,7 @@ parameters:
 
 		-
 			message: "#^Method AdminStatesControllerCore\\:\\:processBulkAffectZone\\(\\) should return bool but return statement is missing\\.$#"
-			count: 1
+			count: 2
 			path: repo/controllers/admin/AdminStatesController.php
 
 		-
@@ -1168,6 +1178,11 @@ parameters:
 		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
 			count: 5
+			path: repo/controllers/front/ProductController.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 1
 			path: repo/controllers/front/ProductController.php
 
 		-
