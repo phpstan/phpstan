@@ -1,2 +1,6 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: "#^Class TomasVotruba\\\\Bladestan\\\\TemplateCompiler\\\\Rules\\\\TemplateRulesRegistry extends @final class PHPStan\\\\Rules\\\\DirectRegistry\\.$#"
+			count: 1
+			path: repo/src/TemplateCompiler/Rules/TemplateRulesRegistry.php
