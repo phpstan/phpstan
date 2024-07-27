@@ -26,6 +26,11 @@ parameters:
 			path: repo/core/lib/Drupal/Core/Block/BlockManager.php
 
 		-
+			message: "#^Regex pattern is invalid\\: Compilation failed\\: missing terminating \\] for character class at offset 5 in pattern\\: @\\[\\^\\]\\+\\$@$#"
+			count: 1
+			path: repo/core/lib/Drupal/Core/File/FileSystem.php
+
+		-
 			message: "#^\\#lazy_builder callback array\\{'Drupal\\\\\\\\Core\\\\\\\\Form\\\\\\\\FormBuilder', 'renderFormTokenPlac…'\\} at key '0' is not callable\\.$#"
 			count: 1
 			path: repo/core/lib/Drupal/Core/Form/FormBuilder.php

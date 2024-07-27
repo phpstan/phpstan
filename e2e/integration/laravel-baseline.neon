@@ -1,0 +1,6 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Regex pattern is invalid\\: Compilation failed\\: missing terminating \\] for character class at offset 3 in pattern\\: \\!\\[\\]\\+\\!u$#"
+			count: 1
+			path: repo/src/Illuminate/Support/Str.php

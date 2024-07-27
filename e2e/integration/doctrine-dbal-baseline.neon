@@ -26,6 +26,11 @@ parameters:
 			path: repo/src/Driver/Mysqli/Result.php
 
 		-
+			message: "#^Regex pattern is invalid\\: Compilation failed\\: missing terminating \\] for character class at offset 4 in pattern\\: ~\\(\\[\\]\\)~u$#"
+			count: 1
+			path: repo/src/Platforms/AbstractPlatform.php
+
+		-
 			message: "#^Parameter \\#2 \\$callback of function array_reduce expects callable\\(\\(callable&TIn\\)\\|Closure\\(mixed \\$value\\)\\: mixed\\|null, callable\\(T\\)\\: T\\)\\: \\(\\(callable&TIn\\)\\|Closure\\(mixed \\$value\\)\\: mixed\\|null\\), Closure\\(callable\\|null, callable\\)\\: \\(callable\\(T\\)\\: T\\) given\\.$#"
 			count: 1
 			path: repo/src/Portability/Converter.php
