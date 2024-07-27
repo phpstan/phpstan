@@ -193,10 +193,10 @@
     "argument.invalidPregQuote": {
         "PHPStan\\Rules\\Regexp\\RegularExpressionQuotingRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Regexp/RegularExpressionQuotingRule.php#L152",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Regexp/RegularExpressionQuotingRule.php#L158",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Regexp/RegularExpressionQuotingRule.php#L181",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Regexp/RegularExpressionQuotingRule.php#L187"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Regexp/RegularExpressionQuotingRule.php#L154",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Regexp/RegularExpressionQuotingRule.php#L160",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Regexp/RegularExpressionQuotingRule.php#L183",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Regexp/RegularExpressionQuotingRule.php#L189"
             ]
         }
     },
