@@ -96,5 +96,5 @@ Happy debugging!
 
 ---
 
-Do you like PHPStan and use it every day? [**Consider sponsoring** further development of PHPStan on GitHub Sponsors and and also **subscribe to PHPStan Pro**](/sponsor)! I’d really appreciate it!
+Do you like PHPStan and use it every day? [**Consider sponsoring** further development of PHPStan on GitHub Sponsors and also **subscribe to PHPStan Pro**](/sponsor)! I’d really appreciate it!
 

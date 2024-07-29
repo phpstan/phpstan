@@ -165,7 +165,7 @@ $cb = static function () {
 $cb(); // does not do anything
 ```
 
-Besides reporting functions annotated with `@phpstan-pure` but having side effects as wrong, we can now also afford marking functions with `@phpstan-impure` without any side effects also as wrong. And finally, `void`-returning functions (which are understood as impure implicitly) that do not have any side effects are also reported as wrong. What would be a point of calling a function that doesn't have a side efffect and doesn't return any value?
+Besides reporting functions annotated with `@phpstan-pure` but having side effects as wrong, we can now also afford marking functions with `@phpstan-impure` without any side effects also as wrong. And finally, `void`-returning functions (which are understood as impure implicitly) that do not have any side effects are also reported as wrong. What would be a point of calling a function that doesn't have a side effect and doesn't return any value?
 
 Clamping this problem space from all sides allowed us to weed out some bugs by testing development versions on real-world projects.
 
@@ -275,4 +275,4 @@ Me and PHPStan contributors put a lot of hard work into this release. I hope tha
 
 ---
 
-Do you like PHPStan and use it every day? [**Consider sponsoring** further development of PHPStan on GitHub Sponsors and and also **subscribe to PHPStan Pro**](/sponsor)! I’d really appreciate it!
+Do you like PHPStan and use it every day? [**Consider sponsoring** further development of PHPStan on GitHub Sponsors and also **subscribe to PHPStan Pro**](/sponsor)! I’d really appreciate it!
