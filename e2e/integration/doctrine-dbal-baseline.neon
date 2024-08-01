@@ -51,6 +51,11 @@ parameters:
 			path: repo/src/Driver/Mysqli/Result.php
 
 		-
+			message: "#^Offset 1 does not exist on ''\\|array\\{string, int\\<0, max\\>\\}\\.$#"
+			count: 1
+			path: repo/src/Platforms/SQLServerPlatform.php
+
+		-
 			message: "#^Parameter \\#2 \\$callback of function array_reduce expects callable\\(\\(callable&TIn\\)\\|Closure\\(mixed \\$value\\)\\: mixed\\|null, callable\\(T\\)\\: T\\)\\: \\(\\(callable&TIn\\)\\|Closure\\(mixed \\$value\\)\\: mixed\\|null\\), Closure\\(callable\\|null, callable\\)\\: \\(callable\\(T\\)\\: T\\) given\\.$#"
 			count: 1
 			path: repo/src/Portability/Converter.php

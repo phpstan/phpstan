@@ -1,6 +1,11 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Unreachable statement \\- code above always terminates\\.$#"
+			count: 1
+			path: repo/src/Compiler/PhpContentExtractor.php
+
+		-
 			message: "#^Class TomasVotruba\\\\Bladestan\\\\TemplateCompiler\\\\Rules\\\\TemplateRulesRegistry extends @final class PHPStan\\\\Rules\\\\DirectRegistry\\.$#"
 			count: 1
 			path: repo/src/TemplateCompiler/Rules/TemplateRulesRegistry.php
