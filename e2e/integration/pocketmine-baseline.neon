@@ -6,6 +6,16 @@ parameters:
 			path: repo/src/pocketmine/CrashDump.php
 
 		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string, 2\\?\\: non\\-empty\\-string\\}\\.$#"
+			count: 1
+			path: repo/src/pocketmine/MemoryManager.php
+
+		-
+			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string, 2\\?\\: non\\-empty\\-string\\}\\.$#"
+			count: 1
+			path: repo/src/pocketmine/MemoryManager.php
+
+		-
 			message: "#^Property pocketmine\\\\Player\\:\\:\\$needACK is never read, only written\\.$#"
 			count: 1
 			path: repo/src/pocketmine/Player.php
@@ -91,6 +101,16 @@ parameters:
 			path: repo/src/pocketmine/level/format/io/region/RegionLoader.php
 
 		-
+			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\: ''\\|numeric\\-string, 2\\?\\: non\\-empty\\-string\\}\\.$#"
+			count: 1
+			path: repo/src/pocketmine/level/generator/Flat.php
+
+		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-empty\\-string\\}\\.$#"
+			count: 1
+			path: repo/src/pocketmine/network/mcpe/PlayerNetworkSessionAdapter.php
+
+		-
 			message: "#^Offset \\(int\\|string\\) does not exist on array\\<pocketmine\\\\nbt\\\\tag\\\\CompoundTag\\>\\|null\\.$#"
 			count: 1
 			path: repo/src/pocketmine/network/mcpe/convert/RuntimeBlockMapping.php
@@ -126,9 +146,39 @@ parameters:
 			path: repo/src/pocketmine/plugin/PluginDescription.php
 
 		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-empty\\-string, 2\\?\\: non\\-empty\\-string, 3\\?\\: string\\}\\.$#"
+			count: 1
+			path: repo/src/pocketmine/plugin/ScriptPluginLoader.php
+
+		-
 			message: "#^Parameter \\#2 \\$length of function fread expects int\\<1, max\\>, int given\\.$#"
 			count: 1
 			path: repo/src/pocketmine/resourcepacks/ZippedResourcePack.php
+
+		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: string\\}\\.$#"
+			count: 3
+			path: repo/src/pocketmine/utils/Internet.php
+
+		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-empty\\-string, 2\\?\\: non\\-empty\\-string, 3\\?\\: non\\-empty\\-string\\}\\.$#"
+			count: 2
+			path: repo/src/pocketmine/utils/Process.php
+
+		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string\\}\\.$#"
+			count: 3
+			path: repo/src/pocketmine/utils/Process.php
+
+		-
+			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-empty\\-string, 2\\?\\: non\\-empty\\-string, 3\\?\\: non\\-empty\\-string\\}\\.$#"
+			count: 2
+			path: repo/src/pocketmine/utils/Process.php
+
+		-
+			message: "#^Offset 3 does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-empty\\-string, 2\\?\\: non\\-empty\\-string, 3\\?\\: non\\-empty\\-string\\}\\.$#"
+			count: 2
+			path: repo/src/pocketmine/utils/Process.php
 
 		-
 			message: "#^Method pocketmine\\\\utils\\\\Timezone\\:\\:parseOffset\\(\\) should return string\\|false but returns string\\|null\\.$#"
@@ -136,12 +186,22 @@ parameters:
 			path: repo/src/pocketmine/utils/Timezone.php
 
 		-
-			message: "#^Binary operation \"\\-\" between string and string results in an error\\.$#"
+			message: "#^Comparison operation \"\\<\" between int\\<\\-2147483648, 133143986400\\> and \\-2147483648 is always false\\.$#"
 			count: 1
 			path: repo/src/pocketmine/utils/Utils.php
 
 		-
-			message: "#^Comparison operation \"\\<\" between int\\<\\-2147483648, 133143986400\\> and \\-2147483648 is always false\\.$#"
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string, 2\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: repo/src/pocketmine/utils/Utils.php
+
+		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: repo/src/pocketmine/utils/Utils.php
+
+		-
+			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string, 2\\?\\: numeric\\-string\\}\\.$#"
 			count: 1
 			path: repo/src/pocketmine/utils/Utils.php
 
