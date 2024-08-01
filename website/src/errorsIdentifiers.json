@@ -4839,7 +4839,7 @@
     "function.uselessReturnValue": {
         "PHPStan\\Rules\\Functions\\UselessFunctionReturnValueRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Functions/UselessFunctionReturnValueRule.php#L73"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Functions/UselessFunctionReturnValueRule.php#L80"
             ]
         }
     },
