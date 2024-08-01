@@ -1601,7 +1601,7 @@ parameters:
 			path: repo/src/Adapter/Profile/Employee/CommandHandler/EditEmployeeHandler.php
 
 		-
-			message: "#^Return value of function var_export\\(\\) is always true and the result is printed instead of being returned\\. Pass in true as parameter \\#2 \\$return to return the output instead\\.$#"
+			message: "#^Return value of function var_export\\(\\) is always null and the result is printed instead of being returned\\. Pass in true as parameter \\#2 \\$return to return the output instead\\.$#"
 			count: 1
 			path: repo/src/Adapter/SqlManager/CommandHandler/DeleteSqlRequestHandler.php
 
@@ -2426,7 +2426,7 @@ parameters:
 			path: repo/tests/Integration/Adapter/Presenter/Product/ProductLazyArrayTest.php
 
 		-
-			message: "#^Return value of function var_export\\(\\) is always true and the result is printed instead of being returned\\. Pass in true as parameter \\#2 \\$return to return the output instead\\.$#"
+			message: "#^Return value of function var_export\\(\\) is always null and the result is printed instead of being returned\\. Pass in true as parameter \\#2 \\$return to return the output instead\\.$#"
 			count: 2
 			path: repo/tests/Integration/Behaviour/Features/Context/Domain/CartRuleFeatureContext.php
 
@@ -2486,7 +2486,7 @@ parameters:
 			path: repo/tests/Integration/Behaviour/Features/Context/Domain/Product/SpecificPriceContext.php
 
 		-
-			message: "#^Return value of function var_export\\(\\) is always true and the result is printed instead of being returned\\. Pass in true as parameter \\#2 \\$return to return the output instead\\.$#"
+			message: "#^Return value of function var_export\\(\\) is always null and the result is printed instead of being returned\\. Pass in true as parameter \\#2 \\$return to return the output instead\\.$#"
 			count: 2
 			path: repo/tests/Integration/Behaviour/Features/Context/Domain/Product/UpdateCustomizationFieldsFeatureContext.php
 
