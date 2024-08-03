@@ -38,6 +38,8 @@ can be checked before you run the actual line.
 <br>
 <a href="https://www.startupjobs.cz/startup/shipmonk"><img src="website/src/images/sponsor/shipmonk.jpg" alt="ShipMonk" width="290" height="64"></a>
 &nbsp;&nbsp;&nbsp;
+<a href="https://jobs.ticketswap.com/"><img src="website/src/images/sponsor/ticketswap.png" alt="TicketSwap" width="269" height="64"></a>
+&nbsp;&nbsp;&nbsp;
 <a href="https://togetter.com/"><img src="website/src/images/sponsor/togetter.png" alt="Togetter" width="283" height="64"></a>
 <br>
 <a href="https://join.rightcapital.com/?utm_source=phpstan&utm_medium=github&utm_campaign=sponsorship"><img src="website/src/images/sponsor/rightcapital.png" alt="RightCapital" width="283" height="64"></a>
