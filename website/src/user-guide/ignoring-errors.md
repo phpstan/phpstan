@@ -215,12 +215,16 @@ parameters:
 Excluding whole files
 ------------------
 
-If your codebase contains some files that are broken on purpose (e. g. to test behaviour of your application on files with invalid PHP code), you can exclude them using the `excludePaths` key. Each entry is used as a pattern for the [`fnmatch()`](https://www.php.net/manual/en/function.fnmatch.php) function.
+If your codebase contains some files that are broken on purpose (e. g. to test behaviour of your application on files with invalid PHP code), you can exclude them using the `excludePaths` key. Each entry can either be a file path, a directory path, or a pattern for the [`fnmatch()`](https://www.php.net/manual/en/function.fnmatch.php) function.
+
+If the `excludePaths` entry is a file path or a directory path, but it does not always exist, you can append the path with `(?)` to make it optional. Available since PHPStan 1.11.10.
 
 ```yaml
 parameters:
 	excludePaths:
 		- tests/*/data/*
+		- src/broken
+		- node_modules (?) # optional path, might not exist
 ```
 
 This is a shortcut for:
