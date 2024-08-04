@@ -6,12 +6,12 @@ parameters:
 			path: repo/src/pocketmine/CrashDump.php
 
 		-
-			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string, 2\\?\\: non\\-empty\\-string\\}\\.$#"
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string, 2\\?\\: 'G'\\|'g'\\|'K'\\|'k'\\|'M'\\|'m'\\}\\.$#"
 			count: 1
 			path: repo/src/pocketmine/MemoryManager.php
 
 		-
-			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string, 2\\?\\: non\\-empty\\-string\\}\\.$#"
+			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string, 2\\?\\: 'G'\\|'g'\\|'K'\\|'k'\\|'M'\\|'m'\\}\\.$#"
 			count: 1
 			path: repo/src/pocketmine/MemoryManager.php
 

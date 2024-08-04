@@ -1,7 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Offset 'major' does not exist on array\\{0\\?\\: string, 1\\?\\: string, major\\?\\: numeric\\-string, 2\\?\\: numeric\\-string, minor\\?\\: numeric\\-string, 3\\?\\: numeric\\-string, patch\\?\\: numeric\\-string, 4\\?\\: numeric\\-string\\}\\.$#"
+			message: "#^Offset 'major' does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|'mariadb\\-', major\\?\\: numeric\\-string, 2\\?\\: numeric\\-string, minor\\?\\: numeric\\-string, 3\\?\\: numeric\\-string, patch\\?\\: numeric\\-string, 4\\?\\: numeric\\-string\\}\\.$#"
 			count: 1
 			path: repo/src/Driver/AbstractMySQLDriver.php
 
@@ -11,12 +11,12 @@ parameters:
 			path: repo/src/Driver/AbstractMySQLDriver.php
 
 		-
-			message: "#^Offset 'minor' does not exist on array\\{0\\?\\: string, 1\\?\\: string, major\\?\\: numeric\\-string, 2\\?\\: numeric\\-string, minor\\?\\: numeric\\-string, 3\\?\\: numeric\\-string, patch\\?\\: numeric\\-string, 4\\?\\: numeric\\-string\\}\\.$#"
+			message: "#^Offset 'minor' does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|'mariadb\\-', major\\?\\: numeric\\-string, 2\\?\\: numeric\\-string, minor\\?\\: numeric\\-string, 3\\?\\: numeric\\-string, patch\\?\\: numeric\\-string, 4\\?\\: numeric\\-string\\}\\.$#"
 			count: 1
 			path: repo/src/Driver/AbstractMySQLDriver.php
 
 		-
-			message: "#^Offset 'patch' does not exist on array\\{0\\?\\: string, 1\\?\\: string, major\\?\\: numeric\\-string, 2\\?\\: numeric\\-string, minor\\?\\: numeric\\-string, 3\\?\\: numeric\\-string, patch\\?\\: numeric\\-string, 4\\?\\: numeric\\-string\\}\\.$#"
+			message: "#^Offset 'patch' does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|'mariadb\\-', major\\?\\: numeric\\-string, 2\\?\\: numeric\\-string, minor\\?\\: numeric\\-string, 3\\?\\: numeric\\-string, patch\\?\\: numeric\\-string, 4\\?\\: numeric\\-string\\}\\.$#"
 			count: 1
 			path: repo/src/Driver/AbstractMySQLDriver.php
 
