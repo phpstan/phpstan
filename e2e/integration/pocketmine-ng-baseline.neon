@@ -6,6 +6,16 @@ parameters:
 			path: repo/build/server-phar.php
 
 		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string, 2\\?\\: non\\-empty\\-string\\}\\.$#"
+			count: 1
+			path: repo/src/MemoryManager.php
+
+		-
+			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string, 2\\?\\: non\\-empty\\-string\\}\\.$#"
+			count: 1
+			path: repo/src/MemoryManager.php
+
+		-
 			message: "#^Unable to resolve the template type TKeyType in call to method static method pocketmine\\\\utils\\\\Utils\\:\\:stringifyKeys\\(\\)$#"
 			count: 1
 			path: repo/src/MemoryManager.php
@@ -21,6 +31,51 @@ parameters:
 			path: repo/src/resourcepacks/ZippedResourcePack.php
 
 		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: string\\}\\.$#"
+			count: 3
+			path: repo/src/utils/Internet.php
+
+		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-empty\\-string, 2\\?\\: non\\-empty\\-string, 3\\: non\\-falsy\\-string\\}\\.$#"
+			count: 2
+			path: repo/src/utils/Process.php
+
+		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string\\}\\.$#"
+			count: 3
+			path: repo/src/utils/Process.php
+
+		-
+			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-empty\\-string, 2\\?\\: non\\-empty\\-string, 3\\: non\\-falsy\\-string\\}\\.$#"
+			count: 2
+			path: repo/src/utils/Process.php
+
+		-
+			message: "#^Offset 3 does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-empty\\-string, 2\\?\\: non\\-empty\\-string, 3\\?\\: non\\-empty\\-string\\}\\.$#"
+			count: 2
+			path: repo/src/utils/Process.php
+
+		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string, 2\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: repo/src/utils/Utils.php
+
+		-
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: repo/src/utils/Utils.php
+
+		-
+			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\?\\: numeric\\-string, 2\\?\\: numeric\\-string\\}\\.$#"
+			count: 1
+			path: repo/src/utils/Utils.php
+
+		-
 			message: "#^Parameter \\#2 \\$length of function fread expects int\\<1, max\\>, int given\\.$#"
 			count: 1
 			path: repo/src/world/format/io/region/RegionLoader.php
+
+		-
+			message: "#^Offset 2 does not exist on array\\{0\\?\\: string, 1\\: ''\\|numeric\\-string, 2\\?\\: non\\-empty\\-string\\}\\.$#"
+			count: 1
+			path: repo/src/world/generator/FlatGeneratorOptions.php
