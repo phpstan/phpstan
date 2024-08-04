@@ -426,16 +426,6 @@ parameters:
 			path: repo/classes/Validate.php
 
 		-
-			message: "#^Regex pattern is invalid\\: Compilation failed\\: unmatched closing parenthesis at offset 6 in pattern\\: \\#\\\\\\(\\?\\:\\.\\*\\)\\#$#"
-			count: 1
-			path: repo/classes/assets/AbstractAssetManager.php
-
-		-
-			message: "#^Regex pattern is invalid\\: Compilation failed\\: unmatched closing parenthesis at offset 6 in pattern\\: \\#\\\\\\(\\?\\:\\.\\*\\)\\#$#"
-			count: 1
-			path: repo/classes/assets/CccReducer.php
-
-		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
 			count: 2
 			path: repo/classes/cache/CacheMemcache.php
