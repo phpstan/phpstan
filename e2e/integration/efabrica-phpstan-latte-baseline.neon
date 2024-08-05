@@ -1,12 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Offset 'block_name' might not exist on array\\{0\\?\\: string, define\\?\\: non\\-empty\\-string, 1\\?\\: non\\-empty\\-string, block_name\\?\\: string, 2\\?\\: string, parameters\\: string, 3\\?\\: string, line\\?\\: numeric\\-string, \\.\\.\\.\\}\\.$#"
+			message: "#^Offset 'block_name' might not exist on array\\{0\\?\\: string, define\\?\\: non\\-falsy\\-string, 1\\?\\: non\\-falsy\\-string, block_name\\?\\: string, 2\\?\\: string, parameters\\: string, 3\\?\\: string, line\\?\\: numeric\\-string, \\.\\.\\.\\}\\.$#"
 			count: 1
 			path: repo/src/Compiler/NodeVisitor/AddParametersForBlockNodeVisitor.php
 
 		-
-			message: "#^Offset 'define' might not exist on array\\{0\\?\\: string, define\\?\\: non\\-empty\\-string, 1\\?\\: non\\-empty\\-string, block_name\\?\\: string, 2\\?\\: string, parameters\\: string, 3\\?\\: string, line\\?\\: numeric\\-string, \\.\\.\\.\\}\\.$#"
+			message: "#^Offset 'define' might not exist on array\\{0\\?\\: string, define\\?\\: non\\-falsy\\-string, 1\\?\\: non\\-falsy\\-string, block_name\\?\\: string, 2\\?\\: string, parameters\\: string, 3\\?\\: string, line\\?\\: numeric\\-string, \\.\\.\\.\\}\\.$#"
 			count: 1
 			path: repo/src/Compiler/NodeVisitor/AddParametersForBlockNodeVisitor.php
 
