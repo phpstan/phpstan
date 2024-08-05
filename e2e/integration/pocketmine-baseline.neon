@@ -146,7 +146,7 @@ parameters:
 			path: repo/src/pocketmine/plugin/PluginDescription.php
 
 		-
-			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-empty\\-string, 2\\?\\: non\\-falsy\\-string, 3\\?\\: string\\}\\.$#"
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-empty\\-string, 2\\?\\: non\\-empty\\-string, 3\\?\\: string\\}\\.$#"
 			count: 1
 			path: repo/src/pocketmine/plugin/ScriptPluginLoader.php
 
