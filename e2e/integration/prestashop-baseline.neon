@@ -196,7 +196,12 @@ parameters:
 			path: repo/classes/Media.php
 
 		-
-			message: "#^Offset 1 on array\\{0\\: string, 1\\: non\\-empty\\-string, 2\\?\\: non\\-empty\\-string\\} in isset\\(\\) always exists and is not nullable\\.$#"
+			message: "#^Offset 1 on array\\{0\\: string, 1\\: non\\-empty\\-string, 2\\?\\: non\\-falsy\\-string\\} in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/classes/Media.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
 			count: 1
 			path: repo/classes/Media.php
 
@@ -424,6 +429,16 @@ parameters:
 			message: "#^Strict comparison using \\!\\=\\= between string and null will always evaluate to true\\.$#"
 			count: 1
 			path: repo/classes/Validate.php
+
+		-
+			message: "#^Regex pattern is invalid\\: Compilation failed\\: unmatched closing parenthesis at offset 6 in pattern\\: \\#\\\\\\(\\?\\:\\.\\*\\)\\#$#"
+			count: 1
+			path: repo/classes/assets/AbstractAssetManager.php
+
+		-
+			message: "#^Regex pattern is invalid\\: Compilation failed\\: unmatched closing parenthesis at offset 6 in pattern\\: \\#\\\\\\(\\?\\:\\.\\*\\)\\#$#"
+			count: 1
+			path: repo/classes/assets/CccReducer.php
 
 		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
@@ -1128,6 +1143,11 @@ parameters:
 		-
 			message: "#^Call to function is_array\\(\\) with non\\-empty\\-list\\<string\\> will always evaluate to true\\.$#"
 			count: 1
+			path: repo/controllers/admin/AdminTranslationsController.php
+
+		-
+			message: "#^Right side of && is always true\\.$#"
+			count: 2
 			path: repo/controllers/admin/AdminTranslationsController.php
 
 		-
