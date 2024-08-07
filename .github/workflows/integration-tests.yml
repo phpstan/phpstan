@@ -109,9 +109,9 @@ jobs:
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               composer run-script test:unit
           - php-version: 8.1
-            name: shipmonk-rnd/phpstan-rules tests
+            name: shipmonk/phpstan-rules tests
             script: |
-              git clone https://github.com/shipmonk-rnd/phpstan-rules.git -b 1.1.1 --depth 1 e2e/integration/repo
+              git clone https://github.com/shipmonk-rnd/phpstan-rules.git -b 3.1.0 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
