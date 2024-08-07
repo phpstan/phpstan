@@ -2,4 +2,4 @@ parameters:
 	ignoreErrors:
 		-
 			message: '#^PHPDoc tag @var with type array\{list\<string\>, list\<string\>\} is not subtype of type array\{list\<string\>, list\<non\-empty\-string\>\}$#'
-			path: tests/RuleTestCase.php
+			path: repo/tests/RuleTestCase.php
