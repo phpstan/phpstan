@@ -1166,11 +1166,6 @@ parameters:
 			path: repo/controllers/front/CartController.php
 
 		-
-			message: "#^Call to function is_resource\\(\\) with resource will always evaluate to true\\.$#"
-			count: 1
-			path: repo/controllers/front/GetFileController.php
-
-		-
 			message: "#^PHPDoc tag @var with type string is not subtype of native type mixed\\.$#"
 			count: 1
 			path: repo/controllers/front/GuestTrackingController.php
@@ -1201,12 +1196,7 @@ parameters:
 			path: repo/controllers/front/ProductController.php
 
 		-
-			message: "#^Offset 1 on array\\{string, numeric\\-string, non\\-falsy\\-string, string, non\\-empty\\-string, numeric\\-string, string\\}\\|array\\{string, numeric\\-string, non\\-falsy\\-string\\} in isset\\(\\) always exists and is not nullable\\.$#"
-			count: 1
-			path: repo/controllers/front/ProductController.php
-
-		-
-			message: "#^Right side of && is always true\\.$#"
+			message: "#^Offset 1 on array\\{string, '', '', string, non\\-empty\\-string, numeric\\-string, string\\}\\|array\\{string, numeric\\-string, non\\-falsy\\-string\\} in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/controllers/front/ProductController.php
 
@@ -1409,11 +1399,6 @@ parameters:
 			message: "#^Call to function is_array\\(\\) with array\\{0\\: int\\<0, max\\>, 1\\: int\\<0, max\\>, 2\\: int, 3\\: string, mime\\: string, channels\\?\\: int, bits\\?\\: int\\} will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/Adapter/Image/Uploader/CategoryThumbnailImageUploader.php
-
-		-
-			message: "#^Call to function is_resource\\(\\) with resource will always evaluate to true\\.$#"
-			count: 1
-			path: repo/src/Adapter/Import/CsvFileOpener.php
 
 		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
