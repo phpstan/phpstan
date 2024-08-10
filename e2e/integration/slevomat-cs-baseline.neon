@@ -1,7 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: string, 2\\?\\: string\\}\\.$#"
+			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|'\\\\\\\\', 2\\?\\: string\\}\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/VariableHelper.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between 1 and 1 will always evaluate to true\\.$#"
 			count: 1
 			path: repo/SlevomatCodingStandard/Helpers/VariableHelper.php
 
