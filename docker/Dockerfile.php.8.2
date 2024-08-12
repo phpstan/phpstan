@@ -7,7 +7,7 @@ ENV COMPOSER_HOME="/composer" \
     PHPSTAN_PRO_WEB_PORT="11111"
 
 RUN echo "memory_limit=-1" > $PHP_CONF_DIR/99_memory-limit.ini \
-    && apk add --no-cache git
+    && apk add --no-cache git patch
 
 VOLUME ["/app"]
 
