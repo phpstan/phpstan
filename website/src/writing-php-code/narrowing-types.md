@@ -200,7 +200,7 @@ public function getName(): ?string
 }
 ```
 
-By default `@phpstan-assert-if-true` also makes assuptions about `false` return value, in case this is not desired use `=` operator before the type.
+By default `@phpstan-assert-if-true` also makes assumptions about `false` return value, in case this is not desired use `=` operator before the type.
 ```php
 /**
 * @phpstan-assert-if-true =Admin $this->admin
