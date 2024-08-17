@@ -200,6 +200,28 @@ public function getName(): ?string
 }
 ```
 
+By default `@phpstan-assert-if-true` also makes assuptions about `false` return value, in case this is not desired use `=` operator before the type.
+```php
+/**
+* @phpstan-assert-if-true =Admin $this->admin
+* @phpstan-assert-if-true =true $this->admin->active
+*/
+public function isAdmin(): bool
+{
+    return $this->admin !== null && $this->admin->active === true;
+}
+
+...
+
+if ($user->isAdmin()) {
+    // $user->admin is asserted Admin
+    // $user->admin->active is asserted true
+} else {
+    // $user->admin is Admin|null
+    // $user->admin->active is false|true
+}
+```
+
 Type-specifying extensions
 ----------------------
 
