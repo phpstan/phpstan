@@ -88,5 +88,6 @@ Unofficial extensions
 * [staabm / phpstan-todo-by](https://github.com/staabm/phpstan-todo-by)
 * [staabm / phpstan-dba](https://github.com/staabm/phpstan-dba)
 * [roave / no-floaters](https://github.com/Roave/no-floaters)
+* [PHP Language Extensions](https://github.com/DaveLiddament/phpstan-php-language-extensions)
 
 [**Find more on Packagist!**](https://packagist.org/?type=phpstan-extension)
