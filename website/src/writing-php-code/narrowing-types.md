@@ -200,6 +200,58 @@ public function getName(): ?string
 }
 ```
 
+Equality assertions
+----------------------
+
+By default `@phpstan-assert-if-true` also makes assumptions about `false` return value. This can lead to undesired assertions and PHPStan errors like "Call to function x() will always evaluate to true.". In case this is not desired use `=` operator before the type.
+
+In example below, consider following scenario: user has `Admin` related model, but the model is not active.
+
+```php
+/**
+* @phpstan-assert-if-true Admin $this->admin
+* @phpstan-assert-if-true true $this->admin->active
+*/
+public function isAdmin(): bool
+{
+    return $this->admin !== null && $this->admin->active === true;
+}
+
+// ...
+
+if ($user->isAdmin()) {
+    // $user->admin is narrowed to Admin
+    // $user->admin->active is narrowed to true
+} else {
+    // $user->admin is narrowed to null
+    // $user->admin->active is narrowed to false
+    // but in reality $user->admin might still be Admin
+}
+```
+
+Now if we add `=` operator in front of the type there will be no automatic narrowing in case of `false` return value, which fixes issues in the example above.
+
+```php
+/**
+* @phpstan-assert-if-true =Admin $this->admin
+* @phpstan-assert-if-true =true $this->admin->active
+*/
+public function isAdmin(): bool
+{
+    return $this->admin !== null && $this->admin->active === true;
+}
+
+// ...
+
+if ($user->isAdmin()) {
+    // $user->admin is narrowed to Admin
+    // $user->admin->active is narrowed to true
+} else {
+    // $user->admin is not narrowed and stays Admin|null
+    // $user->admin->active is not narrowed and stays bool
+}
+```
+
 Type-specifying extensions
 ----------------------
 
