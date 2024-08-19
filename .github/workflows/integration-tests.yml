@@ -98,6 +98,16 @@ jobs:
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               composer run-script test:unit
+          - php-version: 8.3
+            name: Carbon tests
+            script: |
+              git clone https://github.com/briannesbitt/Carbon.git -b 3.8.0 --depth 1 e2e/integration/repo
+              cd e2e/integration/repo
+              composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              vendor/bin/phpunit tests/PHPStan
           - php-version: 8.1
             name: shipmonk/phpstan-rules tests
             script: |
@@ -420,7 +430,7 @@ jobs:
             baseline-file: webmozart-assert-baseline.neon
           - php-version: 8.1
             repo: briannesbitt/Carbon
-            ref: 0af369fba2435afe17a97cfa9a02a8e84d6c6640
+            ref: 3.8.0
             setup: |
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../carbon.neon
