@@ -200,7 +200,35 @@ public function getName(): ?string
 }
 ```
 
-By default `@phpstan-assert-if-true` also makes assumptions about `false` return value, in case this is not desired use `=` operator before the type.
+By default `@phpstan-assert-if-true` also makes assumptions about `false` return value. This can lead to undesired assertions and phpstan errors (eg. `Negated boolean expression is always true.`), in case this is not desired use `=` operator before the type.
+In example below, consider following scenario: user has `Admin` related model, but the model is not active.
+```php
+/**
+* @phpstan-assert-if-true Admin $this->admin
+* @phpstan-assert-if-true true $this->admin->active
+*/
+public function isAdmin(): bool
+{
+    return $this->admin !== null && $this->admin->active === true;
+}
+
+...
+
+if ($user->isAdmin()) {
+    // $user->admin is narrowed to Admin
+    // $user->admin->active is narrowed to true
+} else {
+    // $user->admin is narrowed to null
+    // $user->admin->active is narrowed to false
+
+    if (!$user->admin) {
+        // Phpstan error: Negated boolean expression is always true.
+    }
+}
+```
+
+Now if we add `=` operator in front of the type there will be no automatic narrowing in case of `false` return value, which fixes issues in the example above.
+
 ```php
 /**
 * @phpstan-assert-if-true =Admin $this->admin
@@ -214,11 +242,15 @@ public function isAdmin(): bool
 ...
 
 if ($user->isAdmin()) {
-    // $user->admin is asserted Admin
-    // $user->admin->active is asserted true
+    // $user->admin is narrowed to Admin
+    // $user->admin->active is narrowed to true
 } else {
-    // $user->admin is Admin|null
-    // $user->admin->active is false|true
+    // $user->admin is not narrowed and stays null|Admin
+    // $user->admin->active is not narrowed and stays false|true
+
+    if (!$user->admin) {
+        // No phpstan error
+    }
 }
 ```
 
