@@ -32,7 +32,7 @@ composer require --dev phpstan/phpstan
 
 This way you will make sure everyone and everything is on the same PHPStan version - your machine, your teammates and most importantly, CI.
 
-Make sure your `composer.lock` is commited in the Git repository
+Make sure your `composer.lock` is committed in the Git repository
 ------------------
 
 Commit and version your `composer.lock` file in Git to make sure your dependencies are locked and always the same until you update them.
