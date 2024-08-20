@@ -99,6 +99,13 @@ Note: Using configuration file /var/www/project/phpstan.neon.
 
 Make sure your local machine uses the same file as the CI environment.
 
+Get rid of duplicate symbols
+------------------
+
+If you have two or more different class or function definitions with the exact same name, PHPStan does not guarantee which one it's going to give priority to. Your local machine [might discover](/user-guide/discovering-symbols) one definition first and your CI might discover a different definition first, leading to different analysis results.
+
+Rename your classes and functions so that they are always unique to get rid of this problem.
+
 Fix your custom non-deterministic autoloader
 ------------------
 
