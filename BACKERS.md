@@ -126,6 +126,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/peterfox">Peter Fox (peterfox)</a></li>
 <li><a href="https://github.com/BernhardK91">Bernhard Krämer (BernhardK91)</a></li>
 <li><a href="https://github.com/WyriHaximus">Cees-Jan Kiewiet (WyriHaximus)</a></li>
+<li><a href="https://github.com/byWulf">Michael Wolf (byWulf)</a></li>
 <!-- five -->
 
 <!-- five-org --><li><a href="https://github.com/hxv">Michał Włodarczyk (hxv)</a></li>
