@@ -2291,6 +2291,11 @@ parameters:
 			path: repo/src/PrestaShopBundle/Controller/Api/StockController.php
 
 		-
+			message: "#^Property PrestaShopBundle\\\\Controller\\\\ArgumentResolver\\\\SearchParametersResolver\\:\\:\\$employee \\(PrestaShopBundle\\\\Security\\\\Admin\\\\Employee\\|void\\) is never assigned void so it can be removed from the property type\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Controller/ArgumentResolver/SearchParametersResolver.php
+
+		-
 			message: "#^Strict comparison using \\=\\=\\= between null and null will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/PrestaShopBundle/Entity/Repository/StockMovementRepository.php
