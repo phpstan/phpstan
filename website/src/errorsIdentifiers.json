@@ -4074,8 +4074,8 @@
     "doctrine.columnType": {
         "PHPStan\\Rules\\Doctrine\\ORM\\EntityColumnRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L181",
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L197"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L215",
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L231"
             ]
         }
     },
@@ -4089,7 +4089,7 @@
     "doctrine.descriptorNotFound": {
         "PHPStan\\Rules\\Doctrine\\ORM\\EntityColumnRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L109"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L110"
             ]
         }
     },
@@ -4108,7 +4108,8 @@
     "doctrine.enumType": {
         "PHPStan\\Rules\\Doctrine\\ORM\\EntityColumnRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L130"
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L132",
+                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L156"
             ]
         }
     },
@@ -8656,6 +8657,11 @@
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L91"
             ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleSelfOutTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleSelfOutTypeRule.php#L63"
+            ]
         }
     },
     "parameter.variadic": {
@@ -10410,7 +10416,7 @@
     "selfOut.static": {
         "PHPStan\\Rules\\PhpDoc\\IncompatibleSelfOutTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleSelfOutTypeRule.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleSelfOutTypeRule.php#L54"
             ]
         }
     },
@@ -10439,7 +10445,7 @@
     "selfOut.type": {
         "PHPStan\\Rules\\PhpDoc\\IncompatibleSelfOutTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleSelfOutTypeRule.php#L45"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleSelfOutTypeRule.php#L49"
             ]
         }
     },
