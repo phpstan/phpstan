@@ -8273,6 +8273,20 @@
             ]
         }
     },
+    "paramImmediatelyInvokedCallable.nonCallable": {
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleParamImmediatelyInvokedCallableRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleParamImmediatelyInvokedCallableRule.php#L84"
+            ]
+        }
+    },
+    "paramLaterInvokedCallable.nonCallable": {
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleParamImmediatelyInvokedCallableRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleParamImmediatelyInvokedCallableRule.php#L84"
+            ]
+        }
+    },
     "paramOut.type": {
         "PHPStan\\Rules\\Variables\\ParameterOutAssignedTypeRule": {
             "phpstan/phpstan-src": [
@@ -8470,6 +8484,11 @@
         "PHPStan\\Rules\\PhpDoc\\FunctionConditionalReturnTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L97"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleParamImmediatelyInvokedCallableRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleParamImmediatelyInvokedCallableRule.php#L77"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
@@ -8748,7 +8767,7 @@
         },
         "PHPStan\\PhpDoc\\StubValidator": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/PhpDoc/StubValidator.php#L134"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/PhpDoc/StubValidator.php#L137"
             ]
         }
     },
