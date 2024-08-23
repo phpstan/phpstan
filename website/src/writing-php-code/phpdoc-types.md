@@ -324,6 +324,10 @@ This feature is inspired by array shapes but represents objects with public prop
 * `object{'foo': int, "bar"?: string}` (property `bar` is optional in the object)
 * `object{foo: int, bar?: string}` (quotes around property names aren't necessary)
 
+Object shape properties are read-only. You can intersect the object shape with another class to make them writable:
+
+* `object{foo: int, bar?: string}&\stdClass`
+
 Literals and constants
 -------------------------
 
