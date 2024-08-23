@@ -5191,6 +5191,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleSelfOutTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
@@ -5286,6 +5291,11 @@
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleSelfOutTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
@@ -5468,6 +5478,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleSelfOutTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
@@ -5541,6 +5556,11 @@
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleSelfOutTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
@@ -5666,6 +5686,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleSelfOutTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
@@ -5739,6 +5764,11 @@
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleSelfOutTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
             ]
@@ -8660,7 +8690,7 @@
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatibleSelfOutTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleSelfOutTypeRule.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleSelfOutTypeRule.php#L69"
             ]
         }
     },
@@ -10416,7 +10446,7 @@
     "selfOut.static": {
         "PHPStan\\Rules\\PhpDoc\\IncompatibleSelfOutTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleSelfOutTypeRule.php#L54"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleSelfOutTypeRule.php#L60"
             ]
         }
     },
@@ -10445,7 +10475,7 @@
     "selfOut.type": {
         "PHPStan\\Rules\\PhpDoc\\IncompatibleSelfOutTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleSelfOutTypeRule.php#L49"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleSelfOutTypeRule.php#L55"
             ]
         }
     },
