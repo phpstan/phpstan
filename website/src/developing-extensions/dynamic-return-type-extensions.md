@@ -26,7 +26,7 @@ $mergedArticle = $this->entityManager->merge($article);
 // $mergedArticle will have the same type as $article
 ```
 
-This is [the interface for dynamic return type extension](https://apiref.phpstan.org/1.11.x/PHPStan.Type.DynamicMethodReturnTypeExtension.html):
+This is [the interface for dynamic return type extension](https://apiref.phpstan.org/1.12.x/PHPStan.Type.DynamicMethodReturnTypeExtension.html):
 
 ```php
 namespace PHPStan\Type;
@@ -102,5 +102,5 @@ services:
 
 There's also analogous functionality for:
 
-* **static methods** using [`DynamicStaticMethodReturnTypeExtension`](https://apiref.phpstan.org/1.11.x/PHPStan.Type.DynamicStaticMethodReturnTypeExtension.html) interface and `phpstan.broker.dynamicStaticMethodReturnTypeExtension` service tag.
-* **functions** using [`DynamicFunctionReturnTypeExtension`](https://apiref.phpstan.org/1.11.x/PHPStan.Type.DynamicFunctionReturnTypeExtension.html) interface and `phpstan.broker.dynamicFunctionReturnTypeExtension` service tag.
+* **static methods** using [`DynamicStaticMethodReturnTypeExtension`](https://apiref.phpstan.org/1.12.x/PHPStan.Type.DynamicStaticMethodReturnTypeExtension.html) interface and `phpstan.broker.dynamicStaticMethodReturnTypeExtension` service tag.
+* **functions** using [`DynamicFunctionReturnTypeExtension`](https://apiref.phpstan.org/1.12.x/PHPStan.Type.DynamicFunctionReturnTypeExtension.html) interface and `phpstan.broker.dynamicFunctionReturnTypeExtension` service tag.

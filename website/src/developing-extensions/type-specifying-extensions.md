@@ -27,7 +27,7 @@ self::assertNotNull($variable);
 // here we can be sure that $variable is not null
 ```
 
-This is the [the interface for the type-specifying extension](https://apiref.phpstan.org/1.11.x/PHPStan.Type.StaticMethodTypeSpecifyingExtension.html):
+This is the [the interface for the type-specifying extension](https://apiref.phpstan.org/1.12.x/PHPStan.Type.StaticMethodTypeSpecifyingExtension.html):
 
 ```php
 namespace PHPStan\Type;
@@ -59,7 +59,7 @@ interface StaticMethodTypeSpecifyingExtension
 }
 ```
 
-Type-specifying extension cannot have [`PHPStan\Analyser\TypeSpecifier`](https://apiref.phpstan.org/1.11.x/PHPStan.Analyser.TypeSpecifier.html) injected in the constructor due to circular reference issue, but the extensions can implement [`PHPStan\Analyser\TypeSpecifierAwareExtension`](https://apiref.phpstan.org/1.11.x/PHPStan.Analyser.TypeSpecifierAwareExtension.html) interface to obtain TypeSpecifier via a setter.
+Type-specifying extension cannot have [`PHPStan\Analyser\TypeSpecifier`](https://apiref.phpstan.org/1.12.x/PHPStan.Analyser.TypeSpecifier.html) injected in the constructor due to circular reference issue, but the extensions can implement [`PHPStan\Analyser\TypeSpecifierAwareExtension`](https://apiref.phpstan.org/1.12.x/PHPStan.Analyser.TypeSpecifierAwareExtension.html) interface to obtain TypeSpecifier via a setter.
 
 This is how you'd write the extension for the second example above:
 
@@ -109,5 +109,5 @@ services:
 
 There's also analogous functionality for:
 
-* **instance methods** using [`MethodTypeSpecifyingExtension`](https://apiref.phpstan.org/1.11.x/PHPStan.Type.MethodTypeSpecifyingExtension.html) interface and `phpstan.typeSpecifier.methodTypeSpecifyingExtension` service tag.
-* **functions** using [`FunctionTypeSpecifyingExtension`](https://apiref.phpstan.org/1.11.x/PHPStan.Type.FunctionTypeSpecifyingExtension.html) interface and `phpstan.typeSpecifier.functionTypeSpecifyingExtension` service tag.
+* **instance methods** using [`MethodTypeSpecifyingExtension`](https://apiref.phpstan.org/1.12.x/PHPStan.Type.MethodTypeSpecifyingExtension.html) interface and `phpstan.typeSpecifier.methodTypeSpecifyingExtension` service tag.
+* **functions** using [`FunctionTypeSpecifyingExtension`](https://apiref.phpstan.org/1.12.x/PHPStan.Type.FunctionTypeSpecifyingExtension.html) interface and `phpstan.typeSpecifier.functionTypeSpecifyingExtension` service tag.

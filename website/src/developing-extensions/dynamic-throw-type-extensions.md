@@ -8,7 +8,7 @@ The implementation is all about applying the [core concepts](/developing-extensi
 
 Because you have to write the code with the type-resolving logic, it can be as complex as you want.
 
-This is [the interface](https://apiref.phpstan.org/1.11.x/PHPStan.Type.DynamicMethodThrowTypeExtension.html) for dynamic throw type extension:
+This is [the interface](https://apiref.phpstan.org/1.12.x/PHPStan.Type.DynamicMethodThrowTypeExtension.html) for dynamic throw type extension:
 
 ```php
 namespace PHPStan\Type;
@@ -92,5 +92,5 @@ services:
 
 There's also analogous functionality for:
 
-* **static methods** using [`DynamicStaticMethodThrowTypeExtension`](https://apiref.phpstan.org/1.11.x/PHPStan.Type.DynamicStaticMethodThrowTypeExtension.html) interface and `phpstan.dynamicStaticMethodThrowTypeExtension` service tag.
-* **functions** using [`DynamicFunctionThrowTypeExtension`](https://apiref.phpstan.org/1.11.x/PHPStan.Type.DynamicFunctionThrowTypeExtension.html) interface and `phpstan.dynamicFunctionThrowTypeExtension` service tag.
+* **static methods** using [`DynamicStaticMethodThrowTypeExtension`](https://apiref.phpstan.org/1.12.x/PHPStan.Type.DynamicStaticMethodThrowTypeExtension.html) interface and `phpstan.dynamicStaticMethodThrowTypeExtension` service tag.
+* **functions** using [`DynamicFunctionThrowTypeExtension`](https://apiref.phpstan.org/1.12.x/PHPStan.Type.DynamicFunctionThrowTypeExtension.html) interface and `phpstan.dynamicFunctionThrowTypeExtension` service tag.

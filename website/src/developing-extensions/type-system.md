@@ -2,11 +2,11 @@
 title: Type System
 ---
 
-PHPStan's type system is a collection of classes implementing the common [`PHPStan\Type\Type`](https://apiref.phpstan.org/1.11.x/PHPStan.Type.Type.html) interface to inform the analyser about relationships between types, and their behaviour.
+PHPStan's type system is a collection of classes implementing the common [`PHPStan\Type\Type`](https://apiref.phpstan.org/1.12.x/PHPStan.Type.Type.html) interface to inform the analyser about relationships between types, and their behaviour.
 
 To retrieve the type of an [AST](/developing-extensions/abstract-syntax-tree) expression, you need to call the `getType()` method on the [Scope](/developing-extensions/scope) object.
 
-Each type that we can encounter in PHP language and [in PHPDocs](/writing-php-code/phpdoc-types) has [an implementation counterpart](https://apiref.phpstan.org/1.11.x/namespace-PHPStan.Type.html) in PHPStan:
+Each type that we can encounter in PHP language and [in PHPDocs](/writing-php-code/phpdoc-types) has [an implementation counterpart](https://apiref.phpstan.org/1.12.x/namespace-PHPStan.Type.html) in PHPStan:
 
 <details class="typesystem-types">
     <summary class="text-blue-500 font-bold">Show table of <code>PHPStan\Type\Type</code> implementations</summary>
@@ -81,7 +81,7 @@ Some advanced types are implemented by combining different types in an intersect
 What can a type tell us?
 -----------------
 
-The [`PHPStan\Type\Type`](https://apiref.phpstan.org/1.11.x/PHPStan.Type.Type.html) interface offers many methods to ask about the capabilities of values of this specific type. Following list is by no means complete, please see the interface code for more details.
+The [`PHPStan\Type\Type`](https://apiref.phpstan.org/1.12.x/PHPStan.Type.Type.html) interface offers many methods to ask about the capabilities of values of this specific type. Following list is by no means complete, please see the interface code for more details.
 
 The `describe()` method returns a string representation (description) of the type, which is useful for error messages. For example `StringType` returns `'string'`.
 
@@ -178,7 +178,7 @@ $intersection = TypeCombinator::intersect($a, $b, $c);
 Considerations for custom types
 -----------------
 
-You can also implement a custom type, usually representing a subtype of a more general type. This is typically done by extending an existing Type implementation, like [`StringType`](https://apiref.phpstan.org/1.11.x/PHPStan.Type.StringType.html) or [`ObjectType`](https://apiref.phpstan.org/1.11.x/PHPStan.Type.ObjectType.html). The methods you'll always need to override in your implementation are:
+You can also implement a custom type, usually representing a subtype of a more general type. This is typically done by extending an existing Type implementation, like [`StringType`](https://apiref.phpstan.org/1.12.x/PHPStan.Type.StringType.html) or [`ObjectType`](https://apiref.phpstan.org/1.12.x/PHPStan.Type.ObjectType.html). The methods you'll always need to override in your implementation are:
 
 * `public function describe(VerbosityLevel $level): string`
 * `public function equals(Type $type): bool`
@@ -187,6 +187,6 @@ You can also implement a custom type, usually representing a subtype of a more g
 
 It's important to correctly implement and test the `isSuperTypeOf()` method. It tells the relationships between types - which one is more general and which one is more specific (see [Querying a specific type](#querying-a-specific-type). The best way to test this method is through `TypeCombinator::union()` (a more general type should win) and `TypeCombinator::intersect()` (a more specific type should win).
 
-For example if you're implementing your own `UuidStringType`, `TypeCombinator::union(new StringType(), new UuidStringType())` should result in `StringType`. On the other hand, `TypeCombinator::intersect(new StringType(), new UuidStringType())` should result in `UuidStringType`. PHPStan has excessive tests for the built-in types in [TypeCombinatorTest](https://github.com/phpstan/phpstan-src/blob/1.11.x/tests/PHPStan/Type/TypeCombinatorTest.php) which is a great starting point to learn from.
+For example if you're implementing your own `UuidStringType`, `TypeCombinator::union(new StringType(), new UuidStringType())` should result in `StringType`. On the other hand, `TypeCombinator::intersect(new StringType(), new UuidStringType())` should result in `UuidStringType`. PHPStan has excessive tests for the built-in types in [TypeCombinatorTest](https://github.com/phpstan/phpstan-src/blob/1.12.x/tests/PHPStan/Type/TypeCombinatorTest.php) which is a great starting point to learn from.
 
 Once you have your own `PHPStan\Type\Type` implementation, you can add support for it in PHPDocs [through a custom TypeNodeResolverExtension](/developing-extensions/custom-phpdoc-types).

@@ -6,7 +6,7 @@ PHPStan is [able to detect unused private class constants](/blog/detecting-unuse
 
 The implementation is all about applying the [core concepts](/developing-extensions/core-concepts) like [reflection](/developing-extensions/reflection) so check out that guide first and then continue here.
 
-This is [the interface](https://apiref.phpstan.org/1.11.x/PHPStan.Rules.Constants.AlwaysUsedClassConstantsExtension.html) your extension needs to implement:
+This is [the interface](https://apiref.phpstan.org/1.12.x/PHPStan.Rules.Constants.AlwaysUsedClassConstantsExtension.html) your extension needs to implement:
 
 ```php
 namespace PHPStan\Rules\Constants;

@@ -33,7 +33,7 @@ if (!$type instanceof StringType) {
 // ...
 ```
 
-Looks reasonable, right? But PHPStan 1.10 with [bleeding edge](/blog/what-is-bleeding-edge) enabled or with [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) installed will report the following error [thanks to a new rule](https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Api/ApiInstanceofTypeRule.php):
+Looks reasonable, right? But PHPStan 1.10 with [bleeding edge](/blog/what-is-bleeding-edge) enabled or with [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) installed will report the following error [thanks to a new rule](https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Api/ApiInstanceofTypeRule.php):
 
 > Doing instanceof PHPStan\Type\StringType is error-prone and deprecated. Use Type::isString() instead.
 
@@ -140,7 +140,7 @@ This is why you should use `Type::isTrue(): TrinaryLogic` and `Type::isFalse(): 
 
 -----------------------------
 
-This isn't an exhaustive list of all types where doing `instanceof *Type` is deprecated in PHPStan 1.10, just the most notable examples. For a complete list please refer to [the actual rule source code](https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/Api/ApiInstanceofTypeRule.php). This list is going to grow bigger in future PHPStan releases.
+This isn't an exhaustive list of all types where doing `instanceof *Type` is deprecated in PHPStan 1.10, just the most notable examples. For a complete list please refer to [the actual rule source code](https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Api/ApiInstanceofTypeRule.php). This list is going to grow bigger in future PHPStan releases.
 
 Don't worry, this is currently just being deprecated. If you have `instanceof *Type` in your code, it's still going to work for the scenarios where it has already worked. But as you can see, switching to the new methods can be very beneficial.
 

@@ -2,11 +2,11 @@
 title: Custom PHPDoc Types
 ---
 
-PHPStan lets you override how it converts [PHPDoc Type AST coming from its phpdoc-parser library](https://apiref.phpstan.org/1.11.x/PHPStan.PhpDocParser.Ast.Type.TypeNode.html) into [its type system representation](/developing-extensions/type-system). This can be used to introduce custom utility types - a popular feature known [from other languages like TypeScript](https://www.typescriptlang.org/docs/handbook/utility-types.html).
+PHPStan lets you override how it converts [PHPDoc Type AST coming from its phpdoc-parser library](https://apiref.phpstan.org/1.12.x/PHPStan.PhpDocParser.Ast.Type.TypeNode.html) into [its type system representation](/developing-extensions/type-system). This can be used to introduce custom utility types - a popular feature known [from other languages like TypeScript](https://www.typescriptlang.org/docs/handbook/utility-types.html).
 
 The implementation is all about applying the [core concepts](/developing-extensions/core-concepts) like [the type system](/developing-extensions/type-system) so check out that guide first and then continue here.
 
-The conversion is done by a class called [`TypeNodeResolver`](https://apiref.phpstan.org/1.11.x/PHPStan.PhpDoc.TypeNodeResolver.html). That's why the interface to implement in this extension type is called [`TypeNodeResolverExtension`](https://apiref.phpstan.org/1.11.x/PHPStan.PhpDoc.TypeNodeResolverExtension.html):
+The conversion is done by a class called [`TypeNodeResolver`](https://apiref.phpstan.org/1.12.x/PHPStan.PhpDoc.TypeNodeResolver.html). That's why the interface to implement in this extension type is called [`TypeNodeResolverExtension`](https://apiref.phpstan.org/1.12.x/PHPStan.PhpDoc.TypeNodeResolverExtension.html):
 
 ```php
 namespace PHPStan\PhpDoc;
@@ -33,7 +33,7 @@ services:
 			- phpstan.phpDoc.typeNodeResolverExtension
 ```
 
-TypeNodeResolverExtension cannot have [`TypeNodeResolver`](https://apiref.phpstan.org/1.11.x/PHPStan.PhpDoc.TypeNodeResolver.html) injected in the constructor due to circular reference issue, but the extensions can implement [`TypeNodeResolverAwareExtension`](https://apiref.phpstan.org/1.11.x/PHPStan.PhpDoc.TypeNodeResolverAwareExtension.html) interface to obtain `TypeNodeResolver` via a setter.
+TypeNodeResolverExtension cannot have [`TypeNodeResolver`](https://apiref.phpstan.org/1.12.x/PHPStan.PhpDoc.TypeNodeResolver.html) injected in the constructor due to circular reference issue, but the extensions can implement [`TypeNodeResolverAwareExtension`](https://apiref.phpstan.org/1.12.x/PHPStan.PhpDoc.TypeNodeResolverAwareExtension.html) interface to obtain `TypeNodeResolver` via a setter.
 
 An example
 ----------------

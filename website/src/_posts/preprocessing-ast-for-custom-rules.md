@@ -4,7 +4,7 @@ date: 2022-04-15
 tags: guides
 ---
 
-When PHPStan 1.6.0 is released, your [custom rules](/developing-extensions/rules) that use the `parent`/`previous`/`next` attributes from the [`NodeConnectingVisitor`](https://apiref.phpstan.org/1.11.x/PhpParser.NodeVisitor.NodeConnectingVisitor.html) will no longer work for users that have enabled the [Bleeding Edge](/blog/what-is-bleeding-edge) feature toggle.
+When PHPStan 1.6.0 is released, your [custom rules](/developing-extensions/rules) that use the `parent`/`previous`/`next` attributes from the [`NodeConnectingVisitor`](https://apiref.phpstan.org/1.12.x/PhpParser.NodeVisitor.NodeConnectingVisitor.html) will no longer work for users that have enabled the [Bleeding Edge](/blog/what-is-bleeding-edge) feature toggle.
 
 ```php
 public function processNode(Node $node, Scope $scope): array

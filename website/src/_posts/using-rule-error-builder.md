@@ -16,7 +16,7 @@ public function processNode(Node $node, Scope $scope): array;
 
 The latter is a way to attach additional information to the reported errors.
 
-RuleError [is just an interface](https://github.com/phpstan/phpstan-src/blob/1.11.x/src/Rules/RuleError.php). The way you create an instance is through [RuleErrorBuilder](https://apiref.phpstan.org/1.11.x/PHPStan.Rules.RuleErrorBuilder.html):
+RuleError [is just an interface](https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/RuleError.php). The way you create an instance is through [RuleErrorBuilder](https://apiref.phpstan.org/1.12.x/PHPStan.Rules.RuleErrorBuilder.html):
 
 ```php
 return [
@@ -97,7 +97,7 @@ After that migrate the plain strings to RuleErrorBuilder, and add error identifi
 
 For an inspiration how the identifiers should look like check out [the catalogue](/error-identifiers).
 
-The identifier must consist of lowercase and uppercase ASCII letters, and optionally can have one or more dots in the middle. [See the tests](https://github.com/phpstan/phpstan-src/blob/1.11.x/tests/PHPStan/Analyser/ErrorTest.php) for examples of valid and invalid identifiers.
+The identifier must consist of lowercase and uppercase ASCII letters, and optionally can have one or more dots in the middle. [See the tests](https://github.com/phpstan/phpstan-src/blob/1.12.x/tests/PHPStan/Analyser/ErrorTest.php) for examples of valid and invalid identifiers.
 
 ------------
 

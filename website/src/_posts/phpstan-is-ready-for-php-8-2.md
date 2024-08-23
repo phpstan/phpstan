@@ -52,7 +52,7 @@ Full credit here goes to [Jarda Hanslík](https://twitter.com/kukulich) who [imp
 Updated function signatures
 ---------------
 
-PHPStan uses several sources about internal PHP functions and methods. There's [functionMap.php](https://github.com/phpstan/phpstan-src/blob/1.11.x/resources/functionMap.php), there's [jetbrains/phpstorm-stubs](https://github.com/jetbrains/phpstorm-stubs), and there's [phpstan/php-8-stubs](https://github.com/phpstan/php-8-stubs).
+PHPStan uses several sources about internal PHP functions and methods. There's [functionMap.php](https://github.com/phpstan/phpstan-src/blob/1.12.x/resources/functionMap.php), there's [jetbrains/phpstorm-stubs](https://github.com/jetbrains/phpstorm-stubs), and there's [phpstan/php-8-stubs](https://github.com/phpstan/php-8-stubs).
 
 The last one is extracted from official stubs provided by [php-src](https://github.com/php/php-src/). And because these change from version to version, there has to be a way to express those differences.
 
