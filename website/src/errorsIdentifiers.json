@@ -2690,6 +2690,16 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -3003,12 +3013,14 @@
         },
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L66"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L240",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L83"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L66"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L240",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L83"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
@@ -3419,6 +3431,16 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassForbiddenNameCheck.php#L77"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassForbiddenNameCheck.php#L77"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassForbiddenNameCheck.php#L77"
             ]
@@ -4477,6 +4499,16 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -5121,6 +5153,16 @@
         }
     },
     "generics.callSiteVarianceConflict": {
+        "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
@@ -5225,6 +5267,16 @@
         }
     },
     "generics.callSiteVarianceRedundant": {
+        "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
@@ -5408,6 +5460,16 @@
         }
     },
     "generics.lessTypes": {
+        "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
@@ -5490,6 +5552,16 @@
         }
     },
     "generics.moreTypes": {
+        "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
@@ -5616,6 +5688,16 @@
         }
     },
     "generics.notGeneric": {
+        "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
@@ -5698,6 +5780,16 @@
         }
     },
     "generics.notSubtype": {
+        "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
@@ -6413,6 +6505,16 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -7460,6 +7562,16 @@
         }
     },
     "missingType.callable": {
+        "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L233"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L233"
+            ]
+        },
         "PHPStan\\Rules\\Constants\\MissingClassConstantTypehintRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Constants/MissingClassConstantTypehintRule.php#L91"
@@ -7509,6 +7621,16 @@
         }
     },
     "missingType.generics": {
+        "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L222"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L222"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L82"
@@ -7576,6 +7698,16 @@
         }
     },
     "missingType.iterableValue": {
+        "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L209"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L209"
+            ]
+        },
         "PHPStan\\Rules\\Constants\\MissingClassConstantTypehintRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Constants/MissingClassConstantTypehintRule.php#L69"
@@ -11166,6 +11298,16 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -11380,70 +11522,94 @@
     "typeAlias.circular": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L156"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L173"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L156"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L173"
             ]
         }
     },
     "typeAlias.duplicate": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L110",
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L116",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L131",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L136",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L93",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L99"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L133",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L148",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L153"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L110",
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L116",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L131",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L136",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L93",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L99"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L133",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L148",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L153"
             ]
         }
     },
     "typeAlias.invalidName": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L105",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L142"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L122",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L159"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L105",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L142"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L122",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L159"
             ]
         }
     },
     "typeAlias.invalidType": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L164"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L181"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L164"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L181"
             ]
         }
     },
     "typeAlias.notFound": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L76"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L93"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L76"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L93"
+            ]
+        }
+    },
+    "typeAlias.trait": {
+        "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L245"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L245"
+            ]
+        }
+    },
+    "typeAlias.unresolvableType": {
+        "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L259"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L259"
             ]
         }
     },
