@@ -3025,7 +3025,7 @@
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L89"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L114"
             ]
         },
         "PHPStan\\Rules\\Constants\\DynamicClassConstantFetchRule": {
@@ -7572,6 +7572,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L233"
             ]
         },
+        "PHPStan\\Rules\\Classes\\MixinRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L107"
+            ]
+        },
         "PHPStan\\Rules\\Constants\\MissingClassConstantTypehintRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Constants/MissingClassConstantTypehintRule.php#L91"
@@ -7633,7 +7638,7 @@
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L82"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L83"
             ]
         },
         "PHPStan\\Rules\\Constants\\MissingClassConstantTypehintRule": {
@@ -7706,6 +7711,11 @@
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L209"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L97"
             ]
         },
         "PHPStan\\Rules\\Constants\\MissingClassConstantTypehintRule": {
@@ -7783,21 +7793,21 @@
     "mixin.nonObject": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L53"
             ]
         }
     },
     "mixin.trait": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L94"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L119"
             ]
         }
     },
     "mixin.unresolvableType": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L62"
             ]
         }
     },
