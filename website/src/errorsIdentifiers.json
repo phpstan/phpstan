@@ -8984,11 +8984,6 @@
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeRule.php#L91"
             ]
-        },
-        "PHPStan\\Rules\\PhpDoc\\IncompatibleSelfOutTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleSelfOutTypeRule.php#L69"
-            ]
         }
     },
     "parameter.variadic": {
@@ -9104,7 +9099,7 @@
         },
         "PHPStan\\PhpDoc\\StubValidator": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/PhpDoc/StubValidator.php#L138"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/PhpDoc/StubValidator.php#L142"
             ]
         }
     },
@@ -10797,6 +10792,13 @@
         "PHPStan\\Rules\\PhpDoc\\IncompatibleSelfOutTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleSelfOutTypeRule.php#L55"
+            ]
+        }
+    },
+    "selfOut.unresolvableType": {
+        "PHPStan\\Rules\\PhpDoc\\IncompatibleSelfOutTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/PhpDoc/IncompatibleSelfOutTypeRule.php#L69"
             ]
         }
     },
