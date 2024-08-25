@@ -9,9 +9,3 @@ parameters:
 			message: "#^Instantiated class DOMImplementationSource not found\\.$#"
 			count: 1
 			path: test.php
-
-		-
-			message: "#^Call to function is_resource\\(\\) with CurlHandle\\|false will always evaluate to false\\.$#"
-			count: 1
-			path: test.php
-
