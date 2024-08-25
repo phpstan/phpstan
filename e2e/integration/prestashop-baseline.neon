@@ -1216,6 +1216,31 @@ parameters:
 			path: repo/install-dev/classes/controllerConsole.php
 
 		-
+			message: "#^Class Datas has PHPDoc tag @property for property \\$modules with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/install-dev/classes/datas.php
+
+		-
+			message: "#^Class Datas has PHPDoc tag @property for property \\$xml_loader_ids with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/install-dev/classes/datas.php
+
+		-
+			message: "#^Class InstallSession has PHPDoc tag @property for property \\$content_modules with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/install-dev/classes/session.php
+
+		-
+			message: "#^Class InstallSession has PHPDoc tag @property for property \\$process_validated with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/install-dev/classes/session.php
+
+		-
+			message: "#^Class InstallSession has PHPDoc tag @property for property \\$xml_loader_ids with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/install-dev/classes/session.php
+
+		-
 			message: "#^Negated boolean expression is always false\\.$#"
 			count: 1
 			path: repo/install-dev/controllers/console/process.php
@@ -2026,6 +2051,11 @@ parameters:
 			path: repo/src/Core/Form/IdentifiableObject/DataHandler/SupplierFormDataHandler.php
 
 		-
+			message: "#^Class PrestaShop\\\\PrestaShop\\\\Core\\\\Grid\\\\Action\\\\ViewOptionsCollection has PHPDoc tag @property for property \\$items with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/Core/Grid/Action/ViewOptionsCollection.php
+
+		-
 			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/Core/Grid/Definition/GridDefinition.php
@@ -2187,6 +2217,66 @@ parameters:
 
 		-
 			message: "#^Call to function is_numeric\\(\\) with int\\<0, max\\> will always evaluate to true\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
+
+		-
+			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$breadcrumbs with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
+
+		-
+			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$confirmations with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
+
+		-
+			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$css_files with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
+
+		-
+			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$errors with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
+
+		-
+			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$informations with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
+
+		-
+			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$js_files with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
+
+		-
+			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$meta_title with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
+
+		-
+			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$modals with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
+
+		-
+			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$toolbar_btn with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
+
+		-
+			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$toolbar_title with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
+
+		-
+			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$tpl_vars with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
+
+		-
+			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$warnings with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
 

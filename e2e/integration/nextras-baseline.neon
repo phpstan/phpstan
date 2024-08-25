@@ -76,9 +76,49 @@ parameters:
 			path: repo/src/Repository/Repository.php
 
 		-
+			message: "#^PHPDoc tag @property for property NextrasTests\\\\Orm\\\\Entity\\\\Reflection\\\\ParseContainerEntity1\\:\\:\\$var contains unknown class NextrasTests\\\\Orm\\\\Entity\\\\Reflection\\\\type\\.$#"
+			count: 1
+			path: repo/tests/cases/unit/Entity/Reflection/MetadataParser.parseContainer.phpt
+
+		-
+			message: "#^PHPDoc tag @property for property NextrasTests\\\\Orm\\\\Entity\\\\Reflection\\\\ParseContainerEntity2\\:\\:\\$var contains unknown class NextrasTests\\\\Orm\\\\Entity\\\\Reflection\\\\type\\.$#"
+			count: 1
+			path: repo/tests/cases/unit/Entity/Reflection/MetadataParser.parseContainer.phpt
+
+		-
+			message: "#^PHPDoc tag @property for property NextrasTests\\\\Orm\\\\Entity\\\\Reflection\\\\ParseContainerEntity3\\:\\:\\$var contains unknown class NextrasTests\\\\Orm\\\\Entity\\\\Reflection\\\\type\\.$#"
+			count: 1
+			path: repo/tests/cases/unit/Entity/Reflection/MetadataParser.parseContainer.phpt
+
+		-
+			message: "#^PHPDoc tag @property for property NextrasTests\\\\Orm\\\\Entity\\\\Reflection\\\\OneHasManyTestEntity\\:\\:\\$test4 contains unresolvable type\\.$#"
+			count: 1
+			path: "repo/tests/cases/unit/Entity/Reflection/MetadataParser.parseOneHasMany().phpt"
+
+		-
+			message: "#^Class NextrasTests\\\\Orm\\\\Entity\\\\Reflection\\\\Foo referenced with incorrect case\\: NextrasTests\\\\Orm\\\\Entity\\\\Reflection\\\\foo\\.$#"
+			count: 5
+			path: repo/tests/cases/unit/Entity/Reflection/MetadataParserExceptionsTest.phpt
+
+		-
+			message: "#^Class NextrasTests\\\\Orm\\\\Entity\\\\Reflection\\\\ValidationTestEntity has PHPDoc tag @property for property \\$array1 with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: "repo/tests/cases/unit/Entity/Reflection/PropertyMetadata.isValid().phpt"
+
+		-
 			message: "#^Call to static method executeFile\\(\\) on an unknown class Nextras\\\\Dbal\\\\Utils\\\\FileImporter\\.$#"
 			count: 1
 			path: repo/tests/inc/DataTestCase.php
+
+		-
+			message: "#^Class NextrasTests\\\\Orm\\\\TagFollower has PHPDoc tag @property for property \\$id with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/inc/model/tagFollower/TagFollower.php
+
+		-
+			message: "#^Class NextrasTests\\\\Orm\\\\UserStat has PHPDoc tag @property for property \\$id with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: repo/tests/inc/model/userStat/UserStat.php
 
 		-
 			message: "#^Call to static method executeFile\\(\\) on an unknown class Nextras\\\\Dbal\\\\Utils\\\\FileImporter\\.$#"
