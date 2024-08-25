@@ -3182,7 +3182,7 @@
         },
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L108"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L120"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassTemplateTypeRule": {
@@ -3192,7 +3192,7 @@
         },
         "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L108"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L120"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionTemplateTypeRule": {
@@ -3202,7 +3202,7 @@
         },
         "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L108"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L120"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceTemplateTypeRule": {
@@ -3227,7 +3227,7 @@
         },
         "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L108"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L120"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
@@ -5297,22 +5297,22 @@
     "generics.callSiteVarianceNotAllowed": {
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L130"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L142"
             ]
         },
         "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L130"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L142"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L130"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L142"
             ]
         },
         "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L130"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L142"
             ]
         }
     },
@@ -5726,44 +5726,44 @@
     "generics.noParent": {
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L82"
             ]
         },
         "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L82"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L82"
             ]
         },
         "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L82"
             ]
         }
     },
     "generics.notCompatible": {
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L69"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L73"
             ]
         },
         "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L69"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L73"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L69"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L73"
             ]
         },
         "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L69"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L73"
             ]
         }
     },
@@ -6055,6 +6055,28 @@
             ]
         }
     },
+    "generics.unresolvable": {
+        "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L109"
+            ]
+        },
+        "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L109"
+            ]
+        },
+        "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L109"
+            ]
+        },
+        "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L109"
+            ]
+        }
+    },
     "generics.variance": {
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
@@ -6095,22 +6117,22 @@
     "generics.wrongParent": {
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L82"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L86"
             ]
         },
         "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L82"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L86"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L82"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L86"
             ]
         },
         "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L82"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L86"
             ]
         }
     },
@@ -7788,22 +7810,22 @@
         },
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L153"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L165"
             ]
         },
         "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L153"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L165"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L153"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L165"
             ]
         },
         "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L153"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericAncestorsCheck.php#L165"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodParameterTypehintRule": {
