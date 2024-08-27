@@ -57,7 +57,7 @@ try {
 
 By default, functions without any `@throws` annotation are considered to throw any exception, so all existing code will be interpreted very closely to the previous behavior.
 
-But once you start adding `@throws` to your functions and methods, they will take priority over the ones with only implicit `@throws`. As you add more `@throws` annotations, you get rewarded with more precise analysis!
+But once you start adding `@throws` to your functions and methods, they will override the ones with only implicit `@throws`. As you add more `@throws` annotations, you get rewarded with more precise analysis!
 
 There will be more exception-related features in the near future, stay tuned!
 
