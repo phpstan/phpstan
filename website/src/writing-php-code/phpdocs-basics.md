@@ -504,7 +504,7 @@ This is useful in the context of advanced types and [generics](/blog/generics-in
 Classes named after internal PHP types
 -----------------------------------------------------------
 
-When having classes named like `Resource`, `Double`, `Number` (or `Mixed` until PHP 8), there is no possible way to distinguish between either the PHP internal type or the custom class to use in the PHPDoc. By default, PHPStan will consider the type as being the PHP internal type, which means some false-positives can appear.
+When having classes named like `Resource`, `Double`, `Number` (or `Mixed` until PHP 8), there is no possible way to distinguish between either the PHP internal type or the custom class to use in the PHPDoc. If you want to reference the class, make sure to add the ``use`` statement or use the fully-qualified name.
 
 ```php
 /**
@@ -521,6 +521,8 @@ To make PHPStan understand the passed argument must be an instance of a `Resourc
  */
 public function foo(Resource $var): void { ... }
 ```
+
+If you want to reference an internal type but have such a class in the same namespace, you get the error ``Class {Namespace}\Resource referenced with incorrect case: {Namespace}\resource.``. For resources, you can use ``open-resource|closed-resource`` (``open-resource`` has been added in 1.11.0) to avoid the name clash. ``number`` is an alias for ``int|float``, thus if you have a class ``Number``, you can annotate the ``int|float`` type to avoid the name clash. ``double`` and ``float`` are the same thing in PHP and both are allowed in annotations, so you can avoid name clashes by using the other. If you have both classes, you are out of luck. 
 
 Readonly properties
 -------------------
