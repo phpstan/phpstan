@@ -59,7 +59,7 @@ Turns off the progress bar. Does not accept any value.
 
 Specifies the memory limit in the same format `php.ini` accepts.
 
-Example: `--memory-limit 1G`
+Example: `--memory-limit=1G`
 
 ### `--xdebug`
 
