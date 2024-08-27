@@ -622,24 +622,6 @@ Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedException
 Vague typehints
 ------------
 
-[Level 6](#rule-level) checks for missing typehints. Not only it reports when there's no typehint at all, but also when it's not specific enough. PHPStan needs to know about array item types. So `array` isn't specific enough but `int[]` is.
-
-If you want to use level 6 to report missing typehints, but are fine with `array` instead of `int[]`, you can disable this behaviour by setting `checkMissingIterableValueType` key to false:
-
-```yaml
-parameters:
-	checkMissingIterableValueType: false
-```
-
-If you're using [generics](/blog/generics-in-php-using-phpdocs), another thing that level 6 does is that it requires type variables always be specified in typehints. So `ReflectionClass` isn't sufficient but `ReflectionClass<Foo>` is.
-
-You can disable this strict approach to generics by setting `checkGenericClassInNonGenericObjectType` key to false:
-
-```yaml
-parameters:
-	checkGenericClassInNonGenericObjectType: false
-```
-
 If you use callables, you might find that `callable` or `\Closure` is too vague for your liking.
 For example, PHPStan won't complain if you pass `callable(int) : void` to `callable`, but it will complain if you pass `callable(int) : void` to `callable(string) : void`. So, being specific with callable signatures helps PHPStan find more bugs.
 
@@ -651,6 +633,8 @@ You can make PHPStan require that callable signatures are specified with PHPStan
 parameters:
 	checkMissingCallableSignature: true
 ```
+
+This also requires level 6 and up.
 
 Type aliases
 -------------
