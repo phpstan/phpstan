@@ -1196,7 +1196,7 @@ parameters:
 			path: repo/controllers/front/ProductController.php
 
 		-
-			message: "#^Offset 1 on array\\{string, '', '', string, non\\-empty\\-string, numeric\\-string, string\\}\\|array\\{string, numeric\\-string, non\\-falsy\\-string\\} in isset\\(\\) always exists and is not nullable\\.$#"
+			message: "#^Offset 1 on array\\{string, '', '', string, 'category'\\|'product', numeric\\-string, string\\}\\|array\\{string, numeric\\-string, non\\-falsy\\-string\\} in isset\\(\\) always exists and is not nullable\\.$#"
 			count: 1
 			path: repo/controllers/front/ProductController.php
 
