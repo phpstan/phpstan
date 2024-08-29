@@ -61,6 +61,11 @@ parameters:
 			path: repo/src/pocketmine/command/defaults/HelpCommand.php
 
 		-
+			message: "#^Call to function is_object\\(\\) with \\*NEVER\\* will always evaluate to true\\.$#"
+			count: 1
+			path: repo/src/pocketmine/item/ItemFactory.php
+
+		-
 			message: "#^Parameter \\#1 \\$chunkX of method pocketmine\\\\level\\\\Level\\:\\:getChunkLoaders\\(\\) expects int, float\\|int given\\.$#"
 			count: 1
 			path: repo/src/pocketmine/level/Level.php
