@@ -676,9 +676,19 @@ parameters:
 			path: repo/classes/webservice/WebserviceSpecificManagementAttachments.php
 
 		-
+			message: "#^Path in include_once\\(\\) \"/home/runner/work/phpstan/phpstan/e2e/integration/repo/config/settings_custom\\.inc\\.php\" is not a file or it does not exist\\.$#"
+			count: 1
+			path: repo/config/config.inc.php
+
+		-
 			message: "#^Call to function is_array\\(\\) with non\\-empty\\-list\\<string\\> will always evaluate to true\\.$#"
 			count: 1
 			path: repo/config/defines.inc.php
+
+		-
+			message: "#^Path in include\\(\\) \"/home/runner/work/phpstan/phpstan/e2e/integration/repo/classes/Smarty/SmartyCacheResourceMysql\\.php\" is not a file or it does not exist\\.$#"
+			count: 1
+			path: repo/config/smarty.config.inc.php
 
 		-
 			message: "#^Strict comparison using \\!\\=\\= between non\\-falsy\\-string and '' will always evaluate to true\\.$#"
