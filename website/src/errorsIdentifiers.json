@@ -7548,7 +7548,7 @@
         },
         "PHPStan\\Rules\\Methods\\CallToMethodStatementWithoutSideEffectsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Methods/CallToMethodStatementWithoutSideEffectsRule.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Methods/CallToMethodStatementWithoutSideEffectsRule.php#L77"
             ]
         }
     },
@@ -8280,8 +8280,8 @@
         },
         "PHPStan\\Rules\\Methods\\CallToConstructorStatementWithoutSideEffectsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Methods/CallToConstructorStatementWithoutSideEffectsRule.php#L54",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Methods/CallToConstructorStatementWithoutSideEffectsRule.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Methods/CallToConstructorStatementWithoutSideEffectsRule.php#L55",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Methods/CallToConstructorStatementWithoutSideEffectsRule.php#L73"
             ]
         }
     },
@@ -11266,7 +11266,7 @@
         },
         "PHPStan\\Rules\\Methods\\CallToStaticMethodStatementWithoutSideEffectsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Methods/CallToStaticMethodStatementWithoutSideEffectsRule.php#L106"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Methods/CallToStaticMethodStatementWithoutSideEffectsRule.php#L99"
             ]
         }
     },
