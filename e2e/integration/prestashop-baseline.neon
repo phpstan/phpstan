@@ -101,6 +101,11 @@ parameters:
 			path: repo/classes/Currency.php
 
 		-
+			message: "#^Negated boolean expression is always false\\.$#"
+			count: 1
+			path: repo/classes/Customer.php
+
+		-
 			message: "#^Strict comparison using \\=\\=\\= between null and null will always evaluate to true\\.$#"
 			count: 1
 			path: repo/classes/Dispatcher.php
@@ -553,6 +558,11 @@ parameters:
 		-
 			message: "#^Call to function is_array\\(\\) with array will always evaluate to true\\.$#"
 			count: 1
+			path: repo/classes/module/Module.php
+
+		-
+			message: "#^Strict comparison using \\=\\=\\= between array\\<mixed, mixed\\> and null will always evaluate to false\\.$#"
+			count: 6
 			path: repo/classes/module/Module.php
 
 		-
