@@ -2805,6 +2805,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -3266,6 +3271,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/TemplateTypeCheck.php#L89"
             ]
         },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/TemplateTypeCheck.php#L89"
+            ]
+        },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/TemplateTypeCheck.php#L89"
@@ -3617,6 +3627,11 @@
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassForbiddenNameCheck.php#L77"
+            ]
+        },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassForbiddenNameCheck.php#L77"
             ]
@@ -4720,6 +4735,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -5379,6 +5399,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
+            ]
+        },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
@@ -5528,6 +5553,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
+            ]
+        },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
@@ -5590,6 +5620,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/TemplateTypeCheck.php#L74"
             ]
         },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/TemplateTypeCheck.php#L74"
+            ]
+        },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/TemplateTypeCheck.php#L74"
@@ -5628,6 +5663,11 @@
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/TemplateTypeCheck.php#L80"
+            ]
+        },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/TemplateTypeCheck.php#L80"
             ]
@@ -5756,6 +5796,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
+            ]
+        },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
@@ -5879,6 +5924,11 @@
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
@@ -6054,6 +6104,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
+            ]
+        },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
@@ -6181,6 +6236,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
             ]
         },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
+            ]
+        },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
@@ -6239,6 +6299,11 @@
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/TemplateTypeCheck.php#L127"
+            ]
+        },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/TemplateTypeCheck.php#L127"
             ]
@@ -6303,6 +6368,11 @@
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/TemplateTypeCheck.php#L100"
+            ]
+        },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/TemplateTypeCheck.php#L100"
             ]
@@ -7029,6 +7099,11 @@
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -7986,6 +8061,11 @@
     },
     "methodTag.shadowTemplate": {
         "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/MethodTagTemplateTypeCheck.php#L72"
+            ]
+        },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/MethodTagTemplateTypeCheck.php#L72"
             ]
@@ -9542,7 +9622,7 @@
         },
         "PHPStan\\PhpDoc\\StubValidator": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/PhpDoc/StubValidator.php#L148"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/PhpDoc/StubValidator.php#L151"
             ]
         }
     },
@@ -12052,6 +12132,11 @@
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
