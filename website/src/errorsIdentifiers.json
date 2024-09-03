@@ -2700,12 +2700,22 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -2721,6 +2731,11 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -3033,24 +3048,35 @@
         },
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L240",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L264",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L240",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L264",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L99"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L264",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L144"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L216"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L144"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L216"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L216"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
@@ -3060,12 +3086,17 @@
         },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L154"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L197"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L154"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L197"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L197"
             ]
         },
         "PHPStan\\Rules\\Constants\\DynamicClassConstantFetchRule": {
@@ -3485,12 +3516,22 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassForbiddenNameCheck.php#L77"
             ]
         },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassForbiddenNameCheck.php#L77"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassForbiddenNameCheck.php#L77"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassForbiddenNameCheck.php#L77"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassForbiddenNameCheck.php#L77"
             ]
@@ -3506,6 +3547,11 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassForbiddenNameCheck.php#L77"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassForbiddenNameCheck.php#L77"
             ]
@@ -4569,12 +4615,22 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -4590,6 +4646,11 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -5243,12 +5304,22 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
@@ -5264,6 +5335,11 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
@@ -5377,12 +5453,22 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
@@ -5398,6 +5484,11 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
@@ -5590,12 +5681,22 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
@@ -5611,6 +5712,11 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
@@ -5702,12 +5808,22 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
@@ -5723,6 +5839,11 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
@@ -5858,12 +5979,22 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
@@ -5879,6 +6010,11 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
@@ -5970,12 +6106,22 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
             ]
         },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
             ]
@@ -5991,6 +6137,11 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
             ]
@@ -6777,12 +6928,22 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -6798,6 +6959,11 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -7828,24 +7994,34 @@
     "methodTag.trait": {
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L149"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L221"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L149"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L221"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L221"
             ]
         }
     },
     "methodTag.unresolvableType": {
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L239"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L239"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L239"
             ]
         }
     },
@@ -7866,22 +8042,32 @@
     "missingType.callable": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L233"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L227"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L233"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L227"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L227"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L138"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L201"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L138"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L201"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L201"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
@@ -7891,12 +8077,17 @@
         },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L148"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L182"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L148"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L182"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L182"
             ]
         },
         "PHPStan\\Rules\\Constants\\MissingClassConstantTypehintRule": {
@@ -7950,22 +8141,32 @@
     "missingType.generics": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L222"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L216"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L222"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L216"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L216"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L111"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L174"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L111"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L174"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L174"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
@@ -7975,12 +8176,17 @@
         },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L121"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L155"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L121"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L155"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L155"
             ]
         },
         "PHPStan\\Rules\\Constants\\MissingClassConstantTypehintRule": {
@@ -8047,22 +8253,32 @@
     "missingType.iterableValue": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L209"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L203"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L209"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L203"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L203"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L126"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L189"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L126"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L189"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MethodTagCheck.php#L189"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
@@ -8072,12 +8288,17 @@
         },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L136"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L170"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L136"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L170"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L170"
             ]
         },
         "PHPStan\\Rules\\Constants\\MissingClassConstantTypehintRule": {
@@ -9321,7 +9542,7 @@
         },
         "PHPStan\\PhpDoc\\StubValidator": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/PhpDoc/StubValidator.php#L145"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/PhpDoc/StubValidator.php#L148"
             ]
         }
     },
@@ -10407,24 +10628,34 @@
     "propertyTag.trait": {
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L159"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L202"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L159"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L202"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L202"
             ]
         }
     },
     "propertyTag.unresolvableType": {
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L93"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L220"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L93"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L220"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/PropertyTagCheck.php#L220"
             ]
         }
     },
@@ -11720,12 +11951,22 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -11741,6 +11982,11 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -11954,94 +12200,134 @@
     "typeAlias.circular": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L173"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L345"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L173"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L345"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L345"
             ]
         }
     },
     "typeAlias.duplicate": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L110",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L116",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L133",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L148",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L153"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L126",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L132",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L149",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L164",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L169"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L110",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L116",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L133",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L148",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L153"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L126",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L132",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L149",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L164",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L169"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L126",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L132",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L149",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L164",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L169"
             ]
         }
     },
     "typeAlias.invalidName": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L122",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L159"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L138",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L175"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L122",
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L159"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L138",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L175"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L138",
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L175"
             ]
         }
     },
     "typeAlias.invalidType": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L181"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L353"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L181"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L353"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L353"
             ]
         }
     },
     "typeAlias.notFound": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L93"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L109"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L93"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L109"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L109"
             ]
         }
     },
     "typeAlias.trait": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L245"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L269"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L245"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L269"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L269"
             ]
         }
     },
     "typeAlias.unresolvableType": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L259"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L283"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L259"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L283"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L283"
             ]
         }
     },
