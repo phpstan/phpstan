@@ -2725,6 +2725,16 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -3086,7 +3096,17 @@
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L114"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L150"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L150"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L150"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
@@ -3547,6 +3567,16 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassForbiddenNameCheck.php#L77"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassForbiddenNameCheck.php#L77"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassForbiddenNameCheck.php#L77"
             ]
@@ -4655,6 +4685,16 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -5349,6 +5389,16 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
@@ -5499,6 +5549,16 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
@@ -5746,6 +5806,16 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
@@ -5874,6 +5944,16 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
@@ -6054,6 +6134,16 @@
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
+            ]
+        },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
@@ -6182,6 +6272,16 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
             ]
@@ -7019,6 +7119,16 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -8152,7 +8262,17 @@
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L100"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L100"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L100"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
@@ -8251,7 +8371,17 @@
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L90"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L90"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L90"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
@@ -8363,7 +8493,17 @@
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L97"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L80"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L80"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L80"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
@@ -8456,21 +8596,51 @@
     "mixin.nonObject": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L53"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L62"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L62"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L62"
             ]
         }
     },
     "mixin.trait": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L119"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L155"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L155"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L155"
             ]
         }
     },
     "mixin.unresolvableType": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinRule.php#L62"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L132"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L132"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/Classes/MixinCheck.php#L132"
             ]
         }
     },
@@ -9622,7 +9792,7 @@
         },
         "PHPStan\\PhpDoc\\StubValidator": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/PhpDoc/StubValidator.php#L151"
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/PhpDoc/StubValidator.php#L154"
             ]
         }
     },
@@ -12052,6 +12222,16 @@
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/1.12.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
