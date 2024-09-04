@@ -5,7 +5,7 @@ name: "Update playground runner"
 on:
   push:
     branches:
-      - "1.12.x"
+      - "2.0.x"
     paths:
       - '.github/workflows/update-playground-runner.yml'
       - 'playground-runner/**'

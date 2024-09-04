@@ -8,7 +8,7 @@ on:
     types: [ check_website_links ]
   push:
     branches:
-      - "1.12.x"
+      - "2.0.x"
     paths:
       - '.github/workflows/website-links.yml'
 
