@@ -1380,8 +1380,8 @@
     "arrayFilter.strict": {
         "PHPStan\\Rules\\Functions\\ArrayFilterStrictRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Functions/ArrayFilterStrictRule.php#L118",
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Functions/ArrayFilterStrictRule.php#L136"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Functions/ArrayFilterStrictRule.php#L115",
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Functions/ArrayFilterStrictRule.php#L133"
             ]
         }
     },
@@ -2055,7 +2055,7 @@
     "backtick.notAllowed": {
         "PHPStan\\Rules\\DisallowedConstructs\\DisallowedBacktickRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/DisallowedConstructs/DisallowedBacktickRule.php#L26"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/DisallowedConstructs/DisallowedBacktickRule.php#L26"
             ]
         }
     },
@@ -2097,7 +2097,7 @@
     "booleanAnd.leftNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanAndRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php#L48"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php#L46"
             ]
         }
     },
@@ -2125,7 +2125,7 @@
     "booleanAnd.rightNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanAndRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php#L58"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php#L56"
             ]
         }
     },
@@ -2146,7 +2146,7 @@
     "booleanNot.exprNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanNotRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanNotRule.php#L44"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/BooleansInConditions/BooleanInBooleanNotRule.php#L43"
             ]
         }
     },
@@ -2181,7 +2181,7 @@
     "booleanOr.leftNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanOrRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L48"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L46"
             ]
         }
     },
@@ -2209,7 +2209,7 @@
     "booleanOr.rightNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanOrRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L58"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L56"
             ]
         }
     },
@@ -2482,7 +2482,7 @@
     "cast.useless": {
         "PHPStan\\Rules\\Cast\\UselessCastRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Cast/UselessCastRule.php#L65"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Cast/UselessCastRule.php#L64"
             ]
         }
     },
@@ -2560,10 +2560,10 @@
     "class.extendsDeprecatedClass": {
         "PHPStan\\Rules\\Deprecations\\InheritanceOfDeprecatedClassRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/InheritanceOfDeprecatedClassRule.php#L71",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/InheritanceOfDeprecatedClassRule.php#L78",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/InheritanceOfDeprecatedClassRule.php#L85",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/InheritanceOfDeprecatedClassRule.php#L91"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/InheritanceOfDeprecatedClassRule.php#L69",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/InheritanceOfDeprecatedClassRule.php#L76",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/InheritanceOfDeprecatedClassRule.php#L83",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/InheritanceOfDeprecatedClassRule.php#L89"
             ]
         }
     },
@@ -2598,7 +2598,7 @@
     "class.extendsNetteObject": {
         "PHPStan\\Rule\\Nette\\DoNotExtendNetteObjectRule": {
             "phpstan/phpstan-nette": [
-                "https://github.com/phpstan/phpstan-nette/blob/1.1.x/src/Rule/Nette/DoNotExtendNetteObjectRule.php#L38"
+                "https://github.com/phpstan/phpstan-nette/blob/2.0.x/src/Rule/Nette/DoNotExtendNetteObjectRule.php#L38"
             ]
         }
     },
@@ -2612,10 +2612,10 @@
     "class.implementsDeprecatedInterface": {
         "PHPStan\\Rules\\Deprecations\\ImplementationOfDeprecatedInterfaceRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/ImplementationOfDeprecatedInterfaceRule.php#L73",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/ImplementationOfDeprecatedInterfaceRule.php#L80",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/ImplementationOfDeprecatedInterfaceRule.php#L87",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/ImplementationOfDeprecatedInterfaceRule.php#L93"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/ImplementationOfDeprecatedInterfaceRule.php#L71",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/ImplementationOfDeprecatedInterfaceRule.php#L78",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/ImplementationOfDeprecatedInterfaceRule.php#L85",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/ImplementationOfDeprecatedInterfaceRule.php#L91"
             ]
         }
     },
@@ -3760,48 +3760,48 @@
     "class.toStringDeprecated": {
         "PHPStan\\Rules\\Deprecations\\UsageOfDeprecatedCastRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/UsageOfDeprecatedCastRule.php#L52",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/UsageOfDeprecatedCastRule.php#L61"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/UsageOfDeprecatedCastRule.php#L51",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/UsageOfDeprecatedCastRule.php#L60"
             ]
         }
     },
     "classConstant.deprecated": {
         "PHPStan\\Rules\\Deprecations\\FetchingClassConstOfDeprecatedClassRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L129",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L137"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L124",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L132"
             ]
         }
     },
     "classConstant.deprecatedClass": {
         "PHPStan\\Rules\\Deprecations\\FetchingClassConstOfDeprecatedClassRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L104",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L96"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L91",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L99"
             ]
         }
     },
     "classConstant.deprecatedEnum": {
         "PHPStan\\Rules\\Deprecations\\FetchingClassConstOfDeprecatedClassRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L104",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L96"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L91",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L99"
             ]
         }
     },
     "classConstant.deprecatedInterface": {
         "PHPStan\\Rules\\Deprecations\\FetchingClassConstOfDeprecatedClassRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L104",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L96"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L91",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L99"
             ]
         }
     },
     "classConstant.deprecatedTrait": {
         "PHPStan\\Rules\\Deprecations\\FetchingClassConstOfDeprecatedClassRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L104",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L96"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L91",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/FetchingClassConstOfDeprecatedClassRule.php#L99"
             ]
         }
     },
@@ -4056,7 +4056,7 @@
     "closure.useThis": {
         "PHPStan\\Rules\\Functions\\ClosureUsesThisRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Functions/ClosureUsesThisRule.php#L46"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Functions/ClosureUsesThisRule.php#L46"
             ]
         },
         "PHPStan\\Rules\\Functions\\InvalidLexicalVariablesInClosureUseRule": {
@@ -4104,7 +4104,7 @@
     "constant.deprecated": {
         "PHPStan\\Rules\\Deprecations\\FetchingDeprecatedConstRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/FetchingDeprecatedConstRule.php#L53"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/FetchingDeprecatedConstRule.php#L51"
             ]
         }
     },
@@ -4140,7 +4140,7 @@
     "constructor.missingParentCall": {
         "PHPStan\\Rules\\Classes\\RequireParentConstructCallRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Classes/RequireParentConstructCallRule.php#L63"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Classes/RequireParentConstructCallRule.php#L63"
             ]
         }
     },
@@ -4196,14 +4196,14 @@
     "div.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticDivisionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticDivisionRule.php#L56"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandsInArithmeticDivisionRule.php#L54"
             ]
         }
     },
     "div.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticDivisionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticDivisionRule.php#L64"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandsInArithmeticDivisionRule.php#L62"
             ]
         }
     },
@@ -4358,7 +4358,7 @@
     "elseif.condNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInElseIfConditionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInElseIfConditionRule.php#L44"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/BooleansInConditions/BooleanInElseIfConditionRule.php#L43"
             ]
         }
     },
@@ -4389,7 +4389,7 @@
     "empty.notAllowed": {
         "PHPStan\\Rules\\DisallowedConstructs\\DisallowedEmptyRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/DisallowedConstructs/DisallowedEmptyRule.php#L26"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/DisallowedConstructs/DisallowedEmptyRule.php#L26"
             ]
         }
     },
@@ -4908,7 +4908,7 @@
     "equal.notAllowed": {
         "PHPStan\\Rules\\DisallowedConstructs\\DisallowedLooseComparisonRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/DisallowedConstructs/DisallowedLooseComparisonRule.php#L31"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/DisallowedConstructs/DisallowedLooseComparisonRule.php#L31"
             ]
         }
     },
@@ -4930,7 +4930,7 @@
     "for.variableOverwrite": {
         "PHPStan\\Rules\\ForLoop\\OverwriteVariablesWithForLoopInitRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/ForLoop/OverwriteVariablesWithForLoopInitRule.php#L55"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/ForLoop/OverwriteVariablesWithForLoopInitRule.php#L55"
             ]
         }
     },
@@ -4944,7 +4944,7 @@
     "foreach.keyOverwrite": {
         "PHPStan\\Rules\\ForeachLoop\\OverwriteVariablesWithForeachRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/ForeachLoop/OverwriteVariablesWithForeachRule.php#L35"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/ForeachLoop/OverwriteVariablesWithForeachRule.php#L35"
             ]
         }
     },
@@ -4958,7 +4958,7 @@
     "foreach.valueOverwrite": {
         "PHPStan\\Rules\\ForeachLoop\\OverwriteVariablesWithForeachRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/ForeachLoop/OverwriteVariablesWithForeachRule.php#L58"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/ForeachLoop/OverwriteVariablesWithForeachRule.php#L58"
             ]
         }
     },
@@ -4972,8 +4972,8 @@
     "function.deprecated": {
         "PHPStan\\Rules\\Deprecations\\CallToDeprecatedFunctionRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/CallToDeprecatedFunctionRule.php#L62",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/CallToDeprecatedFunctionRule.php#L71"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/CallToDeprecatedFunctionRule.php#L60",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/CallToDeprecatedFunctionRule.php#L69"
             ]
         }
     },
@@ -5057,8 +5057,8 @@
     "function.strict": {
         "PHPStan\\Rules\\StrictCalls\\StrictFunctionCallsRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/StrictCalls/StrictFunctionCallsRule.php#L78",
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/StrictCalls/StrictFunctionCallsRule.php#L90"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/StrictCalls/StrictFunctionCallsRule.php#L77",
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/StrictCalls/StrictFunctionCallsRule.php#L89"
             ]
         }
     },
@@ -6625,7 +6625,7 @@
     "if.condNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInIfConditionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInIfConditionRule.php#L44"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/BooleansInConditions/BooleanInIfConditionRule.php#L43"
             ]
         }
     },
@@ -7005,8 +7005,8 @@
     "interface.extendsDeprecatedInterface": {
         "PHPStan\\Rules\\Deprecations\\InheritanceOfDeprecatedInterfaceRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/InheritanceOfDeprecatedInterfaceRule.php#L67",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/InheritanceOfDeprecatedInterfaceRule.php#L74"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/InheritanceOfDeprecatedInterfaceRule.php#L66",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/InheritanceOfDeprecatedInterfaceRule.php#L73"
             ]
         }
     },
@@ -7445,7 +7445,7 @@
     "logicalAnd.leftNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanAndRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php#L48"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php#L46"
             ]
         }
     },
@@ -7473,7 +7473,7 @@
     "logicalAnd.rightNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanAndRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php#L58"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/BooleansInConditions/BooleanInBooleanAndRule.php#L56"
             ]
         }
     },
@@ -7508,7 +7508,7 @@
     "logicalOr.leftNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanOrRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L48"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L46"
             ]
         }
     },
@@ -7536,7 +7536,7 @@
     "logicalOr.rightNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInBooleanOrRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L58"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/BooleansInConditions/BooleanInBooleanOrRule.php#L56"
             ]
         }
     },
@@ -7717,20 +7717,20 @@
     "method.deprecated": {
         "PHPStan\\Rules\\Deprecations\\CallToDeprecatedMethodRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/CallToDeprecatedMethodRule.php#L71",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/CallToDeprecatedMethodRule.php#L82"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/CallToDeprecatedMethodRule.php#L69",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/CallToDeprecatedMethodRule.php#L80"
             ]
         }
     },
     "method.dynamicName": {
         "PHPStan\\Rules\\VariableVariables\\VariableMethodCallRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/VariableVariables/VariableMethodCallRule.php#L34"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/VariableVariables/VariableMethodCallRule.php#L34"
             ]
         },
         "PHPStan\\Rules\\VariableVariables\\VariableMethodCallableRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/VariableVariables/VariableMethodCallableRule.php#L34"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/VariableVariables/VariableMethodCallableRule.php#L34"
             ]
         }
     },
@@ -7768,12 +7768,12 @@
         },
         "PHPStan\\Rules\\Methods\\WrongCaseOfInheritedMethodRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Methods/WrongCaseOfInheritedMethodRule.php#L83"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Methods/WrongCaseOfInheritedMethodRule.php#L83"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/DataProviderHelper.php#L179"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L176"
             ]
         }
     },
@@ -8191,14 +8191,14 @@
     "minus.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticSubtractionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticSubtractionRule.php#L56"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandsInArithmeticSubtractionRule.php#L54"
             ]
         }
     },
     "minus.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticSubtractionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticSubtractionRule.php#L64"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandsInArithmeticSubtractionRule.php#L62"
             ]
         }
     },
@@ -8620,35 +8620,35 @@
     "mod.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticModuloRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticModuloRule.php#L56"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandsInArithmeticModuloRule.php#L54"
             ]
         }
     },
     "mod.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticModuloRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticModuloRule.php#L64"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandsInArithmeticModuloRule.php#L62"
             ]
         }
     },
     "mul.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticMultiplicationRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticMultiplicationRule.php#L56"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandsInArithmeticMultiplicationRule.php#L54"
             ]
         }
     },
     "mul.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticMultiplicationRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticMultiplicationRule.php#L64"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandsInArithmeticMultiplicationRule.php#L62"
             ]
         }
     },
     "nette.rethrowException": {
         "PHPStan\\Rule\\Nette\\RethrowExceptionRule": {
             "phpstan/phpstan-nette": [
-                "https://github.com/phpstan/phpstan-nette/blob/1.1.x/src/Rule/Nette/RethrowExceptionRule.php#L90"
+                "https://github.com/phpstan/phpstan-nette/blob/2.0.x/src/Rule/Nette/RethrowExceptionRule.php#L89"
             ]
         }
     },
@@ -8676,8 +8676,8 @@
     "new.deprecated": {
         "PHPStan\\Rules\\Deprecations\\InstantiationOfDeprecatedClassRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/InstantiationOfDeprecatedClassRule.php#L102",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/InstantiationOfDeprecatedClassRule.php#L96"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/InstantiationOfDeprecatedClassRule.php#L91",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/InstantiationOfDeprecatedClassRule.php#L97"
             ]
         }
     },
@@ -8914,7 +8914,7 @@
     "notEqual.notAllowed": {
         "PHPStan\\Rules\\DisallowedConstructs\\DisallowedLooseComparisonRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/DisallowedConstructs/DisallowedLooseComparisonRule.php#L40"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/DisallowedConstructs/DisallowedLooseComparisonRule.php#L40"
             ]
         }
     },
@@ -9346,72 +9346,72 @@
     "parameter.deprecatedClass": {
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L58",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L68"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L56",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L66"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L58"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L56"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L61"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L59"
             ]
         }
     },
     "parameter.deprecatedEnum": {
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L58",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L68"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L56",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L66"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L58"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L56"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L61"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L59"
             ]
         }
     },
     "parameter.deprecatedInterface": {
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L58",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L68"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L56",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L66"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L58"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L56"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L61"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L59"
             ]
         }
     },
     "parameter.deprecatedTrait": {
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L58",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L68"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L56",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L66"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L58"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L56"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L61"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L59"
             ]
         }
     },
@@ -10009,158 +10009,158 @@
     "phpunit.assertCount": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameWithCountRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L47",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L63"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L47",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L63"
             ]
         }
     },
     "phpunit.assertFalse": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameBooleanExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L50"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L50"
             ]
         }
     },
     "phpunit.assertNull": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameNullExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/AssertSameNullExpectedRule.php#L44"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameNullExpectedRule.php#L44"
             ]
         }
     },
     "phpunit.assertTrue": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameBooleanExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L44"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L44"
             ]
         }
     },
     "phpunit.callParent": {
         "PHPStan\\Rules\\PHPUnit\\ShouldCallParentMethodsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/ShouldCallParentMethodsRule.php#L60"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/ShouldCallParentMethodsRule.php#L60"
             ]
         }
     },
     "phpunit.covers": {
         "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L122",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L77"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L121",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L76"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\ClassMethodCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/ClassMethodCoversExistsRule.php#L97",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L122",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L77"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/ClassMethodCoversExistsRule.php#L93",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L121",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L76"
             ]
         }
     },
     "phpunit.coversClass": {
         "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/ClassCoversExistsRule.php#L79"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/ClassCoversExistsRule.php#L77"
             ]
         }
     },
     "phpunit.coversDuplicate": {
         "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/ClassCoversExistsRule.php#L66"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/ClassCoversExistsRule.php#L64"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\ClassMethodCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/ClassMethodCoversExistsRule.php#L105"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/ClassMethodCoversExistsRule.php#L101"
             ]
         }
     },
     "phpunit.coversInterface": {
         "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L104"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L103"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\ClassMethodCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L104"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L103"
             ]
         }
     },
     "phpunit.coversMethod": {
         "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L111",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L122"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L110",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L121"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\ClassMethodCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L111",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/CoversHelper.php#L122"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L110",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L121"
             ]
         }
     },
     "phpunit.dataProviderClass": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/DataProviderHelper.php#L151"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L148"
             ]
         }
     },
     "phpunit.dataProviderMethod": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/DataProviderHelper.php#L165"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L162"
             ]
         }
     },
     "phpunit.dataProviderPublic": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/DataProviderHelper.php#L189"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L186"
             ]
         }
     },
     "phpunit.dataProviderStatic": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/DataProviderHelper.php#L199"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L196"
             ]
         }
     },
     "phpunit.invalidPhpDoc": {
         "PHPStan\\Rules\\PHPUnit\\NoMissingSpaceInClassAnnotationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/AnnotationHelper.php#L60"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AnnotationHelper.php#L60"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\NoMissingSpaceInMethodAnnotationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/AnnotationHelper.php#L60"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AnnotationHelper.php#L60"
             ]
         }
     },
     "phpunit.mockMethod": {
         "PHPStan\\Rules\\PHPUnit\\MockMethodCallRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/MockMethodCallRule.php#L68",
-                "https://github.com/phpstan/phpstan-phpunit/blob/1.4.x/src/Rules/PHPUnit/MockMethodCallRule.php#L86"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/MockMethodCallRule.php#L66",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/MockMethodCallRule.php#L84"
             ]
         }
     },
     "plus.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticAdditionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticAdditionRule.php#L62"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandsInArithmeticAdditionRule.php#L60"
             ]
         }
     },
     "plus.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticAdditionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticAdditionRule.php#L68"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandsInArithmeticAdditionRule.php#L66"
             ]
         }
     },
@@ -10402,7 +10402,7 @@
     "postDec.nonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandInArithmeticIncrementOrDecrementRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php#L49"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php#L48"
             ]
         }
     },
@@ -10423,7 +10423,7 @@
     "postInc.nonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandInArithmeticIncrementOrDecrementRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php#L49"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php#L48"
             ]
         }
     },
@@ -10437,14 +10437,14 @@
     "pow.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticExponentiationRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticExponentiationRule.php#L56"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandsInArithmeticExponentiationRule.php#L54"
             ]
         }
     },
     "pow.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticExponentiationRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandsInArithmeticExponentiationRule.php#L64"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandsInArithmeticExponentiationRule.php#L62"
             ]
         }
     },
@@ -10458,7 +10458,7 @@
     "preDec.nonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandInArithmeticIncrementOrDecrementRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php#L49"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php#L48"
             ]
         }
     },
@@ -10479,7 +10479,7 @@
     "preInc.nonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandInArithmeticIncrementOrDecrementRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php#L49"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandInArithmeticIncrementOrDecrementRule.php#L48"
             ]
         }
     },
@@ -10514,15 +10514,15 @@
     "property.deprecated": {
         "PHPStan\\Rules\\Deprecations\\AccessDeprecatedPropertyRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/AccessDeprecatedPropertyRule.php#L68",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/AccessDeprecatedPropertyRule.php#L79"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/AccessDeprecatedPropertyRule.php#L66",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/AccessDeprecatedPropertyRule.php#L77"
             ]
         }
     },
     "property.dynamicName": {
         "PHPStan\\Rules\\VariableVariables\\VariablePropertyFetchRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/VariableVariables/VariablePropertyFetchRule.php#L62"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/VariableVariables/VariablePropertyFetchRule.php#L61"
             ]
         }
     },
@@ -10940,7 +10940,7 @@
     "regexp.pattern": {
         "PHPStan\\Rule\\Nette\\RegularExpressionPatternRule": {
             "phpstan/phpstan-nette": [
-                "https://github.com/phpstan/phpstan-nette/blob/1.1.x/src/Rule/Nette/RegularExpressionPatternRule.php#L39"
+                "https://github.com/phpstan/phpstan-nette/blob/2.0.x/src/Rule/Nette/RegularExpressionPatternRule.php#L39"
             ]
         },
         "PHPStan\\Rules\\Regexp\\RegularExpressionPatternRule": {
@@ -11141,72 +11141,72 @@
     "return.deprecatedClass": {
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L82",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L91"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L80",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L89"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L69"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L67"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L73"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L71"
             ]
         }
     },
     "return.deprecatedEnum": {
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L82",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L91"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L80",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L89"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L69"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L67"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L73"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L71"
             ]
         }
     },
     "return.deprecatedInterface": {
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L82",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L91"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L80",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L89"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L69"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L67"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L73"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L71"
             ]
         }
     },
     "return.deprecatedTrait": {
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClassMethodSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L82",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L91"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L80",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClassMethodSignatureRule.php#L89"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInClosureSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L69"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInClosureSignatureRule.php#L67"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\TypeHintDeprecatedInFunctionSignatureRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L73"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/TypeHintDeprecatedInFunctionSignatureRule.php#L71"
             ]
         }
     },
@@ -11591,64 +11591,64 @@
     "staticMethod.deprecated": {
         "PHPStan\\Rules\\Deprecations\\CallToDeprecatedStaticMethodRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L123",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L131"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L118",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L126"
             ]
         }
     },
     "staticMethod.deprecatedClass": {
         "PHPStan\\Rules\\Deprecations\\CallToDeprecatedStaticMethodRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L100",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L108"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L103",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L95"
             ]
         }
     },
     "staticMethod.deprecatedEnum": {
         "PHPStan\\Rules\\Deprecations\\CallToDeprecatedStaticMethodRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L100",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L108"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L103",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L95"
             ]
         }
     },
     "staticMethod.deprecatedInterface": {
         "PHPStan\\Rules\\Deprecations\\CallToDeprecatedStaticMethodRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L100",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L108"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L103",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L95"
             ]
         }
     },
     "staticMethod.deprecatedTrait": {
         "PHPStan\\Rules\\Deprecations\\CallToDeprecatedStaticMethodRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L100",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L108"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L103",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/CallToDeprecatedStaticMethodRule.php#L95"
             ]
         }
     },
     "staticMethod.dynamicCall": {
         "PHPStan\\Rules\\StrictCalls\\DynamicCallOnStaticMethodsCallableRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/StrictCalls/DynamicCallOnStaticMethodsCallableRule.php#L61"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/StrictCalls/DynamicCallOnStaticMethodsCallableRule.php#L58"
             ]
         },
         "PHPStan\\Rules\\StrictCalls\\DynamicCallOnStaticMethodsRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/StrictCalls/DynamicCallOnStaticMethodsRule.php#L72"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/StrictCalls/DynamicCallOnStaticMethodsRule.php#L69"
             ]
         }
     },
     "staticMethod.dynamicName": {
         "PHPStan\\Rules\\VariableVariables\\VariableStaticMethodCallRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/VariableVariables/VariableStaticMethodCallRule.php#L40"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/VariableVariables/VariableStaticMethodCallRule.php#L40"
             ]
         },
         "PHPStan\\Rules\\VariableVariables\\VariableStaticMethodCallableRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/VariableVariables/VariableStaticMethodCallableRule.php#L40"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/VariableVariables/VariableStaticMethodCallableRule.php#L40"
             ]
         }
     },
@@ -11888,15 +11888,15 @@
     "staticProperty.deprecated": {
         "PHPStan\\Rules\\Deprecations\\AccessDeprecatedStaticPropertyRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/AccessDeprecatedStaticPropertyRule.php#L110",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/AccessDeprecatedStaticPropertyRule.php#L99"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/AccessDeprecatedStaticPropertyRule.php#L105",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/AccessDeprecatedStaticPropertyRule.php#L94"
             ]
         }
     },
     "staticProperty.dynamicName": {
         "PHPStan\\Rules\\VariableVariables\\VariableStaticPropertyFetchRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/VariableVariables/VariableStaticPropertyFetchRule.php#L40"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/VariableVariables/VariableStaticPropertyFetchRule.php#L40"
             ]
         }
     },
@@ -11953,7 +11953,7 @@
     "switch.type": {
         "PHPStan\\Rules\\SwitchConditions\\MatchingTypeInSwitchCaseConditionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/SwitchConditions/MatchingTypeInSwitchCaseConditionRule.php#L54"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/SwitchConditions/MatchingTypeInSwitchCaseConditionRule.php#L53"
             ]
         }
     },
@@ -12002,7 +12002,7 @@
     "ternary.condNotBoolean": {
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInTernaryOperatorRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/BooleansInConditions/BooleanInTernaryOperatorRule.php#L48"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/BooleansInConditions/BooleanInTernaryOperatorRule.php#L47"
             ]
         }
     },
@@ -12023,7 +12023,7 @@
     "ternary.shortNotAllowed": {
         "PHPStan\\Rules\\DisallowedConstructs\\DisallowedShortTernaryRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/DisallowedConstructs/DisallowedShortTernaryRule.php#L30"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/DisallowedConstructs/DisallowedShortTernaryRule.php#L30"
             ]
         }
     },
@@ -12418,8 +12418,8 @@
     "traitUse.deprecated": {
         "PHPStan\\Rules\\Deprecations\\UsageOfDeprecatedTraitRule": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/UsageOfDeprecatedTraitRule.php#L67",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/1.2.x/src/Rules/Deprecations/UsageOfDeprecatedTraitRule.php#L74"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/UsageOfDeprecatedTraitRule.php#L65",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/UsageOfDeprecatedTraitRule.php#L72"
             ]
         }
     },
@@ -12704,15 +12704,15 @@
     "variable.dynamicName": {
         "PHPStan\\Rules\\VariableVariables\\VariableVariablesRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/VariableVariables/VariableVariablesRule.php#L31"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/VariableVariables/VariableVariablesRule.php#L31"
             ]
         }
     },
     "variable.implicitArray": {
         "PHPStan\\Rules\\DisallowedConstructs\\DisallowedImplicitArrayCreationRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/DisallowedConstructs/DisallowedImplicitArrayCreationRule.php#L49",
-                "https://github.com/phpstan/phpstan-strict-rules/blob/1.6.x/src/Rules/DisallowedConstructs/DisallowedImplicitArrayCreationRule.php#L57"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/DisallowedConstructs/DisallowedImplicitArrayCreationRule.php#L49",
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/DisallowedConstructs/DisallowedImplicitArrayCreationRule.php#L57"
             ]
         }
     },
