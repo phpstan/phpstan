@@ -60,7 +60,6 @@ jobs:
           - "phpstan-mockery"
           - "phpstan-doctrine"
           - "phpstan-symfony"
-          - "phpstan-php-parser"
           - "phpstan-deprecation-rules"
           - "phpdoc-parser"
           - "phpstan-nette"
