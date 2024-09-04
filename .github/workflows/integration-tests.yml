@@ -541,7 +541,7 @@ jobs:
     name: "Integration - Update baselines"
     runs-on: "ubuntu-latest"
     needs: integration-run-phpstan
-    if: "failure() && github.repository_owner == 'phpstan' && inputs.ref == 'refs/heads/1.12.x'"
+    if: "failure() && github.repository_owner == 'phpstan' && inputs.ref == 'refs/heads/2.0.x'"
 
     steps:
       - name: "Checkout"
@@ -563,7 +563,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.phpstan-bot-token }}
-          branch: "create-pull-request/baselines-1.12.x"
+          branch: "create-pull-request/baselines-2.0.x"
           delete-branch: true
           title: "Update baselines for ${{ inputs.ref }}"
           committer: "phpstan-bot <ondrej+phpstanbot@mirtes.cz>"
