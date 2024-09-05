@@ -70,17 +70,17 @@ jobs:
           - "phpstan-webmozart-assert 1.2.x"
           - "phpstan-beberlei-assert 1.1.x"
         exclude:
-          - extension-name: "phpstan-mockery"
+          - extension-name: "phpstan-mockery 1.1.x"
             php-version: "7.2"
-          - extension-name: "phpstan-mockery"
+          - extension-name: "phpstan-mockery 1.1.x"
             php-version: "7.3"
-          - extension-name: "phpstan-phpunit"
+          - extension-name: "phpstan-phpunit 1.4.x"
             php-version: "7.2"
-          - extension-name: "phpstan-doctrine"
+          - extension-name: "phpstan-doctrine 1.5.x"
             php-version: "7.2"
-          - extension-name: "phpstan-doctrine"
+          - extension-name: "phpstan-doctrine 1.5.x"
             php-version: "8.3"
-          - extension-name: "phpstan-doctrine"
+          - extension-name: "phpstan-doctrine 1.5.x"
             php-version: "8.4"
 
     steps:
