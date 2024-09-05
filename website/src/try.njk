@@ -157,7 +157,7 @@ permalink: "/try.html"
 									<td class="px-6 py-4 border-b border-gray-200 text-base leading-5 text-gray-900">
 										<div class="flex md:items-center flex-col md:flex-row">
 											<div class="flex-shrink">
-												<div data-bind="text: message"></div>
+												<div data-bind="text: message" style="white-space: preserve;"></div>
 												<!-- ko if: $data.tip -->
 													<div class="mt-2 text-gray-500 text-sm" data-bind="html: $root.linkify($data.tip)"></div>
 												<!-- /ko -->
