@@ -89,13 +89,13 @@ jobs:
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               composer run-script test:unit
           - php-version: 8.3
-            name: Larastan tests PHP 8.3, ~11.14.0
+            name: Larastan tests PHP 8.3, ^11.0
             script: |
               git clone https://github.com/larastan/larastan.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout e1b64a0f3120cf40fca9703a718e29b0cef89f9f
               composer install
-              composer update --with='laravel/framework:~11.14.0'
+              composer update --with='laravel/framework:^11.0'
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
