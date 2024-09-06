@@ -873,14 +873,14 @@
         },
         "PHPStan\\Rules\\Symfony\\InvalidArgumentDefaultValueRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/1.4.x/src/Rules/Symfony/InvalidArgumentDefaultValueRule.php#L66",
-                "https://github.com/phpstan/phpstan-symfony/blob/1.4.x/src/Rules/Symfony/InvalidArgumentDefaultValueRule.php#L76"
+                "https://github.com/phpstan/phpstan-symfony/blob/2.0.x/src/Rules/Symfony/InvalidArgumentDefaultValueRule.php#L66",
+                "https://github.com/phpstan/phpstan-symfony/blob/2.0.x/src/Rules/Symfony/InvalidArgumentDefaultValueRule.php#L76"
             ]
         },
         "PHPStan\\Rules\\Symfony\\InvalidOptionDefaultValueRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/1.4.x/src/Rules/Symfony/InvalidOptionDefaultValueRule.php#L71",
-                "https://github.com/phpstan/phpstan-symfony/blob/1.4.x/src/Rules/Symfony/InvalidOptionDefaultValueRule.php#L82"
+                "https://github.com/phpstan/phpstan-symfony/blob/2.0.x/src/Rules/Symfony/InvalidOptionDefaultValueRule.php#L71",
+                "https://github.com/phpstan/phpstan-symfony/blob/2.0.x/src/Rules/Symfony/InvalidOptionDefaultValueRule.php#L82"
             ]
         }
     },
@@ -4224,106 +4224,106 @@
     "doctrine.associationType": {
         "PHPStan\\Rules\\Doctrine\\ORM\\EntityRelationRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityRelationRule.php#L138",
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityRelationRule.php#L153"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/EntityRelationRule.php#L135",
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/EntityRelationRule.php#L150"
             ]
         }
     },
     "doctrine.columnType": {
         "PHPStan\\Rules\\Doctrine\\ORM\\EntityColumnRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L215",
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L231"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L209",
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L225"
             ]
         }
     },
     "doctrine.countArgument": {
         "PHPStan\\Rules\\Doctrine\\ORM\\RepositoryMethodCallRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/RepositoryMethodCallRule.php#L86"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/RepositoryMethodCallRule.php#L85"
             ]
         }
     },
     "doctrine.descriptorNotFound": {
         "PHPStan\\Rules\\Doctrine\\ORM\\EntityColumnRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L110"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L104"
             ]
         }
     },
     "doctrine.dql": {
         "PHPStan\\Rules\\Doctrine\\ORM\\DqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/DqlRule.php#L81"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/DqlRule.php#L80"
             ]
         },
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L122"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L120"
             ]
         }
     },
     "doctrine.enumType": {
         "PHPStan\\Rules\\Doctrine\\ORM\\EntityColumnRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L132",
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L156"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L126",
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L150"
             ]
         }
     },
     "doctrine.finalConstructor": {
         "PHPStan\\Rules\\Doctrine\\ORM\\EntityConstructorNotFinalRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityConstructorNotFinalRule.php#L61"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/EntityConstructorNotFinalRule.php#L60"
             ]
         }
     },
     "doctrine.finalEntity": {
         "PHPStan\\Rules\\Doctrine\\ORM\\EntityNotFinalRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityNotFinalRule.php#L56"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/EntityNotFinalRule.php#L55"
             ]
         }
     },
     "doctrine.findByArgument": {
         "PHPStan\\Rules\\Doctrine\\ORM\\RepositoryMethodCallRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/RepositoryMethodCallRule.php#L86"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/RepositoryMethodCallRule.php#L85"
             ]
         }
     },
     "doctrine.findOneByArgument": {
         "PHPStan\\Rules\\Doctrine\\ORM\\RepositoryMethodCallRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/RepositoryMethodCallRule.php#L86"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/RepositoryMethodCallRule.php#L85"
             ]
         }
     },
     "doctrine.internalError": {
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L81"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L79"
             ]
         }
     },
     "doctrine.mapping": {
         "PHPStan\\Rules\\Doctrine\\ORM\\EntityMappingExceptionRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/EntityMappingExceptionRule.php#L63"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/EntityMappingExceptionRule.php#L62"
             ]
         }
     },
     "doctrine.queryBuilderDynamic": {
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L68"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L66"
             ]
         }
     },
     "doctrine.queryBuilderDynamicArgument": {
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/1.5.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L91"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L89"
             ]
         }
     },
@@ -11982,28 +11982,28 @@
     "symfonyConsole.argumentNotFound": {
         "PHPStan\\Rules\\Symfony\\UndefinedArgumentRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/1.4.x/src/Rules/Symfony/UndefinedArgumentRule.php#L79"
+                "https://github.com/phpstan/phpstan-symfony/blob/2.0.x/src/Rules/Symfony/UndefinedArgumentRule.php#L77"
             ]
         }
     },
     "symfonyConsole.optionNotFound": {
         "PHPStan\\Rules\\Symfony\\UndefinedOptionRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/1.4.x/src/Rules/Symfony/UndefinedOptionRule.php#L79"
+                "https://github.com/phpstan/phpstan-symfony/blob/2.0.x/src/Rules/Symfony/UndefinedOptionRule.php#L77"
             ]
         }
     },
     "symfonyContainer.privateService": {
         "PHPStan\\Rules\\Symfony\\ContainerInterfacePrivateServiceRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/1.4.x/src/Rules/Symfony/ContainerInterfacePrivateServiceRule.php#L74"
+                "https://github.com/phpstan/phpstan-symfony/blob/2.0.x/src/Rules/Symfony/ContainerInterfacePrivateServiceRule.php#L73"
             ]
         }
     },
     "symfonyContainer.serviceNotFound": {
         "PHPStan\\Rules\\Symfony\\ContainerInterfaceUnknownServiceRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/1.4.x/src/Rules/Symfony/ContainerInterfaceUnknownServiceRule.php#L75"
+                "https://github.com/phpstan/phpstan-symfony/blob/2.0.x/src/Rules/Symfony/ContainerInterfaceUnknownServiceRule.php#L73"
             ]
         }
     },
