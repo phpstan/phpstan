@@ -315,6 +315,16 @@ When set to `false` it prevents reading variables set in `for` loop initial stat
 
 When set to `false` it prevents reading key and value variables set in foreach when iterating over a non-empty array.
 
+### `polluteScopeWithBlock`
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.0</div>
+
+**default**: `true` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `false`)
+
+**example**: [with `true`](https://phpstan.org/r/cdee163b-325a-4189-8b85-1fc6f103dcb7), [with `false`](https://phpstan.org/r/2d6facb9-e4bc-45bf-a8b1-52c70851bac4)
+
+When set to `false` it prevents reading key and value variables set in a separate code block in `{...}`.
+
 ### `checkAlwaysTrueCheckTypeFunctionCall`
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
