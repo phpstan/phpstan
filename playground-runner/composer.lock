@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a3025db0bfda0102280932e79f22de2d",
+    "content-hash": "57e7531a0b9311cd1cdfa7f4bdd4fb80",
     "packages": [
         {
             "name": "bref/bref",
@@ -859,25 +859,27 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.19.1",
+            "version": "v5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "4e1b88d21c69391150ace211e9eaf05810858d0b"
+                "reference": "683130c2ff8c2739f4822ff7ac5c873ec529abd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/4e1b88d21c69391150ace211e9eaf05810858d0b",
-                "reference": "4e1b88d21c69391150ace211e9eaf05810858d0b",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/683130c2ff8c2739f4822ff7ac5c873ec529abd1",
+                "reference": "683130c2ff8c2739f4822ff7ac5c873ec529abd1",
                 "shasum": ""
             },
             "require": {
+                "ext-ctype": "*",
+                "ext-json": "*",
                 "ext-tokenizer": "*",
-                "php": ">=7.1"
+                "php": ">=7.4"
             },
             "require-dev": {
                 "ircmaxell/php-yacc": "^0.0.7",
-                "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0"
+                "phpunit/phpunit": "^9.0"
             },
             "bin": [
                 "bin/php-parse"
@@ -885,7 +887,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.9-dev"
+                    "dev-master": "5.0-dev"
                 }
             },
             "autoload": {
@@ -909,9 +911,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.19.1"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v5.1.0"
             },
-            "time": "2024-03-17T08:10:35+00:00"
+            "time": "2024-07-01T20:03:41+00:00"
         },
         {
             "name": "nyholm/psr7",
@@ -1315,20 +1317,20 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "1.11.x-dev",
+            "version": "2.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "cbae20525db442e9c9d5be1594e6df499a308399"
+                "reference": "cc89dd3305df8558470705e522c3d98c930e4e42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/cbae20525db442e9c9d5be1594e6df499a308399",
-                "reference": "cbae20525db442e9c9d5be1594e6df499a308399",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/cc89dd3305df8558470705e522c3d98c930e4e42",
+                "reference": "cc89dd3305df8558470705e522c3d98c930e4e42",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2|^8.0"
+                "php": "^7.4|^8.0"
             },
             "conflict": {
                 "phpstan/phpstan-shim": "*"
@@ -1370,32 +1372,31 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-04-19T12:50:44+00:00"
+            "time": "2024-09-06T18:52:33+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
-            "version": "1.6.x-dev",
+            "version": "2.0.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-strict-rules.git",
-                "reference": "c7b4d283fbffd23b9405c01d1f68124739d698f6"
+                "reference": "5eec39fc6ef36015e6de08949c8e9ae9d64560a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/c7b4d283fbffd23b9405c01d1f68124739d698f6",
-                "reference": "c7b4d283fbffd23b9405c01d1f68124739d698f6",
+                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/5eec39fc6ef36015e6de08949c8e9ae9d64560a3",
+                "reference": "5eec39fc6ef36015e6de08949c8e9ae9d64560a3",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.2 || ^8.0",
-                "phpstan/phpstan": "^1.11"
+                "php": "^7.4 || ^8.0",
+                "phpstan/phpstan": "^2.0"
             },
             "require-dev": {
-                "nikic/php-parser": "^4.13.0",
                 "php-parallel-lint/php-parallel-lint": "^1.2",
-                "phpstan/phpstan-deprecation-rules": "^1.1",
-                "phpstan/phpstan-phpunit": "^1.0",
-                "phpunit/phpunit": "^9.5"
+                "phpstan/phpstan-deprecation-rules": "^2.0",
+                "phpstan/phpstan-phpunit": "^2.0",
+                "phpunit/phpunit": "^9.6"
             },
             "default-branch": true,
             "type": "phpstan-extension",
@@ -1418,9 +1419,9 @@
             "description": "Extra strict and opinionated rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-strict-rules/issues",
-                "source": "https://github.com/phpstan/phpstan-strict-rules/tree/1.6.x"
+                "source": "https://github.com/phpstan/phpstan-strict-rules/tree/2.0.x"
             },
-            "time": "2024-04-19T14:52:46+00:00"
+            "time": "2024-09-06T18:44:39+00:00"
         },
         {
             "name": "psr/container",
