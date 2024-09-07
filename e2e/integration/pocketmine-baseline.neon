@@ -111,6 +111,11 @@ parameters:
 			path: repo/src/pocketmine/level/generator/Flat.php
 
 		-
+			message: "#^PHPDoc tag @return has invalid value \\(mixed\\[\\]\\[\\], members are in the structure \\[name \\=\\> \\[type, value, isPlayerModifiable\\]\\]\\)\\: Unexpected token \",\", expected TOKEN_HORIZONTAL_WS at offset 83$#"
+			count: 1
+			path: repo/src/pocketmine/network/mcpe/NetworkBinaryStream.php
+
+		-
 			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: non\\-empty\\-string\\}\\.$#"
 			count: 1
 			path: repo/src/pocketmine/network/mcpe/PlayerNetworkSessionAdapter.php
@@ -121,7 +126,7 @@ parameters:
 			path: repo/src/pocketmine/network/mcpe/convert/RuntimeBlockMapping.php
 
 		-
-			message: "#^Offset 0 does not exist on array\\<SimpleXMLElement\\>\\|null\\.$#"
+			message: "#^Offset 0 does not exist on non\\-empty\\-array\\<SimpleXMLElement\\>\\|null\\.$#"
 			count: 1
 			path: repo/src/pocketmine/network/upnp/UPnP.php
 
