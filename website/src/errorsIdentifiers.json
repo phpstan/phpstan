@@ -9741,8 +9741,8 @@
     "phpDoc.parseError": {
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocTagValueRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/InvalidPhpDocTagValueRule.php#L78",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/InvalidPhpDocTagValueRule.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/InvalidPhpDocTagValueRule.php#L76",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/InvalidPhpDocTagValueRule.php#L90"
             ]
         }
     },
