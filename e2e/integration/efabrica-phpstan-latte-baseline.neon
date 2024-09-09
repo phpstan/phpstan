@@ -11,6 +11,21 @@ parameters:
 			path: repo/src/Compiler/NodeVisitor/AddParametersForBlockNodeVisitor.php
 
 		-
+			message: "#^Instanceof between PhpParser\\\\Node\\\\Expr and PhpParser\\\\Node\\\\InterpolatedStringPart will always evaluate to false\\.$#"
+			count: 1
+			path: repo/src/Compiler/NodeVisitor/AddTypeToComponentNodeVisitor.php
+
+		-
+			message: "#^Parameter \\#1 \\$expr of method Efabrica\\\\PHPStanLatte\\\\Compiler\\\\NodeVisitor\\\\AddTypeToComponentNodeVisitor\\:\\:evaluateComponentName\\(\\) expects PhpParser\\\\Node\\\\Expr, PhpParser\\\\Node\\\\Expr\\|PhpParser\\\\Node\\\\InterpolatedStringPart given\\.$#"
+			count: 1
+			path: repo/src/Compiler/NodeVisitor/AddTypeToComponentNodeVisitor.php
+
+		-
+			message: "#^Instanceof between PhpParser\\\\Node\\\\Expr and PhpParser\\\\Node\\\\InterpolatedStringPart will always evaluate to false\\.$#"
+			count: 1
+			path: repo/src/Compiler/Postprocessor.php
+
+		-
 			message: "#^Offset 0 might not exist on array\\{0\\?\\: string, 1\\?\\: string, block\\: string, 2\\?\\: string\\}\\.$#"
 			count: 1
 			path: repo/src/Error/Transformer/BlockParameterErrorTransformer.php
@@ -19,6 +34,16 @@ parameters:
 			message: "#^Method Efabrica\\\\PHPStanLatte\\\\LatteTemplateResolver\\\\LatteTemplateResolverResult\\:\\:addErrorFromBuilder\\(\\) has parameter \\$error with generic class PHPStan\\\\Rules\\\\RuleErrorBuilder but does not specify its types\\: T$#"
 			count: 1
 			path: repo/src/LatteTemplateResolver/LatteTemplateResolverResult.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of class PhpParser\\\\Node\\\\Arg constructor expects PhpParser\\\\Node\\\\Expr, PhpParser\\\\Node\\\\ArrayItem given\\.$#"
+			count: 2
+			path: repo/src/LinkProcessor/LinkParamsProcessor.php
+
+		-
+			message: "#^Instanceof between PhpParser\\\\Node\\\\Expr and PhpParser\\\\Node\\\\InterpolatedStringPart will always evaluate to false\\.$#"
+			count: 1
+			path: repo/src/Resolver/ValueResolver/ValueResolver.php
 
 		-
 			message: "#^Method Efabrica\\\\PHPStanLatte\\\\Rule\\\\LatteTemplatesRule\\:\\:processNode\\(\\) should return list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\> but returns array\\<PHPStan\\\\Rules\\\\RuleError\\>\\.$#"
