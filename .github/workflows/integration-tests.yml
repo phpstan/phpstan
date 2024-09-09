@@ -250,7 +250,7 @@ jobs:
             baseline-file: better-reflection-baseline.neon
           - php-version: 8.1
             repo: composer/composer
-            ref: 776ff2ea51bfa83335b14fa9a85fab5fc7d35050
+            ref: e4038e5e3bffe22cb815dc1663ea76be96d4222e
             setup: |
               composer install
               composer config platform --unset && composer update
