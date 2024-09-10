@@ -1,5 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^PHPDoc tag @var with type array\{list\<string\>, list\<string\>\} is not subtype of type array\{list\<string\>, list\<non\-empty\-string\>\}\.$#'
+			message: "#^PHPDoc tag @var with type array\\{list\\<string\\>, list\\<string\\>\\} is not subtype of native type array\\{list\\<string\\>, list\\<non\\-empty\\-string\\>\\}\\.$#"
+			count: 1
 			path: repo/tests/RuleTestCase.php
