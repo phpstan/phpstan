@@ -31,6 +31,16 @@ parameters:
 			path: repo/src/Entity/Reflection/MetadataParser.php
 
 		-
+			message: "#^Instanceof between \\*NEVER\\* and Nextras\\\\Orm\\\\Relationships\\\\IRelationshipContainer will always evaluate to false\\.$#"
+			count: 1
+			path: repo/src/Model/Model.php
+
+		-
+			message: "#^Instanceof between Nextras\\\\Orm\\\\Relationships\\\\IRelationshipCollection\\<Nextras\\\\Orm\\\\Entity\\\\IEntity\\> and Nextras\\\\Orm\\\\Relationships\\\\IRelationshipCollection will always evaluate to true\\.$#"
+			count: 1
+			path: repo/src/Model/Model.php
+
+		-
 			message: "#^Parameter \\#1 \\$entity of method Nextras\\\\Orm\\\\Repository\\\\IRepository\\<Nextras\\\\Orm\\\\Entity\\\\IEntity\\>\\:\\:doRemove\\(\\) expects Nextras\\\\Orm\\\\Entity\\\\IEntity, bool\\|Nextras\\\\Orm\\\\Entity\\\\IEntity given\\.$#"
 			count: 1
 			path: repo/src/Model/Model.php
