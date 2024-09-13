@@ -26,4 +26,24 @@ Now, `throw $e;` is represented as a `Stmt\Expression` that contains an `Expr\Th
 
 See [UPGRADING](https://github.com/phpstan/phpdoc-parser/blob/2.0.x/UPGRADING.md) guide for phpstan/phpdoc-parser.
 
-TODO
+### Changed `TypeSpecifier::create()` and `SpecifiedTypes` constructor parameters
+
+[`PHPStan\Analyser\TypeSpecifier::create()`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.TypeSpecifier.html#_create) now accepts (all parameters are required):
+
+* `Expr $expr`
+* `Type $type`
+* `TypeSpecifierContext $context`
+* `Scope $scope`
+
+If you want to change `$overwrite` or `$rootExpr` (previous parameters also used to be accepted by this method), call `setAlwaysOverwriteTypes()` and `setRootExpr()` on [`SpecifiedTypes`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.SpecifiedTypes.html) (object returned by `TypeSpecifier::create()`). These methods return a new object (SpecifiedTypes is immutable).
+
+[`SpecifiedTypes`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.SpecifiedTypes.html) constructor now accepts:
+
+* `array $sureTypes`
+* `array $sureNotTypes`
+
+If you want to change `$overwrite` or `$rootExpr` (previous parameters also used to be accepted by the constructor), call `setAlwaysOverwriteTypes()` and `setRootExpr()`. These methods return a new object (SpecifiedTypes is immutable).
+
+### Changed `TypeSpecifier::specifyTypesInCondition()`
+
+This method now longer accepts `Expr $rootExpr`. If you want to change it, call `setRootExpr()` on [`SpecifiedTypes`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.SpecifiedTypes.html) (object returned by `TypeSpecifier::specifyTypesInCondition()`). `setRootExpr()` method returns a new object (SpecifiedTypes is immutable).
