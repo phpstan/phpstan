@@ -1475,7 +1475,7 @@
     "assignOp.invalid": {
         "PHPStan\\Rules\\Operators\\InvalidBinaryOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidBinaryOperationRule.php#L122"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidBinaryOperationRule.php#L123"
             ]
         }
     },
@@ -2062,7 +2062,7 @@
     "binaryOp.invalid": {
         "PHPStan\\Rules\\Operators\\InvalidBinaryOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidBinaryOperationRule.php#L122"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidBinaryOperationRule.php#L123"
             ]
         }
     },
@@ -12596,7 +12596,7 @@
     "unaryOp.invalid": {
         "PHPStan\\Rules\\Operators\\InvalidUnaryOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidUnaryOperationRule.php#L94"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidUnaryOperationRule.php#L95"
             ]
         }
     },
