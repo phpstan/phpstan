@@ -9,7 +9,28 @@ PHPStan now requires PHP 7.4 or newer to run.
 
 ## Upgrading guide for end users
 
-TODO
+The best way do get ready for upgrade to PHPStan 2.0 is to update to the **latest PHPStan 1.12 release**
+and enable [**Bleeding Edge**](https://phpstan.org/blog/what-is-bleeding-edge). This will enable the new rules and behaviours that 2.0 turns on for all users.
+
+Once you get to a green build with no deprecations showed on latest PHPStan 1.12.x with Bleeding Edge enabled, you can update all your related PHPStan dependencies to 2.0 in `composer.json`:
+
+```json
+"require-dev": {
+    "phpstan/phpstan": "^2.0",
+    "phpstan/phpstan-deprecation-rules": "^2.0",
+    "phpstan/phpstan-doctrine": "^2.0",
+    "phpstan/phpstan-nette": "^2.0",
+    "phpstan/phpstan-phpunit": "^2.0",
+    "phpstan/phpstan-strict-rules": "^2.0",
+    "phpstan/phpstan-symfony": "^2.0",
+    "phpstan/phpstan-webmozart-assert": "^2.0",
+    ...
+}
+```
+
+Don't forget to update [3rd party PHPStan extensions](https://phpstan.org/user-guide/extension-library) as well.
+
+After changing your `composer.json`, run `composer update 'phpstan/*' -W`.
 
 ## Upgrading guide for extension developers
 
@@ -51,3 +72,5 @@ This method now longer accepts `Expr $rootExpr`. If you want to change it, call 
 ### Minor backward compatibility breaks
 
 * Parameter `$callableParameters` of [`MutatingScope::enterAnonymousFunction()`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.MutatingScope.html#_enterAnonymousFunction) and [`enterArrowFunction()`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.MutatingScope.html#_enterArrowFunction) made required
+* Parameter `StatementContext $context` of [`NodeScopeResolver::processStmtNodes()`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.NodeScopeResolver.html#_processStmtNodes) made required
+* ClassPropertiesNode - remove `$extensions` parameter from [`getUninitializedProperties()`](https://apiref.phpstan.org/2.0.x/PHPStan.Node.ClassPropertiesNode.html#_getUninitializedProperties)
