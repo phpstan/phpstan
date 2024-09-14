@@ -47,3 +47,7 @@ If you want to change `$overwrite` or `$rootExpr` (previous parameters also used
 ### Changed `TypeSpecifier::specifyTypesInCondition()`
 
 This method now longer accepts `Expr $rootExpr`. If you want to change it, call `setRootExpr()` on [`SpecifiedTypes`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.SpecifiedTypes.html) (object returned by `TypeSpecifier::specifyTypesInCondition()`). `setRootExpr()` method returns a new object (SpecifiedTypes is immutable).
+
+### Minor backward compatibility breaks
+
+* Parameter `$callableParameters` of [`MutatingScope::enterAnonymousFunction()`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.MutatingScope.html#_enterAnonymousFunction) and [`enterArrowFunction()`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.MutatingScope.html#_enterArrowFunction) made required
