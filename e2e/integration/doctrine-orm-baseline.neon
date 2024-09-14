@@ -31,9 +31,19 @@ parameters:
 			path: repo/lib/Doctrine/ORM/Query/AST/IndexBy.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of function implode expects array\\<string\\>, array\\<int, object\\|string\\> given\\.$#"
+			message: """
+				#^PHPDoc tag @return has invalid value \\(AST\\\\BetweenExpression\\|
+				        AST\\\\CollectionMemberExpression\\|
+				        AST\\\\ComparisonExpression\\|
+				        AST\\\\EmptyCollectionComparisonExpression\\|
+				        AST\\\\ExistsExpression\\|
+				        AST\\\\InExpression\\|
+				        AST\\\\InstanceOfExpression\\|
+				        AST\\\\LikeExpression\\|
+				        AST\\\\NullComparisonExpression\\)\\: Unexpected token "\\\\n     \\* ", expected type at offset 344 on line 8$#
+			"""
 			count: 1
-			path: repo/lib/Doctrine/ORM/Query/Expr/Base.php
+			path: repo/lib/Doctrine/ORM/Query/Parser.php
 
 		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Helper\\\\HelperInterface\\:\\:getEntityManager\\(\\)\\.$#"
