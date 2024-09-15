@@ -481,6 +481,11 @@ parameters:
 			path: repo/classes/controller/AdminController.php
 
 		-
+			message: "#^Call to function method_exists\\(\\) with ObjectModel and 'add' will always evaluate to true\\.$#"
+			count: 1
+			path: repo/classes/controller/AdminController.php
+
+		-
 			message: "#^Instanceof between Module and Module will always evaluate to true\\.$#"
 			count: 1
 			path: repo/classes/controller/AdminController.php
@@ -967,12 +972,17 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method ObjectModel\\:\\:getType\\(\\)\\.$#"
+			count: 2
+			path: repo/controllers/admin/AdminProductsController.php
+
+		-
+			message: "#^Call to an undefined method ObjectModel\\:\\:setGroupReduction\\(\\)\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminProductsController.php
 
 		-
 			message: "#^Call to an undefined method ObjectModel\\:\\:updateCategories\\(\\)\\.$#"
-			count: 1
+			count: 2
 			path: repo/controllers/admin/AdminProductsController.php
 
 		-
@@ -1002,16 +1012,21 @@ parameters:
 
 		-
 			message: "#^Parameter \\#1 \\$product of method AdminProductsControllerCore\\:\\:getPreviewUrl\\(\\) expects Product, ObjectModel given\\.$#"
-			count: 1
+			count: 2
 			path: repo/controllers/admin/AdminProductsController.php
 
 		-
 			message: "#^Parameter \\#1 \\$product of method AdminProductsControllerCore\\:\\:updateDownloadProduct\\(\\) expects Product, ObjectModel given\\.$#"
-			count: 1
+			count: 2
 			path: repo/controllers/admin/AdminProductsController.php
 
 		-
 			message: "#^Parameter \\#1 \\$product of method AdminProductsControllerCore\\:\\:updatePackItems\\(\\) expects Product, ObjectModel given\\.$#"
+			count: 2
+			path: repo/controllers/admin/AdminProductsController.php
+
+		-
+			message: "#^Property AdminProductsControllerCore\\:\\:\\$object \\(Product\\|null\\) does not accept ObjectModel\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminProductsController.php
 
@@ -1021,7 +1036,12 @@ parameters:
 			path: repo/controllers/admin/AdminProductsController.php
 
 		-
-			message: "#^Call to function method_exists\\(\\) with QuickAccess and 'add' will always evaluate to true\\.$#"
+			message: "#^Call to function method_exists\\(\\) with ObjectModel and 'add' will always evaluate to true\\.$#"
+			count: 1
+			path: repo/controllers/admin/AdminQuickAccessesController.php
+
+		-
+			message: "#^Property AdminQuickAccessesControllerCore\\:\\:\\$object \\(QuickAccess\\) does not accept ObjectModel\\.$#"
 			count: 1
 			path: repo/controllers/admin/AdminQuickAccessesController.php
 
@@ -1234,31 +1254,6 @@ parameters:
 			message: "#^Call to function is_array\\(\\) with non\\-empty\\-array will always evaluate to true\\.$#"
 			count: 1
 			path: repo/install-dev/classes/controllerConsole.php
-
-		-
-			message: "#^Class Datas has PHPDoc tag @property for property \\$modules with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/install-dev/classes/datas.php
-
-		-
-			message: "#^Class Datas has PHPDoc tag @property for property \\$xml_loader_ids with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/install-dev/classes/datas.php
-
-		-
-			message: "#^Class InstallSession has PHPDoc tag @property for property \\$content_modules with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/install-dev/classes/session.php
-
-		-
-			message: "#^Class InstallSession has PHPDoc tag @property for property \\$process_validated with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/install-dev/classes/session.php
-
-		-
-			message: "#^Class InstallSession has PHPDoc tag @property for property \\$xml_loader_ids with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/install-dev/classes/session.php
 
 		-
 			message: "#^Negated boolean expression is always false\\.$#"
@@ -2071,11 +2066,6 @@ parameters:
 			path: repo/src/Core/Form/IdentifiableObject/DataHandler/SupplierFormDataHandler.php
 
 		-
-			message: "#^Class PrestaShop\\\\PrestaShop\\\\Core\\\\Grid\\\\Action\\\\ViewOptionsCollection has PHPDoc tag @property for property \\$items with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/Core/Grid/Action/ViewOptionsCollection.php
-
-		-
 			message: "#^Call to function is_string\\(\\) with string will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/Core/Grid/Definition/GridDefinition.php
@@ -2237,66 +2227,6 @@ parameters:
 
 		-
 			message: "#^Call to function is_numeric\\(\\) with int\\<0, max\\> will always evaluate to true\\.$#"
-			count: 1
-			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
-
-		-
-			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$breadcrumbs with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
-
-		-
-			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$confirmations with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
-
-		-
-			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$css_files with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
-
-		-
-			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$errors with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
-
-		-
-			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$informations with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
-
-		-
-			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$js_files with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
-
-		-
-			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$meta_title with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
-
-		-
-			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$modals with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
-
-		-
-			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$toolbar_btn with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
-
-		-
-			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$toolbar_title with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
-
-		-
-			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$tpl_vars with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
-
-		-
-			message: "#^Class PrestaShopBundle\\\\Bridge\\\\AdminController\\\\LegacyControllerBridge has PHPDoc tag @property for property \\$warnings with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: repo/src/PrestaShopBundle/Bridge/AdminController/LegacyControllerBridge.php
 
@@ -2549,6 +2479,16 @@ parameters:
 			message: "#^Call to method PHPUnit\\\\Framework\\\\Assert\\:\\:assertNotNull\\(\\) with PrestaShop\\\\PrestaShop\\\\Adapter\\\\Presenter\\\\Product\\\\ProductLazyArray will always evaluate to true\\.$#"
 			count: 1
 			path: repo/tests/Integration/Adapter/Presenter/Product/ProductLazyArrayTest.php
+
+		-
+			message: "#^PHPDoc tag @Transform has invalid value \\(\\(enabled\\|disabled\\)\\)\\: Unexpected token \"\\|\", expected '\\)' at offset 102 on line 4$#"
+			count: 1
+			path: repo/tests/Integration/Behaviour/Features/Context/Configuration/CommonConfigurationFeatureContext.php
+
+		-
+			message: "#^PHPDoc tag @Transform has invalid value \\(\\(enabled\\|disabled\\)\\)\\: Unexpected token \"\\|\", expected '\\)' at offset 98 on line 4$#"
+			count: 1
+			path: repo/tests/Integration/Behaviour/Features/Context/Configuration/CommonConfigurationFeatureContext.php
 
 		-
 			message: "#^Return value of function var_export\\(\\) is always null and the result is printed instead of being returned\\. Pass in true as parameter \\#2 \\$return to return the output instead\\.$#"
