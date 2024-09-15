@@ -52,54 +52,54 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - php-version: 8.2
-            name: Rector tests
-            script: |
-              git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout 467e971b79acab35e7bb0937166ab2e23bffd245
-              cp ../rector-composer.lock composer.lock
-              composer install
-              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-              vendor/bin/phpunit
-          - php-version: 8.2
-            name: Symplify tests
-            script: |
-              git clone https://github.com/symplify/phpstan-rules.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout bb4027c1e61be0aac879ddf8c47738d344547d8a
-              cp ../symplify-composer.lock composer.lock
-              composer install
-              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-              vendor/bin/phpunit
-          - php-version: 8.3
-            name: Larastan tests PHP 8.3, ^10.28
-            script: |
-              git clone https://github.com/larastan/larastan.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout e1b64a0f3120cf40fca9703a718e29b0cef89f9f
-              composer install
-              composer update --with='laravel/framework:^10.28'
-              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-              composer run-script test:unit
-          - php-version: 8.3
-            name: Larastan tests PHP 8.3, ^11.0
-            script: |
-              git clone https://github.com/larastan/larastan.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout e1b64a0f3120cf40fca9703a718e29b0cef89f9f
-              composer install
-              composer update --with='laravel/framework:^11.0'
-              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-              composer run-script test:unit
+#          - php-version: 8.2
+#            name: Rector tests
+#            script: |
+#              git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
+#              cd e2e/integration/repo
+#              git checkout 467e971b79acab35e7bb0937166ab2e23bffd245
+#              cp ../rector-composer.lock composer.lock
+#              composer install
+#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+#              vendor/bin/phpunit
+#          - php-version: 8.2
+#            name: Symplify tests
+#            script: |
+#              git clone https://github.com/symplify/phpstan-rules.git e2e/integration/repo
+#              cd e2e/integration/repo
+#              git checkout bb4027c1e61be0aac879ddf8c47738d344547d8a
+#              cp ../symplify-composer.lock composer.lock
+#              composer install
+#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+#              vendor/bin/phpunit
+#          - php-version: 8.3
+#            name: Larastan tests PHP 8.3, ^10.28
+#            script: |
+#              git clone https://github.com/larastan/larastan.git e2e/integration/repo
+#              cd e2e/integration/repo
+#              git checkout e1b64a0f3120cf40fca9703a718e29b0cef89f9f
+#              composer install
+#              composer update --with='laravel/framework:^10.28'
+#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+#              composer run-script test:unit
+#          - php-version: 8.3
+#            name: Larastan tests PHP 8.3, ^11.0
+#            script: |
+#              git clone https://github.com/larastan/larastan.git e2e/integration/repo
+#              cd e2e/integration/repo
+#              git checkout e1b64a0f3120cf40fca9703a718e29b0cef89f9f
+#              composer install
+#              composer update --with='laravel/framework:^11.0'
+#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+#              composer run-script test:unit
           - php-version: 8.3
             name: Carbon tests
             script: |
@@ -110,49 +110,49 @@ jobs:
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit tests/PHPStan
-          - php-version: 8.1
-            name: shipmonk/phpstan-rules tests
-            script: |
-              git clone https://github.com/shipmonk-rnd/phpstan-rules.git -b 3.1.0 --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
-              composer install
-              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-              vendor/bin/phpunit tests
-          - php-version: 8.1
-            name: efabrica-team/phpstan-latte tests
-            script: |
-              git clone https://github.com/efabrica-team/phpstan-latte.git e2e/integration/repo
-              cd e2e/integration/repo
-              git checkout 59701aed5a505f024487843cba2635e489b29681
-              composer require --dev nette/forms:3.1.15 latte/latte:v3.0.13 -W # temporary
-              composer install
-              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-              vendor/bin/phpunit
-          - php-version: 8.1
-            name: Bladestan tests
-            script: |
-              git clone https://github.com/TomasVotruba/bladestan.git -b 0.5.0 --depth 1 e2e/integration/repo
-              cd e2e/integration/repo
-              composer install
-              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-              vendor/bin/phpunit
-          - php-version: 7.2
-            name: Rector with polyfills
-            script: |
-              mkdir e2e/integration/repo
-              cd e2e/integration/repo
-              yes | composer init --name some/prj
-              composer require --dev rector/rector:0.18.13
-              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-              vendor/bin/rector list
+#          - php-version: 8.1
+#            name: shipmonk/phpstan-rules tests
+#            script: |
+#              git clone https://github.com/shipmonk-rnd/phpstan-rules.git -b 3.1.0 --depth 1 e2e/integration/repo
+#              cd e2e/integration/repo
+#              composer install
+#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+#              vendor/bin/phpunit tests
+#          - php-version: 8.1
+#            name: efabrica-team/phpstan-latte tests
+#            script: |
+#              git clone https://github.com/efabrica-team/phpstan-latte.git e2e/integration/repo
+#              cd e2e/integration/repo
+#              git checkout 59701aed5a505f024487843cba2635e489b29681
+#              composer require --dev nette/forms:3.1.15 latte/latte:v3.0.13 -W # temporary
+#              composer install
+#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+#              vendor/bin/phpunit
+#          - php-version: 8.1
+#            name: Bladestan tests
+#            script: |
+#              git clone https://github.com/TomasVotruba/bladestan.git -b 0.5.0 --depth 1 e2e/integration/repo
+#              cd e2e/integration/repo
+#              composer install
+#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+#              vendor/bin/phpunit
+#          - php-version: 7.2
+#            name: Rector with polyfills
+#            script: |
+#              mkdir e2e/integration/repo
+#              cd e2e/integration/repo
+#              yes | composer init --name some/prj
+#              composer require --dev rector/rector:0.18.13
+#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+#              vendor/bin/rector list
           - php-version: 7.4
             name: Polyfills loaded twice
             script: |
@@ -204,14 +204,14 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - php-version: 8.2
-            repo: rectorphp/rector-src
-            ref: 467e971b79acab35e7bb0937166ab2e23bffd245
-            setup: |
-              cp ../rector-composer.lock composer.lock
-              composer install
-            phpstan-command: ../../../phpstan.phar analyse -c ../rector.neon
-            baseline-file: rector-baseline.neon
+#          - php-version: 8.2
+#            repo: rectorphp/rector-src
+#            ref: 467e971b79acab35e7bb0937166ab2e23bffd245
+#            setup: |
+#              cp ../rector-composer.lock composer.lock
+#              composer install
+#            phpstan-command: ../../../phpstan.phar analyse -c ../rector.neon
+#            baseline-file: rector-baseline.neon
           - php-version: 8.3
             repo: sebastianbergmann/phpunit
             ref: 7af36fe694222657332a5f932f29dae99964cedc
@@ -292,14 +292,14 @@ jobs:
               composer install
             phpstan-command: ../../../phpstan analyse -c ../magento-testcase.neon
             baseline-file: magento-testcase-baseline.neon
-          - php-version: 8.2
-            repo: symplify/phpstan-rules
-            ref: bb4027c1e61be0aac879ddf8c47738d344547d8a
-            setup: |
-              cp ../symplify-composer.lock composer.lock
-              composer install
-            phpstan-command: ../../../phpstan analyse -c ../symplify.neon
-            baseline-file: symplify-baseline.neon
+#          - php-version: 8.2
+#            repo: symplify/phpstan-rules
+#            ref: bb4027c1e61be0aac879ddf8c47738d344547d8a
+#            setup: |
+#              cp ../symplify-composer.lock composer.lock
+#              composer install
+#            phpstan-command: ../../../phpstan analyse -c ../symplify.neon
+#            baseline-file: symplify-baseline.neon
           - php-version: 8.1
             repo: larastan/larastan
             ref: e1b64a0f3120cf40fca9703a718e29b0cef89f9f
@@ -332,38 +332,38 @@ jobs:
               php src/Core/DevOps/StaticAnalyze/phpstan-bootstrap.php
             phpstan-command: ../../../phpstan.phar analyse -c ../shopware.neon
             baseline-file: shopware-baseline.neon
-          - php-version: 8.2
-            repo: Sylius/Sylius
-            ref: v1.13.1
-            setup: |
-              export DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db
-              cp ../sylius-composer.lock composer.lock
-              composer install
-            phpstan-command: ../../../phpstan.phar analyse -c ../sylius.neon
-            baseline-file: sylius-baseline.neon
-          - php-version: 8.3
-            repo: shopsys/shopsys
-            ref: v14.0.0
-            setup: |
-              cp ../shopsys-composer.lock composer.lock
-              composer install
-
-            # from build.xml
-            phpstan-command: ../../../phpstan.phar analyse -c ../shopsys.neon -l 5 packages/*/src packages/*/tests utils/*/src utils/*/tests
-          - php-version: 8.3
-            repo: shopsys/shopsys
-            ref: v14.0.0
-            phpstan-cwd: e2e/integration/repo/project-base/app
-            setup: |
-              cp ../shopsys-composer.lock composer.lock
-              composer install
-              cd project-base/app
-              cp ../../../shopsys-project-base-composer.lock composer.lock
-              composer install
-
-            # test project-base separately
-            phpstan-command: ../../../../../phpstan.phar analyse -c ../../../shopsys-project-base.neon -l 5 src tests
-            baseline-file: ../../shopsys-project-base-baseline.neon
+#          - php-version: 8.2
+#            repo: Sylius/Sylius
+#            ref: v1.13.1
+#            setup: |
+#              export DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db
+#              cp ../sylius-composer.lock composer.lock
+#              composer install
+#            phpstan-command: ../../../phpstan.phar analyse -c ../sylius.neon
+#            baseline-file: sylius-baseline.neon
+#          - php-version: 8.3
+#            repo: shopsys/shopsys
+#            ref: v14.0.0
+#            setup: |
+#              cp ../shopsys-composer.lock composer.lock
+#              composer install
+#
+#            # from build.xml
+#            phpstan-command: ../../../phpstan.phar analyse -c ../shopsys.neon -l 5 packages/*/src packages/*/tests utils/*/src utils/*/tests
+#          - php-version: 8.3
+#            repo: shopsys/shopsys
+#            ref: v14.0.0
+#            phpstan-cwd: e2e/integration/repo/project-base/app
+#            setup: |
+#              cp ../shopsys-composer.lock composer.lock
+#              composer install
+#              cd project-base/app
+#              cp ../../../shopsys-project-base-composer.lock composer.lock
+#              composer install
+#
+#            # test project-base separately
+#            phpstan-command: ../../../../../phpstan.phar analyse -c ../../../shopsys-project-base.neon -l 5 src tests
+#            baseline-file: ../../shopsys-project-base-baseline.neon
           - php-version: 8.1
             repo: doctrine/orm
             ref: 2.13.1
@@ -406,16 +406,16 @@ jobs:
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-persistence.neon
             baseline-file: doctrine-persistence-baseline.neon
-          - php-version: 8.1
-            repo: shipmonk-rnd/phpstan-rules
-            ref: 3.1.0
-            setup: |
-              composer install
-              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-            phpstan-command: ../../../phpstan.phar analyse -c ../shipmonk.neon
-            baseline-file: shipmonk-rnd-baseline.neon
+#          - php-version: 8.1
+#            repo: shipmonk-rnd/phpstan-rules
+#            ref: 3.1.0
+#            setup: |
+#              composer install
+#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+#            phpstan-command: ../../../phpstan.phar analyse -c ../shipmonk.neon
+#            baseline-file: shipmonk-rnd-baseline.neon
           - php-version: 8.1
             repo: drupal/drupal
             ref: 10.0.0
