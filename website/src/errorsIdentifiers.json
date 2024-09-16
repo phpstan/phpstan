@@ -1402,14 +1402,14 @@
     "arrayValues.empty": {
         "PHPStan\\Rules\\Functions\\ArrayValuesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Functions/ArrayValuesRule.php#L84"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Functions/ArrayValuesRule.php#L79"
             ]
         }
     },
     "arrayValues.list": {
         "PHPStan\\Rules\\Functions\\ArrayValuesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Functions/ArrayValuesRule.php#L102"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Functions/ArrayValuesRule.php#L97"
             ]
         }
     },
