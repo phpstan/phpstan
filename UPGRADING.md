@@ -68,6 +68,28 @@ Now, `throw $e;` is represented as a `Stmt\Expression` that contains an `Expr\Th
 
 See [UPGRADING](https://github.com/phpstan/phpdoc-parser/blob/2.0.x/UPGRADING.md) guide for phpstan/phpdoc-parser.
 
+### Returning plain strings as errors no longer supported, use RuleErrorBuilder
+    *
+Identifiers are also required in custom rules.
+
+Learn more: [Using RuleErrorBuilder to enrich reported errors in custom rules](https://phpstan.org/blog/using-rule-error-builder)
+
+Before:
+
+```php
+return ['My error'];
+```
+
+After:
+
+```php
+return [
+    RuleErrorBuilder::mesage('My error')
+        ->identifier('my.error')
+        ->build(),
+];
+```
+
 ### Changed `TypeSpecifier::create()` and `SpecifiedTypes` constructor parameters
 
 [`PHPStan\Analyser\TypeSpecifier::create()`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.TypeSpecifier.html#_create) now accepts (all parameters are required):
