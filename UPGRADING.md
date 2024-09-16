@@ -32,6 +32,27 @@ Don't forget to update [3rd party PHPStan extensions](https://phpstan.org/user-g
 
 After changing your `composer.json`, run `composer update 'phpstan/*' -W`.
 
+### Paths in `excludePaths` and `ignoreErrors` have to be a valid file path or a fnmatch pattern
+
+If you are excluding a file path that might not exist but you still want to have it in `excludePaths`, append `(?)`:
+
+```neon
+parameters:
+	excludePaths:
+		- tests/*/data/*
+		- src/broken
+		- node_modules (?) # optional path, might not exist
+```
+
+If you have the same situation in `ignoreErrors` (ignoring an error in a path that might not exist), use `reportUnmatchedIgnoredErrors: false`.
+
+```neon
+parameters:
+	reportUnmatchedIgnoredErrors: false
+```
+
+Appending `(?)` in `ignoreErrors` is not supported.
+
 ## Upgrading guide for extension developers
 
 ### PHPStan now uses nikic/php-parser v5
