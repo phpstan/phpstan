@@ -772,6 +772,16 @@ PHPStan by default doesn't differentiate between PHPDoc and native types. It con
 
 This might not be what you want in case you're writing a library whose users might pass a wrong argument type to a function. Setting `treatPhpDocTypesAsCertain` to `false` relaxes some of the rules around type-checking.
 
+### `tips`
+
+If you want to turn off a tip that PHPStan shows, you can do this in the tips section:
+
+```yaml
+parameters:
+    tips:
+        treatPhpDocTypesAsCertain: true
+```
+
 ### `tipsOfTheDay`
 
 **default**: `true`
