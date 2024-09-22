@@ -1380,8 +1380,8 @@
     "arrayFilter.strict": {
         "PHPStan\\Rules\\Functions\\ArrayFilterStrictRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Functions/ArrayFilterStrictRule.php#L115",
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Functions/ArrayFilterStrictRule.php#L133"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Functions/ArrayFilterStrictRule.php#L119",
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Functions/ArrayFilterStrictRule.php#L137"
             ]
         }
     },
@@ -2482,7 +2482,7 @@
     "cast.useless": {
         "PHPStan\\Rules\\Cast\\UselessCastRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Cast/UselessCastRule.php#L64"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Cast/UselessCastRule.php#L74"
             ]
         }
     },
