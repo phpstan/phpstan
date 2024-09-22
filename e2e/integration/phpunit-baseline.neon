@@ -1,0 +1,11 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Offset 0 on non\\-empty\\-list\\<string\\> in isset\\(\\) always exists and is not nullable\\.$#"
+			count: 1
+			path: repo/src/TextUI/Configuration/Cli/Builder.php
+
+		-
+			message: "#^Method PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\SnapshotNodeList\\:\\:getIterator\\(\\) should return ArrayIterator\\<int, DOMNode\\> but returns ArrayIterator\\<int\\<0, max\\>, DOMNode\\>\\.$#"
+			count: 1
+			path: repo/src/TextUI/Configuration/Xml/Migration/SnapshotNodeList.php

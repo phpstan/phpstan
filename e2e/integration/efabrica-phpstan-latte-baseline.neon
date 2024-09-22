@@ -41,6 +41,11 @@ parameters:
 			path: repo/src/LinkProcessor/LinkParamsProcessor.php
 
 		-
+			message: "#^Parameter \\#1 \\$value of static method PhpParser\\\\BuilderHelpers\\:\\:normalizeValue\\(\\) expects array\\|bool\\|float\\|int\\|PhpParser\\\\Node\\\\Expr\\|string\\|UnitEnum\\|null, mixed given\\.$#"
+			count: 1
+			path: repo/src/LinkProcessor/LinkParamsProcessor.php
+
+		-
 			message: "#^Instanceof between PhpParser\\\\Node\\\\Expr and PhpParser\\\\Node\\\\InterpolatedStringPart will always evaluate to false\\.$#"
 			count: 1
 			path: repo/src/Resolver/ValueResolver/ValueResolver.php

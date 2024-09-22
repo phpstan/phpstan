@@ -11,6 +11,11 @@ parameters:
 			path: repo/tests/Carbon/SettersTest.php
 
 		-
+			message: "#^Method Carbon\\\\Carbon@anonymous/tests/Carbon/TestingAidsTest\\.php\\:383\\:\\:modify\\(\\) should return Carbon\\\\Carbon@anonymous/tests/Carbon/TestingAidsTest\\.php\\:383 but returns \\(DateTimeImmutable\\|false\\)\\.$#"
+			count: 1
+			path: repo/tests/Carbon/TestingAidsTest.php
+
+		-
 			message: "#^PHPDoc tag @SuppressWarnings has invalid value \\(\\(PHPMD\\.NumberOfChildren\\)\\)\\: Unexpected token \"\\.NumberOfChildren\\)\", expected '\\)' at offset 30 on line 2$#"
 			count: 1
 			path: repo/tests/Localization/LocalizationTestCase.php

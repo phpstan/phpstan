@@ -1271,6 +1271,11 @@ parameters:
 			path: repo/src/Adapter/Attribute/AdminAttributeGeneratorControllerWrapper.php
 
 		-
+			message: "#^Parameter \\#1 \\$input of function array_values contains unresolvable type\\.$#"
+			count: 1
+			path: repo/src/Adapter/Attribute/AdminAttributeGeneratorControllerWrapper.php
+
+		-
 			message: "#^Call to function is_object\\(\\) with Product will always evaluate to true\\.$#"
 			count: 1
 			path: repo/src/Adapter/Attribute/AttributeDataProvider.php
