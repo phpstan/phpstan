@@ -6,7 +6,7 @@ parameters:
 			path: repo/lib/Doctrine/ORM/Mapping/ClassMetadataInfo.php
 
 		-
-			message: "#^Method Doctrine\\\\ORM\\\\Mapping\\\\Driver\\\\AttributeDriver\\:\\:getMethodCallbacks\\(\\) should return array\\<callable\\(\\)\\: mixed\\> but returns array\\<int, array\\{non\\-falsy\\-string, 'postLoad'\\|'postPersist'\\|'postRemove'\\|'postUpdate'\\|'preFlush'\\|'prePersist'\\|'preRemove'\\|'preUpdate'\\}\\>\\.$#"
+			message: "#^Method Doctrine\\\\ORM\\\\Mapping\\\\Driver\\\\AttributeDriver\\:\\:getMethodCallbacks\\(\\) should return array\\<callable\\(\\)\\: mixed\\> but returns list\\<array\\{non\\-falsy\\-string, 'postLoad'\\|'postPersist'\\|'postRemove'\\|'postUpdate'\\|'preFlush'\\|'prePersist'\\|'preRemove'\\|'preUpdate'\\}\\>\\.$#"
 			count: 1
 			path: repo/lib/Doctrine/ORM/Mapping/Driver/AttributeDriver.php
 
@@ -31,6 +31,21 @@ parameters:
 			path: repo/lib/Doctrine/ORM/Query/AST/IndexBy.php
 
 		-
+			message: "#^PHPDoc type array\\<string\\> of property Doctrine\\\\ORM\\\\Query\\\\Expr\\\\Andx\\:\\:\\$allowedClasses is not covariant with PHPDoc type list\\<class\\-string\\> of overridden property Doctrine\\\\ORM\\\\Query\\\\Expr\\\\Base\\:\\:\\$allowedClasses\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/Expr/Andx.php
+
+		-
+			message: "#^PHPDoc type array\\<string\\> of property Doctrine\\\\ORM\\\\Query\\\\Expr\\\\Orx\\:\\:\\$allowedClasses is not covariant with PHPDoc type list\\<class\\-string\\> of overridden property Doctrine\\\\ORM\\\\Query\\\\Expr\\\\Base\\:\\:\\$allowedClasses\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/Expr/Orx.php
+
+		-
+			message: "#^PHPDoc type array\\<string\\> of property Doctrine\\\\ORM\\\\Query\\\\Expr\\\\Select\\:\\:\\$allowedClasses is not covariant with PHPDoc type list\\<class\\-string\\> of overridden property Doctrine\\\\ORM\\\\Query\\\\Expr\\\\Base\\:\\:\\$allowedClasses\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/Expr/Select.php
+
+		-
 			message: """
 				#^PHPDoc tag @return has invalid value \\(AST\\\\BetweenExpression\\|
 				        AST\\\\CollectionMemberExpression\\|
@@ -46,6 +61,41 @@ parameters:
 			path: repo/lib/Doctrine/ORM/Query/Parser.php
 
 		-
+			message: "#^Method Doctrine\\\\ORM\\\\Query\\\\QueryExpressionVisitor\\:\\:getParameters\\(\\) should return Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<int, mixed\\> but returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<int\\<0, max\\>, mixed\\>\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/QueryExpressionVisitor.php
+
+		-
+			message: "#^Parameter \\#2 \\$dqlPart of method Doctrine\\\\ORM\\\\QueryBuilder\\:\\:add\\(\\) expects array\\<'join'\\|int\\<0, max\\>, array\\<int\\|string, object\\>\\|string\\>\\|object\\|string, non\\-empty\\-array\\<string, Doctrine\\\\ORM\\\\Query\\\\Expr\\\\Join\\> given\\.$#"
+			count: 2
+			path: repo/lib/Doctrine/ORM/QueryBuilder.php
+
+		-
+			message: "#^Property Doctrine\\\\ORM\\\\QueryBuilder\\:\\:\\$parameters \\(Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<int, Doctrine\\\\ORM\\\\Query\\\\Parameter\\>\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<int\\<0, max\\>, Doctrine\\\\ORM\\\\Query\\\\Parameter\\>\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/QueryBuilder.php
+
+		-
 			message: "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Helper\\\\HelperInterface\\:\\:getEntityManager\\(\\)\\.$#"
 			count: 1
 			path: repo/lib/Doctrine/ORM/Tools/Console/Command/AbstractEntityManagerCommand.php
+
+		-
+			message: "#^Parameter \\#1 \\$metadata of method Doctrine\\\\ORM\\\\Tools\\\\Export\\\\Driver\\\\AbstractExporter\\:\\:setMetadata\\(\\) expects list\\<Doctrine\\\\ORM\\\\Mapping\\\\ClassMetadata\\>, non\\-empty\\-list\\<Doctrine\\\\ORM\\\\Mapping\\\\ClassMetadataInfo\\> given\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/Console/Command/ConvertDoctrine1SchemaCommand.php
+
+		-
+			message: "#^Parameter \\#1 \\$metadata of method Doctrine\\\\ORM\\\\Tools\\\\Export\\\\Driver\\\\AbstractExporter\\:\\:setMetadata\\(\\) expects list\\<Doctrine\\\\ORM\\\\Mapping\\\\ClassMetadata\\>, non\\-empty\\-array\\<Doctrine\\\\Persistence\\\\Mapping\\\\ClassMetadata\\> given\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/Console/Command/ConvertMappingCommand.php
+
+		-
+			message: "#^Parameter \\#1 \\$metadatas of method Doctrine\\\\ORM\\\\Tools\\\\EntityGenerator\\:\\:generate\\(\\) expects list\\<Doctrine\\\\ORM\\\\Mapping\\\\ClassMetadataInfo\\>, non\\-empty\\-array\\<Doctrine\\\\Persistence\\\\Mapping\\\\ClassMetadata\\> given\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/Console/Command/GenerateEntitiesCommand.php
+
+		-
+			message: "#^Parameter \\#1 \\$entityListeners of method Doctrine\\\\ORM\\\\Tools\\\\Console\\\\Command\\\\MappingDescribeCommand\\:\\:formatEntityListeners\\(\\) expects list\\<object\\>, array\\<string, list\\<array\\{class\\: class\\-string, method\\: string\\}\\>\\> given\\.$#"
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/Console/Command/MappingDescribeCommand.php

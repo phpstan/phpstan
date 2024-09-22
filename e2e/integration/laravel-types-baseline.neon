@@ -1,2 +1,16 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Fluent\\<string,int\\|string\\|User\\>\\:\\:get\\(\\) expects 'age'\\|'name'\\|'user', 'foobar' given\\.$#"
+			count: 2
+			path: repo/types/Support/Fluent.php
+
+		-
+			message: "#^Parameter \\#1 \\$keys of method Illuminate\\\\Support\\\\LazyCollection\\<int,User\\>\\:\\:except\\(\\) expects array\\<0\\>\\|Illuminate\\\\Support\\\\Enumerable\\<\\(int\\|string\\), 0\\>, array\\{1\\} given\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: "#^Parameter \\#1 \\$keys of method Illuminate\\\\Support\\\\LazyCollection\\<int,User\\>\\:\\:only\\(\\) expects array\\<0\\>\\|Illuminate\\\\Support\\\\Enumerable\\<\\(int\\|string\\), 0\\>\\|string, array\\{1\\} given\\.$#"
+			count: 1
+			path: repo/types/Support/LazyCollection.php

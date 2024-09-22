@@ -6,6 +6,16 @@ parameters:
 			path: repo/src/Compiler/PhpContentExtractor.php
 
 		-
+			message: "#^Method TomasVotruba\\\\Bladestan\\\\Rules\\\\BladeRule\\:\\:processNode\\(\\) should return list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\> but returns array\\<PHPStan\\\\Rules\\\\RuleError\\>\\.$#"
+			count: 2
+			path: repo/src/Rules/BladeRule.php
+
+		-
 			message: "#^Class TomasVotruba\\\\Bladestan\\\\TemplateCompiler\\\\Rules\\\\TemplateRulesRegistry extends @final class PHPStan\\\\Rules\\\\DirectRegistry\\.$#"
 			count: 1
 			path: repo/src/TemplateCompiler/Rules/TemplateRulesRegistry.php
+
+		-
+			message: "#^Parameter \\#2 \\$expectedErrors of method PHPStan\\\\Testing\\\\RuleTestCase\\<PHPStan\\\\Rules\\\\Rule\\>\\:\\:analyse\\(\\) expects list\\<array\\{0\\: string, 1\\: int, 2\\?\\: string\\|null\\}\\>, array given\\.$#"
+			count: 1
+			path: repo/tests/Rules/BladeRuleTest.php

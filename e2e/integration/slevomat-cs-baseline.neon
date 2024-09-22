@@ -1,6 +1,26 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Parameter \\#2 \\$traversableTypeHints of static method SlevomatCodingStandard\\\\Helpers\\\\TypeHintHelper\\:\\:isTraversableType\\(\\) expects list\\<string\\>, array\\<int, string\\> given\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationHelper.php
+
+		-
+			message: "#^Parameter \\#2 \\$traversableTypeHints of static method SlevomatCodingStandard\\\\Helpers\\\\TypeHintHelper\\:\\:isTraversableType\\(\\) expects list\\<string\\>, array\\<int, string\\> given\\.$#"
+			count: 3
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationTypeHelper.php
+
+		-
+			message: "#^Method SlevomatCodingStandard\\\\Helpers\\\\ConstantHelper\\:\\:getAllNames\\(\\) should return list\\<string\\> but returns array\\<string\\>\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/ConstantHelper.php
+
+		-
+			message: "#^Method SlevomatCodingStandard\\\\Helpers\\\\FunctionHelper\\:\\:getAllFunctionNames\\(\\) should return list\\<string\\> but returns array\\<string\\>\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Helpers/FunctionHelper.php
+
+		-
 			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: ''\\|'\\\\\\\\', 2\\?\\: string\\}\\.$#"
 			count: 1
 			path: repo/SlevomatCodingStandard/Helpers/VariableHelper.php
@@ -11,7 +31,42 @@ parameters:
 			path: repo/SlevomatCodingStandard/Helpers/VariableHelper.php
 
 		-
+			message: "#^Method SlevomatCodingStandard\\\\Sniffs\\\\Attributes\\\\AttributesOrderSniff\\:\\:normalizeOrder\\(\\) should return list\\<string\\> but returns array\\<int\\<0, max\\>, string\\>\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Sniffs/Attributes/AttributesOrderSniff.php
+
+		-
+			message: "#^Parameter \\#1 \\$groups of class SlevomatCodingStandard\\\\Sniffs\\\\Classes\\\\MissingClassGroupsException constructor expects list\\<string\\>, non\\-empty\\-array\\<0\\|1\\|2\\|3\\|4\\|5\\|6\\|7\\|8\\|9\\|10\\|11\\|12\\|13\\|14\\|15\\|16\\|17\\|18\\|19\\|20\\|21\\|22\\|23\\|24\\|25\\|26\\|27\\|28, 'constructor'\\|'destructor'\\|'enum cases'\\|'magic methods'\\|'private constants'\\|'private methods'\\|'private properties'\\|'private static…'\\|'protected abstract…'\\|'protected constants'\\|'protected final…'\\|'protected methods'\\|'protected properties'\\|'protected static…'\\|'public abstract…'\\|'public constants'\\|'public final methods'\\|'public methods'\\|'public properties'\\|'public static…'\\|'public static final…'\\|'static constructors'\\|'uses'\\> given\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Sniffs/Classes/ClassStructureSniff.php
+
+		-
+			message: "#^Method SlevomatCodingStandard\\\\Sniffs\\\\Classes\\\\RequireConstructorPropertyPromotionSniff\\:\\:getPropertyPointers\\(\\) should return list\\<int\\> but returns array\\<int\\<0, max\\>, int\\>\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Sniffs/Classes/RequireConstructorPropertyPromotionSniff.php
+
+		-
+			message: "#^Method SlevomatCodingStandard\\\\Sniffs\\\\Commenting\\\\DocCommentSpacingSniff\\:\\:sortAnnotationsToGroups\\(\\) should return list\\<list\\<SlevomatCodingStandard\\\\Helpers\\\\Annotation\\>\\> but returns array\\<non\\-empty\\-list\\<SlevomatCodingStandard\\\\Helpers\\\\Annotation\\>\\>\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Sniffs/Commenting/DocCommentSpacingSniff.php
+
+		-
 			message: "#^Offset 1 does not exist on array\\{0\\?\\: string, 1\\?\\: string\\}\\.$#"
 			count: 1
 			path: repo/SlevomatCodingStandard/Sniffs/Commenting/EmptyCommentSniff.php
+
+		-
+			message: "#^Method SlevomatCodingStandard\\\\Sniffs\\\\TypeHints\\\\ParameterTypeHintSniff\\:\\:getTraversableTypeHints\\(\\) should return list\\<string\\> but returns array\\<int, string\\>\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Sniffs/TypeHints/ParameterTypeHintSniff.php
+
+		-
+			message: "#^Method SlevomatCodingStandard\\\\Sniffs\\\\TypeHints\\\\PropertyTypeHintSniff\\:\\:getTraversableTypeHints\\(\\) should return list\\<string\\> but returns array\\<int, string\\>\\.$#"
+			count: 1
+			path: repo/SlevomatCodingStandard/Sniffs/TypeHints/PropertyTypeHintSniff.php
+
+		-
+			message: "#^Parameter \\#2 \\$traversableTypeHints of static method SlevomatCodingStandard\\\\Helpers\\\\TypeHintHelper\\:\\:isTraversableType\\(\\) expects list\\<string\\>, array\\<int, string\\> given\\.$#"
+			count: 2
+			path: repo/SlevomatCodingStandard/Sniffs/TypeHints/ReturnTypeHintSniff.php
 
