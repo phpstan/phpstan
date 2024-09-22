@@ -21,6 +21,11 @@ parameters:
 			path: repo/src/LatteTemplateResolver/LatteTemplateResolverResult.php
 
 		-
+			message: "#^Parameter \\#1 \\$value of static method PhpParser\\\\BuilderHelpers\\:\\:normalizeValue\\(\\) expects array\\|bool\\|float\\|int\\|PhpParser\\\\Node\\\\Expr\\|string\\|UnitEnum\\|null, mixed given\\.$#"
+			count: 1
+			path: repo/src/LinkProcessor/LinkParamsProcessor.php
+
+		-
 			message: "#^Method Efabrica\\\\PHPStanLatte\\\\Rule\\\\LatteTemplatesRule\\:\\:processNode\\(\\) should return list\\<PHPStan\\\\Rules\\\\IdentifierRuleError\\> but returns array\\<PHPStan\\\\Rules\\\\RuleError\\>\\.$#"
 			count: 1
 			path: repo/src/Rule/LatteTemplatesRule.php
