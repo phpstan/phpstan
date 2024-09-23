@@ -111,8 +111,13 @@ enum Suit: string
     case Spades = 'S';
 }
 
-/** @var array<value-of<Suit>, int> */
-$array = ['H' => 2, 'S' => 3];
+/**
+ * @param array<value-of<Suit>, int> $count
+ */
+function foo(array $count): void
+{
+    // Example for $count: ['H' => 2, 'S' => 3]
+}
 ```
 
 Iterables
