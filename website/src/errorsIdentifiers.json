@@ -8270,7 +8270,7 @@
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L116"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L112"
             ]
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionReturnTypehintRule": {
@@ -8280,7 +8280,7 @@
         },
         "PHPStan\\Rules\\Methods\\MissingMethodParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L120"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L116"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodReturnTypehintRule": {
@@ -8379,7 +8379,7 @@
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L106"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L102"
             ]
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionReturnTypehintRule": {
@@ -8409,7 +8409,7 @@
         },
         "PHPStan\\Rules\\Methods\\MissingMethodParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L109"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L105"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodReturnTypehintRule": {
@@ -8501,7 +8501,7 @@
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L94"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L90"
             ]
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionReturnTypehintRule": {
@@ -8511,7 +8511,7 @@
         },
         "PHPStan\\Rules\\Methods\\MissingMethodParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L96"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L92"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodReturnTypehintRule": {
@@ -8538,12 +8538,12 @@
     "missingType.parameter": {
         "PHPStan\\Rules\\Functions\\MissingFunctionParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L80"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L76"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L81"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L77"
             ]
         }
     },
