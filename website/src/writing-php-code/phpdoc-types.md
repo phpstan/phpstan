@@ -102,7 +102,18 @@ function repair(string $type, int $wheels): void
 }
 ```
 
-Additionally `value-of<BackedEnum>` is supported.
+Additionally `value-of<BackedEnum>` is supported:
+
+```php
+enum Suit: string
+{
+    case Hearts = 'H';
+    case Spades = 'S';
+}
+
+/** @var array<value-of<Suit>, int> */
+$array = ['H' => 2, 'S' => 3];
+```
 
 Iterables
 -------------------------
