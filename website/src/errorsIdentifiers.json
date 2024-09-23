@@ -2069,28 +2069,28 @@
     "booleanAnd.alwaysFalse": {
         "PHPStan\\Rules\\Comparison\\BooleanAndConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L150"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L149"
             ]
         }
     },
     "booleanAnd.alwaysTrue": {
         "PHPStan\\Rules\\Comparison\\BooleanAndConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L150"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L149"
             ]
         }
     },
     "booleanAnd.leftAlwaysFalse": {
         "PHPStan\\Rules\\Comparison\\BooleanAndConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L70"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L69"
             ]
         }
     },
     "booleanAnd.leftAlwaysTrue": {
         "PHPStan\\Rules\\Comparison\\BooleanAndConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L70"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L69"
             ]
         }
     },
@@ -2111,14 +2111,14 @@
     "booleanAnd.rightAlwaysFalse": {
         "PHPStan\\Rules\\Comparison\\BooleanAndConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L111"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L110"
             ]
         }
     },
     "booleanAnd.rightAlwaysTrue": {
         "PHPStan\\Rules\\Comparison\\BooleanAndConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L111"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L110"
             ]
         }
     },
@@ -2153,28 +2153,28 @@
     "booleanOr.alwaysFalse": {
         "PHPStan\\Rules\\Comparison\\BooleanOrConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L150"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L149"
             ]
         }
     },
     "booleanOr.alwaysTrue": {
         "PHPStan\\Rules\\Comparison\\BooleanOrConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L150"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L149"
             ]
         }
     },
     "booleanOr.leftAlwaysFalse": {
         "PHPStan\\Rules\\Comparison\\BooleanOrConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L70"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L69"
             ]
         }
     },
     "booleanOr.leftAlwaysTrue": {
         "PHPStan\\Rules\\Comparison\\BooleanOrConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L70"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L69"
             ]
         }
     },
@@ -2195,14 +2195,14 @@
     "booleanOr.rightAlwaysFalse": {
         "PHPStan\\Rules\\Comparison\\BooleanOrConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L111"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L110"
             ]
         }
     },
     "booleanOr.rightAlwaysTrue": {
         "PHPStan\\Rules\\Comparison\\BooleanOrConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L111"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L110"
             ]
         }
     },
@@ -7417,28 +7417,28 @@
     "logicalAnd.alwaysFalse": {
         "PHPStan\\Rules\\Comparison\\BooleanAndConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L150"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L149"
             ]
         }
     },
     "logicalAnd.alwaysTrue": {
         "PHPStan\\Rules\\Comparison\\BooleanAndConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L150"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L149"
             ]
         }
     },
     "logicalAnd.leftAlwaysFalse": {
         "PHPStan\\Rules\\Comparison\\BooleanAndConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L70"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L69"
             ]
         }
     },
     "logicalAnd.leftAlwaysTrue": {
         "PHPStan\\Rules\\Comparison\\BooleanAndConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L70"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L69"
             ]
         }
     },
@@ -7459,14 +7459,14 @@
     "logicalAnd.rightAlwaysFalse": {
         "PHPStan\\Rules\\Comparison\\BooleanAndConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L111"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L110"
             ]
         }
     },
     "logicalAnd.rightAlwaysTrue": {
         "PHPStan\\Rules\\Comparison\\BooleanAndConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L111"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanAndConstantConditionRule.php#L110"
             ]
         }
     },
@@ -7480,28 +7480,28 @@
     "logicalOr.alwaysFalse": {
         "PHPStan\\Rules\\Comparison\\BooleanOrConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L150"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L149"
             ]
         }
     },
     "logicalOr.alwaysTrue": {
         "PHPStan\\Rules\\Comparison\\BooleanOrConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L150"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L149"
             ]
         }
     },
     "logicalOr.leftAlwaysFalse": {
         "PHPStan\\Rules\\Comparison\\BooleanOrConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L70"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L69"
             ]
         }
     },
     "logicalOr.leftAlwaysTrue": {
         "PHPStan\\Rules\\Comparison\\BooleanOrConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L70"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L69"
             ]
         }
     },
@@ -7522,14 +7522,14 @@
     "logicalOr.rightAlwaysFalse": {
         "PHPStan\\Rules\\Comparison\\BooleanOrConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L111"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L110"
             ]
         }
     },
     "logicalOr.rightAlwaysTrue": {
         "PHPStan\\Rules\\Comparison\\BooleanOrConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L111"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/BooleanOrConstantConditionRule.php#L110"
             ]
         }
     },
@@ -9119,16 +9119,14 @@
     "offsetAccess.notFound": {
         "PHPStan\\Rules\\Arrays\\ArrayDestructuringRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L110",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L116",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L60"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L108",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L59"
             ]
         },
         "PHPStan\\Rules\\Arrays\\NonexistentOffsetInArrayDimFetchRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L110",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L116",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L60"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L108",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L59"
             ]
         }
     },
@@ -10417,7 +10415,7 @@
     "postDec.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L83"
             ]
         }
     },
@@ -10431,14 +10429,14 @@
     "postDec.type": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L123"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L107"
             ]
         }
     },
     "postInc.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L83"
             ]
         }
     },
@@ -10452,7 +10450,7 @@
     "postInc.type": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L123"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L107"
             ]
         }
     },
@@ -10473,7 +10471,7 @@
     "preDec.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L83"
             ]
         }
     },
@@ -10487,14 +10485,14 @@
     "preDec.type": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L123"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L107"
             ]
         }
     },
     "preInc.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L83"
             ]
         }
     },
@@ -10508,7 +10506,7 @@
     "preInc.type": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L123"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L107"
             ]
         }
     },
