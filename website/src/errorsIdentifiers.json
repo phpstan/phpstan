@@ -7709,8 +7709,8 @@
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodSignatureRule.php#L90",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L280",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L293"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L278",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L291"
             ]
         }
     },
@@ -7751,7 +7751,7 @@
     "method.missingOverride": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L121"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L119"
             ]
         }
     },
@@ -7799,7 +7799,7 @@
     "method.nonStatic": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L155"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L153"
             ]
         }
     },
@@ -7818,23 +7818,23 @@
     "method.override": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L99"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L97"
             ]
         }
     },
     "method.parentMethodFinal": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L132",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L72"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L130",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L70"
             ]
         }
     },
     "method.parentMethodFinalByPhpDoc": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L141",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L84"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L139",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L82"
             ]
         }
     },
@@ -7886,7 +7886,7 @@
     "method.static": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L167"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L165"
             ]
         }
     },
@@ -7927,7 +7927,7 @@
     "method.tentativeReturnType": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L231"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L229"
             ]
         }
     },
@@ -8060,8 +8060,8 @@
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L183",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L195"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L181",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L193"
             ]
         }
     },
