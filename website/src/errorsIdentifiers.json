@@ -5149,37 +5149,37 @@
     "function.variance": {
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L45"
             ]
         },
         "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L45"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionSignatureVarianceRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L45"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L45"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodSignatureVarianceRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L45"
             ]
         },
         "PHPStan\\Rules\\Generics\\PropertyVarianceRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L45"
             ]
         },
         "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L45"
             ]
         }
     },
@@ -6496,37 +6496,37 @@
     "generics.variance": {
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L112"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L112"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionSignatureVarianceRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L112"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L112"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodSignatureVarianceRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L112"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Generics\\PropertyVarianceRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L112"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L112"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L99"
             ]
         }
     },
@@ -8018,37 +8018,37 @@
     "method.variance": {
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L45"
             ]
         },
         "PHPStan\\Rules\\Generics\\EnumAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L45"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionSignatureVarianceRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L45"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceAncestorsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L45"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodSignatureVarianceRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L45"
             ]
         },
         "PHPStan\\Rules\\Generics\\PropertyVarianceRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L45"
             ]
         },
         "PHPStan\\Rules\\Generics\\UsedTraitsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/VarianceCheck.php#L45"
             ]
         }
     },
