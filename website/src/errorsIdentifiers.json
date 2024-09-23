@@ -7687,7 +7687,7 @@
         },
         "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodSignatureRule.php#L141"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodSignatureRule.php#L140"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
@@ -7696,19 +7696,19 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L251",
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L279",
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L299",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodSignatureRule.php#L141"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodSignatureRule.php#L140"
             ]
         }
     },
     "method.childReturnType": {
         "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodSignatureRule.php#L91"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodSignatureRule.php#L90"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodSignatureRule.php#L91",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodSignatureRule.php#L90",
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L280",
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/OverridingMethodRule.php#L293"
             ]
