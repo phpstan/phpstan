@@ -116,7 +116,7 @@ enum Suit: string
  */
 function foo(array $count): void
 {
-    // Example for $count: ['H' => 2, 'S' => 3]
+    // $count is array<'H'|'S', int>
 }
 ```
 
