@@ -9754,7 +9754,7 @@
     "phpParser.nodeConnectingAttribute": {
         "PHPStan\\Rules\\Api\\NodeConnectingVisitorAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Api/NodeConnectingVisitorAttributesRule.php#L93"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Api/NodeConnectingVisitorAttributesRule.php#L71"
             ]
         }
     },
