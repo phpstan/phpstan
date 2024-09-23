@@ -32,6 +32,36 @@ Don't forget to update [3rd party PHPStan extensions](https://phpstan.org/user-g
 
 After changing your `composer.json`, run `composer update 'phpstan/*' -W`.
 
+### Removed option `checkMissingIterableValueType`
+
+It's strongly recommended to add the missing array typehints.
+
+If you want to continue ignoring missing typehints from arrays, add `missingType.iterableValue` error identifier to your `ignoreErrors`:
+
+```neon
+parameters:
+	ignoreErrors:
+		-
+			identifier: missingType.iterableValue
+```
+
+### Removed option `checkGenericClassInNonGenericObjectType`
+
+It's strongly recommended to add the missing generic typehints.
+
+If you want to continue ignoring missing typehints from generics, add `missingType.generics` error identifier to your `ignoreErrors`:
+
+```neon
+parameters:
+	ignoreErrors:
+		-
+			identifier: missingType.generics
+```
+
+### Removed option `excludes_analyse`
+
+It has been replaced with [`excludePaths`](https://phpstan.org/user-guide/ignoring-errors#excluding-whole-files).
+
 ### Paths in `excludePaths` and `ignoreErrors` have to be a valid file path or a fnmatch pattern
 
 If you are excluding a file path that might not exist but you still want to have it in `excludePaths`, append `(?)`:
@@ -52,6 +82,12 @@ parameters:
 ```
 
 Appending `(?)` in `ignoreErrors` is not supported.
+
+### Minor backward compatibility breaks
+
+* Removed unused config parameter `cache.nodesByFileCountMax`
+* Removed unused config parameter `memoryLimitFile`
+
 
 ## Upgrading guide for extension developers
 
@@ -111,6 +147,10 @@ If you want to change `$overwrite` or `$rootExpr` (previous parameters also used
 ### Changed `TypeSpecifier::specifyTypesInCondition()`
 
 This method now longer accepts `Expr $rootExpr`. If you want to change it, call `setRootExpr()` on [`SpecifiedTypes`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.SpecifiedTypes.html) (object returned by `TypeSpecifier::specifyTypesInCondition()`). `setRootExpr()` method returns a new object (SpecifiedTypes is immutable).
+
+### Removed config parameter `scopeClass`
+
+As a replacement you can implement [`PHPStan\Type\ExpressionTypeResolverExtension`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.ExpressionTypeResolverExtension.html) interface instead and register it as a service.
 
 ### Minor backward compatibility breaks
 
