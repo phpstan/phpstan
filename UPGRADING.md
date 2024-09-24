@@ -60,6 +60,15 @@ parameters:
 			identifier: missingType.generics
 ```
 
+### Removed `checkAlwaysTrue*` options
+
+These options have been removed because PHPStan now always behaves as if these were set to `true`:
+
+* `checkAlwaysTrueCheckTypeFunctionCall`
+* `checkAlwaysTrueInstanceof`
+* `checkAlwaysTrueStrictComparison`
+* `checkAlwaysTrueLooseComparison`
+
 ### Removed option `excludes_analyse`
 
 It has been replaced with [`excludePaths`](https://phpstan.org/user-guide/ignoring-errors#excluding-whole-files).
