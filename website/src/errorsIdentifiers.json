@@ -8703,8 +8703,8 @@
         },
         "PHPStan\\Rules\\Methods\\CallToConstructorStatementWithoutSideEffectsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/CallToConstructorStatementWithoutSideEffectsRule.php#L55",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/CallToConstructorStatementWithoutSideEffectsRule.php#L73"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/CallToConstructorStatementWithoutSideEffectsRule.php#L53",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/CallToConstructorStatementWithoutSideEffectsRule.php#L68"
             ]
         }
     },
