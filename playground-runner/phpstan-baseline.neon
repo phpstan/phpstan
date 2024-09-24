@@ -1,16 +1,26 @@
 parameters:
 	ignoreErrors:
 		-
+			message: "#^Accessing PHPStan\\\\Analyser\\\\Analyser\\:\\:class is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: bref.php
+
+		-
+			message: "#^Accessing PHPStan\\\\Analyser\\\\AnalyserResultFinalizer\\:\\:class is not covered by backward compatibility promise\\. The class might change in a minor PHPStan version\\.$#"
+			count: 1
+			path: bref.php
+
+		-
 			message: "#^Calling PHPStan\\\\Analyser\\\\Analyser\\:\\:analyse\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: bref.php
 
 		-
-			message: "#^Calling PHPStan\\\\Analyser\\\\FinalizerResult\\:\\:getErrors\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			message: "#^Calling PHPStan\\\\Analyser\\\\AnalyserResultFinalizer\\:\\:finalize\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: bref.php
 
 		-
-			message: "#^Calling PHPStan\\\\Analyser\\\\AnalyserResultFinalizer\\:\\:finalize\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
+			message: "#^Calling PHPStan\\\\Analyser\\\\FinalizerResult\\:\\:getErrors\\(\\) is not covered by backward compatibility promise\\. The method might change in a minor PHPStan version\\.$#"
 			count: 1
 			path: bref.php
