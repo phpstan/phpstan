@@ -1321,12 +1321,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "439950497e97d0d77df1d7f5d3b8188d092a535d"
+                "reference": "c632362b9efc2e207dee523167964b960931e55c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/439950497e97d0d77df1d7f5d3b8188d092a535d",
-                "reference": "439950497e97d0d77df1d7f5d3b8188d092a535d",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/c632362b9efc2e207dee523167964b960931e55c",
+                "reference": "c632362b9efc2e207dee523167964b960931e55c",
                 "shasum": ""
             },
             "require": {
@@ -1372,7 +1372,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-09-24T13:15:06+00:00"
+            "time": "2024-09-24T15:26:36+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
@@ -1380,12 +1380,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-strict-rules.git",
-                "reference": "ad53bd9f911e7831e8e02cd3e54faf1d44910c33"
+                "reference": "63956f7896780551ed1ab29e75a6a645d8a0919c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/ad53bd9f911e7831e8e02cd3e54faf1d44910c33",
-                "reference": "ad53bd9f911e7831e8e02cd3e54faf1d44910c33",
+                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/63956f7896780551ed1ab29e75a6a645d8a0919c",
+                "reference": "63956f7896780551ed1ab29e75a6a645d8a0919c",
                 "shasum": ""
             },
             "require": {
@@ -1421,7 +1421,7 @@
                 "issues": "https://github.com/phpstan/phpstan-strict-rules/issues",
                 "source": "https://github.com/phpstan/phpstan-strict-rules/tree/2.0.x"
             },
-            "time": "2024-09-24T12:25:28+00:00"
+            "time": "2024-09-24T15:32:27+00:00"
         },
         {
             "name": "psr/container",
