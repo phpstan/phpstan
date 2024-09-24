@@ -11450,7 +11450,7 @@
         },
         "PHPStan\\Rules\\TooWideTypehints\\TooWideMethodReturnTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/TooWideTypehints/TooWideMethodReturnTypehintRule.php#L118"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/TooWideTypehints/TooWideMethodReturnTypehintRule.php#L112"
             ]
         }
     },
