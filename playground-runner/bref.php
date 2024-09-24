@@ -60,9 +60,6 @@ return function ($event) use ($phpstanVersion) {
 			'inferPrivatePropertyTypeFromConstructor' => true,
 			'treatPhpDocTypesAsCertain' => $event['treatPhpDocTypesAsCertain'] ?? true,
 			'phpVersion' => $event['phpVersion'] ?? 80000,
-			'featureToggles' => [
-				'disableRuntimeReflectionProvider' => true,
-			],
             'sourceLocatorPlaygroundMode' => true,
 		],
 		'services' => [
