@@ -4334,13 +4334,6 @@
             ]
         }
     },
-    "else.unreachable": {
-        "PHPStan\\Rules\\Comparison\\UnreachableIfBranchesRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/UnreachableIfBranchesRule.php#L76"
-            ]
-        }
-    },
     "elseif.alwaysFalse": {
         "PHPStan\\Rules\\Comparison\\ElseIfConstantConditionRule": {
             "phpstan/phpstan-src": [
@@ -4359,13 +4352,6 @@
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInElseIfConditionRule": {
             "phpstan/phpstan-strict-rules": [
                 "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/BooleansInConditions/BooleanInElseIfConditionRule.php#L43"
-            ]
-        }
-    },
-    "elseif.unreachable": {
-        "PHPStan\\Rules\\Comparison\\UnreachableIfBranchesRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/UnreachableIfBranchesRule.php#L62"
             ]
         }
     },
@@ -7606,28 +7592,21 @@
     "match.alwaysFalse": {
         "PHPStan\\Rules\\Comparison\\MatchExpressionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/MatchExpressionRule.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/MatchExpressionRule.php#L100"
             ]
         }
     },
     "match.alwaysTrue": {
         "PHPStan\\Rules\\Comparison\\MatchExpressionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/MatchExpressionRule.php#L122"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/MatchExpressionRule.php#L115"
             ]
         }
     },
     "match.unhandled": {
         "PHPStan\\Rules\\Comparison\\MatchExpressionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/MatchExpressionRule.php#L149"
-            ]
-        }
-    },
-    "match.unreachable": {
-        "PHPStan\\Rules\\Comparison\\MatchExpressionRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/MatchExpressionRule.php#L59"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/MatchExpressionRule.php#L142"
             ]
         }
     },
@@ -12023,13 +12002,6 @@
         "PHPStan\\Rules\\BooleansInConditions\\BooleanInTernaryOperatorRule": {
             "phpstan/phpstan-strict-rules": [
                 "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/BooleansInConditions/BooleanInTernaryOperatorRule.php#L47"
-            ]
-        }
-    },
-    "ternary.elseUnreachable": {
-        "PHPStan\\Rules\\Comparison\\UnreachableTernaryElseBranchRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/UnreachableTernaryElseBranchRule.php#L61"
             ]
         }
     },
