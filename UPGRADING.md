@@ -12,6 +12,8 @@ PHPStan now requires PHP 7.4 or newer to run.
 The best way do get ready for upgrade to PHPStan 2.0 is to update to the **latest PHPStan 1.12 release**
 and enable [**Bleeding Edge**](https://phpstan.org/blog/what-is-bleeding-edge). This will enable the new rules and behaviours that 2.0 turns on for all users.
 
+Also make sure to install and enable [`phpstan/phpstan-deprecation-rules`](https://github.com/phpstan/phpstan-deprecation-rules).
+
 Once you get to a green build with no deprecations showed on latest PHPStan 1.12.x with Bleeding Edge enabled, you can update all your related PHPStan dependencies to 2.0 in `composer.json`:
 
 ```json
