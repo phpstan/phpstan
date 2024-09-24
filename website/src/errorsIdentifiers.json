@@ -4127,13 +4127,13 @@
     },
     "constructor.call": {
         "PHPStan\\Rules\\Methods\\IllegalConstructorMethodCallRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/IllegalConstructorMethodCallRule.php#L29"
+            "phpstan/phpstan-strict-rules": [
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Methods/IllegalConstructorMethodCallRule.php#L29"
             ]
         },
         "PHPStan\\Rules\\Methods\\IllegalConstructorStaticCallRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/IllegalConstructorStaticCallRule.php#L38"
+            "phpstan/phpstan-strict-rules": [
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Methods/IllegalConstructorStaticCallRule.php#L38"
             ]
         }
     },
