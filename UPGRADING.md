@@ -101,6 +101,7 @@ Appending `(?)` in `ignoreErrors` is not supported.
 * Removed unused config parameter `cache.nodesByFileCountMax`
 * Removed unused config parameter `memoryLimitFile`
 * Removed unused feature toggle `disableRuntimeReflectionProvider`
+* Removed unused config parameter `staticReflectionClassNamePatterns`
 
 ## Upgrading guide for extension developers
 
@@ -214,6 +215,14 @@ Learn more: https://phpstan.org/blog/preprocessing-ast-for-custom-rules
 
 As a replacement you can implement [`PHPStan\Type\ExpressionTypeResolverExtension`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.ExpressionTypeResolverExtension.html) interface instead and register it as a service.
 
+### Removed `PHPStan\Broker\Broker`
+
+Use [`PHPStan\Reflection\ReflectionProvider`](https://apiref.phpstan.org/2.0.x/PHPStan.Reflection.ReflectionProvider.html) instead.
+
+`BrokerAwareExtension` was also removed. Ask for `ReflectionProvider` in the extension constructor instead.
+
+Instead of `PHPStanTestCase::createBroker()`, call `PHPStanTestCase::createReflectionProvider()`.
+
 ### Minor backward compatibility breaks
 
 * Classes that were previously `@final` were made `final`
@@ -222,3 +231,4 @@ As a replacement you can implement [`PHPStan\Type\ExpressionTypeResolverExtensio
 * ClassPropertiesNode - remove `$extensions` parameter from [`getUninitializedProperties()`](https://apiref.phpstan.org/2.0.x/PHPStan.Node.ClassPropertiesNode.html#_getUninitializedProperties)
 * `Type::getSmallerType()`, `Type::getSmallerOrEqualType()`, `Type::getGreaterType()`, `Type::getGreaterOrEqualType()`, `Type::isSmallerThan()`, `Type::isSmallerThanOrEqual()` now require [`PhpVersion`](https://apiref.phpstan.org/2.0.x/PHPStan.Php.PhpVersion.html) as argument.
 * `CompoundType::isGreaterThan()`, `CompoundType::isGreaterThanOrEqual()` now require [`PhpVersion`](https://apiref.phpstan.org/2.0.x/PHPStan.Php.PhpVersion.html) as argument.
+* Removed `ReflectionProvider::supportsAnonymousClasses()` (all reflection providers support anonymous classes)
