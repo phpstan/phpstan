@@ -245,6 +245,8 @@ Other advanced string types
 
 Security-focused `literal-string` is inspired by the [`is_literal()` RFC](https://wiki.php.net/rfc/is_literal). In short, it means a string that is either written by a developer or composed only of developer-written strings.
 
+`lowercase-string` accepts strings where `strtolower($string) === $string` is true.
+
 Global type aliases
 -------------------------
 
