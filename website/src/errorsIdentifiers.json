@@ -1335,20 +1335,6 @@
             ]
         }
     },
-    "array.keyType": {
-        "PHPStan\\Rules\\Arrays\\AppendedArrayKeyTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Arrays/AppendedArrayKeyTypeRule.php#L82"
-            ]
-        }
-    },
-    "array.valueType": {
-        "PHPStan\\Rules\\Arrays\\AppendedArrayItemTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Arrays/AppendedArrayItemTypeRule.php#L85"
-            ]
-        }
-    },
     "arrayFilter.alwaysEmpty": {
         "PHPStan\\Rules\\Functions\\ArrayFilterRule": {
             "phpstan/phpstan-src": [
@@ -2946,11 +2932,6 @@
         }
     },
     "class.notFound": {
-        "PHPStan\\Rules\\Arrays\\AppendedArrayItemTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/RuleLevelHelper.php#L233"
-            ]
-        },
         "PHPStan\\Rules\\Arrays\\ArrayDestructuringRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/RuleLevelHelper.php#L233"
