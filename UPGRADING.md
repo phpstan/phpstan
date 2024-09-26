@@ -123,13 +123,13 @@ Identifiers are also required in custom rules.
 
 Learn more: [Using RuleErrorBuilder to enrich reported errors in custom rules](https://phpstan.org/blog/using-rule-error-builder)
 
-Before:
+**Before**:
 
 ```php
 return ['My error'];
 ```
 
-After:
+**After**:
 
 ```php
 return [
@@ -142,6 +142,47 @@ return [
 ### Deprecate various `instanceof *Type` in favour of new methods on `Type` interface
 
 Learn more: [Why Is instanceof *Type Wrong and Getting Deprecated?](https://phpstan.org/blog/why-is-instanceof-type-wrong-and-getting-deprecated)
+
+### Removed deprecated `ParametersAcceptorSelector::selectSingle()`
+
+Use [`ParametersAcceptorSelector::selectFromArgs()`](https://apiref.phpstan.org/2.0.x/PHPStan.Reflection.ParametersAcceptorSelector.html#_selectFromArgs) instead. It should be used in most places where `selectSingle()` was previously used, like dynamic return type extensions.
+
+**Before**:
+
+```php
+$defaultReturnType = ParametersAcceptorSelector::selectSingle($functionReflection->getVariants())->getReturnType();
+```
+
+**After**:
+
+```php
+$defaultReturnType = ParametersAcceptorSelector::selectFromArgs(
+    $scope,
+    $functionCall->getArgs(),
+    $functionReflection->getVariants()
+)->getReturnType();
+```
+
+If you're analysing function or method body itself and you're using one of the following methods, ask for `getParameters()` and `getReturnType()` directly on the reflection object:
+
+* [InClassMethodNode::getMethodReflection()](https://apiref.phpstan.org/2.0.x/PHPStan.Node.InClassMethodNode.html)
+* [InFunctionNode::getFunctionReflection()](https://apiref.phpstan.org/2.0.x/PHPStan.Node.InFunctionNode.html)
+* [FunctionReturnStatementsNode::getFunctionReflection()](https://apiref.phpstan.org/2.0.x/PHPStan.Node.FunctionReturnStatementsNode.html)
+* [MethodReturnStatementsNode::getMethodReflection()](https://apiref.phpstan.org/2.0.x/PHPStan.Node.MethodReturnStatementsNode.html)
+* [Scope::getFunction()](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.Scope.html#_getFunction)
+
+**Before**:
+
+```php
+$function = $node->getFunctionReflection();
+$returnType = ParametersAcceptorSelector::selectSingle($function->getVariants())->getReturnType();
+```
+
+**After**:
+
+```
+$returnType = $node->getFunctionReflection()->getReturnType();
+```
 
 ### Changed `TypeSpecifier::create()` and `SpecifiedTypes` constructor parameters
 
