@@ -251,3 +251,13 @@ Instead of `PHPStanTestCase::createBroker()`, call `PHPStanTestCase::createRefle
 * Removed methods from `ConstantArrayType` - `getFirst*Type` and `getLast*Type`
   * Use `getFirstIterable*Type` and `getLastIterable*Type` instead
 * Remove `ConstantArrayType::generalizeToArray()`
+* Made `TypeUtils` thinner by removing methods:
+  * Remove `TypeUtils::getArrays()` and `getAnyArrays()`, use [`Type::getArrays()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getArrays) instead
+  * Remove `TypeUtils::getConstantArrays()` and `getOldConstantArrays()`, use [`Type::getConstantArrays()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getConstantArrays) instead
+  * Remove `TypeUtils::getConstantStrings()`, use [`Type::getConstantStrings()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getConstantStrings) instead
+  * Remove `TypeUtils::getConstantTypes()` and `getAnyConstantTypes()`, use [`Type::isConstantValue()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_isConstantValue) or [`Type::generalize()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_generalize)
+  * Remove `TypeUtils::generalizeType()`, use [`Type::generalize()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_generalize) instead
+  * Remove `TypeUtils::getDirectClassNames()`, use [`Type::getObjectClassNames()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getObjectClassNames) instead
+  * Remove `TypeUtils::getConstantScalars()`, use [`Type::isConstantScalarValue()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_isConstantScalarValue) or [`Type::getConstantScalarTypes()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getConstantScalarTypes) instead
+  * Remove `TypeUtils::getEnumCaseObjects()`, use [`Type::getEnumCases()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getEnumCases) instead
+  * Remove `TypeUtils::containsCallable()`, use [`Type::isCallable()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_isCallable) instead
