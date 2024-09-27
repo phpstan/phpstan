@@ -240,3 +240,14 @@ Instead of `PHPStanTestCase::createBroker()`, call `PHPStanTestCase::createRefle
 * Remove unused `PHPStanTestCase::$useStaticReflectionProvider`
 * Remove `PHPStanTestCase::getReflectors()`, use `getReflector()` instead
 * Remove `ClassReflection::getFileNameWithPhpDocs()`, use `getFileName()` instead
+* Remove `AnalysisResult::getInternalErrors()`, use `getInternalErrorObjects()` instead
+* Remove `ConstantReflection::getValue()`, use `getValueExpr()` instead. To get `Type` from `Expr`, use `Scope::getType()` or `InitializerExprTypeResolver::getType()`
+* Remove `PropertyTag::getType()`, use `getReadableType()` / `getWritableType()` instead
+* Remove `GenericTypeVariableResolver`, use [`Type::getTemplateType()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getTemplateType) instead
+* Rename `Type::isClassStringType()` to `Type::isClassString()`
+* Remove `Scope::isSpecified()`, use `hasExpressionType()` instead
+* Remove `ConstantArrayType::isEmpty()`, use `isIterableAtLeastOnce()->no()` instead
+* Remove `ConstantArrayType::getNextAutoIndex()`
+* Removed methods from `ConstantArrayType` - `getFirst*Type` and `getLast*Type`
+  * Use `getFirstIterable*Type` and `getLastIterable*Type` instead
+* Remove `ConstantArrayType::generalizeToArray()`
