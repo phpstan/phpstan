@@ -7632,10 +7632,10 @@
     "method.childParameterType": {
         "PHPStan\\Rules\\Methods\\ConsistentConstructorRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L181",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L249",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L277",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L297"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L182",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L250",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L278",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L298"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
@@ -7645,10 +7645,10 @@
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L181",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L249",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L277",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L297",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L182",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L250",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L278",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L298",
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodSignatureRule.php#L137"
             ]
         }
@@ -9263,12 +9263,12 @@
     "parameter.byRef": {
         "PHPStan\\Rules\\Methods\\ConsistentConstructorRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L76"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L77"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L76"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L77"
             ]
         }
     },
@@ -9398,12 +9398,12 @@
     "parameter.missing": {
         "PHPStan\\Rules\\Methods\\ConsistentConstructorRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L53"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L52"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L53"
             ]
         }
     },
@@ -9432,12 +9432,12 @@
     "parameter.notByRef": {
         "PHPStan\\Rules\\Methods\\ConsistentConstructorRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L95"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L96"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L95"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L96"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
@@ -9481,32 +9481,32 @@
     "parameter.notOptional": {
         "PHPStan\\Rules\\Methods\\ConsistentConstructorRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L115",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L223",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L348"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L116",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L224",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L349"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L115",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L223",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L348"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L116",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L224",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L349"
             ]
         }
     },
     "parameter.notVariadic": {
         "PHPStan\\Rules\\Methods\\ConsistentConstructorRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L136",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L152",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L327"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L137",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L153",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L328"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L136",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L152",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L327"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L137",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L153",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L328"
             ]
         }
     },
@@ -9628,12 +9628,12 @@
     "parameter.variadic": {
         "PHPStan\\Rules\\Methods\\ConsistentConstructorRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L201"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L202"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L201"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L202"
             ]
         }
     },
