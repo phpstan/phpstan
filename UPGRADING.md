@@ -203,6 +203,12 @@ If you want to change `$overwrite` or `$rootExpr` (previous parameters also used
 
 If you want to change `$overwrite` or `$rootExpr` (previous parameters also used to be accepted by the constructor), call `setAlwaysOverwriteTypes()` and `setRootExpr()`. These methods return a new object (SpecifiedTypes is immutable).
 
+### `ConstantArrayType` no longer extends `ArrayType`
+
+`Type::getArrays()` now returns `list<ArrayType|ConstantArrayType>`.
+
+Using `$type instanceof ArrayType` is [being deprecated anyway](https://phpstan.org/blog/why-is-instanceof-type-wrong-and-getting-deprecated) so the impact of this change should be minimal.
+
 ### Changed `TypeSpecifier::specifyTypesInCondition()`
 
 This method now longer accepts `Expr $rootExpr`. If you want to change it, call `setRootExpr()` on [`SpecifiedTypes`](https://apiref.phpstan.org/2.0.x/PHPStan.Analyser.SpecifiedTypes.html) (object returned by `TypeSpecifier::specifyTypesInCondition()`). `setRootExpr()` method returns a new object (SpecifiedTypes is immutable).
