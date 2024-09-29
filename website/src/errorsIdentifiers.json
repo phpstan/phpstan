@@ -9876,8 +9876,8 @@
     "phpstanApi.instanceofType": {
         "PHPStan\\Rules\\Api\\ApiInstanceofTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Api/ApiInstanceofTypeRule.php#L144",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Api/ApiInstanceofTypeRule.php#L153"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Api/ApiInstanceofTypeRule.php#L142",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Api/ApiInstanceofTypeRule.php#L151"
             ]
         }
     },
