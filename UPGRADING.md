@@ -274,3 +274,4 @@ Instead of `PHPStanTestCase::createBroker()`, call `PHPStanTestCase::createRefle
   * Remove `TypeUtils::containsCallable()`, use [`Type::isCallable()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_isCallable) instead
 * Removed `Scope::doNotTreatPhpDocTypesAsCertain()`, use `getNativeType()` instead
 * Parameter `$isList` in `ConstantArrayType` constructor can only be `TrinaryLogic`, no longer bool
+* Remove `ConstantType` interface, use [`Type::isConstantValue()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_isConstantValue) instead
