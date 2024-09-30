@@ -280,3 +280,4 @@ Instead of `PHPStanTestCase::createBroker()`, call `PHPStanTestCase::createRefle
 * Remove `FunctionReflection::isFinal()`
 * [`Type::getProperty()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getProperty) now returns [`ExtendedPropertyReflection`](https://apiref.phpstan.org/2.0.x/PHPStan.Reflection.ExtendedPropertyReflection.html)
 * `additionalConfigFiles` config parameter must be a list
+* Remove `__set_state()` on objects that should not be serialized in cache
