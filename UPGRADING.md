@@ -276,3 +276,4 @@ Instead of `PHPStanTestCase::createBroker()`, call `PHPStanTestCase::createRefle
 * Parameter `$isList` in `ConstantArrayType` constructor can only be `TrinaryLogic`, no longer bool
 * Parameter `$nextAutoIndexes` in `ConstantArrayType` constructor can only be `non-empty-list<int>`, no longer int
 * Remove `ConstantType` interface, use [`Type::isConstantValue()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_isConstantValue) instead
+* `acceptsNamedArguments()` in `FunctionReflection`, `ExtendedMethodReflection` and `CallableParametersAcceptor` interfaces returns `TrinaryLogic` instead of `bool`
