@@ -289,3 +289,4 @@ Instead of `PHPStanTestCase::createBroker()`, call `PHPStanTestCase::createRefle
 * Remove `fixerTmpDir` config parameter, use `pro.tmpDir` instead
 * Remove `tempResultCachePath` config parameter, use `resultCachePath` instead
 * `LevelsTestCase::dataTopics()` data provider made static
+* `PHPStan\Node\Printer\Printer` no longer autowired as `PhpParser\PrettyPrinter\Standard`, use `PHPStan\Node\Printer\Printer` in the typehint
