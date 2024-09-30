@@ -24,8 +24,6 @@ jobs:
       matrix:
         include:
           - docker-file: "./docker/Dockerfile.php.8.0"
-            image-tag-suffix: ""
-          - docker-file: "./docker/Dockerfile.php.8.0"
             image-tag-suffix: "-php8.0"
           - docker-file: "./docker/Dockerfile.php.8.1"
             image-tag-suffix: "-php8.1"
