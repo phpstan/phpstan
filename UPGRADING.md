@@ -279,3 +279,4 @@ Instead of `PHPStanTestCase::createBroker()`, call `PHPStanTestCase::createRefle
 * `acceptsNamedArguments()` in `FunctionReflection`, `ExtendedMethodReflection` and `CallableParametersAcceptor` interfaces returns `TrinaryLogic` instead of `bool`
 * Remove `FunctionReflection::isFinal()`
 * [`Type::getProperty()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getProperty) now returns [`ExtendedPropertyReflection`](https://apiref.phpstan.org/2.0.x/PHPStan.Reflection.ExtendedPropertyReflection.html)
+* `additionalConfigFiles` config parameter must be a list
