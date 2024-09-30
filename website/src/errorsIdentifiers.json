@@ -3801,7 +3801,7 @@
         },
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L166"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L170"
             ]
         }
     },
@@ -3827,7 +3827,7 @@
         },
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L200"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L204"
             ]
         }
     },
@@ -3846,8 +3846,8 @@
         },
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L185",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L217"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L189",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L221"
             ]
         }
     },
@@ -3867,7 +3867,7 @@
     "classConstant.nonFinal": {
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L154"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L158"
             ]
         }
     },
@@ -3950,7 +3950,7 @@
         },
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L241"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L245"
             ]
         }
     },
@@ -3963,12 +3963,12 @@
         },
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L104",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L115",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L128",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L139",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L80",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L91"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L108",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L119",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L132",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L143",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L84",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Traits/ConflictingTraitConstantsRule.php#L95"
             ]
         }
     },
