@@ -293,3 +293,8 @@ Instead of `PHPStanTestCase::createBroker()`, call `PHPStanTestCase::createRefle
 * Remove `Type::acceptsWithReason()`, `Type:accepts()` return type changed from `TrinaryLogic` to [`AcceptsResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.AcceptsResult.html)
 * Remove `CompoundType::isAcceptedWithReasonBy()`, `CompoundType::isAcceptedBy()` return type changed from `TrinaryLogic` to [`AcceptsResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.AcceptsResult.html)
 * `RuleLevelHelper::accepts()` return type changed from `bool` to [`RuleLevelHelperAcceptsResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.AcceptsResult.html)
+* Changes around `ClassConstantReflection`
+  * Class `ClassConstantReflection` removed from BC promise, renamed to `RealClassConstantReflection`
+  * Interface `ConstantReflection` renamed to `ClassConstantReflection`
+  * Added more methods around PHPDoc types and native types to the (new) `ClassConstantReflection`
+  * Interface `GlobalConstantReflection` renamed to `ConstantReflection`
