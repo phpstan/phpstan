@@ -290,3 +290,6 @@ Instead of `PHPStanTestCase::createBroker()`, call `PHPStanTestCase::createRefle
 * Remove `tempResultCachePath` config parameter, use `resultCachePath` instead
 * `LevelsTestCase::dataTopics()` data provider made static
 * `PHPStan\Node\Printer\Printer` no longer autowired as `PhpParser\PrettyPrinter\Standard`, use `PHPStan\Node\Printer\Printer` in the typehint
+* Remove `Type::acceptsWithReason()`, `Type:accepts()` return type changed from `TrinaryLogic` to [`AcceptsResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.AcceptsResult.html)
+* Remove `CompoundType::isAcceptedWithReasonBy()`, `CompoundType::isAcceptedBy()` return type changed from `TrinaryLogic` to [`AcceptsResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.AcceptsResult.html)
+* `RuleLevelHelper::accepts()` return type changed from `bool` to [`RuleLevelHelperAcceptsResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.AcceptsResult.html)
