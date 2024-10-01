@@ -298,3 +298,4 @@ Instead of `PHPStanTestCase::createBroker()`, call `PHPStanTestCase::createRefle
   * Interface `ConstantReflection` renamed to `ClassConstantReflection`
   * Added more methods around PHPDoc types and native types to the (new) `ClassConstantReflection`
   * Interface `GlobalConstantReflection` renamed to `ConstantReflection`
+* Renamed interfaces and classes from `*WithPhpDocs` to `Extended*`
