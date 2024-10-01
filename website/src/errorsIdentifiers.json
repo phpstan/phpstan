@@ -10502,7 +10502,7 @@
     "property.extraNativeType": {
         "PHPStan\\Rules\\Properties\\OverridingPropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L140"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L139"
             ]
         }
     },
@@ -10532,7 +10532,7 @@
     "property.nativeType": {
         "PHPStan\\Rules\\Properties\\OverridingPropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L129"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L128"
             ]
         }
     },
@@ -10551,7 +10551,7 @@
     "property.nonStatic": {
         "PHPStan\\Rules\\Properties\\OverridingPropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L53"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L52"
             ]
         }
     },
@@ -10590,8 +10590,8 @@
         },
         "PHPStan\\Rules\\Properties\\OverridingPropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L168",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L182"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L167",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L181"
             ]
         }
     },
@@ -10631,7 +10631,7 @@
     "property.readOnly": {
         "PHPStan\\Rules\\Properties\\OverridingPropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L82"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L81"
             ]
         }
     },
@@ -10731,14 +10731,14 @@
     "property.readWrite": {
         "PHPStan\\Rules\\Properties\\OverridingPropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L73"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L72"
             ]
         }
     },
     "property.static": {
         "PHPStan\\Rules\\Properties\\OverridingPropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L62"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L61"
             ]
         }
     },
@@ -10795,7 +10795,7 @@
     "property.unresolvableType": {
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/IncompatiblePropertyPhpDocTypeRule.php#L62"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/IncompatiblePropertyPhpDocTypeRule.php#L61"
             ]
         }
     },
@@ -10816,8 +10816,8 @@
     "property.visibility": {
         "PHPStan\\Rules\\Properties\\OverridingPropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L103",
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L94"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L102",
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/OverridingPropertyRule.php#L93"
             ]
         }
     },
