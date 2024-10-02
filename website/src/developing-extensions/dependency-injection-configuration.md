@@ -40,7 +40,7 @@ The dependency injection container is responsible for creating our service class
 
 <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
 
-PHPStan itself is [configured and assembled the same way](https://github.com/phpstan/phpstan-src/tree/1.12.x/conf).
+PHPStan itself is [configured and assembled the same way](https://github.com/phpstan/phpstan-src/tree/2.0.x/conf).
 
 The final configuration is the product of merging all the involved configuration files together.
 

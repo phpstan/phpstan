@@ -9,7 +9,7 @@ PHPStan supports testing with the industry standard [PHPUnit](https://phpunit.de
 Custom rules
 -----------------
 
-[Custom rules](/developing-extensions/rules) can be tested in a test case extended from [`PHPStan\Testing\RuleTestCase`](https://apiref.phpstan.org/1.12.x/PHPStan.Testing.RuleTestCase.html). A typical test can look like this:
+[Custom rules](/developing-extensions/rules) can be tested in a test case extended from [`PHPStan\Testing\RuleTestCase`](https://apiref.phpstan.org/2.0.x/PHPStan.Testing.RuleTestCase.html). A typical test can look like this:
 
 ```php
 <?php declare(strict_types = 1);

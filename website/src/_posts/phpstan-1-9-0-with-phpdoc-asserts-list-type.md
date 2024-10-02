@@ -199,13 +199,13 @@ class Customer extends User {}
 
 It's all fine and dandy. Until one day when someone requests to take on multiple roles. They'll either have to juggle multiple accounts, or you'll have to refactor your inheritance hierarchy to use composition instead.
 
-And that's where we are with the [type system](https://apiref.phpstan.org/1.12.x/PHPStan.Type.Type.html).
+And that's where we are with the [type system](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html).
 
 PHP is a complex language. A type often stands in for a different type. A string can be a callable. A callable can be an array. Asking `$type instanceof StringType` doesn't cover all possible situations, because a lot of other Type implementations can be a string too.
 
 So we changed the preferred way to ask "is this an array?" to `Type::isArray(): TrinaryLogic`. And "is this a string?" to `Type::isString(): TrinaryLogic`. Every step like that helps us to get rid of a lot of bugs.
 
-When we replace all instances of `$type instanceof *Type`, the [`Type` interface](https://apiref.phpstan.org/1.12.x/PHPStan.Type.Type.html) is going to have hundreds of methods. And I'm persuaded it's the correct solution to this problem 🤣
+When we replace all instances of `$type instanceof *Type`, the [`Type` interface](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html) is going to have hundreds of methods. And I'm persuaded it's the correct solution to this problem 🤣
 
 And once we deprecate and eradicate `$type instanceof *Type` from all 3rd party PHPStan extensions as well, we'll finally be able to decouple types from each other, which will allow us to do cool stuff, e.g. support all template type bounds automatically [^templateTypes], or make all types subtractable automatically [^subtractable] as well.
 

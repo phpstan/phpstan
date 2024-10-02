@@ -4,7 +4,7 @@ title: Reflection
 
 PHPStan has its own reflection layer for asking details about functions, classes, properties, methods, and constants.
 
-Various reflection objects can be obtained either on `PHPStan\Type\Type` implementations (see [type system](/developing-extensions/type-system#what-can-a-type-tell-us%3F)), or on [`PHPStan\Reflection\ReflectionProvider`](https://apiref.phpstan.org/1.12.x/PHPStan.Reflection.ReflectionProvider.html) object by asking for it in the constructor of your extension:
+Various reflection objects can be obtained either on `PHPStan\Type\Type` implementations (see [type system](/developing-extensions/type-system#what-can-a-type-tell-us%3F)), or on [`PHPStan\Reflection\ReflectionProvider`](https://apiref.phpstan.org/2.0.x/PHPStan.Reflection.ReflectionProvider.html) object by asking for it in the constructor of your extension:
 
 ```php
 private ReflectionProvider $reflectionProvider;
@@ -28,7 +28,7 @@ There are three relevant methods about functions on `ReflectionProvider`:
 
 These methods need [Scope](/developing-extensions/scope) because when calling function `foo()`, PHP first checks whether function `CurrentNamespace\foo` exists, and if it doesn't, it looks for function `foo` in the global namespace.
 
-The `getFunction` method returns [`PHPStan\Reflection\FunctionReflection`](https://apiref.phpstan.org/1.12.x/PHPStan.Reflection.FunctionReflection.html) which can be used to get information about the function.
+The `getFunction` method returns [`PHPStan\Reflection\FunctionReflection`](https://apiref.phpstan.org/2.0.x/PHPStan.Reflection.FunctionReflection.html) which can be used to get information about the function.
 
 `FunctionReflection` doesn't directly contain parameters and return types, but they can be accessed through the `getVariants(): ParametersAcceptor[]` method. That's because some built-in PHP functions have multiple variants, like [`strtok`](https://www.php.net/manual/en/function.strtok.php) or [`implode`](https://www.php.net/manual/en/function.implode.php).
 
@@ -55,12 +55,12 @@ There are three relevant methods about global constants on `ReflectionProvider`:
 
 These methods need [Scope](/developing-extensions/scope) because when accessing global constant `FOO`, PHP first checks whether constant `CurrentNamespace\FOO` exists, and if it doesn't, it looks for constant `FOO` in the global namespace.
 
-The `getConstant` method returns [`PHPStan\Reflection\GlobalConstantReflection`](https://apiref.phpstan.org/1.12.x/PHPStan.Reflection.GlobalConstantReflection.html) which can be used to get information about the constant like the value [type](/developing-extensions/type-system) with the `getValueType(): Type` method.
+The `getConstant` method returns [`PHPStan\Reflection\GlobalConstantReflection`](https://apiref.phpstan.org/2.0.x/PHPStan.Reflection.GlobalConstantReflection.html) which can be used to get information about the constant like the value [type](/developing-extensions/type-system) with the `getValueType(): Type` method.
 
 Classes
 ------------------
 
-The [`PHPStan\Reflection\ClassReflection`](https://apiref.phpstan.org/1.12.x/PHPStan.Reflection.ClassReflection.html) can be obtained using the `getClass()` method on `ReflectionProvider`. It's recommended to first check that the class exists using the `hasClass()` method.
+The [`PHPStan\Reflection\ClassReflection`](https://apiref.phpstan.org/2.0.x/PHPStan.Reflection.ClassReflection.html) can be obtained using the `getClass()` method on `ReflectionProvider`. It's recommended to first check that the class exists using the `hasClass()` method.
 
 `ClassReflection` objects represent not only classes, but also interfaces and traits. You can differentiate between them by asking `isClass()`, `isInterface()`, and `isTrait()`.
 
@@ -86,7 +86,7 @@ Class reflection works closely with [class reflection extensions](/developing-ex
 
 Property reflections can also be obtained using methods on `PHPStan\Type\Type`. See [type system](/developing-extensions/type-system) for more details.
 
-The returned [`PropertyReflection`](https://apiref.phpstan.org/1.12.x/PHPStan.Reflection.PropertyReflection.html) object can be used to ask about property's type, visibility, declaring class, and PHPDoc.
+The returned [`PropertyReflection`](https://apiref.phpstan.org/2.0.x/PHPStan.Reflection.PropertyReflection.html) object can be used to ask about property's type, visibility, declaring class, and PHPDoc.
 
 Methods
 ------------------
@@ -100,7 +100,7 @@ Class reflection works closely with [class reflection extensions](/developing-ex
 
 Method reflections can also be obtained using methods on `PHPStan\Type\Type`. See [type system](/developing-extensions/type-system) for more details.
 
-The returned [`MethodReflection`](https://apiref.phpstan.org/1.12.x/PHPStan.Reflection.MethodReflection.html) object can be used to ask about method's visibility, declaring class, PHPDoc, etc.
+The returned [`MethodReflection`](https://apiref.phpstan.org/2.0.x/PHPStan.Reflection.MethodReflection.html) object can be used to ask about method's visibility, declaring class, PHPDoc, etc.
 
 `MethodReflection` doesn't directly contain parameters and return types, but they can be accessed through the `getVariants(): ParametersAcceptor[]` method. That's because some built-in PHP methods have multiple variants, like [`PDO::query()`](https://www.php.net/manual/en/pdo.query.php).
 
@@ -126,7 +126,7 @@ Class constant reflections can be obtained by using these methods on `ClassRefle
 
 Class constant reflections can also be obtained using methods on `PHPStan\Type\Type`. See [type system](/developing-extensions/type-system) for more details.
 
-The returned [`ConstantReflection`](https://apiref.phpstan.org/1.12.x/PHPStan.Reflection.ConstantReflection.html) can be used to ask about constant's visibility, declaring class, PHPDoc, and the value [type](/developing-extensions/type-system) with the `getValueType(): Type` method.
+The returned [`ConstantReflection`](https://apiref.phpstan.org/2.0.x/PHPStan.Reflection.ConstantReflection.html) can be used to ask about constant's visibility, declaring class, PHPDoc, and the value [type](/developing-extensions/type-system) with the `getValueType(): Type` method.
 
 Retrieving custom PHPDocs
 ------------------

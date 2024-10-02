@@ -8,7 +8,7 @@ To mitigate this, you can write a stub file with the right PHPDoc. It's like sou
 
 Native parameter types and return types added in stubs are not considered.
 
-Get inspired by [the stubs PHPStan itself uses](https://github.com/phpstan/phpstan-src/tree/1.12.x/stubs) or by [the stubs from the phpstan-doctrine extension](https://github.com/phpstan/phpstan-doctrine/tree/1.3.x/stubs).
+Get inspired by [the stubs PHPStan itself uses](https://github.com/phpstan/phpstan-src/tree/2.0.x/stubs) or by [the stubs from the phpstan-doctrine extension](https://github.com/phpstan/phpstan-doctrine/tree/1.3.x/stubs).
 
 Stub files aren't a replacement for [discovering symbols](/user-guide/discovering-symbols) so if you're trying to fix errors like "Function not found" or "Class not found", check out the [discovering symbols](/user-guide/discovering-symbols) guide instead.
 

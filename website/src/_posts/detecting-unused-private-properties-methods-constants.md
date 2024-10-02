@@ -121,7 +121,7 @@ class Article
 
 This is a [Doctrine](https://www.doctrine-project.org/projects/orm.html) entity. The property is never assigned because the value will be automatically filled by the framework when the entity is saved to the database. So we don't need to set it in our code, it's taken care of.
 
-For cases like this I added extension capability. Implement this [simple interface](https://apiref.phpstan.org/1.12.x/PHPStan.Rules.Properties.ReadWritePropertiesExtension.html) to tell PHPStan your properties are always read or written even if it might not seem like it in the code:
+For cases like this I added extension capability. Implement this [simple interface](https://apiref.phpstan.org/2.0.x/PHPStan.Rules.Properties.ReadWritePropertiesExtension.html) to tell PHPStan your properties are always read or written even if it might not seem like it in the code:
 
 ```php
 interface ReadWritePropertiesExtension
@@ -154,7 +154,7 @@ For [Doctrine the logic](https://github.com/phpstan/phpstan-doctrine/blob/ecc4ae
 Always-used class constants
 -----------------------
 
-A similar interface ([`AlwaysUsedClassConstantsExtension`](https://apiref.phpstan.org/1.12.x/PHPStan.Rules.Constants.AlwaysUsedClassConstantsExtension.html)) is available to mark private class constants as always-used. This is useful for custom implementations of enums where the only way these constants are read is through reflection.
+A similar interface ([`AlwaysUsedClassConstantsExtension`](https://apiref.phpstan.org/2.0.x/PHPStan.Rules.Constants.AlwaysUsedClassConstantsExtension.html)) is available to mark private class constants as always-used. This is useful for custom implementations of enums where the only way these constants are read is through reflection.
 
 ```php
 use PHPStan\Reflection\ConstantReflection;
