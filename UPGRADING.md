@@ -233,6 +233,16 @@ Use [`PHPStan\Reflection\ReflectionProvider`](https://apiref.phpstan.org/2.0.x/P
 
 Instead of `PHPStanTestCase::createBroker()`, call `PHPStanTestCase::createReflectionProvider()`.
 
+### List type is enabled for everyone
+
+Removed static methods from `AccessoryArrayListType` class:
+
+* `isListTypeEnabled()`
+* `setListTypeEnabled()`
+* `intersectWith()`
+
+Instead of `AccessoryArrayListType::intersectWith($type)`, do `TypeCombinator::intersect($type, new AccessoryArrayListType())`.
+
 ### Minor backward compatibility breaks
 
 * Classes that were previously `@final` were made `final`
@@ -300,3 +310,4 @@ Instead of `PHPStanTestCase::createBroker()`, call `PHPStanTestCase::createRefle
   * Interface `GlobalConstantReflection` renamed to `ConstantReflection`
 * Renamed interfaces and classes from `*WithPhpDocs` to `Extended*`
 * `ClassPropertyNode::getNativeType()` return type changed from AST node to `Type|null
+* Class `PHPStan\Node\ClassMethod` (accessible from `ClassMethodsNode`) is no longer an AST node
