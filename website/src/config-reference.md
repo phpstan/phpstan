@@ -325,30 +325,6 @@ When set to `false` it prevents reading key and value variables set in foreach w
 
 When set to `false` it prevents reading key and value variables set in a separate code block in `{...}`.
 
-### `checkAlwaysTrueCheckTypeFunctionCall`
-
-**default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
-
-**example**: [with `false`](https://phpstan.org/r/0630a07b-ae95-4142-8497-1e0d0e9b9a3b), [with `true`](https://phpstan.org/r/0374a4f8-25b6-47cb-af15-2c769038bf23)
-
-When set to `true`, it reports occurrences of type-checking functions always evaluated to true.
-
-### `checkAlwaysTrueInstanceof`
-
-**default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
-
-**example**: [with `false`](https://phpstan.org/r/2911e3c4-4738-414c-81ae-46f4b3db992f), [with `true`](https://phpstan.org/r/28e463d8-a6e3-421c-8388-9a71ea8060e7)
-
-When set to `true`, it reports `instanceof` occurrences always evaluated to true.
-
-### `checkAlwaysTrueStrictComparison`
-
-**default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
-
-**example**: [with `false`](https://phpstan.org/r/cf5b3e50-9d59-4e91-9efc-3e86600a8ac0), [with `true`](https://phpstan.org/r/83723605-0cd3-4a4e-bfb2-7971d9eb554b)
-
-When set to `true`, it reports `===` and `!==` occurrences always evaluated to true.
-
 ### `checkExplicitMixedMissingReturn`
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
