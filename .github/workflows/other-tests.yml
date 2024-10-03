@@ -185,10 +185,6 @@ jobs:
             cd e2e/bug6933
             composer install
             ../../phpstan analyse -l 8 Module
-          - |
-            cd e2e/php-parser-4-compat
-            composer install
-            ../../phpstan
         include:
           - php-version: 8.0
             ini-values: memory_limit=256M
@@ -430,6 +426,13 @@ jobs:
             operating-system: ubuntu-latest
             script: |
               cd e2e/bug-10023
+              composer install
+              ../../phpstan
+          - php-version: 8.3
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/php-parser-4-compat
               composer install
               ../../phpstan
 
