@@ -1,0 +1,13 @@
+{
+	"require": {
+		"phpstan/phpstan": "^2.0",
+		"phpunit/phpunit": "^11"
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+	"autoload": {
+		"psr-4": {
+			"App\\": "src/"
+		}
+	}
+}

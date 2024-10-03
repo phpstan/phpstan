@@ -1,0 +1,10 @@
+includes:
+	- baseline.neon
+
+rules:
+	- App\TestExprArrayItemRule
+
+parameters:
+	level: 8
+	paths:
+		- src
