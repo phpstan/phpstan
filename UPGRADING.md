@@ -9,7 +9,7 @@ PHPStan now requires PHP 7.4 or newer to run.
 
 ## Upgrading guide for end users
 
-The best way do get ready for upgrade to PHPStan 2.0 is to update to the **latest PHPStan 1.12 release**
+The best way to get ready for upgrade to PHPStan 2.0 is to update to the **latest PHPStan 1.12 release**
 and enable [**Bleeding Edge**](https://phpstan.org/blog/what-is-bleeding-edge). This will enable the new rules and behaviours that 2.0 turns on for all users.
 
 Also make sure to install and enable [`phpstan/phpstan-deprecation-rules`](https://github.com/phpstan/phpstan-deprecation-rules).
@@ -109,6 +109,11 @@ Tags without a PHP version are no longer published - `nightly`, `2`, `latest` ar
 
 ## Upgrading guide for extension developers
 
+> [!NOTE]
+> Please switch to PHPStan 2.0 in a new major version of your extension. It's not feasible to try to support both PHPStan 1.x and PHPStan 2.x with the same extension code.
+>
+> You can definitely get closer to supporting PHPStan 2.0 without increasing major version by solving reported deprecations and other issues by analysing your extension code with PHPStan & phpstan-deprecation-rules & Bleeding Edge, but the final leap and solving backward incompatibilities should be done by requiring `"phpstan/phpstan": "^2.0"` in your `composer.json`, and releasing a new major version.
+
 ### PHPStan now uses nikic/php-parser v5
 
 See [UPGRADING](https://github.com/nikic/PHP-Parser/blob/master/UPGRADE-5.0.md) guide for PHP-Parser.
@@ -185,7 +190,7 @@ $returnType = ParametersAcceptorSelector::selectSingle($function->getVariants())
 
 **After**:
 
-```
+```php
 $returnType = $node->getFunctionReflection()->getReturnType();
 ```
 
@@ -287,15 +292,15 @@ Instead of `AccessoryArrayListType::intersectWith($type)`, do `TypeCombinator::i
   * Remove `TypeUtils::getEnumCaseObjects()`, use [`Type::getEnumCases()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getEnumCases) instead
   * Remove `TypeUtils::containsCallable()`, use [`Type::isCallable()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_isCallable) instead
 * Removed `Scope::doNotTreatPhpDocTypesAsCertain()`, use `getNativeType()` instead
-* Parameter `$isList` in `ConstantArrayType` constructor can only be `TrinaryLogic`, no longer bool
-* Parameter `$nextAutoIndexes` in `ConstantArrayType` constructor can only be `non-empty-list<int>`, no longer int
+* Parameter `$isList` in `ConstantArrayType` constructor can only be `TrinaryLogic`, no longer `bool`
+* Parameter `$nextAutoIndexes` in `ConstantArrayType` constructor can only be `non-empty-list<int>`, no longer `int`
 * Remove `ConstantType` interface, use [`Type::isConstantValue()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_isConstantValue) instead
 * `acceptsNamedArguments()` in `FunctionReflection`, `ExtendedMethodReflection` and `CallableParametersAcceptor` interfaces returns `TrinaryLogic` instead of `bool`
 * Remove `FunctionReflection::isFinal()`
 * [`Type::getProperty()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getProperty) now returns [`ExtendedPropertyReflection`](https://apiref.phpstan.org/2.0.x/PHPStan.Reflection.ExtendedPropertyReflection.html)
 * `additionalConfigFiles` config parameter must be a list
 * Remove `__set_state()` on objects that should not be serialized in cache
-* Parameter `$selfClass` of [`TypehintHelper::decideTypeFromReflection()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.TypehintHelper.html#_decideTypeFromReflection) no longer accepts string
+* Parameter `$selfClass` of [`TypehintHelper::decideTypeFromReflection()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.TypehintHelper.html#_decideTypeFromReflection) no longer accepts `string`
 * Remove `fixerTmpDir` config parameter, use `pro.tmpDir` instead
 * Remove `tempResultCachePath` config parameter, use `resultCachePath` instead
 * `LevelsTestCase::dataTopics()` data provider made static
@@ -309,5 +314,9 @@ Instead of `AccessoryArrayListType::intersectWith($type)`, do `TypeCombinator::i
   * Added more methods around PHPDoc types and native types to the (new) `ClassConstantReflection`
   * Interface `GlobalConstantReflection` renamed to `ConstantReflection`
 * Renamed interfaces and classes from `*WithPhpDocs` to `Extended*`
-* `ClassPropertyNode::getNativeType()` return type changed from AST node to `Type|null
+  * `ParametersAcceptorWithPhpDocs` -> `ExtendedParametersAcceptor`
+  * `ParameterReflectionWithPhpDocs` -> `ExtendedParameterReflection`
+  * `FunctionVariantWithPhpDocs` -> `ExtendedFunctionVariant`
+* `ClassPropertyNode::getNativeType()` return type changed from AST node to `Type|null`
 * Class `PHPStan\Node\ClassMethod` (accessible from `ClassMethodsNode`) is no longer an AST node
+  * Call `PHPStan\Node\ClassMethod::getNode()` to access the original AST node
