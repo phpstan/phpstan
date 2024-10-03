@@ -9704,6 +9704,13 @@
             ]
         }
     },
+    "phpParser.classRenamed": {
+        "PHPStan\\Rules\\Api\\OldPhpParser4ClassRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Api/OldPhpParser4ClassRule.php#L74"
+            ]
+        }
+    },
     "phpParser.nodeConnectingAttribute": {
         "PHPStan\\Rules\\Api\\NodeConnectingVisitorAttributesRule": {
             "phpstan/phpstan-src": [
