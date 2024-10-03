@@ -155,7 +155,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/o0h">Hideki Kinjyo (o0h)</a></li>
 <li><a href="https://github.com/tenkoma">Koji Tanaka (tenkoma)</a></li>
 <li><a href="https://github.com/codecov">Codecov (codecov)</a></li>
-<li><a href="https://github.com/noondaysun">Feighen Oosterbroek (noondaysun)</a></li>
 <li><a href="https://github.com/wandoliver">Oliver Wand (wandoliver)</a></li>
 <li><a href="https://github.com/stafftastic">stafftastic GmbH (stafftastic)</a></li>
 <li><a href="https://github.com/AllenJB">AllenJB (AllenJB)</a></li>
@@ -167,5 +166,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/WyriHaximus">Cees-Jan Kiewiet (WyriHaximus)</a></li>
 <li><a href="https://github.com/lubatti">Lautaro Lubatti (lubatti)</a></li>
 <li><a href="https://github.com/istiak-tridip">Istiak Tridip (istiak-tridip)</a></li>
+<li><a href="https://github.com/kassner">Rafael Kassner (kassner)</a></li>
 <!-- five-org -->
 </ul>
