@@ -14,3 +14,8 @@ parameters:
 			message: "#^Array item has value\\: 3$#"
 			count: 1
 			path: src/Test.php
+
+		-
+			message: "#^Array item has value\\: PHPStan\\\\Rules\\\\IdentifierRuleError$#"
+			count: 1
+			path: src/TestExprArrayItemRule.php
