@@ -36,6 +36,13 @@ After changing your `composer.json`, run `composer update 'phpstan/*' -W`.
 
 It's up to you whether you go through the new reported errors or if you just put them all to the [baseline](https://phpstan.org/user-guide/baseline) ;) Everyone who's on PHPStan 1.12 should be able to upgrade to PHPStan 2.0.
 
+### Noteworthy changes to code analysis
+
+* [**Enhancements in handling parameters passed by reference**](https://phpstan.org/blog/enhancements-in-handling-parameters-passed-by-reference)
+* [**Validate inline PHPDoc `@var` tag type**](https://phpstan.org/blog/phpstan-1-10-comes-with-lie-detector#validate-inline-phpdoc-%40var-tag-type)
+* [**List type enforced**](https://phpstan.org/blog/phpstan-1-9-0-with-phpdoc-asserts-list-type#list-type)
+* **Always `true` conditions always reported**: previously reported only with phpstan-strict-rules, this is now always reported.
+
 ### Removed option `checkMissingIterableValueType`
 
 It's strongly recommended to add the missing array typehints.
@@ -106,6 +113,9 @@ Tags without a PHP version are no longer published - `nightly`, `2`, `latest` ar
 * Removed unused config parameter `memoryLimitFile`
 * Removed unused feature toggle `disableRuntimeReflectionProvider`
 * Removed unused config parameter `staticReflectionClassNamePatterns`
+* Remove `fixerTmpDir` config parameter, use `pro.tmpDir` instead
+* Remove `tempResultCachePath` config parameter, use `resultCachePath` instead
+* `additionalConfigFiles` config parameter must be a list
 
 ## Upgrading guide for extension developers
 
@@ -298,11 +308,8 @@ Instead of `AccessoryArrayListType::intersectWith($type)`, do `TypeCombinator::i
 * `acceptsNamedArguments()` in `FunctionReflection`, `ExtendedMethodReflection` and `CallableParametersAcceptor` interfaces returns `TrinaryLogic` instead of `bool`
 * Remove `FunctionReflection::isFinal()`
 * [`Type::getProperty()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getProperty) now returns [`ExtendedPropertyReflection`](https://apiref.phpstan.org/2.0.x/PHPStan.Reflection.ExtendedPropertyReflection.html)
-* `additionalConfigFiles` config parameter must be a list
 * Remove `__set_state()` on objects that should not be serialized in cache
 * Parameter `$selfClass` of [`TypehintHelper::decideTypeFromReflection()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.TypehintHelper.html#_decideTypeFromReflection) no longer accepts `string`
-* Remove `fixerTmpDir` config parameter, use `pro.tmpDir` instead
-* Remove `tempResultCachePath` config parameter, use `resultCachePath` instead
 * `LevelsTestCase::dataTopics()` data provider made static
 * `PHPStan\Node\Printer\Printer` no longer autowired as `PhpParser\PrettyPrinter\Standard`, use `PHPStan\Node\Printer\Printer` in the typehint
 * Remove `Type::acceptsWithReason()`, `Type:accepts()` return type changed from `TrinaryLogic` to [`AcceptsResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.AcceptsResult.html)
