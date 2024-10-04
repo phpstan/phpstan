@@ -8,25 +8,25 @@ It's hosted on [GitHub Container Registry](https://github.com/phpstan/phpstan/pk
 
 ## Supported tags
 
-- `1`, `1-php8.0`, `latest`, `latest-php8.0` (PHP 8.0)
-- `1-php8.1`, `latest-php8.1` (PHP 8.1)
-- `1-php8.2`, `latest-php8.2` (PHP 8.2)
-- `1-php8.3`, `latest-php8.3` (PHP 8.3)
-- `nightly`, `nightly-php8.0` - latest dev version (PHP 8.0)
-- `nightly-php8.1` - latest dev version (PHP 8.1)
-- `nightly-php8.2` - latest dev version (PHP 8.2)
+- `2-php8.3`, `latest-php8.3` (PHP 8.3)
+- `2-php8.2`, `latest-php8.2` (PHP 8.2)
+- `2-php8.1`, `latest-php8.1` (PHP 8.1)
+- `2-php8.0`, `latest-php8.0` (PHP 8.0)
+
+- `1-php8.3` (PHP 8.3)
+- `1-php8.2` (PHP 8.2)
+- `1-php8.1` (PHP 8.1)
+- `1-php8.0` (PHP 8.0)
+
 - `nightly-php8.3` - latest dev version (PHP 8.3)
+- `nightly-php8.2` - latest dev version (PHP 8.2)
+- `nightly-php8.1` - latest dev version (PHP 8.1)
+- `nightly-php8.0` - latest dev version (PHP 8.0)
 
 ## Installation
 
 ```bash
-docker pull ghcr.io/phpstan/phpstan
-```
-
-Alternatively, pull a specific version:
-
-```bash
-docker pull ghcr.io/phpstan/phpstan:1
+docker pull ghcr.io/phpstan/phpstan:2-php8.3
 ```
 
 If you have your own Docker image and just want to put PHPStan there, you can with this command in your `Dockerfile`:
