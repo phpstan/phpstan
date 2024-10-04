@@ -56,7 +56,7 @@ jobs:
           build-args: |
             PHPSTAN_VERSION=${{ steps.get_version.outputs.VERSION }}
           push: true
-          tags: "ghcr.io/phpstan/phpstan:latest${{ matrix.image-tag-suffix }},ghcr.io/phpstan/phpstan:1${{ matrix.image-tag-suffix }},ghcr.io/phpstan/phpstan:${{ steps.get_version.outputs.VERSION }}${{ matrix.image-tag-suffix }}"
+          tags: "ghcr.io/phpstan/phpstan:latest${{ matrix.image-tag-suffix }},ghcr.io/phpstan/phpstan:2${{ matrix.image-tag-suffix }},ghcr.io/phpstan/phpstan:${{ steps.get_version.outputs.VERSION }}${{ matrix.image-tag-suffix }}"
           platforms: linux/amd64,linux/arm64
           cache-from: type=gha, scope=${{ github.workflow }}
           cache-to: type=gha, scope=${{ github.workflow }}
