@@ -541,7 +541,7 @@ class Foo
 
 This feature needs to be enabled via feature toggle by opting in to [bleeding edge](https://phpstan.org/blog/what-is-bleeding-edge).
 
-Immutable /readonly classes
+Immutable / readonly classes
 -----------------
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.7.0</div>
