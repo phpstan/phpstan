@@ -1,5 +1,3 @@
-This document is a work in progress.
-
 Upgrading from PHPStan 1.x to 2.0
 =================================
 
