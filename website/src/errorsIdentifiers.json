@@ -1395,24 +1395,60 @@
     "assert.alreadyNarrowedType": {
         "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L88"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L125"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L88"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L125"
             ]
         }
     },
     "assert.impossibleType": {
         "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L80"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L117"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L80"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L117"
+            ]
+        }
+    },
+    "assert.trait": {
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L147"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L147"
+            ]
+        }
+    },
+    "assert.unknownExpr": {
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L86"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L86"
+            ]
+        }
+    },
+    "assert.unresolvableType": {
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L104"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L104"
             ]
         }
     },
@@ -2834,6 +2870,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -2845,6 +2886,11 @@
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -3346,6 +3392,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/RuleLevelHelper.php#L228"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L136"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/TemplateTypeCheck.php#L89"
@@ -3359,6 +3410,11 @@
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L144"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L136"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
@@ -3665,6 +3721,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassForbiddenNameCheck.php#L77"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassForbiddenNameCheck.php#L77"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassForbiddenNameCheck.php#L77"
@@ -3676,6 +3737,11 @@
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassForbiddenNameCheck.php#L77"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassForbiddenNameCheck.php#L77"
             ]
@@ -4758,6 +4824,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -4769,6 +4840,11 @@
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -5402,6 +5478,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
@@ -5423,6 +5504,11 @@
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L114"
             ]
@@ -5566,6 +5652,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
@@ -5587,6 +5678,11 @@
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L102"
             ]
@@ -5819,6 +5915,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
@@ -5840,6 +5941,11 @@
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L69"
             ]
@@ -5961,6 +6067,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
@@ -5982,6 +6093,11 @@
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L79"
             ]
@@ -6147,6 +6263,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
@@ -6168,6 +6289,11 @@
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L51"
             ]
@@ -6289,6 +6415,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
@@ -6310,6 +6441,11 @@
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Generics/GenericObjectTypeCheck.php#L150"
             ]
@@ -7191,6 +7327,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -7202,6 +7343,11 @@
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
@@ -8246,6 +8392,16 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MissingMethodSelfOutTypeRule.php#L79"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L204"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L204"
+            ]
+        },
         "PHPStan\\Rules\\Properties\\MissingPropertyTypehintRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Properties/MissingPropertyTypehintRule.php#L83"
@@ -8375,9 +8531,19 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MissingMethodSelfOutTypeRule.php#L68"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L194"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L108"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L194"
             ]
         },
         "PHPStan\\Rules\\Properties\\MissingPropertyTypehintRule": {
@@ -8477,9 +8643,19 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Methods/MissingMethodSelfOutTypeRule.php#L55"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L182"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L97"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L182"
             ]
         },
         "PHPStan\\Rules\\Properties\\MissingPropertyTypehintRule": {
@@ -9449,7 +9625,7 @@
     "parameter.notFound": {
         "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L49"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L72"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\FunctionConditionalReturnTypeRule": {
@@ -9469,7 +9645,7 @@
         },
         "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L49"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/PhpDoc/AssertRuleHelper.php#L72"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodConditionalReturnTypeRule": {
@@ -12308,6 +12484,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
         },
+        "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
@@ -12319,6 +12500,11 @@
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
+            ]
+        },
+        "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/ClassCaseSensitivityCheck.php#L47"
             ]
