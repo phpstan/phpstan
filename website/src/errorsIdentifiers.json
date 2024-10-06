@@ -8110,7 +8110,7 @@
     "method.unused": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivateMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/DeadCode/UnusedPrivateMethodRule.php#L179"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/DeadCode/UnusedPrivateMethodRule.php#L188"
             ]
         }
     },
@@ -10752,14 +10752,14 @@
     "property.onlyRead": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L200"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L209"
             ]
         }
     },
     "property.onlyWritten": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L193"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L202"
             ]
         }
     },
@@ -10984,7 +10984,7 @@
     "property.unused": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L188"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L197"
             ]
         }
     },
