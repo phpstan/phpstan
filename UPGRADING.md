@@ -289,6 +289,7 @@ Instead of `AccessoryArrayListType::intersectWith($type)`, do `TypeCombinator::i
 * Remove `ConstantArrayType::removeFirst()`, use [`Type::shiftArray()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_shiftArray) instead
 * Remove `ConstantArrayType::reverse()`, use [`Type::reverseArray()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_reverseArray) instead
 * Remove `ConstantArrayType::chunk()`, use [`Type::chunkArray()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_chunkArray) instead
+* Remove `ConstantArrayType::slice()`, use [`Type::sliceArray()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_sliceArray) instead
 * Made `TypeUtils` thinner by removing methods:
   * Remove `TypeUtils::getArrays()` and `getAnyArrays()`, use [`Type::getArrays()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getArrays) instead
   * Remove `TypeUtils::getConstantArrays()` and `getOldConstantArrays()`, use [`Type::getConstantArrays()`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.Type.html#_getConstantArrays) instead
