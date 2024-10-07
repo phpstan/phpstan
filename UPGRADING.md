@@ -151,7 +151,7 @@ return ['My error'];
 
 ```php
 return [
-    RuleErrorBuilder::mesage('My error')
+    RuleErrorBuilder::message('My error')
         ->identifier('my.error')
         ->build(),
 ];
