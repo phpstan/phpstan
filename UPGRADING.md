@@ -313,7 +313,9 @@ Instead of `AccessoryArrayListType::intersectWith($type)`, do `TypeCombinator::i
 * `PHPStan\Node\Printer\Printer` no longer autowired as `PhpParser\PrettyPrinter\Standard`, use `PHPStan\Node\Printer\Printer` in the typehint
 * Remove `Type::acceptsWithReason()`, `Type:accepts()` return type changed from `TrinaryLogic` to [`AcceptsResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.AcceptsResult.html)
 * Remove `CompoundType::isAcceptedWithReasonBy()`, `CompoundType::isAcceptedBy()` return type changed from `TrinaryLogic` to [`AcceptsResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.AcceptsResult.html)
-* Remove `TemplateType::isValidVarianceWithReason()`, changed `TemplateType::isValidVariance()` return type to `IsSuperTypeOfResult`
+Remove `Type::isSuperTypeOfWithReason()`, `Type:isSuperTypeOf()` return type changed from `TrinaryLogic` to [`IsSuperTypeOfResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.IsSuperTypeOfResult.html)
+* Remove `CompoundType::isSubTypeOfWithReasonBy()`, `CompoundType::isSubTypeOf()` return type changed from `TrinaryLogic` to [`IsSuperTypeOfResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.IsSuperTypeOfResult.html)
+* Remove `TemplateType::isValidVarianceWithReason()`, changed `TemplateType::isValidVariance()` return type to [`IsSuperTypeOfResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.IsSuperTypeOfResult.html)
 * `RuleLevelHelper::accepts()` return type changed from `bool` to [`RuleLevelHelperAcceptsResult`](https://apiref.phpstan.org/2.0.x/PHPStan.Type.AcceptsResult.html)
 * Changes around `ClassConstantReflection`
   * Class `ClassConstantReflection` removed from BC promise, renamed to `RealClassConstantReflection`
