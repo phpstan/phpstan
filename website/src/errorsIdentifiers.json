@@ -5095,7 +5095,7 @@
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionStatementWithoutSideEffectsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Functions/CallToFunctionStatementWithoutSideEffectsRule.php#L132"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Functions/CallToFunctionStatementWithoutSideEffectsRule.php#L133"
             ]
         }
     },
@@ -10010,6 +10010,13 @@
         "PHPStan\\Rules\\Debug\\DebugScopeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Debug/DebugScopeRule.php#L62"
+            ]
+        }
+    },
+    "phpstan.dumpPhpDocType": {
+        "PHPStan\\Rules\\Debug\\DumpPhpDocTypeRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Debug/DumpPhpDocTypeRule.php#L55"
             ]
         }
     },
