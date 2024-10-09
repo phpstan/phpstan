@@ -4,3 +4,11 @@ parameters:
 			message: "#^Parameter \\#1 \\$num of function abs expects float\\|int, int\\|null given\\.$#"
 			count: 1
 			path: repo/src/Composer/DependencyResolver/Solver.php
+
+		-
+			message: """
+				#^Call to deprecated method selectSingle\\(\\) of class PHPStan\\\\Reflection\\\\ParametersAcceptorSelector\\:
+				See https\\://github\\.com/phpstan/phpstan\\-src/blob/2\\.0\\.x/UPGRADING\\.md\\#removed\\-deprecated\\-parametersacceptorselectorselectsingle$#
+			"""
+			count: 1
+			path: repo/src/Composer/PHPStan/ConfigReturnTypeExtension.php
