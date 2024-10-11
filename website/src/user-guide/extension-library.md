@@ -83,6 +83,7 @@ Unofficial extensions
 * [voku / phpstan-rules](https://github.com/voku/phpstan-rules)
 * [shipmonk / phpstan-rules](https://github.com/shipmonk-rnd/phpstan-rules)
 * [shipmonk / dead-code-detector](https://github.com/shipmonk-rnd/dead-code-detector)
+* [shipmonk / phpstan-baseline-per-identifier](https://github.com/shipmonk-rnd/phpstan-baseline-per-identifier)
 * [jiripudil / phpstan-sealed-classes](https://github.com/jiripudil/phpstan-sealed-classes)
 * [sidz / phpstan-rules](https://github.com/sidz/phpstan-rules)
 * [staabm / phpstan-todo-by](https://github.com/staabm/phpstan-todo-by)
