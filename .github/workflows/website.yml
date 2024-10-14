@@ -64,9 +64,6 @@ jobs:
         working-directory: ./website
         run: echo -n $(git rev-parse --short HEAD) > src/release.txt
 
-      - name: "Install Chrome"
-        uses: browser-actions/setup-chrome@v1
-
       - name: "Build"
         working-directory: ./website
         run: "npm run build"
