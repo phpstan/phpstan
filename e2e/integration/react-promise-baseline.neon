@@ -1,11 +1,211 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method React\\\\Promise\\\\Internal\\\\FulfilledPromise\\:\\:finally\\(\\) should return React\\\\Promise\\\\PromiseInterface\\<T\\> but returns React\\\\Promise\\\\PromiseInterface\\<\\(T of mixed\\)\\|null\\>\\.$#"
+			message: '#^Cannot use \+\+ on mixed\.$#'
+			identifier: postInc.type
+			count: 1
+			path: repo/src/Internal/CancellationQueue.php
+
+		-
+			message: '#^Method React\\Promise\\Internal\\FulfilledPromise\:\:finally\(\) should return React\\Promise\\PromiseInterface\<T\> but returns React\\Promise\\PromiseInterface\<\(T of mixed\)\|null\>\.$#'
+			identifier: return.type
 			count: 1
 			path: repo/src/Internal/FulfilledPromise.php
 
 		-
-			message: "#^Method React\\\\Promise\\\\Promise\\:\\:finally\\(\\) should return React\\\\Promise\\\\PromiseInterface\\<T\\> but returns React\\\\Promise\\\\PromiseInterface\\<\\(T of mixed\\)\\|null\\>\\.$#"
+			message: '#^Method React\\Promise\\Promise\:\:finally\(\) should return React\\Promise\\PromiseInterface\<T\> but returns React\\Promise\\PromiseInterface\<\(T of mixed\)\|null\>\.$#'
+			identifier: return.type
 			count: 1
 			path: repo/src/Promise.php
+
+		-
+			message: '#^Parameter \#1 \$objectOrMethod of class ReflectionMethod constructor expects object\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Promise.php
+
+		-
+			message: '#^Parameter \#1 \$result of method React\\Promise\\Promise\<T\>\:\:settle\(\) expects React\\Promise\\PromiseInterface\<T\>, React\\Promise\\PromiseInterface\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Promise.php
+
+		-
+			message: '#^Parameter \#2 \$method of class ReflectionMethod constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Promise.php
+
+		-
+			message: '#^Call to an undefined method object&T of mixed\:\:then\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/functions.php
+
+		-
+			message: '#^Call to function method_exists\(\) with object&T of mixed and ''cancel'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/functions.php
+
+		-
+			message: '#^Call to function method_exists\(\) with object&T of mixed and ''then'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/functions.php
+
+		-
+			message: '#^Function React\\Promise\\set_rejection_handler\(\) should return \(callable\(Throwable\)\: void\)\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/src/functions.php
+
+		-
+			message: '#^Parameter \#1 \$objectOrMethod of class ReflectionMethod constructor expects object\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/functions.php
+
+		-
+			message: '#^Parameter \#2 \$method of class ReflectionMethod constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/functions.php
+
+		-
+			message: '#^Binary operation "\+" between \(T of mixed\)\|null and 1 results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: repo/tests/DeferredTest.php
+
+		-
+			message: '#^Method React\\Promise\\DeferredTest\:\:getPromiseTestAdapter\(\) should return React\\Promise\\PromiseAdapter\\CallbackPromiseAdapter\<T\> but returns React\\Promise\\PromiseAdapter\\CallbackPromiseAdapter\<mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/tests/DeferredTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type React\\Promise\\PromiseAdapter\\PromiseAdapterInterface\<int\> is not subtype of native type React\\Promise\\PromiseAdapter\\CallbackPromiseAdapter\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/tests/DeferredTest.php
+
+		-
+			message: '#^Trying to invoke mixed but it''s not a callable\.$#'
+			identifier: callable.nonCallable
+			count: 3
+			path: repo/tests/DeferredTest.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/tests/Fiber.php
+
+		-
+			message: '#^Call to function is_callable\(\) with callable\(\)\: mixed will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/tests/Fiber.php
+
+		-
+			message: '#^Parameter \#1 \$promisesOrValues of function React\\Promise\\all expects iterable\<int\|React\\Promise\\PromiseInterface\<int\>\>, array\<int, React\\Promise\\PromiseInterface\<int\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/FunctionAllTest.php
+
+		-
+			message: '#^Binary operation "\+" between \(T of mixed\)\|null and 1 results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: repo/tests/Internal/FulfilledPromiseTest.php
+
+		-
+			message: '#^Method React\\Promise\\Internal\\FulfilledPromiseTest\:\:getPromiseTestAdapter\(\) should return React\\Promise\\PromiseAdapter\\CallbackPromiseAdapter\<T\> but returns React\\Promise\\PromiseAdapter\\CallbackPromiseAdapter\<mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/tests/Internal/FulfilledPromiseTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type React\\Promise\\PromiseAdapter\\PromiseAdapterInterface\<int\> is not subtype of native type React\\Promise\\PromiseAdapter\\CallbackPromiseAdapter\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/tests/Internal/FulfilledPromiseTest.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: repo/tests/Internal/RejectedPromiseTest.php
+
+		-
+			message: '#^Method React\\Promise\\Internal\\RejectedPromiseTest\:\:getPromiseTestAdapter\(\) should return React\\Promise\\PromiseAdapter\\CallbackPromiseAdapter\<never\> but returns React\\Promise\\PromiseAdapter\\CallbackPromiseAdapter\<mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/tests/Internal/RejectedPromiseTest.php
+
+		-
+			message: '#^Method React\\Promise\\PromiseAdapter\\CallbackPromiseAdapter\:\:promise\(\) should return React\\Promise\\PromiseInterface\<T\> but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/tests/PromiseAdapter/CallbackPromiseAdapter.php
+
+		-
+			message: '#^Binary operation "\+" between \(T of mixed\)\|null and 1 results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: repo/tests/PromiseTest.php
+
+		-
+			message: '#^Method React\\Promise\\PromiseTest\:\:getPromiseTestAdapter\(\) should return React\\Promise\\PromiseAdapter\\CallbackPromiseAdapter\<T\> but returns React\\Promise\\PromiseAdapter\\CallbackPromiseAdapter\<mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/tests/PromiseTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type React\\Promise\\PromiseAdapter\\PromiseAdapterInterface\<int\> is not subtype of native type React\\Promise\\PromiseAdapter\\CallbackPromiseAdapter\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/tests/PromiseTest.php
+
+		-
+			message: '#^Trying to invoke mixed but it''s not a callable\.$#'
+			identifier: callable.nonCallable
+			count: 3
+			path: repo/tests/PromiseTest.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 3
+			path: repo/tests/TestCase.php
+
+		-
+			message: '#^Call to function is_callable\(\) with callable\(\)\: mixed&PHPUnit\\Framework\\MockObject\\MockObject will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 3
+			path: repo/tests/TestCase.php
+
+		-
+			message: '#^Call to function method_exists\(\) with PHPUnit\\Framework\\MockObject\\MockBuilder\<stdClass\> and ''addMethods'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/tests/TestCase.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Framework\\MockObject\\MockObject&stdClass and PHPUnit\\Framework\\MockObject\\MockObject will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/tests/TestCase.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/tests/types/promise.php
+
+		-
+			message: '#^Instanceof between React\\Promise\\Promise\<mixed\> and React\\Promise\\Promise will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/tests/types/promise.php

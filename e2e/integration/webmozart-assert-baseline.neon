@@ -1,461 +1,1831 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allCount\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allAlnum\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allAlnum\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-alnum.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrAlnum\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrAlnum\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-alnum.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrAlnum\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrAlnum\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-alnum.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allAlpha\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allAlpha\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-alpha.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrAlpha\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrAlpha\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-alpha.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrAlpha\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrAlpha\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-alpha.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allBoolean\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allBoolean\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-boolean.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrBoolean\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrBoolean\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-boolean.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrBoolean\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrBoolean\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-boolean.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allContains\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allContains\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-contains.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrContains\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrContains\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-contains.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrContains\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrContains\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-contains.php
+
+		-
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allCount\(\) has parameter \$value with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-count.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allCount\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-count.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrCount\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrCount\(\) has parameter \$value with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-count.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrCount\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-count.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\count\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\count\(\) has parameter \$value with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-count.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\count\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\count\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-count.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrCount\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrCount\(\) has parameter \$value with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-count.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrCount\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-count.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allCountBetween\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allCountBetween\(\) has parameter \$value with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-countBetween.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allCountBetween\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allCountBetween\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-countBetween.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrCountBetween\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrCountBetween\(\) has parameter \$value with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-countBetween.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrCountBetween\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrCountBetween\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-countBetween.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\countBetween\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\countBetween\(\) has parameter \$value with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-countBetween.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\countBetween\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\countBetween\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-countBetween.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrCountBetween\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrCountBetween\(\) has parameter \$value with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-countBetween.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrCountBetween\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrCountBetween\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-countBetween.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allInArray\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allDigits\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allDigits\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-digits.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrDigits\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrDigits\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-digits.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrDigits\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrDigits\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-digits.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allEndsWith\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allEndsWith\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-endsWith.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrEndsWith\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrEndsWith\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-endsWith.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrEndsWith\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrEndsWith\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-endsWith.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allFalse\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allFalse\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-false.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allFalse\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrFalse\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-false.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrFalse\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrFalse\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-false.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allFloat\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allFloat\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-float.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrFloat\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrFloat\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-float.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrFloat\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrFloat\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-float.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allGreaterThan\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allGreaterThan\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-greaterThan.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrGreaterThan\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrGreaterThan\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-greaterThan.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrGreaterThan\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrGreaterThan\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-greaterThan.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allGreaterThanEq\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allGreaterThanEq\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-greaterThanEq.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrGreaterThanEq\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrGreaterThanEq\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-greaterThanEq.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrGreaterThanEq\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrGreaterThanEq\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-greaterThanEq.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allImplementsInterface\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allImplementsInterface\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-implementsInterface.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrImplementsInterface\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrImplementsInterface\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-implementsInterface.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrImplementsInterface\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrImplementsInterface\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-implementsInterface.php
+
+		-
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allInArray\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-inArray.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrInArray\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrInArray\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-inArray.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\inArray\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\inArray\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-inArray.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrInArray\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrInArray\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-inArray.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allIsArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allInArray\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allInArray\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-inArray.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrInArray\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrInArray\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-inArray.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrInArray\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrInArray\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-inArray.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allInteger\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allInteger\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-integer.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrInteger\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrInteger\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-integer.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrInteger\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrInteger\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-integer.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIntegerish\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIntegerish\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-integerish.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrIntegerish\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIntegerish\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-integerish.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIntegerish\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIntegerish\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-integerish.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIsAOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsAOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isAOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrIsAOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsAOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isAOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIsAOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsAOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isAOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIsAnyOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsAnyOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isAnyOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrIsAnyOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsAnyOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isAnyOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIsAnyOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsAnyOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isAnyOf.php
+
+		-
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-isArray.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrIsArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-isArray.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\isArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\isArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-isArray.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-isArray.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allIsArrayAccessible\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIsArray\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsArray\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isArray.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrIsArray\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsArray\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isArray.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIsArray\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsArray\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isArray.php
+
+		-
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsArrayAccessible\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-isArrayAccessible.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allIsArrayAccessible\\(\\) return type with generic interface ArrayAccess does not specify its types\\: TKey, TValue$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsArrayAccessible\(\) return type with generic interface ArrayAccess does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
 			path: repo/tests/static-analysis/assert-isArrayAccessible.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrIsArrayAccessible\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsArrayAccessible\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-isArrayAccessible.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrIsArrayAccessible\\(\\) return type with generic interface ArrayAccess does not specify its types\\: TKey, TValue$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsArrayAccessible\(\) return type with generic interface ArrayAccess does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
 			path: repo/tests/static-analysis/assert-isArrayAccessible.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\isArrayAccessible\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\isArrayAccessible\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-isArrayAccessible.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\isArrayAccessible\\(\\) return type with generic interface ArrayAccess does not specify its types\\: TKey, TValue$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\isArrayAccessible\(\) return type with generic interface ArrayAccess does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
 			path: repo/tests/static-analysis/assert-isArrayAccessible.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsArrayAccessible\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsArrayAccessible\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-isArrayAccessible.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsArrayAccessible\\(\\) return type with generic interface ArrayAccess does not specify its types\\: TKey, TValue$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsArrayAccessible\(\) return type with generic interface ArrayAccess does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
 			count: 1
 			path: repo/tests/static-analysis/assert-isArrayAccessible.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\isEmptyArray\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIsArrayAccessible\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsArrayAccessible\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isArrayAccessible.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrIsArrayAccessible\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsArrayAccessible\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isArrayAccessible.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIsArrayAccessible\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsArrayAccessible\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isArrayAccessible.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIsCallable\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsCallable\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isCallable.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrIsCallable\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsCallable\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isCallable.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIsCallable\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsCallable\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isCallable.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIsCountable\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsCountable\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isCountable.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrIsCountable\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsCountable\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isCountable.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIsCountable\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsCountable\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isCountable.php
+
+		-
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\isEmptyArray\(\) has parameter \$value with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-isEmpty.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsEmpty\\(\\) never returns '' so it can be removed from the return type\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsEmpty\(\) never returns '''' so it can be removed from the return type\.$#'
+			identifier: return.unusedType
 			count: 1
 			path: repo/tests/static-analysis/assert-isEmpty.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsEmpty\\(\\) never returns '0' so it can be removed from the return type\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsEmpty\(\) never returns ''0'' so it can be removed from the return type\.$#'
+			identifier: return.unusedType
 			count: 1
 			path: repo/tests/static-analysis/assert-isEmpty.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsEmpty\\(\\) never returns 0 so it can be removed from the return type\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsEmpty\(\) never returns 0 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
 			count: 1
 			path: repo/tests/static-analysis/assert-isEmpty.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsEmpty\\(\\) never returns 0\\.0 so it can be removed from the return type\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsEmpty\(\) never returns 0\.0 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
 			count: 1
 			path: repo/tests/static-analysis/assert-isEmpty.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsEmpty\\(\\) never returns array\\{\\} so it can be removed from the return type\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsEmpty\(\) never returns array\{\} so it can be removed from the return type\.$#'
+			identifier: return.unusedType
 			count: 1
 			path: repo/tests/static-analysis/assert-isEmpty.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsEmpty\\(\\) never returns false so it can be removed from the return type\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsEmpty\(\) never returns false so it can be removed from the return type\.$#'
+			identifier: return.unusedType
 			count: 1
 			path: repo/tests/static-analysis/assert-isEmpty.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allIsIterable\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIsEmpty\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsEmpty\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isEmpty.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrIsEmpty\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsEmpty\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isEmpty.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIsEmpty\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsEmpty\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isEmpty.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIsInstanceOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsInstanceOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isInstanceOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrIsInstanceOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsInstanceOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isInstanceOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIsInstanceOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsInstanceOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isInstanceOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIsInstanceOfAny\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsInstanceOfAny\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isInstanceOfAny.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrIsInstanceOfAny\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsInstanceOfAny\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isInstanceOfAny.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIsInstanceOfAny\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsInstanceOfAny\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isInstanceOfAny.php
+
+		-
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsIterable\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-isIterable.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrIsIterable\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsIterable\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-isIterable.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\isIterable\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\isIterable\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-isIterable.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsIterable\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsIterable\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-isIterable.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allIsTraversable\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIsIterable\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsIterable\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isIterable.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrIsIterable\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsIterable\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isIterable.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIsIterable\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsIterable\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isIterable.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIsList\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsList\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isList.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrIsList\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsList\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isList.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIsList\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsList\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isList.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIsMap\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsMap\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isMap.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrIsMap\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsMap\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isMap.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIsMap\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsMap\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isMap.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIsNonEmptyList\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsNonEmptyList\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isNonEmptyList.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrIsNonEmptyList\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsNonEmptyList\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isNonEmptyList.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIsNonEmptyList\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsNonEmptyList\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isNonEmptyList.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIsNonEmptyMap\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsNonEmptyMap\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isNonEmptyMap.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrIsNonEmptyMap\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsNonEmptyMap\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isNonEmptyMap.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIsNonEmptyMap\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsNonEmptyMap\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isNonEmptyMap.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIsNotA\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsNotA\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isNotA.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrIsNotA\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrIsNotA\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isNotA.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIsNotA\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsNotA\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isNotA.php
+
+		-
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsTraversable\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-isTraversable.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\isTraversable\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\isTraversable\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-isTraversable.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrIsTraversable\\(\\) return type has no value type specified in iterable type iterable\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsTraversable\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-isTraversable.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allKeyExists\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allIsTraversable\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allIsTraversable\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isTraversable.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrIsTraversable\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrIsTraversable\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-isTraversable.php
+
+		-
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allKeyExists\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-keyExists.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allKeyExists\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allKeyExists\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-keyExists.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrKeyExists\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrKeyExists\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-keyExists.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrKeyExists\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrKeyExists\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-keyExists.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\keyExists\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\keyExists\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-keyExists.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\keyExists\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\keyExists\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-keyExists.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrKeyExists\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrKeyExists\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-keyExists.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrKeyExists\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrKeyExists\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-keyExists.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allKeyNotExists\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allKeyExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allKeyExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-keyExists.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrKeyExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrKeyExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-keyExists.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrKeyExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrKeyExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-keyExists.php
+
+		-
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allKeyNotExists\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-keyNotExists.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allKeyNotExists\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allKeyNotExists\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-keyNotExists.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrKeyNotExists\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrKeyNotExists\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-keyNotExists.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrKeyNotExists\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrKeyNotExists\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-keyNotExists.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\keyNotExists\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\keyNotExists\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-keyNotExists.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\keyNotExists\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\keyNotExists\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-keyNotExists.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrKeyNotExists\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrKeyNotExists\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-keyNotExists.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrKeyNotExists\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrKeyNotExists\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-keyNotExists.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allMaxCount\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allKeyNotExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allKeyNotExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-keyNotExists.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrKeyNotExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrKeyNotExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-keyNotExists.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrKeyNotExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrKeyNotExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-keyNotExists.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allLength\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allLength\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-length.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrLength\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrLength\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-length.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrLength\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrLength\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-length.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allLengthBetween\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allLengthBetween\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-lengthBetween.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrLengthBetween\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrLengthBetween\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-lengthBetween.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrLengthBetween\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrLengthBetween\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-lengthBetween.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allLessThan\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allLessThan\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-lessThan.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrLessThan\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrLessThan\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-lessThan.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrLessThan\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrLessThan\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-lessThan.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allLessThanEq\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allLessThanEq\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-lessThanEq.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrLessThanEq\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrLessThanEq\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-lessThanEq.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrLessThanEq\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrLessThanEq\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-lessThanEq.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allLower\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allLower\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-lower.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrLower\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrLower\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-lower.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrLower\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrLower\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-lower.php
+
+		-
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allMaxCount\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-maxCount.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allMaxCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allMaxCount\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-maxCount.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrMaxCount\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrMaxCount\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-maxCount.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrMaxCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrMaxCount\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-maxCount.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\maxCount\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\maxCount\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-maxCount.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\maxCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\maxCount\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-maxCount.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrMaxCount\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrMaxCount\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-maxCount.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrMaxCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrMaxCount\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-maxCount.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allMinCount\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allMaxLength\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allMaxLength\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-maxLength.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allMaxLength\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrMaxLength\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-maxLength.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrMaxLength\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrMaxLength\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-maxLength.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allMethodExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allMethodExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-methodExists.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrMethodExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrMethodExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-methodExists.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrMethodExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrMethodExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-methodExists.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allMethodNotExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allMethodNotExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-methodNotExists.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrMethodNotExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrMethodNotExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-methodNotExists.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrMethodNotExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrMethodNotExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-methodNotExists.php
+
+		-
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allMinCount\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-minCount.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allMinCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allMinCount\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-minCount.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrMinCount\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrMinCount\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-minCount.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrMinCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrMinCount\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-minCount.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\minCount\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\minCount\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-minCount.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\minCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\minCount\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-minCount.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrMinCount\\(\\) has parameter \\$array with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrMinCount\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-minCount.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrMinCount\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrMinCount\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-minCount.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\notEmptyArray\\(\\) has parameter \\$value with no value type specified in iterable type array\\.$#"
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allMinLength\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allMinLength\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-minLength.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrMinLength\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrMinLength\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-minLength.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrMinLength\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrMinLength\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-minLength.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNatural\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNatural\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-natural.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrNatural\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrNatural\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-natural.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrNatural\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrNatural\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-natural.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNotContains\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNotContains\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notContains.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrNotContains\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrNotContains\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notContains.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrNotContains\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrNotContains\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notContains.php
+
+		-
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\notEmptyArray\(\) has parameter \$value with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-notEmpty.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\notEmptyArray\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\notEmptyArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-notEmpty.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrOneOf\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNotEmpty\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNotEmpty\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notEmpty.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrNotEmpty\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrNotEmpty\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notEmpty.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrNotEmpty\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrNotEmpty\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notEmpty.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNotFalse\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNotFalse\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notFalse.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrNotFalse\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrNotFalse\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notFalse.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrNotFalse\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrNotFalse\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notFalse.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNotInstanceOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNotInstanceOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notInstanceOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrNotInstanceOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrNotInstanceOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notInstanceOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrNotInstanceOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrNotInstanceOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notInstanceOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNotNull\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNotNull\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notNull.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNotRegex\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNotRegex\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notRegex.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNotRegex\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrNotRegex\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notRegex.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrNotRegex\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrNotRegex\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notRegex.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNotSame\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNotSame\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notSame.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrNotSame\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrNotSame\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notSame.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrNotSame\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrNotSame\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notSame.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNotWhitespaceOnly\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNotWhitespaceOnly\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notWhitespaceOnly.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrNotWhitespaceOnly\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrNotWhitespaceOnly\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notWhitespaceOnly.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrNotWhitespaceOnly\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrNotWhitespaceOnly\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-notWhitespaceOnly.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNull\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNull\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-null.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrNumeric\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrNumeric\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-numeric.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNumeric\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNumeric\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-numeric.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrNumeric\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrNumeric\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-numeric.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrObject\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrObject\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-object.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allObject\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allObject\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-object.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrObject\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrObject\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-object.php
+
+		-
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrOneOf\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-oneOf.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allOneOf\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allOneOf\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-oneOf.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrOneOf\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrOneOf\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-oneOf.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\oneOf\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\oneOf\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-oneOf.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrUniqueValues\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrOneOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrOneOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-oneOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allOneOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allOneOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-oneOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrOneOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrOneOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-oneOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allPositiveInteger\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrPositiveInteger\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-positiveInteger.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allPositiveInteger\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allPositiveInteger\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-positiveInteger.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrPositiveInteger\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrPositiveInteger\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-positiveInteger.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allPropertyExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrPropertyExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-propertyExists.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allPropertyExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allPropertyExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-propertyExists.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrPropertyExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrPropertyExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-propertyExists.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrPropertyNotExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrPropertyNotExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-propertyNotExists.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allPropertyNotExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allPropertyNotExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-propertyNotExists.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrPropertyNotExists\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrPropertyNotExists\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-propertyNotExists.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allString\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\preserveContainerAllArray\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-psalm-preserveContainerType.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allString\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\preserveContainerAllArrayIterator\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-psalm-preserveContainerType.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrRange\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrRange\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-range.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allRange\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allRange\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-range.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrRange\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrRange\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-range.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allRegex\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrRegex\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-regex.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allRegex\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allRegex\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-regex.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrRegex\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrRegex\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-regex.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrResource\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrResource\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-resource.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allResource\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allResource\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-resource.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrResource\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrResource\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-resource.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrSame\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrSame\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-same.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allSame\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allSame\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-same.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrSame\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrSame\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-same.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrScalar\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrScalar\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-scalar.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allScalar\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allScalar\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-scalar.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrScalar\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrScalar\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-scalar.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrStartsWith\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrStartsWith\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-startsWith.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allStartsWith\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allStartsWith\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-startsWith.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrStartsWith\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrStartsWith\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-startsWith.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrStartsWithLetter\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrStartsWithLetter\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-startsWithLetter.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allStartsWithLetter\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allStartsWithLetter\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-startsWithLetter.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrStartsWithLetter\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrStartsWithLetter\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-startsWithLetter.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrString\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrString\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-string.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allString\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allString\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-string.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrString\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrString\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-string.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrStringNotEmpty\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrStringNotEmpty\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-stringNotEmpty.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allStringNotEmpty\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allStringNotEmpty\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-stringNotEmpty.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrStringNotEmpty\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrStringNotEmpty\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-stringNotEmpty.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrSubclassOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrSubclassOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-subclassOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allSubclassOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allSubclassOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-subclassOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrSubclassOf\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrSubclassOf\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-subclassOf.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrTrue\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrTrue\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-true.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allTrue\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allTrue\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-true.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrTrue\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrTrue\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-true.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrUnicodeLetters\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrUnicodeLetters\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-unicodeLetters.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allUnicodeLetters\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allUnicodeLetters\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-unicodeLetters.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrUnicodeLetters\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrUnicodeLetters\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-unicodeLetters.php
+
+		-
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrUniqueValues\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-uniqueValues.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allNullOrUniqueValues\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrUniqueValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-uniqueValues.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allUniqueValues\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allUniqueValues\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-uniqueValues.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\allUniqueValues\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\allUniqueValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-uniqueValues.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrUniqueValues\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrUniqueValues\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-uniqueValues.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\nullOrUniqueValues\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrUniqueValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-uniqueValues.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\uniqueValues\\(\\) has parameter \\$values with no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\uniqueValues\(\) has parameter \$values with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-uniqueValues.php
 
 		-
-			message: "#^Function Webmozart\\\\Assert\\\\Tests\\\\StaticAnalysis\\\\uniqueValues\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: '#^Function Webmozart\\Assert\\Tests\\StaticAnalysis\\uniqueValues\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
 			count: 1
 			path: repo/tests/static-analysis/assert-uniqueValues.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrUpper\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrUpper\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-upper.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allUpper\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allUpper\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-upper.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrUpper\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrUpper\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-upper.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrUuid\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrUuid\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-uuid.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allUuid\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allUuid\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-uuid.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrUuid\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrUuid\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-uuid.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allNullOrValidArrayKey\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allNullOrValidArrayKey\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-validArrayKey.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:allValidArrayKey\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\allValidArrayKey\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-validArrayKey.php
+
+		-
+			message: '#^Impure call to method Webmozart\\Assert\\Assert\:\:nullOrValidArrayKey\(\) in pure function Webmozart\\Assert\\Tests\\StaticAnalysis\\nullOrValidArrayKey\(\)\.$#'
+			identifier: impure.methodCall
+			count: 1
+			path: repo/tests/static-analysis/assert-validArrayKey.php

@@ -1,16 +1,67 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Parameter \\#1 \\$key of method Illuminate\\\\Support\\\\Fluent\\<string,int\\|string\\|User\\>\\:\\:get\\(\\) expects 'age'\\|'name'\\|'user', 'foobar' given\\.$#"
-			count: 2
-			path: repo/types/Support/Fluent.php
+			message: '#^Parameter \#4 \$attributes of method Illuminate\\Contracts\\Database\\Eloquent\\CastsAttributes\<Illuminate\\Support\\Stringable,string\|Stringable\>\:\:get\(\) expects array\<string, mixed\>, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/types/Database/Eloquent/Casts/CastsAttributes.php
 
 		-
-			message: "#^Parameter \\#1 \\$keys of method Illuminate\\\\Support\\\\LazyCollection\\<int,User\\>\\:\\:except\\(\\) expects array\\<0\\>\\|Illuminate\\\\Support\\\\Enumerable\\<\\(int\\|string\\), 0\\>, array\\{1\\} given\\.$#"
+			message: '#^Parameter \#4 \$attributes of method Illuminate\\Contracts\\Database\\Eloquent\\CastsAttributes\<Illuminate\\Support\\Stringable,string\|Stringable\>\:\:set\(\) expects array\<string, mixed\>, array given\.$#'
+			identifier: argument.type
+			count: 3
+			path: repo/types/Database/Eloquent/Casts/CastsAttributes.php
+
+		-
+			message: '#^Cannot call method has\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: repo/types/Foundation/Configuration/Middleware.php
+
+		-
+			message: '#^Parameter \$except of method Illuminate\\Foundation\\Configuration\\Middleware\:\:convertEmptyStringsToNull\(\) expects array\<int, Closure\(Illuminate\\Http\\Request\)\: bool\>, array\{Closure\(mixed\)\: mixed, Closure\(mixed\)\: mixed\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/types/Foundation/Configuration/Middleware.php
+
+		-
+			message: '#^Parameter \$except of method Illuminate\\Foundation\\Configuration\\Middleware\:\:trimStrings\(\) expects array\<int, \(Closure\(Illuminate\\Http\\Request\)\: bool\)\|string\>, array\{''aaa'', Closure\(mixed\)\: mixed\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/types/Foundation/Configuration/Middleware.php
+
+		-
+			message: '#^PHPDoc tag @var with type Traversable\<int, User\> is not subtype of native type array\{\}\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/types/Support/Arr.php
+
+		-
+			message: '#^PHPDoc tag @var with type Illuminate\\Contracts\\Support\\Arrayable\<int, User\> is not subtype of native type array\{\}\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/types/Support/Collection.php
+
+		-
+			message: '#^PHPDoc tag @var with type Traversable\<int, string\> is not subtype of native type array\{\}\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/types/Support/Collection.php
+
+		-
+			message: '#^PHPDoc tag @var with type Closure\(\)\: Generator\<int, User, mixed, void\> is not subtype of native type Closure\(\)\: Generator\<int, User, mixed, void\>\.$#'
+			identifier: varTag.nativeType
 			count: 1
 			path: repo/types/Support/LazyCollection.php
 
 		-
-			message: "#^Parameter \\#1 \\$keys of method Illuminate\\\\Support\\\\LazyCollection\\<int,User\\>\\:\\:only\\(\\) expects array\\<0\\>\\|Illuminate\\\\Support\\\\Enumerable\\<\\(int\\|string\\), 0\\>\\|string, array\\{1\\} given\\.$#"
+			message: '#^PHPDoc tag @var with type Illuminate\\Contracts\\Support\\Arrayable\<int, User\> is not subtype of native type array\{\}\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/types/Support/LazyCollection.php
+
+		-
+			message: '#^PHPDoc tag @var with type Traversable\<int, string\> is not subtype of native type array\{\}\.$#'
+			identifier: varTag.nativeType
 			count: 1
 			path: repo/types/Support/LazyCollection.php

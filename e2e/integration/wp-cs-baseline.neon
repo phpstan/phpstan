@@ -1,2 +1,109 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: '#^Method WordPressCS\\WordPress\\Sniffs\\Arrays\\ArrayIndentationSniff\:\:process_token\(\) never returns void so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/WordPress/Sniffs/Arrays/ArrayIndentationSniff.php
+
+		-
+			message: '#^Method WordPressCS\\WordPress\\Sniffs\\Arrays\\MultipleStatementAlignmentSniff\:\:process_single_line_array\(\) never returns void so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/WordPress/Sniffs/Arrays/MultipleStatementAlignmentSniff.php
+
+		-
+			message: '#^Method WordPressCS\\WordPress\\Sniffs\\Arrays\\MultipleStatementAlignmentSniff\:\:process_token\(\) never returns void so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/WordPress/Sniffs/Arrays/MultipleStatementAlignmentSniff.php
+
+		-
+			message: '#^Method WordPressCS\\WordPress\\Sniffs\\DB\\DirectDatabaseQuerySniff\:\:process_token\(\) never returns void so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/WordPress/Sniffs/DB/DirectDatabaseQuerySniff.php
+
+		-
+			message: '#^Call to function property_exists\(\) with \$this\(WordPressCS\\WordPress\\Sniffs\\DB\\PreparedSQLPlaceholdersSniff\) and ''methodPtr'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/WordPress/Sniffs/DB/PreparedSQLPlaceholdersSniff.php
+
+		-
+			message: '#^Call to function property_exists\(\) with \$this\(WordPressCS\\WordPress\\Sniffs\\DB\\PreparedSQLSniff\) and ''end'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/WordPress/Sniffs/DB/PreparedSQLSniff.php
+
+		-
+			message: '#^Call to function property_exists\(\) with \$this\(WordPressCS\\WordPress\\Sniffs\\DB\\PreparedSQLSniff\) and ''i'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/WordPress/Sniffs/DB/PreparedSQLSniff.php
+
+		-
+			message: '#^Method WordPressCS\\WordPress\\Sniffs\\DB\\PreparedSQLSniff\:\:process_token\(\) never returns void so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/WordPress/Sniffs/DB/PreparedSQLSniff.php
+
+		-
+			message: '#^Method WordPressCS\\WordPress\\Sniffs\\Files\\FileNameSniff\:\:process_token\(\) never returns void so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/WordPress/Sniffs/Files/FileNameSniff.php
+
+		-
+			message: '#^Method WordPressCS\\WordPress\\Sniffs\\NamingConventions\\PrefixAllGlobalsSniff\:\:process_list_assignment\(\) never returns void so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/WordPress/Sniffs/NamingConventions/PrefixAllGlobalsSniff.php
+
+		-
+			message: '#^Method WordPressCS\\WordPress\\Sniffs\\NamingConventions\\PrefixAllGlobalsSniff\:\:process_variable_variable\(\) never returns void so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/WordPress/Sniffs/NamingConventions/PrefixAllGlobalsSniff.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''PHPCS_T_CLOSE…'' and ''PHPCS_T_CLOSE…'' will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: repo/WordPress/Sniffs/Security/EscapeOutputSniff.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''PHPCS_T_OPEN…'' and ''PHPCS_T_OPEN…'' will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: repo/WordPress/Sniffs/Security/EscapeOutputSniff.php
+
+		-
+			message: '#^Method WordPressCS\\WordPress\\Sniffs\\Utils\\I18nTextDomainFixerSniff\:\:process_token\(\) never returns void so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/WordPress/Sniffs/Utils/I18nTextDomainFixerSniff.php
+
+		-
+			message: '#^Method WordPressCS\\WordPress\\Sniffs\\WP\\AlternativeFunctionsSniff\:\:process_matched_token\(\) never returns void so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/WordPress/Sniffs/WP/AlternativeFunctionsSniff.php
+
+		-
+			message: '#^Method WordPressCS\\WordPress\\Sniffs\\WP\\DiscouragedConstantsSniff\:\:process_token\(\) never returns void so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/WordPress/Sniffs/WP/DiscouragedConstantsSniff.php
+
+		-
+			message: '#^Method WordPressCS\\WordPress\\Sniffs\\WP\\EnqueuedResourcesSniff\:\:process_token\(\) never returns void so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/WordPress/Sniffs/WP/EnqueuedResourcesSniff.php
+
+		-
+			message: '#^Method WordPressCS\\WordPress\\Sniffs\\WP\\GlobalVariablesOverrideSniff\:\:process_list_assignment\(\) never returns void so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/WordPress/Sniffs/WP/GlobalVariablesOverrideSniff.php
