@@ -5,7 +5,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 class PharTest extends \PHPStan\Testing\LevelsTestCase
 {
 
-	public function dataTopics(): array
+	public static function dataTopics(): array
 	{
 		return [
 			['strictRulesExtension'],

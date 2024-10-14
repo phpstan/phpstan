@@ -327,13 +327,6 @@ jobs:
               composer install
               vendor/bin/simple-phpunit --filter NO_TEST_JUST_AUTOLOAD_THANKS
               ../../phpstan
-          - php-version: 8.1
-            ini-values: memory_limit=256M
-            operating-system: ubuntu-latest
-            script: |
-              cd e2e/bug8543
-              composer install
-              ../../phpstan
           - php-version: 8.2
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
