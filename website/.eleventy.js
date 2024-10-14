@@ -123,6 +123,9 @@ module.exports = function (eleventyConfig) {
 			width: 800,
 			height: 418,
 			fullPage: true,
+			launchOptions: {
+				args: ['--no-sandbox'],
+			},
 		});
 		const name = 'tmp/images/social-' + this.page.fileSlug + '.png';
 		fs.writeFileSync(name, image);
