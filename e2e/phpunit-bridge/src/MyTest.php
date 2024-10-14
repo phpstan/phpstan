@@ -9,7 +9,7 @@ class MyTest extends KernelTestCase
 
 	public function testSomething(): void
 	{
-		$this->assertTrue(true);
+		$this->assertTrue(true); // @phpstan-ignore method.alreadyNarrowedType
 	}
 
 }

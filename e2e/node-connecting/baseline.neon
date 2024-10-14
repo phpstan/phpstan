@@ -1,7 +1,0 @@
-parameters:
-	ignoreErrors:
-		-
-			message: "#^Parent\\: PhpParser\\\\Node\\\\Stmt\\\\ClassMethod, previous\\: PhpParser\\\\Node\\\\Stmt\\\\If_, next\\: PhpParser\\\\Node\\\\Stmt\\\\Do_$#"
-			count: 1
-			path: src/test.php
-

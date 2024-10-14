@@ -1,5 +1,5 @@
 <?php
 
-new A();
+$a = new A();
 
-new DoesNotExist();
+$b = new DoesNotExist();

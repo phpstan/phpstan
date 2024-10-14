@@ -21,7 +21,7 @@ class TypeTest extends TypeInferenceTestCase
 	 */
 	public static function dataFileAssertsStatic(): iterable
 	{
-		yield from self::gatherAssertTypes(__DIR__ . '/assert.php');
+		yield from self::gatherAssertTypes(__DIR__ . '/assert3.php');
 	}
 
 	/**

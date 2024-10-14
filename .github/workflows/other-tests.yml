@@ -88,18 +88,11 @@ jobs:
             composer install --ignore-platform-reqs
             ../../phpstan analyse -l 8 -c phpstan.neon test.php
           - |
-            cd e2e/no-autoloader
-            composer install --ignore-platform-reqs
-            ../../phpstan analyse -l 8 -c phpstan.neon src tests
-          - |
             cd e2e/mongodb
             ../../phpstan analyse -l 8 test.php test2.php
           - |
             cd e2e/alias-event
             ../../phpstan analyse -l 8 -a alias.php test.php
-          - |
-            cd e2e/alias-event
-            ../../phpstan analyse -l 8 -a alias.php -c staticReflection.neon test.php
           - |
             cd e2e/polyfills
             composer install
@@ -162,9 +155,6 @@ jobs:
           - |
             cd e2e/dup-classes
             ../../phpstan
-          - |
-            cd e2e/node-connecting
-            ../../phpstan analyse -a Rule.php
           - |
             cd e2e/event-dispatcher
             composer install
@@ -354,18 +344,6 @@ jobs:
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
             script: |
-              cd e2e/progress-bar-crash
-              ../../phpstan analyse -l 8 src/test.php
-          - php-version: 8.2
-            ini-values: memory_limit=256M
-            operating-system: ubuntu-latest
-            script: |
-              cd e2e/progress-bar-crash
-              ../../phpstan analyse -l 8 src/test.php -vvv
-          - php-version: 8.2
-            ini-values: memory_limit=256M
-            operating-system: ubuntu-latest
-            script: |
               cd e2e/discussion-8502
               composer install
               cp ../../phpstan vendor/phpstan/phpstan/phpstan
@@ -396,13 +374,6 @@ jobs:
             script: |
               cd e2e/bug9714
               ../../phpstan analyse -l 8 bug9714.php
-          - php-version: 8.1
-            ini-values: memory_limit=256M
-            operating-system: ubuntu-latest
-            script: |
-              cd e2e/bug-9776
-              composer install
-              ../../phpstan
           - php-version: 8.2
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
@@ -432,9 +403,9 @@ jobs:
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
             script: |
-              cd e2e/php-parser-4-compat
-              composer install
-              ../../phpstan
+              cd e2e/no-autoloader
+              composer install --ignore-platform-reqs
+              ../../phpstan analyse -l 8 -c phpstan.neon src tests
 
     steps:
       - name: "Checkout"

@@ -3,7 +3,7 @@
 function (): void {
 	$a = gmp_random();
 
-	new DOMImplementationSource();
+	$b = new DOMImplementationSource();
 };
 
 function (): void {

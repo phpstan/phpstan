@@ -7,4 +7,5 @@ namespace Z\Module\Article\DataProvider;
 final class RegOwnerSteps extends AbstractProvider {
     public const BLOCK_A = 'a';
     public const SUBJECT_A = 'a';
+    public const STEP_A = 'a';
 }

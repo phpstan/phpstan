@@ -8,6 +8,7 @@ use PhpParser\Node\Stmt\Echo_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Testing\RuleTestCase;
 
 class ExampleTest extends RuleTestCase
@@ -38,7 +39,9 @@ class ExampleTest extends RuleTestCase
 				$this->reflectionProvider->getClass('LevelDBWriteBatch');
 
 				return [
-					sprintf('Echo: %s', $node->exprs[0]->value),
+                    RuleErrorBuilder::message(sprintf('Echo: %s', $node->exprs[0]->value))
+                        ->identifier('phpstormStubs.e2e')
+                        ->build(),
 				];
 			}
 		};
