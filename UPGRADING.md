@@ -101,6 +101,17 @@ parameters:
 
 Appending `(?)` in `ignoreErrors` is not supported.
 
+### Changes in 1st party PHPStan extensions
+
+* [phpstan-doctrine](https://github.com/phpstan/phpstan-doctrine)
+  * Removed config parameter `searchOtherMethodsForQueryBuilderBeginning` (extension now behaves as when this was set to `true`)
+  * Removed config parameter `queryBuilderFastAlgorithm` (extension now behaves as when this was set to `false`)
+* [phpstan-symfony](https://github.com/phpstan/phpstan-symfony)
+  * Removed legacy options with `_` in the name
+  * `container_xml_path` -> use `containerXmlPath`
+  * `constant_hassers` -> use `constantHassers`
+  * `console_application_loader` -> use `consoleApplicationLoader`
+
 ### Docker images no longer tagged without a PHP version
 
 Tags without a PHP version are no longer published - `nightly`, `2`, `latest` are no longer updated. Instead, use `nightly-php8.3`, `2-php8.3`, `latest-php8.3`. You can replace `8.3` with PHP versions `8.0`-`8.3`.
