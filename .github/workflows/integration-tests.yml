@@ -562,7 +562,7 @@ jobs:
 
       - name: "Create Pull Request"
         id: create-pr
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.phpstan-bot-token }}
           branch: "create-pull-request/baselines-2.0.x"
