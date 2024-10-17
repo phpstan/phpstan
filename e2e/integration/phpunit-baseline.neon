@@ -1,11 +1,565 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Offset 0 on non\\-empty\\-list\\<string\\> in isset\\(\\) always exists and is not nullable\\.$#"
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Event/Emitter/DispatchingEmitter.php
+
+		-
+			message: '#^Class PHPUnit\\Event\\Test\\AfterLastTestMethodFinished constructor invoked with unpacked array with possibly string key, but it''s not allowed because of @no\-named\-arguments\.$#'
+			identifier: argument.named
+			count: 1
+			path: repo/src/Event/Emitter/DispatchingEmitter.php
+
+		-
+			message: '#^Class PHPUnit\\Event\\Test\\AfterTestMethodFinished constructor invoked with unpacked array with possibly string key, but it''s not allowed because of @no\-named\-arguments\.$#'
+			identifier: argument.named
+			count: 1
+			path: repo/src/Event/Emitter/DispatchingEmitter.php
+
+		-
+			message: '#^Class PHPUnit\\Event\\Test\\BeforeFirstTestMethodFinished constructor invoked with unpacked array with possibly string key, but it''s not allowed because of @no\-named\-arguments\.$#'
+			identifier: argument.named
+			count: 1
+			path: repo/src/Event/Emitter/DispatchingEmitter.php
+
+		-
+			message: '#^Class PHPUnit\\Event\\Test\\BeforeTestMethodFinished constructor invoked with unpacked array with possibly string key, but it''s not allowed because of @no\-named\-arguments\.$#'
+			identifier: argument.named
+			count: 1
+			path: repo/src/Event/Emitter/DispatchingEmitter.php
+
+		-
+			message: '#^Class PHPUnit\\Event\\Test\\DataProviderMethodFinished constructor invoked with unpacked array with possibly string key, but it''s not allowed because of @no\-named\-arguments\.$#'
+			identifier: argument.named
+			count: 1
+			path: repo/src/Event/Emitter/DispatchingEmitter.php
+
+		-
+			message: '#^Class PHPUnit\\Event\\Test\\PartialMockObjectCreated constructor invoked with unpacked array with possibly string key, but it''s not allowed because of @no\-named\-arguments\.$#'
+			identifier: argument.named
+			count: 1
+			path: repo/src/Event/Emitter/DispatchingEmitter.php
+
+		-
+			message: '#^Class PHPUnit\\Event\\Test\\PostConditionFinished constructor invoked with unpacked array with possibly string key, but it''s not allowed because of @no\-named\-arguments\.$#'
+			identifier: argument.named
+			count: 1
+			path: repo/src/Event/Emitter/DispatchingEmitter.php
+
+		-
+			message: '#^Class PHPUnit\\Event\\Test\\PreConditionFinished constructor invoked with unpacked array with possibly string key, but it''s not allowed because of @no\-named\-arguments\.$#'
+			identifier: argument.named
+			count: 1
+			path: repo/src/Event/Emitter/DispatchingEmitter.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Event\\Code\\TestMethod and PHPUnit\\Event\\Code\\TestMethod will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Event/Emitter/DispatchingEmitter.php
+
+		-
+			message: '#^PHPDoc tag @phpstan\-assert for \$actual has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 2
+			path: repo/src/Framework/Assert.php
+
+		-
+			message: '#^PHPDoc tag @phpstan\-assert for \$actual has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 2
+			path: repo/src/Framework/Assert.php
+
+		-
+			message: '#^PHPDoc tag @phpstan\-assert for \$actual has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 2
+			path: repo/src/Framework/Assert/Functions.php
+
+		-
+			message: '#^PHPDoc tag @phpstan\-assert for \$actual has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 2
+			path: repo/src/Framework/Assert/Functions.php
+
+		-
+			message: '#^Method PHPUnit\\Framework\\Constraint\\IsEqual\:\:evaluate\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/src/Framework/Constraint/Equality/IsEqual.php
+
+		-
+			message: '#^Method PHPUnit\\Framework\\Constraint\\IsEqualCanonicalizing\:\:evaluate\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/src/Framework/Constraint/Equality/IsEqualCanonicalizing.php
+
+		-
+			message: '#^Method PHPUnit\\Framework\\Constraint\\IsEqualIgnoringCase\:\:evaluate\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/src/Framework/Constraint/Equality/IsEqualIgnoringCase.php
+
+		-
+			message: '#^Method PHPUnit\\Framework\\Constraint\\IsEqualWithDelta\:\:evaluate\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/src/Framework/Constraint/Equality/IsEqualWithDelta.php
+
+		-
+			message: '#^Method PHPUnit\\Framework\\Constraint\\IsAnything\:\:evaluate\(\) has PHPUnit\\Framework\\ExpectationFailedException in PHPDoc @throws tag but it''s not thrown\.$#'
+			identifier: throws.unusedType
+			count: 1
+			path: repo/src/Framework/Constraint/IsAnything.php
+
+		-
+			message: '#^Method PHPUnit\\Framework\\MockObject\\Generator\\Generator\:\:reflectClass\(\) has PHPUnit\\Framework\\MockObject\\Generator\\ReflectionException in PHPDoc @throws tag but it''s not thrown\.$#'
+			identifier: throws.unusedType
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/Generator.php
+
+		-
+			message: '#^Parameter \#1 \$array of function sort contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/Generator.php
+
+		-
+			message: '#^Parameter \#1 \$values of method SebastianBergmann\\Template\\Template\:\:setVar\(\) expects array\<string, string\>, array\<string, int\<0, max\>\|string\|null\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/MockMethod.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: repo/src/Framework/MockObject/MockBuilder.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Framework\\MockObject\\MockObject and PHPUnit\\Framework\\MockObject\\MockObject will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 2
+			path: repo/src/Framework/MockObject/MockBuilder.php
+
+		-
+			message: '#^Trait PHPUnit\\Framework\\MockObject\\DoubledCloneMethod is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: repo/src/Framework/MockObject/Runtime/Api/DoubledCloneMethod.php
+
+		-
+			message: '#^Trait PHPUnit\\Framework\\MockObject\\ErrorCloneMethod is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: repo/src/Framework/MockObject/Runtime/Api/ErrorCloneMethod.php
+
+		-
+			message: '#^Trait PHPUnit\\Framework\\MockObject\\GeneratedAsMockObject is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: repo/src/Framework/MockObject/Runtime/Api/GeneratedAsMockObject.php
+
+		-
+			message: '#^Trait PHPUnit\\Framework\\MockObject\\GeneratedAsTestStub is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: repo/src/Framework/MockObject/Runtime/Api/GeneratedAsTestStub.php
+
+		-
+			message: '#^Trait PHPUnit\\Framework\\MockObject\\Method is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: repo/src/Framework/MockObject/Runtime/Api/Method.php
+
+		-
+			message: '#^Trait PHPUnit\\Framework\\MockObject\\MockObjectApi is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: repo/src/Framework/MockObject/Runtime/Api/MockObjectApi.php
+
+		-
+			message: '#^Trait PHPUnit\\Framework\\MockObject\\MutableStubApi is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: repo/src/Framework/MockObject/Runtime/Api/MutableStubApi.php
+
+		-
+			message: '#^Trait PHPUnit\\Framework\\MockObject\\ProxiedCloneMethod is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: repo/src/Framework/MockObject/Runtime/Api/ProxiedCloneMethod.php
+
+		-
+			message: '#^Trait PHPUnit\\Framework\\MockObject\\StubApi is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: repo/src/Framework/MockObject/Runtime/Api/StubApi.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: repo/src/Framework/TestCase.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Framework\\MockObject\\MockObject&RealInstanceType of object and PHPUnit\\Framework\\MockObject\\MockObject will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Framework\\MockObject\\Stub&RealInstanceType of object and PHPUnit\\Framework\\MockObject\\Stub will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			message: '#^Parameter \#1 \$values of method SebastianBergmann\\Template\\Template\:\:setVar\(\) expects array\<string, string\>, array\<string, int\|string\|false\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Framework/TestRunner/SeparateProcessTestRunner.php
+
+		-
+			message: '#^Call to method ReflectionClass\<PHPUnit\\Framework\\TestCase\>\:\:isSubclassOf\(\) with ''PHPUnit\\\\Framework\\\\TestCase'' will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: repo/src/Framework/TestSuite.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Logging/JUnit/JunitXmlLogger.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Event\\Code\\TestMethod and PHPUnit\\Event\\Code\\TestMethod will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Logging/JUnit/JunitXmlLogger.php
+
+		-
+			message: '#^Method PHPUnit\\Logging\\JUnit\\JunitXmlLogger\:\:testPreparationFailed\(\) has PHPUnit\\Event\\InvalidArgumentException in PHPDoc @throws tag but it''s not thrown\.$#'
+			identifier: throws.unusedType
+			count: 1
+			path: repo/src/Logging/JUnit/JunitXmlLogger.php
+
+		-
+			message: '#^Method PHPUnit\\Logging\\JUnit\\JunitXmlLogger\:\:testPrepared\(\) has PHPUnit\\Event\\InvalidArgumentException in PHPDoc @throws tag but it''s not thrown\.$#'
+			identifier: throws.unusedType
+			count: 1
+			path: repo/src/Logging/JUnit/JunitXmlLogger.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 4
+			path: repo/src/Logging/TeamCity/TeamCityLogger.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Event\\Code\\TestMethod and PHPUnit\\Event\\Code\\TestMethod will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Logging/TeamCity/TeamCityLogger.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Event\\TestSuite\\TestSuiteForTestClass and PHPUnit\\Event\\TestSuite\\TestSuiteForTestClass will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Logging/TeamCity/TeamCityLogger.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Event\\TestSuite\\TestSuiteForTestMethodWithDataProvider and PHPUnit\\Event\\TestSuite\\TestSuiteForTestMethodWithDataProvider will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 2
+			path: repo/src/Logging/TeamCity/TeamCityLogger.php
+
+		-
+			message: '#^Property PHPUnit\\Logging\\TeamCity\\TeamCityLogger\:\:\$flowId \(int\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: repo/src/Logging/TeamCity/TeamCityLogger.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: repo/src/Logging/TestDox/TestResult/TestResultCollector.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Event\\Code\\TestMethod and PHPUnit\\Event\\Code\\TestMethod will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 2
+			path: repo/src/Logging/TestDox/TestResult/TestResultCollector.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: repo/src/Metadata/Api/CodeCoverage.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Metadata\\Covers and PHPUnit\\Metadata\\Covers will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Metadata/Api/CodeCoverage.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Metadata\\Uses and PHPUnit\\Metadata\\Uses will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Metadata/Api/CodeCoverage.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Metadata/Api/DataProvider.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Metadata/Api/Dependencies.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Metadata\\DependsOnClass and PHPUnit\\Metadata\\DependsOnClass will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Metadata/Api/Dependencies.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 4
+			path: repo/src/Metadata/Api/Groups.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Metadata\\Covers and PHPUnit\\Metadata\\Covers will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Metadata/Api/Groups.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Metadata\\CoversFunction and PHPUnit\\Metadata\\CoversFunction will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Metadata/Api/Groups.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Metadata\\Uses and PHPUnit\\Metadata\\Uses will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Metadata/Api/Groups.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Metadata\\UsesFunction and PHPUnit\\Metadata\\UsesFunction will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Metadata/Api/Groups.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 8
+			path: repo/src/Metadata/Api/Requirements.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Metadata\\RequiresFunction and PHPUnit\\Metadata\\RequiresFunction will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Metadata/Api/Requirements.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Metadata\\RequiresMethod and PHPUnit\\Metadata\\RequiresMethod will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Metadata/Api/Requirements.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Metadata\\RequiresOperatingSystem and PHPUnit\\Metadata\\RequiresOperatingSystem will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Metadata/Api/Requirements.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Metadata\\RequiresOperatingSystemFamily and PHPUnit\\Metadata\\RequiresOperatingSystemFamily will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Metadata/Api/Requirements.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Metadata\\RequiresPhp and PHPUnit\\Metadata\\RequiresPhp will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Metadata/Api/Requirements.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Metadata\\RequiresPhpExtension and PHPUnit\\Metadata\\RequiresPhpExtension will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Metadata/Api/Requirements.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Metadata\\RequiresPhpunit and PHPUnit\\Metadata\\RequiresPhpunit will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Metadata/Api/Requirements.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Metadata\\RequiresSetting and PHPUnit\\Metadata\\RequiresSetting will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Metadata/Api/Requirements.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Runner/Baseline/Issue.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-falsy\-string and '''' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/src/Runner/Baseline/Issue.php
+
+		-
+			message: '#^Method PHPUnit\\Runner\\Filter\\Factory\:\:factory\(\) return type with generic class FilterIterator does not specify its types\: TKey, TValue, TIterator$#'
+			identifier: missingType.generics
+			count: 1
+			path: repo/src/Runner/Filter/Factory.php
+
+		-
+			message: '#^Parameter &\$job @param\-out type of method PHPUnit\\Runner\\PhptTestCase\:\:renderForCoverage\(\) expects non\-empty\-string, string given\.$#'
+			identifier: paramOut.type
+			count: 1
+			path: repo/src/Runner/PHPT/PhptTestCase.php
+
+		-
+			message: '#^Parameter &\$sections by\-ref type of method PHPUnit\\Runner\\PhptTestCase\:\:parseExternal\(\) expects array\<non\-empty\-string, non\-empty\-string\>, non\-empty\-array\<non\-empty\-string, string\|false\> given\.$#'
+			identifier: parameterByRef.type
+			count: 1
+			path: repo/src/Runner/PHPT/PhptTestCase.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Runner/TestResult/Collector.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Event\\TestSuite\\TestSuiteForTestMethodWithDataProvider and PHPUnit\\Event\\TestSuite\\TestSuiteForTestMethodWithDataProvider will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Runner/TestResult/Collector.php
+
+		-
+			message: '#^Offset 0 on non\-empty\-list\<string\> in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
 			count: 1
 			path: repo/src/TextUI/Configuration/Cli/Builder.php
 
 		-
-			message: "#^Method PHPUnit\\\\TextUI\\\\XmlConfiguration\\\\SnapshotNodeList\\:\\:getIterator\\(\\) should return ArrayIterator\\<int, DOMNode\\> but returns ArrayIterator\\<int\\<0, max\\>, DOMNode\\>\\.$#"
+			message: '#^Assert references unknown \$this\-\>excludedTestSuite\.$#'
+			identifier: assert.unknownExpr
 			count: 1
-			path: repo/src/TextUI/Configuration/Xml/Migration/SnapshotNodeList.php
+			path: repo/src/TextUI/Configuration/Cli/Configuration.php
+
+		-
+			message: '#^Assert references unknown \$this\-\>teamcityPrinter\.$#'
+			identifier: assert.unknownExpr
+			count: 1
+			path: repo/src/TextUI/Configuration/Cli/Configuration.php
+
+		-
+			message: '#^Property PHPUnit\\TextUI\\Configuration\\Configuration\:\:\$excludeGroups \(list\<non\-empty\-string\>\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: repo/src/TextUI/Configuration/Configuration.php
+
+		-
+			message: '#^Property PHPUnit\\TextUI\\Configuration\\Configuration\:\:\$groups \(list\<non\-empty\-string\>\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: repo/src/TextUI/Configuration/Configuration.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/TextUI/Configuration/Merger.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\TextUI\\XmlConfiguration\\LoadedFromFileConfiguration and PHPUnit\\TextUI\\XmlConfiguration\\LoadedFromFileConfiguration will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/TextUI/Configuration/Merger.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 6
+			path: repo/src/TextUI/Configuration/Xml/Loader.php
+
+		-
+			message: '#^Instanceof between DOMElement and DOMElement will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 2
+			path: repo/src/TextUI/Configuration/Xml/Loader.php
+
+		-
+			message: '#^Instanceof between DOMNode and DOMNode will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 4
+			path: repo/src/TextUI/Configuration/Xml/Loader.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-empty\-string and '''' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/src/TextUI/Configuration/Xml/Loader.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/TextUI/Configuration/Xml/Migration/Migrations/ReplaceRestrictDeprecationsWithIgnoreDeprecations.php
+
+		-
+			message: '#^Instanceof between DOMElement and DOMElement will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/TextUI/Configuration/Xml/Migration/Migrations/ReplaceRestrictDeprecationsWithIgnoreDeprecations.php
+
+		-
+			message: '#^Property PHPUnit\\TextUI\\Help\:\:\$hasColor \(bool\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: repo/src/TextUI/Help.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: repo/src/TextUI/Output/Default/ResultPrinter.php
+
+		-
+			message: '#^Instanceof between PHPUnit\\Event\\Code\\TestMethod and PHPUnit\\Event\\Code\\TestMethod will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 2
+			path: repo/src/TextUI/Output/Default/ResultPrinter.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Util/PHP/DefaultJobRunner.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-falsy\-string\|null and '''' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/src/Util/PHP/DefaultJobRunner.php

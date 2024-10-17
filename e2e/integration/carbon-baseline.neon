@@ -1,21 +1,205 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^PHPDoc tag @SuppressWarnings has invalid value \\(\\(PHPMD\\.NumberOfChildren\\)\\)\\: Unexpected token \"\\.NumberOfChildren\\)\", expected '\\)' at offset 30 on line 2$#"
+			message: '#^PHPDoc tag @var with type Carbon\\CarbonInterface is not subtype of native type \$this\(Carbon\\Carbon\)\.$#'
+			identifier: varTag.nativeType
+			count: 2
+			path: repo/src/Carbon/Carbon.php
+
+		-
+			message: '#^PHPDoc tag @var with type Carbon\\CarbonInterface is not subtype of native type \$this\(Carbon\\CarbonImmutable\)\.$#'
+			identifier: varTag.nativeType
+			count: 2
+			path: repo/src/Carbon/CarbonImmutable.php
+
+		-
+			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.NumberOfChildren\)\)\: Unexpected token "\.NumberOfChildren\)", expected ''\)'' at offset 30 on line 2$#'
+			identifier: phpDoc.parseError
 			count: 1
 			path: repo/tests/AbstractTestCase.php
 
 		-
-			message: "#^PHPDoc tag @SuppressWarnings has invalid value \\(\\(PHPMD\\.TooManyFields\\)\\)\\: Unexpected token \"\\.TooManyFields\\)\", expected '\\)' at offset 34 on line 2$#"
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type Carbon\\Carbon\.$#'
+			identifier: varTag.nativeType
+			count: 3
+			path: repo/tests/Carbon/AddTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type Carbon\\Exceptions\\OutOfRangeException is not subtype of native type null\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/tests/Carbon/CreateTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type Carbon\\CarbonInterface is not subtype of native type \$this\(Tests\\Carbon\\Fixtures\\Mixin\)\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/tests/Carbon/Fixtures/Mixin.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type Carbon\\Carbon\.$#'
+			identifier: varTag.nativeType
+			count: 4
+			path: repo/tests/Carbon/GenericMacroTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type Carbon\\Carbon\|null\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/tests/Carbon/GettersTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type Carbon\\Carbon\.$#'
+			identifier: varTag.nativeType
+			count: 6
+			path: repo/tests/Carbon/IsTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type Carbon\\CarbonInterface is not subtype of native type \$this\(Tests\\Carbon\\MacroTest\)\.$#'
+			identifier: varTag.nativeType
+			count: 6
+			path: repo/tests/Carbon/MacroTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type Carbon\\Carbon\.$#'
+			identifier: varTag.nativeType
+			count: 8
+			path: repo/tests/Carbon/MacroTest.php
+
+		-
+			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.TooManyFields\)\)\: Unexpected token "\.TooManyFields\)", expected ''\)'' at offset 34 on line 2$#'
+			identifier: phpDoc.parseError
 			count: 1
 			path: repo/tests/Carbon/SettersTest.php
 
 		-
-			message: "#^Method Carbon\\\\Carbon@anonymous/tests/Carbon/TestingAidsTest\\.php\\:383\\:\\:modify\\(\\) should return Carbon\\\\Carbon@anonymous/tests/Carbon/TestingAidsTest\\.php\\:383 but returns \\(DateTimeImmutable\\|false\\)\\.$#"
+			message: '#^PHPDoc tag @var with type array is not subtype of native type Carbon\\Carbon\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/tests/Carbon/SettersTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type Carbon\\Carbon\.$#'
+			identifier: varTag.nativeType
+			count: 8
+			path: repo/tests/Carbon/SettersTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type Carbon\\Carbon\.$#'
+			identifier: varTag.nativeType
+			count: 5
+			path: repo/tests/Carbon/StrictModeTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type Carbon\\Carbon\.$#'
+			identifier: varTag.nativeType
+			count: 3
+			path: repo/tests/Carbon/SubTest.php
+
+		-
+			message: '#^Method Carbon\\Carbon@anonymous/tests/Carbon/TestingAidsTest\.php\:383\:\:modify\(\) should return Carbon\\Carbon@anonymous/tests/Carbon/TestingAidsTest\.php\:383 but returns \(DateTimeImmutable\|false\)\.$#'
+			identifier: return.type
 			count: 1
 			path: repo/tests/Carbon/TestingAidsTest.php
 
 		-
-			message: "#^PHPDoc tag @SuppressWarnings has invalid value \\(\\(PHPMD\\.NumberOfChildren\\)\\)\\: Unexpected token \"\\.NumberOfChildren\\)\", expected '\\)' at offset 30 on line 2$#"
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type Carbon\\CarbonImmutable\.$#'
+			identifier: varTag.nativeType
+			count: 3
+			path: repo/tests/CarbonImmutable/AddTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type Carbon\\CarbonImmutable is not subtype of native type \$this\(Tests\\CarbonImmutable\\Fixtures\\Mixin\)\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/tests/CarbonImmutable/Fixtures/Mixin.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type Carbon\\CarbonImmutable\.$#'
+			identifier: varTag.nativeType
+			count: 4
+			path: repo/tests/CarbonImmutable/GenericMacroTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type Carbon\\CarbonImmutable\|null\.$#'
+			identifier: varTag.nativeType
+			count: 2
+			path: repo/tests/CarbonImmutable/GettersTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type Carbon\\CarbonImmutable\.$#'
+			identifier: varTag.nativeType
+			count: 4
+			path: repo/tests/CarbonImmutable/IsTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type Carbon\\CarbonImmutable is not subtype of native type \$this\(Tests\\CarbonImmutable\\MacroTest\)\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/tests/CarbonImmutable/MacroTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type Carbon\\CarbonImmutable\.$#'
+			identifier: varTag.nativeType
+			count: 5
+			path: repo/tests/CarbonImmutable/MacroTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type Carbon\\CarbonImmutable\.$#'
+			identifier: varTag.nativeType
+			count: 7
+			path: repo/tests/CarbonImmutable/SettersTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type Carbon\\CarbonImmutable\.$#'
+			identifier: varTag.nativeType
+			count: 3
+			path: repo/tests/CarbonImmutable/SubTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type Carbon\\CarbonInterval is not subtype of native type \$this\(Tests\\CarbonInterval\\Fixtures\\Mixin\)\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/tests/CarbonInterval/Fixtures/Mixin.php
+
+		-
+			message: '#^PHPDoc tag @var with type Carbon\\CarbonInterval is not subtype of native type \$this\(Tests\\CarbonInterval\\MacroTest\)\.$#'
+			identifier: varTag.nativeType
+			count: 3
+			path: repo/tests/CarbonInterval/MacroTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type Carbon\\CarbonInterval\.$#'
+			identifier: varTag.nativeType
+			count: 2
+			path: repo/tests/CarbonInterval/SettersTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type object is not subtype of native type Carbon\\Carbon\|null\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/tests/CarbonPeriod/CreateTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type Carbon\\Carbon is not subtype of native type \$this\(Tests\\CarbonPeriod\\FilterTest\)\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/tests/CarbonPeriod/FilterTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type Carbon\\CarbonPeriod is not subtype of native type \$this\(Tests\\CarbonPeriod\\MacroTest\)\.$#'
+			identifier: varTag.nativeType
+			count: 3
+			path: repo/tests/CarbonPeriod/MacroTest.php
+
+		-
+			message: '#^PHPDoc tag @var with type mixed is not subtype of native type object\.$#'
+			identifier: varTag.nativeType
+			count: 2
+			path: repo/tests/CarbonPeriod/MacroTest.php
+
+		-
+			message: '#^PHPDoc tag @SuppressWarnings has invalid value \(\(PHPMD\.NumberOfChildren\)\)\: Unexpected token "\.NumberOfChildren\)", expected ''\)'' at offset 30 on line 2$#'
+			identifier: phpDoc.parseError
 			count: 1
 			path: repo/tests/Localization/LocalizationTestCase.php

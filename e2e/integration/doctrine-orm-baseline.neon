@@ -1,101 +1,569 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Method Doctrine\\\\ORM\\\\Mapping\\\\ClassMetadataInfo\\:\\:fullyQualifiedClassName\\(\\) should return class\\-string\\|null but returns string\\|null\\.$#"
+			message: '#^Call to function method_exists\(\) with ''Doctrine\\\\DBAL\\\\Cache\\\\QueryCacheProfile'' and ''setResultCache'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 3
+			path: repo/lib/Doctrine/ORM/AbstractQuery.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Doctrine\\DBAL\\Cache\\QueryCacheProfile and ''getResultCache'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/AbstractQuery.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Doctrine\\DBAL\\Cache\\QueryCacheProfile and ''setResultCache'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/AbstractQuery.php
+
+		-
+			message: '#^Expression "\$setCacheEntry\(\$data\)" on a separate line does not do anything\.$#'
+			identifier: expr.resultUnused
+			count: 1
+			path: repo/lib/Doctrine/ORM/AbstractQuery.php
+
+		-
+			message: '#^Expression "\$setCacheEntry\(\$stmt\)" on a separate line does not do anything\.$#'
+			identifier: expr.resultUnused
+			count: 1
+			path: repo/lib/Doctrine/ORM/AbstractQuery.php
+
+		-
+			message: '#^@readonly property Doctrine\\ORM\\Cache\\CacheKey\:\:\$hash is assigned outside of its declaring class\.$#'
+			identifier: property.readOnlyByPhpDocAssignOutOfClass
+			count: 1
+			path: repo/lib/Doctrine/ORM/Cache/CollectionCacheKey.php
+
+		-
+			message: '#^Instanceof between Psr\\Cache\\CacheItemPoolInterface and Psr\\Cache\\CacheItemPoolInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Cache/DefaultCacheFactory.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/Cache/DefaultQueryCache.php
+
+		-
+			message: '#^Instanceof between Doctrine\\ORM\\Mapping\\ClassMetadata\<object\> and Doctrine\\ORM\\Mapping\\ClassMetadata will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Cache/DefaultQueryCache.php
+
+		-
+			message: '#^@readonly property Doctrine\\ORM\\Cache\\CacheKey\:\:\$hash is assigned outside of its declaring class\.$#'
+			identifier: property.readOnlyByPhpDocAssignOutOfClass
+			count: 1
+			path: repo/lib/Doctrine/ORM/Cache/EntityCacheKey.php
+
+		-
+			message: '#^Instanceof between Doctrine\\Common\\Collections\\Collection&iterable and Doctrine\\Common\\Collections\\Collection will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Cache/Persister/Collection/AbstractCollectionPersister.php
+
+		-
+			message: '#^Parameter \#1 \$array \(list\<mixed\>\) of array_values is already a list, call has no effect\.$#'
+			identifier: arrayValues.list
+			count: 1
+			path: repo/lib/Doctrine/ORM/Cache/Persister/Collection/AbstractCollectionPersister.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/Cache/Persister/Entity/AbstractEntityPersister.php
+
+		-
+			message: '#^Instanceof between Doctrine\\ORM\\Mapping\\ClassMetadata and Doctrine\\ORM\\Mapping\\ClassMetadata will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Cache/Persister/Entity/AbstractEntityPersister.php
+
+		-
+			message: '#^@readonly property Doctrine\\ORM\\Cache\\CacheKey\:\:\$hash is assigned outside of its declaring class\.$#'
+			identifier: property.readOnlyByPhpDocAssignOutOfClass
+			count: 1
+			path: repo/lib/Doctrine/ORM/Cache/QueryCacheKey.php
+
+		-
+			message: '#^Instanceof between Psr\\Cache\\CacheItemPoolInterface and Psr\\Cache\\CacheItemPoolInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Cache/Region/DefaultRegion.php
+
+		-
+			message: '#^@readonly property Doctrine\\ORM\\Cache\\CacheKey\:\:\$hash is assigned outside of its declaring class\.$#'
+			identifier: property.readOnlyByPhpDocAssignOutOfClass
+			count: 1
+			path: repo/lib/Doctrine/ORM/Cache/TimestampCacheKey.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Doctrine\\\\DBAL\\\\Configuration'' and ''getResultCache'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/Configuration.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Doctrine\\\\DBAL\\\\Configuration'' and ''setResultCache'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/Configuration.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Doctrine\\ORM\\EntityManagerInterface and ''wrapInTransaction'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/Decorator/EntityManagerDecorator.php
+
+		-
+			message: '#^Call to function is_callable\(\) with callable\(\)\: mixed will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/EntityManager.php
+
+		-
+			message: '#^Call to function is_object\(\) with \*NEVER\* will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/EntityManager.php
+
+		-
+			message: '#^Call to function is_object\(\) with object will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 5
+			path: repo/lib/Doctrine/ORM/EntityManager.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/EntityManager.php
+
+		-
+			message: '#^Instanceof between Doctrine\\DBAL\\Connection and Doctrine\\DBAL\\Connection will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/EntityManager.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between 1 and 2 will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Internal/CommitOrderCalculator.php
+
+		-
+			message: '#^Instanceof between Doctrine\\DBAL\\Driver\\ResultStatement and Doctrine\\DBAL\\Driver\\ResultStatement will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 2
+			path: repo/lib/Doctrine/ORM/Internal/Hydration/AbstractHydrator.php
+
+		-
+			message: '#^Parameter &\$id by\-ref type of method Doctrine\\ORM\\Internal\\Hydration\\AbstractHydrator\:\:gatherRowData\(\) expects array\<string, string\>, array\<int\|string, string\> given\.$#'
+			identifier: parameterByRef.type
+			count: 1
+			path: repo/lib/Doctrine/ORM/Internal/Hydration/AbstractHydrator.php
+
+		-
+			message: '#^Parameter &\$nonemptyComponents by\-ref type of method Doctrine\\ORM\\Internal\\Hydration\\AbstractHydrator\:\:gatherRowData\(\) expects array\<string, bool\>, array\<int\|string, bool\> given\.$#'
+			identifier: parameterByRef.type
+			count: 1
+			path: repo/lib/Doctrine/ORM/Internal/Hydration/AbstractHydrator.php
+
+		-
+			message: '#^Parameter &\$result by\-ref type of method Doctrine\\ORM\\Internal\\Hydration\\ArrayHydrator\:\:hydrateRowData\(\) expects array\<mixed\>, array\<mixed\>\|null given\.$#'
+			identifier: parameterByRef.type
+			count: 1
+			path: repo/lib/Doctrine/ORM/Internal/Hydration/ArrayHydrator.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between array\<mixed\>\|null and false will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Internal/Hydration/IterableResult.php
+
+		-
+			message: '#^Instanceof between Doctrine\\ORM\\Mapping\\AssociationOverride and Doctrine\\ORM\\Mapping\\AssociationOverride will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/AssociationOverrides.php
+
+		-
+			message: '#^Instanceof between Doctrine\\ORM\\Mapping\\AttributeOverride and Doctrine\\ORM\\Mapping\\AttributeOverride will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/AttributeOverrides.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: repo/lib/Doctrine/ORM/Mapping/ClassMetadataFactory.php
+
+		-
+			message: '#^Instanceof between Doctrine\\ORM\\Mapping\\ClassMetadata and Doctrine\\ORM\\Mapping\\ClassMetadata will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 2
+			path: repo/lib/Doctrine/ORM/Mapping/ClassMetadataFactory.php
+
+		-
+			message: '#^Method Doctrine\\ORM\\Mapping\\ClassMetadataInfo\:\:fullyQualifiedClassName\(\) should return class\-string\|null but returns string\|null\.$#'
+			identifier: return.type
 			count: 1
 			path: repo/lib/Doctrine/ORM/Mapping/ClassMetadataInfo.php
 
 		-
-			message: "#^Method Doctrine\\\\ORM\\\\Mapping\\\\Driver\\\\AttributeDriver\\:\\:getMethodCallbacks\\(\\) should return array\\<callable\\(\\)\\: mixed\\> but returns list\\<array\\{non\\-falsy\\-string, 'postLoad'\\|'postPersist'\\|'postRemove'\\|'postUpdate'\\|'preFlush'\\|'prePersist'\\|'preRemove'\\|'preUpdate'\\}\\>\\.$#"
+			message: '#^Parameter \#1 \$array \(list\<string\>\) of array_values is already a list, call has no effect\.$#'
+			identifier: arrayValues.list
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/ClassMetadataInfo.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between array\{type\: string, fieldName\: string, columnName\: string, length\?\: int, id\?\: bool, nullable\?\: bool, notInsertable\?\: bool, notUpdatable\?\: bool, \.\.\.\} and false will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 2
+			path: repo/lib/Doctrine/ORM/Mapping/ClassMetadataInfo.php
+
+		-
+			message: '#^Template type T is declared as covariant, but occurs in invariant position in property Doctrine\\ORM\\Mapping\\ClassMetadataInfo\:\:\$name\.$#'
+			identifier: generics.variance
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/ClassMetadataInfo.php
+
+		-
+			message: '#^Call to function is_object\(\) with object will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/DefaultEntityListenerResolver.php
+
+		-
+			message: '#^Method Doctrine\\ORM\\Mapping\\Driver\\AnnotationDriver\:\:getMethodCallbacks\(\) should return list\<array&callable\(\)\: mixed\> but returns list\<list\{non\-falsy\-string, ''postLoad''\|''postPersist''\|''postRemove''\|''postUpdate''\|''preFlush''\|''prePersist''\|''preRemove''\|''preUpdate''\}\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/Driver/AnnotationDriver.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 4
+			path: repo/lib/Doctrine/ORM/Mapping/Driver/AttributeDriver.php
+
+		-
+			message: '#^Instanceof between Doctrine\\ORM\\Mapping\\Cache and Doctrine\\ORM\\Mapping\\Cache will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
 			count: 1
 			path: repo/lib/Doctrine/ORM/Mapping/Driver/AttributeDriver.php
 
 		-
-			message: "#^Parameter \\#4 \\.\\.\\.\\$args of static method Doctrine\\\\Deprecations\\\\Deprecation\\:\\:trigger\\(\\) expects float\\|int\\|string, false given\\.$#"
+			message: '#^Instanceof between ReflectionMethod and ReflectionMethod will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 2
+			path: repo/lib/Doctrine/ORM/Mapping/Driver/AttributeDriver.php
+
+		-
+			message: '#^Instanceof between ReflectionProperty and ReflectionProperty will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/Driver/AttributeDriver.php
+
+		-
+			message: '#^Method Doctrine\\ORM\\Mapping\\Driver\\AttributeDriver\:\:getMethodCallbacks\(\) should return array\<callable\(\)\: mixed\> but returns list\<list\{non\-falsy\-string, ''postLoad''\|''postPersist''\|''postRemove''\|''postUpdate''\|''preFlush''\|''prePersist''\|''preRemove''\|''preUpdate''\}\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/Driver/AttributeDriver.php
+
+		-
+			message: '#^Instanceof between Doctrine\\ORM\\Mapping\\ClassMetadata\<T of object\> and Doctrine\\ORM\\Mapping\\ClassMetadata will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
 			count: 1
 			path: repo/lib/Doctrine/ORM/Mapping/Driver/DatabaseDriver.php
 
 		-
-			message: "#^Offset 'version' on \\*NEVER\\* in isset\\(\\) always exists and is not nullable\\.$#"
+			message: '#^Parameter \#4 \.\.\.\$args of static method Doctrine\\Deprecations\\Deprecation\:\:trigger\(\) expects float\|int\|string, false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/lib/Doctrine/ORM/Mapping/Driver/DatabaseDriver.php
+
+		-
+			message: '#^Offset ''version'' on \*NEVER\* in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
 			count: 1
 			path: repo/lib/Doctrine/ORM/Mapping/Driver/XmlDriver.php
 
 		-
-			message: "#^Condition \"TMaybeContained is mixed\" in conditional return type is always true\\.$#"
+			message: '#^Method Doctrine\\ORM\\NativeQuery\:\:_doExecute\(\) never returns int so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/NativeQuery.php
+
+		-
+			message: '#^Condition "TMaybeContained is mixed" in conditional return type is always true\.$#'
+			identifier: conditionalType.alwaysTrue
 			count: 1
 			path: repo/lib/Doctrine/ORM/PersistentCollection.php
 
 		-
-			message: "#^Method Doctrine\\\\ORM\\\\Query\\\\AST\\\\IndexBy\\:\\:dispatch\\(\\) should return string but returns null\\.$#"
+			message: '#^Method Doctrine\\ORM\\PersistentCollection\:\:offsetUnset\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/PersistentCollection.php
+
+		-
+			message: '#^Method Doctrine\\ORM\\Proxy\\ProxyFactory\:\:createCloner\(\) has Doctrine\\ORM\\EntityNotFoundException in PHPDoc @throws tag but it''s not thrown\.$#'
+			identifier: throws.unusedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/Proxy/ProxyFactory.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Doctrine\\\\DBAL\\\\Cache\\\\QueryCacheProfile'' and ''getResultCache'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query.php
+
+		-
+			message: '#^Method Doctrine\\ORM\\Query\:\:getFirstResult\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query.php
+
+		-
+			message: '#^Parameter \#2 \$sqlParams of method Doctrine\\ORM\\Query\:\:evictResultSetCache\(\) expects array\<string, mixed\>, list\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query.php
+
+		-
+			message: '#^Method Doctrine\\ORM\\Query\\AST\\IndexBy\:\:dispatch\(\) should return string but returns null\.$#'
+			identifier: return.type
 			count: 1
 			path: repo/lib/Doctrine/ORM/Query/AST/IndexBy.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property Doctrine\\\\ORM\\\\Query\\\\Expr\\\\Andx\\:\\:\\$allowedClasses is not covariant with PHPDoc type list\\<class\\-string\\> of overridden property Doctrine\\\\ORM\\\\Query\\\\Expr\\\\Base\\:\\:\\$allowedClasses\\.$#"
+			message: '#^Call to function is_object\(\) with object will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/AST/Node.php
+
+		-
+			message: '#^PHPDoc type array\<string\> of property Doctrine\\ORM\\Query\\Expr\\Andx\:\:\$allowedClasses is not covariant with PHPDoc type list\<class\-string\> of overridden property Doctrine\\ORM\\Query\\Expr\\Base\:\:\$allowedClasses\.$#'
+			identifier: property.phpDocType
 			count: 1
 			path: repo/lib/Doctrine/ORM/Query/Expr/Andx.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property Doctrine\\\\ORM\\\\Query\\\\Expr\\\\Orx\\:\\:\\$allowedClasses is not covariant with PHPDoc type list\\<class\\-string\\> of overridden property Doctrine\\\\ORM\\\\Query\\\\Expr\\\\Base\\:\\:\\$allowedClasses\\.$#"
+			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, list\<object\|string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/Expr/Base.php
+
+		-
+			message: '#^PHPDoc type array\<string\> of property Doctrine\\ORM\\Query\\Expr\\Orx\:\:\$allowedClasses is not covariant with PHPDoc type list\<class\-string\> of overridden property Doctrine\\ORM\\Query\\Expr\\Base\:\:\$allowedClasses\.$#'
+			identifier: property.phpDocType
 			count: 1
 			path: repo/lib/Doctrine/ORM/Query/Expr/Orx.php
 
 		-
-			message: "#^PHPDoc type array\\<string\\> of property Doctrine\\\\ORM\\\\Query\\\\Expr\\\\Select\\:\\:\\$allowedClasses is not covariant with PHPDoc type list\\<class\\-string\\> of overridden property Doctrine\\\\ORM\\\\Query\\\\Expr\\\\Base\\:\\:\\$allowedClasses\\.$#"
+			message: '#^PHPDoc type array\<string\> of property Doctrine\\ORM\\Query\\Expr\\Select\:\:\$allowedClasses is not covariant with PHPDoc type list\<class\-string\> of overridden property Doctrine\\ORM\\Query\\Expr\\Base\:\:\$allowedClasses\.$#'
+			identifier: property.phpDocType
 			count: 1
 			path: repo/lib/Doctrine/ORM/Query/Expr/Select.php
 
 		-
-			message: """
-				#^PHPDoc tag @return has invalid value \\(AST\\\\BetweenExpression\\|
-				        AST\\\\CollectionMemberExpression\\|
-				        AST\\\\ComparisonExpression\\|
-				        AST\\\\EmptyCollectionComparisonExpression\\|
-				        AST\\\\ExistsExpression\\|
-				        AST\\\\InExpression\\|
-				        AST\\\\InstanceOfExpression\\|
-				        AST\\\\LikeExpression\\|
-				        AST\\\\NullComparisonExpression\\)\\: Unexpected token "\\\\n     \\* ", expected type at offset 344 on line 8$#
-			"""
+			message: '#^@readonly property cannot have a default value\.$#'
+			identifier: property.readOnlyByPhpDocDefaultValue
+			count: 3
+			path: repo/lib/Doctrine/ORM/Query/Parser.php
+
+		-
+			message: '#^Instanceof between Doctrine\\ORM\\Query\\AST\\SelectStatement and Doctrine\\ORM\\Query\\AST\\SelectStatement will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
 			count: 1
 			path: repo/lib/Doctrine/ORM/Query/Parser.php
 
 		-
-			message: "#^Method Doctrine\\\\ORM\\\\Query\\\\QueryExpressionVisitor\\:\\:getParameters\\(\\) should return Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<int, mixed\\> but returns Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<int\\<0, max\\>, mixed\\>\\.$#"
+			message: '''
+				#^PHPDoc tag @return has invalid value \(AST\\BetweenExpression\|
+				        AST\\CollectionMemberExpression\|
+				        AST\\ComparisonExpression\|
+				        AST\\EmptyCollectionComparisonExpression\|
+				        AST\\ExistsExpression\|
+				        AST\\InExpression\|
+				        AST\\InstanceOfExpression\|
+				        AST\\LikeExpression\|
+				        AST\\NullComparisonExpression\)\: Unexpected token "\\n     \* ", expected type at offset 344 on line 8$#
+			'''
+			identifier: phpDoc.parseError
 			count: 1
-			path: repo/lib/Doctrine/ORM/Query/QueryExpressionVisitor.php
+			path: repo/lib/Doctrine/ORM/Query/Parser.php
 
 		-
-			message: "#^Parameter \\#2 \\$dqlPart of method Doctrine\\\\ORM\\\\QueryBuilder\\:\\:add\\(\\) expects array\\<'join'\\|int\\<0, max\\>, array\\<int\\|string, object\\>\\|string\\>\\|object\\|string, non\\-empty\\-array\\<string, Doctrine\\\\ORM\\\\Query\\\\Expr\\\\Join\\> given\\.$#"
+			message: '#^Strict comparison using \=\=\= between 102 and 102 will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/Parser.php
+
+		-
+			message: '#^Instanceof between Doctrine\\ORM\\Query\\AST\\ConditionalExpression and Doctrine\\ORM\\Query\\AST\\ConditionalExpression will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/SqlWalker.php
+
+		-
+			message: '#^Instanceof between Doctrine\\ORM\\Query\\AST\\ConditionalFactor and Doctrine\\ORM\\Query\\AST\\ConditionalFactor will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/SqlWalker.php
+
+		-
+			message: '#^Instanceof between Doctrine\\ORM\\Query\\AST\\ConditionalTerm and Doctrine\\ORM\\Query\\AST\\ConditionalTerm will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/SqlWalker.php
+
+		-
+			message: '#^Instanceof between Doctrine\\ORM\\Query\\AST\\SimpleArithmeticExpression and Doctrine\\ORM\\Query\\AST\\SimpleArithmeticExpression will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/SqlWalker.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between Doctrine\\ORM\\Query\\AST\\WhereClause and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/SqlWalker.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between null and null will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Query/SqlWalker.php
+
+		-
+			message: '#^Parameter \#2 \$dqlPart of method Doctrine\\ORM\\QueryBuilder\:\:add\(\) expects array\<''join''\|int\<0, max\>, array\<int\|string, object\>\|string\>\|object\|string, non\-empty\-array\<string, Doctrine\\ORM\\Query\\Expr\\Join\> given\.$#'
+			identifier: argument.type
 			count: 2
 			path: repo/lib/Doctrine/ORM/QueryBuilder.php
 
 		-
-			message: "#^Property Doctrine\\\\ORM\\\\QueryBuilder\\:\\:\\$parameters \\(Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<int, Doctrine\\\\ORM\\\\Query\\\\Parameter\\>\\) does not accept Doctrine\\\\Common\\\\Collections\\\\ArrayCollection\\<int\\<0, max\\>, Doctrine\\\\ORM\\\\Query\\\\Parameter\\>\\.$#"
+			message: '#^Instanceof between Doctrine\\ORM\\EntityRepository and Doctrine\\ORM\\EntityRepository will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
 			count: 1
-			path: repo/lib/Doctrine/ORM/QueryBuilder.php
+			path: repo/lib/Doctrine/ORM/Repository/DefaultRepositoryFactory.php
 
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Console\\\\Helper\\\\HelperInterface\\:\\:getEntityManager\\(\\)\\.$#"
+			message: '#^Call to an undefined method Symfony\\Component\\Console\\Helper\\HelperInterface\:\:getEntityManager\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: repo/lib/Doctrine/ORM/Tools/Console/Command/AbstractEntityManagerCommand.php
 
 		-
-			message: "#^Parameter \\#1 \\$metadata of method Doctrine\\\\ORM\\\\Tools\\\\Export\\\\Driver\\\\AbstractExporter\\:\\:setMetadata\\(\\) expects list\\<Doctrine\\\\ORM\\\\Mapping\\\\ClassMetadata\\>, non\\-empty\\-list\\<Doctrine\\\\ORM\\\\Mapping\\\\ClassMetadataInfo\\> given\\.$#"
+			message: '#^Call to function method_exists\(\) with ''Doctrine\\\\ORM\\\\Configuration'' and ''getResultCacheImpl'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/Console/Command/ClearCache/ResultCommand.php
+
+		-
+			message: '#^Parameter \#1 \$metadata of method Doctrine\\ORM\\Tools\\Export\\Driver\\AbstractExporter\:\:setMetadata\(\) expects list\<Doctrine\\ORM\\Mapping\\ClassMetadata\>, non\-empty\-list\<Doctrine\\ORM\\Mapping\\ClassMetadataInfo\> given\.$#'
+			identifier: argument.type
 			count: 1
 			path: repo/lib/Doctrine/ORM/Tools/Console/Command/ConvertDoctrine1SchemaCommand.php
 
 		-
-			message: "#^Parameter \\#1 \\$metadata of method Doctrine\\\\ORM\\\\Tools\\\\Export\\\\Driver\\\\AbstractExporter\\:\\:setMetadata\\(\\) expects list\\<Doctrine\\\\ORM\\\\Mapping\\\\ClassMetadata\\>, non\\-empty\\-array\\<Doctrine\\\\Persistence\\\\Mapping\\\\ClassMetadata\\> given\\.$#"
+			message: '#^Call to function method_exists\(\) with ''Doctrine\\\\DBAL\\\\Connection'' and ''createSchemaManager'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
 			count: 1
 			path: repo/lib/Doctrine/ORM/Tools/Console/Command/ConvertMappingCommand.php
 
 		-
-			message: "#^Parameter \\#1 \\$metadatas of method Doctrine\\\\ORM\\\\Tools\\\\EntityGenerator\\:\\:generate\\(\\) expects list\\<Doctrine\\\\ORM\\\\Mapping\\\\ClassMetadataInfo\\>, non\\-empty\\-array\\<Doctrine\\\\Persistence\\\\Mapping\\\\ClassMetadata\\> given\\.$#"
+			message: '#^Parameter \#1 \$metadata of method Doctrine\\ORM\\Tools\\Export\\Driver\\AbstractExporter\:\:setMetadata\(\) expects list\<Doctrine\\ORM\\Mapping\\ClassMetadata\>, non\-empty\-array\<Doctrine\\Persistence\\Mapping\\ClassMetadata\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/Console/Command/ConvertMappingCommand.php
+
+		-
+			message: '#^Parameter \#1 \$metadatas of method Doctrine\\ORM\\Tools\\EntityGenerator\:\:generate\(\) expects list\<Doctrine\\ORM\\Mapping\\ClassMetadataInfo\>, non\-empty\-array\<Doctrine\\Persistence\\Mapping\\ClassMetadata\> given\.$#'
+			identifier: argument.type
 			count: 1
 			path: repo/lib/Doctrine/ORM/Tools/Console/Command/GenerateEntitiesCommand.php
 
 		-
-			message: "#^Parameter \\#1 \\$entityListeners of method Doctrine\\\\ORM\\\\Tools\\\\Console\\\\Command\\\\MappingDescribeCommand\\:\\:formatEntityListeners\\(\\) expects list\\<object\\>, array\\<string, list\\<array\\{class\\: class\\-string, method\\: string\\}\\>\\> given\\.$#"
+			message: '#^Parameter \#1 \$entityListeners of method Doctrine\\ORM\\Tools\\Console\\Command\\MappingDescribeCommand\:\:formatEntityListeners\(\) expects list\<object\>, array\<string, list\<array\{class\: class\-string, method\: string\}\>\> given\.$#'
+			identifier: argument.type
 			count: 1
 			path: repo/lib/Doctrine/ORM/Tools/Console/Command/MappingDescribeCommand.php
+
+		-
+			message: '#^Property Doctrine\\ORM\\Mapping\\ClassMetadataInfo\<object\>\:\:\$lifecycleCallbacks \(array\<string, list\<string\>\>\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/EntityGenerator.php
+
+		-
+			message: '#^Property Doctrine\\ORM\\Mapping\\ClassMetadataInfo\<object\>\:\:\$lifecycleCallbacks \(array\<string, list\<string\>\>\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/Export/Driver/XmlExporter.php
+
+		-
+			message: '#^Property Doctrine\\ORM\\Mapping\\ClassMetadataInfo\<object\>\:\:\$lifecycleCallbacks \(array\<string, list\<string\>\>\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/Export/Driver/YamlExporter.php
+
+		-
+			message: '#^Instanceof between Doctrine\\ORM\\Query\\AST\\ConditionalExpression and Doctrine\\ORM\\Query\\AST\\ConditionalExpression will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/Pagination/WhereInWalker.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/SchemaTool.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\{cache\?\: array, cascade\: array\<string\>, declared\?\: class\-string, fetch\: mixed, fieldName\: string, id\?\: bool, inherited\?\: class\-string, indexBy\?\: string, \.\.\.\} will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/SchemaTool.php
+
+		-
+			message: '#^Call to function is_numeric\(\) with int\<0, max\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/SchemaTool.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Doctrine\\\\DBAL\\\\Connection'' and ''createSchemaManager'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/SchemaTool.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Doctrine\\DBAL\\Schema\\AbstractSchemaManager and ''createComparator'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/SchemaTool.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between array and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/lib/Doctrine/ORM/Tools/SchemaValidator.php
+
+		-
+			message: '#^Call to function is_object\(\) with object will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: repo/lib/Doctrine/ORM/UnitOfWork.php
+
+		-
+			message: '#^Parameter &\$visited by\-ref type of method Doctrine\\ORM\\UnitOfWork\:\:cascadeDetach\(\) expects array\<int, object\>, array\<mixed\> given\.$#'
+			identifier: parameterByRef.type
+			count: 2
+			path: repo/lib/Doctrine/ORM/UnitOfWork.php
