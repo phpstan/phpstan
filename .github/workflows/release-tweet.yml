@@ -10,7 +10,7 @@ jobs:
   tweet:
     runs-on: ubuntu-latest
     steps:
-      - uses: Eomm/why-don-t-you-tweet@v1
+      - uses: Eomm/why-don-t-you-tweet@v2
         if: ${{ !github.event.repository.private }}
         with:
           # GitHub event payload
