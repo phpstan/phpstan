@@ -6805,14 +6805,14 @@
     "identical.alwaysFalse": {
         "PHPStan\\Rules\\Comparison\\StrictComparisonOfDifferentTypesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/StrictComparisonOfDifferentTypesRule.php#L90"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/StrictComparisonOfDifferentTypesRule.php#L108"
             ]
         }
     },
     "identical.alwaysTrue": {
         "PHPStan\\Rules\\Comparison\\StrictComparisonOfDifferentTypesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/StrictComparisonOfDifferentTypesRule.php#L117"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/StrictComparisonOfDifferentTypesRule.php#L135"
             ]
         }
     },
@@ -9162,14 +9162,14 @@
     "notIdentical.alwaysFalse": {
         "PHPStan\\Rules\\Comparison\\StrictComparisonOfDifferentTypesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/StrictComparisonOfDifferentTypesRule.php#L90"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/StrictComparisonOfDifferentTypesRule.php#L108"
             ]
         }
     },
     "notIdentical.alwaysTrue": {
         "PHPStan\\Rules\\Comparison\\StrictComparisonOfDifferentTypesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/StrictComparisonOfDifferentTypesRule.php#L117"
+                "https://github.com/phpstan/phpstan-src/blob/2.0.x/src/Rules/Comparison/StrictComparisonOfDifferentTypesRule.php#L135"
             ]
         }
     },
