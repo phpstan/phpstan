@@ -22,6 +22,7 @@ Basic types
 * `null`
 * `float`
 * `double`
+* `number`
 * `scalar`
 * `array`
 * `iterable`
