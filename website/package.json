@@ -9,7 +9,7 @@
 		"@codemirror/state": "^6.2.0",
 		"@codemirror/view": "^6.9.2",
 		"@docsearch/js": "3",
-		"@sentry/browser": "^7.52.1",
+		"@sentry/browser": "^7.119.1",
 		"@stripe/stripe-js": "^2.0.0",
 		"jquery": "^3.6.0",
 		"knockout": "^3.5.1",
