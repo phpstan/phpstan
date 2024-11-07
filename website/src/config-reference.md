@@ -721,6 +721,15 @@ parameters:
     phpVersion: 70400 # PHP 7.4
 ```
 
+Since PHPStan 2.0 you can define a minimum and maximum `phpVersion` parameter:
+
+```yaml
+parameters:
+	phpVersion:
+		min: 80103 # PHP 8.1.3
+		max: 80304 # PHP 8.3.4
+```
+
 PHPStan will automatically infer the `config.platform.php` version from the last `composer.json` file it can find, if not configured in the PHPStan configuration file.
 
 ### `inferPrivatePropertyTypeFromConstructor`
