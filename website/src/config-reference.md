@@ -721,7 +721,7 @@ parameters:
     phpVersion: 70400 # PHP 7.4
 ```
 
-Since PHPStan 2.0 you can define a minimum and maximum `phpVersion` parameter:
+Since PHPStan 2.0 you can define a range of minimum and maximum `phpVersion` parameter:
 
 ```yaml
 parameters:
