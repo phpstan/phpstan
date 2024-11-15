@@ -76,30 +76,17 @@ jobs:
 #              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
 #              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
 #              vendor/bin/phpunit
-#          - php-version: 8.3
-#            name: Larastan tests PHP 8.3, ^10.28
-#            script: |
-#              git clone https://github.com/larastan/larastan.git e2e/integration/repo
-#              cd e2e/integration/repo
-#              git checkout e1b64a0f3120cf40fca9703a718e29b0cef89f9f
-#              composer install
-#              composer update --with='laravel/framework:^10.28'
-#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-#              composer run-script test:unit
-#          - php-version: 8.3
-#            name: Larastan tests PHP 8.3, ^11.0
-#            script: |
-#              git clone https://github.com/larastan/larastan.git e2e/integration/repo
-#              cd e2e/integration/repo
-#              git checkout e1b64a0f3120cf40fca9703a718e29b0cef89f9f
-#              composer install
-#              composer update --with='laravel/framework:^11.0'
-#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-#              composer run-script test:unit
+          - php-version: 8.3
+            name: Larastan tests PHP 8.3, ^11.15
+            script: |
+              git clone https://github.com/larastan/larastan.git -b v3.0.0 --depth 1 e2e/integration/repo
+              cd e2e/integration/repo
+              composer install
+              composer update --with='laravel/framework:^11.15'
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              composer run-script test:unit
 #          - php-version: 8.3
 #            name: Carbon tests
 #            script: |
@@ -311,16 +298,16 @@ jobs:
 #              composer install
 #            phpstan-command: ../../../phpstan analyse -c ../symplify.neon
 #            baseline-file: symplify-baseline.neon
-#          - php-version: 8.1
-#            repo: larastan/larastan
-#            ref: e1b64a0f3120cf40fca9703a718e29b0cef89f9f
-#            setup: |
-#              composer install
-#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-#            phpstan-command: ../../../phpstan.phar analyse -c ../larastan.neon
-#            baseline-file: larastan-baseline.neon
+          - php-version: 8.3
+            repo: larastan/larastan
+            ref: v3.0.0
+            setup: |
+              composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+            phpstan-command: ../../../phpstan.phar analyse -c ../larastan.neon
+            baseline-file: larastan-baseline.neon
 #          - php-version: 7.4
 #            repo: bitExpert/phpstan-magento
 #            ref: f845cd4dbdc49d2e005ec2646176ddfcf7d55d38
