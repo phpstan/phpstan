@@ -52,18 +52,18 @@ jobs:
       fail-fast: false
       matrix:
         include:
-#          - php-version: 8.2
-#            name: Rector tests
-#            script: |
-#              git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
-#              cd e2e/integration/repo
-#              git checkout 467e971b79acab35e7bb0937166ab2e23bffd245
-#              cp ../rector-composer.lock composer.lock
-#              composer install
-#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-#              vendor/bin/phpunit
+          - php-version: 8.2
+            name: Rector tests
+            script: |
+              git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout eb5df4dde7515bbc497af6da84d5f9dbf96399d8
+              cp ../rector-composer.lock composer.lock
+              composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              vendor/bin/phpunit
 #          - php-version: 8.2
 #            name: Symplify tests
 #            script: |
@@ -202,14 +202,14 @@ jobs:
       fail-fast: false
       matrix:
         include:
-#          - php-version: 8.2
-#            repo: rectorphp/rector-src
-#            ref: 467e971b79acab35e7bb0937166ab2e23bffd245
-#            setup: |
-#              cp ../rector-composer.lock composer.lock
-#              composer install
-#            phpstan-command: ../../../phpstan.phar analyse -c ../rector.neon
-#            baseline-file: rector-baseline.neon
+          - php-version: 8.2
+            repo: rectorphp/rector-src
+            ref: eb5df4dde7515bbc497af6da84d5f9dbf96399d8
+            setup: |
+              cp ../rector-composer.lock composer.lock
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../rector.neon
+            baseline-file: rector-baseline.neon
 #          - php-version: 8.3
 #            repo: sebastianbergmann/phpunit
 #            ref: 7af36fe694222657332a5f932f29dae99964cedc
