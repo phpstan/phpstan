@@ -1,0 +1,43 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: repo/src/Properties/ModelCastHelper.php
+
+		-
+			message: '#^Method Larastan\\Larastan\\Properties\\ModelPropertyHelper\:\:hasDate\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: repo/src/Properties/ModelPropertyHelper.php
+
+		-
+			message: '#^Property Larastan\\Larastan\\Properties\\ModelPropertyHelper\:\:\$modelCastHelper is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/src/Properties/ModelPropertyHelper.php
+
+		-
+			message: '#^Property Larastan\\Larastan\\Properties\\ModelPropertyHelper\:\:\$stringResolver is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/src/Properties/ModelPropertyHelper.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 2
+			path: repo/src/Properties/ModelPropertyHelper.php
+
+		-
+			message: '#^Method Larastan\\Larastan\\Properties\\SchemaAggregator\:\:getModelReferenceType\(\) never returns string so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/src/Properties/SchemaAggregator.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: repo/src/Properties/SchemaAggregator.php
