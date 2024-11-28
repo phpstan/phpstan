@@ -90,7 +90,7 @@ class Foo implements FooInterface
 Add `@phpstan-consistent-constructor` to the class
 ------------------------
 
-You can add `@phpstan-consistent-constructor` tag to the class, which ensures that any constructor in a child class has the same signature as the parent constructor.
+You can add `@phpstan-consistent-constructor` tag to the class, which ensures that any constructor in a child class has the same signature as the parent constructor and a compatible visibility.
 
 ```php
 /** @phpstan-consistent-constructor */
