@@ -129,7 +129,7 @@ parameters:
 		- '#Other error to ignore everywhere#'
 ```
 
-Relative paths in the `path` and `paths` keys are resolved based on the directory of the config file is in. So if your `phpstan.neon` is in the root directory of the project, and you want to ignore an error in `src/Foo/Bar.php`, your path key can simply be `src/Foo/Bar.php`.
+Relative paths in the `path` and `paths` keys are resolved to the base directory of the config file. Given your `phpstan.neon` is in the root directory of the project, when you want to ignore an error in `src/Foo/Bar.php`, then the value of the path key is `src/Foo/Bar.php`.
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 1.11.0</div>
 
