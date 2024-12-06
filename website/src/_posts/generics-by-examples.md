@@ -360,3 +360,16 @@ class Bar
     use Part;
 }
 ```
+
+The `@use` tag can be defined into the PHPDoc above the `class` or the `use` clause. Both work the same way:
+
+```php
+/**
+ * @template T of Foo
+ * @use Part<T> 
+ */
+class Bar
+{
+    use Part;
+}
+```
