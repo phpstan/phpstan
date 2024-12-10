@@ -2,7 +2,7 @@
 title: Getting Started
 ---
 
-PHPStan requires PHP >= 7.2. You have to run it in environment with PHP 7.x but the actual code does not have to use PHP 7.x features. (Code written for PHP 5.6 and earlier can run on 7.x mostly unmodified.)
+PHPStan requires PHP >= 7.4. You have to run it in environment with PHP 7.x but the actual code does not have to use PHP 7.x features. (Code written for PHP 5.6 and earlier can run on 7.x mostly unmodified.)
 
 PHPStan works best with modern object-oriented code. The more strongly-typed your code is, the more information you give PHPStan to work with.
 
