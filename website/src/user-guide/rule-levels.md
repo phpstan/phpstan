@@ -2,7 +2,7 @@
 title: Rule Levels
 ---
 
-If you want to use PHPStan but your codebase isn't up to speed with strong typing and PHPStan's strict checks, you can currently choose from 10 levels (0 is the loosest and 9 is the strictest) by passing `-l|--level` to the `analyse` command.
+If you want to use PHPStan but your codebase isn't up to speed with strong typing and PHPStan's strict checks, you can currently choose from 11 levels (0 is the loosest and 10 is the strictest) by passing `-l|--level` to the `analyse` command.
 
 ```bash
 vendor/bin/phpstan analyse -l 6 src tests
