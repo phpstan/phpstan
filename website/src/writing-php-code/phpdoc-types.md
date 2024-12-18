@@ -370,7 +370,7 @@ Constants are supported as long as they don't contain lowercase letters and a cl
 Callables
 -------------------------
 
-The `callable` typehint has been in PHP for a long time. But it doesn't allow enforcing specific callback signatures. However, PHPStan allows and enforce specific signatures in PHPDocs:
+The `callable` typehint has been in PHP for a long time. But it doesn't allow enforcing specific callback signatures. However, PHPStan allows to enforce specific signatures in PHPDocs:
 
 * `callable(int, int): string` (accepts two integers, returns a string)
 * `callable(int, int=): string` (second parameter is optional)
