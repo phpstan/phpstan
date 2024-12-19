@@ -71,6 +71,7 @@ Unofficial extensions
 * [CakePHP](https://github.com/CakeDC/cakephp-phpstan)
 * [Safe PHP](https://github.com/thecodingmachine/phpstan-safe-rule)
 * [psr/log](https://github.com/struggle-for-php/sfp-phpstan-psr-log)
+* [Faker](https://github.com/calebdw/fakerstan)
 
 3rd party rules
 -----------------
