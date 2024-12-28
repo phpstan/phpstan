@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Class PHPStan\\Parser\\SimpleParser constructor invoked with 4 parameters, 5 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: repo/src/PhpDocParser/PhpParser/SmartPhpParserFactory.php
