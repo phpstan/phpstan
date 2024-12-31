@@ -105,7 +105,7 @@ This feature is much [easier to grasp](https://wiki.php.net/rfc/asymmetric-visib
 
 Similarly to property hooks, I also have a few nice-to-have todos [left for later](https://github.com/phpstan/phpstan/issues/12347).
 
-`[#Deprecated]` attribute
+`#[\Deprecated]` attribute
 ---------------------
 
 [This attribute](https://wiki.php.net/rfc/deprecated_attribute) allows the PHP engine [trigger deprecated warnings](https://3v4l.org/MEJTq).
