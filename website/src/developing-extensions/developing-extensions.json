@@ -88,6 +88,10 @@
             "link": "/developing-extensions/always-used-class-constants"
         },
         {
+            "title": "Always-Used Methods",
+            "link": "/developing-extensions/always-used-methods"
+        },
+        {
             "title": "Allowed Subtypes",
             "link": "/developing-extensions/allowed-subtypes"
         },
