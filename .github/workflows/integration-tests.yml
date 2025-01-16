@@ -364,13 +364,13 @@ jobs:
 #            # test project-base separately
 #            phpstan-command: ../../../../../phpstan.phar analyse -c ../../../shopsys-project-base.neon -l 5 src tests
 #            baseline-file: ../../shopsys-project-base-baseline.neon
-#          - php-version: 8.1
-#            repo: doctrine/orm
-#            ref: 2.13.1
-#            setup: |
-#              composer install
-#            phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-orm.neon
-#            baseline-file: doctrine-orm-baseline.neon
+          - php-version: 8.4
+            repo: doctrine/orm
+            ref: 68c87740aa07d547a60818a288b2ce44ee74aba0
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-orm.neon
+            baseline-file: doctrine-orm-baseline.neon
           - php-version: 8.4
             repo: doctrine/collections
             ref: 2790cb57e6510e4404873bdca6688e447550d720
