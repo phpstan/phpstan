@@ -371,20 +371,13 @@ jobs:
 #              composer install
 #            phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-orm.neon
 #            baseline-file: doctrine-orm-baseline.neon
-#          - php-version: 8.1
-#            repo: doctrine/collections
-#            ref: 1.8.0
-#            setup: |
-#              composer install
-#            phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-collections.neon
-#            baseline-file: doctrine-collections-baseline.neon
-#          - php-version: 8.1
-#            repo: doctrine/collections
-#            ref: 2.0.1
-#            setup: |
-#              composer install
-#            phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-collections.neon
-#            baseline-file: doctrine-collections-baseline.neon
+          - php-version: 8.4
+            repo: doctrine/collections
+            ref: 2790cb57e6510e4404873bdca6688e447550d720
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-collections.neon
+            baseline-file: doctrine-collections-baseline.neon
           - php-version: 8.4
             repo: doctrine/dbal
             ref: 4.2.2
@@ -393,8 +386,8 @@ jobs:
             phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-dbal.neon
             baseline-file: doctrine-dbal-baseline.neon
 #          - php-version: 8.1
-#            repo: ondrejmirtes/common
-#            ref: 51cdabdbbe2c379af3de74e6da4814383181ae55
+#            repo: doctrine/common
+#            ref: a6851094b28ac4bd673d6c82d6a8c6cff1f2ca3c
 #            setup: |
 #              composer install
 #            phpstan-command: ../../../phpstan.phar analyse

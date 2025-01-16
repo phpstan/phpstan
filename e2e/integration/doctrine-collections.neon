@@ -1,5 +1,6 @@
 includes:
 	- repo/phpstan.neon.dist
+	- doctrine-collections-baseline.neon
 
 parameters:
 	reportUnmatchedIgnoredErrors: false
