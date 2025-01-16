@@ -19,6 +19,12 @@ parameters:
 			path: repo/src/Internal/Hydration/AbstractHydrator.php
 
 		-
+			message: '#^Template type T is declared as covariant, but occurs in invariant position in return type of method Doctrine\\ORM\\Mapping\\ClassMetadata\:\:getReflectionClass\(\)\.$#'
+			identifier: generics.variance
+			count: 1
+			path: repo/src/Mapping/ClassMetadata.php
+
+		-
 			message: '#^Call to function is_a\(\) with Doctrine\\DBAL\\Platforms\\AbstractPlatform and class\-string\<Doctrine\\DBAL\\Platforms\\AbstractPlatform\> will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
