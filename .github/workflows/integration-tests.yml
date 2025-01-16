@@ -385,13 +385,13 @@ jobs:
 #              composer install
 #            phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-collections.neon
 #            baseline-file: doctrine-collections-baseline.neon
-#          - php-version: 8.1
-#            repo: doctrine/dbal
-#            ref: 3.6.0
-#            setup: |
-#              composer install
-#            phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-dbal.neon
-#            baseline-file: doctrine-dbal-baseline.neon
+          - php-version: 8.4
+            repo: doctrine/dbal
+            ref: 4.2.2
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-dbal.neon
+            baseline-file: doctrine-dbal-baseline.neon
 #          - php-version: 8.1
 #            repo: ondrejmirtes/common
 #            ref: 51cdabdbbe2c379af3de74e6da4814383181ae55
