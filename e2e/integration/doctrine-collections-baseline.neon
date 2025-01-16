@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Instanceof between Doctrine\\Common\\Collections\\Expr\\Expression and Doctrine\\Common\\Collections\\Expr\\Expression will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Expr/CompositeExpression.php
