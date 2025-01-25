@@ -740,7 +740,7 @@ If you want to turn off a tip that PHPStan shows, you can do this in the tips se
 ```yaml
 parameters:
     tips:
-        treatPhpDocTypesAsCertain: true
+        treatPhpDocTypesAsCertain: false
 ```
 
 ### `tipsOfTheDay`
