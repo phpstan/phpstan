@@ -38,7 +38,8 @@ If you have the `PhpParser\Node\Expr\FuncCall` expression, you can obtain the ri
 $variant = PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
 	$scope,
 	$funcCall->getArgs(),
-	$functionReflection->getVariants()
+	$functionReflection->getVariants(),
+	$functionReflection->getNamedArgumentsVariants()
 );
 $parameters = $variant->getParameters();
 $returnType = $variant->getReturnType();
