@@ -111,7 +111,8 @@ If you have the `PhpParser\Node\Expr\MethodCall` expression, you can obtain the 
 $variant = PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
 	$scope,
 	$methodCall->getArgs(),
-	$methodReflection->getVariants()
+	$methodReflection->getVariants(),
+	$methodReflection->getNamedArgumentsVariants()
 );
 $parameters = $variant->getParameters();
 $returnType = $variant->getReturnType();
