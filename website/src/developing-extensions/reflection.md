@@ -38,12 +38,26 @@ If you have the `PhpParser\Node\Expr\FuncCall` expression, you can obtain the ri
 $variant = PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
 	$scope,
 	$funcCall->getArgs(),
-	$functionReflection->getVariants(),
-	$functionReflection->getNamedArgumentsVariants()
+	$functionReflection->getVariants()
 );
 $parameters = $variant->getParameters();
 $returnType = $variant->getReturnType();
 ```
+
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+
+If you are writing a [Custom Rule](/developing-extensions/rules), working with multi-variant built-in functions, like [`strtok`](https://www.php.net/manual/en/function.strtok.php), and you need proper resolution of named parameters, be sure to pass the optional fourth parameter to `selectFromArgs()` like this:
+
+```php
+$variant = PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
+	$scope,
+	$funcCall->getArgs(),
+	$functionReflection->getVariants(),
+	$functionReflection->getNamedArgumentsVariants()
+);
+```
+
+</div>
 
 Global constants
 ------------------
@@ -111,12 +125,26 @@ If you have the `PhpParser\Node\Expr\MethodCall` expression, you can obtain the 
 $variant = PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
 	$scope,
 	$methodCall->getArgs(),
-	$methodReflection->getVariants(),
-	$methodReflection->getNamedArgumentsVariants()
+	$methodReflection->getVariants()
 );
 $parameters = $variant->getParameters();
 $returnType = $variant->getReturnType();
 ```
+
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+
+If you are writing a [Custom Rule](/developing-extensions/rules), working with multi-variant built-in functions, like [`PDO::query()`](https://www.php.net/manual/en/pdo.query.php), and you need proper resolution of named parameters, be sure to pass the optional fourth parameter to `selectFromArgs()` like this:
+
+```php
+$variant = PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
+	$scope,
+	$methodCall->getArgs(),
+	$methodReflection->getVariants(),
+	$methodReflection->getNamedArgumentsVariants()
+);
+```
+
+</div>
 
 Class constants
 ------------------
