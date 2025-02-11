@@ -57,6 +57,32 @@ $variant = PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
 );
 ```
 
+<details>
+    <summary class="font-bold">Show example</summary>
+
+Function call to analyze:
+```php
+strtok(string: 'This is\tan example\nstring', token: " \n\t");
+```
+
+Get parameter names like this:
+```php
+$parameters = $variant->getParameters();
+$parameterNames = array_map(fn ($parameter) => $parameter->getName(), $parameters);
+```
+
+Without the optional fourth parameter, the resolved `$parameterNames` will be incorrect:
+```php
+$parameterNames = ['str', 'token'];
+```
+
+With the optional fourth parameter, the resolved `$parameterNames` will be correct:
+```php
+$parameterNames = ['string', 'token'];
+```
+
+</details>
+
 </div>
 
 Global constants
@@ -143,6 +169,32 @@ $variant = PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
 	$methodReflection->getNamedArgumentsVariants()
 );
 ```
+
+<details>
+    <summary class="font-bold">Show example</summary>
+
+Function call to analyze:
+```php
+$pdo->query(query: 'SELECT * FROM users', fetchMode: PDO::FETCH_ASSOC);
+```
+
+Get parameter names like this:
+```php
+$parameters = $variant->getParameters();
+$parameterNames = array_map(fn ($parameter) => $parameter->getName(), $parameters);
+```
+
+Without the optional fourth parameter, the resolved `$parameterNames` will be incorrect:
+```php
+$parameterNames = ['query', 'fetchMode', 'fetchModeArgs', 'ctorargs'];
+```
+
+With the optional fourth parameter, the resolved `$parameterNames` will be correct:
+```php
+$parameterNames = ['query', 'fetchMode'];
+```
+
+</details>
 
 </div>
 
