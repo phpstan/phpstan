@@ -46,16 +46,15 @@ $returnType = $variant->getReturnType();
 
 <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
 
-If you are writing a [Custom Rule](/developing-extensions/rules), working with multi-variant built-in functions, like [`strtok`](https://www.php.net/manual/en/function.strtok.php), and you need proper resolution of named parameters, be sure to pass the optional fourth parameter to `selectFromArgs()` like this:
+If you are writing a [custom rule](/developing-extensions/rules), working with multi-variant built-in functions, like [`strtok`](https://www.php.net/manual/en/function.strtok.php), and you need proper resolution of named parameters, be sure to pass the optional fourth parameter to `selectFromArgs()` like this:
 
 ```php
 $variant = PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
 	$scope,
 	$funcCall->getArgs(),
 	$functionReflection->getVariants(),
-	$functionReflection->getNamedArgumentsVariants()
+	$functionReflection->getNamedArgumentsVariants(),
 );
-```
 
 <details>
     <summary class="font-bold">Show example</summary>
@@ -159,16 +158,15 @@ $returnType = $variant->getReturnType();
 
 <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
 
-If you are writing a [Custom Rule](/developing-extensions/rules), working with multi-variant built-in functions, like [`PDO::query()`](https://www.php.net/manual/en/pdo.query.php), and you need proper resolution of named parameters, be sure to pass the optional fourth parameter to `selectFromArgs()` like this:
+If you are writing a [custom rule](/developing-extensions/rules), working with multi-variant built-in functions, like [`PDO::query()`](https://www.php.net/manual/en/pdo.query.php), and you need proper resolution of named parameters, be sure to pass the optional fourth parameter to `selectFromArgs()` like this:
 
 ```php
 $variant = PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
 	$scope,
 	$methodCall->getArgs(),
 	$methodReflection->getVariants(),
-	$methodReflection->getNamedArgumentsVariants()
+	$methodReflection->getNamedArgumentsVariants(),
 );
-```
 
 <details>
     <summary class="font-bold">Show example</summary>
