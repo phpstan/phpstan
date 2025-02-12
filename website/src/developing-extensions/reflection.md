@@ -53,7 +53,7 @@ $variant = PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
 	$scope,
 	$funcCall->getArgs(),
 	$functionReflection->getVariants(),
-	$functionReflection->getNamedArgumentsVariants()
+	$functionReflection->getNamedArgumentsVariants(),
 );
 ```
 
@@ -166,7 +166,7 @@ $variant = PHPStan\Reflection\ParametersAcceptorSelector::selectFromArgs(
 	$scope,
 	$methodCall->getArgs(),
 	$methodReflection->getVariants(),
-	$methodReflection->getNamedArgumentsVariants()
+	$methodReflection->getNamedArgumentsVariants(),
 );
 ```
 
