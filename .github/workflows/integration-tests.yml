@@ -458,7 +458,7 @@ jobs:
 #            phpstan-command: ../../../phpstan.phar analyze src --level=max -c ../efabrica-phpstan-latte.neon
 #            baseline-file: efabrica-phpstan-latte-baseline.neon
           - php-version: 8.2
-            repo: TomasVotruba/bladestan
+            repo: bladestan/bladestan
             ref: 0.10.0
             setup: |
               composer install
