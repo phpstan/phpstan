@@ -131,16 +131,16 @@ jobs:
 #              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
 #              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
 #              vendor/bin/phpunit
-#          - php-version: 8.1
-#            name: Bladestan tests
-#            script: |
-#              git clone https://github.com/TomasVotruba/bladestan.git -b 0.5.0 --depth 1 e2e/integration/repo
-#              cd e2e/integration/repo
-#              composer install
-#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-#              vendor/bin/phpunit
+          - php-version: 8.2
+            name: Bladestan tests
+            script: |
+              git clone https://github.com/bladestan/bladestan.git -b 0.5.0 --depth 1 e2e/integration/repo
+              cd e2e/integration/repo
+              composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              vendor/bin/phpunit
 #          - php-version: 7.2
 #            name: Rector with polyfills
 #            script: |
