@@ -134,7 +134,7 @@ jobs:
           - php-version: 8.2
             name: Bladestan tests
             script: |
-              git clone https://github.com/bladestan/bladestan.git -b 0.5.0 --depth 1 e2e/integration/repo
+              git clone https://github.com/bladestan/bladestan.git -b 0.10.0 --depth 1 e2e/integration/repo
               cd e2e/integration/repo
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
