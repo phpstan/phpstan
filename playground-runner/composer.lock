@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "bref/bref",
-            "version": "2.3.12",
+            "version": "2.3.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/bref.git",
-                "reference": "5a92388dfb654b4ca7ccda884353a00a1b8b0bc3"
+                "reference": "6fbc3d0b6d1f7a9ccf64d4f440f6397015ecc043"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/bref/zipball/5a92388dfb654b4ca7ccda884353a00a1b8b0bc3",
-                "reference": "5a92388dfb654b4ca7ccda884353a00a1b8b0bc3",
+                "url": "https://api.github.com/repos/brefphp/bref/zipball/6fbc3d0b6d1f7a9ccf64d4f440f6397015ecc043",
+                "reference": "6fbc3d0b6d1f7a9ccf64d4f440f6397015ecc043",
                 "shasum": ""
             },
             "require": {
@@ -71,7 +71,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brefphp/bref/issues",
-                "source": "https://github.com/brefphp/bref/tree/2.3.12"
+                "source": "https://github.com/brefphp/bref/tree/2.3.13"
             },
             "funding": [
                 {
@@ -83,7 +83,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2024-12-20T13:00:03+00:00"
+            "time": "2025-01-18T15:13:23+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -1317,16 +1317,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.1",
+            "version": "2.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "cd6e973e04b4c2b94c86e8612b5a65f0da0e08e7"
+                "reference": "6eaec7c6c9e90dcfe46ad1e1ffa5171e2dab641c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/cd6e973e04b4c2b94c86e8612b5a65f0da0e08e7",
-                "reference": "cd6e973e04b4c2b94c86e8612b5a65f0da0e08e7",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/6eaec7c6c9e90dcfe46ad1e1ffa5171e2dab641c",
+                "reference": "6eaec7c6c9e90dcfe46ad1e1ffa5171e2dab641c",
                 "shasum": ""
             },
             "require": {
@@ -1371,20 +1371,20 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-01-05T16:43:48+00:00"
+            "time": "2025-02-19T15:46:42+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
-            "version": "2.0.1",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-strict-rules.git",
-                "reference": "ed6fea0ad4ad9c7e25f3ad2e7c4d420cf1e67fe3"
+                "reference": "8b88b5f818bfa301e0c99154ab622dace071c3ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/ed6fea0ad4ad9c7e25f3ad2e7c4d420cf1e67fe3",
-                "reference": "ed6fea0ad4ad9c7e25f3ad2e7c4d420cf1e67fe3",
+                "url": "https://api.github.com/repos/phpstan/phpstan-strict-rules/zipball/8b88b5f818bfa301e0c99154ab622dace071c3ba",
+                "reference": "8b88b5f818bfa301e0c99154ab622dace071c3ba",
                 "shasum": ""
             },
             "require": {
@@ -1417,9 +1417,9 @@
             "description": "Extra strict and opinionated rules for PHPStan",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan-strict-rules/issues",
-                "source": "https://github.com/phpstan/phpstan-strict-rules/tree/2.0.1"
+                "source": "https://github.com/phpstan/phpstan-strict-rules/tree/2.0.3"
             },
-            "time": "2024-12-12T20:21:10+00:00"
+            "time": "2025-01-21T10:52:14+00:00"
         },
         {
             "name": "psr/container",
