@@ -153,6 +153,13 @@ parameters:
 			identifier: property.notFound
 ```
 
+Ignoning errors with an IgnoreErrorExtension
+------------------
+
+For more complex situations, you could create an IgnoreErrorExtension that can ignore errors based on the Node and Scope.
+
+[Learn more »](/developing-extensions/ignore-error-extensions)
+
 Viewing ignored errors
 ------------------
 
