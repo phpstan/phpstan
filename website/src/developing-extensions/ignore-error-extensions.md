@@ -16,7 +16,7 @@ For example:
   Rule: method needs to have `#[GraphQL\Field]` attribute.
 * Enforce `missingCheckedExceptionInThrows` partially, only for specific classes.
 
-You can create an extension that implements [IgnoreErrorExtension](https://apiref.phpstan.org/2.1.x/PHPStan.Analyser.IgnoreErrorExtension.htmll).
+You can create an extension that implements [IgnoreErrorExtension](https://apiref.phpstan.org/2.1.x/PHPStan.Analyser.IgnoreErrorExtension.html).
 
 ```php
 use PhpParser\Node;

@@ -103,6 +103,10 @@
             "title": "Result Cache Meta Extensions",
             "link": "/developing-extensions/result-cache-meta-extensions"
         },
+        {
+            "title": "Ignore Error Extensions",
+            "link": "/developing-extensions/ignore-error-extensions"
+        },
 		{
 			"title": "Backward Compatibility Promise",
 			"link": "/developing-extensions/backward-compatibility-promise"
