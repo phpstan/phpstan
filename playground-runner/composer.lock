@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "bref/bref",
-            "version": "2.3.13",
+            "version": "2.3.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/bref.git",
-                "reference": "6fbc3d0b6d1f7a9ccf64d4f440f6397015ecc043"
+                "reference": "4bd591e8ad50009682baa7cdb8eb324528066fbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/bref/zipball/6fbc3d0b6d1f7a9ccf64d4f440f6397015ecc043",
-                "reference": "6fbc3d0b6d1f7a9ccf64d4f440f6397015ecc043",
+                "url": "https://api.github.com/repos/brefphp/bref/zipball/4bd591e8ad50009682baa7cdb8eb324528066fbd",
+                "reference": "4bd591e8ad50009682baa7cdb8eb324528066fbd",
                 "shasum": ""
             },
             "require": {
@@ -71,7 +71,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brefphp/bref/issues",
-                "source": "https://github.com/brefphp/bref/tree/2.3.13"
+                "source": "https://github.com/brefphp/bref/tree/2.3.15"
             },
             "funding": [
                 {
@@ -83,7 +83,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-01-18T15:13:23+00:00"
+            "time": "2025-02-21T17:52:57+00:00"
         },
         {
             "name": "clue/stream-filter",
