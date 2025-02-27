@@ -81,7 +81,7 @@ Because GitHub Actions do not overwrite existing cache entries with the same key
 
   - name: "Save result cache"
     uses: actions/cache/save@v4
-    if: always()
+    if: ${{ !cancelled() }}
     with:
       path: tmp # same as in phpstan.neon
       key: "phpstan-result-cache-{% raw %}${{ github.run_id }}"{% endraw %}
