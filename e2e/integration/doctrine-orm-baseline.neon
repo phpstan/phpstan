@@ -1,12 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Call to function is_a\(\) with arguments class\-string\<Doctrine\\ORM\\EntityRepository\>, ''Doctrine\\\\ORM\\\\EntityRepository'' and true will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/src/Configuration.php
-
-		-
 			message: '#^Parameter &\$id by\-ref type of method Doctrine\\ORM\\Internal\\Hydration\\AbstractHydrator\:\:gatherRowData\(\) expects array\<string, string\>, array\<string\> given\.$#'
 			identifier: parameterByRef.type
 			count: 1
@@ -19,13 +13,49 @@ parameters:
 			path: repo/src/Internal/Hydration/AbstractHydrator.php
 
 		-
+			message: '#^Cannot unset property Doctrine\\ORM\\Internal\\Hydration\\AbstractHydrator\:\:\$hints because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Internal/Hydration/ObjectHydrator.php
+
+		-
+			message: '#^Cannot unset property Doctrine\\ORM\\Mapping\\ClassMetadata\:\:\$columnNames because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Mapping/ClassMetadata.php
+
+		-
+			message: '#^Cannot unset property Doctrine\\ORM\\Mapping\\ClassMetadata\:\:\$fieldMappings because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Mapping/ClassMetadata.php
+
+		-
+			message: '#^Cannot unset property Doctrine\\ORM\\Mapping\\ClassMetadata\:\:\$fieldNames because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Mapping/ClassMetadata.php
+
+		-
 			message: '#^Template type T is declared as covariant, but occurs in invariant position in return type of method Doctrine\\ORM\\Mapping\\ClassMetadata\:\:getReflectionClass\(\)\.$#'
 			identifier: generics.variance
 			count: 1
 			path: repo/src/Mapping/ClassMetadata.php
 
 		-
-			message: '#^Call to function is_a\(\) with Doctrine\\DBAL\\Platforms\\AbstractPlatform and class\-string\<Doctrine\\DBAL\\Platforms\\AbstractPlatform\> will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
+			message: '#^Cannot unset property Doctrine\\ORM\\Persisters\\Entity\\BasicEntityPersister\:\:\$queuedInserts because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
 			count: 1
-			path: repo/src/Mapping/ClassMetadataFactory.php
+			path: repo/src/Persisters/Entity/BasicEntityPersister.php
+
+		-
+			message: '#^Cannot unset property Doctrine\\ORM\\Query\\AST\\SelectClause\:\:\$selectExpressions because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Query/Parser.php
+
+		-
+			message: '#^Cannot unset property Doctrine\\ORM\\Mapping\\ClassMetadata\:\:\$associationMappings because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Tools/ResolveTargetEntityListener.php

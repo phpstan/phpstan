@@ -1,0 +1,67 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Cannot unset property Doctrine\\DBAL\\Connections\\PrimaryReadReplicaConnection\:\:\$connections because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 2
+			path: repo/src/Connections/PrimaryReadReplicaConnection.php
+
+		-
+			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\Index\:\:\$_flags because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Schema/Index.php
+
+		-
+			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\Schema\:\:\$_sequences because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Schema/Schema.php
+
+		-
+			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\Schema\:\:\$_tables because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Schema/Schema.php
+
+		-
+			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\Table\:\:\$_columns because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 2
+			path: repo/src/Schema/Table.php
+
+		-
+			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\Table\:\:\$_fkConstraints because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Schema/Table.php
+
+		-
+			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\Table\:\:\$_indexes because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 3
+			path: repo/src/Schema/Table.php
+
+		-
+			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\Table\:\:\$renamedColumns because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Schema/Table.php
+
+		-
+			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\Table\:\:\$uniqueConstraints because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Schema/Table.php
+
+		-
+			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\UniqueConstraint\:\:\$flags because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Schema/UniqueConstraint.php
+
+		-
+			message: '#^Cannot unset property Doctrine\\DBAL\\Tests\\FunctionalTestCase\:\:\$connection because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/tests/FunctionalTestCase.php
