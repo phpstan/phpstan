@@ -9,3 +9,7 @@ ignore-hidden = false
 extend-ignore-re = [
     "'pk_live_[0-9A-Za-z]+'",
 ]
+
+[default.extend-words]
+# override false-positives
+symplify = "symplify"
