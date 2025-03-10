@@ -1,6 +1,87 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '''
+				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
+				Use isSubclassOfClass instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/rules/DeadCode/Rector/ClassMethod/RemoveUnusedPrivateMethodRector.php
+
+		-
+			message: '''
+				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
+				Use isSubclassOfClass instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/rules/Php70/Rector/MethodCall/ThisCallOnStaticMethodToStaticCallRector.php
+
+		-
+			message: '''
+				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
+				Use isSubclassOfClass instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/rules/Php70/Rector/StaticCall/StaticCallOnNonStaticToInstanceCallRector.php
+
+		-
+			message: '''
+				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
+				Use isSubclassOfClass instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/rules/Php80/Rector/ClassMethod/AddParamBasedOnParentClassMethodRector.php
+
+		-
+			message: '''
+				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
+				Use isSubclassOfClass instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/rules/Privatization/Rector/Class_/FinalizeTestCaseClassRector.php
+
+		-
+			message: '''
+				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
+				Use isSubclassOfClass instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/rules/Transform/Rector/ClassMethod/ReturnTypeWillChangeRector.php
+
+		-
+			message: '''
+				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
+				Use isSubclassOfClass instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/ClassMethod/ReturnTypeFromMockObjectRector.php
+
+		-
+			message: '''
+				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
+				Use isSubclassOfClass instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/rules/TypeDeclaration/Rector/Property/AddPropertyTypeDeclarationRector.php
+
+		-
+			message: '''
+				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
+				Use isSubclassOfClass instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/NodeTypeResolver/NodeTypeResolver.php
+
+		-
 			message: '#^Only abstract classes can be extended$#'
 			identifier: symplify.forbiddenExtendOfNonAbstractClass
 			count: 1
