@@ -16,6 +16,13 @@ You can pass the following keywords to the `--error-format=X` CLI option of the 
 - `gitlab`: Creates format for use Code Quality widget on GitLab Merge Request.
 - `teamcity`: Creates TeamCity compatible output.
 
+The same options are available in configuration file:
+
+```neon
+parameters:
+	errorFormat: json
+```
+
 You can also implement your own custom error formatter. [Learn how »](/developing-extensions/error-formatters)
 
 You can change the default error format in the configuration. [Learn how »](/config-reference#errorformat)
