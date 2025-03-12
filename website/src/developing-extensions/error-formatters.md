@@ -46,6 +46,13 @@ vendor/bin/phpstan analyse -c phpstan.neon \
 	src tests
 ```
 
+Or use it in your configuration file:
+
+```neon
+parameters:
+	errorFormat: awesome
+```
+
 Special format for Continuous Integration (CI)
 ---------
 
