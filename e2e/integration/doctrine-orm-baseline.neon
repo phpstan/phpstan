@@ -13,49 +13,19 @@ parameters:
 			path: repo/src/Internal/Hydration/AbstractHydrator.php
 
 		-
-			message: '#^Cannot unset property Doctrine\\ORM\\Internal\\Hydration\\AbstractHydrator\:\:\$hints because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
-			count: 1
-			path: repo/src/Internal/Hydration/ObjectHydrator.php
-
-		-
-			message: '#^Cannot unset property Doctrine\\ORM\\Mapping\\ClassMetadata\:\:\$columnNames because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
-			count: 1
-			path: repo/src/Mapping/ClassMetadata.php
-
-		-
-			message: '#^Cannot unset property Doctrine\\ORM\\Mapping\\ClassMetadata\:\:\$fieldMappings because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
-			count: 1
-			path: repo/src/Mapping/ClassMetadata.php
-
-		-
-			message: '#^Cannot unset property Doctrine\\ORM\\Mapping\\ClassMetadata\:\:\$fieldNames because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
-			count: 1
-			path: repo/src/Mapping/ClassMetadata.php
-
-		-
 			message: '#^Template type T is declared as covariant, but occurs in invariant position in return type of method Doctrine\\ORM\\Mapping\\ClassMetadata\:\:getReflectionClass\(\)\.$#'
 			identifier: generics.variance
 			count: 1
 			path: repo/src/Mapping/ClassMetadata.php
 
 		-
-			message: '#^Cannot unset property Doctrine\\ORM\\Persisters\\Entity\\BasicEntityPersister\:\:\$queuedInserts because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
 			count: 1
-			path: repo/src/Persisters/Entity/BasicEntityPersister.php
+			path: repo/src/Mapping/Driver/XmlDriver.php
 
 		-
-			message: '#^Cannot unset property Doctrine\\ORM\\Query\\AST\\SelectClause\:\:\$selectExpressions because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
+			message: '#^Instanceof between SimpleXMLElement and SimpleXMLElement will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
 			count: 1
-			path: repo/src/Query/Parser.php
-
-		-
-			message: '#^Cannot unset property Doctrine\\ORM\\Mapping\\ClassMetadata\:\:\$associationMappings because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
-			count: 1
-			path: repo/src/Tools/ResolveTargetEntityListener.php
+			path: repo/src/Mapping/Driver/XmlDriver.php
