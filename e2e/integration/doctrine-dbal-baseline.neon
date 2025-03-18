@@ -1,64 +1,28 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Cannot unset property Doctrine\\DBAL\\Connections\\PrimaryReadReplicaConnection\:\:\$connections because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
+			message: '#^Only booleans are allowed in a while condition, bool\|null given\.$#'
+			identifier: while.condNotBoolean
+			count: 1
+			path: repo/src/Driver/SQLSrv/Result.php
+
+		-
+			message: '#^Only booleans are allowed in a while condition, int\|false given\.$#'
+			identifier: while.condNotBoolean
+			count: 1
+			path: repo/src/Schema/SQLServerSchemaManager.php
+
+		-
+			message: '#^Only booleans are allowed in a while condition, mixed given\.$#'
+			identifier: while.condNotBoolean
+			count: 1
+			path: repo/tests/Functional/Driver/OCI8/ResultTest.php
+
+		-
+			message: '#^Only booleans are allowed in a while condition, array\<string, mixed\>\|false given\.$#'
+			identifier: while.condNotBoolean
 			count: 2
-			path: repo/src/Connections/PrimaryReadReplicaConnection.php
-
-		-
-			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\Index\:\:\$_flags because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
-			count: 1
-			path: repo/src/Schema/Index.php
-
-		-
-			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\Schema\:\:\$_sequences because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
-			count: 1
-			path: repo/src/Schema/Schema.php
-
-		-
-			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\Schema\:\:\$_tables because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
-			count: 1
-			path: repo/src/Schema/Schema.php
-
-		-
-			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\Table\:\:\$_columns because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
-			count: 2
-			path: repo/src/Schema/Table.php
-
-		-
-			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\Table\:\:\$_fkConstraints because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
-			count: 1
-			path: repo/src/Schema/Table.php
-
-		-
-			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\Table\:\:\$_indexes because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
-			count: 3
-			path: repo/src/Schema/Table.php
-
-		-
-			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\Table\:\:\$renamedColumns because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
-			count: 1
-			path: repo/src/Schema/Table.php
-
-		-
-			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\Table\:\:\$uniqueConstraints because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
-			count: 1
-			path: repo/src/Schema/Table.php
-
-		-
-			message: '#^Cannot unset property Doctrine\\DBAL\\Schema\\UniqueConstraint\:\:\$flags because it might have hooks in a subclass\.$#'
-			identifier: unset.possiblyHookedProperty
-			count: 1
-			path: repo/src/Schema/UniqueConstraint.php
+			path: repo/tests/Functional/PortabilityTest.php
 
 		-
 			message: '#^Cannot unset property Doctrine\\DBAL\\Tests\\FunctionalTestCase\:\:\$connection because it might have hooks in a subclass\.$#'
