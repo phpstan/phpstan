@@ -42,7 +42,7 @@ Result cache also gets disabled when running with [`--debug`](/user-guide/comman
 Debugging the result cache
 ---------------
 
-If you run the `analyse` command with `-vvv`, PHPStan will output details about the result cache like:
+If you run the `analyse` command with `-vv`, PHPStan will output details about the result cache like:
 
 * "Result cache not used because the cache file does not exist."
 * "Result cache not used because of debug mode."
