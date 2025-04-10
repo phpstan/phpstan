@@ -93,7 +93,8 @@ Discovering symbols
 Learn more about discovering symbols in the [user guide](/user-guide/discovering-symbols).
 
 Related config keys: [`scanFiles`](/user-guide/discovering-symbols#third-party-code-outside-of-composer-dependencies),
-[`scanDirectories`](/user-guide/discovering-symbols#third-party-code-outside-of-composer-dependencies).
+[`scanDirectories`](/user-guide/discovering-symbols#third-party-code-outside-of-composer-dependencies),
+[`tips.discoveringSymbols`](/user-guide/discovering-symbols.md#disable-the-symbol-discovery-error-tip).
 
 Bootstrap
 ------------------
@@ -740,7 +741,6 @@ If you want to turn off a tip that PHPStan shows, you can do this in the tips se
 ```yaml
 parameters:
     tips:
-        discoveringSymbols: false
         treatPhpDocTypesAsCertain: false
 ```
 
