@@ -130,7 +130,8 @@ parameters:
 Disable the symbol discovery error tip
 ---------------------------
 
-PHPStan provides a tip with a link to an article whenever it encounters symbol discovery errors.
+PHPStan provides a tip with a link to this article whenever it encounters symbol discovery errors.
+
 To disable that tip, add the following to your configuration:
 
 ```yaml
