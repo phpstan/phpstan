@@ -130,6 +130,8 @@ parameters:
 Disable the symbol discovery error tip
 ---------------------------
 
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.1.12</div>
+
 PHPStan provides a tip with a link to this article whenever it encounters symbol discovery errors.
 
 To disable that tip, add the following to your configuration:
