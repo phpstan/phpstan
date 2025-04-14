@@ -84,6 +84,6 @@ PHP language doesn't have a concept of sealed classes - a way to restrict class 
 Deprecations
 -------------------
 
-PHPStan lets you provide custom deprecation information based on e.g. native PHP attributes. Such information is then used in e.g. `ClassReflection->isDeprecated()`
+PHPStan lets you provide custom deprecation information based on e.g. native PHP attributes. Such information is then used in e.g. `ClassReflection::isDeprecated()`
 
 [Learn more »](/developing-extensions/custom-deprecations)

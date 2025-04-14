@@ -111,6 +111,10 @@
 			"title": "Backward Compatibility Promise",
 			"link": "/developing-extensions/backward-compatibility-promise"
 		},
+		{
+			"title": "Custom deprecations",
+			"link": "/developing-extensions/custom-deprecations"
+		},
         {
 			"title": "API Reference",
 			"link": "https://apiref.phpstan.org/",
