@@ -397,6 +397,8 @@ $bar = new Bar();
 $bar->doFoo(); // OK
 ```
 
+You can also adjust the deprecation information based on e.g. custom attributes. [Learn more »](/developing-extensions//custom-deprecations)
+
 Impure functions
 ---------------
 

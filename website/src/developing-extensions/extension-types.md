@@ -80,3 +80,10 @@ Allowed subtypes
 PHP language doesn't have a concept of sealed classes - a way to restrict class hierarchies and provide more control over inheritance. So any interface or non-final class can have an infinite number of child classes. But PHPStan provides an extension type to tell the analyzer the complete list of allowed child classes.
 
 [Learn more »](/developing-extensions/allowed-subtypes)
+
+Deprecations
+-------------------
+
+PHPStan lets you provide custom deprecation information based on e.g. native PHP attributes. Such information is then used in e.g. `ClassReflection->isDeprecated()`
+
+[Learn more »](/developing-extensions/custom-deprecations)
