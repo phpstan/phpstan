@@ -1,6 +1,18 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Property Doctrine\\DBAL\\Driver\\PgSQL\\Connection\:\:\$connection in isset\(\) is not nullable\.$#'
+			identifier: isset.propertyNeverNullOrUninitialized
+			count: 1
+			path: repo/src/Driver/PgSQL/Connection.php
+
+		-
+			message: '#^Property Doctrine\\DBAL\\Driver\\PgSQL\\Statement\:\:\$connection in isset\(\) is not nullable\.$#'
+			identifier: isset.propertyNeverNullOrUninitialized
+			count: 1
+			path: repo/src/Driver/PgSQL/Statement.php
+
+		-
 			message: '#^Only booleans are allowed in a while condition, bool\|null given\.$#'
 			identifier: while.condNotBoolean
 			count: 1
