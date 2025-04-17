@@ -33,7 +33,10 @@ use PHPStan\Reflection\Deprecation\ClassDeprecationExtension;
 class CustomDeprecationExtension implements ClassDeprecationExtension
 {
 
-	public function getClassDeprecation(ReflectionClass|ReflectionEnum $reflection): ?Deprecation
+	/**
+	 * @param ReflectionClass|ReflectionEnum $reflection
+	 */
+	public function getClassDeprecation($reflection): ?Deprecation
 	{
 		foreach ($reflection->getAttributes(MyDeprecated::class) as $attribute) {
 			$description = $attribute->getArguments()[0] ?? $attribute->getArguments()['description'] ?? null;
