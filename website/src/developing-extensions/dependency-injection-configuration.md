@@ -114,6 +114,7 @@ parameters:
 
 services:
 	-
+		# App\MyExtension has "myOwnParameter" constructor parameter
 		class: App\MyExtension
 		arguments:
 			myOwnParameter: %myExtension.myOwnParameter%
