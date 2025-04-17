@@ -1,14 +1,14 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Property Doctrine\\DBAL\\Driver\\PgSQL\\Connection\:\:\$connection in isset\(\) is not nullable\.$#'
-			identifier: isset.propertyNeverNullOrUninitialized
+			message: '#^Property Doctrine\\DBAL\\Driver\\PgSQL\\Connection\:\:\$connection in isset\(\) is not nullable nor uninitialized\.$#'
+			identifier: isset.initializedProperty
 			count: 1
 			path: repo/src/Driver/PgSQL/Connection.php
 
 		-
-			message: '#^Property Doctrine\\DBAL\\Driver\\PgSQL\\Statement\:\:\$connection in isset\(\) is not nullable\.$#'
-			identifier: isset.propertyNeverNullOrUninitialized
+			message: '#^Property Doctrine\\DBAL\\Driver\\PgSQL\\Statement\:\:\$connection in isset\(\) is not nullable nor uninitialized\.$#'
+			identifier: isset.initializedProperty
 			count: 1
 			path: repo/src/Driver/PgSQL/Statement.php
 
