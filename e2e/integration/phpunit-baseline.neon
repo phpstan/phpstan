@@ -1,7 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Call to internal method SebastianBergmann\\CodeCoverage\\Driver\\Driver\:\:nameAndVersion\(\) from outside its root namespace SebastianBergmann\.$#'
-			identifier: method.internal
+			message: '#^Call to method nameAndVersion\(\) of internal class SebastianBergmann\\CodeCoverage\\Driver\\Driver from outside its root namespace SebastianBergmann\.$#'
+			identifier: method.internalClass
 			count: 1
 			path: repo/src/TextUI/Application.php
