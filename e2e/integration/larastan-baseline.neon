@@ -64,6 +64,30 @@ parameters:
 			path: repo/src/Properties/ModelRelationsExtension.php
 
 		-
+			message: '#^Call to internal method Symfony\\Component\\Console\\Command\\Command\:\:mergeApplicationDefinition\(\) from outside its root namespace Symfony\.$#'
+			identifier: method.internal
+			count: 1
+			path: repo/src/ReturnTypes/ConsoleCommand/ArgumentDynamicReturnTypeExtension.php
+
+		-
+			message: '#^Call to internal method Symfony\\Component\\Console\\Command\\Command\:\:mergeApplicationDefinition\(\) from outside its root namespace Symfony\.$#'
+			identifier: method.internal
+			count: 1
+			path: repo/src/ReturnTypes/ConsoleCommand/HasArgumentDynamicReturnTypeExtension.php
+
+		-
+			message: '#^Call to internal method Symfony\\Component\\Console\\Command\\Command\:\:mergeApplicationDefinition\(\) from outside its root namespace Symfony\.$#'
+			identifier: method.internal
+			count: 1
+			path: repo/src/ReturnTypes/ConsoleCommand/HasOptionDynamicReturnTypeExtension.php
+
+		-
+			message: '#^Call to internal method Symfony\\Component\\Console\\Command\\Command\:\:mergeApplicationDefinition\(\) from outside its root namespace Symfony\.$#'
+			identifier: method.internal
+			count: 1
+			path: repo/src/ReturnTypes/ConsoleCommand/OptionDynamicReturnTypeExtension.php
+
+		-
 			message: '''
 				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
 				Use isSubclassOfClass instead\.$#
@@ -80,6 +104,12 @@ parameters:
 			identifier: method.deprecated
 			count: 1
 			path: repo/src/ReturnTypes/NewModelQueryDynamicMethodReturnTypeExtension.php
+
+		-
+			message: '#^Call to internal method Symfony\\Component\\Console\\Command\\Command\:\:mergeApplicationDefinition\(\) from outside its root namespace Symfony\.$#'
+			identifier: method.internal
+			count: 1
+			path: repo/src/Rules/ConsoleCommand/UndefinedArgumentOrOptionRule.php
 
 		-
 			message: '''
