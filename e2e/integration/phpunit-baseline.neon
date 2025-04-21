@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Call to static method fromXdebugWithoutPathCoverage\(\) of internal class SebastianBergmann\\CodeCoverage\\Data\\RawCodeCoverageData from outside its root namespace SebastianBergmann\.$#'
+			identifier: staticMethod.internalClass
+			count: 2
+			path: repo/src/Runner/PHPT/PhptTestCase.php
+
+		-
 			message: '#^Call to method nameAndVersion\(\) of internal class SebastianBergmann\\CodeCoverage\\Driver\\Driver from outside its root namespace SebastianBergmann\.$#'
 			identifier: method.internalClass
 			count: 1
