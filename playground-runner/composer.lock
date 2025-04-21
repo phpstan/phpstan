@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "bref/bref",
-            "version": "2.4.1",
+            "version": "2.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/bref.git",
-                "reference": "55258b3c1cf9c763f1bf8ec7067d445b7bac63a4"
+                "reference": "3367e6b298dbce34c2f91223e3fe3ea70f5989a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/bref/zipball/55258b3c1cf9c763f1bf8ec7067d445b7bac63a4",
-                "reference": "55258b3c1cf9c763f1bf8ec7067d445b7bac63a4",
+                "url": "https://api.github.com/repos/brefphp/bref/zipball/3367e6b298dbce34c2f91223e3fe3ea70f5989a8",
+                "reference": "3367e6b298dbce34c2f91223e3fe3ea70f5989a8",
                 "shasum": ""
             },
             "require": {
@@ -71,7 +71,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brefphp/bref/issues",
-                "source": "https://github.com/brefphp/bref/tree/2.4.1"
+                "source": "https://github.com/brefphp/bref/tree/2.4.2"
             },
             "funding": [
                 {
@@ -83,7 +83,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-03-30T17:35:53+00:00"
+            "time": "2025-04-16T11:57:39+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -1318,16 +1318,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.1.11",
+            "version": "2.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "8ca5f79a8f63c49b2359065832a654e1ec70ac30"
+                "reference": "96dde49e967c0c22812bcfa7bda4ff82c09f3b0c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/8ca5f79a8f63c49b2359065832a654e1ec70ac30",
-                "reference": "8ca5f79a8f63c49b2359065832a654e1ec70ac30",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/96dde49e967c0c22812bcfa7bda4ff82c09f3b0c",
+                "reference": "96dde49e967c0c22812bcfa7bda4ff82c09f3b0c",
                 "shasum": ""
             },
             "require": {
@@ -1372,7 +1372,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-03-24T13:45:00+00:00"
+            "time": "2025-04-16T13:19:18+00:00"
         },
         {
             "name": "phpstan/phpstan-strict-rules",
@@ -1843,16 +1843,16 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "4.10.0",
+            "version": "4.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "2af937d47d8aadb8dab0b1d7b9557e495dd12856"
+                "reference": "ebf67deb9902b6da58a4b3383cbd12fed3f4f555"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/2af937d47d8aadb8dab0b1d7b9557e495dd12856",
-                "reference": "2af937d47d8aadb8dab0b1d7b9557e495dd12856",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/ebf67deb9902b6da58a4b3383cbd12fed3f4f555",
+                "reference": "ebf67deb9902b6da58a4b3383cbd12fed3f4f555",
                 "shasum": ""
             },
             "require": {
@@ -1916,7 +1916,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-php/issues",
-                "source": "https://github.com/getsentry/sentry-php/tree/4.10.0"
+                "source": "https://github.com/getsentry/sentry-php/tree/4.11.0"
             },
             "funding": [
                 {
@@ -1928,7 +1928,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2024-11-06T07:44:19+00:00"
+            "time": "2025-04-14T09:04:23+00:00"
         },
         {
             "name": "symfony/console",
