@@ -1,9 +1,27 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Property references internal class SebastianBergmann\\CodeCoverage\\Driver\\Driver in its type\.$#'
+			identifier: property.internalClass
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			message: '#^Return type references internal class SebastianBergmann\\CodeCoverage\\Driver\\Driver\.$#'
+			identifier: return.internalClass
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
 			message: '#^Call to static method fromXdebugWithoutPathCoverage\(\) of internal class SebastianBergmann\\CodeCoverage\\Data\\RawCodeCoverageData from outside its root namespace SebastianBergmann\.$#'
 			identifier: staticMethod.internalClass
 			count: 2
+			path: repo/src/Runner/PHPT/PhptTestCase.php
+
+		-
+			message: '#^Return type references internal class SebastianBergmann\\CodeCoverage\\Data\\RawCodeCoverageData\.$#'
+			identifier: return.internalClass
+			count: 1
 			path: repo/src/Runner/PHPT/PhptTestCase.php
 
 		-
