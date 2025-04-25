@@ -1,7 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Property references internal class SebastianBergmann\\CodeCoverage\\Driver\\Driver in its type\.$#'
+			message: '#^Property \$driver references internal class SebastianBergmann\\CodeCoverage\\Driver\\Driver in its type\.$#'
 			identifier: property.internalClass
 			count: 1
 			path: repo/src/Runner/CodeCoverage.php
