@@ -7,7 +7,7 @@ parameters:
 			path: repo/src/Runner/CodeCoverage.php
 
 		-
-			message: '#^Return type references internal class SebastianBergmann\\CodeCoverage\\Driver\\Driver\.$#'
+			message: '#^Return type of method PHPUnit\\Runner\\CodeCoverage\:\:driver\(\) has typehint with internal class SebastianBergmann\\CodeCoverage\\Driver\\Driver\.$#'
 			identifier: return.internalClass
 			count: 1
 			path: repo/src/Runner/CodeCoverage.php
@@ -19,7 +19,7 @@ parameters:
 			path: repo/src/Runner/PHPT/PhptTestCase.php
 
 		-
-			message: '#^Return type references internal class SebastianBergmann\\CodeCoverage\\Data\\RawCodeCoverageData\.$#'
+			message: '#^Return type of method PHPUnit\\Runner\\PhptTestCase\:\:cleanupForCoverage\(\) has typehint with internal class SebastianBergmann\\CodeCoverage\\Data\\RawCodeCoverageData\.$#'
 			identifier: return.internalClass
 			count: 1
 			path: repo/src/Runner/PHPT/PhptTestCase.php
