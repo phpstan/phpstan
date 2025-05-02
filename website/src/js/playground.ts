@@ -2,6 +2,7 @@ import $ from 'jquery';
 import * as ko from 'knockout';
 import {PlaygroundViewModel} from './PlaygroundViewModel';
 import './codeMirror';
+import './configMirror';
 import * as Sentry from '@sentry/browser';
 import fs from 'fs';
 

@@ -36,6 +36,7 @@ async function analyseResultInternal(
 	runStrictRules: boolean,
 	runBleedingEdge: boolean,
 	treatPhpDocTypesAsCertain: boolean,
+	userConfig: string,
 	phpVersions: number[],
 ): Promise<any[]> {
 	const lambdaPromises: [Promise<PromiseResult<Lambda.InvocationResponse, AWSError>>, number][] = [];
@@ -48,6 +49,7 @@ async function analyseResultInternal(
 				strictRules: runStrictRules,
 				bleedingEdge: runBleedingEdge,
 				treatPhpDocTypesAsCertain: treatPhpDocTypesAsCertain,
+				userConfig: userConfig,
 				phpVersion: phpVersion,
 			}),
 		}).promise(), phpVersion]);
@@ -200,6 +202,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 		const runStrictRules = typeof json.strictRules !== 'undefined' ? json.strictRules : false;
 		const runBleedingEdge = typeof json.bleedingEdge !== 'undefined' ? json.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.treatPhpDocTypesAsCertain !== 'undefined' ? json.treatPhpDocTypesAsCertain : true;
+		const userConfig = typeof json.userConfig !== 'undefined' ? json.userConfig : '';
 		const saveResult: boolean = typeof json.saveResult !== 'undefined' ? json.saveResult : true;
 
 		const versionedErrors = await analyseResultInternal(
@@ -208,6 +211,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 			runStrictRules,
 			runBleedingEdge,
 			treatPhpDocTypesAsCertain,
+			userConfig,
 			[70200, 70300, 70400, 80000, 80100, 80200, 80300, 80400],
 		);
 		const response: any = {
@@ -230,6 +234,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 						strictRules: runStrictRules,
 						bleedingEdge: runBleedingEdge,
 						treatPhpDocTypesAsCertain: treatPhpDocTypesAsCertain,
+						userConfig: userConfig,
 					},
 				}),
 			}).promise();
@@ -259,6 +264,7 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 		const strictRules = typeof json.config.strictRules !== 'undefined' ? json.config.strictRules : false;
 		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true;
+		const userConfig = typeof json.config.userConfig !== 'undefined' ? json.config.userConfig : '';
 
 		let phpVersionsToAnalyse: number[] = [70200, 70300, 70400, 80000];
 		if (typeof json.versionedErrors !== 'undefined') {
@@ -286,6 +292,7 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 			strictRules,
 			bleedingEdge,
 			treatPhpDocTypesAsCertain,
+			userConfig,
 			phpVersionsToAnalyse,
 		);
 		const newTabs = createTabs(newResult);
@@ -299,6 +306,7 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 				strictRules,
 				bleedingEdge,
 				treatPhpDocTypesAsCertain,
+				userConfig,
 			},
 			upToDateTabs: newTabs,
 			upToDateVersionedErrors: newResult,
@@ -382,6 +390,7 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 		const strictRules = typeof json.config.strictRules !== 'undefined' ? json.config.strictRules : false;
 		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true;
+		const userConfig = typeof json.config.userConfig !== 'undefined' ? json.config.userConfig : '';
 
 		const bodyJson: any = {
 			code: json.code,
@@ -392,6 +401,7 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 				strictRules,
 				bleedingEdge,
 				treatPhpDocTypesAsCertain,
+				userConfig,
 			},
 		};
 		if (typeof json.versionedErrors !== 'undefined') {
@@ -448,6 +458,7 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 					strictRules: false,
 					bleedingEdge: false,
 					treatPhpDocTypesAsCertain: true,
+					userConfig: '',
 				},
 			}),
 		});

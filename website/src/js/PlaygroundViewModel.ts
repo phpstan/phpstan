@@ -13,6 +13,8 @@ export class PlaygroundViewModel {
 	mainMenu: MainMenuViewModel;
 	code: ko.Observable<string>;
 	codeDelayed: ko.Computed<string>;
+	userConfig: ko.Observable<string>;
+	userConfigDelayed: ko.Computed<string>;
 	shareText: ko.Observable<string>;
 	legacyResult: ko.Observable<string | null>;
 
@@ -46,6 +48,11 @@ export class PlaygroundViewModel {
 		this.mainMenu = new MainMenuViewModel();
 		this.code = ko.observable('');
 		this.codeDelayed = ko.pureComputed(this.code).extend({
+			notify: 'always',
+			rateLimit: { timeout: 500, method: 'notifyWhenChangesStop' },
+		});
+		this.userConfig = ko.observable('');
+		this.userConfigDelayed = ko.pureComputed(this.userConfig).extend({
 			notify: 'always',
 			rateLimit: { timeout: 500, method: 'notifyWhenChangesStop' },
 		});
@@ -163,6 +170,7 @@ export class PlaygroundViewModel {
 				strictRules: this.strictRules(),
 				bleedingEdge: this.bleedingEdge(),
 				treatPhpDocTypesAsCertain: this.treatPhpDocTypesAsCertain(),
+				userConfig: this.userConfig(),
 				saveResult,
 			}),
 			contentType: 'application/json'
@@ -245,6 +253,7 @@ export class PlaygroundViewModel {
 		this.strictRules.subscribe(instantAnalyse);
 		this.bleedingEdge.subscribe(instantAnalyse);
 		this.treatPhpDocTypesAsCertain.subscribe(instantAnalyse);
+		this.userConfigDelayed.subscribe(instantAnalyse);
 	}
 
 	showUpToDateTabs(): void {
@@ -293,6 +302,7 @@ export class PlaygroundViewModel {
 				this.strictRules(data.config.strictRules);
 				this.bleedingEdge(data.config.bleedingEdge);
 				this.treatPhpDocTypesAsCertain(data.config.treatPhpDocTypesAsCertain);
+				this.userConfig(data.userConfig ?? 'parameters:');
 			}).fail(() => {
 				this.hasServerError(true);
 				const scope = new Sentry.Scope();
@@ -315,6 +325,7 @@ export class PlaygroundViewModel {
 			'\t}\n' +
 			'}'
 		);
+		this.userConfig('parameters:');
 		initCallback();
 		this.tabs([
 			new PlaygroundTabViewModel([

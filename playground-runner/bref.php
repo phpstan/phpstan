@@ -37,12 +37,18 @@ return function ($event) use ($phpstanVersion) {
 	$level = $event['level'];
 	$codePath = '/tmp/tmp.php';
 	file_put_contents($codePath, $code);
+        $userConfigPath = '/tmp/user-config.neon';
+        $userConfig = $event['userConfig'] ?? null;
+        if ($userConfig) {
+            file_put_contents($userConfigPath, $event['userConfig']);
+        }
 
 	$rootDir = getenv('LAMBDA_TASK_ROOT');
 	$configFiles = [
 		$rootDir . '/playground.neon',
 	];
 	foreach ([
+                'userConfig' => $userConfigPath,
 		'strictRules' => $rootDir . '/vendor/phpstan/phpstan-strict-rules/rules.neon',
 		'bleedingEdge' => 'phar://' . $rootDir . '/vendor/phpstan/phpstan/phpstan.phar/conf/bleedingEdge.neon',
 	] as $key => $file) {
