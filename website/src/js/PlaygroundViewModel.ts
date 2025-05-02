@@ -42,6 +42,8 @@ export class PlaygroundViewModel {
 
 	slugify: typeof slugify;
 
+	beforeUnloadHandler: (event: BeforeUnloadEvent) => void;
+
 	constructor(urlPath: string) {
 		this.mainMenu = new MainMenuViewModel();
 		this.code = ko.observable('');
@@ -121,6 +123,11 @@ export class PlaygroundViewModel {
 		};
 
 		this.slugify = slugify;
+
+		this.beforeUnloadHandler = (event: BeforeUnloadEvent) => {
+			event.preventDefault();
+			event.returnValue = true; // legacy support for some browsers
+		};
 	}
 
 	switchTab(index: number): void {
@@ -138,6 +145,7 @@ export class PlaygroundViewModel {
 	}
 
 	preanalyse(): void {
+		window.addEventListener('beforeunload', this.beforeUnloadHandler);
 		this.id(null);
 		this.hasServerError(false);
 		if (this.xhr !== null) {
@@ -195,6 +203,7 @@ export class PlaygroundViewModel {
 		}
 		this.isSharing(true);
 		this.analyse(true).done((data) => {
+			window.removeEventListener('beforeunload', this.beforeUnloadHandler);
 			this.id(data.id);
 			this.copyId();
 
