@@ -307,6 +307,9 @@ export class PlaygroundViewModel {
 
 		this.code('<?php declare(strict_types = 1);\n' +
 			'\n' +
+			'use function PHPStan\\dumpType;\n' +
+			'use function PHPStan\\Testing\\assertType;\n' +
+			'\n' +
 			'class HelloWorld\n' +
 			'{\n' +
 			'\tpublic function sayHello(DateTimeImutable $date): void\n' +
@@ -320,13 +323,13 @@ export class PlaygroundViewModel {
 			new PlaygroundTabViewModel([
 				{
 					message: 'Parameter $date of method HelloWorld::sayHello() has invalid typehint type DateTimeImutable.',
-					line: 5,
+					line: 8,
 					ignorable: true,
 					identifier: 'class.notFound',
 				},
 				{
 					message: 'Call to method format() on an unknown class DateTimeImutable.',
-					line: 7,
+					line: 10,
 					ignorable: true,
 					identifier: 'class.notFound',
 				},
