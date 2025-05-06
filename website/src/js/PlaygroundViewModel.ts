@@ -10,6 +10,9 @@ import {slugify} from './ErrorIdentifiersViewModel';
 
 export class PlaygroundViewModel {
 
+	localStorageKey: string = 'playground';
+	hasUnsavedChanges: ko.Observable<boolean> = ko.observable(false);
+
 	mainMenu: MainMenuViewModel;
 	code: ko.Observable<string>;
 	codeDelayed: ko.Computed<string>;
@@ -197,6 +200,7 @@ export class PlaygroundViewModel {
 		this.analyse(true).done((data) => {
 			this.id(data.id);
 			this.copyId();
+			this.clearBackup();
 
 			const anyWindow = (window as any);
 			if (typeof anyWindow.fathom !== 'undefined') {
@@ -224,8 +228,14 @@ export class PlaygroundViewModel {
 		}
 	}
 
+	reset(): void {
+		this.clearBackup();
+		location.reload();
+	}
+
 	startAcceptingChanges(): void {
 		this.code.subscribe(() => {
+			this.backup();
 			this.preanalyse();
 		});
 		this.codeDelayed.subscribe(() => {
@@ -238,6 +248,7 @@ export class PlaygroundViewModel {
 		});
 
 		const instantAnalyse = () => {
+			this.backup();
 			this.preanalyse();
 			this.analyse(false);
 		};
@@ -302,6 +313,15 @@ export class PlaygroundViewModel {
 				initCallback();
 				this.startAcceptingChanges();
 			});
+			return;
+		}
+
+		this.hasUnsavedChanges(this.restoreBackup());
+		if (this.hasUnsavedChanges()) {
+			initCallback();
+			this.startAcceptingChanges();
+			this.preanalyse();
+			this.analyse(false);
 			return;
 		}
 
@@ -398,6 +418,37 @@ export class PlaygroundViewModel {
 		}
 
 		return viewModelTabs;
+	}
+
+	backup(): void {
+		this.hasUnsavedChanges(true);
+		localStorage.setItem(this.localStorageKey, JSON.stringify({
+			code: this.code(),
+			level: this.level(),
+			strictRules: this.strictRules(),
+			bleedingEdge: this.bleedingEdge(),
+			treatPhpDocTypesAsCertain: this.treatPhpDocTypesAsCertain(),
+		}));
+	}
+
+	restoreBackup(): boolean {
+		const backup = localStorage.getItem(this.localStorageKey);
+		if (backup === null) {
+			return false;
+		}
+
+		const data = JSON.parse(backup);
+		this.code(data.code);
+		this.level(data.level);
+		this.strictRules(data.strictRules);
+		this.bleedingEdge(data.bleedingEdge);
+		this.treatPhpDocTypesAsCertain(data.treatPhpDocTypesAsCertain);
+		return true;
+	}
+
+	clearBackup(): void {
+		localStorage.removeItem(this.localStorageKey);
+		this.hasUnsavedChanges(false);
 	}
 
 }

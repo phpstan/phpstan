@@ -19,6 +19,13 @@ permalink: "/try.html"
 		<div class="spinner"></div>
 	</div>
 	<div style="display: none" data-bind="visible: true">
+		<!-- ko if: hasUnsavedChanges -->
+			<div class="text-right">
+				<a href="#" data-bind="click: reset" class="inline-flex flex-grow md:flex-grow-0 mx-4 md:mx-0 items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 hover:bg-gray-200 w-auto md:w-32 h-10 justify-center border-gray-300 border dark:border-black">
+					<span>Reset</span>
+				</a>
+			</div>
+		<!-- /ko -->
 		<div data-bind="codeMirror: code, codeMirrorErrors: currentTab() !== null ? currentTab().errors : []"></div>
 
 		<div class="flex items-center mt-4 flex-col md:flex-row">
