@@ -655,14 +655,14 @@ parameters:
 
 You might encounter this error message when running PHPStan:
 
-> Child process timed out after 60 seconds. Try making it longer with `parallel.processTimeout` setting.
+> Child process timed out after 600 seconds. Try making it longer with `parallel.processTimeout` setting.
 
 This can happen when a single job takes longer than the set timeout. It prevents PHPStan from running indefinitely when something unexpected occurs. In case of large files, it might be normal that the analysis of some of them takes longer. You can make the timeout longer in the configuration:
 
 ```yaml
 parameters:
 	parallel:
-		processTimeout: 300.0
+		processTimeout: 900.0
 ```
 
 To disable parallel processing altogether, set `maximumNumberOfProcesses` to `1`:
