@@ -19,7 +19,7 @@ final class ImportPhpUnitFunctionsRector extends AbstractRector
 			return null;
 		}
 
-        /** @phpstan-ignore classConstant.internal */
+		/** @phpstan-ignore classConstant.internal */
 		$parentNode = $node->getAttribute(AttributeKey::PARENT_NODE);
 
 		if (!$parentNode instanceof Node\Expr\FuncCall) {
