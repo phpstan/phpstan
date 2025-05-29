@@ -35,3 +35,12 @@ parameters:
 			identifier: instanceof.alwaysTrue
 			count: 1
 			path: repo/src/Mapping/Driver/XmlDriver.php
+
+		-
+			message: '''
+				#^Call to deprecated method generateLazyGhost\(\) of class Symfony\\Component\\VarExporter\\ProxyHelper\:
+				since Symfony 7\.3, use native lazy objects instead$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Proxy/ProxyFactory.php
