@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Variables;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\NullType;
 
 class VariableCertaintyInIssetRule implements \PHPStan\Rules\Rule
@@ -50,11 +51,15 @@ class VariableCertaintyInIssetRule implements \PHPStan\Rules\Rule
 
 			$certainty = $scope->hasVariableType($var->name);
 			if ($certainty->no()) {
-				$messages[] = sprintf('Variable $%s in isset() is never defined.', $var->name);
+				$messages[] = RuleErrorBuilder::message(sprintf('Variable $%s in isset() is never defined.', $var->name))
+					->identifier('variable.neverDefinedInIsset')
+					->build();
 			} elseif ($certainty->yes() && !$isSubNode) {
 				$variableType = $scope->getVariableType($var->name);
 				if (!$variableType->accepts(new NullType())) {
-					$messages[] = sprintf('Variable $%s in isset() always exists and is not nullable.', $var->name);
+					$messages[] = RuleErrorBuilder::message(sprintf('Variable $%s in isset() always exists and is not nullable.', $var->name))
+						->identifier('variable.alwaysExistsInIsset')
+						->build();
 				}
 			}
 		}

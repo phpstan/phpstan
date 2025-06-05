@@ -7,6 +7,7 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\Function_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class NonExistentDefinedFunctionRule implements \PHPStan\Rules\Rule
 {
@@ -41,10 +42,10 @@ class NonExistentDefinedFunctionRule implements \PHPStan\Rules\Rule
 		}
 
 		return [
-			sprintf(
+			RuleErrorBuilder::message(sprintf(
 				'Function %s not found while trying to analyse it - autoloading is probably not configured properly.',
 				$functionName
-			),
+			))->identifier('function.nonExistentDefined')->build(),
 		];
 	}
 

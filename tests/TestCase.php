@@ -3,9 +3,9 @@
 namespace PHPStan;
 
 use Nette\DI\Container;
-use PHPStan\Broker\Broker;
 use PHPStan\Cache\Cache;
 use PHPStan\Cache\MemoryCacheStorage;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\DirectParser;
 use PHPStan\Parser\FunctionCallStatementFinder;
@@ -68,12 +68,12 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 	/**
 	 * @param \PHPStan\Type\DynamicMethodReturnTypeExtension[] $dynamicMethodReturnTypeExtensions
 	 * @param \PHPStan\Type\DynamicStaticMethodReturnTypeExtension[] $dynamicStaticMethodReturnTypeExtensions
-	 * @return \PHPStan\Broker\Broker
+	 * @return \PHPStan\Reflection\ReflectionProvider
 	 */
-	public function createBroker(
+	public function createReflectionProvider(
 		array $dynamicMethodReturnTypeExtensions = [],
 		array $dynamicStaticMethodReturnTypeExtensions = []
-	): Broker
+	): ReflectionProvider
 	{
 		$functionCallStatementFinder = new FunctionCallStatementFinder();
 		$parser = $this->getParser();
@@ -88,8 +88,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			/** @var \PHPStan\Cache\Cache */
 			private $cache;
 
-			/** @var \PHPStan\Broker\Broker */
-			public $broker;
+			/** @var \PHPStan\Reflection\ReflectionProvider */
+			public $reflectionProvider;
 
 			public function __construct(
 				Parser $parser,
@@ -112,7 +112,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				return new PhpMethodReflection(
 					$declaringClass,
 					$reflection,
-					$this->broker,
+					$this->reflectionProvider,
 					$this->parser,
 					$this->functionCallStatementFinder,
 					$this->cache,
@@ -161,7 +161,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 				);
 			}
 		};
-		$broker = new Broker(
+		$reflectionProvider = new ReflectionProvider( // Assuming ReflectionProvider can be instantiated like Broker
 			[
 				$phpExtension,
 				$annotationsPropertiesClassReflectionExtension,
@@ -181,9 +181,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 			$functionReflectionFactory,
 			new FileTypeMapper($this->getParser(), $this->createMock(Cache::class))
 		);
-		$methodReflectionFactory->broker = $broker;
+		$methodReflectionFactory->reflectionProvider = $reflectionProvider; // Update property name
 
-		return $broker;
+		return $reflectionProvider;
 	}
 
 	public function getFileHelper(): FileHelper

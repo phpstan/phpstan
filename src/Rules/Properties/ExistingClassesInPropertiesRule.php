@@ -7,6 +7,7 @@ use PhpParser\Node\Stmt\PropertyProperty;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 {
@@ -58,12 +59,12 @@ class ExistingClassesInPropertiesRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
-			$errors[] = sprintf(
+			$errors[] = RuleErrorBuilder::message(sprintf(
 				'Property %s::$%s has unknown class %s as its type.',
 				$propertyReflection->getDeclaringClass()->getDisplayName(),
 				$node->name,
 				$referencedClass
-			);
+			))->identifier('property.unknownClass')->build();
 		}
 
 		if ($this->checkClassCaseSensitivity) {

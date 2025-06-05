@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Variables;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClosureUse;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class DefinedVariableInAnonymousFunctionUseRule implements \PHPStan\Rules\Rule
 {
@@ -39,14 +40,18 @@ class DefinedVariableInAnonymousFunctionUseRule implements \PHPStan\Rules\Rule
 
 		if ($scope->hasVariableType($node->var)->no()) {
 			return [
-				sprintf('Undefined variable: $%s', $node->var),
+				RuleErrorBuilder::message(sprintf('Undefined variable: $%s', $node->var))
+					->identifier('variable.undefinedInClosureUse')
+					->build(),
 			];
 		} elseif (
 			$this->checkMaybeUndefinedVariables
 			&& !$scope->hasVariableType($node->var)->yes()
 		) {
 			return [
-				sprintf('Variable $%s might not be defined.', $node->var),
+				RuleErrorBuilder::message(sprintf('Variable $%s might not be defined.', $node->var))
+					->identifier('variable.maybeUndefinedInClosureUse')
+					->build(),
 			];
 		}
 

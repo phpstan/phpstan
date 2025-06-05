@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\Instanceof_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 {
@@ -64,7 +65,9 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 		], true)) {
 			if (!$scope->isInClass()) {
 				return [
-					sprintf('Using %s outside of class scope.', $lowercaseName),
+					RuleErrorBuilder::message(sprintf('Using %s outside of class scope.', $lowercaseName))
+						->identifier(sprintf('instanceof.%sOutsideClass', $lowercaseName))
+						->build(),
 				];
 			}
 
@@ -73,9 +76,12 @@ class ExistingClassInInstanceOfRule implements \PHPStan\Rules\Rule
 
 		if (!$this->broker->hasClass($name)) {
 			return [
-				sprintf('Class %s not found.', $name),
+				RuleErrorBuilder::message(sprintf('Class %s not found.', $name))
+					->identifier('instanceof.classNotFound')
+					->build(),
 			];
 		} elseif ($this->checkClassCaseSensitivity) {
+			// Assuming checkClassNames returns RuleError[] or string[] that need conversion.
 			return $this->classCaseSensitivityCheck->checkClassNames([$name]);
 		}
 

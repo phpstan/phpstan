@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Stmt\Catch_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
 {
@@ -43,13 +44,17 @@ class CaughtExceptionExistenceRule implements \PHPStan\Rules\Rule
 		foreach ($classes as $className) {
 			$class = (string) $className;
 			if (!$this->broker->hasClass($class)) {
-				$errors[] = sprintf('Caught class %s not found.', $class);
+				$errors[] = RuleErrorBuilder::message(sprintf('Caught class %s not found.', $class))
+					->identifier('exception.notFound')
+					->build();
 				continue;
 			}
 
 			$classReflection = $this->broker->getClass($class);
 			if (!$classReflection->isInterface() && !$classReflection->getNativeReflection()->implementsInterface(\Throwable::class)) {
-				$errors[] = sprintf('Caught class %s is not an exception.', $classReflection->getDisplayName());
+				$errors[] = RuleErrorBuilder::message(sprintf('Caught class %s is not an exception.', $classReflection->getDisplayName()))
+					->identifier('exception.notThrowable')
+					->build();
 			}
 		}
 

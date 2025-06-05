@@ -10,7 +10,7 @@ class ExistingClassesInPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTes
 
 	protected function getRule(): Rule
 	{
-		$broker = $this->createBroker();
+		$broker = $this->createReflectionProvider();
 		return new ExistingClassesInPropertiesRule(
 			$broker,
 			new ClassCaseSensitivityCheck($broker),

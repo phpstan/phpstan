@@ -3,7 +3,7 @@
 namespace PHPStan\Reflection;
 
 use PHPStan\Analyser\Scope;
-use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ReflectionProvider; // Changed
 use PHPStan\Reflection\Php\PhpClassReflectionExtension;
 use PHPStan\Reflection\Php\PhpMethodReflection;
 use PHPStan\Reflection\Php\PhpPropertyReflection;
@@ -11,8 +11,8 @@ use PHPStan\Reflection\Php\PhpPropertyReflection;
 class ClassReflection
 {
 
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
+	/** @var \PHPStan\Reflection\ReflectionProvider */ // Changed
+	private $broker; // Property name kept as $broker
 
 	/** @var \PHPStan\Reflection\PropertiesClassReflectionExtension[] */
 	private $propertiesClassReflectionExtensions;
@@ -39,7 +39,7 @@ class ClassReflection
 	private $classHierarchyDistances;
 
 	public function __construct(
-		Broker $broker,
+		ReflectionProvider $broker, // Changed
 		array $propertiesClassReflectionExtensions,
 		array $methodsClassReflectionExtensions,
 		string $displayName,

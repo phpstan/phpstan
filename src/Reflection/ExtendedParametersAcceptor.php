@@ -4,7 +4,7 @@ namespace PHPStan\Reflection;
 
 use PHPStan\Type\Type;
 
-interface ParametersAcceptorWithPhpDocs extends ParametersAcceptor
+interface ExtendedParametersAcceptor extends ParametersAcceptor
 {
 
 	/**

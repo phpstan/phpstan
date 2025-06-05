@@ -20,7 +20,7 @@ use PhpParser\Node\Name;
 use PhpParser\Node\Scalar\DNumber;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Scalar\String_;
-use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ReflectionProvider; // Changed
 use PHPStan\Reflection\ClassConstantReflection;
 use PHPStan\Reflection\ClassMemberReflection;
 use PHPStan\Reflection\ClassReflection;
@@ -55,7 +55,7 @@ class Scope
 {
 
 	/**
-	 * @var \PHPStan\Broker\Broker
+	 * @var \PHPStan\Reflection\ReflectionProvider // Changed
 	 */
 	private $broker;
 
@@ -145,7 +145,7 @@ class Scope
 	private $currentlyAssignedExpressions = [];
 
 	/**
-	 * @param \PHPStan\Broker\Broker $broker
+	 * @param \PHPStan\Reflection\ReflectionProvider $broker // Changed
 	 * @param \PhpParser\PrettyPrinter\Standard $printer
 	 * @param \PHPStan\Analyser\TypeSpecifier $typeSpecifier
 	 * @param string $file
@@ -164,7 +164,7 @@ class Scope
 	 * @param string[] $currentlyAssignedExpressions
 	 */
 	public function __construct(
-		Broker $broker,
+		ReflectionProvider $broker, // Changed
 		\PhpParser\PrettyPrinter\Standard $printer,
 		TypeSpecifier $typeSpecifier,
 		string $file,

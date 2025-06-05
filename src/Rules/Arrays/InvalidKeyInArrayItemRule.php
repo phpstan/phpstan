@@ -3,6 +3,7 @@
 namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class InvalidKeyInArrayItemRule implements \PHPStan\Rules\Rule
 {
@@ -26,7 +27,9 @@ class InvalidKeyInArrayItemRule implements \PHPStan\Rules\Rule
 		$dimensionType = $scope->getType($node->key);
 		if (!AllowedArrayKeysTypes::getType()->accepts($dimensionType)) {
 			return [
-				sprintf('Invalid array key type %s.', $dimensionType->describe()),
+				RuleErrorBuilder::message(sprintf('Invalid array key type %s.', $dimensionType->describe()))
+					->identifier('array.invalidKeyInItem')
+					->build(),
 			];
 		}
 

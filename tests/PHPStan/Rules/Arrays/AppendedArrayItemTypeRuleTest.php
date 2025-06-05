@@ -9,7 +9,7 @@ class AppendedArrayItemTypeRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new AppendedArrayItemTypeRule(new RuleLevelHelper($this->createBroker(), true, false, true));
+		return new AppendedArrayItemTypeRule(new RuleLevelHelper($this->createReflectionProvider(), true, false, true));
 	}
 
 	public function testAppendedArrayItemType()

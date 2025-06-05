@@ -7,6 +7,7 @@ use PhpParser\Node\Expr\ClassConstFetch;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
@@ -65,7 +66,9 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			if ($className === 'self' || $className === 'static') {
 				if (!$scope->isInClass()) {
 					return [
-						sprintf('Using %s outside of class scope.', $className),
+						RuleErrorBuilder::message(sprintf('Using %s outside of class scope.', $className))
+							->identifier(sprintf('class.%sOutsideClass', strtolower($className)))
+							->build(),
 					];
 				}
 
@@ -73,17 +76,19 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			} elseif ($className === 'parent') {
 				if (!$scope->isInClass()) {
 					return [
-						sprintf('Using %s outside of class scope.', $className),
+						RuleErrorBuilder::message(sprintf('Using %s outside of class scope.', $className))
+							->identifier('class.parentOutsideClass')
+							->build(),
 					];
 				}
 				$currentClassReflection = $scope->getClassReflection();
 				if ($currentClassReflection->getParentClass() === false) {
 					return [
-						sprintf(
+						RuleErrorBuilder::message(sprintf(
 							'Access to parent::%s but %s does not extend any class.',
 							$constantName,
 							$currentClassReflection->getDisplayName()
-						),
+						))->identifier('class.parentNoExtends')->build(),
 					];
 				}
 				$className = $currentClassReflection->getParentClass()->getName();
@@ -91,14 +96,21 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 				if (!$this->broker->hasClass($className)) {
 					if (strtolower($constantName) === 'class') {
 						return [
-							sprintf('Class %s not found.', $className),
+							RuleErrorBuilder::message(sprintf('Class %s not found.', $className))
+								->identifier('class.notFound')
+								->build(),
 						];
 					}
 
 					return [
-						sprintf('Access to constant %s on an unknown class %s.', $constantName, $className),
+						RuleErrorBuilder::message(sprintf('Access to constant %s on an unknown class %s.', $constantName, $className))
+							->identifier('class.constantUnknownClass')
+							->build(),
 					];
 				} else {
+					// Assuming checkClassNames returns RuleError[] or string[] that need conversion.
+					// For now, this part is tricky without knowing its return type.
+					// If it returns strings, those would need to be mapped to RuleErrorBuilder.
 					$messages = $this->classCaseSensitivityCheck->checkClassNames([$className]);
 				}
 
@@ -110,51 +122,53 @@ class ClassConstantRule implements \PHPStan\Rules\Rule
 			$classTypeResult = $this->ruleLevelHelper->findTypeToCheck(
 				$scope,
 				$class,
+				// This sprintf is for a message template, not a direct error.
 				sprintf('Access to constant %s on an unknown class %%s.', $constantName)
 			);
 			$classType = $classTypeResult->getType();
 			if ($classType instanceof ErrorType) {
+				// Assuming getUnknownClassErrors returns RuleError[] or string[]
+				// If strings, they might need conversion if they are to be standardized with identifiers.
 				return $classTypeResult->getUnknownClassErrors();
 			}
 		}
 
 		if ($classType instanceof StringType) {
-			return $messages;
+			return $messages; // Potentially an array of RuleError or strings
 		}
 
 		if (!$classType->canAccessConstants()) {
-			return array_merge($messages, [
-				sprintf('Cannot access constant %s on %s.', $constantName, $classType->describe()),
-			]);
+			$error = RuleErrorBuilder::message(sprintf('Cannot access constant %s on %s.', $constantName, $classType->describe()))
+				->identifier('class.constantNonClass')
+				->build();
+			return array_merge($messages, [$error]);
 		}
 
 		if (strtolower($constantName) === 'class') {
-			return $messages;
+			return $messages; // Potentially an array of RuleError or strings
 		}
 
 		if (!$classType->hasConstant($constantName)) {
-			return array_merge($messages, [
-				sprintf(
-					'Access to undefined constant %s::%s.',
-					$classType->describe(),
-					$constantName
-				),
-			]);
+			$error = RuleErrorBuilder::message(sprintf(
+				'Access to undefined constant %s::%s.',
+				$classType->describe(),
+				$constantName
+			))->identifier('class.constantUndefined')->build();
+			return array_merge($messages, [$error]);
 		}
 
 		$constantReflection = $classType->getConstant($constantName);
 		if (!$scope->canAccessConstant($constantReflection)) {
-			return array_merge($messages, [
-				sprintf(
-					'Access to %s constant %s of class %s.',
-					$constantReflection->isPrivate() ? 'private' : 'protected',
-					$constantName,
-					$constantReflection->getDeclaringClass()->getDisplayName()
-				),
-			]);
+			$error = RuleErrorBuilder::message(sprintf(
+				'Access to %s constant %s of class %s.',
+				$constantReflection->isPrivate() ? 'private' : 'protected',
+				$constantName,
+				$constantReflection->getDeclaringClass()->getDisplayName()
+			))->identifier('class.constantInaccessible')->build();
+			return array_merge($messages, [$error]);
 		}
 
-		return $messages;
+		return $messages; // Potentially an array of RuleError or strings
 	}
 
 }

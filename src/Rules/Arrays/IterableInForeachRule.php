@@ -3,6 +3,7 @@
 namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\UnionType;
 
 class IterableInForeachRule implements \PHPStan\Rules\Rule
@@ -27,10 +28,10 @@ class IterableInForeachRule implements \PHPStan\Rules\Rule
 
 		if ($iteratedExpressionType->isIterable()->no()) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Argument of an invalid type %s supplied for foreach, only iterables are supported.',
 					$iteratedExpressionType->describe()
-				),
+				))->identifier('array.iterableInForeach')->build(),
 			];
 		}
 

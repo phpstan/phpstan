@@ -9,7 +9,7 @@ class AccessPropertiesOnPossiblyNullRuleTest extends \PHPStan\Rules\AbstractRule
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new AccessPropertiesOnPossiblyNullRule(new RuleLevelHelper($this->createBroker(), true, false, true), false);
+		return new AccessPropertiesOnPossiblyNullRule(new RuleLevelHelper($this->createReflectionProvider(), true, false, true), false);
 	}
 
 	public function testAccessPropertiesOnPossiblyNullRuleTest()

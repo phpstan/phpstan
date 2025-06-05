@@ -24,7 +24,7 @@ abstract class AbstractRuleTest extends \PHPStan\TestCase
 				$this->getRule(),
 			]);
 
-			$broker = $this->createBroker();
+			$broker = $this->createReflectionProvider();
 			$printer = new \PhpParser\PrettyPrinter\Standard();
 			$fileHelper = $this->getFileHelper();
 			$typeSpecifier = new TypeSpecifier($printer);

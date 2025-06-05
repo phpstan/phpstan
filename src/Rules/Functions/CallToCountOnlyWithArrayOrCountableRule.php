@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Functions;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\MixedType;
@@ -56,10 +57,10 @@ class CallToCountOnlyWithArrayOrCountableRule implements \PHPStan\Rules\Rule
 
 		if (!$this->ruleLevelHelper->accepts($requiredType, $argumentType)) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Call to function count() with argument type %s will always result in number 1.',
 					$argumentType->describe()
-				),
+				))->identifier('function.countNotArrayCountable')->build(),
 			];
 		}
 

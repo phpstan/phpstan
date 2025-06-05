@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Properties;
 use PhpParser\Node;
 use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\UnionType;
 
@@ -57,11 +58,11 @@ class AccessPropertiesOnPossiblyNullRule implements \PHPStan\Rules\Rule
 
 		if (\PHPStan\Type\TypeCombinator::containsNull($type)) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Accessing property $%s on possibly null value of type %s.',
 					$node->name,
 					$type->describe()
-				),
+				))->identifier('property.accessOnNull')->build(),
 			];
 		}
 

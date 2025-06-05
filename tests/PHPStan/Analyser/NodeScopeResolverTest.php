@@ -3715,7 +3715,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 	{
 		$printer = new \PhpParser\PrettyPrinter\Standard();
 		$resolver = new NodeScopeResolver(
-			$this->createBroker(),
+			$this->createReflectionProvider(),
 			$this->getParser(),
 			$printer,
 			new FileTypeMapper($this->getParser(), $this->createMock(Cache::class)),
@@ -3732,7 +3732,7 @@ class NodeScopeResolverTest extends \PHPStan\TestCase
 		$resolver->processNodes(
 			$this->getParser()->parseFile($file),
 			new Scope(
-				$this->createBroker($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions),
+				$this->createReflectionProvider($dynamicMethodReturnTypeExtensions, $dynamicStaticMethodReturnTypeExtensions),
 				$printer,
 				new TypeSpecifier($printer),
 				$file

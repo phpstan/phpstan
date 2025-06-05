@@ -13,13 +13,13 @@ class FoundTypeResult
 	/** @var string[] */
 	private $referencedClasses;
 
-	/** @var string[] */
+	/** @var array<mixed>|\PHPStan\Rules\RuleError[] */
 	private $unknownClassErrors;
 
 	/**
 	 * @param \PHPStan\Type\Type $type
 	 * @param string[] $referencedClasses
-	 * @param string[] $unknownClassErrors
+	 * @param array<mixed>|\PHPStan\Rules\RuleError[] $unknownClassErrors
 	 */
 	public function __construct(
 		Type $type,
@@ -46,7 +46,7 @@ class FoundTypeResult
 	}
 
 	/**
-	 * @return string[]
+	 * @return array<mixed>|\PHPStan\Rules\RuleError[]
 	 */
 	public function getUnknownClassErrors(): array
 	{

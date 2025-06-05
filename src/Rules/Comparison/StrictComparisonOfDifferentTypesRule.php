@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Comparison;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\NullType;
 
 class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
@@ -50,13 +51,13 @@ class StrictComparisonOfDifferentTypesRule implements \PHPStan\Rules\Rule
 
 		if ($leftType->isSupersetOf($rightType)->no()) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Strict comparison using %s between %s and %s will always evaluate to %s.',
 					$node instanceof Node\Expr\BinaryOp\Identical ? '===' : '!==',
 					$leftType->describe(),
 					$rightType->describe(),
 					$node instanceof Node\Expr\BinaryOp\Identical ? 'false' : 'true'
-				),
+				))->identifier('comparison.strictDifferentTypes')->build(),
 			];
 		}
 

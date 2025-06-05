@@ -2,7 +2,7 @@
 
 namespace PHPStan\PhpDoc;
 
-use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ReflectionProvider;
 
 class PhpDocBlock
 {
@@ -30,7 +30,7 @@ class PhpDocBlock
 	}
 
 	public static function resolvePhpDocBlockForProperty(
-		Broker $broker,
+		ReflectionProvider $broker,
 		string $docComment,
 		string $class,
 		string $propertyName,
@@ -50,7 +50,7 @@ class PhpDocBlock
 	}
 
 	public static function resolvePhpDocBlockForMethod(
-		Broker $broker,
+		ReflectionProvider $broker,
 		string $docComment,
 		string $class,
 		string $methodName,
@@ -70,14 +70,14 @@ class PhpDocBlock
 	}
 
 	private static function resolvePhpDocBlock(
-		Broker $broker,
+		ReflectionProvider $broker,
 		string $docComment,
 		string $class,
 		string $name,
 		string $file,
 		string $hasMethodName,
 		string $getMethodName,
-		string $resolveMethodName
+		string $resolveMethodName // This should be the name of the public static method that called this one
 	): self
 	{
 		if (
@@ -119,7 +119,7 @@ class PhpDocBlock
 	}
 
 	/**
-	 * @param \PHPStan\Broker\Broker $broker
+	 * @param \PHPStan\Reflection\ReflectionProvider $broker
 	 * @param \ReflectionClass $classReflection
 	 * @param string $name
 	 * @param string $hasMethodName
@@ -128,7 +128,7 @@ class PhpDocBlock
 	 * @return self|null
 	 */
 	private static function resolvePhpDocBlockFromClass(
-		Broker $broker,
+		ReflectionProvider $broker,
 		\ReflectionClass $classReflection,
 		string $name,
 		string $hasMethodName,
@@ -137,11 +137,13 @@ class PhpDocBlock
 	)
 	{
 		if ($classReflection->getFileName() !== false && $classReflection->$hasMethodName($name)) {
-			$parentMethodReflection = $classReflection->$getMethodName($name);
-			if ($parentMethodReflection->getDocComment() !== false) {
-				return self::$resolveMethodName(
+			$parentMemberReflection = $classReflection->$getMethodName($name); // Renamed for clarity
+			if ($parentMemberReflection->getDocComment() !== false) {
+				// Call the original public static method (passed as $resolveMethodName)
+				// to ensure the resolution logic is correctly re-entered if there are nestedinheritdoc.
+				return self::$resolveMethodName( // Dynamic call to static method
 					$broker,
-					$parentMethodReflection->getDocComment(),
+					$parentMemberReflection->getDocComment(),
 					$classReflection->getName(),
 					$name,
 					$classReflection->getFileName()

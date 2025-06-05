@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Methods;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\UnionType;
 
@@ -57,11 +58,11 @@ class CallMethodsOnPossiblyNullRule implements \PHPStan\Rules\Rule
 
 		if (\PHPStan\Type\TypeCombinator::containsNull($type)) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Calling method %s() on possibly null value of type %s.',
 					$node->name,
 					$type->describe()
-				),
+				))->identifier('method.callOnNull')->build(),
 			];
 		}
 

@@ -10,7 +10,7 @@ class CallToFunctionParametersRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		$broker = $this->createBroker();
+		$broker = $this->createReflectionProvider();
 		return new CallToFunctionParametersRule(
 			$broker,
 			new FunctionCallParametersCheck(new RuleLevelHelper($broker, true, false, true), true, true)

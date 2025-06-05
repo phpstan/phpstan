@@ -28,7 +28,7 @@ class TypeSpecifierTest extends \PHPStan\TestCase
 
 	protected function setUp()
 	{
-		$broker = $this->createBroker();
+		$broker = $this->createReflectionProvider();
 		$this->printer = new \PhpParser\PrettyPrinter\Standard();
 		$this->typeSpecifier = new TypeSpecifier($this->printer);
 		$this->scope = new Scope($broker, $this->printer, $this->typeSpecifier, '');

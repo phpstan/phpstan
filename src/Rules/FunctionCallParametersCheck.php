@@ -10,6 +10,7 @@ use PHPStan\Type\ArrayType;
 use PHPStan\Type\IterableIterableType;
 use PHPStan\Type\StringType;
 use PHPStan\Type\VoidType;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class FunctionCallParametersCheck
 {
@@ -39,7 +40,7 @@ class FunctionCallParametersCheck
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param \PhpParser\Node\Expr\FuncCall|\PhpParser\Node\Expr\MethodCall|\PhpParser\Node\Expr\StaticCall|\PhpParser\Node\Expr\New_ $funcCall
 	 * @param string[] $messages Eight message templates
-	 * @return string[]
+	 * @return array<mixed>|\PHPStan\Rules\RuleError[]
 	 */
 	public function check(ParametersAcceptor $function, Scope $scope, $funcCall, array $messages): array
 	{
@@ -93,24 +94,24 @@ class FunctionCallParametersCheck
 
 		if ($invokedParametersCount < $functionParametersMinCount || $invokedParametersCount > $functionParametersMaxCount) {
 			if ($functionParametersMinCount === $functionParametersMaxCount) {
-				$errors[] = sprintf(
+				$errors[] = RuleErrorBuilder::message(sprintf(
 					$invokedParametersCount === 1 ? $messages[0] : $messages[1],
 					$invokedParametersCount,
 					$functionParametersMinCount
-				);
+				))->identifier('parameters.count.exactMismatch')->build();
 			} elseif ($functionParametersMaxCount === -1 && $invokedParametersCount < $functionParametersMinCount) {
-				$errors[] = sprintf(
+				$errors[] = RuleErrorBuilder::message(sprintf(
 					$invokedParametersCount === 1 ? $messages[2] : $messages[3],
 					$invokedParametersCount,
 					$functionParametersMinCount
-				);
+				))->identifier('parameters.count.atLeastMismatch')->build();
 			} elseif ($functionParametersMaxCount !== -1) {
-				$errors[] = sprintf(
+				$errors[] = RuleErrorBuilder::message(sprintf(
 					$invokedParametersCount === 1 ? $messages[4] : $messages[5],
 					$invokedParametersCount,
 					$functionParametersMinCount,
 					$functionParametersMaxCount
-				);
+				))->identifier('parameters.count.rangeMismatch')->build();
 			}
 		}
 
@@ -119,7 +120,9 @@ class FunctionCallParametersCheck
 			&& !$scope->isInFirstLevelStatement()
 			&& !$funcCall instanceof \PhpParser\Node\Expr\New_
 		) {
-			$errors[] = $messages[7];
+			$errors[] = RuleErrorBuilder::message($messages[7])
+				->identifier('parameters.voidResultUsed')
+				->build();
 		}
 
 		if (!$this->checkArgumentTypes && !$this->checkArgumentsPassedByReference) {
@@ -172,13 +175,13 @@ class FunctionCallParametersCheck
 					|| !$argumentValueType->hasMethod('__toString')
 				)
 			) {
-				$errors[] = sprintf(
+				$errors[] = RuleErrorBuilder::message(sprintf(
 					$messages[6],
 					$i + 1,
 					sprintf('%s$%s', $parameter->isVariadic() ? '...' : '', $parameter->getName()),
 					$parameterType->describe(),
 					$argumentValueType->describe()
-				);
+				))->identifier('parameters.argumentTypeMismatch')->build();
 			}
 
 			if (
@@ -189,11 +192,11 @@ class FunctionCallParametersCheck
 				&& !$argument->value instanceof \PhpParser\Node\Expr\PropertyFetch
 				&& !$argument->value instanceof \PhpParser\Node\Expr\StaticPropertyFetch
 			) {
-				$errors[] = sprintf(
+				$errors[] = RuleErrorBuilder::message(sprintf(
 					$messages[8],
 					$i + 1,
 					sprintf('%s$%s', $parameter->isVariadic() ? '...' : '', $parameter->getName())
-				);
+				))->identifier('parameters.passedByReference')->build();
 			}
 		}
 

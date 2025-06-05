@@ -8,6 +8,7 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
 use PHPStan\Rules\FunctionCallParametersCheck;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class InstantiationRule implements \PHPStan\Rules\Rule
 {
@@ -59,38 +60,46 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 		if ($class === 'static') {
 			if (!$scope->isInClass()) {
 				return [
-					sprintf('Using %s outside of class scope.', $class),
+					RuleErrorBuilder::message(sprintf('Using %s outside of class scope.', $class))
+						->identifier('instantiation.staticOutsideClass')
+						->build(),
 				];
 			}
 			return [];
 		} elseif ($class === 'self') {
 			if (!$scope->isInClass()) {
 				return [
-					sprintf('Using %s outside of class scope.', $class),
+					RuleErrorBuilder::message(sprintf('Using %s outside of class scope.', $class))
+						->identifier('instantiation.selfOutsideClass')
+						->build(),
 				];
 			}
 			$classReflection = $scope->getClassReflection();
 		} elseif ($class === 'parent') {
 			if (!$scope->isInClass()) {
 				return [
-					sprintf('Using %s outside of class scope.', $class),
+					RuleErrorBuilder::message(sprintf('Using %s outside of class scope.', $class))
+						->identifier('instantiation.parentOutsideClass')
+						->build(),
 				];
 			}
 			if ($scope->getClassReflection()->getParentClass() === false) {
 				return [
-					sprintf(
+					RuleErrorBuilder::message(sprintf(
 						'%s::%s() calls new parent but %s does not extend any class.',
 						$scope->getClassReflection()->getDisplayName(),
 						$scope->getFunctionName(),
 						$scope->getClassReflection()->getDisplayName()
-					),
+					))->identifier('instantiation.parentNoExtends')->build(),
 				];
 			}
 			$classReflection = $scope->getClassReflection()->getParentClass();
 		} else {
 			if (!$this->broker->hasClass($class)) {
 				return [
-					sprintf('Instantiated class %s not found.', $class),
+					RuleErrorBuilder::message(sprintf('Instantiated class %s not found.', $class))
+						->identifier('instantiation.classNotFound')
+						->build(),
 				];
 			} else {
 				$messages = $this->classCaseSensitivityCheck->checkClassNames([$class]);
@@ -100,28 +109,31 @@ class InstantiationRule implements \PHPStan\Rules\Rule
 		}
 
 		if ($classReflection->isInterface()) {
-			return [
-				sprintf('Cannot instantiate interface %s.', $classReflection->getDisplayName()),
-			];
+			// Assuming $messages already contains RuleError[] or is empty.
+			// If $messages can contain strings from checkClassNames, they'd need conversion.
+			$error = RuleErrorBuilder::message(sprintf('Cannot instantiate interface %s.', $classReflection->getDisplayName()))
+				->identifier('instantiation.interface')
+				->build();
+			return array_merge($messages, [$error]);
 		}
 
 		if ($classReflection->isAbstract()) {
-			return [
-				sprintf('Instantiated class %s is abstract.', $classReflection->getDisplayName()),
-			];
+			$error = RuleErrorBuilder::message(sprintf('Instantiated class %s is abstract.', $classReflection->getDisplayName()))
+				->identifier('instantiation.abstractClass')
+				->build();
+			return array_merge($messages, [$error]);
 		}
 
 		if (!$classReflection->hasNativeMethod('__construct') && !$classReflection->hasNativeMethod($class)) {
 			if (count($node->args) > 0) {
-				return array_merge($messages, [
-					sprintf(
-						'Class %s does not have a constructor and must be instantiated without any parameters.',
-						$classReflection->getDisplayName()
-					),
-				]);
+				$error = RuleErrorBuilder::message(sprintf(
+					'Class %s does not have a constructor and must be instantiated without any parameters.',
+					$classReflection->getDisplayName()
+				))->identifier('instantiation.noConstructorParams')->build();
+				return array_merge($messages, [$error]);
 			}
 
-			return [];
+			return $messages; // Return earlier messages if any
 		}
 
 		return array_merge($messages, $this->check->check(

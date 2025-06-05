@@ -9,6 +9,7 @@ use PHPStan\Type\ThisType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\VoidType;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class FunctionReturnTypeCheck
 {
@@ -37,7 +38,7 @@ class FunctionReturnTypeCheck
 	 * @param string $typeMismatchMessage
 	 * @param bool $isGenerator
 	 * @param bool $isAnonymousFunction
-	 * @return string[]
+	 * @return array<mixed>|\PHPStan\Rules\RuleError[]
 	 */
 	public function checkReturnType(
 		Scope $scope,
@@ -60,10 +61,10 @@ class FunctionReturnTypeCheck
 			}
 
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					$emptyReturnStatementMessage,
 					$returnType->describe()
-				),
+				))->identifier('returnType.emptyReturn')->build(),
 			];
 		}
 
@@ -84,30 +85,30 @@ class FunctionReturnTypeCheck
 			}
 
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					$typeMismatchMessage,
 					'$this',
 					$this->printer->prettyPrintExpr($returnValue)
-				),
+				))->identifier('returnType.thisMismatch')->build(),
 			];
 		}
 
 		if ($returnType instanceof VoidType) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					$voidMessage,
 					$returnValueType->describe()
-				),
+				))->identifier('returnType.voidReturn')->build(),
 			];
 		}
 
 		if (!$this->ruleLevelHelper->accepts($returnType, $returnValueType) && (!$isAnonymousFunction || $returnValueType->isDocumentableNatively())) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					$typeMismatchMessage,
 					$returnType->describe(),
 					$returnValueType->describe()
-				),
+				))->identifier('returnType.typeMismatch')->build(),
 			];
 		}
 

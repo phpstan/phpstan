@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Classes;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\ObjectWithoutClassType;
 use PHPStan\Type\StringType;
@@ -49,19 +50,19 @@ class ImpossibleInstanceOfRule implements \PHPStan\Rules\Rule
 
 		if ($isSuperset->no()) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Instanceof between %s and %s will always evaluate to false.',
 					$expressionType->describe(),
 					$type->describe()
-				),
+				))->identifier('instanceof.alwaysFalse')->build(),
 			];
 		} elseif ($isSuperset->yes() && $this->checkAlwaysTrueInstanceof) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Instanceof between %s and %s will always evaluate to true.',
 					$expressionType->describe(),
 					$type->describe()
-				),
+				))->identifier('instanceof.alwaysTrue')->build(),
 			];
 		}
 

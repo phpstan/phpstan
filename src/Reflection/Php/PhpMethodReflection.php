@@ -10,7 +10,7 @@ use PHPStan\Parser\Parser;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Reflection\ParametersAcceptor;
-use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
+use PHPStan\Reflection\ExtendedParametersAcceptor;
 use PHPStan\Type\ArrayType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
@@ -21,7 +21,7 @@ use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 use PHPStan\Type\VoidType;
 
-class PhpMethodReflection implements MethodReflection, ParametersAcceptorWithPhpDocs
+class PhpMethodReflection implements MethodReflection, ExtendedParametersAcceptor
 {
 
 	/** @var \PHPStan\Reflection\ClassReflection */

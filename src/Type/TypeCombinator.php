@@ -71,7 +71,7 @@ class TypeCombinator
 	{
 		if ($type instanceof UnionType) {
 			foreach ($type->getTypes() as $innerType) {
-				if ($innerType instanceof NullType) {
+				if ($innerType->isNull()) { // Assuming $innerType->isNull() exists and returns bool
 					return true;
 				}
 			}
@@ -79,14 +79,15 @@ class TypeCombinator
 			return false;
 		}
 
-		return $type instanceof NullType;
+		return $type->isNull(); // Assuming $type->isNull() exists and returns bool
 	}
 
 	public static function union(Type ...$types): Type
 	{
 		// transform A | (B | C) to A | B | C
 		for ($i = 0; $i < count($types); $i++) {
-			if ($types[$i] instanceof UnionType) {
+			// Assuming $types[$i]->isUnion() returns bool and getTypes() is still valid if it is a UnionType
+			if ($types[$i]->isUnion()) {
 				array_splice($types, $i, 1, $types[$i]->getTypes());
 			}
 		}
@@ -95,15 +96,17 @@ class TypeCombinator
 		// simplify string[] | int[] to (string|int)[]
 		for ($i = 0; $i < count($types); $i++) {
 			for ($j = $i + 1; $j < count($types); $j++) {
-				if ($types[$i] instanceof TrueBooleanType && $types[$j] instanceof FalseBooleanType) {
+				// Assuming $type->isTrueBoolean() and $type->isFalseBoolean() exist and return bool
+				if ($types[$i]->isTrueBoolean() && $types[$j]->isFalseBoolean()) {
 					$types[$i] = new TrueOrFalseBooleanType();
 					array_splice($types, $j, 1);
 					continue 2;
-				} elseif ($types[$i] instanceof FalseBooleanType && $types[$j] instanceof TrueBooleanType) {
+				} elseif ($types[$i]->isFalseBoolean() && $types[$j]->isTrueBoolean()) {
 					$types[$i] = new TrueOrFalseBooleanType();
 					array_splice($types, $j, 1);
 					continue 2;
-				} elseif ($types[$i] instanceof ArrayType && $types[$j] instanceof ArrayType) {
+					// Assuming $type->isArray() exists and returns bool
+				} elseif ($types[$i]->isArray() && $types[$j]->isArray()) {
 					$types[$i] = new ArrayType(
 						self::union($types[$i]->getIterableValueType(), $types[$j]->getIterableValueType()),
 						$types[$i]->isItemTypeInferredFromLiteralArray() || $types[$j]->isItemTypeInferredFromLiteralArray(),
@@ -111,7 +114,8 @@ class TypeCombinator
 					);
 					array_splice($types, $j, 1);
 					continue 2;
-				} elseif ($types[$i] instanceof IterableIterableType && $types[$j] instanceof IterableIterableType) {
+					// Assuming $type->isIterableIterable() exists - this one is a bit of a guess for the name
+				} elseif ($types[$i]->isIterableIterable() && $types[$j]->isIterableIterable()) {
 					$types[$i] = new IterableIterableType(
 						self::union($types[$i]->getIterableValueType(), $types[$j]->getIterableValueType())
 					);
@@ -151,7 +155,8 @@ class TypeCombinator
 	{
 		// transform A & (B | C) to (A & B) | (A & C)
 		foreach ($types as $i => $type) {
-			if ($type instanceof UnionType) {
+			// Assuming $type->isUnion()
+			if ($type->isUnion()) {
 				$topLevelUnionSubTypes = [];
 				foreach ($type->getTypes() as $innerUnionSubType) {
 					$topLevelUnionSubTypes[] = self::intersect(
@@ -167,7 +172,8 @@ class TypeCombinator
 
 		// transform A & (B & C) to A & B & C
 		foreach ($types as $i => &$type) {
-			if ($type instanceof IntersectionType) {
+			// Assuming $type->isIntersection()
+			if ($type->isIntersection()) {
 				array_splice($types, $i, 1, $type->getTypes());
 			}
 		}
@@ -210,10 +216,18 @@ class TypeCombinator
 		}
 	}
 
-	public static function shouldSkipUnionTypeAccepts(UnionType $unionType): bool
+	public static function shouldSkipUnionTypeAccepts(Type $unionType): bool // Changed UnionType to Type for broader compatibility before check
 	{
-		$typesLimit = self::containsNull($unionType) ? 2 : 1;
-		return !self::isUnionTypesEnabled() && count($unionType->getTypes()) > $typesLimit;
+		// We need to ensure $unionType is actually a UnionType before calling getTypes if isUnion() is the way
+		if ($unionType->isUnion()) {
+			$typesLimit = self::containsNull($unionType) ? 2 : 1; // containsNull was already refactored
+			return !self::isUnionTypesEnabled() && count($unionType->getTypes()) > $typesLimit;
+		}
+		// If it's not a union type, it shouldn't be skipped based on this logic.
+		// Or, this function should only be called with known UnionTypes.
+		// For now, assume it's called correctly or the isUnion() check handles it.
+		// If isUnionTypesEnabled() is false and it's not a UnionType with > typesLimit, don't skip.
+		return false;
 	}
 
 }

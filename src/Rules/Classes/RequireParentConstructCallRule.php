@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 {
@@ -38,30 +39,30 @@ class RequireParentConstructCallRule implements \PHPStan\Rules\Rule
 		if ($this->callsParentConstruct($node)) {
 			if ($classReflection->getParentClass() === false) {
 				return [
-					sprintf(
+					RuleErrorBuilder::message(sprintf(
 						'%s::__construct() calls parent constructor but does not extend any class.',
 						$classReflection->getName()
-					),
+					))->identifier('class.parentConstructNoExtends')->build(),
 				];
 			}
 
 			if ($this->getParentConstructorClass($classReflection) === false) {
 				return [
-					sprintf(
+					RuleErrorBuilder::message(sprintf(
 						'%s::__construct() calls parent constructor but parent does not have one.',
 						$classReflection->getName()
-					),
+					))->identifier('class.parentConstructNoParentConstructor')->build(),
 				];
 			}
 		} else {
 			$parentClass = $this->getParentConstructorClass($classReflection);
 			if ($parentClass !== false) {
 				return [
-					sprintf(
+					RuleErrorBuilder::message(sprintf(
 						'%s::__construct() does not call parent constructor from %s.',
 						$classReflection->getName(),
 						$parentClass->getName()
-					),
+					))->identifier('class.missingParentCall')->build(),
 				];
 			}
 		}

@@ -8,7 +8,7 @@ class CaughtExceptionExistenceRuleTest extends \PHPStan\Rules\AbstractRuleTest
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
 		return new CaughtExceptionExistenceRule(
-			$this->createBroker()
+			$this->createReflectionProvider()
 		);
 	}
 

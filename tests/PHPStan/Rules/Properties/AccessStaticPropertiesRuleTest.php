@@ -10,7 +10,7 @@ class AccessStaticPropertiesRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		$broker = $this->createBroker();
+		$broker = $this->createReflectionProvider();
 		return new AccessStaticPropertiesRule(
 			$broker,
 			new RuleLevelHelper($broker, true, false, true),

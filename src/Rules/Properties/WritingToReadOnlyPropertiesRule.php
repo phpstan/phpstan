@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Properties;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 
 class WritingToReadOnlyPropertiesRule implements \PHPStan\Rules\Rule
@@ -86,10 +87,10 @@ class WritingToReadOnlyPropertiesRule implements \PHPStan\Rules\Rule
 			}
 
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'%s is not writable.',
 					$propertyDescription
-				),
+				))->identifier('property.notWritable')->build(),
 			];
 		}
 

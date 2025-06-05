@@ -120,7 +120,7 @@ class AnalyserTest extends \PHPStan\TestCase
 		$traverser = new \PhpParser\NodeTraverser();
 		$traverser->addVisitor(new \PhpParser\NodeVisitor\NameResolver());
 
-		$broker = $this->createBroker();
+		$broker = $this->createReflectionProvider();
 		$printer = new \PhpParser\PrettyPrinter\Standard();
 		$fileHelper = $this->getContainer()->getByType(FileHelper::class);
 		$typeSpecifier = new TypeSpecifier($printer);

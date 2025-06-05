@@ -7,7 +7,7 @@ class ConstantRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new ConstantRule($this->createBroker());
+		return new ConstantRule($this->createReflectionProvider());
 	}
 
 	public function testConstants()

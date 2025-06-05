@@ -133,28 +133,32 @@ class TypehintHelper
 	): Type
 	{
 		if ($phpDocType !== null) {
-			if ($type instanceof VoidType || $phpDocType instanceof VoidType) {
+			// Assuming $type->isVoid() exists and returns bool
+			if ($type->isVoid() || $phpDocType->isVoid()) {
 				return new VoidType();
 			}
 
-			if (TypeCombinator::removeNull($type) instanceof IterableIterableType) {
-				if ($phpDocType instanceof UnionType) {
+			// Assuming $type->isIterableIterable() exists
+			if (TypeCombinator::removeNull($type)->isIterableIterable()) {
+				// Assuming $phpDocType->isUnion() and $innerType->isArray() exist
+				if ($phpDocType->isUnion()) {
 					$innerTypes = [];
 					foreach ($phpDocType->getTypes() as $innerType) {
-						if ($innerType instanceof ArrayType) {
+						if ($innerType->isArray()) {
 							$innerTypes[] = new IterableIterableType($innerType->getIterableValueType());
 						} else {
 							$innerTypes[] = $innerType;
 						}
 					}
 					$phpDocType = new UnionType($innerTypes);
-				} elseif ($phpDocType instanceof ArrayType) {
+				} elseif ($phpDocType->isArray()) { // Assuming $phpDocType->isArray() exists
 					$phpDocType = new IterableIterableType($phpDocType->getIterableValueType());
 				}
 			}
 
 			$intersection = TypeCombinator::intersect($type, $phpDocType);
-			return $intersection instanceof NeverType ? $type : $intersection;
+			// Assuming $intersection->isNever() exists
+			return $intersection->isNever() ? $type : $intersection;
 		}
 
 		return $type;

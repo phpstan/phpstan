@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Properties;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 
 class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
@@ -76,12 +77,12 @@ class TypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 			}
 
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'%s (%s) does not accept %s.',
 					$propertyDescription,
 					$propertyType->describe(),
 					$assignedValueType->describe()
-				),
+				))->identifier('property.typeNotAccepted')->build(),
 			];
 		}
 

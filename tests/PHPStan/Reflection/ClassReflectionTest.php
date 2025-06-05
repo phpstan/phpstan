@@ -66,7 +66,7 @@ class ClassReflectionTest extends \PHPStan\TestCase
 	)
 	{
 		$classReflection = new ClassReflection(
-			$this->createBroker(),
+			$this->createReflectionProvider(),
 			[],
 			[],
 			$class,

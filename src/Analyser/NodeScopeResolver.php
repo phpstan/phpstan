@@ -48,7 +48,7 @@ use PhpParser\Node\Stmt\Throw_;
 use PhpParser\Node\Stmt\TryCatch;
 use PhpParser\Node\Stmt\Unset_;
 use PhpParser\Node\Stmt\While_;
-use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ReflectionProvider; // Changed
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\PhpDoc\PhpDocBlock;
@@ -68,7 +68,7 @@ use PHPStan\Type\TypehintHelper;
 class NodeScopeResolver
 {
 
-	/** @var \PHPStan\Broker\Broker */
+	/** @var \PHPStan\Reflection\ReflectionProvider */ // Changed
 	private $broker;
 
 	/** @var \PHPStan\Parser\Parser */
@@ -102,7 +102,7 @@ class NodeScopeResolver
 	private $analysedFiles;
 
 	public function __construct(
-		Broker $broker,
+		ReflectionProvider $broker, // Changed
 		Parser $parser,
 		\PhpParser\PrettyPrinter\Standard $printer,
 		FileTypeMapper $fileTypeMapper,

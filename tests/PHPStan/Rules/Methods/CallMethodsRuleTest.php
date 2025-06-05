@@ -20,7 +20,7 @@ class CallMethodsRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): Rule
 	{
-		$broker = $this->createBroker();
+		$broker = $this->createReflectionProvider();
 		$ruleLevelHelper = new RuleLevelHelper($broker, $this->checkNullables, $this->checkThisOnly, $this->checkUnionTypes);
 		return new CallMethodsRule(
 			$broker,

@@ -6,9 +6,9 @@ use PHPStan\Broker\Broker;
 use PHPStan\PhpDoc\PhpDocBlock;
 use PHPStan\Reflection\Annotations\AnnotationsMethodsClassReflectionExtension;
 use PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension;
-use PHPStan\Reflection\BrokerAwareClassReflectionExtension;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Reflection\MethodsClassReflectionExtension;
 use PHPStan\Reflection\PropertiesClassReflectionExtension;
 use PHPStan\Reflection\PropertyReflection;
@@ -17,7 +17,7 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\TypehintHelper;
 
 class PhpClassReflectionExtension
-	implements PropertiesClassReflectionExtension, MethodsClassReflectionExtension, BrokerAwareClassReflectionExtension
+	implements PropertiesClassReflectionExtension, MethodsClassReflectionExtension
 {
 
 	/** @var \PHPStan\Reflection\Php\PhpMethodReflectionFactory */
@@ -32,8 +32,8 @@ class PhpClassReflectionExtension
 	/** @var \PHPStan\Reflection\Annotations\AnnotationsPropertiesClassReflectionExtension */
 	private $annotationsPropertiesClassReflectionExtension;
 
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
+	/** @var \PHPStan\Reflection\ReflectionProvider */
+	private $reflectionProvider;
 
 	/** @var \PHPStan\Reflection\PropertyReflection[][] */
 	private $propertiesIncludingAnnotations = [];
@@ -51,18 +51,15 @@ class PhpClassReflectionExtension
 		PhpMethodReflectionFactory $methodReflectionFactory,
 		FileTypeMapper $fileTypeMapper,
 		AnnotationsMethodsClassReflectionExtension $annotationsMethodsClassReflectionExtension,
-		AnnotationsPropertiesClassReflectionExtension $annotationsPropertiesClassReflectionExtension
+		AnnotationsPropertiesClassReflectionExtension $annotationsPropertiesClassReflectionExtension,
+		ReflectionProvider $reflectionProvider
 	)
 	{
 		$this->methodReflectionFactory = $methodReflectionFactory;
 		$this->fileTypeMapper = $fileTypeMapper;
 		$this->annotationsMethodsClassReflectionExtension = $annotationsMethodsClassReflectionExtension;
 		$this->annotationsPropertiesClassReflectionExtension = $annotationsPropertiesClassReflectionExtension;
-	}
-
-	public function setBroker(Broker $broker)
-	{
-		$this->broker = $broker;
+		$this->reflectionProvider = $reflectionProvider;
 	}
 
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
@@ -103,7 +100,7 @@ class PhpClassReflectionExtension
 		$properties = [];
 		foreach ($classReflection->getNativeReflection()->getProperties() as $propertyReflection) {
 			$propertyName = $propertyReflection->getName();
-			$declaringClassReflection = $this->broker->getClass($propertyReflection->getDeclaringClass()->getName());
+			$declaringClassReflection = $this->reflectionProvider->getClass($propertyReflection->getDeclaringClass()->getName());
 
 			if ($includingAnnotations && $this->annotationsPropertiesClassReflectionExtension->hasProperty($classReflection, $propertyName)) {
 				$hierarchyDistances = $classReflection->getClassHierarchyDistances();
@@ -124,7 +121,7 @@ class PhpClassReflectionExtension
 				$type = new MixedType();
 			} elseif (!$declaringClassReflection->getNativeReflection()->isAnonymous() && $declaringClassReflection->getNativeReflection()->getFileName() !== false) {
 				$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForProperty(
-					$this->broker,
+					$this->reflectionProvider,
 					$propertyReflection->getDocComment(),
 					$declaringClassReflection->getName(),
 					$propertyName,
@@ -234,14 +231,14 @@ class PhpClassReflectionExtension
 					continue;
 				}
 			}
-			$declaringClass = $this->broker->getClass($methodReflection->getDeclaringClass()->getName());
+			$declaringClass = $this->reflectionProvider->getClass($methodReflection->getDeclaringClass()->getName());
 
 			$phpDocParameterTypes = [];
 			$phpDocReturnType = null;
 			if (!$declaringClass->getNativeReflection()->isAnonymous() && $declaringClass->getNativeReflection()->getFileName() !== false) {
 				if ($methodReflection->getDocComment() !== false) {
 					$phpDocBlock = PhpDocBlock::resolvePhpDocBlockForMethod(
-						$this->broker,
+						$this->reflectionProvider,
 						$methodReflection->getDocComment(),
 						$declaringClass->getName(),
 						$methodReflection->getName(),

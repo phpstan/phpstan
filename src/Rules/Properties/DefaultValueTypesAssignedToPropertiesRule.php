@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Properties;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\Property;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 
 class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
@@ -49,14 +50,14 @@ class DefaultValueTypesAssignedToPropertiesRule implements \PHPStan\Rules\Rule
 				continue;
 			}
 
-			$errors[] = sprintf(
+			$errors[] = RuleErrorBuilder::message(sprintf(
 				'%s %s::$%s (%s) does not accept default value of type %s.',
 				$node->isStatic() ? 'Static property' : 'Property',
 				$classReflection->getDisplayName(),
 				$property->name,
 				$propertyType->describe(),
 				$defaultValueType->describe()
-			);
+			))->identifier('property.defaultValueType')->build();
 		}
 
 		return $errors;

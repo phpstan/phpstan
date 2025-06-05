@@ -2,7 +2,7 @@
 
 namespace PHPStan\Analyser;
 
-use PHPStan\Broker\Broker;
+use PHPStan\Reflection\ReflectionProvider; // Changed
 use PHPStan\File\FileHelper;
 use PHPStan\Parser\Parser;
 use PHPStan\Rules\Registry;
@@ -21,7 +21,7 @@ class Analyser
 	private $registry;
 
 	/**
-	 * @var \PHPStan\Broker\Broker
+	 * @var \PHPStan\Reflection\ReflectionProvider // Changed
 	 */
 	private $broker;
 
@@ -56,7 +56,7 @@ class Analyser
 	private $reportUnmatchedIgnoredErrors;
 
 	/**
-	 * @param \PHPStan\Broker\Broker $broker
+	 * @param \PHPStan\Reflection\ReflectionProvider $broker // Changed
 	 * @param \PHPStan\Parser\Parser $parser
 	 * @param \PHPStan\Rules\Registry $registry
 	 * @param \PHPStan\Analyser\NodeScopeResolver $nodeScopeResolver
@@ -68,7 +68,7 @@ class Analyser
 	 * @param bool $reportUnmatchedIgnoredErrors
 	 */
 	public function __construct(
-		Broker $broker,
+		ReflectionProvider $broker, // Changed
 		Parser $parser,
 		Registry $registry,
 		NodeScopeResolver $nodeScopeResolver,

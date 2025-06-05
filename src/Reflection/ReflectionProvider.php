@@ -1,16 +1,21 @@
 <?php declare(strict_types = 1);
 
-namespace PHPStan\Broker;
+namespace PHPStan\Reflection; // Changed namespace
 
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\BrokerAwareClassReflectionExtension;
+// BrokerAwareClassReflectionExtension removed
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\FunctionReflectionFactory;
 use PHPStan\Type\FileTypeMapper;
 use PHPStan\Type\TypehintHelper;
 use ReflectionClass;
+// Assuming exceptions are moved, e.g., PHPStan\Reflection\Exceptions\ClassNotFoundException
+use PHPStan\Reflection\Exceptions\ClassNotFoundException;
+use PHPStan\Reflection\Exceptions\FunctionNotFoundException;
+use PHPStan\Reflection\Exceptions\ClassAutoloadingException;
 
-class Broker
+
+class ReflectionProvider // Changed class name
 {
 
 	/** @var \PHPStan\Reflection\PropertiesClassReflectionExtension[] */
@@ -67,11 +72,12 @@ class Broker
 	{
 		$this->propertiesClassReflectionExtensions = $propertiesClassReflectionExtensions;
 		$this->methodsClassReflectionExtensions = $methodsClassReflectionExtensions;
-		foreach (array_merge($propertiesClassReflectionExtensions, $methodsClassReflectionExtensions, $dynamicMethodReturnTypeExtensions) as $extension) {
-			if ($extension instanceof BrokerAwareClassReflectionExtension) {
-				$extension->setBroker($this);
-			}
-		}
+		// BrokerAwareClassReflectionExtension related logic removed
+		// foreach (array_merge($propertiesClassReflectionExtensions, $methodsClassReflectionExtensions, $dynamicMethodReturnTypeExtensions) as $extension) {
+		// 	if ($extension instanceof BrokerAwareClassReflectionExtension) {
+		// 		$extension->setBroker($this); // This would now be $this (ReflectionProvider)
+		// 	}
+		// }
 
 		foreach ($dynamicMethodReturnTypeExtensions as $dynamicMethodReturnTypeExtension) {
 			$this->dynamicMethodReturnTypeExtensions[$dynamicMethodReturnTypeExtension->getClass()][] = $dynamicMethodReturnTypeExtension;
@@ -146,7 +152,7 @@ class Broker
 	public function getClass(string $className): \PHPStan\Reflection\ClassReflection
 	{
 		if (!$this->hasClass($className)) {
-			throw new \PHPStan\Broker\ClassNotFoundException($className);
+			throw new ClassNotFoundException($className); // Updated exception
 		}
 
 		if (!isset($this->classReflections[$className])) {
@@ -181,16 +187,16 @@ class Broker
 
 		spl_autoload_register($autoloader = function (string $autoloadedClassName) use ($className) {
 			if ($autoloadedClassName !== $className) {
-				throw new \PHPStan\Broker\ClassAutoloadingException($autoloadedClassName);
+				throw new ClassAutoloadingException($autoloadedClassName); // Updated exception
 			}
 		});
 
 		try {
 			return $this->hasClassCache[$className] = class_exists($className) || interface_exists($className) || trait_exists($className);
-		} catch (\PHPStan\Broker\ClassAutoloadingException $e) {
+		} catch (ClassAutoloadingException $e) { // Updated exception
 			throw $e;
 		} catch (\Throwable $t) {
-			throw new \PHPStan\Broker\ClassAutoloadingException(
+			throw new ClassAutoloadingException( // Updated exception
 				$className,
 				$t
 			);
@@ -203,7 +209,7 @@ class Broker
 	{
 		$functionName = $this->resolveFunctionName($nameNode, $scope);
 		if ($functionName === null) {
-			throw new \PHPStan\Broker\FunctionNotFoundException((string) $nameNode);
+			throw new FunctionNotFoundException((string) $nameNode); // Updated exception
 		}
 
 		$lowerCasedFunctionName = strtolower($functionName);

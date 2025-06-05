@@ -4,6 +4,7 @@ namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 {
@@ -87,13 +88,13 @@ class DuplicateKeysInLiteralArraysRule implements \PHPStan\Rules\Rule
 
 		$messages = [];
 		foreach ($duplicateKeys as $key => $values) {
-			$messages[] = sprintf(
+			$messages[] = RuleErrorBuilder::message(sprintf(
 				'Array has %d %s with value %s (%s).',
 				count($values),
 				count($values) === 1 ? 'duplicate key' : 'duplicate keys',
 				var_export($key, true),
 				implode(', ', $values)
-			);
+			))->identifier('array.duplicateKey')->build();
 		}
 
 		return $messages;

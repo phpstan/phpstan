@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Clone_;
 use PhpParser\Node\Expr\Variable;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\NullType;
 
 class VariableCloningRule implements \PHPStan\Rules\Rule
@@ -43,16 +44,18 @@ class VariableCloningRule implements \PHPStan\Rules\Rule
 
 		if ($node->expr instanceof Variable) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Cannot clone non-object variable $%s of type %s.',
 					$node->expr->name,
 					$type->describe()
-				),
+				))->identifier('variable.clone.nonObjectVariable')->build(),
 			];
 		}
 
 		return [
-			sprintf('Cannot clone %s.', $type->describe()),
+			RuleErrorBuilder::message(sprintf('Cannot clone %s.', $type->describe()))
+				->identifier('variable.clone.nonObjectExpression')
+				->build(),
 		];
 	}
 

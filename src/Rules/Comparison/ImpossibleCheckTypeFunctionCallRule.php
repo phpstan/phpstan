@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Comparison;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Analyser\TypeSpecifier;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 {
@@ -54,15 +55,19 @@ class ImpossibleCheckTypeFunctionCallRule implements \PHPStan\Rules\Rule
 		$isSuperset = $resultType->isSupersetOf($argumentType);
 		$functionName = (string) $node->name;
 		if ($isSuperset->no()) {
-			return [sprintf(
-				'Call to function %s() will always evaluate to false.',
-				$functionName
-			)];
+			return [
+				RuleErrorBuilder::message(sprintf(
+					'Call to function %s() will always evaluate to false.',
+					$functionName
+				))->identifier('comparison.checkTypeFunctionCallAlwaysFalse')->build(),
+			];
 		} elseif ($isSuperset->yes() && $this->checkAlwaysTrueCheckTypeFunctionCall) {
-			return [sprintf(
-				'Call to function %s() will always evaluate to true.',
-				$functionName
-			)];
+			return [
+				RuleErrorBuilder::message(sprintf(
+					'Call to function %s() will always evaluate to true.',
+					$functionName
+				))->identifier('comparison.checkTypeFunctionCallAlwaysTrue')->build(),
+			];
 		}
 
 		return [];

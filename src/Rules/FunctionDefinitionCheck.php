@@ -9,7 +9,8 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Stmt\Function_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
-use PHPStan\Reflection\ParametersAcceptorWithPhpDocs;
+use PHPStan\Reflection\ExtendedParametersAcceptor;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\NonexistentParentClassType;
 
 class FunctionDefinitionCheck
@@ -66,7 +67,7 @@ class FunctionDefinitionCheck
 	 * @param \PHPStan\Analyser\Scope $scope
 	 * @param string $parameterMessage
 	 * @param string $returnMessage
-	 * @return string[]
+	 * @return array<mixed>|\PHPStan\Rules\RuleError[]
 	 */
 	public function checkFunction(
 		FunctionLike $function,
@@ -108,7 +109,9 @@ class FunctionDefinitionCheck
 			}
 
 			if (!$this->broker->hasClass($class)) {
-				$errors[] = sprintf($parameterMessage, $param->name, $class);
+				$errors[] = RuleErrorBuilder::message(sprintf($parameterMessage, $param->name, $class))
+					->identifier('definition.parameterType.invalid')
+					->build();
 			} elseif ($this->checkClassCaseSensitivity) {
 				$errors = array_merge(
 					$errors,
@@ -126,7 +129,9 @@ class FunctionDefinitionCheck
 			&& !in_array($returnType, self::VALID_TYPEHINTS, true)
 		) {
 			if (!$this->broker->hasClass($returnType)) {
-				$errors[] = sprintf($returnMessage, $returnType);
+				$errors[] = RuleErrorBuilder::message(sprintf($returnMessage, $returnType))
+					->identifier('definition.returnType.invalid')
+					->build();
 			} elseif ($this->checkClassCaseSensitivity) {
 				$errors = array_merge(
 					$errors,
@@ -139,10 +144,10 @@ class FunctionDefinitionCheck
 	}
 
 	private function checkParametersAcceptor(
-		ParametersAcceptorWithPhpDocs $parametersAcceptor,
+		ExtendedParametersAcceptor $parametersAcceptor,
 		string $parameterMessage,
 		string $returnMessage
-	): array
+	): array // Should be RuleError[]
 	{
 		$errors = [];
 		foreach ($parametersAcceptor->getParameters() as $parameter) {
@@ -156,18 +161,22 @@ class FunctionDefinitionCheck
 			}
 			foreach ($referencedClasses as $class) {
 				if (!$this->broker->hasClass($class)) {
-					$errors[] = sprintf($parameterMessage, $parameter->getName(), $class);
+					$errors[] = RuleErrorBuilder::message(sprintf($parameterMessage, $parameter->getName(), $class))
+						->identifier('definition.parameterType.invalid')
+						->build();
 				}
 			}
 
 			if ($this->checkClassCaseSensitivity) {
 				$errors = array_merge(
 					$errors,
-					$this->classCaseSensitivityCheck->checkClassNames($referencedClasses)
+					$this->classCaseSensitivityCheck->checkClassNames($referencedClasses) // Already RuleError[]
 				);
 			}
 			if ($parameter->getType() instanceof NonexistentParentClassType) {
-				$errors[] = sprintf($parameterMessage, $parameter->getName(), $parameter->getType()->describe());
+				$errors[] = RuleErrorBuilder::message(sprintf($parameterMessage, $parameter->getName(), $parameter->getType()->describe()))
+					->identifier('definition.parameterType.invalid')
+					->build();
 			}
 		}
 
@@ -182,18 +191,22 @@ class FunctionDefinitionCheck
 
 		foreach ($returnTypeReferencedClasses as $class) {
 			if (!$this->broker->hasClass($class)) {
-				$errors[] = sprintf($returnMessage, $class);
+				$errors[] = RuleErrorBuilder::message(sprintf($returnMessage, $class))
+					->identifier('definition.returnType.invalid')
+					->build();
 			}
 		}
 
 		if ($this->checkClassCaseSensitivity) {
 			$errors = array_merge(
 				$errors,
-				$this->classCaseSensitivityCheck->checkClassNames($returnTypeReferencedClasses)
+				$this->classCaseSensitivityCheck->checkClassNames($returnTypeReferencedClasses) // Already RuleError[]
 			);
 		}
 		if ($parametersAcceptor->getReturnType() instanceof NonexistentParentClassType) {
-			$errors[] = sprintf($returnMessage, $parametersAcceptor->getReturnType()->describe());
+			$errors[] = RuleErrorBuilder::message(sprintf($returnMessage, $parametersAcceptor->getReturnType()->describe()))
+				->identifier('definition.returnType.invalid')
+				->build();
 		}
 
 		return $errors;

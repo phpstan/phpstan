@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Arrays;
 use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\Node\Expr\Assign;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ArrayType;
 
@@ -47,11 +48,11 @@ class AppendedArrayItemTypeRule implements \PHPStan\Rules\Rule
 		$assignedValueType = $scope->getType($node->expr);
 		if (!$this->ruleLevelHelper->accepts($assignedToType->getItemType(), $assignedValueType)) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Array (%s) does not accept %s.',
 					$assignedToType->describe(),
 					$assignedValueType->describe()
-				),
+				))->identifier('array.appendedItemType')->build(),
 			];
 		}
 

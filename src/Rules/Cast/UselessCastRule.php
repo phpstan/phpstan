@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Cast;
 use PhpParser\Node\Expr\Cast\Object_;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\FloatType;
 use PHPStan\Type\UnionType;
 
@@ -40,11 +41,11 @@ class UselessCastRule implements \PHPStan\Rules\Rule
 
 		if (get_class($expressionType) === get_class($castType)) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Casting to %s something that\'s already %s.',
 					$castType->describe(),
 					$expressionType->describe()
-				),
+				))->identifier('cast.useless')->build(),
 			];
 		}
 

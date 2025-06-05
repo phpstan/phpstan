@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Properties;
 use PhpParser\Node\Expr\PropertyFetch;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 
@@ -54,11 +55,14 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 		);
 		$type = $typeResult->getType();
 		if ($type instanceof ErrorType) {
+			// Assuming getUnknownClassErrors returns RuleError[] or string[]
 			return $typeResult->getUnknownClassErrors();
 		}
 		if (!$type->canAccessProperties()) {
 			return [
-				sprintf('Cannot access property $%s on %s.', $name, $type->describe()),
+				RuleErrorBuilder::message(sprintf('Cannot access property $%s on %s.', $name, $type->describe()))
+					->identifier('property.cannotAccess')
+					->build(),
 			];
 		}
 
@@ -74,11 +78,11 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 				while ($parentClassReflection !== false) {
 					if ($parentClassReflection->hasProperty($name)) {
 						return [
-							sprintf(
+							RuleErrorBuilder::message(sprintf(
 								'Access to private property $%s of parent class %s.',
 								$name,
 								$parentClassReflection->getDisplayName()
-							),
+							))->identifier('property.privateAccessToParent')->build(),
 						];
 					}
 
@@ -87,23 +91,23 @@ class AccessPropertiesRule implements \PHPStan\Rules\Rule
 			}
 
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Access to an undefined property %s::$%s.',
 					$type->describe(),
 					$name
-				),
+				))->identifier('property.undefined')->build(),
 			];
 		}
 
 		$propertyReflection = $type->getProperty($name, $scope);
 		if (!$scope->canAccessProperty($propertyReflection)) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Access to %s property %s::$%s.',
 					$propertyReflection->isPrivate() ? 'private' : 'protected',
 					$type->describe(),
 					$name
-				),
+				))->identifier('property.inaccessible')->build(),
 			];
 		}
 

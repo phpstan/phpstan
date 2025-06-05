@@ -3,6 +3,7 @@
 namespace PHPStan\Rules;
 
 use PhpParser\Node;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class UnusedFunctionParametersCheck
 {
@@ -11,7 +12,7 @@ class UnusedFunctionParametersCheck
 	 * @param string[] $parameterNames
 	 * @param \PhpParser\Node[] $statements
 	 * @param string $unusedParameterMessage
-	 * @return string[]
+	 * @return array<mixed>|\PHPStan\Rules\RuleError[]
 	 */
 	public function getUnusedParameters(
 		array $parameterNames,
@@ -27,7 +28,9 @@ class UnusedFunctionParametersCheck
 		}
 		$errors = [];
 		foreach ($unusedParameters as $name => $bool) {
-			$errors[] = sprintf($unusedParameterMessage, $name);
+			$errors[] = RuleErrorBuilder::message(sprintf($unusedParameterMessage, $name))
+				->identifier('parameter.unused')
+				->build();
 		}
 
 		return $errors;

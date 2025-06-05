@@ -5,6 +5,7 @@ namespace PHPStan\Rules\Variables;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class DefinedVariableRule implements \PHPStan\Rules\Rule
 {
@@ -79,14 +80,18 @@ class DefinedVariableRule implements \PHPStan\Rules\Rule
 
 		if ($scope->hasVariableType($node->name)->no()) {
 			return [
-				sprintf('Undefined variable: $%s', $node->name),
+				RuleErrorBuilder::message(sprintf('Undefined variable: $%s', $node->name))
+					->identifier('variable.undefined')
+					->build(),
 			];
 		} elseif (
 			$this->checkMaybeUndefinedVariables
 			&& !$scope->hasVariableType($node->name)->yes()
 		) {
 			return [
-				sprintf('Variable $%s might not be defined.', $node->name),
+				RuleErrorBuilder::message(sprintf('Variable $%s might not be defined.', $node->name))
+					->identifier('variable.maybeUndefined')
+					->build(),
 			];
 		}
 

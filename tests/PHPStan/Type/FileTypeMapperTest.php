@@ -9,7 +9,7 @@ class FileTypeMapperTest extends \PHPStan\TestCase
 
 	public function testAccepts()
 	{
-		$this->createBroker();
+		$this->createReflectionProvider();
 		$fileTypeMapper = new FileTypeMapper($this->getParser(), $this->createMock(Cache::class));
 
 		/** @var Type[] $typeMap */

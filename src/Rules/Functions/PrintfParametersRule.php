@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Scalar\String_;
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class PrintfParametersRule implements \PHPStan\Rules\Rule
 {
@@ -69,7 +70,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 
 		if ($argsCount !== $placeHoldersCount + 1) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					sprintf(
 						'%s, %s.',
 						$placeHoldersCount === 1 ? 'Call to %s contains %d placeholder' : 'Call to %s contains %d placeholders',
@@ -78,7 +79,7 @@ class PrintfParametersRule implements \PHPStan\Rules\Rule
 					$name,
 					$placeHoldersCount,
 					$argsCount - 1
-				),
+				))->identifier('function.printfMismatch')->build(),
 			];
 		}
 

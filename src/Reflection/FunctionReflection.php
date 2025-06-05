@@ -17,7 +17,7 @@ use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\TypehintHelper;
 
-class FunctionReflection implements ParametersAcceptorWithPhpDocs
+class FunctionReflection implements ExtendedParametersAcceptor
 {
 
 	/** @var \ReflectionFunction */

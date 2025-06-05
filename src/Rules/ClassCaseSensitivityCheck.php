@@ -3,6 +3,7 @@
 namespace PHPStan\Rules;
 
 use PHPStan\Broker\Broker;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class ClassCaseSensitivityCheck
 {
@@ -17,7 +18,7 @@ class ClassCaseSensitivityCheck
 
 	/**
 	 * @param string[] $classNames
-	 * @return string[]
+	 * @return array<mixed>|\PHPStan\Rules\RuleError[]
 	 */
 	public function checkClassNames(array $classNames): array
 	{
@@ -34,11 +35,11 @@ class ClassCaseSensitivityCheck
 				continue;
 			}
 
-			$messages[] = sprintf(
+			$messages[] = RuleErrorBuilder::message(sprintf(
 				'Class %s referenced with incorrect case: %s.',
 				$realClassName,
 				$className
-			);
+			))->identifier('class.caseSensitivity')->build();
 		}
 
 		return $messages;

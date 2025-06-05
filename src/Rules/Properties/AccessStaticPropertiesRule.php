@@ -8,6 +8,7 @@ use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Broker\Broker;
 use PHPStan\Rules\ClassCaseSensitivityCheck;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Rules\RuleLevelHelper;
 use PHPStan\Type\ErrorType;
 use PHPStan\Type\ObjectType;
@@ -65,33 +66,33 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			if ($class === 'self' || $class === 'static') {
 				if (!$scope->isInClass()) {
 					return [
-						sprintf(
+						RuleErrorBuilder::message(sprintf(
 							'Accessing %s::$%s outside of class scope.',
 							$class,
 							$name
-						),
+						))->identifier(sprintf('property.staticAccess.%sOutsideClass', strtolower($class)))->build(),
 					];
 				}
 				$className = $scope->getClassReflection()->getName();
 			} elseif ($class === 'parent') {
 				if (!$scope->isInClass()) {
 					return [
-						sprintf(
+						RuleErrorBuilder::message(sprintf(
 							'Accessing %s::$%s outside of class scope.',
 							$class,
 							$name
-						),
+						))->identifier('property.staticAccess.parentOutsideClass')->build(),
 					];
 				}
 				if ($scope->getClassReflection()->getParentClass() === false) {
 					return [
-						sprintf(
+						RuleErrorBuilder::message(sprintf(
 							'%s::%s() accesses parent::$%s but %s does not extend any class.',
 							$scope->getClassReflection()->getDisplayName(),
 							$scope->getFunctionName(),
 							$name,
 							$scope->getClassReflection()->getDisplayName()
-						),
+						))->identifier('property.staticAccess.parentNoExtends')->build(),
 					];
 				}
 
@@ -109,11 +110,11 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			} else {
 				if (!$this->broker->hasClass($class)) {
 					return [
-						sprintf(
+						RuleErrorBuilder::message(sprintf(
 							'Access to static property $%s on an unknown class %s.',
 							$name,
 							$class
-						),
+						))->identifier('property.staticAccess.unknownClass')->build(),
 					];
 				} else {
 					$messages = $this->classCaseSensitivityCheck->checkClassNames([$class]);
@@ -126,58 +127,55 @@ class AccessStaticPropertiesRule implements \PHPStan\Rules\Rule
 			$classTypeResult = $this->ruleLevelHelper->findTypeToCheck(
 				$scope,
 				$node->class,
-				sprintf('Access to static property $%s on an unknown class %%s.', $name)
+				sprintf('Access to static property $%s on an unknown class %%s.', $name) // Template
 			);
 			$classType = $classTypeResult->getType();
 			if ($classType instanceof ErrorType) {
-				return $classTypeResult->getUnknownClassErrors();
+				return $classTypeResult->getUnknownClassErrors(); // Assumed
 			}
 		}
 
 		if ($classType instanceof StringType) {
-			return [];
+			return $messages; // Return earlier messages if any
 		}
 
 		if (!$classType->canAccessProperties()) {
-			return array_merge($messages, [
-				sprintf('Cannot access static property $%s on %s.', $name, $classType->describe()),
-			]);
+			$error = RuleErrorBuilder::message(sprintf('Cannot access static property $%s on %s.', $name, $classType->describe()))
+				->identifier('property.staticAccess.cannotAccessOnType')
+				->build();
+			return array_merge($messages, [$error]);
 		}
 
 		if (!$classType->hasProperty($name)) {
 			if ($scope->isSpecified($node)) {
 				return $messages;
 			}
-
-			return array_merge($messages, [
-				sprintf(
-					'Access to an undefined static property %s::$%s.',
-					$classType->describe(),
-					$name
-				),
-			]);
+			$error = RuleErrorBuilder::message(sprintf(
+				'Access to an undefined static property %s::$%s.',
+				$classType->describe(),
+				$name
+			))->identifier('property.staticAccess.undefined')->build();
+			return array_merge($messages, [$error]);
 		}
 
 		$property = $classType->getProperty($name, $scope);
 		if (!$property->isStatic()) {
-			return array_merge($messages, [
-				sprintf(
-					'Static access to instance property %s::$%s.',
-					$property->getDeclaringClass()->getDisplayName(),
-					$name
-				),
-			]);
+			$error = RuleErrorBuilder::message(sprintf(
+				'Static access to instance property %s::$%s.',
+				$property->getDeclaringClass()->getDisplayName(),
+				$name
+			))->identifier('property.staticAccess.instanceProperty')->build();
+			return array_merge($messages, [$error]);
 		}
 
 		if (!$scope->canAccessProperty($property)) {
-			return array_merge($messages, [
-				sprintf(
-					'Access to %s property $%s of class %s.',
-					$property->isPrivate() ? 'private' : 'protected',
-					$name,
-					$property->getDeclaringClass()->getDisplayName()
-				),
-			]);
+			$error = RuleErrorBuilder::message(sprintf(
+				'Access to %s property $%s of class %s.',
+				$property->isPrivate() ? 'private' : 'protected',
+				$name,
+				$property->getDeclaringClass()->getDisplayName()
+			))->identifier('property.staticAccess.inaccessible')->build();
+			return array_merge($messages, [$error]);
 		}
 
 		return $messages;

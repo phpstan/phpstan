@@ -2,12 +2,12 @@
 
 namespace PHPStan\Reflection\Php;
 
-use PHPStan\Broker\Broker;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Reflection\PropertyReflection;
+use PHPStan\Reflection\ReflectionProvider;
 
 class UniversalObjectCratesClassReflectionExtension
-	implements \PHPStan\Reflection\PropertiesClassReflectionExtension, \PHPStan\Reflection\BrokerAwareClassReflectionExtension
+	implements \PHPStan\Reflection\PropertiesClassReflectionExtension
 {
 
 	/** @var string[] */
@@ -16,27 +16,23 @@ class UniversalObjectCratesClassReflectionExtension
 	/** @var string[]|null */
 	private $filteredClasses;
 
-	/** @var \PHPStan\Broker\Broker */
-	private $broker;
+	/** @var \PHPStan\Reflection\ReflectionProvider */
+	private $reflectionProvider;
 
 	/**
 	 * @param string[] $classes
 	 */
-	public function __construct(array $classes)
+	public function __construct(array $classes, ReflectionProvider $reflectionProvider)
 	{
 		$this->classes = $classes;
-	}
-
-	public function setBroker(Broker $broker)
-	{
-		$this->broker = $broker;
+		$this->reflectionProvider = $reflectionProvider;
 	}
 
 	public function hasProperty(ClassReflection $classReflection, string $propertyName): bool
 	{
 		if ($this->filteredClasses === null) {
 			$this->filteredClasses = array_values(array_filter($this->classes, function (string $class): bool {
-				return $this->broker->hasClass($class);
+				return $this->reflectionProvider->hasClass($class);
 			}));
 		}
 		if ($classReflection->getNativeReflection()->hasProperty($propertyName)) {

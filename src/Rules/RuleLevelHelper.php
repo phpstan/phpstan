@@ -14,6 +14,7 @@ use PHPStan\Type\StaticType;
 use PHPStan\Type\Type;
 use PHPStan\Type\TypeCombinator;
 use PHPStan\Type\UnionType;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class RuleLevelHelper
 {
@@ -104,7 +105,9 @@ class RuleLevelHelper
 		$referencedClasses = $type->getReferencedClasses();
 		foreach ($referencedClasses as $referencedClass) {
 			if (!$this->broker->hasClass($referencedClass)) {
-				$errors[] = sprintf($unknownClassErrorPattern, $referencedClass);
+				$errors[] = RuleErrorBuilder::message(sprintf($unknownClassErrorPattern, $referencedClass))
+					->identifier('class.unknown')
+					->build();
 			}
 		}
 

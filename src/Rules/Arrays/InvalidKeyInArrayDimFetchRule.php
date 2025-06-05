@@ -3,6 +3,7 @@
 namespace PHPStan\Rules\Arrays;
 
 use PHPStan\Analyser\Scope;
+use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ArrayType;
 
 class InvalidKeyInArrayDimFetchRule implements \PHPStan\Rules\Rule
@@ -32,7 +33,9 @@ class InvalidKeyInArrayDimFetchRule implements \PHPStan\Rules\Rule
 		$dimensionType = $scope->getType($node->dim);
 		if (!AllowedArrayKeysTypes::getType()->accepts($dimensionType)) {
 			return [
-				sprintf('Invalid array key type %s.', $dimensionType->describe()),
+				RuleErrorBuilder::message(sprintf('Invalid array key type %s.', $dimensionType->describe()))
+					->identifier('array.invalidKeyDimFetch')
+					->build(),
 			];
 		}
 

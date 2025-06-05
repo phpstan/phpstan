@@ -7,7 +7,7 @@ class CallToNonExistentFunctionRuleTest extends \PHPStan\Rules\AbstractRuleTest
 
 	protected function getRule(): \PHPStan\Rules\Rule
 	{
-		return new CallToNonExistentFunctionRule($this->createBroker());
+		return new CallToNonExistentFunctionRule($this->createReflectionProvider());
 	}
 
 	public function testEmptyFile()

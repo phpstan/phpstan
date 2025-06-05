@@ -6,6 +6,7 @@ use PhpParser\Node;
 use PhpParser\Node\Expr\Variable;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
+use PHPStan\Rules\RuleErrorBuilder;
 
 class ThisVariableRule implements \PHPStan\Rules\Rule
 {
@@ -32,7 +33,9 @@ class ThisVariableRule implements \PHPStan\Rules\Rule
 
 		if (!$scope->isInClass()) {
 			return [
-				'Using $this outside a class.',
+				RuleErrorBuilder::message('Using $this outside a class.')
+					->identifier('variable.thisOutsideClass')
+					->build(),
 			];
 		}
 
@@ -43,11 +46,11 @@ class ThisVariableRule implements \PHPStan\Rules\Rule
 
 		if ($function->isStatic()) {
 			return [
-				sprintf(
+				RuleErrorBuilder::message(sprintf(
 					'Using $this in static method %s::%s().',
 					$scope->getClassReflection()->getDisplayName(),
 					$function->getName()
-				),
+				))->identifier('variable.thisInStaticMethod')->build(),
 			];
 		}
 
