@@ -44,3 +44,51 @@ parameters:
 			identifier: staticMethod.deprecated
 			count: 1
 			path: repo/src/Proxy/ProxyFactory.php
+
+		-
+			message: '#^PHPDoc type array\<string\> of property Doctrine\\ORM\\Query\\Expr\\Andx\:\:\$allowedClasses is not the same as PHPDoc type list\<class\-string\> of overridden property Doctrine\\ORM\\Query\\Expr\\Base\:\:\$allowedClasses\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: repo/src/Query/Expr/Andx.php
+
+		-
+			message: '#^PHPDoc type list\<Doctrine\\ORM\\Query\\Expr\\Andx\|Doctrine\\ORM\\Query\\Expr\\Comparison\|Doctrine\\ORM\\Query\\Expr\\Func\|Doctrine\\ORM\\Query\\Expr\\Orx\|string\> of property Doctrine\\ORM\\Query\\Expr\\Andx\:\:\$parts is not the same as PHPDoc type list\<string\|Stringable\> of overridden property Doctrine\\ORM\\Query\\Expr\\Base\:\:\$parts\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: repo/src/Query/Expr/Andx.php
+
+		-
+			message: '#^PHPDoc type list\<string\> of property Doctrine\\ORM\\Query\\Expr\\GroupBy\:\:\$parts is not the same as PHPDoc type list\<string\|Stringable\> of overridden property Doctrine\\ORM\\Query\\Expr\\Base\:\:\$parts\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: repo/src/Query/Expr/GroupBy.php
+
+		-
+			message: '#^PHPDoc type list\<string\> of property Doctrine\\ORM\\Query\\Expr\\Literal\:\:\$parts is not the same as PHPDoc type list\<string\|Stringable\> of overridden property Doctrine\\ORM\\Query\\Expr\\Base\:\:\$parts\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: repo/src/Query/Expr/Literal.php
+
+		-
+			message: '#^PHPDoc type array\<string\> of property Doctrine\\ORM\\Query\\Expr\\Orx\:\:\$allowedClasses is not the same as PHPDoc type list\<class\-string\> of overridden property Doctrine\\ORM\\Query\\Expr\\Base\:\:\$allowedClasses\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: repo/src/Query/Expr/Orx.php
+
+		-
+			message: '#^PHPDoc type list\<Doctrine\\ORM\\Query\\Expr\\Andx\|Doctrine\\ORM\\Query\\Expr\\Comparison\|Doctrine\\ORM\\Query\\Expr\\Func\|Doctrine\\ORM\\Query\\Expr\\Orx\|string\> of property Doctrine\\ORM\\Query\\Expr\\Orx\:\:\$parts is not the same as PHPDoc type list\<string\|Stringable\> of overridden property Doctrine\\ORM\\Query\\Expr\\Base\:\:\$parts\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: repo/src/Query/Expr/Orx.php
+
+		-
+			message: '#^PHPDoc type array\<string\> of property Doctrine\\ORM\\Query\\Expr\\Select\:\:\$allowedClasses is not the same as PHPDoc type list\<class\-string\> of overridden property Doctrine\\ORM\\Query\\Expr\\Base\:\:\$allowedClasses\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: repo/src/Query/Expr/Select.php
+
+		-
+			message: '#^PHPDoc type list\<Doctrine\\ORM\\Query\\Expr\\Func\|string\> of property Doctrine\\ORM\\Query\\Expr\\Select\:\:\$parts is not the same as PHPDoc type list\<string\|Stringable\> of overridden property Doctrine\\ORM\\Query\\Expr\\Base\:\:\$parts\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: repo/src/Query/Expr/Select.php
