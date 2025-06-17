@@ -40,7 +40,7 @@ Here's a brief overview of what's checked on each level. Levels are cumulative -
 Want to go further?
 ------------
 
-If the level 9 isn't enough for you and you're looking for even more strictness and type safety, here are some tips. You can use them even alongside lower rule levels.
+If the level 10 isn't enough for you and you're looking for even more strictness and type safety, here are some tips. You can use them even alongside lower rule levels.
 
 Use [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-rules) extension. It configures PHPStan in a stricter way and offers additional rules that revolve around strictly and strongly typed code with no loose casting for those who want additional safety in extremely defensive programming.
 
