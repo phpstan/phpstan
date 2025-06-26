@@ -1019,7 +1019,38 @@ class AccessPropertiesRuleTest extends RuleTestCase
 		$this->checkThisOnly = false;
 		$this->checkUnionTypes = true;
 		$this->checkDynamicProperties = true;
-		$this->analyse([__DIR__ . '/data/property-exists.php'], []);
+		$this->analyse([__DIR__ . '/data/property-exists.php'], [
+			[
+				'Access to an undefined property PropertyExists\Model::$getCreatedByColumn.',
+				27,
+				'Learn more: <fg=cyan>https://phpstan.org/blog/solving-phpstan-access-to-undefined-property</>',
+			],
+			[
+				'Access to an undefined property PropertyExists\Model::$getUpdatedByColumn.',
+				27,
+				'Learn more: <fg=cyan>https://phpstan.org/blog/solving-phpstan-access-to-undefined-property</>',
+			],
+			[
+				'Access to an undefined property PropertyExists\Model::$getDeletedByColumn.',
+				27,
+				'Learn more: <fg=cyan>https://phpstan.org/blog/solving-phpstan-access-to-undefined-property</>',
+			],
+			[
+				'Access to an undefined property PropertyExists\Model::$getCreatedAtColumn.',
+				27,
+				'Learn more: <fg=cyan>https://phpstan.org/blog/solving-phpstan-access-to-undefined-property</>',
+			],
+			[
+				'Access to an undefined property PropertyExists\Model::$getUpdatedAtColumn.',
+				27,
+				'Learn more: <fg=cyan>https://phpstan.org/blog/solving-phpstan-access-to-undefined-property</>',
+			],
+			[
+				'Access to an undefined property PropertyExists\Model::$getDeletedAtColumn.',
+				27,
+				'Learn more: <fg=cyan>https://phpstan.org/blog/solving-phpstan-access-to-undefined-property</>',
+			],
+		]);
 	}
 
 }

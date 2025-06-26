@@ -2,9 +2,11 @@
 
 namespace PropertyExists;
 
+/**
+ * @property-read \stdClass $getCreator
+ */
 class Model
 {
-
 }
 
 class Defaults
@@ -12,6 +14,7 @@ class Defaults
 	public function defaults(Model $model): void
 	{
 		$columns = [
+			'getCreator',
 			'getCreatedByColumn',
 			'getUpdatedByColumn',
 			'getDeletedByColumn',
@@ -21,9 +24,7 @@ class Defaults
 		];
 
 		foreach ($columns as $column) {
-			if (property_exists($model, $column)) {
-				echo $model->{$column};
-			}
+            echo $model->{$column};
 		}
 	}
 }
