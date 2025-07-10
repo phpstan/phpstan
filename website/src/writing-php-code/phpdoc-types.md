@@ -330,6 +330,17 @@ This feature enables usage of strong types in codebases where arrays of various 
 
 This is different from [general arrays](#general-arrays) that mandate that all the keys and values must be of a specific homogeneous type. Array shapes allow each key and value to be different.
 
+Elements in an array shape can optionally be preceded or followed by an inline comment:
+
+```
+array{
+  // All of these fields may contain an empty string
+  street: string,
+  city: string,
+  zip: string, // US format only!
+}
+```
+
 Object shapes
 -------------------------
 
