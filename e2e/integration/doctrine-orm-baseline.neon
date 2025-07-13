@@ -25,6 +25,15 @@ parameters:
 			path: repo/src/Mapping/ClassMetadata.php
 
 		-
+			message: '''
+				#^Call to deprecated method quoteIdentifier\(\) of class Doctrine\\DBAL\\Platforms\\AbstractPlatform\:
+				Use \{@link quoteSingleIdentifier\(\)\} individually for each part of a qualified name instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 7
+			path: repo/src/Mapping/DefaultQuoteStrategy.php
+
+		-
 			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -37,6 +46,12 @@ parameters:
 			path: repo/src/Mapping/Driver/XmlDriver.php
 
 		-
+			message: '#^Parameter \#1 \$columns of method Doctrine\\DBAL\\Platforms\\AbstractPlatform\:\:getColumnDeclarationListSQL\(\) expects list\<array\{name\: string, type\: Doctrine\\DBAL\\Types\\Type, default\: mixed, notnull\?\: bool, autoincrement\: bool, columnDefinition\: non\-empty\-string\|null, comment\: string, charset\?\: non\-empty\-string\|null, \.\.\.\}\>, array\<string, array\{name\: string, notnull\: true, type\: Doctrine\\DBAL\\Types\\Type\}\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Persisters/Collection/OneToManyPersister.php
+
+		-
 			message: '''
 				#^Call to deprecated method generateLazyGhost\(\) of class Symfony\\Component\\VarExporter\\ProxyHelper\:
 				since Symfony 7\.3, use native lazy objects instead$#
@@ -44,3 +59,120 @@ parameters:
 			identifier: staticMethod.deprecated
 			count: 1
 			path: repo/src/Proxy/ProxyFactory.php
+
+		-
+			message: '#^Parameter \#1 \$columns of method Doctrine\\DBAL\\Platforms\\AbstractPlatform\:\:getColumnDeclarationListSQL\(\) expects list\<array\{name\: string, type\: Doctrine\\DBAL\\Types\\Type, default\: mixed, notnull\?\: bool, autoincrement\: bool, columnDefinition\: non\-empty\-string\|null, comment\: string, charset\?\: non\-empty\-string\|null, \.\.\.\}\>, array\<string, array\{name\: string, notnull\: true, type\: Doctrine\\DBAL\\Types\\Type\}\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Query/Exec/MultiTableDeleteExecutor.php
+
+		-
+			message: '#^Parameter \#1 \$columns of method Doctrine\\DBAL\\Platforms\\AbstractPlatform\:\:getColumnDeclarationListSQL\(\) expects list\<array\{name\: string, type\: Doctrine\\DBAL\\Types\\Type, default\: mixed, notnull\?\: bool, autoincrement\: bool, columnDefinition\: non\-empty\-string\|null, comment\: string, charset\?\: non\-empty\-string\|null, \.\.\.\}\>, array\<string, array\{name\: string, notnull\: true, type\: Doctrine\\DBAL\\Types\\Type\}\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Query/Exec/MultiTableUpdateExecutor.php
+
+		-
+			message: '''
+				#^Call to deprecated method getColumns\(\) of class Doctrine\\DBAL\\Schema\\Index\:
+				Use \{@see getIndexedColumns\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method getForeignColumns\(\) of class Doctrine\\DBAL\\Schema\\ForeignKeyConstraint\:
+				Use \{@see getReferencedColumnNames\(\)\} instead\.
+
+				Returns the names of the referenced table columns
+				the foreign key constraint is associated with\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method getForeignTableName\(\) of class Doctrine\\DBAL\\Schema\\ForeignKeyConstraint\:
+				Use \{@see getReferencedTableName\(\)\} instead\.
+
+				Returns the name of the referenced table
+				the foreign key constraint is associated with\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method getLocalColumns\(\) of class Doctrine\\DBAL\\Schema\\ForeignKeyConstraint\:
+				Use \{@see getReferencingColumnNames\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method getPrimaryKey\(\) of class Doctrine\\DBAL\\Schema\\Table\:
+				Use \{@see getPrimaryKeyConstraint\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '#^Call to deprecated method overrules\(\) of class Doctrine\\DBAL\\Schema\\Index\.$#'
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method removeForeignKey\(\) of class Doctrine\\DBAL\\Schema\\Table\:
+				Use \{@link dropForeignKey\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method setPrimaryKey\(\) of class Doctrine\\DBAL\\Schema\\Table\:
+				Use \{@see addPrimaryKeyConstraint\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 3
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '#^Parameter \#1 \$columnNames of method Doctrine\\DBAL\\Schema\\Table\:\:addIndex\(\) expects non\-empty\-list\<string\>, list\<string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '#^Parameter \#1 \$columnNames of method Doctrine\\DBAL\\Schema\\Table\:\:setPrimaryKey\(\) expects non\-empty\-list\<string\>, list\<string\> given\.$#'
+			identifier: argument.type
+			count: 2
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '#^Parameter \#2 \$columns of class Doctrine\\DBAL\\Schema\\Index constructor expects non\-empty\-list\<string\>, list\<string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '#^Parameter \#2 \$localColumnNames of method Doctrine\\DBAL\\Schema\\Table\:\:addForeignKeyConstraint\(\) expects non\-empty\-list\<string\>, list\<string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '#^Parameter \#3 \$foreignColumnNames of method Doctrine\\DBAL\\Schema\\Table\:\:addForeignKeyConstraint\(\) expects non\-empty\-list\<string\>, list\<string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
