@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "bref/bref",
-            "version": "2.4.8",
+            "version": "2.4.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/bref.git",
-                "reference": "64b07dc8ade18b914fdc215fd3fd09266e172b7f"
+                "reference": "b58007a8bcd0d467ec085a8e460885a3fd7dcd96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/bref/zipball/64b07dc8ade18b914fdc215fd3fd09266e172b7f",
-                "reference": "64b07dc8ade18b914fdc215fd3fd09266e172b7f",
+                "url": "https://api.github.com/repos/brefphp/bref/zipball/b58007a8bcd0d467ec085a8e460885a3fd7dcd96",
+                "reference": "b58007a8bcd0d467ec085a8e460885a3fd7dcd96",
                 "shasum": ""
             },
             "require": {
@@ -71,7 +71,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brefphp/bref/issues",
-                "source": "https://github.com/brefphp/bref/tree/2.4.8"
+                "source": "https://github.com/brefphp/bref/tree/2.4.9"
             },
             "funding": [
                 {
@@ -83,7 +83,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-07-04T15:31:15+00:00"
+            "time": "2025-07-10T12:09:16+00:00"
         },
         {
             "name": "clue/stream-filter",
