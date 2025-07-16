@@ -72,6 +72,7 @@ Unofficial extensions
 * [Safe PHP](https://github.com/thecodingmachine/phpstan-safe-rule)
 * [psr/log](https://github.com/struggle-for-php/sfp-phpstan-psr-log)
 * [Faker](https://github.com/calebdw/fakerstan)
+* [Silverstripe CMS](https://github.com/Cambis/silverstan)
 
 3rd party rules
 -----------------
