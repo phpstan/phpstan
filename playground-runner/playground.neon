@@ -3,6 +3,7 @@ rules:
 	- PHPStan\Rules\Playground\MethodNeverRule
 	- PHPStan\Rules\Playground\NotAnalysedTraitRule
 	- PHPStan\Rules\Playground\NoPhpCodeRule
+	- PHPStan\Rules\Playground\PhpdocCommentRule
 
 conditionalTags:
 	PHPStan\Rules\Playground\StaticVarWithoutTypeRule:
