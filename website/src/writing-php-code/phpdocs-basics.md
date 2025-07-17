@@ -565,6 +565,8 @@ class Foo
 Sealed classes
 --------------
 
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.1.18</div>
+
 `@phpstan-sealed` on the class or the interface restricts the list of classes or interfaces which can extend or implement it.
 
 ```php
