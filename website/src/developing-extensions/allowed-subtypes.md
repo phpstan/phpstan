@@ -39,6 +39,12 @@ When you implement this extension, it has a couple of effects:
 * Smarter type inference when subtracting types from each other
 * Error reporting when a disallowed class implements the restricted interface/extends a restricted parent class
 
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+
+Sealed classes can also be defined with the [`@phpstan-sealed` phpdoc](/writing-php-code/phpdocs-basics#sealed-classes).
+
+</div>
+
 An example
 ----------------
 

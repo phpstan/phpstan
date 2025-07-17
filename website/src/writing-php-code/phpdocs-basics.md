@@ -561,3 +561,16 @@ class Foo
 
 (new Foo())->bar = 'baz'; // @readonly property Foo::$bar is assigned outside of its declaring class.
 ```
+
+Sealed classes
+--------------
+
+`@phpstan-sealed` on the class or the interface restricts the list of classes or interfaces which can extend or implement it.
+
+```php
+/** @phpstan-sealed FooClass|BarClass */
+class BaseClass {}
+class FooClass extends BaseClass {}
+class BarClass extends BaseClass {}
+class BazClass extends BaseClass {} // Error: Type BazClass is not allowed to be a subtype of BaseClass.
+```
