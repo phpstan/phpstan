@@ -41,7 +41,7 @@ When you implement this extension, it has a couple of effects:
 
 <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
 
-Sealed classes can also be defined with the [`@phpstan-sealed` phpdoc](/writing-php-code/phpdocs-basics#sealed-classes).
+Sealed classes can also be defined with the [`@phpstan-sealed` PHPDoc tag](/writing-php-code/phpdocs-basics#sealed-classes).
 
 </div>
 
