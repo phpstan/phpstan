@@ -53,3 +53,35 @@ PHPStan will probably find some errors, but don't worry, your code might be just
 **By default, PHPStan runs only the most basic checks. Head to [Rule Levels](/user-guide/rule-levels) to learn how to turn on stricter checks.**
 
 **Learn about all the configuration options in the [Config Reference](/config-reference).**
+
+Continuous Integration
+-------------
+
+This GitHub Actions workflow performs static code analysis using PHPStan to ensure code quality and catch potential bugs in the src and tests directories. It is triggered on every push and pull request, helping maintain a high standard of code throughout the development lifecycle.
+
+```yml
+name: PHPStan Static Analysis
+
+on: [push, pull_request]
+
+jobs:
+  phpstan:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 8.4
+        extensions: mbstring, intl
+        tools: composer
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest --no-interaction
+
+    - name: Run PHPStan analysis
+      run: vendor/bin/phpstan analyse src tests
+```
