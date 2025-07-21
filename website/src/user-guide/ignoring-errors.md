@@ -153,6 +153,18 @@ parameters:
 			identifier: property.notFound
 ```
 
+Or even multiple identifiers at one:
+
+
+```yaml
+parameters:
+	ignoreErrors:
+		-
+			identifiers:
+				- property.notFound
+				- property.neverWritten
+```
+
 Viewing ignored errors
 ------------------
 
