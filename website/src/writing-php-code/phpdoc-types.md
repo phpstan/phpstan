@@ -291,7 +291,7 @@ class User
 }
 ```
 
-To use a local type alias elsewhere, you can import it using the `@phpstan-import-type` annotation in another class' PHPDocs:
+To use a local type alias elsewhere, you can import it above any class using the `@phpstan-import-type` annotation in the class' PHPDoc:
 
 ```php
 /**
