@@ -420,7 +420,7 @@ jobs:
         run: "composer update --no-interaction --no-progress"
 
       - name: "Download phpstan.phar"
-        uses: Wandalen/wretry.action@v3.5.0
+        uses: Wandalen/wretry.action@v3.8.0
         with:
           action: actions/download-artifact@v4
           with: |
