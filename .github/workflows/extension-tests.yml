@@ -54,6 +54,7 @@ jobs:
           - "8.2"
           - "8.3"
           - "8.4"
+          - "8.5"
         extension-name:
           - "phpstan-phpunit"
           - "phpstan-strict-rules"
@@ -71,6 +72,8 @@ jobs:
             php-version: "8.3"
           - extension-name: "phpstan-doctrine"
             php-version: "8.4"
+          - extension-name: "phpstan-doctrine"
+            php-version: "8.5"
 
     steps:
       - name: "Checkout"
