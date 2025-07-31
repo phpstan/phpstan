@@ -59,7 +59,6 @@ Unofficial extensions
 * [Drupal](https://github.com/mglaman/phpstan-drupal)
 * [WordPress](https://github.com/szepeviktor/phpstan-wordpress)
 * [Laminas](https://github.com/Slamdunk/phpstan-laminas-framework)
-* [Phony](https://github.com/eloquent/phpstan-phony)
 * [Prophecy](https://github.com/Jan0707/phpstan-prophecy)
 * [marc-mabe/php-enum](https://github.com/marc-mabe/php-enum-phpstan)
 * [myclabs/php-enum](https://github.com/timeweb/phpstan-enum)
