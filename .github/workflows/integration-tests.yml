@@ -103,7 +103,7 @@ jobs:
             script: |
               git clone https://github.com/shipmonk-rnd/phpstan-rules.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout f038fad6a14b80ed5812af070a716240512be84a
+              git checkout abf55e8db4b18bf6dd743be7ffa4c3b4d17f73bf
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
