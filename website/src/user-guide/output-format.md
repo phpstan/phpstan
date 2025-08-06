@@ -52,6 +52,7 @@ Examples of URLs for the most common editors are:
 
 * PhpStorm: `'phpstorm://open?file=%%file%%&line=%%line%%'`
 * Visual Studio Code: `'vscode://file/%%file%%:%%line%%'`
+* Visual Studio Code (WSL): `'vscode://vscode-remote/wsl+${DISTRO}/%%file%%:%%line%%'` (replace `${DISTRO}` with your current distro, e.g. `Ubuntu-24.04`)
 * Atom: `'atom://core/open/file?filename=%%file%%&line=%%line%%'`
 
 Setting this parameter should most likely be done in [your local configuration file](/config-reference#multiple-files) that isn't committed to version control. The common pattern is to have `phpstan.neon.dist` with project-specific settings shared by everyone on the team, and *.gitignored* `phpstan.neon` that includes `phpstan.neon.dist` and overrides values specific to a single developer:
