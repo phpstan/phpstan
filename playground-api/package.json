@@ -26,8 +26,8 @@
 		"@typescript-eslint/eslint-plugin": "^6.7.5",
 		"@typescript-eslint/parser": "^6.7.5",
 		"eslint": "^8.51.0",
-		"serverless": "^3.0.0",
-		"serverless-offline": "13.9.0",
+		"serverless": "^4.17.2",
+		"serverless-offline": "14.4.0",
 		"serverless-plugin-typescript": "^2.0.0",
 		"typescript": "^5.0.2"
 	}
