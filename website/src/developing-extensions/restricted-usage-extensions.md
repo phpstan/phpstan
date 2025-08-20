@@ -36,7 +36,7 @@ Here's an example of an implementation:
 
 ```php
 if (!str_contains($methodReflection->getName(), 'thankYou')) {
-	// we're already interested in method containing "thankYou"
+	// we're only interested in methods containing "thankYou"
 	return null;
 }
 
