@@ -219,6 +219,8 @@ function foo(string $className): void { ... }
 
 Both literal strings with valid class names (`'stdClass'`) and `class` constants (`\stdClass::class`) are accepted as `class-string` arguments.
 
+The string has to be a fully qualified name of an existing class, interface or enum.
+
 If you have a general `string` and want to pass it as a `class-string` argument, you need to make sure the string contains a valid class name:
 
 ```php
