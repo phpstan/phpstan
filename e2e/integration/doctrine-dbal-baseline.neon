@@ -25,6 +25,12 @@ parameters:
 			path: repo/src/Schema/SQLServerSchemaManager.php
 
 		-
+			message: '#^Offset array\|string on array on left side of \?\? does not exist\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: repo/src/Tools/DsnParser.php
+
+		-
 			message: '#^Only booleans are allowed in a while condition, mixed given\.$#'
 			identifier: while.condNotBoolean
 			count: 1
