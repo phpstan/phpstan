@@ -161,6 +161,8 @@ doFoo(function () {
 });
 ```
 
+PHPStan also supports changing the meaning of `$this` inside a closure with an [extension](/developing-extensions/closure-extensions#parameter-closure-this).
+
 Mixins
 -------------
 

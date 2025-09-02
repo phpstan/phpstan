@@ -80,6 +80,10 @@
             "link": "/developing-extensions/type-specifying-extensions"
         },
         {
+            "title": "Closure Extensions",
+            "link": "/developing-extensions/closure-extensions"
+        },
+        {
             "title": "Custom PHPDoc Types",
             "link": "/developing-extensions/custom-phpdoc-types"
         },

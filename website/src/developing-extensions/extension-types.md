@@ -60,6 +60,13 @@ These extensions allow you to specify types of expressions based on certain type
 
 [Learn more »](/developing-extensions/type-specifying-extensions)
 
+Closure extensions
+-------------------
+
+These extensions allow you to override the closure type passed to function and method calls, or the `$this` variable of a closure depending on the surrounding context.
+
+[Learn more »](/developing-extensions/closure-extensions)
+
 Custom PHPDoc Types
 -------------------
 
