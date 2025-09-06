@@ -13,9 +13,21 @@ parameters:
 			path: repo/src/Runner/CodeCoverage.php
 
 		-
+			message: '#^Method PHPUnit\\Runner\\ErrorHandler\:\:__invoke\(\) never returns true so the return type can be changed to false\.$#'
+			identifier: return.tooWideBool
+			count: 1
+			path: repo/src/Runner/ErrorHandler.php
+
+		-
 			message: '#^Call to static method fromXdebugWithoutPathCoverage\(\) of internal class SebastianBergmann\\CodeCoverage\\Data\\RawCodeCoverageData from outside its root namespace SebastianBergmann\.$#'
 			identifier: staticMethod.internalClass
 			count: 2
+			path: repo/src/Runner/PHPT/PhptTestCase.php
+
+		-
+			message: '#^Method PHPUnit\\Runner\\PhptTestCase\:\:usesDataProvider\(\) never returns true so the return type can be changed to false\.$#'
+			identifier: return.tooWideBool
+			count: 1
 			path: repo/src/Runner/PHPT/PhptTestCase.php
 
 		-
