@@ -25,6 +25,12 @@ parameters:
 			path: repo/src/Internal/Hydration/AbstractHydrator.php
 
 		-
+			message: '#^Offset int\|null might not exist on array\<int, object\>\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Internal/StronglyConnectedComponents.php
+
+		-
 			message: '#^Template type T is declared as covariant, but occurs in invariant position in return type of method Doctrine\\ORM\\Mapping\\ClassMetadata\:\:getReflectionClass\(\)\.$#'
 			identifier: generics.variance
 			count: 1
