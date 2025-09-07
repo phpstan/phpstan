@@ -5,3 +5,9 @@ parameters:
 			identifier: missingType.checkedException
 			count: 1
 			path: repo/src/TemplateCompiler/PHPStan/FileAnalyserProvider.php
+
+		-
+			message: '#^Possibly invalid array key type mixed\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: repo/src/TemplateCompiler/Rules/TemplateRulesRegistry.php
