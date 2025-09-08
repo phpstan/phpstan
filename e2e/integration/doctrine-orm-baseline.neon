@@ -58,6 +58,12 @@ parameters:
 			path: repo/src/Mapping/Driver/XmlDriver.php
 
 		-
+			message: '#^Strict comparison using \!\=\= between array\<string, string\> and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/src/Mapping/ManyToManyOwningSideMapping.php
+
+		-
 			message: '#^Parameter \#1 \$columns of method Doctrine\\DBAL\\Platforms\\AbstractPlatform\:\:getColumnDeclarationListSQL\(\) expects list\<array\{name\: string, type\: Doctrine\\DBAL\\Types\\Type, default\: mixed, notnull\?\: bool, autoincrement\: bool, columnDefinition\: non\-empty\-string\|null, comment\: string, charset\?\: non\-empty\-string\|null, \.\.\.\}\>, array\<string, array\{name\: string, notnull\: true, type\: Doctrine\\DBAL\\Types\\Type\}\> given\.$#'
 			identifier: argument.type
 			count: 1
