@@ -91,6 +91,12 @@ parameters:
 			path: repo/src/Query/Exec/MultiTableUpdateExecutor.php
 
 		-
+			message: '#^Property Doctrine\\ORM\\Query\\Filter\\SQLFilter\:\:\$parameters \(array\<string, array\{type\: string, value\: mixed, is_list\: bool\}\>\) does not accept non\-empty\-array\<string, array\{value\: mixed, type\: Doctrine\\DBAL\\ArrayParameterType\|Doctrine\\DBAL\\ParameterType\|int\|string, is_list\: bool\}\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/Query/Filter/SQLFilter.php
+
+		-
 			message: '''
 				#^Call to deprecated method getColumns\(\) of class Doctrine\\DBAL\\Schema\\Index\:
 				Use \{@see getIndexedColumns\(\)\} instead\.$#
