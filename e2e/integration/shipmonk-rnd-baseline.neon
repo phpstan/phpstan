@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method PHPStan\\Analyser\\NodeScopeResolver\:\:processExprNode\(\) invoked with 5 parameters, 6 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: repo/src/Rule/ForbidCheckedExceptionInCallableRule.php
