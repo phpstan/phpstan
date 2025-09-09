@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Method Bladestan\\NodeAnalyzer\\ViewVariableAnalyzer\:\:resolve\(\) throws checked exception ValueError but it''s missing from the PHPDoc @throws tag\.$#'
+			identifier: missingType.checkedException
+			count: 1
+			path: repo/src/NodeAnalyzer/ViewVariableAnalyzer.php
+
+		-
 			message: '#^Method Bladestan\\TemplateCompiler\\PHPStan\\FileAnalyserProvider\:\:provide\(\) throws checked exception PHPStan\\DependencyInjection\\MissingServiceException but it''s missing from the PHPDoc @throws tag\.$#'
 			identifier: missingType.checkedException
 			count: 1
