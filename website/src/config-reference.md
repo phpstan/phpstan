@@ -397,6 +397,23 @@ public function doFoo(): ?string
 }
 ```
 
+### `checkTooWideParameterOutInProtectedAndPublicMethods`
+
+**default**: `false`
+
+When set to `true`, it reports param-out typehints that could be narrowed down because some of the listed types are never returned from a public or protected method. For [private methods](https://phpstan.org/r/7df92fe3-cc07-4f8e-ac46-bd42e678f23c) PHPStan does this by default.
+
+```php
+/**
+ * @param mixed $x
+ * @param-out string|int $x
+ */
+public function doFoo(&$x): void {
+	// Method Foo::doFoo() never assigns int to &$x so it can be removed from the @param-out type.
+	$x = "foo";
+}
+```
+
 ### `checkUninitializedProperties`
 
 **default**: `false`
