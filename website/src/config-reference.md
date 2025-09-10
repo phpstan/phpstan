@@ -399,6 +399,8 @@ public function doFoo(): ?string
 
 ### `checkTooWideParameterOutInProtectedAndPublicMethods`
 
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.1.23</div>
+
 **default**: `false`
 
 When set to `true`, it reports param-out typehints that could be narrowed down because some of the listed types are never returned from a public or protected method. For [private methods](https://phpstan.org/r/7df92fe3-cc07-4f8e-ac46-bd42e678f23c) PHPStan does this by default.
