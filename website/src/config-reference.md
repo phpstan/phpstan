@@ -522,7 +522,7 @@ By setting `reportPossiblyNonexistentConstantArrayOffset` to `true` this will be
 
 **default**: `false`
 
-By default PHPStan does not report always true last condition in a series of `elseif` branches and match expression arms:
+By default PHPStan does not report always true last condition in a series of `elseif` branches:
 
 ```php
 // $o is A|B
