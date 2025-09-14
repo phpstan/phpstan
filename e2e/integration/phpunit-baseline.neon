@@ -1,43 +1,49 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Property \$driver references internal class SebastianBergmann\\CodeCoverage\\Driver\\Driver in its type\.$#'
+			rawMessage: Assert references unknown $this->instance.
+			identifier: assert.unknownExpr
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Property $driver references internal class SebastianBergmann\CodeCoverage\Driver\Driver in its type.
 			identifier: property.internalClass
 			count: 1
 			path: repo/src/Runner/CodeCoverage.php
 
 		-
-			message: '#^Return type of method PHPUnit\\Runner\\CodeCoverage\:\:driver\(\) has typehint with internal class SebastianBergmann\\CodeCoverage\\Driver\\Driver\.$#'
+			rawMessage: 'Return type of method PHPUnit\Runner\CodeCoverage::driver() has typehint with internal class SebastianBergmann\CodeCoverage\Driver\Driver.'
 			identifier: return.internalClass
 			count: 1
 			path: repo/src/Runner/CodeCoverage.php
 
 		-
-			message: '#^Method PHPUnit\\Runner\\ErrorHandler\:\:__invoke\(\) never returns true so the return type can be changed to false\.$#'
+			rawMessage: 'Method PHPUnit\Runner\ErrorHandler::__invoke() never returns true so the return type can be changed to false.'
 			identifier: return.tooWideBool
 			count: 1
 			path: repo/src/Runner/ErrorHandler.php
 
 		-
-			message: '#^Call to static method fromXdebugWithoutPathCoverage\(\) of internal class SebastianBergmann\\CodeCoverage\\Data\\RawCodeCoverageData from outside its root namespace SebastianBergmann\.$#'
+			rawMessage: 'Call to static method fromXdebugWithoutPathCoverage() of internal class SebastianBergmann\CodeCoverage\Data\RawCodeCoverageData from outside its root namespace SebastianBergmann.'
 			identifier: staticMethod.internalClass
 			count: 2
 			path: repo/src/Runner/PHPT/PhptTestCase.php
 
 		-
-			message: '#^Method PHPUnit\\Runner\\PhptTestCase\:\:usesDataProvider\(\) never returns true so the return type can be changed to false\.$#'
+			rawMessage: 'Method PHPUnit\Runner\PhptTestCase::usesDataProvider() never returns true so the return type can be changed to false.'
 			identifier: return.tooWideBool
 			count: 1
 			path: repo/src/Runner/PHPT/PhptTestCase.php
 
 		-
-			message: '#^Return type of method PHPUnit\\Runner\\PhptTestCase\:\:cleanupForCoverage\(\) has typehint with internal class SebastianBergmann\\CodeCoverage\\Data\\RawCodeCoverageData\.$#'
+			rawMessage: 'Return type of method PHPUnit\Runner\PhptTestCase::cleanupForCoverage() has typehint with internal class SebastianBergmann\CodeCoverage\Data\RawCodeCoverageData.'
 			identifier: return.internalClass
 			count: 1
 			path: repo/src/Runner/PHPT/PhptTestCase.php
 
 		-
-			message: '#^Call to method nameAndVersion\(\) of internal class SebastianBergmann\\CodeCoverage\\Driver\\Driver from outside its root namespace SebastianBergmann\.$#'
+			rawMessage: 'Call to method nameAndVersion() of internal class SebastianBergmann\CodeCoverage\Driver\Driver from outside its root namespace SebastianBergmann.'
 			identifier: method.internalClass
 			count: 1
 			path: repo/src/TextUI/Application.php

@@ -1,130 +1,184 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '''
-				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
-				Use isSubclassOfClass instead\.$#
+			rawMessage: '''
+				Call to deprecated method hasProperty() of interface PHPStan\Type\Type:
+				Use hasInstanceProperty or hasStaticProperty instead
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Methods/BuilderHelper.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method isSubclassOf() of class PHPStan\Reflection\ClassReflection:
+				Use isSubclassOfClass instead.
 			'''
 			identifier: method.deprecated
 			count: 2
 			path: repo/src/Methods/MacroMethodsClassReflectionExtension.php
 
 		-
-			message: '''
-				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
-				Use isSubclassOfClass instead\.$#
+			rawMessage: '''
+				Call to deprecated method isSubclassOf() of class PHPStan\Reflection\ClassReflection:
+				Use isSubclassOfClass instead.
 			'''
 			identifier: method.deprecated
 			count: 1
 			path: repo/src/Methods/ModelFactoryMethodsClassReflectionExtension.php
 
 		-
-			message: '''
-				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
-				Use isSubclassOfClass instead\.$#
+			rawMessage: '''
+				Call to deprecated method isSubclassOf() of class PHPStan\Reflection\ClassReflection:
+				Use isSubclassOfClass instead.
 			'''
 			identifier: method.deprecated
 			count: 1
 			path: repo/src/Methods/Pipes/Facades.php
 
 		-
-			message: '''
-				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
-				Use isSubclassOfClass instead\.$#
+			rawMessage: '''
+				Call to deprecated method isSubclassOf() of class PHPStan\Reflection\ClassReflection:
+				Use isSubclassOfClass instead.
 			'''
 			identifier: method.deprecated
 			count: 1
 			path: repo/src/Methods/Pipes/Managers.php
 
 		-
-			message: '''
-				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
-				Use isSubclassOfClass instead\.$#
+			rawMessage: '''
+				Call to deprecated method getProperty() of class PHPStan\Type\ObjectType:
+				Use getInstanceProperty or getStaticProperty instead
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Properties/HigherOrderCollectionProxyPropertyExtension.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method isSubclassOf() of class PHPStan\Reflection\ClassReflection:
+				Use isSubclassOfClass instead.
 			'''
 			identifier: method.deprecated
 			count: 6
 			path: repo/src/Properties/ModelCastHelper.php
 
 		-
-			message: '''
-				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
-				Use isSubclassOfClass instead\.$#
+			rawMessage: '''
+				Call to deprecated method isSubclassOf() of class PHPStan\Reflection\ClassReflection:
+				Use isSubclassOfClass instead.
 			'''
 			identifier: method.deprecated
 			count: 2
 			path: repo/src/Properties/ModelPropertyHelper.php
 
 		-
-			message: '''
-				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
-				Use isSubclassOfClass instead\.$#
+			rawMessage: '''
+				Call to deprecated method isSubclassOf() of class PHPStan\Reflection\ClassReflection:
+				Use isSubclassOfClass instead.
 			'''
 			identifier: method.deprecated
 			count: 1
 			path: repo/src/Properties/ModelRelationsExtension.php
 
 		-
-			message: '#^Call to internal method Symfony\\Component\\Console\\Command\\Command\:\:mergeApplicationDefinition\(\) from outside its root namespace Symfony\.$#'
+			rawMessage: 'Call to internal method Symfony\Component\Console\Command\Command::mergeApplicationDefinition() from outside its root namespace Symfony.'
 			identifier: method.internal
 			count: 1
 			path: repo/src/ReturnTypes/ConsoleCommand/ArgumentDynamicReturnTypeExtension.php
 
 		-
-			message: '#^Call to internal method Symfony\\Component\\Console\\Command\\Command\:\:mergeApplicationDefinition\(\) from outside its root namespace Symfony\.$#'
+			rawMessage: 'Call to internal method Symfony\Component\Console\Command\Command::mergeApplicationDefinition() from outside its root namespace Symfony.'
 			identifier: method.internal
 			count: 1
 			path: repo/src/ReturnTypes/ConsoleCommand/HasArgumentDynamicReturnTypeExtension.php
 
 		-
-			message: '#^Call to internal method Symfony\\Component\\Console\\Command\\Command\:\:mergeApplicationDefinition\(\) from outside its root namespace Symfony\.$#'
+			rawMessage: 'Call to internal method Symfony\Component\Console\Command\Command::mergeApplicationDefinition() from outside its root namespace Symfony.'
 			identifier: method.internal
 			count: 1
 			path: repo/src/ReturnTypes/ConsoleCommand/HasOptionDynamicReturnTypeExtension.php
 
 		-
-			message: '#^Call to internal method Symfony\\Component\\Console\\Command\\Command\:\:mergeApplicationDefinition\(\) from outside its root namespace Symfony\.$#'
+			rawMessage: 'Call to internal method Symfony\Component\Console\Command\Command::mergeApplicationDefinition() from outside its root namespace Symfony.'
 			identifier: method.internal
 			count: 1
 			path: repo/src/ReturnTypes/ConsoleCommand/OptionDynamicReturnTypeExtension.php
 
 		-
-			message: '''
-				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
-				Use isSubclassOfClass instead\.$#
+			rawMessage: '''
+				Call to deprecated method isSubclassOf() of class PHPStan\Reflection\ClassReflection:
+				Use isSubclassOfClass instead.
 			'''
 			identifier: method.deprecated
 			count: 1
 			path: repo/src/ReturnTypes/ModelFactoryDynamicStaticMethodReturnTypeExtension.php
 
 		-
-			message: '''
-				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
-				Use isSubclassOfClass instead\.$#
+			rawMessage: '''
+				Call to deprecated method getProperty() of interface PHPStan\Type\Type:
+				Use getInstanceProperty or getStaticProperty instead
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/ReturnTypes/ModelOnlyDynamicMethodReturnTypeExtension.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method hasProperty() of interface PHPStan\Type\Type:
+				Use hasInstanceProperty or hasStaticProperty instead
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/ReturnTypes/ModelOnlyDynamicMethodReturnTypeExtension.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method isSubclassOf() of class PHPStan\Reflection\ClassReflection:
+				Use isSubclassOfClass instead.
 			'''
 			identifier: method.deprecated
 			count: 1
 			path: repo/src/ReturnTypes/NewModelQueryDynamicMethodReturnTypeExtension.php
 
 		-
-			message: '#^Call to internal method Symfony\\Component\\Console\\Command\\Command\:\:mergeApplicationDefinition\(\) from outside its root namespace Symfony\.$#'
+			rawMessage: 'Call to internal method Symfony\Component\Console\Command\Command::mergeApplicationDefinition() from outside its root namespace Symfony.'
 			identifier: method.internal
 			count: 1
 			path: repo/src/Rules/ConsoleCommand/UndefinedArgumentOrOptionRule.php
 
 		-
-			message: '''
-				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
-				Use isSubclassOfClass instead\.$#
+			rawMessage: '''
+				Call to deprecated method isSubclassOf() of class PHPStan\Reflection\ClassReflection:
+				Use isSubclassOfClass instead.
 			'''
 			identifier: method.deprecated
 			count: 1
 			path: repo/src/Rules/DeferrableServiceProviderMissingProvidesRule.php
 
 		-
-			message: '''
-				#^Call to deprecated method isSubclassOf\(\) of class PHPStan\\Reflection\\ClassReflection\:
-				Use isSubclassOfClass instead\.$#
+			rawMessage: '''
+				Call to deprecated method isSubclassOf() of class PHPStan\Reflection\ClassReflection:
+				Use isSubclassOfClass instead.
 			'''
 			identifier: method.deprecated
 			count: 1
 			path: repo/src/Rules/ModelAppendsRule.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method hasProperty() of interface PHPStan\Type\Type:
+				Use hasInstanceProperty or hasStaticProperty instead
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Support/HigherOrderCollectionProxyHelper.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method hasProperty() of interface PHPStan\Type\Type:
+				Use hasInstanceProperty or hasStaticProperty instead
+			'''
+			identifier: method.deprecated
+			count: 3
+			path: repo/src/Types/ModelProperty/GenericModelPropertyType.php
