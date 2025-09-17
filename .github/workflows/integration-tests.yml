@@ -230,14 +230,14 @@ jobs:
 #            baseline-file: pocketmine-baseline.neon
           - php-version: 8.2
             repo: laravel/framework
-            ref: 43993ed92af54aa8620d8e779a7dcd658f44364c
+            ref: 2d0d6f5f72272a0a0999a10ad12b18fd6564ccc9
             setup: |
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c phpstan.src.neon.dist
             baseline-file: laravel-baseline.neon
           - php-version: 8.2
             repo: laravel/framework
-            ref: 43993ed92af54aa8620d8e779a7dcd658f44364c
+            ref: 2d0d6f5f72272a0a0999a10ad12b18fd6564ccc9
             setup: |
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c phpstan.types.neon.dist
