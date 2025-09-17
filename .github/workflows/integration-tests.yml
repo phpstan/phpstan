@@ -103,7 +103,7 @@ jobs:
             script: |
               git clone https://github.com/shipmonk-rnd/phpstan-rules.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 8503b5d0adf99b706418f4691276c20a1974782c
+              git checkout af834c5d98357837211fe79a8f305abc6ad740e7
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
@@ -114,7 +114,7 @@ jobs:
             script: |
               git clone https://github.com/shipmonk-rnd/dead-code-detector.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 0.12.0
+              git checkout 40ab4426238c26aa0ddb963b41ffd438450153a1
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
@@ -403,7 +403,7 @@ jobs:
 #            baseline-file: doctrine-persistence-baseline.neon
           - php-version: 8.1
             repo: shipmonk-rnd/phpstan-rules
-            ref: 8503b5d0adf99b706418f4691276c20a1974782c
+            ref: af834c5d98357837211fe79a8f305abc6ad740e7
             setup: |
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
@@ -413,7 +413,7 @@ jobs:
             baseline-file: shipmonk-rnd-baseline.neon
           - php-version: 8.3
             repo: shipmonk-rnd/dead-code-detector
-            ref: 0.12.0
+            ref: 40ab4426238c26aa0ddb963b41ffd438450153a1
             setup: |
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
