@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Dead catch \- RuntimeException is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: repo/src/Compiler/LivewireTagCompiler.php
+
+		-
 			message: '#^Method Bladestan\\NodeAnalyzer\\ViewVariableAnalyzer\:\:resolve\(\) throws checked exception ValueError but it''s missing from the PHPDoc @throws tag\.$#'
 			identifier: missingType.checkedException
 			count: 1
