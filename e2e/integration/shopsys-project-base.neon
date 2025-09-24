@@ -1,8 +1,8 @@
 includes:
-	- repo/project-base/app/phpstan.neon
-	- shopsys-project-base-baseline.neon
+    - repo/project-base/app/phpstan.neon
+    - shopsys-project-base-baseline.neon
 
 parameters:
-	reportUnmatchedIgnoredErrors: false
-	excludePaths:
-		- repo/project-base/app/tests/App/Test/Codeception/AcceptanceTester.php
+    reportUnmatchedIgnoredErrors: false
+    excludePaths:
+        - repo/project-base/app/tests/App/Test/Codeception/AcceptanceTester.php

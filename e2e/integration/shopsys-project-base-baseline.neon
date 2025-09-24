@@ -1,6 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method Tests\\\\App\\\\Test\\\\Codeception\\\\AcceptanceTester\\:\\:selectOptionInSelect2ByCssAndValue\\(\\)\\.$#"
+			message: '#^Call to an undefined method Tests\\App\\Test\\Codeception\\AcceptanceTester\:\:selectOptionInSelect2ByCssAndValue\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: repo/project-base/app/tests/App/Acceptance/acceptance/PageObject/Admin/ProductAdvancedSearchPage.php

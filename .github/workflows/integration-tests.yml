@@ -326,29 +326,30 @@ jobs:
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../sylius.neon
             baseline-file: sylius-baseline.neon
-#          - php-version: 8.3
-#            repo: shopsys/shopsys
-#            ref: v14.0.0
-#            setup: |
-#              cp ../shopsys-composer.lock composer.lock
-#              composer install
-#
-#            # from build.xml
-#            phpstan-command: ../../../phpstan.phar analyse -c ../shopsys.neon -l 5 packages/*/src packages/*/tests utils/*/src utils/*/tests
-#          - php-version: 8.3
-#            repo: shopsys/shopsys
-#            ref: v14.0.0
-#            phpstan-cwd: e2e/integration/repo/project-base/app
-#            setup: |
-#              cp ../shopsys-composer.lock composer.lock
-#              composer install
-#              cd project-base/app
-#              cp ../../../shopsys-project-base-composer.lock composer.lock
-#              composer install
-#
-#            # test project-base separately
-#            phpstan-command: ../../../../../phpstan.phar analyse -c ../../../shopsys-project-base.neon -l 5 src tests
-#            baseline-file: ../../shopsys-project-base-baseline.neon
+          - php-version: 8.4
+            repo: shopsys/shopsys
+            ref: v17.0.0
+            setup: |
+              cp ../shopsys-composer.lock composer.lock
+              composer install
+
+            # from build.xml
+            phpstan-command: ../../../phpstan.phar analyse -c ../shopsys.neon -l 5 packages/*/src packages/*/tests utils/*/src utils/*/tests project-base/app/app project-base/app/src
+          - php-version: 8.4
+            repo: shopsys/shopsys
+            ref: v17.0.0
+            phpstan-cwd: e2e/integration/repo/project-base/app
+            setup: |
+              cp ../shopsys-composer.lock composer.lock
+              composer install
+              rm parameters_monorepo.yaml
+              cd project-base/app
+              cp ../../../shopsys-project-base-composer.lock composer.lock
+              composer install
+
+            # test project-base separately
+            phpstan-command: ../../../../../phpstan.phar analyse -c ../../../shopsys-project-base.neon -l 5 src tests
+            baseline-file: ../../shopsys-project-base-baseline.neon
           - php-version: 8.4
             repo: doctrine/orm
             ref: 68c87740aa07d547a60818a288b2ce44ee74aba0
