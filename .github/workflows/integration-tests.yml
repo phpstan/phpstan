@@ -317,15 +317,15 @@ jobs:
               php src/Core/DevOps/StaticAnalyze/phpstan-bootstrap.php
             phpstan-command: ../../../phpstan.phar analyse -c ../shopware.neon
             baseline-file: shopware-baseline.neon
-#          - php-version: 8.2
-#            repo: Sylius/Sylius
-#            ref: v1.13.1
-#            setup: |
-#              export DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db
-#              cp ../sylius-composer.lock composer.lock
-#              composer install
-#            phpstan-command: ../../../phpstan.phar analyse -c ../sylius.neon
-#            baseline-file: sylius-baseline.neon
+          - php-version: 8.4
+            repo: Sylius/Sylius
+            ref: v2.1.5
+            setup: |
+              export DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db
+              cp ../sylius-composer.lock composer.lock
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../sylius.neon
+            baseline-file: sylius-baseline.neon
 #          - php-version: 8.3
 #            repo: shopsys/shopsys
 #            ref: v14.0.0
