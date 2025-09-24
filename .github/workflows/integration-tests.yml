@@ -295,13 +295,13 @@ jobs:
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
             phpstan-command: ../../../phpstan.phar analyse -c ../larastan.neon
             baseline-file: larastan-baseline.neon
-#          - php-version: 7.4
-#            repo: bitExpert/phpstan-magento
-#            ref: f845cd4dbdc49d2e005ec2646176ddfcf7d55d38
-#            setup: |
-#              composer install
-#            phpstan-command: ../../../phpstan.phar analyse -c ../magento.neon
-#            baseline-file: magento-baseline.neon
+          - php-version: 8.4
+            repo: bitExpert/phpstan-magento
+            ref: 30fe91cd383a81b222101e682f5192a6103f40a7
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../magento.neon
+            baseline-file: magento-baseline.neon
 #          - php-version: 8.1
 #            repo: PrestaShop/PrestaShop
 #            ref: 8.0.0

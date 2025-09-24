@@ -1,6 +1,3 @@
 includes:
 	- repo/phpstan.neon
 	- magento-baseline.neon
-
-parameters:
-	level: 8
