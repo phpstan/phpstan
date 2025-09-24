@@ -88,16 +88,16 @@ jobs:
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               composer run-script test:unit
-#          - php-version: 8.3
-#            name: Carbon tests
-#            script: |
-#              git clone https://github.com/briannesbitt/Carbon.git -b 3.8.0 --depth 1 e2e/integration/repo
-#              cd e2e/integration/repo
-#              composer install
-#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-#              vendor/bin/phpunit tests/PHPStan
+          - php-version: 8.4
+            name: Carbon tests
+            script: |
+              git clone https://github.com/briannesbitt/Carbon.git -b 3.10.3 --depth 1 e2e/integration/repo
+              cd e2e/integration/repo
+              composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              vendor/bin/phpunit tests/PHPStan
           - php-version: 8.1
             name: shipmonk/phpstan-rules tests
             script: |
@@ -120,18 +120,17 @@ jobs:
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit tests
-#          - php-version: 8.1
-#            name: efabrica-team/phpstan-latte tests
-#            script: |
-#              git clone https://github.com/efabrica-team/phpstan-latte.git e2e/integration/repo
-#              cd e2e/integration/repo
-#              git checkout 59701aed5a505f024487843cba2635e489b29681
-#              composer require --dev nette/forms:3.1.15 latte/latte:v3.0.13 -W # temporary
-#              composer install
-#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-#              vendor/bin/phpunit
+          - php-version: 8.4
+            name: efabrica-team/phpstan-latte tests
+            script: |
+              git clone https://github.com/efabrica-team/phpstan-latte.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout 270959fdf598959559330900153b42c881d8ac12
+              composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              vendor/bin/phpunit
           - php-version: 8.2
             name: Bladestan tests
             script: |
@@ -413,31 +412,30 @@ jobs:
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../drupal.neon
             baseline-file: drupal-baseline.neon
-#          - php-version: 8.1
-#            repo: briannesbitt/Carbon
-#            ref: 3.8.0
-#            setup: |
-#              composer install
-#            phpstan-command: ../../../phpstan.phar analyse -c ../carbon.neon
-#            baseline-file: carbon-baseline.neon
-#          - php-version: 8.2
-#            repo: nikic/PHP-Parser
-#            ref: v5.0.2
-#            setup: |
-#              composer install
-#            phpstan-command: ../../../phpstan.phar analyse
-#            baseline-file: php-parser-baseline.neon
-#          - php-version: 8.1
-#            repo: efabrica-team/phpstan-latte
-#            ref: 59701aed5a505f024487843cba2635e489b29681
-#            setup: |
-#              composer require --dev nette/forms:3.1.15 latte/latte:v3.0.13 -W # temporary
-#              composer install
-#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-#            phpstan-command: ../../../phpstan.phar analyze src --level=max -c ../efabrica-phpstan-latte.neon
-#            baseline-file: efabrica-phpstan-latte-baseline.neon
+          - php-version: 8.4
+            repo: briannesbitt/Carbon
+            ref: 3.10.3
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../carbon.neon
+            baseline-file: carbon-baseline.neon
+          - php-version: 8.4
+            repo: nikic/PHP-Parser
+            ref: v5.6.1
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse
+            baseline-file: php-parser-baseline.neon
+          - php-version: 8.4
+            repo: efabrica-team/phpstan-latte
+            ref: 270959fdf598959559330900153b42c881d8ac12
+            setup: |
+              composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+            phpstan-command: ../../../phpstan.phar analyze src --level=max -c ../efabrica-phpstan-latte.neon
+            baseline-file: efabrica-phpstan-latte-baseline.neon
           - php-version: 8.2
             repo: bladestan/bladestan
             ref: f1dedaeb283718cf78ac02ba4d013d3a3b86eda1
