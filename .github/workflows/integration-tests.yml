@@ -235,13 +235,17 @@ jobs:
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c phpstan.types.neon.dist
             baseline-file: laravel-types-baseline.neon
-#          - php-version: 8.1
-#            repo: Roave/BetterReflection
-#            ref: 4c8b5f7fa01b4727451e8395bb45ba985fd61f9b
-#            setup: |
-#              composer install
-#            phpstan-command: ../../../phpstan.phar analyse -c ../better-reflection.neon
-#            baseline-file: better-reflection-baseline.neon
+          - php-version: 8.4
+            repo: Roave/BetterReflection
+            ref: 4b9918a78aa52742f40f33402b75739ecf82d48e
+            setup: |
+              composer install
+              composer install --working-dir tools
+              cp ../../../phpstan.phar tools/vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan tools/vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php tools/vendor/phpstan/phpstan/bootstrap.php
+            phpstan-command: tools/vendor/bin/phpstan analyse -c ../better-reflection.neon
+            baseline-file: better-reflection-baseline.neon
 #          - php-version: 8.1
 #            repo: composer/composer
 #            ref: e4038e5e3bffe22cb815dc1663ea76be96d4222e
