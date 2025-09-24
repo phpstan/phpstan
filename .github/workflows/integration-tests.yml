@@ -309,14 +309,14 @@ jobs:
 #              composer install
 #            phpstan-command: ../../../phpstan.phar analyse -c ../prestashop.neon
 #            baseline-file: prestashop-baseline.neon
-#          - php-version: 8.2
-#            repo: shopware/shopware
-#            ref: v6.6.2.0
-#            setup: |
-#              composer install
-#              php src/Core/DevOps/StaticAnalyze/phpstan-bootstrap.php
-#            phpstan-command: ../../../phpstan.phar analyse -c ../shopware.neon
-#            baseline-file: shopware-baseline.neon
+          - php-version: 8.4
+            repo: shopware/shopware
+            ref: v6.7.2.2
+            setup: |
+              composer install
+              php src/Core/DevOps/StaticAnalyze/phpstan-bootstrap.php
+            phpstan-command: ../../../phpstan.phar analyse -c ../shopware.neon
+            baseline-file: shopware-baseline.neon
 #          - php-version: 8.2
 #            repo: Sylius/Sylius
 #            ref: v1.13.1
