@@ -314,6 +314,7 @@ jobs:
             ref: v6.7.2.2
             setup: |
               composer install
+              composer run framework:schema:dump
               php src/Core/DevOps/StaticAnalyze/phpstan-bootstrap.php
             phpstan-command: ../../../phpstan.phar analyse -c ../shopware.neon
             baseline-file: shopware-baseline.neon

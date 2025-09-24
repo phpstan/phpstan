@@ -1,3 +1,9 @@
 includes:
 	- repo/phpstan.neon.dist
 	- shopware-baseline.neon
+
+parameters:
+	ignoreErrors:
+		-
+			identifier: generator.returnType
+			path: repo/tests
