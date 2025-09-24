@@ -64,18 +64,18 @@ jobs:
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit
-#          - php-version: 8.2
-#            name: Symplify tests
-#            script: |
-#              git clone https://github.com/symplify/phpstan-rules.git e2e/integration/repo
-#              cd e2e/integration/repo
-#              git checkout bb4027c1e61be0aac879ddf8c47738d344547d8a
-#              cp ../symplify-composer.lock composer.lock
-#              composer install
-#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-#              vendor/bin/phpunit
+          - php-version: 8.4
+            name: Symplify tests
+            script: |
+              git clone https://github.com/symplify/phpstan-rules.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout 947b9c72900454bb0a13c461456be116acc9e258
+              cp ../symplify-composer.lock composer.lock
+              composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              vendor/bin/phpunit
           - php-version: 8.3
             name: Larastan tests PHP 8.3, ^11.15
             script: |
@@ -276,14 +276,14 @@ jobs:
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon
             baseline-file: slevomat-cs-tests-baseline.neon
-#          - php-version: 8.2
-#            repo: symplify/phpstan-rules
-#            ref: bb4027c1e61be0aac879ddf8c47738d344547d8a
-#            setup: |
-#              cp ../symplify-composer.lock composer.lock
-#              composer install
-#            phpstan-command: ../../../phpstan analyse -c ../symplify.neon
-#            baseline-file: symplify-baseline.neon
+          - php-version: 8.4
+            repo: symplify/phpstan-rules
+            ref: 947b9c72900454bb0a13c461456be116acc9e258
+            setup: |
+              cp ../symplify-composer.lock composer.lock
+              composer install
+            phpstan-command: ../../../phpstan analyse -c ../symplify.neon
+            baseline-file: symplify-baseline.neon
           - php-version: 8.3
             repo: larastan/larastan
             ref: 4cdaf5526c0212d9390f3c34a4c8c273a9a18a20

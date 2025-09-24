@@ -1,0 +1,607 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Doctrine/DoctrineEntityDocumentAnalyser.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 4
+			path: repo/src/Doctrine/RepositoryClassResolver.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 6
+			path: repo/src/Enum/ClassName.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 7
+			path: repo/src/Enum/DoctrineClass.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Enum/DoctrineEvents.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 4
+			path: repo/src/Enum/MethodName.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 36
+			path: repo/src/Enum/RuleIdentifier.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 8
+			path: repo/src/Enum/RuleIdentifier/DoctrineRuleIdentifier.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 6
+			path: repo/src/Enum/RuleIdentifier/PHPUnitRuleIdentifier.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 4
+			path: repo/src/Enum/RuleIdentifier/RectorRuleIdentifier.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 28
+			path: repo/src/Enum/RuleIdentifier/SymfonyRuleIdentifier.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Enum/SensioClass.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 19
+			path: repo/src/Enum/SymfonyClass.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 3
+			path: repo/src/Enum/SymfonyFunctionName.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Enum/TestClassName.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 4
+			path: repo/src/PhpDocParser/PhpDocNodeTraverser.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/ReturnTypeExtension/NodeGetAttributeTypeExtension.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Rules/CheckRequiredInterfaceInContractNamespaceRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Rules/ClassNameRespectsParentSuffixRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Complexity/ForbiddenArrayMethodCallRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Rules/Complexity/ForeachCeptionRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Complexity/NoArrayMapWithArrayCallableRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Rules/Complexity/NoConstructorOverrideRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Complexity/NoJustPropertyAssignRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Convention/ParamNameToTypeConventionRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Doctrine/NoDoctrineListenerWithoutContractRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Doctrine/NoDocumentMockingRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Doctrine/NoEntityMockingRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Doctrine/NoGetRepositoryOnServiceRepositoryEntityRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Doctrine/NoGetRepositoryOutsideServiceRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Doctrine/NoParentRepositoryRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Doctrine/NoRepositoryCallInDataFixtureRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Doctrine/RequireQueryBuilderOnRepositoryRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Doctrine/RequireServiceRepositoryParentRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Domain/RequireAttributeNamespaceRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Domain/RequireExceptionNamespaceRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Enum/RequireUniqueEnumConstantRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 3
+			path: repo/src/Rules/Explicit/ExplicitClassPrefixSuffixRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Explicit/NoProtectedClassStmtRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/ForbiddenExtendOfNonAbstractClassRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/ForbiddenFuncCallRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/ForbiddenMultipleClassLikeInOneFileRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/ForbiddenNodeRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/ForbiddenStaticClassConstFetchRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/MaximumIgnoredErrorCountRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/NoDynamicNameRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/NoEntityOutsideEntityNamespaceRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/NoGlobalConstRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/NoReferenceRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Rules/NoReturnSetterMethodRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Rules/PHPUnit/NoAssertFuncCallInTestsRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/PHPUnit/NoDoubleConsecutiveTestMockRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/PHPUnit/NoMockObjectAndRealObjectPropertyRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/PHPUnit/NoMockOnlyTestRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Rules/PHPUnit/NoTestMocksRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Rules/PHPUnit/PublicStaticDataProviderRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/PreferredClassRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/PreventParentMethodVisibilityOverrideRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Rector/NoClassReflectionStaticReflectionRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Rector/NoInstanceOfStaticReflectionRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Rector/NoLeadingBackslashInNameRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Rules/Rector/PhpUpgradeDowngradeRegisteredInSetRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Rules/Rector/PhpUpgradeImplementsMinPhpVersionInterfaceRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/RequireAttributeNameRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/SeeAnnotationToTestRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Rules/StringFileAbsolutePathExistsRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/AlreadyRegisteredAutodiscoveryServiceRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoBundleResourceConfigRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Rules/Symfony/ConfigClosure/NoDuplicateArgAutowireByTypeRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoDuplicateArgsAutowireByTypeRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoServiceSameNameSetClassRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoSetClassServiceDuplicationRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/PreferAutowireAttributeOverConfigParamRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/ServicesExcludedDirectoryMustExistRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Rules/Symfony/ConfigClosure/TaggedIteratorOverRepeatedServiceCallRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/FormTypeClassNameRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/NoAbstractControllerConstructorRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/NoBareAndSecurityIsGrantedContentsRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/NoClassLevelRouteRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/NoConstructorAndRequiredTogetherRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/NoFindTaggedServiceIdsCallRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/NoGetDoctrineInControllerRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/NoGetInCommandRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/NoGetInControllerRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/NoListenerWithoutContractRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/NoRequiredOutsideClassRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/NoRouteTrailingSlashPathRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/NoRoutingPrefixRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/NoServiceAutowireDuplicateRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/NoStringInGetSubscribedEventsRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/RequireInvokableControllerRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/RequireIsGrantedEnumRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/RequireRouteNameToGenerateControllerRouteRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Rules/Symfony/RequiredOnlyInAbstractRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/SingleArgEventDispatchRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/Symfony/SingleRequiredMethodRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Rules/UppercaseConstantRule.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Symfony/NodeAnalyzer/SymfonyControllerAnalyzer.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/Symfony/NodeFinder/RepeatedServiceAdderCallNameFinder.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 1
+			path: repo/src/Testing/PHPUnitTestAnalyser.php
+
+		-
+			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
+			identifier: typeCoverage.constantTypeCoverage
+			count: 2
+			path: repo/src/TypeAnalyzer/RectorAllowedAutoloadedTypeAnalyzer.php
