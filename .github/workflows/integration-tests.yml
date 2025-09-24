@@ -414,13 +414,6 @@ jobs:
             phpstan-command: ../../../phpstan.phar analyse -c ../drupal.neon
             baseline-file: drupal-baseline.neon
 #          - php-version: 8.1
-#            repo: webmozarts/assert
-#            ref: 1.11.0
-#            setup: |
-#              composer install
-#            phpstan-command: ../../../phpstan.phar analyse -l 9 tests/static-analysis -c ../webmozart.neon
-#            baseline-file: webmozart-assert-baseline.neon
-#          - php-version: 8.1
 #            repo: briannesbitt/Carbon
 #            ref: 3.8.0
 #            setup: |
