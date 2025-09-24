@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Cannot unset offset ''\#title'' on array\{''\#theme_wrappers''\: array\{''container''\}, ''\#attributes''\: array\{class\: array\{''scroll''\}, data\-drupal\-views\-scroll\: true\}\}\.$#'
+			identifier: unset.offset
+			count: 1
+			path: repo/core/modules/views_ui/src/Form/Ajax/Display.php

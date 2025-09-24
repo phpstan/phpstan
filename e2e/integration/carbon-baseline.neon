@@ -1,0 +1,109 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$absolute because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$endDate because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$initialValues because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$localFormatFunction because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$localGenericMacros because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$localHumanDiffOptions because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$localMacros because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$localMonthsOverflow because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$localSerializer because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$localStrictModeEnabled because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$localToStringFormat because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$localTranslator because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$localYearsOverflow because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$originalInput because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$rawInterval because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$startDate because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$step because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
+
+		-
+			message: '#^Cannot unset property Carbon\\CarbonInterval\:\:\$timezoneSetting because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Carbon/CarbonInterval.php
