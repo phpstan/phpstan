@@ -276,20 +276,6 @@ jobs:
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon
             baseline-file: slevomat-cs-tests-baseline.neon
-#          - php-version: 8.1
-#            repo: ondrejmirtes/orocrm-phpstan-bugreport
-#            ref: 0d429b658a6e7baff863b6f23f5e6fa35c88d6e7
-#            setup: |
-#              composer install
-#            phpstan-command: ../../../phpstan analyse
-#            baseline-file: orocrm-phpstan-bugreport-baseline.neon
-#          - php-version: 8.1
-#            repo: ondrejmirtes/phpstan-magento-testcase
-#            ref: f5d8c215569fe5dd22f7236795a353002c0ae58a
-#            setup: |
-#              composer install
-#            phpstan-command: ../../../phpstan analyse -c ../magento-testcase.neon
-#            baseline-file: magento-testcase-baseline.neon
 #          - php-version: 8.2
 #            repo: symplify/phpstan-rules
 #            ref: bb4027c1e61be0aac879ddf8c47738d344547d8a
