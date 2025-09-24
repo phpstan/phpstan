@@ -53,9 +53,10 @@ jobs:
           coverage: "none"
           php-version: "8.1"
 
-      - name: "Install extractor dependencies"
-        working-directory: "identifier-extractor"
-        run: "composer install --no-interaction --no-progress"
+      - name: "Install Extractor dependencies"
+        uses: "ramsey/composer-install@v3"
+        with:
+          working-directory: "identifier-extractor"
 
       - name: "Repository name"
         id: repo-name
@@ -96,9 +97,10 @@ jobs:
           coverage: "none"
           php-version: "8.1"
 
-      - name: "Install extractor dependencies"
-        working-directory: "identifier-extractor"
-        run: "composer install --no-interaction --no-progress"
+      - name: "Install Extractor dependencies"
+        uses: "ramsey/composer-install@v3"
+        with:
+          working-directory: "identifier-extractor"
 
       - uses: actions/download-artifact@v4
         with:

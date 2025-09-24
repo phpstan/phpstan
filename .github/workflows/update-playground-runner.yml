@@ -43,9 +43,10 @@ jobs:
           coverage: "none"
           php-version: "8.3"
 
-      - name: "Install PHP dependencies"
-        working-directory: ./playground-runner
-        run: "composer install --no-interaction --no-progress"
+      - name: "Install playground runner dependencies"
+        uses: "ramsey/composer-install@v3"
+        with:
+          working-directory: "playground-runner"
 
       - name: "Preflight playground.neon"
         working-directory: ./playground-runner

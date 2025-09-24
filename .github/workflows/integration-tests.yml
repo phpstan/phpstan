@@ -178,8 +178,7 @@ jobs:
           php-version: "${{ matrix.php-version }}"
           ini-file: development
 
-      - name: "Install dependencies"
-        run: "composer update --no-interaction --no-progress"
+      - uses: "ramsey/composer-install@v3"
 
       - name: "Download phpstan.phar"
         uses: Wandalen/wretry.action@v3.8.0
@@ -508,8 +507,7 @@ jobs:
           php-version: "${{ matrix.php-version }}"
           ini-file: development
 
-      - name: "Install dependencies"
-        run: "composer update --no-interaction --no-progress"
+      - uses: "ramsey/composer-install@v3"
 
       - name: "Download phpstan.phar"
         uses: Wandalen/wretry.action@v3.8.0
@@ -615,8 +613,7 @@ jobs:
 #          install-path: "./bin"
 #          pm-version-major: "5"
 #
-#      - name: "Install dependencies"
-#        run: "composer update --no-interaction --no-progress"
+#      - uses: "ramsey/composer-install@v3"
 #
 #      - name: "Download phpstan.phar"
 #        uses: Wandalen/wretry.action@v3.5.0

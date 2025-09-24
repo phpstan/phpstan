@@ -423,8 +423,7 @@ jobs:
         if: matrix.operating-system != 'windows-latest'
         run: sudo phpdismod -v ${{ matrix.php-version }} mongodb
 
-      - name: "Install dependencies"
-        run: "composer update --no-interaction --no-progress"
+      - uses: "ramsey/composer-install@v3"
 
       - name: "Download phpstan.phar"
         uses: Wandalen/wretry.action@v3.8.0

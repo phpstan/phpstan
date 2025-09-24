@@ -51,8 +51,7 @@ jobs:
           ini-file: development
           extensions: mbstring
 
-      - name: "Install dependencies"
-        run: "composer update --no-interaction --no-progress --ignore-platform-reqs"
+      - uses: "ramsey/composer-install@v3"
 
       - name: "Tests"
         run: |

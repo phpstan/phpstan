@@ -94,8 +94,7 @@ jobs:
           ini-values: memory_limit=768M
           extensions: soap
 
-      - name: "Install dependencies"
-        run: "composer install --no-interaction --no-progress --ignore-platform-reqs"
+      - uses: "ramsey/composer-install@v3"
 
       - name: "Download phpstan.phar"
         uses: Wandalen/wretry.action@v3.8.0
