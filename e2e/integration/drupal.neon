@@ -1,7 +1,6 @@
 includes:
 	- repo/core/phpstan.neon.dist
 	- drupal-baseline.neon
-	- phar://phpstan.phar/conf/bleedingEdge.neon
 
 parameters:
 	reportUnmatchedIgnoredErrors: false

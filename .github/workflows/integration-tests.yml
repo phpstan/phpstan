@@ -406,13 +406,13 @@ jobs:
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
             phpstan-command: vendor/bin/phpstan analyse -c ../shipmonk-dead-code-detector.neon
             baseline-file: shipmonk-dead-code-detector-baseline.neon
-#          - php-version: 8.1
-#            repo: drupal/drupal
-#            ref: 10.0.0
-#            setup: |
-#              composer install
-#            phpstan-command: ../../../phpstan.phar analyse -c ../drupal.neon
-#            baseline-file: drupal-baseline.neon
+          - php-version: 8.4
+            repo: drupal/drupal
+            ref: 11.2.4
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../drupal.neon
+            baseline-file: drupal-baseline.neon
 #          - php-version: 8.1
 #            repo: webmozarts/assert
 #            ref: 1.11.0
