@@ -37,7 +37,7 @@ jobs:
           fi
 
   tests-extensions:
-    name: "Extension Tests"
+    name: "${{ matrix.extension-name }} (${{ matrix.php-version }}) ${{ matrix.script }}"
 
     runs-on: "ubuntu-latest"
 
@@ -67,6 +67,9 @@ jobs:
           - "phpstan-dibi"
           - "phpstan-webmozart-assert"
           - "phpstan-beberlei-assert"
+        script:
+          - "make tests"
+          - "make phpstan"
         exclude:
           - extension-name: "phpstan-doctrine"
             php-version: "8.3"
@@ -92,7 +95,7 @@ jobs:
           extensions: soap
 
       - name: "Install dependencies"
-        run: "composer update --no-interaction --no-progress --ignore-platform-reqs"
+        run: "composer install --no-interaction --no-progress --ignore-platform-reqs"
 
       - name: "Download phpstan.phar"
         uses: Wandalen/wretry.action@v3.8.0
@@ -103,7 +106,23 @@ jobs:
           attempt_limit: 5
           attempt_delay: 1000
 
-      - name: "Extension build"
-        env:
-          PHP_VERSION: ${{ matrix.php-version }}
-        run: "./e2e/test-extension.sh ${{ matrix.extension-name }}"
+      - name: "Checkout extension"
+        uses: actions/checkout@v4
+        with:
+          repository: "phpstan/${{ matrix.extension-name }}"
+          path: extension
+
+      - uses: "ramsey/composer-install@v3"
+        with:
+          working-directory: "extension"
+
+      - name: "Copy current PHAR"
+        working-directory: extension
+        run: |
+          cp ../phpstan.phar vendor/phpstan/phpstan/phpstan.phar && \
+          cp ../phpstan vendor/phpstan/phpstan/phpstan && \
+          cp ../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+
+      - name: "Script"
+        working-directory: extension
+        run: "${{ matrix.script }}"
