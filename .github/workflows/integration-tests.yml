@@ -255,13 +255,13 @@ jobs:
 #              vendor/bin/simple-phpunit --filter NO_TEST_JUST_AUTOLOAD_THANKS
 #            phpstan-command: ../../../phpstan.phar analyse -c ../composer.neon
 #            baseline-file: composer-baseline.neon
-#          - php-version: 8.1
-#            repo: nextras/orm
-#            ref: e8a90db35772103f8f035f2fec9bc28ec520ac81
-#            setup: |
-#              composer install
-#            phpstan-command: ../../../phpstan.phar analyse -c ../nextras.neon
-#            baseline-file: nextras-baseline.neon
+          - php-version: 8.4
+            repo: nextras/orm
+            ref: d0627e6ef4cf9cfbf2f4e72a87115846dd5ec36c
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../nextras.neon
+            baseline-file: nextras-baseline.neon
 #          - php-version: 8.1
 #            repo: slevomat/coding-standard
 #            ref: 02fd9823d970c993b38502263de78fa4161c006a
