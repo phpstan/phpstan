@@ -262,20 +262,20 @@ jobs:
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../nextras.neon
             baseline-file: nextras-baseline.neon
-#          - php-version: 8.1
-#            repo: slevomat/coding-standard
-#            ref: 02fd9823d970c993b38502263de78fa4161c006a
-#            setup: |
-#              composer install
-#            phpstan-command: ../../../phpstan.phar analyse -c ../slevomat-cs.neon -l 7 SlevomatCodingStandard
-#            baseline-file: slevomat-cs-baseline.neon
-#          - php-version: 8.1
-#            repo: slevomat/coding-standard
-#            ref: 02fd9823d970c993b38502263de78fa4161c006a
-#            setup: |
-#              composer install
-#            phpstan-command: ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon -l 7 tests
-#            baseline-file: slevomat-cs-tests-baseline.neon
+          - php-version: 8.4
+            repo: slevomat/coding-standard
+            ref: 6eff0ed543159cd8bd52f22b7cfd093f483598de
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../slevomat-cs.neon
+            baseline-file: slevomat-cs-baseline.neon
+          - php-version: 8.4
+            repo: slevomat/coding-standard
+            ref: 6eff0ed543159cd8bd52f22b7cfd093f483598de
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c build/PHPStan/phpstan.tests.neon
+            baseline-file: slevomat-cs-tests-baseline.neon
 #          - php-version: 8.1
 #            repo: ondrejmirtes/orocrm-phpstan-bugreport
 #            ref: 0d429b658a6e7baff863b6f23f5e6fa35c88d6e7
