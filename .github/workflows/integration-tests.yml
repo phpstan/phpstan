@@ -143,25 +143,6 @@ jobs:
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit
-#          - php-version: 7.2
-#            name: Rector with polyfills
-#            script: |
-#              mkdir e2e/integration/repo
-#              cd e2e/integration/repo
-#              yes | composer init --name some/prj
-#              composer require --dev rector/rector:0.18.13
-#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-#              vendor/bin/rector list
-#          - php-version: 7.4
-#            name: Polyfills loaded twice
-#            script: |
-#              git clone https://github.com/oliverklee/ext-seminars.git -b v5.5.1 --depth 1 e2e/integration/repo
-#              cd e2e/integration/repo
-#              composer config repositories.0 '{"type":"path","url":"../../.."}'
-#              composer config minimum-stability dev
-#              composer install
 
     steps:
       - name: "Checkout"
