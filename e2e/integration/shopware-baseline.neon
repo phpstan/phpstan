@@ -1,0 +1,127 @@
+parameters:
+	ignoreErrors:
+		-
+			rawMessage: 'Call to an undefined method Predis\ClientInterface|Redis|RedisArray|RedisCluster|Relay\Relay::get().'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Core/Checkout/Cart/Command/CartMigrateCommand.php
+
+		-
+			rawMessage: 'Call to an undefined method Predis\ClientInterface|Redis|RedisArray|RedisCluster|Relay\Relay::set().'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Core/Checkout/Cart/Command/CartMigrateCommand.php
+
+		-
+			rawMessage: 'Call to an undefined method Predis\ClientInterface|Redis|RedisArray|RedisCluster|Relay\Relay::get().'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Core/Checkout/Cart/RedisCartPersister.php
+
+		-
+			rawMessage: 'Call to an undefined method Predis\ClientInterface|Redis|RedisArray|RedisCluster|Relay\Relay::set().'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Core/Checkout/Cart/RedisCartPersister.php
+
+		-
+			rawMessage: 'Property OpenApi\Annotations\Operation::$parameters (array<OpenApi\Annotations\Parameter>) does not accept array<array<string, string>|OpenApi\Annotations\Parameter>.'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/Core/Framework/Api/ApiDefinition/Generator/StoreApiGenerator.php
+
+		-
+			rawMessage: Private constructor cannot be enforced as consistent for child classes.
+			identifier: consistentConstructor.private
+			count: 1
+			path: repo/src/Core/Framework/App/Manifest/Xml/XmlElement.php
+
+		-
+			rawMessage: 'Call to an undefined method Predis\ClientInterface|Redis|RedisArray|RedisCluster|Relay\Relay::decr().'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Core/Framework/Increment/RedisIncrementer.php
+
+		-
+			rawMessage: 'Call to an undefined method Predis\ClientInterface|Redis|RedisArray|RedisCluster|Relay\Relay::incr().'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Core/Framework/Increment/RedisIncrementer.php
+
+		-
+			rawMessage: 'Call to an undefined method Predis\ClientInterface|Redis|RedisArray|RedisCluster|Relay\Relay::set().'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Core/Framework/Increment/RedisIncrementer.php
+
+		-
+			rawMessage: 'Property Shopware\Core\Framework\Test\Webhook\_fixtures\BusinessEvents\ScalarBusinessEvent::$bool (bool) is never assigned false so the property type can be changed to true.'
+			identifier: property.tooWideBool
+			count: 1
+			path: repo/src/Core/Framework/Test/Webhook/_fixtures/BusinessEvents/ScalarBusinessEvent.php
+
+		-
+			rawMessage: 'Call to an undefined method Predis\ClientInterface|Redis|RedisArray|RedisCluster|Relay\Relay::get().'
+			identifier: method.notFound
+			count: 2
+			path: repo/src/Core/System/NumberRange/ValueGenerator/Pattern/IncrementStorage/IncrementRedisStorage.php
+
+		-
+			rawMessage: 'Call to an undefined method Predis\ClientInterface|Redis|RedisArray|RedisCluster|Relay\Relay::incr().'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Core/System/NumberRange/ValueGenerator/Pattern/IncrementStorage/IncrementRedisStorage.php
+
+		-
+			rawMessage: 'Call to an undefined method Predis\ClientInterface|Redis|RedisArray|RedisCluster|Relay\Relay::set().'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Core/System/NumberRange/ValueGenerator/Pattern/IncrementStorage/IncrementRedisStorage.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Test\Stub\Redis\RedisStub::doSet() never returns false so the return type can be changed to true.'
+			identifier: return.tooWideBool
+			count: 1
+			path: repo/src/Core/Test/Stub/Redis/RedisStub.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Product\SalesChannel\Detail\ProductConfiguratorOrderTest::ashuffle() never returns false so the return type can be changed to true.'
+			identifier: return.tooWideBool
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/SalesChannel/Detail/ProductConfiguratorOrderTest.php
+
+		-
+			rawMessage: 'Call to an undefined method Predis\ClientInterface|Redis|RedisArray|RedisCluster|Relay\Relay::get().'
+			identifier: method.notFound
+			count: 2
+			path: repo/tests/integration/Core/Framework/Adapter/Cache/RedisConnectionFactoryTest.php
+
+		-
+			rawMessage: 'Call to an undefined method Predis\ClientInterface|Redis|RedisArray|RedisCluster|Relay\Relay::set().'
+			identifier: method.notFound
+			count: 2
+			path: repo/tests/integration/Core/Framework/Adapter/Cache/RedisConnectionFactoryTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotEmpty() with non-empty-list<mixed> and ''Event with name …'' will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Framework/Api/Controller/InfoControllerTest.php
+
+		-
+			rawMessage: 'Offset int|string might not exist on array<string, mixed>.'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/tests/unit/Administration/Framework/Twig/ViteFileAccessorDecoratorTest.php
+
+		-
+			rawMessage: 'Offset non-falsy-string|null might not exist on array<non-falsy-string, array<array{and_logic: string, field: string, tokenize: int, ranking: float}>>.'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/SearchConfigLoaderTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Test\TestCaseHelper\FakeClassForHelper::myProtectedMethod() never returns false so the return type can be changed to true.'
+			identifier: return.tooWideBool
+			count: 1
+			path: repo/tests/unit/Core/Framework/Test/TestCaseHelper/ReflectionHelperTest.php
