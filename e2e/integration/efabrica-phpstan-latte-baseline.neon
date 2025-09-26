@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			rawMessage: 'Parameter #3 of function sprintf is expected to be int by placeholder #2 ("%%d"), string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Error/TableErrorFormatter.php

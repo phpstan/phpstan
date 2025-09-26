@@ -1,43 +1,49 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Property Doctrine\\DBAL\\Driver\\PgSQL\\Connection\:\:\$connection in isset\(\) is not nullable nor uninitialized\.$#'
+			rawMessage: 'Offset ''uri'' might not exist on array{timed_out: bool, blocked: bool, eof: bool, unread_bytes: int, stream_type: string, wrapper_type: string, wrapper_data: mixed, mode: string, ...}.'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Driver/IBMDB2/Statement.php
+
+		-
+			rawMessage: 'Property Doctrine\DBAL\Driver\PgSQL\Connection::$connection in isset() is not nullable nor uninitialized.'
 			identifier: isset.initializedProperty
 			count: 1
 			path: repo/src/Driver/PgSQL/Connection.php
 
 		-
-			message: '#^Property Doctrine\\DBAL\\Driver\\PgSQL\\Statement\:\:\$connection in isset\(\) is not nullable nor uninitialized\.$#'
+			rawMessage: 'Property Doctrine\DBAL\Driver\PgSQL\Statement::$connection in isset() is not nullable nor uninitialized.'
 			identifier: isset.initializedProperty
 			count: 1
 			path: repo/src/Driver/PgSQL/Statement.php
 
 		-
-			message: '#^Only booleans are allowed in a while condition, bool\|null given\.$#'
+			rawMessage: 'Only booleans are allowed in a while condition, bool|null given.'
 			identifier: while.condNotBoolean
 			count: 1
 			path: repo/src/Driver/SQLSrv/Result.php
 
 		-
-			message: '#^Only booleans are allowed in a while condition, int\|false given\.$#'
+			rawMessage: 'Only booleans are allowed in a while condition, int|false given.'
 			identifier: while.condNotBoolean
 			count: 1
 			path: repo/src/Schema/SQLServerSchemaManager.php
 
 		-
-			message: '#^Only booleans are allowed in a while condition, mixed given\.$#'
+			rawMessage: 'Only booleans are allowed in a while condition, mixed given.'
 			identifier: while.condNotBoolean
 			count: 1
 			path: repo/tests/Functional/Driver/OCI8/ResultTest.php
 
 		-
-			message: '#^Only booleans are allowed in a while condition, array\<string, mixed\>\|false given\.$#'
+			rawMessage: 'Only booleans are allowed in a while condition, array<string, mixed>|false given.'
 			identifier: while.condNotBoolean
 			count: 2
 			path: repo/tests/Functional/PortabilityTest.php
 
 		-
-			message: '#^Cannot unset property Doctrine\\DBAL\\Tests\\FunctionalTestCase\:\:\$connection because it might have hooks in a subclass\.$#'
+			rawMessage: Cannot unset property Doctrine\DBAL\Tests\FunctionalTestCase::$connection because it might have hooks in a subclass.
 			identifier: unset.possiblyHookedProperty
 			count: 1
 			path: repo/tests/FunctionalTestCase.php
