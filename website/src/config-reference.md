@@ -586,6 +586,23 @@ class Bar extends Foo
 
 Please note that aside from setting this config parameter to `true`, you also need to set [`phpVersion`](#phpversion) to `80300` or higher. If you're not changing `phpVersion` in your config, make sure you're running PHPStan with PHP 8.3 or newer.
 
+### `checkStrictPrintfPlaceholderTypes`
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.1.29</div>
+
+**default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
+
+Requires Bleeding Edge until PHPStan 3.0. It determines which value types are allowed to be passed to various placeholders in printf-like functions:
+
+|       | `false`                     | `true`                                          |
+|-------|-----------------------------|-------------------------------------------------|
+| `%d`  | anything castable to int    | int                                             |
+| `%f`  | anything castable to float  | float, int                                      |
+| `%s`  | anything castable to string | string, int, float, objects with `__toString()` |
+| `*`   | int                         | int                                             |
+
+This affects for example booleans which are castable to int/float/string, but it may not be what you intended.
+
 Exceptions
 ------------
 
