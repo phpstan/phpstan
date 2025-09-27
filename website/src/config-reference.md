@@ -592,7 +592,7 @@ Please note that aside from setting this config parameter to `true`, you also ne
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
 
-**example**: [with `false`](https://phpstan.org/r/b42e2b39-bd07-4420-906f-82252fd2eb9c), [with `true`](https://phpstan.org/r/4e1144b1-38bc-4f04-86c0-cf009414ce72)
+**example**: [with `false`](https://phpstan.org/r/2abca81b-ebb4-4443-ab88-d59cf1405355), [with `true`](https://phpstan.org/r/37874f07-e0f8-4768-853a-82771e090998)
 
 Requires Bleeding Edge until PHPStan 3.0. It determines which value types are allowed to be passed to various placeholders in printf-like functions:
 
