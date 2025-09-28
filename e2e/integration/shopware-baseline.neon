@@ -43,6 +43,12 @@ parameters:
 			path: repo/src/Core/Framework/App/Manifest/Xml/XmlElement.php
 
 		-
+			rawMessage: 'Method Shopware\Core\Framework\DataAbstractionLayer\EntityCollection::getExpectedClass() should return class-string<TElement of Shopware\Core\Framework\DataAbstractionLayer\Entity> but returns string.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/EntityCollection.php
+
+		-
 			rawMessage: 'Call to an undefined method Predis\ClientInterface|Redis|RedisArray|RedisCluster|Relay\Relay::decr().'
 			identifier: method.notFound
 			count: 1
@@ -83,6 +89,12 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: repo/src/Core/System/NumberRange/ValueGenerator/Pattern/IncrementStorage/IncrementRedisStorage.php
+
+		-
+			rawMessage: 'Method Shopware\Core\System\StateMachine\Aggregation\StateMachineState\StateMachineStateTranslationCollection::getExpectedClass() should return class-string<Shopware\Core\System\StateMachine\Aggregation\StateMachineState\StateMachineStateTranslationEntity> but returns string.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/System/StateMachine/Aggregation/StateMachineState/StateMachineStateTranslationCollection.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Test\Stub\Redis\RedisStub::doSet() never returns false so the return type can be changed to true.'

@@ -1,6 +1,120 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Method Rector\\CodeQuality\\Rector\\FuncCall\\SetTypeToCastRector\:\:refactor\(\) never returns 2 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/CodeQuality/Rector/FuncCall/SetTypeToCastRector.php
+
+		-
+			message: '#^Method Rector\\CodeQuality\\Rector\\FuncCall\\SetTypeToCastRector\:\:refactor\(\) never returns 3 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/CodeQuality/Rector/FuncCall/SetTypeToCastRector.php
+
+		-
+			message: '#^Method Rector\\CodeQuality\\Rector\\FuncCall\\SetTypeToCastRector\:\:refactor\(\) never returns 4 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/CodeQuality/Rector/FuncCall/SetTypeToCastRector.php
+
+		-
+			message: '#^Method Rector\\Php55\\Rector\\String_\\StringClassNameToClassConstantRector\:\:refactor\(\) never returns 2 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/Php55/Rector/String_/StringClassNameToClassConstantRector.php
+
+		-
+			message: '#^Method Rector\\Php55\\Rector\\String_\\StringClassNameToClassConstantRector\:\:refactor\(\) never returns 3 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/Php55/Rector/String_/StringClassNameToClassConstantRector.php
+
+		-
+			message: '#^Method Rector\\Php55\\Rector\\String_\\StringClassNameToClassConstantRector\:\:refactor\(\) never returns 4 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/Php55/Rector/String_/StringClassNameToClassConstantRector.php
+
+		-
+			message: '#^Method Rector\\Php70\\Rector\\Break_\\BreakNotInLoopOrSwitchToReturnRector\:\:refactor\(\) never returns 1 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/Php70/Rector/Break_/BreakNotInLoopOrSwitchToReturnRector.php
+
+		-
+			message: '#^Method Rector\\Php70\\Rector\\Break_\\BreakNotInLoopOrSwitchToReturnRector\:\:refactor\(\) never returns 2 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/Php70/Rector/Break_/BreakNotInLoopOrSwitchToReturnRector.php
+
+		-
+			message: '#^Method Rector\\Php70\\Rector\\Break_\\BreakNotInLoopOrSwitchToReturnRector\:\:refactor\(\) never returns 4 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/Php70/Rector/Break_/BreakNotInLoopOrSwitchToReturnRector.php
+
+		-
+			message: '#^Method Rector\\Php72\\Rector\\Unset_\\UnsetCastRector\:\:refactor\(\) never returns 1 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/Php72/Rector/Unset_/UnsetCastRector.php
+
+		-
+			message: '#^Method Rector\\Php72\\Rector\\Unset_\\UnsetCastRector\:\:refactor\(\) never returns 2 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/Php72/Rector/Unset_/UnsetCastRector.php
+
+		-
+			message: '#^Method Rector\\Php72\\Rector\\Unset_\\UnsetCastRector\:\:refactor\(\) never returns 4 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/Php72/Rector/Unset_/UnsetCastRector.php
+
+		-
+			message: '#^Method Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector\:\:refactor\(\) never returns 1 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/Php81/Rector/Array_/FirstClassCallableRector.php
+
+		-
+			message: '#^Method Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector\:\:refactor\(\) never returns 2 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/Php81/Rector/Array_/FirstClassCallableRector.php
+
+		-
+			message: '#^Method Rector\\Php81\\Rector\\Array_\\FirstClassCallableRector\:\:refactor\(\) never returns 3 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/Php81/Rector/Array_/FirstClassCallableRector.php
+
+		-
+			message: '#^Method Rector\\Renaming\\Rector\\Name\\RenameClassRector\:\:refactor\(\) should return 1\|2\|3\|4\|PhpParser\\Node\|null but returns int\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/rules/Renaming/Rector/Name/RenameClassRector.php
+
+		-
+			message: '#^Method Rector\\Transform\\Rector\\FuncCall\\WrapFuncCallWithPhpVersionIdCheckerRector\:\:refactor\(\) never returns 2 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/Transform/Rector/FuncCall/WrapFuncCallWithPhpVersionIdCheckerRector.php
+
+		-
+			message: '#^Method Rector\\Transform\\Rector\\FuncCall\\WrapFuncCallWithPhpVersionIdCheckerRector\:\:refactor\(\) never returns 3 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/Transform/Rector/FuncCall/WrapFuncCallWithPhpVersionIdCheckerRector.php
+
+		-
+			message: '#^Method Rector\\Transform\\Rector\\FuncCall\\WrapFuncCallWithPhpVersionIdCheckerRector\:\:refactor\(\) never returns 4 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/rules/Transform/Rector/FuncCall/WrapFuncCallWithPhpVersionIdCheckerRector.php
+
+		-
 			message: '#^Only abstract classes can be extended$#'
 			identifier: symplify.forbiddenExtendOfNonAbstractClass
 			count: 1
@@ -71,3 +185,21 @@ parameters:
 			identifier: symplify.forbiddenExtendOfNonAbstractClass
 			count: 1
 			path: repo/src/StaticTypeMapper/ValueObject/Type/SimpleStaticType.php
+
+		-
+			message: '#^Method Rector\\Tests\\Issues\\InfiniteLoop\\Rector\\MethodCall\\InfinityLoopRector\:\:refactor\(\) never returns 1 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/tests/Issues/InfiniteLoop/Rector/MethodCall/InfinityLoopRector.php
+
+		-
+			message: '#^Method Rector\\Tests\\Issues\\InfiniteLoop\\Rector\\MethodCall\\InfinityLoopRector\:\:refactor\(\) never returns 2 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/tests/Issues/InfiniteLoop/Rector/MethodCall/InfinityLoopRector.php
+
+		-
+			message: '#^Method Rector\\Tests\\Issues\\InfiniteLoop\\Rector\\MethodCall\\InfinityLoopRector\:\:refactor\(\) never returns 3 so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: repo/tests/Issues/InfiniteLoop/Rector/MethodCall/InfinityLoopRector.php
