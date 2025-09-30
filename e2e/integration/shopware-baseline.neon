@@ -25,12 +25,6 @@ parameters:
 			path: repo/src/Core/Checkout/Cart/RedisCartPersister.php
 
 		-
-			rawMessage: 'Parameter #1 $params of static method Doctrine\DBAL\DriverManager::getConnection() expects array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...}, non-empty-array<literal-string&non-falsy-string, array|bool|int|string> given.'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Core/Framework/Adapter/Database/MySQLFactory.php
-
-		-
 			rawMessage: 'Property OpenApi\Annotations\Operation::$parameters (array<OpenApi\Annotations\Parameter>) does not accept array<array<string, string>|OpenApi\Annotations\Parameter>.'
 			identifier: assign.propertyType
 			count: 1
