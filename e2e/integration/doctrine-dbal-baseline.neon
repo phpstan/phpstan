@@ -43,6 +43,18 @@ parameters:
 			path: repo/tests/Functional/PortabilityTest.php
 
 		-
+			rawMessage: Assign to $row overwrites the last element from array.
+			identifier: assign.byRefForeachExpr
+			count: 2
+			path: repo/tests/Functional/Query/QueryBuilderTest.php
+
+		-
+			rawMessage: Assign to $value overwrites the last element from array.
+			identifier: assign.byRefForeachExpr
+			count: 2
+			path: repo/tests/Functional/Query/QueryBuilderTest.php
+
+		-
 			rawMessage: Cannot unset property Doctrine\DBAL\Tests\FunctionalTestCase::$connection because it might have hooks in a subclass.
 			identifier: unset.possiblyHookedProperty
 			count: 1
