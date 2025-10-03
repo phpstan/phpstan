@@ -1677,6 +1677,13 @@
             ]
         }
     },
+    "assign.byRefForeachExpr": {
+        "PHPStan\\Rules\\Variables\\AssignToByRefExprFromForeachRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Variables/AssignToByRefExprFromForeachRule.php#L49"
+            ]
+        }
+    },
     "assign.invalidExpr": {
         "PHPStan\\Rules\\Operators\\InvalidAssignVarRule": {
             "phpstan/phpstan-src": [
