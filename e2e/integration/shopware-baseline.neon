@@ -25,6 +25,12 @@ parameters:
 			path: repo/src/Core/Checkout/Cart/RedisCartPersister.php
 
 		-
+			rawMessage: Assign to $group overwrites the last element from array.
+			identifier: assign.byRefForeachExpr
+			count: 2
+			path: repo/src/Core/Content/Test/Product/ProductBuilder.php
+
+		-
 			rawMessage: '''
 				Call to deprecated method __construct() of class Google\Cloud\Storage\StorageClient:
 				This option is being deprecated because of a potential security risk.
@@ -53,10 +59,22 @@ parameters:
 			path: repo/src/Core/Framework/Adapter/Filesystem/Adapter/GoogleStorageFactory.php
 
 		-
+			rawMessage: Assign to $operation overwrites the last element from array.
+			identifier: assign.byRefForeachExpr
+			count: 2
+			path: repo/src/Core/Framework/Api/ApiDefinition/Generator/StoreApiGenerator.php
+
+		-
 			rawMessage: 'Property OpenApi\Annotations\Operation::$parameters (array<OpenApi\Annotations\Parameter>) does not accept array<array<string, string>|OpenApi\Annotations\Parameter>.'
 			identifier: assign.propertyType
 			count: 1
 			path: repo/src/Core/Framework/Api/ApiDefinition/Generator/StoreApiGenerator.php
+
+		-
+			rawMessage: Assign to $value overwrites the last element from array.
+			identifier: assign.byRefForeachExpr
+			count: 3
+			path: repo/src/Core/Framework/Api/Sync/SyncFkResolver.php
 
 		-
 			rawMessage: Private constructor cannot be enforced as consistent for child classes.
@@ -93,6 +111,18 @@ parameters:
 			identifier: property.tooWideBool
 			count: 1
 			path: repo/src/Core/Framework/Test/Webhook/_fixtures/BusinessEvents/ScalarBusinessEvent.php
+
+		-
+			rawMessage: Assign to $field overwrites the last element from array.
+			identifier: assign.byRefForeachExpr
+			count: 2
+			path: repo/src/Core/Migration/V6_4/Migration1614249488ChangeProductSortingsToCheapestPrice.php
+
+		-
+			rawMessage: Assign to $mapping overwrites the last element from array.
+			identifier: assign.byRefForeachExpr
+			count: 2
+			path: repo/src/Core/Migration/V6_4/Migration1631625055AddPositionToImportExportMappings.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Profiling\Doctrine\ConnectionProfiler::getGroupedQueries() should return array<string, array<int, array{sql: string, executionMS: float, types: array<int|string, Doctrine\DBAL\ParameterType|int>, params: Symfony\Component\VarDumper\Cloner\Data, runnable: bool, explainable: bool, backtrace?: array<array{function?: string, line: int, file: string, class?: string, object?: object, type: string}>, count: int, ...}>> but returns array<string, list<array{executionPercent: float}|array{sql: string, executionMS: float, types: array<int|string, Doctrine\DBAL\ParameterType|int>, params: Symfony\Component\VarDumper\Cloner\Data, runnable: bool, explainable: bool, backtrace?: array<array{function?: string, line: int, file: string, class?: string, object?: object, type: string}>, count: int<1, max>, ...}>>.'
@@ -153,6 +183,12 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: repo/src/Core/System/StateMachine/Aggregation/StateMachineState/StateMachineStateTranslationCollection.php
+
+		-
+			rawMessage: Assign to $element overwrites the last element from array.
+			identifier: assign.byRefForeachExpr
+			count: 2
+			path: repo/src/Core/System/SystemConfig/Service/ConfigurationService.php
 
 		-
 			rawMessage: 'Method Shopware\Core\System\SystemConfig\Util\ConfigReader::getCardDefinitions() should return array<array{title: array<string, string|null>, name: string|null, elements: array<int, array<string, mixed>>, flag?: string|null}> but returns array<int, array{flag: string}|array{title: array<string, string|null>, name: string|null, elements: array<int, array<string, mixed>>, flag?: string}>.'
