@@ -1,2 +1,5 @@
+includes:
+	- php74-baseline.neon
+
 parameters:
 	phpVersion: 70400
