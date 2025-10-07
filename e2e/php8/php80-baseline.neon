@@ -1,11 +1,19 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Function gmp_random not found\\.$#"
+			message: '#^Function gmp_random not found\.$#'
+			identifier: function.notFound
 			count: 1
 			path: test.php
 
 		-
-			message: "#^Instantiated class DOMImplementationSource not found\\.$#"
+			message: '#^Instantiated class DOMImplementationSource not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: test.php
+
+		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
 			count: 1
 			path: test.php
