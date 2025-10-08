@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: 'Parameter #1 $input of function array_rand expects non-empty-array, array<array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...}> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Connections/PrimaryReadReplicaConnection.php
+
+		-
 			rawMessage: 'Offset ''uri'' might not exist on array{timed_out: bool, blocked: bool, eof: bool, unread_bytes: int, stream_type: string, wrapper_type: string, wrapper_data: mixed, mode: string, ...}.'
 			identifier: offsetAccess.notFound
 			count: 1
@@ -44,12 +50,6 @@ parameters:
 
 		-
 			rawMessage: Assign to $row overwrites the last element from array.
-			identifier: assign.byRefForeachExpr
-			count: 2
-			path: repo/tests/Functional/Query/QueryBuilderTest.php
-
-		-
-			rawMessage: Assign to $value overwrites the last element from array.
 			identifier: assign.byRefForeachExpr
 			count: 2
 			path: repo/tests/Functional/Query/QueryBuilderTest.php
