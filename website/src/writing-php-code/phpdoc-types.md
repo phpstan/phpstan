@@ -22,9 +22,9 @@ Basic types
 * `null`
 * `float`
 * `double`
-* `number`
-* `scalar`
-* `array`
+* `number` (or `numeric`)
+* `scalar`, `non-empty-scalar`, `empty-scalar`
+* `array`, `non-empty-array`, `associative-array`
 * `iterable`
 * `callable`, `pure-callable`
 * `resource`, `closed-resource`, `open-resource`
@@ -39,6 +39,8 @@ Mixed
 PHPStan has a concept of implicit and explicit `mixed`. Missing typehint is implicit `mixed` - no type was specified as a parameter type or a return type. Explicit `mixed` is written in the PHPDoc. PHPStan's [rule level 6](/user-guide/rule-levels) isn't satisfied with implicit `mixed`, but an explicit one is sufficient.
 
 [Rule level 9](/user-guide/rule-levels) is stricter about the `mixed` type. The only allowed operation you can do with it is to pass it to another `mixed`.
+
+`non-empty-mixed` is everything truethy.
 
 Classes and interfaces
 -------------------------
@@ -206,7 +208,7 @@ Utility types for generics
 `new` can be used to [create an object type from a class-string type](https://phpstan.org/r/a01e1e49-6f05-43a8-aac7-aded770cd88a).
 
 
-class-string
+class-string / interface-string
 -------------------------
 
 `class-string` type can be used wherever a valid class name string is expected. [Generic](/blog/generics-in-php-using-phpdocs) variant `class-string<T>` also works, or you can use `class-string<Foo>` to only accept valid class names that are subtypes of Foo.
@@ -232,6 +234,8 @@ function bar(string $name): void
 }
 ```
 
+`interface-string` works like `class-string` but for interfaces.
+
 Other advanced string types
 -------------------------
 
@@ -239,13 +243,21 @@ Other advanced string types
 
 `numeric-string` is a string that would pass an [`is_numeric()`](https://www.php.net/manual/en/function.is-numeric.php) check.
 
+`trait-string` is a string representing a trait.
+
+`enum-string` is a string representing an enum.
+
 `non-empty-string` is any string except `''`. It does _not_ mean "empty" in the weird sense used by [`empty()`](https://www.php.net/manual/en/function.empty.php).
 
 `non-falsy-string` (also known as `truthy-string`) is any string that is true after casting to boolean.
 
 Security-focused `literal-string` is inspired by the [`is_literal()` RFC](https://wiki.php.net/rfc/is_literal). In short, it means a string that is either written by a developer or composed only of developer-written strings.
 
-`lowercase-string` accepts strings where `strtolower($string) === $string` is true.
+`lowercase-string` accepts strings where `strtolower($string) === $string` is true. There is also non empty version `non-empty-lowercase-string`.
+
+`uppercase-string` accepts strings where `strtoupper($string) === $string` is true. There is also non empty version `non-empty-uppercase-string`.
+
+`__stringandstringable` is any string or object implementing `Stringable` interface or object with a magic `__toString()` method.
 
 Global type aliases
 -------------------------
@@ -388,6 +400,12 @@ Parameter types and return type are required. Use `mixed` if you don't want to u
 Aside from describing callable signatures PHPStan also supports declaring whether the callable is [executed immediately or saved for later](/writing-php-code/phpdocs-basics#callables) when passed into a function or a method.
 
 PHPStan also supports [changing the meaning of `$this`](/writing-php-code/phpdocs-basics#callables) inside a closure with a `@param-closure-this` PHPDoc tag or with an [extension](/developing-extensions/closure-extensions#parameter-closure-this).
+
+Other callable types:
+
+* `callable-string` (for example `'intval'`)
+* `callable-array` (for example `[$this, 'someMethod']`
+* `callable-object` (for example `Closure`)
 
 Bottom type
 -------------------------
