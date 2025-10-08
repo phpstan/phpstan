@@ -72,6 +72,7 @@ Unofficial extensions
 * [psr/log](https://github.com/struggle-for-php/sfp-phpstan-psr-log)
 * [Faker](https://github.com/calebdw/fakerstan)
 * [Silverstripe CMS](https://github.com/Cambis/silverstan)
+* [Sylius](https://github.com/bitExpert/phpstan-sylius)
 
 3rd party rules
 -----------------
