@@ -25,6 +25,12 @@ parameters:
 			path: repo/src/Core/Checkout/Cart/RedisCartPersister.php
 
 		-
+			rawMessage: 'Parameter #1 $input of function array_rand expects non-empty-array, array<string> given.'
+			identifier: argument.type
+			count: 3
+			path: repo/src/Core/Content/Cms/Command/CreatePageCommand.php
+
+		-
 			rawMessage: Assign to $group overwrites the last element from array.
 			identifier: assign.byRefForeachExpr
 			count: 2
@@ -77,6 +83,48 @@ parameters:
 			path: repo/src/Core/Framework/DataAbstractionLayer/EntityCollection.php
 
 		-
+			rawMessage: 'Parameter #1 $input of function array_rand expects non-empty-array, array<string, array<string, mixed>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/Demodata/Generator/CustomFieldGenerator.php
+
+		-
+			rawMessage: 'Parameter #1 $input of function array_rand expects non-empty-array, array<mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/Demodata/Generator/CustomerGenerator.php
+
+		-
+			rawMessage: 'Parameter #1 $input of function array_rand expects non-empty-array, list<array{id: non-falsy-string, countryId: non-falsy-string, salutationId: non-falsy-string, title: string, firstName: string, lastName: mixed, street: mixed, zipcode: mixed, ...}> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/src/Core/Framework/Demodata/Generator/CustomerGenerator.php
+
+		-
+			rawMessage: 'Parameter #1 $input of function array_rand expects non-empty-array, list<mixed> given.'
+			identifier: argument.type
+			count: 4
+			path: repo/src/Core/Framework/Demodata/Generator/CustomerGenerator.php
+
+		-
+			rawMessage: 'Parameter #1 $input of function array_rand expects non-empty-array, array<string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/Demodata/Generator/OrderGenerator.php
+
+		-
+			rawMessage: 'Parameter #1 $input of function array_rand expects non-empty-array, array<string> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/src/Core/Framework/Demodata/Generator/ProductGenerator.php
+
+		-
+			rawMessage: 'Parameter #1 $input of function array_rand expects non-empty-array, list<mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/Demodata/Generator/ProductReviewGenerator.php
+
+		-
 			rawMessage: 'Call to an undefined method Predis\ClientInterface|Redis|RedisArray|RedisCluster|Relay\Relay::decr().'
 			identifier: method.notFound
 			count: 1
@@ -99,6 +147,12 @@ parameters:
 			identifier: property.tooWideBool
 			count: 1
 			path: repo/src/Core/Framework/Test/Webhook/_fixtures/BusinessEvents/ScalarBusinessEvent.php
+
+		-
+			rawMessage: Possibly invalid array key type float|int.
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: repo/src/Core/Framework/Util/MemorySizeCalculator.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Profiling\Doctrine\ConnectionProfiler::getGroupedQueries() should return array<string, array<int, array{sql: string, executionMS: float, types: array<int|string, Doctrine\DBAL\ParameterType|int>, params: Symfony\Component\VarDumper\Cloner\Data, runnable: bool, explainable: bool, backtrace?: array<array{function?: string, line: int, file: string, class?: string, object?: object, type: string}>, count: int, ...}>> but returns array<string, list<array{executionPercent: float}|array{sql: string, executionMS: float, types: array<int|string, Doctrine\DBAL\ParameterType|int>, params: Symfony\Component\VarDumper\Cloner\Data, runnable: bool, explainable: bool, backtrace?: array<array{function?: string, line: int, file: string, class?: string, object?: object, type: string}>, count: int<1, max>, ...}>>.'
@@ -183,6 +237,18 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: repo/src/Elasticsearch/Framework/ElasticsearchFieldMapper.php
+
+		-
+			rawMessage: 'Parameter #1 $input of function array_rand expects non-empty-array, array<int, string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Customer/SalesChannel/ChangeCustomerProfileRouteTest.php
+
+		-
+			rawMessage: 'Parameter #1 $input of function array_rand expects non-empty-array, array<int, string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Customer/SalesChannel/RegisterRouteTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Product\SalesChannel\Detail\ProductConfiguratorOrderTest::ashuffle() never returns false so the return type can be changed to true.'
