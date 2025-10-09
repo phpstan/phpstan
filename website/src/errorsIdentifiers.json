@@ -9271,7 +9271,7 @@
         },
         "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/MethodSignatureRule.php#L137"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/MethodSignatureRule.php#L135"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
@@ -9280,19 +9280,19 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L252",
                 "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L280",
                 "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L300",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/MethodSignatureRule.php#L137"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/MethodSignatureRule.php#L135"
             ]
         }
     },
     "method.childReturnType": {
         "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/MethodSignatureRule.php#L87"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/MethodSignatureRule.php#L85"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/MethodSignatureRule.php#L87",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/MethodSignatureRule.php#L85",
                 "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L274",
                 "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L287"
             ]
@@ -12015,7 +12015,7 @@
         },
         "PHPStan\\PhpDoc\\StubValidator": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/PhpDoc/StubValidator.php#L168"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/PhpDoc/StubValidator.php#L169"
             ]
         }
     },
@@ -15440,10 +15440,31 @@
             ]
         }
     },
+    "throws.notCovariant": {
+        "PHPStan\\Rules\\Exceptions\\MethodThrowTypeCovarianceRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Exceptions/MethodThrowTypeCovarianceRule.php#L110"
+            ]
+        }
+    },
+    "throws.notCovariantWithImplicitVoid": {
+        "PHPStan\\Rules\\Exceptions\\MethodThrowTypeCovarianceRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Exceptions/MethodThrowTypeCovarianceRule.php#L93"
+            ]
+        }
+    },
     "throws.notThrowable": {
         "PHPStan\\Rules\\PhpDoc\\InvalidThrowsPhpDocValueRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/InvalidThrowsPhpDocValueRule.php#L82"
+            ]
+        }
+    },
+    "throws.shouldBeVoid": {
+        "PHPStan\\Rules\\Exceptions\\MethodThrowTypeCovarianceRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Exceptions/MethodThrowTypeCovarianceRule.php#L84"
             ]
         }
     },
