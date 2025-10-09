@@ -56,6 +56,17 @@ services:
 			- phpstan.rules.rule
 		autowired: false
 
+	-
+		class: PHPStan\Rules\Playground\PromoteParameterRule
+		arguments:
+			rule: @methodThrowTypeCovarianceRule
+			nodeType: PHPStan\Node\InClassMethodNode
+			parameterValue: %exceptions.check.throwTypeCovariance%
+			parameterName: exceptions.check.throwTypeCovariance
+		tags:
+			- phpstan.rules.rule
+		autowired: false
+
 	nonexistentOffsetInArrayDimFetchGeneralArrayRule:
 		class: PHPStan\Rules\Arrays\NonexistentOffsetInArrayDimFetchRule
 		arguments:
@@ -95,4 +106,10 @@ services:
 		arguments:
 			checkPhpDocMethodSignatures: %checkPhpDocMethodSignatures%
 			checkMissingOverrideMethodAttribute: true
+		autowired: false
+
+	methodThrowTypeCovarianceRule:
+		class: PHPStan\Rules\Exceptions\MethodThrowTypeCovarianceRule
+		arguments:
+			implicitThrows: %exceptions.implicitThrows%
 		autowired: false
