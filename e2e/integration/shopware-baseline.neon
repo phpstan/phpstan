@@ -257,6 +257,12 @@ parameters:
 			path: repo/tests/integration/Core/Content/Product/SalesChannel/Detail/ProductConfiguratorOrderTest.php
 
 		-
+			rawMessage: 'Method Psr\Log\AbstractLogger@anonymous/tests/integration/Core/Content/Seo/SeoUrlGeneratorTest.php:361::log() has Psr\Log\InvalidArgumentException in PHPDoc @throws tag but it''s not thrown.'
+			identifier: throws.unusedType
+			count: 1
+			path: repo/tests/integration/Core/Content/Seo/SeoUrlGeneratorTest.php
+
+		-
 			rawMessage: 'Call to an undefined method Predis\ClientInterface|Redis|RedisArray|RedisCluster|Relay\Relay::get().'
 			identifier: method.notFound
 			count: 2

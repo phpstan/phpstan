@@ -1,6 +1,18 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: 'Method PHPUnit\Framework\Constraint\IsAnything::evaluate() has PHPUnit\Framework\ExpectationFailedException in PHPDoc @throws tag but it''s not thrown.'
+			identifier: throws.unusedType
+			count: 1
+			path: repo/src/Framework/Constraint/IsAnything.php
+
+		-
+			rawMessage: 'Method PHPUnit\Framework\MockObject\Rule\AnyParameters::apply() has PHPUnit\Framework\ExpectationFailedException in PHPDoc @throws tag but it''s not thrown.'
+			identifier: throws.unusedType
+			count: 1
+			path: repo/src/Framework/MockObject/Runtime/Rule/AnyParameters.php
+
+		-
 			rawMessage: Assert references unknown $this->instance.
 			identifier: assert.unknownExpr
 			count: 1
@@ -47,3 +59,9 @@ parameters:
 			identifier: method.internalClass
 			count: 1
 			path: repo/src/TextUI/Application.php
+
+		-
+			rawMessage: 'Method PHPUnit\TextUI\XmlConfiguration\SuccessfulSchemaDetectionResult::version() has PHPUnit\Util\Xml\XmlException in PHPDoc @throws tag but it''s not thrown.'
+			identifier: throws.unusedType
+			count: 1
+			path: repo/src/TextUI/Configuration/Xml/SchemaDetector/SuccessfulSchemaDetectionResult.php
