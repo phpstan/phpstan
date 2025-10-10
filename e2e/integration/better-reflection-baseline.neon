@@ -1,0 +1,31 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method Roave\\BetterReflection\\Reflection\\Adapter\\ReflectionParameter\:\:getDefaultValue\(\) has ReflectionException in PHPDoc @throws tag but it''s not thrown\.$#'
+			identifier: throws.unusedType
+			count: 1
+			path: repo/src/Reflection/Adapter/ReflectionParameter.php
+
+		-
+			message: '#^Method Roave\\BetterReflection\\Reflection\\Adapter\\ReflectionParameter\:\:getDefaultValueConstantName\(\) has ReflectionException in PHPDoc @throws tag but it''s not thrown\.$#'
+			identifier: throws.unusedType
+			count: 1
+			path: repo/src/Reflection/Adapter/ReflectionParameter.php
+
+		-
+			message: '#^Method Roave\\BetterReflection\\SourceLocator\\Ast\\Locator@anonymous/test/unit/NodeCompiler/CompileNodeToValueTest\.php\:848\:\:findReflectionsOfType\(\) has Roave\\BetterReflection\\SourceLocator\\Ast\\Exception\\ParseToAstFailure in PHPDoc @throws tag but it''s not thrown\.$#'
+			identifier: throws.unusedType
+			count: 1
+			path: repo/test/unit/NodeCompiler/CompileNodeToValueTest.php
+
+		-
+			message: '#^Method Roave\\BetterReflection\\SourceLocator\\Located\\LocatedSource@anonymous/test/unit/NodeCompiler/CompileNodeToValueTest\.php\:861\:\:__construct\(\) has InvalidArgumentException in PHPDoc @throws tag but it''s not thrown\.$#'
+			identifier: throws.unusedType
+			count: 1
+			path: repo/test/unit/NodeCompiler/CompileNodeToValueTest.php
+
+		-
+			message: '#^Method Roave\\BetterReflection\\SourceLocator\\Located\\LocatedSource@anonymous/test/unit/NodeCompiler/CompileNodeToValueTest\.php\:861\:\:__construct\(\) has Roave\\BetterReflection\\SourceLocator\\Exception\\InvalidFileLocation in PHPDoc @throws tag but it''s not thrown\.$#'
+			identifier: throws.unusedType
+			count: 1
+			path: repo/test/unit/NodeCompiler/CompileNodeToValueTest.php
