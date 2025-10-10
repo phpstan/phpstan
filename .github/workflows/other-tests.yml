@@ -171,9 +171,6 @@ jobs:
             cd e2e/bug6933
             composer install
             ../../phpstan analyse -l 8 Module
-          - |
-            cd e2e/filter-phar-stub-files
-            ../../phpstan
         include:
           - php-version: 8.0
             ini-values: memory_limit=256M
@@ -404,6 +401,12 @@ jobs:
             script: |
               cd e2e/hoa-autoload
               composer install
+              ../../phpstan
+          - php-version: 8.4
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/filter-phar-stub-files
               ../../phpstan
 
     steps:
