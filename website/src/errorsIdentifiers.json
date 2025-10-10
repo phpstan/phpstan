@@ -15476,7 +15476,7 @@
         },
         "PHPStan\\Rules\\Exceptions\\TooWideMethodThrowTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Exceptions/TooWideMethodThrowTypeRule.php#L60"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Exceptions/TooWideMethodThrowTypeRule.php#L89"
             ]
         },
         "PHPStan\\Rules\\Exceptions\\TooWidePropertyHookThrowTypeRule": {
