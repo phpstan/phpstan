@@ -1,0 +1,5 @@
+parameters:
+	checkMissingOverrideMethodAttribute: true
+	level: 8
+	paths:
+		- src
