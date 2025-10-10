@@ -7,6 +7,12 @@ parameters:
 			path: repo/src/Configuration.php
 
 		-
+			message: '#^Method Doctrine\\ORM\\EntityManager\:\:lock\(\) has Doctrine\\ORM\\PessimisticLockException in PHPDoc @throws tag but it''s not thrown\.$#'
+			identifier: throws.unusedType
+			count: 1
+			path: repo/src/EntityManager.php
+
+		-
 			message: '#^Offset ''class'' might not exist on array\{class\?\: mixed, args\: non\-empty\-array\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 2
