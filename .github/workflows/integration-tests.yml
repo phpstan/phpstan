@@ -195,7 +195,7 @@ jobs:
             baseline-file: rector-baseline.neon
           - php-version: 8.4
             repo: sebastianbergmann/phpunit
-            ref: cc1c52d996162e1cd35e7219ddfa334b8f60a74b
+            ref: 863470cae25cf9e0d5991559204b675e3aeb2322
             setup: |
               export COMPOSER_ROOT_VERSION=12.1.0
               composer install
