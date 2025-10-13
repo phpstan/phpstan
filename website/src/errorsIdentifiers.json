@@ -9293,8 +9293,8 @@
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/MethodSignatureRule.php#L85",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L274",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L287"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L275",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L288"
             ]
         }
     },
@@ -9407,7 +9407,7 @@
     "method.missingOverride": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L125"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L126"
             ]
         }
     },
@@ -9455,7 +9455,7 @@
     "method.nonStatic": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L167"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L168"
             ]
         }
     },
@@ -9474,23 +9474,23 @@
     "method.override": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L97"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L98"
             ]
         }
     },
     "method.parentMethodFinal": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L144",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L70"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L145",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L71"
             ]
         }
     },
     "method.parentMethodFinalByPhpDoc": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L153",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L82"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L154",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L83"
             ]
         }
     },
@@ -9549,7 +9549,7 @@
     "method.static": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L179"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L180"
             ]
         }
     },
@@ -9595,7 +9595,7 @@
     "method.tentativeReturnType": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L217"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/OverridingMethodRule.php#L218"
             ]
         }
     },
@@ -12008,9 +12008,9 @@
         },
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L139",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L188",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L274"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L140",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L189",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L275"
             ]
         },
         "PHPStan\\PhpDoc\\StubValidator": {
@@ -12029,24 +12029,24 @@
     "phpstan.parse": {
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L267",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L270"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L268",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L271"
             ]
         }
     },
     "phpstan.path": {
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L297",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L299"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L298",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L300"
             ]
         }
     },
     "phpstan.php": {
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L361",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L371"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L362",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L372"
             ]
         }
     },
@@ -12059,12 +12059,12 @@
         },
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L147",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L155",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L196",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L204",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L281",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L288"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L148",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L156",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L197",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L205",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L282",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Analyser/FileAnalyser.php#L289"
             ]
         }
     },
@@ -12240,7 +12240,7 @@
     "phpstanPlayground.configParameter": {
         "PHPStan\\Rules\\Playground\\PromoteParameterRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Playground/PromoteParameterRule.php#L111"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Playground/PromoteParameterRule.php#L112"
             ]
         }
     },
