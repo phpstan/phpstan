@@ -103,7 +103,7 @@ jobs:
             script: |
               git clone https://github.com/shipmonk-rnd/phpstan-rules.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout af834c5d98357837211fe79a8f305abc6ad740e7
+              git checkout 5ff9975e1eb52a424f2d6829e90885e9272bbd77
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
@@ -368,7 +368,7 @@ jobs:
 #            baseline-file: doctrine-persistence-baseline.neon
           - php-version: 8.1
             repo: shipmonk-rnd/phpstan-rules
-            ref: af834c5d98357837211fe79a8f305abc6ad740e7
+            ref: 5ff9975e1eb52a424f2d6829e90885e9272bbd77
             setup: |
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
