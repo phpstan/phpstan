@@ -9429,7 +9429,7 @@
         },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L183"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L145"
             ]
         }
     },
@@ -12390,28 +12390,28 @@
     "phpunit.dataProviderClass": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L155"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L117"
             ]
         }
     },
     "phpunit.dataProviderMethod": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L169"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L131"
             ]
         }
     },
     "phpunit.dataProviderPublic": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L193"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L155"
             ]
         }
     },
     "phpunit.dataProviderStatic": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L203"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L165"
             ]
         }
     },
