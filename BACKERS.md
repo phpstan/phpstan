@@ -10,6 +10,7 @@ the logo of your company in PHPStan's README and the website.
 
 <ul>
 <!-- gold --><li><a href="https://github.com/m">Matt Mullenweg (m)</a></li>
+<li><a href="https://github.com/toyokumo">TOYOKUMO (toyokumo)</a></li>
 <!-- gold -->
 
 <!-- gold-org --><li><a href="https://github.com/malsatin">Sergey (malsatin)</a></li>
