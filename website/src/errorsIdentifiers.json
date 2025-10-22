@@ -2679,6 +2679,13 @@
             ]
         }
     },
+    "callable.inVoidCast": {
+        "PHPStan\\Rules\\Functions\\CallToFunctionStatementWithNoDiscardRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Functions/CallToFunctionStatementWithNoDiscardRule.php#L104"
+            ]
+        }
+    },
     "callable.inaccessibleMethod": {
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
@@ -2737,7 +2744,7 @@
     "callable.resultDiscarded": {
         "PHPStan\\Rules\\Functions\\CallToFunctionStatementWithNoDiscardRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Functions/CallToFunctionStatementWithNoDiscardRule.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Functions/CallToFunctionStatementWithNoDiscardRule.php#L119"
             ]
         }
     },
@@ -2978,6 +2985,13 @@
         }
     },
     "cast.void": {
+        "PHPStan\\Rules\\Cast\\VoidCastRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Cast/VoidCastRule.php#L45"
+            ]
+        }
+    },
+    "cast.voidNotSupported": {
         "PHPStan\\Rules\\Cast\\VoidCastRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Cast/VoidCastRule.php#L35"
@@ -6041,6 +6055,13 @@
             ]
         }
     },
+    "function.inVoidCast": {
+        "PHPStan\\Rules\\Functions\\CallToFunctionStatementWithNoDiscardRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Functions/CallToFunctionStatementWithNoDiscardRule.php#L69"
+            ]
+        }
+    },
     "function.inner": {
         "PHPStan\\Rules\\Functions\\InnerFunctionRule": {
             "phpstan/phpstan-src": [
@@ -6103,7 +6124,7 @@
     "function.resultDiscarded": {
         "PHPStan\\Rules\\Functions\\CallToFunctionStatementWithNoDiscardRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Functions/CallToFunctionStatementWithNoDiscardRule.php#L56"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Functions/CallToFunctionStatementWithNoDiscardRule.php#L84"
             ]
         }
     },
@@ -9369,6 +9390,13 @@
             ]
         }
     },
+    "method.inVoidCast": {
+        "PHPStan\\Rules\\Methods\\CallToMethodStatementWithNoDiscardRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/CallToMethodStatementWithNoDiscardRule.php#L92"
+            ]
+        }
+    },
     "method.internal": {
         "PHPStan\\Rules\\InternalTag\\RestrictedInternalMethodUsageExtension": {
             "phpstan/phpstan-src": [
@@ -9528,7 +9556,7 @@
     "method.resultDiscarded": {
         "PHPStan\\Rules\\Methods\\CallToMethodStatementWithNoDiscardRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/CallToMethodStatementWithNoDiscardRule.php#L80"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/CallToMethodStatementWithNoDiscardRule.php#L109"
             ]
         }
     },
@@ -14867,6 +14895,13 @@
             ]
         }
     },
+    "staticMethod.inVoidCast": {
+        "PHPStan\\Rules\\Methods\\CallToStaticMethodStatementWithNoDiscardRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/CallToStaticMethodStatementWithNoDiscardRule.php#L102"
+            ]
+        }
+    },
     "staticMethod.internal": {
         "PHPStan\\Rules\\InternalTag\\RestrictedInternalMethodUsageExtension": {
             "phpstan/phpstan-src": [
@@ -14990,7 +15025,7 @@
     "staticMethod.resultDiscarded": {
         "PHPStan\\Rules\\Methods\\CallToStaticMethodStatementWithNoDiscardRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/CallToStaticMethodStatementWithNoDiscardRule.php#L93"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/CallToStaticMethodStatementWithNoDiscardRule.php#L119"
             ]
         }
     },
