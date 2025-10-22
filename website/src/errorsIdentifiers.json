@@ -2510,6 +2510,13 @@
             ]
         }
     },
+    "backtick.deprecated": {
+        "PHPStan\\Rules\\Operators\\BacktickRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/BacktickRule.php#L39"
+            ]
+        }
+    },
     "backtick.notAllowed": {
         "PHPStan\\Rules\\DisallowedConstructs\\DisallowedBacktickRule": {
             "phpstan/phpstan-strict-rules": [
