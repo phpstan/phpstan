@@ -2949,6 +2949,16 @@
             ]
         }
     },
+    "cast.deprecated": {
+        "PHPStan\\Rules\\Cast\\DeprecatedCastRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Cast/DeprecatedCastRule.php#L40",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Cast/DeprecatedCastRule.php#L53",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Cast/DeprecatedCastRule.php#L66",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Cast/DeprecatedCastRule.php#L79"
+            ]
+        }
+    },
     "cast.double": {
         "PHPStan\\Rules\\Cast\\InvalidCastRule": {
             "phpstan/phpstan-src": [
