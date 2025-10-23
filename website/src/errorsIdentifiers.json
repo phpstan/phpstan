@@ -5991,7 +5991,7 @@
     "expr.resultUnused": {
         "PHPStan\\Rules\\DeadCode\\NoopRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/DeadCode/NoopRule.php#L135"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/DeadCode/NoopRule.php#L139"
             ]
         }
     },
@@ -6153,7 +6153,7 @@
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionStatementWithoutSideEffectsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Functions/CallToFunctionStatementWithoutSideEffectsRule.php#L142"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Functions/CallToFunctionStatementWithoutSideEffectsRule.php#L82"
             ]
         }
     },
@@ -9585,7 +9585,7 @@
         },
         "PHPStan\\Rules\\Methods\\CallToMethodStatementWithoutSideEffectsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/CallToMethodStatementWithoutSideEffectsRule.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/CallToMethodStatementWithoutSideEffectsRule.php#L86"
             ]
         }
     },
@@ -15054,7 +15054,7 @@
         },
         "PHPStan\\Rules\\Methods\\CallToStaticMethodStatementWithoutSideEffectsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/CallToStaticMethodStatementWithoutSideEffectsRule.php#L106"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Methods/CallToStaticMethodStatementWithoutSideEffectsRule.php#L109"
             ]
         }
     },
