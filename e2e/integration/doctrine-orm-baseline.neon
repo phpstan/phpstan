@@ -7,10 +7,10 @@ parameters:
 			path: repo/src/Configuration.php
 
 		-
-			message: '#^Method Doctrine\\ORM\\EntityManager\:\:lock\(\) has Doctrine\\ORM\\PessimisticLockException in PHPDoc @throws tag but it''s not thrown\.$#'
-			identifier: throws.unusedType
+			message: '#^Method Doctrine\\ORM\\Internal\\Hydration\\AbstractHydrator\:\:gatherRowData\(\) should return array\{data\: array\<array\>, newObjects\?\: array\<array\{class\: ReflectionClass, args\: array, obj\: object\}\>, scalars\?\: array\} but returns array\{data\: array\<non\-empty\-array\>, newObjects\: array\<array\{class\?\: mixed, args\: non\-empty\-array, obj\: mixed\}\>, scalars\?\: non\-empty\-array\}\.$#'
+			identifier: return.type
 			count: 1
-			path: repo/src/EntityManager.php
+			path: repo/src/Internal/Hydration/AbstractHydrator.php
 
 		-
 			message: '#^Offset ''class'' might not exist on array\{class\?\: mixed, args\: non\-empty\-array\}\.$#'

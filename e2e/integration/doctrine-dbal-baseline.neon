@@ -73,7 +73,19 @@ parameters:
 			path: repo/tests/Functional/Query/QueryBuilderTest.php
 
 		-
+			rawMessage: 'Return type array<array<string, int|string>> of method Doctrine\DBAL\Tests\Functional\Query\QueryBuilderTest::prepareExpectedRows() can be narrowed to array<array<string, int>>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/Functional/Query/QueryBuilderTest.php
+
+		-
 			rawMessage: Cannot unset property Doctrine\DBAL\Tests\FunctionalTestCase::$connection because it might have hooks in a subclass.
 			identifier: unset.possiblyHookedProperty
 			count: 1
 			path: repo/tests/FunctionalTestCase.php
+
+		-
+			rawMessage: 'Return type iterable<string, array{string, array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...}}> of method Doctrine\DBAL\Tests\Tools\DsnParserTest::databaseUrls() can be narrowed to iterable<string, array{string, array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...}}>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/Tools/DsnParserTest.php

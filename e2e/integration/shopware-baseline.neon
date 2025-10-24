@@ -13,6 +13,12 @@ parameters:
 			path: repo/src/Core/Checkout/Cart/Command/CartMigrateCommand.php
 
 		-
+			rawMessage: 'Return type array<int, array<int, array{position: int, mediaId: string, accessGranted: bool}>> of method Shopware\Core\Checkout\Cart\Order\LineItemDownloadLoader::getLineItemDownloadPayload() can be narrowed to array<int, array<int, array{position: int, mediaId: string, accessGranted: false}>>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Checkout/Cart/Order/LineItemDownloadLoader.php
+
+		-
 			rawMessage: 'Call to an undefined method Predis\ClientInterface|Redis|RedisArray|RedisCluster|Relay\Relay::get().'
 			identifier: method.notFound
 			count: 1
@@ -25,16 +31,118 @@ parameters:
 			path: repo/src/Core/Checkout/Cart/RedisCartPersister.php
 
 		-
+			rawMessage: 'Return type array<string, list<array{0: string, 1?: int}|int|string>|string> of method Shopware\Core\Checkout\Document\Service\DocumentConfigLoader::getSubscribedEvents() can be narrowed to array<string, string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Checkout/Document/Service/DocumentConfigLoader.php
+
+		-
+			rawMessage: 'Return type array<string, list<array{0: string, 1?: int}|int|string>|string> of method Shopware\Core\Checkout\Payment\DataAbstractionLayer\PaymentMethodValidator::getSubscribedEvents() can be narrowed to array<string, string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Checkout/Payment/DataAbstractionLayer/PaymentMethodValidator.php
+
+		-
+			rawMessage: 'Return type array<bool> of method Shopware\Core\Checkout\Promotion\Cart\PromotionCalculator::buildExclusions() can be narrowed to array<true>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Checkout/Promotion/Cart/PromotionCalculator.php
+
+		-
+			rawMessage: 'Return type array<bool> of method Shopware\Core\Checkout\Promotion\Cart\PromotionDeliveryCalculator::buildExclusions() can be narrowed to array<true>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Checkout/Promotion/Cart/PromotionDeliveryCalculator.php
+
+		-
 			rawMessage: 'Parameter #1 $input of function array_rand expects non-empty-array, array<string> given.'
 			identifier: argument.type
 			count: 3
 			path: repo/src/Core/Content/Cms/Command/CreatePageCommand.php
 
 		-
+			rawMessage: 'Return type array<string, array<string, bool>> of method Shopware\Core\Content\Cms\Subscriber\CmsVersionMergeSubscriber::mapDeletedBlocks() can be narrowed to array<string, array<string, true>>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Content/Cms/Subscriber/CmsVersionMergeSubscriber.php
+
+		-
+			rawMessage: 'Return type array<int|string, mixed> of method Shopware\Core\Content\ContactForm\Event\ContactFormEvent::getContactFormData() can be narrowed to array<string, mixed>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Content/ContactForm/Event/ContactFormEvent.php
+
+		-
+			rawMessage: 'Return type array<string, array<mixed>|bool|float|int|string|null> of method Shopware\Core\Content\ContactForm\Event\ContactFormEvent::getValues() can be narrowed to array<string, array<mixed>|null>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Content/ContactForm/Event/ContactFormEvent.php
+
+		-
+			rawMessage: 'Type array<int|string, mixed> of property Shopware\Core\Content\ContactForm\Event\ContactFormEvent::$contactFormData can be narrowed to array<string, mixed>.'
+			identifier: property.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Content/ContactForm/Event/ContactFormEvent.php
+
+		-
+			rawMessage: 'Return type array{mapping?: array<array{key: string, mappedKey: string}|Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping>|null, updateBy?: array<string, mixed>|null, parameters?: array<string, mixed>|null} of method Shopware\Core\Content\ImportExport\Service\ImportExportService::getConfig() can be narrowed to array{mapping?: array<array{key: string, mappedKey: string}|Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping>|null, updateBy?: array<string, mixed>|null, parameters?: array<string, mixed>}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Content/ImportExport/Service/ImportExportService.php
+
+		-
+			rawMessage: 'Return type array<int|string, string> of method Shopware\Core\Content\Product\SalesChannel\Detail\ProductConfiguratorLoader::buildCurrentOptions() can be narrowed to array<string, string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Content/Product/SalesChannel/Detail/ProductConfiguratorLoader.php
+
+		-
+			rawMessage: 'Return type array<int|string, mixed> of method Shopware\Core\Content\Product\SalesChannel\Review\Event\ReviewFormEvent::getReviewFormData() can be narrowed to array<string, mixed>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Content/Product/SalesChannel/Review/Event/ReviewFormEvent.php
+
+		-
+			rawMessage: 'Return type array<string, array<mixed>|bool|float|int|string|null> of method Shopware\Core\Content\Product\SalesChannel\Review\Event\ReviewFormEvent::getValues() can be narrowed to array<string, array<mixed>|null>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Content/Product/SalesChannel/Review/Event/ReviewFormEvent.php
+
+		-
+			rawMessage: 'Type array<int|string, mixed> of property Shopware\Core\Content\Product\SalesChannel\Review\Event\ReviewFormEvent::$reviewFormData can be narrowed to array<string, mixed>.'
+			identifier: property.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Content/Product/SalesChannel/Review/Event/ReviewFormEvent.php
+
+		-
+			rawMessage: 'Return type array<string, list<array{0: string, 1?: int}|int|string>|string> of method Shopware\Core\Content\Product\Stock\OrderStockSubscriber::getSubscribedEvents() can be narrowed to array<string, string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Content/Product/Stock/OrderStockSubscriber.php
+
+		-
 			rawMessage: Assign to $group overwrites the last element from array.
 			identifier: assign.byRefForeachExpr
 			count: 2
 			path: repo/src/Core/Content/Test/Product/ProductBuilder.php
+
+		-
+			rawMessage: 'Return type array{gross: float, net: float, linked: bool, listPrice?: array{gross: float, net: float, linked: bool}|float, currencyId: string} of method Shopware\Core\Content\Test\Product\ProductBuilder::buildCurrencyPrice() can be narrowed to array{gross: float, net: float, linked: bool, listPrice?: array{gross: float, net: float, linked: bool}, currencyId: string}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Content/Test/Product/ProductBuilder.php
+
+		-
+			rawMessage: 'Return type list<array{name: string, returnType: class-string<object>, link: string, deprecated: string|null}> of method Shopware\Core\DevOps\Docs\Script\HooksReferenceGenerator::buildAvailableServices() can be narrowed to list<array{name: string, returnType: class-string<object>, link: string, deprecated: null}>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/DevOps/Docs/Script/HooksReferenceGenerator.php
+
+		-
+			rawMessage: 'Return type array<PHPStan\Rules\RuleError|string> of method Shopware\Core\DevOps\StaticAnalyze\PHPStan\Rules\ExtensionRule::validateExtension() can be narrowed to array<PHPStan\Rules\RuleError>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/DevOps/StaticAnalyze/PHPStan/Rules/ExtensionRule.php
 
 		-
 			rawMessage: '''
@@ -65,10 +173,28 @@ parameters:
 			path: repo/src/Core/Framework/Adapter/Filesystem/Adapter/GoogleStorageFactory.php
 
 		-
+			rawMessage: 'Return type array<string, array<string|null>> of method Shopware\Core\Framework\Api\ApiDefinition\Generator\OpenApi\OpenApiSchemaBuilder::createSecurity() can be narrowed to array<string, array<string>>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Framework/Api/ApiDefinition/Generator/OpenApi/OpenApiSchemaBuilder.php
+
+		-
 			rawMessage: 'Property OpenApi\Annotations\Operation::$parameters (array<OpenApi\Annotations\Parameter>) does not accept array<array<string, string>|OpenApi\Annotations\Parameter>.'
 			identifier: assign.propertyType
 			count: 1
 			path: repo/src/Core/Framework/Api/ApiDefinition/Generator/StoreApiGenerator.php
+
+		-
+			rawMessage: 'Return type array<string|null> of method Shopware\Core\Framework\Api\Controller\ApiController::validatePathSegments() can be narrowed to array<string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Framework/Api/Controller/ApiController.php
+
+		-
+			rawMessage: 'Return type array<array{name: string, eventName: string, url: string, appId: string, active?: bool, errorCount?: int}> of method Shopware\Core\Framework\App\Lifecycle\AppLifecycle::getWebhooks() can be narrowed to array<array{name: string, eventName: string, url: string, appId: string, active?: true, errorCount?: int}>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Framework/App/Lifecycle/AppLifecycle.php
 
 		-
 			rawMessage: Private constructor cannot be enforced as consistent for child classes.
@@ -77,10 +203,28 @@ parameters:
 			path: repo/src/Core/Framework/App/Manifest/Xml/XmlElement.php
 
 		-
+			rawMessage: 'Return type array{type: ''mapping'', parent: null, entity_class: class-string<Shopware\Core\Framework\Struct\ArrayEntity>, entity_name: string, fields: list<array{type?: string, name?: string, class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Field\Field>, flags: array<string, array<string, array<bool|string>|string>|null>, translated: bool, args: list<string|false>}>, source: string, reference: string} of method Shopware\Core\Framework\DataAbstractionLayer\AttributeEntityCompiler::mapping() can be narrowed to array{type: ''mapping'', parent: null, entity_class: class-string<Shopware\Core\Framework\Struct\ArrayEntity>, entity_name: string, fields: list<array{type?: string, name?: string, class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Field\Field>, flags: array<string, array<string, array<bool|string>|string>>, translated: false, args: list<string>}>, source: string, reference: string}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/AttributeEntityCompiler.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Framework\DataAbstractionLayer\EntityCollection::getExpectedClass() should return class-string<TElement of Shopware\Core\Framework\DataAbstractionLayer\Entity> but returns string.'
 			identifier: return.type
 			count: 1
 			path: repo/src/Core/Framework/DataAbstractionLayer/EntityCollection.php
+
+		-
+			rawMessage: 'Return type array<string, array<string, mixed>|string|null> of method Shopware\Core\Framework\DataAbstractionLayer\VersionManager::filterPropertiesForClone() can be narrowed to array<string, string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/VersionManager.php
+
+		-
+			rawMessage: 'Return type array<string, bool> of method Shopware\Core\Framework\DataAbstractionLayer\Write\Validation\LockValidator::containsLockedEntities() can be narrowed to array<string, true>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Write/Validation/LockValidator.php
 
 		-
 			rawMessage: 'Parameter #1 $input of function array_rand expects non-empty-array, array<string, array<string, mixed>> given.'
@@ -143,6 +287,24 @@ parameters:
 			path: repo/src/Core/Framework/Increment/RedisIncrementer.php
 
 		-
+			rawMessage: 'Return type array<string, list<array{0: string, 1?: int}|int|string>|string> of method Shopware\Core\Framework\MessageQueue\Subscriber\PluginLifecycleSubscriber::getSubscribedEvents() can be narrowed to array<string, string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Framework/MessageQueue/Subscriber/PluginLifecycleSubscriber.php
+
+		-
+			rawMessage: 'Return type array<string, list<array{0: string, 1?: int}|int|string>|string> of method Shopware\Core\Framework\MessageQueue\Subscriber\UpdatePostFinishSubscriber::getSubscribedEvents() can be narrowed to array<string, string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Framework/MessageQueue/Subscriber/UpdatePostFinishSubscriber.php
+
+		-
+			rawMessage: 'Return type array<string, array<int, string|null>|string|null> of method Shopware\Core\Framework\Routing\Facade\RequestFacade::headers() can be narrowed to array<string, array<int, string|null>>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Framework/Routing/Facade/RequestFacade.php
+
+		-
 			rawMessage: 'Property Shopware\Core\Framework\Test\Webhook\_fixtures\BusinessEvents\ScalarBusinessEvent::$bool (bool) is never assigned false so the property type can be changed to true.'
 			identifier: property.tooWideBool
 			count: 1
@@ -153,6 +315,18 @@ parameters:
 			identifier: offsetAccess.invalidOffset
 			count: 1
 			path: repo/src/Core/Framework/Util/MemorySizeCalculator.php
+
+		-
+			rawMessage: 'Type array<string, array{name: string, isActive: bool, config?: array<string, mixed>}> of property Shopware\Core\Migration\V6_4\Migration1617935350ActiveCaptchasV2::$captchaItems can be narrowed to array<string, array{name: string, isActive: false, config?: array<string, mixed>}>.'
+			identifier: property.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Migration/V6_4/Migration1617935350ActiveCaptchasV2.php
+
+		-
+			rawMessage: 'Return type array{id: string, parent_id: string|null, true_case: int|null, flow_id: string|null, rule_id: string|null, action_name: string|null, position: int, created_at: string|null, ...} of method Shopware\Core\Migration\V6_4\Migration1625583619MoveDataFromEventActionToFlow::buildSequenceData() can be narrowed to array{id: string, parent_id: string|null, true_case: int, flow_id: string, rule_id: string|null, action_name: string|null, position: int, created_at: string, ...}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/Migration/V6_4/Migration1625583619MoveDataFromEventActionToFlow.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Profiling\Doctrine\ConnectionProfiler::getGroupedQueries() should return array<string, array<int, array{sql: string, executionMS: float, types: array<int|string, Doctrine\DBAL\ParameterType|int>, params: Symfony\Component\VarDumper\Cloner\Data, runnable: bool, explainable: bool, backtrace?: array<array{function?: string, line: int, file: string, class?: string, object?: object, type: string}>, count: int, ...}>> but returns array<string, list<array{executionPercent: float}|array{sql: string, executionMS: float, types: array<int|string, Doctrine\DBAL\ParameterType|int>, params: Symfony\Component\VarDumper\Cloner\Data, runnable: bool, explainable: bool, backtrace?: array<array{function?: string, line: int, file: string, class?: string, object?: object, type: string}>, count: int<1, max>, ...}>>.'
@@ -209,10 +383,22 @@ parameters:
 			path: repo/src/Core/System/SalesChannel/Validation/SalesChannelValidator.php
 
 		-
+			rawMessage: 'Return type array<string, array{snippets: array<string, array{value: string, origin: string, resetTo: string, translationKey: string, author: string, id: string|null, setId: string}>}> of method Shopware\Core\System\Snippet\SnippetService::databaseSnippetsToArray() can be narrowed to array<string, array{snippets: array<string, array{value: string, origin: string, resetTo: string, translationKey: string, author: string, id: string, setId: string}>}>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/System/Snippet/SnippetService.php
+
+		-
 			rawMessage: 'Method Shopware\Core\System\StateMachine\Aggregation\StateMachineState\StateMachineStateTranslationCollection::getExpectedClass() should return class-string<Shopware\Core\System\StateMachine\Aggregation\StateMachineState\StateMachineStateTranslationEntity> but returns string.'
 			identifier: return.type
 			count: 1
 			path: repo/src/Core/System/StateMachine/Aggregation/StateMachineState/StateMachineStateTranslationCollection.php
+
+		-
+			rawMessage: 'Return type array<string, list<array{0: string, 1?: int}|int|string>|string> of method Shopware\Core\System\SystemConfig\Store\MemoizedSystemConfigStore::getSubscribedEvents() can be narrowed to array<string, list<array{0: string, 1?: int}|int|string>>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/System/SystemConfig/Store/MemoizedSystemConfigStore.php
 
 		-
 			rawMessage: 'Method Shopware\Core\System\SystemConfig\Util\ConfigReader::getCardDefinitions() should return array<array{title: array<string, string|null>, name: string|null, elements: array<int, array<string, mixed>>, flag?: string|null}> but returns array<int, array{flag: string}|array{title: array<string, string|null>, name: string|null, elements: array<int, array<string, mixed>>, flag?: string}>.'
@@ -221,10 +407,34 @@ parameters:
 			path: repo/src/Core/System/SystemConfig/Util/ConfigReader.php
 
 		-
+			rawMessage: 'Return type array<array{title: array<string, string|null>, name: string|null, elements: array<int, array<string, mixed>>, flag?: string|null}> of method Shopware\Core\System\SystemConfig\Util\ConfigReader::getCardDefinitions() can be narrowed to array<array{title: array<string, string|null>, name: string|null, elements: array<int, array<string, mixed>>, flag?: string}>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Core/System/SystemConfig/Util/ConfigReader.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Test\Stub\Redis\RedisStub::doSet() never returns false so the return type can be changed to true.'
 			identifier: return.tooWideBool
 			count: 1
 			path: repo/src/Core/Test/Stub/Redis/RedisStub.php
+
+		-
+			rawMessage: 'Return type array<array{reason: string}|string> of method Shopware\Elasticsearch\Admin\AdminSearchRegistry::parseErrors() can be narrowed to array<array{reason: string}>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Elasticsearch/Admin/AdminSearchRegistry.php
+
+		-
+			rawMessage: 'Return type array<string, list<array{0: string, 1?: int}|int|string>|string> of method Shopware\Elasticsearch\Admin\AdminSearchRegistry::getSubscribedEvents() can be narrowed to array<string, list<array{0: string, 1?: int}|int|string>>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Elasticsearch/Admin/AdminSearchRegistry.php
+
+		-
+			rawMessage: 'Return type array<string, list<array{0: string, 1?: int}|int|string>|string> of method Shopware\Elasticsearch\Admin\Subscriber\RefreshIndexSubscriber::getSubscribedEvents() can be narrowed to array<string, string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Elasticsearch/Admin/Subscriber/RefreshIndexSubscriber.php
 
 		-
 			rawMessage: 'Cannot access offset non-falsy-string on 1|non-empty-array<non-falsy-string, non-falsy-string|null>|string.'
@@ -239,6 +449,36 @@ parameters:
 			path: repo/src/Elasticsearch/Framework/ElasticsearchFieldMapper.php
 
 		-
+			rawMessage: 'Return type array<int|string, mixed> of method Shopware\Storefront\Controller\CartLineItemController::getLineItemArray() can be narrowed to array<string, mixed>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Storefront/Controller/CartLineItemController.php
+
+		-
+			rawMessage: 'Return type array<int, array<int|string, mixed>> of method Shopware\Storefront\Controller\FormController::handleSubscribe() can be narrowed to array<int, array<string, mixed>>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Storefront/Controller/FormController.php
+
+		-
+			rawMessage: 'Return type array<int, array<int|string, mixed>> of method Shopware\Storefront\Controller\FormController::handleUnsubscribe() can be narrowed to array<int, array<string, mixed>>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Storefront/Controller/FormController.php
+
+		-
+			rawMessage: 'Return type array<string, bool|int|string> of method Shopware\Storefront\Framework\Twig\TemplateConfigAccessor::getStatic() can be narrowed to array<string, int|string|true>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Storefront/Framework/Twig/TemplateConfigAccessor.php
+
+		-
+			rawMessage: 'Return type array<int|string, bool> of method Shopware\Storefront\Theme\Twig\ThemeNamespaceHierarchyBuilder::detectedThemes() can be narrowed to array<int|string, true>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Storefront/Theme/Twig/ThemeNamespaceHierarchyBuilder.php
+
+		-
 			rawMessage: 'Parameter #1 $input of function array_rand expects non-empty-array, array<int, string> given.'
 			identifier: argument.type
 			count: 1
@@ -249,6 +489,24 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/integration/Core/Checkout/Customer/SalesChannel/RegisterRouteTest.php
+
+		-
+			rawMessage: 'Return type array<int|string, array<string, mixed>|string> of method Shopware\Tests\Integration\Core\Checkout\Document\DocumentControllerTest::getDocumentByDocumentIds() can be narrowed to array<int, array<string, mixed>>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Document/DocumentControllerTest.php
+
+		-
+			rawMessage: 'Return type array<int|string, array<string, mixed>|string> of method Shopware\Tests\Integration\Core\Checkout\Document\DocumentGeneratorControllerTest::getDocumentByDocumentIds() can be narrowed to array<int, array<string, mixed>>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Document/DocumentGeneratorControllerTest.php
+
+		-
+			rawMessage: 'Return type array<array{id: string, bindShippingfree: bool, name: string, tax_type: null, availabilityRule: array<string, mixed>, deliveryTime: array{id: string, name: string, min: int, max: int, unit: string}}> of method Shopware\Tests\Integration\Core\Checkout\Shipping\ShippingMethodRepositoryTest::createShippingMethodDummyArray() can be narrowed to array<array{id: string, bindShippingfree: false, name: string, tax_type: null, availabilityRule: array<string, mixed>, deliveryTime: array{id: string, name: string, min: int, max: int, unit: string}}>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Shipping/ShippingMethodRepositoryTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Product\SalesChannel\Detail\ProductConfiguratorOrderTest::ashuffle() never returns false so the return type can be changed to true.'
@@ -281,16 +539,100 @@ parameters:
 			path: repo/tests/integration/Core/Framework/Api/Controller/InfoControllerTest.php
 
 		-
+			rawMessage: 'Return type array{id: string, productNumber: string, stock: int, name: string, ean: string, price: array{array{currencyId: string, gross: int, net: int, linked: bool}}, manufacturer: array{name: string}, tax: array{name: string, taxRate: int}, ...} of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\EntityExtensionTest::getCategoriesData() can be narrowed to array{id: string, productNumber: string, stock: int, name: string, ean: string, price: array{array{currencyId: string, gross: int, net: int, linked: false}}, manufacturer: array{name: string}, tax: array{name: string, taxRate: int}, ...}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/EntityExtensionTest.php
+
+		-
+			rawMessage: 'Return type array{id: string, productNumber: string, stock: int, name: string, ean: string, price: array{array{currencyId: string, gross: int, net: int, linked: bool}}, manufacturer: array{name: string}, tax: array{name: string, taxRate: int}, ...} of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\EntityExtensionTest::getPricesData() can be narrowed to array{id: string, productNumber: string, stock: int, name: string, ean: string, price: array{array{currencyId: string, gross: int, net: int, linked: false}}, manufacturer: array{name: string}, tax: array{name: string, taxRate: int}, ...}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/EntityExtensionTest.php
+
+		-
+			rawMessage: 'Return type array{id: string, productNumber: string, name: string, stock: int, price: array<array{currencyId: string, gross: int, net: int, linked: bool}>, manufacturer: array{name: string}, tax: array{name: string, taxRate: int}, tags: array<array{name: string}>} of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\Search\AntiJoinSearchTest::getTaggedProduct() can be narrowed to array{id: string, productNumber: string, name: string, stock: int, price: array<array{currencyId: string, gross: int, net: int, linked: false}>, manufacturer: array{name: string}, tax: array{name: string, taxRate: int}, tags: array<array{name: string}>}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/Search/AntiJoinSearchTest.php
+
+		-
 			rawMessage: 'Parameter #1 $data of static method Composer\InstalledVersions::reload() expects array{root: array{name: string, pretty_version: string, version: string, reference: string|null, type: string, install_path: string, aliases: array<string>, dev: bool}, versions: array<string, array{pretty_version?: string, version?: string, reference?: string|null, type?: string, install_path?: string, aliases?: array<string>, dev_requirement: bool, replaced?: array<string>, ...}>}, array{root?: array{name: string, pretty_version: string, version: string, reference: string|null, type: string, install_path: string, aliases: array<string>, dev: bool}, versions: array{}} given.'
 			identifier: argument.type
 			count: 1
 			path: repo/tests/integration/Core/Framework/Plugin/KernelPluginLoader/ComposerPluginLoaderTest.php
 
 		-
-			rawMessage: 'Offset int|string might not exist on array<string, mixed>.'
+			rawMessage: 'Return type array<string, array<string, string>|bool|string> of method Shopware\Tests\Integration\Storefront\Controller\ScriptControllerTest::getRegistrationData() can be narrowed to array<string, array<string, string>|string|true>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/integration/Storefront/Controller/ScriptControllerTest.php
+
+		-
+			rawMessage: 'Return type array{id: string, name: string, active: bool, languages: array<array{id: string}>, domains: array<array{id: string, url: string, languageId: string, currencyId: string, snippetSetId: string}>} of method Shopware\Tests\Integration\Storefront\Framework\Routing\RequestTransformerTest::getEnglishSalesChannel() can be narrowed to array{id: string, name: string, active: true, languages: array<array{id: string}>, domains: array<array{id: string, url: string, languageId: string, currencyId: string, snippetSetId: string}>}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/integration/Storefront/Framework/Routing/RequestTransformerTest.php
+
+		-
+			rawMessage: 'Return type array{id: string, name: string, active: bool, languages: array<array{id: string}>, domains: array<array{id: string, url: string, languageId: string, currencyId: string, snippetSetId: string}>} of method Shopware\Tests\Integration\Storefront\Framework\Routing\RequestTransformerTest::getGermanSalesChannel() can be narrowed to array{id: string, name: string, active: true, languages: array<array{id: string}>, domains: array<array{id: string, url: string, languageId: string, currencyId: string, snippetSetId: string}>}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/integration/Storefront/Framework/Routing/RequestTransformerTest.php
+
+		-
+			rawMessage: 'Return type array{id: string, name: string, active: bool, languages: array<array{id: string}>, domains: array<array{id: string, url: string, languageId: string, currencyId: string, snippetSetId: string}>} of method Shopware\Tests\Integration\Storefront\Framework\Routing\RequestTransformerTest::getInactiveSalesChannel() can be narrowed to array{id: string, name: string, active: false, languages: array<array{id: string}>, domains: array<array{id: string, url: string, languageId: string, currencyId: string, snippetSetId: string}>}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/integration/Storefront/Framework/Routing/RequestTransformerTest.php
+
+		-
+			rawMessage: 'Return type array{id: string, name: string, active: bool, languages: array<array{id: string}>, domains: array<array{id: string, url: string, languageId: string, currencyId: string, snippetSetId: string}>} of method Shopware\Tests\Integration\Storefront\Framework\Routing\RequestTransformerTest::getSalesChannelWithGerAndUkDomain() can be narrowed to array{id: string, name: string, active: true, languages: array<array{id: string}>, domains: array<array{id: string, url: string, languageId: string, currencyId: string, snippetSetId: string}>}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/integration/Storefront/Framework/Routing/RequestTransformerTest.php
+
+		-
+			rawMessage: 'Return type array<string, array<int<0, max>|string, array<string, bool|int|string>|int|string>|int|string> of method Shopware\Tests\Integration\Storefront\Integration\ProductVisibilityTest::createProduct() can be narrowed to array<string, array<int<0, max>|string, array<string, int|string|false>|int|string>|int|string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/integration/Storefront/Integration/ProductVisibilityTest.php
+
+		-
+			rawMessage: 'Return type array<string, string|null> of method Shopware\Tests\Integration\Storefront\Theme\ConfigLoader\DatabaseConfigLoaderTest::field() can be narrowed to array<string, string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/integration/Storefront/Theme/ConfigLoader/DatabaseConfigLoaderTest.php
+
+		-
+			rawMessage: 'Return type array<int|string, mixed> of method Shopware\Tests\Migration\Core\V6_6\Migration1700746995ReplaceSortingOptionKeysWithSortingOptionIdsTest::addCategoryConfig() can be narrowed to array<int, mixed>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1700746995ReplaceSortingOptionKeysWithSortingOptionIdsTest.php
+
+		-
+			rawMessage: 'Return type array<int|string, mixed> of method Shopware\Tests\Migration\Core\V6_6\Migration1700746995ReplaceSortingOptionKeysWithSortingOptionIdsTest::addCorruptedCategoryConfig() can be narrowed to array<int, mixed>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1700746995ReplaceSortingOptionKeysWithSortingOptionIdsTest.php
+
+		-
+			rawMessage: 'Return type array<int|string, mixed> of method Shopware\Tests\Migration\Core\V6_6\Migration1700746995ReplaceSortingOptionKeysWithSortingOptionIdsTest::addCorruptedCategoryConfigWithWrongStructure() can be narrowed to array<int, mixed>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1700746995ReplaceSortingOptionKeysWithSortingOptionIdsTest.php
+
+		-
+			rawMessage: 'Offset int|string might not exist on non-empty-array<string, mixed>.'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: repo/tests/unit/Administration/Framework/Twig/ViteFileAccessorDecoratorTest.php
+
+		-
+			rawMessage: 'Return type array{increment: int, id: string, created_at: string, updated_at: string|null} of method Shopware\Tests\Unit\Core\Content\Sitemap\Provider\CategoryUrlProviderTest::createCategoryResult() can be narrowed to array{increment: int, id: string, created_at: string, updated_at: null}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/unit/Core/Content/Sitemap/Provider/CategoryUrlProviderTest.php
 
 		-
 			rawMessage: 'Offset non-falsy-string|null might not exist on array<non-falsy-string, array<array{and_logic: string, field: string, tokenize: int, ranking: float}>>.'
@@ -321,3 +663,21 @@ parameters:
 			identifier: return.tooWideBool
 			count: 1
 			path: repo/tests/unit/Core/Framework/Test/TestCaseHelper/ReflectionHelperTest.php
+
+		-
+			rawMessage: 'Return type array{match: array<string, array{query: float|int|string, boost: float, fuzziness?: int|string|null}>} of method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::match() can be narrowed to array{match: array<string, array{query: float|int|string, boost: float, fuzziness?: int|string}>}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Return type array{match: array<string, array{query: float|int|string, boost: float, fuzziness?: int|string|null}>} of method Shopware\Tests\Unit\Elasticsearch\TokenQueryBuilderTest::match() can be narrowed to array{match: array<string, array{query: float|int|string, boost: float, fuzziness?: int|string}>}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/unit/Elasticsearch/TokenQueryBuilderTest.php
+
+		-
+			rawMessage: 'Return type array{term: array<string, array{value: float|int|string, boost: float|int}>} of method Shopware\Tests\Unit\Elasticsearch\TokenQueryBuilderTest::term() can be narrowed to array{term: array<string, array{value: float|int|string, boost: float}>}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/unit/Elasticsearch/TokenQueryBuilderTest.php
