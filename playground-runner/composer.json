@@ -1,7 +1,7 @@
 {
 	"require": {
-		"php": "^8.3",
-		"bref/bref": "^2.0.0",
+		"php": "^8.4",
+		"bref/bref": "^3.0.0",
 		"jean85/pretty-package-versions": "^2.0.4",
 		"nette/di": "^3.0",
 		"nette/neon": "^3.3",
@@ -14,6 +14,9 @@
 		"symfony/console": "^7.0"
 	},
 	"config": {
+        "platform": {
+            "php": "8.4.99"
+        },
 		"sort-packages": true,
 		"allow-plugins": {
 			"php-http/discovery": false
