@@ -9666,6 +9666,11 @@
                 "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Methods/WrongCaseOfInheritedMethodRule.php#L83"
             ]
         },
+        "PHPStan\\Rules\\PHPUnit\\DataProviderDataRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L145"
+            ]
+        },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L145"
@@ -12647,6 +12652,11 @@
         }
     },
     "phpunit.dataProviderClass": {
+        "PHPStan\\Rules\\PHPUnit\\DataProviderDataRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L117"
+            ]
+        },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L117"
@@ -12654,6 +12664,11 @@
         }
     },
     "phpunit.dataProviderMethod": {
+        "PHPStan\\Rules\\PHPUnit\\DataProviderDataRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L131"
+            ]
+        },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L131"
@@ -12661,6 +12676,11 @@
         }
     },
     "phpunit.dataProviderPublic": {
+        "PHPStan\\Rules\\PHPUnit\\DataProviderDataRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L155"
+            ]
+        },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L155"
@@ -12668,6 +12688,11 @@
         }
     },
     "phpunit.dataProviderStatic": {
+        "PHPStan\\Rules\\PHPUnit\\DataProviderDataRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L165"
+            ]
+        },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L165"
