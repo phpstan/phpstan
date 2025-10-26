@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/brefphp/bref.git",
-                "reference": "afda801f0c253560b7cab00b1dc1ba28a4b01d59"
+                "reference": "8a102f27dd662cc6e4f80486291e77e2205e5e26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brefphp/bref/zipball/afda801f0c253560b7cab00b1dc1ba28a4b01d59",
-                "reference": "afda801f0c253560b7cab00b1dc1ba28a4b01d59",
+                "url": "https://api.github.com/repos/brefphp/bref/zipball/8a102f27dd662cc6e4f80486291e77e2205e5e26",
+                "reference": "8a102f27dd662cc6e4f80486291e77e2205e5e26",
                 "shasum": ""
             },
             "require": {
@@ -83,7 +83,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-10-24T09:38:11+00:00"
+            "time": "2025-10-26T19:15:56+00:00"
         },
         {
             "name": "clue/stream-filter",
