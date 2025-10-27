@@ -31,15 +31,21 @@ final class ControllerActionReturnTypeIgnoreExtension implements IgnoreErrorExte
 			return false;
 		}
 
-		if (! $node instanceof InClassMethodNode) {
+		if (!$scope->isInClass()) {
+			return false;
+		}
+		$classReflection = $scope->getClassReflection();
+
+		$methodReflection = $scope->getFunction();
+		if ($methodReflection === null) {
 			return false;
 		}
 
-		if (!str_ends_with($node->getClassReflection()->getName(), 'Controller')) {
+		if (!str_ends_with($classReflection->getName(), 'Controller')) {
 			return false;
 		}
 
-		if (!str_ends_with($node->getMethodReflection()->getName(), 'Action')) {
+		if (!str_ends_with($methodReflection->getName(), 'Action')) {
 			return false;
 		}
 
