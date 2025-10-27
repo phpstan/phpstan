@@ -20,7 +20,6 @@ use PhpParser\Node;
 use PHPStan\Analyser\Error;
 use PHPStan\Analyser\IgnoreErrorExtension;
 use PHPStan\Analyser\Scope;
-use PHPStan\Node\InClassMethodNode;
 
 // This extension will ignore "missingType.iterableValue" errors for public Action methods inside Controller classes.
 final class ControllerActionReturnTypeIgnoreExtension implements IgnoreErrorExtension
