@@ -12551,36 +12551,36 @@
     "phpunit.assertCount": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameWithCountRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L51",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L67"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L52",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L68"
             ]
         }
     },
     "phpunit.assertEquals": {
         "PHPStan\\Rules\\PHPUnit\\AssertEqualsIsDiscouragedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertEqualsIsDiscouragedRule.php#L71"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertEqualsIsDiscouragedRule.php#L74"
             ]
         }
     },
     "phpunit.assertFalse": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameBooleanExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L54"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L56"
             ]
         }
     },
     "phpunit.assertNull": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameNullExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameNullExpectedRule.php#L48"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameNullExpectedRule.php#L50"
             ]
         }
     },
     "phpunit.assertTrue": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameBooleanExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L48"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L50"
             ]
         }
     },
