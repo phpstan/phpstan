@@ -12690,12 +12690,12 @@
     "phpunit.dataProviderStatic": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDataRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L165"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L169"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L165"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L169"
             ]
         }
     },
