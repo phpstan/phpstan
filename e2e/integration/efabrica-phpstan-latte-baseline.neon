@@ -1,7 +1,91 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: 'Return type array<string, array{object|string, string}|(callable(): mixed)|string> of method Efabrica\PHPStanLatte\Compiler\Compiler\Latte2Compiler::getFunctions() can be narrowed to array<string, array{string, string}|(callable(): mixed)|string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Compiler/Compiler/Latte2Compiler.php
+
+		-
+			rawMessage: 'Return type array<string, array{object|string, string}|(callable(): mixed)|string> of method Efabrica\PHPStanLatte\Compiler\Compiler\Latte3Compiler::getFilters() can be narrowed to array<string, array{string, string}|(callable(): mixed)|string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Compiler/Compiler/Latte3Compiler.php
+
+		-
+			rawMessage: 'Return type array<string, array{object|string, string}|(callable(): mixed)|string> of method Efabrica\PHPStanLatte\Compiler\Compiler\Latte3Compiler::getFunctions() can be narrowed to array<string, array{string, string}|(callable(): mixed)|string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Compiler/Compiler/Latte3Compiler.php
+
+		-
 			rawMessage: 'Parameter #3 of function sprintf is expected to be int by placeholder #2 ("%%d"), string given.'
 			identifier: argument.type
 			count: 1
 			path: repo/src/Error/TableErrorFormatter.php
+
+		-
+			rawMessage: 'Return type array<Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedError|Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedTemplateRender> of method Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedTemplateRender::buildAll() can be narrowed to array<Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedTemplateRender>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/LatteContext/CollectedData/CollectedTemplateRender.php
+
+		-
+			rawMessage: 'Return type array<Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedError|string>|null of method Efabrica\PHPStanLatte\LatteContext\Collector\TemplatePathCollector\SetFileTemplatePathCollector::collect() can be narrowed to array<string>|null.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/LatteContext/Collector/TemplatePathCollector/SetFileTemplatePathCollector.php
+
+		-
+			rawMessage: 'Return type array<Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedError|Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedVariable>|null of method Efabrica\PHPStanLatte\LatteContext\Collector\VariableCollector\AddToTemplateVariableCollector::collect() can be narrowed to array<Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedVariable>|null.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/LatteContext/Collector/VariableCollector/AddToTemplateVariableCollector.php
+
+		-
+			rawMessage: 'Return type array<Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedError|Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedVariable>|null of method Efabrica\PHPStanLatte\LatteContext\Collector\VariableCollector\AssignToArrayOfTemplateVariablesCollector::collect() can be narrowed to array<Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedVariable>|null.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/LatteContext/Collector/VariableCollector/AssignToArrayOfTemplateVariablesCollector.php
+
+		-
+			rawMessage: 'Return type array<Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedError|Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedVariable>|null of method Efabrica\PHPStanLatte\LatteContext\Collector\VariableCollector\AssignToTemplateVariableCollector::collect() can be narrowed to array<Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedVariable>|null.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/LatteContext/Collector/VariableCollector/AssignToTemplateVariableCollector.php
+
+		-
+			rawMessage: 'Return type array<Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedError|Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedVariable>|null of method Efabrica\PHPStanLatte\LatteContext\Collector\VariableCollector\SetParametersToTemplateVariableCollector::collect() can be narrowed to array<Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedVariable>|null.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/LatteContext/Collector/VariableCollector/SetParametersToTemplateVariableCollector.php
+
+		-
+			rawMessage: 'Return type array<''object''|class-string> of method Efabrica\PHPStanLatte\LatteTemplateResolver\Nette\NetteApplicationUIControl::getSupportedClasses() can be narrowed to array<class-string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/LatteTemplateResolver/Nette/NetteApplicationUIControl.php
+
+		-
+			rawMessage: 'Return type array<''object''|class-string> of method Efabrica\PHPStanLatte\LatteTemplateResolver\Nette\NetteApplicationUIPresenter::getSupportedClasses() can be narrowed to array<class-string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/LatteTemplateResolver/Nette/NetteApplicationUIPresenter.php
+
+		-
+			rawMessage: 'Return type array{templateContext: Efabrica\PHPStanLatte\Template\TemplateContext, line: int, renders: array<Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedTemplateRender>, defaultTemplate: string|null, templatePaths: array<string|null>, terminated: bool} of method Efabrica\PHPStanLatte\LatteTemplateResolver\Nette\NetteApplicationUIPresenter::createActionDefinition() can be narrowed to array{templateContext: Efabrica\PHPStanLatte\Template\TemplateContext, line: int, renders: array<Efabrica\PHPStanLatte\LatteContext\CollectedData\CollectedTemplateRender>, defaultTemplate: string|null, templatePaths: array<string|null>, terminated: false}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/LatteTemplateResolver/Nette/NetteApplicationUIPresenter.php
+
+		-
+			rawMessage: 'Return type array<''object''|class-string> of method Efabrica\PHPStanLatte\LatteTemplateResolver\Nette\NetteApplicationUIPresenterStandalone::getSupportedClasses() can be narrowed to array<class-string>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/LatteTemplateResolver/Nette/NetteApplicationUIPresenterStandalone.php
+
+		-
+			rawMessage: 'Return type array{type: PHPStan\Type\Type, name: string|null} of method Efabrica\PHPStanLatte\PhpDoc\LattePhpDocResolver::parseTypeAndName() can be narrowed to array{type: PHPStan\Type\Type, name: string}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/PhpDoc/LattePhpDocResolver.php
