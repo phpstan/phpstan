@@ -1002,7 +1002,7 @@
         },
         "PHPStan\\Rules\\Functions\\RandomIntParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Functions/RandomIntParametersRule.php#L76"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Functions/RandomIntParametersRule.php#L75"
             ]
         },
         "PHPStan\\Rules\\Functions\\SortParameterCastableToStringRule": {
