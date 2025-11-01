@@ -3260,7 +3260,14 @@
     "class.allowDynamicPropertiesReadonly": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/ClassAttributesRule.php#L62"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/ClassAttributesRule.php#L72"
+            ]
+        }
+    },
+    "class.deprecatedAttribute": {
+        "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/ClassAttributesRule.php#L49"
             ]
         }
     },
@@ -5631,7 +5638,7 @@
     "enum.allowDynamicProperties": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/ClassAttributesRule.php#L62"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/ClassAttributesRule.php#L72"
             ]
         }
     },
@@ -5660,6 +5667,13 @@
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L59"
+            ]
+        }
+    },
+    "enum.deprecatedAttribute": {
+        "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/ClassAttributesRule.php#L49"
             ]
         }
     },
@@ -8691,7 +8705,14 @@
     "interface.allowDynamicProperties": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/ClassAttributesRule.php#L62"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/ClassAttributesRule.php#L72"
+            ]
+        }
+    },
+    "interface.deprecatedAttribute": {
+        "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/ClassAttributesRule.php#L49"
             ]
         }
     },
@@ -15832,7 +15853,19 @@
     "trait.allowDynamicProperties": {
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Traits/TraitAttributesRule.php#L45"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Traits/TraitAttributesRule.php#L56"
+            ]
+        }
+    },
+    "trait.deprecatedAttribute": {
+        "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/ClassAttributesRule.php#L49"
+            ]
+        },
+        "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Traits/TraitAttributesRule.php#L48"
             ]
         }
     },
