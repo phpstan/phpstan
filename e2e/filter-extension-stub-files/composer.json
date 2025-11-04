@@ -1,0 +1,48 @@
+{
+  "config": {
+    "vendor-dir": "deploy/app/vendor",
+    "preferred-install": "dist",
+    "prefer-stable": true,
+    "allow-plugins": {
+      "phpstan/extension-installer": true,
+      "php-http/discovery": true
+    }
+  },
+  "require-dev": {
+    "phpstan/extension-installer": "^1.0",
+    "phpstan/phpstan": "^2.1",
+    "phpstan/phpstan-doctrine": "^2.0",
+    "phpstan/phpstan-phpunit": "^2"
+  },
+  "require": {
+    "php": ">=8.3"
+  },
+  "repositories": {},
+  "scripts": {
+    "post-install-cmd": [],
+    "post-update-cmd": []
+  },
+  "extra": {
+    "symfony": {
+      "allow-contrib": false,
+      "require": "5.0.*"
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "phpstantest\\": [
+        "deploy/app/include/phpstantest",
+        "tests/cases/units/phpstantest",
+        "tests/cases/integration/phpstantest"
+      ],
+      "platform\\test\\services\\": [
+        "tests/test-services/"
+      ],
+      "platform\\dependencyinjection\\": [
+        "deploy/app/generated/di"
+      ]
+    }
+  },
+  "name": "phpstan/test",
+  "description": "minimal phpstan repo"
+}

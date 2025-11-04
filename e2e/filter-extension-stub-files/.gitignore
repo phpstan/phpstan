@@ -1,0 +1,3 @@
+# php vendor and other assets
+#composer.phar
+/deploy/app/vendor

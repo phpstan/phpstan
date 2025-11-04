@@ -408,6 +408,13 @@ jobs:
             script: |
               cd e2e/filter-phar-stub-files
               ../../phpstan
+          - php-version: 8.4
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/filter-extension-stub-files
+              composer install
+              ../../phpstan
 
     steps:
       - name: "Checkout"
