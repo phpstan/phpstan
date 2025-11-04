@@ -13,6 +13,12 @@ parameters:
 			path: repo/src/Framework/MockObject/Runtime/Rule/AnyParameters.php
 
 		-
+			rawMessage: 'Return type array{backupGlobals: bool|null, backupGlobalsExcludeList: list<string>, backupStaticProperties: bool|null, backupStaticPropertiesExcludeList: array<string, list<string>>} of method PHPUnit\Framework\TestBuilder::backupSettings() can be narrowed to array{backupGlobals: true|null, backupGlobalsExcludeList: list<string>, backupStaticProperties: true|null, backupStaticPropertiesExcludeList: array<string, list<string>>}.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/src/Framework/TestBuilder.php
+
+		-
 			rawMessage: Assert references unknown $this->instance.
 			identifier: assert.unknownExpr
 			count: 1
@@ -33,6 +39,12 @@ parameters:
 		-
 			rawMessage: 'Method PHPUnit\Runner\ErrorHandler::__invoke() never returns true so the return type can be changed to false.'
 			identifier: return.tooWideBool
+			count: 1
+			path: repo/src/Runner/ErrorHandler.php
+
+		-
+			rawMessage: 'Return type list<array{file: string, line: int|null, class?: class-string, function?: string, type: string}> of method PHPUnit\Runner\ErrorHandler::errorStackTrace() can be narrowed to list<array{file: string, line: int, class?: class-string, function?: string, type: string}>.'
+			identifier: return.nestedUnusedType
 			count: 1
 			path: repo/src/Runner/ErrorHandler.php
 
