@@ -13045,7 +13045,7 @@
     "postDec.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L89"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L90"
             ]
         }
     },
@@ -13059,14 +13059,14 @@
     "postDec.type": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L133"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L154"
             ]
         }
     },
     "postInc.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L89"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L90"
             ]
         }
     },
@@ -13080,7 +13080,7 @@
     "postInc.type": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L133"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L154"
             ]
         }
     },
@@ -13101,7 +13101,7 @@
     "preDec.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L89"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L90"
             ]
         }
     },
@@ -13115,14 +13115,14 @@
     "preDec.type": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L133"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L154"
             ]
         }
     },
     "preInc.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L89"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L90"
             ]
         }
     },
@@ -13136,7 +13136,7 @@
     "preInc.type": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L133"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L154"
             ]
         }
     },
