@@ -31,28 +31,10 @@ parameters:
 			path: repo/src/Driver/SQLSrv/Result.php
 
 		-
-			rawMessage: 'Method Doctrine\DBAL\Driver\SQLite3\Result::rowCount() has Doctrine\DBAL\Driver\Exception in PHPDoc @throws tag but it''s not thrown.'
-			identifier: throws.unusedType
-			count: 1
-			path: repo/src/Driver/SQLite3/Result.php
-
-		-
 			rawMessage: 'Only booleans are allowed in a while condition, int|false given.'
 			identifier: while.condNotBoolean
 			count: 1
 			path: repo/src/Schema/SQLServerSchemaManager.php
-
-		-
-			rawMessage: 'Method Doctrine\DBAL\Connection@anonymous/tests/ConnectionTest.php:735::commit() has Doctrine\DBAL\Exception in PHPDoc @throws tag but it''s not thrown.'
-			identifier: throws.unusedType
-			count: 1
-			path: repo/tests/ConnectionTest.php
-
-		-
-			rawMessage: 'Method Doctrine\DBAL\Connection@anonymous/tests/ConnectionTest.php:735::rollBack() has Doctrine\DBAL\Exception in PHPDoc @throws tag but it''s not thrown.'
-			identifier: throws.unusedType
-			count: 1
-			path: repo/tests/ConnectionTest.php
 
 		-
 			rawMessage: 'Only booleans are allowed in a while condition, mixed given.'
@@ -73,7 +55,49 @@ parameters:
 			path: repo/tests/Functional/Query/QueryBuilderTest.php
 
 		-
+			rawMessage: 'Return type array<array<string, int|string>> of method Doctrine\DBAL\Tests\Functional\Query\QueryBuilderTest::prepareExpectedRows() can be narrowed to array<array<string, int>>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/Functional/Query/QueryBuilderTest.php
+
+		-
 			rawMessage: Cannot unset property Doctrine\DBAL\Tests\FunctionalTestCase::$connection because it might have hooks in a subclass.
 			identifier: unset.possiblyHookedProperty
 			count: 1
 			path: repo/tests/FunctionalTestCase.php
+
+		-
+			rawMessage: 'Parameter #1 $record of method Psr\Log\Test\TestLogger::hasDebug() expects array{level: string, message: string|Stringable, context: array{exception?: Throwable}}|string, array{message: ''Executing query: …'', context: array{sql: ''SELECT 1''}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/Logging/MiddlewareTest.php
+
+		-
+			rawMessage: 'Parameter #1 $record of method Psr\Log\Test\TestLogger::hasDebug() expects array{level: string, message: string|Stringable, context: array{exception?: Throwable}}|string, array{message: ''Executing statement…'', context: array{sql: ''DROP DATABASE…''}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/Logging/MiddlewareTest.php
+
+		-
+			rawMessage: 'Parameter #1 $record of method Psr\Log\Test\TestLogger::hasDebug() expects array{level: string, message: string|Stringable, context: array{exception?: Throwable}}|string, array{message: ''Executing statement…'', context: array{sql: ''SELECT :value'', params: array{value: ''Test''}, types: array{value: Doctrine\DBAL\ParameterType::STRING}}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/Logging/MiddlewareTest.php
+
+		-
+			rawMessage: 'Parameter #1 $record of method Psr\Log\Test\TestLogger::hasDebug() expects array{level: string, message: string|Stringable, context: array{exception?: Throwable}}|string, array{message: ''Executing statement…'', context: array{sql: ''SELECT ?, ?'', params: array{1: 42}, types: array{1: Doctrine\DBAL\ParameterType::INTEGER}}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/Logging/MiddlewareTest.php
+
+		-
+			rawMessage: 'Parameter #1 $record of method Psr\Log\Test\TestLogger::hasInfo() expects array{level: string, message: string|Stringable, context: array{exception?: Throwable}}|string, array{message: ''Connecting with…'', context: array{params: array{user: ''admin'', password: ''<redacted>''}}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/Logging/MiddlewareTest.php
+
+		-
+			rawMessage: 'Return type iterable<string, array{string, array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...}}> of method Doctrine\DBAL\Tests\Tools\DsnParserTest::databaseUrls() can be narrowed to iterable<string, array{string, array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...}}>.'
+			identifier: return.nestedUnusedType
+			count: 1
+			path: repo/tests/Tools/DsnParserTest.php
