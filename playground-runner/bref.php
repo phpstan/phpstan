@@ -41,6 +41,7 @@ return function ($event) use ($phpstanVersion) {
 	$rootDir = getenv('LAMBDA_TASK_ROOT');
 	$configFiles = [
 		$rootDir . '/playground.neon',
+        $rootDir . '/vendor/phpstan/phpstan-deprecation-rules/rules.neon',
 	];
 	foreach ([
 		'strictRules' => $rootDir . '/vendor/phpstan/phpstan-strict-rules/rules.neon',

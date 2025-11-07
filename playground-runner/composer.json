@@ -8,6 +8,7 @@
 		"nikic/php-parser": "^5.1",
 		"php-http/curl-client": "^2.2",
 		"phpstan/phpstan": "^2.0",
+		"phpstan/phpstan-deprecation-rules": "^2.0",
 		"phpstan/phpstan-strict-rules": "^2.0",
 		"sebastian/diff": "^7.0",
 		"sentry/sentry": "^4.0",
