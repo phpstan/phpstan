@@ -177,6 +177,17 @@ services:
 			- phpstan.constants.alwaysUsedClassConstantsExtension
 ```
 
+
+What about unused public members?
+-----------------------
+
+Although native PHPStan does not perform full-codebase analysis of unused code, there is a third party PHPStan extension for it:
+
+- [shipmonk/dead-code-detector](https://github.com/shipmonk-rnd/dead-code-detector)
+
+Even PHPStan source code itself uses it to ensure no leftovers are present!
+
+
 One more thing
 -----------------------
 
