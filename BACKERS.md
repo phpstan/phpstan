@@ -65,6 +65,7 @@ the logo of your company in PHPStan's README and the website.
 
 <!-- small-org --><li><a href="https://github.com/polylang">Polylang (polylang)</a></li>
 <li><a href="https://github.com/Enkora">Enkora Oy (Enkora)</a></li>
+<li><a href="https://github.com/soster">Stefan Ostermann (soster)</a></li>
 <!-- small-org -->
 </ul>
 
