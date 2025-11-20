@@ -47,7 +47,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/inviqa">Inviqa (inviqa)</a></li>
 <li><a href="https://github.com/hephaist-io">Hephaist.io (hephaist-io)</a></li>
 <li><a href="https://github.com/Edgenext2024"> (Edgenext2024)</a></li>
-<li><a href="https://github.com/FameHelsinki">Fame Helsinki (FameHelsinki)</a></li>
 <li><a href="https://github.com/route4me">Route4Me Route Planner (route4me)</a></li>
 <li><a href="https://github.com/belsimpel">Belsimpel.nl B.V. (belsimpel)</a></li>
 <li><a href="https://github.com/storyblok">Storyblok (storyblok)</a></li>
@@ -141,6 +140,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/amsoell">Andy Soell (amsoell)</a></li>
 <li><a href="https://github.com/pauci">Pavol Kirschbaum (pauci)</a></li>
 <li><a href="https://github.com/maantje">Jamie Schouten (maantje)</a></li>
+<li><a href="https://github.com/Crovitche-1623">Thibault Gattolliat (Crovitche-1623)</a></li>
 <!-- indi -->
 
 <!-- indi-org --><li><a href="https://github.com/hxv">Michał Włodarczyk (hxv)</a></li>
