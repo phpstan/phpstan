@@ -9,6 +9,7 @@ the logo of your company in PHPStan's README and the website.
 # Gold Company Sponsors
 
 <ul>
+<li><a href="https://github.com/check24">CHECK24</a></li>
 <!-- gold --><li><a href="https://github.com/m">Matt Mullenweg (m)</a></li>
 <!-- gold -->
 
