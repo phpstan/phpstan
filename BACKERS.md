@@ -22,6 +22,7 @@ the logo of your company in PHPStan's README and the website.
 
 <ul>
 <li><a href="https://www.startupjobs.cz/startup/shipmonk">Shipmonk</a></li>
+<li><a href="https://www.shopware.com/en/">Shopware</a></li>
 <!-- silver --><!-- silver -->
 
 <!-- silver-org --><!-- silver-org -->
@@ -32,8 +33,8 @@ the logo of your company in PHPStan's README and the website.
 <ul>
 <li><a href="https://packagist.com/">Private Packagist</a></li>
 <li><a href="https://www.contentkingapp.com/?ref=php-developer&utm_source=phpstan&utm_medium=referral&utm_campaign=sponsorship">ContentKing</a></li>
-<li><a href="https://www.shopware.com/en/">Shopware</a></li>
 <li><a href="https://www.campoint.net">campoint AG</a></li>
+<li><a href="https://www.shoptet.cz/">Shoptet</a></li>
 <!-- bronze --><li><a href="https://github.com/yositosi"> (yositosi)</a></li>
 <li><a href="https://github.com/blackfireio">Blackfire (blackfireio)</a></li>
 <li><a href="https://github.com/RightCapitalHQ">RightCapital (RightCapitalHQ)</a></li>
