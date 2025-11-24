@@ -11,10 +11,6 @@ plugins:
 - serverless-plugin-typescript
 - serverless-offline
 
-package:
-  patterns:
-    - '!node_modules/**'
-
 functions:
   analyseResult:
     handler: handler.analyseResult
