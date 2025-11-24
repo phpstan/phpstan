@@ -12,6 +12,10 @@ provider:
 plugins:
     - ./vendor/bref/bref
 
+package:
+  patterns:
+    - '!node_modules/**'
+
 functions:
     main:
         handler: bref.php
