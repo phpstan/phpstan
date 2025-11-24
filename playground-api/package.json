@@ -16,7 +16,6 @@
 		"ansi-to-html": "^0.7.0",
 		"aws-sdk": "^2.1335.0",
 		"middy": "^0.36.0",
-		"osls": "^3.59.3",
 		"uuid": "^9.0.0"
 	},
 	"devDependencies": {
@@ -27,6 +26,7 @@
 		"@typescript-eslint/eslint-plugin": "^6.7.5",
 		"@typescript-eslint/parser": "^6.7.5",
 		"eslint": "^8.51.0",
+		"osls": "^3.59.3",
 		"serverless-offline": "13.9.0",
 		"serverless-plugin-typescript": "^2.0.0",
 		"typescript": "^5.0.2"
