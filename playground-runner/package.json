@@ -7,7 +7,7 @@
 	},
 	"author": "",
 	"license": "MIT",
-	"devDependencies": {
-		"serverless": "^3.0.0"
+	"dependencies": {
+		"osls": "^3.59.3"
 	}
 }
