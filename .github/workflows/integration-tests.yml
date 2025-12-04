@@ -394,7 +394,7 @@ jobs:
             baseline-file: drupal-baseline.neon
           - php-version: 8.4
             repo: briannesbitt/Carbon
-            ref: 3.10.3
+            ref: 3.11.0
             setup: |
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../carbon.neon
