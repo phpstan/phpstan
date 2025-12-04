@@ -7,5 +7,10 @@
 		"psr-4": {
 			"App\\": "src"
 		}
-	}
+	},
+    "config": {
+        "audit": {
+            "block-insecure": false
+        }
+    }
 }
