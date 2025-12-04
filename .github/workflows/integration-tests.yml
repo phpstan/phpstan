@@ -194,9 +194,9 @@ jobs:
             baseline-file: rector-baseline.neon
           - php-version: 8.4
             repo: sebastianbergmann/phpunit
-            ref: 126f4080d457e133b5e6c22c4838d1af1e1f5664
+            ref: 12.4.5
             setup: |
-              export COMPOSER_ROOT_VERSION=12.1.0
+              export COMPOSER_ROOT_VERSION=12.4.5
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../phpunit.neon
             baseline-file: phpunit-baseline.neon
