@@ -9,3 +9,8 @@ parameters:
 			message: "#^Instantiated class DOMImplementationSource not found\\.$#"
 			count: 1
 			path: test.php
+
+		-
+			rawMessage: Negated boolean expression is always true.
+			count: 1
+			path: test.php
