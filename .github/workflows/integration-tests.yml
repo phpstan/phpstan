@@ -429,7 +429,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-            phpstan-command: ../../../phpstan.phar analyse
+            phpstan-command: ../../../phpstan.phar analyse -c ../bladestan.neon
             baseline-file: bladestan-baseline.neon
 #          - php-version: 8.2
 #            repo: reactphp/promise
