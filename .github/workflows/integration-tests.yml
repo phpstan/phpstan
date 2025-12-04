@@ -570,7 +570,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: "pmmp/PocketMine-MP"
-          ref: 45698e4bb9012766c1fb0a2bad64d2621707f9b5
+          ref: 5.37.3
           path: e2e/integration/repo
 
       - name: "Install dependencies"
