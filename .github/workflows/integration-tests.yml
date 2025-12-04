@@ -198,7 +198,11 @@ jobs:
             setup: |
               export COMPOSER_ROOT_VERSION=12.4.5
               composer install
-            phpstan-command: ../../../phpstan.phar analyse -c ../phpunit.neon
+              composer install --working-dir tools/.phpstan
+              cp ../../../phpstan.phar tools/.phpstan/vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan tools/.phpstan/vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php tools/.phpstan/vendor/phpstan/phpstan/bootstrap.php
+            phpstan-command: tools/.phpstan/vendor/bin/phpstan analyse -c ../phpunit.neon
             baseline-file: phpunit-baseline.neon
           - php-version: 8.2
             repo: laravel/framework
