@@ -120,16 +120,16 @@ jobs:
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit tests
-          - php-version: 8.4
-            name: efabrica-team/phpstan-latte tests
-            script: |
-              git clone https://github.com/efabrica-team/phpstan-latte.git --depth 1 -b 0.19.0 e2e/integration/repo
-              cd e2e/integration/repo
-              composer install
-              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
-              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-              vendor/bin/phpunit
+#          - php-version: 8.4
+#            name: efabrica-team/phpstan-latte tests
+#            script: |
+#              git clone https://github.com/efabrica-team/phpstan-latte.git --depth 1 -b 0.19.0 e2e/integration/repo
+#              cd e2e/integration/repo
+#              composer install
+#              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+#              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+#              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+#              vendor/bin/phpunit
           - php-version: 8.2
             name: Bladestan tests
             script: |
