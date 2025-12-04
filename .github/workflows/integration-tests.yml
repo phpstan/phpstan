@@ -290,7 +290,7 @@ jobs:
 #            baseline-file: prestashop-baseline.neon
           - php-version: 8.4
             repo: shopware/shopware
-            ref: v6.7.2.2
+            ref: v6.7.5.0
             setup: |
               composer install
               composer run framework:schema:dump
