@@ -236,7 +236,7 @@ jobs:
 #            baseline-file: composer-baseline.neon
           - php-version: 8.4
             repo: nextras/orm
-            ref: d0627e6ef4cf9cfbf2f4e72a87115846dd5ec36c
+            ref: 274ef5b74d596f01528747deee26589706531c82
             setup: |
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../nextras.neon
