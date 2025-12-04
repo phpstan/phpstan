@@ -332,7 +332,7 @@ jobs:
             baseline-file: ../../shopsys-project-base-baseline.neon
           - php-version: 8.4
             repo: doctrine/orm
-            ref: 68c87740aa07d547a60818a288b2ce44ee74aba0
+            ref: 3.5.8
             setup: |
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../doctrine-orm.neon
