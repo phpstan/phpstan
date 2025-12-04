@@ -3,6 +3,7 @@ includes:
 	- shopware-baseline.neon
 
 parameters:
+	reportUnmatchedIgnoredErrors: false
 	ignoreErrors:
 		-
 			identifier: generator.returnType
