@@ -1,0 +1,19 @@
+parameters:
+	ignoreErrors:
+		-
+			rawMessage: 'Call to an undefined method object::onEntityAttach().'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Entity/AbstractEntity.php
+
+		-
+			rawMessage: 'Call to an undefined method object::onEntityRepositoryAttach().'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Entity/AbstractEntity.php
+
+		-
+			rawMessage: 'Call to an undefined method object::set().'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Entity/AbstractEntity.php

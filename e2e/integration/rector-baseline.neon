@@ -1,0 +1,73 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Only abstract classes can be extended$#'
+			identifier: symplify.forbiddenExtendOfNonAbstractClass
+			count: 1
+			path: repo/src/NodeTypeResolver/PHPStan/ObjectWithoutClassTypeWithParentTypes.php
+
+		-
+			message: '#^Only abstract classes can be extended$#'
+			identifier: symplify.forbiddenExtendOfNonAbstractClass
+			count: 1
+			path: repo/src/StaticTypeMapper/ValueObject/Type/AliasedObjectType.php
+
+		-
+			message: '#^Only abstract classes can be extended$#'
+			identifier: symplify.forbiddenExtendOfNonAbstractClass
+			count: 1
+			path: repo/src/StaticTypeMapper/ValueObject/Type/FullyQualifiedGenericObjectType.php
+
+		-
+			message: '#^Only abstract classes can be extended$#'
+			identifier: symplify.forbiddenExtendOfNonAbstractClass
+			count: 1
+			path: repo/src/StaticTypeMapper/ValueObject/Type/FullyQualifiedObjectType.php
+
+		-
+			message: '#^Only abstract classes can be extended$#'
+			identifier: symplify.forbiddenExtendOfNonAbstractClass
+			count: 1
+			path: repo/src/StaticTypeMapper/ValueObject/Type/NonExistingObjectType.php
+
+		-
+			message: '#^Only abstract classes can be extended$#'
+			identifier: symplify.forbiddenExtendOfNonAbstractClass
+			count: 1
+			path: repo/src/StaticTypeMapper/ValueObject/Type/ParentObjectWithoutClassType.php
+
+		-
+			message: '#^Only abstract classes can be extended$#'
+			identifier: symplify.forbiddenExtendOfNonAbstractClass
+			count: 1
+			path: repo/src/StaticTypeMapper/ValueObject/Type/ParentStaticType.php
+
+		-
+			message: '#^Only abstract classes can be extended$#'
+			identifier: symplify.forbiddenExtendOfNonAbstractClass
+			count: 1
+			path: repo/src/StaticTypeMapper/ValueObject/Type/SelfObjectType.php
+
+		-
+			message: '#^Only abstract classes can be extended$#'
+			identifier: symplify.forbiddenExtendOfNonAbstractClass
+			count: 1
+			path: repo/src/StaticTypeMapper/ValueObject/Type/SelfStaticType.php
+
+		-
+			message: '#^Only abstract classes can be extended$#'
+			identifier: symplify.forbiddenExtendOfNonAbstractClass
+			count: 1
+			path: repo/src/StaticTypeMapper/ValueObject/Type/ShortenedGenericObjectType.php
+
+		-
+			message: '#^Only abstract classes can be extended$#'
+			identifier: symplify.forbiddenExtendOfNonAbstractClass
+			count: 1
+			path: repo/src/StaticTypeMapper/ValueObject/Type/ShortenedObjectType.php
+
+		-
+			message: '#^Only abstract classes can be extended$#'
+			identifier: symplify.forbiddenExtendOfNonAbstractClass
+			count: 1
+			path: repo/src/StaticTypeMapper/ValueObject/Type/SimpleStaticType.php

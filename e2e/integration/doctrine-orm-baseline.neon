@@ -1,0 +1,31 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Method Doctrine\\ORM\\Internal\\Hydration\\AbstractHydrator\:\:gatherRowData\(\) should return array\{data\: array\<array\>, newObjects\?\: array\<array\{class\: ReflectionClass, args\: array, obj\: object\}\>, scalars\?\: array\} but returns array\{data\: array\<mixed\>, newObjects\: array\<array\{class\?\: ReflectionClass\<object\>, args\: array, obj\: object\}\>, scalars\?\: non\-empty\-array\}\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/src/Internal/Hydration/AbstractHydrator.php
+
+		-
+			message: '#^Offset ''class'' might not exist on array\{args\: array\}\|array\{class\: ReflectionClass\<object\>, args\: array, obj\: object\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Internal/Hydration/AbstractHydrator.php
+
+		-
+			message: '#^Offset ''class'' might not exist on array\{class\?\: ReflectionClass\<object\>, args\: array\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Internal/Hydration/AbstractHydrator.php
+
+		-
+			message: '#^Asserted type string for \$this\-\>indexBy\(\) with type string does not narrow down the type\.$#'
+			identifier: assert.alreadyNarrowedType
+			count: 1
+			path: repo/src/Mapping/ToManyAssociationMapping.php
+
+		-
+			message: '#^Unable to resolve the template type T in call to static method Symfony\\Component\\VarExporter\\Hydrator\:\:hydrate\(\)$#'
+			identifier: argument.templateType
+			count: 1
+			path: repo/src/UnitOfWork.php

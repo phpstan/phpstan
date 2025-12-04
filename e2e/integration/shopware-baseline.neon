@@ -1,0 +1,644 @@
+parameters:
+	ignoreErrors:
+		-
+			rawMessage: 'Call to an undefined method object::assign().'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Core/Content/Product/PropertyGroupSorter.php
+
+		-
+			rawMessage: 'Call to an undefined method object::get().'
+			identifier: method.notFound
+			count: 6
+			path: repo/src/Core/Content/Product/PropertyGroupSorter.php
+
+		-
+			rawMessage: 'Parameter #1 $elements of class Shopware\Core\Content\Property\PropertyGroupCollection constructor expects iterable<Shopware\Core\Content\Property\PropertyGroupEntity>, array<object> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Content/Product/PropertyGroupSorter.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Framework\Adapter\Asset\FallbackUrlPackage::applyFallback() should return list<string> but returns array<int<0, max>, bool|float|int|string|null>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Framework/Adapter/Asset/FallbackUrlPackage.php
+
+		-
+			rawMessage: 'Parameter #2 $id of method Shopware\Core\Framework\Api\Response\ResponseFactoryInterface::createRedirectResponse() expects string, string|null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/Api/Controller/ApiController.php
+
+		-
+			rawMessage: 'Parameter #2 $id of method Shopware\Core\Framework\Api\Response\ResponseFactoryInterface::createRedirectResponse() expects string, string|null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/Api/Controller/UserController.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
+				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
+				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
+				            contexts, convert the resulting name to string using {@see Name::toString()}.
+			'''
+			identifier: method.deprecated
+			count: 11
+			path: repo/src/Core/Framework/DataAbstractionLayer/DefinitionValidator.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 3
+			path: repo/src/Core/Framework/DataAbstractionLayer/DefinitionValidator.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableForeignKeyConstraints()},
+				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
+				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/DefinitionValidator.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTables() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTables()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/DefinitionValidator.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
+				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
+				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
+				            contexts, convert the resulting name to string using {@see Name::toString()}.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/MigrationQueryGenerator.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method introspectTable() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableByUnquotedName()} or {@see introspectTableByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/MigrationQueryGenerator.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableForeignKeyConstraints()},
+				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
+				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Core/Framework/Migration/MakeVersionableMigrationHelper.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableIndexes() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableIndexes()}, {@see introspectTableIndexesByUnquotedName()}
+				            or {@see introspectTableIndexesByQuotedName()}
+			'''
+			identifier: method.deprecated
+			count: 3
+			path: repo/src/Core/Framework/Migration/MakeVersionableMigrationHelper.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableIndexes() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableIndexes()}, {@see introspectTableIndexesByUnquotedName()}
+				            or {@see introspectTableIndexesByQuotedName()}
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Core/Migration/V6_4/Migration1656928097AddNewsletterRecipientEmailIndex.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableForeignKeyConstraints()},
+				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
+				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Core/Migration/V6_6/Migration1720094362AddStateForeignKeyToOrderDelivery.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableForeignKeyConstraints()},
+				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
+				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Core/Migration/V6_6/Migration1720094363AddStateForeignKeyToOrder.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableForeignKeyConstraints()},
+				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
+				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Core/Migration/V6_6/Migration1736866790AddDocumentA11yMediaFileIdForDocumentTable.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/src/Core/Migration/V6_7/Migration1697112044PaymentAndShippingTechnicalNameRequired.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Core/Migration/V6_7/Migration1717573310ImportExportTechnicalNameRequired.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
+				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
+				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
+				            contexts, convert the resulting name to string using {@see Name::toString()}.
+			'''
+			identifier: method.deprecated
+			count: 4
+			path: repo/src/Core/System/CustomEntity/Schema/CustomEntitySchemaUpdater.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
+				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
+				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
+				            contexts, convert the resulting name to string using {@see Name::toString()}.
+			'''
+			identifier: method.deprecated
+			count: 20
+			path: repo/src/Core/System/CustomEntity/Schema/SchemaUpdater.php
+
+		-
+			rawMessage: 'Parameter #1 $assertType of method PHPStan\Testing\TypeInferenceTestCase::assertFileAsserts() expects string, bool|float|int|list<string>|PHPStan\TrinaryLogic|string|null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/devops/Core/DevOps/StaticAnalyse/PHPStan/Type/CollectionHasSpecifyingExtensionTest.php
+
+		-
+			rawMessage: 'Parameter #2 $file of method PHPStan\Testing\TypeInferenceTestCase::assertFileAsserts() expects string, bool|float|int|list<string>|PHPStan\TrinaryLogic|string|null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/devops/Core/DevOps/StaticAnalyse/PHPStan/Type/CollectionHasSpecifyingExtensionTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Checkout\\Document\\Renderer\\RenderedDocument'' and Shopware\Core\Checkout\Document\Renderer\RenderedDocument will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Document/Renderer/DeliveryNoteRendererTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Checkout\\Document\\Renderer\\RenderedDocument'' and Shopware\Core\Checkout\Document\Renderer\RenderedDocument will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Document/Renderer/StornoRendererTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Checkout\\Document\\Renderer\\RenderedDocument'' and Shopware\Core\Checkout\Document\Renderer\RenderedDocument will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Document/Service/PdfRendererTest.php
+
+		-
+			rawMessage: 'Parameter #4 $languageIdChain of class Shopware\Core\Framework\Context constructor expects non-empty-list<string>, non-empty-array<int<0, max>, string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/Subscriber/ProductLoadedSubscriberTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Framework\\Webhook\\AclPrivilegeCollection'' and Shopware\Core\Framework\Webhook\AclPrivilegeCollection will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Framework/Webhook/Service/WebhookLoaderTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
+				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
+				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
+				            contexts, convert the resulting name to string using {@see Name::toString()}.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/integration/Core/System/CustomEntity/CustomEntityTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertEmpty() with array{} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Elasticsearch/Framework/Indexing/ElasticsearchIndexerTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1696515133AddCheckoutGatewayUrlTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableForeignKeyConstraints()},
+				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
+				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1707064042CartRemoveFKTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableIndexes() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableIndexes()}, {@see introspectTableIndexesByUnquotedName()}
+				            or {@see introspectTableIndexesByQuotedName()}
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1712309989DropLanguageLocaleUniqueTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1718658881AddValidationDataToOrderTransactionTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableForeignKeyConstraints()},
+				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
+				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1720094362AddStateForeignKeyToOrderDeliveryTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableForeignKeyConstraints()},
+				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
+				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1720094363AddStateForeignKeyToOrderTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1721811224AddInAppPurchaseGatewayUrlTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1733323215AddHashToAppTemplateTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
+				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
+				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
+				            contexts, convert the resulting name to string using {@see Name::toString()}.
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/tests/migration/Core/V6_6/Migration1733745893createTagStorageTableTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1733745893createTagStorageTableTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableForeignKeyConstraints()},
+				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
+				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1736866790AddDocumentA11yMediaFileIdForDocumentTableTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableIndexes() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableIndexes()}, {@see introspectTableIndexesByUnquotedName()}
+				            or {@see introspectTableIndexesByQuotedName()}
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1738661307AddMediaIndicesTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/tests/migration/Core/V6_7/Migration1697112044PaymentAndShippingTechnicalNameRequiredTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_7/Migration1717573310ImportExportTechnicalNameRequiredTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_7/Migration1726135997CreateMessengerStatsTableTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/tests/migration/Core/V6_7/Migration1728040169AddPrimaryOrderDeliveryTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/tests/migration/Core/V6_7/Migration1728040170AddPrimaryOrderTransactionTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_7/Migration1741163941AddOrderInternalCommentTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_7/Migration1742563555AddNotificationTableTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_7/Migration1742568836CreateThemeRuntimeConfigTableTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableIndexes() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableIndexes()}, {@see introspectTableIndexesByUnquotedName()}
+				            or {@see introspectTableIndexesByQuotedName()}
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_7/Migration1742568836CreateThemeRuntimeConfigTableTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
+				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
+				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
+				            contexts, convert the resulting name to string using {@see Name::toString()}.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_7/Migration1746176773AddIntegrationIdStateHistoryTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/tests/migration/Core/V6_7/Migration1746176773AddIntegrationIdStateHistoryTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableForeignKeyConstraints()},
+				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
+				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_7/Migration1746176773AddIntegrationIdStateHistoryTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_7/Migration1752499887UpdateAppRequestedPrivilegesTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableIndexes() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableIndexes()}, {@see introspectTableIndexesByUnquotedName()}
+				            or {@see introspectTableIndexesByQuotedName()}
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/tests/migration/Core/V6_7/Migration1752750086AddIndexToOrderLineItemCreateAndUpdateTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableIndexes() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableIndexes()}, {@see introspectTableIndexesByUnquotedName()}
+				            or {@see introspectTableIndexesByQuotedName()}
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/tests/migration/Core/V6_7/Migration1752750171AddIndexToOrderAddressCreateAndUpdateTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableIndexes() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableIndexes()}, {@see introspectTableIndexesByUnquotedName()}
+				            or {@see introspectTableIndexesByQuotedName()}
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/tests/migration/Core/V6_7/Migration1752750234AddIndexToOrderTransactionCreateAndUpdateTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 3
+			path: repo/tests/migration/Core/V6_7/Migration1753191228AddMediaThumbnailSizeIdToMediaThumbnailTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
+				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
+				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
+				            contexts, convert the resulting name to string using {@see Name::toString()}.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_7/Migration1753799632FixStateMachineHistoryIntegrationConstraintTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableForeignKeyConstraints()},
+				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
+				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_7/Migration1753799632FixStateMachineHistoryIntegrationConstraintTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method introspectTable() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableByUnquotedName()} or {@see introspectTableByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 3
+			path: repo/tests/migration/Core/V6_7/Migration1756305375AddCategoriesIndexToProductTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/tests/migration/Core/V6_7/Migration1760438732AddConsumedToPaymentTokenTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Core/V6_7/Migration1763316536ChangeProductManufacturerLinkTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
+				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
+				            or {@see introspectTableColumnsByQuotedName()} instead.
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/tests/migration/Elasticsearch/V6_5/Migration1689084023AdminElasticsearchIndexTaskTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Checkout\\Document\\Renderer\\RenderedDocument'' and Shopware\Core\Checkout\Document\Renderer\RenderedDocument will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Core/Checkout/Document/Renderer/InvoiceRendererTest.php
+
+		-
+			rawMessage: '''
+				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
+				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
+				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
+				            contexts, convert the resulting name to string using {@see Name::toString()}.
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/tests/unit/Core/System/CustomEntity/Schema/SchemaUpdaterTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertEmpty() with array{} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 2
+			path: repo/tests/unit/Core/System/SalesChannel/SalesChannelContextTest.php
