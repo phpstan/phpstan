@@ -44,9 +44,6 @@ jobs:
     needs: check-phar-checksum
     if: "needs.check-phar-checksum.outputs.checksum-result == 'different'"
 
-    env:
-      COMPOSER_NO_SECURITY_BLOCKING: 1
-
     strategy:
       fail-fast: false
       matrix:

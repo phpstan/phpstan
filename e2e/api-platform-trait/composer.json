@@ -5,5 +5,10 @@
 		"symfony/framework-bundle": "^5.4",
 		"phpunit/phpunit": "^9.5",
 		"symfony/http-client": "^5.4"
-	}
+	},
+    "config": {
+        "audit": {
+            "block-insecure": false
+        }
+    }
 }
