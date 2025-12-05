@@ -12647,6 +12647,14 @@
             ]
         }
     },
+    "phpunit.attributeRequiresPhpVersion": {
+        "PHPStan\\Rules\\PHPUnit\\AttributeRequiresPhpVersionRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeRequiresPhpVersionRule.php#L81",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeRequiresPhpVersionRule.php#L90"
+            ]
+        }
+    },
     "phpunit.callParent": {
         "PHPStan\\Rules\\PHPUnit\\ShouldCallParentMethodsRule": {
             "phpstan/phpstan-phpunit": [
