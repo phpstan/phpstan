@@ -5669,28 +5669,28 @@
     "enum.backingType": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L124"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L135"
             ]
         }
     },
     "enum.caseType": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L202"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L220"
             ]
         }
     },
     "enum.caseWithValue": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L156"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L169"
             ]
         }
     },
     "enum.constructor": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L59"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L70"
             ]
         }
     },
@@ -5704,7 +5704,7 @@
     "enum.destructor": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L79"
             ]
         }
     },
@@ -5754,7 +5754,7 @@
     "enum.duplicateValue": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L219"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L237"
             ]
         }
     },
@@ -5824,22 +5824,22 @@
     "enum.magicMethod": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L89"
             ]
         }
     },
     "enum.methodRedeclaration": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L110",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L91"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L102",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L121"
             ]
         }
     },
     "enum.missingCase": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L182"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L186"
             ]
         }
     },
@@ -6165,7 +6165,7 @@
     "enum.serializable": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L135"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Classes/EnumSanityRule.php#L146"
             ]
         }
     },
