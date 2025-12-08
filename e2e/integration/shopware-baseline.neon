@@ -37,6 +37,12 @@ parameters:
 			path: repo/src/Core/Framework/Api/Controller/UserController.php
 
 		-
+			rawMessage: 'Method Shopware\Core\Framework\DataAbstractionLayer\Dbal\JoinGroupBuilder::getDuplicates() should return array<string> but returns list<int|string>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Dbal/JoinGroupBuilder.php
+
+		-
 			rawMessage: '''
 				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
 				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
