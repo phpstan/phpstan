@@ -14,6 +14,7 @@ the logo of your company in PHPStan's README and the website.
 <!-- gold -->
 
 <!-- gold-org --><li><a href="https://github.com/malsatin">Sergey (malsatin)</a></li>
+<li><a href="https://github.com/ArdennesEtape">Ardennes-étape (ArdennesEtape)</a></li>
 <!-- gold-org -->
 </ul>
 
