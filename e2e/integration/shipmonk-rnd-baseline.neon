@@ -1,2 +1,19 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			rawMessage: 'Method PHPStan\Analyser\NodeScopeResolver::processExprNode() invoked with 5 parameters, 6 required.'
+			identifier: arguments.count
+			count: 1
+			path: repo/src/Rule/ForbidCheckedExceptionInCallableRule.php
+
+		-
+			rawMessage: 'Parameter #4 $storage of method PHPStan\Analyser\NodeScopeResolver::processExprNode() expects PHPStan\Analyser\ExpressionResultStorage, Closure given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Rule/ForbidCheckedExceptionInCallableRule.php
+
+		-
+			rawMessage: 'Parameter #5 $nodeCallback of method PHPStan\Analyser\NodeScopeResolver::processExprNode() expects callable(PhpParser\Node, PHPStan\Analyser\Scope): void, PHPStan\Analyser\ExpressionContext given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Rule/ForbidCheckedExceptionInCallableRule.php
