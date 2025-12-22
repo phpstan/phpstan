@@ -130,6 +130,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/hirokinoue">Hiroki Inoue (hirokinoue)</a></li>
 <li><a href="https://github.com/greew">Jesper Skytte Marcussen (greew)</a></li>
 <li><a href="https://github.com/jesperbeisner">Jesper Beisner (jesperbeisner)</a></li>
+<li><a href="https://github.com/nuryagdym">Nuryagdy Mustapayev (nuryagdym)</a></li>
 <li><a href="https://github.com/vazaha-nl">Lennart Hengstmengel (vazaha-nl)</a></li>
 <li><a href="https://github.com/zbateson">Zaahid Bateson (zbateson)</a></li>
 <li><a href="https://github.com/WebBeest">Patrick Kannekens (WebBeest)</a></li>
@@ -152,7 +153,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/encore-mieux">Encore Mieux (encore-mieux)</a></li>
 <li><a href="https://github.com/acelaya">Alejandro Celaya (acelaya)</a></li>
 <li><a href="https://github.com/eliashaeussler">Elias Häußler (eliashaeussler)</a></li>
-<li><a href="https://github.com/tomasnorre">Tomas Norre Mikkelsen (tomasnorre)</a></li>
 <li><a href="https://github.com/lucassabreu">Lucas dos Santos Abreu (lucassabreu)</a></li>
 <li><a href="https://github.com/westonruter">Weston Ruter (westonruter)</a></li>
 <li><a href="https://github.com/mceglowski"> (mceglowski)</a></li>
@@ -176,5 +176,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/pxlrbt">Dennis Koch (pxlrbt)</a></li>
 <li><a href="https://github.com/fetova"> (fetova)</a></li>
 <li><a href="https://github.com/m1rm">Miriam Müller (m1rm)</a></li>
+<li><a href="https://github.com/matijabelec">Matija (matijabelec)</a></li>
 <!-- indi-org -->
 </ul>
