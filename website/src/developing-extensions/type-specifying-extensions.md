@@ -27,7 +27,7 @@ self::assertNotNull($variable);
 // here we can be sure that $variable is not null
 ```
 
-This is the [the interface for the type-specifying extension](https://apiref.phpstan.org/2.1.x/PHPStan.Type.StaticMethodTypeSpecifyingExtension.html):
+This is the [interface for the type-specifying extension](https://apiref.phpstan.org/2.1.x/PHPStan.Type.StaticMethodTypeSpecifyingExtension.html):
 
 ```php
 namespace PHPStan\Type;
