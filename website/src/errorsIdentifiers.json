@@ -1792,24 +1792,24 @@
     "assign.propertyPrivateSet": {
         "PHPStan\\Rules\\Properties\\AccessPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L269"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L268"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L269"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L268"
             ]
         }
     },
     "assign.propertyProtectedSet": {
         "PHPStan\\Rules\\Properties\\AccessPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L269"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L268"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L269"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L268"
             ]
         }
     },
@@ -13462,12 +13462,12 @@
     "property.nameNotString": {
         "PHPStan\\Rules\\Properties\\AccessPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L82"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L81"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L82"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L81"
             ]
         }
     },
@@ -13541,12 +13541,12 @@
     "property.nonObject": {
         "PHPStan\\Rules\\Properties\\AccessPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L128"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L127"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L128"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L127"
             ]
         }
     },
@@ -13567,12 +13567,12 @@
     "property.notFound": {
         "PHPStan\\Rules\\Properties\\AccessPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L220"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L219"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L220"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L219"
             ]
         }
     },
@@ -13651,14 +13651,14 @@
     "property.private": {
         "PHPStan\\Rules\\Properties\\AccessPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L187",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L259"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L186",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L258"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L187",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L259"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L186",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L258"
             ]
         }
     },
@@ -13672,12 +13672,12 @@
     "property.protected": {
         "PHPStan\\Rules\\Properties\\AccessPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L259"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L258"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L259"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L258"
             ]
         }
     },
@@ -15717,12 +15717,12 @@
     "staticProperty.nonStaticAccess": {
         "PHPStan\\Rules\\Properties\\AccessPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L212"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L211"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L212"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/AccessPropertiesCheck.php#L211"
             ]
         }
     },
