@@ -201,12 +201,11 @@ public function getName(): ?string
 ```
 
 Equality assertions
-----------------------
+-------------------
 
-By default `@phpstan-assert-if-true` also makes assumptions about `false` return value. This can lead to undesired assertions and PHPStan errors like "Call to function x() will always evaluate to true.". In case this is not desired use `=` operator before the type.
+`@phpstan-assert-if-true` narrows types in **both** the `true` and `false` branches by default. In the `false` branch, PHPStan assumes the *negation* of your assertion—if you assert `Admin`, it assumes `null` when false.
 
-In example below, consider following scenario: user has `Admin` related model, but the model is not active.
-
+This breaks down when your method can return `false` for multiple reasons:
 ```php
 /**
  * @phpstan-assert-if-true Admin $this->admin
@@ -221,12 +220,21 @@ public function isAdmin(): bool
 if ($user->isAdmin()) {
     // $user->admin is narrowed to Admin
 } else {
-    // $user->admin is narrowed to null (which is wrong)
+    // $user->admin is narrowed to null
+    // ...but $user->admin might actually be an inactive Admin!
 }
 ```
 
-Now if we add `=` operator in front of the type there will be no automatic narrowing in case of `false` return value, which fixes issues in the example above.
+Here, `isAdmin()` returns `false` when:
 
+1. `$this->admin` is `null`, OR
+2. `$this->admin` exists but `active` is `false`
+
+PHPStan doesn't know about condition #2. It sees `false` and concludes `$this->admin` must be `null` - which is incorrect. This can cause errors like "Call to function x() will always evaluate to true."
+
+### The `=` operator
+
+Prefixing the type with `=` disables narrowing in the `false` branch:
 ```php
 /**
  * @phpstan-assert-if-true =Admin $this->admin
@@ -244,6 +252,8 @@ if ($user->isAdmin()) {
     // $user->admin is not narrowed and stays Admin|null
 }
 ```
+
+Use `=` when your method's `false` return value doesn't guarantee the negation of your assertion.
 
 Type-specifying extensions
 ----------------------
