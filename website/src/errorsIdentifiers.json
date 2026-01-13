@@ -4352,7 +4352,7 @@
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L151"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L157"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
@@ -10516,7 +10516,7 @@
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L115"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L121"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
@@ -10633,7 +10633,7 @@
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L104"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L110"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
@@ -16694,10 +16694,10 @@
     "varTag.differentVariable": {
         "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L172",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L253",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L321",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L410"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L186",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L267",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L335",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L424"
             ]
         }
     },
@@ -16732,14 +16732,14 @@
     "varTag.misplaced": {
         "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L126"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L140"
             ]
         }
     },
     "varTag.multipleTags": {
         "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L147"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L161"
             ]
         }
     },
@@ -16758,18 +16758,18 @@
     "varTag.noVariable": {
         "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L154",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L241",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L309",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L363",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L398"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L168",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L255",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L323",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L377",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L412"
             ]
         }
     },
     "varTag.trait": {
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L138"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L144"
             ]
         }
     },
@@ -16788,15 +16788,15 @@
     "varTag.unresolvableType": {
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L90"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L96"
             ]
         }
     },
     "varTag.variableNotFound": {
         "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L175",
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L356"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L189",
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/WrongVariableNameInVarTagRule.php#L370"
             ]
         }
     },
