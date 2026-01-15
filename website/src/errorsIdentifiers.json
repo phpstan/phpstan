@@ -13988,7 +13988,7 @@
     "propertySetHook.noAssign": {
         "PHPStan\\Rules\\Properties\\SetNonVirtualPropertyHookAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/SetNonVirtualPropertyHookAssignRule.php#L91"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Properties/SetNonVirtualPropertyHookAssignRule.php#L87"
             ]
         }
     },
