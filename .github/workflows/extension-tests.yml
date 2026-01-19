@@ -37,7 +37,7 @@ jobs:
           fi
 
   tests-extensions:
-    name: "${{ matrix.extension-name }} (${{ matrix.php-version }}) ${{ matrix.script }} (FNSR ${{ matrix.fnsr }})"
+    name: "${{ matrix.extension-name }} (${{ matrix.php-version }}) ${{ matrix.script }}"
 
     runs-on: "ubuntu-latest"
 
@@ -70,7 +70,6 @@ jobs:
         script:
           - "make tests"
           - "make phpstan"
-        fnsr: ["0", "1"]
         exclude:
           - extension-name: "phpstan-doctrine"
             php-version: "8.3"
@@ -78,10 +77,6 @@ jobs:
             php-version: "8.4"
           - extension-name: "phpstan-doctrine"
             php-version: "8.5"
-          - fnsr: "1"
-            php-version: "7.4"
-          - fnsr: "1"
-            php-version: "8.0"
 
     steps:
       - name: "Checkout"
@@ -130,5 +125,3 @@ jobs:
       - name: "Script"
         working-directory: extension
         run: "${{ matrix.script }}"
-        env:
-          PHPSTAN_FNSR: "${{ matrix.fnsr }}"
