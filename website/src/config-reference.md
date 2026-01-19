@@ -373,7 +373,7 @@ When set to `true`, it reports violations of parameter type contravariance and r
 
 **example**: [with `false`](https://phpstan.org/r/b9648bc4-619f-4fe5-8c75-d79b3cd2fc96), [with `true`](https://phpstan.org/r/4e2ad8f5-21b4-4382-a6d9-9a8a33e487a3)
 
-When set to `true`, it reports violations of property type invariance. By default, PHPStan only reports completely incompatible PHPDoc typescheckInternalClassCaseSensitivity, [see this example](https://phpstan.org/r/64857536-abc5-49c6-b7f8-1600df1460cf).
+When set to `true`, it reports violations of property type invariance. By default, PHPStan only reports completely incompatible PHPDoc types, [see this example](https://phpstan.org/r/64857536-abc5-49c6-b7f8-1600df1460cf).
 
 ### `reportStaticMethodSignatures`
 
