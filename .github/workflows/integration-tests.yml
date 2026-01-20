@@ -312,7 +312,7 @@ jobs:
             baseline-file: sylius-baseline.neon
           - php-version: 8.4
             repo: shopsys/shopsys
-            ref: v17.0.1
+            ref: v18.0.0
             setup: |
               cp ../shopsys-composer.lock composer.lock
               composer install
@@ -321,7 +321,7 @@ jobs:
             phpstan-command: ../../../phpstan.phar analyse -c ../shopsys.neon -l 5 packages/*/src packages/*/tests utils/*/src utils/*/tests project-base/app/app project-base/app/src
           - php-version: 8.4
             repo: shopsys/shopsys
-            ref: v17.0.1
+            ref: v18.0.0
             phpstan-cwd: e2e/integration/repo/project-base/app
             setup: |
               cp ../shopsys-composer.lock composer.lock
