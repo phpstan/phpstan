@@ -209,7 +209,7 @@ jobs:
             ref: a110e2fcf94e7513739f54bc27cd473ba9eff5d5
             setup: |
               cp ../rector-downgrade-php-composer.lock composer.lock
-              composer install
+              COMPOSER_ROOT_VERSION=dev-main composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../rector-downgrade-php.neon
             baseline-file: rector-downgrade-php-baseline.neon
           - php-version: 8.4
