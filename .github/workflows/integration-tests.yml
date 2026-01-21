@@ -65,6 +65,18 @@ jobs:
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit
           - php-version: 8.4
+            name: Rector downgrade PHP tests
+            script: |
+              git clone https://github.com/rectorphp/rector-downgrade-php.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout a110e2fcf94e7513739f54bc27cd473ba9eff5d5
+              cp ../rector-downgrade-php-composer.lock composer.lock
+              composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              vendor/bin/phpunit
+          - php-version: 8.4
             name: Symplify tests
             script: |
               git clone https://github.com/symplify/phpstan-rules.git e2e/integration/repo
@@ -192,6 +204,14 @@ jobs:
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../rector.neon
             baseline-file: rector-baseline.neon
+          - php-version: 8.4
+            repo: rectorphp/rector-downgrade-php
+            ref: a110e2fcf94e7513739f54bc27cd473ba9eff5d5
+            setup: |
+              cp ../rector-downgrade-php-composer.lock composer.lock
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../rector-downgrade-php.neon
+            baseline-file: rector-downgrade-php-baseline.neon
           - php-version: 8.4
             repo: sebastianbergmann/phpunit
             ref: 12.4.5
