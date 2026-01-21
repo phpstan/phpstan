@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Method Doctrine\\ORM\\EntityRepository\:\:matching\(\) should return Doctrine\\Common\\Collections\\AbstractLazyCollection\<int, T of object\> but returns Doctrine\\ORM\\LazyCriteriaCollection\<\(int\|string\), object\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/src/EntityRepository.php
+
+		-
 			message: '#^Method Doctrine\\ORM\\Internal\\Hydration\\AbstractHydrator\:\:gatherRowData\(\) should return array\{data\: array\<array\>, newObjects\?\: array\<array\{class\: ReflectionClass, args\: array, obj\: object\}\>, scalars\?\: array\} but returns array\{data\: array\<mixed\>, newObjects\: array\<array\{class\?\: ReflectionClass\<object\>, args\: array, obj\: object\}\>, scalars\?\: non\-empty\-array\}\.$#'
 			identifier: return.type
 			count: 1

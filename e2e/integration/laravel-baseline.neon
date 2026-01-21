@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Variable \$guess might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: repo/src/Illuminate/View/Compilers/ComponentTagCompiler.php

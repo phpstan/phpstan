@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: 'Unable to resolve the template type TReturn in call to static method Shopware\Core\Profiling\Profiler::trace()'
+			identifier: argument.templateType
+			count: 1
+			path: repo/src/Core/Content/Media/MediaUrlPlaceholderHandler.php
+
+		-
 			rawMessage: 'Call to an undefined method object::assign().'
 			identifier: method.notFound
 			count: 1
@@ -17,6 +23,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Core/Content/Product/PropertyGroupSorter.php
+
+		-
+			rawMessage: 'Unable to resolve the template type TReturn in call to static method Shopware\Core\Profiling\Profiler::trace()'
+			identifier: argument.templateType
+			count: 1
+			path: repo/src/Core/Content/Seo/SeoUrlPlaceholderHandler.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\Adapter\Asset\FallbackUrlPackage::applyFallback() should return list<string> but returns array<int<0, max>, bool|float|int|string|null>.'
