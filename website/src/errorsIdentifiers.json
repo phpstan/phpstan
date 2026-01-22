@@ -16851,7 +16851,7 @@
     "while.alwaysTrue": {
         "PHPStan\\Rules\\Comparison\\WhileLoopAlwaysTrueConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Comparison/WhileLoopAlwaysTrueConditionRule.php#L88"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Comparison/WhileLoopAlwaysTrueConditionRule.php#L95"
             ]
         }
     },
