@@ -314,9 +314,10 @@ jobs:
 #            baseline-file: prestashop-baseline.neon
           - php-version: 8.4
             repo: shopware/shopware
-            ref: v6.7.5.0
+            ref: v6.7.6.2
             setup: |
               composer install
+              composer require --dev phpstan/phpstan-phpunit:^2.0.12 phpstan/phpstan-symfony:^2.0.11
               composer run framework:schema:dump
               php src/Core/DevOps/StaticAnalyze/phpstan-bootstrap.php
             phpstan-command: ../../../phpstan.phar analyse -c ../shopware.neon
