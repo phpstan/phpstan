@@ -37,6 +37,12 @@ parameters:
 			path: repo/src/Core/Framework/Adapter/Asset/FallbackUrlPackage.php
 
 		-
+			rawMessage: 'Parameter #1 $params of static method Doctrine\DBAL\DriverManager::getConnection() expects array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...}, non-empty-array<literal-string&non-falsy-string, (array|bool|int|string)> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/Adapter/Database/MySQLFactory.php
+
+		-
 			rawMessage: 'Parameter #2 $id of method Shopware\Core\Framework\Api\Response\ResponseFactoryInterface::createRedirectResponse() expects string, string|null given.'
 			identifier: argument.type
 			count: 1
@@ -55,173 +61,6 @@ parameters:
 			path: repo/src/Core/Framework/DataAbstractionLayer/Dbal/JoinGroupBuilder.php
 
 		-
-			rawMessage: '''
-				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
-				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
-				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
-				            contexts, convert the resulting name to string using {@see Name::toString()}.
-			'''
-			identifier: method.deprecated
-			count: 11
-			path: repo/src/Core/Framework/DataAbstractionLayer/DefinitionValidator.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 3
-			path: repo/src/Core/Framework/DataAbstractionLayer/DefinitionValidator.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableForeignKeyConstraints()},
-				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
-				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/src/Core/Framework/DataAbstractionLayer/DefinitionValidator.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTables() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTables()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/src/Core/Framework/DataAbstractionLayer/DefinitionValidator.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
-				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
-				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
-				            contexts, convert the resulting name to string using {@see Name::toString()}.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/src/Core/Framework/DataAbstractionLayer/MigrationQueryGenerator.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method introspectTable() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableByUnquotedName()} or {@see introspectTableByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/src/Core/Framework/DataAbstractionLayer/MigrationQueryGenerator.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableForeignKeyConstraints()},
-				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
-				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/src/Core/Framework/Migration/MakeVersionableMigrationHelper.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableIndexes() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableIndexes()}, {@see introspectTableIndexesByUnquotedName()}
-				            or {@see introspectTableIndexesByQuotedName()}
-			'''
-			identifier: method.deprecated
-			count: 3
-			path: repo/src/Core/Framework/Migration/MakeVersionableMigrationHelper.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableIndexes() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableIndexes()}, {@see introspectTableIndexesByUnquotedName()}
-				            or {@see introspectTableIndexesByQuotedName()}
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/src/Core/Migration/V6_4/Migration1656928097AddNewsletterRecipientEmailIndex.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableForeignKeyConstraints()},
-				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
-				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/src/Core/Migration/V6_6/Migration1720094362AddStateForeignKeyToOrderDelivery.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableForeignKeyConstraints()},
-				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
-				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/src/Core/Migration/V6_6/Migration1720094363AddStateForeignKeyToOrder.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableForeignKeyConstraints()},
-				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
-				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/src/Core/Migration/V6_6/Migration1736866790AddDocumentA11yMediaFileIdForDocumentTable.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 2
-			path: repo/src/Core/Migration/V6_7/Migration1697112044PaymentAndShippingTechnicalNameRequired.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/src/Core/Migration/V6_7/Migration1717573310ImportExportTechnicalNameRequired.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
-				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
-				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
-				            contexts, convert the resulting name to string using {@see Name::toString()}.
-			'''
-			identifier: method.deprecated
-			count: 4
-			path: repo/src/Core/System/CustomEntity/Schema/CustomEntitySchemaUpdater.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
-				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
-				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
-				            contexts, convert the resulting name to string using {@see Name::toString()}.
-			'''
-			identifier: method.deprecated
-			count: 20
-			path: repo/src/Core/System/CustomEntity/Schema/SchemaUpdater.php
-
-		-
 			rawMessage: 'Parameter #1 $assertType of method PHPStan\Testing\TypeInferenceTestCase::assertFileAsserts() expects string, bool|float|int|list<string>|PHPStan\TrinaryLogic|string|null given.'
 			identifier: argument.type
 			count: 1
@@ -232,6 +71,42 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/devops/Core/DevOps/StaticAnalyse/PHPStan/Type/CollectionHasSpecifyingExtensionTest.php
+
+		-
+			rawMessage: 'Parameter #2 $expectations of method Shopware\Tests\Integration\Core\Checkout\Cart\Facade\CartFacadeTest::testScripts() expects array<string, Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice|null>, array<string, array<string, array<string, Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice>|Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice>|Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Cart/Facade/CartFacadeTest.php
+
+		-
+			rawMessage: 'Parameter #2 $expectations of method Shopware\Tests\Integration\Core\Checkout\Cart\Facade\CartFacadeTest::testScripts() expects array<string, Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice|null>, array<string, array<string, array<string, array<string, array<string, Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice>|Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice>|Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice>|Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice>|Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Cart/Facade/CartFacadeTest.php
+
+		-
+			rawMessage: 'Parameter #1 $vatIds of method Shopware\Tests\Integration\Core\Checkout\Customer\SalesChannel\ChangeCustomerProfileRouteTest::testChangeVatIdsOfCommercialAccount() expects array<string|null>|null, array<int, true> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Customer/SalesChannel/ChangeCustomerProfileRouteTest.php
+
+		-
+			rawMessage: 'Parameter #1 $data of method Shopware\Tests\Integration\Core\Checkout\Customer\SalesChannel\UpsertAddressRouteTest::testCreateAddress() expects array<string, string>, array<string, string|null> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Customer/SalesChannel/UpsertAddressRouteTest.php
+
+		-
+			rawMessage: 'Parameter #5 $additionalConfig of method Shopware\Tests\Integration\Core\Checkout\Document\Renderer\CreditNoteRendererTest::testRender() expects array<string, int>, array<string, array<string, string>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Document/Renderer/CreditNoteRendererTest.php
+
+		-
+			rawMessage: 'Parameter #5 $additionalConfig of method Shopware\Tests\Integration\Core\Checkout\Document\Renderer\CreditNoteRendererTest::testRender() expects array<string, int>, array<string, string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Document/Renderer/CreditNoteRendererTest.php
 
 		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Checkout\\Document\\Renderer\\RenderedDocument'' and Shopware\Core\Checkout\Document\Renderer\RenderedDocument will always evaluate to true.'
@@ -246,10 +121,106 @@ parameters:
 			path: repo/tests/integration/Core/Checkout/Document/Renderer/StornoRendererTest.php
 
 		-
+			rawMessage: 'Parameter #1 $additionalConfig of method Shopware\Tests\Integration\Core\Checkout\Document\Renderer\StornoRendererTest::testRender() expects array<string, string>, array<string, array<int|string, string>|string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Document/Renderer/StornoRendererTest.php
+
+		-
+			rawMessage: 'Parameter #1 $additionalConfig of method Shopware\Tests\Integration\Core\Checkout\Document\Renderer\StornoRendererTest::testRender() expects array<string, string>, array<string, list<string>|string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Document/Renderer/StornoRendererTest.php
+
+		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Checkout\\Document\\Renderer\\RenderedDocument'' and Shopware\Core\Checkout\Document\Renderer\RenderedDocument will always evaluate to true.'
 			identifier: staticMethod.alreadyNarrowedType
 			count: 1
 			path: repo/tests/integration/Core/Checkout/Document/Service/PdfRendererTest.php
+
+		-
+			rawMessage: 'Parameter #2 $documentTypeIds of method Shopware\Tests\Integration\Core\Content\Flow\SendMailActionTest::testEmailSend() expects array<string>|null, array<int, string|null> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Flow/SendMailActionTest.php
+
+		-
+			rawMessage: 'Parameter $record of method Shopware\Tests\Integration\Core\Content\ImportExport\Subscriber\ProductCategoryPathsSubscriberTest::testCategoryPathToAssignment() expects array<array<string, mixed>>, array<string, array<int, array<string, string>>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/Subscriber/ProductCategoryPathsSubscriberTest.php
+
+		-
+			rawMessage: 'Parameter $row of method Shopware\Tests\Integration\Core\Content\ImportExport\Subscriber\ProductCategoryPathsSubscriberTest::testCategoryPathToAssignment() expects array<array<string>>, array<string, string> given.'
+			identifier: argument.type
+			count: 8
+			path: repo/tests/integration/Core/Content/ImportExport/Subscriber/ProductCategoryPathsSubscriberTest.php
+
+		-
+			rawMessage: 'Parameter #1 $testData of method Shopware\Tests\Integration\Core\Content\Newsletter\Service\NewsletterRecipientServiceTest::testSubscribeNewsletterExpectsConstraintViolationException() expects array<int, array<int, array<string, string|null>>>, array<string, null> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Newsletter/Service/NewsletterRecipientServiceTest.php
+
+		-
+			rawMessage: 'Parameter #1 $testData of method Shopware\Tests\Integration\Core\Content\Newsletter\Service\NewsletterRecipientServiceTest::testSubscribeNewsletterExpectsConstraintViolationException() expects array<int, array<int, array<string, string|null>>>, array<string, string> given.'
+			identifier: argument.type
+			count: 10
+			path: repo/tests/integration/Core/Content/Newsletter/Service/NewsletterRecipientServiceTest.php
+
+		-
+			rawMessage: 'Parameter #1 $testData of method Shopware\Tests\Integration\Core\Content\Newsletter\Service\NewsletterRecipientServiceTest::testSubscribeNewsletterExpectsConstraintViolationException() expects array<int, array<int, array<string, string|null>>>, array<string, string|null> given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/integration/Core/Content/Newsletter/Service/NewsletterRecipientServiceTest.php
+
+		-
+			rawMessage: 'Parameter #3 $expectedFeature of method Shopware\Tests\Integration\Core\Content\Product\Cart\ProductCartProcessorTest::testProductFeaturesContainCorrectInformation() expects array{type: string, value: array{price: string}, label: string}, array{label: ''description'', value: ''Lorem ipsum dolor…'', type: ''product''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/Cart/ProductCartProcessorTest.php
+
+		-
+			rawMessage: 'Parameter #3 $expectedFeature of method Shopware\Tests\Integration\Core\Content\Product\Cart\ProductCartProcessorTest::testProductFeaturesContainCorrectInformation() expects array{type: string, value: array{price: string}, label: string}, array{label: ''lorem_ipsum'', value: array{id: ''24c8b3e8cacc4bf2a74…'', type: ''text'', content: ''Dolor sit amet.''}, type: ''customField''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/Cart/ProductCartProcessorTest.php
+
+		-
+			rawMessage: 'Parameter #3 $expectedFeature of method Shopware\Tests\Integration\Core\Content\Product\Cart\ProductCartProcessorTest::testProductFeaturesContainCorrectInformation() expects array{type: string, value: array{price: string}, label: string}, array{label: ''manufacturerNumber'', value: ''22ee3d8063da'', type: ''product''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/Cart/ProductCartProcessorTest.php
+
+		-
+			rawMessage: 'Parameter #3 $expectedFeature of method Shopware\Tests\Integration\Core\Content\Product\Cart\ProductCartProcessorTest::testProductFeaturesContainCorrectInformation() expects array{type: string, value: array{price: string}, label: string}, array{label: ''referencePrice'', value: array{purchaseUnit: 2.0, referenceUnit: 0.33, unitName: ''litres''}, type: ''referencePrice''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/Cart/ProductCartProcessorTest.php
+
+		-
+			rawMessage: 'Parameter #3 $expectedFeature of method Shopware\Tests\Integration\Core\Content\Product\Cart\ProductCartProcessorTest::testProductFeaturesContainCorrectInformation() expects array{type: string, value: array{price: string}, label: string}, array{label: ''swag_color'', value: array{''0cfabe6eab0440b0974b7b7164556612'': array{id: ''0cfabe6eab0440b0974…'', name: ''Red'', mediaId: null, colorHexCode: ''#ff0000''}, bf821e9e206848579049bc1694c5c3e7: array{id: ''bf821e9e20684857904…'', name: ''Blue'', mediaId: null, colorHexCode: ''#189eff''}}, type: ''property''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/Cart/ProductCartProcessorTest.php
+
+		-
+			rawMessage: 'Parameter #2 $searchTerms of method Shopware\Tests\Integration\Core\Content\Product\SalesChannel\ProductSearchRouteTest::testProductSearch() expects array<string, bool>, array<int|string, bool> given.'
+			identifier: argument.type
+			count: 6
+			path: repo/tests/integration/Core/Content/Product/SalesChannel/ProductSearchRouteTest.php
+
+		-
+			rawMessage: 'Parameter #2 $searchTerms of method Shopware\Tests\Integration\Core\Content\Product\SalesChannel\ProductSearchRouteTest::testProductSearch() expects array<string, bool>, array<int|string, true> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/SalesChannel/ProductSearchRouteTest.php
+
+		-
+			rawMessage: 'Parameter #2 $expected of method Shopware\Tests\Integration\Core\Content\Product\Subscriber\ProductLoadedSubscriberTest::testOptionSorting() expects array<string, string>, array<int, array<string, string>> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/integration/Core/Content/Product/Subscriber/ProductLoadedSubscriberTest.php
 
 		-
 			rawMessage: 'Parameter #4 $languageIdChain of class Shopware\Core\Framework\Context constructor expects non-empty-list<string>, non-empty-array<int<0, max>, string> given.'
@@ -258,21 +229,184 @@ parameters:
 			path: repo/tests/integration/Core/Content/Product/Subscriber/ProductLoadedSubscriberTest.php
 
 		-
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\CustomField\CustomFieldServiceTest::testGetCustomFieldField() invoked with 14 parameters, 2 required.'
+			identifier: arguments.count
+			count: 1
+			path: repo/tests/integration/Core/Framework/CustomField/CustomFieldServiceTest.php
+
+		-
+			rawMessage: 'Parameter #1 $products of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\EntityRepositoryTest::testProductPropertiesQueries() expects array<string, mixed>, array<int, array<string, mixed>> given.'
+			identifier: argument.type
+			count: 11
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/EntityRepositoryTest.php
+
+		-
+			rawMessage: 'Parameter #1 $input of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\ConfigJsonFieldSerializerTest::testSerializer() expects array<string, int>|bool|float|int|string|null, array<int, array<int, int>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/ConfigJsonFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #1 $input of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\ConfigJsonFieldSerializerTest::testSerializer() expects array<string, int>|bool|float|int|string|null, array<int, array<string, array<string, int>|string>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/ConfigJsonFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #1 $input of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\ConfigJsonFieldSerializerTest::testSerializer() expects array<string, int>|bool|float|int|string|null, array<int, false> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/ConfigJsonFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #1 $input of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\ConfigJsonFieldSerializerTest::testSerializer() expects array<string, int>|bool|float|int|string|null, array<int, float> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/ConfigJsonFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #1 $input of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\ConfigJsonFieldSerializerTest::testSerializer() expects array<string, int>|bool|float|int|string|null, array<int, int> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/ConfigJsonFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #1 $input of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\ConfigJsonFieldSerializerTest::testSerializer() expects array<string, int>|bool|float|int|string|null, array<int, null> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/ConfigJsonFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #1 $input of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\ConfigJsonFieldSerializerTest::testSerializer() expects array<string, int>|bool|float|int|string|null, array<int, string> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/ConfigJsonFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #2 $input of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\JsonFieldSerializerTest::testEncode() expects string|null, array<string, array<string, string>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/JsonFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #2 $input of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\JsonFieldSerializerTest::testEncode() expects string|null, array<string, float> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/JsonFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #2 $input of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\JsonFieldSerializerTest::testEncode() expects string|null, array<string, int> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/JsonFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #2 $input of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\JsonFieldSerializerTest::testEncode() expects string|null, array<string, string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/JsonFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #3 $expected of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\JsonFieldSerializerTest::testDecode() expects array<string, float|int|string>, array<string, array<string, string>> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/JsonFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #3 $expected of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\JsonFieldSerializerTest::testDecode() expects array<string, float|int|string>, null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/JsonFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #3 $expected of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\JsonFieldSerializerTest::testEncode() expects array<string, float|int|string>, null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/JsonFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #3 $expected of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\JsonFieldSerializerTest::testEncode() expects array<string, float|int|string>, string given.'
+			identifier: argument.type
+			count: 9
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/JsonFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #1 $field of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\StringFieldSerializerTest::testSerialize() expects Shopware\Core\Framework\DataAbstractionLayer\Field\StringField, Shopware\Core\Framework\DataAbstractionLayer\Field\Field given.'
+			identifier: argument.type
+			count: 12
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/StringFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #1 $featureConfig of method Shopware\Tests\Integration\Core\Framework\FeatureFlag\FeatureTest::testIsActive() expects array<string, array{name?: string, default?: bool, major?: bool, description?: string}>, array{''FEATURE_NEXT_101''} given.'
+			identifier: argument.type
+			count: 8
+			path: repo/tests/integration/Core/Framework/FeatureFlag/FeatureTest.php
+
+		-
+			rawMessage: 'Parameter #1 $featureConfig of method Shopware\Tests\Integration\Core\Framework\FeatureFlag\FeatureTest::testIsActive() expects array<string, array{name?: string, default?: bool, major?: bool, description?: string}>, array{''FEATURE_NEXT_102''} given.'
+			identifier: argument.type
+			count: 4
+			path: repo/tests/integration/Core/Framework/FeatureFlag/FeatureTest.php
+
+		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Framework\\Webhook\\AclPrivilegeCollection'' and Shopware\Core\Framework\Webhook\AclPrivilegeCollection will always evaluate to true.'
 			identifier: staticMethod.alreadyNarrowedType
 			count: 1
 			path: repo/tests/integration/Core/Framework/Webhook/Service/WebhookLoaderTest.php
 
 		-
-			rawMessage: '''
-				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
-				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
-				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
-				            contexts, convert the resulting name to string using {@see Name::toString()}.
-			'''
-			identifier: method.deprecated
+			rawMessage: 'Method Shopware\Tests\Integration\Core\System\SalesChannel\Context\SalesChannelContextTest::testEnsureLoginShouldThrowAnException() invoked with 4 parameters, 3 required.'
+			identifier: arguments.count
+			count: 2
+			path: repo/tests/integration/Core/System/SalesChannel/Context/SalesChannelContextTest.php
+
+		-
+			rawMessage: 'Parameter #2 $expectedResult of method Shopware\Tests\Integration\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects array<int, array<int, array<int|string, string>|Symfony\Component\Translation\MessageCatalogue>>, array<string, string> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/integration/Core/System/Snippet/SnippetServiceTest.php
+
+		-
+			rawMessage: 'Parameter $customFieldSets of method Shopware\Tests\Integration\Core\System\Snippet\Subscriber\CustomFieldSubscriberTest::testCustomFieldWrittenWithProvider() expects list<array{id: string, name: string, customFields: list<array{id: string, name: string, type: string, config: array{label: array<string, string>}}>}>, array{array{id: non-falsy-string, name: ''CustomFieldSet'', customFields: array{array{id: non-falsy-string, name: ''CustomField_1'', type: ''text'', config: array{label: array{de-DE: ''DE - Label - 1''}}}}}, array{id: non-falsy-string, customFields: array{array{id: non-falsy-string, config: array{label: array{de-DE: ''DE - Label - 2''}}}}}, array{id: non-falsy-string, customFields: array{array{id: non-falsy-string, config: array{label: array{de-DE: ''DE - Label - 3''}}}}}, array{id: non-falsy-string, customFields: array{array{id: non-falsy-string, config: array{label: array{de-DE: ''DE - Label - 4''}}}}}} given.'
+			identifier: argument.type
 			count: 1
-			path: repo/tests/integration/Core/System/CustomEntity/CustomEntityTest.php
+			path: repo/tests/integration/Core/System/Snippet/Subscriber/CustomFieldSubscriberTest.php
+
+		-
+			rawMessage: 'Parameter $customFieldSets of method Shopware\Tests\Integration\Core\System\Snippet\Subscriber\CustomFieldSubscriberTest::testCustomFieldWrittenWithProvider() expects list<array{id: string, name: string, customFields: list<array{id: string, name: string, type: string, config: array{label: array<string, string>}}>}>, array{array{id: non-falsy-string, name: ''CustomFieldSet'', customFields: array{array{id: non-falsy-string, name: ''CustomField_1'', type: ''text'', config: array{}}}}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/System/Snippet/Subscriber/CustomFieldSubscriberTest.php
+
+		-
+			rawMessage: 'Parameter $formConfigs of method Shopware\Tests\Integration\Core\System\SystemConfig\Validation\SystemConfigValidatorTest::testValidate() expects array{elements: array<array{config: array<string, bool|int|string>, name: string}>}, array{array{elements: array{array{name: ''core…'', config: array{required: true, maxLength: 255}}, array{name: ''core…'', config: array{required: true, maxLength: 255}}}}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/System/SystemConfig/Validation/SystemConfigValidatorTest.php
+
+		-
+			rawMessage: 'Parameter $formConfigs of method Shopware\Tests\Integration\Core\System\SystemConfig\Validation\SystemConfigValidatorTest::testValidate() expects array{elements: array<array{config: array<string, bool|int|string>, name: string}>}, array{array{elements: array{array{name: ''core…'', config: array{}}}}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/System/SystemConfig/Validation/SystemConfigValidatorTest.php
+
+		-
+			rawMessage: 'Parameter $formConfigs of method Shopware\Tests\Integration\Core\System\SystemConfig\Validation\SystemConfigValidatorTest::testValidate() expects array{elements: array<array{config: array<string, bool|int|string>, name: string}>}, array{array{elements: array{array{name: ''dummyField'', config: array{required: true, maxLength: 255}}}}} given.'
+			identifier: argument.type
+			count: 4
+			path: repo/tests/integration/Core/System/SystemConfig/Validation/SystemConfigValidatorTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Integration\Elasticsearch\Admin\AdminSearchControllerTest::testElasticSearch() invoked with 2 parameters, 3 required.'
+			identifier: arguments.count
+			count: 10
+			path: repo/tests/integration/Elasticsearch/Admin/AdminSearchControllerTest.php
+
+		-
+			rawMessage: 'Parameter #1 $data of method Shopware\Tests\Integration\Elasticsearch\Admin\AdminSearchControllerTest::testElasticSearch() expects array<string, string>, array<string, list<string>|string> given.'
+			identifier: argument.type
+			count: 10
+			path: repo/tests/integration/Elasticsearch/Admin/AdminSearchControllerTest.php
 
 		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertEmpty() with array{} will always evaluate to true.'
@@ -281,362 +415,106 @@ parameters:
 			path: repo/tests/integration/Elasticsearch/Framework/Indexing/ElasticsearchIndexerTest.php
 
 		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
+			rawMessage: 'Method Shopware\Tests\Integration\Elasticsearch\Product\ProductSearchQueryBuilderTest::testSearch() invoked with 3 parameters, 4 required.'
+			identifier: arguments.count
+			count: 10
+			path: repo/tests/integration/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Parameter #1 $salesChannels of method Shopware\Tests\Integration\Storefront\Framework\Routing\RequestTransformerTest::testDomainResolving() expects array<string, array<string, string>|string>, array<int, array<string, array<array<string, string>>|bool|string>> given.'
+			identifier: argument.type
+			count: 10
+			path: repo/tests/integration/Storefront/Framework/Routing/RequestTransformerTest.php
+
+		-
+			rawMessage: 'Parameter #1 $input of method Shopware\Tests\Migration\Core\V6_6\Migration1703850843FixSearchConfigTest::testMigration() expects array<string, mixed>, array<int, array<string, mixed>> given.'
+			identifier: argument.type
+			count: 6
+			path: repo/tests/migration/Core/V6_6/Migration1703850843FixSearchConfigTest.php
+
+		-
+			rawMessage: 'Parameter $config of method Shopware\Tests\Migration\Core\V6_6\Migration1715081559AdjustSentMailActionOnReviewSentTest::testMigration() expects string|null, string|false given.'
+			identifier: argument.type
+			count: 4
+			path: repo/tests/migration/Core/V6_6/Migration1715081559AdjustSentMailActionOnReviewSentTest.php
+
+		-
+			rawMessage: 'Parameter $names of method Shopware\Tests\Migration\Core\V6_6\Migration1716196653AddTechnicalNameToImportExportProfileTest::testGeneratedTechnicalName() expects array<int, string>, array<int, null> given.'
+			identifier: argument.type
 			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1696515133AddCheckoutGatewayUrlTest.php
+			path: repo/tests/migration/Core/V6_6/Migration1716196653AddTechnicalNameToImportExportProfileTest.php
 
 		-
-			rawMessage: '''
-				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableForeignKeyConstraints()},
-				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
-				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1707064042CartRemoveFKTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableIndexes() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableIndexes()}, {@see introspectTableIndexesByUnquotedName()}
-				            or {@see introspectTableIndexesByQuotedName()}
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1712309989DropLanguageLocaleUniqueTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1718658881AddValidationDataToOrderTransactionTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableForeignKeyConstraints()},
-				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
-				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1720094362AddStateForeignKeyToOrderDeliveryTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableForeignKeyConstraints()},
-				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
-				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1720094363AddStateForeignKeyToOrderTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1721811224AddInAppPurchaseGatewayUrlTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1733323215AddHashToAppTemplateTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
-				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
-				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
-				            contexts, convert the resulting name to string using {@see Name::toString()}.
-			'''
-			identifier: method.deprecated
-			count: 2
-			path: repo/tests/migration/Core/V6_6/Migration1733745893createTagStorageTableTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1733745893createTagStorageTableTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableForeignKeyConstraints()},
-				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
-				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1736866790AddDocumentA11yMediaFileIdForDocumentTableTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableIndexes() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableIndexes()}, {@see introspectTableIndexesByUnquotedName()}
-				            or {@see introspectTableIndexesByQuotedName()}
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1738661307AddMediaIndicesTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 2
-			path: repo/tests/migration/Core/V6_7/Migration1697112044PaymentAndShippingTechnicalNameRequiredTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1717573310ImportExportTechnicalNameRequiredTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1726135997CreateMessengerStatsTableTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 2
-			path: repo/tests/migration/Core/V6_7/Migration1728040169AddPrimaryOrderDeliveryTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 2
-			path: repo/tests/migration/Core/V6_7/Migration1728040170AddPrimaryOrderTransactionTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1741163941AddOrderInternalCommentTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1742563555AddNotificationTableTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1742568836CreateThemeRuntimeConfigTableTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableIndexes() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableIndexes()}, {@see introspectTableIndexesByUnquotedName()}
-				            or {@see introspectTableIndexesByQuotedName()}
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1742568836CreateThemeRuntimeConfigTableTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
-				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
-				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
-				            contexts, convert the resulting name to string using {@see Name::toString()}.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1746176773AddIntegrationIdStateHistoryTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 2
-			path: repo/tests/migration/Core/V6_7/Migration1746176773AddIntegrationIdStateHistoryTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableForeignKeyConstraints()},
-				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
-				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1746176773AddIntegrationIdStateHistoryTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1752499887UpdateAppRequestedPrivilegesTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableIndexes() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableIndexes()}, {@see introspectTableIndexesByUnquotedName()}
-				            or {@see introspectTableIndexesByQuotedName()}
-			'''
-			identifier: method.deprecated
-			count: 2
-			path: repo/tests/migration/Core/V6_7/Migration1752750086AddIndexToOrderLineItemCreateAndUpdateTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableIndexes() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableIndexes()}, {@see introspectTableIndexesByUnquotedName()}
-				            or {@see introspectTableIndexesByQuotedName()}
-			'''
-			identifier: method.deprecated
-			count: 2
-			path: repo/tests/migration/Core/V6_7/Migration1752750171AddIndexToOrderAddressCreateAndUpdateTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableIndexes() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableIndexes()}, {@see introspectTableIndexesByUnquotedName()}
-				            or {@see introspectTableIndexesByQuotedName()}
-			'''
-			identifier: method.deprecated
-			count: 2
-			path: repo/tests/migration/Core/V6_7/Migration1752750234AddIndexToOrderTransactionCreateAndUpdateTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
+			rawMessage: 'Parameter #1 $input of method Shopware\Tests\Migration\Core\V6_6\Migration1721202771UpdateDefaultSearchConfigTest::testMigration() expects array<string, mixed>, array<int, array<string, mixed>> given.'
+			identifier: argument.type
 			count: 3
-			path: repo/tests/migration/Core/V6_7/Migration1753191228AddMediaThumbnailSizeIdToMediaThumbnailTest.php
+			path: repo/tests/migration/Core/V6_6/Migration1721202771UpdateDefaultSearchConfigTest.php
 
 		-
-			rawMessage: '''
-				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
-				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
-				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
-				            contexts, convert the resulting name to string using {@see Name::toString()}.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1753799632FixStateMachineHistoryIntegrationConstraintTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableForeignKeys() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableForeignKeyConstraints()},
-				            {@see introspectTableForeignKeyConstraintsByUnquotedName()}
-				            or {@see introspectTableForeignKeyConstraintsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1753799632FixStateMachineHistoryIntegrationConstraintTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method introspectTable() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableByUnquotedName()} or {@see introspectTableByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 3
-			path: repo/tests/migration/Core/V6_7/Migration1756305375AddCategoriesIndexToProductTest.php
-
-		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
+			rawMessage: 'Parameter #3 $assetKeys of method Shopware\Tests\Unit\Administration\Framework\Twig\ViteFileAccessorDecoratorTest::testGetData() expects list<string>, array{''entryPoints'', ''administration'', ''js'', 0} given.'
+			identifier: argument.type
 			count: 2
-			path: repo/tests/migration/Core/V6_7/Migration1760438732AddConsumedToPaymentTokenTest.php
+			path: repo/tests/unit/Administration/Framework/Twig/ViteFileAccessorDecoratorTest.php
 
 		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1763316536ChangeProductManufacturerLinkTest.php
+			rawMessage: 'Parameter #3 $assetKeys of method Shopware\Tests\Unit\Administration\Framework\Twig\ViteFileAccessorDecoratorTest::testGetData() expects list<string>, array{''entryPoints'', ''test-bundle'', ''js'', 0} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Administration/Framework/Twig/ViteFileAccessorDecoratorTest.php
 
 		-
-			rawMessage: '''
-				Call to deprecated method listTableColumns() of class Doctrine\DBAL\Schema\AbstractSchemaManager:
-				Use {@see introspectTableColumns()}, {@see introspectTableColumnsByUnquotedName()}
-				            or {@see introspectTableColumnsByQuotedName()} instead.
-			'''
-			identifier: method.deprecated
+			rawMessage: 'Parameter #1 $prices of method Shopware\Tests\Unit\Core\Checkout\Cart\Facade\ScriptPriceStubsTest::testPriceFactory() expects array<string, array{gross: float, net: float}>, array{array{gross: 100, net: 90, linked: true, currencyId: ''b7d2554b0ce847cd82f…''}, array{gross: 90, net: 80, linked: false, currencyId: ''2fbb5fe2e29a4d70aa5…''}} given.'
+			identifier: argument.type
 			count: 1
-			path: repo/tests/migration/Elasticsearch/V6_5/Migration1689084023AdminElasticsearchIndexTaskTest.php
+			path: repo/tests/unit/Core/Checkout/Cart/Facade/ScriptPriceStubsTest.php
+
+		-
+			rawMessage: 'Parameter #1 $exceptionClass of method Shopware\Tests\Unit\Core\Checkout\Cart\Order\OrderConverterTest::testAssembleSalesChannelContext() expects class-string<Throwable>, string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Checkout/Cart/Order/OrderConverterTest.php
+
+		-
+			rawMessage: 'Parameter $customFieldValueInLineItem of method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemCustomFieldRuleTest::testCustomFieldCartScope() expects bool|string|null, array<int, int> given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemCustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter $customFieldValueInLineItem of method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemCustomFieldRuleTest::testCustomFieldCartScopeNested() expects bool|string|null, array<int, int> given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemCustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Result of method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemPropertyValueRuleTest::testCartScopeMatching() (void) is used.'
+			identifier: method.void
+			count: 4
+			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemPropertyValueRuleTest.php
+
+		-
+			rawMessage: 'Result of method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemPropertyValueRuleTest::testLineItemScopeMatching() (void) is used.'
+			identifier: method.void
+			count: 4
+			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemPropertyValueRuleTest.php
+
+		-
+			rawMessage: 'Result of method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemVariantValueRuleTest::testCartScopeMatching() (void) is used.'
+			identifier: method.void
+			count: 4
+			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemVariantValueRuleTest.php
+
+		-
+			rawMessage: 'Result of method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemVariantValueRuleTest::testLineItemScopeMatching() (void) is used.'
+			identifier: method.void
+			count: 4
+			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemVariantValueRuleTest.php
+
+		-
+			rawMessage: 'Parameter #3 $expectedStruct of method Shopware\Tests\Unit\Core\Checkout\Customer\Subscriber\AddressHashSubscriberTest::testGenerate() expects array<string, string|null>, array<string, array|string> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Core/Checkout/Customer/Subscriber/AddressHashSubscriberTest.php
 
 		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Checkout\\Document\\Renderer\\RenderedDocument'' and Shopware\Core\Checkout\Document\Renderer\RenderedDocument will always evaluate to true.'
@@ -645,18 +523,949 @@ parameters:
 			path: repo/tests/unit/Core/Checkout/Document/Renderer/InvoiceRendererTest.php
 
 		-
-			rawMessage: '''
-				Call to deprecated method getName() of class Doctrine\DBAL\Schema\AbstractAsset:
-				Use {@see NamedObject::getObjectName()} or {@see OptionallyQualifiedName::getObjectName()} instead.
-				            In SQL context, convert the resulting {@see Name} to SQL using {@see Name::toSQL()}. In other
-				            contexts, convert the resulting name to string using {@see Name::toString()}.
-			'''
-			identifier: method.deprecated
+			rawMessage: 'Parameter $config of method Shopware\Tests\Unit\Core\Checkout\Document\Renderer\InvoiceRendererTest::testRenderIsAllowIntraCommunityDelivery() expects array{displayAdditionalNoteDelivery: bool, deliveryCountries: array<string>}, array{displayAdditionalNoteDelivery: false, fileTypes: array{''pdf'', ''html''}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Checkout/Document/Renderer/InvoiceRendererTest.php
+
+		-
+			rawMessage: 'Parameter $config of method Shopware\Tests\Unit\Core\Checkout\Document\Renderer\InvoiceRendererTest::testRenderIsAllowIntraCommunityDelivery() expects array{displayAdditionalNoteDelivery: bool, deliveryCountries: array<string>}, array{displayAdditionalNoteDelivery: true, fileTypes: array{''pdf'', ''html''}} given.'
+			identifier: argument.type
+			count: 8
+			path: repo/tests/unit/Core/Checkout/Document/Renderer/InvoiceRendererTest.php
+
+		-
+			rawMessage: 'Parameter #3 $mediaIds of method Shopware\Tests\Unit\Core\Checkout\Document\Service\DocumentGeneratorTest::testGenerate() expects array<string, string|null>, array<int, string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Checkout/Document/Service/DocumentGeneratorTest.php
+
+		-
+			rawMessage: 'Parameter #3 $mediaIds of method Shopware\Tests\Unit\Core\Checkout\Document\Service\DocumentGeneratorTest::testGenerate() expects array<string, string|null>, array<int, string|null> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Checkout/Document/Service/DocumentGeneratorTest.php
+
+		-
+			rawMessage: 'Parameter $mappings of method Shopware\Tests\Unit\Core\Checkout\Order\OrderAddressServiceTest::testValidateInvalidMapping() expects list<array{customerAddressId: string, type: ''billing''}|array{customerAddressId: string, type: ''shipping'', deliveryId: string}>, array{array{customerAddressId: ''123'', type: ''invalid''}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Checkout/Order/OrderAddressServiceTest.php
+
+		-
+			rawMessage: 'Parameter $mappings of method Shopware\Tests\Unit\Core\Checkout\Order\OrderAddressServiceTest::testValidateInvalidMapping() expects list<array{customerAddressId: string, type: ''billing''}|array{customerAddressId: string, type: ''shipping'', deliveryId: string}>, array{array{customerAddressId: ''123'', type: ''shipping''}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Checkout/Order/OrderAddressServiceTest.php
+
+		-
+			rawMessage: 'Parameter $mappings of method Shopware\Tests\Unit\Core\Checkout\Order\OrderAddressServiceTest::testValidateInvalidMapping() expects list<array{customerAddressId: string, type: ''billing''}|array{customerAddressId: string, type: ''shipping'', deliveryId: string}>, array{array{customerAddressId: ''123''}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Checkout/Order/OrderAddressServiceTest.php
+
+		-
+			rawMessage: 'Parameter $mappings of method Shopware\Tests\Unit\Core\Checkout\Order\OrderAddressServiceTest::testValidateInvalidMapping() expects list<array{customerAddressId: string, type: ''billing''}|array{customerAddressId: string, type: ''shipping'', deliveryId: string}>, array{array{type: ''billing''}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Checkout/Order/OrderAddressServiceTest.php
+
+		-
+			rawMessage: 'Parameter $expectedWrites of method Shopware\Tests\Unit\Core\Content\Cms\Subscriber\CmsVersionMergeSubscriberTest::testOnVersionMerge() expects array{insert: array<string, array<int, mixed>>, update: array<string, array<int, mixed>>, delete: array<string, array<int, mixed>>}, array{insert: array{cms_slot: array{array{id: non-falsy-string, blockId: non-falsy-string, cmsBlockVersionId: non-falsy-string}}}, delete: array{cms_block: array{array{id: non-falsy-string, versionId: non-falsy-string}}}} given.'
+			identifier: argument.type
 			count: 2
-			path: repo/tests/unit/Core/System/CustomEntity/Schema/SchemaUpdaterTest.php
+			path: repo/tests/unit/Core/Content/Cms/Subscriber/CmsVersionMergeSubscriberTest.php
+
+		-
+			rawMessage: 'Parameter $expectedWrites of method Shopware\Tests\Unit\Core\Content\Cms\Subscriber\CmsVersionMergeSubscriberTest::testOnVersionMerge() expects array{insert: array<string, array<int, mixed>>, update: array<string, array<int, mixed>>, delete: array<string, array<int, mixed>>}, array{insert: array{cms_slot: array{array{id: non-falsy-string, blockId: non-falsy-string, cmsBlockVersionId: non-falsy-string}}}, delete: array{}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Cms/Subscriber/CmsVersionMergeSubscriberTest.php
+
+		-
+			rawMessage: 'Parameter $writes of method Shopware\Tests\Unit\Core\Content\Cms\Subscriber\CmsVersionMergeSubscriberTest::testOnVersionMerge() expects array{insert: array<string, array<int, mixed>>, update: array<string, array<int, mixed>>, delete: array<string, array<int, mixed>>}, array{insert: array{cms_slot: array{array{id: non-falsy-string, blockId: non-falsy-string, cmsBlockVersionId: non-falsy-string}, array{id: non-falsy-string, blockId: non-falsy-string, cmsBlockVersionId: non-falsy-string}}}, delete: array{cms_block: array{array{id: non-falsy-string, versionId: non-falsy-string}}}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Cms/Subscriber/CmsVersionMergeSubscriberTest.php
+
+		-
+			rawMessage: 'Parameter $writes of method Shopware\Tests\Unit\Core\Content\Cms\Subscriber\CmsVersionMergeSubscriberTest::testOnVersionMerge() expects array{insert: array<string, array<int, mixed>>, update: array<string, array<int, mixed>>, delete: array<string, array<int, mixed>>}, array{insert: array{cms_slot: array{array{id: non-falsy-string, blockId: non-falsy-string, cmsBlockVersionId: non-falsy-string}}}, delete: array{cms_block: array{array{id: non-falsy-string, versionId: non-falsy-string}}}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Cms/Subscriber/CmsVersionMergeSubscriberTest.php
+
+		-
+			rawMessage: 'Parameter $writes of method Shopware\Tests\Unit\Core\Content\Cms\Subscriber\CmsVersionMergeSubscriberTest::testOnVersionMerge() expects array{insert: array<string, array<int, mixed>>, update: array<string, array<int, mixed>>, delete: array<string, array<int, mixed>>}, array{insert: array{cms_slot: array{array{id: non-falsy-string, blockId: non-falsy-string, cmsBlockVersionId: non-falsy-string}}}, delete: array{}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Cms/Subscriber/CmsVersionMergeSubscriberTest.php
+
+		-
+			rawMessage: 'Parameter $prices of method Shopware\Tests\Unit\Core\Content\ImportExport\DataAbstractionLayer\Serializer\Field\PriceSerializerTest::testSerializePrices() expects array<string, array<string, mixed>>|Shopware\Core\Framework\DataAbstractionLayer\Pricing\Price|null, array<int, Shopware\Core\Framework\DataAbstractionLayer\Pricing\Price> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Field/PriceSerializerTest.php
+
+		-
+			rawMessage: 'Parameter $prices of method Shopware\Tests\Unit\Core\Content\ImportExport\DataAbstractionLayer\Serializer\Field\PriceSerializerTest::testSerializePrices() expects array<string, array<string, mixed>>|Shopware\Core\Framework\DataAbstractionLayer\Pricing\Price|null, array<int, array<string, int|string>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Field/PriceSerializerTest.php
+
+		-
+			rawMessage: 'Parameter $entities of method Shopware\Tests\Unit\Core\Content\ImportExport\Service\SupportedFeaturesServiceTest::testConstruct() expects iterable<string>, array<int, array> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/ImportExport/Service/SupportedFeaturesServiceTest.php
+
+		-
+			rawMessage: 'Parameter $entities of method Shopware\Tests\Unit\Core\Content\ImportExport\Service\SupportedFeaturesServiceTest::testConstruct() expects iterable<string>, array<int, float> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/ImportExport/Service/SupportedFeaturesServiceTest.php
+
+		-
+			rawMessage: 'Parameter $entities of method Shopware\Tests\Unit\Core\Content\ImportExport\Service\SupportedFeaturesServiceTest::testConstruct() expects iterable<string>, array<int, int> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Core/Content/ImportExport/Service/SupportedFeaturesServiceTest.php
+
+		-
+			rawMessage: 'Parameter $entities of method Shopware\Tests\Unit\Core\Content\ImportExport\Service\SupportedFeaturesServiceTest::testConstruct() expects iterable<string>, array<int, null> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/ImportExport/Service/SupportedFeaturesServiceTest.php
+
+		-
+			rawMessage: 'Parameter $entities of method Shopware\Tests\Unit\Core\Content\ImportExport\Service\SupportedFeaturesServiceTest::testConstruct() expects iterable<string>, array<int, stdClass> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/ImportExport/Service/SupportedFeaturesServiceTest.php
+
+		-
+			rawMessage: 'Parameter $entities of method Shopware\Tests\Unit\Core\Content\ImportExport\Service\SupportedFeaturesServiceTest::testConstruct() expects iterable<string>, array<int, true> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/ImportExport/Service/SupportedFeaturesServiceTest.php
+
+		-
+			rawMessage: 'Parameter $fileTypes of method Shopware\Tests\Unit\Core\Content\ImportExport\Service\SupportedFeaturesServiceTest::testConstruct() expects iterable<string>, array<int, array> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/ImportExport/Service/SupportedFeaturesServiceTest.php
+
+		-
+			rawMessage: 'Parameter $fileTypes of method Shopware\Tests\Unit\Core\Content\ImportExport\Service\SupportedFeaturesServiceTest::testConstruct() expects iterable<string>, array<int, float> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/ImportExport/Service/SupportedFeaturesServiceTest.php
+
+		-
+			rawMessage: 'Parameter $fileTypes of method Shopware\Tests\Unit\Core\Content\ImportExport\Service\SupportedFeaturesServiceTest::testConstruct() expects iterable<string>, array<int, int> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Core/Content/ImportExport/Service/SupportedFeaturesServiceTest.php
+
+		-
+			rawMessage: 'Parameter $fileTypes of method Shopware\Tests\Unit\Core\Content\ImportExport\Service\SupportedFeaturesServiceTest::testConstruct() expects iterable<string>, array<int, null> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/ImportExport/Service/SupportedFeaturesServiceTest.php
+
+		-
+			rawMessage: 'Parameter $fileTypes of method Shopware\Tests\Unit\Core\Content\ImportExport\Service\SupportedFeaturesServiceTest::testConstruct() expects iterable<string>, array<int, stdClass> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/ImportExport/Service/SupportedFeaturesServiceTest.php
+
+		-
+			rawMessage: 'Parameter $fileTypes of method Shopware\Tests\Unit\Core\Content\ImportExport\Service\SupportedFeaturesServiceTest::testConstruct() expects iterable<string>, array<int, true> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/ImportExport/Service/SupportedFeaturesServiceTest.php
+
+		-
+			rawMessage: 'Parameter #3 $expected of method Shopware\Tests\Unit\Core\Content\Media\Core\Application\MediaUrlLoaderTest::testLoad() expects array<string, string>, array<string, string|null> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Media/Core/Application/MediaUrlLoaderTest.php
+
+		-
+			rawMessage: 'Parameter #3 $expected of method Shopware\Tests\Unit\Core\Content\Media\Metadata\MetadataLoaderTest::testLoadFromFile() expects array<string, string>|null, array<string, int|string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Media/Metadata/MetadataLoaderTest.php
+
+		-
+			rawMessage: 'Parameter #5 $extractMetadata of method Shopware\Tests\Unit\Core\Content\Media\Metadata\MetadataLoaderTest::testLoadFromFile() expects array<string, string>|null, array<string, int> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Media/Metadata/MetadataLoaderTest.php
+
+		-
+			rawMessage: 'Parameter $doiSettings of method Shopware\Tests\Unit\Core\Content\Newsletter\SalesChannel\NewsletterSubscribeRouteTest::testSubscribeToNewsletterViaCmsForm() expects array{isDoubleOptIn: bool, doubleOptInRegistered: bool}, array{''core.newsletter.doubleOptIn'': false, ''core.newsletter.doubleOptInRegistered'': false} given.'
+			identifier: argument.type
+			count: 5
+			path: repo/tests/unit/Core/Content/Newsletter/SalesChannel/NewsletterSubscribeRouteTest.php
+
+		-
+			rawMessage: 'Parameter $doiSettings of method Shopware\Tests\Unit\Core\Content\Newsletter\SalesChannel\NewsletterSubscribeRouteTest::testSubscribeToNewsletterViaCmsForm() expects array{isDoubleOptIn: bool, doubleOptInRegistered: bool}, array{''core.newsletter.doubleOptIn'': false, ''core.newsletter.doubleOptInRegistered'': true} given.'
+			identifier: argument.type
+			count: 5
+			path: repo/tests/unit/Core/Content/Newsletter/SalesChannel/NewsletterSubscribeRouteTest.php
+
+		-
+			rawMessage: 'Parameter $doiSettings of method Shopware\Tests\Unit\Core\Content\Newsletter\SalesChannel\NewsletterSubscribeRouteTest::testSubscribeToNewsletterViaCmsForm() expects array{isDoubleOptIn: bool, doubleOptInRegistered: bool}, array{''core.newsletter.doubleOptIn'': true, ''core.newsletter.doubleOptInRegistered'': false} given.'
+			identifier: argument.type
+			count: 5
+			path: repo/tests/unit/Core/Content/Newsletter/SalesChannel/NewsletterSubscribeRouteTest.php
+
+		-
+			rawMessage: 'Parameter $doiSettings of method Shopware\Tests\Unit\Core\Content\Newsletter\SalesChannel\NewsletterSubscribeRouteTest::testSubscribeToNewsletterViaCmsForm() expects array{isDoubleOptIn: bool, doubleOptInRegistered: bool}, array{''core.newsletter.doubleOptIn'': true, ''core.newsletter.doubleOptInRegistered'': true} given.'
+			identifier: argument.type
+			count: 5
+			path: repo/tests/unit/Core/Content/Newsletter/SalesChannel/NewsletterSubscribeRouteTest.php
+
+		-
+			rawMessage: 'Parameter #1 $entityData of method Shopware\Tests\Unit\Core\Content\Product\ProductMaxPurchaseCalculatorTest::testCalculate() expects array<array<string>>, array<string, int> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Core/Content/Product/ProductMaxPurchaseCalculatorTest.php
+
+		-
+			rawMessage: 'Parameter #1 $entityData of method Shopware\Tests\Unit\Core\Content\Product\ProductMaxPurchaseCalculatorTest::testCalculate() expects array<array<string>>, array<string, int|false> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Product/ProductMaxPurchaseCalculatorTest.php
+
+		-
+			rawMessage: 'Parameter #1 $entityData of method Shopware\Tests\Unit\Core\Content\Product\ProductMaxPurchaseCalculatorTest::testCalculate() expects array<array<string>>, array<string, int|true> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Product/ProductMaxPurchaseCalculatorTest.php
+
+		-
+			rawMessage: 'Parameter #3 $expected of method Shopware\Tests\Unit\Core\Content\Product\SearchKeyword\ProductSearchKeywordAnalyzerTest::testAnalyze() expects array<int, string>, array<int, int|string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Product/SearchKeyword/ProductSearchKeywordAnalyzerTest.php
+
+		-
+			rawMessage: 'Parameter #3 $expected of method Shopware\Tests\Unit\Core\Content\Product\SearchKeyword\ProductSearchKeywordAnalyzerTest::testAnalyzeWithIgnoredErrorNoticeReporting() expects array<int, string>, array<int, int|string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Product/SearchKeyword/ProductSearchKeywordAnalyzerTest.php
+
+		-
+			rawMessage: 'Parameter $commands of method Shopware\Tests\Unit\Core\Content\Product\Stock\OrderStockSubscriberTest::testOrderItemWrites() expects list<array{type: ''delete''|''insert''|''update'', id: string, state: array<string, mixed>}>, array{array{type: ''delete'', id: ''item-1''}, array{type: ''delete'', id: ''item-2''}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Product/Stock/OrderStockSubscriberTest.php
+
+		-
+			rawMessage: 'Parameter $commands of method Shopware\Tests\Unit\Core\Content\Product\Stock\OrderStockSubscriberTest::testOrderItemWrites() expects list<array{type: ''delete''|''insert''|''update'', id: string, state: array<string, mixed>}>, array{array{type: ''delete'', id: ''item-1''}, array{type: ''insert'', id: ''item-2''}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Product/Stock/OrderStockSubscriberTest.php
+
+		-
+			rawMessage: 'Parameter $commands of method Shopware\Tests\Unit\Core\Content\Product\Stock\OrderStockSubscriberTest::testOrderItemWrites() expects list<array{type: ''delete''|''insert''|''update'', id: string, state: array<string, mixed>}>, array{array{type: ''insert'', id: ''item-1''}, array{type: ''insert'', id: ''item-2''}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Product/Stock/OrderStockSubscriberTest.php
+
+		-
+			rawMessage: 'Parameter $payload of method Shopware\Tests\Unit\Core\Content\Product\Subscriber\ProductSubscriberTest::testBeforeWriteProductWithVariousFieldTypes() expects array<string, float>, array<string, float|string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Product/Subscriber/ProductSubscriberTest.php
+
+		-
+			rawMessage: 'Parameter $productDimensions of method Shopware\Tests\Unit\Core\Content\Product\Subscriber\ProductSubscriberTest::testConvertMeasurementUnitWithVariousValues() expects array<string, float>, array<string, float|null> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Product/Subscriber/ProductSubscriberTest.php
+
+		-
+			rawMessage: 'Parameter $productDimensions of method Shopware\Tests\Unit\Core\Content\Product\Subscriber\ProductSubscriberTest::testConvertMeasurementUnitWithVariousValues() expects array<string, float>, array<string, float|string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Content/Product/Subscriber/ProductSubscriberTest.php
+
+		-
+			rawMessage: 'Parameter #2 $expected of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Dbal\CriteriaFieldsResolverTest::testResolveFields() expects array<int, mixed>, array<string, array<string, array>> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Dbal/CriteriaFieldsResolverTest.php
+
+		-
+			rawMessage: 'Parameter #1 $field of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\FieldSerializer\EnumFieldSerializerTest::testSerialize() expects Shopware\Core\Framework\DataAbstractionLayer\Field\EnumField, Shopware\Core\Framework\DataAbstractionLayer\Field\Field given.'
+			identifier: argument.type
+			count: 10
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/FieldSerializer/EnumFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testContainsFilter() expects array{type: ''contains'', field: string, value: mixed}, array{type: ''contains'', field: ''foo''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testContainsFilter() expects array{type: ''contains'', field: string, value: mixed}, array{type: ''contains'', value: ''bar''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testEqualsAllFilter() expects array{type: ''equalsAny'', field: string, value: mixed}, array{type: ''equalsAll'', field: '''', value: ''bar''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testEqualsAllFilter() expects array{type: ''equalsAny'', field: string, value: mixed}, array{type: ''equalsAll'', field: ''foo'', value: ''''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testEqualsAllFilter() expects array{type: ''equalsAny'', field: string, value: mixed}, array{type: ''equalsAll'', field: ''foo'', value: ''abc|def|ghi''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testEqualsAllFilter() expects array{type: ''equalsAny'', field: string, value: mixed}, array{type: ''equalsAll'', field: ''foo'', value: ''bar''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testEqualsAllFilter() expects array{type: ''equalsAny'', field: string, value: mixed}, array{type: ''equalsAll'', field: ''foo'', value: ''false|true|0''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testEqualsAllFilter() expects array{type: ''equalsAny'', field: string, value: mixed}, array{type: ''equalsAll'', field: ''foo'', value: ''||||''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testEqualsAllFilter() expects array{type: ''equalsAny'', field: string, value: mixed}, array{type: ''equalsAll'', field: ''foo'', value: 0} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testEqualsAllFilter() expects array{type: ''equalsAny'', field: string, value: mixed}, array{type: ''equalsAll'', field: ''foo'', value: 1} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testEqualsAllFilter() expects array{type: ''equalsAny'', field: string, value: mixed}, array{type: ''equalsAll'', field: ''foo'', value: false} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testEqualsAllFilter() expects array{type: ''equalsAny'', field: string, value: mixed}, array{type: ''equalsAll'', field: ''foo'', value: true} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testEqualsAllFilter() expects array{type: ''equalsAny'', field: string, value: mixed}, array{type: ''equalsAll'', field: ''foo''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testEqualsAllFilter() expects array{type: ''equalsAny'', field: string, value: mixed}, array{type: ''equalsAll'', value: ''foo''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testEqualsAnyFilter() expects array{type: ''equalsAny'', field: string, value: mixed}, array{type: ''equalsAny'', field: ''foo''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testEqualsAnyFilter() expects array{type: ''equalsAny'', field: string, value: mixed}, array{type: ''equalsAny'', value: ''foo''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testEqualsFilter() expects array{type: ''equals'', field: string, value: mixed}, array{type: ''equals'', field: ''foo''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testEqualsFilter() expects array{type: ''equals'', field: string, value: mixed}, array{type: ''equals'', value: ''bar''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testPrefixFilter() expects array{type: ''prefix'', field: string, value: mixed}, array{type: ''prefix'', field: ''foo''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testPrefixFilter() expects array{type: ''prefix'', field: string, value: mixed}, array{type: ''prefix'', value: ''bar''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testRelativeTimeToDateFilters() expects array{type: ''range''|''since''|''until'', field: string, value?: mixed, parameters: array<string, mixed>}, array{type: ''until'', field: ''foo'', value: ''P5D''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testSuffixFilter() expects array{type: ''suffix'', field: string, value: mixed}, array{type: ''suffix'', field: ''foo''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testSuffixFilter() expects array{type: ''suffix'', field: string, value: mixed}, array{type: ''suffix'', value: ''bar''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #1 $payload of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testParser() expects array{type: string, field?: string, value?: mixed, parameters?: array{operator: ''gt''|''gte''|''lt''|''lte''}, queries?: list<array{type: string, field?: string, value?: mixed}>}, array{type: ''and'', queries: null} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+
+		-
+			rawMessage: 'Parameter #2 $expected of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilderTest::testInvalidSorting() expects Shopware\Core\Framework\DataAbstractionLayer\Exception\InvalidSortQueryException, Shopware\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException given.'
+			identifier: argument.type
+			count: 5
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/RequestCriteriaBuilderTest.php
+
+		-
+			rawMessage: 'Parameter $input of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Write\WriteInputValidatorTest::testInvalidWriteInputs() expects array<array<string, mixed>>, array<int, array<int, string>> given.'
+			identifier: argument.type
+			count: 4
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Write/WriteInputValidatorTest.php
+
+		-
+			rawMessage: 'Parameter $input of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Write\WriteInputValidatorTest::testInvalidWriteInputs() expects array<array<string, mixed>>, array<int, array<int|string, string>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Write/WriteInputValidatorTest.php
+
+		-
+			rawMessage: 'Parameter $existingTagAttributes of method Shopware\Tests\Unit\Core\Framework\MessageQueue\MessageHandlerCompilerPassTest::testAddsTagsAttributesFromAttribute() expects array<string, string>, array<string, int|string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/MessageQueue/MessageHandlerCompilerPassTest.php
+
+		-
+			rawMessage: 'Parameter $expectedTagAttributes of method Shopware\Tests\Unit\Core\Framework\MessageQueue\MessageHandlerCompilerPassTest::testAddsTagsAttributesFromAttribute() expects array<string, string>, array<string, int|string> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Core/Framework/MessageQueue/MessageHandlerCompilerPassTest.php
+
+		-
+			rawMessage: 'Parameter $arguments of method Shopware\Tests\Unit\Core\Framework\Plugin\Command\PluginCreateCommandTest::testSuccessfulCreateCommandWithArguments() expects array<string, string>, array<string, string|true> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Plugin/Command/PluginCreateCommandTest.php
+
+		-
+			rawMessage: 'Parameter $inputs of method Shopware\Tests\Unit\Core\Framework\Plugin\Command\PluginCreateCommandTest::testSuccessfulCreateCommandWithArguments() expects array<string, string>, array<int, string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Plugin/Command/PluginCreateCommandTest.php
+
+		-
+			rawMessage: 'Parameter #1 $customFields of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects array<string, array<string>|bool|float|string>, array<int|string, array<string>|string>|bool|string|null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #1 $customFields of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects array<string, array<string>|bool|float|string>, array<string, bool>|bool|string|null given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #1 $customFields of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects array<string, array<string>|bool|float|string>, array<string, float>|bool|int|string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #1 $customFields of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects array<string, array<string>|bool|float|string>, array<string, null>|bool|string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #1 $customFields of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects array<string, array<string>|bool|float|string>, array<string, string>|bool|string given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #2 $renderedFieldValue of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects array<string>|bool|int|string|null, array<int|string, array<string>|string>|bool|string|null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #2 $renderedFieldValue of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects array<string>|bool|int|string|null, array<string, bool>|bool|string|null given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #2 $renderedFieldValue of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects array<string>|bool|int|string|null, array<string, float>|bool|int|string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #2 $renderedFieldValue of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects array<string>|bool|int|string|null, array<string, null>|bool|string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #3 $type of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects string, array<int|string, array<string>|string>|bool|string|null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #3 $type of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects string, array<string, bool>|bool|string|null given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #3 $type of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects string, array<string, float>|bool|int|string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #3 $type of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects string, array<string, null>|bool|string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #3 $type of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects string, array<string, string>|bool|string given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #4 $operator of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects string, array<int|string, array<string>|string>|bool|string|null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #4 $operator of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects string, array<string, bool>|bool|string|null given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #4 $operator of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects string, array<string, float>|bool|int|string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #4 $operator of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects string, array<string, null>|bool|string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #4 $operator of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects string, array<string, string>|bool|string given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #5 $isMatching of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects bool, array<int|string, array<string>|string>|bool|string|null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #5 $isMatching of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects bool, array<string, bool>|bool|string|null given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #5 $isMatching of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects bool, array<string, float>|bool|int|string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #5 $isMatching of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects bool, array<string, null>|bool|string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #5 $isMatching of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects bool, array<string, string>|bool|string given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #6 $config of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects array<string, string>, array<int|string, array<string>|string>|bool|string|null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #6 $config of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects array<string, string>, array<string, bool>|bool|string|null given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #6 $config of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects array<string, string>, array<string, float>|bool|int|string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #6 $config of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects array<string, string>, array<string, null>|bool|string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter #6 $config of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects array<string, string>, array<string, string>|bool|string given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
+
+		-
+			rawMessage: 'Parameter $options of method Shopware\Tests\Unit\Core\Framework\Rule\DateRangeRuleTest::testAssignPreservesInvalidFormatsForValidators() expects array<string, bool|DateTime|string>, array<string, DateTime|string|false|null> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/DateRangeRuleTest.php
+
+		-
+			rawMessage: 'Parameter $options of method Shopware\Tests\Unit\Core\Framework\Rule\DateRangeRuleTest::testAssignPreservesInvalidFormatsForValidators() expects array<string, bool|DateTime|string>, array<string, string|false|null> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/DateRangeRuleTest.php
+
+		-
+			rawMessage: 'Parameter $options of method Shopware\Tests\Unit\Core\Framework\Rule\DateRangeRuleTest::testAssignPreservesInvalidFormatsForValidators() expects array<string, bool|DateTime|string>, array<string, string|true|null> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Rule/DateRangeRuleTest.php
+
+		-
+			rawMessage: 'Parameter $rawConfig of method Shopware\Tests\Unit\Core\Framework\Sso\Config\LoginConfigServiceTest::testGetConfigErrors() expects array{use_default: bool, client_id: non-empty-string, client_secret: non-empty-string, redirect_uri: non-empty-string, base_url: non-empty-string, authorize_path: non-empty-string, token_path: non-empty-string, jwks_path: non-empty-string, ...}, array<string, mixed> given.'
+			identifier: argument.type
+			count: 40
+			path: repo/tests/unit/Core/Framework/Sso/Config/LoginConfigServiceTest.php
+
+		-
+			rawMessage: 'Parameter #2 $composerOverrides of method Shopware\Tests\Unit\Core\Installer\Requirements\EnvironmentRequirementsValidatorTest::testValidateRequirements() expects array<string, string>, array<string, false> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Installer/Requirements/EnvironmentRequirementsValidatorTest.php
+
+		-
+			rawMessage: 'Parameter $insertCallback of method Shopware\Tests\Unit\Core\Maintenance\System\Service\ShopConfiguratorTest::testSetDefaultLanguageShouldAddMissingCountryStatesTranslations() expects callable(string, array<string, string>): void, Closure(string, array): 1 given.'
+			identifier: argument.type
+			count: 5
+			path: repo/tests/unit/Core/Maintenance/System/Service/ShopConfiguratorTest.php
+
+		-
+			rawMessage: 'Parameter #1 $response of method Shopware\Tests\Unit\Core\Service\ServiceRegistry\ClientTest::testInvalidResponseBodyReturnsEmptyListOfServices() expects string, string|false given.'
+			identifier: argument.type
+			count: 7
+			path: repo/tests/unit/Core/Service/ServiceRegistry/ClientTest.php
+
+		-
+			rawMessage: 'Parameter #2 $body of method Shopware\Tests\Unit\Core\Service\ServiceRegistry\ClientTest::testFetchServiceZipThrowsWhenResponseIsNotZip() expects string, string|false given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Service/ServiceRegistry/ClientTest.php
 
 		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertEmpty() with array{} will always evaluate to true.'
 			identifier: staticMethod.alreadyNarrowedType
 			count: 2
 			path: repo/tests/unit/Core/System/SalesChannel/SalesChannelContextTest.php
+
+		-
+			rawMessage: 'Parameter $catalogueMessages of method Shopware\Tests\Unit\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects list<string>, array{catalogue_key: ''Catalogue DE'', title: ''Catalogue title DE''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/Snippet/SnippetServiceTest.php
+
+		-
+			rawMessage: 'Parameter $catalogueMessages of method Shopware\Tests\Unit\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects list<string>, array{catalogue_key: ''Catalogue DE'', title: ''Catalogue title''} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Core/System/Snippet/SnippetServiceTest.php
+
+		-
+			rawMessage: 'Parameter $catalogueMessages of method Shopware\Tests\Unit\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects list<string>, array{catalogue_key: ''Catalogue EN''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/Snippet/SnippetServiceTest.php
+
+		-
+			rawMessage: 'Parameter $catalogueMessages of method Shopware\Tests\Unit\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects list<string>, array{catalogue_key: ''Catalogue VI'', title: ''Catalogue title VI''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/Snippet/SnippetServiceTest.php
+
+		-
+			rawMessage: 'Parameter $databaseSnippets of method Shopware\Tests\Unit\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects list<string>, array{title: ''Database title''} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Core/System/Snippet/SnippetServiceTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects list<string>|Throwable, array{catalogue_key: ''Catalogue DE'', title: ''Storefront DE''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/Snippet/SnippetServiceTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects list<string>|Throwable, array{catalogue_key: ''Catalogue EN''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/Snippet/SnippetServiceTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects list<string>|Throwable, array{catalogue_key: ''Catalogue VI'', title: ''Catalogue title VI''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/Snippet/SnippetServiceTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects list<string>|Throwable, array{title: ''Database title'', catalogue_key: ''Catalogue DE''} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Core/System/Snippet/SnippetServiceTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects list<string>|Throwable, array{title: ''Storefront DE''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/Snippet/SnippetServiceTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects list<string>|Throwable, array{title: ''Storefront EN''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/Snippet/SnippetServiceTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects list<string>|Throwable, array{title: ''SwagTheme DE''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/Snippet/SnippetServiceTest.php
+
+		-
+			rawMessage: 'Parameter #2 $expectedValue of method Shopware\Tests\Unit\Core\System\SystemConfig\Command\ConfigSetCommandTest::testConfigSetValue() expects string, array<string, string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/SystemConfig/Command/ConfigSetCommandTest.php
+
+		-
+			rawMessage: 'Parameter #2 $expectedValue of method Shopware\Tests\Unit\Core\System\SystemConfig\Command\ConfigSetCommandTest::testConfigSetValue() expects string, false given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/SystemConfig/Command/ConfigSetCommandTest.php
+
+		-
+			rawMessage: 'Parameter #2 $expectedValue of method Shopware\Tests\Unit\Core\System\SystemConfig\Command\ConfigSetCommandTest::testConfigSetValue() expects string, float given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/SystemConfig/Command/ConfigSetCommandTest.php
+
+		-
+			rawMessage: 'Parameter #2 $expectedValue of method Shopware\Tests\Unit\Core\System\SystemConfig\Command\ConfigSetCommandTest::testConfigSetValue() expects string, int given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/SystemConfig/Command/ConfigSetCommandTest.php
+
+		-
+			rawMessage: 'Parameter $formConfigs of method Shopware\Tests\Unit\Core\System\SystemConfig\Validation\SystemConfigValidatorTest::testValidateFailure() expects array<string, mixed>, array<int, array<string, array<int, array<string, array<string, bool|int>|string>>>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/SystemConfig/Validation/SystemConfigValidatorTest.php
+
+		-
+			rawMessage: 'Parameter $formConfigs of method Shopware\Tests\Unit\Core\System\SystemConfig\Validation\SystemConfigValidatorTest::testValidateSuccess() expects array<string, mixed>, array<int, array<string, array<int, array<string, array<string, bool|int>|string>>>> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Core/System/SystemConfig/Validation/SystemConfigValidatorTest.php
+
+		-
+			rawMessage: 'Parameter $formConfigs of method Shopware\Tests\Unit\Core\System\SystemConfig\Validation\SystemConfigValidatorTest::testValidateSuccess() expects array<string, mixed>, array<int, array<string, array<int, array<string, array|string>>>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/SystemConfig/Validation/SystemConfigValidatorTest.php
+
+		-
+			rawMessage: 'Parameter $formConfigs of method Shopware\Tests\Unit\Core\System\SystemConfig\Validation\SystemConfigValidatorTest::testValidateWithEmptyConfig() expects array<string, mixed>, array<int, array<string, array<int, array<string, array<string, bool|int>|string>>>> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Core/System/SystemConfig/Validation/SystemConfigValidatorTest.php
+
+		-
+			rawMessage: 'Parameter $formConfigs of method Shopware\Tests\Unit\Core\System\SystemConfig\Validation\SystemConfigValidatorTest::testValidateWithEmptyConfig() expects array<string, mixed>, array<int, array<string, array<int, array<string, array|string>>>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/SystemConfig/Validation/SystemConfigValidatorTest.php
+
+		-
+			rawMessage: 'Parameter $config of method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::testBuildMultipleLanguages() expects array{array{and_logic: string, field: string, tokenize: int, ranking: int}}, array{array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Parameter $config of method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::testBuildMultipleLanguages() expects array{array{and_logic: string, field: string, tokenize: int, ranking: int}}, array{array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::testBuildMultipleLanguages() expects array{string: mixed}, array{bool: array<string, array<mixed>>} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::testBuildMultipleLanguages() expects array{string: mixed}, array{dis_max: array{queries: array<mixed>}} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::testBuildSingleLanguage() expects array{string: mixed}, array{bool: array<string, array<mixed>>} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::testBuildSingleLanguage() expects array{string: mixed}, array{dis_max: array{queries: array<mixed>}} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::testBuildSingleLanguage() expects array{string: mixed}, array{term: array<string, array{value: float|int|string, boost: float}>} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Elasticsearch\TokenQueryBuilderTest::testBuildMultipleLanguages() expects array{string: mixed}, array{bool: array<string, array<mixed>>} given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Elasticsearch/TokenQueryBuilderTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Elasticsearch\TokenQueryBuilderTest::testBuildMultipleLanguages() expects array{string: mixed}, array{dis_max: array{queries: array<mixed>}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Elasticsearch/TokenQueryBuilderTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Elasticsearch\TokenQueryBuilderTest::testBuildSingleLanguage() expects array{string: mixed}, array{bool: array<string, array<mixed>>} given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Elasticsearch/TokenQueryBuilderTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Elasticsearch\TokenQueryBuilderTest::testBuildSingleLanguage() expects array{string: mixed}, array{dis_max: array{queries: array<mixed>}} given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Elasticsearch/TokenQueryBuilderTest.php
+
+		-
+			rawMessage: 'Parameter #1 $config of method Shopware\Tests\Unit\Storefront\Theme\ThemeCompilerTest::testDumpVariables() expects array<string>, array<string, array<string, array<string, array<int|string, bool|int|list<array<string, string>>|string>|bool|string>>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Storefront/Theme/ThemeCompilerTest.php
+
+		-
+			rawMessage: 'Parameter #1 $config of method Shopware\Tests\Unit\Storefront\Theme\ThemeCompilerTest::testDumpVariables() expects array<string>, array<string, array<string, array<string, array<string, string>>>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Storefront/Theme/ThemeCompilerTest.php
+
+		-
+			rawMessage: 'Parameter #1 $config of method Shopware\Tests\Unit\Storefront\Theme\ThemeCompilerTest::testDumpVariables() expects array<string>, array<string, array<string, array<string, bool|string>>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Storefront/Theme/ThemeCompilerTest.php
+
+		-
+			rawMessage: 'Parameter #1 $config of method Shopware\Tests\Unit\Storefront\Theme\ThemeCompilerTest::testDumpVariables() expects array<string>, array<string, array<string, array<string, int|string|null>>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Storefront/Theme/ThemeCompilerTest.php
+
+		-
+			rawMessage: 'Parameter #1 $data of method Shopware\Tests\Unit\Storefront\Theme\Validator\SCSSValidatorTest::testValidateNoSanitize() expects array<string, string>, array<string, int|string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Storefront/Theme/Validator/SCSSValidatorTest.php
+
+		-
+			rawMessage: 'Parameter #1 $data of method Shopware\Tests\Unit\Storefront\Theme\Validator\SCSSValidatorTest::testValidateNoSanitize() expects array<string, string>, array<string, string|false> given.'
+			identifier: argument.type
+			count: 4
+			path: repo/tests/unit/Storefront/Theme/Validator/SCSSValidatorTest.php
+
+		-
+			rawMessage: 'Parameter #1 $data of method Shopware\Tests\Unit\Storefront\Theme\Validator\SCSSValidatorTest::testValidateNoSanitize() expects array<string, string>, array<string, string|true> given.'
+			identifier: argument.type
+			count: 4
+			path: repo/tests/unit/Storefront/Theme/Validator/SCSSValidatorTest.php
+
+		-
+			rawMessage: 'Parameter #1 $data of method Shopware\Tests\Unit\Storefront\Theme\Validator\SCSSValidatorTest::testValidateSanitize() expects array<string, string>, array<string, int|string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Storefront/Theme/Validator/SCSSValidatorTest.php
+
+		-
+			rawMessage: 'Parameter #1 $data of method Shopware\Tests\Unit\Storefront\Theme\Validator\SCSSValidatorTest::testValidateSanitize() expects array<string, string>, array<string, string|false> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Storefront/Theme/Validator/SCSSValidatorTest.php
+
+		-
+			rawMessage: 'Parameter #1 $data of method Shopware\Tests\Unit\Storefront\Theme\Validator\SCSSValidatorTest::testValidateSanitize() expects array<string, string>, array<string, string|true> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Storefront/Theme/Validator/SCSSValidatorTest.php
