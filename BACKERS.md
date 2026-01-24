@@ -160,7 +160,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/tenkoma">Koji Tanaka (tenkoma)</a></li>
 <li><a href="https://github.com/stafftastic">stafftastic GmbH (stafftastic)</a></li>
 <li><a href="https://github.com/AllenJB">AllenJB (AllenJB)</a></li>
-<li><a href="https://github.com/madbob">Roberto Guido (madbob)</a></li>
 <li><a href="https://github.com/stopfstedt">Stefan Topfstedt (stopfstedt)</a></li>
 <li><a href="https://github.com/kingkero">Martin Rehberger (kingkero)</a></li>
 <li><a href="https://github.com/previousnext">PreviousNext (previousnext)</a></li>
