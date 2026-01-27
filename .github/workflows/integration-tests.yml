@@ -93,7 +93,7 @@ jobs:
             script: |
               git clone https://github.com/larastan/larastan.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 4cdaf5526c0212d9390f3c34a4c8c273a9a18a20
+              git checkout 0ac2cfa87ac815a460918b0331b77d9f9e9b863d
               cp ../larastan-composer.lock composer.lock
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
