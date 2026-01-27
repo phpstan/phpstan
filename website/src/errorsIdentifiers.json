@@ -13289,7 +13289,7 @@
     "property.dynamicName": {
         "PHPStan\\Rules\\VariableVariables\\VariablePropertyFetchRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/VariableVariables/VariablePropertyFetchRule.php#L66"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/VariableVariables/VariablePropertyFetchRule.php#L70"
             ]
         }
     },
