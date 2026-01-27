@@ -88,8 +88,8 @@ jobs:
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit
-          - php-version: 8.3
-            name: Larastan tests PHP 8.3, ^11.15
+          - php-version: 8.4
+            name: Larastan tests PHP 8.4, ^12.48
             script: |
               git clone https://github.com/larastan/larastan.git e2e/integration/repo
               cd e2e/integration/repo
