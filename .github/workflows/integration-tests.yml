@@ -287,9 +287,9 @@ jobs:
               composer install
             phpstan-command: ../../../phpstan analyse -c ../symplify.neon
             baseline-file: symplify-baseline.neon
-          - php-version: 8.3
+          - php-version: 8.4
             repo: larastan/larastan
-            ref: 4cdaf5526c0212d9390f3c34a4c8c273a9a18a20
+            ref: 0ac2cfa87ac815a460918b0331b77d9f9e9b863d
             setup: |
               cp ../larastan-composer.lock composer.lock
               composer install
