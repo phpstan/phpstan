@@ -126,7 +126,7 @@ jobs:
             script: |
               git clone https://github.com/shipmonk-rnd/dead-code-detector.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 40ab4426238c26aa0ddb963b41ffd438450153a1
+              git checkout c22f3b102153bbf44ca1fed624df7b1bc952a7c3
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
@@ -404,7 +404,7 @@ jobs:
             baseline-file: shipmonk-rnd-baseline.neon
           - php-version: 8.3
             repo: shipmonk-rnd/dead-code-detector
-            ref: 40ab4426238c26aa0ddb963b41ffd438450153a1
+            ref: c22f3b102153bbf44ca1fed624df7b1bc952a7c3
             setup: |
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
