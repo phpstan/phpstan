@@ -1,7 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Variable \$guess might not be defined\.$#'
-			identifier: variable.undefined
-			count: 3
-			path: repo/src/Illuminate/View/Compilers/ComponentTagCompiler.php
+			message: '#^Variable \$action on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.variable
+			count: 1
+			path: repo/src/Illuminate/Foundation/Console/RouteListCommand.php
