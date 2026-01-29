@@ -449,3 +449,5 @@ jobs:
 
       - name: "Tests"
         run: "${{ matrix.script }}"
+        env:
+          COMPOSER_NO_SECURITY_BLOCKING: 1
