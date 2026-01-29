@@ -182,6 +182,8 @@ jobs:
 
       - name: "Tests"
         run: "${{ matrix.script }}"
+        env:
+          COMPOSER_NO_SECURITY_BLOCKING: 1
 
   integration-run-phpstan:
     name: "Integration - ${{ matrix.repo }}"
@@ -509,6 +511,8 @@ jobs:
       - name: "Setup"
         working-directory: e2e/integration/repo
         run: "${{ matrix.setup }}"
+        env:
+          COMPOSER_NO_SECURITY_BLOCKING: 1
 
       - name: "PHPStan"
         working-directory: ${{ matrix.phpstan-cwd || 'e2e/integration/repo' }}
