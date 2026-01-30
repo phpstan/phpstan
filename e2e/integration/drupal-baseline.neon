@@ -1,6 +1,66 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Method Drupal\\Core\\Entity\\ContentEntityConfirmFormBase\:\:validateForm\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: repo/core/lib/Drupal/Core/Entity/ContentEntityConfirmFormBase.php
+
+		-
+			message: '#^Method Drupal\\Core\\Entity\\ContentEntityForm\:\:validateForm\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: repo/core/lib/Drupal/Core/Entity/ContentEntityForm.php
+
+		-
+			message: '#^Method Drupal\\Core\\Entity\\FieldableEntityInterface\:\:get\(\) return type with generic interface Drupal\\Core\\Field\\FieldItemListInterface does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: repo/core/lib/Drupal/Core/Entity/FieldableEntityInterface.php
+
+		-
+			message: '#^Method Drupal\\Core\\Entity\\FieldableEntityInterface\:\:getFields\(\) return type with generic interface Drupal\\Core\\Field\\FieldItemListInterface does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: repo/core/lib/Drupal/Core/Entity/FieldableEntityInterface.php
+
+		-
+			message: '#^Method Drupal\\Core\\Entity\\FieldableEntityInterface\:\:getTranslatableFields\(\) return type with generic interface Drupal\\Core\\Field\\FieldItemListInterface does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: repo/core/lib/Drupal/Core/Entity/FieldableEntityInterface.php
+
+		-
+			message: '#^Method Drupal\\Core\\TypedData\\Plugin\\DataType\\ItemList\:\:getIterator\(\) return type with generic class ArrayIterator does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: repo/core/lib/Drupal/Core/TypedData/Plugin/DataType/ItemList.php
+
+		-
+			message: '#^Method Drupal\\contact\\MessageForm\:\:validateForm\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: repo/core/modules/contact/src/MessageForm.php
+
+		-
+			message: '#^\#lazy_builder value ''string'' at key ''0'' is invalid\.$#'
+			identifier: renderCallback.invalidKeyValue
+			count: 1
+			path: repo/core/modules/filter/src/FilterProcessResult.php
+
+		-
+			message: '#^Method Drupal\\taxonomy\\Plugin\\views\\argument_default\\Tid\:\:getCacheTags\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: repo/core/modules/taxonomy/src/Plugin/views/argument_default/Tid.php
+
+		-
+			message: '#^Method Drupal\\taxonomy\\TermForm\:\:validateForm\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: repo/core/modules/taxonomy/src/TermForm.php
+
+		-
 			message: '#^Cannot unset offset ''\#title'' on array\{''\#theme_wrappers''\: array\{''container''\}, ''\#attributes''\: array\{class\: array\{''scroll''\}, data\-drupal\-views\-scroll\: true\}\}\.$#'
 			identifier: unset.offset
 			count: 1
