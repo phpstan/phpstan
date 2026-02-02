@@ -15,7 +15,7 @@ Web UI for browsing errors
 When you launch PHPStan Pro by adding `--pro` flag to the `analyse` command, it will automatically open your web browser with its user interface:
 
 <video class="w-full aspect-[2310/2022] mb-8 rounded-lg border border-gray-300" autoplay muted loop playsinline>
-  <source src="/tmp/images/phpstan-pro-2.mp4" type="video/mp4">
+  <source src="/images/phpstan-pro-2.mp4" type="video/mp4">
 </video>
 
 Instead of scrolling through a textual output of errors on the command line, you'll get a beautiful interactive UI that allows you to go back and forth between files, and see the surrounding code. This is especially nice if you have a large number of errors.
@@ -39,8 +39,8 @@ What's important to mention in this day and age of privacy nightmares and data l
 
 PHPStan Pro can also show you ignored errors, right where they'd be reported if they weren't ignored:
 
-<video class="w-full aspect-[1656/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/tmp/images/phpstan-pro-ignored-errors-poster.jpg">
-  <source src="/tmp/images/phpstan-pro-ignored-errors.mp4" type="video/mp4">
+<video class="w-full aspect-[1656/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/images/phpstan-pro-ignored-errors-poster.jpg">
+  <source src="/images/phpstan-pro-ignored-errors.mp4" type="video/mp4">
 </video>
 
 Continuous analysis (watch mode)
@@ -49,7 +49,7 @@ Continuous analysis (watch mode)
 Once you fix all the found errors and achieve [Error Zero](https://twitter.com/OndrejMirtes/status/1301760838144004098), PHPStan Pro keeps running in the background, watching files, and re-running analysis each time it detects a change. There's a loading indicator in the lower right corner for that:
 
 <video width="267" height="159" class="mb-8 rounded-lg border border-gray-300 mx-auto" autoplay muted loop playsinline>
-  <source src="/tmp/images/phpstan-pro-loader.mp4" type="video/mp4">
+  <source src="/images/phpstan-pro-loader.mp4" type="video/mp4">
 </video>
 
 Continuous analysis reflects and supports my preferred workflow when developing applications: when I realize that I have to pass an additional new value through multiple layers of a codebase, I start by changing method signatures – renaming them, adding parameters, changing return typehints. After that, I run PHPStan which essentially gives me a todo list of places to fix. But running PHPStan several times a minute to get instant feedback can become tedious. Having a persistent window that refreshes automatically and gives me an up-to-date view of the project is much nicer.
@@ -60,8 +60,8 @@ Migration wizards for improving your codebase
 
 Besides providing a beautiful web UI for browsing reported (and ignored) errors, PHPStan Pro now offers migration wizards to improve your code:
 
-<video class="w-full aspect-[1680/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/tmp/images/ignore-line-wizard-poster.jpg">
-  <source src="/tmp/images/ignore-line-wizard.mp4" type="video/mp4">
+<video class="w-full aspect-[1680/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/images/ignore-line-wizard-poster.jpg">
+  <source src="/images/ignore-line-wizard.mp4" type="video/mp4">
 </video>
 
 Wizards let you update various aspects of your codebase related to static analysis and leave it in a better state. They improve typehints and add PHPDocs that will make PHPStan understand your code better and find more issues.

@@ -7,12 +7,12 @@ permalink: "/merch.html"
 {% extends "./_layouts/_base.njk" %}
 
 {% block scripts %}
-	<script src="/tmp/js/merch.ts" type="module"></script>
+	<script src="/js/merch.ts" type="module"></script>
 {% endblock %}
 
 {% block socialImages %}
-  <meta property="og:image" content="/tmp/images/og-merch-2024.jpg" />
-  <meta name="twitter:image" content="/tmp/images/og-merch-2024.jpg" />
+  <meta property="og:image" content="/images/og-merch-2024.jpg" />
+  <meta name="twitter:image" content="/images/og-merch-2024.jpg" />
 {% endblock %}
 
 {% block bgColor %}background-color: #fefefe{% endblock %}
@@ -125,10 +125,10 @@ permalink: "/merch.html"
 	  <!-- Image gallery -->
 	  <div class="px-4 hidden lg:block">
 		<!-- ko if: selectedElephpantView() === 'right' -->
-			<img src="/tmp/images/elephpant_right.jpg" alt="PHPStan elephpant" class="mx-auto w-full h-full px-6 object-center object-cover rounded-lg">
+			<img src="/images/elephpant_right.jpg" alt="PHPStan elephpant" class="mx-auto w-full h-full px-6 object-center object-cover rounded-lg">
 		<!-- /ko -->
 		<!-- ko if: selectedElephpantView() === 'left' -->
-			<img src="/tmp/images/elephpant_left.jpg" alt="PHPStan elephpant" class="mx-auto w-full h-full px-6 object-center object-cover rounded-lg">
+			<img src="/images/elephpant_left.jpg" alt="PHPStan elephpant" class="mx-auto w-full h-full px-6 object-center object-cover rounded-lg">
 		<!-- /ko -->
 	  </div>
 	  <!-- Product info -->
@@ -159,7 +159,7 @@ permalink: "/merch.html"
 		<form class="mt-6" data-bind="submit: addElephpantToCart">
 		  <!-- Image gallery -->
 		  <div class="mt-8 block lg:hidden">
-		  	<img src="/tmp/images/elephpant.jpg" alt="PHPStan elephpant" class="mx-auto w-full h-full object-center object-cover rounded-lg">
+		  	<img src="/images/elephpant.jpg" alt="PHPStan elephpant" class="mx-auto w-full h-full object-center object-cover rounded-lg">
 		  </div>
 
 		  <div class="mt-6">
@@ -197,18 +197,18 @@ permalink: "/merch.html"
           <!-- ko if: selectedTShirtView() === 'front' -->
             <!-- ko if: selectedTShirtType().htmlClass === 'bg-white' -->
               <!-- ko if: selectedTShirtType().style === 'Straight' -->
-                <img src="/tmp/images/tshirt-2024-white-front-straight.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+                <img src="/images/tshirt-2024-white-front-straight.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
               <!-- /ko -->
               <!-- ko if: selectedTShirtType().style === 'Fitted' -->
-                <img src="/tmp/images/tshirt-2024-white-front-fitted.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+                <img src="/images/tshirt-2024-white-front-fitted.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
               <!-- /ko -->
             <!-- /ko -->
             <!-- ko if: selectedTShirtType().htmlClass === 'bg-sky-900' -->
               <!-- ko if: selectedTShirtType().style === 'Straight' -->
-                <img src="/tmp/images/tshirt-2024-blue-front-straight.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+                <img src="/images/tshirt-2024-blue-front-straight.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
               <!-- /ko -->
               <!-- ko if: selectedTShirtType().style === 'Fitted' -->
-                <img src="/tmp/images/tshirt-2024-blue-front-fitted.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+                <img src="/images/tshirt-2024-blue-front-fitted.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
               <!-- /ko -->
             <!-- /ko -->
           <!-- /ko -->
@@ -216,18 +216,18 @@ permalink: "/merch.html"
           <!-- ko if: selectedTShirtView() === 'back' -->
             <!-- ko if: selectedTShirtType().htmlClass === 'bg-white' -->
               <!-- ko if: selectedTShirtType().style === 'Straight' -->
-                <img src="/tmp/images/tshirt-2024-white-back-straight.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+                <img src="/images/tshirt-2024-white-back-straight.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
               <!-- /ko -->
               <!-- ko if: selectedTShirtType().style === 'Fitted' -->
-                <img src="/tmp/images/tshirt-2024-white-back-fitted.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+                <img src="/images/tshirt-2024-white-back-fitted.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
               <!-- /ko -->
             <!-- /ko -->
             <!-- ko if: selectedTShirtType().htmlClass === 'bg-sky-900' -->
               <!-- ko if: selectedTShirtType().style === 'Straight' -->
-                <img src="/tmp/images/tshirt-2024-blue-back-straight.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+                <img src="/images/tshirt-2024-blue-back-straight.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
               <!-- /ko -->
               <!-- ko if: selectedTShirtType().style === 'Fitted' -->
-                <img src="/tmp/images/tshirt-2024-blue-back-fitted.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+                <img src="/images/tshirt-2024-blue-back-fitted.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
               <!-- /ko -->
             <!-- /ko -->
           <!-- /ko -->
@@ -320,18 +320,18 @@ permalink: "/merch.html"
             <div class="w-full aspect-[1610/913]">
               <!-- ko if: selectedTShirtType().htmlClass === 'bg-white' -->
                 <!-- ko if: selectedTShirtType().style === 'Straight' -->
-                  <img src="/tmp/images/tshirt-2024-white-straight.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+                  <img src="/images/tshirt-2024-white-straight.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
                 <!-- /ko -->
                 <!-- ko if: selectedTShirtType().style === 'Fitted' -->
-                  <img src="/tmp/images/tshirt-2024-white-fitted.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+                  <img src="/images/tshirt-2024-white-fitted.jpg" alt="White T-shirt" class="w-full h-full object-center object-cover rounded-lg">
                 <!-- /ko -->
               <!-- /ko -->
               <!-- ko if: selectedTShirtType().htmlClass === 'bg-sky-900' -->
                 <!-- ko if: selectedTShirtType().style === 'Straight' -->
-                  <img src="/tmp/images/tshirt-2024-blue-straight.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+                  <img src="/images/tshirt-2024-blue-straight.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
                 <!-- /ko -->
                 <!-- ko if: selectedTShirtType().style === 'Fitted' -->
-                  <img src="/tmp/images/tshirt-2024-blue-fitted.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
+                  <img src="/images/tshirt-2024-blue-fitted.jpg" alt="Blue T-shirt" class="w-full h-full object-center object-cover rounded-lg">
                 <!-- /ko -->
               <!-- /ko -->
             </div>
@@ -343,10 +343,10 @@ permalink: "/merch.html"
               <h3 class="text-sm text-gray-600">Size</h3>
               <div class="flex flex-grow justify-end">
               <!-- ko if: selectedTShirtType().style === 'Straight' -->
-				<a href="/tmp/images/malfini-sizing-chart.pdf" target="_blank" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Sizing chart</a>
+				<a href="/images/malfini-sizing-chart.pdf" target="_blank" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Sizing chart</a>
 			  <!-- /ko -->
 			  <!-- ko if: selectedTShirtType().style === 'Fitted' -->
-				<a href="/tmp/images/malfini-sizing-chart-fitted.pdf" target="_blank" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Sizing chart</a>
+				<a href="/images/malfini-sizing-chart-fitted.pdf" target="_blank" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Sizing chart</a>
 			  <!-- /ko -->
               </div>
             </div>
@@ -440,18 +440,18 @@ permalink: "/merch.html"
                 <div class="flex-shrink-0">
                   <!-- ko if: tShirtType.htmlClass === 'bg-white' -->
                     <!-- ko if: tShirtType.style === 'Straight' -->
-                      <img src="/tmp/images/tshirt-2024-white-front-straight.jpg" alt="White T-shirt" class="w-20 rounded-md">
+                      <img src="/images/tshirt-2024-white-front-straight.jpg" alt="White T-shirt" class="w-20 rounded-md">
                     <!-- /ko -->
                     <!-- ko if: tShirtType.style === 'Fitted' -->
-                      <img src="/tmp/images/tshirt-2024-white-front-fitted.jpg" alt="White T-shirt" class="w-20 rounded-md">
+                      <img src="/images/tshirt-2024-white-front-fitted.jpg" alt="White T-shirt" class="w-20 rounded-md">
                     <!-- /ko -->
                   <!-- /ko -->
                   <!-- ko if: tShirtType.htmlClass === 'bg-sky-900' -->
                     <!-- ko if: tShirtType.style === 'Straight' -->
-                      <img src="/tmp/images/tshirt-2024-blue-front-straight.jpg" alt="Blue T-shirt" class="w-20 rounded-md">
+                      <img src="/images/tshirt-2024-blue-front-straight.jpg" alt="Blue T-shirt" class="w-20 rounded-md">
                     <!-- /ko -->
                     <!-- ko if: tShirtType.style === 'Fitted' -->
-                      <img src="/tmp/images/tshirt-2024-blue-front-fitted.jpg" alt="Blue T-shirt" class="w-20 rounded-md">
+                      <img src="/images/tshirt-2024-blue-front-fitted.jpg" alt="Blue T-shirt" class="w-20 rounded-md">
                     <!-- /ko -->
                   <!-- /ko -->
                 </div>
@@ -491,7 +491,7 @@ permalink: "/merch.html"
             <!-- ko if: cartElephpantAmount() > 0 -->
             <li class="flex py-6 px-4 sm:px-6">
               <div class="flex-shrink-0">
-                <img src="/tmp/images/elephpant_right.jpg" alt="PHPStan elephpant" class="w-20 rounded-md">
+                <img src="/images/elephpant_right.jpg" alt="PHPStan elephpant" class="w-20 rounded-md">
               </div>
 
               <div class="ml-6 flex-1 flex flex-col">

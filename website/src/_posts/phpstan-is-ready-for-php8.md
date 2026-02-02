@@ -70,7 +70,7 @@ Changed function signatures
 
 Some functions changed their signatures, for example `curl_*` functions no longer return resource, [but a `CurlHandle` object](https://php.watch/versions/8.0/resource-CurlHandle). Many functions have removed `false` from possible returned values and [throw `ValueError` instead](https://php.watch/versions/8.0/ValueError).
 
-<a href="https://phpstan.org/r/5043c64b-59f1-418c-a0da-9341f9f4938e"><img src="/tmp/images/curl-php-8.png" class="mb-8 rounded-lg border border-gray-300 mx-auto"></a>
+<a href="https://phpstan.org/r/5043c64b-59f1-418c-a0da-9341f9f4938e"><img src="/images/curl-php-8.png" class="mb-8 rounded-lg border border-gray-300 mx-auto"></a>
 
 Fortunately, PHP 8 starts to offer [official stubs](https://github.com/search?q=repo%3Aphp%2Fphp-src+filename%3A*.stub.php&type=Code) that we can take advantage of here. I created a [new repository](https://github.com/phpstan/php-8-stubs) that allows including those stubs as a Composer dependency. It's automatically updated each night to mirror the latest changes in php-src.
 

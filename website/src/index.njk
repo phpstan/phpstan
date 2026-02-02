@@ -6,7 +6,7 @@ pageType: home
 {% extends "./_layouts/_base.njk" %}
 
 {% block scripts %}
-	<script src="/tmp/js/home.ts" type="module"></script>
+	<script src="/js/home.ts" type="module"></script>
 {% endblock %}
 
 {% block bgColor %}background-color: rgb(249, 250, 251){% endblock %}
@@ -45,7 +45,7 @@ pageType: home
 	</div>
 
 	<div class="mt-10 -mx-4 relative lg:mt-0" aria-hidden="true">
-		<img class="relative mx-auto" width="680" src="/tmp/images/home-find-bugs.png" alt="">
+		<img class="relative mx-auto" width="680" src="/images/home-find-bugs.png" alt="">
 	</div>
 </div>
 
@@ -58,8 +58,8 @@ pageType: home
 		</div>
 
 		<div class="mt-10 -mx-4 relative lg:mt-0 lg:col-start-1 pr-8">
-			<video class="w-full aspect-[1652/1080] border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/tmp/images/phpstan-pro-browsing-poster.jpg">
-				<source src="/tmp/images/phpstan-pro-browsing.mp4" type="video/mp4">
+			<video class="w-full aspect-[1652/1080] border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/images/phpstan-pro-browsing-poster.jpg">
+				<source src="/images/phpstan-pro-browsing.mp4" type="video/mp4">
 			</video>
 		</div>
 	</div>
@@ -73,7 +73,7 @@ pageType: home
 	</div>
 
 	<div class="mt-10 -mx-4 relative lg:mt-0" aria-hidden="true">
-		<img class="relative mx-auto rounded-lg border border-slate-200" width="490" src="/tmp/images/home-bad-code.png" alt="">
+		<img class="relative mx-auto rounded-lg border border-slate-200" width="490" src="/images/home-bad-code.png" alt="">
 	</div>
 </div>
 
@@ -86,10 +86,10 @@ pageType: home
 
 		<div class="mt-10 -mx-4 relative lg:mt-0 lg:col-start-1 grid gap-8 grid-cols-2 items-center p-8">
 			<!-- logos -->
-			<img class="relative mx-auto" width="180" src="/tmp/images/home-symfony.png" alt="">
-			<img class="relative mx-auto" width="180" src="/tmp/images/home-drupal.png" alt="">
-			<img class="relative mx-auto" width="200" src="/tmp/images/home-laravel.png" alt="">
-			<img class="relative mx-auto" width="200" src="/tmp/images/home-nette.png" alt="">
+			<img class="relative mx-auto" width="180" src="/images/home-symfony.png" alt="">
+			<img class="relative mx-auto" width="180" src="/images/home-drupal.png" alt="">
+			<img class="relative mx-auto" width="200" src="/images/home-laravel.png" alt="">
+			<img class="relative mx-auto" width="200" src="/images/home-nette.png" alt="">
 
 		</div>
 	</div>
@@ -102,7 +102,7 @@ pageType: home
 	</div>
 
 	<div class="mt-10 -mx-4 relative lg:mt-0" aria-hidden="true">
-		<img class="relative mx-auto" width="490" src="/tmp/images/home-phpdocs.png" alt="">
+		<img class="relative mx-auto" width="490" src="/images/home-phpdocs.png" alt="">
 	</div>
 </div>
 
@@ -133,38 +133,38 @@ pageType: home
 
 	<h2 class="mt-8 text-center text-2xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">Gold Sponsors</h2>
 	<div class="flex flex-wrap justify-center gap-8 items-center mt-4 p-8 rounded-lg">
-		<a href="https://ma.tt/"><img src="/tmp/images/sponsor/matt.png" alt="Matt Mullenweg" width="290" height="64"></a>
-		<a href="https://mojam.co/"><img src="/tmp/images/sponsor/mojam.png" alt="Mojam" width="290" height="64"></a>
-		<a href="https://www.check24.de/"><img src="/tmp/images/sponsor/check24.png" alt="CHECK24" width="283" height="64"></a>
+		<a href="https://ma.tt/"><img src="/images/sponsor/matt.png" alt="Matt Mullenweg" width="290" height="64"></a>
+		<a href="https://mojam.co/"><img src="/images/sponsor/mojam.png" alt="Mojam" width="290" height="64"></a>
+		<a href="https://www.check24.de/"><img src="/images/sponsor/check24.png" alt="CHECK24" width="283" height="64"></a>
 	</div>
 
 	<h2 class="mt-14 text-center text-2xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">Silver Sponsors</h2>
 	<div class="flex flex-wrap justify-center gap-8 items-center mt-4 p-8 rounded-lg">
-		<a href="https://www.startupjobs.cz/startup/shipmonk"><img src="/tmp/images/sponsor/shipmonk.jpg" alt="ShipMonk" width="290" height="64"></a>
-		<a href="https://www.shopware.com/en/"><img src="/tmp/images/sponsor/shopware.png" alt="Shopware" width="284" height="64"></a>
+		<a href="https://www.startupjobs.cz/startup/shipmonk"><img src="/images/sponsor/shipmonk.jpg" alt="ShipMonk" width="290" height="64"></a>
+		<a href="https://www.shopware.com/en/"><img src="/images/sponsor/shopware.png" alt="Shopware" width="284" height="64"></a>
 	</div>
 
 
 	<h2 class="mt-14 text-center text-2xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">Bronze Sponsors</h2>
 	<div class="grid grid-flow-row-dense grid-cols-2 lg:grid-cols-3 gap-8 items-center mt-4 p-8 rounded-lg">
-		<a href="https://coders.thecodingmachine.com/phpstan"><img src="/tmp/images/sponsor/tcm.png" alt="TheCodingMachine" width="247" height="64"></a>
-		<a href="https://packagist.com/?utm_source=phpstan&utm_medium=readme&utm_campaign=sponsorlogo"><img src="/tmp/images/sponsor/packagist.png" alt="Private Packagist" width="283" height="64"></a>
-		<a href="https://blackfire.io/docs/introduction?utm_source=phpstan&utm_medium=github_readme&utm_campaign=logo"><img src="/tmp/images/sponsor/blackfire.png" alt="Blackfire.io" width="254" height="64"></a>
-		<a href="https://www.iodigital.com/"><img src="/tmp/images/sponsor/io.png" alt="iO" width="254" height="65"></a>
-		<a href="https://jobs.ticketswap.com/"><img src="/tmp/images/sponsor/ticketswap.png" alt="TicketSwap" width="269" height="64"></a>
-		<a href="https://togetter.com/"><img src="/tmp/images/sponsor/togetter.png" alt="Togetter" width="283" height="64"></a>
-		<a href="https://join.rightcapital.com/?utm_source=phpstan&utm_medium=github&utm_campaign=sponsorship"><img src="/tmp/images/sponsor/rightcapital.png" alt="RightCapital" width="283" height="64"></a>
-		<a href="https://zol.fr?utm_source=phpstan"><img src="/tmp/images/sponsor/zol.png" alt="ZOL" width="283" height="64"></a>
-		<a href="https://craftcms.com/"><img src="/tmp/images/sponsor/craftcms.png" alt="Craft CMS" width="283" height="64"></a>
-		<a href="https://www.campoint.net/"><img src="/tmp/images/sponsor/campoint.png" alt="campoint AG" width="283" height="64"></a>
-		<a href="https://www.crisp.nl/"><img src="/tmp/images/sponsor/crisp.png" alt="Crisp.nl" width="283" height="64"></a>
-		<a href="https://inviqa.com/"><img src="/tmp/images/sponsor/inviqa.png" alt="Inviqa" width="254" height="65"></a>
-		<a href="https://www.cdn77.com/"><img src="/tmp/images/sponsor/cdn77.png" alt="CDN77" width="290" height="64"></a>
-		<a href="https://www.edgenext.com/"><img src="/tmp/images/sponsor/edgenext.png" alt="EdgeNext" width="283" height="64"></a>
-		<a href="https://www.fame.fi/"><img src="/tmp/images/sponsor/fame.png" alt="Fame Helsinki" width="283" height="64"></a>
-		<a href="https://www.shoptet.cz/"><img src="/tmp/images/sponsor/shoptet.png" alt="Shoptet" width="283" height="64"></a>
-		<a href="https://route4me.com/"><img src="/tmp/images/sponsor/route4me.png" alt="Route4Me: Route Optimizer and Route Planner Software" width="283" height="64"></a>
-		<a href="https://werkenbijbelsimpel.nl/en/about-us/"><img src="/tmp/images/sponsor/belsimpel.png" alt="Belsimpel" width="284" height="64"></a>
+		<a href="https://coders.thecodingmachine.com/phpstan"><img src="/images/sponsor/tcm.png" alt="TheCodingMachine" width="247" height="64"></a>
+		<a href="https://packagist.com/?utm_source=phpstan&utm_medium=readme&utm_campaign=sponsorlogo"><img src="/images/sponsor/packagist.png" alt="Private Packagist" width="283" height="64"></a>
+		<a href="https://blackfire.io/docs/introduction?utm_source=phpstan&utm_medium=github_readme&utm_campaign=logo"><img src="/images/sponsor/blackfire.png" alt="Blackfire.io" width="254" height="64"></a>
+		<a href="https://www.iodigital.com/"><img src="/images/sponsor/io.png" alt="iO" width="254" height="65"></a>
+		<a href="https://jobs.ticketswap.com/"><img src="/images/sponsor/ticketswap.png" alt="TicketSwap" width="269" height="64"></a>
+		<a href="https://togetter.com/"><img src="/images/sponsor/togetter.png" alt="Togetter" width="283" height="64"></a>
+		<a href="https://join.rightcapital.com/?utm_source=phpstan&utm_medium=github&utm_campaign=sponsorship"><img src="/images/sponsor/rightcapital.png" alt="RightCapital" width="283" height="64"></a>
+		<a href="https://zol.fr?utm_source=phpstan"><img src="/images/sponsor/zol.png" alt="ZOL" width="283" height="64"></a>
+		<a href="https://craftcms.com/"><img src="/images/sponsor/craftcms.png" alt="Craft CMS" width="283" height="64"></a>
+		<a href="https://www.campoint.net/"><img src="/images/sponsor/campoint.png" alt="campoint AG" width="283" height="64"></a>
+		<a href="https://www.crisp.nl/"><img src="/images/sponsor/crisp.png" alt="Crisp.nl" width="283" height="64"></a>
+		<a href="https://inviqa.com/"><img src="/images/sponsor/inviqa.png" alt="Inviqa" width="254" height="65"></a>
+		<a href="https://www.cdn77.com/"><img src="/images/sponsor/cdn77.png" alt="CDN77" width="290" height="64"></a>
+		<a href="https://www.edgenext.com/"><img src="/images/sponsor/edgenext.png" alt="EdgeNext" width="283" height="64"></a>
+		<a href="https://www.fame.fi/"><img src="/images/sponsor/fame.png" alt="Fame Helsinki" width="283" height="64"></a>
+		<a href="https://www.shoptet.cz/"><img src="/images/sponsor/shoptet.png" alt="Shoptet" width="283" height="64"></a>
+		<a href="https://route4me.com/"><img src="/images/sponsor/route4me.png" alt="Route4Me: Route Optimizer and Route Planner Software" width="283" height="64"></a>
+		<a href="https://werkenbijbelsimpel.nl/en/about-us/"><img src="/images/sponsor/belsimpel.png" alt="Belsimpel" width="284" height="64"></a>
 	</div>
 </div>
 

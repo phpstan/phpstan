@@ -105,14 +105,14 @@ module.exports = function (eleventyConfig) {
 		const name = 'tmp/images/mermaid-' + id + '.svg';
 		fs.writeFileSync(name, svg);
 
-		return '<img class="mb-8" src="/' + name + '" />'
+		return '<img class="mb-8" src="/images/mermaid-' + id + '.svg" />'
 	});
 
 	eleventyConfig.addAsyncShortcode('socialImages', async function (title) {
 		if (process.env.ELEVENTY_RUN_MODE === 'watch') {
-			return '<meta name="twitter:image" content="/tmp/images/logo-big.png" />'
+			return '<meta name="twitter:image" content="/images/logo-big.png" />'
 				+ "\n"
-				+ '<meta property="og:image" content="/tmp/images/logo-big.png" />';
+				+ '<meta property="og:image" content="/images/logo-big.png" />';
 		}
 		const content = await eleventyConfig.nunjucksAsyncShortcodes.renderFile('./src/_includes/social/socialImage.njk', {
 			title: title,
@@ -131,9 +131,9 @@ module.exports = function (eleventyConfig) {
 		const name = 'tmp/images/social-' + this.page.fileSlug + '.png';
 		fs.writeFileSync(name, image);
 
-		return '<meta name="twitter:image" content="/' + name + '" />'
+		return '<meta name="twitter:image" content="/images/social-' + this.page.fileSlug + '.png" />'
 			+ "\n"
-			+ '<meta property="og:image" content="/' + name + '" />';
+			+ '<meta property="og:image" content="/images/social-' + this.page.fileSlug + '.png" />';
 	})
 
 	return {

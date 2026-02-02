@@ -4,9 +4,11 @@ import $ from 'jquery';
 import {MainMenuViewModel} from './MainMenuViewModel';
 import {PlaygroundTabViewModel} from './PlaygroundTabViewModel';
 import linkifyStr from 'linkify-string';
-import * as pages from '../pages.json';
 import * as Sentry from '@sentry/browser';
 import {slugify} from './ErrorIdentifiersViewModel';
+
+declare const __PAGES_JSON__: Record<string, string>;
+const pages = __PAGES_JSON__;
 
 export class PlaygroundViewModel {
 
