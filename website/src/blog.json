@@ -4,7 +4,7 @@
     "sidebarOtherSections": [
         {
             "title": "RSS",
-            "link": "/tmp/rss.xml"
+            "link": "/rss.xml"
         }
     ],
     "sidebarItems": [

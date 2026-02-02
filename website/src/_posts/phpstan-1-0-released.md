@@ -4,7 +4,7 @@ date: 2021-11-01
 tags: releases
 ---
 
-<img src="/tmp/images/phpstan-1-0.png" alt="PHPStan 1.0" class="rounded-lg mb-8">
+<img src="/images/phpstan-1-0.png" alt="PHPStan 1.0" class="rounded-lg mb-8">
 
 Today is a big milestone for PHPStan after 6 years of development. I realized it reached a level of maturity worthy the major version that's 1.0. Going multiple years [^twelve] without the need for a BC break while delivering improvements in almost streaming fashion with a release every 7 days on average qualifies as being stable enough to deserve it.
 
@@ -20,7 +20,7 @@ For this release I decided it's time to try out something new and to accompany t
 
 Don't hesitate too much - the sale is on only for the next three weeks until **November&nbsp;22nd**.
 
-<a href="/merch"><img src="/tmp/images/og-merch.jpg" alt="PHPStan Merch" class="rounded-lg mb-8 border border-indigo-500 p-4 hover:border-indigo-300"></a>
+<a href="/merch"><img src="/images/og-merch.jpg" alt="PHPStan Merch" class="rounded-lg mb-8 border border-indigo-500 p-4 hover:border-indigo-300"></a>
 
 I can't wait to see the T-shirts and the badges on other people at conferences, or even better – randomly on a street.
 

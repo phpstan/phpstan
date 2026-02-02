@@ -1,6 +1,6 @@
 import * as ko from 'knockout';
 import $ from 'jquery';
-import * as countries from './data/countries.json';
+import countries from './data/countries.json';
 import { loadStripe, Stripe, StripeCardElement } from '@stripe/stripe-js';
 import { TShirtCartItem } from './TShirtCartItem';
 

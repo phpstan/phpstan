@@ -20,11 +20,11 @@ So a more flexible approach was needed. You can see for yourself how it turned o
 
 So let's say we have an error and we want to find out its identifier in order to ignore it. If we're using the default `table` output formatter, we can run PHPStan with `-v` and see the identifiers right in the output:
 
-![Table error formatter running with -v showing error identifiers](/tmp/images/identifiers-table-v.png) {.border .border-gray-200 .rounded-lg .p-2}
+![Table error formatter running with -v showing error identifiers](/images/identifiers-table-v.png) {.border .border-gray-200 .rounded-lg .p-2}
 
 Or we can run [PHPStan Pro](/blog/introducing-phpstan-pro){.phpstan-pro-label} by launching PHPStan with `--pro` CLI option and see the identifier in the UI next to the reported error:
 
-![PHPStan Pro showing error identifiers](/tmp/images/identifiers-pro-hover.png) {.border-2 .border-purple-600 .rounded-lg .overflow-hidden}
+![PHPStan Pro showing error identifiers](/images/identifiers-pro-hover.png) {.border-2 .border-purple-600 .rounded-lg .overflow-hidden}
 
 Once we know the identifier we can use it in the new `@phpstan-ignore` comment annotation that replaces the current pair of `@phpstan-ignore-line` and `@phpstan-ignore-next-line` annotations which ignore all errors on a certain line. With `@phpstan-ignore` PHPStan figures out if there's some code besides the comment on the current line (and ignores an error in that code), or if we want to ignore an error in the code on the next line:
 
@@ -96,8 +96,8 @@ What if you could snap your fingers and all of these comments magically turned i
 
 PHPStan Pro introduces a **migration wizard** that's going to do this for you! Let's run PHPStan with `--pro` CLI option and see it in action:
 
-<video class="w-full aspect-[1680/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/tmp/images/ignore-line-wizard-poster.jpg">
-  <source src="/tmp/images/ignore-line-wizard.mp4" type="video/mp4">
+<video class="w-full aspect-[1680/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/images/ignore-line-wizard-poster.jpg">
+  <source src="/images/ignore-line-wizard.mp4" type="video/mp4">
 </video>
 
 With just a few clicks your codebase can be modernized and made safer thanks to this wizard.
@@ -120,22 +120,22 @@ I could continue down this unending embarrassing list of shortcomings of the pre
 
 The new version you'll get once you update to PHPStan 1.11 and launch Pro with `--pro` is much better. Let's have a look:
 
-<video class="w-full aspect-[1652/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/tmp/images/phpstan-pro-browsing-poster.jpg">
-  <source src="/tmp/images/phpstan-pro-browsing.mp4" type="video/mp4">
+<video class="w-full aspect-[1652/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/images/phpstan-pro-browsing-poster.jpg">
+  <source src="/images/phpstan-pro-browsing.mp4" type="video/mp4">
 </video>
 
 The layout is more natural and resembles an IDE. Each file is rendered just once and errors are attached to lines where they are reported. You can expand hidden lines to see more context around an error. Docker paths can be remapped so that editor links lead to the correct file.
 
 PHPStan lets you see ignored errors too. If you've inherited a project and want to see what errors the previous team ignored, or if you want to check the errors lurking in your huge baseline, PHPStan Pro lets you do that with ease. By default it will show a small pill button you can use to see ignored errors near normally reported errors, but you can also change the setting to show and browse all ignored errors:
 
-<video class="w-full aspect-[1656/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/tmp/images/phpstan-pro-ignored-errors-poster.jpg">
-  <source src="/tmp/images/phpstan-pro-ignored-errors.mp4" type="video/mp4">
+<video class="w-full aspect-[1656/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/images/phpstan-pro-ignored-errors-poster.jpg">
+  <source src="/images/phpstan-pro-ignored-errors.mp4" type="video/mp4">
 </video>
 
 PHPStan Pro analyzes your codebase in the background and refreshes the UI with the latest errors automatically. If you don't want to keep your hands warm while your laptop struggles to keep up with too-frequent analysis, you can choose to run it only when the PHPStan Pro window is in focus, or pause it altogether:
 
 <video class="w-1/2 mx-auto aspect-[3624/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline>
-  <source src="/tmp/images/play-window-pause.mp4" type="video/mp4">
+  <source src="/images/play-window-pause.mp4" type="video/mp4">
 </video>
 
 PHPStan Pro costs **€7/month** for individuals and **€70/month** for teams. If you decide to pay annually, you'll get PHPStan Pro for 12&nbsp;months for the price of 10&nbsp;months – that's **€70/year** for individual developers, **€700/year** for teams.

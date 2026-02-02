@@ -4,7 +4,7 @@ date: 2024-11-11
 tags: releases
 ---
 
-<img src="/tmp/images/phpstan-2-0.jpg" alt="PHPStan 2.0" class="rounded-lg mb-8">
+<img src="/images/phpstan-2-0.jpg" alt="PHPStan 2.0" class="rounded-lg mb-8">
 
 PHPStan 1.0 was released a little over [three years ago](/blog/phpstan-1-0-released). I'm happy to report the project is thriving! We did about 176 new releases since then, implementing new features, fixing bugs, and laying the groundwork for 2.0. Yeah, we didn't catch a break and we didn't rest on our laurels.
 
@@ -12,13 +12,13 @@ I've been looking forward to 2.0 for a long time. Everyone will finally be able 
 
 But code and analysis changes are not the only things being released today! PHPStan joins [the family of elephpants](https://elephpant.me/) with its own take on the legendary PHP mascot.
 
-[![PHPStan Elephpant](/tmp/images/elephpant-trio.png)](/merch) {.mt-4 .rounded-lg .mb-8 .border .border-blue-500 .p-4 .hover:border-blue-400}
+[![PHPStan Elephpant](/images/elephpant-trio.png)](/merch) {.mt-4 .rounded-lg .mb-8 .border .border-blue-500 .p-4 .hover:border-blue-400}
 
 You can also order PHPStan T-shirts again, in both blue and white, and straight/fitted cut:
 
 <a href="/merch" class="flex w-full justify-center mt-4 rounded-lg mb-8 border border-blue-500 py-2 hover:border-blue-400">
-	<img class="aspect-[1610/913] max-w-xs w-1/2" src="/tmp/images/tshirt-2024-blue-straight.jpg">
-	<img class="aspect-[1610/913] max-w-xs w-1/2" src="/tmp/images/tshirt-2024-white-fitted.jpg">
+	<img class="aspect-[1610/913] max-w-xs w-1/2" src="/images/tshirt-2024-blue-straight.jpg">
+	<img class="aspect-[1610/913] max-w-xs w-1/2" src="/images/tshirt-2024-white-fitted.jpg">
 </a>
 
 We're [accepting orders](/merch) for the next four weeks (until Sunday, December 8th), so don't miss the opportunity and order the elephpant and T-shirt today! I can't wait to see them in the wild.

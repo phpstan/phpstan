@@ -93,7 +93,7 @@ With this feature, PHPStan again knows more about the code and is able to point 
 
 Integer range type was developed by [Jan Tvrdík](https://twitter.com/jantvrdik) also at the EU-FOSSA hackaton in Brussels.
 
-![EU-FOSSA hackaton PHPStan Team](/tmp/images/eu-fossa.jpg)
+![EU-FOSSA hackaton PHPStan Team](/images/eu-fossa.jpg)
 
 <p class="text-sm text-center text-gray-500">
 <a href="https://twitter.com/lookyman_">Lukáš Unger</a>, <a href="https://twitter.com/OndrejMirtes">Ondřej Mirtes</a>, <a href="https://twitter.com/jantvrdik">Jan Tvrdík</a>

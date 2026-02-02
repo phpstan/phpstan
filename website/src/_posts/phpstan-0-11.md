@@ -8,7 +8,7 @@ PHPStan has had a wonderful year 2018. The adoption increased from 3,200 daily d
 
 But the moment I realized how big it has become happened at the [phpCE conference in Prague](https://joind.in/event/php-central-europe-conference-2018) at the end of October. I’ve had a really awesome time there. First, I took advantage of many international speakers who contribute to PHPStan coming to town and organized “PHPStan dinner” at my favourite indian restaurant:
 
-![PHPStan phpCE Dinner](/tmp/images/phpstan-0-11.jpg)
+![PHPStan phpCE Dinner](/images/phpstan-0-11.jpg)
 
 <p class="text-sm text-center text-gray-500">
 PHPStan dinner with <a href="https://twitter.com/Ocramius" target="_blank" rel="noopener nofollow">@Ocramius</a> <a href="https://twitter.com/carusogabriel" target="_blank" rel="noopener nofollow">@carusogabriel</a> <a href="https://twitter.com/msvrtan" target="_blank" rel="noopener nofollow">@msvrtan</a> <a href="https://twitter.com/lookyman_" target="_blank" rel="noopener nofollow">@lookyman_</a> <a href="https://twitter.com/dantleech" target="_blank" rel="noopener nofollow">@dantleech</a> <a href="https://twitter.com/JanTvrdik" target="_blank" rel="noopener nofollow">@JanTvrdik</a> <a href="https://twitter.com/VasekPurchart" target="_blank" rel="noopener nofollow">@VasekPurchart</a> #phpce #phpce18 #phpce2018 If they poison our food, PHP is screwed 😂
