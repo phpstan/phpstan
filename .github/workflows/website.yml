@@ -120,6 +120,11 @@ jobs:
           path: website/visual-tests/test-results/
           retention-days: 30
 
+      - name: "Update screenshots"
+        working-directory: ./website
+        if: failure()
+        run: "npm run test:visual:update"
+
       - name: "Upload screenshots"
         uses: actions/upload-artifact@v4
         if: failure()
@@ -127,6 +132,17 @@ jobs:
           name: visual-regression-screenshots
           path: website/visual-tests/__screenshots__/
           retention-days: 30
+
+      - name: "Create Pull Request"
+        if: "failure() && github.event_name == 'push'"
+        uses: peter-evans/create-pull-request@v7
+        with:
+          add-paths: |
+            website/visual-tests/__screenshots__/
+          branch: "create-pull-request/visual-tests"
+          delete-branch: true
+          title: "Update visual tests screenshots"
+          commit-message: "Update visual tests screenshots"
 
   deploy:
     name: "Deploy"
