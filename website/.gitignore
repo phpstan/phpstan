@@ -1,3 +1,5 @@
 /dist
 /node_modules
 /tmp
+/visual-tests/test-results/
+/visual-tests/playwright-report/
