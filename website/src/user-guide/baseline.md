@@ -120,3 +120,14 @@ parameters:
 ```
 
 This might help with parsing performance and memory consumption in excessive baseline files that are megabytes in size. PHP code will be interpreted quicker than an equivalent .neon file.
+
+Should _new_ errors be ignored through the baseline?
+------------------
+
+The baseline enables you to start using PHPStan on an existing codebase _as if_ it had no existing errors. From this point of view it can be seen as a necessary evil as fixing all errors up front can be an insurmountable task.
+
+It's inevitable that some new errors will need to be ignored and it's tempting to simply re-generate the baseline to accomplish this. This has, however, the following disadvantages:
+
+- **Growing the baseline with unresolvable errors**: The life goal of a baseline file is to not exist. By adding "unresolvable" ignores to the baseline this becomes an impossible task.
+- **No line numbers**: When using inline ignore annotations (`/** @phpstan-ignore */`) you implicitly track the line number and therefore the location of the error. The baseline can only say that a certain number of errors instances occurred in a certain file.
+- **No comments**: Inline annotations allow you to leave a comment to describe _why_ an error is ignored. This is often crucial and is not an option when using the baseline.
