@@ -7,8 +7,8 @@ metadata:
   url: "https://phpstan.org/"
   feedUrl: "https://phpstan.org/rss.xml"
   author:
-	name: Ondřej Mirtes
-	email: ondrej@mirtes.cz
+    name: Ondřej Mirtes
+    email: ondrej@mirtes.cz
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
@@ -16,7 +16,7 @@ metadata:
 	<subtitle>{{ metadata.subtitle }}</subtitle>
 	<link href="{{ metadata.feedUrl }}" rel="self"/>
 	<link href="{{ metadata.url | trimDotHtml }}"/>
-	<updated>{{ collections.blog | rssLastUpdatedDate }}</updated>
+	<updated>{{ collections.blog | getNewestCollectionItemDate | dateToRfc3339 }}</updated>
 	<id>{{ metadata.url }}</id>
 	<author>
 		<name>{{ metadata.author.name }}</name>
@@ -27,7 +27,7 @@ metadata:
 		<entry>
 			<title>{{ post.data.title }}</title>
 			<link href="{{ absolutePostUrl }}"/>
-			<updated>{{ post.date | rssDate }}</updated>
+			<updated>{{ post.date | dateToRfc3339 }}</updated>
 			<id>{{ absolutePostUrl }}</id>
 			<content type="html" xml:base="https://phpstan.org">{{ post.templateContent }}</content>
 		</entry>

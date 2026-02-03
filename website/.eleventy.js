@@ -5,13 +5,15 @@ const readingTime = require('reading-time');
 const mermaid = require("headless-mermaid");
 const fs = require("fs");
 const crypto = require("crypto");
-const { EleventyRenderPlugin } = require("@11ty/eleventy");
 const captureWebsite = import("capture-website");
 const { fixTypos } = require('typopo');
+const anchor = require('markdown-it-anchor');
+const nunjucks = require("nunjucks");
 
 process.setMaxListeners(0);
 
-module.exports = function (eleventyConfig) {
+module.exports = async function (eleventyConfig) {
+	const { EleventyRenderPlugin } = await import("@11ty/eleventy");
 	eleventyConfig.addPassthroughCopy('src/images');
 	eleventyConfig.addPassthroughCopy('src/images-emails');
 	eleventyConfig.addPassthroughCopy('src/images-emails-2');
@@ -39,11 +41,13 @@ module.exports = function (eleventyConfig) {
 		typographer:  true,
 	};
 	const markdownLib = markdownIt(options).disable('code');
-	markdownLib.use(require('markdown-it-anchor'), {
+	markdownLib.use(anchor, {
 		level: 2,
-		permalink: true,
-		permalinkSymbol: '#',
-		permalinkClass: 'header-anchor ml-1 text-gray-300 hover:text-black',
+		permalink: anchor.permalink.linkInsideHeader({
+			class: 'header-anchor ml-1 text-gray-300 hover:text-black',
+			symbol: '#',
+			placement: 'after',
+		}),
 	});
 
 	markdownLib.use(require('markdown-it-footnote'));
@@ -108,16 +112,18 @@ module.exports = function (eleventyConfig) {
 		return '<img class="mb-8" src="/images/mermaid-' + id + '.svg" />'
 	});
 
+	const nunjucksEnv = new nunjucks.Environment(new nunjucks.FileSystemLoader('.'));
+	nunjucksEnv.addFilter('fixTypos', (text) => fixTypos(text, 'en-us'));
 	eleventyConfig.addAsyncShortcode('socialImages', async function (title) {
 		if (process.env.ELEVENTY_RUN_MODE === 'watch') {
 			return '<meta name="twitter:image" content="/images/logo-big.png" />'
 				+ "\n"
 				+ '<meta property="og:image" content="/images/logo-big.png" />';
 		}
-		const content = await eleventyConfig.nunjucksAsyncShortcodes.renderFile('./src/_includes/social/socialImage.njk', {
+		const content = nunjucksEnv.render('./src/_includes/social/socialImage.njk', {
 			title: title,
 			date: DateTime.fromJSDate(this.page.date, {zone: 'utc'}).toFormat('DDD'),
-		}, 'njk');
+		});
 		const capture = await captureWebsite;
 		const image = await capture.default.buffer(content, {
 			inputType: 'html',
