@@ -2,10 +2,8 @@
 @import './../node_modules/littlefoot/dist/littlefoot.css';
 @import './../node_modules/prismjs/plugins/diff-highlight/prism-diff-highlight.css';
 
-@tailwind base;
-
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@source "../tmp/**/*.html";
 
 html.dark {
 	background-color: #000 !important;
@@ -47,14 +45,14 @@ html.dark {
 .cm-editor {
 	font-size: 15px;
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-	@apply border rounded-md my-8 outline-0 overflow-hidden;
+	@apply border rounded-md my-8 outline-hidden overflow-hidden;
 }
 
 .cm-editor.cm-focused {
-	@apply outline-0;
+	@apply outline-hidden;
 }
 
-@media(max-width: theme('screens.sm')) {
+@media(max-width: theme(--breakpoint-sm)) {
 	.cm-editor {
 		font-size: 16px;
 		@apply mx-4;
@@ -220,7 +218,7 @@ h3.hash-target code {
 }
 
 /* From https://www.andrealves.dev/blog/how-to-make-an-animated-gradient-text-with-tailwindcss/ */
-.animate-gradient {
+@utility animate-gradient {
   background-size: 300%;
   -webkit-animation: animatedgradient 3s ease infinite alternate;
   -moz-animation: animatedgradient 3s ease infinite alternate;
