@@ -64,8 +64,7 @@
 		"build:11ty": "eleventy",
 		"watch": "run-p watch:*",
 		"build": "npm run build:11ty && npm run build:vite",
-		"test:visual": "playwright test --config=visual-tests/playwright.config.ts",
-		"test:visual:update": "playwright test --config=visual-tests/playwright.config.ts --update-snapshots"
+		"test:visual": "playwright test --config=visual-tests/playwright.config.ts --update-snapshots"
 	},
 	"browserslist": [
 		"defaults",
