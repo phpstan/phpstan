@@ -155,7 +155,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/eliashaeussler">Elias Häußler (eliashaeussler)</a></li>
 <li><a href="https://github.com/lucassabreu">Lucas dos Santos Abreu (lucassabreu)</a></li>
 <li><a href="https://github.com/westonruter">Weston Ruter (westonruter)</a></li>
-<li><a href="https://github.com/mceglowski"> (mceglowski)</a></li>
 <li><a href="https://github.com/zajca">Martin Zajíc (zajca)</a></li>
 <li><a href="https://github.com/tenkoma">Koji Tanaka (tenkoma)</a></li>
 <li><a href="https://github.com/stafftastic">stafftastic GmbH (stafftastic)</a></li>
