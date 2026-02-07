@@ -51,7 +51,7 @@ If you run the `analyse` command with `-vv`, PHPStan will output details about t
 * etc.
 
 
-Setup in GitHub Actions
+Setup in Continuous Integration
 ----------------
 
 Taking advantage of the result cache in your CI pipeline can make your build a lot faster.
@@ -62,6 +62,8 @@ Here's an example of cache setup in GitHub Actions. First, set `tmpDir` in your 
 parameters:
 	tmpDir: tmp
 ```
+
+### Setup in GitHub Actions
 
 Because GitHub Actions do not overwrite existing cache entries with the same key, we need to make sure the cache always has a unique key. Also, we can save the cache even for failing builds with reported errors. Here's how the steps in a workflow could look like:
 
@@ -88,3 +90,18 @@ Because GitHub Actions do not overwrite existing cache entries with the same key
 ```
 
 Learn more: [Workflow syntax for GitHub Actions](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions), [actions/cache](https://github.com/actions/cache)
+
+### Setup in GitLab CI
+
+```yaml
+phpstan:
+  cache:
+	  key: "phpstan-result-cache-$CI_COMMIT_REF_NAME"
+	  fallback_keys:
+	    - "phpstan-result-cache-$CI_DEFAULT_BRANCH"
+    paths:
+      - tmp # same as in phpstan.neon
+    when: 'always'
+```
+
+Learn more: [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/)
