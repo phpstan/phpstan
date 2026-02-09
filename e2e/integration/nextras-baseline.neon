@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: 'Parameter #2 $context of static method Nette\Utils\Reflection::expandClassName() expects ReflectionClass<object>, ReflectionClass<Nextras\Orm\Model\IModel> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Bridges/NetteDI/PhpDocRepositoryFinder.php
+
+		-
 			rawMessage: 'Call to an undefined method object::onEntityAttach().'
 			identifier: method.notFound
 			count: 1
@@ -17,3 +23,9 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: repo/src/Entity/AbstractEntity.php
+
+		-
+			rawMessage: 'Parameter #2 $context of static method Nette\Utils\Reflection::expandClassName() expects ReflectionClass<object>, ReflectionClass<covariant object> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Entity/Reflection/ModifierParser.php
