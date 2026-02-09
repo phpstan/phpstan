@@ -6225,6 +6225,13 @@
             ]
         }
     },
+    "filterVar.nullOnFailureAndThrowOnFailure": {
+        "PHPStan\\Rules\\Functions\\FilterVarRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Functions/FilterVarRule.php#L60"
+            ]
+        }
+    },
     "finally.exitPoint": {
         "PHPStan\\Rules\\Exceptions\\OverwrittenExitPointByFinallyRule": {
             "phpstan/phpstan-src": [
