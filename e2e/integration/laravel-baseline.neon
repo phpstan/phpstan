@@ -5,3 +5,9 @@ parameters:
 			identifier: nullCoalesce.variable
 			count: 1
 			path: repo/src/Illuminate/Foundation/Console/RouteListCommand.php
+
+		-
+			message: '#^Variable \$shouldRetry on left side of \?\? always exists and is always null\.$#'
+			identifier: nullCoalesce.variable
+			count: 1
+			path: repo/src/Illuminate/Http/Client/PendingRequest.php
