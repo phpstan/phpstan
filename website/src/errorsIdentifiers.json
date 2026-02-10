@@ -12276,7 +12276,7 @@
     "phpDoc.phpstanTag": {
         "PHPStan\\Rules\\PhpDoc\\InvalidPHPStanDocTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/InvalidPHPStanDocTagRule.php#L115"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/PhpDoc/InvalidPHPStanDocTagRule.php#L117"
             ]
         }
     },
