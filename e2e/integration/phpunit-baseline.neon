@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			rawMessage: 'Method PHPUnit\Framework\TestSuite::getIterator() return type with generic interface Iterator does not specify its types: TKey, TValue'
+			identifier: missingType.generics
+			count: 1
+			path: repo/src/Framework/TestSuite.php
