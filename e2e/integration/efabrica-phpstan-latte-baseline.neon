@@ -1,13 +1,31 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: Possibly invalid array key type class-string|false.
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: repo/src/Analyser/LatteContextCollectorRegistry.php
+
+		-
 			rawMessage: 'Call to an undefined method Latte\Compiler\TemplateGenerator::generate().'
 			identifier: method.notFound
 			count: 1
 			path: repo/src/Compiler/Compiler/Latte3Compiler.php
 
 		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: repo/src/Compiler/NodeVisitor/RenderBlockNodeVisitor.php
+
+		-
 			rawMessage: 'Parameter #3 of function sprintf is expected to be int by placeholder #2 ("%%d"), string given.'
 			identifier: argument.type
 			count: 1
 			path: repo/src/Error/TableErrorFormatter.php
+
+		-
+			rawMessage: Possibly invalid array key type class-string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 5
+			path: repo/src/LatteContext/Finder/MethodCallFinder.php
