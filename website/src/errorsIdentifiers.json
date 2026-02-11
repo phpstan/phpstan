@@ -12502,7 +12502,7 @@
     "phpstanApi.interface": {
         "PHPStan\\Rules\\Api\\ApiClassImplementsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Api/ApiClassImplementsRule.php#L65"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Api/ApiClassImplementsRule.php#L64"
             ]
         },
         "PHPStan\\Rules\\Api\\ApiInstanceofRule": {
@@ -12512,7 +12512,7 @@
         },
         "PHPStan\\Rules\\Api\\ApiInterfaceExtendsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Api/ApiInterfaceExtendsRule.php#L65"
+                "https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Api/ApiInterfaceExtendsRule.php#L64"
             ]
         }
     },
