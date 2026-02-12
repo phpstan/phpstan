@@ -7,6 +7,12 @@ parameters:
 			path: repo/src/Core/Checkout/Cart/CartValueResolver.php
 
 		-
+			rawMessage: 'Parameter #1 $array of function array_sum expects an array of values castable to number, array<mixed> given.'
+			identifier: argument.type
+			count: 3
+			path: repo/src/Core/Checkout/Cart/Delivery/Struct/DeliveryPositionCollection.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Checkout\Cart\LineItem\Group\LineItemGroupServiceRegistry::getPackagers() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -17,6 +23,18 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Checkout/Cart/LineItem/Group/LineItemGroupServiceRegistry.php
+
+		-
+			rawMessage: 'Parameter #1 $array of function array_sum expects an array of values castable to number, array<mixed> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/src/Core/Checkout/Cart/Price/Struct/PriceCollection.php
+
+		-
+			rawMessage: 'Parameter #1 $array of function array_sum expects an array of values castable to number, array<mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Checkout/Cart/Tax/Struct/CalculatedTaxCollection.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Checkout\Customer\CustomerValueResolver::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -607,6 +625,12 @@ parameters:
 			path: repo/src/Core/Framework/Routing/RequestDataBagResolver.php
 
 		-
+			rawMessage: 'Parameter #1 $array of function array_sum expects an array of values castable to number, list given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/Script/Debugging/ScriptTraces.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Framework\Script\Facade\ArrayFacade::getIterator() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -649,16 +673,34 @@ parameters:
 			path: repo/src/Core/System/SalesChannel/Context/SalesChannelContextValueResolver.php
 
 		-
+			rawMessage: 'Offset ''language'' might not exist on array{0?: string, domain?: non-empty-string|null, 1?: non-empty-string|null, locale?: non-falsy-string|null, 2?: non-falsy-string|null, language?: non-falsy-string|null, 3?: non-falsy-string|null, script?: non-falsy-string|null, ...}.'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Core/System/Snippet/Command/Util/CountryAgnosticFileLinter.php
+
+		-
+			rawMessage: 'Offset ''locale'' might not exist on array{0?: string, domain?: non-empty-string|null, 1?: non-empty-string|null, locale?: non-falsy-string|null, 2?: non-falsy-string|null, language?: non-falsy-string|null, 3?: non-falsy-string|null, script?: non-falsy-string|null, ...}.'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Core/System/Snippet/Command/Util/CountryAgnosticFileLinter.php
+
+		-
+			rawMessage: 'Parameter #3 $subject of function str_replace expects array<string>|string, string|null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/System/Snippet/Command/Util/CountryAgnosticFileLinter.php
+
+		-
+			rawMessage: 'Parameter #5 $language of class Shopware\Core\System\Snippet\Struct\TranslationFile constructor expects string, string|null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/System/Snippet/Command/Util/CountryAgnosticFileLinter.php
+
+		-
 			rawMessage: 'Method Shopware\Storefront\Theme\Exception\ThemeConfigException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Storefront/Theme/Exception/ThemeConfigException.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\DevOps\Core\DevOps\StaticAnalyse\PHPStan\Rules\Tests\TestRuleHelperTest::classProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/devops/Core/DevOps/StaticAnalyse/PHPStan/Rules/Tests/TestRuleHelperTest.php
 
 		-
 			rawMessage: 'Parameter #1 $assertType of method PHPStan\Testing\TypeInferenceTestCase::assertFileAsserts() expects string, bool|float|int|list<string>|PHPStan\TrinaryLogic|string|null given.'
@@ -673,54 +715,6 @@ parameters:
 			path: repo/tests/devops/Core/DevOps/StaticAnalyse/PHPStan/Type/CollectionHasSpecifyingExtensionTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Integration\Administration\Dashboard\OrderAmountServiceTest::loadProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Administration/Dashboard/OrderAmountServiceTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Administration\Framework\App\Subscriber\SystemLanguageChangedSubscriberTest::localeCodes() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Administration/Framework/App/Subscriber/SystemLanguageChangedSubscriberTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\CartRuleLoaderTest::taxConfigProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/CartRuleLoaderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\CartSerializationCleanerTest::cleanupCoversProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/CartSerializationCleanerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\CartSerializationCleanerTest::cleanupCustomFieldsProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/CartSerializationCleanerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\Command\CartMigrateCommandTest::dataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/Command/CartMigrateCommandTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\Facade\CartFacadeTest::addProductProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/Facade/CartFacadeTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\Facade\CartFacadeTest::scriptProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/Facade/CartFacadeTest.php
-
-		-
 			rawMessage: 'Parameter #2 $expectations of method Shopware\Tests\Integration\Core\Checkout\Cart\Facade\CartFacadeTest::testScripts() expects array<string, Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice|null>, array<string, array<string, array<string, Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice>|Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice>|Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice> given.'
 			identifier: argument.type
 			count: 1
@@ -733,166 +727,16 @@ parameters:
 			path: repo/tests/integration/Core/Checkout/Cart/Facade/CartFacadeTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\Order\RecalculationServiceTest::customLineItemProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/Order/RecalculationServiceTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\PriceActionControllerTest::dataProviderTestCalculatePricesGrossToGross() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/PriceActionControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\PriceActionControllerTest::dataProviderTestCalculatePricesGrossToGrossWithQuantity() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/PriceActionControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\PriceActionControllerTest::dataProviderTestCalculatePricesGrossToNet() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/PriceActionControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\PriceActionControllerTest::dataProviderTestCalculatePricesNetToGross() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/PriceActionControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\PriceActionControllerTest::dataProviderTestCalculatePricesNetToGrossWithQuantity() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/PriceActionControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\PriceActionControllerTest::dataProviderTestCalculatePricesNetToNet() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/PriceActionControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\PriceActionControllerTest::dataProviderTestGrossToGross() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/PriceActionControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\PriceActionControllerTest::dataProviderTestGrossToGrossWithQuantity() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/PriceActionControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\PriceActionControllerTest::dataProviderTestGrossToNet() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/PriceActionControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\PriceActionControllerTest::dataProviderTestNetToGross() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/PriceActionControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\PriceActionControllerTest::dataProviderTestNetToGrossWithQuantity() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/PriceActionControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\PriceActionControllerTest::dataProviderTestNetToNet() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/PriceActionControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\Processor\ContainerCartProcessorTest::calculationProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/Processor/ContainerCartProcessorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\Processor\DiscountProcessorTest::processorProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/Processor/DiscountProcessorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\Processor\PromotionProcessorTest::processorPromotionTypeProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/Processor/PromotionProcessorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\Processor\PromotionProcessorTest::processorProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/Processor/PromotionProcessorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\Promotion\CartScopeDiscountPackagerTest::buildPackagesProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/Promotion/CartScopeDiscountPackagerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\Rule\LineItemWithQuantityRuleTest::matchProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/Rule/LineItemWithQuantityRuleTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Customer\SalesChannel\ChangeCustomerProfileRouteTest::dataProviderVatIds() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Customer/SalesChannel/ChangeCustomerProfileRouteTest.php
-
-		-
 			rawMessage: 'Parameter #1 $vatIds of method Shopware\Tests\Integration\Core\Checkout\Customer\SalesChannel\ChangeCustomerProfileRouteTest::testChangeVatIdsOfCommercialAccount() expects array<string|null>|null, array<int, true> given.'
 			identifier: argument.type
 			count: 1
 			path: repo/tests/integration/Core/Checkout/Customer/SalesChannel/ChangeCustomerProfileRouteTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Customer\SalesChannel\UpsertAddressRouteTest::addressDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Customer/SalesChannel/UpsertAddressRouteTest.php
-
-		-
 			rawMessage: 'Parameter #1 $data of method Shopware\Tests\Integration\Core\Checkout\Customer\SalesChannel\UpsertAddressRouteTest::testCreateAddress() expects array<string, string>, array<string, string|null> given.'
 			identifier: argument.type
 			count: 1
 			path: repo/tests/integration/Core/Checkout/Customer/SalesChannel/UpsertAddressRouteTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Document\DocumentControllerTest::documentGenerationDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Document/DocumentControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Document\DocumentGeneratorControllerTest::documentGenerationDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Document/DocumentGeneratorControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Document\Renderer\CreditNoteRendererTest::creditNoteRendererCustomerGroupDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Document/Renderer/CreditNoteRendererTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Document\Renderer\CreditNoteRendererTest::creditNoteRendererDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Document/Renderer/CreditNoteRendererTest.php
 
 		-
 			rawMessage: 'Parameter #5 $additionalConfig of method Shopware\Tests\Integration\Core\Checkout\Document\Renderer\CreditNoteRendererTest::testRender() expects array<string, int>, array<string, array<string, string>> given.'
@@ -913,32 +757,8 @@ parameters:
 			path: repo/tests/integration/Core/Checkout/Document/Renderer/DeliveryNoteRendererTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Document\Renderer\DeliveryNoteRendererTest::deliveryNoteRendererDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Document/Renderer/DeliveryNoteRendererTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Document\Renderer\InvoiceRendererTest::invoiceDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Document/Renderer/InvoiceRendererTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Document\Renderer\InvoiceRendererTest::invoiceDataProviderTestIntraCommunityDeliveryLabel() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Document/Renderer/InvoiceRendererTest.php
-
-		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Checkout\\Document\\Renderer\\RenderedDocument'' and Shopware\Core\Checkout\Document\Renderer\RenderedDocument will always evaluate to true.'
 			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Document/Renderer/StornoRendererTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Document\Renderer\StornoRendererTest::stornoNoteRendererDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
 			count: 1
 			path: repo/tests/integration/Core/Checkout/Document/Renderer/StornoRendererTest.php
 
@@ -955,106 +775,16 @@ parameters:
 			path: repo/tests/integration/Core/Checkout/Document/Renderer/StornoRendererTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Document\SalesChannel\DocumentRouteTest::documentDownloadRouteDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Document/SalesChannel/DocumentRouteTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Document\SalesChannel\DocumentRouteTest::provideRequestAcceptHeaderValues() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Document/SalesChannel/DocumentRouteTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Document\Service\DocumentGeneratorTest::readDocumentDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Document/Service/DocumentGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Document\Service\DocumentGeneratorTest::uploadDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Document/Service/DocumentGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Document\Service\DocumentMergerTest::documentMergeDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Document/Service/DocumentMergerTest.php
-
-		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Checkout\\Document\\Renderer\\RenderedDocument'' and Shopware\Core\Checkout\Document\Renderer\RenderedDocument will always evaluate to true.'
 			identifier: staticMethod.alreadyNarrowedType
 			count: 1
 			path: repo/tests/integration/Core/Checkout/Document/Service/PdfRendererTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Category\DataAbstractionLayer\CategoryIndexerTest::updateCases() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Category/DataAbstractionLayer/CategoryIndexerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Cms\Subscriber\CmsPageBeforeDefaultChangeSubscriberTest::invalidDefaultCmsPageDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Cms/Subscriber/CmsPageBeforeDefaultChangeSubscriberTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Cms\Subscriber\CmsPageBeforeDefaultChangeSubscriberTest::validDefaultCmsPageDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Cms/Subscriber/CmsPageBeforeDefaultChangeSubscriberTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\ContactForm\ContactFormRouteTest::contactFormWithDomainProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/ContactForm/ContactFormRouteTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\ContactForm\ContactFormRouteTest::navigationProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/ContactForm/ContactFormRouteTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Flow\Dispatching\Action\GrantDownloadAccessActionTest::orderCaseProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Flow/Dispatching/Action/GrantDownloadAccessActionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Flow\SendMailActionTest::updateTemplateDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Flow/SendMailActionTest.php
-
-		-
 			rawMessage: 'Parameter #2 $documentTypeIds of method Shopware\Tests\Integration\Core\Content\Flow\SendMailActionTest::testEmailSend() expects array<string>|null, array<int, string|null> given.'
 			identifier: argument.type
 			count: 1
 			path: repo/tests/integration/Core/Content/Flow/SendMailActionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\ImportExport\Api\ImportExportActionControllerTest::mappingFromProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/ImportExport/Api/ImportExportActionControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\ImportExport\ImportExportTest::coverMediaUrlDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/ImportExport/ImportExportTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\ImportExport\Service\FileServiceTest::fileTypesProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/ImportExport/Service/FileServiceTest.php
 
 		-
 			rawMessage: 'Parameter $record of method Shopware\Tests\Integration\Core\Content\ImportExport\Subscriber\ProductCategoryPathsSubscriberTest::testCategoryPathToAssignment() expects array<array<string, mixed>>, array<string, array<int, array<string, string>>> given.'
@@ -1067,48 +797,6 @@ parameters:
 			identifier: argument.type
 			count: 8
 			path: repo/tests/integration/Core/Content/ImportExport/Subscriber/ProductCategoryPathsSubscriberTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Media\DataAbstractionLayer\MediaThumbnailRepositoryTest::deleteThumbnailProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Media/DataAbstractionLayer/MediaThumbnailRepositoryTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Media\Infrastructure\Command\UpdatePathTest::commandProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Media/Infrastructure/Command/UpdatePathTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Media\Infrastructure\Path\MediaLocationBuilderTest::buildMediaProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Media/Infrastructure/Path/MediaLocationBuilderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Media\Infrastructure\Path\MediaLocationBuilderTest::buildThumbnailProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Media/Infrastructure/Path/MediaLocationBuilderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Newsletter\DataAbstractionLayer\Indexing\CustomerNewsletterSalesChannelsUpdaterTest::createDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Newsletter/DataAbstractionLayer/Indexing/CustomerNewsletterSalesChannelsUpdaterTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Newsletter\SalesChannel\NewsletterSubscribeRouteTest::subscribeWithDomainAndLeadingSlashProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Newsletter/SalesChannel/NewsletterSubscribeRouteTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Newsletter\SalesChannel\NewsletterSubscribeRouteTest::subscribeWithDomainProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Newsletter/SalesChannel/NewsletterSubscribeRouteTest.php
 
 		-
 			rawMessage: 'Parameter #1 $testData of method Shopware\Tests\Integration\Core\Content\Newsletter\Service\NewsletterRecipientServiceTest::testSubscribeNewsletterExpectsConstraintViolationException() expects array<int, array<int, array<string, string|null>>>, array<string, null> given.'
@@ -1159,30 +847,6 @@ parameters:
 			path: repo/tests/integration/Core/Content/Product/Cart/ProductCartProcessorTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Product\Cart\ProductCartTest::priceInCartProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Product/Cart/ProductCartTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Product\DataAbstractionLayer\ProductIndexerTest::updateCases() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Product/DataAbstractionLayer/ProductIndexerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Product\Repository\ProductRepositoryTest::dataProviderSelfReferences() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Product/Repository/ProductRepositoryTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Product\SalesChannel\Listing\ProductListingLoaderTest::searchStatesProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Product/SalesChannel/Listing/ProductListingLoaderTest.php
-
-		-
 			rawMessage: 'Parameter #2 $searchTerms of method Shopware\Tests\Integration\Core\Content\Product\SalesChannel\ProductSearchRouteTest::testProductSearch() expects array<string, bool>, array<int|string, bool> given.'
 			identifier: argument.type
 			count: 6
@@ -1193,24 +857,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/integration/Core/Content/Product/SalesChannel/ProductSearchRouteTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Product\SalesChannel\Review\ProductReviewSaveRouteTest::provideContentData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Product/SalesChannel/Review/ProductReviewSaveRouteTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Product\Stock\StockStorageTest::eventTriggeredOnAlterProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Product/Stock/StockStorageTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Product\Stock\StockStorageTest::triggerProductNoLongerAvailableEventOnCreateProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/Product/Stock/StockStorageTest.php
 
 		-
 			rawMessage: 'Parameter #2 $expected of method Shopware\Tests\Integration\Core\Content\Product\Subscriber\ProductLoadedSubscriberTest::testOptionSorting() expects array<string, string>, array<int, array<string, string>> given.'
@@ -1225,82 +871,10 @@ parameters:
 			path: repo/tests/integration/Core/Content/Product/Subscriber/ProductLoadedSubscriberTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\ProductExport\Service\ProductExportGeneratorTest::isoCodeProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Content/ProductExport/Service/ProductExportGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Adapter\Cache\RedisConnectionFactoryTest::prefixProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/Adapter/Cache/RedisConnectionFactoryTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Adapter\Cache\Script\ScriptCacheInvalidationSubscriberTest::invalidationCasesProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/Adapter/Cache/Script/ScriptCacheInvalidationSubscriberTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Adapter\Twig\Extension\ComparisonExtensionTest::comparisonProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/Adapter/Twig/Extension/ComparisonExtensionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Adapter\Twig\ReturnNodeTest::nodeProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/Adapter/Twig/ReturnNodeTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Api\Controller\ApiControllerTest::provideEntityName() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/Api/Controller/ApiControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Api\Controller\SyncControllerTest::invalidOperationProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/Api/Controller/SyncControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Api\Controller\SyncControllerTest::invalidPayloadProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/Api/Controller/SyncControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Api\Serializer\JsonApiEncoderTest::customFieldsProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/Api/Serializer/JsonApiEncoderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\App\Validation\ManifestValidatorTest::invalidManifestProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/App/Validation/ManifestValidatorTest.php
-
-		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\CustomField\CustomFieldServiceTest::testGetCustomFieldField() invoked with 14 parameters, 2 required.'
 			identifier: arguments.count
 			count: 1
 			path: repo/tests/integration/Core/Framework/CustomField/CustomFieldServiceTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\EntityRepositoryTest::orderTransactionsProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/EntityRepositoryTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\EntityRepositoryTest::productPropertiesQueryProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/EntityRepositoryTest.php
 
 		-
 			rawMessage: 'Parameter #1 $products of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\EntityRepositoryTest::testProductPropertiesQueries() expects array<string, mixed>, array<int, array<string, mixed>> given.'
@@ -1351,12 +925,6 @@ parameters:
 			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/ConfigJsonFieldSerializerTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\EmailFieldSerializerTest::getEmailListProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/EmailFieldSerializerTest.php
-
-		-
 			rawMessage: 'Parameter #2 $input of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\JsonFieldSerializerTest::testEncode() expects string|null, array<string, array<string, string>> given.'
 			identifier: argument.type
 			count: 1
@@ -1405,28 +973,10 @@ parameters:
 			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/JsonFieldSerializerTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\PriceDefinitionFieldSerializerTest::serializerProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/PriceDefinitionFieldSerializerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\StringFieldSerializerTest::serializerProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/StringFieldSerializerTest.php
-
-		-
 			rawMessage: 'Parameter #1 $field of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\StringFieldSerializerTest::testSerialize() expects Shopware\Core\Framework\DataAbstractionLayer\Field\StringField, Shopware\Core\Framework\DataAbstractionLayer\Field\Field given.'
 			identifier: argument.type
 			count: 12
 			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/StringFieldSerializerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\FeatureFlag\FeatureTest::isActiveDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/FeatureFlag/FeatureTest.php
 
 		-
 			rawMessage: 'Parameter #1 $featureConfig of method Shopware\Tests\Integration\Core\Framework\FeatureFlag\FeatureTest::testIsActive() expects array<string, array{name?: string, default?: bool, major?: bool, description?: string}>, array{''FEATURE_NEXT_101''} given.'
@@ -1441,52 +991,10 @@ parameters:
 			path: repo/tests/integration/Core/Framework/FeatureFlag/FeatureTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Increment\RedisIncrementerTest::deleteKeysProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/Increment/RedisIncrementerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Increment\RedisIncrementerTest::incrementerProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/Increment/RedisIncrementerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\RateLimiter\Policy\TimeBackoffLimiterTest::exceptionData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/RateLimiter/Policy/TimeBackoffLimiterTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Rule\ScriptRuleTest::manifestPathProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/Rule/ScriptRuleTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Rule\ScriptRuleTest::scriptProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/Rule/ScriptRuleTest.php
-
-		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Seo\SeoUrl\SeoUrlRepositoryTest::emptyGenerator() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/tests/integration/Core/Framework/Seo/SeoUrl/SeoUrlRepositoryTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Store\Services\StoreSessionExpiredMiddlewareTest::provideRequestStacks() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/Store/Services/StoreSessionExpiredMiddlewareTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Webhook\BusinessEventEncoderTest::getEvents() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/Framework/Webhook/BusinessEventEncoderTest.php
 
 		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Framework\\Webhook\\AclPrivilegeCollection'' and Shopware\Core\Framework\Webhook\AclPrivilegeCollection will always evaluate to true.'
@@ -1495,58 +1003,16 @@ parameters:
 			path: repo/tests/integration/Core/Framework/Webhook/Service/WebhookLoaderTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\System\SalesChannel\Context\SalesChannelContextPersisterTest::revokeTokensTestDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/System/SalesChannel/Context/SalesChannelContextPersisterTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\System\SalesChannel\Context\SalesChannelContextPersisterTest::tokenExpiringDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/System/SalesChannel/Context/SalesChannelContextPersisterTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\System\SalesChannel\Context\SalesChannelContextTest::ensureLoginExceptionProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/System/SalesChannel/Context/SalesChannelContextTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\System\SalesChannel\Context\SalesChannelContextTest::ensureLoginPassProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/System/SalesChannel/Context/SalesChannelContextTest.php
-
-		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\System\SalesChannel\Context\SalesChannelContextTest::testEnsureLoginShouldThrowAnException() invoked with 4 parameters, 3 required.'
 			identifier: arguments.count
 			count: 2
 			path: repo/tests/integration/Core/System/SalesChannel/Context/SalesChannelContextTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\System\SalesChannel\Validation\SalesChannelValidatorTest::getInsertValidationProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/System/SalesChannel/Validation/SalesChannelValidatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\System\SalesChannel\Validation\SalesChannelValidatorTest::getUpdateValidationProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/System/SalesChannel/Validation/SalesChannelValidatorTest.php
-
-		-
 			rawMessage: 'Parameter #2 $expectedResult of method Shopware\Tests\Integration\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects array<int, array<int, array<int|string, string>|Symfony\Component\Translation\MessageCatalogue>>, array<string, string> given.'
 			identifier: argument.type
 			count: 2
 			path: repo/tests/integration/Core/System/Snippet/SnippetServiceTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\System\Snippet\Subscriber\CustomFieldSubscriberTest::snippetAndCustomFieldProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/System/Snippet/Subscriber/CustomFieldSubscriberTest.php
 
 		-
 			rawMessage: 'Parameter $customFieldSets of method Shopware\Tests\Integration\Core\System\Snippet\Subscriber\CustomFieldSubscriberTest::testCustomFieldWrittenWithProvider() expects list<array{id: string, name: string, customFields: list<array{id: string, name: string, type: string, config: array{label: array<string, string>}}>}>, array{array{id: non-falsy-string, name: ''CustomFieldSet'', customFields: array{array{id: non-falsy-string, name: ''CustomField_1'', type: ''text'', config: array{label: array{de-DE: ''DE - Label - 1''}}}}}, array{id: non-falsy-string, customFields: array{array{id: non-falsy-string, config: array{label: array{de-DE: ''DE - Label - 2''}}}}}, array{id: non-falsy-string, customFields: array{array{id: non-falsy-string, config: array{label: array{de-DE: ''DE - Label - 3''}}}}}, array{id: non-falsy-string, customFields: array{array{id: non-falsy-string, config: array{label: array{de-DE: ''DE - Label - 4''}}}}}} given.'
@@ -1559,12 +1025,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/integration/Core/System/Snippet/Subscriber/CustomFieldSubscriberTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\System\SystemConfig\Validation\SystemConfigValidatorTest::validateProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Core/System/SystemConfig/Validation/SystemConfigValidatorTest.php
 
 		-
 			rawMessage: 'Parameter $formConfigs of method Shopware\Tests\Integration\Core\System\SystemConfig\Validation\SystemConfigValidatorTest::testValidate() expects array{elements: array<array{config: array<string, bool|int|string>, name: string}>}, array{array{elements: array{array{name: ''core…'', config: array{required: true, maxLength: 255}}, array{name: ''core…'', config: array{required: true, maxLength: 255}}}}} given.'
@@ -1609,58 +1069,10 @@ parameters:
 			path: repo/tests/integration/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Integration\Elasticsearch\Product\SearchCasesTest::numbersProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Elasticsearch/Product/SearchCasesTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Storefront\Controller\CartLineItemControllerTest::productVariations() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Storefront/Controller/CartLineItemControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Storefront\Controller\DocumentControllerTest::provideFileTypeParams() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Storefront/Controller/DocumentControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Storefront\Controller\ScriptControllerTest::ensureLoginProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Storefront/Controller/ScriptControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Storefront\Controller\SearchControllerTest::getProviderInvalidTerms() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Storefront/Controller/SearchControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Storefront\Framework\Command\SalesChannelCreateStorefrontCommandTest::dataProviderTestExecuteCommandSuccess() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Storefront/Framework/Command/SalesChannelCreateStorefrontCommandTest.php
-
-		-
 			rawMessage: 'Parameter #1 $salesChannels of method Shopware\Tests\Integration\Storefront\Framework\Routing\RequestTransformerTest::testDomainResolving() expects array<string, array<string, string>|string>, array<int, array<string, array<array<string, string>>|bool|string>> given.'
 			identifier: argument.type
 			count: 10
 			path: repo/tests/integration/Storefront/Framework/Routing/RequestTransformerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Integration\Storefront\Framework\Seo\SeoUrlTemplateRepositoryTest::templateUpdateDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/integration/Storefront/Framework/Seo/SeoUrlTemplateRepositoryTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Migration\Core\V6_6\Migration1703850843FixSearchConfigTest::migrationProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1703850843FixSearchConfigTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Migration\Core\V6_6\Migration1703850843FixSearchConfigTest::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -1681,22 +1093,10 @@ parameters:
 			path: repo/tests/migration/Core/V6_6/Migration1715081559AdjustSentMailActionOnReviewSentTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Migration\Core\V6_6\Migration1716196653AddTechnicalNameToImportExportProfileTest::nameProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1716196653AddTechnicalNameToImportExportProfileTest.php
-
-		-
 			rawMessage: 'Parameter $names of method Shopware\Tests\Migration\Core\V6_6\Migration1716196653AddTechnicalNameToImportExportProfileTest::testGeneratedTechnicalName() expects array<int, string>, array<int, null> given.'
 			identifier: argument.type
 			count: 1
 			path: repo/tests/migration/Core/V6_6/Migration1716196653AddTechnicalNameToImportExportProfileTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Migration\Core\V6_6\Migration1721202771UpdateDefaultSearchConfigTest::migrationProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1721202771UpdateDefaultSearchConfigTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Migration\Core\V6_6\Migration1721202771UpdateDefaultSearchConfigTest::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -1711,40 +1111,10 @@ parameters:
 			path: repo/tests/migration/Core/V6_6/Migration1721202771UpdateDefaultSearchConfigTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Migration\Core\V6_7\Migration1717573310ImportExportTechnicalNameRequiredTest::importExportProfilesDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1717573310ImportExportTechnicalNameRequiredTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Migration\Core\V6_7\Migration1743064966CartConfigSubtotalTaxColumnTest::migrationData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1743064966CartConfigSubtotalTaxColumnTest.php
-
-		-
 			rawMessage: 'Method Shopware\Tests\Bench\BenchExtension::findFixtures() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/tests/performance/bench/BenchExtension.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Administration\Controller\AdministrationControllerTest::excludedTerms() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Administration/Controller/AdministrationControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Administration\Controller\DashboardControllerTest::requestProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Administration/Controller/DashboardControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Administration\Framework\App\Subscriber\SystemLanguageChangedSubscriberTest::localeCodes() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Administration/Framework/App/Subscriber/SystemLanguageChangedSubscriberTest.php
 
 		-
 			rawMessage: 'Parameter #3 $assetKeys of method Shopware\Tests\Unit\Administration\Framework\Twig\ViteFileAccessorDecoratorTest::testGetData() expects list<string>, array{''entryPoints'', ''administration'', ''js'', 0} given.'
@@ -1759,142 +1129,16 @@ parameters:
 			path: repo/tests/unit/Administration/Framework/Twig/ViteFileAccessorDecoratorTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Address\AddressValidator2Test::validationProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Address/AddressValidator2Test.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Delivery\DeliveryPositionCollectionTest::volumeDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Delivery/DeliveryPositionCollectionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Facade\PriceFacadeTest::providerChange() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Facade/PriceFacadeTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Facade\PriceFacadeTest::providerDiscount() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Facade/PriceFacadeTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Facade\PriceFacadeTest::providerMinus() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Facade/PriceFacadeTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Facade\PriceFacadeTest::providerPlus() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Facade/PriceFacadeTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Facade\PriceFacadeTest::providerSurcharge() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Facade/PriceFacadeTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Facade\ScriptPriceStubsTest::priceCases() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Facade/ScriptPriceStubsTest.php
-
-		-
 			rawMessage: 'Parameter #1 $prices of method Shopware\Tests\Unit\Core\Checkout\Cart\Facade\ScriptPriceStubsTest::testPriceFactory() expects array<string, array{gross: float, net: float}>, array{array{gross: 100, net: 90, linked: true, currencyId: ''b7d2554b0ce847cd82f…''}, array{gross: 90, net: 80, linked: false, currencyId: ''2fbb5fe2e29a4d70aa5…''}} given.'
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Checkout/Cart/Facade/ScriptPriceStubsTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\LineItem\LineItemCollectionTest::lineItemStateProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/LineItem/LineItemCollectionTest.php
-
-		-
 			rawMessage: 'Parameter #1 $exceptionClass of method Shopware\Tests\Unit\Core\Checkout\Cart\Order\OrderConverterTest::testAssembleSalesChannelContext() expects class-string<Throwable>, string given.'
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Checkout/Cart/Order/OrderConverterTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Price\CashRoundingTest::provider_denmark() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Price/CashRoundingTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Price\CashRoundingTest::provider_german() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Price/CashRoundingTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Price\CashRoundingTest::provider_hong_kong() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Price/CashRoundingTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Price\CashRoundingTest::provider_italy() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Price/CashRoundingTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Price\CashRoundingTest::provider_sweden() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Price/CashRoundingTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Price\GrossPriceCalculatorTest::referencePriceCalculationProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Price/GrossPriceCalculatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Price\GrossPriceCalculatorTest::regulationPriceCalculationProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Price/GrossPriceCalculatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Price\NetPriceCalculatorTest::referencePriceCalculationProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Price/NetPriceCalculatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Price\NetPriceCalculatorTest::regulationPriceCalculationProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Price/NetPriceCalculatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Price\PercentagePriceCalculatorTest::grossPriceDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Price/PercentagePriceCalculatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemActualStockRuleTest::getCartRuleScopeTestData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemActualStockRuleTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemActualStockRuleTest::getMatchingRuleTestData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemActualStockRuleTest.php
 
 		-
 			rawMessage: 'Parameter $customFieldValueInLineItem of method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemCustomFieldRuleTest::testCustomFieldCartScope() expects bool|string|null, array<int, int> given.'
@@ -1909,30 +1153,6 @@ parameters:
 			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemCustomFieldRuleTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemDimensionHeightRuleTest::matchTestDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemDimensionHeightRuleTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemDimensionHeightRuleTest::matchWithoutDeliveryInformationTestDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemDimensionHeightRuleTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemInCategoryRuleTest::getCartRuleScopeTestData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemInCategoryRuleTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemInCategoryRuleTest::getLineItemScopeTestData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemInCategoryRuleTest.php
-
-		-
 			rawMessage: 'Result of method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemPropertyValueRuleTest::testCartScopeMatching() (void) is used.'
 			identifier: method.void
 			count: 4
@@ -1943,12 +1163,6 @@ parameters:
 			identifier: method.void
 			count: 4
 			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemPropertyValueRuleTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemStockRuleTest::provideLineItemTestCases() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemStockRuleTest.php
 
 		-
 			rawMessage: 'Result of method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemVariantValueRuleTest::testCartScopeMatching() (void) is used.'
@@ -1963,68 +1177,14 @@ parameters:
 			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemVariantValueRuleTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\TaxProvider\Struct\TaxProviderStructTest::structDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Cart/TaxProvider/Struct/TaxProviderStructTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Customer\Rule\CustomerCreatedByAdminRuleTest::getCaseTestMatchValues() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Customer/Rule/CustomerCreatedByAdminRuleTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Customer\Rule\CustomerLoggedInRuleTest::getCaseTestMatchValues() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Customer/Rule/CustomerLoggedInRuleTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Customer\Service\EmailIdnConverterTest::getEmailListProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Customer/Service/EmailIdnConverterTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Customer\Subscriber\AddressHashSubscriberTest::generateProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Customer/Subscriber/AddressHashSubscriberTest.php
-
-		-
 			rawMessage: 'Parameter #3 $expectedStruct of method Shopware\Tests\Unit\Core\Checkout\Customer\Subscriber\AddressHashSubscriberTest::testGenerate() expects array<string, string|null>, array<string, array|string> given.'
 			identifier: argument.type
 			count: 2
 			path: repo/tests/unit/Core/Checkout/Customer/Subscriber/AddressHashSubscriberTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Customer\Subscriber\CustomerRemoteAddressSubscriberTest::providerIPs() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Customer/Subscriber/CustomerRemoteAddressSubscriberTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Customer\Validation\CustomerValidationFactoryTest::getCreateTestData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Customer/Validation/CustomerValidationFactoryTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Document\Renderer\CreditNoteRendererTest::creditNoteDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Document/Renderer/CreditNoteRendererTest.php
-
-		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Checkout\\Document\\Renderer\\RenderedDocument'' and Shopware\Core\Checkout\Document\Renderer\RenderedDocument will always evaluate to true.'
 			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Document/Renderer/InvoiceRendererTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Document\Renderer\InvoiceRendererTest::configDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
 			count: 1
 			path: repo/tests/unit/Core/Checkout/Document/Renderer/InvoiceRendererTest.php
 
@@ -2041,24 +1201,6 @@ parameters:
 			path: repo/tests/unit/Core/Checkout/Document/Renderer/InvoiceRendererTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Document\SalesChannel\DocumentRouteTest::provideAcceptHeaderThatFallbacksToDefaultFileType() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Document/SalesChannel/DocumentRouteTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Document\SalesChannel\DocumentRouteTest::provideAcceptHeaderValues() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Document/SalesChannel/DocumentRouteTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Document\Service\DocumentFileRendererRegistryTest::documentTypeRendererProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Document/Service/DocumentFileRendererRegistryTest.php
-
-		-
 			rawMessage: 'Parameter #3 $mediaIds of method Shopware\Tests\Unit\Core\Checkout\Document\Service\DocumentGeneratorTest::testGenerate() expects array<string, string|null>, array<int, string> given.'
 			identifier: argument.type
 			count: 1
@@ -2069,18 +1211,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Checkout/Document/Service/DocumentGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Document\Zugferd\ZugferdDocumentTest::basisQuantityProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Document/Zugferd/ZugferdDocumentTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Order\OrderAddressServiceTest::provideInvalidMappings() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Order/OrderAddressServiceTest.php
 
 		-
 			rawMessage: 'Parameter $mappings of method Shopware\Tests\Unit\Core\Checkout\Order\OrderAddressServiceTest::testValidateInvalidMapping() expects list<array{customerAddressId: string, type: ''billing''}|array{customerAddressId: string, type: ''shipping'', deliveryId: string}>, array{array{customerAddressId: ''123'', type: ''invalid''}} given.'
@@ -2105,54 +1235,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Checkout/Order/OrderAddressServiceTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Promotion\Cart\Discount\Filter\Sorter\FilterSorterPriceTest::sortingProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Promotion/Cart/Discount/Filter/Sorter/FilterSorterPriceTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Promotion\Rule\PromotionLineItemRuleTest::cartScopeCases() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Promotion/Rule/PromotionLineItemRuleTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Promotion\Rule\PromotionLineItemRuleTest::lineItemScopeCases() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Promotion/Rule/PromotionLineItemRuleTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Rule\Rule\Order\AdminSalesChannelSourceRuleTest::getCaseTestMatchValues() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Rule/Rule/Order/AdminSalesChannelSourceRuleTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Shipping\Validator\ShippingMethodValidatorTest::shippingMethodTaxProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Shipping/Validator/ShippingMethodValidatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Cms\Subscriber\CmsPageDefaultChangeSubscriberTest::beforeDeletionEventDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Cms/Subscriber/CmsPageDefaultChangeSubscriberTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Cms\Subscriber\CmsPageDefaultChangeSubscriberTest::beforeSystemConfigChangedEventDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Cms/Subscriber/CmsPageDefaultChangeSubscriberTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Cms\Subscriber\CmsVersionMergeSubscriberTest::versionMergeEventDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Cms/Subscriber/CmsVersionMergeSubscriberTest.php
 
 		-
 			rawMessage: 'Parameter $expectedWrites of method Shopware\Tests\Unit\Core\Content\Cms\Subscriber\CmsVersionMergeSubscriberTest::testOnVersionMerge() expects array{insert: array<string, array<int, mixed>>, update: array<string, array<int, mixed>>, delete: array<string, array<int, mixed>>}, array{insert: array{cms_slot: array{array{id: non-falsy-string, blockId: non-falsy-string, cmsBlockVersionId: non-falsy-string}}}, delete: array{cms_block: array{array{id: non-falsy-string, versionId: non-falsy-string}}}} given.'
@@ -2185,156 +1267,6 @@ parameters:
 			path: repo/tests/unit/Core/Content/Cms/Subscriber/CmsVersionMergeSubscriberTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\ContactForm\SalesChannel\ContactFormRouteTest::validatorDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/ContactForm/SalesChannel/ContactFormRouteTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\ContactForm\Validation\ContactFormValidationFactoryTest::systemConfigDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/ContactForm/Validation/ContactFormValidationFactoryTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Action\AddCustomerAffiliateAndCampaignCodeActionTest::actionExecuteProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Action/AddCustomerAffiliateAndCampaignCodeActionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Action\AddCustomerTagActionTest::actionExecutedProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Action/AddCustomerTagActionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Action\AddOrderAffiliateAndCampaignCodeActionTest::actionExecutedProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Action/AddOrderAffiliateAndCampaignCodeActionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Action\AddOrderTagActionTest::actionExecutedProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Action/AddOrderTagActionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Action\GenerateDocumentActionTest::actionExecutedProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Action/GenerateDocumentActionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Action\GrantDownloadAccessActionTest::orderProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Action/GrantDownloadAccessActionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Action\RemoveCustomerTagActionTest::actionExecutedProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Action/RemoveCustomerTagActionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Action\RemoveOrderTagActionTest::actionExecutedProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Action/RemoveOrderTagActionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Action\SendMailActionTest::replyToProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Action/SendMailActionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Action\SetCustomerCustomFieldActionTest::actionExecutedProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Action/SetCustomerCustomFieldActionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Action\SetCustomerGroupCustomFieldActionTest::actionExecutedProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Action/SetCustomerGroupCustomFieldActionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Action\SetOrderCustomFieldActionTest::actionExecutedProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Action/SetOrderCustomFieldActionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Action\SetOrderStateActionTest::actionProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Action/SetOrderStateActionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\FlowDispatcherTest::flowsData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/FlowDispatcherTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\FlowExecutorTest::actionsProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/FlowExecutorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Storer\LanguageStorerTest::restoreDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Storer/LanguageStorerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Storer\LanguageStorerTest::storeDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Storer/LanguageStorerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Storer\TimezoneStorerTest::restoreDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Storer/TimezoneStorerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Dispatching\Storer\TimezoneStorerTest::storeDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Dispatching/Storer/TimezoneStorerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Rule\OrderCreatedByAdminRuleTest::getCaseTestMatchValues() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Rule/OrderCreatedByAdminRuleTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Rule\OrderDocumentTypeSentRuleTest::getMatchingValues() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Rule/OrderDocumentTypeSentRuleTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Flow\Rule\OrderTagRuleTest::getMatchValues() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Flow/Rule/OrderTagRuleTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\ImportExport\DataAbstractionLayer\Serializer\Entity\CustomerSerializerTest::provideCustomerData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Entity/CustomerSerializerTest.php
-
-		-
 			rawMessage: 'Parameter $prices of method Shopware\Tests\Unit\Core\Content\ImportExport\DataAbstractionLayer\Serializer\Field\PriceSerializerTest::testSerializePrices() expects array<string, array<string, mixed>>|Shopware\Core\Framework\DataAbstractionLayer\Pricing\Price|null, array<int, Shopware\Core\Framework\DataAbstractionLayer\Pricing\Price> given.'
 			identifier: argument.type
 			count: 2
@@ -2345,18 +1277,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Field/PriceSerializerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\ImportExport\Processing\Reader\CsvReaderTest::eolProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/ImportExport/Processing/Reader/CsvReaderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\ImportExport\Service\SupportedFeaturesServiceTest::constructDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/ImportExport/Service/SupportedFeaturesServiceTest.php
 
 		-
 			rawMessage: 'Parameter $entities of method Shopware\Tests\Unit\Core\Content\ImportExport\Service\SupportedFeaturesServiceTest::testConstruct() expects iterable<string>, array<int, array> given.'
@@ -2443,106 +1363,10 @@ parameters:
 			path: repo/tests/unit/Core/Content/Media/Commands/DeleteNotUsedMediaCommandTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Media\Core\Application\MediaUrlLoaderTest::loadedProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Media/Core/Application/MediaUrlLoaderTest.php
-
-		-
 			rawMessage: 'Parameter #3 $expected of method Shopware\Tests\Unit\Core\Content\Media\Core\Application\MediaUrlLoaderTest::testLoad() expects array<string, string>, array<string, string|null> given.'
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Content/Media/Core/Application/MediaUrlLoaderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Media\Core\Application\RemoteThumbnailLoaderTest::loadProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Media/Core/Application/RemoteThumbnailLoaderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Media\Core\Strategy\FilenamePathStrategyTest::strategyProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Media/Core/Strategy/FilenamePathStrategyTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Media\Core\Strategy\IdPathStrategyTest::strategyProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Media/Core/Strategy/IdPathStrategyTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Media\Core\Strategy\PhysicalFilenamePathStrategyTest::strategyProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Media/Core/Strategy/PhysicalFilenamePathStrategyTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Media\Core\Strategy\PlainPathStrategyTest::strategyProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Media/Core/Strategy/PlainPathStrategyTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Media\File\DownloadResponseGeneratorTest::filesystemProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Media/File/DownloadResponseGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Media\File\FileFetcherTest::fetchFileFromUrlDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Media/File/FileFetcherTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Media\File\FileFetcherTest::fetchFileFromUrlExceptionsDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Media/File/FileFetcherTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Media\File\FileFetcherTest::fetchRequestExceptionsDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Media/File/FileFetcherTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Media\File\FileInfoHelperTest::validMimeTypesProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Media/File/FileInfoHelperTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Media\File\FileSaverTest::duplicateFileNameProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Media/File/FileSaverTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Media\File\FileSaverTest::uniqueFileNameProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Media/File/FileSaverTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Media\File\FileServiceTest::urlDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Media/File/FileServiceTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Media\Infrastructure\Path\MediaUrlGeneratorTest::generateProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Media/Infrastructure/Path/MediaUrlGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Media\Metadata\MetadataLoaderTest::fileTypeDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Media/Metadata/MetadataLoaderTest.php
 
 		-
 			rawMessage: 'Parameter #3 $expected of method Shopware\Tests\Unit\Core\Content\Media\Metadata\MetadataLoaderTest::testLoadFromFile() expects array<string, string>|null, array<string, int|string> given.'
@@ -2555,18 +1379,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Content/Media/Metadata/MetadataLoaderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Newsletter\SalesChannel\NewsletterSubscribeRouteTest::subscribeToNewsletterViaCmsFormDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Newsletter/SalesChannel/NewsletterSubscribeRouteTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Newsletter\SalesChannel\NewsletterSubscribeRouteTest::validatorDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Newsletter/SalesChannel/NewsletterSubscribeRouteTest.php
 
 		-
 			rawMessage: 'Parameter $doiSettings of method Shopware\Tests\Unit\Core\Content\Newsletter\SalesChannel\NewsletterSubscribeRouteTest::testSubscribeToNewsletterViaCmsForm() expects array{isDoubleOptIn: bool, doubleOptInRegistered: bool}, array{''core.newsletter.doubleOptIn'': false, ''core.newsletter.doubleOptInRegistered'': false} given.'
@@ -2593,18 +1405,6 @@ parameters:
 			path: repo/tests/unit/Core/Content/Newsletter/SalesChannel/NewsletterSubscribeRouteTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\Hook\Pricing\CheapestPriceFacadeTest::providerChange() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/Hook/Pricing/CheapestPriceFacadeTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\ProductMaxPurchaseCalculatorTest::cases() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/ProductMaxPurchaseCalculatorTest.php
-
-		-
 			rawMessage: 'Parameter #1 $entityData of method Shopware\Tests\Unit\Core\Content\Product\ProductMaxPurchaseCalculatorTest::testCalculate() expects array<array<string>>, array<string, int> given.'
 			identifier: argument.type
 			count: 2
@@ -2623,114 +1423,6 @@ parameters:
 			path: repo/tests/unit/Core/Content/Product/ProductMaxPurchaseCalculatorTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\ProductVariationBuilderTest::buildingProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/ProductVariationBuilderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Listing\Filter\PriceFilterHandlerTest::createProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Listing/Filter/PriceFilterHandlerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Listing\Filter\PropertyFilterHandlerTest::createProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Listing/Filter/PropertyFilterHandlerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Listing\Filter\RatingFilterHandlerTest::filterProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Listing/Filter/RatingFilterHandlerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Listing\Filter\ShippingFreeFilterHandlerTest::filterProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Listing/Filter/ShippingFreeFilterHandlerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Listing\Processor\PagingListingProcessorTest::provideTestPrepare() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Listing/Processor/PagingListingProcessorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Listing\Processor\PagingProcessorTest::prepareProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Listing/Processor/PagingProcessorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Listing\Processor\SortingListingProcessorTest::prepareDefaultSearchResultSortingProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Listing/Processor/SortingListingProcessorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Listing\Processor\SortingListingProcessorTest::prepareProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Listing/Processor/SortingListingProcessorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Listing\Processor\SortingListingProcessorTest::processProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Listing/Processor/SortingListingProcessorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Listing\Processor\SortingListingProcessorTest::wrongSortingTypeProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Listing/Processor/SortingListingProcessorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Price\ProductPriceCalculatorTest::advancedPricesWillBeCalculatedProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Price/ProductPriceCalculatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Price\ProductPriceCalculatorTest::cheapestPriceWillBeCalculatedProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Price/ProductPriceCalculatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Price\ProductPriceCalculatorTest::priceWillBeCalculated() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Price/ProductPriceCalculatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Price\ProductPriceCalculatorTest::taxStateWillBeUsedProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Price/ProductPriceCalculatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Sorting\ProductSortingEntityTest::dalSortingDefaultSortBScoreProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Sorting/ProductSortingEntityTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Sorting\ProductSortingEntityTest::dalSortingProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Sorting/ProductSortingEntityTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\SalesChannel\Suggest\ResolvedCriteriaProductSuggestRouteTest::loadProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/SalesChannel/Suggest/ResolvedCriteriaProductSuggestRouteTest.php
-
-		-
 			rawMessage: 'Parameter #3 $expected of method Shopware\Tests\Unit\Core\Content\Product\SearchKeyword\ProductSearchKeywordAnalyzerTest::testAnalyze() expects array<int, string>, array<int, int|string> given.'
 			identifier: argument.type
 			count: 1
@@ -2741,12 +1433,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Content/Product/SearchKeyword/ProductSearchKeywordAnalyzerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\Stock\OrderStockSubscriberTest::orderItemWriteProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/Stock/OrderStockSubscriberTest.php
 
 		-
 			rawMessage: 'Parameter $commands of method Shopware\Tests\Unit\Core\Content\Product\Stock\OrderStockSubscriberTest::testOrderItemWrites() expects list<array{type: ''delete''|''insert''|''update'', id: string, state: array<string, mixed>}>, array{array{type: ''delete'', id: ''item-1''}, array{type: ''delete'', id: ''item-2''}} given.'
@@ -2767,30 +1453,6 @@ parameters:
 			path: repo/tests/unit/Core/Content/Product/Stock/OrderStockSubscriberTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\Subscriber\ProductSubscriberTest::beforeWriteProductFieldProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/Subscriber/ProductSubscriberTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\Subscriber\ProductSubscriberTest::convertMeasurementUnitProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/Subscriber/ProductSubscriberTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\Subscriber\ProductSubscriberTest::resolveCmsPageIdProviderWithLoadedEventProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/Subscriber/ProductSubscriberTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\Product\Subscriber\ProductSubscriberTest::resolveCmsPageIdProviderWithSalesChannelLoadedEventProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/Product/Subscriber/ProductSubscriberTest.php
-
-		-
 			rawMessage: 'Parameter $payload of method Shopware\Tests\Unit\Core\Content\Product\Subscriber\ProductSubscriberTest::testBeforeWriteProductWithVariousFieldTypes() expects array<string, float>, array<string, float|string> given.'
 			identifier: argument.type
 			count: 1
@@ -2809,166 +1471,10 @@ parameters:
 			path: repo/tests/unit/Core/Content/Product/Subscriber/ProductSubscriberTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\ProductExport\EventListener\ProductExportEventListenerTest::skipPayloadProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/ProductExport/EventListener/ProductExportEventListenerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Content\ProductExport\ScheduledTask\ProductExportGenerateTaskHandlerTest::shouldBeRunDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Content/ProductExport/ScheduledTask/ProductExportGenerateTaskHandlerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\DevOps\Test\AnnotationTagTesterTest::incorrectExperimentalAnnotationsFormatProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/DevOps/Test/AnnotationTagTesterTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\DevOps\Test\AnnotationTagTesterTest::incorrectFeaturePropertyValueProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/DevOps/Test/AnnotationTagTesterTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Adapter\Cache\HttpCacheKeyGeneratorTest::differentKeyProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Adapter/Cache/HttpCacheKeyGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Adapter\Cache\HttpCacheKeyGeneratorTest::sameKeyProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Adapter/Cache/HttpCacheKeyGeneratorTest.php
-
-		-
 			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Adapter\Translation\TranslatorTest::provideTracingExamples() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/tests/unit/Core/Framework/Adapter/Translation/TranslatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Adapter\Twig\SecurityExtensionTest::notAllowedTemplates() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Adapter/Twig/SecurityExtensionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Adapter\Twig\StringTemplateRendererTest::labelRenderingDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Adapter/Twig/StringTemplateRendererTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Api\Controller\HealthCheckControllerTest::authorizationTokenProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Api/Controller/HealthCheckControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Api\EventListener\ErrorResponseFactoryTest::getResponseFromExceptionProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Api/EventListener/ErrorResponseFactoryTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Api\OAuth\SymfonyBearerTokenValidatorTest::dataProviderInvalidRequests() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Api/OAuth/SymfonyBearerTokenValidatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Api\Sync\SyncFkResolverTest::missingResolverProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Api/Sync/SyncFkResolverTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Api\Sync\SyncOperationTest::invalidOperationProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Api/Sync/SyncOperationTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Api\Sync\SyncOperationTest::validOperationProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Api/Sync/SyncOperationTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\App\Command\CreateAppCommandTest::invalidInputProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/App/Command/CreateAppCommandTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\App\ShopId\Fingerprint\InstallationPathTest::compareProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/App/ShopId/Fingerprint/InstallationPathTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\App\ShopId\FingerprintGeneratorTest::fingerprintsForComparison() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/App/ShopId/FingerprintGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\App\ShopId\FingerprintGeneratorTest::fingerprintsWithCustomComparison() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/App/ShopId/FingerprintGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\App\ShopId\ShopIdProviderTest::oldShopIdsProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/App/ShopId/ShopIdProviderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\App\Source\LocalTest::appProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/App/Source/LocalTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\App\Source\RemoteZipTest::appProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/App/Source/RemoteZipTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\ContextTest::twigMethodProviders() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/ContextTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGeneratorTest::contextHashProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Cache/EntityCacheKeyGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGeneratorTest::criteriaHashProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Cache/EntityCacheKeyGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Command\CreateMigrationCommandTest::commandProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Command/CreateMigrationCommandTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Dbal\CriteriaFieldsResolverTest::resolveFieldsProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Dbal/CriteriaFieldsResolverTest.php
 
 		-
 			rawMessage: 'Parameter #2 $expected of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Dbal\CriteriaFieldsResolverTest::testResolveFields() expects array<int, mixed>, array<string, array<string, array>> given.'
@@ -2977,166 +1483,16 @@ parameters:
 			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Dbal/CriteriaFieldsResolverTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelperTest::provideGetAssociatedDefinition() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Dbal/EntityDefinitionQueryHelperTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelperTest::provideTestGetField() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Dbal/EntityDefinitionQueryHelperTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Dbal\EntityDefinitionQueryHelperTest::provideTestGetRoot() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Dbal/EntityDefinitionQueryHelperTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Dbal\JoinGroupBuilderTest::nestedGroupingProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Dbal/JoinGroupBuilderTest.php
-
-		-
 			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Field\TestFieldSerializer::encode() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Field/AbstractFieldSerializerTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Field\EnumFieldTest::enumTypeProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Field/EnumFieldTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\FieldSerializer\EnumFieldSerializerTest::decoderProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/FieldSerializer/EnumFieldSerializerTest.php
-
-		-
 			rawMessage: 'Parameter #1 $field of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\FieldSerializer\EnumFieldSerializerTest::testSerialize() expects Shopware\Core\Framework\DataAbstractionLayer\Field\EnumField, Shopware\Core\Framework\DataAbstractionLayer\Field\Field given.'
 			identifier: argument.type
 			count: 10
 			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/FieldSerializer/EnumFieldSerializerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\FieldSerializer\IdFieldSerializerTest::idShouldBeGeneratedCasesProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/FieldSerializer/IdFieldSerializerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\FieldSerializer\IdFieldSerializerTest::idShouldNotBeGeneratedCasesProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/FieldSerializer/IdFieldSerializerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\FieldSerializer\ListFieldSerializerTest::encodeProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/FieldSerializer/ListFieldSerializerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\FieldSerializer\LongTextFieldSerializerTest::decodeProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/FieldSerializer/LongTextFieldSerializerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\FieldSerializer\LongTextFieldSerializerTest::encodeProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/FieldSerializer/LongTextFieldSerializerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\FieldSerializer\ManyToOneAssociationFieldSerializerTest::invalidArrayProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/FieldSerializer/ManyToOneAssociationFieldSerializerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\ApiCriteriaValidatorTest::criteriaProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/ApiCriteriaValidatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\CriteriaTest::string_convert_provider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/CriteriaTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\EntitySearchResultTest::resultPageCriteriaDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/EntitySearchResultTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilterTest::rangeFilterDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Filter/RangeFilterTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::containsFilterDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::equalsAllFilterDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::equalsAnyFilterDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::equalsFilterDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::parserProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::prefixFilterDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::rangeFilterDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::relativeTimeToDateFilterDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::suffixFilterDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
 
 		-
 			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testContainsFilter() expects array{type: ''contains'', field: string, value: mixed}, array{type: ''contains'', field: ''foo''} given.'
@@ -3283,88 +1639,10 @@ parameters:
 			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilderTest::invalidSortingCaseProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/RequestCriteriaBuilderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilderTest::providerInvalidPaging() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/RequestCriteriaBuilderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilderTest::providerPaging() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/RequestCriteriaBuilderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilderTest::sortingCaseProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/RequestCriteriaBuilderTest.php
-
-		-
 			rawMessage: 'Parameter #2 $expected of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilderTest::testInvalidSorting() expects Shopware\Core\Framework\DataAbstractionLayer\Exception\InvalidSortQueryException, Shopware\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException given.'
 			identifier: argument.type
 			count: 5
 			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/RequestCriteriaBuilderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Write\Command\ChangeSetTest::changeSetConstructProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Write/Command/ChangeSetTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Write\EntityWriteResultFactoryTest::buildResultProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Write/EntityWriteResultFactoryTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Write\Validation\PostWriteValidationEventTest::getDeletedPrimaryKeysProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Write/Validation/PostWriteValidationEventTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Write\Validation\PostWriteValidationEventTest::getPrimaryKeysProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Write/Validation/PostWriteValidationEventTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Write\Validation\PreWriteValidationEventTest::getDeletedPrimaryKeysProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Write/Validation/PreWriteValidationEventTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Write\Validation\PreWriteValidationEventTest::getPrimaryKeysProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Write/Validation/PreWriteValidationEventTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Write\WriteCommandExtractorTest::writeProtectedFieldsProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Write/WriteCommandExtractorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Write\WriteInputValidatorTest::invalidWriteInputProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Write/WriteInputValidatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Write\WriteInputValidatorTest::validWriteInputProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Write/WriteInputValidatorTest.php
 
 		-
 			rawMessage: 'Parameter $input of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Write\WriteInputValidatorTest::testInvalidWriteInputs() expects array<array<string, mixed>>, array<int, array<int, string>> given.'
@@ -3379,36 +1657,6 @@ parameters:
 			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Write/WriteInputValidatorTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DependencyInjection\CompilerPass\RemoveEventListenerTest::removeProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/DependencyInjection/CompilerPass/RemoveEventListenerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\FeatureTest::callSilentIfInactiveProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/FeatureTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\FeatureTest::deprecatedMethodMessageProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/FeatureTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Log\ExceptionLoggerTest::loggerProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Log/ExceptionLoggerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\MessageQueue\MessageHandlerCompilerPassTest::tagProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/MessageQueue/MessageHandlerCompilerPassTest.php
-
-		-
 			rawMessage: 'Parameter $existingTagAttributes of method Shopware\Tests\Unit\Core\Framework\MessageQueue\MessageHandlerCompilerPassTest::testAddsTagsAttributesFromAttribute() expects array<string, string>, array<string, int|string> given.'
 			identifier: argument.type
 			count: 1
@@ -3421,36 +1669,6 @@ parameters:
 			path: repo/tests/unit/Core/Framework/MessageQueue/MessageHandlerCompilerPassTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\MessageQueue\Middleware\RoutingOverwriteMiddlewareTest::dispatchProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/MessageQueue/Middleware/RoutingOverwriteMiddlewareTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Migration\MigrationStepTest::throwingMigrationTimestamps() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Migration/MigrationStepTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Migration\MigrationStepTest::validMigrationTimestamps() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Migration/MigrationStepTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\PluginCreateCommandTest::commandProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/PluginCreateCommandTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\PluginCreateCommandTest::invalidInputsProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/PluginCreateCommandTest.php
-
-		-
 			rawMessage: 'Parameter $arguments of method Shopware\Tests\Unit\Core\Framework\Plugin\Command\PluginCreateCommandTest::testSuccessfulCreateCommandWithArguments() expects array<string, string>, array<string, string|true> given.'
 			identifier: argument.type
 			count: 1
@@ -3461,144 +1679,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Framework/Plugin/Command/PluginCreateCommandTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\AdminModuleGeneratorTest::addScaffoldConfigProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/AdminModuleGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\AdminModuleGeneratorTest::generateProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/AdminModuleGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\CommandGeneratorTest::addScaffoldConfigProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/CommandGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\CommandGeneratorTest::generateProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/CommandGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\CustomFieldsetGeneratorTest::addScaffoldConfigProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/CustomFieldsetGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\CustomFieldsetGeneratorTest::generateProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/CustomFieldsetGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\EntityGeneratorTest::addScaffoldConfigProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/EntityGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\EntityGeneratorTest::generateProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/EntityGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\EntityGeneratorTest::provideEmptyEntities() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/EntityGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\EntityGeneratorTest::provideEntities() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/EntityGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\EventSubscriberGeneratorTest::addScaffoldConfigProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/EventSubscriberGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\EventSubscriberGeneratorTest::generateProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/EventSubscriberGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\JavascriptPluginGeneratorTest::addScaffoldConfigProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/JavascriptPluginGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\JavascriptPluginGeneratorTest::generateProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/JavascriptPluginGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\ScheduledTaskGeneratorTest::addScaffoldConfigProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/ScheduledTaskGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\ScheduledTaskGeneratorTest::generateProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/ScheduledTaskGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\StoreApiRouteGeneratorTest::addScaffoldConfigProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/StoreApiRouteGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\StoreApiRouteGeneratorTest::generateProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/StoreApiRouteGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\StorefrontControllerGeneratorTest::addScaffoldConfigProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/StorefrontControllerGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\Generator\StorefrontControllerGeneratorTest::generateProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/Generator/StorefrontControllerGeneratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Plugin\Command\Scaffolding\StubTest::contentProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Plugin/Command/Scaffolding/StubTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Routing\RouteParamsCleanupListenerTest::provideListens() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Routing/RouteParamsCleanupListenerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Rule\Container\AndRuleTest::cases() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Rule/Container/AndRuleTest.php
 
 		-
 			rawMessage: 'Parameter #1 $customFields of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects array<string, array<string>|bool|float|string>, array<int|string, array<string>|string>|bool|string|null given.'
@@ -3775,18 +1855,6 @@ parameters:
 			path: repo/tests/unit/Core/Framework/Rule/CustomFieldRuleTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Rule\DateRangeRuleTest::provideInvalidDateAndTimezoneFormats() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Rule/DateRangeRuleTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Rule\DateRangeRuleTest::provideInvalidStringValuesForMatch() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Rule/DateRangeRuleTest.php
-
-		-
 			rawMessage: 'Parameter $options of method Shopware\Tests\Unit\Core\Framework\Rule\DateRangeRuleTest::testAssignPreservesInvalidFormatsForValidators() expects array<string, bool|DateTime|string>, array<string, DateTime|string|false|null> given.'
 			identifier: argument.type
 			count: 1
@@ -3805,124 +1873,10 @@ parameters:
 			path: repo/tests/unit/Core/Framework/Rule/DateRangeRuleTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Rule\RuleComparisonTest::valuesForDateComparison() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Rule/RuleComparisonTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Rule\RuleComparisonTest::valuesForDateTimeComparison() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Rule/RuleComparisonTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Rule\RuleComparisonTest::valuesForGreaterThanOrEqualComparison() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Rule/RuleComparisonTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Rule\RuleComparisonTest::valuesForLessThanComparison() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Rule/RuleComparisonTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Rule\RuleComparisonTest::valuesForLessThanOrEqualComparison() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Rule/RuleComparisonTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Rule\RuleComparisonTest::valuesForNumericEmptyComparison() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Rule/RuleComparisonTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Rule\RuleComparisonTest::valuesForNumericEqualComparison() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Rule/RuleComparisonTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Rule\RuleComparisonTest::valuesForNumericGreaterThanComparison() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Rule/RuleComparisonTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Rule\RuleComparisonTest::valuesForNumericNotEqualComparison() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Rule/RuleComparisonTest.php
-
-		-
 			rawMessage: 'Parameter $rawConfig of method Shopware\Tests\Unit\Core\Framework\Sso\Config\LoginConfigServiceTest::testGetConfigErrors() expects array{use_default: bool, client_id: non-empty-string, client_secret: non-empty-string, redirect_uri: non-empty-string, base_url: non-empty-string, authorize_path: non-empty-string, token_path: non-empty-string, jwks_path: non-empty-string, ...}, array<string, mixed> given.'
 			identifier: argument.type
 			count: 40
 			path: repo/tests/unit/Core/Framework/Sso/Config/LoginConfigServiceTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Store\Services\StoreSessionExpiredMiddlewareTest::provideRequestStacks() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Store/Services/StoreSessionExpiredMiddlewareTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Struct\ArrayStructTest::hasDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Struct/ArrayStructTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Test\Script\Execution\ScriptTwigLoaderTest::cachingProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Test/Script/Execution/ScriptTwigLoaderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Util\HasherTest::hashFileProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Util/HasherTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Util\HasherTest::hashProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Util/HasherTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Util\HtmlSanitizerTest::entityProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Util/HtmlSanitizerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Util\MemorySizeCalculatorTest::maxUploadSizeProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Util/MemorySizeCalculatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Util\XmlReaderTest::phpizeTestCases() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Util/XmlReaderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Validation\HappyPathValidatorTest::constraintDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Framework/Validation/HappyPathValidatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Installer\Controller\ShopConfigurationControllerTest::shopConfigurationPresetProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Installer/Controller/ShopConfigurationControllerTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Unit\Core\Installer\Database\DatabaseMigratorTest::emptyGenerator() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -3937,148 +1891,16 @@ parameters:
 			path: repo/tests/unit/Core/Installer/Database/DatabaseMigratorTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Installer\Helper\InstallerRedirectHelperTest::provideSanitizationCases() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Installer/Helper/InstallerRedirectHelperTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Installer\License\LicenseFetcherTest::licenseDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Installer/License/LicenseFetcherTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Installer\Requirements\ConfigurationRequirementsValidatorTest::configRequirements() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Installer/Requirements/ConfigurationRequirementsValidatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Installer\Requirements\EnvironmentRequirementsValidatorTest::composerRequirementsProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Installer/Requirements/EnvironmentRequirementsValidatorTest.php
-
-		-
 			rawMessage: 'Parameter #2 $composerOverrides of method Shopware\Tests\Unit\Core\Installer\Requirements\EnvironmentRequirementsValidatorTest::testValidateRequirements() expects array<string, string>, array<string, false> given.'
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Installer/Requirements/EnvironmentRequirementsValidatorTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Installer\Requirements\IniConfigReaderTest::configProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Installer/Requirements/IniConfigReaderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Installer\Requirements\Struct\RequirementsCheckCollectionTest::errorProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Installer/Requirements/Struct/RequirementsCheckCollectionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Installer\Requirements\Struct\RequirementsCheckCollectionTest::pathCheckProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Installer/Requirements/Struct/RequirementsCheckCollectionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Installer\Requirements\Struct\RequirementsCheckCollectionTest::pathErrorProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Installer/Requirements/Struct/RequirementsCheckCollectionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Installer\Requirements\Struct\RequirementsCheckCollectionTest::systemCheckProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Installer/Requirements/Struct/RequirementsCheckCollectionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Installer\Requirements\Struct\RequirementsCheckCollectionTest::systemErrorProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Installer/Requirements/Struct/RequirementsCheckCollectionTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Installer\Subscriber\InstallerLocaleListenerTest::installerLocaleProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Installer/Subscriber/InstallerLocaleListenerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Maintenance\SalesChannel\Command\SalesChannelCreateCommandTest::dataProviderTestExecuteFailure() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Maintenance/SalesChannel/Command/SalesChannelCreateCommandTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Maintenance\SalesChannel\Command\SalesChannelCreateCommandTest::dataProviderTestExecuteSuccess() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Maintenance/SalesChannel/Command/SalesChannelCreateCommandTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Maintenance\System\Command\SystemInstallCommandTest::dataProviderTestExecuteWhenInstallLockExists() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Maintenance/System/Command/SystemInstallCommandTest.php
-
-		-
 			rawMessage: 'Parameter $insertCallback of method Shopware\Tests\Unit\Core\Maintenance\System\Service\ShopConfiguratorTest::testSetDefaultLanguageShouldAddMissingCountryStatesTranslations() expects callable(string, array<string, string>): void, Closure(string, array): 1 given.'
 			identifier: argument.type
 			count: 5
 			path: repo/tests/unit/Core/Maintenance/System/Service/ShopConfiguratorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Maintenance\System\Struct\DatabaseConnectionInformationTest::dsnProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Maintenance/System/Struct/DatabaseConnectionInformationTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Maintenance\System\Struct\DatabaseConnectionInformationTest::invalidEnvProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Maintenance/System/Struct/DatabaseConnectionInformationTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Maintenance\System\Struct\DatabaseConnectionInformationTest::validEnvProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Maintenance/System/Struct/DatabaseConnectionInformationTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Service\AppInfoTest::appInfoProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Service/AppInfoTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Service\LifecycleManagerTest::enabledProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Service/LifecycleManagerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Service\ServiceClientTest::latestInfoProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Service/ServiceClientTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Service\ServiceRegistry\ClientTest::invalidResponseProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Service/ServiceRegistry/ClientTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\Service\ServiceRegistry\ClientTest::nonZipContentTypeProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/Service/ServiceRegistry/ClientTest.php
 
 		-
 			rawMessage: 'Parameter #1 $response of method Shopware\Tests\Unit\Core\Service\ServiceRegistry\ClientTest::testInvalidResponseBodyReturnsEmptyListOfServices() expects string, string|false given.'
@@ -4093,76 +1915,10 @@ parameters:
 			path: repo/tests/unit/Core/Service/ServiceRegistry/ClientTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\CustomEntity\Schema\SchemaUpdaterTest::associationPairsProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/CustomEntity/Schema/SchemaUpdaterTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\CustomEntity\Schema\SchemaUpdaterTest::associationWithIgnoreMissingReferencePairsProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/CustomEntity/Schema/SchemaUpdaterTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\CustomEntity\Schema\SchemaUpdaterTest::associationWithoutIgnoreMissingReferenceProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/CustomEntity/Schema/SchemaUpdaterTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\CustomEntity\Xml\Config\AdminUi\XmlElements\ColumnTest::provider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/CustomEntity/Xml/Config/AdminUi/XmlElements/ColumnTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\SalesChannel\Context\SalesChannelContextPersisterTest::tokenExpirationDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/SalesChannel/Context/SalesChannelContextPersisterTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\SalesChannel\Context\SalesChannelContextServiceTest::skipCartCalculationIfAlreadyDoneAndESISubrequestProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/SalesChannel/Context/SalesChannelContextServiceTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\SalesChannel\Rule\SalesChannelRuleTest::provideTestData() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/SalesChannel/Rule/SalesChannelRuleTest.php
-
-		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertEmpty() with array{} will always evaluate to true.'
 			identifier: staticMethod.alreadyNarrowedType
 			count: 2
 			path: repo/tests/unit/Core/System/SalesChannel/SalesChannelContextTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\Snippet\Api\SnippetControllerTest::getListProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/Snippet/Api/SnippetControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\Snippet\SnippetServiceTest::findSnippetSetIdDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/Snippet/SnippetServiceTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\Snippet\SnippetServiceTest::getListDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/Snippet/SnippetServiceTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\Snippet\SnippetServiceTest::getStorefrontSnippetsDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/Snippet/SnippetServiceTest.php
 
 		-
 			rawMessage: 'Parameter $catalogueMessages of method Shopware\Tests\Unit\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects list<string>, array{catalogue_key: ''Catalogue DE'', title: ''Catalogue title DE''} given.'
@@ -4237,36 +1993,6 @@ parameters:
 			path: repo/tests/unit/Core/System/Snippet/SnippetServiceTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\SystemConfig\Api\SystemConfigControllerTest::inheritRequestDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/SystemConfig/Api/SystemConfigControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\SystemConfig\Command\ConfigGetCommandTest::configFormatDefaultProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/SystemConfig/Command/ConfigGetCommandTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\SystemConfig\Command\ConfigGetCommandTest::configFormatJsonProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/SystemConfig/Command/ConfigGetCommandTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\SystemConfig\Command\ConfigGetCommandTest::configFormatScalarProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/SystemConfig/Command/ConfigGetCommandTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\SystemConfig\Command\ConfigSetCommandTest::configValueProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/SystemConfig/Command/ConfigSetCommandTest.php
-
-		-
 			rawMessage: 'Parameter #2 $expectedValue of method Shopware\Tests\Unit\Core\System\SystemConfig\Command\ConfigSetCommandTest::testConfigSetValue() expects string, array<string, string> given.'
 			identifier: argument.type
 			count: 1
@@ -4291,34 +2017,10 @@ parameters:
 			path: repo/tests/unit/Core/System/SystemConfig/Command/ConfigSetCommandTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\SystemConfig\Event\SystemConfigChangedHookTest::getPermissionCases() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/SystemConfig/Event/SystemConfigChangedHookTest.php
-
-		-
 			rawMessage: 'Method Shopware\Tests\Unit\Core\System\SystemConfig\SystemConfigServiceTest::provideTracingExamples() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/tests/unit/Core/System/SystemConfig/SystemConfigServiceTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\SystemConfig\Validation\SystemConfigValidatorTest::dataProviderTestGetRuleByKey() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/SystemConfig/Validation/SystemConfigValidatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\SystemConfig\Validation\SystemConfigValidatorTest::dataProviderTestValidateFailure() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/SystemConfig/Validation/SystemConfigValidatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Core\System\SystemConfig\Validation\SystemConfigValidatorTest::dataProviderTestValidateSuccess() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Core/System/SystemConfig/Validation/SystemConfigValidatorTest.php
 
 		-
 			rawMessage: 'Parameter $formConfigs of method Shopware\Tests\Unit\Core\System\SystemConfig\Validation\SystemConfigValidatorTest::testValidateFailure() expects array<string, mixed>, array<int, array<string, array<int, array<string, array<string, bool|int>|string>>>> given.'
@@ -4349,18 +2051,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/System/SystemConfig/Validation/SystemConfigValidatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Elasticsearch\Admin\AdminElasticsearchHelperTest::searchHelperProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Elasticsearch/Admin/AdminElasticsearchHelperTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Elasticsearch\Framework\ElasticsearchStagingHandlerTest::disabledProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Elasticsearch/Framework/ElasticsearchStagingHandlerTest.php
 
 		-
 			rawMessage: 'Parameter $config of method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::testBuildMultipleLanguages() expects array{array{and_logic: string, field: string, tokenize: int, ranking: int}}, array{array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}} given.'
@@ -4429,60 +2119,6 @@ parameters:
 			path: repo/tests/unit/Elasticsearch/TokenQueryBuilderTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Unit\Storefront\Controller\NavigationControllerTest::redirectOnLinkTypeDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Storefront/Controller/NavigationControllerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Storefront\Framework\Command\SalesChannelCreateStorefrontCommandTest::dataProviderTestExecuteCommandSuccessful() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Storefront/Framework/Command/SalesChannelCreateStorefrontCommandTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Storefront\Framework\Command\SalesChannelCreateStorefrontCommandTest::dataProviderTestExecuteCommandWithAnException() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Storefront/Framework/Command/SalesChannelCreateStorefrontCommandTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Storefront\Framework\Routing\StorefrontSubscriberTest::dataProviderXMLHttpRequest() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Storefront/Framework/Routing/StorefrontSubscriberTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Storefront\Framework\Twig\TwigDateRequestListenerTest::dataProviderOnKernelRequest() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Storefront/Framework/Twig/TwigDateRequestListenerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Storefront\Page\Checkout\Finish\CheckoutFinishPageLoaderTest::provideGuestLogoutConstellations() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Storefront/Page/Checkout/Finish/CheckoutFinishPageLoaderTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Storefront\Theme\ThemeAssetPackageTest::urlCases() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Storefront/Theme/ThemeAssetPackageTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Storefront\Theme\ThemeCompilerTest::configForDumpVariables() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Storefront/Theme/ThemeCompilerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Storefront\Theme\ThemeCompilerTest::importPathsProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Storefront/Theme/ThemeCompilerTest.php
-
-		-
 			rawMessage: 'Parameter #1 $config of method Shopware\Tests\Unit\Storefront\Theme\ThemeCompilerTest::testDumpVariables() expects array<string>, array<string, array<string, array<string, array<int|string, bool|int|list<array<string, string>>|string>|bool|string>>> given.'
 			identifier: argument.type
 			count: 1
@@ -4505,24 +2141,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Storefront/Theme/ThemeCompilerTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Storefront\Theme\Validator\SCSSValidatorTest::sanitizeDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Storefront/Theme/Validator/SCSSValidatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Storefront\Theme\Validator\SCSSValidatorTest::validateDataProvider() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Storefront/Theme/Validator/SCSSValidatorTest.php
-
-		-
-			rawMessage: 'Method Shopware\Tests\Unit\Storefront\Theme\Validator\SCSSValidatorTest::validateDataProviderRegex() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/tests/unit/Storefront/Theme/Validator/SCSSValidatorTest.php
 
 		-
 			rawMessage: 'Parameter #1 $data of method Shopware\Tests\Unit\Storefront\Theme\Validator\SCSSValidatorTest::testValidateNoSanitize() expects array<string, string>, array<string, int|string> given.'

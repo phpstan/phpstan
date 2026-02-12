@@ -1,6 +1,18 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^If condition is always false\.$#'
+			identifier: if.alwaysFalse
+			count: 1
+			path: repo/rules/Php73/Rector/FuncCall/JsonThrowOnErrorRector.php
+
+		-
+			message: '#^Class Rector\\Util\\FileHasher referenced with incorrect case\: Rector\\Util\\Filehasher\.$#'
+			identifier: class.nameCase
+			count: 1
+			path: repo/src/ChangesReporting/Output/GitlabOutputFormatter.php
+
+		-
 			message: '#^Only abstract classes can be extended$#'
 			identifier: symplify.forbiddenExtendOfNonAbstractClass
 			count: 1

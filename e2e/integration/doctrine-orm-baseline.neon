@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isToOneOwningSide\(\) will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: repo/src/Cache/DefaultEntityHydrator.php
+
+		-
 			message: '#^Method Doctrine\\ORM\\EntityRepository\:\:matching\(\) should return Doctrine\\Common\\Collections\\AbstractLazyCollection\<int, T of object\> but returns Doctrine\\ORM\\LazyCriteriaCollection\<\(int\|string\), object\>\.$#'
 			identifier: return.type
 			count: 1
@@ -31,7 +37,49 @@ parameters:
 			path: repo/src/Mapping/ToManyAssociationMapping.php
 
 		-
+			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isToMany\(\) will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: repo/src/Persisters/Entity/BasicEntityPersister.php
+
+		-
+			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isToOneOwningSide\(\) will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: repo/src/Persisters/Entity/BasicEntityPersister.php
+
+		-
+			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isManyToMany\(\) will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: repo/src/Query/SqlWalker.php
+
+		-
+			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isToOneOwningSide\(\) will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: repo/src/Query/SqlWalker.php
+
+		-
+			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isToMany\(\) will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: repo/src/UnitOfWork.php
+
+		-
+			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isToOneOwningSide\(\) will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: repo/src/UnitOfWork.php
+
+		-
 			message: '#^Unable to resolve the template type T in call to static method Symfony\\Component\\VarExporter\\Hydrator\:\:hydrate\(\)$#'
 			identifier: argument.templateType
 			count: 1
 			path: repo/src/UnitOfWork.php
+
+		-
+			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isToOneOwningSide\(\) will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: repo/src/Utility/PersisterHelper.php
