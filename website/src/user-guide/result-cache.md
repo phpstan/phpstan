@@ -105,3 +105,29 @@ phpstan:
 ```
 
 Learn more: [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/)
+
+### Setup in Bitbucket Pipelines CI
+
+```yaml
+definitions:
+  caches:
+    phpstan:
+      key:
+        files:
+          - composer.lock
+          - "**/*.php"
+      path: /tmp/phpstan # same as in phpstan.neon
+
+pipelines:
+  default:
+    - step:
+	  name: Static Analysis
+	  script:
+		- composer install
+		- vendor/bin/phpstan
+	  caches:
+		- composer
+		- phpstan
+```
+
+Learn more: [Get started with Bitbucket Pipelines](https://support.atlassian.com/bitbucket-cloud/docs/get-started-with-bitbucket-pipelines/), [Caches](https://support.atlassian.com/bitbucket-cloud/docs/cache-dependencies/#Custom-caches-for-other-build-tools-and-directories)
