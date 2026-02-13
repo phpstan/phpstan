@@ -10,7 +10,7 @@ on:
       - 'website/**'
   push:
     branches:
-      - "2.1.x"
+      - "2.2.x"
     paths:
       - '.github/workflows/website.yml'
       - 'website/**'
@@ -150,7 +150,7 @@ jobs:
       - typescript-check
       - build
       - visual-regression
-    if: "github.ref == 'refs/heads/2.1.x'"
+    if: "github.ref == 'refs/heads/2.2.x'"
     runs-on: "ubuntu-latest"
     concurrency: website
     steps:

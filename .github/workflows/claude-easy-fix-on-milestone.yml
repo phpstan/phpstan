@@ -7,7 +7,7 @@ on:
 jobs:
   fix:
     if: github.event.milestone.title == 'Easy fixes'
-    uses: phpstan/phpstan-src/.github/workflows/claude-fix-issue.yml@2.1.x
+    uses: phpstan/phpstan-src/.github/workflows/claude-fix-issue.yml@2.2.x
     with:
       issue-number: ${{ github.event.issue.number }}
     secrets: inherit
