@@ -113,10 +113,9 @@ definitions:
   caches:
     phpstan:
       key:
-        files:
+        files: # the files you want pipelines to check for changes when deciding whether to use the cache, or download fresh dependencies.
           - composer.lock
-          - "**/*.php"
-      path: /tmp/phpstan # same as in phpstan.neon
+      path: tmp # same as in phpstan.neon
 
 pipelines:
   default:
