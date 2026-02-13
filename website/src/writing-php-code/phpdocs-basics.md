@@ -436,6 +436,22 @@ function impureFunction(): bool
 
 The `@phpstan-pure` tag is also available should you need it, for example if you've set `rememberPossiblyImpureFunctionValues: false` in your configuration file. See [Config Reference](https://phpstan.org/config-reference#rememberpossiblyimpurefunctionvalues) for more details.
 
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.1.39</div>
+
+For classes where all methods are impure (or pure), you can use the `@phpstan-all-methods-are-impure` tag (or `@phpstan-all-methods-are-pure`) at the class level. Individual methods can still override the class-level setting by using `@phpstan-pure` or `@phpstan-impure` on specific methods.
+
+```php
+/** @phpstan-all-methods-are-impure */
+class UserRepository
+{
+	public function findById(int $id): ?User { ... }
+	public function findAll(): array { ... }
+	public function count(): array { ... }
+
+	/** @phpstan-pure */
+	public function buildCacheKey(int $id): string { ... }
+}
+```
 
 Enforcing class inheritance for interfaces and traits
 ---------------
