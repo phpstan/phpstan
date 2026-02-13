@@ -6,7 +6,7 @@ on:
   pull_request:
   push:
     branches:
-      - "2.1.x"
+      - "2.2.x"
 
 jobs:
   typos:
