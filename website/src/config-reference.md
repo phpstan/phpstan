@@ -554,6 +554,27 @@ if ($o instanceof A) {
 
 By setting `reportAlwaysTrueInLastCondition` to `true` the error in `elseif` will be reported.
 
+### `reportNonIntStringArrayKey`
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.1.39</div>
+
+**default**: `false`
+
+By default, PHPStan does not report when array keys are used that are neither integers nor strings at compile time:
+
+```php
+$array = [];
+$array[true] = 'value';  // boolean is cast into int
+$array[4.5] = 'value';   // float is cast into int
+$array[null] = 'value';  // null key is converted to ''
+```
+
+By setting `reportNonIntStringArrayKey` to true, PHPStan will report these cases, helping you catch potentially confusing implicit conversions:
+
+```php
+unset($array[array_search($int, $array)]); // will unset key `0` by accident when `array_search` return `false`.
+```
+
 ### `reportWrongPhpDocTypeInVarTag`
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
