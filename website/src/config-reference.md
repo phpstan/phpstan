@@ -121,6 +121,24 @@ parameters:
 
 Relative path in the `tmpDir` key is resolved based on the directory of the config file is in. In this example PHPStan cache will be stored in `tmp` directory that's next to the configuration file.
 
+### `cache.nodesByStringCountMax`
+
+**default**: `256`
+
+Maximum number of parsed PHP files cached in memory by the parser. Increasing this value uses more memory but can speed up analysis by avoiding re-parsing frequently accessed files.
+
+### `cache.resolvedPhpDocBlockCacheCountMax`
+
+**default**: `2048`
+
+Maximum number of resolved PHPDoc blocks cached in memory. PHPDoc resolution is expensive, so this cache improves performance. Increase this for very large codebases with many PHPDoc annotations.
+
+### `cache.nameScopeMapMemoryCacheCountMax`
+
+**default**: `2048`
+
+Maximum number of file name scope maps (namespace and import context) cached in memory. Used during PHPDoc resolution to look up the correct namespace and `use` statement context.
+
 Analysed files
 -----------------------
 
@@ -416,6 +434,22 @@ public function doFoo(&$x): void {
 }
 ```
 
+### `checkTooWideThrowTypesInProtectedAndPublicMethods`
+
+**default**: `false`
+
+When set to `true`, it reports `@throws` PHPDoc types that could be narrowed down because some of the listed exception types are never thrown from a public or protected method. For private methods and methods in final classes PHPStan does this by default.
+
+```php
+/**
+ * @throws \InvalidArgumentException|RuntimeException
+ */
+public function doFoo(): void {
+	// Method Foo::doFoo() never throws RuntimeException so it can be removed from the @throws type.
+	throw new \InvalidArgumentException();
+}
+```
+
 ### `checkUninitializedProperties`
 
 **default**: `false`
@@ -624,6 +658,16 @@ class Bar extends Foo
 
 Please note that aside from setting this config parameter to `true`, you also need to set [`phpVersion`](#phpversion) to `80300` or higher. If you're not changing `phpVersion` in your config, make sure you're running PHPStan with PHP 8.3 or newer.
 
+### `checkMissingOverridePropertyAttribute`
+
+**default**: `null`
+
+Controls whether PHPStan reports missing `#[\Override]` attribute on properties that override a parent class property. This is a PHP 8.5 feature.
+
+- When `null` (default): the check is enabled automatically when [`checkMissingOverrideMethodAttribute`](#checkmissingoverridemethodattribute) is `true` and [`phpVersion`](#phpversion) is `80500` or higher.
+- When `true`: always checks for missing `#[\Override]` on overriding properties.
+- When `false`: never checks.
+
 ### `checkStrictPrintfPlaceholderTypes`
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.1.29</div>
@@ -648,7 +692,19 @@ Exceptions
 
 Advanced exceptions-related rules are available. [Read this article for more details »](/blog/bring-your-exceptions-under-control).
 
-Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.tooWideThrowType`
+Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.tooWideThrowType`, `exceptions.check.throwTypeCovariance`, `exceptions.check.tooWideImplicitThrowType`
+
+### `exceptions.check.throwTypeCovariance`
+
+**default**: `false`
+
+When set to `true`, it enforces that `@throws` types in overriding methods are covariant with the parent method's `@throws` types. A child method cannot declare broader exception types than its parent. This follows the Liskov Substitution Principle for exception declarations.
+
+### `exceptions.check.tooWideImplicitThrowType`
+
+**default**: `false`
+
+When set to `true`, it extends `exceptions.check.tooWideThrowType` to also report too-wide `@throws` types that were inherited or implicitly inferred, not just those explicitly written in PHPDoc. By default, only explicitly written `@throws` types are checked.
 
 Vague typehints
 ------------
@@ -743,12 +799,30 @@ Parallel processing is also disabled when running with [`--debug`](/user-guide/c
 
 [^notWantToRunWithDebug]: Although you don't want to always run PHPStan with this option.
 
+### `parallel.buffer`
+
+**default**: `134217728` (128 MB)
+
+Sets the maximum buffer size in bytes for communication between the main process and worker processes during parallel analysis. You might need to increase this if you encounter issues with very large analysis results.
+
 Clickable editor URL
 -----------------
 
 You can configure PHPStan to show clickable editor URL leading to the file and line with error in the default `table` error formatter. [Learn more](/user-guide/output-format#opening-file-in-an-editor)
 
-Related config key: `editorUrl`
+Related config keys: `editorUrl`, `editorUrlTitle`
+
+### `editorUrlTitle`
+
+**default**: `null`
+
+Customizes the link text shown for editor URLs in the `table` error formatter. Supports the same `%file%`, `%relFile%`, and `%line%` placeholders as `editorUrl`. When not set, the relative file path is used as the link text.
+
+```yaml
+parameters:
+    editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
+    editorUrlTitle: '%%relFile%%:%%line%%'
+```
 
 Miscellaneous parameters
 -----------------
@@ -840,6 +914,73 @@ parameters:
 ```
 
 This is useful when injecting dependencies with setter methods, or when writing "wither" methods on immutable objects.
+
+### `propertyAlwaysWrittenTags`
+
+**default**: `[]`
+
+A list of PHPDoc tag strings. Properties annotated with any of these tags are considered always written to, suppressing "property is never written, only read" errors from dead code detection. This is useful for properties managed by frameworks like Doctrine ORM.
+
+```yaml
+parameters:
+	propertyAlwaysWrittenTags:
+		- '@ORM\Column'
+		- '@ORM\ManyToOne'
+```
+
+### `propertyAlwaysReadTags`
+
+**default**: `[]`
+
+A list of PHPDoc tag strings. Properties annotated with any of these tags are considered always read, suppressing "property is never read, only written" errors from dead code detection.
+
+```yaml
+parameters:
+	propertyAlwaysReadTags:
+		- '@get'
+```
+
+### `usePathConstantsAsConstantString`
+
+**default**: `false`
+
+When set to `true`, the magic constants `__FILE__` and `__DIR__` are resolved to their literal file path values instead of being generalized to `string`. This enables rules that depend on exact path values, such as checking whether a file referenced by `require` actually exists.
+
+### `internalErrorsCountLimit`
+
+**default**: `50`
+
+The maximum number of internal errors (unexpected exceptions during analysis) before PHPStan stops the analysis. This prevents PHPStan from running indefinitely when encountering systemic issues.
+
+### `mixinExcludeClasses`
+
+**default**: `[]`
+
+A list of class names to exclude from `@mixin` resolution. Methods and properties from these mixin classes will not be available on classes that use them via `@mixin`.
+
+```yaml
+parameters:
+	mixinExcludeClasses:
+		- Eloquent\Model
+```
+
+### `resultCachePath`
+
+**default**: `%tmpDir%/resultCache.php`
+
+The file path where PHPStan stores the result cache for incremental analysis.
+
+### `resultCacheSkipIfOlderThanDays`
+
+**default**: `7`
+
+Forces a full re-analysis if the result cache is older than the specified number of days, ensuring PHPStan periodically performs a complete analysis.
+
+### `resultCacheChecksProjectExtensionFilesDependencies`
+
+**default**: `false`
+
+When set to `true`, PHPStan tracks transitive dependencies of project extension files for cache invalidation. This adds overhead but catches more scenarios where the cache should be invalidated.
 
 Environment variables
 -------------
