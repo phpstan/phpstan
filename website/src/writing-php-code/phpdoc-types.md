@@ -22,7 +22,8 @@ Basic types
 * `null`
 * `float`
 * `double`
-* `number` (or `numeric`)
+* `number` (`integer` or `float`)
+* `numeric` (`number` or a string that would pass an [`is_numeric()`](https://www.php.net/manual/en/function.is-numeric.php) check)
 * `scalar`, `non-empty-scalar`, `empty-scalar`
 * `array`, `non-empty-array`, `associative-array`
 * `iterable`
@@ -40,7 +41,7 @@ PHPStan has a concept of implicit and explicit `mixed`. Missing typehint is impl
 
 [Rule level 9](/user-guide/rule-levels) is stricter about the `mixed` type. The only allowed operation you can do with it is to pass it to another `mixed`.
 
-`non-empty-mixed` is everything truethy.
+`non-empty-mixed` is everything truthy.
 
 Classes and interfaces
 -------------------------
@@ -208,7 +209,7 @@ Utility types for generics
 `new` can be used to [create an object type from a class-string type](https://phpstan.org/r/a01e1e49-6f05-43a8-aac7-aded770cd88a).
 
 
-class-string / interface-string
+class-string
 -------------------------
 
 `class-string` type can be used wherever a valid class name string is expected. [Generic](/blog/generics-in-php-using-phpdocs) variant `class-string<T>` also works, or you can use `class-string<Foo>` to only accept valid class names that are subtypes of Foo.
@@ -234,18 +235,12 @@ function bar(string $name): void
 }
 ```
 
-`interface-string` works like `class-string` but for interfaces.
-
 Other advanced string types
 -------------------------
 
 `callable-string` is a string that PHP considers a valid [`callable`](https://www.php.net/manual/en/language.types.callable.php).
 
 `numeric-string` is a string that would pass an [`is_numeric()`](https://www.php.net/manual/en/function.is-numeric.php) check.
-
-`trait-string` is a string representing a trait.
-
-`enum-string` is a string representing an enum.
 
 `non-empty-string` is any string except `''`. It does _not_ mean "empty" in the weird sense used by [`empty()`](https://www.php.net/manual/en/function.empty.php).
 
@@ -256,8 +251,6 @@ Security-focused `literal-string` is inspired by the [`is_literal()` RFC](https:
 `lowercase-string` accepts strings where `strtolower($string) === $string` is true. There is also non empty version `non-empty-lowercase-string`.
 
 `uppercase-string` accepts strings where `strtoupper($string) === $string` is true. There is also non empty version `non-empty-uppercase-string`.
-
-`__stringandstringable` is any string or object implementing `Stringable` interface or object with a magic `__toString()` method.
 
 Global type aliases
 -------------------------
