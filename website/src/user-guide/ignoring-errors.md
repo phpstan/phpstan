@@ -129,6 +129,21 @@ parameters:
 		- '#Other error to ignore everywhere#'
 ```
 
+In PHPStan 2.1.24 and later, if you want to match an exact error message without using regular expressions (avoiding the need to escape special characters), you can use `rawMessage` or `rawMessages` instead of `message` or `messages`.
+
+```yaml
+parameters:
+	ignoreErrors:
+		-
+			rawMessage: 'Call to an undefined method App\Foo::doBar().'
+			path: some/dir/SomeFile.php
+		-
+			rawMessages:
+				- 'Call to an undefined method App\Bar::doFoo().'
+				- 'Call to an undefined method App\Bar::doBar().'
+			path: other/dir/AnotherFile.php
+```
+
 Relative paths in the `path` and `paths` keys are resolved based on the directory of the config file is in. So if your `phpstan.neon` is in the root directory of the project, and you want to ignore an error in `src/Foo/Bar.php`, your path key can simply be `src/Foo/Bar.php`.
 
 If you want to ignore only a specific error, you can take advantage of [error identifiers](/error-identifiers) in the `identifier` key:
