@@ -121,6 +121,40 @@ parameters:
 
 Relative path in the `tmpDir` key is resolved based on the directory of the config file is in. In this example PHPStan cache will be stored in `tmp` directory that's next to the configuration file.
 
+### `resultCachePath`
+
+**default**: `%tmpDir%/resultCache.php`
+
+Path to the file where PHPStan stores the result cache. The result cache enables incremental analysis — only changed files and their dependents are re-analysed on subsequent runs.
+
+### `resultCacheSkipIfOlderThanDays`
+
+**default**: `7`
+
+If the result cache is older than this many days, PHPStan will discard it and run a full analysis. This prevents using a stale cache that may have accumulated inaccuracies over time.
+
+### `resultCacheChecksProjectExtensionFilesDependencies`
+
+**default**: `false`
+
+When set to `true`, the result cache will recursively check dependencies of project extension files. This ensures that changes in files depended upon by your custom PHPStan extensions also trigger re-analysis of affected files.
+
+### `cache`
+
+In-memory cache size limits for the analysis process. These control how many entries PHPStan keeps in memory during a single run. Larger values use more memory but may improve performance for large codebases by reducing re-parsing and re-resolution.
+
+```yaml
+parameters:
+	cache:
+		nodesByStringCountMax: 256
+		resolvedPhpDocBlockCacheCountMax: 2048
+		nameScopeMapMemoryCacheCountMax: 2048
+```
+
+- `nodesByStringCountMax` (default: `256`): Maximum number of parsed AST file entries kept in memory.
+- `resolvedPhpDocBlockCacheCountMax` (default: `2048`): Maximum number of resolved PHPDoc block entries kept in memory.
+- `nameScopeMapMemoryCacheCountMax` (default: `2048`): Maximum number of PHPDoc name scope map entries kept in memory.
+
 Analysed files
 -----------------------
 
@@ -416,6 +450,22 @@ public function doFoo(&$x): void {
 }
 ```
 
+### `checkTooWideThrowTypesInProtectedAndPublicMethods`
+
+**default**: `false`
+
+When set to `true`, it reports `@throws` typehints that could be narrowed down because some of the listed exception types are never thrown from a public or protected method or property hook. For private methods PHPStan does this by default.
+
+```php
+/**
+ * @throws \InvalidArgumentException|\RuntimeException
+ */
+public function doFoo(): void {
+	// Method Foo::doFoo() never throws RuntimeException so it can be removed from the @throws type.
+	throw new \InvalidArgumentException();
+}
+```
+
 ### `checkUninitializedProperties`
 
 **default**: `false`
@@ -505,6 +555,19 @@ Enable stricter analysis of benevolent union types with the `checkBenevolentUnio
 ```yaml
 parameters:
     checkBenevolentUnionTypes: true
+```
+
+### `reportNonIntStringArrayKey`
+
+**default**: `false`
+
+When set to `true`, PHPStan only allows `int` and `string` values as array keys. By default, PHPStan also allows `bool`, `float`, and `null` as array keys (which PHP implicitly converts), but these implicit conversions may not be intentional. This option has effect on [rule level](/user-guide/rule-levels) 3 and up.
+
+```php
+$arr = [];
+$arr[true] = 1;  // Reported when set to true: Invalid array key type bool.
+$arr[1.5] = 2;   // Reported when set to true: Invalid array key type float.
+$arr[null] = 3;  // Reported when set to true: Invalid array key type null.
 ```
 
 ### `reportPossiblyNonexistentGeneralArrayOffset`
@@ -604,6 +667,26 @@ class Bar extends Foo
 ```
 
 Please note that aside from setting this config parameter to `true`, you also need to set [`phpVersion`](#phpversion) to `80300` or higher. If you're not changing `phpVersion` in your config, make sure you're running PHPStan with PHP 8.3 or newer.
+
+### `checkMissingOverridePropertyAttribute`
+
+**default**: `null`
+
+When set to `true`, PHPStan reports missing `#[\Override]` attribute above properties that override a parent class property. This requires [`phpVersion`](#phpversion) set to `80500` or higher (PHP 8.5+).
+
+When set to `null` (the default), this check is automatically enabled if `checkMissingOverrideMethodAttribute` is `true` and the configured PHP version is 8.5 or higher. Set it explicitly to `false` to disable the check even when the method-level check is enabled.
+
+```php
+class Foo
+{
+	public string $name = 'foo';
+}
+
+class Bar extends Foo
+{
+	public string $name = 'bar'; // missing #[\Override] above this property
+}
+```
 
 ### `checkStrictPrintfPlaceholderTypes`
 
@@ -729,7 +812,19 @@ Clickable editor URL
 
 You can configure PHPStan to show clickable editor URL leading to the file and line with error in the default `table` error formatter. [Learn more](/user-guide/output-format#opening-file-in-an-editor)
 
-Related config key: `editorUrl`
+Related config keys: `editorUrl`, `editorUrlTitle`
+
+### `editorUrlTitle`
+
+**default**: `null`
+
+Customizes the clickable link text shown in the `table` error formatter when `editorUrl` is set. By default, the relative file path is used as the link text. Supports the same placeholders as `editorUrl`: `%file%` (absolute path), `%relFile%` (relative path), and `%line%` (line number).
+
+```yaml
+parameters:
+	editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
+	editorUrlTitle: '%%relFile%%:%%line%%'
+```
 
 Miscellaneous parameters
 -----------------
@@ -821,6 +916,58 @@ parameters:
 ```
 
 This is useful when injecting dependencies with setter methods, or when writing "wither" methods on immutable objects.
+
+### `propertyAlwaysWrittenTags`
+
+**default**: `[]`
+
+A list of PHPDoc tag strings. When any of these strings is found in a private property's PHPDoc comment, the property is considered as always written to. This suppresses false positives from PHPStan's unused private property detection (e.g. "property is never written, only read").
+
+```yaml
+parameters:
+	propertyAlwaysWrittenTags:
+		- '@ORM\Column'
+```
+
+For more advanced logic, you can implement the [`ReadWritePropertiesExtension`](/developing-extensions/always-read-written-properties) interface instead.
+
+### `propertyAlwaysReadTags`
+
+**default**: `[]`
+
+A list of PHPDoc tag strings. When any of these strings is found in a private property's PHPDoc comment, the property is considered as always read. This suppresses false positives from PHPStan's unused private property detection (e.g. "property is never read, only written").
+
+```yaml
+parameters:
+	propertyAlwaysReadTags:
+		- '@get'
+```
+
+For more advanced logic, you can implement the [`ReadWritePropertiesExtension`](/developing-extensions/always-read-written-properties) interface instead.
+
+### `usePathConstantsAsConstantString`
+
+**default**: `false`
+
+When set to `true`, PHPStan treats `__FILE__` and `__DIR__` magic constants as constant string types with the actual file/directory path values. By default, these are generalized to `non-empty-string`. Enabling this allows PHPStan to resolve expressions like `__DIR__ . '/config.php'` to specific paths, which is useful for rules that check file existence in `include`/`require` statements.
+
+### `mixinExcludeClasses`
+
+**default**: `[]`
+
+A list of class names to exclude from [`@mixin`](/writing-php-code/phpdoc-types#mixins) processing. When a class uses `@mixin SomeClass` and `SomeClass` is in this list, PHPStan will not resolve methods or properties from that mixin.
+
+```yaml
+parameters:
+	mixinExcludeClasses:
+		- ProblematicMixinClass
+```
+
+### `internalErrorsCountLimit`
+
+**default**: `50`
+
+Maximum number of internal errors PHPStan will tolerate before aborting the analysis. Internal errors are unexpected exceptions that occur during file analysis. When this limit is reached, PHPStan stops processing further files. Increase this if your codebase triggers many internal errors that you want to see all at once.
 
 Environment variables
 -------------
