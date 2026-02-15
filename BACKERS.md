@@ -49,11 +49,9 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/crispnl">crispnl (crispnl)</a></li>
 <li><a href="https://github.com/inviqa">Inviqa (inviqa)</a></li>
 <li><a href="https://github.com/hephaist-io">Hephaist.io (hephaist-io)</a></li>
-<li><a href="https://github.com/Edgenext2024"> (Edgenext2024)</a></li>
 <li><a href="https://github.com/FameHelsinki">Fame Helsinki (FameHelsinki)</a></li>
 <li><a href="https://github.com/route4me">Route4Me Route Planner (route4me)</a></li>
 <li><a href="https://github.com/belsimpel">Belsimpel.nl B.V. (belsimpel)</a></li>
-<li><a href="https://github.com/storyblok">Storyblok (storyblok)</a></li>
 <li><a href="https://github.com/passbolt">Passbolt (passbolt)</a></li>
 <!-- bronze-org -->
 </ul>
@@ -63,7 +61,6 @@ the logo of your company in PHPStan's README and the website.
 <ul>
 <!-- small --><li><a href="https://github.com/martin-georgiev">Martin Georgiev (martin-georgiev)</a></li>
 <li><a href="https://github.com/glami">GLAMI (glami)</a></li>
-<li><a href="https://github.com/visol">visol (visol)</a></li>
 <!-- small -->
 
 <!-- small-org --><li><a href="https://github.com/polylang">Polylang (polylang)</a></li>
