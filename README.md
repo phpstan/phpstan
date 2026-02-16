@@ -33,6 +33,7 @@ Want your logo here? [Learn more »](https://phpstan.org/sponsor)
 <a href="https://mojam.co/"><img src="website/src/images/sponsor/mojam.png" alt="Mojam" width="290" height="64"></a>
 <br>
 <a href="https://www.check24.de/"><img src="website/src/images/sponsor/check24.png" alt="CHECK24" width="283" height="64"></a>
+<a href="https://l.rw.rw/php_stan"><img src="website/src/images/sponsor/mailtrap.png" alt="Mailtrap" width="283" height="64"></a>
 
 <br><br>
 
