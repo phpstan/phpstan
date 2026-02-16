@@ -86,6 +86,8 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
 
       - name: "Install Node"
         uses: actions/setup-node@v4
@@ -137,12 +139,14 @@ jobs:
         if: "failure() && github.event_name == 'push'"
         uses: peter-evans/create-pull-request@v7
         with:
+          token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
           add-paths: |
             website/visual-tests/__screenshots__/
           branch: "create-pull-request/visual-tests"
           delete-branch: true
           title: "Update visual tests screenshots"
           commit-message: "Update visual tests screenshots"
+          committer: "phpstan-bot <ondrej+phpstanbot@mirtes.cz>"
 
   deploy:
     name: "Deploy"
