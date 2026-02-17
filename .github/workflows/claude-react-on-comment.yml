@@ -45,6 +45,12 @@ jobs:
     timeout-minutes: 60
 
     steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+
       - name: "React to feedback"
         uses: anthropics/claude-code-action@v1
         with:
