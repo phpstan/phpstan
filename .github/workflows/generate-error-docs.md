@@ -26,15 +26,16 @@ safe-outputs:
     draft: true
     github-token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
     base-branch: "2.2.x"
+  noop:
 ---
 
 # Generate Error Identifier Documentation
 
 You are generating documentation pages for PHPStan error identifiers. PHPStan is a PHP static analysis tool that finds bugs in code without running it. Each error identifier (like `argument.type`, `deadCode.unreachable`, `property.notFound`) categorizes a specific type of error.
 
-The goal is to create a markdown file for every identifier in `website/errors/` explaining what the error means, showing a code example, and offering ways to fix it.
+The goal is to create a markdown file for each identifier in `website/errors/` explaining what the error means, showing a code example, and offering ways to fix it. Each run picks 50 random undocumented identifiers so the workflow can be dispatched repeatedly until all are covered.
 
-## Step 1: Read all identifiers
+## Step 1: Pick 50 undocumented identifiers
 
 Read `website/src/errorsIdentifiers.json`. This JSON maps each identifier to its rule classes and source code locations:
 
@@ -50,11 +51,15 @@ Read `website/src/errorsIdentifiers.json`. This JSON maps each identifier to its
 }
 ```
 
-Parse this and build a list of all identifiers to process and the set of repositories that need to be cloned.
+Then list existing files in `website/errors/`. Each file is named `<identifier>.md`. Any identifier that already has a file is already documented — skip it.
+
+From the remaining undocumented identifiers, pick 50 at random. If fewer than 50 are left, process all of them.
+
+If all identifiers are already documented, call the `noop` safe output with a message explaining that all identifiers have documentation.
 
 ## Step 2: Clone required repositories
 
-Clone only the repositories referenced by identifiers being processed. Extract the branch name from the GitHub URLs (e.g., `blob/2.2.x/` → branch `2.2.x`).
+Clone only the repositories referenced by the selected 50 identifiers. Extract the branch name from the GitHub URLs (e.g., `blob/2.2.x/` → branch `2.2.x`).
 
 Use shallow clones to save time:
 

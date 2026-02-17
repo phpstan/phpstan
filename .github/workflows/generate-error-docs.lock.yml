@@ -23,7 +23,7 @@
 #
 # Generates documentation markdown files for PHPStan error identifiers by reading rule source code and tests from PHPStan repositories.
 #
-# frontmatter-hash: 864a4bc8863481548533284a0e150a1126d8d30f2b375683ba897f0b4c706a93
+# frontmatter-hash: 021dabbeb04769b20148afd849f68d6e54f8002ad863bb126f57cb652ba1184d
 
 name: "Generate Error Identifier Documentation"
 "on":
