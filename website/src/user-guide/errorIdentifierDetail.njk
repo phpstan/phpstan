@@ -18,14 +18,6 @@ sectionTitle: User Guide
 
 {% block algoliaSectionTitle %}Error Identifiers{% endblock %}
 
-{% block metaDescription %}
-{% if errorIdentifier.doc %}
-<meta name="description" content="PHPStan error identifier {{ errorIdentifier.identifier }} — learn what this error means and how to fix it in your PHP code.">
-{% else %}
-<meta name="description" content="PHPStan error identifier {{ errorIdentifier.identifier }} — use @phpstan-ignore to ignore this error in your PHP code.">
-{% endif %}
-{% endblock %}
-
 {% block scripts %}
 	<script src="/js/error-identifier-detail.ts" type="module"></script>
 {% endblock %}

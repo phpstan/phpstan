@@ -49,7 +49,6 @@ export default defineConfig({
 		viteStaticCopy({
 			targets: [
 				{ src: 'robots.txt', dest: '.' },
-				{ src: 'llms.txt', dest: '.' },
 				{ src: 'rss.xml', dest: '.' },
 				{ src: 'sitemap.xml', dest: '.' },
 				{ src: 'errorsIdentifiers.json', dest: '.' },

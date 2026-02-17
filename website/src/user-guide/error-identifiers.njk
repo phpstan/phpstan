@@ -11,10 +11,6 @@ sectionTitle: User Guide
 {% block mainTitle %}{% endblock %}
 {% block editPageLink %}{% endblock %}
 
-{% block metaDescription %}
-<meta name="description" content="Complete list of all PHPStan error identifiers. Error identifiers categorize errors reported by PHPStan and can be used to ignore specific errors in your PHP code.">
-{% endblock %}
-
 {% block scripts %}
 	<script src="/js/error-identifiers.ts" type="module"></script>
 {% endblock %}
@@ -94,19 +90,5 @@ $this->foo->doSomethingWithString(1);
 
 </div>
 </div>
-
-<noscript>
-<div class="content pt-4">
-	<h1 class="leading-tight">Error Identifiers</h1>
-	<p>Error identifiers are used to identify and categorize all errors reported by PHPStan. Identifiers can be used to ignore a specific kind of error.</p>
-	<p>This page contains the list of all identifiers reported by PHPStan itself and its 1<sup>st</sup>&nbsp;party extensions.</p>
-	<h2>All Error Identifiers</h2>
-	<ul>
-	{% for item in errorIdentifiers %}
-		<li><a href="/error-identifiers/{{ item.identifier }}">{{ item.identifier }}</a></li>
-	{% endfor %}
-	</ul>
-</div>
-</noscript>
 
 {% endblock %}
