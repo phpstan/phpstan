@@ -8,6 +8,8 @@ on:
 
 permissions: read-all
 
+github-token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+
 engine:
   id: claude
   model: claude-opus-4-6
