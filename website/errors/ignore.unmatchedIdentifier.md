@@ -18,7 +18,7 @@ function add(int $a, int $b): int
 
 An `@phpstan-ignore` comment specifies an error identifier, but no error with that identifier is actually reported on the given line. This means the ignore directive is unnecessary -- either the error was already fixed, the code was changed, or the identifier was specified incorrectly.
 
-This error is reported when the `reportUnmatchedIgnoredErrors` parameter is enabled (which is the default).
+This error is reported when the [`reportUnmatchedIgnoredErrors`](/user-guide/ignoring-errors#reporting-unused-ignores) parameter is enabled (which is the default).
 
 ## How to fix it
 

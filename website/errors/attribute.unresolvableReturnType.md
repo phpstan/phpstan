@@ -33,16 +33,28 @@ Since PHP attributes are instantiated by the runtime with limited context, unres
 
 ## How to fix it
 
-Simplify the attribute constructor's type signature so that the return type does not depend on template types, or ensure the template types can be fully resolved from the constructor arguments:
+The unresolvable template type is usually a symptom of a not-precise-enough type being passed to the constructor. Pass a more specific type so that PHPStan can resolve the template:
 
-```php
-<?php declare(strict_types = 1);
+```diff-php
+-#[MyAttribute(value: 'hello')]
++#[MyAttribute(value: new ConcreteValue('hello'))]
+ class Foo {}
+```
 
-#[\Attribute]
-class MyAttribute
-{
-    public function __construct(public mixed $value)
-    {
-    }
-}
+If the template type on the constructor is not needed, simplify the type signature:
+
+```diff-php
+ #[\Attribute]
+ class MyAttribute
+ {
+-    /**
+-     * @template T
+-     * @param T $value
+-     * @return T
+-     */
+-    public function __construct(public mixed $value)
++    public function __construct(public string $value)
+     {
+     }
+ }
 ```

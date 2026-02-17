@@ -45,6 +45,6 @@ If the class comes from an external package, make sure the package is installed:
 composer require vendor/package
 ```
 
-If PHPStan cannot find a class that does exist at runtime, configure the autoloader or `scanFiles`/`scanDirectories` in your PHPStan configuration.
+If PHPStan cannot find a class that does exist at runtime, configure the autoloader or [`scanFiles`/`scanDirectories`](/user-guide/discovering-symbols#third-party-code-outside-of-composer-dependencies) in your PHPStan configuration.
 
 Learn more: [Discovering Symbols](/user-guide/discovering-symbols)

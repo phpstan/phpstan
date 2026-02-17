@@ -23,7 +23,7 @@ Attributes on global constants are a feature introduced in PHP 8.5. When the con
 
 ## How to fix it
 
-If you need attributes on global constants, set the PHP version in your PHPStan configuration to 8.5 or later:
+If you need attributes on global constants, set the [`phpVersion`](/config-reference#phpversion) parameter in your PHPStan configuration to 8.5 or later:
 
 ```yaml
 parameters:

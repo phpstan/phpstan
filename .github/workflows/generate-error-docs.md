@@ -176,7 +176,8 @@ Ways to fix the error.
   2. Narrow the type using native PHP type declarations (parameter types, return types)
   3. Narrow the type using PHPDoc types (`@param`, `@return`, `@var` on properties)
   4. Use [type narrowing](/writing-php-code/narrowing-types) in the function body
-  5. Configure PHPStan if the rule is configurable — link to [config reference](/config-reference)
+  5. Configure PHPStan if the rule is configurable
+- Every time a configuration parameter is mentioned, link it to the correct documentation page. Consult `website/src/config-reference.md` to find the right anchor — parameters that have their own `###` heading (like `phpVersion`) link to `/config-reference#phpversion`. Parameters that only appear as "Related config keys" link to the user guide page referenced there (e.g., `reportUnmatchedIgnoredErrors` links to `/user-guide/ignoring-errors#reporting-unused-ignores`, `scanFiles` links to `/user-guide/discovering-symbols#third-party-code-outside-of-composer-dependencies`).
 - Show code fixes. Use `diff-php` syntax when showing changes:
 
 ````markdown
