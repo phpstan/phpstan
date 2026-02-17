@@ -156,7 +156,7 @@ permalink: "/try.html"
 								<tr>
 									<td class="px-6 py-4 whitespace-nowrap border-b border-gray-200 text-base leading-5 font-medium text-gray-500" data-bind="text: line"></td>
 									<td class="px-6 py-4 border-b border-gray-200 text-base leading-5 text-gray-900">
-										<div class="flex md:items-center flex-col md:flex-row">
+										<div class="flex items-center">
 											<div class="flex-shrink">
 												<div data-bind="text: message" style="white-space: preserve;"></div>
 												<!-- ko if: $data.tip -->
@@ -165,7 +165,7 @@ permalink: "/try.html"
 											</div>
 
 
-											<div class="flex flex-grow flex-shrink-0 mt-2 md:mt-0 md:justify-end md:ml-4">
+											<div class="flex flex-shrink-0 ml-2 md:flex-grow md:justify-end md:ml-4">
 												<!-- ko if: $data.identifier -->
 													<a target="_blank" class="inline-flex items-center justify-center w-6 h-6 ml-1 rounded-full bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold leading-none" data-bind="attr: { href: '/error-identifiers/' + $data.identifier }">?</a>
 												<!-- /ko -->
