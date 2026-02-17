@@ -1,0 +1,30 @@
+# PHPStan - PHP Static Analysis Tool
+
+> PHPStan finds bugs in your code without writing tests. It's a static analysis tool for PHP.
+
+## Documentation
+
+- [Getting Started](https://phpstan.org/user-guide/getting-started): How to install and start using PHPStan
+- [Command Line Usage](https://phpstan.org/user-guide/command-line-usage): CLI options and usage
+- [Rule Levels](https://phpstan.org/user-guide/rule-levels): Understanding PHPStan's rule levels (0-9)
+- [The Baseline](https://phpstan.org/user-guide/baseline): Managing existing errors with a baseline
+- [Discovering Symbols](https://phpstan.org/user-guide/discovering-symbols): Autoloading and symbol discovery
+- [Output Format](https://phpstan.org/user-guide/output-format): Error output formats and formatters
+- [Ignoring Errors](https://phpstan.org/user-guide/ignoring-errors): How to ignore specific errors
+- [Error Identifiers](https://phpstan.org/error-identifiers): Complete list of all error identifiers
+- [Stub Files](https://phpstan.org/user-guide/stub-files): Using stub files for type information
+- [Troubleshooting Types](https://phpstan.org/user-guide/troubleshooting-types): Debugging type inference issues
+- [Result Cache](https://phpstan.org/user-guide/result-cache): How PHPStan's caching works
+- [Extension Library](https://phpstan.org/user-guide/extension-library): Available extensions
+- [Config Reference](https://phpstan.org/config-reference): Full configuration reference
+
+## Writing PHP Code
+
+- [PHPDoc Basics](https://phpstan.org/writing-php-code/phpdocs-basics): Writing PHPDocs for PHPStan
+- [PHPDoc Types](https://phpstan.org/writing-php-code/phpdoc-types): Detailed type syntax reference
+- [Narrowing Types](https://phpstan.org/writing-php-code/narrowing-types): Type narrowing and type guards
+- [Solving Undefined Variables](https://phpstan.org/writing-php-code/solving-undefined-variables): Fixing undefined variable errors
+
+## Developing Extensions
+
+- [Extension Types](https://phpstan.org/developing-extensions/extension-types): How to extend PHPStan
