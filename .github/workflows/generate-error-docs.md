@@ -13,6 +13,7 @@ engine:
   model: claude-opus-4-6
   env:
     CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+    PHPSTAN_BOT_TOKEN: ${{ secrets.PHPSTAN_BOT_TOKEN }}
 
 timeout-minutes: 120
 
@@ -21,12 +22,10 @@ tools:
     toolsets: [default, repos]
   web-fetch:
 
-safe-outputs:
-  create-pull-request:
-    draft: true
-    github-token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
-    base-branch: "2.2.x"
-  noop:
+steps:
+  - uses: actions/checkout@v4
+    with:
+      token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
 ---
 
 # Generate Error Identifier Documentation
@@ -55,7 +54,7 @@ Then list existing files in `website/errors/`. Each file is named `<identifier>.
 
 From the remaining undocumented identifiers, pick 50 at random. If fewer than 50 are left, process all of them.
 
-If all identifiers are already documented, call the `noop` safe output with a message explaining that all identifiers have documentation.
+If all identifiers are already documented, stop and do nothing.
 
 ## Step 2: Clone required repositories
 
@@ -203,12 +202,29 @@ Ways to fix the error.
 **For extension-specific identifiers** (phpstan-doctrine, phpstan-symfony, etc.):
 - Mention which extension package provides the rule (e.g., "This error is reported by `phpstan/phpstan-doctrine`.")
 
-## Step 5: Create pull request
+## Step 5: Commit, push, and create pull request
 
-After generating all markdown files, create a pull request:
-- Target branch: `2.2.x`
-- Title: descriptive, mentioning which identifiers were documented
-- Body: list the identifiers that were documented and a brief summary
+After generating all markdown files, commit and push them as phpstan-bot, then create a draft PR:
+
+```bash
+git config user.name "phpstan-bot"
+git config user.email "ondrej+phpstanbot@mirtes.cz"
+git checkout -b docs/error-identifiers-batch
+git add website/errors/
+git commit -m "Document error identifiers"
+git push origin docs/error-identifiers-batch
+gh pr create --repo phpstan/phpstan --base 2.2.x --draft \
+  --title "[Docs] Document error identifiers" \
+  --body "PR DESCRIPTION HERE"
+```
+
+Set `$PHPSTAN_BOT_TOKEN` for the `gh` CLI:
+
+```bash
+export GH_TOKEN="$PHPSTAN_BOT_TOKEN"
+```
+
+Include a descriptive PR body listing which identifiers were documented.
 
 ## Example output
 
