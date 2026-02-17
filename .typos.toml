@@ -13,3 +13,5 @@ extend-ignore-re = [
 [default.extend-words]
 # override false-positives
 symplify = "symplify"
+Namme = "Namme"
+pararm = "pararm"
