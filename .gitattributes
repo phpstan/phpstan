@@ -10,3 +10,7 @@
 /website/ export-ignore
 
 /website/** -linguist-detectable
+
+.github/workflows/generate-error-docs.lock.yml linguist-generated
+
+.github/workflows/*.lock.yml linguist-generated=true merge=ours
