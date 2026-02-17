@@ -13,7 +13,6 @@ engine:
   model: claude-opus-4-6
   env:
     CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-    PHPSTAN_BOT_TOKEN: ${{ secrets.PHPSTAN_BOT_TOKEN }}
 
 timeout-minutes: 120
 
@@ -218,12 +217,6 @@ git push origin docs/error-identifiers-batch
 gh pr create --repo phpstan/phpstan --base 2.2.x --draft \
   --title "[Docs] Document error identifiers" \
   --body "PR DESCRIPTION HERE"
-```
-
-Set `$PHPSTAN_BOT_TOKEN` for the `gh` CLI:
-
-```bash
-export GH_TOKEN="$PHPSTAN_BOT_TOKEN"
 ```
 
 Include a descriptive PR body listing which identifiers were documented.
