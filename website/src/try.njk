@@ -166,15 +166,8 @@ permalink: "/try.html"
 
 
 											<div class="flex flex-grow flex-shrink-0 mt-2 md:mt-0 md:justify-end md:ml-4">
-
-												<!-- ko if: $data.ignorable === false -->
-													<div class="cursor-default text-xs font-semibold bg-red-700 text-white rounded-full px-2 py-1">Non-ignorable</div>
-												<!-- /ko -->
-
-												<!-- ko if: $data.ignorable === true -->
-													<!-- ko if: $data.identifier -->
-														<a target="_blank" class="text-xs font-semibold bg-gray-300 hover:bg-gray-400 text-white dark:text-black dark:border dark:border-white rounded-full px-2 py-1" data-bind="text: $data.identifier, attr: { href: '/error-identifiers/' + $data.identifier }"></a>
-													<!-- /ko -->
+												<!-- ko if: $data.identifier -->
+													<a target="_blank" class="inline-flex items-center justify-center w-6 h-6 ml-1 rounded-full bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold leading-none" data-bind="attr: { href: '/error-identifiers/' + $data.identifier }">?</a>
 												<!-- /ko -->
 											</div>
 										</div>
