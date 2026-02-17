@@ -17,21 +17,22 @@ engine:
 timeout-minutes: 120
 
 tools:
+  bash: ["*"]
   github:
     toolsets: [default, repos]
   web-fetch:
 
 safe-outputs:
   github-token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
-  create-pull-request:
-    draft: true
-    base-branch: 2.2.x
-    title-prefix: "[Docs] "
   noop:
 
 steps:
   - uses: actions/checkout@v4
     with:
+      token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+  - uses: actions/checkout@v4
+    with:
+      path: __push-workspace
       token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
 ---
 
@@ -265,16 +266,21 @@ Ways to fix the error.
 
 ## Step 5: Commit changes and create pull request
 
-After generating all markdown files, commit them locally:
+After generating all markdown files, push the changes and create a draft PR:
 
 ```bash
+cp -r website/errors/ __push-workspace/website/errors/
+cd __push-workspace
 git config user.name "phpstan-bot"
 git config user.email "ondrej+phpstanbot@mirtes.cz"
+git checkout -b document-error-identifiers-batch-$(head -c 8 /dev/urandom | xxd -p)
 git add website/errors/
 git commit -m "Document error identifiers"
+git push origin HEAD
+gh pr create --base 2.2.x --draft --title "[Docs] Document error identifiers" --body "PR DESCRIPTION HERE"
 ```
 
-Then use the `create-pull-request` safe output to create a draft PR. Set the title to "Document error identifiers" and include a descriptive body listing which identifiers were documented.
+Replace `PR DESCRIPTION HERE` with a description listing which identifiers were documented with a one-line summary of each.
 
 ## Example output
 
