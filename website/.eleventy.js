@@ -14,6 +14,7 @@ process.setMaxListeners(0);
 
 module.exports = async function (eleventyConfig) {
 	const { EleventyRenderPlugin } = await import("@11ty/eleventy");
+	eleventyConfig.ignores.add("src/_posts/CLAUDE.md");
 	eleventyConfig.addPassthroughCopy('src/images');
 	eleventyConfig.addPassthroughCopy('src/images-emails');
 	eleventyConfig.addPassthroughCopy('src/images-emails-2');
