@@ -21,6 +21,14 @@ tools:
     toolsets: [default, repos]
   web-fetch:
 
+safe-outputs:
+  github-token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+  create-pull-request:
+    draft: true
+    base-branch: 2.2.x
+    title-prefix: "[Docs] "
+  noop:
+
 steps:
   - uses: actions/checkout@v4
     with:
@@ -53,7 +61,7 @@ Then list existing files in `website/errors/`. Each file is named `<identifier>.
 
 From the remaining undocumented identifiers, pick 100 at random. If fewer than 100 are left, process all of them.
 
-If all identifiers are already documented, stop and do nothing.
+If all identifiers are already documented, call the `noop` safe output with a message explaining that all identifiers are already documented, and stop.
 
 ## Step 2: Clone required repositories
 
@@ -203,23 +211,18 @@ Ways to fix the error.
 **For extension-specific identifiers** (phpstan-doctrine, phpstan-symfony, etc.):
 - Mention which extension package provides the rule (e.g., "This error is reported by `phpstan/phpstan-doctrine`.")
 
-## Step 5: Commit, push, and create pull request
+## Step 5: Commit changes and create pull request
 
-After generating all markdown files, commit and push them as phpstan-bot, then create a draft PR:
+After generating all markdown files, commit them locally:
 
 ```bash
 git config user.name "phpstan-bot"
 git config user.email "ondrej+phpstanbot@mirtes.cz"
-git checkout -b docs/error-identifiers-batch
 git add website/errors/
 git commit -m "Document error identifiers"
-git push origin docs/error-identifiers-batch
-gh pr create --repo phpstan/phpstan --base 2.2.x --draft \
-  --title "[Docs] Document error identifiers" \
-  --body "PR DESCRIPTION HERE"
 ```
 
-Include a descriptive PR body listing which identifiers were documented.
+Then use the `create-pull-request` safe output to create a draft PR. Set the title to "Document error identifiers" and include a descriptive body listing which identifiers were documented.
 
 ## Example output
 
