@@ -36,11 +36,3 @@ If the project requires compatibility with PHP versions before 8.0, rewrite the 
 +    $value = 'hello';
  }
 ```
-
-If the project only needs to support PHP 8.0 or later, update the [`phpVersion`](https://phpstan.org/config-reference#phpversion) setting in the PHPStan configuration to reflect the minimum PHP version:
-
-```neon
-parameters:
-    phpVersion:
-        min: 80000
-```
