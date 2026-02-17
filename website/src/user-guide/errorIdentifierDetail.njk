@@ -72,6 +72,30 @@ This error cannot be ignored using `@phpstan-ignore` or the `ignoreErrors` confi
 
 {% endif %}
 
+{% else %}
+
+{% markdown %}
+
+<p>Error identifiers like <strong>{{ errorIdentifier.identifier }}</strong> in PHPStan can be used to ignore errors locally using a comment:</p>
+
+```php
+// @phpstan-ignore {{ errorIdentifier.identifier }}
+codeThatProducesTheError();
+```
+
+You can also use only the `identifier` key to ignore all errors of the same type in your [configuration file](/config-reference) in the `ignoreErrors` parameter:
+
+```yaml
+parameters:
+	ignoreErrors:
+		-
+			identifier: {{ errorIdentifier.identifier }}
+```
+
+{% endmarkdown %}
+
+{% endif %}
+
 {% markdown %}
 
 ## Rules that report this error
@@ -99,57 +123,5 @@ This error cannot be ignored using `@phpstan-ignore` or the `ignoreErrors` confi
 {% endfor %}
 
 </ul>
-
-{% else %}
-
-{% markdown %}
-
-<p>Error identifiers like <strong>{{ errorIdentifier.identifier }}</strong> in PHPStan can be used to ignore errors locally using a comment:</p>
-
-```php
-// @phpstan-ignore {{ errorIdentifier.identifier }}
-codeThatProducesTheError();
-```
-
-You can also use only the `identifier` key to ignore all errors of the same type in your [configuration file](/config-reference) in the `ignoreErrors` parameter:
-
-```yaml
-parameters:
-	ignoreErrors:
-		-
-			identifier: {{ errorIdentifier.identifier }}
-```
-
-This identifier is reported by these rules:
-
-{% endmarkdown %}
-
-<ul>
-
-{% for ruleData in errorIdentifier.rules %}
-
-	{% for links in ruleData.links %}
-	<li>
-		{{ ruleData.ruleName }}
-		{% for ruleLinks in ruleData.links %}
-			{% for link in ruleLinks.links %}
-				<a target="_blank" href="{{ link }}">[{{ loop.index }}]</a>
-			{% endfor %}
-			{% if ruleLinks.repo !== 'phpstan/phpstan-src' %}
-				<span class="inline-block whitespace-nowrap text-xs bg-gray-400 text-white font-semibold rounded py-1 px-2">{{ ruleLinks.repo }}</span>
-			{% endif %}
-		{% endfor %}
-	</li>
-	{% endfor %}
-
-{% endfor %}
-
-</ul>
-
-{% markdown %}
-
-{% endmarkdown %}
-
-{% endif %}
 
 {% endblock %}
