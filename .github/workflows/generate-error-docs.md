@@ -95,7 +95,59 @@ From the JSON URLs, extract the file path and line number. Read the source code 
 3. **Tips**: Look for `->tip('...')` or `->addTip('...')` calls in the same builder chain — these often contain links to blog posts or documentation pages on phpstan.org
 4. **Non-ignorable**: Check for `->nonIgnorable()` in the builder chain
 
-### 3b. Find test fixtures with code examples
+### 3b. Understand the identifier prefix when source uses `$location->createIdentifier()`
+
+When reading the rule source code in step 3a, check whether the linked source code line uses `$location->createIdentifier()`. If it does, the identifier prefix comes from `ClassNameUsageLocation` in phpstan-src, and the prefix indicates a specific PHP language feature — which may not be obvious from the prefix name alone. Consult the tables below to determine the correct PHP feature.
+
+If the source code does **not** use `$location->createIdentifier()`, the prefix is set directly by the rule and typically describes its PHP feature straightforwardly.
+
+**Non-obvious prefixes — pay close attention:**
+- `assert.*` — refers to `@phpstan-assert` PHPDoc tag, **NOT** the PHP `assert()` function
+- `new.*` — refers to `new ClassName()` object instantiation
+- `catch.*` — refers to `catch (ExceptionClass $e)` blocks
+- `property.*` — refers to native type declarations on class properties (e.g., `private Foo $bar`), not property access
+- `propertyTag.*` — refers to `@property` PHPDoc tag (distinct from `property.*`)
+- `return.*` — refers to native return type declarations (e.g., `function foo(): Foo`), not return statements
+- `parameter.*` — refers to native parameter type declarations (e.g., `function foo(Foo $x)`), not argument values
+
+**Complete prefix reference (standard format — `prefix.secondPart`):**
+
+| Prefix | PHP Feature |
+|--------|-------------|
+| `assert` | `@phpstan-assert` PHPDoc tag |
+| `attribute` | PHP 8.0+ attributes `#[AttributeName]` |
+| `catch` | `catch (ExceptionClass $e)` blocks |
+| `classConstant` | `ClassName::CONSTANT` class constant access |
+| `instanceof` | `$x instanceof ClassName` expressions |
+| `methodTag` | `@method` PHPDoc tag |
+| `mixin` | `@mixin` PHPDoc tag |
+| `new` | `new ClassName()` object instantiation |
+| `parameter` | Native type declaration on function/method parameter |
+| `property` | Native type declaration on class property (e.g., `private Foo $bar`) |
+| `propertyTag` | `@property` PHPDoc tag |
+| `requireExtends` | `@phpstan-require-extends` PHPDoc tag |
+| `requireImplements` | `@phpstan-require-implements` PHPDoc tag |
+| `return` | Native return type declaration |
+| `sealed` | `@phpstan-sealed` PHPDoc tag |
+| `selfOut` | `@phpstan-self-out` PHPDoc tag |
+| `staticMethod` | `ClassName::method()` static method calls |
+| `staticProperty` | `ClassName::$property` static property access |
+| `traitUse` | `use TraitName` in a class body |
+| `typeAlias` | PHPStan type alias references |
+| `varTag` | `@var` PHPDoc tag |
+
+**Prefixes with special identifier format:**
+
+| Prefix pattern | PHP Feature |
+|----------------|-------------|
+| `class.extends*` | `class Foo extends ParentClass` |
+| `class.implements*` | `class Foo implements Interface` |
+| `enum.implements*` | `enum Foo implements Interface` |
+| `interface.extends*` | `interface Foo extends OtherInterface` |
+| `generics.*Bound` | `@template T of BoundClass` bound constraint |
+| `generics.*Default` | `@template T = DefaultClass` default value |
+
+### 3c. Find test fixtures with code examples
 
 For a rule class like `PHPStan\Rules\Functions\CallToFunctionParametersRule`:
 - Test class: `tests/PHPStan/Rules/Functions/CallToFunctionParametersRuleTest.php`
@@ -113,7 +165,7 @@ $this->analyse([__DIR__ . '/data/someFile.php'], [
 
 Then read the corresponding data file to extract a minimal code example.
 
-### 3c. Determine if the error is ignorable
+### 3d. Determine if the error is ignorable
 
 An error identifier is **not ignorable** if:
 - The source code uses `->nonIgnorable()` in the error builder chain
@@ -122,7 +174,7 @@ An error identifier is **not ignorable** if:
 
 All other identifiers are ignorable.
 
-### 3d. Check for configuration options
+### 3e. Check for configuration options
 
 Some rules accept constructor parameters from PHPStan configuration. Look at the rule class constructor for injected config values. Cross-reference with `website/src/config-reference.md` to find the documented parameter name.
 
