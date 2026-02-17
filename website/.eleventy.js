@@ -100,6 +100,11 @@ module.exports = async function (eleventyConfig) {
 		return markdownLib.render(contentt);
 	});
 
+	eleventyConfig.addFilter("renderMarkdown", (content) => {
+		if (!content) return '';
+		return markdownLib.render(content);
+	});
+
 	const inspect = require("util").inspect;
 	eleventyConfig.addFilter("debug", (content) => `<pre>${inspect(content)}</pre>`);
 

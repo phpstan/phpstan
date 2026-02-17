@@ -22,13 +22,85 @@ sectionTitle: User Guide
 	<script src="/js/error-identifier-detail.ts" type="module"></script>
 {% endblock %}
 
-{% set phpIgnore %}
-
-{% endset %}
-
 {% block innerContent %}
 
 <h1 class="leading-tight">Error Identifier: {{ errorIdentifier.identifier }}</h1>
+
+{% markdown %}
+
+Every error reported by PHPStan has an error identifier. Here's [a list of all error identifiers](/error-identifiers). In [PHPStan Pro](/blog/introducing-phpstan-pro){.phpstan-pro-label} you can see the error identifier next to each error and filter errors by their identifiers.
+
+{% endmarkdown %}
+
+{% if errorIdentifier.doc %}
+
+{{ errorIdentifier.doc.content | renderMarkdown | safe }}
+
+{% if errorIdentifier.doc.ignorable %}
+
+{% markdown %}
+
+## How to ignore this error
+
+You can use the identifier <strong>{{ errorIdentifier.identifier }}</strong> to ignore this error using a comment:
+
+```php
+// @phpstan-ignore {{ errorIdentifier.identifier }}
+codeThatProducesTheError();
+```
+
+You can also use only the `identifier` key to ignore all errors of the same type in your [configuration file](/config-reference) in the `ignoreErrors` parameter:
+
+```yaml
+parameters:
+	ignoreErrors:
+		-
+			identifier: {{ errorIdentifier.identifier }}
+```
+
+{% endmarkdown %}
+
+{% else %}
+
+{% markdown %}
+
+## Non-ignorable error
+
+This error cannot be ignored using `@phpstan-ignore` or the `ignoreErrors` configuration. Non-ignorable errors indicate code that would cause a crash or a fatal error at runtime, or a fundamental problem in the analysed code that must be addressed.
+
+{% endmarkdown %}
+
+{% endif %}
+
+{% markdown %}
+
+## Rules that report this error
+
+{% endmarkdown %}
+
+<ul>
+
+{% for ruleData in errorIdentifier.rules %}
+
+	{% for links in ruleData.links %}
+	<li>
+		{{ ruleData.ruleName }}
+		{% for ruleLinks in ruleData.links %}
+			{% for link in ruleLinks.links %}
+				<a target="_blank" href="{{ link }}">[{{ loop.index }}]</a>
+			{% endfor %}
+			{% if ruleLinks.repo !== 'phpstan/phpstan-src' %}
+				<span class="inline-block whitespace-nowrap text-xs bg-gray-400 text-white font-semibold rounded py-1 px-2">{{ ruleLinks.repo }}</span>
+			{% endif %}
+		{% endfor %}
+	</li>
+	{% endfor %}
+
+{% endfor %}
+
+</ul>
+
+{% else %}
 
 {% markdown %}
 
@@ -47,10 +119,6 @@ parameters:
 		-
 			identifier: {{ errorIdentifier.identifier }}
 ```
-
-You can see what identifiers are attached to reported errors by running PHPStan with `-v` and using the `table` [error formatter](/user-guide/output-format). Here's [a list of all error identifiers](/error-identifiers).
-
-You can also see error identifiers while browsing errors in [PHPStan Pro](/blog/introducing-phpstan-pro){.phpstan-pro-label}.
 
 This identifier is reported by these rules:
 
@@ -81,5 +149,7 @@ This identifier is reported by these rules:
 {% markdown %}
 
 {% endmarkdown %}
+
+{% endif %}
 
 {% endblock %}

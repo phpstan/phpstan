@@ -1,5 +1,8 @@
 const fs = require('fs');
 const fsPromises = fs.promises;
+const matter = require('gray-matter');
+
+const errorsDir = __dirname + '/../../errors';
 
 module.exports = async () => {
 	const identifiers = JSON.parse(await fsPromises.readFile(__dirname + '/../errorsIdentifiers.json'));
@@ -33,10 +36,21 @@ module.exports = async () => {
 			})
 		}
 
-		data.push({
+		const item = {
 			identifier: identifier,
 			rules: rules,
-		});
+		};
+
+		const docPath = errorsDir + '/' + identifier + '.md';
+		if (fs.existsSync(docPath)) {
+			const file = matter(await fsPromises.readFile(docPath, 'utf8'));
+			item.doc = {
+				ignorable: file.data.ignorable !== false,
+				content: file.content,
+			};
+		}
+
+		data.push(item);
 	}
 
 	return data;

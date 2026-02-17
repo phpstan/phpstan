@@ -177,6 +177,7 @@ Ways to fix the error.
   3. Narrow the type using PHPDoc types (`@param`, `@return`, `@var` on properties)
   4. Use [type narrowing](/writing-php-code/narrowing-types) in the function body
   5. Configure PHPStan if the rule is configurable
+- When the error involves a PHP language feature only available in newer PHP versions, mention the PHPDoc-based alternative that works on older versions too. For example: native return type `never` (PHP 8.1+) can be replaced with `@return never`, native union types (PHP 8.0+) can be expressed as PHPDoc union types, native intersection types (PHP 8.1+) can be expressed as PHPDoc intersection types, standalone types like `true`/`false`/`null` (PHP 8.2+) can be written in PHPDoc. Link to [PHPDoc Basics](/writing-php-code/phpdocs-basics) and [PHPDoc Types](/writing-php-code/phpdoc-types) where relevant.
 - Every time a configuration parameter is mentioned, link it to the correct documentation page. Consult `website/src/config-reference.md` to find the right anchor — parameters that have their own `###` heading (like `phpVersion`) link to `/config-reference#phpversion`. Parameters that only appear as "Related config keys" link to the user guide page referenced there (e.g., `reportUnmatchedIgnoredErrors` links to `/user-guide/ignoring-errors#reporting-unused-ignores`, `scanFiles` links to `/user-guide/discovering-symbols#third-party-code-outside-of-composer-dependencies`).
 - Show code fixes. Use `diff-php` syntax when showing changes:
 
