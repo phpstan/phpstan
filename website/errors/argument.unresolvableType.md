@@ -10,36 +10,37 @@ ignorable: true
 
 /**
  * @template T
+ * @param T[] $items
+ * @return T|null
  */
-class Collection
+function firstOrNull(array $items): mixed
 {
-	/** @param T $item */
-	public function add(mixed $item): void
-	{
-	}
+	return count($items) > 0 ? $items[0] : null;
 }
 
-function doFoo(Collection $collection): void
+function doFoo(mixed $list): void
 {
-	$collection->add('hello');
+	$first = firstOrNull($list);
 }
 ```
 
 ## Why is it reported?
 
-PHPStan was unable to resolve a template (generic) type in a parameter of the called function or method. This happens when a generic class is used without specifying its type parameters, making the resolved parameter type contain unresolvable template types.
+PHPStan reports this error when calling a [generic](/blog/generics-in-php-using-phpdocs) function or method and it cannot resolve the template type from the provided arguments. Generic functions declare template types via `@template` PHPDoc tags, and the return type depends on what gets passed as arguments.
 
-In the example above, the `$collection` parameter is typed as `Collection` without specifying the template type `T`, so PHPStan cannot determine what type the `add()` method expects.
+In the example above, `firstOrNull` expects `T[]` so that it can resolve `T`. When `mixed` is passed instead of a specific array type, PHPStan cannot determine what `T` is. To prevent `mixed` from being propagated further, PHPStan reports this error and asks for a more specific argument.
+
+Learn more: [Solving PHPStan error "Unable to resolve the template type"](/blog/solving-phpstan-error-unable-to-resolve-template-type)
 
 ## How to fix it
 
-Specify the generic type parameter in the PHPDoc:
+Pass a more specific type so that PHPStan can resolve the template type from the argument:
 
 ```diff-php
--function doFoo(Collection $collection): void
-+/** @param Collection<string> $collection */
-+function doFoo(Collection $collection): void
+-function doFoo(mixed $list): void
++/** @param int[] $list */
++function doFoo(array $list): void
  {
- 	$collection->add('hello');
+ 	$first = firstOrNull($list);
  }
 ```

@@ -43,3 +43,21 @@ Remove the `final` keyword from the entity class:
  	private int $id;
  }
 ```
+
+If the project uses Doctrine ORM 2.11+ or 3.0+, the entity can stay `final`. These versions use lazy ghost objects instead of proxy subclasses for lazy loading, so extending the entity class is no longer required. Mark the entity with the `#[AllowFinalEntity]` attribute from phpstan-doctrine to suppress this error:
+
+```diff-php
+ <?php declare(strict_types = 1);
+
+ use Doctrine\ORM\Mapping as ORM;
++use PHPStan\Doctrine\ORM\AllowFinalEntity;
+
+ #[ORM\Entity]
++#[AllowFinalEntity]
+ final class User
+ {
+ 	#[ORM\Id]
+ 	#[ORM\Column]
+ 	private int $id;
+ }
+```
