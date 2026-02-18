@@ -14,8 +14,7 @@ ignorable: true
 class Collection
 {
 	/**
-	 * @template T
-	 * @param callable(T): T $callback
+	 * @param callable<T>(T): T $callback
 	 */
 	public function map(callable $callback): void
 	{
@@ -40,10 +39,8 @@ Rename the template type parameter in the callable to avoid shadowing:
  class Collection
  {
  	/**
--	 * @template T
--	 * @param callable(T): T $callback
-+	 * @template U
-+	 * @param callable(U): U $callback
+-	 * @param callable<T>(T): T $callback
++	 * @param callable<U>(U): U $callback
  	 */
  	public function map(callable $callback): void
  	{
