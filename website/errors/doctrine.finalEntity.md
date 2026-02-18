@@ -49,5 +49,3 @@ Starting with [Doctrine ORM 3.4](https://www.doctrine-project.org/2025/06/28/orm
 ```php
 $configuration->setLazyGhostObjectEnabled(true);
 ```
-
-When Doctrine is configured to use lazy ghost objects, configure [phpstan-doctrine](https://github.com/phpstan/phpstan-doctrine) accordingly to suppress this error. See the [phpstan-doctrine documentation](https://github.com/phpstan/phpstan-doctrine) for the configuration options.
