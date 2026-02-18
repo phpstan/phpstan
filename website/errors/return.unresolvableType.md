@@ -8,61 +8,53 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-class Foo
+class ServiceContainer
 {
-    /**
-     * @return T
-     */
-    public function doFoo(): mixed
-    {
-        return null;
-    }
+	/**
+	 * @return T
+	 */
+	public function get(string $id): mixed
+	{
+		return $this->services[$id];
+	}
 }
 ```
 
 ## Why is it reported?
 
-The PHPDoc `@return` tag contains a type that PHPStan cannot resolve. This typically happens when a template type (generic type parameter) like `T` is referenced but never declared with a `@template` tag, or when a type alias or class name cannot be found.
+The PHPDoc `@return` tag contains a type that PHPStan cannot resolve. This typically happens when a template type like `T` is referenced but never declared with a `@template` tag, or when a type alias or class name cannot be found.
 
-An unresolvable type in the `@return` tag means PHPStan cannot verify the correctness of the return type, which defeats the purpose of the type annotation.
+In the example above, `T` is used in `@return` but is not declared anywhere as a template type on the class or method.
 
 ## How to fix it
 
 Declare the template type with a `@template` tag if you are writing a generic method:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- class Foo
+ class ServiceContainer
  {
-     /**
-+     * @template T
-+     * @param class-string<T> $class
-      * @return T
-      */
--    public function doFoo(): mixed
-+    public function doFoo(string $class): mixed
-     {
--        return null;
-+        return new $class();
-     }
+ 	/**
++	 * @template T
++	 * @param class-string<T> $id
+ 	 * @return T
+ 	 */
+-	public function get(string $id): mixed
++	public function get(string $id): mixed
+ 	{
+ 		return $this->services[$id];
+ 	}
  }
 ```
 
-Or replace the unresolvable type with a valid type:
+Or replace the unresolvable type with a concrete type:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- class Foo
+ /**
+- * @return T
++ * @return object
+  */
+ public function get(string $id): mixed
  {
-     /**
--     * @return T
-+     * @return mixed
-      */
-     public function doFoo(): mixed
-     {
-         return null;
-     }
+ 	return $this->services[$id];
  }
 ```

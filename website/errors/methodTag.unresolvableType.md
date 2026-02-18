@@ -9,9 +9,9 @@ ignorable: true
 <?php declare(strict_types = 1);
 
 /**
- * @method int doBar(int&string $a)
+ * @method int getCount(int&string $filter)
  */
-class Foo
+class Repository
 {
 }
 ```
@@ -27,13 +27,11 @@ In the example above, the parameter type `int&string` is an intersection of two 
 Replace the unresolvable type with a valid type in the `@method` tag:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  /**
-- * @method int doBar(int&string $a)
-+ * @method int doBar(int|string $a)
+- * @method int getCount(int&string $filter)
++ * @method int getCount(int|string $filter)
   */
- class Foo
+ class Repository
  {
  }
 ```
@@ -41,13 +39,11 @@ Replace the unresolvable type with a valid type in the `@method` tag:
 If the intersection type was intended to narrow an object type, make sure both sides are compatible object types or interfaces:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  /**
-- * @method int doBar(int&string $a)
-+ * @method int doBar(Countable&Traversable $a)
+- * @method int getCount(int&string $filter)
++ * @method int getCount(Countable&Traversable $filter)
   */
- class Foo
+ class Repository
  {
  }
 ```

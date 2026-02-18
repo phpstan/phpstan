@@ -8,39 +8,39 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-class Foo
+class UserService
 {
-	/** @var Foo&Bar */
-	private $prop;
+	/** @var string&int */
+	private $identifier;
 }
 ```
 
 ## Why is it reported?
 
-The `@var` PHPDoc tag (or PHPDoc type on a promoted property) for a class property contains a type that PHPStan cannot resolve. This typically happens when the type is an intersection of incompatible types, references a misspelled class, or uses an invalid type syntax that produces a type equivalent to `never` (also known as an empty intersection type).
+The PHPDoc type for a class property contains a type that PHPStan cannot resolve. This typically happens when the type is an intersection of incompatible types (like `string&int` which no value can ever satisfy), references a misspelled or undefined class, or uses invalid type syntax.
 
-A property with an unresolvable type cannot hold any value, which indicates a mistake in the PHPDoc annotation.
+In the example above, `string&int` is an intersection type that can never exist because no value can be both a `string` and an `int` at the same time.
 
 ## How to fix it
 
 Correct the PHPDoc type so it references valid, compatible types:
 
 ```diff-php
- class Foo
+ class UserService
  {
--	/** @var Foo&Bar */
-+	/** @var Foo */
- 	private $prop;
+-	/** @var string&int */
++	/** @var string */
+ 	private $identifier;
  }
 ```
 
 If the property should accept multiple types, use a union type instead of an intersection:
 
 ```diff-php
- class Foo
+ class UserService
  {
--	/** @var Foo&Bar */
-+	/** @var Foo|Bar */
- 	private $prop;
+-	/** @var string&int */
++	/** @var string|int */
+ 	private $identifier;
  }
 ```
