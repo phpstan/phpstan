@@ -24,7 +24,9 @@ $result = $fn('hello');
 
 ## Why is it reported?
 
-PHPStan detected that the return type of a callable, closure, or first-class callable contains an unresolvable template (generic) type. This typically happens when creating a first-class callable reference to a generic function, where the template type cannot be resolved from the calling context.
+PHPStan detected that the return type of a callable, closure, or first-class callable contains an unresolvable template (generic) type. This happens when creating a first-class callable reference to a generic function — the template type cannot be resolved because there is no calling context with concrete arguments at the point where the callable is created.
+
+Learn more: [Solving PHPStan error "Unable to resolve the template type"](/blog/solving-phpstan-error-unable-to-resolve-template-type)
 
 ## How to fix it
 
