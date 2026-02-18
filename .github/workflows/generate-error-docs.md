@@ -98,55 +98,11 @@ From the JSON URLs, extract the file path and line number. Read the source code 
 
 ### 3b. Understand the identifier prefix when source uses `$location->createIdentifier()`
 
-When reading the rule source code in step 3a, check whether the linked source code line uses `$location->createIdentifier()`. If it does, the identifier prefix comes from `ClassNameUsageLocation` in phpstan-src, and the prefix indicates a specific PHP language feature — which may not be obvious from the prefix name alone. Consult the tables below to determine the correct PHP feature.
+When reading the rule source code in step 3a, check whether the linked source code line uses `$location->createIdentifier()`. If it does, the identifier prefix comes from `ClassNameUsageLocation` in phpstan-src, and the prefix indicates a specific PHP language feature — which may not be obvious from the prefix name alone.
 
 If the source code does **not** use `$location->createIdentifier()`, the prefix is set directly by the rule and typically describes its PHP feature straightforwardly.
 
-**Non-obvious prefixes — pay close attention:**
-- `assert.*` — refers to `@phpstan-assert` PHPDoc tag, **NOT** the PHP `assert()` function
-- `new.*` — refers to `new ClassName()` object instantiation
-- `catch.*` — refers to `catch (ExceptionClass $e)` blocks
-- `property.*` — refers to native type declarations on class properties (e.g., `private Foo $bar`), not property access
-- `propertyTag.*` — refers to `@property` PHPDoc tag (distinct from `property.*`)
-- `return.*` — refers to native return type declarations (e.g., `function foo(): Foo`), not return statements
-- `parameter.*` — refers to native parameter type declarations (e.g., `function foo(Foo $x)`), not argument values
-
-**Complete prefix reference (standard format — `prefix.secondPart`):**
-
-| Prefix | PHP Feature |
-|--------|-------------|
-| `assert` | `@phpstan-assert` PHPDoc tag |
-| `attribute` | PHP 8.0+ attributes `#[AttributeName]` |
-| `catch` | `catch (ExceptionClass $e)` blocks |
-| `classConstant` | `ClassName::CONSTANT` class constant access |
-| `instanceof` | `$x instanceof ClassName` expressions |
-| `methodTag` | `@method` PHPDoc tag |
-| `mixin` | `@mixin` PHPDoc tag |
-| `new` | `new ClassName()` object instantiation |
-| `parameter` | Native type declaration on function/method parameter |
-| `property` | Native type declaration on class property (e.g., `private Foo $bar`) |
-| `propertyTag` | `@property` PHPDoc tag |
-| `requireExtends` | `@phpstan-require-extends` PHPDoc tag |
-| `requireImplements` | `@phpstan-require-implements` PHPDoc tag |
-| `return` | Native return type declaration |
-| `sealed` | `@phpstan-sealed` PHPDoc tag |
-| `selfOut` | `@phpstan-self-out` PHPDoc tag |
-| `staticMethod` | `ClassName::method()` static method calls |
-| `staticProperty` | `ClassName::$property` static property access |
-| `traitUse` | `use TraitName` in a class body |
-| `typeAlias` | PHPStan type alias references |
-| `varTag` | `@var` PHPDoc tag |
-
-**Prefixes with special identifier format:**
-
-| Prefix pattern | PHP Feature |
-|----------------|-------------|
-| `class.extends*` | `class Foo extends ParentClass` |
-| `class.implements*` | `class Foo implements Interface` |
-| `enum.implements*` | `enum Foo implements Interface` |
-| `interface.extends*` | `interface Foo extends OtherInterface` |
-| `generics.*Bound` | `@template T of BoundClass` bound constraint |
-| `generics.*Default` | `@template T = DefaultClass` default value |
+Consult the "Identifier prefix reference" section in `website/errors/CLAUDE.md` for the complete prefix-to-PHP-feature mapping tables.
 
 ### 3c. Find test fixtures with code examples
 
@@ -188,81 +144,7 @@ Examples of configurable rules:
 
 Create `website/errors/` directory if it doesn't exist.
 
-For each identifier, create `website/errors/<identifier>.md` with this exact format:
-
-```markdown
----
-title: "<identifier>"
-ignorable: true
----
-
-## Code example
-
-` ``php
-<?php declare(strict_types = 1);
-
-// Minimal PHP code that triggers this error
-` ``
-
-## Why is it reported?
-
-Explanation from PHP language perspective.
-
-## How to fix it
-
-Ways to fix the error.
-```
-
-### Content guidelines
-
-**Code example section:**
-- Use real code from test fixtures when possible
-- Keep it minimal — remove unrelated classes, simplify names
-- The example must be valid PHP that would actually trigger the identifier
-- Start with `<?php declare(strict_types = 1);`
-- Use `php` language tag for the code block
-
-**"Why is it reported?" section:**
-- Explain the PHP language semantics, not PHPStan internals
-- PHPStan points to code that causes crashes, doesn't execute at all, or doesn't do what the developer probably intended
-- Be concise and technically precise
-- List multiple reasons if applicable
-- If the rule's `->tip()` links to a blog post on phpstan.org, mention it: `Learn more: [Blog post title](/blog/post-slug)`
-
-**"How to fix it" section:**
-- Offer multiple ways to fix the error when applicable
-- Prefer these approaches in order:
-  1. Fix the actual bug if it is clearly wrong code
-  2. Narrow the type using native PHP type declarations (parameter types, return types)
-  3. Narrow the type using PHPDoc types (`@param`, `@return`, `@var` on properties)
-  4. Use [type narrowing](/writing-php-code/narrowing-types) in the function body
-  5. Configure PHPStan if the rule is configurable
-- When the error involves a PHP language feature only available in newer PHP versions, mention the PHPDoc-based alternative that works on older versions too. For example: native return type `never` (PHP 8.1+) can be replaced with `@return never`, native union types (PHP 8.0+) can be expressed as PHPDoc union types, native intersection types (PHP 8.1+) can be expressed as PHPDoc intersection types, standalone types like `true`/`false`/`null` (PHP 8.2+) can be written in PHPDoc. Link to [PHPDoc Basics](/writing-php-code/phpdocs-basics) and [PHPDoc Types](/writing-php-code/phpdoc-types) where relevant.
-- Every time a configuration parameter is mentioned, link it to the correct documentation page. Consult `website/src/config-reference.md` to find the right anchor — parameters that have their own `###` heading (like `phpVersion`) link to `/config-reference#phpversion`. Parameters that only appear as "Related config keys" link to the user guide page referenced there (e.g., `reportUnmatchedIgnoredErrors` links to `/user-guide/ignoring-errors#reporting-unused-ignores`, `scanFiles` links to `/user-guide/discovering-symbols#third-party-code-outside-of-composer-dependencies`).
-- Show code fixes. Use `diff-php` syntax when showing changes:
-
-````markdown
-```diff-php
-- $value = $this->getValue();
-+ $value = (string) $this->getValue();
-```
-````
-
-**Do NOT:**
-- Suggest using `assert()` for type narrowing
-- Suggest throwing an exception to narrow types
-- Suggest using inline `@var` PHPDoc tag
-- Suggest ignoring the error (the existing detail page already covers that)
-- Use emojis
-- Use first person
-
-**Tone:**
-- Concise, technically precise, no filler words
-- Match the existing phpstan.org documentation style
-- Direct and practical
-
-**For extension-specific identifiers** (phpstan-doctrine, phpstan-symfony, etc.):
-- Mention which extension package provides the rule (e.g., "This error is reported by `phpstan/phpstan-doctrine`.")
+For each identifier, create `website/errors/<identifier>.md` following the file format, content guidelines, and tone described in `website/errors/CLAUDE.md`. Read that file before generating any markdown.
 
 ## Step 5: Commit changes and create pull request
 
@@ -282,52 +164,4 @@ gh pr create --base 2.2.x --draft --title "[Docs] Document error identifiers" --
 
 Replace `PR DESCRIPTION HERE` with a description listing which identifiers were documented with a one-line summary of each.
 
-## Example output
-
-For `website/errors/deadCode.unreachable.md`:
-
-```markdown
----
-title: "deadCode.unreachable"
-ignorable: true
----
-
-## Code example
-
-` ``php
-<?php declare(strict_types = 1);
-
-function doFoo(): int
-{
-	return 1;
-	echo 'unreachable';
-}
-` ``
-
-## Why is it reported?
-
-The statement after `return` can never be executed. The `return` statement unconditionally transfers control out of the function, making any code following it in the same block dead code. This usually indicates a logic error or leftover code from refactoring.
-
-## How to fix it
-
-Remove the unreachable code:
-
-` ``diff-php
- function doFoo(): int
- {
- 	return 1;
--	echo 'unreachable';
- }
-` ``
-
-If the code should execute, restructure the logic so it runs before the return:
-
-` ``diff-php
- function doFoo(): int
- {
-+	echo 'this should run';
- 	return 1;
--	echo 'unreachable';
- }
-` ``
-```
+An example output is available in `website/errors/CLAUDE.md`.
