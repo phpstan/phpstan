@@ -23,46 +23,14 @@ The code accesses a property that does not exist on the object. This typically i
 
 ## How to fix it
 
-Fix the property name if it is a typo:
+There are many ways to solve this error. Read the comprehensive article [Solving PHPStan error "Access to an undefined property"](/blog/solving-phpstan-access-to-undefined-property) for all of them, including:
 
-```diff-php
- <?php declare(strict_types = 1);
-
- class Foo
- {
- 	public string $name = 'hello';
- }
-
- $foo = new Foo();
--echo $foo->surname;
-+echo $foo->name;
-```
-
-Or declare the missing property on the class:
-
-```diff-php
- <?php declare(strict_types = 1);
-
- class Foo
- {
- 	public string $name = 'hello';
-+	public string $surname = '';
- }
-
- $foo = new Foo();
- echo $foo->surname;
-```
-
-If the class uses magic properties via `__get`/`__set`, document them with `@property` PHPDoc tags:
-
-```diff-php
- <?php declare(strict_types = 1);
-
-+/** @property string $surname */
- class Foo
- {
- 	public string $name = 'hello';
-
- 	public function __get(string $name): mixed { /* ... */ }
- }
-```
+* Fixing the property name if it's a typo
+* [Narrowing the type](/writing-php-code/narrowing-types) the property is accessed on
+* Declaring the missing property on the class
+* Adding `#[AllowDynamicProperties]` attribute (PHP 8.2+)
+* Configuring [`universalObjectCratesClasses`](/config-reference#universal-object-crates) for classes without predefined structure
+* Adding `@property` PHPDoc tags for magic properties
+* Using `@mixin` PHPDoc tag for delegated property access
+* Using [framework-specific extensions](/user-guide/extension-library)
+* Writing a custom [class reflection extension](/developing-extensions/class-reflection-extensions)
