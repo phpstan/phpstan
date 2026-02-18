@@ -8,34 +8,29 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-class Foo
+class Config
 {
-	/** @var self&\stdClass */
-	const FOO = 1;
+	/** @var int&string */
+	const DEFAULT_TIMEOUT = 30;
 }
 ```
 
 ## Why is it reported?
 
-The `@var` PHPDoc tag on a class constant contains a type that cannot be resolved. In this example, the intersection type `self&\stdClass` creates a type that can never exist because `Foo` and `\stdClass` are unrelated classes, making the intersection unresolvable.
+The `@var` PHPDoc tag on a class constant contains a type that cannot be resolved. This typically happens when the type is an impossible intersection (like `int&string` which can never exist), references a non-existent class, or uses invalid type syntax.
 
-Common causes of unresolvable types in class constant PHPDoc include:
-- Intersection types between incompatible classes
-- References to non-existent classes or types
-- Types that result in logical contradictions
+In the example above, `int&string` is an intersection type that can never be satisfied because no value can be both an `int` and a `string` at the same time.
 
 ## How to fix it
 
 Correct the `@var` PHPDoc type to use a valid, resolvable type:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- class Foo
+ class Config
  {
--	/** @var self&\stdClass */
+-	/** @var int&string */
 +	/** @var int */
- 	const FOO = 1;
+ 	const DEFAULT_TIMEOUT = 30;
  }
 ```
 
@@ -44,8 +39,8 @@ On PHP 8.3 and later, native typed constants can be used instead of PHPDoc:
 ```php
 <?php declare(strict_types = 1);
 
-class Foo
+class Config
 {
-	const int FOO = 1;
+	const int DEFAULT_TIMEOUT = 30;
 }
 ```

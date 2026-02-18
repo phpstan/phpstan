@@ -44,20 +44,10 @@ Remove the `final` keyword from the entity class:
  }
 ```
 
-If the project uses Doctrine ORM 2.11+ or 3.0+, the entity can stay `final`. These versions use lazy ghost objects instead of proxy subclasses for lazy loading, so extending the entity class is no longer required. Mark the entity with the `#[AllowFinalEntity]` attribute from phpstan-doctrine to suppress this error:
+Starting with [Doctrine ORM 3.4](https://www.doctrine-project.org/2025/06/28/orm-3.4.0-released.html), lazy ghost objects are used by default for lazy loading. Lazy ghost objects do not require extending the entity class, so entities can be `final`. On older Doctrine ORM 3.x versions, lazy ghost objects can be enabled explicitly through the `Configuration` object:
 
-```diff-php
- <?php declare(strict_types = 1);
-
- use Doctrine\ORM\Mapping as ORM;
-+use PHPStan\Doctrine\ORM\AllowFinalEntity;
-
- #[ORM\Entity]
-+#[AllowFinalEntity]
- final class User
- {
- 	#[ORM\Id]
- 	#[ORM\Column]
- 	private int $id;
- }
+```php
+$configuration->setLazyGhostObjectEnabled(true);
 ```
+
+When Doctrine is configured to use lazy ghost objects, configure [phpstan-doctrine](https://github.com/phpstan/phpstan-doctrine) accordingly to suppress this error. See the [phpstan-doctrine documentation](https://github.com/phpstan/phpstan-doctrine) for the configuration options.
