@@ -17,6 +17,7 @@ jobs:
 
       - name: "Update Crawler Config"
         run: |
+          sed -i 's/apiKey: "xxx"/apiKey: "${{ secrets.ALGOLIA_API_KEY }}"/' website/algolia-crawler-config.js
           curl -s -f -X PATCH "https://crawler.algolia.com/api/1/crawlers/${{ secrets.ALGOLIA_CRAWLER_ID }}/config" \
             -H "Content-Type: application/javascript" \
             -u "${{ secrets.ALGOLIA_CRAWLER_USER_ID }}:${{ secrets.ALGOLIA_CRAWLER_API_KEY }}" \
