@@ -9,6 +9,7 @@
   ],
   "exclusionPatterns": [
     "https://phpstan.org/merch*",
+    "https://phpstan.org/r/*",
     "https://apiref.phpstan.org/*/source-*"
   ],
   "schedule": "at 12:05 PM on Monday",
