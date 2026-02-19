@@ -5,7 +5,7 @@ on:
     branches:
       - "2.2.x"
     paths:
-      - 'website/algolia-crawler-config.js'
+      - 'website/algolia-crawler-config.json'
       - '.github/workflows/algolia-crawler-config.yml'
 
 jobs:
@@ -18,11 +18,11 @@ jobs:
 
       - name: "Update Crawler Config"
         run: |
-          sed -i 's/apiKey: "xxx"/apiKey: "${{ secrets.ALGOLIA_API_KEY }}"/' website/algolia-crawler-config.js
+          jq --arg key "${{ secrets.ALGOLIA_API_KEY }}" '.apiKey = $key' website/algolia-crawler-config.json | \
           curl -s -f -X PATCH "https://crawler.algolia.com/api/1/crawlers/${{ secrets.ALGOLIA_CRAWLER_ID }}/config" \
-            -H "Content-Type: application/javascript" \
+            -H "Content-Type: application/json" \
             -u "${{ secrets.ALGOLIA_CRAWLER_USER_ID }}:${{ secrets.ALGOLIA_CRAWLER_API_KEY }}" \
-            --data-binary @website/algolia-crawler-config.js
+            -d @-
 
       - name: "Trigger Crawler Reindex"
         run: |
