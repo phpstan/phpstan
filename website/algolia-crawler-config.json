@@ -16,17 +16,26 @@
     {
       "indexName": "phpstan",
       "pathsToMatch": ["https://phpstan.org/**", "!https://phpstan.org/blog/**"],
-      "recordExtractor": "({ helpers }) => { return helpers.docsearch({ recordProps: { lvl1: [\"header h1\", \"article h1\", \"main h1\", \"h1\", \"head > title\"], content: [\"article p, article li\", \"main p, main li\", \"p, li\"], lvl0: { selectors: \"#algoliaSectionTitle\", defaultValue: \"Documentation\" }, lvl2: [\"article h2\", \"main h2\", \"h2\"], lvl3: [\"article h3\", \"main h3\", \"h3\"], lvl4: [\"article h4\", \"main h4\", \"h4\"], lvl5: [\"article h5\", \"main h5\", \"h5\"], lvl6: [\"article h6\", \"main h6\", \"h6\"], pageRank: \"90\" }, aggregateContent: true }); }"
+      "recordExtractor": {
+        "__type": "function",
+        "source": "({ helpers }) => { return helpers.docsearch({ recordProps: { lvl1: [\"header h1\", \"article h1\", \"main h1\", \"h1\", \"head > title\"], content: [\"article p, article li\", \"main p, main li\", \"p, li\"], lvl0: { selectors: \"#algoliaSectionTitle\", defaultValue: \"Documentation\" }, lvl2: [\"article h2\", \"main h2\", \"h2\"], lvl3: [\"article h3\", \"main h3\", \"h3\"], lvl4: [\"article h4\", \"main h4\", \"h4\"], lvl5: [\"article h5\", \"main h5\", \"h5\"], lvl6: [\"article h6\", \"main h6\", \"h6\"], pageRank: \"90\" }, aggregateContent: true }); }"
+      }
     },
     {
       "indexName": "phpstan",
       "pathsToMatch": ["https://phpstan.org/blog/**"],
-      "recordExtractor": "({ helpers }) => { return helpers.docsearch({ recordProps: { lvl1: [\"header h1\", \"article h1\", \"main h1\", \"h1\", \"head > title\"], content: [\"article p, article li\", \"main p, main li\", \"p, li\"], lvl0: { selectors: \"#algoliaSectionTitle\", defaultValue: \"Blog\" }, lvl2: [\"article h2\", \"main h2\", \"h2\"], lvl3: [\"article h3\", \"main h3\", \"h3\"], lvl4: [\"article h4\", \"main h4\", \"h4\"], lvl5: [\"article h5\", \"main h5\", \"h5\"], lvl6: [\"article h6\", \"main h6\", \"h6\"], pageRank: \"50\" }, aggregateContent: true }); }"
+      "recordExtractor": {
+        "__type": "function",
+        "source": "({ helpers }) => { return helpers.docsearch({ recordProps: { lvl1: [\"header h1\", \"article h1\", \"main h1\", \"h1\", \"head > title\"], content: [\"article p, article li\", \"main p, main li\", \"p, li\"], lvl0: { selectors: \"#algoliaSectionTitle\", defaultValue: \"Blog\" }, lvl2: [\"article h2\", \"main h2\", \"h2\"], lvl3: [\"article h3\", \"main h3\", \"h3\"], lvl4: [\"article h4\", \"main h4\", \"h4\"], lvl5: [\"article h5\", \"main h5\", \"h5\"], lvl6: [\"article h6\", \"main h6\", \"h6\"], pageRank: \"50\" }, aggregateContent: true }); }"
+      }
     },
     {
       "indexName": "phpstan",
       "pathsToMatch": ["https://apiref.phpstan.org/2.2.x/**"],
-      "recordExtractor": "({ helpers }) => { return helpers.docsearch({ recordProps: { lvl1: [\"header h1\", \"article h1\", \"main h1\", \"h1\", \"head > title\"], content: [\"article p, article li\", \"main p, main li\", \"p, li\"], lvl0: { selectors: \"#sectionTitle\", defaultValue: \"API Reference\" }, lvl2: [\"article h2\", \"main h2\", \"h2\"], lvl3: [\"article h3\", \"main h3\", \"h3\"], lvl4: [\"article h4\", \"main h4\", \"h4\"], lvl5: [\"article h5\", \"main h5\", \"h5\"], lvl6: [\"article h6\", \"main h6\", \"h6\"], pageRank: \"10\" }, aggregateContent: true }); }"
+      "recordExtractor": {
+        "__type": "function",
+        "source": "({ helpers }) => { return helpers.docsearch({ recordProps: { lvl1: [\"header h1\", \"article h1\", \"main h1\", \"h1\", \"head > title\"], content: [\"article p, article li\", \"main p, main li\", \"p, li\"], lvl0: { selectors: \"#sectionTitle\", defaultValue: \"API Reference\" }, lvl2: [\"article h2\", \"main h2\", \"h2\"], lvl3: [\"article h3\", \"main h3\", \"h3\"], lvl4: [\"article h4\", \"main h4\", \"h4\"], lvl5: [\"article h5\", \"main h5\", \"h5\"], lvl6: [\"article h6\", \"main h6\", \"h6\"], pageRank: \"10\" }, aggregateContent: true }); }"
+      }
     }
   ],
   "initialIndexSettings": {

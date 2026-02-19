@@ -18,14 +18,14 @@ jobs:
 
       - name: "Update Crawler Config"
         run: |
-          jq --arg key "${{ secrets.ALGOLIA_API_KEY }}" '(.apiKey = $key) | {config: .}' website/algolia-crawler-config.json | \
-          curl -v -f -X PATCH "https://crawler.algolia.com/api/1/crawlers/${{ secrets.ALGOLIA_CRAWLER_ID }}/config" \
+          jq --arg key "${{ secrets.ALGOLIA_CRAWLER_CRAWLER_API_KEY }}" '.apiKey = $key' website/algolia-crawler-config.json | \
+          curl -X PATCH "https://crawler.algolia.com/api/1/crawlers/${{ secrets.ALGOLIA_CRAWLER_ID }}/config" \
             -H "Content-Type: application/json" \
             -u "${{ secrets.ALGOLIA_CRAWLER_USER_ID }}:${{ secrets.ALGOLIA_CRAWLER_API_KEY }}" \
             -d @-
 
       - name: "Trigger Crawler Reindex"
         run: |
-          curl -s -f -X POST "https://crawler.algolia.com/api/1/crawlers/${{ secrets.ALGOLIA_CRAWLER_ID }}/reindex" \
+          curl -X POST "https://crawler.algolia.com/api/1/crawlers/${{ secrets.ALGOLIA_CRAWLER_ID }}/reindex" \
             -H "Content-Type: application/json" \
             -u "${{ secrets.ALGOLIA_CRAWLER_USER_ID }}:${{ secrets.ALGOLIA_CRAWLER_API_KEY }}"
