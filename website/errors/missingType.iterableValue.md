@@ -74,3 +74,5 @@ For a more specific array shape, use array shape syntax:
  	return ['name' => 'app', 'age' => 1];
  }
 ```
+
+In PHPStan 1.x this error was possible to ignore with configuration parameter `checkMissingIterableValueType: false` but in PHPStan 2.0 this parameter was removed in favor of ignoring by identifier:
