@@ -68,3 +68,5 @@ function getMap(): Map
 	return new Map();
 }
 ```
+
+In PHPStan 1.x this error was possible to ignore with configuration parameter `checkGenericClassInNonGenericObjectType: false` but in PHPStan 2.0 this parameter was removed in favor of ignoring by identifier:
