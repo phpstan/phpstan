@@ -1,6 +1,6 @@
 new Crawler({
   rateLimit: 8,
-  startUrls: ["https://phpstan.org/", "https://apiref.phpstan.org/"],
+  startUrls: ["https://phpstan.org/", "https://apiref.phpstan.org/2.2.x/namespace-PHPStan.html"],
   sitemaps: [],
   ignoreCanonicalTo: false,
   discoveryPatterns: [
