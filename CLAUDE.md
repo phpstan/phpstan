@@ -51,17 +51,6 @@ Every PHPStan error has a unique identifier (e.g., `argument.type`, `deadCode.un
 
 ## Development
 
-### Running E2E Tests
-
-The e2e tests verify the distributed PHAR works correctly across PHP versions and scenarios:
-
-```bash
-cd e2e
-composer install --ignore-platform-reqs
-vendor/bin/phpunit PharTest.php
-```
-
-The e2e test suite uses PHPUnit 9.6 and extends `PHPStan\Testing\LevelsTestCase`. Individual test scenarios are in `e2e/` subdirectories covering autoloading, framework integration, bug regressions, and feature verification.
 
 ### CI Workflows
 
