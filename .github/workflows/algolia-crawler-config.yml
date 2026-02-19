@@ -5,7 +5,7 @@ on:
     branches:
       - "2.2.x"
     paths:
-      - 'website/algolia-crawler-config.json'
+      - '.github/workflows/algolia-crawler-config.json'
       - '.github/workflows/algolia-crawler-config.yml'
 
 jobs:
@@ -18,7 +18,7 @@ jobs:
 
       - name: "Update Crawler Config"
         run: |
-          jq --arg key "${{ secrets.ALGOLIA_CRAWLER_CRAWLER_API_KEY }}" '.apiKey = $key' website/algolia-crawler-config.json | \
+          jq --arg key "${{ secrets.ALGOLIA_CRAWLER_CRAWLER_API_KEY }}" '.apiKey = $key' .github/workflows/algolia-crawler-config.json | \
           curl -X PATCH "https://crawler.algolia.com/api/1/crawlers/${{ secrets.ALGOLIA_CRAWLER_ID }}/config" \
             -H "Content-Type: application/json" \
             -u "${{ secrets.ALGOLIA_CRAWLER_USER_ID }}:${{ secrets.ALGOLIA_CRAWLER_API_KEY }}" \
