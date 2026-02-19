@@ -6,6 +6,7 @@ on:
       - "2.2.x"
     paths:
       - 'website/algolia-crawler-config.js'
+      - '.github/workflows/algolia-crawler-config.yml'
 
 jobs:
   update-config:
