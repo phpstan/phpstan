@@ -1,0 +1,29 @@
+name: "Algolia Crawler Config Update"
+
+on:
+  push:
+    branches:
+      - "2.2.x"
+    paths:
+      - 'website/algolia-crawler-config.js'
+
+jobs:
+  update-config:
+    name: "Update Algolia Crawler Config"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Update Crawler Config"
+        run: |
+          curl -s -f -X PATCH "https://crawler.algolia.com/api/1/crawlers/${{ secrets.ALGOLIA_CRAWLER_ID }}/config" \
+            -H "Content-Type: application/javascript" \
+            -u "${{ secrets.ALGOLIA_CRAWLER_USER_ID }}:${{ secrets.ALGOLIA_CRAWLER_API_KEY }}" \
+            --data-binary @website/algolia-crawler-config.js
+
+      - name: "Trigger Crawler Reindex"
+        run: |
+          curl -s -f -X POST "https://crawler.algolia.com/api/1/crawlers/${{ secrets.ALGOLIA_CRAWLER_ID }}/reindex" \
+            -H "Content-Type: application/json" \
+            -u "${{ secrets.ALGOLIA_CRAWLER_USER_ID }}:${{ secrets.ALGOLIA_CRAWLER_API_KEY }}"
