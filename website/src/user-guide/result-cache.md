@@ -108,6 +108,8 @@ Learn more: [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/)
 
 ### Setup in Bitbucket Pipelines CI
 
+Because of limitations with Bitbucket's cache feature, the cache is only uploaded when the step succeeds, and when there isn't already a matching cache entry.
+
 ```yaml
 definitions:
   caches:
