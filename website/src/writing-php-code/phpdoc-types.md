@@ -23,18 +23,22 @@ Basic types
 * `float`
 * `double`
 * `number`
-* `scalar`
-* `array`
+* `numeric`
+* `scalar`, `empty-scalar`, `non-empty-scalar`
+* `empty`
+* `array`, `associative-array`
 * `iterable`
 * `callable`, `pure-callable`
 * `resource`, `closed-resource`, `open-resource`
 * `void`
-* `object`
+* `object`, `callable-object`, `callable-array`
 
 Mixed
 -------------------------
 
 `mixed` type can be used if we don't want to define a more specific type. PHPStan doesn't check anything on the `mixed` type - any property or method can be called on it and it can be passed to any type in a function/method call.
+
+`non-empty-mixed` is a `mixed` that excludes [falsy values](https://www.php.net/manual/en/language.types.boolean.php#language.types.boolean.casting) (`false`, `0`, `0.0`, `''`, `'0'`, `[]`, and `null`).
 
 PHPStan has a concept of implicit and explicit `mixed`. Missing typehint is implicit `mixed` - no type was specified as a parameter type or a return type. Explicit `mixed` is written in the PHPDoc. PHPStan's [rule level 6](/user-guide/rule-levels) isn't satisfied with implicit `mixed`, but an explicit one is sufficient.
 
@@ -211,6 +215,10 @@ class-string
 
 `class-string` type can be used wherever a valid class name string is expected. [Generic](/blog/generics-in-php-using-phpdocs) variant `class-string<T>` also works, or you can use `class-string<Foo>` to only accept valid class names that are subtypes of Foo.
 
+`interface-string` and `trait-string` are aliases for `class-string`. The generic variant `interface-string<T>` also works.
+
+`enum-string` accepts class name strings of enums (equivalent to `class-string<UnitEnum>`). The generic variant `enum-string<T>` further narrows the accepted enum type.
+
 ```php
 /**
  * @param class-string $className
@@ -246,6 +254,10 @@ Other advanced string types
 Security-focused `literal-string` is inspired by the [`is_literal()` RFC](https://wiki.php.net/rfc/is_literal). In short, it means a string that is either written by a developer or composed only of developer-written strings.
 
 `lowercase-string` accepts strings where `strtolower($string) === $string` is true.
+
+`uppercase-string` accepts strings where `strtoupper($string) === $string` is true.
+
+Combined string types are also supported: `non-empty-lowercase-string`, `non-empty-uppercase-string`, and `non-empty-literal-string`.
 
 Global type aliases
 -------------------------
@@ -395,6 +407,7 @@ Bottom type
 All of these names are equivalent:
 
 * `never`
+* `noreturn`
 * `never-return`
 * `never-returns`
 * `no-return`
