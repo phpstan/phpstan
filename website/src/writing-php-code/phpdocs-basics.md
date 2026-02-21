@@ -438,10 +438,10 @@ The `@phpstan-pure` tag is also available should you need it, for example if you
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.1.39</div>
 
-For classes where all methods are impure (or pure), you can use the `@phpstan-all-methods-are-impure` tag (or `@phpstan-all-methods-are-pure`) at the class level. Individual methods can still override the class-level setting by using `@phpstan-pure` or `@phpstan-impure` on specific methods.
+For classes where all methods are impure (or pure), you can use the `@phpstan-all-methods-impure` tag (or `@phpstan-all-methods-pure`) at the class level. Individual methods can still override the class-level setting by using `@phpstan-pure` or `@phpstan-impure` on specific methods.
 
 ```php
-/** @phpstan-all-methods-are-impure */
+/** @phpstan-all-methods-impure */
 class UserRepository
 {
 	public function findById(int $id): ?User { ... }
@@ -514,6 +514,54 @@ class Lorem implements Bar
 }
 ```
 
+Consistent constructor
+---------------
+
+PHPDoc tag `@phpstan-consistent-constructor` can be put above a class to enforce that all child classes have the same constructor signature. This makes `new static()` calls safe in non-final classes.
+
+```php
+/** @phpstan-consistent-constructor */
+class Foo
+{
+	public function __construct(string $name)
+	{
+	}
+
+	public static function create(string $name): static
+	{
+		return new static($name); // OK - constructor signature is guaranteed
+	}
+}
+
+class Bar extends Foo
+{
+	public function __construct(int $id) // Error: not compatible with Foo::__construct()
+	{
+	}
+}
+```
+
+When a class is marked with `@phpstan-consistent-constructor`, the tag also applies transitively to all child classes. The constructor of the marked class must not be private (unless the class is final).
+
+No named arguments
+---------------
+
+PHPDoc tag `@no-named-arguments` can be put above a function, method, or class to prevent callers from using named arguments. When applied to a class, it affects all methods of that class.
+
+```php
+/**
+ * @no-named-arguments
+ */
+function foo(int $i): void
+{
+}
+
+foo(i: 5); // Error: Function foo() invoked with named argument $i, but it's not allowed.
+foo(5); // OK
+```
+
+This is useful for library authors who want to be able to rename parameters in future versions without breaking callers.
+
 Prefixed tags
 ---------------
 
@@ -565,6 +613,32 @@ class Foo
 (new Foo())->bar = 'baz'; // @readonly property Foo::$bar is assigned outside of its declaring class.
 ```
 
+### Allowing private mutation
+
+If you want a property to be readonly to the outside world but still allow mutations within the declaring class, you can use `@phpstan-allow-private-mutation` together with `@readonly`, or use the combined `@phpstan-readonly-allow-private-mutation` tag:
+
+```php
+class Foo
+{
+	/**
+	 * @readonly
+	 * @phpstan-allow-private-mutation
+	 */
+	public int $counter = 0;
+
+	/** @phpstan-readonly-allow-private-mutation */
+	public string $name = '';
+
+	public function increment(): void
+	{
+		$this->counter++; // OK - private mutation is allowed
+		$this->name = 'foo'; // OK
+	}
+}
+
+(new Foo())->counter = 5; // Error: @readonly property Foo::$counter is assigned outside of its declaring class.
+```
+
 Immutable classes
 -----------------
 
@@ -578,6 +652,41 @@ class Foo
 }
 
 (new Foo())->bar = 'baz'; // @readonly property Foo::$bar is assigned outside of its declaring class.
+```
+
+Final classes, methods, properties, and constants
+--------------
+
+The `@final` PHPDoc tag marks a class, method, property, or constant as final without using PHP's native `final` keyword. PHPStan will report an error if the declaration is extended or overridden.
+
+```php
+/** @final */
+class Foo
+{
+}
+
+class Bar extends Foo // Error: Class Bar extends @final class Foo.
+{
+}
+```
+
+It also works on individual methods, properties, and constants:
+
+```php
+class Foo
+{
+	/** @final */
+	public function doFoo(): void
+	{
+	}
+}
+
+class Bar extends Foo
+{
+	public function doFoo(): void // Error: Method Bar::doFoo() overrides @final method Foo::doFoo().
+	{
+	}
+}
 ```
 
 Sealed classes
