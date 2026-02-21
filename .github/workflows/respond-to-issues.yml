@@ -73,7 +73,6 @@ jobs:
     strategy:
       matrix:
         issue: ${{ fromJson(needs.check-eligibility.outputs.issues) }}
-      max-parallel: 3
       fail-fast: false
     steps:
       - name: "Checkout"
