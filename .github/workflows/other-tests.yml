@@ -1,32 +1,37 @@
-# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
-
-name: "Other tests"
+name: Other tests
 
 on:
   workflow_call:
     inputs:
       ref:
-        description: 'phpstan/phpstan ref to checkout'
+        description: phpstan/phpstan ref to checkout
         required: true
         type: string
       phar-checksum:
-        description: 'PHAR checksum from reproducible build (please rebase)'
+        description: PHAR checksum from reproducible build (please rebase)
         required: true
         type: string
 
 jobs:
   check-phar-checksum:
-    name: "Check PHAR checksum"
-    runs-on: "ubuntu-latest"
+    name: Check PHAR checksum
+
+
+    runs-on: ubuntu-latest
+
     outputs:
       checksum-result: ${{ steps.checksum-difference.outputs.result }}
+
+
     steps:
-      - name: "Checkout"
+      - name: Checkout
         uses: actions/checkout@v4
         with:
-          repository: "phpstan/phpstan"
+          repository: phpstan/phpstan
           ref: ${{ inputs.ref }}
-      - name: "Check PHAR checksum"
+
+
+      - name: Check PHAR checksum
         id: checksum-difference
         run: |
           checksum=${{ inputs.phar-checksum }}
@@ -37,140 +42,21 @@ jobs:
           fi
 
   other-tests:
-    name: "Other Tests"
+    name: Other Tests
+
 
     runs-on: ${{ matrix.operating-system }}
 
     needs: check-phar-checksum
+
     if: "needs.check-phar-checksum.outputs.checksum-result == 'different'"
 
     strategy:
       fail-fast: false
       matrix:
         operating-system: [ubuntu-latest]
-        php-version:
-          - "7.4"
-          - "8.0"
-        script:
-          - |
-            cd e2e
-            git clone https://github.com/nikic/PHP-Parser.git
-            cd PHP-Parser
-            git checkout v3.1.5
-            composer install
-            ../../phpstan analyse -l 0 -c ../php-parser-baseline.neon lib
-          - |
-            cd e2e/react-promise
-            composer install
-            ../../phpstan analyse -l 8 src
-          - |
-            cd e2e/different-php-parser
-            composer install --ignore-platform-reqs
-            ../../phpstan analyse -l 8 test.php src
-          - |
-            cd e2e/different-php-parser2
-            composer install
-            ../../phpstan analyse -l 5 src
-          - |
-            cd e2e/different-phpdoc-parser
-            composer install --ignore-platform-reqs
-            ../../phpstan analyse -l 8 -a Test.php Test.php
-          - |
-            cd e2e/php-metrics
-            composer install --ignore-platform-reqs
-            ../../phpstan analyse -l 8 test.php
-          - |
-            cd e2e/react-bootstrap
-            composer install --ignore-platform-reqs
-            ../../phpstan analyse -l 8 -c phpstan.neon test.php
-          - |
-            cd e2e/mongodb
-            ../../phpstan analyse -l 8 test.php test2.php
-          - |
-            cd e2e/alias-event
-            ../../phpstan analyse -l 8 -a alias.php test.php
-          - |
-            cd e2e/polyfills
-            composer install
-            ../../phpstan analyse -l 8 test.php
-            ../../phpstan analyse -l 8 test.php -a test.php
-          - |
-            cd e2e/composer-file
-            composer install
-            ../../phpstan analyse -l 8 test.php
-          - |
-            cd e2e/php8
-            ../../phpstan analyse -l 8 -c php74.neon test.php
-          - |
-            cd e2e/php8
-            ../../phpstan analyse -l 8 -c php80.neon test.php
-          - |
-            cd e2e/attributes
-            ../../phpstan analyse -l 8 test.php
-          - |
-            cd e2e/attributes
-            ../../phpstan analyse -l 8 -c php80.neon test.php
-          - |
-            cd e2e/baseline
-            ../../phpstan analyse -l 8 src/
-            ../../phpstan analyse -l 8 src/ --generate-baseline
-            ../../phpstan analyse -l 8 src/
-            ../../phpstan analyse -l 8 src/ --generate-baseline
-            ../../phpstan analyse -l 8 src/
-          - |
-            cd e2e/name-conflict
-            composer install
-            cp ../../phpstan vendor/phpstan/phpstan/phpstan
-            cp ../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
-            cp ../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
-            vendor/bin/phpstan analyse -l 8 src/
-          - |
-            cd e2e/excludePaths
-            ../../phpstan analyse
-          - |
-            cd e2e/excludePaths2
-            ../../phpstan analyse
-          - |
-            cd e2e/autoload-better-reflection
-            php test.php
-          - |
-            cd e2e/autoloader-require
-            ../../phpstan analyse
-            ../../phpstan analyse tests/ClassATest.php
-          - |
-            cd e2e/phpstan-issue-4953
-            composer install
-            ../../phpstan
-          - |
-            cd e2e/api-platform-trait
-            composer install
-            ../../phpstan analyse -l 9 test.php
-          - |
-            cd e2e/attribute-74
-            ../../phpstan analyse -l 9 test.php -c test.neon
-          - |
-            cd e2e/dup-classes
-            ../../phpstan
-          - |
-            cd e2e/event-dispatcher
-            composer install
-            ../../phpstan
-          - |
-            cd e2e/swift-mailer
-            composer install
-            ../../phpstan
-          - |
-            cd e2e/rector-autoload
-            composer install
-            ../../phpstan
-          - |
-            cd e2e/restricted-php-ini
-            composer install
-            php -d open_basedir="$(cd ../.. && pwd):$(php -r 'echo sys_get_temp_dir();')" -d disable_functions="pcntl_exec,pcntl_fork,exec,passthru,proc_open,shell_exec,system,popen" -d auto_prepend_file=phpstan-preload.php ../../phpstan analyse -c app/phpstan.neon
-          - |
-            cd e2e/bug6933
-            composer install
-            ../../phpstan analyse -l 8 Module
+        php-version: ['7.4', '8.0', '8.3', '8.4', '8.5']
+        script: ["cd e2e\ngit clone https://github.com/nikic/PHP-Parser.git\ncd PHP-Parser\ngit checkout v3.1.5\ncomposer install\n../../phpstan analyse -l 0 -c ../php-parser-baseline.neon lib\n", "cd e2e/react-promise\ncomposer install\n../../phpstan analyse -l 8 src\n", "cd e2e/different-php-parser\ncomposer install --ignore-platform-reqs\n../../phpstan analyse -l 8 test.php src\n", "cd e2e/different-php-parser2\ncomposer install\n../../phpstan analyse -l 5 src\n", "cd e2e/different-phpdoc-parser\ncomposer install --ignore-platform-reqs\n../../phpstan analyse -l 8 -a Test.php Test.php\n", "cd e2e/php-metrics\ncomposer install --ignore-platform-reqs\n../../phpstan analyse -l 8 test.php\n", "cd e2e/react-bootstrap\ncomposer install --ignore-platform-reqs\n../../phpstan analyse -l 8 -c phpstan.neon test.php\n", "cd e2e/mongodb\n../../phpstan analyse -l 8 test.php test2.php\n", "cd e2e/alias-event\n../../phpstan analyse -l 8 -a alias.php test.php\n", "cd e2e/polyfills\ncomposer install\n../../phpstan analyse -l 8 test.php\n../../phpstan analyse -l 8 test.php -a test.php\n", "cd e2e/composer-file\ncomposer install\n../../phpstan analyse -l 8 test.php\n", "cd e2e/php8\n../../phpstan analyse -l 8 -c php74.neon test.php\n", "cd e2e/php8\n../../phpstan analyse -l 8 -c php80.neon test.php\n", "cd e2e/attributes\n../../phpstan analyse -l 8 test.php\n", "cd e2e/attributes\n../../phpstan analyse -l 8 -c php80.neon test.php\n", "cd e2e/baseline\n../../phpstan analyse -l 8 src/\n../../phpstan analyse -l 8 src/ --generate-baseline\n../../phpstan analyse -l 8 src/\n../../phpstan analyse -l 8 src/ --generate-baseline\n../../phpstan analyse -l 8 src/\n", "cd e2e/name-conflict\ncomposer install\ncp ../../phpstan vendor/phpstan/phpstan/phpstan\ncp ../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar\ncp ../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php\nvendor/bin/phpstan analyse -l 8 src/\n", "cd e2e/excludePaths\n../../phpstan analyse\n", "cd e2e/excludePaths2\n../../phpstan analyse\n", "cd e2e/autoload-better-reflection\nphp test.php\n", "cd e2e/autoloader-require\n../../phpstan analyse\n../../phpstan analyse tests/ClassATest.php\n", "cd e2e/phpstan-issue-4953\ncomposer install\n../../phpstan\n", "cd e2e/api-platform-trait\ncomposer install\n../../phpstan analyse -l 9 test.php\n", "cd e2e/attribute-74\n../../phpstan analyse -l 9 test.php -c test.neon\n", "cd e2e/dup-classes\n../../phpstan\n", "cd e2e/event-dispatcher\ncomposer install\n../../phpstan\n", "cd e2e/swift-mailer\ncomposer install\n../../phpstan\n", "cd e2e/rector-autoload\ncomposer install\n../../phpstan\n", "cd e2e/restricted-php-ini\ncomposer install\nphp -d open_basedir=\"$(cd ../.. && pwd):$(php -r 'echo sys_get_temp_dir();')\" -d disable_functions=\"pcntl_exec,pcntl_fork,exec,passthru,proc_open,shell_exec,system,popen\" -d auto_prepend_file=phpstan-preload.php ../../phpstan analyse -c app/phpstan.neon\n", "cd e2e/bug6933\ncomposer install\n../../phpstan analyse -l 8 Module\n"]
         include:
           - php-version: 8.0
             ini-values: memory_limit=256M
@@ -416,29 +302,33 @@ jobs:
               composer install
               ../../phpstan
 
+
     steps:
-      - name: "Checkout"
+      - name: Checkout
         uses: actions/checkout@v4
         with:
-          repository: "phpstan/phpstan"
+          repository: phpstan/phpstan
           ref: ${{ inputs.ref }}
 
-      - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
-        with:
-          coverage: "none"
-          php-version: "${{ matrix.php-version }}"
-          ini-file: development
-          ini-values: " ${{ matrix.ini-values }}"
-          extensions: "${{ matrix.extensions }}"
 
-      - name: "Disable MongoDB extension"
-        if: matrix.operating-system != 'windows-latest'
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          coverage: none
+          php-version: ${{ matrix.php-version }}
+          ini-file: development
+          ini-values:  ${{ matrix.ini-values }}
+          extensions: ${{ matrix.extensions }}
+
+
+      - name: Disable MongoDB extension
+        if: "matrix.operating-system != 'windows-latest'"
         run: sudo phpdismod -v ${{ matrix.php-version }} mongodb
 
-      - uses: "ramsey/composer-install@v3"
+      - uses: ramsey/composer-install@v3
 
-      - name: "Download phpstan.phar"
+
+      - name: Download phpstan.phar
         uses: Wandalen/wretry.action@v3.8.0
         with:
           action: actions/download-artifact@v4
@@ -447,7 +337,8 @@ jobs:
           attempt_limit: 5
           attempt_delay: 1000
 
-      - name: "Tests"
-        run: "${{ matrix.script }}"
+
+      - name: Tests
+        run: ${{ matrix.script }}
         env:
           COMPOSER_NO_SECURITY_BLOCKING: 1
