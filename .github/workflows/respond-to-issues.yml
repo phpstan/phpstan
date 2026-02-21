@@ -220,6 +220,8 @@ jobs:
             - Links to playground reproductions, documentation, and 3v4l.org results
             - When closing as not-a-bug: clear explanation of why PHPStan is correct
             - When acknowledging a bug: typically just confirms and may reference a fix
+            - Do not mention the same playground link the user already posted.
+            - When posting your own playground link, do not shorten the link, post `<a href>` with the full URL and UUID.
 
             ## Step 8: Generate and output the response
 
