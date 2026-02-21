@@ -43,6 +43,15 @@ steps:
 
 You are a technical analyst for PHPStan, a PHP static analysis tool. Your job is to analyze new issues and discussions that contain PHPStan playground links, investigate the reported behavior, and generate a draft response in `$GITHUB_STEP_SUMMARY`.
 
+## Skills
+
+Two skill files in this repository contain reusable instructions you will need:
+
+- **`.claude/skills/run-on-3v4l/SKILL.md`** — How to submit PHP code to 3v4l.org and fetch runtime results across PHP versions.
+- **`.claude/skills/analyse-with-phpstan/SKILL.md`** — How to call the PHPStan playground API (`POST https://api.phpstan.org/analyse`) to analyse code and get errors across PHP versions.
+
+Read both skill files now. You will follow their instructions in the steps below.
+
 ## Step 1: Determine trigger context
 
 Identify what triggered this workflow and fetch the relevant content.
@@ -160,46 +169,9 @@ Also read `website/src/writing-php-code/phpdocs-basics.md` for PHPDoc reference 
 
 ## Step 5: Execute PHP code on 3v4l.org
 
-Test the actual runtime behavior of the code from the playground. This is critical — do NOT reason about what PHP would do, actually test it.
+Follow the instructions in `.claude/skills/run-on-3v4l/SKILL.md` to submit the playground PHP code to 3v4l.org and fetch the runtime results.
 
-### 5a. Research the 3v4l.org submission form
-
-Fetch the 3v4l.org homepage and examine the HTML form to understand how to submit code:
-
-```bash
-curl -s https://3v4l.org/ | head -200
-```
-
-Look for:
-- The form action URL and HTTP method
-- Required form fields (the code textarea name, any hidden fields)
-- How the response redirects to the result page
-
-### 5b. Prepare executable PHP code
-
-Take the playground PHP code and make it executable:
-- If the code defines classes/functions but doesn't call them, add test calls that exercise the reported error paths
-- Add `var_dump()` or `echo` statements to show return values and types
-- Wrap potentially-erroring code in try/catch if needed to see the actual behavior
-- Make sure the code actually produces output that demonstrates whether the reported behavior is correct
-
-### 5c. Submit to 3v4l.org
-
-Submit the prepared code to 3v4l.org using the form submission mechanism you discovered in step 5a.
-
-### 5d. Fetch results
-
-After submission, retrieve the results via the REST API:
-
-```bash
-curl -s -H 'Accept: application/json' 'https://3v4l.org/<short-id>'
-```
-
-Parse the JSON to see actual PHP output across different PHP versions.
-
-### 5e. Compare results
-
-Compare the actual PHP runtime behavior against PHPStan's reported errors:
+Then compare the actual PHP runtime behavior against PHPStan's reported errors:
 - Does the code actually produce the error/behavior PHPStan warns about?
 - Does it work correctly at runtime despite PHPStan's warning (suggesting a false positive)?
 - Does the behavior differ across PHP versions?
@@ -237,30 +209,13 @@ Prefer workarounds that use proper type annotations or code restructuring over s
 
 ### 7b. Verify runtime equivalence on 3v4l.org
 
-Prepare the modified code for execution the same way as in Step 5b — add test calls, `var_dump()` statements, etc. Submit it to 3v4l.org using the same approach from Steps 5a–5d.
+Follow the instructions in `.claude/skills/run-on-3v4l/SKILL.md` to submit the modified code to 3v4l.org.
 
 Compare the output against the original code's 3v4l.org results from Step 5. The modified code must produce identical output across all PHP versions. If it does not, revise the modification and try again (up to 3 attempts total).
 
 ### 7c. Verify PHPStan passes
 
-Submit the modified code to the PHPStan playground API to confirm it produces no errors:
-
-```bash
-curl -s -X POST 'https://api.phpstan.org/analyse' \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "code": "<modified PHP code, JSON-escaped>",
-    "level": "<level from Step 3>",
-    "strictRules": <strictRules from Step 3 config, default false>,
-    "bleedingEdge": <bleedingEdge from Step 3 config, default false>,
-    "treatPhpDocTypesAsCertain": <treatPhpDocTypesAsCertain from Step 3 config, default true>,
-    "saveResult": true
-  }'
-```
-
-The response JSON has this structure:
-- `versionedErrors` — array of `{phpVersion, errors}` objects per PHP version
-- `id` — UUID for the saved result, accessible at `https://phpstan.org/r/<id>`
+Follow the instructions in `.claude/skills/analyse-with-phpstan/SKILL.md` to submit the modified code to the PHPStan playground API. Use the same level and config settings from the original playground data in Step 3 (not the skill defaults). Set `saveResult: true` to get a shareable link.
 
 Check that all entries in `versionedErrors` have empty `errors` arrays (or at minimum, the original false positive errors are gone).
 
