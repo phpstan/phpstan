@@ -277,8 +277,8 @@ jobs:
             - No greetings, no sign-offs, no "I hope this helps"
             - Technically precise, under 500 words
             - Use backticks for all code references, identifiers, and type names
-            - **For user errors**: Explain why PHPStan is correct. Show the runtime behavior via 3v4l.org link. Suggest the correct code fix.
-            - **For false positives**: Acknowledge the issue. Explain what PHPStan gets wrong. If a workaround was found in Step 7, include the modified code and link to the playground showing it passes. If no workaround was found, do not post a comment at all.
+            - **For user errors**: Always post a response. Show the 3v4l.org link proving the code fails at PHP runtime, explain why PHPStan is correct in reporting the error, and suggest the correct code fix.
+            - **For false positives**: Only post a response if a successful workaround was found in Step 7 (the PHP runtime output is identical and PHPStan no longer reports the error in question). Include the modified code and link to the playground showing it passes. If no workaround was found, do not post a comment at all.
             - **For feature requests**: Only respond if the request is actionable and valuable. If it duplicates an existing feature, point to documentation.
-            - **For annotation issues**: Provide the specific annotation with a complete code example. Link to relevant PHPStan documentation.
+            - **For annotation issues**: Always post a response. The user needs to change their code, so the issue can be closed. Provide the specific annotation with a complete code example. Link to relevant PHPStan documentation.
           claude_args: "--model claude-opus-4-6 --dangerously-skip-permissions"
