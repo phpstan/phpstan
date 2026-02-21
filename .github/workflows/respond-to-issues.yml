@@ -149,6 +149,10 @@ jobs:
             3. If errors include tips with URLs (often links to phpstan.org blog posts or documentation), fetch those pages for additional context
 
             Also read `website/src/writing-php-code/phpdocs-basics.md` for PHPDoc reference — this is useful when the fix involves adding type annotations.
+            
+            Also read `website/src/writing-php-code/narrowing-types.md` to learn about proper narrowing of types and `website/src/user-guide/troubleshooting-types.md` for strategies about troubleshooting types. 
+            
+            Also read blog articles from `website/src/_posts` classified with tag `guides` to learn more best practices.
 
             ## Step 5: Execute PHP code on 3v4l.org
 
@@ -187,6 +191,8 @@ jobs:
             - Use intermediate variables with explicit type annotations
             - Add inline `assert()` calls to help type inference
             - Add `@phpstan-return` or `@template` annotations
+            - Do not work around analysis shortcomings with `assert()` calls or inline PHPDoc `@var` tags above statements to narrow variable types.
+            - Use `\PHPStan\dumpType()` to see how PHPStan currently infers types and where the correct type is lost.
 
             Prefer workarounds that use proper type annotations or code restructuring over suppression comments. Only use `@phpstan-ignore` as an absolute last resort.
 
