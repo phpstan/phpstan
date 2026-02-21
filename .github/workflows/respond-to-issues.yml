@@ -249,6 +249,7 @@ jobs:
             - When acknowledging a bug: typically just confirms and may reference a fix
             - Do not mention the same playground link the user already posted.
             - When posting your own playground link, do not shorten the link, post `<a href>` with the full URL and UUID.
+            - Do not comment on whether something is a regression or not. Even if the user says this used to work in previous releases, do not assume it is true. You're not testing against past PHPStan versions, only the latest dev one that is deployed to the playground.
 
             ## Step 8: Generate and output the response
 
@@ -306,6 +307,6 @@ jobs:
             - Use backticks for all code references, identifiers, and type names
             - **For user errors**: Always post a response. Show the 3v4l.org link proving the code fails at PHP runtime, explain why PHPStan is correct in reporting the error, and suggest the correct code fix.
             - **For false positives**: Only post a response if a successful workaround was found in Step 7 (the PHP runtime output is identical and PHPStan no longer reports the error in question). Include the modified code and link to the playground showing it passes. If no workaround was found, do not post a comment at all.
-            - **For feature requests**: Only respond if the request is actionable and valuable. If it duplicates an existing feature, point to documentation.
+            - **For feature requests**: Do not respond. Ever.
             - **For annotation issues**: Always post a response. The user needs to change their code, so the issue can be closed. Provide the specific annotation with a complete code example. Link to relevant PHPStan documentation.
           claude_args: "--model claude-opus-4-6 --dangerously-skip-permissions"
