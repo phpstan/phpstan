@@ -31,25 +31,46 @@ jobs:
             const PLAYGROUND_REGEX = /https:\/\/phpstan\.org\/r\/[0-9a-f-]+/;
 
             if (context.eventName === 'workflow_dispatch') {
-              const { data: issues } = await github.rest.issues.listForRepo({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                state: 'open',
-                sort: 'created',
-                direction: 'desc',
-                per_page: 20
-              });
+              const twoMonthsAgo = new Date();
+              twoMonthsAgo.setMonth(twoMonthsAgo.getMonth() - 2);
 
-              const qualifying = issues.filter(issue => {
+              let allIssues = [];
+              let page = 1;
+              while (true) {
+                const { data: issues } = await github.rest.issues.listForRepo({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  state: 'open',
+                  sort: 'created',
+                  direction: 'desc',
+                  since: twoMonthsAgo.toISOString(),
+                  per_page: 100,
+                  page
+                });
+                allIssues = allIssues.concat(issues);
+                if (issues.length < 100) break;
+                page++;
+              }
+
+              const qualifying = allIssues.filter(issue => {
+                if (issue.pull_request) return false;
+                if (new Date(issue.created_at) < twoMonthsAgo) return false;
                 if (!issue.body) return false;
                 if (SKIP_AUTHORS.includes(issue.user.login)) return false;
                 if (!PLAYGROUND_REGEX.test(issue.body)) return false;
                 return true;
               }).map(issue => issue.number);
 
-              core.setOutput('issues', JSON.stringify(qualifying));
-              core.setOutput('eligible', qualifying.length > 0 ? 'true' : 'false');
-              core.info(`Batch mode: ${qualifying.length} qualifying issues found: ${JSON.stringify(qualifying)}`);
+              // Randomly shuffle and pick up to 20
+              for (let i = qualifying.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [qualifying[i], qualifying[j]] = [qualifying[j], qualifying[i]];
+              }
+              const selected = qualifying.slice(0, 20);
+
+              core.setOutput('issues', JSON.stringify(selected));
+              core.setOutput('eligible', selected.length > 0 ? 'true' : 'false');
+              core.info(`Batch mode: ${qualifying.length} qualifying issues from last 2 months, selected ${selected.length}: ${JSON.stringify(selected)}`);
             } else {
               const issue = context.payload.issue;
               const skip = SKIP_AUTHORS.includes(issue.user.login);
