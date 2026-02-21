@@ -210,12 +210,12 @@ jobs:
             - Restructure conditional logic so PHPStan can follow the type narrowing
             - Add PHPDoc type assertions (`@phpstan-assert`, `@phpstan-var`, `@phpstan-type`)
             - Use intermediate variables with explicit type annotations
-            - Add inline `assert()` calls to help type inference
             - Add `@phpstan-return` or `@template` annotations
             - Do not work around analysis shortcomings with `assert()` calls or inline PHPDoc `@var` tags above statements to narrow variable types.
+            - Do not work around analysis with `@phpstan-ignore` or `@phpstan-ignore-next-line` or `@phpstan-ignore-line`.
             - Use `\PHPStan\dumpType()` to see how PHPStan currently infers types and where the correct type is lost.
 
-            Prefer workarounds that use proper type annotations or code restructuring over suppression comments. Only use `@phpstan-ignore` as an absolute last resort.
+            Prefer workarounds that use proper type annotations or code restructuring over suppression comments.
 
             ### 7b. Verify runtime equivalence on 3v4l.org
 
