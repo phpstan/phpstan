@@ -213,6 +213,7 @@ jobs:
             - Add `@phpstan-return` or `@template` annotations
             - Do not work around analysis shortcomings with `assert()` calls or inline PHPDoc `@var` tags above statements to narrow variable types.
             - Do not work around analysis with `@phpstan-ignore` or `@phpstan-ignore-next-line` or `@phpstan-ignore-line`.
+            - Stub files (added to `stubFiles` config parameter) are only for overriding 3rd party PHPDocs. They cannot change what properties/constants/methods are available on a class.
             - Use `\PHPStan\dumpType()` to see how PHPStan currently infers types and where the correct type is lost.
 
             Prefer workarounds that use proper type annotations or code restructuring over suppression comments.
