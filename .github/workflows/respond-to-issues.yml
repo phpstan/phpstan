@@ -211,7 +211,13 @@ jobs:
             - Note the playground link: `https://phpstan.org/r/<id>` (from the `/analyse` response)
             - Note the 3v4l.org link that confirms runtime equivalence
 
-            If no workaround could be found after 3 attempts, note this and continue — the response should still acknowledge the false positive without a workaround.
+            If no workaround could be found after 3 attempts, do not post a response to a confirmed false positive reported by PHPStan.
+
+            - Post a response for user error to show them how their code fails in PHP runtime and that PHPStan is correct in reporting the code as wrong.
+            - Post a response to false positive only if a successful workaround for the issue is found (PHP runtime evaluation ends with the same output,
+              PHPStan now longer reports the error in question.
+            - Always post a response for the Configuration/annotation issue. This means the user has to change their code and the issue can be closed.
+            
 
             Observe and match this style:
             - Direct, technical, evidence-based
