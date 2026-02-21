@@ -213,12 +213,6 @@ jobs:
 
             If no workaround could be found after 3 attempts, do not post a response to a confirmed false positive reported by PHPStan.
 
-            - Post a response for user error to show them how their code fails in PHP runtime and that PHPStan is correct in reporting the code as wrong.
-            - Post a response to false positive only if a successful workaround for the issue is found (PHP runtime evaluation ends with the same output,
-              PHPStan now longer reports the error in question.
-            - Always post a response for the Configuration/annotation issue. This means the user has to change their code and the issue can be closed.
-            
-
             Observe and match this style:
             - Direct, technical, evidence-based
             - Concise — no filler, no pleasantries
@@ -284,7 +278,7 @@ jobs:
             - Technically precise, under 500 words
             - Use backticks for all code references, identifiers, and type names
             - **For user errors**: Explain why PHPStan is correct. Show the runtime behavior via 3v4l.org link. Suggest the correct code fix.
-            - **For false positives**: Acknowledge the issue. Explain what PHPStan gets wrong. If a workaround was found in Step 7, include the modified code and link to the playground showing it passes. If no workaround was found, suggest general approaches (PHPDoc annotations, code restructuring) the user can try until the issue is fixed.
+            - **For false positives**: Acknowledge the issue. Explain what PHPStan gets wrong. If a workaround was found in Step 7, include the modified code and link to the playground showing it passes. If no workaround was found, do not post a comment at all.
             - **For feature requests**: Only respond if the request is actionable and valuable. If it duplicates an existing feature, point to documentation.
             - **For annotation issues**: Provide the specific annotation with a complete code example. Link to relevant PHPStan documentation.
           claude_args: "--model claude-opus-4-6 --dangerously-skip-permissions"
