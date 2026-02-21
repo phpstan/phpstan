@@ -85,7 +85,7 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          github_token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+          github_token: ${{ secrets.PHPSTAN_BOT_COMMENT_TOKEN }}
           prompt: |
             You are a technical analyst for PHPStan, a PHP static analysis tool. Your job is to analyse issue #${{ matrix.issue }} in the phpstan/phpstan repository, investigate the reported behavior, and generate a draft response in `$GITHUB_STEP_SUMMARY`.
 
@@ -279,4 +279,4 @@ jobs:
             - **For false positives**: Acknowledge the issue. Explain what PHPStan gets wrong. If a workaround was found in Step 7, include the modified code and link to the playground showing it passes. If no workaround was found, suggest general approaches (PHPDoc annotations, code restructuring) the user can try until the issue is fixed.
             - **For feature requests**: Only respond if the request is actionable and valuable. If it duplicates an existing feature, point to documentation.
             - **For annotation issues**: Provide the specific annotation with a complete code example. Link to relevant PHPStan documentation.
-          claude_args: "--model claude-opus-4-6"
+          claude_args: "--model claude-opus-4-6 --dangerously-skip-permissions"
