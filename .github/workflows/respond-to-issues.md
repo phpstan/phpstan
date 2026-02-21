@@ -31,7 +31,7 @@ tools:
     toolsets: [default, repos, issues, discussions]
   web-fetch:
 
-timeout-minutes: 30
+timeout-minutes: 120
 
 steps:
   - uses: actions/checkout@v4
@@ -85,7 +85,32 @@ This was triggered by a new discussion comment. Pay special attention to the com
 {{/if}}
 {{/if}}
 
-For `workflow_dispatch`, pick a recent open issue or discussion that has a playground link and has not been responded to yet.
+For `workflow_dispatch`, fetch the 20 most recently created open issues:
+
+```bash
+gh issue list --state open --limit 20 --json number,title,body,labels,author,comments --sort created --order desc
+```
+
+Filter to only issues that:
+1. Contain at least one playground link (`https://phpstan.org/r/[0-9a-f-]+`) in the body or comments
+2. Have not been responded to by `ondrejmirtes` or `phpstan-bot` (check comment authors)
+
+For each qualifying issue, run the full analysis pipeline (Steps 2 through 9). Process issues sequentially — complete the entire pipeline for one issue before starting the next.
+
+Output results for **all** processed issues to `$GITHUB_STEP_SUMMARY`, separated by horizontal rules (`---`):
+
+```bash
+echo "---" >> "$GITHUB_STEP_SUMMARY"
+echo "" >> "$GITHUB_STEP_SUMMARY"
+```
+
+If no qualifying issues are found, write the following to `$GITHUB_STEP_SUMMARY` and stop:
+
+```bash
+echo "## No qualifying issues found" >> "$GITHUB_STEP_SUMMARY"
+echo "" >> "$GITHUB_STEP_SUMMARY"
+echo "No recent open issues with playground links and without maintainer responses were found." >> "$GITHUB_STEP_SUMMARY"
+```
 
 ## Step 2: Extract playground links
 
@@ -191,7 +216,66 @@ Based on your analysis, classify the issue into one of these categories:
 
 4. **Configuration/annotation issue** — The code is correct but PHPStan needs help understanding it. The fix is adding proper PHPDoc annotations (`@phpstan-assert`, `@phpstan-impure`, `@return never`, `@template`, etc.) or adjusting configuration.
 
-## Step 7: Research maintainer response style
+## Step 7: Attempt a workaround for false positives
+
+If the issue was classified as **false positive** in Step 6, try to produce a modified version of the PHP code that works around the false positive. The goal is code that:
+- Behaves identically at runtime (same output, same types, same side effects)
+- Produces no PHPStan errors
+
+Skip this step for all other classifications.
+
+### 7a. Produce modified code
+
+Analyze the PHPStan error(s) and modify the original playground code to avoid triggering them. Common workaround strategies:
+- Restructure conditional logic so PHPStan can follow the type narrowing
+- Add PHPDoc type assertions (`@phpstan-assert`, `@phpstan-var`, `@phpstan-type`)
+- Use intermediate variables with explicit type annotations
+- Add inline `assert()` calls to help type inference
+- Add `@phpstan-return` or `@template` annotations
+
+Prefer workarounds that use proper type annotations or code restructuring over suppression comments. Only use `@phpstan-ignore` as an absolute last resort.
+
+### 7b. Verify runtime equivalence on 3v4l.org
+
+Prepare the modified code for execution the same way as in Step 5b — add test calls, `var_dump()` statements, etc. Submit it to 3v4l.org using the same approach from Steps 5a–5d.
+
+Compare the output against the original code's 3v4l.org results from Step 5. The modified code must produce identical output across all PHP versions. If it does not, revise the modification and try again (up to 3 attempts total).
+
+### 7c. Verify PHPStan passes
+
+Submit the modified code to the PHPStan playground API to confirm it produces no errors:
+
+```bash
+curl -s -X POST 'https://api.phpstan.org/analyse' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "code": "<modified PHP code, JSON-escaped>",
+    "level": "<level from Step 3>",
+    "strictRules": <strictRules from Step 3 config, default false>,
+    "bleedingEdge": <bleedingEdge from Step 3 config, default false>,
+    "treatPhpDocTypesAsCertain": <treatPhpDocTypesAsCertain from Step 3 config, default true>,
+    "saveResult": true
+  }'
+```
+
+The response JSON has this structure:
+- `versionedErrors` — array of `{phpVersion, errors}` objects per PHP version
+- `id` — UUID for the saved result, accessible at `https://phpstan.org/r/<id>`
+
+Check that all entries in `versionedErrors` have empty `errors` arrays (or at minimum, the original false positive errors are gone).
+
+If errors remain, revise the modification and repeat Steps 7b–7c (up to 3 total attempts).
+
+### 7d. Record the workaround
+
+If a successful workaround was found:
+- Save the modified code for inclusion in the response
+- Note the playground link: `https://phpstan.org/r/<id>` (from the `/analyse` response)
+- Note the 3v4l.org link that confirms runtime equivalence
+
+If no workaround could be found after 3 attempts, note this and continue — the response should still acknowledge the false positive without a workaround.
+
+## Step 8: Research maintainer response style
 
 Before drafting the response, study how the maintainer (`ondrejmirtes`) responds to similar issues:
 
@@ -213,7 +297,7 @@ Observe and match this style:
 - When closing as not-a-bug: clear explanation of why PHPStan is correct
 - When acknowledging a bug: typically just confirms and may reference a fix
 
-## Step 8: Generate and output the response
+## Step 9: Generate and output the response
 
 Write the complete analysis and draft response to `$GITHUB_STEP_SUMMARY` using this structure:
 
@@ -247,6 +331,15 @@ cat >> "$GITHUB_STEP_SUMMARY" << 'SECTION_END'
 **Actual PHP behavior:**
 <summary of what PHP actually does across versions>
 
+### Workaround (false positives only, if found in Step 7)
+**Modified code:**
+```php
+<the workaround PHP code>
+```
+
+**Playground (no errors):** [phpstan.org/r/<id>](https://phpstan.org/r/<id>)
+**Runtime equivalence:** [3v4l.org/<id>](https://3v4l.org/<id>)
+
 ### Proposed Response
 
 <the draft response text>
@@ -259,6 +352,6 @@ SECTION_END
 - Technically precise, under 500 words
 - Use backticks for all code references, identifiers, and type names
 - **For user errors**: Explain why PHPStan is correct. Show the runtime behavior via 3v4l.org link. Suggest the correct code fix.
-- **For false positives**: Acknowledge the issue. Explain what PHPStan gets wrong. Suggest a workaround (code rewrite or PHPDoc annotation) the user can use until it's fixed.
+- **For false positives**: Acknowledge the issue. Explain what PHPStan gets wrong. If a workaround was found in Step 7, include the modified code and link to the playground showing it passes. If no workaround was found, suggest general approaches (PHPDoc annotations, code restructuring) the user can try until the issue is fixed.
 - **For feature requests**: Only respond if the request is actionable and valuable. If it duplicates an existing feature, point to documentation.
 - **For annotation issues**: Provide the specific annotation with a complete code example. Link to relevant PHPStan documentation.
