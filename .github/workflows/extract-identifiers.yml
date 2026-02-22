@@ -69,7 +69,9 @@ jobs:
 
       - name: "Extract"
         working-directory: "identifier-extractor/repo"
-        run: ../../phpstan analyse -c ../extractor.neon -a ../vendor/autoload.php | tee ../${{ steps.repo-name.outputs.name }}.json
+        run: |
+          set -o pipefail
+          ../../phpstan analyse -c ../extractor.neon -a ../vendor/autoload.php | tee ../${{ steps.repo-name.outputs.name }}.json
         env:
           REPO: ${{ matrix.repository }}
           BRANCH: ${{ steps.branch-name.outputs.name }}
