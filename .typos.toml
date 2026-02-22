@@ -15,4 +15,5 @@ extend-ignore-re = [
 symplify = "symplify"
 Namme = "Namme"
 pararm = "pararm"
+aray = "aray"
 SELCT = "SELCT"
