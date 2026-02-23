@@ -90,6 +90,8 @@ Related config keys: [`ignoreErrors`](/user-guide/ignoring-errors#ignoring-in-co
 
 ### `reportIgnoresWithoutComments`
 
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.1.41</div>
+
 **default**: `false`
 
 When set to `true`, PHPStan reports `@phpstan-ignore` identifiers that don't have an accompanying comment in parentheses explaining why the error is being ignored.
