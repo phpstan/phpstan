@@ -105,7 +105,7 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          github_token: ${{ secrets.PHPSTAN_BOT_COMMENT_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }} # ${{ secrets.PHPSTAN_BOT_COMMENT_TOKEN }}
           display_report: false
           allowed_non_write_users: '*'
           prompt: |
