@@ -85,23 +85,7 @@ Ignoring errors
 Learn more about ignoring errors in the [user guide](/user-guide/ignoring-errors).
 
 Related config keys: [`ignoreErrors`](/user-guide/ignoring-errors#ignoring-in-configuration-file),
-[`reportUnmatchedIgnoredErrors`](/user-guide/ignoring-errors#reporting-unused-ignores),
-[`reportIgnoresWithoutComments`](#reportignoreswithoutcomments).
-
-### `reportIgnoresWithoutComments`
-
-**default**: `false`
-
-When set to `true`, PHPStan reports `@phpstan-ignore` identifiers that don't have an accompanying comment in parentheses explaining why the error is being ignored.
-
-```php
-echo $foo; // @phpstan-ignore variable.undefined — reported, no comment
-echo $foo; // @phpstan-ignore variable.undefined (not available at this point) — OK
-
-// Multiple identifiers: each one needs its own comment
-echo $foo; // @phpstan-ignore variable.undefined, wrong.id — both reported
-echo $foo; // @phpstan-ignore variable.undefined (reason), wrong.id (reason) — OK
-```
+[`reportUnmatchedIgnoredErrors`](/user-guide/ignoring-errors#reporting-unused-ignores).
 
 Discovering symbols
 ------------------
