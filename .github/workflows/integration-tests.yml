@@ -169,6 +169,11 @@ jobs:
           php-version: "${{ matrix.php-version }}"
           ini-file: development
 
+      - name: "Install Node"
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
       - uses: "ramsey/composer-install@v3"
 
       - name: "Download phpstan.phar"
@@ -419,6 +424,15 @@ jobs:
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../drupal.neon
             baseline-file: drupal-baseline.neon
+          - php-version: 8.5
+            repo: WordPress/wordpress-develop
+            ref: 7924b71d7a2392a1ff27e09cdea6d4be809a4a34
+            setup: |
+              composer install
+              npm ci --ignore-scripts
+              npm run build:dev
+            phpstan-command: ../../../phpstan.phar analyse -c ../wordpress.neon --memory-limit=2G
+            baseline-file: wordpress-baseline.neon
           - php-version: 8.4
             repo: briannesbitt/Carbon
             ref: 3.11.0
