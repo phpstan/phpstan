@@ -10,12 +10,6 @@ on:
   pull_request_review_comment:
     types: [created]
 
-permissions:
-  contents: write
-  pull-requests: write
-  issues: write
-  actions: read
-
 concurrency:
   group: claude-pr-reactions-${{ github.event.pull_request.number || github.event.issue.number }}
   cancel-in-progress: false
