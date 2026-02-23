@@ -108,6 +108,7 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }} # ${{ secrets.PHPSTAN_BOT_COMMENT_TOKEN }}
           display_report: false
           allowed_non_write_users: '*'
+          allowed_tools: 'Read,Glob,Grep,"Bash(gh issue view *)","Bash(curl *https://api.phpstan.org/*)","Bash(curl *https://3v4l.org/*)","Bash(cat *)","Bash(echo *)","WebFetch(https://phpstan.org/*)"'
           prompt: |
             You are a technical analyst for PHPStan, a PHP static analysis tool. Your job is to analyse issue #${{ matrix.issue }} in the phpstan/phpstan repository, investigate the reported behavior, and generate a draft response in `$GITHUB_STEP_SUMMARY`.
 
