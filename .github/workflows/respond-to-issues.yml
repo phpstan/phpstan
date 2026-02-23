@@ -107,6 +107,7 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           github_token: ${{ secrets.PHPSTAN_BOT_COMMENT_TOKEN }}
           display_report: false
+          allowed_non_write_users: '*'
           prompt: |
             You are a technical analyst for PHPStan, a PHP static analysis tool. Your job is to analyse issue #${{ matrix.issue }} in the phpstan/phpstan repository, investigate the reported behavior, and generate a draft response in `$GITHUB_STEP_SUMMARY`.
 
