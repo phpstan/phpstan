@@ -108,7 +108,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }} # ${{ secrets.PHPSTAN_BOT_COMMENT_TOKEN }}
           display_report: false
           allowed_non_write_users: '*'
-          allowed_tools: 'Read,Glob,Grep,"Bash(gh issue view *)","Bash(curl *https://api.phpstan.org/*)","Bash(curl *https://3v4l.org/*)","Bash(cat *)","Bash(echo *)","WebFetch(https://phpstan.org/*)"'
           prompt: |
             You are a technical analyst for PHPStan, a PHP static analysis tool. Your job is to analyse issue #${{ matrix.issue }} in the phpstan/phpstan repository, investigate the reported behavior, and generate a draft response in `$GITHUB_STEP_SUMMARY`.
 
@@ -312,4 +311,4 @@ jobs:
             - **For false positives**: Only post a response if a successful workaround was found in Step 7 (the PHP runtime output is identical and PHPStan no longer reports the error in question). Include the modified code and link to the playground showing it passes. If no workaround was found, do not post a comment at all.
             - **For feature requests**: Do not respond. Ever.
             - **For annotation issues**: Always post a response. The user needs to change their code, so the issue can be closed. Provide the specific annotation with a complete code example. Link to relevant PHPStan documentation.
-          claude_args: "--model claude-opus-4-6"
+          claude_args: '--model claude-opus-4-6 --allowedTools Read,Glob,Grep,"Bash(gh issue view *)","Bash(curl *https://api.phpstan.org/*)","Bash(curl *https://3v4l.org/*)","Bash(cat *)","Bash(echo *)","WebFetch(https://phpstan.org/*)"'
