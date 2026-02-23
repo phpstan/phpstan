@@ -61,6 +61,12 @@ parameters:
 			path: repo/src/Core/Content/Media/Commands/DeleteNotUsedMediaCommand.php
 
 		-
+			rawMessage: PHPDoc tag @var with type array<array<string>> is not subtype of native type non-empty-array<mixed>.
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/src/Core/Content/Media/Commands/GenerateThumbnailsCommand.php
+
+		-
 			rawMessage: 'Call to an undefined method object::assign().'
 			identifier: method.notFound
 			count: 1
@@ -79,7 +85,7 @@ parameters:
 			path: repo/src/Core/Content/Product/PropertyGroupSorter.php
 
 		-
-			rawMessage: 'Method Shopware\Core\Framework\Adapter\Asset\FallbackUrlPackage::applyFallback() should return list<string> but returns array<int<0, max>, bool|float|int|string|null>.'
+			rawMessage: 'Method Shopware\Core\Framework\Adapter\Asset\FallbackUrlPackage::applyFallback() should return list<string> but returns list<bool|float|int|string|null>.'
 			identifier: return.type
 			count: 1
 			path: repo/src/Core/Framework/Adapter/Asset/FallbackUrlPackage.php
@@ -119,6 +125,18 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Framework/Api/Response/ResponseFactoryInterfaceValueResolver.php
+
+		-
+			rawMessage: Offset 'command' on *NEVER* on left side of ?? always exists and is not nullable.
+			identifier: nullCoalesce.offset
+			count: 1
+			path: repo/src/Core/Framework/App/Checkout/Gateway/AppCheckoutGateway.php
+
+		-
+			rawMessage: Offset 'command' on *NEVER* on left side of ?? always exists and is not nullable.
+			identifier: nullCoalesce.offset
+			count: 1
+			path: repo/src/Core/Framework/App/Context/Gateway/AppContextGateway.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\DataAbstractionLayer\Dbal\JoinGroupBuilder::getDuplicates() should return array<string> but returns list<int|string>.'
@@ -673,30 +691,6 @@ parameters:
 			path: repo/src/Core/System/SalesChannel/Context/SalesChannelContextValueResolver.php
 
 		-
-			rawMessage: 'Offset ''language'' might not exist on array{0?: string, domain?: non-empty-string|null, 1?: non-empty-string|null, locale?: non-falsy-string|null, 2?: non-falsy-string|null, language?: non-falsy-string|null, 3?: non-falsy-string|null, script?: non-falsy-string|null, ...}.'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: repo/src/Core/System/Snippet/Command/Util/CountryAgnosticFileLinter.php
-
-		-
-			rawMessage: 'Offset ''locale'' might not exist on array{0?: string, domain?: non-empty-string|null, 1?: non-empty-string|null, locale?: non-falsy-string|null, 2?: non-falsy-string|null, language?: non-falsy-string|null, 3?: non-falsy-string|null, script?: non-falsy-string|null, ...}.'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: repo/src/Core/System/Snippet/Command/Util/CountryAgnosticFileLinter.php
-
-		-
-			rawMessage: 'Parameter #3 $subject of function str_replace expects array<string>|string, string|null given.'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Core/System/Snippet/Command/Util/CountryAgnosticFileLinter.php
-
-		-
-			rawMessage: 'Parameter #5 $language of class Shopware\Core\System\Snippet\Struct\TranslationFile constructor expects string, string|null given.'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Core/System/Snippet/Command/Util/CountryAgnosticFileLinter.php
-
-		-
 			rawMessage: 'Method Shopware\Storefront\Theme\Exception\ThemeConfigException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -862,12 +856,6 @@ parameters:
 			rawMessage: 'Parameter #2 $expected of method Shopware\Tests\Integration\Core\Content\Product\Subscriber\ProductLoadedSubscriberTest::testOptionSorting() expects array<string, string>, array<int, array<string, string>> given.'
 			identifier: argument.type
 			count: 2
-			path: repo/tests/integration/Core/Content/Product/Subscriber/ProductLoadedSubscriberTest.php
-
-		-
-			rawMessage: 'Parameter #4 $languageIdChain of class Shopware\Core\Framework\Context constructor expects non-empty-list<string>, non-empty-array<int<0, max>, string> given.'
-			identifier: argument.type
-			count: 1
 			path: repo/tests/integration/Core/Content/Product/Subscriber/ProductLoadedSubscriberTest.php
 
 		-
