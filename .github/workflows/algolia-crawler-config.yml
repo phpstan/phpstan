@@ -8,13 +8,21 @@ on:
       - '.github/workflows/algolia-crawler-config.json'
       - '.github/workflows/algolia-crawler-config.yml'
 
+permissions:
+  contents: read
+
 jobs:
   update-config:
     name: "Update Algolia Crawler Config"
     runs-on: "ubuntu-latest"
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       - name: "Update Crawler Config"
         run: |
