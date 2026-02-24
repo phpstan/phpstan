@@ -18,9 +18,14 @@ jobs:
       eligible: ${{ steps.check.outputs.eligible }}
       issues: ${{ steps.check.outputs.issues }}
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - name: "Check eligibility"
         id: check
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b # v7.1.0
         with:
           script: |
             const SKIP_AUTHORS = ['ondrejmirtes', 'staabm', 'VincentLanglet'];
@@ -96,13 +101,18 @@ jobs:
         issue: ${{ fromJson(needs.check-eligibility.outputs.issues) }}
       fail-fast: false
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           ref: 2.2.x
 
       - name: "Analyse with Claude"
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@35a9e0292d36f1186f5d842b14eb575074e8b450 # v1.0.57
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           display_report: false

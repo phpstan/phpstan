@@ -18,8 +18,13 @@ jobs:
     runs-on: "ubuntu-latest"
 
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - name: "Check for broken links"
-        uses: ScholliYT/Broken-Links-Crawler-Action@v3
+        uses: ScholliYT/Broken-Links-Crawler-Action@21eab52f98097989d343116dbbd46dc4541b849b # v3.3.2
         with:
           website_url: 'https://phpstan.org/'
           resolve_before_filtering: 'true'

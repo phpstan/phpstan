@@ -16,6 +16,9 @@ concurrency:
   group: extract-identifiers-${{ github.ref }} # will be canceled on subsequent pushes
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   extract:
     name: "Extract identifiers"
@@ -38,23 +41,28 @@ jobs:
           - "phpstan/phpstan-mockery"
 
     steps:
-      - name: "Checkout"
-        uses: actions/checkout@v4
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
 
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: "Checkout"
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           repository: ${{ matrix.repository }}
           path: "identifier-extractor/repo"
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
+        uses: "shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1" # v2
         with:
           coverage: "none"
           php-version: "8.1"
 
       - name: "Install Extractor dependencies"
-        uses: "ramsey/composer-install@v3"
+        uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
         with:
           working-directory: "identifier-extractor"
 
@@ -76,35 +84,42 @@ jobs:
           REPO: ${{ matrix.repository }}
           BRANCH: ${{ steps.branch-name.outputs.name }}
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: identifiers-${{ steps.repo-name.outputs.name }}
           path: identifier-extractor/${{ steps.repo-name.outputs.name }}.json
 
   merge:
+    permissions:
+      contents: write  # for stefanzweifel/git-auto-commit-action to push code in repo
     name: "Merge and commit identifiers"
     needs: extract
 
     runs-on: "ubuntu-latest"
 
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
+        uses: "shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1" # v2
         with:
           coverage: "none"
           php-version: "8.1"
 
       - name: "Install Extractor dependencies"
-        uses: "ramsey/composer-install@v3"
+        uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
         with:
           working-directory: "identifier-extractor"
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           pattern: identifiers-*
           path: identifier-extractor/tmp
@@ -114,7 +129,7 @@ jobs:
         run: "php merge.php > ../website/src/errorsIdentifiers.json"
 
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v6
+        uses: crazy-max/ghaction-import-gpg@e89d40939c28e39f97cf32126055eeae86ba74ec # v6.3.0
         with:
           gpg_private_key: ${{ secrets.GPG_PHPSTANBOT_PRIVATE_KEY }}
           passphrase: ${{ secrets.GPG_PHPSTANBOT_KEY_PASSPHRASE }}
@@ -123,7 +138,7 @@ jobs:
           git_commit_gpgsign: true
 
       - name: "Commit changes"
-        uses: "stefanzweifel/git-auto-commit-action@v5"
+        uses: "stefanzweifel/git-auto-commit-action@b863ae1933cb653a53c021fe36dbb774e1fb9403" # v5.2.0
         id: "commit"
         with:
           commit_message: "Update errors identifiers"

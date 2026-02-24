@@ -20,6 +20,9 @@ on:
       - '.phar-checksum'
       - 'bootstrap.php'
 
+permissions:
+  contents: read
+
 jobs:
   tests:
     name: "Tests"
@@ -40,18 +43,23 @@ jobs:
         operating-system: [ubuntu-latest, windows-latest]
 
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
+        uses: "shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1" # v2
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
           ini-file: development
           extensions: mbstring
 
-      - uses: "ramsey/composer-install@v3"
+      - uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
 
       - name: "Tests"
         run: |

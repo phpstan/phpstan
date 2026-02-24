@@ -6,11 +6,21 @@ on:
 
 concurrency: lock_issues
 
+permissions:
+  contents: read
+
 jobs:
   lock:
+    permissions:
+      issues: write  # for dessant/lock-threads to lock issues
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/lock-threads@v5
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
+      - uses: dessant/lock-threads@1bf7ec25051fe7c00bdd17e6a7cf3d7bfb7dc771 # v5.0.1
         with:
           github-token: ${{ github.token }}
           issue-inactive-days: '31'
