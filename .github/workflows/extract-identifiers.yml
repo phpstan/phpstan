@@ -68,12 +68,12 @@ jobs:
 
       - name: "Repository name"
         id: repo-name
-        run: echo "name=$(basename "${{ matrix.repository }}")" >> $GITHUB_OUTPUT
+        run: echo "name=$(basename "${{ matrix.repository }}")" >> "$GITHUB_OUTPUT"
 
       - name: "Branch name"
         id: branch-name
         working-directory: "identifier-extractor/repo"
-        run: echo "name=$(git branch --show)" >> $GITHUB_OUTPUT
+        run: echo "name=$(git branch --show)" >> "$GITHUB_OUTPUT"
 
       - name: "Extract"
         working-directory: "identifier-extractor/repo"

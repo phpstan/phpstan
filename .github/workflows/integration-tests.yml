@@ -37,11 +37,11 @@ jobs:
       - name: "Check PHAR checksum"
         id: checksum-difference
         run: |
-          checksum=${{ inputs.phar-checksum }}
+          checksum="${{ inputs.phar-checksum }}"
           if [[ $(head -n 1 .phar-checksum) != "$checksum" ]]; then
-            echo "result=different" >> $GITHUB_OUTPUT
+            echo "result=different" >> "$GITHUB_OUTPUT"
           else
-            echo "result=same" >> $GITHUB_OUTPUT
+            echo "result=same" >> "$GITHUB_OUTPUT"
           fi
 
   integration-tests:
