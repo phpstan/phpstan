@@ -42,10 +42,10 @@ jobs:
       - name: "Construct template"
         id: template
         run: |
-          echo "text<<MESSAGE" >> $GITHUB_OUTPUT
-          echo '<li><a href="https://github.com/{{{ login }}}">{{{ name }}} ({{{ login }}})</a></li>' >> $GITHUB_OUTPUT
-          echo "" >> $GITHUB_OUTPUT
-          echo 'MESSAGE' >> $GITHUB_OUTPUT
+          echo "text<<MESSAGE" >> "$GITHUB_OUTPUT"
+          echo '<li><a href="https://github.com/{{{ login }}}">{{{ name }}} ({{{ login }}})</a></li>' >> "$GITHUB_OUTPUT"
+          echo "" >> "$GITHUB_OUTPUT"
+          echo 'MESSAGE' >> "$GITHUB_OUTPUT"
 
       - name: Generate Sponsors
         uses: ondrejmirtes/github-sponsors-readme-action@9fd59795af9477235df8f234f962ef3dd854592f # v1.2.2.3

@@ -40,4 +40,4 @@ jobs:
             phpstan.phar.asc
 
       - name: "Print release URL"
-        run: echo "${{ steps.release.outputs.url }}" >> $GITHUB_STEP_SUMMARY
+        run: echo "${{ steps.release.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
