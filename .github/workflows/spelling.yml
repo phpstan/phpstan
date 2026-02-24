@@ -8,16 +8,24 @@ on:
     branches:
       - "2.1.x"
 
+permissions:
+  contents: read
+
 jobs:
   typos:
     name: "Check for typos"
     runs-on: "ubuntu-latest"
 
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       - name: "Check for typos"
-        uses: "crate-ci/typos@v1"
+        uses: "crate-ci/typos@57b11c6b7e54c402ccd9cda953f1072ec4f78e33" # v1.43.5
         with:
           files: "README.md website/"

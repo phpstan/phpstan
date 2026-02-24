@@ -14,6 +14,9 @@ on:
       - 'identifier-extractor/**'
       - '.github/workflows/build-identifier-extractor.yml'
 
+permissions:
+  contents: read
+
 jobs:
   build-identifier-extractor:
     name: "Build Identifier Extractor"
@@ -22,17 +25,22 @@ jobs:
     timeout-minutes: 60
 
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
+        uses: "shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1" # v2
         with:
           coverage: "none"
           php-version: "8.1"
 
       - name: "Install Extractor dependencies"
-        uses: "ramsey/composer-install@v3"
+        uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
         with:
           working-directory: "identifier-extractor"
 

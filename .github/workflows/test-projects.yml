@@ -12,6 +12,9 @@ on:
       - '.phar-checksum'
       - 'bootstrap.php'
 
+permissions:
+  contents: read
+
 jobs:
   test-projects:
     name: "Test projects"
@@ -26,7 +29,12 @@ jobs:
           - "packagist/private-packagist"
 
     steps:
-      - uses: peter-evans/repository-dispatch@v3
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
+      - uses: peter-evans/repository-dispatch@ff45666b9427631e3450c54a1bcbee4d9ff4d7c0 # v3.0.0
         with:
           token: ${{ secrets.REPO_ACCESS_TOKEN }}
           repository: "${{ matrix.repository }}"

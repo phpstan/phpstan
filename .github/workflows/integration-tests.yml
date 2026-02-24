@@ -24,8 +24,13 @@ jobs:
     outputs:
       checksum-result: ${{ steps.checksum-difference.outputs.result }}
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
@@ -156,25 +161,35 @@ jobs:
               vendor/bin/phpunit
 
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
+        uses: "shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1" # v2
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
           ini-file: development
 
-      - uses: "ramsey/composer-install@v3"
+      - name: "Install Node"
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "20"
+
+      - uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
 
       - name: "Download phpstan.phar"
-        uses: Wandalen/wretry.action@v3.8.0
+        uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea # v3.8.0
         with:
-          action: actions/download-artifact@v4
+          action: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
           with: |
             name: phar-file
           attempt_limit: 5
@@ -477,32 +492,37 @@ jobs:
             baseline-file: phpcs-baseline.neon
 
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@v2"
+        uses: "shivammathur/setup-php@44454db4f0199b8b9685a5d763dc37cbf79108e1" # v2
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
           ini-file: development
 
-      - uses: "ramsey/composer-install@v3"
+      - uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
 
       - name: "Download phpstan.phar"
-        uses: Wandalen/wretry.action@v3.8.0
+        uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea # v3.8.0
         with:
-          action: actions/download-artifact@v4
+          action: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
           with: |
             name: phar-file
           attempt_limit: 5
           attempt_delay: 1000
 
       - name: "Checkout project"
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           repository: "${{ matrix.repo }}"
           ref: "${{ matrix.ref }}"
@@ -523,7 +543,7 @@ jobs:
         working-directory: ${{ matrix.phpstan-cwd || 'e2e/integration/repo' }}
         run: "${{ matrix.phpstan-command }} -b ../${{ matrix.baseline-file }}"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: ${{ failure() }}
         with:
           name: baselines-${{ matrix.baseline-file }}
@@ -536,15 +556,20 @@ jobs:
     if: "failure() && github.repository_owner == 'phpstan' && inputs.ref == 'refs/heads/2.1.x'"
 
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
           token: ${{ secrets.phpstan-bot-token }}
 
       - name: "Download baselines"
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           pattern: baselines-*
           merge-multiple: true
@@ -552,7 +577,7 @@ jobs:
 
       - name: "Create Pull Request"
         id: create-pr
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6.1.0
         with:
           token: ${{ secrets.phpstan-bot-token }}
           branch: "create-pull-request/baselines-2.1.x"
@@ -571,39 +596,44 @@ jobs:
     if: "needs.check-phar-checksum.outputs.checksum-result == 'different'"
 
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
       - name: "Checkout"
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
 
       - name: Setup PHP
-        uses: pmmp/setup-php-action@3.2.0
+        uses: pmmp/setup-php-action@3c38c259834f945351a662392836d90eb08abff0 # 3.2.0
         with:
           php-version: 8.4
           install-path: "./bin"
           pm-version-major: "5"
 
-      - uses: "ramsey/composer-install@v3"
+      - uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
 
       - name: "Download phpstan.phar"
-        uses: Wandalen/wretry.action@v3.8.0
+        uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea # v3.8.0
         with:
-          action: actions/download-artifact@v4
+          action: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
           with: |
             name: phar-file
           attempt_limit: 5
           attempt_delay: 1000
 
       - name: "Checkout PMMP"
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
           repository: "pmmp/PocketMine-MP"
           ref: 5.37.3
           path: e2e/integration/repo
 
       - name: "Install dependencies"
-        uses: "ramsey/composer-install@v3"
+        uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
         with:
           working-directory: "e2e/integration/repo"
 
@@ -616,7 +646,7 @@ jobs:
         working-directory: "e2e/integration/repo"
         run: ../../../phpstan.phar analyse -c ../pocketmine-ng.neon --memory-limit=2G -b ../pocketmine-ng-baseline.neon
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: ${{ failure() }}
         with:
           name: pocketmine-ng-baseline.neon
