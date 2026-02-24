@@ -789,7 +789,7 @@ These variables can be changed in the configuration. Here are the defaults:
 parameters:
 	parallel:
 		jobSize: 20
-		maximumNumberOfProcesses: 32
+		maximumNumberOfProcesses: 8
 		minimumNumberOfJobsPerProcess: 2
 ```
 
