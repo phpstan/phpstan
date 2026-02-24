@@ -5,10 +5,6 @@ on:
     types: [opened]
   workflow_dispatch:
 
-permissions:
-  contents: read
-  issues: write
-
 concurrency:
   group: respond-to-issues-${{ github.event.issue.number || 'batch' }}
   cancel-in-progress: false
@@ -91,6 +87,10 @@ jobs:
     if: needs.check-eligibility.outputs.eligible == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: read
+      issues: write
+      id-token: write
     strategy:
       matrix:
         issue: ${{ fromJson(needs.check-eligibility.outputs.issues) }}
@@ -105,7 +105,6 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          github_token: ${{ secrets.GITHUB_TOKEN }} # ${{ secrets.PHPSTAN_BOT_COMMENT_TOKEN }}
           display_report: false
           allowed_non_write_users: '*'
           prompt: |
