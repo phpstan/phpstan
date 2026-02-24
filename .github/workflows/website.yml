@@ -76,7 +76,7 @@ jobs:
 
       - name: "Put release into release.txt"
         working-directory: ./website
-        run: echo -n $(git rev-parse --short HEAD) > src/release.txt
+        run: echo -n "$(git rev-parse --short HEAD)" > src/release.txt
 
       - name: "Build"
         working-directory: ./website
@@ -230,7 +230,7 @@ jobs:
 
       - name: Set outputs
         id: vars
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+        run: echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
 
       - name: Create Sentry release
         uses: getsentry/action-release@a74facf8a080ecbdf1cb355f16743530d712abb7 # v1.11.0
