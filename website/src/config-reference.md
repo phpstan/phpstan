@@ -13,7 +13,7 @@ This page is about all the configuration options PHPStan has. If you want to lea
 NEON format
 ----------------------
 
-PHPStan uses configuration format called [NEON](https://ne-on.org/). It's very similar to YAML so if you're familiar with it, you can also write NEON.
+PHPStan uses configuration format called [NEON](https://neon.nette.org/). It's very similar to YAML so if you're familiar with it, you can also write NEON.
 
 This is how a possible example of a config file can look like:
 
