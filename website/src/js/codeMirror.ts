@@ -28,7 +28,9 @@ ko.bindingHandlers.codeMirror = {
 			extensions: [
 				lineNumbers(),
 				// highlightActiveLineGutter(),
-				highlightSpecialChars(),
+				highlightSpecialChars({
+					addSpecialChars: /[\u0000-\u0008\u000b-\u001f\u007f-\u009f\u00a0\u00ad\u061c\u2000-\u200f\u2028\u2029\u2060\u2066-\u2069\ufeff\ufff9-\ufffc]/g
+				}),
 				history(),
 				// foldGutter(),
 				drawSelection(),
