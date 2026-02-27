@@ -1,0 +1,22 @@
+name: "Claude Easy Fix on Milestone"
+
+on:
+  issues:
+    types: [milestoned]
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
+      - name: Trigger Claude Random Easy Fixes
+        env:
+          GH_TOKEN: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+        run: gh workflow run claude-fix-issue.yml -f issue-number=${{ github.event.issue.number }} --repo phpstan-bot/phpstan-src
