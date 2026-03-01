@@ -5390,14 +5390,14 @@
     "doWhile.alwaysFalse": {
         "PHPStan\\Rules\\Comparison\\DoWhileLoopConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Comparison/DoWhileLoopConstantConditionRule.php#L88"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Comparison/DoWhileLoopConstantConditionRule.php#L91"
             ]
         }
     },
     "doWhile.alwaysTrue": {
         "PHPStan\\Rules\\Comparison\\DoWhileLoopConstantConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Comparison/DoWhileLoopConstantConditionRule.php#L88"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Comparison/DoWhileLoopConstantConditionRule.php#L91"
             ]
         }
     },
@@ -16867,7 +16867,7 @@
     "while.alwaysTrue": {
         "PHPStan\\Rules\\Comparison\\WhileLoopAlwaysTrueConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Comparison/WhileLoopAlwaysTrueConditionRule.php#L95"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Comparison/WhileLoopAlwaysTrueConditionRule.php#L99"
             ]
         }
     },
