@@ -89,7 +89,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/lcobucci">Luís Cobucci (lcobucci)</a></li>
 <li><a href="https://github.com/complexgmbh">Complex GmbH & Co. KG (complexgmbh)</a></li>
 <li><a href="https://github.com/tenkoma">Koji Tanaka (tenkoma)</a></li>
-<li><a href="https://github.com/MidnightDesign">Rudolph Gottesheim (MidnightDesign)</a></li>
 <li><a href="https://github.com/afilina">Anna Filina (afilina)</a></li>
 <li><a href="https://github.com/einenlum">Yann Rabiller (einenlum)</a></li>
 <li><a href="https://github.com/nikophil">Nicolas PHILIPPE (nikophil)</a></li>
