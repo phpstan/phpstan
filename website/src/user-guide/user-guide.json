@@ -15,58 +15,73 @@
             "link": "/developing-extensions/extension-types"
         }
     ],
-    "sidebarItems": [
+    "sidebarGroups": [
         {
-            "title": "Getting Started",
-            "link": "/user-guide/getting-started"
+            "label": "Setup",
+            "items": [
+                {
+                    "title": "Getting Started",
+                    "link": "/user-guide/getting-started"
+                },
+                {
+                    "title": "Command Line Usage",
+                    "link": "/user-guide/command-line-usage"
+                },
+                {
+                    "title": "Rule Levels",
+                    "link": "/user-guide/rule-levels"
+                }
+            ]
         },
         {
-            "title": "Command Line Usage",
-            "link": "/user-guide/command-line-usage"
+            "label": "Handling Errors",
+            "items": [
+                {
+                    "title": "Ignoring Errors",
+                    "link": "/user-guide/ignoring-errors"
+                },
+                {
+                    "title": "Error Identifiers",
+                    "link": "/error-identifiers"
+                },
+                {
+                    "title": "The Baseline",
+                    "link": "/user-guide/baseline"
+                },
+                {
+                    "title": "Output Format",
+                    "link": "/user-guide/output-format"
+                }
+            ]
         },
         {
-            "title": "Rule Levels",
-            "link": "/user-guide/rule-levels"
-        },
-        {
-            "title": "The Baseline",
-            "link": "/user-guide/baseline"
-        },
-        {
-            "title": "Discovering Symbols",
-            "link": "/user-guide/discovering-symbols"
-        },
-        {
-            "title": "Output Format",
-            "link": "/user-guide/output-format"
-        },
-        {
-            "title": "Ignoring Errors",
-            "link": "/user-guide/ignoring-errors"
-        },
-        {
-            "title": "Error Identifiers",
-            "link": "/error-identifiers"
-        },
-        {
-            "title": "Stub Files",
-            "link": "/user-guide/stub-files"
-        },
-        {
-            "title": "Troubleshooting Types",
-            "link": "/user-guide/troubleshooting-types"
-        },
-        {
-            "title": "Result Cache",
-            "link": "/user-guide/result-cache"
-        },
-        {
-            "title": "Extension Library",
-            "link": "/user-guide/extension-library"
-        },
-		{
-			"title": "Backward Compatibility Promise",
-			"link": "/user-guide/backward-compatibility-promise"
-		}
+            "label": "Advanced",
+            "items": [
+                {
+                    "title": "Discovering Symbols",
+                    "link": "/user-guide/discovering-symbols"
+                },
+                {
+                    "title": "Stub Files",
+                    "link": "/user-guide/stub-files"
+                },
+                {
+                    "title": "Troubleshooting Types",
+                    "link": "/user-guide/troubleshooting-types"
+                },
+                {
+                    "title": "Result Cache",
+                    "link": "/user-guide/result-cache"
+                },
+                {
+                    "title": "Extension Library",
+                    "link": "/user-guide/extension-library"
+                },
+                {
+                    "title": "Backward Compatibility Promise",
+                    "link": "/user-guide/backward-compatibility-promise"
+                }
+            ]
+        }
     ]
 }
