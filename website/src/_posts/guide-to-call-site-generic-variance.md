@@ -61,6 +61,8 @@ But that is a lot of work and can quickly get tedious. Call-site variance is a w
 
 ## Call-site variance
 
+This feature was inspired by Kotlin's [type projections](https://kotlinlang.org/docs/generics.html#type-projections) and contributed to PHPStan by a community member who worked with Kotlin and explained to me how it could be applied to PHP.
+
 As the name suggests, call-site variance (or type projections, if you prefer fancier words) moves the variance annotation from the declaration to the call site. This means that the declaration of the interface can remain invariant, and therefore contain both `get` and `add` methods:
 
 ```php

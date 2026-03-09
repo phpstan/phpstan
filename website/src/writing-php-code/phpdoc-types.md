@@ -170,7 +170,19 @@ A narrower `@return $this` instead of `@return static` can also be used, and PHP
 Generics
 -------------------------
 
-[Generics »](/blog/generics-in-php-using-phpdocs), [Generics By Examples »](/blog/generics-by-examples)
+When a class or function is [generic](/blog/generics-in-php-using-phpdocs), you specify its type arguments in angle brackets: `Collection<int>`, `Map<string, User>`. These types flow through the analysis and PHPStan verifies they are used consistently.
+
+Generic type syntax:
+
+* `Collection<Type>` — a generic class with a single type argument
+* `Map<string, Type>` — a generic class with multiple type arguments
+* `Collection<covariant Type>` — [call-site covariance](/blog/guide-to-call-site-generic-variance) (accepts subtypes)
+* `Collection<contravariant Type>` — call-site contravariance (accepts supertypes)
+* `Collection<*>` — [star projection](/blog/guide-to-call-site-generic-variance#star-projections) (any type argument, both read and write restricted)
+
+Many built-in PHP classes like `ArrayIterator`, `SplObjectStorage`, `ReflectionClass`, `WeakMap`, and others are made generic through PHPStan's [stub files](https://github.com/phpstan/phpstan-src/tree/2.x/stubs). For example, `ReflectionClass<Foo>` knows it reflects the `Foo` class and `ReflectionClass::newInstance()` returns `Foo`.
+
+See also [Generics By Examples »](/blog/generics-by-examples).
 
 Conditional return types
 -------------------------

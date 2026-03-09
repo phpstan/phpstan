@@ -286,7 +286,86 @@ function foo($arg, ...$additional)
 Generics
 ---------------
 
-PHPDoc tags `@template`, `@template-covariant`, `@template-contravariant`, `@extends`, `@implements`, and `@use` are reserved for generics. Learn more about [generics »](/blog/generics-in-php-using-phpdocs), [covariance »](/blog/whats-up-with-template-covariant), [contravariance »](https://jiripudil.cz/blog/contravariant-template-types), and [type projections »](/blog/guide-to-call-site-generic-variance). Also check out [Generics By Examples »](/blog/generics-by-examples).
+Generics allow you to write type-safe code that works with different types without losing type information. Learn more about [generics »](/blog/generics-in-php-using-phpdocs) and check out [Generics By Examples »](/blog/generics-by-examples).
+
+### Defining type variables
+
+`@template` defines a type variable (also called a generic parameter) on a class, interface, trait, function, or method:
+
+```php
+/**
+ * @template T
+ */
+class Collection
+{
+}
+
+/**
+ * @template T
+ * @param T $value
+ * @return T
+ */
+function identity(mixed $value): mixed
+{
+	return $value;
+}
+```
+
+You can constrain the type variable with an upper bound using `of`:
+
+```php
+/**
+ * @template T of Animal
+ * @param T $animal
+ * @return T
+ */
+function clone(Animal $animal): Animal { ... }
+```
+
+The template type name must not conflict with an existing class name. If you have a class named `T` in your codebase, use a different name like `TValue` for the template type.
+
+### Variance
+
+`@template-covariant` marks a type variable as [covariant](/blog/whats-up-with-template-covariant), meaning `Collection<Cat>` can be passed where `Collection<Animal>` is expected. The trade-off is that the type variable cannot appear in parameter positions (input):
+
+```php
+/**
+ * @template-covariant T
+ */
+interface ReadonlyCollection
+{
+	/** @return T */
+	public function get(int $index): mixed;
+}
+```
+
+`@template-contravariant` marks a type variable as [contravariant](https://jiripudil.cz/blog/contravariant-template-types), meaning `Comparator<Animal>` can be passed where `Comparator<Cat>` is expected. The type variable cannot appear in return positions (output).
+
+You can also use [call-site variance](/blog/guide-to-call-site-generic-variance) to apply covariance or contravariance at the point of use instead of the declaration, and star projections (`Collection<*>`) when you don't care about the type argument at all.
+
+### Specifying types for parent classes and interfaces
+
+`@extends` specifies template types when extending a generic class, `@implements` when implementing a generic interface, and `@use` when using a generic trait:
+
+```php
+/**
+ * @extends Collection<Dog>
+ * @implements Countable<Dog>
+ */
+class DogShelter extends Collection implements Countable
+{
+}
+
+/**
+ * @template T
+ * @extends Collection<T>
+ */
+class FilteredCollection extends Collection
+{
+}
+```
+
+You must specify all declared type arguments. Omitting them or providing the wrong number results in an error. The type arguments must also respect any upper bounds declared with `of` on the parent's `@template`.
 
 Narrowing types after function call
 ----------------
