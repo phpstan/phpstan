@@ -1,5 +1,6 @@
 ---
 title: "assert.deprecatedEnum"
+shortDescription: "Assertion in @phpstan-assert references a deprecated enum."
 ignorable: true
 ---
 

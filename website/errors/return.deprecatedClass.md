@@ -1,5 +1,6 @@
 ---
 title: "return.deprecatedClass"
+shortDescription: "Return type declaration references a deprecated class."
 ignorable: true
 ---
 

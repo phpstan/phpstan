@@ -1,5 +1,6 @@
 ---
 title: "traitUse.interface"
+shortDescription: "Interface is used in a trait use statement, but only traits are allowed."
 ignorable: true
 ---
 

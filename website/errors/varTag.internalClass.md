@@ -1,5 +1,6 @@
 ---
 title: "varTag.internalClass"
+shortDescription: "@var PHPDoc tag references an internal class from another package."
 ignorable: true
 ---
 

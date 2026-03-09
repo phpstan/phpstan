@@ -1,5 +1,6 @@
 ---
 title: "catch.internalInterface"
+shortDescription: "Catch block references an internal interface from another package."
 ignorable: true
 ---
 

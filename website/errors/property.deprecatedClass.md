@@ -1,5 +1,6 @@
 ---
 title: "property.deprecatedClass"
+shortDescription: "Accessing a property on a deprecated class."
 ignorable: true
 ---
 

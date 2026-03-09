@@ -1,5 +1,6 @@
 ---
 title: "generator.returnType"
+shortDescription: "Generator function has a return type that is not compatible with Generator."
 ignorable: true
 ---
 

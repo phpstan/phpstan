@@ -1,5 +1,6 @@
 ---
 title: "classConstant.nameNotString"
+shortDescription: "Dynamic class constant name expression is not a string."
 ignorable: true
 ---
 

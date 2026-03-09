@@ -1,5 +1,6 @@
 ---
 title: "use.nameInUse"
+shortDescription: "Imported name conflicts with an existing declaration in the same scope."
 ignorable: false
 ---
 

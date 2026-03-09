@@ -1,5 +1,6 @@
 ---
 title: "method.missingOverride"
+shortDescription: "Overriding method is missing the #[Override] attribute."
 ignorable: true
 ---
 

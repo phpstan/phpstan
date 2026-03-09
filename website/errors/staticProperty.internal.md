@@ -1,5 +1,6 @@
 ---
 title: "staticProperty.internal"
+shortDescription: "Accessed static property is marked as internal."
 ignorable: true
 ---
 

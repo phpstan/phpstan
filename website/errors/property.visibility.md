@@ -1,5 +1,6 @@
 ---
 title: "property.visibility"
+shortDescription: "Overriding property reduces the visibility of the parent property."
 ignorable: false
 ---
 

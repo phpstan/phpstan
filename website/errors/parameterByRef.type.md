@@ -1,5 +1,6 @@
 ---
 title: "parameterByRef.type"
+shortDescription: "Value assigned to a by-reference parameter does not match its declared type."
 ignorable: true
 ---
 

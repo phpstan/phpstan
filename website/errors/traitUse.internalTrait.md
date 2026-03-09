@@ -1,5 +1,6 @@
 ---
 title: "traitUse.internalTrait"
+shortDescription: "Trait use statement references an internal trait from another package."
 ignorable: true
 ---
 

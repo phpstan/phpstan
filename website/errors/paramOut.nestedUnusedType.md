@@ -1,5 +1,6 @@
 ---
 title: "paramOut.nestedUnusedType"
+shortDescription: "Declared @param-out type is wider than necessary in a nested type component."
 ignorable: true
 ---
 

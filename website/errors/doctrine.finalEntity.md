@@ -1,5 +1,6 @@
 ---
 title: "doctrine.finalEntity"
+shortDescription: "Doctrine entity class is declared final, which breaks lazy loading proxies."
 ignorable: true
 ---
 

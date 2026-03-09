@@ -1,5 +1,6 @@
 ---
 title: "method.finalPrivate"
+shortDescription: "Private method is marked as final, which has no effect."
 ignorable: true
 ---
 

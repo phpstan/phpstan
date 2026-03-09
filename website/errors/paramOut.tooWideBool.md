@@ -1,5 +1,6 @@
 ---
 title: "paramOut.tooWideBool"
+shortDescription: "Declared @param-out type is bool but only one of true or false is ever assigned."
 ignorable: true
 ---
 

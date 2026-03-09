@@ -1,5 +1,6 @@
 ---
 title: "property.readOnlyNoNativeType"
+shortDescription: "Readonly property is missing a required native type declaration."
 ignorable: true
 ---
 

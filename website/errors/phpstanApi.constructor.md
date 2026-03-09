@@ -1,5 +1,6 @@
 ---
 title: "phpstanApi.constructor"
+shortDescription: "Instantiating a PHPStan class whose constructor is not covered by the BC promise."
 ignorable: true
 ---
 

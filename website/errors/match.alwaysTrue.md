@@ -1,5 +1,6 @@
 ---
 title: "match.alwaysTrue"
+shortDescription: "Match arm condition always matches, making subsequent arms unreachable."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "argument.type"
+shortDescription: "Argument type does not match the expected parameter type."
 ignorable: true
 ---
 

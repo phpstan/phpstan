@@ -1,5 +1,6 @@
 ---
 title: "method.variance"
+shortDescription: "Variance annotation on a method-level template type is not allowed."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.internalInterface"
+shortDescription: "Static method is called on an internal interface from outside its package."
 ignorable: true
 ---
 

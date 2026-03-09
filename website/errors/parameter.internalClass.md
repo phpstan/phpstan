@@ -1,5 +1,6 @@
 ---
 title: "parameter.internalClass"
+shortDescription: "Parameter type declaration uses an internal class from another package."
 ignorable: true
 ---
 

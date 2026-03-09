@@ -1,5 +1,6 @@
 ---
 title: "expr.resultUnused"
+shortDescription: "Expression result is evaluated but never used."
 ignorable: true
 ---
 

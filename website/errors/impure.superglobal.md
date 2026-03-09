@@ -1,5 +1,6 @@
 ---
 title: "impure.superglobal"
+shortDescription: "Pure function accesses a superglobal variable."
 ignorable: true
 ---
 

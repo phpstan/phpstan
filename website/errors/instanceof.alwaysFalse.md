@@ -1,5 +1,6 @@
 ---
 title: "instanceof.alwaysFalse"
+shortDescription: "Instanceof check will always evaluate to false based on the inferred types."
 ignorable: true
 ---
 

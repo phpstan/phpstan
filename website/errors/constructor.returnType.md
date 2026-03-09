@@ -1,5 +1,6 @@
 ---
 title: "constructor.returnType"
+shortDescription: "Constructor declares a return type, which is not allowed."
 ignorable: false
 ---
 

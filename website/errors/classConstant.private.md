@@ -1,5 +1,6 @@
 ---
 title: "classConstant.private"
+shortDescription: "Accessing a private class constant from outside its class."
 ignorable: true
 ---
 

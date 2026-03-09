@@ -1,5 +1,6 @@
 ---
 title: "classConstant.notFound"
+shortDescription: "Accessed class constant does not exist."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "logicalOr.rightAlwaysFalse"
+shortDescription: "Right side of or is always false, making it redundant."
 ignorable: true
 ---
 

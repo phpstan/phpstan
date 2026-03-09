@@ -1,5 +1,6 @@
 ---
 title: "property.final"
+shortDescription: "Final properties require PHP 8.4 or later."
 ignorable: false
 ---
 

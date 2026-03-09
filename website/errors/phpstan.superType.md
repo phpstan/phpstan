@@ -1,5 +1,6 @@
 ---
 title: "phpstan.superType"
+shortDescription: "Test assertion for super type relationship does not match."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "greaterOrEqual.invalid"
+shortDescription: "Greater-than-or-equal comparison between incompatible types."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "enum.nameCase"
+shortDescription: "Enum name is referenced with incorrect letter casing."
 ignorable: true
 ---
 

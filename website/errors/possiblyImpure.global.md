@@ -1,5 +1,6 @@
 ---
 title: "possiblyImpure.global"
+shortDescription: "Pure function possibly accesses mutable global state via the global keyword."
 ignorable: true
 ---
 

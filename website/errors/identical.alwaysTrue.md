@@ -1,5 +1,6 @@
 ---
 title: "identical.alwaysTrue"
+shortDescription: "Strict comparison using === is always true because both sides have the same value."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "closure.useDuplicate"
+shortDescription: "Closure's use clause imports a variable that conflicts with a parameter name."
 ignorable: false
 ---
 

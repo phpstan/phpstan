@@ -1,5 +1,6 @@
 ---
 title: "requireImplements.internalInterface"
+shortDescription: "Tag @phpstan-require-implements references an internal interface."
 ignorable: true
 ---
 

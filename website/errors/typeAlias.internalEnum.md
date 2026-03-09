@@ -1,5 +1,6 @@
 ---
 title: "typeAlias.internalEnum"
+shortDescription: "Type alias references an internal enum from another package."
 ignorable: true
 ---
 

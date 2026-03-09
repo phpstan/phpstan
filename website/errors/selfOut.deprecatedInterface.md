@@ -1,5 +1,6 @@
 ---
 title: "selfOut.deprecatedInterface"
+shortDescription: "Tag @phpstan-self-out references a deprecated interface."
 ignorable: true
 ---
 

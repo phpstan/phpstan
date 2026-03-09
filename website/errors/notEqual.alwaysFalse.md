@@ -1,5 +1,6 @@
 ---
 title: "notEqual.alwaysFalse"
+shortDescription: "Loose comparison using != always evaluates to false."
 ignorable: true
 ---
 

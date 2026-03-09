@@ -1,5 +1,6 @@
 ---
 title: "argument.sscanf"
+shortDescription: "Mismatch between sscanf format placeholders and variable arguments."
 ignorable: true
 ---
 

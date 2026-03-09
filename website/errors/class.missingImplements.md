@@ -1,5 +1,6 @@
 ---
 title: "class.missingImplements"
+shortDescription: "Class does not implement the interface required by @phpstan-require-implements."
 ignorable: true
 ---
 

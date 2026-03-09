@@ -1,5 +1,6 @@
 ---
 title: "return.trait"
+shortDescription: "Return type declaration uses a trait, which is not a valid type."
 ignorable: true
 ---
 

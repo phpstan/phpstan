@@ -1,5 +1,6 @@
 ---
 title: "greater.alwaysTrue"
+shortDescription: "Comparison is always true based on the inferred types."
 ignorable: true
 ---
 

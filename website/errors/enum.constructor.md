@@ -1,5 +1,6 @@
 ---
 title: "enum.constructor"
+shortDescription: "Enum declares a constructor, which is not allowed."
 ignorable: true
 ---
 

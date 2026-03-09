@@ -1,5 +1,6 @@
 ---
 title: "classConstant.protected"
+shortDescription: "Accessing a protected class constant from outside its class hierarchy."
 ignorable: true
 ---
 

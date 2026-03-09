@@ -1,5 +1,6 @@
 ---
 title: "return.unresolvableNativeType"
+shortDescription: "Native return type contains an intersection that cannot be resolved."
 ignorable: false
 ---
 

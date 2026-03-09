@@ -1,5 +1,6 @@
 ---
 title: "property.notFound"
+shortDescription: "Accessing a property that does not exist on the object."
 ignorable: true
 ---
 

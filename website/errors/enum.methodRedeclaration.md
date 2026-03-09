@@ -1,5 +1,6 @@
 ---
 title: "enum.methodRedeclaration"
+shortDescription: "Enum redeclares a built-in method that cannot be overridden."
 ignorable: false
 ---
 

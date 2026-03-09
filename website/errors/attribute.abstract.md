@@ -1,5 +1,6 @@
 ---
 title: "attribute.abstract"
+shortDescription: "Abstract class cannot be used as an attribute."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "requireImplements.class"
+shortDescription: "Tag @phpstan-require-implements references a class instead of an interface."
 ignorable: true
 ---
 

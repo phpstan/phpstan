@@ -1,5 +1,6 @@
 ---
 title: "enum.magicMethod"
+shortDescription: "Enum declares a disallowed magic method."
 ignorable: false
 ---
 

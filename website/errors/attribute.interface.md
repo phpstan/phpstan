@@ -1,5 +1,6 @@
 ---
 title: "attribute.interface"
+shortDescription: "Interface cannot be used as an attribute class."
 ignorable: true
 ---
 

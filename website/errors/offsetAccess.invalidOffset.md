@@ -1,5 +1,6 @@
 ---
 title: "offsetAccess.invalidOffset"
+shortDescription: "Value used as an array key is not a valid array key type."
 ignorable: true
 ---
 

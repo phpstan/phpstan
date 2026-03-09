@@ -1,5 +1,6 @@
 ---
 title: "generics.callSiteVarianceNotAllowed"
+shortDescription: "Call-site variance annotation is not allowed in @extends, @implements, or @use tags."
 ignorable: true
 ---
 

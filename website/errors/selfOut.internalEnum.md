@@ -1,5 +1,6 @@
 ---
 title: "selfOut.internalEnum"
+shortDescription: "Tag @phpstan-self-out references an internal enum from another package."
 ignorable: true
 ---
 

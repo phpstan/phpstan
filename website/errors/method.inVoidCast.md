@@ -1,5 +1,6 @@
 ---
 title: "method.inVoidCast"
+shortDescription: "Unnecessary (void) cast on a method that does not require its result to be used."
 ignorable: true
 ---
 

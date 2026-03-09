@@ -1,5 +1,6 @@
 ---
 title: "booleanOr.leftAlwaysFalse"
+shortDescription: "Left side of || always evaluates to false, making it redundant."
 ignorable: true
 ---
 

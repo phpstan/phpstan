@@ -1,5 +1,6 @@
 ---
 title: "traitUse.internalEnum"
+shortDescription: "Trait use statement references an internal enum from another package."
 ignorable: true
 ---
 

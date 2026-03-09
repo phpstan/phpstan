@@ -1,5 +1,6 @@
 ---
 title: "methodTag.internalInterface"
+shortDescription: "PHPDoc @method tag references an internal interface."
 ignorable: true
 ---
 

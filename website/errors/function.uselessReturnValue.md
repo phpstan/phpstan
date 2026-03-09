@@ -1,5 +1,6 @@
 ---
 title: "function.uselessReturnValue"
+shortDescription: "Return value of a function like print_r() is useless without the return parameter."
 ignorable: true
 ---
 

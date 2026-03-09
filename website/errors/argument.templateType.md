@@ -1,5 +1,6 @@
 ---
 title: "argument.templateType"
+shortDescription: "Template type cannot be resolved from the provided arguments."
 ignorable: true
 ---
 

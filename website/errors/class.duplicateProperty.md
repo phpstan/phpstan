@@ -1,5 +1,6 @@
 ---
 title: "class.duplicateProperty"
+shortDescription: "Property is declared more than once in the same class."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "property.hookWithoutBody"
+shortDescription: "Non-abstract property hook must have a body."
 ignorable: false
 ---
 

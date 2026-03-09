@@ -1,5 +1,6 @@
 ---
 title: "isset.expr"
+shortDescription: "Expression in isset() is never null, making the check redundant."
 ignorable: true
 ---
 

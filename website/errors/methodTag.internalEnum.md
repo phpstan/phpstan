@@ -1,5 +1,6 @@
 ---
 title: "methodTag.internalEnum"
+shortDescription: "PHPDoc @method tag references an internal enum."
 ignorable: true
 ---
 

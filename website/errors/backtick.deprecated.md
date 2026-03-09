@@ -1,5 +1,6 @@
 ---
 title: "backtick.deprecated"
+shortDescription: "Backtick operator for shell execution is deprecated in PHP 8.5."
 ignorable: true
 ---
 

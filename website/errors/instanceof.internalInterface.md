@@ -1,5 +1,6 @@
 ---
 title: "instanceof.internalInterface"
+shortDescription: "Instanceof check references an internal interface from another package."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "interface.extendsDeprecatedInterface"
+shortDescription: "Interface extends a deprecated interface."
 ignorable: true
 ---
 

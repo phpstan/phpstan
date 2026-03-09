@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.deprecatedEnum"
+shortDescription: "Static method is called on a deprecated enum."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "impure.yieldFrom"
+shortDescription: "Pure function uses yield from, which creates stateful generator behavior."
 ignorable: true
 ---
 

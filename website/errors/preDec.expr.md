@@ -1,5 +1,6 @@
 ---
 title: "preDec.expr"
+shortDescription: "Pre-decrement operator is applied to a non-variable expression."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "classConstant.missingNativeType"
+shortDescription: "Overriding constant is missing the native type declared in the parent."
 ignorable: false
 ---
 

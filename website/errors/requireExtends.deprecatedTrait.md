@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.deprecatedTrait"
+shortDescription: "@phpstan-require-extends references a deprecated trait."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "class.duplicateEnumCase"
+shortDescription: "Enum case is declared more than once in the same enum."
 ignorable: false
 ---
 

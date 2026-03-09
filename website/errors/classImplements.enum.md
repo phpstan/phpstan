@@ -1,5 +1,6 @@
 ---
 title: "classImplements.enum"
+shortDescription: "Class uses implements with an enum instead of an interface."
 ignorable: false
 ---
 

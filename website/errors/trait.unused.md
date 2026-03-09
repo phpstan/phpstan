@@ -1,5 +1,6 @@
 ---
 title: "trait.unused"
+shortDescription: "Declared trait is never used by any class in the analysed code."
 ignorable: true
 ---
 

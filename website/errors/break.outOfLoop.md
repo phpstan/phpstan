@@ -1,5 +1,6 @@
 ---
 title: "break.outOfLoop"
+shortDescription: "Break or continue statement is used outside of a loop or switch."
 ignorable: false
 ---
 

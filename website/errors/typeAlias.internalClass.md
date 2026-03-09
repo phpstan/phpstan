@@ -1,5 +1,6 @@
 ---
 title: "typeAlias.internalClass"
+shortDescription: "Type alias references an internal class from another package."
 ignorable: true
 ---
 

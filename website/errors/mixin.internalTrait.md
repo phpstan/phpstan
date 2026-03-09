@@ -1,5 +1,6 @@
 ---
 title: "mixin.internalTrait"
+shortDescription: "PHPDoc @mixin tag references an internal trait."
 ignorable: true
 ---
 

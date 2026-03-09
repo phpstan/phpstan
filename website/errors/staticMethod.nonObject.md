@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.nonObject"
+shortDescription: "Static method is called on a non-object and non-class-string type."
 ignorable: true
 ---
 

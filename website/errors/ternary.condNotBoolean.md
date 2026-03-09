@@ -1,5 +1,6 @@
 ---
 title: "ternary.condNotBoolean"
+shortDescription: "Ternary condition is not a boolean value."
 ignorable: true
 ---
 

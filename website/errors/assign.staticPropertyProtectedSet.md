@@ -1,5 +1,6 @@
 ---
 title: "assign.staticPropertyProtectedSet"
+shortDescription: "Static property with protected(set) visibility is assigned from outside its class hierarchy."
 ignorable: true
 ---
 

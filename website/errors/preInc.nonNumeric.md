@@ -1,5 +1,6 @@
 ---
 title: "preInc.nonNumeric"
+shortDescription: "Pre-increment operator is used on a non-numeric value."
 ignorable: true
 ---
 

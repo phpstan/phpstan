@@ -1,5 +1,6 @@
 ---
 title: "class.implementsInternalTrait"
+shortDescription: "Class uses a trait marked as @internal."
 ignorable: true
 ---
 

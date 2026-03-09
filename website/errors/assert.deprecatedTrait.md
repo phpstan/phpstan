@@ -1,5 +1,6 @@
 ---
 title: "assert.deprecatedTrait"
+shortDescription: "Assertion in @phpstan-assert references a deprecated trait."
 ignorable: true
 ---
 

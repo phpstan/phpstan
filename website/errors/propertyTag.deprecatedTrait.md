@@ -1,5 +1,6 @@
 ---
 title: "propertyTag.deprecatedTrait"
+shortDescription: "@property PHPDoc tag references a deprecated trait."
 ignorable: true
 ---
 

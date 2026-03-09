@@ -1,5 +1,6 @@
 ---
 title: "methodTag.deprecatedInterface"
+shortDescription: "PHPDoc @method tag references a deprecated interface."
 ignorable: true
 ---
 

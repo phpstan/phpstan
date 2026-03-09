@@ -1,5 +1,6 @@
 ---
 title: "property.phpDocType"
+shortDescription: "PHPDoc type of the property is incompatible with its native type."
 ignorable: true
 ---
 

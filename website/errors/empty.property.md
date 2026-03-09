@@ -1,5 +1,6 @@
 ---
 title: "empty.property"
+shortDescription: "Using empty() on a property with a known type is redundant."
 ignorable: true
 ---
 

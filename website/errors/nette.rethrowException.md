@@ -1,5 +1,6 @@
 ---
 title: "nette.rethrowException"
+shortDescription: "Nette control-flow exception is caught without being rethrown."
 ignorable: true
 ---
 

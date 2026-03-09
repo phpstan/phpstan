@@ -1,5 +1,6 @@
 ---
 title: "argument.unpackAfterNamed"
+shortDescription: "Unpacked argument follows a named argument."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "missingType.iterableValue"
+shortDescription: "Iterable type is used without specifying its value type."
 ignorable: true
 ---
 

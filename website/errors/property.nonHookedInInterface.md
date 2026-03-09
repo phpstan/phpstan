@@ -1,5 +1,6 @@
 ---
 title: "property.nonHookedInInterface"
+shortDescription: "Interface property must have hooks."
 ignorable: false
 ---
 

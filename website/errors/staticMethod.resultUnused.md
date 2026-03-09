@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.resultUnused"
+shortDescription: "Return value of a pure static method call is not used."
 ignorable: true
 ---
 

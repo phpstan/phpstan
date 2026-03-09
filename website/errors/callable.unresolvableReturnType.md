@@ -1,5 +1,6 @@
 ---
 title: "callable.unresolvableReturnType"
+shortDescription: "Template type in the callable return type cannot be resolved."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "property.nonPublicInInterface"
+shortDescription: "Interface properties must be public."
 ignorable: false
 ---
 

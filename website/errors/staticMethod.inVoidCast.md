@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.inVoidCast"
+shortDescription: "Unnecessary (void) cast on a static method that allows discarding its result."
 ignorable: true
 ---
 

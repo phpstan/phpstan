@@ -1,5 +1,6 @@
 ---
 title: "return.void"
+shortDescription: "Function with a void return type returns a value."
 ignorable: true
 ---
 

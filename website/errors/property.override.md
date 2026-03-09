@@ -1,5 +1,6 @@
 ---
 title: "property.override"
+shortDescription: "Property has #[Override] but does not override any parent property."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "doctrine.queryBuilderDynamicArgument"
+shortDescription: "QueryBuilder contains dynamic arguments that prevent static DQL validation."
 ignorable: true
 ---
 

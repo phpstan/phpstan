@@ -1,5 +1,6 @@
 ---
 title: "phpstanApi.trait"
+shortDescription: "Using a PHPStan trait not covered by the backward compatibility promise."
 ignorable: true
 ---
 

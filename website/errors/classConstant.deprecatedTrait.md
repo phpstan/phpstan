@@ -1,5 +1,6 @@
 ---
 title: "classConstant.deprecatedTrait"
+shortDescription: "Accessing a class constant defined in a deprecated trait."
 ignorable: true
 ---
 

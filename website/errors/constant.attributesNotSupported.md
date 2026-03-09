@@ -1,5 +1,6 @@
 ---
 title: "constant.attributesNotSupported"
+shortDescription: "Attributes on global constants are not supported before PHP 8.5."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "phpstanApi.method"
+shortDescription: "Calling a PHPStan method not covered by the backward compatibility promise."
 ignorable: true
 ---
 

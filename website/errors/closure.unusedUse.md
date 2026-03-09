@@ -1,5 +1,6 @@
 ---
 title: "closure.unusedUse"
+shortDescription: "Variable imported in the closure's use clause is never used."
 ignorable: true
 ---
 

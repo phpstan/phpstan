@@ -1,5 +1,6 @@
 ---
 title: "generics.internalInterfaceDefault"
+shortDescription: "Template type default references an internal interface."
 ignorable: true
 ---
 

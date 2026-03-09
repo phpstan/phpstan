@@ -1,5 +1,6 @@
 ---
 title: "phpstanPlayground.phpDoc"
+shortDescription: "Comment uses /* instead of /** so PHPDoc tags are silently ignored."
 ignorable: false
 ---
 

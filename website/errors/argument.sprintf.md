@@ -1,5 +1,6 @@
 ---
 title: "argument.sprintf"
+shortDescription: "Mismatch between sprintf format placeholders and value arguments."
 ignorable: true
 ---
 

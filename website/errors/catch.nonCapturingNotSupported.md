@@ -1,5 +1,6 @@
 ---
 title: "catch.nonCapturingNotSupported"
+shortDescription: "Non-capturing catch syntax is not supported on the configured PHP version."
 ignorable: false
 ---
 

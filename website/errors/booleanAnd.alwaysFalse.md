@@ -1,5 +1,6 @@
 ---
 title: "booleanAnd.alwaysFalse"
+shortDescription: "Result of && is always false."
 ignorable: true
 ---
 

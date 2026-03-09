@@ -1,5 +1,6 @@
 ---
 title: "impure.propertyAssignByRef"
+shortDescription: "Pure function creates a reference to a property, which may cause side effects."
 ignorable: true
 ---
 

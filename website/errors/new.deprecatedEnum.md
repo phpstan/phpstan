@@ -1,5 +1,6 @@
 ---
 title: "new.deprecatedEnum"
+shortDescription: "Referencing a deprecated enum in an instantiation context."
 ignorable: true
 ---
 

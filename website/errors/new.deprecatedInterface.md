@@ -1,5 +1,6 @@
 ---
 title: "new.deprecatedInterface"
+shortDescription: "Instantiating a class that implements a deprecated interface."
 ignorable: true
 ---
 

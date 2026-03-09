@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.unresolvableReturnType"
+shortDescription: "Template return type of a static method call cannot be resolved."
 ignorable: true
 ---
 

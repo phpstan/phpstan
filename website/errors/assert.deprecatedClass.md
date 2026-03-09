@@ -1,5 +1,6 @@
 ---
 title: "assert.deprecatedClass"
+shortDescription: "Assertion in @phpstan-assert references a deprecated class."
 ignorable: true
 ---
 

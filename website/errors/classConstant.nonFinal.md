@@ -1,5 +1,6 @@
 ---
 title: "classConstant.nonFinal"
+shortDescription: "Overriding a final trait constant without the final modifier."
 ignorable: false
 ---
 

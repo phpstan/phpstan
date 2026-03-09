@@ -1,5 +1,6 @@
 ---
 title: "class.implementsDeprecatedClass"
+shortDescription: "Class implements a deprecated interface."
 ignorable: true
 ---
 

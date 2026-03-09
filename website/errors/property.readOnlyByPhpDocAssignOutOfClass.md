@@ -1,5 +1,6 @@
 ---
 title: "property.readOnlyByPhpDocAssignOutOfClass"
+shortDescription: "@readonly property is assigned from outside the declaring class."
 ignorable: true
 ---
 

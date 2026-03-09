@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.internalEnum"
+shortDescription: "@phpstan-require-extends references an internal enum."
 ignorable: true
 ---
 

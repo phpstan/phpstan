@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.void"
+shortDescription: "Return value of a void static method is used."
 ignorable: true
 ---
 

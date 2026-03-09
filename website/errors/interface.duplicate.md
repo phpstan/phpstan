@@ -1,5 +1,6 @@
 ---
 title: "interface.duplicate"
+shortDescription: "Same interface is declared in multiple files."
 ignorable: true
 ---
 

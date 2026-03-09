@@ -1,5 +1,6 @@
 ---
 title: "method.visibility"
+shortDescription: "Overriding method has more restrictive visibility than the parent method."
 ignorable: false
 ---
 

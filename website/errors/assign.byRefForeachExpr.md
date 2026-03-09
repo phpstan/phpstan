@@ -1,5 +1,6 @@
 ---
 title: "assign.byRefForeachExpr"
+shortDescription: "Variable from a by-reference foreach is reused after the loop."
 ignorable: true
 ---
 

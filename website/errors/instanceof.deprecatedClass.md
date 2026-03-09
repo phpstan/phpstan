@@ -1,5 +1,6 @@
 ---
 title: "instanceof.deprecatedClass"
+shortDescription: "Instanceof check references a deprecated class."
 ignorable: true
 ---
 

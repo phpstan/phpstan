@@ -1,5 +1,6 @@
 ---
 title: "requireImplements.nonObject"
+shortDescription: "Tag @phpstan-require-implements contains a non-object type."
 ignorable: true
 ---
 

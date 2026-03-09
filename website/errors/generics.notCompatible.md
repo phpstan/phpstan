@@ -1,5 +1,6 @@
 ---
 title: "generics.notCompatible"
+shortDescription: "PHPDoc @implements or @extends tag specifies an invalid generic type."
 ignorable: true
 ---
 

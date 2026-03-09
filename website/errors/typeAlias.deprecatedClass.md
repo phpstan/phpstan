@@ -1,5 +1,6 @@
 ---
 title: "typeAlias.deprecatedClass"
+shortDescription: "Type alias references a deprecated class."
 ignorable: true
 ---
 

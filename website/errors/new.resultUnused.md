@@ -1,5 +1,6 @@
 ---
 title: "new.resultUnused"
+shortDescription: "Object instantiation on a separate line has no effect when the constructor is pure."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "property.abstractNonHooked"
+shortDescription: "Only hooked properties can be declared abstract."
 ignorable: false
 ---
 

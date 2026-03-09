@@ -1,5 +1,6 @@
 ---
 title: "doctrine.enumType"
+shortDescription: "Enum backing type does not match the Doctrine column type."
 ignorable: true
 ---
 

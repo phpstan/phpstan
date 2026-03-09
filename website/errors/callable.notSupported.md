@@ -1,5 +1,6 @@
 ---
 title: "callable.notSupported"
+shortDescription: "First-class callable syntax is not supported on the configured PHP version."
 ignorable: false
 ---
 

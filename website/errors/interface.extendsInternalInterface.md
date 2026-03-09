@@ -1,5 +1,6 @@
 ---
 title: "interface.extendsInternalInterface"
+shortDescription: "Interface extends another interface marked as @internal."
 ignorable: true
 ---
 

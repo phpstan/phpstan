@@ -1,5 +1,6 @@
 ---
 title: "method.childReturnType"
+shortDescription: "Overriding method has an incompatible return type with the parent method."
 ignorable: true
 ---
 

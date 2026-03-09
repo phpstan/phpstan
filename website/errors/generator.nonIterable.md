@@ -1,5 +1,6 @@
 ---
 title: "generator.nonIterable"
+shortDescription: "Expression passed to yield from is not iterable."
 ignorable: true
 ---
 

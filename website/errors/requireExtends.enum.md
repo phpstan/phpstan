@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.enum"
+shortDescription: "@phpstan-require-extends references an enum, which cannot be extended."
 ignorable: true
 ---
 

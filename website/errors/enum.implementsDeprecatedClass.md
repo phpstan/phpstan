@@ -1,5 +1,6 @@
 ---
 title: "enum.implementsDeprecatedClass"
+shortDescription: "Enum implements a deprecated interface."
 ignorable: true
 ---
 

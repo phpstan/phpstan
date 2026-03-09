@@ -1,5 +1,6 @@
 ---
 title: "outOfClass.parent"
+shortDescription: "Keyword parent is used outside of a class scope."
 ignorable: true
 ---
 

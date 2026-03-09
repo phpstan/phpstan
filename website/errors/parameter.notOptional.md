@@ -1,5 +1,6 @@
 ---
 title: "parameter.notOptional"
+shortDescription: "Overriding method makes an optional parameter required."
 ignorable: true
 ---
 

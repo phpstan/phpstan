@@ -1,5 +1,6 @@
 ---
 title: "generator.sendType"
+shortDescription: "Delegated generator send type is incompatible with the delegating generator."
 ignorable: true
 ---
 

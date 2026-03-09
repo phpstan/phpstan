@@ -1,5 +1,6 @@
 ---
 title: "method.nonObject"
+shortDescription: "Method is called on a non-object type."
 ignorable: true
 ---
 

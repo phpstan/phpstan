@@ -1,5 +1,6 @@
 ---
 title: "return.unusedType"
+shortDescription: "Declared return type contains a union member that is never returned."
 ignorable: true
 ---
 

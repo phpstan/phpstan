@@ -1,5 +1,6 @@
 ---
 title: "methodTag.deprecatedTrait"
+shortDescription: "PHPDoc @method tag references a deprecated trait."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "attribute.target"
+shortDescription: "Attribute is applied to a target it does not support."
 ignorable: true
 ---
 

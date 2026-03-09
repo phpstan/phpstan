@@ -1,5 +1,6 @@
 ---
 title: "new.protectedConstructor"
+shortDescription: "Instantiating a class with a protected constructor from outside the class hierarchy."
 ignorable: true
 ---
 

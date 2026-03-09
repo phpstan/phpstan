@@ -1,5 +1,6 @@
 ---
 title: "generics.internalTraitDefault"
+shortDescription: "Template type default references an internal trait."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "class.toStringDeprecated"
+shortDescription: "Casting to string invokes a deprecated __toString() method."
 ignorable: true
 ---
 

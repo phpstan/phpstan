@@ -1,5 +1,6 @@
 ---
 title: "selfOut.internalInterface"
+shortDescription: "Tag @phpstan-self-out references an internal interface from another package."
 ignorable: true
 ---
 

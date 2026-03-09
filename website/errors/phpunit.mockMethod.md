@@ -1,5 +1,6 @@
 ---
 title: "phpunit.mockMethod"
+shortDescription: "Mock method() call references a method that does not exist on the mocked class."
 ignorable: true
 ---
 

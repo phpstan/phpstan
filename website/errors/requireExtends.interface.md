@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.interface"
+shortDescription: "@phpstan-require-extends references an interface instead of a class."
 ignorable: true
 ---
 

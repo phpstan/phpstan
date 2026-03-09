@@ -1,5 +1,6 @@
 ---
 title: "parameterByRef.unusedType"
+shortDescription: "By-reference parameter has a union type but one member is never assigned."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "possiblyImpure.propertyAssignByRef"
+shortDescription: "Pure function creates a by-reference assignment to a property."
 ignorable: true
 ---
 

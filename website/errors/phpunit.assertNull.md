@@ -1,5 +1,6 @@
 ---
 title: "phpunit.assertNull"
+shortDescription: "assertSame(null, ...) should be replaced with assertNull()."
 ignorable: true
 ---
 

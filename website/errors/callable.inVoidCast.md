@@ -1,5 +1,6 @@
 ---
 title: "callable.inVoidCast"
+shortDescription: "Unnecessary (void) cast on a callable that already allows discarding its return value."
 ignorable: true
 ---
 

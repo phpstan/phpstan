@@ -1,5 +1,6 @@
 ---
 title: "typeAlias.deprecatedEnum"
+shortDescription: "Type alias references a deprecated enum."
 ignorable: true
 ---
 

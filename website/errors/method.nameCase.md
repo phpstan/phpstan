@@ -1,5 +1,6 @@
 ---
 title: "method.nameCase"
+shortDescription: "Method is called with different letter casing than its declaration."
 ignorable: true
 ---
 

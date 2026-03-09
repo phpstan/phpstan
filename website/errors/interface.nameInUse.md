@@ -1,5 +1,6 @@
 ---
 title: "interface.nameInUse"
+shortDescription: "Interface name conflicts with an existing use import or declaration."
 ignorable: false
 ---
 

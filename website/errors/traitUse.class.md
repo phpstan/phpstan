@@ -1,5 +1,6 @@
 ---
 title: "traitUse.class"
+shortDescription: "Class is used in a trait use statement, but only traits are allowed."
 ignorable: false
 ---
 

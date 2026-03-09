@@ -1,5 +1,6 @@
 ---
 title: "generics.interfaceConflict"
+shortDescription: "Same generic interface is inherited with conflicting type arguments."
 ignorable: true
 ---
 

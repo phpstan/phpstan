@@ -1,5 +1,6 @@
 ---
 title: "whitespace.bom"
+shortDescription: "PHP file starts with a UTF-8 BOM character that can cause output issues."
 ignorable: true
 ---
 

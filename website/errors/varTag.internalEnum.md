@@ -1,5 +1,6 @@
 ---
 title: "varTag.internalEnum"
+shortDescription: "@var PHPDoc tag references an internal enum from another package."
 ignorable: true
 ---
 

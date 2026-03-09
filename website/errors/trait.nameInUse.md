@@ -1,5 +1,6 @@
 ---
 title: "trait.nameInUse"
+shortDescription: "Trait name conflicts with an existing use import in the same namespace."
 ignorable: false
 ---
 

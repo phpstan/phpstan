@@ -1,5 +1,6 @@
 ---
 title: "trait.duplicateEnumCase"
+shortDescription: "Enum case with the same name is declared more than once."
 ignorable: false
 ---
 

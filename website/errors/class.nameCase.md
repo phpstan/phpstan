@@ -1,5 +1,6 @@
 ---
 title: "class.nameCase"
+shortDescription: "Class is referenced with incorrect letter casing."
 ignorable: true
 ---
 

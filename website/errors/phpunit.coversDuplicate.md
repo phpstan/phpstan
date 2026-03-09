@@ -1,5 +1,6 @@
 ---
 title: "phpunit.coversDuplicate"
+shortDescription: "Duplicate @covers annotation is redundant with the class-level annotation."
 ignorable: true
 ---
 

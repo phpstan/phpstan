@@ -1,5 +1,6 @@
 ---
 title: "parameter.noParent"
+shortDescription: "Parameter uses the parent type but the class does not extend any class."
 ignorable: true
 ---
 

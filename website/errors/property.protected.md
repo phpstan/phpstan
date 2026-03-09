@@ -1,5 +1,6 @@
 ---
 title: "property.protected"
+shortDescription: "Accessing a protected property from outside the class hierarchy."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "enum.generic"
+shortDescription: "Enum uses a @template type parameter, but enums cannot be generic."
 ignorable: true
 ---
 

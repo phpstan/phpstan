@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.nameCase"
+shortDescription: "Static method is called with incorrect letter casing."
 ignorable: true
 ---
 

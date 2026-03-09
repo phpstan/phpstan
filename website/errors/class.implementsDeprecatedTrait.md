@@ -1,5 +1,6 @@
 ---
 title: "class.implementsDeprecatedTrait"
+shortDescription: "Class references a deprecated trait in its implements clause."
 ignorable: true
 ---
 

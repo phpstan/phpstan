@@ -1,5 +1,6 @@
 ---
 title: "traitUse.internalInterface"
+shortDescription: "Trait use statement references an internal interface from another package."
 ignorable: true
 ---
 

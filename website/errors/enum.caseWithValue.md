@@ -1,5 +1,6 @@
 ---
 title: "enum.caseWithValue"
+shortDescription: "Pure enum case has a value, but only backed enums can have case values."
 ignorable: false
 ---
 

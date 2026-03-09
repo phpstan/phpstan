@@ -1,5 +1,6 @@
 ---
 title: "phpunit.dataProviderStatic"
+shortDescription: "Data provider method is not static, which is required by PHPUnit 10+."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "method.shadowTemplate"
+shortDescription: "Method template type shadows a class-level template type with the same name."
 ignorable: true
 ---
 

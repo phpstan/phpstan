@@ -1,5 +1,6 @@
 ---
 title: "return.tooWideBool"
+shortDescription: "Function declares bool return type but only ever returns true or only false."
 ignorable: true
 ---
 

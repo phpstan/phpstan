@@ -1,5 +1,6 @@
 ---
 title: "impure.propertyAssign"
+shortDescription: "Pure function assigns a property, which is a side effect."
 ignorable: true
 ---
 

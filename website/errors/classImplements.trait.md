@@ -1,5 +1,6 @@
 ---
 title: "classImplements.trait"
+shortDescription: "Class uses implements with a trait instead of an interface."
 ignorable: false
 ---
 

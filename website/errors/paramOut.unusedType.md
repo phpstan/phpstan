@@ -1,5 +1,6 @@
 ---
 title: "paramOut.unusedType"
+shortDescription: "Declared @param-out union type has a member that is never assigned."
 ignorable: true
 ---
 

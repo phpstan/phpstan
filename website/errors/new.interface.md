@@ -1,5 +1,6 @@
 ---
 title: "new.interface"
+shortDescription: "Interfaces cannot be instantiated."
 ignorable: true
 ---
 

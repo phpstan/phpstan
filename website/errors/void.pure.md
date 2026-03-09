@@ -1,5 +1,6 @@
 ---
 title: "void.pure"
+shortDescription: "Void function or method has no side effects, making it useless."
 ignorable: true
 ---
 

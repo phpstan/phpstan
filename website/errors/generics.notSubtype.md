@@ -1,5 +1,6 @@
 ---
 title: "generics.notSubtype"
+shortDescription: "Type argument does not satisfy the template type bound constraint."
 ignorable: true
 ---
 

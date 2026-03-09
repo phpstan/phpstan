@@ -1,5 +1,6 @@
 ---
 title: "cast.bool"
+shortDescription: "Expression cannot be meaningfully cast to bool."
 ignorable: true
 ---
 

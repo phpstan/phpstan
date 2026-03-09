@@ -1,5 +1,6 @@
 ---
 title: "parameter.unionTypeNotSupported"
+shortDescription: "Native union types are used but not supported by the configured PHP version."
 ignorable: false
 ---
 

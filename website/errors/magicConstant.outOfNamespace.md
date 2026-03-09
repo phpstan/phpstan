@@ -1,5 +1,6 @@
 ---
 title: "magicConstant.outOfNamespace"
+shortDescription: "Magic constant __NAMESPACE__ used outside of a namespace returns empty string."
 ignorable: true
 ---
 

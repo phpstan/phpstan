@@ -1,5 +1,6 @@
 ---
 title: "propertyTag.trait"
+shortDescription: "@property PHPDoc tag references a trait, which is not a valid type."
 ignorable: true
 ---
 

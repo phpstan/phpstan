@@ -1,5 +1,6 @@
 ---
 title: "instanceof.deprecatedEnum"
+shortDescription: "Instanceof check references a deprecated enum."
 ignorable: true
 ---
 

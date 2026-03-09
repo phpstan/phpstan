@@ -1,5 +1,6 @@
 ---
 title: "propertyGetHook.noRead"
+shortDescription: "Get hook of a non-virtual property does not read the backing value."
 ignorable: true
 ---
 

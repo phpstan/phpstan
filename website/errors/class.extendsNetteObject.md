@@ -1,5 +1,6 @@
 ---
 title: "class.extendsNetteObject"
+shortDescription: "Class extends the deprecated Nette\\Object or Nette\\LegacyObject."
 ignorable: true
 ---
 

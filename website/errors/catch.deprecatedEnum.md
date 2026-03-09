@@ -1,5 +1,6 @@
 ---
 title: "catch.deprecatedEnum"
+shortDescription: "Catch block references a deprecated enum."
 ignorable: true
 ---
 

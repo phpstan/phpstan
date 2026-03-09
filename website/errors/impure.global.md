@@ -1,5 +1,6 @@
 ---
 title: "impure.global"
+shortDescription: "Pure function accesses a global variable via the global keyword."
 ignorable: true
 ---
 

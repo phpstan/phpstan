@@ -1,5 +1,6 @@
 ---
 title: "staticProperty.internalClass"
+shortDescription: "Static property is accessed on an internal class from outside its package."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "phpunit.coversClass"
+shortDescription: "@coversDefaultClass references a class that does not exist."
 ignorable: true
 ---
 

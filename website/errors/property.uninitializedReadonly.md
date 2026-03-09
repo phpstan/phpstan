@@ -1,5 +1,6 @@
 ---
 title: "property.uninitializedReadonly"
+shortDescription: "Readonly property is not assigned in the constructor."
 ignorable: true
 ---
 

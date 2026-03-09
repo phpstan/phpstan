@@ -1,5 +1,6 @@
 ---
 title: "empty.offset"
+shortDescription: "Array offset used in empty() does not exist on the given type."
 ignorable: true
 ---
 

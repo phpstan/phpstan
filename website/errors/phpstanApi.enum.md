@@ -1,5 +1,6 @@
 ---
 title: "phpstanApi.enum"
+shortDescription: "Using instanceof on a PHPStan enum not covered by the BC promise."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.private"
+shortDescription: "Private static method is called from outside its declaring class."
 ignorable: true
 ---
 

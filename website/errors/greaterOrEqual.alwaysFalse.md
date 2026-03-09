@@ -1,5 +1,6 @@
 ---
 title: "greaterOrEqual.alwaysFalse"
+shortDescription: "Greater-than-or-equal comparison is always false based on the inferred types."
 ignorable: true
 ---
 

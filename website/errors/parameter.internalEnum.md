@@ -1,5 +1,6 @@
 ---
 title: "parameter.internalEnum"
+shortDescription: "Parameter type declaration uses an internal enum from another package."
 ignorable: true
 ---
 

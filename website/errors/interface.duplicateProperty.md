@@ -1,5 +1,6 @@
 ---
 title: "interface.duplicateProperty"
+shortDescription: "Interface declares the same property name more than once."
 ignorable: false
 ---
 

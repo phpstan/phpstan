@@ -1,5 +1,6 @@
 ---
 title: "declareStrictTypes.notFirst"
+shortDescription: "declare(strict_types=1) is not the first statement in the file."
 ignorable: false
 ---
 

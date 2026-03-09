@@ -1,5 +1,6 @@
 ---
 title: "unset.variable"
+shortDescription: "Unsetting a variable that does not exist in the current scope."
 ignorable: true
 ---
 

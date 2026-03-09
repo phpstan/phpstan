@@ -1,5 +1,6 @@
 ---
 title: "parameterByRef.tooWideBool"
+shortDescription: "By-reference parameter is typed as bool but only one of true or false is ever assigned."
 ignorable: true
 ---
 

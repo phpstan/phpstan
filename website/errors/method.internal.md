@@ -1,5 +1,6 @@
 ---
 title: "method.internal"
+shortDescription: "Called method is marked as @internal."
 ignorable: true
 ---
 

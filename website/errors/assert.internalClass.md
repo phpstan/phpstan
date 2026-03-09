@@ -1,5 +1,6 @@
 ---
 title: "assert.internalClass"
+shortDescription: "Assertion in @phpstan-assert references an internal class."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "attribute.notFound"
+shortDescription: "Attribute class does not exist."
 ignorable: true
 ---
 

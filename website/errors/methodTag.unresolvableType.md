@@ -1,5 +1,6 @@
 ---
 title: "methodTag.unresolvableType"
+shortDescription: "PHPDoc @method tag contains a type that cannot be resolved."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "attribute.constructorNotPublic"
+shortDescription: "Attribute class has a non-public constructor."
 ignorable: true
 ---
 

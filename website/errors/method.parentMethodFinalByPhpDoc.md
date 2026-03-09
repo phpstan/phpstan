@@ -1,5 +1,6 @@
 ---
 title: "method.parentMethodFinalByPhpDoc"
+shortDescription: "Overriding a method that is marked as @final in PHPDoc."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "empty.variable"
+shortDescription: "Variable used in empty() is never defined in the current scope."
 ignorable: true
 ---
 

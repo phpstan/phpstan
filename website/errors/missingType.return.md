@@ -1,5 +1,6 @@
 ---
 title: "missingType.return"
+shortDescription: "Function or method has no return type declaration."
 ignorable: true
 ---
 

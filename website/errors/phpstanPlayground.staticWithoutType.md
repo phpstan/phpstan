@@ -1,5 +1,6 @@
 ---
 title: "phpstanPlayground.staticWithoutType"
+shortDescription: "Static variable declared without a @var type annotation."
 ignorable: false
 ---
 

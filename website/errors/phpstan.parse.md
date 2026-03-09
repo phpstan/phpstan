@@ -1,5 +1,6 @@
 ---
 title: "phpstan.parse"
+shortDescription: "PHP file contains a syntax error and cannot be parsed."
 ignorable: false
 ---
 

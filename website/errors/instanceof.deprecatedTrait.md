@@ -1,5 +1,6 @@
 ---
 title: "instanceof.deprecatedTrait"
+shortDescription: "Instanceof check references a deprecated trait."
 ignorable: true
 ---
 

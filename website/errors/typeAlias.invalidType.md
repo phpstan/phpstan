@@ -1,5 +1,6 @@
 ---
 title: "typeAlias.invalidType"
+shortDescription: "Type alias contains a malformed or unparseable type definition."
 ignorable: true
 ---
 

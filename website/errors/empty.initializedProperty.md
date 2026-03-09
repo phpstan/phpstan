@@ -1,5 +1,6 @@
 ---
 title: "empty.initializedProperty"
+shortDescription: "Using empty() on a non-nullable initialized property is redundant."
 ignorable: true
 ---
 

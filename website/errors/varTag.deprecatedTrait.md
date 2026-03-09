@@ -1,5 +1,6 @@
 ---
 title: "varTag.deprecatedTrait"
+shortDescription: "@var PHPDoc tag references a deprecated trait."
 ignorable: true
 ---
 

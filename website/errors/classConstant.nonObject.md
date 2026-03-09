@@ -1,5 +1,6 @@
 ---
 title: "classConstant.nonObject"
+shortDescription: "Accessing a class constant on a non-object, non-class-string value."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "impure.betweenPhpTags"
+shortDescription: "Pure function contains HTML output between PHP tags."
 ignorable: true
 ---
 

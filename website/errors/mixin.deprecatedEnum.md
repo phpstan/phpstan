@@ -1,5 +1,6 @@
 ---
 title: "mixin.deprecatedEnum"
+shortDescription: "PHPDoc @mixin tag references a deprecated enum."
 ignorable: true
 ---
 

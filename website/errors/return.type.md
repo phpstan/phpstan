@@ -1,5 +1,6 @@
 ---
 title: "return.type"
+shortDescription: "Returned value type does not match the declared return type."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "selfOut.internalClass"
+shortDescription: "Tag @phpstan-self-out references an internal class from another package."
 ignorable: true
 ---
 

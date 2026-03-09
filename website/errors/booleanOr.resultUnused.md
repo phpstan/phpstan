@@ -1,5 +1,6 @@
 ---
 title: "booleanOr.resultUnused"
+shortDescription: "Result of the || operator is not used."
 ignorable: true
 ---
 

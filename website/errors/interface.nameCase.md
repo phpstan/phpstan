@@ -1,5 +1,6 @@
 ---
 title: "interface.nameCase"
+shortDescription: "Interface is referenced with incorrect letter casing."
 ignorable: true
 ---
 

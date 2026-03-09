@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.onInterface"
+shortDescription: "@phpstan-require-extends is placed on a class instead of a trait or interface."
 ignorable: true
 ---
 

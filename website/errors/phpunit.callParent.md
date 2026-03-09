@@ -1,5 +1,6 @@
 ---
 title: "phpunit.callParent"
+shortDescription: "Overridden setUp() or tearDown() does not call the parent method."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "unionType.never"
+shortDescription: "Never type cannot be part of a union type declaration."
 ignorable: false
 ---
 

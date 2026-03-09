@@ -1,5 +1,6 @@
 ---
 title: "enum.destructor"
+shortDescription: "Enum declares a destructor, which is not allowed."
 ignorable: false
 ---
 

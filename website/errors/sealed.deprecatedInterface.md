@@ -1,5 +1,6 @@
 ---
 title: "sealed.deprecatedInterface"
+shortDescription: "Tag @phpstan-sealed references a deprecated interface."
 ignorable: true
 ---
 

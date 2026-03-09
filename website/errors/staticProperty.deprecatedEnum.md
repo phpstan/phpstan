@@ -1,5 +1,6 @@
 ---
 title: "staticProperty.deprecatedEnum"
+shortDescription: "Static property is accessed on a deprecated enum."
 ignorable: true
 ---
 

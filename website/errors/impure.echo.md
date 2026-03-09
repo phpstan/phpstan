@@ -1,5 +1,6 @@
 ---
 title: "impure.echo"
+shortDescription: "Pure function uses echo, which produces output as a side effect."
 ignorable: true
 ---
 

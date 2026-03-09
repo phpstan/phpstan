@@ -1,5 +1,6 @@
 ---
 title: "paramImmediatelyInvokedCallable.nonCallable"
+shortDescription: "Tag @param-immediately-invoked-callable is used on a non-callable parameter."
 ignorable: true
 ---
 

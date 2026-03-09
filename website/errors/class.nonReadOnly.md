@@ -1,5 +1,6 @@
 ---
 title: "class.nonReadOnly"
+shortDescription: "Non-readonly class cannot extend a readonly class."
 ignorable: false
 ---
 

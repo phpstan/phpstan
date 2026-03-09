@@ -1,5 +1,6 @@
 ---
 title: "property.readOnlyByPhpDocAssignNotInConstructor"
+shortDescription: "@readonly property is assigned outside of the constructor."
 ignorable: true
 ---
 

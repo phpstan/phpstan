@@ -1,5 +1,6 @@
 ---
 title: "enum.duplicateMethod"
+shortDescription: "Enum declares two methods with the same name."
 ignorable: false
 ---
 

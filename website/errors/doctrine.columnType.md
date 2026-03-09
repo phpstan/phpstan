@@ -1,5 +1,6 @@
 ---
 title: "doctrine.columnType"
+shortDescription: "Property type does not match the Doctrine column type mapping."
 ignorable: true
 ---
 

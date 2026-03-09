@@ -1,5 +1,6 @@
 ---
 title: "generics.traitBound"
+shortDescription: "Trait is used as a template type bound, which is not allowed."
 ignorable: true
 ---
 

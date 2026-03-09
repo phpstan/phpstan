@@ -1,5 +1,6 @@
 ---
 title: "assign.propertyPrivateSet"
+shortDescription: "Property with private(set) visibility is assigned from outside its class."
 ignorable: true
 ---
 

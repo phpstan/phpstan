@@ -1,5 +1,6 @@
 ---
 title: "equal.alwaysFalse"
+shortDescription: "Loose comparison using == will always evaluate to false."
 ignorable: true
 ---
 

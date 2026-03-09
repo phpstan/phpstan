@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.onClass"
+shortDescription: "@phpstan-require-extends is placed on a class where it has no effect."
 ignorable: true
 ---
 

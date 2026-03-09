@@ -1,5 +1,6 @@
 ---
 title: "mod.leftNonNumeric"
+shortDescription: "Left side of the modulo operator is not a numeric type."
 ignorable: true
 ---
 

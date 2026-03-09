@@ -1,5 +1,6 @@
 ---
 title: "phpstanApi.getTemplateType"
+shortDescription: "Referenced template type name does not exist on the specified class."
 ignorable: true
 ---
 

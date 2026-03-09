@@ -1,5 +1,6 @@
 ---
 title: "property.unused"
+shortDescription: "Private property is never read or written."
 ignorable: true
 ---
 

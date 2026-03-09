@@ -1,5 +1,6 @@
 ---
 title: "doctrine.dql"
+shortDescription: "DQL query contains a syntax error or references an unknown entity or field."
 ignorable: true
 ---
 

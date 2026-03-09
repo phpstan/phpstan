@@ -1,5 +1,6 @@
 ---
 title: "class.extendsFinal"
+shortDescription: "Class extends a final class that cannot be extended."
 ignorable: false
 ---
 

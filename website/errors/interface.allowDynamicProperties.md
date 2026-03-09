@@ -1,5 +1,6 @@
 ---
 title: "interface.allowDynamicProperties"
+shortDescription: "AllowDynamicProperties attribute cannot be used on interfaces."
 ignorable: false
 ---
 

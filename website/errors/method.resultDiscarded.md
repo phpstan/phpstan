@@ -1,5 +1,6 @@
 ---
 title: "method.resultDiscarded"
+shortDescription: "Return value of a #[NoDiscard] method is not used."
 ignorable: false
 ---
 

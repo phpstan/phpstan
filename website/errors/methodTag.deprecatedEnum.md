@@ -1,5 +1,6 @@
 ---
 title: "methodTag.deprecatedEnum"
+shortDescription: "PHPDoc @method tag references a deprecated enum."
 ignorable: true
 ---
 

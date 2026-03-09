@@ -1,5 +1,6 @@
 ---
 title: "argument.nonUnpackAfterUnpacked"
+shortDescription: "Non-unpacked argument follows an unpacked argument."
 ignorable: false
 ---
 

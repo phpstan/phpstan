@@ -1,5 +1,6 @@
 ---
 title: "impure.functionCall"
+shortDescription: "Pure function calls an impure function."
 ignorable: true
 ---
 

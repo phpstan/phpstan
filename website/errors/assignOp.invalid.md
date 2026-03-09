@@ -1,5 +1,6 @@
 ---
 title: "assignOp.invalid"
+shortDescription: "Compound assignment operator used with incompatible types."
 ignorable: true
 ---
 

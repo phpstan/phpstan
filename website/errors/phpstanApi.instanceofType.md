@@ -1,5 +1,6 @@
 ---
 title: "phpstanApi.instanceofType"
+shortDescription: "Using instanceof against PHPStan Type classes is deprecated."
 ignorable: true
 ---
 

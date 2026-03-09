@@ -1,5 +1,6 @@
 ---
 title: "equal.invalid"
+shortDescription: "Loose comparison between incompatible types causes a TypeError."
 ignorable: true
 ---
 

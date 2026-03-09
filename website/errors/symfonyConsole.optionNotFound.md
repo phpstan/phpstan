@@ -1,5 +1,6 @@
 ---
 title: "symfonyConsole.optionNotFound"
+shortDescription: "Referenced Symfony Console option was not defined in configure()."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "generics.internalClassBound"
+shortDescription: "Template type bound references an internal class."
 ignorable: true
 ---
 

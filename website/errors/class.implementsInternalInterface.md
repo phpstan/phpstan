@@ -1,5 +1,6 @@
 ---
 title: "class.implementsInternalInterface"
+shortDescription: "Class implements an interface marked as @internal."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "generics.requiredTypeAfterOptional"
+shortDescription: "Required template type parameter appears after an optional one."
 ignorable: true
 ---
 

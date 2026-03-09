@@ -1,5 +1,6 @@
 ---
 title: "array.invalidKey"
+shortDescription: "Invalid type used as an array key."
 ignorable: true
 ---
 

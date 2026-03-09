@@ -1,5 +1,6 @@
 ---
 title: "classConstant.finalNotSupported"
+shortDescription: "Final class constants require PHP 8.1 or later."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "instanceof.internalClass"
+shortDescription: "Instanceof check references an internal class from another package."
 ignorable: true
 ---
 

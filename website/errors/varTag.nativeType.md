@@ -1,5 +1,6 @@
 ---
 title: "varTag.nativeType"
+shortDescription: "@var tag type contradicts the native type of the expression."
 ignorable: true
 ---
 

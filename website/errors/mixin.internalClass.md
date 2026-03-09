@@ -1,5 +1,6 @@
 ---
 title: "mixin.internalClass"
+shortDescription: "PHPDoc @mixin tag references an internal class."
 ignorable: true
 ---
 

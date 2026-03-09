@@ -1,5 +1,6 @@
 ---
 title: "methodTag.trait"
+shortDescription: "PHPDoc @method tag references a trait, which cannot be used as a type."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "possiblyImpure.superglobal"
+shortDescription: "Pure function or method accesses a superglobal variable."
 ignorable: true
 ---
 

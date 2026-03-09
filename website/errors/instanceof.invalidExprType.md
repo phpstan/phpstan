@@ -1,5 +1,6 @@
 ---
 title: "instanceof.invalidExprType"
+shortDescription: "Right-hand side of instanceof is not a string or object."
 ignorable: true
 ---
 

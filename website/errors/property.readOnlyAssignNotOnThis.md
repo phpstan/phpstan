@@ -1,5 +1,6 @@
 ---
 title: "property.readOnlyAssignNotOnThis"
+shortDescription: "Readonly property is assigned on a different instance instead of $this."
 ignorable: true
 ---
 

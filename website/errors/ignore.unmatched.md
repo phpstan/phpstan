@@ -1,5 +1,6 @@
 ---
 title: "ignore.unmatched"
+shortDescription: "Ignored error pattern in configuration was not matched by any actual error."
 ignorable: true
 ---
 

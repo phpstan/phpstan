@@ -1,5 +1,6 @@
 ---
 title: "nullsafe.assign"
+shortDescription: "Nullsafe operator cannot be on the left side of an assignment."
 ignorable: false
 ---
 

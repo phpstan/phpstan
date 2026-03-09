@@ -1,5 +1,6 @@
 ---
 title: "clone.nonObject"
+shortDescription: "Cloning a non-object value."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "constant.deprecated"
+shortDescription: "Usage of a constant marked as deprecated."
 ignorable: true
 ---
 

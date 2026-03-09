@@ -1,5 +1,6 @@
 ---
 title: "unset.hookedProperty"
+shortDescription: "Property with hooks cannot be unset."
 ignorable: true
 ---
 

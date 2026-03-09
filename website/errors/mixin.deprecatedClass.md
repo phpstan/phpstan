@@ -1,5 +1,6 @@
 ---
 title: "mixin.deprecatedClass"
+shortDescription: "PHPDoc @mixin tag references a deprecated class."
 ignorable: true
 ---
 

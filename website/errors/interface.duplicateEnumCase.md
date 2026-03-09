@@ -1,5 +1,6 @@
 ---
 title: "interface.duplicateEnumCase"
+shortDescription: "Enum case is declared more than once in the same body."
 ignorable: false
 ---
 

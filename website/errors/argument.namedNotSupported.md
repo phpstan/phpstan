@@ -1,5 +1,6 @@
 ---
 title: "argument.namedNotSupported"
+shortDescription: "Named arguments are not supported in the configured PHP version."
 ignorable: false
 ---
 

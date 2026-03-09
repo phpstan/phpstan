@@ -1,5 +1,6 @@
 ---
 title: "parameter.internalTrait"
+shortDescription: "Parameter type declaration references an internal trait from another package."
 ignorable: true
 ---
 

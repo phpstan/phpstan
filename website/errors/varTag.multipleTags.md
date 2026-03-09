@@ -1,5 +1,6 @@
 ---
 title: "varTag.multipleTags"
+shortDescription: "Multiple conflicting @var tags are placed above a single assignment."
 ignorable: true
 ---
 

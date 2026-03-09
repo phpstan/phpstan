@@ -1,5 +1,6 @@
 ---
 title: "interface.traitUse"
+shortDescription: "Interface uses a trait, which is not allowed in PHP."
 ignorable: false
 ---
 

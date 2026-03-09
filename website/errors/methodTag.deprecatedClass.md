@@ -1,5 +1,6 @@
 ---
 title: "methodTag.deprecatedClass"
+shortDescription: "PHPDoc @method tag references a deprecated class."
 ignorable: true
 ---
 

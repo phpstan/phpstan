@@ -1,5 +1,6 @@
 ---
 title: "function.strict"
+shortDescription: "Function call is missing the strict comparison parameter."
 ignorable: true
 ---
 

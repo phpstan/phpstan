@@ -1,5 +1,6 @@
 ---
 title: "classConstant.value"
+shortDescription: "Assigned value does not match the class constant's declared native type."
 ignorable: false
 ---
 

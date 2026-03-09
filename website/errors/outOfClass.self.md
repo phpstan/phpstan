@@ -1,5 +1,6 @@
 ---
 title: "outOfClass.self"
+shortDescription: "Keyword self is used outside of a class scope."
 ignorable: true
 ---
 

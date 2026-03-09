@@ -1,5 +1,6 @@
 ---
 title: "generator.valueType"
+shortDescription: "Yielded value type does not match the declared generator value type."
 ignorable: true
 ---
 

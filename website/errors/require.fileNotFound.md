@@ -1,5 +1,6 @@
 ---
 title: "require.fileNotFound"
+shortDescription: "Required file does not exist at the specified path."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "attribute.notAttribute"
+shortDescription: "Class used as an attribute is not declared as an attribute class."
 ignorable: true
 ---
 

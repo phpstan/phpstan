@@ -1,5 +1,6 @@
 ---
 title: "mixin.internalInterface"
+shortDescription: "PHPDoc @mixin tag references an internal interface."
 ignorable: true
 ---
 

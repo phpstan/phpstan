@@ -1,5 +1,6 @@
 ---
 title: "return.empty"
+shortDescription: "Bare return statement is used in a function with a non-void return type."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.nonObject"
+shortDescription: "@phpstan-require-extends contains a non-object type instead of a class."
 ignorable: true
 ---
 

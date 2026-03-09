@@ -1,5 +1,6 @@
 ---
 title: "impure.include"
+shortDescription: "Pure function uses include, which reads and executes a file."
 ignorable: true
 ---
 

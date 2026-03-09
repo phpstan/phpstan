@@ -1,5 +1,6 @@
 ---
 title: "class.duplicateConstant"
+shortDescription: "Class constant is declared more than once in the same class."
 ignorable: false
 ---
 

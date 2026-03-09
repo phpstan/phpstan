@@ -1,5 +1,6 @@
 ---
 title: "class.allowDynamicPropertiesReadonly"
+shortDescription: "AllowDynamicProperties attribute cannot be used on a readonly class."
 ignorable: false
 ---
 

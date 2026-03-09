@@ -1,5 +1,6 @@
 ---
 title: "requireImplements.internalClass"
+shortDescription: "Tag @phpstan-require-implements references an internal class."
 ignorable: true
 ---
 

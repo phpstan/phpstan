@@ -1,5 +1,6 @@
 ---
 title: "instanceof.alwaysTrue"
+shortDescription: "Instanceof check will always evaluate to true, making it redundant."
 ignorable: true
 ---
 

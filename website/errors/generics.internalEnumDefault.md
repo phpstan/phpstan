@@ -1,5 +1,6 @@
 ---
 title: "generics.internalEnumDefault"
+shortDescription: "Template type default references an internal enum."
 ignorable: true
 ---
 

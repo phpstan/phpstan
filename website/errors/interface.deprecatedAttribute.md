@@ -1,5 +1,6 @@
 ---
 title: "interface.deprecatedAttribute"
+shortDescription: "Native #[Deprecated] attribute cannot be used on interfaces."
 ignorable: false
 ---
 

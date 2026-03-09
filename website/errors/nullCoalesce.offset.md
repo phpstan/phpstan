@@ -1,5 +1,6 @@
 ---
 title: "nullCoalesce.offset"
+shortDescription: "Array offset on the left side of ?? does not exist on the given type."
 ignorable: true
 ---
 

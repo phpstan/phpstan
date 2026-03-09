@@ -1,5 +1,6 @@
 ---
 title: "method.templateTypeNotInParameter"
+shortDescription: "Template type declared on a method is not used in any of its parameters."
 ignorable: true
 ---
 

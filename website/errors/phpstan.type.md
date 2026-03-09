@@ -1,5 +1,6 @@
 ---
 title: "phpstan.type"
+shortDescription: "Test assertion for inferred type does not match the expected type."
 ignorable: false
 ---
 

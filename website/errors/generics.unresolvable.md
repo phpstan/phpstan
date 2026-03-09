@@ -1,5 +1,6 @@
 ---
 title: "generics.unresolvable"
+shortDescription: "Generic type argument cannot be resolved."
 ignorable: true
 ---
 

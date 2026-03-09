@@ -1,5 +1,6 @@
 ---
 title: "property.readOnlyNotSupported"
+shortDescription: "Readonly properties are not supported on the configured PHP version."
 ignorable: false
 ---
 

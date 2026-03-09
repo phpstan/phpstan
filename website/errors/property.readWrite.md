@@ -1,5 +1,6 @@
 ---
 title: "property.readWrite"
+shortDescription: "Readwrite property overrides a readonly property from the parent class."
 ignorable: false
 ---
 

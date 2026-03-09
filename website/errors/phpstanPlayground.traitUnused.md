@@ -1,5 +1,6 @@
 ---
 title: "phpstanPlayground.traitUnused"
+shortDescription: "Trait is declared but never used by any class, so it cannot be analysed."
 ignorable: false
 ---
 

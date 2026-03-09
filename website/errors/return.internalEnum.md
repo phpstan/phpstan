@@ -1,5 +1,6 @@
 ---
 title: "return.internalEnum"
+shortDescription: "Return type declaration references an internal enum from another package."
 ignorable: true
 ---
 

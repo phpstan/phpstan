@@ -1,5 +1,6 @@
 ---
 title: "nullsafe.byRef"
+shortDescription: "Nullsafe operator cannot be used in a context that requires a reference."
 ignorable: false
 ---
 

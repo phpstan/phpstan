@@ -1,5 +1,6 @@
 ---
 title: "cast.string"
+shortDescription: "Expression cannot be cast to string."
 ignorable: true
 ---
 

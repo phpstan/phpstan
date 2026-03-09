@@ -1,5 +1,6 @@
 ---
 title: "isset.initializedProperty"
+shortDescription: "Property in isset() is always initialized and non-null."
 ignorable: true
 ---
 

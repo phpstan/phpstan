@@ -1,5 +1,6 @@
 ---
 title: "sealed.onEnum"
+shortDescription: "Tag @phpstan-sealed is used on an enum, which cannot be extended."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "staticClassAccess.privateConstant"
+shortDescription: "Private constant accessed via static:: may fail in child classes."
 ignorable: true
 ---
 

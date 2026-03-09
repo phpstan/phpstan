@@ -1,5 +1,6 @@
 ---
 title: "generics.existingClass"
+shortDescription: "Template type parameter name conflicts with an existing class name."
 ignorable: true
 ---
 

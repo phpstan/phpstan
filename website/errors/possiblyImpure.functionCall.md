@@ -1,5 +1,6 @@
 ---
 title: "possiblyImpure.functionCall"
+shortDescription: "Pure function calls another function or callable whose purity is unknown."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "assert.unknownExpr"
+shortDescription: "Assertion in @phpstan-assert references a non-existent property or expression."
 ignorable: true
 ---
 

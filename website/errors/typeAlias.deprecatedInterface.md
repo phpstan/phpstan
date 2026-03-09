@@ -1,5 +1,6 @@
 ---
 title: "typeAlias.deprecatedInterface"
+shortDescription: "Type alias references a deprecated interface."
 ignorable: true
 ---
 

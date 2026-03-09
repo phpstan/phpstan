@@ -1,5 +1,6 @@
 ---
 title: "interfaceExtends.trait"
+shortDescription: "Interface extends a trait instead of another interface."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "argument.unpackNonIterable"
+shortDescription: "Argument unpacking operator used on a non-iterable value."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "phpunit.dataProviderClass"
+shortDescription: "Data provider references a class that does not exist."
 ignorable: true
 ---
 

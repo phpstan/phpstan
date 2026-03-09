@@ -1,5 +1,6 @@
 ---
 title: "return.never"
+shortDescription: "Function with a never return type contains a return statement."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "if.condNotBoolean"
+shortDescription: "Non-boolean type is used in an if condition instead of an explicit comparison."
 ignorable: true
 ---
 

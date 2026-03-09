@@ -1,5 +1,6 @@
 ---
 title: "method.internalClass"
+shortDescription: "Called method belongs to a class marked as @internal."
 ignorable: true
 ---
 

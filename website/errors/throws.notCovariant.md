@@ -1,5 +1,6 @@
 ---
 title: "throws.notCovariant"
+shortDescription: "Overriding method @throws type is not covariant with the parent method."
 ignorable: true
 ---
 

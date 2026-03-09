@@ -1,5 +1,6 @@
 ---
 title: "assert.internalTrait"
+shortDescription: "Assertion in @phpstan-assert references an internal trait."
 ignorable: true
 ---
 

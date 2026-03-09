@@ -1,5 +1,6 @@
 ---
 title: "paramClosureThis.nonClosure"
+shortDescription: "Tag @param-closure-this is used on a parameter that is not a Closure."
 ignorable: true
 ---
 

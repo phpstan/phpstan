@@ -1,5 +1,6 @@
 ---
 title: "nullableType.void"
+shortDescription: "Type void cannot be part of a nullable type declaration."
 ignorable: false
 ---
 

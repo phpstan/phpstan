@@ -1,5 +1,6 @@
 ---
 title: "method.unused"
+shortDescription: "Private method is declared but never called."
 ignorable: true
 ---
 

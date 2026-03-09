@@ -1,5 +1,6 @@
 ---
 title: "impure.print"
+shortDescription: "Pure function uses print, which produces output as a side effect."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "generics.deprecatedClassBound"
+shortDescription: "Template type bound references a deprecated class."
 ignorable: true
 ---
 

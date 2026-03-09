@@ -1,5 +1,6 @@
 ---
 title: "return.unionTypeNotSupported"
+shortDescription: "Native union return type is not supported on the configured PHP version."
 ignorable: true
 ---
 

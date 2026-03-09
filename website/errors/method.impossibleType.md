@@ -1,5 +1,6 @@
 ---
 title: "method.impossibleType"
+shortDescription: "Type-checking method call always evaluates to false."
 ignorable: true
 ---
 

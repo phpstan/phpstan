@@ -1,5 +1,6 @@
 ---
 title: "impure.exit"
+shortDescription: "Pure function uses exit, which terminates the process as a side effect."
 ignorable: true
 ---
 

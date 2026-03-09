@@ -1,5 +1,6 @@
 ---
 title: "typeAlias.notFound"
+shortDescription: "Imported type alias does not exist in the referenced class."
 ignorable: true
 ---
 

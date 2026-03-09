@@ -1,5 +1,6 @@
 ---
 title: "preInc.type"
+shortDescription: "Pre-increment operator is used on a type that does not support it."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "magicConstant.outOfFunction"
+shortDescription: "Magic constant __FUNCTION__ or __METHOD__ used outside of a function."
 ignorable: true
 ---
 

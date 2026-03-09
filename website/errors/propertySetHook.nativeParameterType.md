@@ -1,5 +1,6 @@
 ---
 title: "propertySetHook.nativeParameterType"
+shortDescription: "Set hook parameter native type is not contravariant with the property type."
 ignorable: false
 ---
 

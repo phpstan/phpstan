@@ -1,5 +1,6 @@
 ---
 title: "nullableType.mixed"
+shortDescription: "Type mixed cannot be nullable because it already includes null."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "traitUse.enum"
+shortDescription: "Enum is used in a trait use statement, but only traits are allowed."
 ignorable: false
 ---
 

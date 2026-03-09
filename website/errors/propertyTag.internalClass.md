@@ -1,5 +1,6 @@
 ---
 title: "propertyTag.internalClass"
+shortDescription: "@property PHPDoc tag references an internal class."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "classConstant.phpDocType"
+shortDescription: "PHPDoc @var type on a class constant does not match the assigned value."
 ignorable: true
 ---
 

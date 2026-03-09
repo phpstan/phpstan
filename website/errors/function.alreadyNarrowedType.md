@@ -1,5 +1,6 @@
 ---
 title: "function.alreadyNarrowedType"
+shortDescription: "Type-checking function call is redundant because the type is already narrowed."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "property.notWritable"
+shortDescription: "Overriding property removes writability required by the parent."
 ignorable: false
 ---
 

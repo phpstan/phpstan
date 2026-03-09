@@ -1,5 +1,6 @@
 ---
 title: "encapsedStringPart.nonString"
+shortDescription: "Interpolated string contains a value that cannot be cast to string."
 ignorable: true
 ---
 

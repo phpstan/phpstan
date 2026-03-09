@@ -1,5 +1,6 @@
 ---
 title: "new.enum"
+shortDescription: "Enums cannot be instantiated with the new keyword."
 ignorable: true
 ---
 

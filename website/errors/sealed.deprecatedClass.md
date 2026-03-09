@@ -1,5 +1,6 @@
 ---
 title: "sealed.deprecatedClass"
+shortDescription: "Tag @phpstan-sealed references a deprecated class."
 ignorable: true
 ---
 

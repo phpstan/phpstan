@@ -1,5 +1,6 @@
 ---
 title: "foreach.keyOverwrite"
+shortDescription: "Foreach key variable overwrites an existing variable in the current scope."
 ignorable: true
 ---
 

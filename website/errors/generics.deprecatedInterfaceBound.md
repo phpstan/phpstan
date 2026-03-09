@@ -1,5 +1,6 @@
 ---
 title: "generics.deprecatedInterfaceBound"
+shortDescription: "Template type bound references a deprecated interface."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "parameter.phpDocType"
+shortDescription: "PHPDoc @param type is incompatible with the native parameter type."
 ignorable: true
 ---
 

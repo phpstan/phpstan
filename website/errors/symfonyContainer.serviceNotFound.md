@@ -1,5 +1,6 @@
 ---
 title: "symfonyContainer.serviceNotFound"
+shortDescription: "Service identifier is not registered in the Symfony container."
 ignorable: true
 ---
 

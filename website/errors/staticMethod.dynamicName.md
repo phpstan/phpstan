@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.dynamicName"
+shortDescription: "Static method is called with a variable method name."
 ignorable: true
 ---
 

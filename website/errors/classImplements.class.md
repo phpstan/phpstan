@@ -1,5 +1,6 @@
 ---
 title: "classImplements.class"
+shortDescription: "Class uses implements with a class instead of an interface."
 ignorable: false
 ---
 

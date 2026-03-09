@@ -1,5 +1,6 @@
 ---
 title: "argument.unresolvableType"
+shortDescription: "Generic template type cannot be resolved from the argument type."
 ignorable: true
 ---
 

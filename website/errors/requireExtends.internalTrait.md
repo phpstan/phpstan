@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.internalTrait"
+shortDescription: "@phpstan-require-extends references an internal trait."
 ignorable: true
 ---
 

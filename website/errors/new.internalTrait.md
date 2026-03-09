@@ -1,5 +1,6 @@
 ---
 title: "new.internalTrait"
+shortDescription: "Referencing an internal trait from another package in a new expression."
 ignorable: true
 ---
 

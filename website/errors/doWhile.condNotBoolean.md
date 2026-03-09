@@ -1,5 +1,6 @@
 ---
 title: "doWhile.condNotBoolean"
+shortDescription: "Do-while loop condition is not a boolean value."
 ignorable: true
 ---
 

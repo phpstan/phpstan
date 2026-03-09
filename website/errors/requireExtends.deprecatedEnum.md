@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.deprecatedEnum"
+shortDescription: "@phpstan-require-extends references a deprecated enum."
 ignorable: true
 ---
 

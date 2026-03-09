@@ -1,5 +1,6 @@
 ---
 title: "arrayUnpacking.stringOffset"
+shortDescription: "Array unpacking with string keys is not supported in the configured PHP version."
 ignorable: true
 ---
 

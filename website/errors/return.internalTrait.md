@@ -1,5 +1,6 @@
 ---
 title: "return.internalTrait"
+shortDescription: "Return type declaration references an internal trait from another package."
 ignorable: true
 ---
 

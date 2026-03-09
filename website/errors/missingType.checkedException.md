@@ -1,5 +1,6 @@
 ---
 title: "missingType.checkedException"
+shortDescription: "Thrown checked exception is not declared in the @throws PHPDoc tag."
 ignorable: true
 ---
 

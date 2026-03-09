@@ -1,5 +1,6 @@
 ---
 title: "selfOut.deprecatedClass"
+shortDescription: "Tag @phpstan-self-out references a deprecated class."
 ignorable: true
 ---
 

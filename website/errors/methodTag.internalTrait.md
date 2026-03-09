@@ -1,5 +1,6 @@
 ---
 title: "methodTag.internalTrait"
+shortDescription: "PHPDoc @method tag references an internal trait."
 ignorable: true
 ---
 

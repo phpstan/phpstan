@@ -1,5 +1,6 @@
 ---
 title: "interface.disallowedSubtype"
+shortDescription: "Class implements a sealed interface that does not allow this subtype."
 ignorable: true
 ---
 

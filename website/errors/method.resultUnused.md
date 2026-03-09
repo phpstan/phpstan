@@ -1,5 +1,6 @@
 ---
 title: "method.resultUnused"
+shortDescription: "Call to a pure method on a separate line has no effect."
 ignorable: true
 ---
 

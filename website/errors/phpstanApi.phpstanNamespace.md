@@ -1,5 +1,6 @@
 ---
 title: "phpstanApi.phpstanNamespace"
+shortDescription: "Third-party code declares classes in the reserved PHPStan namespace."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "trait.duplicate"
+shortDescription: "Same trait name is declared in multiple files."
 ignorable: true
 ---
 

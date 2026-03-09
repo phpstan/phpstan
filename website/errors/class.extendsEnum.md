@@ -1,5 +1,6 @@
 ---
 title: "class.extendsEnum"
+shortDescription: "Class cannot extend an enum."
 ignorable: false
 ---
 

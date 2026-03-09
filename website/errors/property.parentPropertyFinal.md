@@ -1,5 +1,6 @@
 ---
 title: "property.parentPropertyFinal"
+shortDescription: "Overriding a final property from a parent class."
 ignorable: false
 ---
 

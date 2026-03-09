@@ -1,5 +1,6 @@
 ---
 title: "trait.allowDynamicProperties"
+shortDescription: "#[AllowDynamicProperties] attribute cannot be used on a trait."
 ignorable: false
 ---
 

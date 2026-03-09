@@ -1,5 +1,6 @@
 ---
 title: "property.readOnlyByPhpDocAssignByRef"
+shortDescription: "@readonly property is assigned by reference, allowing mutation."
 ignorable: true
 ---
 

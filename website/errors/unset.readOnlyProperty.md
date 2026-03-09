@@ -1,5 +1,6 @@
 ---
 title: "unset.readOnlyProperty"
+shortDescription: "Readonly property cannot be unset."
 ignorable: true
 ---
 

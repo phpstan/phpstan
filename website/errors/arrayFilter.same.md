@@ -1,5 +1,6 @@
 ---
 title: "arrayFilter.same"
+shortDescription: "Call to array_filter has no effect because no values are falsy."
 ignorable: true
 ---
 

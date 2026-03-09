@@ -1,5 +1,6 @@
 ---
 title: "method.parentMethodFinal"
+shortDescription: "Overriding a method that is declared as final in the parent class."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "phpDoc.parseError"
+shortDescription: "PHPDoc tag contains a value that could not be parsed."
 ignorable: true
 ---
 

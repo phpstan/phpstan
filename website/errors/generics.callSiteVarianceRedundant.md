@@ -1,5 +1,6 @@
 ---
 title: "generics.callSiteVarianceRedundant"
+shortDescription: "Call-site variance annotation is redundant because the template already has the same variance."
 ignorable: true
 ---
 

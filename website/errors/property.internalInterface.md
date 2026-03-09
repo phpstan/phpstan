@@ -1,5 +1,6 @@
 ---
 title: "property.internalInterface"
+shortDescription: "Property type references an internal interface from outside its namespace."
 ignorable: true
 ---
 

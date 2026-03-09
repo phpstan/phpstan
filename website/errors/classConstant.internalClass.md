@@ -1,5 +1,6 @@
 ---
 title: "classConstant.internalClass"
+shortDescription: "Accessing a constant on a class marked as @internal."
 ignorable: true
 ---
 

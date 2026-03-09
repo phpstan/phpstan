@@ -1,5 +1,6 @@
 ---
 title: "arrayValues.empty"
+shortDescription: "Call to array_values on an empty array has no effect."
 ignorable: true
 ---
 

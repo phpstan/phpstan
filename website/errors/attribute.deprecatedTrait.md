@@ -1,5 +1,6 @@
 ---
 title: "attribute.deprecatedTrait"
+shortDescription: "Attribute references a deprecated trait."
 ignorable: true
 ---
 

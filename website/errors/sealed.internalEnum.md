@@ -1,5 +1,6 @@
 ---
 title: "sealed.internalEnum"
+shortDescription: "Tag @phpstan-sealed references an internal enum from another package."
 ignorable: true
 ---
 

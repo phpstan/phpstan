@@ -1,5 +1,6 @@
 ---
 title: "assign.propertyProtectedSet"
+shortDescription: "Property with protected(set) visibility is assigned from outside its class hierarchy."
 ignorable: true
 ---
 

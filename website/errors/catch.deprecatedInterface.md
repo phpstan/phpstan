@@ -1,5 +1,6 @@
 ---
 title: "catch.deprecatedInterface"
+shortDescription: "Catch block references a deprecated interface."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "catch.internalEnum"
+shortDescription: "Catch block references an internal enum from another package."
 ignorable: true
 ---
 

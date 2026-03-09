@@ -1,5 +1,6 @@
 ---
 title: "parameter.deprecatedEnum"
+shortDescription: "Parameter type declaration uses a deprecated enum."
 ignorable: true
 ---
 

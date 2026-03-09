@@ -1,5 +1,6 @@
 ---
 title: "varTag.type"
+shortDescription: "@var tag type does not match the type determined by PHPStan."
 ignorable: true
 ---
 

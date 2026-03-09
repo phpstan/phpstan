@@ -1,5 +1,6 @@
 ---
 title: "property.readOnlyAssignByRef"
+shortDescription: "Readonly property is assigned by reference, bypassing the readonly constraint."
 ignorable: true
 ---
 

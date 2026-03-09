@@ -1,5 +1,6 @@
 ---
 title: "enum.duplicate"
+shortDescription: "Enum with the same name is declared multiple times."
 ignorable: true
 ---
 

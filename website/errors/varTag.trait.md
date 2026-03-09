@@ -1,5 +1,6 @@
 ---
 title: "varTag.trait"
+shortDescription: "@var PHPDoc tag references a trait, but traits are not valid types."
 ignorable: true
 ---
 

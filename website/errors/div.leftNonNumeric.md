@@ -1,5 +1,6 @@
 ---
 title: "div.leftNonNumeric"
+shortDescription: "Left side of the division operator is not a numeric type."
 ignorable: true
 ---
 

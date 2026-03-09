@@ -1,5 +1,6 @@
 ---
 title: "classConstant.internalInterface"
+shortDescription: "Accessing a constant on an interface marked as @internal."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "propertyTag.internalInterface"
+shortDescription: "@property PHPDoc tag references an internal interface."
 ignorable: true
 ---
 

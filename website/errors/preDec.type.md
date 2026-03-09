@@ -1,5 +1,6 @@
 ---
 title: "preDec.type"
+shortDescription: "Pre-decrement operator is used on a type that does not support it."
 ignorable: true
 ---
 

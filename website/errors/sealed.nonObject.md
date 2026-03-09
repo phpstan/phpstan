@@ -1,5 +1,6 @@
 ---
 title: "sealed.nonObject"
+shortDescription: "Tag @phpstan-sealed contains a non-object type instead of a class or interface."
 ignorable: true
 ---
 

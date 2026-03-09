@@ -1,5 +1,6 @@
 ---
 title: "argument.named"
+shortDescription: "Named argument used in a call that does not accept named arguments."
 ignorable: true
 ---
 

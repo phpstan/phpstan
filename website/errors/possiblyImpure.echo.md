@@ -1,5 +1,6 @@
 ---
 title: "possiblyImpure.echo"
+shortDescription: "Pure function contains an echo statement which is a side effect."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "conditionalType.subjectNotFound"
+shortDescription: "Conditional return type subject does not reference a template or parameter."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "unaryPlus.nonNumeric"
+shortDescription: "Unary plus operator is applied to a non-numeric value."
 ignorable: true
 ---
 

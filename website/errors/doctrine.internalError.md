@@ -1,5 +1,6 @@
 ---
 title: "doctrine.internalError"
+shortDescription: "Internal error occurred during Doctrine QueryBuilder analysis."
 ignorable: false
 ---
 

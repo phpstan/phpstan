@@ -1,5 +1,6 @@
 ---
 title: "class.duplicate"
+shortDescription: "Same class name is declared in multiple files."
 ignorable: true
 ---
 

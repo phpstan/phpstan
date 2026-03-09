@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.duplicate"
+shortDescription: "Multiple @phpstan-require-extends tags on the same declaration."
 ignorable: true
 ---
 

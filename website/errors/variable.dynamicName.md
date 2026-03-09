@@ -1,5 +1,6 @@
 ---
 title: "variable.dynamicName"
+shortDescription: "Variable variable is used, which cannot be statically analysed."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "interface.duplicateMethod"
+shortDescription: "Interface declares the same method name more than once."
 ignorable: false
 ---
 

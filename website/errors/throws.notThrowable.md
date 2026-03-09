@@ -1,5 +1,6 @@
 ---
 title: "throws.notThrowable"
+shortDescription: "Type in @throws tag does not implement the Throwable interface."
 ignorable: true
 ---
 

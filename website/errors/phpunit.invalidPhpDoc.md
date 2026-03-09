@@ -1,5 +1,6 @@
 ---
 title: "phpunit.invalidPhpDoc"
+shortDescription: "PHPUnit annotation is missing a space between the tag name and its value."
 ignorable: true
 ---
 

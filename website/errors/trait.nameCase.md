@@ -1,5 +1,6 @@
 ---
 title: "trait.nameCase"
+shortDescription: "Trait is referenced with incorrect letter casing."
 ignorable: true
 ---
 

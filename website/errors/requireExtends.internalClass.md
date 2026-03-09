@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.internalClass"
+shortDescription: "@phpstan-require-extends references an internal class."
 ignorable: true
 ---
 

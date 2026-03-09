@@ -1,5 +1,6 @@
 ---
 title: "requireImplements.trait"
+shortDescription: "Tag @phpstan-require-implements references a trait instead of an interface."
 ignorable: true
 ---
 

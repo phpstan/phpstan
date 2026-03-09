@@ -1,5 +1,6 @@
 ---
 title: "property.writeOnly"
+shortDescription: "Write-only property declared via @property-write is being read."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "variable.undefined"
+shortDescription: "Variable is used but has not been defined in the current scope."
 ignorable: true
 ---
 

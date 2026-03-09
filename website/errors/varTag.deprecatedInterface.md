@@ -1,5 +1,6 @@
 ---
 title: "varTag.deprecatedInterface"
+shortDescription: "@var PHPDoc tag references a deprecated interface."
 ignorable: true
 ---
 

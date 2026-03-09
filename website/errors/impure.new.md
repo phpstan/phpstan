@@ -1,5 +1,6 @@
 ---
 title: "impure.new"
+shortDescription: "Pure function instantiates a class with an impure constructor."
 ignorable: true
 ---
 

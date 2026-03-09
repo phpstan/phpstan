@@ -1,5 +1,6 @@
 ---
 title: "classConstant.notSupported"
+shortDescription: "Accessing ::class on an expression requires PHP 8.0 or later."
 ignorable: false
 ---
 

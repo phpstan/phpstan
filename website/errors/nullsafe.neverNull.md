@@ -1,5 +1,6 @@
 ---
 title: "nullsafe.neverNull"
+shortDescription: "Nullsafe operator is used on a value that can never be null."
 ignorable: true
 ---
 

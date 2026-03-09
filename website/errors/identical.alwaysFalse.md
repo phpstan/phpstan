@@ -1,5 +1,6 @@
 ---
 title: "identical.alwaysFalse"
+shortDescription: "Strict comparison using === is always false because the types are incompatible."
 ignorable: true
 ---
 

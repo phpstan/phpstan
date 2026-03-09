@@ -1,5 +1,6 @@
 ---
 title: "property.abstractWithoutAbstractHook"
+shortDescription: "Abstract property has no abstract hooks."
 ignorable: false
 ---
 

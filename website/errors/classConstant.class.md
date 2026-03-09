@@ -1,5 +1,6 @@
 ---
 title: "classConstant.class"
+shortDescription: "Class constant cannot be named \"class\" because it is reserved."
 ignorable: false
 ---
 

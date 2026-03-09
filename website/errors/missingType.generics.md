@@ -1,5 +1,6 @@
 ---
 title: "missingType.generics"
+shortDescription: "Generic class is used without specifying its type parameters."
 ignorable: true
 ---
 

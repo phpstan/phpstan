@@ -1,5 +1,6 @@
 ---
 title: "requireImplements.onEnum"
+shortDescription: "Tag @phpstan-require-implements is used on an enum instead of a trait."
 ignorable: true
 ---
 

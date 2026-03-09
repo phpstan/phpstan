@@ -1,5 +1,6 @@
 ---
 title: "assign.readOnlyPropertyByPhpDoc"
+shortDescription: "Property marked with @readonly is assigned more than once."
 ignorable: true
 ---
 

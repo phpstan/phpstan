@@ -1,5 +1,6 @@
 ---
 title: "arrayFilter.strict"
+shortDescription: "Call to array_filter without an explicit callback uses loose comparison."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "possiblyImpure.static"
+shortDescription: "Pure function uses a static variable which persists mutable state."
 ignorable: true
 ---
 

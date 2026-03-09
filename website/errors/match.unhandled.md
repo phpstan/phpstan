@@ -1,5 +1,6 @@
 ---
 title: "match.unhandled"
+shortDescription: "Match expression does not handle all possible values of the subject."
 ignorable: true
 ---
 

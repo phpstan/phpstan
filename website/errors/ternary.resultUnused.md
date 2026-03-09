@@ -1,5 +1,6 @@
 ---
 title: "ternary.resultUnused"
+shortDescription: "Result of a ternary expression is not used."
 ignorable: true
 ---
 

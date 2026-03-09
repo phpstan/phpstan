@@ -1,5 +1,6 @@
 ---
 title: "empty.expr"
+shortDescription: "Result of empty() on this expression is always predictable."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "requireImplements.deprecatedTrait"
+shortDescription: "Tag @phpstan-require-implements references a deprecated trait."
 ignorable: true
 ---
 

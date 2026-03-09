@@ -1,5 +1,6 @@
 ---
 title: "catch.alreadyCaught"
+shortDescription: "Catch block is dead code because a previous catch already handles this exception type."
 ignorable: true
 ---
 

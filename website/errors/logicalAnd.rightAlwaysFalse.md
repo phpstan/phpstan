@@ -1,5 +1,6 @@
 ---
 title: "logicalAnd.rightAlwaysFalse"
+shortDescription: "Right side of and is always false."
 ignorable: true
 ---
 

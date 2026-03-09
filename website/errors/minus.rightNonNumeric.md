@@ -1,5 +1,6 @@
 ---
 title: "minus.rightNonNumeric"
+shortDescription: "Right side of the subtraction operator is not a numeric type."
 ignorable: true
 ---
 

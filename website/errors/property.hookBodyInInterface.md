@@ -1,5 +1,6 @@
 ---
 title: "property.hookBodyInInterface"
+shortDescription: "Interface property hook cannot have a body."
 ignorable: false
 ---
 

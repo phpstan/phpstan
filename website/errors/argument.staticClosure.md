@@ -1,5 +1,6 @@
 ---
 title: "argument.staticClosure"
+shortDescription: "Static closure passed where a bindable closure is expected."
 ignorable: true
 ---
 

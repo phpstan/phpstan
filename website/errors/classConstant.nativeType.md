@@ -1,5 +1,6 @@
 ---
 title: "classConstant.nativeType"
+shortDescription: "Overriding constant's native type is not compatible with the parent's type."
 ignorable: false
 ---
 

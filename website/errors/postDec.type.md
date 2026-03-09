@@ -1,5 +1,6 @@
 ---
 title: "postDec.type"
+shortDescription: "Post-decrement operator is used on a type that does not support it."
 ignorable: true
 ---
 

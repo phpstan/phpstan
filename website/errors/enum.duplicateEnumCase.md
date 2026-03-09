@@ -1,5 +1,6 @@
 ---
 title: "enum.duplicateEnumCase"
+shortDescription: "Enum declares two cases with the same name."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "attribute.trait"
+shortDescription: "Trait cannot be used as an attribute class because traits cannot be instantiated."
 ignorable: true
 ---
 

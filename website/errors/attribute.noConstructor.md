@@ -1,5 +1,6 @@
 ---
 title: "attribute.noConstructor"
+shortDescription: "Attribute class has no constructor but is used with arguments."
 ignorable: true
 ---
 

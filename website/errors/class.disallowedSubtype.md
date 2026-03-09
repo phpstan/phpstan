@@ -1,5 +1,6 @@
 ---
 title: "class.disallowedSubtype"
+shortDescription: "Class extends a sealed type without being listed as an allowed subtype."
 ignorable: true
 ---
 

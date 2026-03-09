@@ -1,5 +1,6 @@
 ---
 title: "classConstant.nativeTypeNotSupported"
+shortDescription: "Native types for class constants require PHP 8.3 or later."
 ignorable: false
 ---
 

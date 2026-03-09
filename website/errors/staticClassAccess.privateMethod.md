@@ -1,5 +1,6 @@
 ---
 title: "staticClassAccess.privateMethod"
+shortDescription: "Private method called via static:: may fail in child classes."
 ignorable: true
 ---
 

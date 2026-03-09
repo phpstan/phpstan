@@ -1,5 +1,6 @@
 ---
 title: "argument.fscanf"
+shortDescription: "Mismatch between fscanf format placeholders and variable arguments."
 ignorable: true
 ---
 

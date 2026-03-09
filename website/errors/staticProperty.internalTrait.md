@@ -1,5 +1,6 @@
 ---
 title: "staticProperty.internalTrait"
+shortDescription: "Static property is accessed on an internal trait from outside its package."
 ignorable: true
 ---
 

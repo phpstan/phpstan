@@ -1,5 +1,6 @@
 ---
 title: "function.resultUnused"
+shortDescription: "Return value of a pure function call is not used."
 ignorable: true
 ---
 

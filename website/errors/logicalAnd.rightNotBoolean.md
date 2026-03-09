@@ -1,5 +1,6 @@
 ---
 title: "logicalAnd.rightNotBoolean"
+shortDescription: "Right side of and is not a boolean value."
 ignorable: true
 ---
 

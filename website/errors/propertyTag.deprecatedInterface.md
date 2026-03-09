@@ -1,5 +1,6 @@
 ---
 title: "propertyTag.deprecatedInterface"
+shortDescription: "@property PHPDoc tag references a deprecated interface."
 ignorable: true
 ---
 

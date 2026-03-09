@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.notFound"
+shortDescription: "Called static method does not exist on the class."
 ignorable: true
 ---
 

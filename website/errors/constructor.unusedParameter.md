@@ -1,5 +1,6 @@
 ---
 title: "constructor.unusedParameter"
+shortDescription: "Constructor parameter is never used in the constructor body."
 ignorable: true
 ---
 

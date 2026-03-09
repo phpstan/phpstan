@@ -1,5 +1,6 @@
 ---
 title: "method.static"
+shortDescription: "Static method overrides a non-static method from a parent class."
 ignorable: false
 ---
 

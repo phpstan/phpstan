@@ -1,5 +1,6 @@
 ---
 title: "argument.unknown"
+shortDescription: "Named argument does not match any declared parameter."
 ignorable: true
 ---
 

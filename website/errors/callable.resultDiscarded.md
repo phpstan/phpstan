@@ -1,5 +1,6 @@
 ---
 title: "callable.resultDiscarded"
+shortDescription: "Return value of a callable that requires its result to be used is discarded."
 ignorable: false
 ---
 

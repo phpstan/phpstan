@@ -1,5 +1,6 @@
 ---
 title: "return.missing"
+shortDescription: "Function with a non-void return type is missing a return statement."
 ignorable: true
 ---
 

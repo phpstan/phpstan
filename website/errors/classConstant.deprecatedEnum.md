@@ -1,5 +1,6 @@
 ---
 title: "classConstant.deprecatedEnum"
+shortDescription: "Accessing a constant or case on a deprecated enum."
 ignorable: true
 ---
 

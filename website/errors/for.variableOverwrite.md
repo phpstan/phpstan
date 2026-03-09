@@ -1,5 +1,6 @@
 ---
 title: "for.variableOverwrite"
+shortDescription: "For loop initialization overwrites an existing variable in the current scope."
 ignorable: true
 ---
 

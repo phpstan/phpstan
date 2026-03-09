@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.deprecatedTrait"
+shortDescription: "Static method is called on a deprecated trait."
 ignorable: true
 ---
 

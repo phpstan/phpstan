@@ -1,5 +1,6 @@
 ---
 title: "property.defaultValue"
+shortDescription: "Default value does not match the property's declared type."
 ignorable: true
 ---
 

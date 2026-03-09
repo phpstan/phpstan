@@ -1,5 +1,6 @@
 ---
 title: "attribute.internalEnum"
+shortDescription: "Attribute references an internal enum."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "property.uninitialized"
+shortDescription: "Typed property is never assigned and will be uninitialized."
 ignorable: true
 ---
 

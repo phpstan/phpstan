@@ -1,5 +1,6 @@
 ---
 title: "phpunit.dataProviderPublic"
+shortDescription: "Data provider method is not public."
 ignorable: true
 ---
 

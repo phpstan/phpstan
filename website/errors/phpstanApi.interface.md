@@ -1,5 +1,6 @@
 ---
 title: "phpstanApi.interface"
+shortDescription: "Implementing a PHPStan interface not covered by the BC promise."
 ignorable: true
 ---
 

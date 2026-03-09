@@ -1,5 +1,6 @@
 ---
 title: "foreach.emptyArray"
+shortDescription: "Foreach iterates over an empty array, so the loop body never executes."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.protected"
+shortDescription: "Protected static method is called from outside its class hierarchy."
 ignorable: true
 ---
 

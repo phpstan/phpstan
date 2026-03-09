@@ -1,5 +1,6 @@
 ---
 title: "varTag.variableNotFound"
+shortDescription: "@var tag references a variable that does not exist in the current scope."
 ignorable: true
 ---
 

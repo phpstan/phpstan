@@ -1,5 +1,6 @@
 ---
 title: "offsetAccess.nonArray"
+shortDescription: "Array destructuring is used on a type that is not an array."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "assign.readOnlyProperty"
+shortDescription: "Readonly property is assigned more than once."
 ignorable: true
 ---
 

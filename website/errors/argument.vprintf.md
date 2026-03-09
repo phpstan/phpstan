@@ -1,5 +1,6 @@
 ---
 title: "argument.vprintf"
+shortDescription: "Mismatch between vprintf format placeholders and array values."
 ignorable: true
 ---
 

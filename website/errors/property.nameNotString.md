@@ -1,5 +1,6 @@
 ---
 title: "property.nameNotString"
+shortDescription: "Dynamic property name is not a string."
 ignorable: true
 ---
 

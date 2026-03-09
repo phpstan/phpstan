@@ -1,5 +1,6 @@
 ---
 title: "return.internalInterface"
+shortDescription: "Return type declaration references an internal interface from another package."
 ignorable: true
 ---
 

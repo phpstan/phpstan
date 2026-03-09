@@ -1,5 +1,6 @@
 ---
 title: "callable.shadowTemplate"
+shortDescription: "Generic callable type shadows a template type from the enclosing class or function."
 ignorable: true
 ---
 

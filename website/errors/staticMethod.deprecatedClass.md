@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.deprecatedClass"
+shortDescription: "Static method is called on a deprecated class."
 ignorable: true
 ---
 

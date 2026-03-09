@@ -1,5 +1,6 @@
 ---
 title: "isset.offset"
+shortDescription: "Array offset in isset() always exists or never exists."
 ignorable: true
 ---
 

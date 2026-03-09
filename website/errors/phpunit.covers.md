@@ -1,5 +1,6 @@
 ---
 title: "phpunit.covers"
+shortDescription: "@covers annotation references an invalid or non-existent symbol."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "selfOut.internalTrait"
+shortDescription: "Tag @phpstan-self-out references an internal trait from another package."
 ignorable: true
 ---
 

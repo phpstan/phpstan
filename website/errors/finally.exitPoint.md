@@ -1,5 +1,6 @@
 ---
 title: "finally.exitPoint"
+shortDescription: "Exit point in finally block overrides try/catch return values or exceptions."
 ignorable: true
 ---
 

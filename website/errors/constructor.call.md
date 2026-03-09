@@ -1,5 +1,6 @@
 ---
 title: "constructor.call"
+shortDescription: "Constructor is called on an already-constructed object."
 ignorable: true
 ---
 

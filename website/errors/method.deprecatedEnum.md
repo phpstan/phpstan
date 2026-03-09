@@ -1,5 +1,6 @@
 ---
 title: "method.deprecatedEnum"
+shortDescription: "Called method belongs to an enum marked as @deprecated."
 ignorable: true
 ---
 

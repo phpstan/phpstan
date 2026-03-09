@@ -1,5 +1,6 @@
 ---
 title: "phpstan.dumpNativeType"
+shortDescription: "Debugging output of an expression's native type without PHPDoc."
 ignorable: false
 ---
 

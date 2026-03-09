@@ -1,5 +1,6 @@
 ---
 title: "catch.internalClass"
+shortDescription: "Catch block references an internal class from another package."
 ignorable: true
 ---
 

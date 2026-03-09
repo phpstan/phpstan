@@ -1,5 +1,6 @@
 ---
 title: "parameter.notFound"
+shortDescription: "PHPDoc tag references a parameter name that does not exist in the function signature."
 ignorable: true
 ---
 

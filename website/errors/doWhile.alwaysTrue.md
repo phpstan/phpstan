@@ -1,5 +1,6 @@
 ---
 title: "doWhile.alwaysTrue"
+shortDescription: "Do-while loop condition is always true, creating an infinite loop."
 ignorable: true
 ---
 

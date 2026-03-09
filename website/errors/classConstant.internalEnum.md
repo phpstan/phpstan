@@ -1,5 +1,6 @@
 ---
 title: "classConstant.internalEnum"
+shortDescription: "Accessing a constant on an enum marked as @internal."
 ignorable: true
 ---
 

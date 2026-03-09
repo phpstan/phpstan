@@ -1,5 +1,6 @@
 ---
 title: "offsetAccess.nonOffsetAccessible"
+shortDescription: "Offset access is used on a type that does not support it."
 ignorable: true
 ---
 

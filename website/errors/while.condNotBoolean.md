@@ -1,5 +1,6 @@
 ---
 title: "while.condNotBoolean"
+shortDescription: "While loop condition is not a boolean, relying on implicit type coercion."
 ignorable: true
 ---
 

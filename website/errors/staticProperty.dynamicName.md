@@ -1,5 +1,6 @@
 ---
 title: "staticProperty.dynamicName"
+shortDescription: "Static property is accessed with a variable property name."
 ignorable: true
 ---
 

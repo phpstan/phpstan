@@ -1,5 +1,6 @@
 ---
 title: "throws.notCovariantWithImplicitVoid"
+shortDescription: "Child method declares @throws but parent has no @throws (implicit void)."
 ignorable: true
 ---
 

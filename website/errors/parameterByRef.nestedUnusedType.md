@@ -1,5 +1,6 @@
 ---
 title: "parameterByRef.nestedUnusedType"
+shortDescription: "Declared output type of a by-reference parameter is wider than necessary in a nested part."
 ignorable: true
 ---
 

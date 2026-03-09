@@ -1,5 +1,6 @@
 ---
 title: "booleanAnd.leftNotBoolean"
+shortDescription: "Left side of && is not a boolean value."
 ignorable: true
 ---
 

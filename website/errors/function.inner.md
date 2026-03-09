@@ -1,5 +1,6 @@
 ---
 title: "function.inner"
+shortDescription: "Named function is declared inside another function."
 ignorable: true
 ---
 

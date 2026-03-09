@@ -1,5 +1,6 @@
 ---
 title: "parameter.void"
+shortDescription: "Type void is used as a parameter type, which is not allowed in PHP."
 ignorable: false
 ---
 

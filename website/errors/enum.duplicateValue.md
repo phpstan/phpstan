@@ -1,5 +1,6 @@
 ---
 title: "enum.duplicateValue"
+shortDescription: "Multiple enum cases share the same backing value."
 ignorable: false
 ---
 

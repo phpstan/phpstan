@@ -1,5 +1,6 @@
 ---
 title: "ignore.parseError"
+shortDescription: "Syntax error in a @phpstan-ignore inline comment."
 ignorable: false
 ---
 

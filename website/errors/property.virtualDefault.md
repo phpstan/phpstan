@@ -1,5 +1,6 @@
 ---
 title: "property.virtualDefault"
+shortDescription: "Virtual hooked property cannot have a default value."
 ignorable: false
 ---
 

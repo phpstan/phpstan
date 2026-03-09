@@ -1,5 +1,6 @@
 ---
 title: "callable.inaccessibleMethod"
+shortDescription: "Callable references a method that is not accessible from the current scope."
 ignorable: true
 ---
 

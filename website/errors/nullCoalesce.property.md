@@ -1,5 +1,6 @@
 ---
 title: "nullCoalesce.property"
+shortDescription: "Property on the left side of ?? is not nullable."
 ignorable: true
 ---
 

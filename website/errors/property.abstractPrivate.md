@@ -1,5 +1,6 @@
 ---
 title: "property.abstractPrivate"
+shortDescription: "Property cannot be both abstract and private."
 ignorable: false
 ---
 

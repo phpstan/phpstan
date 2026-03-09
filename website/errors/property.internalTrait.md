@@ -1,5 +1,6 @@
 ---
 title: "property.internalTrait"
+shortDescription: "Property type references an internal trait from outside its namespace."
 ignorable: true
 ---
 

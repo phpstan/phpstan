@@ -1,5 +1,6 @@
 ---
 title: "property.abstractFinal"
+shortDescription: "Property cannot be both abstract and final."
 ignorable: false
 ---
 

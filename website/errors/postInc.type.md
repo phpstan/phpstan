@@ -1,5 +1,6 @@
 ---
 title: "postInc.type"
+shortDescription: "Post-increment operator is used on a type that does not support it."
 ignorable: true
 ---
 

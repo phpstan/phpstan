@@ -1,5 +1,6 @@
 ---
 title: "preDec.nonNumeric"
+shortDescription: "Pre-decrement operator is used on a non-numeric value."
 ignorable: true
 ---
 

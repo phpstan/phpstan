@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.trait"
+shortDescription: "Tag @phpstan-require-extends references a trait instead of a class."
 ignorable: true
 ---
 

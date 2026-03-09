@@ -1,5 +1,6 @@
 ---
 title: "property.staticAccess"
+shortDescription: "Instance property is accessed using static syntax."
 ignorable: true
 ---
 

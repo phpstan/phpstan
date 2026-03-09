@@ -1,5 +1,6 @@
 ---
 title: "mixin.nonObject"
+shortDescription: "PHPDoc @mixin tag contains a non-object type."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "method.alreadyNarrowedType"
+shortDescription: "Type-checking method call is redundant because the type is already narrowed."
 ignorable: true
 ---
 

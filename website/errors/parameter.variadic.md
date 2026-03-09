@@ -1,5 +1,6 @@
 ---
 title: "parameter.variadic"
+shortDescription: "Overriding method declares a parameter as variadic but the parent is not."
 ignorable: true
 ---
 

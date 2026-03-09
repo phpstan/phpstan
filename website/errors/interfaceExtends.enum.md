@@ -1,5 +1,6 @@
 ---
 title: "interfaceExtends.enum"
+shortDescription: "Interface extends an enum instead of another interface."
 ignorable: false
 ---
 

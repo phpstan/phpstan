@@ -1,5 +1,6 @@
 ---
 title: "unaryOp.invalid"
+shortDescription: "Unary operator is applied to a type that does not support it."
 ignorable: true
 ---
 

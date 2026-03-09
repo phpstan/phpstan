@@ -1,5 +1,6 @@
 ---
 title: "staticProperty.protected"
+shortDescription: "Protected static property is accessed from outside its class hierarchy."
 ignorable: true
 ---
 

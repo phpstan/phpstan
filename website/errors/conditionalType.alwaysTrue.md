@@ -1,5 +1,6 @@
 ---
 title: "conditionalType.alwaysTrue"
+shortDescription: "Condition in a conditional return type is always true."
 ignorable: true
 ---
 

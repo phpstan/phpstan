@@ -1,5 +1,6 @@
 ---
 title: "property.abstract"
+shortDescription: "Non-abstract class declares an abstract property."
 ignorable: false
 ---
 

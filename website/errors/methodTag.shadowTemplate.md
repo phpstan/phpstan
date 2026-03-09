@@ -1,5 +1,6 @@
 ---
 title: "methodTag.shadowTemplate"
+shortDescription: "Template type in @method tag shadows a class-level template type."
 ignorable: true
 ---
 

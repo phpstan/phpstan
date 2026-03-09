@@ -1,5 +1,6 @@
 ---
 title: "property.private"
+shortDescription: "Accessing a private property from outside the declaring class."
 ignorable: true
 ---
 

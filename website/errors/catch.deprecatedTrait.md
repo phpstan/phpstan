@@ -1,5 +1,6 @@
 ---
 title: "catch.deprecatedTrait"
+shortDescription: "Catch block references a type that uses a deprecated trait."
 ignorable: true
 ---
 

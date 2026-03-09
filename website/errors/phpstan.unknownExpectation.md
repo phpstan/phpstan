@@ -1,5 +1,6 @@
 ---
 title: "phpstan.unknownExpectation"
+shortDescription: "Test assertion function called with a non-literal expected value."
 ignorable: false
 ---
 

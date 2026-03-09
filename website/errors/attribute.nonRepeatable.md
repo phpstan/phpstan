@@ -1,5 +1,6 @@
 ---
 title: "attribute.nonRepeatable"
+shortDescription: "Non-repeatable attribute is applied more than once to the same target."
 ignorable: true
 ---
 

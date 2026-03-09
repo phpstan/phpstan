@@ -1,5 +1,6 @@
 ---
 title: "phpunit.coversInterface"
+shortDescription: "@covers annotation references an interface which has no executable code."
 ignorable: true
 ---
 

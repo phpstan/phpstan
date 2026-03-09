@@ -1,5 +1,6 @@
 ---
 title: "selfOut.unresolvableType"
+shortDescription: "Tag @phpstan-self-out contains a type that cannot be resolved."
 ignorable: true
 ---
 

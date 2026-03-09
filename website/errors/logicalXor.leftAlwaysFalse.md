@@ -1,5 +1,6 @@
 ---
 title: "logicalXor.leftAlwaysFalse"
+shortDescription: "Left side of xor is always false, making the operator redundant."
 ignorable: true
 ---
 

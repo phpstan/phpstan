@@ -1,5 +1,6 @@
 ---
 title: "methodTag.internalClass"
+shortDescription: "PHPDoc @method tag references an internal class."
 ignorable: true
 ---
 

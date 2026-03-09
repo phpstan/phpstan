@@ -1,5 +1,6 @@
 ---
 title: "mixin.unresolvableType"
+shortDescription: "PHPDoc @mixin tag contains a type that cannot be resolved."
 ignorable: true
 ---
 

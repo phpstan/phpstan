@@ -1,5 +1,6 @@
 ---
 title: "selfOut.deprecatedTrait"
+shortDescription: "Tag @phpstan-self-out references a deprecated trait."
 ignorable: true
 ---
 

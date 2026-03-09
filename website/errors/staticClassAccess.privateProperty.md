@@ -1,5 +1,6 @@
 ---
 title: "staticClassAccess.privateProperty"
+shortDescription: "Private static property accessed via static:: may fail in child classes."
 ignorable: true
 ---
 

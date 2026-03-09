@@ -1,5 +1,6 @@
 ---
 title: "parameter.internalInterface"
+shortDescription: "Parameter type declaration uses an internal interface from another package."
 ignorable: true
 ---
 

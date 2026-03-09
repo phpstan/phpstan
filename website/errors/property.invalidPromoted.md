@@ -1,5 +1,6 @@
 ---
 title: "property.invalidPromoted"
+shortDescription: "Promoted properties can only be used in a constructor."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "property.tooWideBool"
+shortDescription: "Property typed as bool is only ever assigned one of true or false."
 ignorable: true
 ---
 

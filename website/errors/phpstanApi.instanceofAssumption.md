@@ -1,5 +1,6 @@
 ---
 title: "phpstanApi.instanceofAssumption"
+shortDescription: "Instanceof assumption against a PHPStan type class may break in future versions."
 ignorable: true
 ---
 

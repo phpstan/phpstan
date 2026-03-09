@@ -1,5 +1,6 @@
 ---
 title: "arrayFilter.empty"
+shortDescription: "Call to array_filter on an empty array has no effect."
 ignorable: true
 ---
 

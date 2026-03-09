@@ -1,5 +1,6 @@
 ---
 title: "method.private"
+shortDescription: "Calling a private method from outside its declaring class."
 ignorable: true
 ---
 

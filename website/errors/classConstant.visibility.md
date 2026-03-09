@@ -1,5 +1,6 @@
 ---
 title: "classConstant.visibility"
+shortDescription: "Overriding constant has more restrictive visibility than the parent."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "match.void"
+shortDescription: "Match expression result is used but all arms return void."
 ignorable: true
 ---
 

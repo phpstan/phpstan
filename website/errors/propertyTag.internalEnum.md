@@ -1,5 +1,6 @@
 ---
 title: "propertyTag.internalEnum"
+shortDescription: "@property PHPDoc tag references an internal enum."
 ignorable: true
 ---
 

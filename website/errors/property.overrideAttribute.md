@@ -1,5 +1,6 @@
 ---
 title: "property.overrideAttribute"
+shortDescription: "#[Override] on properties requires PHP 8.5 or later."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "assert.impossibleType"
+shortDescription: "Assertion in @phpstan-assert can never be satisfied by the parameter type."
 ignorable: true
 ---
 

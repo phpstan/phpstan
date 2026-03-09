@@ -1,5 +1,6 @@
 ---
 title: "catch.notThrowable"
+shortDescription: "Caught class does not implement the Throwable interface."
 ignorable: true
 ---
 

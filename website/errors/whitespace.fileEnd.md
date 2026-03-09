@@ -1,5 +1,6 @@
 ---
 title: "whitespace.fileEnd"
+shortDescription: "PHP file has trailing whitespace after the closing tag."
 ignorable: true
 ---
 

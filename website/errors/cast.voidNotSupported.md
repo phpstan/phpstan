@@ -1,5 +1,6 @@
 ---
 title: "cast.voidNotSupported"
+shortDescription: "The (void) cast is not supported on the configured PHP version."
 ignorable: false
 ---
 

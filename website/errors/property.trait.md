@@ -1,5 +1,6 @@
 ---
 title: "property.trait"
+shortDescription: "Property uses a trait as its type, but traits are not valid types."
 ignorable: true
 ---
 

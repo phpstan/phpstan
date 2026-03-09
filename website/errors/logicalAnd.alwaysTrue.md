@@ -1,5 +1,6 @@
 ---
 title: "logicalAnd.alwaysTrue"
+shortDescription: "Result of the and expression is always true."
 ignorable: true
 ---
 

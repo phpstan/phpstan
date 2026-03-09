@@ -1,5 +1,6 @@
 ---
 title: "property.deprecatedTrait"
+shortDescription: "Property type references a deprecated trait or class."
 ignorable: true
 ---
 

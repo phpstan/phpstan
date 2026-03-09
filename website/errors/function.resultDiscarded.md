@@ -1,5 +1,6 @@
 ---
 title: "function.resultDiscarded"
+shortDescription: "Return value of a #[NoDiscard] function is not used."
 ignorable: false
 ---
 

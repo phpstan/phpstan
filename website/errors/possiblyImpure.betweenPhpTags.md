@@ -1,5 +1,6 @@
 ---
 title: "possiblyImpure.betweenPhpTags"
+shortDescription: "Pure function contains inline HTML output between PHP tags."
 ignorable: true
 ---
 

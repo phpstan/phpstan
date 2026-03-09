@@ -1,5 +1,6 @@
 ---
 title: "property.nativeType"
+shortDescription: "Overriding property type does not match the parent property type."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "classConstant.deprecated"
+shortDescription: "Accessing a class constant marked as @deprecated."
 ignorable: true
 ---
 

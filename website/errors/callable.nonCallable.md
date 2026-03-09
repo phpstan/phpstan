@@ -1,5 +1,6 @@
 ---
 title: "callable.nonCallable"
+shortDescription: "Non-callable expression is invoked as a function."
 ignorable: true
 ---
 

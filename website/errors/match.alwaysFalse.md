@@ -1,5 +1,6 @@
 ---
 title: "match.alwaysFalse"
+shortDescription: "Match arm condition can never match the subject type."
 ignorable: true
 ---
 

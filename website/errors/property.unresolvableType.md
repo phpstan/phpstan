@@ -1,5 +1,6 @@
 ---
 title: "property.unresolvableType"
+shortDescription: "Property has a PHPDoc type that cannot be resolved to a valid type."
 ignorable: true
 ---
 

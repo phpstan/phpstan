@@ -1,5 +1,6 @@
 ---
 title: "impureMethod.pure"
+shortDescription: "Method marked as @phpstan-impure has no actual side effects."
 ignorable: true
 ---
 

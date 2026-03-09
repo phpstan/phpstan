@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.dynamicCall"
+shortDescription: "Static method is called using instance syntax instead of class syntax."
 ignorable: true
 ---
 

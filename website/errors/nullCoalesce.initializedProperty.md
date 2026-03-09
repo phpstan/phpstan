@@ -1,5 +1,6 @@
 ---
 title: "nullCoalesce.initializedProperty"
+shortDescription: "Property on the left side of ?? is not nullable and is always initialized."
 ignorable: true
 ---
 

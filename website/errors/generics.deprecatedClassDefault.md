@@ -1,5 +1,6 @@
 ---
 title: "generics.deprecatedClassDefault"
+shortDescription: "Template type default references a deprecated class."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "staticProperty.deprecatedClass"
+shortDescription: "Static property is accessed on a deprecated class."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "return.phpDocType"
+shortDescription: "PHPDoc @return type is incompatible with the native return type."
 ignorable: true
 ---
 

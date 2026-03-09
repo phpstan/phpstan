@@ -1,5 +1,6 @@
 ---
 title: "interface.extendsInternalClass"
+shortDescription: "Interface extends an internal type from another package."
 ignorable: true
 ---
 

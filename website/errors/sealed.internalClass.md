@@ -1,5 +1,6 @@
 ---
 title: "sealed.internalClass"
+shortDescription: "Tag @phpstan-sealed references an internal class from another package."
 ignorable: true
 ---
 

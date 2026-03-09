@@ -1,5 +1,6 @@
 ---
 title: "staticProperty.nonObject"
+shortDescription: "Static property is accessed on a non-object and non-class-string type."
 ignorable: true
 ---
 

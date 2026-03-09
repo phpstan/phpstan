@@ -1,5 +1,6 @@
 ---
 title: "return.unresolvableType"
+shortDescription: "PHPDoc @return tag contains a type that cannot be resolved."
 ignorable: true
 ---
 

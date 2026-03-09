@@ -1,5 +1,6 @@
 ---
 title: "parameter.implicitlyNullable"
+shortDescription: "Parameter has a null default value but its type is not explicitly nullable."
 ignorable: true
 ---
 

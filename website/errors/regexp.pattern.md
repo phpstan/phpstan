@@ -1,5 +1,6 @@
 ---
 title: "regexp.pattern"
+shortDescription: "Regular expression pattern is invalid and would fail at runtime."
 ignorable: true
 ---
 

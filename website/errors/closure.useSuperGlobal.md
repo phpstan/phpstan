@@ -1,5 +1,6 @@
 ---
 title: "closure.useSuperGlobal"
+shortDescription: "Superglobal variable is used in a closure use clause, which is not allowed."
 ignorable: true
 ---
 

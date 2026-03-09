@@ -1,5 +1,6 @@
 ---
 title: "spaceship.invalid"
+shortDescription: "Spaceship operator used between incompatible types."
 ignorable: true
 ---
 

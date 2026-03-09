@@ -1,5 +1,6 @@
 ---
 title: "interface.notFound"
+shortDescription: "Extended interface does not exist."
 ignorable: false
 ---
 

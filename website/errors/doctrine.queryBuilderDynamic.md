@@ -1,5 +1,6 @@
 ---
 title: "doctrine.queryBuilderDynamic"
+shortDescription: "QueryBuilder origin cannot be traced, preventing DQL validation."
 ignorable: true
 ---
 

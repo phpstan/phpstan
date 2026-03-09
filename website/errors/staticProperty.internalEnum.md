@@ -1,5 +1,6 @@
 ---
 title: "staticProperty.internalEnum"
+shortDescription: "Static property is accessed on an internal enum from outside its package."
 ignorable: true
 ---
 

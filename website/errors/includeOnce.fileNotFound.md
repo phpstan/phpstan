@@ -1,5 +1,6 @@
 ---
 title: "includeOnce.fileNotFound"
+shortDescription: "File path passed to include_once does not point to an existing file."
 ignorable: true
 ---
 

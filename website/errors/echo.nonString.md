@@ -1,5 +1,6 @@
 ---
 title: "echo.nonString"
+shortDescription: "Value passed to echo cannot be converted to string."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "parameter.defaultValue"
+shortDescription: "Default value of a parameter is incompatible with its declared type."
 ignorable: true
 ---
 

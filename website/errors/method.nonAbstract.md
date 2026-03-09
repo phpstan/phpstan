@@ -1,5 +1,6 @@
 ---
 title: "method.nonAbstract"
+shortDescription: "Non-abstract method in a non-abstract class has no body."
 ignorable: false
 ---
 

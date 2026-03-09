@@ -1,5 +1,6 @@
 ---
 title: "class.extendsFinalByPhpDoc"
+shortDescription: "Class extends a class marked as @final in PHPDoc."
 ignorable: true
 ---
 

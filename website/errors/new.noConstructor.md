@@ -1,5 +1,6 @@
 ---
 title: "new.noConstructor"
+shortDescription: "Class without a constructor is instantiated with arguments."
 ignorable: true
 ---
 

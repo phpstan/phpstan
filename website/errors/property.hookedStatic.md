@@ -1,5 +1,6 @@
 ---
 title: "property.hookedStatic"
+shortDescription: "Hooked properties cannot be static."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "sealed.internalTrait"
+shortDescription: "Tag @phpstan-sealed references an internal trait from another package."
 ignorable: true
 ---
 

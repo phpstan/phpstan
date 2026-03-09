@@ -1,5 +1,6 @@
 ---
 title: "unionType.void"
+shortDescription: "Void type cannot be part of a union type declaration."
 ignorable: false
 ---
 

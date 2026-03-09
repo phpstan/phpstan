@@ -1,5 +1,6 @@
 ---
 title: "booleanNot.alwaysFalse"
+shortDescription: "Negated expression is always false because the operand is always truthy."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "attribute.enum"
+shortDescription: "Enum cannot be used as an attribute class."
 ignorable: true
 ---
 

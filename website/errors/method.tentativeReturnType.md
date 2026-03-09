@@ -1,5 +1,6 @@
 ---
 title: "method.tentativeReturnType"
+shortDescription: "Return type is not covariant with the tentative return type of the parent method."
 ignorable: true
 ---
 

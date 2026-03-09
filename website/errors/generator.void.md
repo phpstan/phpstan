@@ -1,5 +1,6 @@
 ---
 title: "generator.void"
+shortDescription: "Yield result is used but the generator declares void as its send type."
 ignorable: true
 ---
 

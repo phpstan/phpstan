@@ -1,5 +1,6 @@
 ---
 title: "phpunit.attributeRequiresPhpVersion"
+shortDescription: "RequiresPhp attribute needs a comparison operator before the version number."
 ignorable: true
 ---
 

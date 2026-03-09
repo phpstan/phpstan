@@ -1,5 +1,6 @@
 ---
 title: "requireImplements.internalTrait"
+shortDescription: "Tag @phpstan-require-implements references an internal trait."
 ignorable: true
 ---
 

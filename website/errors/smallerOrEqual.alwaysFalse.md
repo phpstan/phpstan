@@ -1,5 +1,6 @@
 ---
 title: "smallerOrEqual.alwaysFalse"
+shortDescription: "Less-than-or-equal comparison always evaluates to false."
 ignorable: true
 ---
 

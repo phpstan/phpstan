@@ -1,5 +1,6 @@
 ---
 title: "property.readOnlyByPhpDocAssignNotOnThis"
+shortDescription: "@readonly property is assigned on a different instance instead of $this."
 ignorable: true
 ---
 

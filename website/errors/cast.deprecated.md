@@ -1,5 +1,6 @@
 ---
 title: "cast.deprecated"
+shortDescription: "Deprecated cast syntax like (integer), (boolean), or (double) is used."
 ignorable: true
 ---
 

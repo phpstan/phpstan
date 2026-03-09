@@ -1,5 +1,6 @@
 ---
 title: "generics.deprecatedInterfaceDefault"
+shortDescription: "Template type default references a deprecated interface."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "arrayUnpacking.nonIterable"
+shortDescription: "Spread operator used on a non-iterable value in an array literal."
 ignorable: true
 ---
 

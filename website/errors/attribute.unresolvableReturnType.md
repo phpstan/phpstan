@@ -1,5 +1,6 @@
 ---
 title: "attribute.unresolvableReturnType"
+shortDescription: "Template type in attribute constructor cannot be resolved from the arguments."
 ignorable: true
 ---
 

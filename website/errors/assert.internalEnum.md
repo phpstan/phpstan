@@ -1,5 +1,6 @@
 ---
 title: "assert.internalEnum"
+shortDescription: "Assertion in @phpstan-assert references an internal enum."
 ignorable: true
 ---
 

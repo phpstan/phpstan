@@ -1,5 +1,6 @@
 ---
 title: "property.unusedType"
+shortDescription: "Part of the property union type is never assigned."
 ignorable: true
 ---
 

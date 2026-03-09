@@ -1,5 +1,6 @@
 ---
 title: "classConstant.finalPrivate"
+shortDescription: "Private class constant cannot be declared as final."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "isset.variable"
+shortDescription: "Variable in isset() is never defined in the current scope."
 ignorable: true
 ---
 

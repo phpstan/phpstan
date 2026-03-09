@@ -1,5 +1,6 @@
 ---
 title: "requireImplements.enum"
+shortDescription: "Tag @phpstan-require-implements references an enum instead of an interface."
 ignorable: true
 ---
 

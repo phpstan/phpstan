@@ -1,5 +1,6 @@
 ---
 title: "enum.nameInUse"
+shortDescription: "Enum name conflicts with an existing name in the same namespace."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "generics.callSiteVarianceConflict"
+shortDescription: "Call-site variance annotation conflicts with the declaration-site variance."
 ignorable: true
 ---
 

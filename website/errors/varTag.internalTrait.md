@@ -1,5 +1,6 @@
 ---
 title: "varTag.internalTrait"
+shortDescription: "@var PHPDoc tag references an internal trait from another package."
 ignorable: true
 ---
 

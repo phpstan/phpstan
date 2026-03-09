@@ -1,5 +1,6 @@
 ---
 title: "property.finalPrivateHook"
+shortDescription: "Private property cannot have a final hook."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "staticProperty.nonStaticAccess"
+shortDescription: "Static property is accessed using instance syntax instead of class syntax."
 ignorable: true
 ---
 

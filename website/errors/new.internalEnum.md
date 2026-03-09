@@ -1,5 +1,6 @@
 ---
 title: "new.internalEnum"
+shortDescription: "Referencing an internal enum in an instantiation context."
 ignorable: true
 ---
 

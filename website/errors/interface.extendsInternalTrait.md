@@ -1,5 +1,6 @@
 ---
 title: "interface.extendsInternalTrait"
+shortDescription: "Interface extends a trait marked as @internal."
 ignorable: true
 ---
 

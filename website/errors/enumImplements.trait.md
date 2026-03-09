@@ -1,5 +1,6 @@
 ---
 title: "enumImplements.trait"
+shortDescription: "Enum implements a trait instead of an interface."
 ignorable: false
 ---
 

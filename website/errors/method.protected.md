@@ -1,5 +1,6 @@
 ---
 title: "method.protected"
+shortDescription: "Calling a protected method from outside the class hierarchy."
 ignorable: true
 ---
 

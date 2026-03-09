@@ -1,5 +1,6 @@
 ---
 title: "doctrine.findByArgument"
+shortDescription: "Field name passed to repository findBy() does not exist on the entity."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "if.alwaysTrue"
+shortDescription: "Condition in an if statement is always true, making the check redundant."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "function.notFound"
+shortDescription: "Called function does not exist or cannot be found."
 ignorable: true
 ---
 

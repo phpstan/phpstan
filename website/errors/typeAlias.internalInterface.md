@@ -1,5 +1,6 @@
 ---
 title: "typeAlias.internalInterface"
+shortDescription: "Type alias references an internal interface from another package."
 ignorable: true
 ---
 

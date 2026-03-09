@@ -1,5 +1,6 @@
 ---
 title: "class.prefixed"
+shortDescription: "Class name uses an internal vendor prefix from a PHAR build."
 ignorable: false
 ---
 

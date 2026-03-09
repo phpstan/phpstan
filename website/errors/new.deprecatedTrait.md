@@ -1,5 +1,6 @@
 ---
 title: "new.deprecatedTrait"
+shortDescription: "Instantiating a class that uses a deprecated trait."
 ignorable: true
 ---
 

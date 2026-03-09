@@ -1,5 +1,6 @@
 ---
 title: "generics.deprecatedTraitBound"
+shortDescription: "Template type bound references a deprecated trait."
 ignorable: true
 ---
 

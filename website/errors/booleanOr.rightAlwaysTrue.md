@@ -1,5 +1,6 @@
 ---
 title: "booleanOr.rightAlwaysTrue"
+shortDescription: "Right side of || always evaluates to true, making the whole expression always true."
 ignorable: true
 ---
 

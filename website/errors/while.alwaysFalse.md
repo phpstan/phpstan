@@ -1,5 +1,6 @@
 ---
 title: "while.alwaysFalse"
+shortDescription: "While loop condition is always false, so the loop body never executes."
 ignorable: true
 ---
 

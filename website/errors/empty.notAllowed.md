@@ -1,5 +1,6 @@
 ---
 title: "empty.notAllowed"
+shortDescription: "Usage of empty() is disallowed by strict rules."
 ignorable: true
 ---
 

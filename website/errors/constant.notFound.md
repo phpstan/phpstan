@@ -1,5 +1,6 @@
 ---
 title: "constant.notFound"
+shortDescription: "Referenced constant does not exist."
 ignorable: true
 ---
 

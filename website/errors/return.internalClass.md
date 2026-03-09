@@ -1,5 +1,6 @@
 ---
 title: "return.internalClass"
+shortDescription: "Return type declaration references an internal class from another package."
 ignorable: true
 ---
 

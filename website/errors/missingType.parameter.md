@@ -1,5 +1,6 @@
 ---
 title: "missingType.parameter"
+shortDescription: "Function or method parameter has no type declaration."
 ignorable: true
 ---
 

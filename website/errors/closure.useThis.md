@@ -1,5 +1,6 @@
 ---
 title: "closure.useThis"
+shortDescription: "Closure unnecessarily imports $this via the use clause."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "logicalXor.resultUnused"
+shortDescription: "Result of xor is discarded due to operator precedence."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "property.neverRead"
+shortDescription: "Readable property is never read."
 ignorable: true
 ---
 

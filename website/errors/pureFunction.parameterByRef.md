@@ -1,5 +1,6 @@
 ---
 title: "pureFunction.parameterByRef"
+shortDescription: "Pure function has a by-reference parameter, which allows side effects."
 ignorable: true
 ---
 

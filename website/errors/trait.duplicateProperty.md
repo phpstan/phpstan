@@ -1,5 +1,6 @@
 ---
 title: "trait.duplicateProperty"
+shortDescription: "Property is declared more than once in the same trait."
 ignorable: false
 ---
 

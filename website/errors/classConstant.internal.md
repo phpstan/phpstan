@@ -1,5 +1,6 @@
 ---
 title: "classConstant.internal"
+shortDescription: "Accessing a class constant marked as @internal from outside its package."
 ignorable: true
 ---
 

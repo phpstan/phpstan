@@ -1,5 +1,6 @@
 ---
 title: "staticProperty.notFound"
+shortDescription: "Accessed static property does not exist on the class."
 ignorable: true
 ---
 

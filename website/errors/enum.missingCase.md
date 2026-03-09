@@ -1,5 +1,6 @@
 ---
 title: "enum.missingCase"
+shortDescription: "Backed enum case is missing a required value."
 ignorable: false
 ---
 

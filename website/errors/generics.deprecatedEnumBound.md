@@ -1,5 +1,6 @@
 ---
 title: "generics.deprecatedEnumBound"
+shortDescription: "Template type bound references a deprecated enum."
 ignorable: true
 ---
 

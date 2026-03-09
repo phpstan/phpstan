@@ -1,5 +1,6 @@
 ---
 title: "varTag.internalInterface"
+shortDescription: "@var PHPDoc tag references an internal interface from another package."
 ignorable: true
 ---
 

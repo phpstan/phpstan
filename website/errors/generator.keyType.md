@@ -1,5 +1,6 @@
 ---
 title: "generator.keyType"
+shortDescription: "Yielded key type does not match the declared generator key type."
 ignorable: true
 ---
 

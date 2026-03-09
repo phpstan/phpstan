@@ -1,5 +1,6 @@
 ---
 title: "array.duplicateKey"
+shortDescription: "Array literal contains duplicate keys."
 ignorable: true
 ---
 

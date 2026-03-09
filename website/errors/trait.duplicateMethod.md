@@ -1,5 +1,6 @@
 ---
 title: "trait.duplicateMethod"
+shortDescription: "Method is declared more than once in the same trait."
 ignorable: false
 ---
 

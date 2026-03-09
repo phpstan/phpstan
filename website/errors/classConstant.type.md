@@ -1,5 +1,6 @@
 ---
 title: "classConstant.type"
+shortDescription: "Overriding constant's type is not covariant with the parent's type."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "phpstanApi.class"
+shortDescription: "Extending or using instanceof on a PHPStan class not covered by the BC promise."
 ignorable: true
 ---
 

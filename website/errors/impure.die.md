@@ -1,5 +1,6 @@
 ---
 title: "impure.die"
+shortDescription: "Pure function uses die, which terminates the process as a side effect."
 ignorable: true
 ---
 

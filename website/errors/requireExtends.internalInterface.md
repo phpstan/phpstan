@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.internalInterface"
+shortDescription: "@phpstan-require-extends references an internal interface."
 ignorable: true
 ---
 

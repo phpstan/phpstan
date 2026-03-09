@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.finalClass"
+shortDescription: "@phpstan-require-extends references a final class, which cannot be extended."
 ignorable: true
 ---
 

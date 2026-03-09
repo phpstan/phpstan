@@ -1,5 +1,6 @@
 ---
 title: "callable.void"
+shortDescription: "Return value of a void-returning callable is used."
 ignorable: true
 ---
 

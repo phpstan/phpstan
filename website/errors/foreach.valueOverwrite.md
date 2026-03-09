@@ -1,5 +1,6 @@
 ---
 title: "foreach.valueOverwrite"
+shortDescription: "Foreach value variable overwrites an existing variable in the current scope."
 ignorable: true
 ---
 

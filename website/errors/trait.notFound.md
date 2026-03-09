@@ -1,5 +1,6 @@
 ---
 title: "trait.notFound"
+shortDescription: "Referenced trait does not exist or cannot be autoloaded."
 ignorable: false
 ---
 

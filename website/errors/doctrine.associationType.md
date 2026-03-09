@@ -1,5 +1,6 @@
 ---
 title: "doctrine.associationType"
+shortDescription: "Property type does not match the Doctrine association mapping."
 ignorable: true
 ---
 

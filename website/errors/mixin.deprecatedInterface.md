@@ -1,5 +1,6 @@
 ---
 title: "mixin.deprecatedInterface"
+shortDescription: "PHPDoc @mixin tag references a deprecated interface."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "doctrine.finalConstructor"
+shortDescription: "Doctrine entity has a final constructor, which breaks proxy generation."
 ignorable: true
 ---
 

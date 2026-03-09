@@ -1,5 +1,6 @@
 ---
 title: "ternary.alwaysFalse"
+shortDescription: "Ternary condition always evaluates to false."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "booleanOr.alwaysFalse"
+shortDescription: "Result of || is always false."
 ignorable: true
 ---
 

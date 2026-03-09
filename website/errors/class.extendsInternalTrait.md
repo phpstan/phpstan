@@ -1,5 +1,6 @@
 ---
 title: "class.extendsInternalTrait"
+shortDescription: "Class extends an internal trait."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "pureMethod.void"
+shortDescription: "Pure method returns void, making it useless without side effects."
 ignorable: true
 ---
 

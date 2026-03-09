@@ -1,5 +1,6 @@
 ---
 title: "sealed.deprecatedEnum"
+shortDescription: "Tag @phpstan-sealed references a deprecated enum."
 ignorable: true
 ---
 

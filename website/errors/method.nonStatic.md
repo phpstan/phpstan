@@ -1,5 +1,6 @@
 ---
 title: "method.nonStatic"
+shortDescription: "Non-static method overrides a static method from a parent class."
 ignorable: false
 ---
 

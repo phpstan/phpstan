@@ -1,5 +1,6 @@
 ---
 title: "typeAlias.duplicate"
+shortDescription: "Type alias name conflicts with an existing class or type in scope."
 ignorable: true
 ---
 

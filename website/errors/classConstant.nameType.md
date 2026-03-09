@@ -1,5 +1,6 @@
 ---
 title: "classConstant.nameType"
+shortDescription: "Dynamic class constant name must be a string type."
 ignorable: true
 ---
 

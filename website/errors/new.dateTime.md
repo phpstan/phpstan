@@ -1,5 +1,6 @@
 ---
 title: "new.dateTime"
+shortDescription: "Invalid date string passed to the DateTime constructor."
 ignorable: true
 ---
 

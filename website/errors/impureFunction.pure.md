@@ -1,5 +1,6 @@
 ---
 title: "impureFunction.pure"
+shortDescription: "Function marked as @phpstan-impure has no actual side effects."
 ignorable: true
 ---
 

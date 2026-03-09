@@ -1,5 +1,6 @@
 ---
 title: "attribute.internalClass"
+shortDescription: "Attribute references an internal class."
 ignorable: true
 ---
 

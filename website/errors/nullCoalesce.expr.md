@@ -1,5 +1,6 @@
 ---
 title: "nullCoalesce.expr"
+shortDescription: "Expression on the left side of ?? is not nullable."
 ignorable: true
 ---
 

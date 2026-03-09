@@ -1,5 +1,6 @@
 ---
 title: "catch.internalTrait"
+shortDescription: "Catch block references an internal trait from another package."
 ignorable: true
 ---
 

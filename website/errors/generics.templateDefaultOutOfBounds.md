@@ -1,5 +1,6 @@
 ---
 title: "generics.templateDefaultOutOfBounds"
+shortDescription: "Default type for a template parameter is not within its bound."
 ignorable: true
 ---
 

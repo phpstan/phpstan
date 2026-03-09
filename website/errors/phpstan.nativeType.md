@@ -1,5 +1,6 @@
 ---
 title: "phpstan.nativeType"
+shortDescription: "Native type assertion in PHPStan's test suite does not match."
 ignorable: false
 ---
 

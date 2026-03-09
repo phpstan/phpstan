@@ -1,5 +1,6 @@
 ---
 title: "classConstant.dynamicFetch"
+shortDescription: "Dynamic class constant fetch requires PHP 8.3 or later."
 ignorable: false
 ---
 

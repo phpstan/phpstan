@@ -1,5 +1,6 @@
 ---
 title: "function.inVoidCast"
+shortDescription: "Unnecessary (void) cast on a function that does not require its return value to be used."
 ignorable: true
 ---
 

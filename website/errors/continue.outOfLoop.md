@@ -1,5 +1,6 @@
 ---
 title: "continue.outOfLoop"
+shortDescription: "Continue statement is used outside of a loop or switch."
 ignorable: false
 ---
 

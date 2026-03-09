@@ -1,5 +1,6 @@
 ---
 title: "possiblyImpure.new"
+shortDescription: "Pure function instantiates a class whose constructor purity is unknown."
 ignorable: true
 ---
 

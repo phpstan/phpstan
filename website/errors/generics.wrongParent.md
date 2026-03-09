@@ -1,5 +1,6 @@
 ---
 title: "generics.wrongParent"
+shortDescription: "Generic type tag references a class or interface not actually extended or implemented."
 ignorable: true
 ---
 

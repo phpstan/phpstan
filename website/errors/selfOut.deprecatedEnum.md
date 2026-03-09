@@ -1,5 +1,6 @@
 ---
 title: "selfOut.deprecatedEnum"
+shortDescription: "Tag @phpstan-self-out references a deprecated enum."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "if.alwaysFalse"
+shortDescription: "Condition in an if statement is always false, making the body dead code."
 ignorable: true
 ---
 

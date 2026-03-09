@@ -1,5 +1,6 @@
 ---
 title: "property.internalClass"
+shortDescription: "Accessing a property on an internal class from outside its namespace."
 ignorable: true
 ---
 

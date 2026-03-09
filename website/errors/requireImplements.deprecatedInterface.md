@@ -1,5 +1,6 @@
 ---
 title: "requireImplements.deprecatedInterface"
+shortDescription: "Tag @phpstan-require-implements references a deprecated interface."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "arguments.count"
+shortDescription: "Wrong number of arguments passed to a function or method."
 ignorable: true
 ---
 

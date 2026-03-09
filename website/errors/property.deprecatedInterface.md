@@ -1,5 +1,6 @@
 ---
 title: "property.deprecatedInterface"
+shortDescription: "Property type references a deprecated interface."
 ignorable: true
 ---
 

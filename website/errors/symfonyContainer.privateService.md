@@ -1,5 +1,6 @@
 ---
 title: "symfonyContainer.privateService"
+shortDescription: "Private Symfony service is fetched directly from the container."
 ignorable: true
 ---
 

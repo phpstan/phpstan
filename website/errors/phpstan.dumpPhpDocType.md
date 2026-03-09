@@ -1,5 +1,6 @@
 ---
 title: "phpstan.dumpPhpDocType"
+shortDescription: "Debugging output of an expression's PHPDoc type representation."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "unaryMinus.nonNumeric"
+shortDescription: "Unary minus operator is applied to a non-numeric value."
 ignorable: true
 ---
 

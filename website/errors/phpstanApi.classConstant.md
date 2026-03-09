@@ -1,5 +1,6 @@
 ---
 title: "phpstanApi.classConstant"
+shortDescription: "Accessing a class constant on a PHPStan class not covered by the BC promise."
 ignorable: true
 ---
 

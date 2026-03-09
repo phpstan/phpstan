@@ -1,5 +1,6 @@
 ---
 title: "logicalOr.rightAlwaysTrue"
+shortDescription: "Right side of or is always true, making the condition always true."
 ignorable: true
 ---
 

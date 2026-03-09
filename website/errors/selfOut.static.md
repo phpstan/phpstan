@@ -1,5 +1,6 @@
 ---
 title: "selfOut.static"
+shortDescription: "Tag @phpstan-self-out is used on a static method where it has no effect."
 ignorable: true
 ---
 

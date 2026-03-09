@@ -1,5 +1,6 @@
 ---
 title: "enum.serializable"
+shortDescription: "Enum cannot implement the Serializable interface."
 ignorable: false
 ---
 

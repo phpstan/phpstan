@@ -1,5 +1,6 @@
 ---
 title: "generics.variance"
+shortDescription: "Template type is used in a position that violates its variance."
 ignorable: true
 ---
 

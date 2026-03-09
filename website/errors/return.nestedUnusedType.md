@@ -1,5 +1,6 @@
 ---
 title: "return.nestedUnusedType"
+shortDescription: "Declared return type contains a nested type that is never actually returned."
 ignorable: true
 ---
 

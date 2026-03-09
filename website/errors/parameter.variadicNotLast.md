@@ -1,5 +1,6 @@
 ---
 title: "parameter.variadicNotLast"
+shortDescription: "Variadic parameter is not the last parameter in the function declaration."
 ignorable: false
 ---
 

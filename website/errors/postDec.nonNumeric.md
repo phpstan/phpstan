@@ -1,5 +1,6 @@
 ---
 title: "postDec.nonNumeric"
+shortDescription: "Post-decrement operator is used on a non-numeric value."
 ignorable: true
 ---
 

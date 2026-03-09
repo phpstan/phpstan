@@ -1,5 +1,6 @@
 ---
 title: "generics.internalInterfaceBound"
+shortDescription: "Template type bound references an internal interface."
 ignorable: true
 ---
 

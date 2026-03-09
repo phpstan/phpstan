@@ -1,5 +1,6 @@
 ---
 title: "phpunit.coversMethod"
+shortDescription: "@covers annotation references a method that does not exist on the class."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "new.abstract"
+shortDescription: "Instantiating an abstract class."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "propertyTag.unresolvableType"
+shortDescription: "@property PHPDoc tag contains a type that cannot be resolved."
 ignorable: true
 ---
 

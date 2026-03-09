@@ -1,5 +1,6 @@
 ---
 title: "function.nameCase"
+shortDescription: "Function is called with incorrect letter casing."
 ignorable: true
 ---
 

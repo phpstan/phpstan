@@ -1,5 +1,6 @@
 ---
 title: "method.deprecated"
+shortDescription: "Called method is marked as @deprecated."
 ignorable: true
 ---
 

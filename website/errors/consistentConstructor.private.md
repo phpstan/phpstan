@@ -1,5 +1,6 @@
 ---
 title: "consistentConstructor.private"
+shortDescription: "Class with @consistentConstructor has a private constructor that cannot be overridden."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "interface.extendsDeprecatedEnum"
+shortDescription: "Interface extends a deprecated enum."
 ignorable: true
 ---
 

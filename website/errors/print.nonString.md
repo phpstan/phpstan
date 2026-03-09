@@ -1,5 +1,6 @@
 ---
 title: "print.nonString"
+shortDescription: "Argument passed to print cannot be converted to a string."
 ignorable: true
 ---
 

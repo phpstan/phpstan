@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.class"
+shortDescription: "@phpstan-require-extends is used on a class instead of a trait or interface."
 ignorable: true
 ---
 

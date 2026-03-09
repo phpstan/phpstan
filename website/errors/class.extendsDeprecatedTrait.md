@@ -1,5 +1,6 @@
 ---
 title: "class.extendsDeprecatedTrait"
+shortDescription: "Class extends a deprecated class."
 ignorable: true
 ---
 

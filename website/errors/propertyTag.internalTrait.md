@@ -1,5 +1,6 @@
 ---
 title: "propertyTag.internalTrait"
+shortDescription: "@property PHPDoc tag references an internal trait."
 ignorable: true
 ---
 

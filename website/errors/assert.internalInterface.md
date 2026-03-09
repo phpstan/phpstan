@@ -1,5 +1,6 @@
 ---
 title: "assert.internalInterface"
+shortDescription: "Assertion in @phpstan-assert references an internal interface."
 ignorable: true
 ---
 

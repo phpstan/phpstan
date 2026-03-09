@@ -1,5 +1,6 @@
 ---
 title: "method.deprecatedInterface"
+shortDescription: "Called method belongs to an interface marked as @deprecated."
 ignorable: true
 ---
 

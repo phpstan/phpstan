@@ -1,5 +1,6 @@
 ---
 title: "logicalOr.alwaysTrue"
+shortDescription: "Result of the or expression is always true."
 ignorable: true
 ---
 

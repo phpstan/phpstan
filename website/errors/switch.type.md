@@ -1,5 +1,6 @@
 ---
 title: "switch.type"
+shortDescription: "Switch case value type is incompatible with the switch expression type."
 ignorable: true
 ---
 

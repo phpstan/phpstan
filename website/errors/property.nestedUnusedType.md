@@ -1,5 +1,6 @@
 ---
 title: "property.nestedUnusedType"
+shortDescription: "Property type is wider than what is actually assigned to it."
 ignorable: true
 ---
 

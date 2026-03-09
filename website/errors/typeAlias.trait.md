@@ -1,5 +1,6 @@
 ---
 title: "typeAlias.trait"
+shortDescription: "Type alias references a trait, but traits are not valid types."
 ignorable: true
 ---
 

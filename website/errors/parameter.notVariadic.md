@@ -1,5 +1,6 @@
 ---
 title: "parameter.notVariadic"
+shortDescription: "Overriding method declares a parameter as non-variadic but the parent is variadic."
 ignorable: true
 ---
 

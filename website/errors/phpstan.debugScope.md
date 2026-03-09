@@ -1,5 +1,6 @@
 ---
 title: "phpstan.debugScope"
+shortDescription: "Debugging output of all variables and their types in the current scope."
 ignorable: false
 ---
 

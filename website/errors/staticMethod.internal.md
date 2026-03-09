@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.internal"
+shortDescription: "Called static method is marked as internal."
 ignorable: true
 ---
 

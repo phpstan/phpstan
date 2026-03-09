@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.internalEnum"
+shortDescription: "Static method is called on an internal enum from outside its package."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "generics.trait"
+shortDescription: "Trait is used as a generic type argument, which is not a valid type."
 ignorable: true
 ---
 

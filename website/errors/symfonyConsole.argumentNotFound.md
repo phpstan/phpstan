@@ -1,5 +1,6 @@
 ---
 title: "symfonyConsole.argumentNotFound"
+shortDescription: "Referenced Symfony Console argument was not defined in configure()."
 ignorable: true
 ---
 

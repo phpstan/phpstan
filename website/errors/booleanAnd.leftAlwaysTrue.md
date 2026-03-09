@@ -1,5 +1,6 @@
 ---
 title: "booleanAnd.leftAlwaysTrue"
+shortDescription: "Left side of && always evaluates to true, making it redundant."
 ignorable: true
 ---
 

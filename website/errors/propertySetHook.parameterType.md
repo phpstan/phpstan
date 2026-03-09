@@ -1,5 +1,6 @@
 ---
 title: "propertySetHook.parameterType"
+shortDescription: "Set hook parameter PHPDoc type is not contravariant with the property type."
 ignorable: true
 ---
 

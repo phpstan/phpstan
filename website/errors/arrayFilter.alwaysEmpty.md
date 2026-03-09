@@ -1,5 +1,6 @@
 ---
 title: "arrayFilter.alwaysEmpty"
+shortDescription: "Call to array_filter always returns an empty array."
 ignorable: true
 ---
 

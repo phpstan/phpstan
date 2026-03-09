@@ -1,5 +1,6 @@
 ---
 title: "assert.unresolvableType"
+shortDescription: "Type in @phpstan-assert cannot be resolved to a valid type."
 ignorable: true
 ---
 

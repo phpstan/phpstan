@@ -1,5 +1,6 @@
 ---
 title: "argument.positionalAfterNamed"
+shortDescription: "Positional argument follows a named argument."
 ignorable: false
 ---
 

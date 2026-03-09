@@ -1,5 +1,6 @@
 ---
 title: "instanceof.internalEnum"
+shortDescription: "Instanceof check references an internal enum from another package."
 ignorable: true
 ---
 

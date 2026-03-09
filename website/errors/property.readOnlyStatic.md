@@ -1,5 +1,6 @@
 ---
 title: "property.readOnlyStatic"
+shortDescription: "Property cannot be both readonly and static."
 ignorable: false
 ---
 

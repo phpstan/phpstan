@@ -1,5 +1,6 @@
 ---
 title: "notEqual.invalid"
+shortDescription: "Loose comparison using != between incompatible types results in an error."
 ignorable: true
 ---
 

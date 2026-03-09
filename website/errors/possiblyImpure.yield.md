@@ -1,5 +1,6 @@
 ---
 title: "possiblyImpure.yield"
+shortDescription: "Pure function or method uses yield, which is a stateful operation."
 ignorable: true
 ---
 

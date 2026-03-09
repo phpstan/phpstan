@@ -1,5 +1,6 @@
 ---
 title: "instanceof.trait"
+shortDescription: "Instanceof check against a trait always evaluates to false."
 ignorable: true
 ---
 

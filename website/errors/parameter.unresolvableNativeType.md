@@ -1,5 +1,6 @@
 ---
 title: "parameter.unresolvableNativeType"
+shortDescription: "Parameter has a native type declaration that cannot exist at runtime."
 ignorable: false
 ---
 

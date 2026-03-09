@@ -1,5 +1,6 @@
 ---
 title: "new.static"
+shortDescription: "Unsafe usage of new static() in a non-final class."
 ignorable: true
 ---
 

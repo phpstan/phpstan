@@ -1,5 +1,6 @@
 ---
 title: "property.parentPropertyFinalByPhpDoc"
+shortDescription: "Overriding a property marked as @final in the parent class."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "staticProperty.private"
+shortDescription: "Private static property is accessed from outside its declaring class."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "requireOnce.fileNotFound"
+shortDescription: "File path passed to require_once does not point to an existing file."
 ignorable: true
 ---
 

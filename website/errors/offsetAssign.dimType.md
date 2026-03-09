@@ -1,5 +1,6 @@
 ---
 title: "offsetAssign.dimType"
+shortDescription: "Offset type used in assignment is not valid for the target type."
 ignorable: true
 ---
 

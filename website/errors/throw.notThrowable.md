@@ -1,5 +1,6 @@
 ---
 title: "throw.notThrowable"
+shortDescription: "Thrown value does not implement the Throwable interface."
 ignorable: true
 ---
 

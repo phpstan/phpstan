@@ -1,5 +1,6 @@
 ---
 title: "new.staticInAbstractClassStaticMethod"
+shortDescription: "Using new static() in a static method of an abstract class."
 ignorable: true
 ---
 

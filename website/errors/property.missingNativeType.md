@@ -1,5 +1,6 @@
 ---
 title: "property.missingNativeType"
+shortDescription: "Overriding property is missing the native type declared on the parent property."
 ignorable: true
 ---
 

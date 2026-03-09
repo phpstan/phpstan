@@ -1,5 +1,6 @@
 ---
 title: "class.duplicateMethod"
+shortDescription: "Method is declared more than once in the same class."
 ignorable: false
 ---
 

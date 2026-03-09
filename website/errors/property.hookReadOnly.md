@@ -1,5 +1,6 @@
 ---
 title: "property.hookReadOnly"
+shortDescription: "Hooked properties cannot be readonly."
 ignorable: false
 ---
 

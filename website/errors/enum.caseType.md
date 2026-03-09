@@ -1,5 +1,6 @@
 ---
 title: "enum.caseType"
+shortDescription: "Enum case value does not match the declared backing type."
 ignorable: false
 ---
 

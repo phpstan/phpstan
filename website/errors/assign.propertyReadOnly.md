@@ -1,5 +1,6 @@
 ---
 title: "assign.propertyReadOnly"
+shortDescription: "Readonly or non-writable property is assigned outside its initialization context."
 ignorable: true
 ---
 

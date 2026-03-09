@@ -1,5 +1,6 @@
 ---
 title: "attribute.internalInterface"
+shortDescription: "Attribute references an internal interface."
 ignorable: true
 ---
 

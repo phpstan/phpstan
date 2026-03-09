@@ -1,5 +1,6 @@
 ---
 title: "property.readOnlyByPhpDocDefaultValue"
+shortDescription: "@readonly property has a default value instead of being initialized in the constructor."
 ignorable: true
 ---
 

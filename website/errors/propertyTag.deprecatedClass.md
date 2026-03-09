@@ -1,5 +1,6 @@
 ---
 title: "propertyTag.deprecatedClass"
+shortDescription: "@property PHPDoc tag references a deprecated class."
 ignorable: true
 ---
 

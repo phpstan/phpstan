@@ -1,5 +1,6 @@
 ---
 title: "method.abstract"
+shortDescription: "Non-abstract class contains or inherits an unimplemented abstract method."
 ignorable: false
 ---
 

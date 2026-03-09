@@ -1,5 +1,6 @@
 ---
 title: "function.duplicate"
+shortDescription: "Function is declared multiple times in the same namespace."
 ignorable: true
 ---
 

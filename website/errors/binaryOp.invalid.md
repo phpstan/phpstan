@@ -1,5 +1,6 @@
 ---
 title: "binaryOp.invalid"
+shortDescription: "Binary operator is used with incompatible operand types."
 ignorable: true
 ---
 

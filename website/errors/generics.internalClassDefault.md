@@ -1,5 +1,6 @@
 ---
 title: "generics.internalClassDefault"
+shortDescription: "Template type default references an internal class."
 ignorable: true
 ---
 

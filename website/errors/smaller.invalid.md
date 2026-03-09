@@ -1,5 +1,6 @@
 ---
 title: "smaller.invalid"
+shortDescription: "Less-than comparison between incompatible types."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "parameter.unresolvableType"
+shortDescription: "PHPDoc @param type contains a type expression that cannot be resolved."
 ignorable: true
 ---
 

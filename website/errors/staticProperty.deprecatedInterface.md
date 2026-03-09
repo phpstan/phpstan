@@ -1,5 +1,6 @@
 ---
 title: "staticProperty.deprecatedInterface"
+shortDescription: "Static property is accessed on a type involving a deprecated interface."
 ignorable: true
 ---
 

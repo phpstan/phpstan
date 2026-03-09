@@ -1,5 +1,6 @@
 ---
 title: "class.extendsInternalClass"
+shortDescription: "Class extends a class marked as @internal."
 ignorable: true
 ---
 

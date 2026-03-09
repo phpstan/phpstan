@@ -1,5 +1,6 @@
 ---
 title: "throws.shouldBeVoid"
+shortDescription: "Child method throws exceptions but parent declares @throws void."
 ignorable: true
 ---
 

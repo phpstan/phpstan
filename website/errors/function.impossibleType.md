@@ -1,5 +1,6 @@
 ---
 title: "function.impossibleType"
+shortDescription: "Type-checking function call will always evaluate to false."
 ignorable: true
 ---
 

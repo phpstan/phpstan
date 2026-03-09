@@ -1,5 +1,6 @@
 ---
 title: "unset.readOnlyPropertyByPhpDoc"
+shortDescription: "Property marked as @readonly in PHPDoc cannot be unset."
 ignorable: true
 ---
 

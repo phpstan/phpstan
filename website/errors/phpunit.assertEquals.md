@@ -1,5 +1,6 @@
 ---
 title: "phpunit.assertEquals"
+shortDescription: "assertEquals() with same-type scalars should use assertSame() instead."
 ignorable: true
 ---
 

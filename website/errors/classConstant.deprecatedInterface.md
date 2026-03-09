@@ -1,5 +1,6 @@
 ---
 title: "classConstant.deprecatedInterface"
+shortDescription: "Accessing a class constant on a deprecated interface."
 ignorable: true
 ---
 

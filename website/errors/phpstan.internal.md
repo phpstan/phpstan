@@ -1,5 +1,6 @@
 ---
 title: "phpstan.internal"
+shortDescription: "Unexpected internal error occurred during analysis."
 ignorable: false
 ---
 

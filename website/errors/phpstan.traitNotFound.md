@@ -1,5 +1,6 @@
 ---
 title: "phpstan.traitNotFound"
+shortDescription: "Trait definition found in code but not registered in the autoloader."
 ignorable: false
 ---
 

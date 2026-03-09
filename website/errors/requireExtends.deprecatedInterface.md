@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.deprecatedInterface"
+shortDescription: "@phpstan-require-extends references a deprecated interface."
 ignorable: true
 ---
 

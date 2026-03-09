@@ -1,5 +1,6 @@
 ---
 title: "interface.duplicateConstant"
+shortDescription: "Interface declares the same constant name more than once."
 ignorable: false
 ---
 

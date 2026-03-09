@@ -1,5 +1,6 @@
 ---
 title: "enum.deprecatedAttribute"
+shortDescription: "Native #[Deprecated] attribute cannot be used on enums."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "enum.duplicateProperty"
+shortDescription: "Property with the same name is declared more than once."
 ignorable: false
 ---
 

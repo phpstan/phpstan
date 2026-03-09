@@ -1,5 +1,6 @@
 ---
 title: "argument.missing"
+shortDescription: "Required parameter is not provided in the function call."
 ignorable: true
 ---
 

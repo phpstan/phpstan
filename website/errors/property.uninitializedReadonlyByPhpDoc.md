@@ -1,5 +1,6 @@
 ---
 title: "property.uninitializedReadonlyByPhpDoc"
+shortDescription: "@readonly property is not assigned in the constructor."
 ignorable: true
 ---
 

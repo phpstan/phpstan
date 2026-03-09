@@ -1,5 +1,6 @@
 ---
 title: "phpstan.classNotFound"
+shortDescription: "Class under analysis cannot be found via autoloading."
 ignorable: false
 ---
 

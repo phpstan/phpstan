@@ -1,5 +1,6 @@
 ---
 title: "function.unresolvableReturnType"
+shortDescription: "Return type of a function call contains an unresolvable generic type."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "generics.deprecatedTraitDefault"
+shortDescription: "Template type default references a deprecated trait."
 ignorable: true
 ---
 

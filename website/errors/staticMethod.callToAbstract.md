@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.callToAbstract"
+shortDescription: "Abstract static method is called directly on an interface or abstract class."
 ignorable: true
 ---
 

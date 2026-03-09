@@ -1,5 +1,6 @@
 ---
 title: "property.nonObject"
+shortDescription: "Accessing a property on a non-object type."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "impure.eval"
+shortDescription: "Pure function uses eval, which can execute arbitrary code with side effects."
 ignorable: true
 ---
 

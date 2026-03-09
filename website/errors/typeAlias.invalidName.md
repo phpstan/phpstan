@@ -1,5 +1,6 @@
 ---
 title: "typeAlias.invalidName"
+shortDescription: "Type alias name conflicts with a built-in PHP type name."
 ignorable: true
 ---
 

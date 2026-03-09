@@ -1,5 +1,6 @@
 ---
 title: "varTag.deprecatedEnum"
+shortDescription: "@var PHPDoc tag references a deprecated enum."
 ignorable: true
 ---
 

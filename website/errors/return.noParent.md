@@ -1,5 +1,6 @@
 ---
 title: "return.noParent"
+shortDescription: "Return type uses parent keyword but there is no parent class."
 ignorable: true
 ---
 

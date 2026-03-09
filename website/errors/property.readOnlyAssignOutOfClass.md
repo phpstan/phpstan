@@ -1,5 +1,6 @@
 ---
 title: "property.readOnlyAssignOutOfClass"
+shortDescription: "Readonly property is assigned from outside the declaring class."
 ignorable: true
 ---
 

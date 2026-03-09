@@ -1,5 +1,6 @@
 ---
 title: "parameter.trait"
+shortDescription: "Trait is used as a parameter type declaration, which is not allowed in PHP."
 ignorable: true
 ---
 

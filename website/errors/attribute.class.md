@@ -1,5 +1,6 @@
 ---
 title: "attribute.class"
+shortDescription: "Non-class type (interface, trait, or enum) used as an attribute class."
 ignorable: true
 ---
 

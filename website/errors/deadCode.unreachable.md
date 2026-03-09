@@ -1,5 +1,6 @@
 ---
 title: "deadCode.unreachable"
+shortDescription: "Code after a return or throw statement can never be executed."
 ignorable: true
 ---
 

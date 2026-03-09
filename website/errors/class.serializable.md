@@ -1,5 +1,6 @@
 ---
 title: "class.serializable"
+shortDescription: "Class implements Serializable without the __serialize() and __unserialize() methods."
 ignorable: true
 ---
 

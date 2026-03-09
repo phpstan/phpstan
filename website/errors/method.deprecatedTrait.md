@@ -1,5 +1,6 @@
 ---
 title: "method.deprecatedTrait"
+shortDescription: "Called method belongs to a trait marked as @deprecated."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "argument.printf"
+shortDescription: "Mismatch between printf/sprintf format placeholders and arguments."
 ignorable: true
 ---
 

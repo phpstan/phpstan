@@ -1,5 +1,6 @@
 ---
 title: "classConstant.final"
+shortDescription: "Overriding a class constant declared as final."
 ignorable: false
 ---
 

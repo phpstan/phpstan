@@ -1,5 +1,6 @@
 ---
 title: "new.unresolvableReturnType"
+shortDescription: "Generic template types of a constructor cannot be resolved from the provided arguments."
 ignorable: true
 ---
 

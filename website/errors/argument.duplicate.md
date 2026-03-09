@@ -1,5 +1,6 @@
 ---
 title: "argument.duplicate"
+shortDescription: "Same parameter receives a value more than once."
 ignorable: true
 ---
 

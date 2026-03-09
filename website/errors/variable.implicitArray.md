@@ -1,5 +1,6 @@
 ---
 title: "variable.implicitArray"
+shortDescription: "Array is implicitly created by appending to an undefined variable."
 ignorable: true
 ---
 

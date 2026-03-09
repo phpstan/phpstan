@@ -1,5 +1,6 @@
 ---
 title: "plus.rightNonNumeric"
+shortDescription: "Right side of the + operator is a non-numeric value."
 ignorable: true
 ---
 

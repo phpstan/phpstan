@@ -1,5 +1,6 @@
 ---
 title: "method.internalInterface"
+shortDescription: "Called method belongs to an interface marked as @internal."
 ignorable: true
 ---
 

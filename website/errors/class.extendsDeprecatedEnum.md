@@ -1,5 +1,6 @@
 ---
 title: "class.extendsDeprecatedEnum"
+shortDescription: "Class extends a deprecated enum."
 ignorable: true
 ---
 

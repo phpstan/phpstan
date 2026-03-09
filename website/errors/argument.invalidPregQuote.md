@@ -1,5 +1,6 @@
 ---
 title: "argument.invalidPregQuote"
+shortDescription: "Call to preg_quote is missing or has an incorrect delimiter argument."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "phpstan.reflection"
+shortDescription: "Referenced class, function, or constant cannot be resolved."
 ignorable: false
 ---
 

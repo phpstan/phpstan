@@ -1,5 +1,6 @@
 ---
 title: "doctrine.mapping"
+shortDescription: "Doctrine entity has an invalid mapping configuration."
 ignorable: false
 ---
 

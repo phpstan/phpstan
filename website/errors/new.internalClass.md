@@ -1,5 +1,6 @@
 ---
 title: "new.internalClass"
+shortDescription: "Instantiating a class marked as @internal from outside its package."
 ignorable: true
 ---
 

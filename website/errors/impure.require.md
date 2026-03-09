@@ -1,5 +1,6 @@
 ---
 title: "impure.require"
+shortDescription: "Pure function uses require, which reads and executes a file."
 ignorable: true
 ---
 

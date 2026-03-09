@@ -1,5 +1,6 @@
 ---
 title: "new.privateConstructor"
+shortDescription: "Instantiating a class with a private constructor from outside the class."
 ignorable: true
 ---
 

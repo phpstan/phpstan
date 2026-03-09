@@ -1,5 +1,6 @@
 ---
 title: "phpstanApi.varTagAssumption"
+shortDescription: "Using @var to narrow a value to a specific PHPStan type class is fragile."
 ignorable: true
 ---
 

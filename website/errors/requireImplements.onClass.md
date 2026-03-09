@@ -1,5 +1,6 @@
 ---
 title: "requireImplements.onClass"
+shortDescription: "Tag @phpstan-require-implements is used on a class instead of a trait."
 ignorable: true
 ---
 

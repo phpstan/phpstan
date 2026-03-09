@@ -1,5 +1,6 @@
 ---
 title: "while.alwaysTrue"
+shortDescription: "While loop condition is always true with no exit point, creating an infinite loop."
 ignorable: true
 ---
 

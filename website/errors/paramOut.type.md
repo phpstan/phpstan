@@ -1,5 +1,6 @@
 ---
 title: "paramOut.type"
+shortDescription: "Value assigned to a by-reference parameter does not match its @param-out type."
 ignorable: true
 ---
 

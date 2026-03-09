@@ -1,5 +1,6 @@
 ---
 title: "generics.lessTypes"
+shortDescription: "Generic type is missing some of its required type arguments."
 ignorable: true
 ---
 

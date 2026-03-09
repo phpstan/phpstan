@@ -1,5 +1,6 @@
 ---
 title: "property.internalEnum"
+shortDescription: "Accessing a property on an internal enum from outside its namespace."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "nullCoalesce.variable"
+shortDescription: "Variable on the left side of ?? is never defined in the current scope."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "phpunit.assertFalse"
+shortDescription: "assertSame(false, ...) should be replaced with assertFalse()."
 ignorable: true
 ---
 

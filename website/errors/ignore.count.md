@@ -1,5 +1,6 @@
 ---
 title: "ignore.count"
+shortDescription: "Ignored error count does not match the actual number of occurrences."
 ignorable: true
 ---
 

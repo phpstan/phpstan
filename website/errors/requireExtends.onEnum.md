@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.onEnum"
+shortDescription: "@phpstan-require-extends is placed on an enum where it has no effect."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "generics.noParent"
+shortDescription: "Class has an @extends or @implements tag but does not extend or implement the type."
 ignorable: true
 ---
 

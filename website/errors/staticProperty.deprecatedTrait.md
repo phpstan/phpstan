@@ -1,5 +1,6 @@
 ---
 title: "staticProperty.deprecatedTrait"
+shortDescription: "Static property is accessed on a deprecated trait."
 ignorable: true
 ---
 

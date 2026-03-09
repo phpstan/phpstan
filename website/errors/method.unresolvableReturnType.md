@@ -1,5 +1,6 @@
 ---
 title: "method.unresolvableReturnType"
+shortDescription: "Return type of a method call contains a generic type that cannot be resolved."
 ignorable: true
 ---
 

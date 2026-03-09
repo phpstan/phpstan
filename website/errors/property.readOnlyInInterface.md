@@ -1,5 +1,6 @@
 ---
 title: "property.readOnlyInInterface"
+shortDescription: "Readonly modifier is not allowed on interface properties."
 ignorable: false
 ---
 

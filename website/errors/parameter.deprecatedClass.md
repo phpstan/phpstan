@@ -1,5 +1,6 @@
 ---
 title: "parameter.deprecatedClass"
+shortDescription: "Parameter type declaration uses a deprecated class."
 ignorable: true
 ---
 

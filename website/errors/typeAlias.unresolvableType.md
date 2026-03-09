@@ -1,5 +1,6 @@
 ---
 title: "typeAlias.unresolvableType"
+shortDescription: "Type alias contains a type that cannot be fully resolved."
 ignorable: true
 ---
 

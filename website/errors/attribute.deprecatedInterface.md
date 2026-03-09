@@ -1,5 +1,6 @@
 ---
 title: "attribute.deprecatedInterface"
+shortDescription: "Attribute references a deprecated interface."
 ignorable: true
 ---
 

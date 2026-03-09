@@ -1,5 +1,6 @@
 ---
 title: "varTag.deprecatedClass"
+shortDescription: "@var PHPDoc tag references a deprecated class."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "method.staticCall"
+shortDescription: "Non-static method is called statically using the :: operator."
 ignorable: true
 ---
 

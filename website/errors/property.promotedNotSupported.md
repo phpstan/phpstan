@@ -1,5 +1,6 @@
 ---
 title: "property.promotedNotSupported"
+shortDescription: "Constructor property promotion is not supported on the configured PHP version."
 ignorable: false
 ---
 

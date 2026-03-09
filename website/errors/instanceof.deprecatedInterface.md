@@ -1,5 +1,6 @@
 ---
 title: "instanceof.deprecatedInterface"
+shortDescription: "Instanceof check references a deprecated interface."
 ignorable: true
 ---
 

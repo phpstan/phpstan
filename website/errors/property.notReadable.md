@@ -1,5 +1,6 @@
 ---
 title: "property.notReadable"
+shortDescription: "Overriding property removes readability required by the parent."
 ignorable: false
 ---
 

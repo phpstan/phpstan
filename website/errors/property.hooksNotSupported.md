@@ -1,5 +1,6 @@
 ---
 title: "property.hooksNotSupported"
+shortDescription: "Property hooks require PHP 8.4 or later."
 ignorable: false
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "new.deprecatedClass"
+shortDescription: "Instantiating a deprecated class."
 ignorable: true
 ---
 

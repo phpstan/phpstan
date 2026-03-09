@@ -1,5 +1,6 @@
 ---
 title: "magicConstant.outOfTrait"
+shortDescription: "Magic constant __TRAIT__ used outside of a trait returns empty string."
 ignorable: true
 ---
 

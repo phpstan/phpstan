@@ -1,5 +1,6 @@
 ---
 title: "enum.implementsInternalInterface"
+shortDescription: "Enum implements an internal interface from another package."
 ignorable: true
 ---
 

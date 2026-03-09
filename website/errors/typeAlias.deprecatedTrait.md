@@ -1,5 +1,6 @@
 ---
 title: "typeAlias.deprecatedTrait"
+shortDescription: "Type alias references a deprecated trait."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "requireImplements.internalEnum"
+shortDescription: "Tag @phpstan-require-implements references an internal enum."
 ignorable: true
 ---
 

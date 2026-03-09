@@ -1,5 +1,6 @@
 ---
 title: "classConstant.unused"
+shortDescription: "Private class constant is declared but never used."
 ignorable: true
 ---
 

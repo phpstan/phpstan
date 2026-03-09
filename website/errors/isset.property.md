@@ -1,5 +1,6 @@
 ---
 title: "isset.property"
+shortDescription: "Property in isset() always exists and is never null."
 ignorable: true
 ---
 

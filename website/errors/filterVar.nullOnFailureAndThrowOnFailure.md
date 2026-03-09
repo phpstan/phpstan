@@ -1,5 +1,6 @@
 ---
 title: "filterVar.nullOnFailureAndThrowOnFailure"
+shortDescription: "Mutually exclusive flags FILTER_NULL_ON_FAILURE and FILTER_THROW_ON_FAILURE used together."
 ignorable: true
 ---
 

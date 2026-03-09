@@ -1,5 +1,6 @@
 ---
 title: "return.deprecatedTrait"
+shortDescription: "Return type declaration references a deprecated trait."
 ignorable: true
 ---
 

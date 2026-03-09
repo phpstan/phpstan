@@ -1,5 +1,6 @@
 ---
 title: "function.variance"
+shortDescription: "Variance annotation on a function template type is not meaningful."
 ignorable: true
 ---
 

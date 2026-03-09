@@ -1,5 +1,6 @@
 ---
 title: "function.deprecated"
+shortDescription: "Called function is marked as deprecated."
 ignorable: true
 ---
 

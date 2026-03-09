@@ -1,5 +1,6 @@
 ---
 title: "parameter.requiredAfterOptional"
+shortDescription: "Required parameter follows an optional parameter."
 ignorable: true
 ---
 

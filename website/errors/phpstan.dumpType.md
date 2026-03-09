@@ -1,5 +1,6 @@
 ---
 title: "phpstan.dumpType"
+shortDescription: "Debugging output of an expression's inferred type."
 ignorable: false
 ---
 

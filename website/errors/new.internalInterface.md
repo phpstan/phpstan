@@ -1,5 +1,6 @@
 ---
 title: "new.internalInterface"
+shortDescription: "Instantiating a class that implements an internal interface."
 ignorable: true
 ---
 

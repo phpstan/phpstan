@@ -1,5 +1,6 @@
 ---
 title: "class.extendsTrait"
+shortDescription: "Class cannot extend a trait."
 ignorable: false
 ---
 

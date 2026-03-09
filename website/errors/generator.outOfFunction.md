@@ -1,5 +1,6 @@
 ---
 title: "generator.outOfFunction"
+shortDescription: "Yield expression is used outside of a function or method body."
 ignorable: false
 ---
 

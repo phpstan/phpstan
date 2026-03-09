@@ -1,5 +1,6 @@
 ---
 title: "phpstanPlayground.never"
+shortDescription: "Function always throws or exits but is not declared with return type never."
 ignorable: false
 ---
 

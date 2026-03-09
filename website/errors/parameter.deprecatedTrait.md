@@ -1,5 +1,6 @@
 ---
 title: "parameter.deprecatedTrait"
+shortDescription: "Parameter type declaration references a class using a deprecated trait."
 ignorable: true
 ---
 

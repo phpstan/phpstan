@@ -1,5 +1,6 @@
 ---
 title: "attribute.internalTrait"
+shortDescription: "Attribute references an internal trait."
 ignorable: true
 ---
 

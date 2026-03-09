@@ -1,5 +1,6 @@
 ---
 title: "logicalOr.resultUnused"
+shortDescription: "Result of or is discarded due to operator precedence."
 ignorable: true
 ---
 

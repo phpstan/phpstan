@@ -1,5 +1,6 @@
 ---
 title: "varTag.differentVariable"
+shortDescription: "Variable name in @var tag does not match the variable being assigned."
 ignorable: true
 ---
 

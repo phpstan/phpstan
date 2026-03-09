@@ -1,5 +1,6 @@
 ---
 title: "parameter.duplicate"
+shortDescription: "Function declares the same parameter name more than once."
 ignorable: false
 ---
 

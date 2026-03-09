@@ -1,5 +1,6 @@
 ---
 title: "trait.deprecatedAttribute"
+shortDescription: "#[Deprecated] attribute on a trait is not supported on this PHP version."
 ignorable: false
 ---
 

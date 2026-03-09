@@ -1,5 +1,6 @@
 ---
 title: "generics.notSupportedBound"
+shortDescription: "Template type bound uses a type that is not supported as a generic constraint."
 ignorable: true
 ---
 

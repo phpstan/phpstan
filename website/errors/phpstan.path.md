@@ -1,5 +1,6 @@
 ---
 title: "phpstan.path"
+shortDescription: "Configured analysis path does not exist or is not a file."
 ignorable: false
 ---
 

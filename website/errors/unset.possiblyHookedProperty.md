@@ -1,5 +1,6 @@
 ---
 title: "unset.possiblyHookedProperty"
+shortDescription: "Property could have hooks in a subclass, making unset unsafe."
 ignorable: true
 ---
 

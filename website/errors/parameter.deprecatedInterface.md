@@ -1,5 +1,6 @@
 ---
 title: "parameter.deprecatedInterface"
+shortDescription: "Parameter type declaration uses a deprecated interface."
 ignorable: true
 ---
 

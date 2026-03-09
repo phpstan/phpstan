@@ -1,5 +1,6 @@
 ---
 title: "pipe.byRef"
+shortDescription: "Pipe operator cannot pass values by reference to the callable."
 ignorable: true
 ---
 

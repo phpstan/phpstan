@@ -1,5 +1,6 @@
 ---
 title: "typeAlias.circular"
+shortDescription: "Type alias references itself, creating a circular definition."
 ignorable: true
 ---
 

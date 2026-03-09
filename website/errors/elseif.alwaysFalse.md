@@ -1,5 +1,6 @@
 ---
 title: "elseif.alwaysFalse"
+shortDescription: "Elseif condition is always false, making the branch unreachable."
 ignorable: true
 ---
 

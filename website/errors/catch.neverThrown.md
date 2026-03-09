@@ -1,5 +1,6 @@
 ---
 title: "catch.neverThrown"
+shortDescription: "Caught exception type is never thrown in the try block."
 ignorable: true
 ---
 

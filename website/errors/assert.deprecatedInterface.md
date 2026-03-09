@@ -1,5 +1,6 @@
 ---
 title: "assert.deprecatedInterface"
+shortDescription: "Assertion in @phpstan-assert references a deprecated interface."
 ignorable: true
 ---
 

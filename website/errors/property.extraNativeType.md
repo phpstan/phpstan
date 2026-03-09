@@ -1,5 +1,6 @@
 ---
 title: "property.extraNativeType"
+shortDescription: "Child property adds a native type not present on the parent property."
 ignorable: false
 ---
 

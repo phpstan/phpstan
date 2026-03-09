@@ -1,5 +1,6 @@
 ---
 title: "mixin.deprecatedTrait"
+shortDescription: "PHPDoc @mixin tag references a deprecated trait."
 ignorable: true
 ---
 

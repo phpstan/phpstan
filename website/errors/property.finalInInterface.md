@@ -1,5 +1,6 @@
 ---
 title: "property.finalInInterface"
+shortDescription: "Interface property cannot be declared final."
 ignorable: false
 ---
 

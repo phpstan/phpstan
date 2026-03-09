@@ -1,5 +1,6 @@
 ---
 title: "generics.moreTypes"
+shortDescription: "Generic type specifies more type arguments than the class declares."
 ignorable: true
 ---
 

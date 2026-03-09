@@ -1,5 +1,6 @@
 ---
 title: "method.childParameterType"
+shortDescription: "Overriding method has a narrower parameter type than the parent method."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "notIdentical.alwaysTrue"
+shortDescription: "Strict comparison using !== always evaluates to true."
 ignorable: true
 ---
 

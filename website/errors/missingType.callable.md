@@ -1,5 +1,6 @@
 ---
 title: "missingType.callable"
+shortDescription: "Callable parameter or return type is missing its signature specification."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "class.extendsInternalInterface"
+shortDescription: "Class extends an internal interface."
 ignorable: true
 ---
 

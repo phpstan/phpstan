@@ -1,5 +1,6 @@
 ---
 title: "foreach.nonIterable"
+shortDescription: "Expression passed to foreach is not an iterable type."
 ignorable: true
 ---
 

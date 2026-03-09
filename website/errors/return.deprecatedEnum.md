@@ -1,5 +1,6 @@
 ---
 title: "return.deprecatedEnum"
+shortDescription: "Return type declaration references a deprecated enum."
 ignorable: true
 ---
 

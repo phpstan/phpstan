@@ -1,5 +1,6 @@
 ---
 title: "selfOut.type"
+shortDescription: "Tag @phpstan-self-out specifies a type that is not a subtype of the class."
 ignorable: true
 ---
 

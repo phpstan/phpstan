@@ -1,5 +1,6 @@
 ---
 title: "classConstant.onTrait"
+shortDescription: "Accessing a constant directly on a trait is not allowed."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "instanceof.internalTrait"
+shortDescription: "Instanceof check references an internal trait from another package."
 ignorable: true
 ---
 

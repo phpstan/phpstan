@@ -1,5 +1,6 @@
 ---
 title: "property.finalPrivate"
+shortDescription: "Property cannot be both final and private."
 ignorable: false
 ---
 

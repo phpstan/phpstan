@@ -1,5 +1,6 @@
 ---
 title: "enum.duplicateConstant"
+shortDescription: "Enum declares two constants with the same name."
 ignorable: false
 ---
 

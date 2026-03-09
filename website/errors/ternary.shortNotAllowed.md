@@ -1,5 +1,6 @@
 ---
 title: "ternary.shortNotAllowed"
+shortDescription: "Short ternary operator (?:) relies on loose truthiness rules."
 ignorable: true
 ---
 

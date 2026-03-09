@@ -1,5 +1,6 @@
 ---
 title: "phpParser.classRenamed"
+shortDescription: "Referenced PHP-Parser class was renamed in PHP-Parser v5."
 ignorable: true
 ---
 

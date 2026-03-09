@@ -1,5 +1,6 @@
 ---
 title: "property.readOnlyDefaultValue"
+shortDescription: "Readonly property cannot have a default value."
 ignorable: true
 ---
 

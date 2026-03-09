@@ -1,5 +1,6 @@
 ---
 title: "generics.internalTraitBound"
+shortDescription: "Template type bound references an internal trait."
 ignorable: true
 ---
 

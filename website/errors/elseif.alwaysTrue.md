@@ -1,5 +1,6 @@
 ---
 title: "elseif.alwaysTrue"
+shortDescription: "Elseif condition is always true, making subsequent branches unreachable."
 ignorable: true
 ---
 

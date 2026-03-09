@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.deprecatedInterface"
+shortDescription: "Static method is called on a deprecated interface."
 ignorable: true
 ---
 

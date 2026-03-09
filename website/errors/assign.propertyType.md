@@ -1,5 +1,6 @@
 ---
 title: "assign.propertyType"
+shortDescription: "Assigned value type does not match the property type."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "possiblyImpure.print"
+shortDescription: "Pure function contains a print statement which is a side effect."
 ignorable: true
 ---
 

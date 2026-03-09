@@ -1,5 +1,6 @@
 ---
 title: "declareStrictTypes.value"
+shortDescription: "declare(strict_types) has an invalid value (only 0 or 1 are allowed)."
 ignorable: false
 ---
 

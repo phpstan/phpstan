@@ -1,5 +1,6 @@
 ---
 title: "offsetAssign.valueType"
+shortDescription: "Assigned value type does not match the type accepted by the offset."
 ignorable: true
 ---
 

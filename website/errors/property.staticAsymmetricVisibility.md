@@ -1,5 +1,6 @@
 ---
 title: "property.staticAsymmetricVisibility"
+shortDescription: "Asymmetric visibility on a static property is not supported on the configured PHP version."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "phpstanPlayground.noPhp"
+shortDescription: "Submitted playground code does not contain any PHP code."
 ignorable: false
 ---
 

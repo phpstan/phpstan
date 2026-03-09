@@ -1,5 +1,6 @@
 ---
 title: "phpDoc.phpstanTag"
+shortDescription: "Unrecognized @phpstan- tag, likely a typo."
 ignorable: true
 ---
 

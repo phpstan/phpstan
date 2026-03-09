@@ -1,5 +1,6 @@
 ---
 title: "class.notFound"
+shortDescription: "Referenced class does not exist."
 ignorable: true
 ---
 

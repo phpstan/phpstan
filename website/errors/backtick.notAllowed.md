@@ -1,5 +1,6 @@
 ---
 title: "backtick.notAllowed"
+shortDescription: "Backtick operator for shell execution is not allowed by strict rules."
 ignorable: true
 ---
 

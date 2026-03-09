@@ -1,5 +1,6 @@
 ---
 title: "classConstant.internalTrait"
+shortDescription: "Accessing a constant defined in a trait marked as @internal."
 ignorable: true
 ---
 

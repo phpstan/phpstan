@@ -1,5 +1,6 @@
 ---
 title: "elseif.condNotBoolean"
+shortDescription: "Elseif condition is not a boolean value."
 ignorable: true
 ---
 

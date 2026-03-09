@@ -1,5 +1,6 @@
 ---
 title: "throw.notSupported"
+shortDescription: "Throw expression is used on a PHP version that does not support it."
 ignorable: false
 ---
 

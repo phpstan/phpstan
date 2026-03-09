@@ -1,5 +1,6 @@
 ---
 title: "function.internal"
+shortDescription: "Called function is marked as internal and not part of the public API."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "method.callToAbstract"
+shortDescription: "Calling an abstract method via parent:: which has no implementation."
 ignorable: true
 ---
 

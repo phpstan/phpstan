@@ -1,5 +1,6 @@
 ---
 title: "property.static"
+shortDescription: "Static property overrides a non-static property from the parent class."
 ignorable: false
 ---
 

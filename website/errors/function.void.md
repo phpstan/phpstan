@@ -1,5 +1,6 @@
 ---
 title: "function.void"
+shortDescription: "Return value of a void function is being used."
 ignorable: true
 ---
 

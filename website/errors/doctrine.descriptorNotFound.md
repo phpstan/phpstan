@@ -1,5 +1,6 @@
 ---
 title: "doctrine.descriptorNotFound"
+shortDescription: "Doctrine column type has no registered type descriptor."
 ignorable: true
 ---
 

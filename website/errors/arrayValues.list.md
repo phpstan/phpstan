@@ -1,5 +1,6 @@
 ---
 title: "arrayValues.list"
+shortDescription: "Call to array_values on a list has no effect."
 ignorable: true
 ---
 

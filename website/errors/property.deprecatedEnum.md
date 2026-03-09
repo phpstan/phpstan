@@ -1,5 +1,6 @@
 ---
 title: "property.deprecatedEnum"
+shortDescription: "Property type references a deprecated enum."
 ignorable: true
 ---
 

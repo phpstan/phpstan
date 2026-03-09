@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.alreadyNarrowedType"
+shortDescription: "Static method type assertion is redundant because the type is already narrowed."
 ignorable: true
 ---
 

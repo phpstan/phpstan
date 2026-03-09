@@ -1,5 +1,6 @@
 ---
 title: "generics.internalEnumBound"
+shortDescription: "Template type bound references an internal enum."
 ignorable: true
 ---
 

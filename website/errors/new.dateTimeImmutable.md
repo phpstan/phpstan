@@ -1,5 +1,6 @@
 ---
 title: "new.dateTimeImmutable"
+shortDescription: "Invalid date string passed to the DateTimeImmutable constructor."
 ignorable: true
 ---
 

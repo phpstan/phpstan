@@ -1,5 +1,6 @@
 ---
 title: "property.readOnlyAssignNotInConstructor"
+shortDescription: "Readonly property is assigned outside of the constructor."
 ignorable: true
 ---
 

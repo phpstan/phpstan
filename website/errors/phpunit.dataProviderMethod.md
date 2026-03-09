@@ -1,5 +1,6 @@
 ---
 title: "phpunit.dataProviderMethod"
+shortDescription: "Data provider references a method that does not exist on the test class."
 ignorable: true
 ---
 

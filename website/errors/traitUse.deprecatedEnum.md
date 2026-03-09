@@ -1,5 +1,6 @@
 ---
 title: "traitUse.deprecatedEnum"
+shortDescription: "Trait use statement references a deprecated enum."
 ignorable: true
 ---
 

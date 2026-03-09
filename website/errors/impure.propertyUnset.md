@@ -1,5 +1,6 @@
 ---
 title: "impure.propertyUnset"
+shortDescription: "Pure function unsets a property, which modifies object state."
 ignorable: true
 ---
 

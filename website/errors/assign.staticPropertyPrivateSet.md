@@ -1,5 +1,6 @@
 ---
 title: "assign.staticPropertyPrivateSet"
+shortDescription: "Static property with private(set) visibility is assigned from outside its class."
 ignorable: true
 ---
 

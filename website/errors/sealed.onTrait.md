@@ -1,5 +1,6 @@
 ---
 title: "sealed.onTrait"
+shortDescription: "Tag @phpstan-sealed is used on a trait, which cannot be extended."
 ignorable: true
 ---
 

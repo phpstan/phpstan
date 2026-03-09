@@ -1,5 +1,6 @@
 ---
 title: "offsetAccess.noDim"
+shortDescription: "Empty dimension access is used for reading, which is not valid in PHP."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "cast.double"
+shortDescription: "Expression cannot be cast to float."
 ignorable: true
 ---
 

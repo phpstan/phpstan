@@ -1,5 +1,6 @@
 ---
 title: "catch.deprecatedClass"
+shortDescription: "Catch block references a deprecated class."
 ignorable: true
 ---
 

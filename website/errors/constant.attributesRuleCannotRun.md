@@ -1,5 +1,6 @@
 ---
 title: "constant.attributesRuleCannotRun"
+shortDescription: "PHPStan runtime PHP version is too old to check attributes on global constants."
 ignorable: false
 ---
 

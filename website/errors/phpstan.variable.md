@@ -1,5 +1,6 @@
 ---
 title: "phpstan.variable"
+shortDescription: "Variable certainty assertion does not match the actual certainty."
 ignorable: false
 ---
 

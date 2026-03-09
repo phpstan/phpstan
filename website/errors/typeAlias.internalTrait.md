@@ -1,5 +1,6 @@
 ---
 title: "typeAlias.internalTrait"
+shortDescription: "Type alias references an internal trait from another package."
 ignorable: true
 ---
 

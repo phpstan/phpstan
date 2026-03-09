@@ -1,5 +1,6 @@
 ---
 title: "postInc.expr"
+shortDescription: "Post-increment operator is applied to a non-variable expression."
 ignorable: true
 ---
 

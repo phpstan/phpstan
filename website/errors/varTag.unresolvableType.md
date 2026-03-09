@@ -1,5 +1,6 @@
 ---
 title: "varTag.unresolvableType"
+shortDescription: "@var tag contains a type that cannot be resolved to a valid type."
 ignorable: true
 ---
 

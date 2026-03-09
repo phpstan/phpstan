@@ -1,5 +1,6 @@
 ---
 title: "method.abstractPrivate"
+shortDescription: "Abstract method cannot be private because subclasses cannot override it."
 ignorable: false
 ---
 

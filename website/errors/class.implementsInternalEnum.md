@@ -1,5 +1,6 @@
 ---
 title: "class.implementsInternalEnum"
+shortDescription: "Class implements an internal enum."
 ignorable: true
 ---
 

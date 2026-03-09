@@ -1,5 +1,6 @@
 ---
 title: "cast.useless"
+shortDescription: "Value is cast to the type it already has, making the cast redundant."
 ignorable: true
 ---
 

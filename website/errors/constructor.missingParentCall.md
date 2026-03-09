@@ -1,5 +1,6 @@
 ---
 title: "constructor.missingParentCall"
+shortDescription: "Child constructor does not call the parent constructor."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "class.missingExtends"
+shortDescription: "Class does not extend the base class required by @phpstan-require-extends."
 ignorable: true
 ---
 

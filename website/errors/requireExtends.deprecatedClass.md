@@ -1,5 +1,6 @@
 ---
 title: "requireExtends.deprecatedClass"
+shortDescription: "@phpstan-require-extends references a deprecated class."
 ignorable: true
 ---
 

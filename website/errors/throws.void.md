@@ -1,5 +1,6 @@
 ---
 title: "throws.void"
+shortDescription: "Function declared as @throws void actually throws an exception."
 ignorable: true
 ---
 

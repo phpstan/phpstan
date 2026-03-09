@@ -1,5 +1,6 @@
 ---
 title: "outOfClass.static"
+shortDescription: "Keyword static is used outside of a class scope."
 ignorable: true
 ---
 

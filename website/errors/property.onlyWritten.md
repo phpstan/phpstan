@@ -1,5 +1,6 @@
 ---
 title: "property.onlyWritten"
+shortDescription: "Private property is written to but never read."
 ignorable: true
 ---
 

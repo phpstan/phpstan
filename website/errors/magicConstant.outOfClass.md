@@ -1,5 +1,6 @@
 ---
 title: "magicConstant.outOfClass"
+shortDescription: "Magic constant __CLASS__ used outside of a class always returns empty string."
 ignorable: true
 ---
 

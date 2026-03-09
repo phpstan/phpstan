@@ -1,5 +1,6 @@
 ---
 title: "classConstant.dynamicString"
+shortDescription: "Accessing ::class on a string variable is not supported."
 ignorable: false
 ---
 

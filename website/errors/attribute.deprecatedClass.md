@@ -1,5 +1,6 @@
 ---
 title: "attribute.deprecatedClass"
+shortDescription: "Attribute references a deprecated class (deprecation-rules)."
 ignorable: true
 ---
 

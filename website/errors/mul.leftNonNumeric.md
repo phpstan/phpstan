@@ -1,5 +1,6 @@
 ---
 title: "mul.leftNonNumeric"
+shortDescription: "Left side of the multiplication operator is not a numeric type."
 ignorable: true
 ---
 

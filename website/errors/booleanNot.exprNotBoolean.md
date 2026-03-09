@@ -1,5 +1,6 @@
 ---
 title: "booleanNot.exprNotBoolean"
+shortDescription: "Negation operator is applied to a non-boolean value."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "argument.unused"
+shortDescription: "Passed argument is ignored and has no effect."
 ignorable: true
 ---
 

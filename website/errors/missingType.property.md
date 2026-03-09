@@ -1,5 +1,6 @@
 ---
 title: "missingType.property"
+shortDescription: "Property has no type declaration."
 ignorable: true
 ---
 

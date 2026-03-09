@@ -1,5 +1,6 @@
 ---
 title: "generics.notGeneric"
+shortDescription: "Type arguments are specified for a class or interface that is not generic."
 ignorable: true
 ---
 

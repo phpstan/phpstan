@@ -1,5 +1,6 @@
 ---
 title: "booleanAnd.resultUnused"
+shortDescription: "Result of the && operator is not used."
 ignorable: true
 ---
 

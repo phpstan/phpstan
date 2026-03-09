@@ -1,5 +1,6 @@
 ---
 title: "property.assignByRef"
+shortDescription: "Property with restricted write visibility is assigned by reference."
 ignorable: true
 ---
 

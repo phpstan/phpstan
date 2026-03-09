@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.resultDiscarded"
+shortDescription: "Return value of a #[NoDiscard] static method is not used."
 ignorable: false
 ---
 

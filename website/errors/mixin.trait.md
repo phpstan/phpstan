@@ -1,5 +1,6 @@
 ---
 title: "mixin.trait"
+shortDescription: "PHPDoc @mixin tag references a trait, which cannot be used as a type."
 ignorable: true
 ---
 

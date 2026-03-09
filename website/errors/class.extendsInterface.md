@@ -1,5 +1,6 @@
 ---
 title: "class.extendsInterface"
+shortDescription: "Class uses extends instead of implements for an interface."
 ignorable: false
 ---
 

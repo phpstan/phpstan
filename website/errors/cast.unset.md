@@ -1,5 +1,6 @@
 ---
 title: "cast.unset"
+shortDescription: "Removed (unset) cast is used on PHP 8.0 or later."
 ignorable: false
 ---
 

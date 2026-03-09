@@ -1,5 +1,6 @@
 ---
 title: "generics.deprecatedEnumDefault"
+shortDescription: "Template type default references a deprecated enum."
 ignorable: true
 ---
 

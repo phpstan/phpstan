@@ -1,5 +1,6 @@
 ---
 title: "doWhile.alwaysFalse"
+shortDescription: "Do-while loop condition is always false, so the loop body runs only once."
 ignorable: true
 ---
 

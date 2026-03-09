@@ -1,5 +1,6 @@
 ---
 title: "class.nameInUse"
+shortDescription: "Class name conflicts with an imported name in the same namespace."
 ignorable: false
 ---
 

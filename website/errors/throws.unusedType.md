@@ -1,5 +1,6 @@
 ---
 title: "throws.unusedType"
+shortDescription: "Exception type in @throws tag is never actually thrown."
 ignorable: true
 ---
 

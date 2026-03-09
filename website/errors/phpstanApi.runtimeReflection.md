@@ -1,5 +1,6 @@
 ---
 title: "phpstanApi.runtimeReflection"
+shortDescription: "PHPStan extension uses runtime reflection instead of the static reflection API."
 ignorable: true
 ---
 

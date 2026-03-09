@@ -1,5 +1,6 @@
 ---
 title: "varTag.misplaced"
+shortDescription: "@var tag is placed above a class, function, or method where it has no effect."
 ignorable: true
 ---
 

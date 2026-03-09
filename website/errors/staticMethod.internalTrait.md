@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.internalTrait"
+shortDescription: "Static method is called on an internal trait from outside its package."
 ignorable: true
 ---
 

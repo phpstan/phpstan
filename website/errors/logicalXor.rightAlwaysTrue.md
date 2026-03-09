@@ -1,5 +1,6 @@
 ---
 title: "logicalXor.rightAlwaysTrue"
+shortDescription: "Right side of xor is always true, reducing it to a negation."
 ignorable: true
 ---
 

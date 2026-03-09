@@ -1,5 +1,6 @@
 ---
 title: "enumImplements.enum"
+shortDescription: "Enum implements another enum instead of an interface."
 ignorable: false
 ---
 

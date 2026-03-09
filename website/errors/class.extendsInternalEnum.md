@@ -1,5 +1,6 @@
 ---
 title: "class.extendsInternalEnum"
+shortDescription: "Class extends an internal enum."
 ignorable: true
 ---
 

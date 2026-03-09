@@ -1,5 +1,6 @@
 ---
 title: "enum.backingType"
+shortDescription: "Enum backing type is not int or string."
 ignorable: false
 ---
 

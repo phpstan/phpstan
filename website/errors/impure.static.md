@@ -1,5 +1,6 @@
 ---
 title: "impure.static"
+shortDescription: "Pure function uses a static variable, which persists state between calls."
 ignorable: true
 ---
 

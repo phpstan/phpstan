@@ -1,5 +1,6 @@
 ---
 title: "phpParser.nodeConnectingAttribute"
+shortDescription: "Accessed PHP-Parser node attribute is no longer available in PHPStan."
 ignorable: true
 ---
 

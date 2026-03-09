@@ -1,5 +1,6 @@
 ---
 title: "class.noParent"
+shortDescription: "Using parent:: in a class that does not extend any class."
 ignorable: true
 ---
 

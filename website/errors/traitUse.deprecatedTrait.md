@@ -1,5 +1,6 @@
 ---
 title: "traitUse.deprecatedTrait"
+shortDescription: "Trait use statement references a deprecated trait."
 ignorable: true
 ---
 

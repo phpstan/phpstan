@@ -1,5 +1,6 @@
 ---
 title: "assign.invalidExpr"
+shortDescription: "Left side of assignment is not a valid assignable expression."
 ignorable: false
 ---
 

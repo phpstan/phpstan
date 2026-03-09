@@ -1,5 +1,6 @@
 ---
 title: "mixin.internalEnum"
+shortDescription: "PHPDoc @mixin tag references an internal enum."
 ignorable: true
 ---
 

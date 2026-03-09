@@ -1,5 +1,6 @@
 ---
 title: "assert.alreadyNarrowedType"
+shortDescription: "Assertion in @phpstan-assert does not narrow the type any further."
 ignorable: true
 ---
 

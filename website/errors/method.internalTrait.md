@@ -1,5 +1,6 @@
 ---
 title: "method.internalTrait"
+shortDescription: "Called method belongs to a trait marked as @internal."
 ignorable: true
 ---
 

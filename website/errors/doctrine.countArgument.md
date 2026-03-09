@@ -1,5 +1,6 @@
 ---
 title: "doctrine.countArgument"
+shortDescription: "Field name passed to repository count() does not exist on the entity."
 ignorable: true
 ---
 

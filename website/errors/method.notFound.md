@@ -1,5 +1,6 @@
 ---
 title: "method.notFound"
+shortDescription: "Called method does not exist on the object type."
 ignorable: true
 ---
 

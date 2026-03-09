@@ -1,5 +1,6 @@
 ---
 title: "return.neverTypeNotSupported"
+shortDescription: "Never return type in arrow functions is not supported on this PHP version."
 ignorable: false
 ---
 

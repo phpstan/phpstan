@@ -1,5 +1,6 @@
 ---
 title: "property.abstractInInterface"
+shortDescription: "Interface property cannot be explicitly marked abstract."
 ignorable: false
 ---
 

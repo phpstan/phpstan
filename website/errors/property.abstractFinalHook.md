@@ -1,5 +1,6 @@
 ---
 title: "property.abstractFinalHook"
+shortDescription: "Property hook cannot be both abstract and final."
 ignorable: false
 ---
 

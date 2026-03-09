@@ -1,5 +1,6 @@
 ---
 title: "classConstant.inTrait"
+shortDescription: "Trait constants require PHP 8.2 or later."
 ignorable: false
 ---
 

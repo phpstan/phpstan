@@ -1,5 +1,6 @@
 ---
 title: "notEqual.notAllowed"
+shortDescription: "Loose comparison via != is not allowed by strict rules."
 ignorable: true
 ---
 

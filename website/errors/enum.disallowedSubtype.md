@@ -1,5 +1,6 @@
 ---
 title: "enum.disallowedSubtype"
+shortDescription: "Enum is not listed as an allowed subtype of the sealed interface."
 ignorable: true
 ---
 

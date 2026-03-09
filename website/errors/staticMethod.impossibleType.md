@@ -1,5 +1,6 @@
 ---
 title: "staticMethod.impossibleType"
+shortDescription: "Static method type check will always evaluate to false."
 ignorable: true
 ---
 

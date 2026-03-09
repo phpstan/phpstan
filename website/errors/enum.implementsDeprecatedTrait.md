@@ -1,5 +1,6 @@
 ---
 title: "enum.implementsDeprecatedTrait"
+shortDescription: "Enum references a deprecated trait in its implements clause."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "logicalAnd.leftAlwaysTrue"
+shortDescription: "Left side of and is always true, making it redundant."
 ignorable: true
 ---
 

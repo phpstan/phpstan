@@ -1,5 +1,6 @@
 ---
 title: "parameter.missing"
+shortDescription: "Overriding method is missing a parameter that exists in the parent method."
 ignorable: true
 ---
 

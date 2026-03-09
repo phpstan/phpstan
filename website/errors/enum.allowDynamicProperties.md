@@ -1,5 +1,6 @@
 ---
 title: "enum.allowDynamicProperties"
+shortDescription: "AllowDynamicProperties attribute cannot be used on enums."
 ignorable: false
 ---
 

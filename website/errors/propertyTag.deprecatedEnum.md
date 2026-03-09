@@ -1,5 +1,6 @@
 ---
 title: "propertyTag.deprecatedEnum"
+shortDescription: "@property PHPDoc tag references a deprecated enum."
 ignorable: true
 ---
 

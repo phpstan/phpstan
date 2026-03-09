@@ -1,5 +1,6 @@
 ---
 title: "parameter.notByRef"
+shortDescription: "Parameter is not passed by reference but the parent declares it as by-reference."
 ignorable: true
 ---
 

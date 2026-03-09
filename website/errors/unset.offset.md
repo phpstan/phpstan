@@ -1,5 +1,6 @@
 ---
 title: "unset.offset"
+shortDescription: "Unsetting an offset on a type that does not support offset access."
 ignorable: true
 ---
 

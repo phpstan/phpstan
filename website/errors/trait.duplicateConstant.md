@@ -1,5 +1,6 @@
 ---
 title: "trait.duplicateConstant"
+shortDescription: "Constant is declared more than once in the same trait."
 ignorable: false
 ---
 

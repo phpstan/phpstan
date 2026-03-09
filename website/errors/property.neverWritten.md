@@ -1,5 +1,6 @@
 ---
 title: "property.neverWritten"
+shortDescription: "Writable property is never written to."
 ignorable: true
 ---
 

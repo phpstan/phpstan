@@ -1,5 +1,6 @@
 ---
 title: "logicalOr.rightNotBoolean"
+shortDescription: "Right side of or is not a boolean value."
 ignorable: true
 ---
 

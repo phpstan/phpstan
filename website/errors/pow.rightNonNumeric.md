@@ -1,5 +1,6 @@
 ---
 title: "pow.rightNonNumeric"
+shortDescription: "Right operand of the exponentiation operator is not numeric."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "varTag.noVariable"
+shortDescription: "@var tag is missing a variable name in an ambiguous context."
 ignorable: true
 ---
 

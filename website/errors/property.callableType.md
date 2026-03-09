@@ -1,5 +1,6 @@
 ---
 title: "property.callableType"
+shortDescription: "Property uses callable as a native type, which is not allowed."
 ignorable: false
 ---
 

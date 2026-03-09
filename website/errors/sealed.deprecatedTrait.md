@@ -1,5 +1,6 @@
 ---
 title: "sealed.deprecatedTrait"
+shortDescription: "Tag @phpstan-sealed references a deprecated trait."
 ignorable: true
 ---
 

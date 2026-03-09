@@ -1,5 +1,6 @@
 ---
 title: "generics.existingTypeAlias"
+shortDescription: "Template type parameter name conflicts with an existing type alias."
 ignorable: true
 ---
 

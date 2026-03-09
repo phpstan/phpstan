@@ -1,5 +1,6 @@
 ---
 title: "selfOut.trait"
+shortDescription: "Tag @phpstan-self-out references a trait, which is not a valid type."
 ignorable: true
 ---
 

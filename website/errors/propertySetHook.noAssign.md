@@ -1,5 +1,6 @@
 ---
 title: "propertySetHook.noAssign"
+shortDescription: "Set hook of a non-virtual property never assigns the backing value."
 ignorable: true
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "return.deprecatedInterface"
+shortDescription: "Return type declaration references a deprecated interface."
 ignorable: true
 ---
 

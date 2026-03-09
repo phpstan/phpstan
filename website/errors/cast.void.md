@@ -1,5 +1,6 @@
 ---
 title: "cast.void"
+shortDescription: "The (void) cast is used inside an expression instead of as a standalone statement."
 ignorable: false
 ---
 

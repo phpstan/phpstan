@@ -1,5 +1,6 @@
 ---
 title: "classConstant.unresolvableType"
+shortDescription: "PHPDoc @var type on a class constant contains an unresolvable type."
 ignorable: true
 ---
 

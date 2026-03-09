@@ -1,5 +1,6 @@
 ---
 title: "pureMethod.parameterByRef"
+shortDescription: "Pure method has a by-reference parameter, which allows side effects."
 ignorable: true
 ---
 

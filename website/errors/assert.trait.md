@@ -1,5 +1,6 @@
 ---
 title: "assert.trait"
+shortDescription: "Assertion in @phpstan-assert references a trait, which is not a valid type."
 ignorable: true
 ---
 

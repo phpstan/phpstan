@@ -1,5 +1,6 @@
 ---
 title: "property.unresolvableNativeType"
+shortDescription: "Property has a native intersection type that no value can satisfy."
 ignorable: true
 ---
 

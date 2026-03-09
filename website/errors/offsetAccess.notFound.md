@@ -1,5 +1,6 @@
 ---
 title: "offsetAccess.notFound"
+shortDescription: "Accessed array offset does not exist on the given type."
 ignorable: true
 ---
 
