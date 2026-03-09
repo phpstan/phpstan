@@ -4,6 +4,7 @@ const pages = [
 	{ name: 'homepage', path: '/' },
 	{ name: 'playground', path: '/try' },
 	{ name: 'blog', path: '/blog' },
+	{ name: 'documentation', path: '/documentation' },
 	{ name: 'getting-started', path: '/user-guide/getting-started' },
 	{ name: 'sponsor', path: '/sponsor' },
 ];

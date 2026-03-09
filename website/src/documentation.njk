@@ -1,0 +1,314 @@
+---
+title: Documentation
+pageType: documentation
+---
+
+{% extends "./_layouts/_base.njk" %}
+
+{% block scripts %}
+	<script src="/js/documentation.ts" type="module"></script>
+{% endblock %}
+
+{% block content %}
+
+<div class="content-home px-4 pt-8 pb-16">
+	<span id="sectionTitle" class="hidden">Documentation</span>
+
+	<h1 class="text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">Documentation</h1>
+	<p class="mt-3 text-lg text-gray-500 max-w-3xl">Find the right guide for your problem. Whether you're just getting started, looking to write better PHPDocs, or building custom extensions.</p>
+
+	<div class="mt-8 flex flex-wrap gap-3">
+		<a href="/user-guide/getting-started" class="inline-flex items-center px-5 py-2.5 rounded-lg border-2 border-blue-500 text-blue-600 font-semibold hover:bg-blue-50 transition duration-150">
+			User Guide
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+		</a>
+		<a href="/config-reference" class="inline-flex items-center px-5 py-2.5 rounded-lg border-2 border-blue-500 text-blue-600 font-semibold hover:bg-blue-50 transition duration-150">
+			Config Reference
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+		</a>
+		<a href="/writing-php-code/phpdocs-basics" class="inline-flex items-center px-5 py-2.5 rounded-lg border-2 border-blue-500 text-blue-600 font-semibold hover:bg-blue-50 transition duration-150">
+			Writing PHP Code
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+		</a>
+		<a href="/developing-extensions/extension-types" class="inline-flex items-center px-5 py-2.5 rounded-lg border-2 border-blue-500 text-blue-600 font-semibold hover:bg-blue-50 transition duration-150">
+			Developing Extensions
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+		</a>
+	</div>
+
+	<!-- Getting Started -->
+	<div class="mt-12">
+		<h2 class="text-2xl font-bold text-gray-900 tracking-tight flex items-center">
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+			</svg>
+			Getting Started
+		</h2>
+		<p class="mt-1 text-gray-500 ml-10">Installation, first run, and core concepts</p>
+
+		<div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ml-10">
+			<a href="/user-guide/getting-started" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Getting Started</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to install PHPStan and run it for the first time</p>
+			</a>
+			<a href="/user-guide/command-line-usage" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Command Line Usage</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to know all the CLI options and flags</p>
+			</a>
+			<a href="/user-guide/rule-levels" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Rule Levels</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to understand what each level (0&ndash;10) checks</p>
+			</a>
+			<a href="/config-reference" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Config Reference</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to configure PHPStan using a NEON config file</p>
+			</a>
+			<a href="/user-guide/docker" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Docker</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to run PHPStan in a Docker container</p>
+			</a>
+		</div>
+	</div>
+
+	<!-- Dealing with Errors -->
+	<div class="mt-14">
+		<h2 class="text-2xl font-bold text-gray-900 tracking-tight flex items-center">
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+			</svg>
+			Dealing with Errors
+		</h2>
+		<p class="mt-1 text-gray-500 ml-10">PHPStan reported something and you need to act on it</p>
+
+		<div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ml-10">
+			<a href="/user-guide/ignoring-errors" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Ignoring Errors</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to suppress a specific error I can't fix right now</p>
+			</a>
+			<a href="/user-guide/baseline" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">The Baseline</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to adopt PHPStan on a legacy codebase without fixing all existing errors</p>
+			</a>
+			<a href="/error-identifiers" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Error Identifiers</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to look up what a specific error identifier means</p>
+			</a>
+			<a href="/user-guide/output-format" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Output Format</h3>
+				<p class="mt-1 text-sm text-gray-500">I want PHPStan output in JSON, JUnit, or another CI-friendly format</p>
+			</a>
+		</div>
+	</div>
+
+	<!-- Solving Specific Errors -->
+	<div class="mt-14">
+		<h2 class="text-2xl font-bold text-gray-900 tracking-tight flex items-center">
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+			</svg>
+			Solving Specific Errors
+		</h2>
+		<p class="mt-1 text-gray-500 ml-10">Guides for common PHPStan errors and how to fix them</p>
+
+		<div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ml-10">
+			<a href="/blog/solving-phpstan-no-value-type-specified-in-iterable-type" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">"No value type specified in iterable type"</h3>
+				<p class="mt-1 text-sm text-gray-500">I have an <code>array</code> parameter or return type and PHPStan wants me to be more specific</p>
+			</a>
+			<a href="/blog/solving-phpstan-error-unsafe-usage-of-new-static" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">"Unsafe usage of new static()"</h3>
+				<p class="mt-1 text-sm text-gray-500">I use <code>new static()</code> and PHPStan says it might break in subclasses</p>
+			</a>
+			<a href="/blog/solving-phpstan-access-to-undefined-property" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">"Access to an undefined property"</h3>
+				<p class="mt-1 text-sm text-gray-500">I use __get/__set or dynamic properties and PHPStan doesn't understand them</p>
+			</a>
+		</div>
+	</div>
+
+	<!-- Writing PHP Code for PHPStan -->
+	<div class="mt-14">
+		<h2 class="text-2xl font-bold text-gray-900 tracking-tight flex items-center">
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+			</svg>
+			Writing PHP Code for PHPStan
+		</h2>
+		<p class="mt-1 text-gray-500 ml-10">PHPDocs, type syntax, and patterns that help PHPStan understand your code</p>
+
+		<div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ml-10">
+			<a href="/writing-php-code/phpdocs-basics" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">PHPDocs Basics</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to learn what PHPDoc tags PHPStan understands</p>
+			</a>
+			<a href="/writing-php-code/phpdoc-types" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">PHPDoc Types</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to know what types I can use in PHPDocs &mdash; array shapes, generics, unions, and more</p>
+			</a>
+			<a href="/writing-php-code/narrowing-types" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Narrowing Types</h3>
+				<p class="mt-1 text-sm text-gray-500">I want PHPStan to understand that after an <code>instanceof</code> check, the variable has a specific type</p>
+			</a>
+			<a href="/writing-php-code/solving-undefined-variables" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Solving Undefined Variables</h3>
+				<p class="mt-1 text-sm text-gray-500">PHPStan reports a variable as possibly undefined but I know it's always defined</p>
+			</a>
+			<a href="/user-guide/stub-files" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Stub Files</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to override wrong or imprecise PHPDocs in third-party code (vendor)</p>
+			</a>
+		</div>
+	</div>
+
+	<!-- Troubleshooting -->
+	<div class="mt-14">
+		<h2 class="text-2xl font-bold text-gray-900 tracking-tight flex items-center">
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+			</svg>
+			Troubleshooting
+		</h2>
+		<p class="mt-1 text-gray-500 ml-10">Something isn't working the way you'd expect</p>
+
+		<div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ml-10">
+			<a href="/user-guide/troubleshooting-types" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Troubleshooting Types</h3>
+				<p class="mt-1 text-sm text-gray-500">PHPStan infers a different type than I expect &mdash; where is it coming from?</p>
+			</a>
+			<a href="/user-guide/discovering-symbols" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Discovering Symbols</h3>
+				<p class="mt-1 text-sm text-gray-500">PHPStan reports "Class not found" or "Function not found" but the code runs fine</p>
+			</a>
+			<a href="/blog/phpstan-reports-different-errors-locally-ci-what-should-i-do" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Different Errors Locally vs. CI</h3>
+				<p class="mt-1 text-sm text-gray-500">PHPStan reports different errors on my machine and in CI</p>
+			</a>
+			<a href="/user-guide/result-cache" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Result Cache</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to understand caching, or PHPStan keeps running a full analysis</p>
+			</a>
+			<a href="/blog/debugging-performance-identify-slow-files" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Debugging Performance</h3>
+				<p class="mt-1 text-sm text-gray-500">PHPStan is slow &mdash; I want to find out which files take the longest</p>
+			</a>
+		</div>
+	</div>
+
+	<!-- Generics -->
+	<div class="mt-14">
+		<h2 class="text-2xl font-bold text-gray-900 tracking-tight flex items-center">
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+			</svg>
+			Generics
+		</h2>
+		<p class="mt-1 text-gray-500 ml-10">Type-safe collections, containers, and reusable code with <code>@template</code></p>
+
+		<div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ml-10">
+			<a href="/blog/generics-in-php-using-phpdocs" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Generics in PHP Using PHPDocs</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to understand how generics work in PHPStan &mdash; @template, @extends, type variables</p>
+			</a>
+			<a href="/blog/generics-by-examples" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Generics By Examples</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to see practical examples of generics for common patterns</p>
+			</a>
+			<a href="/blog/whats-up-with-template-covariant" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">What's Up With @template-covariant</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to pass <code>Collection&lt;Cat&gt;</code> where <code>Collection&lt;Animal&gt;</code> is expected</p>
+			</a>
+			<a href="/blog/guide-to-call-site-generic-variance" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Call-site Generic Variance</h3>
+				<p class="mt-1 text-sm text-gray-500">I want covariance or contravariance at the call site without modifying the class declaration</p>
+			</a>
+			<a href="/blog/solving-phpstan-error-unable-to-resolve-template-type" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Solving "Unable to resolve template type"</h3>
+				<p class="mt-1 text-sm text-gray-500">PHPStan can't figure out what type a template type should be</p>
+			</a>
+		</div>
+	</div>
+
+	<!-- Advanced Topics -->
+	<div class="mt-14">
+		<h2 class="text-2xl font-bold text-gray-900 tracking-tight flex items-center">
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+			</svg>
+			Advanced Topics
+		</h2>
+		<p class="mt-1 text-gray-500 ml-10">Going further with PHPStan's features</p>
+
+		<div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ml-10">
+			<a href="/blog/remembering-and-forgetting-returned-values" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Pure and Impure Functions</h3>
+				<p class="mt-1 text-sm text-gray-500">I want PHPStan to forget function return values that might change between calls</p>
+			</a>
+			<a href="/blog/bring-your-exceptions-under-control" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Checked Exceptions with @throws</h3>
+				<p class="mt-1 text-sm text-gray-500">I want PHPStan to enforce that exceptions are caught or declared</p>
+			</a>
+			<a href="/blog/precise-try-catch-finally-analysis" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Try-Catch-Finally Analysis</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to understand how PHPStan analyses code in try-catch-finally blocks</p>
+			</a>
+			<a href="/blog/what-is-bleeding-edge" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Bleeding Edge</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to enable experimental checks before the next major release</p>
+			</a>
+			<a href="/user-guide/extension-library" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Extension Library</h3>
+				<p class="mt-1 text-sm text-gray-500">I use Symfony, Laravel, Doctrine, or another framework and want better analysis</p>
+			</a>
+		</div>
+	</div>
+
+	<!-- Developing Custom Extensions -->
+	<div class="mt-14">
+		<h2 class="text-2xl font-bold text-gray-900 tracking-tight flex items-center">
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+			</svg>
+			Developing Custom Extensions
+		</h2>
+		<p class="mt-1 text-gray-500 ml-10">Extend PHPStan with custom rules and type inference for your codebase</p>
+
+		<div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ml-10">
+			<a href="/developing-extensions/extension-types" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Extension Types Overview</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to see what kinds of extensions I can build</p>
+			</a>
+			<a href="/developing-extensions/rules" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Custom Rules</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to enforce project-specific coding standards with PHPStan</p>
+			</a>
+			<a href="/developing-extensions/dynamic-return-type-extensions" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Dynamic Return Type Extensions</h3>
+				<p class="mt-1 text-sm text-gray-500">A method's return type depends on its arguments and PHPStan doesn't infer it correctly</p>
+			</a>
+			<a href="/developing-extensions/class-reflection-extensions" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Class Reflection Extensions</h3>
+				<p class="mt-1 text-sm text-gray-500">My class uses __get, __set, or __call and PHPStan doesn't know about the magic properties/methods</p>
+			</a>
+			<a href="/developing-extensions/type-specifying-extensions" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Type-Specifying Extensions</h3>
+				<p class="mt-1 text-sm text-gray-500">I have a custom assertion function that narrows types and PHPStan doesn't understand it</p>
+			</a>
+			<a href="/developing-extensions/error-formatters" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Error Formatters</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to output errors in a custom format for my CI system</p>
+			</a>
+			<a href="https://apiref.phpstan.org/" target="_blank" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900 flex items-center">API Reference
+					<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-4 h-4 ml-1 text-gray-400"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+				</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to browse PHPStan's internal classes and interfaces</p>
+			</a>
+		</div>
+	</div>
+
+	<div class="mt-16">
+		{% include './_includes/footer.njk' %}
+	</div>
+</div>
+
+{% endblock %}
