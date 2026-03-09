@@ -5,7 +5,7 @@ import {MainMenuViewModel} from './MainMenuViewModel';
 import {PlaygroundTabViewModel} from './PlaygroundTabViewModel';
 import linkifyStr from 'linkify-string';
 import * as Sentry from '@sentry/browser';
-import {slugify} from './ErrorIdentifiersViewModel';
+import {slugify} from './utils';
 
 declare const __PAGES_JSON__: Record<string, string>;
 const pages = __PAGES_JSON__;

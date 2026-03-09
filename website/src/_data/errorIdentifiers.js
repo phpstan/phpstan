@@ -38,6 +38,7 @@ module.exports = async () => {
 
 		const item = {
 			identifier: identifier,
+			prefix: identifier.split('.')[0],
 			rules: rules,
 		};
 

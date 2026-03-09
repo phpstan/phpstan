@@ -19,94 +19,91 @@ sectionTitle: User Guide
 	<script src="/js/error-identifiers.ts" type="module"></script>
 {% endblock %}
 
-{% block scrolling %}scroll-smooth scroll-pt-40{% endblock %}
-
 {% block innerContent %}
 
-<script type="text/html" id="error-identifiers-text">
-	<h1 class="leading-tight">Error Identifiers</h1>
-	<p>Error identifiers are used to identify and categorize all errors reported by PHPStan. In PHPStan 1.11 and later identifiers can be used to ignore a specific kind of error:</p>
+<h1 class="leading-tight">Error Identifiers</h1>
+
+<p>Every error reported by PHPStan is associated with an error identifier. The identifier is printed alongside each error in the analysis output:</p>
+
+<img src="/images/error-identifiers-output.png" alt="PHPStan error output showing error identifiers" class="my-6 rounded-lg shadow-lg" loading="lazy">
+
+<p>Error identifiers are also visible when browsing errors with <a href="/blog/introducing-phpstan-pro" class="phpstan-pro-label">PHPStan Pro</a>.</p>
 
 {% markdown %}
+
+## Ignoring errors using identifiers
+
+Error identifiers can be used to ignore specific errors. Some errors are non-ignorable because they indicate code that would cause a crash or a fatal error at runtime.
+
+You can ignore errors using inline comments in all PHP comment styles:
 
 ```php
 // @phpstan-ignore argument.type
 $this->foo->doSomethingWithString(1);
 ```
 
+You can also ignore errors in your [configuration file](/config-reference) using the `identifier` key:
+
+```yaml
+parameters:
+	ignoreErrors:
+		-
+			identifier: argument.type
+```
+
+Or with the `identifiers` key to ignore multiple identifiers at once:
+
+```yaml
+parameters:
+	ignoreErrors:
+		-
+			identifiers:
+				- argument.type
+				- argument.named
+```
+
+See the [Ignoring Errors](/user-guide/ignoring-errors) documentation for the full list of options.
+
+## Error identifier detail pages
+
+Each error identifier has its own detail page with information about why the error is reported, example code that triggers it, and examples of how to fix it.
+
 {% endmarkdown %}
 
-	<p>This page contains the list of all identifiers reported by PHPStan itself and its 1<sup>st</sup>&nbsp;party extensions. Each occurrence has a link to the source code where the identifier gets reported.</p>
-</script>
-
-<div data-bind="visible: false" class="mx-auto w-12 h-12 my-12">
-	<div class="spinner"></div>
-</div>
-
-<div style="display: none" data-bind="visible: true">
-<div class="pt-4 relative">
-
-	<div class="block md:hidden" data-bind="template: { name: 'error-identifiers-text' }"></div>
-
-	<div class="static md:sticky top-24 flex justify-center drop-shadow-xl">
-		<button type="button" class="relative inline-flex items-center rounded-l-md px-6 py-3 text-lg font-semibold text-gray-900 ring-1 ring-inset ring-gray-300  focus:z-10" data-bind="click: switchToIdentifier, css: {'bg-white hover:bg-gray-50': !groupByIdentifier(), 'bg-blue-500 text-white': groupByIdentifier}">Group by identifier</button>
-		<button type="button" class="relative -ml-px inline-flex items-center rounded-r-md bg-white px-6 py-3 text-lg font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-10" data-bind="click: switchToRule, css: {'bg-white hover:bg-gray-50': groupByIdentifier, 'bg-blue-500 text-white': !groupByIdentifier()}">Group by rule</button>
-	</div>
-
-	<div class="content break-words">
-
-		<!-- ko foreach: list -->
-			<h2 data-bind="attr: {id: id}">
-				<a data-bind="attr: {href: '/error-identifiers/' + title}"><!-- ko text: title --><!-- /ko --></a>
-				<a class="header-anchor hover:text-black ml-1 text-gray-300" data-bind="attr: {href: '#' + id}">#</a>
-				<!-- ko if: label !== null && label !== 'phpstan-src' -->
-					<span class="inline-block whitespace-nowrap text-xs bg-gray-400 text-white font-semibold rounded py-1 px-2" data-bind="text: label"></span>
-				<!-- /ko -->
-			</h2>
-
-			<ul>
-				<!-- ko foreach: items -->
-					<li>
-						<!-- ko if: links.length === 1 -->
-							<a target="_blank" data-bind="text: itemName, attr: { href: links[0] }"></a>
-
-							<!-- ko if: itemLabel !== 'phpstan-src' -->
-								<span class="inline-block whitespace-nowrap text-xs bg-gray-400 text-white font-semibold rounded py-1 px-2" data-bind="text: itemLabel"></span>
-							<!-- /ko -->
-						<!-- /ko -->
-
-						<!-- ko if: links.length > 1 -->
-							<!-- ko text: itemName --><!-- /ko -->
-							<!-- ko foreach: links -->
-								<a target="_blank" data-bind="text: '[' + ($index() + 1) + ']', attr: { href: $data }"></a>
-							<!-- /ko -->
-							<!-- ko if: itemLabel !== 'phpstan-src' -->
-								<span class="inline-block whitespace-nowrap text-xs bg-gray-400 text-white font-semibold rounded py-1 px-2" data-bind="text: itemLabel"></span>
-							<!-- /ko -->
-						<!-- /ko -->
-					</li>
-				<!-- /ko -->
-			</ul>
+<!-- ko with: identifierSearch -->
+<div class="mt-6 mb-8">
+	<label for="identifier-search" class="text-sm font-medium text-gray-700 mb-2 block">Search error identifiers:</label>
+	<div class="relative max-w-md">
+		<input id="identifier-search" type="text" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg text-sm font-mono focus:border-blue-500 focus:outline-none transition duration-150" placeholder="e.g. argument.type, return.missing, deadCode..." data-bind="textInput: query, event: { keydown: onKeyDown, focus: onFocus, blur: onBlur }" autocomplete="off" />
+		<!-- ko if: showDropdown -->
+		<div class="absolute z-30 left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
+			<!-- ko foreach: results -->
+			<a class="block px-4 py-2.5 font-mono text-sm no-underline transition duration-100" data-bind="attr: { href: link }, css: { 'bg-blue-500 text-white': $index() === $parent.selectedIndex(), 'text-gray-900 hover:bg-gray-50': $index() !== $parent.selectedIndex() }">
+				<!-- ko text: identifier --><!-- /ko -->
+			</a>
+			<!-- /ko -->
+		</div>
 		<!-- /ko -->
 	</div>
-
-	<div class="hidden md:block sticky bottom-6 border border-slate-400 rounded-md drop-shadow-xl bg-white w-full pt-4 pb-1 px-6" data-bind="template: { name: 'error-identifiers-text' }"></div>
-
+	<div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+		<span class="text-gray-400">Examples:</span>
+		<!-- ko foreach: randomExamples -->
+		<a class="text-blue-600 hover:text-blue-800" data-bind="attr: { href: link }, text: identifier"></a>
+		<!-- /ko -->
+	</div>
 </div>
-</div>
+<!-- /ko -->
 
-<noscript>
-<div class="content pt-4">
-	<h1 class="leading-tight">Error Identifiers</h1>
-	<p>Error identifiers are used to identify and categorize all errors reported by PHPStan. Identifiers can be used to ignore a specific kind of error.</p>
-	<p>This page contains the list of all identifiers reported by PHPStan itself and its 1<sup>st</sup>&nbsp;party extensions.</p>
-	<h2>All Error Identifiers</h2>
-	<ul>
-	{% for item in errorIdentifiers %}
-		<li><a href="/error-identifiers/{{ item.identifier }}">{{ item.identifier }}</a></li>
-	{% endfor %}
-	</ul>
-</div>
-</noscript>
+{% markdown %}
+
+## All error identifier groups
+
+{% endmarkdown %}
+
+<ul>
+{% for group in errorIdentifierGroups %}
+	<li><a href="/error-identifiers/{{ group.prefix }}">{{ group.prefix }}.*</a> ({{ group.count }} {{ "identifier" if group.count === 1 else "identifiers" }})</li>
+{% endfor %}
+</ul>
 
 {% endblock %}
