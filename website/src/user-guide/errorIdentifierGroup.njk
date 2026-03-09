@@ -32,15 +32,20 @@ sectionTitle: User Guide
 
 <p>There {{ "is" if group.count === 1 else "are" }} {{ group.count }} error {{ "identifier" if group.count === 1 else "identifiers" }} in the <strong>{{ group.prefix }}.*</strong> group:</p>
 
-<ul>
+<ul class="list-none pl-0 space-y-3">
 {% for item in group.identifiers %}
 	<li>
-		<a href="/error-identifiers/{{ item.identifier }}">{{ item.identifier }}</a>
-		{% if item.label %}
-			<span class="inline-block whitespace-nowrap text-xs bg-gray-400 text-white font-semibold rounded py-1 px-2">{{ item.label }}</span>
-		{% endif %}
-		{% if not item.ignorable %}
-			<span class="inline-block whitespace-nowrap text-xs bg-red-500 text-white font-semibold rounded py-1 px-2">non-ignorable</span>
+		<div>
+			<a href="/error-identifiers/{{ item.identifier }}">{{ item.identifier }}</a>
+			{% if item.label %}
+				<span class="inline-block whitespace-nowrap text-xs bg-gray-400 text-white font-semibold rounded py-1 px-2">{{ item.label }}</span>
+			{% endif %}
+			{% if not item.ignorable %}
+				<span class="inline-block whitespace-nowrap text-xs bg-red-500 text-white font-semibold rounded py-1 px-2">non-ignorable</span>
+			{% endif %}
+		</div>
+		{% if item.shortDescription %}
+			<div class="text-sm text-gray-500">{{ item.shortDescription }}</div>
 		{% endif %}
 	</li>
 {% endfor %}

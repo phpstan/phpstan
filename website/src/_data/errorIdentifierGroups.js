@@ -24,13 +24,17 @@ module.exports = async () => {
 			}
 		}
 
-		// Read ignorable status from .md file
+		// Read front matter from .md file
 		let ignorable = true;
+		let shortDescription = null;
 		const docPath = errorsDir + '/' + identifier + '.md';
 		if (fs.existsSync(docPath)) {
 			const file = matter(await fsPromises.readFile(docPath, 'utf8'));
 			if (file.data.ignorable === false) {
 				ignorable = false;
+			}
+			if (file.data.shortDescription) {
+				shortDescription = file.data.shortDescription;
 			}
 		}
 
@@ -38,6 +42,7 @@ module.exports = async () => {
 			identifier,
 			label: repos.size > 0 ? [...repos].join(', ') : null,
 			ignorable,
+			shortDescription,
 		});
 	}
 
