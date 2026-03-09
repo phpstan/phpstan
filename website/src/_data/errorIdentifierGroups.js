@@ -14,12 +14,15 @@ module.exports = async () => {
 			groups.set(prefix, []);
 		}
 
-		// Collect unique non-phpstan-src repos
-		const repos = new Set();
+		// Collect repos, check if phpstan-src reports this identifier
+		let hasSrc = false;
+		const otherRepos = new Set();
 		for (const ruleRepos of Object.values(rules)) {
 			for (const repo of Object.keys(ruleRepos)) {
-				if (repo !== 'phpstan/phpstan-src') {
-					repos.add(repo.replace('phpstan/', ''));
+				if (repo === 'phpstan/phpstan-src') {
+					hasSrc = true;
+				} else {
+					otherRepos.add(repo.replace('phpstan/', ''));
 				}
 			}
 		}
@@ -40,7 +43,7 @@ module.exports = async () => {
 
 		groups.get(prefix).push({
 			identifier,
-			label: repos.size > 0 ? [...repos].join(', ') : null,
+			label: !hasSrc && otherRepos.size > 0 ? [...otherRepos].join(', ') : null,
 			ignorable,
 			shortDescription,
 		});
