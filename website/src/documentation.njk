@@ -71,36 +71,6 @@ permalink: "/documentation.html"
 		</div>
 	</div>
 
-	<!-- Dealing with Errors -->
-	<div class="mt-14">
-		<h2 class="text-2xl font-bold text-gray-900 tracking-tight flex items-center">
-			<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-				<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-			</svg>
-			Dealing with Errors
-		</h2>
-		<p class="mt-1 text-gray-500 ml-10">PHPStan reported something and you need to act on it</p>
-
-		<div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ml-10">
-			<a href="/user-guide/ignoring-errors" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
-				<h3 class="font-semibold text-gray-900">Ignoring Errors</h3>
-				<p class="mt-1 text-sm text-gray-500">I want to suppress a specific error I can't fix right now</p>
-			</a>
-			<a href="/user-guide/baseline" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
-				<h3 class="font-semibold text-gray-900">The Baseline</h3>
-				<p class="mt-1 text-sm text-gray-500">I want to adopt PHPStan on a legacy codebase without fixing all existing errors</p>
-			</a>
-			<a href="/error-identifiers" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
-				<h3 class="font-semibold text-gray-900">Error Identifiers</h3>
-				<p class="mt-1 text-sm text-gray-500">I want to look up what a specific error identifier means</p>
-			</a>
-			<a href="/user-guide/output-format" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
-				<h3 class="font-semibold text-gray-900">Output Format</h3>
-				<p class="mt-1 text-sm text-gray-500">I want PHPStan output in JSON, JUnit, or another CI-friendly format</p>
-			</a>
-		</div>
-	</div>
-
 	<!-- Solving Specific Errors -->
 	<div class="mt-14">
 		<h2 class="text-2xl font-bold text-gray-900 tracking-tight flex items-center">
@@ -123,6 +93,59 @@ permalink: "/documentation.html"
 			<a href="/blog/solving-phpstan-access-to-undefined-property" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
 				<h3 class="font-semibold text-gray-900">"Access to an undefined property"</h3>
 				<p class="mt-1 text-sm text-gray-500">I use __get/__set or dynamic properties and PHPStan doesn't understand them</p>
+			</a>
+		</div>
+
+		<!-- ko with: identifierSearch -->
+		<div class="mt-6 ml-10">
+			<p class="text-sm text-gray-500 mb-3 max-w-lg">Every PHPStan error has <a href="/error-identifiers" class="text-blue-600 hover:text-blue-800">an identifier</a>. Search for it to find a page with a code example showing when the error is reported, why, and how to fix it.</p>
+			<label for="identifier-search" class="text-sm font-medium text-gray-700 mb-2 block">Search error identifiers:</label>
+			<div class="relative max-w-md">
+				<input id="identifier-search" type="text" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg text-sm font-mono focus:border-blue-500 focus:outline-none transition duration-150" placeholder="e.g. argument.type, return.missing, deadCode..." data-bind="textInput: query, event: { keydown: onKeyDown, focus: onFocus, blur: onBlur }" autocomplete="off" />
+				<!-- ko if: showDropdown -->
+				<div class="absolute z-30 left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
+					<!-- ko foreach: results -->
+					<a class="block px-4 py-2.5 font-mono text-sm no-underline transition duration-100" data-bind="attr: { href: link }, css: { 'bg-blue-500 text-white': $index() === $parent.selectedIndex(), 'text-gray-900 hover:bg-gray-50': $index() !== $parent.selectedIndex() }">
+						<!-- ko text: identifier --><!-- /ko -->
+					</a>
+					<!-- /ko -->
+				</div>
+				<!-- /ko -->
+			</div>
+			<div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+				<span class="text-gray-400">Examples:</span>
+				<a href="/error-identifiers/argument.type" target="_blank" class="text-blue-600 hover:text-blue-800">argument.type</a>
+				<a href="/error-identifiers/missingType.iterableValue" target="_blank" class="text-blue-600 hover:text-blue-800">missingType.iterableValue</a>
+				<a href="/error-identifiers/deadCode.unreachable" target="_blank" class="text-blue-600 hover:text-blue-800">deadCode.unreachable</a>
+				<a href="/error-identifiers/variable.undefined" target="_blank" class="text-blue-600 hover:text-blue-800">variable.undefined</a>
+				<a href="/error-identifiers/assign.propertyType" target="_blank" class="text-blue-600 hover:text-blue-800">assign.propertyType</a>
+			</div>
+		</div>
+		<!-- /ko -->
+	</div>
+
+	<!-- Dealing with Errors -->
+	<div class="mt-14">
+		<h2 class="text-2xl font-bold text-gray-900 tracking-tight flex items-center">
+			<svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-blue-500 mr-3 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+			</svg>
+			Dealing with Errors
+		</h2>
+		<p class="mt-1 text-gray-500 ml-10">PHPStan reported something and you need to act on it</p>
+
+		<div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 ml-10">
+			<a href="/user-guide/ignoring-errors" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Ignoring Errors</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to suppress a specific error I can't fix right now</p>
+			</a>
+			<a href="/user-guide/baseline" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">The Baseline</h3>
+				<p class="mt-1 text-sm text-gray-500">I want to adopt PHPStan on a legacy codebase without fixing all existing errors</p>
+			</a>
+			<a href="/user-guide/output-format" class="block rounded-lg border border-gray-200 p-5 hover:border-blue-300 hover:shadow-md transition duration-150">
+				<h3 class="font-semibold text-gray-900">Output Format</h3>
+				<p class="mt-1 text-sm text-gray-500">I want PHPStan output in JSON, JUnit, or another CI-friendly format</p>
 			</a>
 		</div>
 	</div>
