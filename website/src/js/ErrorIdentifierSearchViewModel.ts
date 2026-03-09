@@ -13,6 +13,7 @@ export class ErrorIdentifierSearchViewModel {
 	results: ko.PureComputed<SearchResult[]>;
 	selectedIndex: ko.Observable<number>;
 	showDropdown: ko.Observable<boolean>;
+	randomExamples: SearchResult[];
 
 	private allIdentifiers: string[];
 	private hideTimer: number | null;
@@ -24,6 +25,19 @@ export class ErrorIdentifierSearchViewModel {
 		this.hideTimer = null;
 
 		this.allIdentifiers = Object.keys(__ERRORS_IDENTIFIERS_JSON__).sort();
+
+		// Pick 5 random identifiers as examples
+		const shuffled = this.allIdentifiers.slice();
+		for (let i = shuffled.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			const tmp = shuffled[i];
+			shuffled[i] = shuffled[j];
+			shuffled[j] = tmp;
+		}
+		this.randomExamples = shuffled.slice(0, 5).sort().map((id) => ({
+			identifier: id,
+			link: '/error-identifiers/' + id,
+		}));
 
 		this.results = ko.pureComputed(() => {
 			const q = this.query().trim().toLowerCase();

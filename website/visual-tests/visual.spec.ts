@@ -32,6 +32,8 @@ async function waitForPageReady(page: Page): Promise<void> {
 		style.innerHTML = `
 			/* Hide analytics and dynamic content for stable screenshots */
 			[data-site="UDESFNRN"] { display: none !important; }
+			/* Hide randomly-picked examples to avoid flaky diffs */
+			[data-testid="random-examples"] { display: none !important; }
 			/* Disable animations */
 			*, *::before, *::after {
 				animation-duration: 0s !important;

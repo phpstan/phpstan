@@ -112,13 +112,11 @@ permalink: "/documentation.html"
 				</div>
 				<!-- /ko -->
 			</div>
-			<div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+			<div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm" data-testid="random-examples">
 				<span class="text-gray-400">Examples:</span>
-				<a href="/error-identifiers/argument.type" target="_blank" class="text-blue-600 hover:text-blue-800">argument.type</a>
-				<a href="/error-identifiers/missingType.iterableValue" target="_blank" class="text-blue-600 hover:text-blue-800">missingType.iterableValue</a>
-				<a href="/error-identifiers/deadCode.unreachable" target="_blank" class="text-blue-600 hover:text-blue-800">deadCode.unreachable</a>
-				<a href="/error-identifiers/variable.undefined" target="_blank" class="text-blue-600 hover:text-blue-800">variable.undefined</a>
-				<a href="/error-identifiers/assign.propertyType" target="_blank" class="text-blue-600 hover:text-blue-800">assign.propertyType</a>
+				<!-- ko foreach: randomExamples -->
+				<a target="_blank" class="text-blue-600 hover:text-blue-800" data-bind="attr: { href: link }, text: identifier"></a>
+				<!-- /ko -->
 			</div>
 		</div>
 		<!-- /ko -->
