@@ -9,33 +9,40 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
+/**
+ * @property-read int $readOnlyProperty
+ */
 class Foo
 {
-	public function __construct(
-		public readonly string $name,
-	)
+	public function __get(string $name): int
 	{
+		return 0;
+	}
+
+	public function doFoo(): void
+	{
+		$this->readOnlyProperty = 1;
 	}
 }
-
-$foo = new Foo('bar');
-$foo->name = 'baz';
 ```
 
 ## Why is it reported?
 
-A value is being assigned to a property that is not writable. This typically happens when writing to a `readonly` property outside its initialization context, or to a property that only defines a `get` hook without a `set` hook.
+A value is being assigned to a property that is declared as read-only via a `@property-read` PHPDoc tag. Such a property is intended only for reading — there is no corresponding `@property-write` or `@property` tag that would allow writes.
 
-In the example above, the property `$name` is declared as `readonly` and has already been initialized in the constructor. Attempting to assign a new value to it outside the constructor is not allowed.
+In the example above, `$readOnlyProperty` is declared with `@property-read`, so assigning to it inside the class is not allowed.
 
 ## How to fix it
 
-Avoid assigning to the property after it has been initialized. If you need to change the value, create a new instance instead:
+Remove the assignment, or if writes are needed, change the PHPDoc tag to `@property` to allow both reading and writing:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- $foo = new Foo('bar');
--$foo->name = 'baz';
-+$foo = new Foo('baz');
+-/**
+- * @property-read int $readOnlyProperty
+- */
++/**
++ * @property int $readOnlyProperty
++ */
+ class Foo
+ {
 ```

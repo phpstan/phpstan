@@ -7,13 +7,14 @@ ignorable: true
 ## Code example
 
 ```php
-<?php declare(strict_types = 1);
+<?php declare(strict_types = 1); // lint >= 8.1
 
-// In package vendor/some-library:
-// /** @internal */
-// interface InternalInterface {}
+/** @internal */
+interface InternalContract
+{
+}
 
-enum Status implements \SomeLibrary\InternalInterface
+enum Status implements InternalContract
 {
 	case Active;
 	case Inactive;
@@ -22,15 +23,15 @@ enum Status implements \SomeLibrary\InternalInterface
 
 ## Why is it reported?
 
-The enum implements an interface that is marked as `@internal` by its declaring package. Internal interfaces are not meant to be used outside of the package that defines them. The library author may change or remove the interface without considering it a breaking change.
+The enum implements an interface that is marked as `@internal`. Internal interfaces are not meant to be used outside of the package that defines them. The library author may change or remove the interface without considering it a breaking change.
 
 ## How to fix it
 
 Stop implementing the internal interface and use a public interface provided by the library instead:
 
 ```diff-php
--enum Status implements \SomeLibrary\InternalInterface
-+enum Status implements \SomeLibrary\PublicInterface
+-enum Status implements InternalContract
++enum Status implements PublicContract
  {
  	case Active;
  	case Inactive;

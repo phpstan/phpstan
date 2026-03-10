@@ -1,7 +1,8 @@
 ---
 title: "enum.implementsDeprecatedEnum"
-shortDescription: "Enum implements a deprecated interface."
+shortDescription: "Enum implements a deprecated enum."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -10,32 +11,31 @@ ignorable: true
 <?php declare(strict_types = 1); // lint >= 8.1
 
 /** @deprecated */
-interface DeprecatedEnumInterface
+enum OldStatus
 {
+	case Active;
 }
 
-enum Color implements DeprecatedEnumInterface
+enum Color implements OldStatus
 {
 	case Red;
-	case Blue;
 }
 ```
 
 ## Why is it reported?
 
-The enum implements an interface that is marked as `@deprecated`. Depending on deprecated interfaces ties the enum to an API that is planned for removal. This rule is provided by [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules).
+The enum implements another enum that is marked as `@deprecated`. Implementing deprecated types couples new code to APIs that are scheduled for removal. This rule is provided by [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules).
+
+Note: triggering this identifier requires an enum to implement another enum, which PHP itself forbids. PHPStan therefore always also reports a non-ignorable `enumImplements.enum` error alongside this one.
 
 ## How to fix it
 
-Replace the deprecated interface with its non-deprecated successor:
+Remove the deprecated enum from the `implements` clause and use a proper public interface instead:
 
 ```diff-php
--enum Color implements DeprecatedEnumInterface
-+enum Color implements ReplacementInterface
+-enum Color implements OldStatus
++enum Color implements PublicInterface
  {
  	case Red;
- 	case Blue;
  }
 ```
-
-If no replacement is available, consult the deprecation notice for migration instructions.

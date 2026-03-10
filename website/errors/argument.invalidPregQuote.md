@@ -9,8 +9,9 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-$delimiter = '/';
-$pattern = '/' . preg_quote($input) . '/';
+function foo(string $input): void {
+    preg_match("/" . preg_quote($input) . "/", "test");
+}
 ```
 
 ## Why is it reported?
@@ -26,7 +27,8 @@ Pass the correct delimiter as the second argument to `preg_quote()`:
 ```diff-php
  <?php declare(strict_types = 1);
 
- $delimiter = '/';
--$pattern = '/' . preg_quote($input) . '/';
-+$pattern = '/' . preg_quote($input, '/') . '/';
+ function foo(string $input): void {
+-    preg_match("/" . preg_quote($input) . "/", "test");
++    preg_match("/" . preg_quote($input, "/") . "/", "test");
+ }
 ```

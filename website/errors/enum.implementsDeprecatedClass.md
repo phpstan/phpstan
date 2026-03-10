@@ -1,7 +1,8 @@
 ---
 title: "enum.implementsDeprecatedClass"
-shortDescription: "Enum implements a deprecated interface."
+shortDescription: "Enum implements a deprecated class."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -10,37 +11,30 @@ ignorable: true
 <?php declare(strict_types = 1); // lint >= 8.1
 
 /** @deprecated */
-interface OldContract
+class OldService
 {
-	public function execute(): void;
 }
 
-enum Status implements OldContract
+enum Status implements OldService
 {
 	case Active;
-	case Inactive;
-
-	public function execute(): void
-	{
-	}
 }
 ```
 
 ## Why is it reported?
 
-The enum implements an interface that is marked as `@deprecated`. Using deprecated interfaces couples new code to APIs that are scheduled for removal, making future upgrades harder. This rule is provided by [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules).
+The enum implements a class that is marked as `@deprecated`. Internal classes are not intended to be implemented, and using deprecated types couples new code to APIs that are scheduled for removal. This rule is provided by [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules).
+
+Note: triggering this identifier requires an enum to implement a class (not an interface), which PHP itself forbids. PHPStan therefore always also reports a non-ignorable `enumImplements.class` error alongside this one.
 
 ## How to fix it
 
-Switch to the non-deprecated replacement interface, if one exists:
+Remove the deprecated class from the `implements` clause and use a proper public interface instead:
 
 ```diff-php
--enum Status implements OldContract
-+enum Status implements NewContract
+-enum Status implements OldService
++enum Status implements PublicInterface
  {
  	case Active;
- 	case Inactive;
  }
 ```
-
-If no replacement exists yet, check the deprecation message for migration guidance.
