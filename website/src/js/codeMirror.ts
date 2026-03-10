@@ -12,6 +12,7 @@ import { ttcn } from './ttcn-theme';
 import {errorsCompartment, errorsFacet, lineErrors, updateErrorsEffect} from "./editor/errors";
 import {hover} from "./editor/hover";
 import {materialDark} from "./editor/darkTheme";
+import {urlIdField, urlIdExtensions} from "./editor/urlId";
 
 ko.bindingHandlers.codeMirror = {
 	init: (element, valueAccessor, allBindings, viewModel, bindingContext) => {
@@ -20,6 +21,8 @@ ko.bindingHandlers.codeMirror = {
 
 		const text: string = ko.unwrap(valueAccessor());
 		const errors: PHPStanError[] = allBindings.get('codeMirrorErrors');
+		const initialUrlId: string | null = allBindings.get('codeMirrorInitialUrlId') ?? null;
+		const urlIdChange: ((id: string | null) => void) | null = allBindings.get('codeMirrorUrlIdChange') ?? null;
 
 		const themeCompartment = new Compartment();
 
@@ -60,6 +63,13 @@ ko.bindingHandlers.codeMirror = {
 				indentUnit.of('\t'),
 				EditorView.lineWrapping,
 				EditorView.updateListener.of((update) => {
+					if (urlIdChange) {
+						const oldId = update.startState.field(urlIdField);
+						const newId = update.state.field(urlIdField);
+						if (oldId !== newId) {
+							urlIdChange(newId);
+						}
+					}
 					if (!update.docChanged) {
 						return;
 					}
@@ -67,6 +77,7 @@ ko.bindingHandlers.codeMirror = {
 					const observable = valueAccessor();
 					observable(update.state.doc.toString());
 				}),
+				...urlIdExtensions(initialUrlId),
 				errorsCompartment.of(errorsFacet.of(errors)),
 				lineErrors,
 				hover,

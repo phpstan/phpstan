@@ -6,6 +6,9 @@ import {PlaygroundTabViewModel} from './PlaygroundTabViewModel';
 import linkifyStr from 'linkify-string';
 import * as Sentry from '@sentry/browser';
 import {slugify} from './utils';
+import {EditorView} from '@codemirror/view';
+import {Transaction} from '@codemirror/state';
+import {setUrlId} from './editor/urlId';
 
 declare const __PAGES_JSON__: Record<string, string>;
 const pages = __PAGES_JSON__;
@@ -41,6 +44,11 @@ export class PlaygroundViewModel {
 	hasServerError: ko.Observable<boolean>;
 
 	apiBaseUrl: string = 'https://api.phpstan.org';
+
+	editorView: EditorView | null;
+	urlIdJustRestored: boolean;
+	savedTabsByUrlId: Map<string, {tabs: PlaygroundTabViewModel[], upToDateTabs: PlaygroundTabViewModel[] | null}>;
+	settingUrlIdProgrammatically: boolean;
 
 	linkify: typeof linkifyStr;
 
@@ -80,6 +88,10 @@ export class PlaygroundViewModel {
 		this.xhr = null;
 		this.shareXhr = null;
 		this.resultXhr = null;
+		this.editorView = null;
+		this.urlIdJustRestored = false;
+		this.savedTabsByUrlId = new Map();
+		this.settingUrlIdProgrammatically = false;
 
 		const legacyHashMatch = urlPath.match(/^\/r\/([a-f0-9]{32})$/);
 		let resultUrl = null;
@@ -208,6 +220,14 @@ export class PlaygroundViewModel {
 		this.isSharing(true);
 		this.analyse(true).done((data) => {
 			this.id(data.id);
+			this.savedTabsByUrlId.set(data.id, {tabs: this.tabs().slice(), upToDateTabs: null});
+			if (this.editorView) {
+				this.settingUrlIdProgrammatically = true;
+				this.editorView.dispatch({
+					effects: [setUrlId.of(data.id)],
+				});
+				this.settingUrlIdProgrammatically = false;
+			}
 			this.copyId();
 
 			const anyWindow = (window as any);
@@ -236,11 +256,59 @@ export class PlaygroundViewModel {
 		}
 	}
 
+	grabEditorView(): void {
+		const el = document.querySelector('[data-bind*="codeMirror"]');
+		if (el) {
+			this.editorView = ko.utils.domData.get(el, 'codeMirror') ?? null;
+		}
+	}
+
+	onEditorUrlIdChange(newUrlId: string | null): void {
+		if (this.settingUrlIdProgrammatically) {
+			return;
+		}
+		if (newUrlId !== null) {
+			this.urlIdJustRestored = true;
+			this.id(newUrlId);
+
+			if (this.xhr !== null) {
+				this.xhr.abort();
+				this.xhr = null;
+			}
+			if (this.shareXhr !== null) {
+				this.shareXhr.abort();
+				this.shareXhr = null;
+			}
+			if (this.resultXhr !== null) {
+				this.resultXhr.abort();
+				this.resultXhr = null;
+			}
+
+			this.isLoading(false);
+			this.hasServerError(false);
+
+			const saved = this.savedTabsByUrlId.get(newUrlId);
+			if (saved) {
+				this.tabs(saved.tabs);
+				this.currentTabIndex(0);
+				this.legacyResult(null);
+				this.upToDateTabs(saved.upToDateTabs);
+			}
+		}
+	}
+
 	startAcceptingChanges(): void {
 		this.code.subscribe(() => {
+			if (this.urlIdJustRestored) {
+				this.urlIdJustRestored = false;
+				return;
+			}
 			this.preanalyse();
 		});
 		this.codeDelayed.subscribe(() => {
+			if (this.id() !== null) {
+				return;
+			}
 			this.analyse(false).done(() => {
 				const anyWindow = (window as any);
 				if (typeof anyWindow.fathom !== 'undefined') {
@@ -250,6 +318,13 @@ export class PlaygroundViewModel {
 		});
 
 		const instantAnalyse = () => {
+			if (this.editorView) {
+				this.editorView.dispatch({
+					effects: [setUrlId.of(null)],
+					annotations: [Transaction.addToHistory.of(false)],
+				});
+			}
+			this.savedTabsByUrlId.clear();
 			this.preanalyse();
 			this.analyse(false);
 		};
@@ -293,7 +368,12 @@ export class PlaygroundViewModel {
 				this.bleedingEdge(data.config.bleedingEdge);
 				this.treatPhpDocTypesAsCertain(data.config.treatPhpDocTypesAsCertain);
 
+				if (originalId !== null) {
+					this.savedTabsByUrlId.set(originalId, {tabs, upToDateTabs: null});
+				}
+
 				initCallback();
+				this.grabEditorView();
 				this.startAcceptingChanges();
 
 				this.resultXhr = $.get(this.resultUrl!).done((resultData) => {
@@ -312,9 +392,15 @@ export class PlaygroundViewModel {
 					if (this.areTabsDifferent(savedTabs, upToDateTabs)) {
 						this.tabs(savedTabs);
 						this.upToDateTabs(upToDateTabs);
+						if (originalId !== null) {
+							this.savedTabsByUrlId.set(originalId, {tabs: savedTabs, upToDateTabs});
+						}
 					} else {
 						this.tabs(upToDateTabs);
 						this.upToDateTabs(null);
+						if (originalId !== null) {
+							this.savedTabsByUrlId.set(originalId, {tabs: upToDateTabs, upToDateTabs: null});
+						}
 					}
 				});
 			}).fail(() => {
