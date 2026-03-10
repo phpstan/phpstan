@@ -2,6 +2,7 @@
 title: "class.duplicateEnumCase"
 shortDescription: "Enum case is declared more than once in a class body."
 ignorable: false
+unlikely: true
 ---
 
 ## Code example

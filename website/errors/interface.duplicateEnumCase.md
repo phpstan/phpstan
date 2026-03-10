@@ -2,6 +2,7 @@
 title: "interface.duplicateEnumCase"
 shortDescription: "Enum case is declared more than once in an interface body."
 ignorable: false
+unlikely: true
 ---
 
 ## Code example

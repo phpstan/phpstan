@@ -2,6 +2,7 @@
 title: "catch.deprecatedTrait"
 shortDescription: "Catch block references a deprecated trait."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
