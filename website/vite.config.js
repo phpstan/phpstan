@@ -45,6 +45,18 @@ export default defineConfig({
 		},
 	},
 	plugins: [
+		// Rewrite /r/{id} URLs to try.html so the playground SPA handles them
+		{
+			name: 'rewrite-playground-urls',
+			configureServer(server) {
+				server.middlewares.use((req, res, next) => {
+					if (req.url && req.url.match(/^\/r\//)) {
+						req.url = '/try.html';
+					}
+					next();
+				});
+			},
+		},
 		// Copy static files that Vite doesn't process natively
 		viteStaticCopy({
 			targets: [
