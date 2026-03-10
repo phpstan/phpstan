@@ -440,6 +440,7 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 		} else {
 			bodyJson.versionedErrors = [{phpVersion: 70400, errors: json.errors}];
 		}
+		bodyJson.tabs = createTabs(bodyJson.versionedErrors);
 		return Promise.resolve({
 			statusCode: 200,
 			body: JSON.stringify(bodyJson),
