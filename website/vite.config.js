@@ -12,6 +12,7 @@ const root = resolve(__dirname, 'tmp');
 const releaseVersion = readFileSync(resolve(root, 'release.txt'), 'utf-8').trim();
 const pagesJson = readFileSync(resolve(root, 'pages.json'), 'utf-8');
 const errorsIdentifiersJson = readFileSync(resolve(root, 'errorsIdentifiers.json'), 'utf-8');
+const excludedErrorIdentifiersJson = readFileSync(resolve(root, 'excludedErrorIdentifiers.json'), 'utf-8');
 
 // Discover all HTML entry points in tmp/
 const htmlFiles = globSync('**/*.html', { cwd: root });
@@ -28,6 +29,7 @@ export default defineConfig({
 		__RELEASE_VERSION__: JSON.stringify(releaseVersion),
 		__PAGES_JSON__: pagesJson,
 		__ERRORS_IDENTIFIERS_JSON__: errorsIdentifiersJson,
+		__EXCLUDED_ERROR_IDENTIFIERS_JSON__: excludedErrorIdentifiersJson,
 	},
 	server: {
 		watch: {

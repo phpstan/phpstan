@@ -148,6 +148,22 @@ module.exports = async function (eleventyConfig) {
 			+ '<meta property="og:image" content="/images/social-' + this.page.fileSlug + '.png" />';
 	})
 
+	eleventyConfig.on('eleventy.after', async () => {
+		const matter = require('gray-matter');
+		const errorsDir = __dirname + '/errors';
+		const identifiers = JSON.parse(fs.readFileSync(__dirname + '/src/errorsIdentifiers.json', 'utf8'));
+		const excluded = [];
+		for (const identifier of Object.keys(identifiers)) {
+			const docPath = errorsDir + '/' + identifier + '.md';
+			if (!fs.existsSync(docPath)) continue;
+			const file = matter(fs.readFileSync(docPath, 'utf8'));
+			if (file.data.feasible === false || file.data.unlikely === true) {
+				excluded.push(identifier);
+			}
+		}
+		fs.writeFileSync(__dirname + '/tmp/excludedErrorIdentifiers.json', JSON.stringify(excluded));
+	});
+
 	return {
 		dir: {
 			input: "src",

@@ -1,12 +1,7 @@
 import * as ko from 'knockout';
 
 declare const __ERRORS_IDENTIFIERS_JSON__: Record<string, Record<string, Record<string, string[]>>>;
-
-declare global {
-	interface Window {
-		__EXCLUDED_ERROR_IDENTIFIERS__?: string[];
-	}
-}
+declare const __EXCLUDED_ERROR_IDENTIFIERS_JSON__: string[];
 
 interface SearchResult {
 	identifier: string;
@@ -33,7 +28,7 @@ export class ErrorIdentifierSearchViewModel {
 		this.allIdentifiers = Object.keys(__ERRORS_IDENTIFIERS_JSON__).sort();
 
 		// Pick 5 random identifiers as examples, excluding unlikely/infeasible ones
-		const excluded = new Set(window.__EXCLUDED_ERROR_IDENTIFIERS__ || []);
+		const excluded = new Set(__EXCLUDED_ERROR_IDENTIFIERS_JSON__);
 		const shuffled = this.allIdentifiers.filter((id) => !excluded.has(id));
 		for (let i = shuffled.length - 1; i > 0; i--) {
 			const j = Math.floor(Math.random() * (i + 1));
