@@ -106,6 +106,31 @@ module.exports = async function (eleventyConfig) {
 		return markdownLib.render(content);
 	});
 
+	eleventyConfig.addFilter("prevNextNav", function (currentUrl, sidebarGroups, sidebarItems) {
+		const items = [];
+		if (sidebarGroups) {
+			for (const group of sidebarGroups) {
+				for (const item of group.items) {
+					if (item.link && item.link.startsWith('/') && !item.external) {
+						items.push(item);
+					}
+				}
+			}
+		} else if (sidebarItems) {
+			for (const item of sidebarItems) {
+				if (item.link && item.link.startsWith('/') && !item.external) {
+					items.push(item);
+				}
+			}
+		}
+
+		const idx = items.findIndex(item => currentUrl === item.link);
+		return {
+			prev: idx > 0 ? items[idx - 1] : null,
+			next: idx >= 0 && idx < items.length - 1 ? items[idx + 1] : null,
+		};
+	});
+
 	const inspect = require("util").inspect;
 	eleventyConfig.addFilter("debug", (content) => `<pre>${inspect(content)}</pre>`);
 
