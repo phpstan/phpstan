@@ -8,7 +8,8 @@ import * as Sentry from '@sentry/browser';
 import {slugify} from './utils';
 import {EditorView} from '@codemirror/view';
 import {Transaction} from '@codemirror/state';
-import {setUrlId} from './editor/urlId';
+import {setUrlId, urlIdField} from './editor/urlId';
+import {historyField} from '@codemirror/commands';
 
 declare const __PAGES_JSON__: Record<string, string>;
 const pages = __PAGES_JSON__;
@@ -49,6 +50,7 @@ export class PlaygroundViewModel {
 	urlIdJustRestored: boolean;
 	savedTabsByUrlId: Map<string, {tabs: PlaygroundTabViewModel[], upToDateTabs: PlaygroundTabViewModel[] | null}>;
 	settingUrlIdProgrammatically: boolean;
+	restoredEditorState: any | null;
 
 	linkify: typeof linkifyStr;
 
@@ -92,6 +94,7 @@ export class PlaygroundViewModel {
 		this.urlIdJustRestored = false;
 		this.savedTabsByUrlId = new Map();
 		this.settingUrlIdProgrammatically = false;
+		this.restoredEditorState = null;
 
 		const legacyHashMatch = urlPath.match(/^\/r\/([a-f0-9]{32})$/);
 		let resultUrl = null;
@@ -116,9 +119,9 @@ export class PlaygroundViewModel {
 		this.id = ko.observable(id);
 		this.id.subscribe((value) => {
 			if (value === null) {
-				window.history.replaceState({}, '', '/try');
+				window.history.replaceState(window.history.state, '', '/try');
 			} else {
-				window.history.replaceState({}, '', '/r/' + value);
+				window.history.replaceState(window.history.state, '', '/r/' + value);
 			}
 		});
 		this.hasServerError = ko.observable<boolean>(false);
@@ -195,6 +198,7 @@ export class PlaygroundViewModel {
 			this.currentTabIndex(0);
 			this.legacyResult(null);
 			this.upToDateTabs(null);
+			this.savePlaygroundState();
 		}).fail((xhr, textStatus) => {
 			if (textStatus === 'abort') {
 				return;
@@ -229,6 +233,7 @@ export class PlaygroundViewModel {
 				this.settingUrlIdProgrammatically = false;
 			}
 			this.copyId();
+			this.savePlaygroundState();
 
 			const anyWindow = (window as any);
 			if (typeof anyWindow.fathom !== 'undefined') {
@@ -298,6 +303,12 @@ export class PlaygroundViewModel {
 	}
 
 	startAcceptingChanges(): void {
+		window.addEventListener('beforeunload', () => {
+			if (!this.isLoading()) {
+				this.savePlaygroundState();
+			}
+		});
+
 		this.code.subscribe(() => {
 			if (this.urlIdJustRestored) {
 				this.urlIdJustRestored = false;
@@ -347,7 +358,72 @@ export class PlaygroundViewModel {
 		this.id(null);
 	}
 
+	savePlaygroundState(): void {
+		if (!this.editorView) return;
+		const state = {
+			editorState: this.editorView.state.toJSON({history: historyField, urlId: urlIdField}),
+			settings: {
+				level: this.level(),
+				strictRules: this.strictRules(),
+				bleedingEdge: this.bleedingEdge(),
+				treatPhpDocTypesAsCertain: this.treatPhpDocTypesAsCertain(),
+			},
+			tabs: this.tabs().map(t => ({errors: t.errors, title: t.title})),
+			currentTabIndex: this.currentTabIndex(),
+			legacyResult: this.legacyResult(),
+			upToDateTabs: this.upToDateTabs()?.map(t => ({errors: t.errors, title: t.title})) ?? null,
+			savedTabsByUrlId: Object.fromEntries(
+				[...this.savedTabsByUrlId].map(([k, v]) => [k, {
+					tabs: v.tabs.map(t => ({errors: t.errors, title: t.title})),
+					upToDateTabs: v.upToDateTabs?.map(t => ({errors: t.errors, title: t.title})) ?? null,
+				}])
+			),
+			id: this.id(),
+		};
+		window.history.replaceState(state, '', window.location.pathname);
+	}
+
+	static loadSavedState(): any | null {
+		const state = window.history.state;
+		if (state && typeof state.editorState === 'object' && state.editorState !== null) {
+			return state;
+		}
+		return null;
+	}
+
 	init(initCallback: () => void): void {
+		const saved = PlaygroundViewModel.loadSavedState();
+		if (saved) {
+			const doc = Array.isArray(saved.editorState.doc)
+				? saved.editorState.doc.join('\n')
+				: saved.editorState.doc;
+			this.code(doc);
+			this.level(saved.settings.level);
+			this.strictRules(saved.settings.strictRules);
+			this.bleedingEdge(saved.settings.bleedingEdge);
+			this.treatPhpDocTypesAsCertain(saved.settings.treatPhpDocTypesAsCertain);
+			this.id(saved.id);
+			this.restoredEditorState = saved.editorState;
+
+			this.tabs(this.createTabs(saved.tabs));
+			this.currentTabIndex(saved.currentTabIndex);
+			this.legacyResult(saved.legacyResult);
+			this.upToDateTabs(saved.upToDateTabs ? this.createTabs(saved.upToDateTabs) : null);
+
+			for (const [key, value] of Object.entries(saved.savedTabsByUrlId)) {
+				this.savedTabsByUrlId.set(key, {
+					tabs: this.createTabs((value as any).tabs),
+					upToDateTabs: (value as any).upToDateTabs
+						? this.createTabs((value as any).upToDateTabs) : null,
+				});
+			}
+
+			initCallback();
+			this.grabEditorView();
+			this.startAcceptingChanges();
+			return;
+		}
+
 		if (this.sampleUrl !== null && this.resultUrl !== null) {
 			const originalId = this.id();
 			$.get(this.sampleUrl).done((data) => {
@@ -375,6 +451,7 @@ export class PlaygroundViewModel {
 				initCallback();
 				this.grabEditorView();
 				this.startAcceptingChanges();
+				this.savePlaygroundState();
 
 				this.resultXhr = $.get(this.resultUrl!).done((resultData) => {
 					if (this.id() !== originalId) {
@@ -402,6 +479,7 @@ export class PlaygroundViewModel {
 							this.savedTabsByUrlId.set(originalId, {tabs: upToDateTabs, upToDateTabs: null});
 						}
 					}
+					this.savePlaygroundState();
 				});
 			}).fail(() => {
 				this.hasServerError(true);
@@ -472,7 +550,9 @@ export class PlaygroundViewModel {
 		this.currentTabIndex(0);
 		this.legacyResult(null);
 		this.upToDateTabs(null);
+		this.grabEditorView();
 		this.startAcceptingChanges();
+		this.savePlaygroundState();
 	}
 
 	areTabsDifferent(tabs: PlaygroundTabViewModel[], upToDateTabs: PlaygroundTabViewModel[]): boolean {

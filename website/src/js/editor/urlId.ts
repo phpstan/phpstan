@@ -15,6 +15,8 @@ export const urlIdField = StateField.define<string | null>({
 		}
 		return value;
 	},
+	toJSON(value) { return value; },
+	fromJSON(json) { return json; },
 });
 
 // Record inverse effects so undo/redo restores the previous URL id
