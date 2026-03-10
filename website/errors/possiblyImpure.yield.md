@@ -23,6 +23,8 @@ function generateItems(): \Generator
 
 ## Why is it reported?
 
+This identifier is not reported in practice because `yield` is always considered definitely impure, not just possibly impure. PHPStan reports [`impure.yield`](/error-identifiers/impure.yield) instead.
+
 A function or method marked as `@phpstan-pure` must not have side effects and must always return the same result for the same inputs. Using `yield` inside a pure function is considered impure because generators maintain internal state across multiple calls. Each time the generator is resumed, it can produce different values and interact with the caller through the `send()` method, making the behavior inherently stateful and impure.
 
 ## How to fix it

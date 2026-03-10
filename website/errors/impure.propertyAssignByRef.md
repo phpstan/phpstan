@@ -26,6 +26,8 @@ class Foo
 
 ## Why is it reported?
 
+This identifier is not reported in practice because assigning by reference to a property is reported with a different identifier. PHPStan reports [`possiblyImpure.propertyAssignByRef`](/error-identifiers/possiblyImpure.propertyAssignByRef) instead.
+
 The method is declared as pure using `@phpstan-pure`, but it creates a reference to an object property (`$ref = &$this->value`). Assigning a variable by reference to a property is an impure operation because modifying the reference variable later would mutate the object's state, which violates the purity contract.
 
 Pure functions and methods must not have side effects -- they should only compute and return a value based on their inputs.

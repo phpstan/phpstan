@@ -25,6 +25,8 @@ class Formatter
 
 ## Why is it reported?
 
+This identifier is not reported in practice because inline HTML output between PHP tags is always considered definitely impure, not just possibly impure. PHPStan reports [`impure.betweenPhpTags`](/error-identifiers/impure.betweenPhpTags) instead.
+
 The function or method is marked as `@phpstan-pure` but contains inline HTML between PHP closing (`?>`) and opening (`<?php`) tags. Outputting HTML to the browser is a side effect -- it changes the state of the output buffer. Pure functions must not have side effects; they should only compute and return a value based on their inputs.
 
 ## How to fix it

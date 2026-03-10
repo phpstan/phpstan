@@ -27,6 +27,8 @@ function getValue(int $input): int
 
 ## Why is it reported?
 
+This identifier is not reported in practice because `exit` is always considered definitely impure, not just possibly impure. PHPStan reports [`impure.exit`](/error-identifiers/impure.exit) instead.
+
 The function or method is marked as `@phpstan-pure` but may call `exit` or `die`. These constructs terminate the entire PHP process, which is a side effect. Pure functions must not have side effects; they should only compute and return a value based on their inputs.
 
 ## How to fix it

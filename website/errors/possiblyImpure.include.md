@@ -24,6 +24,8 @@ class Config
 
 ## Why is it reported?
 
+This identifier is not reported in practice because `include` is always considered definitely impure, not just possibly impure. PHPStan reports [`impure.include`](/error-identifiers/impure.include) instead.
+
 The function or method is marked as pure (via `@phpstan-pure`), but it uses `include` or `require` inside its body. Including or requiring files is a side effect because it executes arbitrary code from the filesystem, which may modify global state, define functions or classes, or produce output. This makes the function possibly impure.
 
 A pure function must have no side effects and must depend only on its arguments.

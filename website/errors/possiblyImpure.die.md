@@ -25,6 +25,8 @@ function handleError(string $message): string
 
 ## Why is it reported?
 
+This identifier is not reported in practice because `die` is always considered definitely impure, not just possibly impure. PHPStan reports [`impure.die`](/error-identifiers/impure.die) instead.
+
 A function or method marked as `@phpstan-pure` must not have side effects and must always return the same result for the same inputs. Using `die` (or `exit`) inside a pure function is considered an impure operation because it immediately terminates the script, which is the most extreme side effect possible -- the function never returns a value at all.
 
 When PHPStan cannot determine with certainty whether the `die` statement always executes (for example, because it is inside a conditional branch), it reports a "possibly impure" error rather than a definite impure one.

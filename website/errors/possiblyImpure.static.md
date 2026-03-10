@@ -23,6 +23,8 @@ function getNextId(): int
 
 ## Why is it reported?
 
+This identifier is not reported in practice because `static` variable usage is always considered definitely impure, not just possibly impure. PHPStan reports [`impure.static`](/error-identifiers/impure.static) instead.
+
 The function or method is marked as `@phpstan-pure` but uses a `static` variable. Static variables persist their value between function calls, which means the function relies on and can modify mutable state. Pure functions must always return the same result for the same inputs and must not depend on hidden state.
 
 ## How to fix it

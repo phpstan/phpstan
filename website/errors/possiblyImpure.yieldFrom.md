@@ -22,6 +22,8 @@ function generateAll(): \Generator
 
 ## Why is it reported?
 
+This identifier is not reported in practice because `yield from` is always considered definitely impure, not just possibly impure. PHPStan reports [`impure.yieldFrom`](/error-identifiers/impure.yieldFrom) instead.
+
 A function or method marked as `@phpstan-pure` must not have side effects and must always return the same result for the same inputs. Using `yield from` inside a pure function is considered a possibly impure operation because it delegates to another generator or iterable while maintaining stateful generator behavior. Generators interact with the caller through `send()` and `throw()` methods, and `yield from` forwards these interactions to the inner generator, making the operation inherently impure.
 
 The "possibly impure" variant is reported when PHPStan cannot be fully certain the operation is impure but considers it suspicious enough to report.

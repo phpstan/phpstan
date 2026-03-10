@@ -24,6 +24,8 @@ class Foo
 
 ## Why is it reported?
 
+This identifier is not reported in practice because property unset is always considered definitely impure, not just possibly impure. PHPStan reports [`impure.propertyUnset`](/error-identifiers/impure.propertyUnset) instead.
+
 The function or method is marked as `@phpstan-pure`, meaning it must not cause side effects. Unsetting a property modifies object state, which is a side effect. Since the object might be referenced elsewhere, this mutation is possibly impure.
 
 ## How to fix it

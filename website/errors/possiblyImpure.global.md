@@ -26,6 +26,8 @@ function getValue(bool $useGlobal): int
 
 ## Why is it reported?
 
+This identifier is not reported in practice because the `global` keyword is always considered definitely impure, not just possibly impure. PHPStan reports [`impure.global`](/error-identifiers/impure.global) instead.
+
 A function or method marked as `@phpstan-pure` may use the `global` keyword. The `global` keyword accesses mutable global state, which is a side effect. Pure functions must not have side effects and must always return the same result for the same inputs.
 
 When PHPStan cannot determine with certainty whether the `global` statement always executes (for example, because it is inside a conditional branch), it reports a "possibly impure" error rather than a definite impure one.

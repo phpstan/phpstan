@@ -20,6 +20,8 @@ function loadConfig(): array
 
 ## Why is it reported?
 
+This identifier is not reported in practice because `require` is always considered definitely impure, not just possibly impure. PHPStan reports [`impure.require`](/error-identifiers/impure.require) instead.
+
 A function marked as `@phpstan-pure` contains a `require` or `require_once` statement. Including files can have side effects (such as defining functions, classes, or executing code), which makes the operation possibly impure.
 
 ## How to fix it

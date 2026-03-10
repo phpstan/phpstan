@@ -30,6 +30,8 @@ function getLabel(string $name): string
 
 ## Why is it reported?
 
+This identifier is not reported in practice because static property access is always considered definitely impure, not just possibly impure. PHPStan reports [`impure.staticPropertyAccess`](/error-identifiers/impure.staticPropertyAccess) instead.
+
 A function or method marked as `@phpstan-pure` must not have side effects and must always return the same result for the same inputs. Accessing a static property inside a pure function is considered impure because static properties represent shared mutable state. Their values can change between function calls, which means the function's return value may differ even when called with the same arguments.
 
 When PHPStan cannot determine with certainty whether the static property access always occurs (for example, because it is inside a conditional branch), it reports a "possibly impure" error rather than a definite impure one.

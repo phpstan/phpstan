@@ -21,6 +21,8 @@ function formatAndPrint(string $name): string
 
 ## Why is it reported?
 
+This identifier is not reported in practice because `echo` is always considered definitely impure, not just possibly impure. PHPStan reports [`impure.echo`](/error-identifiers/impure.echo) instead.
+
 The function or method is marked as `@phpstan-pure`, but it contains an `echo` statement. Pure functions must not have side effects -- they should only compute and return a value based on their input parameters. Outputting text with `echo` is a side effect because it modifies the program's output stream.
 
 ## How to fix it
