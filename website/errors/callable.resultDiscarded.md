@@ -9,47 +9,28 @@ ignorable: false
 ```php
 <?php declare(strict_types = 1);
 
-/**
- * @param callable(): int $callback
- * @phpstan-pure
- */
-function execute(callable $callback): int
+#[\NoDiscard]
+function pureCompute(int $x): int
 {
-    return $callback();
+	return $x * 2;
 }
 
-/** @var callable(): int $fn */
-$fn = static function (): int { return 1; };
-
-$fn();
+$fn = Closure::fromCallable('pureCompute');
+$fn(5);
 ```
 
 ## Why is it reported?
 
-The callable is invoked on a separate line and its return value is discarded. The callable has been determined to require its return value to be used (for example, because it is pure and its only purpose is to produce a return value). Calling it without using the result means the call has no meaningful effect.
+The callable is invoked on a separate line and its return value is discarded. The underlying function is marked with `#[\NoDiscard]` (PHP 8.5+), which indicates its return value must be used. Calling it without using the result means the call has no meaningful effect.
+
+This error is not ignorable.
 
 ## How to fix it
 
 Use the return value of the callable:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- /** @var callable(): int $fn */
- $fn = static function (): int { return 1; };
-
--$fn();
-+$result = $fn();
-```
-
-If the return value is intentionally not needed, use a `(void)` cast to signal the intent:
-
-```diff-php
- <?php declare(strict_types = 1);
-
- /** @var callable(): int $fn */
- $fn = static function (): int { return 1; };
-
--$fn();
-+(void) $fn();
+ $fn = Closure::fromCallable('pureCompute');
+-$fn(5);
++$result = $fn(5);
 ```

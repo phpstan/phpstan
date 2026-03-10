@@ -9,19 +9,21 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-class User
-{
-	private string $name;
+class Bar {}
 
-	public function __construct(string $name)
+class Foo
+{
+	private Bar $bar;
+
+	public function __construct(Bar $bar)
 	{
-		$this->name = $name;
+		$this->bar = $bar;
 	}
 
 	public function check(): void
 	{
-		if (empty($this->name)) {
-			echo 'No name';
+		if (empty($this->bar)) {
+			echo 'empty';
 		}
 	}
 }
@@ -29,32 +31,32 @@ class User
 
 ## Why is it reported?
 
-The property used inside `empty()` has a native type that is not nullable and PHPStan can determine the property has been initialized. Since the property is always assigned a value and cannot be `null`, `empty()` cannot be checking for an uninitialized or null state -- it is only testing the falsiness of the value.
+The property used inside `empty()` has a native type that is not nullable and PHPStan can determine the property has been initialized. Since the property is always assigned a value and cannot be `null`, `empty()` cannot be checking for an uninitialized or null state. In addition, the type is never falsy, so `empty()` is always `false`.
 
-In the example above, `$this->name` is typed as `string` and is always initialized in the constructor. Using `empty()` on it is equivalent to checking whether it is a falsy string (empty string `''` or `'0'`), which should be expressed explicitly.
+In the example above, `$this->bar` is typed as `Bar` and is always initialized in the constructor. An object value is never falsy, so `empty()` on it is redundant.
 
 ## How to fix it
 
-Replace `empty()` with an explicit comparison that expresses the intended check:
+Remove the redundant `empty()` check since the property is always initialized and never falsy:
 
 ```diff-php
  <?php declare(strict_types = 1);
 
- class User
+ class Foo
  {
- 	private string $name;
+ 	private Bar $bar;
 
- 	public function __construct(string $name)
+ 	public function __construct(Bar $bar)
  	{
- 		$this->name = $name;
+ 		$this->bar = $bar;
  	}
 
  	public function check(): void
  	{
--		if (empty($this->name)) {
-+		if ($this->name === '') {
- 			echo 'No name';
- 		}
+-		if (empty($this->bar)) {
+-			echo 'empty';
+-		}
++		echo $this->bar::class;
  	}
  }
 ```

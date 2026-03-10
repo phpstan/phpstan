@@ -9,24 +9,24 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-/** @template T */
-interface Repository
+class Item {}
+
+/**
+ * @extends \Traversable<int, Item>
+ */
+interface ItemListInterface extends \Traversable
 {
 }
 
-/** @extends Repository<string> */
-interface StringRepository extends Repository
+/**
+ * @implements \IteratorAggregate<int, string>
+ */
+final class ItemList implements \IteratorAggregate, ItemListInterface
 {
-}
-
-/** @extends Repository<int> */
-interface IntRepository extends Repository
-{
-}
-
-/** @implements Repository<string> */
-class MyClass implements StringRepository, IntRepository
-{
+	public function getIterator(): \Traversable
+	{
+		return new \ArrayIterator([]);
+	}
 }
 ```
 
@@ -34,26 +34,23 @@ class MyClass implements StringRepository, IntRepository
 
 A class or interface specifies conflicting type arguments for the same generic interface through different inheritance paths. When a class implements or extends the same generic interface multiple times (through different parent interfaces or classes), the template type arguments must be identical.
 
-In the example above, `MyClass` implements both `StringRepository` (which extends `Repository<string>`) and `IntRepository` (which extends `Repository<int>`). This creates a conflict because `Repository` cannot be parameterized with both `string` and `int` at the same time.
+In the example above, `ItemList` implements `IteratorAggregate<int, string>` and `ItemListInterface` which extends `Traversable<int, Item>`. Since `IteratorAggregate` also extends `Traversable`, the class inherits `Traversable` twice -- once with `TValue` as `string` (from `IteratorAggregate`) and once with `TValue` as `Item` (from `ItemListInterface`). This creates a conflict because the template type cannot be both `string` and `Item`.
 
 ## How to fix it
 
 Ensure all inheritance paths specify the same type arguments for the shared interface:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
--/** @extends Repository<int> */
--interface IntRepository extends Repository
-+/** @extends Repository<string> */
-+interface AnotherStringRepository extends Repository
+ /**
+- * @implements \IteratorAggregate<int, string>
++ * @implements \IteratorAggregate<int, Item>
+  */
+ final class ItemList implements \IteratorAggregate, ItemListInterface
  {
- }
-
- /** @implements Repository<string> */
--class MyClass implements StringRepository, IntRepository
-+class MyClass implements StringRepository, AnotherStringRepository
- {
+ 	public function getIterator(): \Traversable
+ 	{
+ 		return new \ArrayIterator([]);
+ 	}
  }
 ```
 

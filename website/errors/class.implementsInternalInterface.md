@@ -9,19 +9,13 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In vendor/some-library/src/InternalInterface.php:
-// namespace SomeLibrary;
-// /** @internal */
-// interface InternalInterface {}
+namespace Vendor {
+	/** @internal */
+	interface InternalInterface {}
+}
 
-// In your code:
-namespace App;
-
-use SomeLibrary\InternalInterface;
-
-class Foo implements InternalInterface // reported
-{
-
+namespace App {
+	class MyClass implements \Vendor\InternalInterface {}
 }
 ```
 
@@ -31,14 +25,11 @@ The interface in the `implements` clause is marked as `@internal` by its definin
 
 ## How to fix it
 
-Use a public (non-internal) interface provided by the library instead.
+Use a public (non-internal) interface provided by the library instead:
 
 ```diff-php
--class Foo implements InternalInterface
-+class Foo implements PublicInterface
- {
-
- }
+-class MyClass implements \Vendor\InternalInterface {}
++class MyClass implements \Vendor\PublicInterface {}
 ```
 
 If no public alternative exists, consider whether the library provides a different extension mechanism, such as extending a base class or using composition.

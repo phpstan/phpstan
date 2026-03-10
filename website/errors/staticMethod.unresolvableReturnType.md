@@ -1,6 +1,6 @@
 ---
 title: "staticMethod.unresolvableReturnType"
-shortDescription: "Template return type of a static method call cannot be resolved."
+shortDescription: "Return type of a static method call contains an unresolvable type after template substitution."
 ignorable: true
 ---
 
@@ -9,64 +9,64 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
+interface Loggable
+{
+	public function log(): void;
+}
+
 class Factory
 {
 	/**
 	 * @template T of object
-	 * @param class-string<T> $class
-	 * @return T
+	 * @param T $value
+	 * @return T&Loggable
 	 */
-	public static function create(string $class): object
+	public static function makeLoggable(object $value): object
 	{
-		return new $class();
+		return $value;
 	}
 }
 
+class PlainObject {}
+
 function doFoo(): void
 {
-	$result = Factory::create('stdClass' | 'DateTime');
+	$result = Factory::makeLoggable(new PlainObject());
 }
 ```
 
 ## Why is it reported?
 
-The return type of a static method call contains a template type that PHPStan cannot resolve based on the provided arguments. This typically happens when the arguments passed to the method do not provide enough type information for PHPStan to determine the concrete type that the template parameter should resolve to.
+PHPStan reports this error when the return type of a static method call contains an unresolvable type after generic template substitution. This happens when the template type resolves to a value that makes the return type impossible.
 
-When PHPStan cannot resolve the template type, the return type becomes imprecise, which can lead to missed type errors downstream.
+In the example above, `makeLoggable` returns `T&Loggable`. When called with `new PlainObject()`, `T` resolves to `PlainObject`. Since `PlainObject` does not implement `Loggable`, the intersection `PlainObject&Loggable` is impossible and PHPStan cannot determine a valid return type.
 
 ## How to fix it
 
-Pass more specific types as arguments so that PHPStan can resolve the template type:
+Pass an argument whose type satisfies all constraints in the return type:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
++class LoggableObject implements Loggable
++{
++	public function log(): void {}
++}
++
  function doFoo(): void
  {
--	$result = Factory::create('stdClass' | 'DateTime');
-+	$result = Factory::create(\stdClass::class);
+-	$result = Factory::makeLoggable(new PlainObject());
++	$result = Factory::makeLoggable(new LoggableObject());
  }
 ```
 
-If the template type on the method is not needed, simplify the method signature:
+Or constrain the template type to require the interface upfront:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- class Factory
- {
--	/**
--	 * @template T of object
--	 * @param class-string<T> $class
--	 * @return T
--	 */
--	public static function create(string $class): object
-+	/**
-+	 * @param class-string $class
-+	 */
-+	public static function create(string $class): object
- 	{
- 		return new $class();
- 	}
- }
+ /**
+- * @template T of object
++ * @template T of Loggable
+  * @param T $value
+- * @return T&Loggable
++ * @return T
+  */
+ public static function makeLoggable(object $value): object
 ```

@@ -2,6 +2,7 @@
 title: "catch.internalEnum"
 shortDescription: "Catch block references an internal enum from another package."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,31 +10,22 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-enum ErrorCode: int
-{
-	case NotFound = 404;
-	case ServerError = 500;
+namespace Vendor {
+	/** @internal */
+	enum ErrorCode: int {
+		case NotFound = 404;
+		case ServerError = 500;
+	}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\ErrorCode;
-
-try {
-	// ...
-} catch (ErrorCode $e) {
-	// ...
+namespace App {
+	function doFoo(): void
+	{
+		try {
+			throw new \Exception();
+		} catch (\Vendor\ErrorCode $e) {
+		}
+	}
 }
 ```
 
@@ -41,22 +33,17 @@ try {
 
 A `catch` block references an enum that is marked as `@internal`. Internal types are not meant to be used outside of the package or namespace where they are defined. Catching internal enums creates a dependency on implementation details that may change without notice in future versions.
 
+Enums are not throwable, so catching an enum is invalid regardless of the `@internal` annotation.
+
 ## How to fix it
 
 Catch a public (non-internal) exception class instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use SomeLibrary\ErrorCode;
-
  try {
- 	// ...
--} catch (ErrorCode $e) {
+ 	throw new \Exception();
+-} catch (\Vendor\ErrorCode $e) {
 +} catch (\RuntimeException $e) {
- 	// ...
  }
 ```
 

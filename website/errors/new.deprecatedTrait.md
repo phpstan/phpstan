@@ -1,6 +1,6 @@
 ---
 title: "new.deprecatedTrait"
-shortDescription: "Instantiating a class that uses a deprecated trait."
+shortDescription: "Instantiation of a deprecated trait."
 ignorable: true
 ---
 
@@ -9,41 +9,25 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-/** @deprecated Use NewLogger instead */
-trait OldLogger
+/** @deprecated Use NewHelper instead */
+trait OldTrait
 {
-	public function log(string $message): void {}
 }
 
-class Logger
-{
-	use OldLogger;
-}
-
-$logger = new Logger();
+$x = new OldTrait();
 ```
 
 ## Why is it reported?
 
-The `new` expression instantiates a class that uses a deprecated trait. The trait has been marked with a `@deprecated` PHPDoc tag, indicating it is scheduled for removal or replacement.
+This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) extension.
 
-This rule is provided by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) package.
+A deprecated trait is used in a `new` expression. The trait has been marked with `@deprecated`, indicating it is scheduled for removal or replacement.
 
 ## How to fix it
 
-Replace the deprecated trait with its recommended replacement:
+Use the replacement type suggested in the deprecation message:
 
 ```diff-php
- class Logger
- {
--	use OldLogger;
-+	use NewLogger;
- }
-```
-
-Or if the entire class is deprecated, instantiate the replacement class:
-
-```diff-php
--$logger = new Logger();
-+$logger = new NewLogger();
+-$x = new OldTrait();
++$x = new NewHelper();
 ```

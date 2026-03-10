@@ -2,6 +2,7 @@
 title: "possiblyImpure.yieldFrom"
 shortDescription: "Pure function or method uses yield from, which is a stateful operation."
 ignorable: true
+feasible: false
 ---
 
 ## Code example

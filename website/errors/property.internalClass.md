@@ -1,6 +1,6 @@
 ---
 title: "property.internalClass"
-shortDescription: "Accessing a property on an internal class from outside its namespace."
+shortDescription: "Property type declaration references an internal class."
 ignorable: true
 ---
 
@@ -9,53 +9,32 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-class InternalConfig
-{
-	public string $value = 'default';
+namespace Vendor {
+	/** @internal */
+	class InternalType {}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\InternalConfig;
-
-function readConfig(InternalConfig $config): string
-{
-	return $config->value; // ERROR: Access to property $value of internal class SomeLibrary\InternalConfig.
+namespace App {
+	class Foo {
+		public \Vendor\InternalType $prop; // error: Property $prop references internal class Vendor\InternalType in its type.
+	}
 }
 ```
 
 ## Why is it reported?
 
-The code accesses a property on a class that is marked as `@internal`. Internal classes are not part of the package's public API and may change or be removed without notice in future versions. Accessing properties on internal classes creates a fragile dependency on implementation details.
+A property's native type declaration references a class that is marked as `@internal`. Internal classes are not part of the package's public API and may change or be removed without notice in future versions. Using an internal class in a property type creates a fragile dependency on implementation details.
 
 ## How to fix it
 
-Use the public API provided by the library instead of accessing properties on internal classes:
+Use a public (non-internal) type provided by the library instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use SomeLibrary\InternalConfig;
-+use SomeLibrary\Config;
-
--function readConfig(InternalConfig $config): string
-+function readConfig(Config $config): string
- {
--	return $config->value;
-+	return $config->getValue();
+ namespace App {
+ 	class Foo {
+-		public \Vendor\InternalType $prop;
++		public \Vendor\PublicType $prop;
+ 	}
  }
 ```
 

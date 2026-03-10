@@ -9,53 +9,50 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-class ServiceContainer
+class Foo {}
+class Bar {}
+
+class MyClass
 {
 	/**
-	 * @return T
+	 * @return Foo&Bar
 	 */
-	public function get(string $id): mixed
+	public function get()
 	{
-		return $this->services[$id];
+		return new Foo();
 	}
 }
 ```
 
 ## Why is it reported?
 
-The PHPDoc `@return` tag contains a type that PHPStan cannot resolve. This typically happens when a template type like `T` is referenced but never declared with a `@template` tag, or when a type alias or class name cannot be found.
+The PHPDoc `@return` tag contains a type that PHPStan cannot resolve. This happens when the type evaluates to an impossible type, uses invalid type syntax, or references types that create contradictions.
 
-In the example above, `T` is used in `@return` but is not declared anywhere as a template type on the class or method.
+In the example above, `Foo&Bar` is an intersection type, but since `Foo` and `Bar` are unrelated classes (neither extends the other), no value can be both `Foo` and `Bar` at the same time. PHPStan resolves this to an impossible type and reports it as unresolvable.
 
 ## How to fix it
 
-Declare the template type with a `@template` tag if you are writing a generic method:
+Use a valid return type. If the method should return an object implementing multiple interfaces, use interface types:
 
 ```diff-php
- class ServiceContainer
++interface FooInterface {}
++interface BarInterface {}
++
+ class MyClass
  {
  	/**
-+	 * @template T
-+	 * @param class-string<T> $id
- 	 * @return T
+-	 * @return Foo&Bar
++	 * @return FooInterface&BarInterface
  	 */
--	public function get(string $id): mixed
-+	public function get(string $id): mixed
- 	{
- 		return $this->services[$id];
- 	}
- }
+ 	public function get()
 ```
 
-Or replace the unresolvable type with a concrete type:
+Or use a concrete type:
 
 ```diff-php
  /**
-- * @return T
-+ * @return object
+- * @return Foo&Bar
++ * @return Foo
   */
- public function get(string $id): mixed
- {
- 	return $this->services[$id];
- }
+ public function get()
 ```

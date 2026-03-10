@@ -1,7 +1,8 @@
 ---
 title: "class.implementsInternalClass"
-shortDescription: "Class implements an interface marked as @internal."
+shortDescription: "Class implements an internal class."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,31 +10,29 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In vendor/some-package/src/InternalInterface.php:
-// /** @internal */
-// interface InternalInterface {}
+namespace Vendor {
+	/** @internal */
+	class InternalClass {}
+}
 
-// In your code:
-class MyClass implements \SomePackage\InternalInterface
-{
+namespace App {
+	class MyClass implements \Vendor\InternalClass {}
 }
 ```
 
 ## Why is it reported?
 
-The class implements an interface that is marked as `@internal`. Internal interfaces are not part of the package's public API and may change or be removed without notice in future versions. Depending on internal interfaces in your code makes it fragile and prone to breaking when the dependency is updated.
+The class uses a class in its `implements` clause that is marked as `@internal`. Internal types are not part of the package's public API and may change or be removed without notice in future versions.
+
+A class cannot implement another class in PHP -- only interfaces can be implemented. This code is invalid regardless of the `@internal` annotation.
 
 ## How to fix it
 
-Use only public, non-internal interfaces from the package. Check the package documentation for the intended public API:
+Use a public (non-internal) interface instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
--class MyClass implements \SomePackage\InternalInterface
-+class MyClass implements \SomePackage\PublicInterface
- {
- }
+-class MyClass implements \Vendor\InternalClass {}
++class MyClass implements \Vendor\PublicInterface {}
 ```
 
 If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.

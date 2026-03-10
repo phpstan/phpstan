@@ -1,6 +1,6 @@
 ---
 title: "selfOut.internalInterface"
-shortDescription: "Tag @phpstan-self-out references an internal interface from another package."
+shortDescription: "Tag @phpstan-self-out references an internal interface."
 ignorable: true
 ---
 
@@ -9,57 +9,37 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-interface InternalInterface
-{
+namespace Vendor {
+	/** @internal */
+	interface InternalInterface {}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\InternalInterface;
-
-class Builder
-{
-	/**
-	 * @phpstan-self-out InternalInterface
-	 */
-	public function configure(): void
-	{
-		// ...
+namespace App {
+	class Builder {
+		/**
+		 * @phpstan-self-out \Vendor\InternalInterface
+		 */
+		public function build(): void {}
 	}
 }
 ```
 
 ## Why is it reported?
 
-The `@phpstan-self-out` PHPDoc tag references an interface that is marked as `@internal`. Internal interfaces are not part of the public API of the package that defines them. They may change or be removed in any version without prior notice. Using internal types in `@phpstan-self-out` annotations creates a fragile dependency on implementation details.
+The `@phpstan-self-out` PHPDoc tag references an interface that is marked as `@internal`. Internal interfaces are not part of the public API of their package and may change or be removed without notice. Using internal types in `@phpstan-self-out` annotations creates a fragile dependency on implementation details.
 
 ## How to fix it
 
 Use a public (non-internal) interface in the `@phpstan-self-out` tag:
 
 ```diff-php
- class Builder
- {
+ class Builder {
  	/**
--	 * @phpstan-self-out InternalInterface
-+	 * @phpstan-self-out PublicInterface
+-	 * @phpstan-self-out \Vendor\InternalInterface
++	 * @phpstan-self-out \Vendor\PublicInterface
  	 */
- 	public function configure(): void
- 	{
- 		// ...
- 	}
+ 	public function build(): void {}
  }
 ```
 
-If the interface is internal to your own project and the usage is within the same root namespace, the error will not be reported.
+If the interface is internal to the same package, the error will not be reported. The `@internal` restriction only applies to cross-package usage.

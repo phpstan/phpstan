@@ -1,7 +1,8 @@
 ---
 title: "class.implementsInternalTrait"
-shortDescription: "Class uses a trait marked as @internal."
+shortDescription: "Class implements a trait marked as @internal."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,44 +10,31 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-namespace SomeLibrary;
+namespace Vendor {
+	/** @internal */
+	trait InternalTrait {}
 
-/** @internal */
-trait InternalHelper
-{
-	public function helper(): void {}
+	class Foo {
+		use InternalTrait;
+	}
 }
 
-// In your code:
-namespace App;
-
-class MyClass
-{
-	use \SomeLibrary\InternalHelper;
+namespace App {
+	class MyClass implements \Vendor\InternalTrait {}
 }
 ```
 
 ## Why is it reported?
 
-The trait being used is marked as `@internal`, meaning it is not part of the library's public API and may change or be removed without notice in future versions. Using internal traits from third-party packages makes the code dependent on implementation details that are not guaranteed to remain stable.
+The class uses a trait in its `implements` clause that is marked as `@internal`. Internal types are not part of the library's public API and may change or be removed without notice in future versions.
+
+A class cannot implement a trait in PHP -- traits should be used with the `use` keyword inside a class body instead. This code is invalid regardless of the `@internal` annotation.
 
 ## How to fix it
 
-Replace the internal trait with a public API alternative, or implement the needed functionality directly:
+Use a public (non-internal) interface instead, or use the `use` keyword for traits:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
- class MyClass
- {
--	use \SomeLibrary\InternalHelper;
-+
-+	public function helper(): void
-+	{
-+		// Own implementation
-+	}
- }
+-class MyClass implements \Vendor\InternalTrait {}
++class MyClass implements \Vendor\PublicInterface {}
 ```

@@ -9,13 +9,17 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	interface Logger {
+		public function log(string $message): void;
+	}
+}
 
-use Vendor\Internal\ConfigInterface;
-
-function doFoo(ConfigInterface $config): void
-{
-	$config->getOption('key'); // ERROR: Call to method getOption() of internal interface Vendor\Internal\ConfigInterface from outside its root namespace Vendor.
+namespace App {
+	function test(\Vendor\Logger $logger): void {
+		$logger->log('hello'); // error: Call to method log() of internal interface Vendor\Logger from outside its root namespace Vendor.
+	}
 }
 ```
 
@@ -28,17 +32,11 @@ A method is being called on an object whose type is an interface marked with the
 Use the public API provided by the package instead of accessing internal interfaces directly:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use Vendor\Internal\ConfigInterface;
-+use Vendor\PublicConfigInterface;
-
--function doFoo(ConfigInterface $config): void
-+function doFoo(PublicConfigInterface $config): void
- {
- 	$config->getOption('key');
+ namespace App {
+-	function test(\Vendor\Logger $logger): void {
++	function test(\Vendor\PublicLogger $logger): void {
+ 		$logger->log('hello');
+ 	}
  }
 ```
 

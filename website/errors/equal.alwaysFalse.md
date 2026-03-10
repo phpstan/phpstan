@@ -9,9 +9,10 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-function doFoo(string $s): void
+/** @param positive-int $i */
+function doFoo(int $i): void
 {
-	if ($s == new \stdClass()) {
+	if ($i == 0) {
 		// never reached
 	}
 }
@@ -21,15 +22,18 @@ function doFoo(string $s): void
 
 The loose comparison using `==` always evaluates to `false` based on the types of the operands. Even with PHP's type juggling rules, these two values can never be considered equal. This indicates dead code or a logic error -- the branch will never execute.
 
+In the example above, `$i` is a `positive-int` (always `>= 1`), so it can never be loosely equal to `0`.
+
 ## How to fix it
 
 Fix the comparison to compare values that can actually be equal:
 
 ```diff-php
- function doFoo(string $s): void
+ /** @param positive-int $i */
+ function doFoo(int $i): void
  {
--	if ($s == new \stdClass()) {
-+	if ($s == 'expected') {
+-	if ($i == 0) {
++	if ($i == 1) {
  		// ...
  	}
  }
@@ -38,10 +42,11 @@ Fix the comparison to compare values that can actually be equal:
 Or use strict comparison (`===`) if the intent is to compare identical types:
 
 ```diff-php
- function doFoo(string $s): void
+ /** @param positive-int $i */
+ function doFoo(int $i): void
  {
--	if ($s == new \stdClass()) {
-+	if ($s === 'expected') {
+-	if ($i == 0) {
++	if ($i === 1) {
  		// ...
  	}
  }

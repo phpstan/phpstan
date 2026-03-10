@@ -9,31 +9,18 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-enum InternalEnum
-{
-	case A;
+namespace Vendor {
+	/** @internal */
+	enum InternalEnum {
+		case A;
+	}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\InternalEnum;
-
-/**
- * @property InternalEnum $status
- */
-class Foo
-{
+namespace App {
+	/**
+	 * @property \Vendor\InternalEnum $status
+	 */
+	class MyClass {}
 }
 ```
 
@@ -43,4 +30,16 @@ A `@property` PHPDoc tag references an enum that is marked as `@internal`. Inter
 
 ## How to fix it
 
-Use a public (non-internal) type in the `@property` tag instead. If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.
+Use a public (non-internal) type in the `@property` tag instead:
+
+```diff-php
+ namespace App {
+ 	/**
+-	 * @property \Vendor\InternalEnum $status
++	 * @property \Vendor\PublicEnum $status
+ 	 */
+ 	class MyClass {}
+ }
+```
+
+If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.

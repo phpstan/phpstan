@@ -9,7 +9,10 @@ ignorable: false
 ```php
 <?php declare(strict_types = 1);
 
-$reflection = new _PHPStan_\BetterReflection\Reflection\ReflectionClass('Foo');
+function test(_PHPStan_foo\SomeClass $obj): void
+{
+	echo get_class($obj);
+}
 ```
 
 ## Why is it reported?
@@ -23,6 +26,9 @@ Use the original, unprefixed class name instead:
 ```diff-php
  <?php declare(strict_types = 1);
 
--$reflection = new _PHPStan_\BetterReflection\Reflection\ReflectionClass('Foo');
-+$reflection = new \BetterReflection\Reflection\ReflectionClass('Foo');
+-function test(_PHPStan_foo\SomeClass $obj): void
++function test(\SomeClass $obj): void
+ {
+ 	echo get_class($obj);
+ }
 ```

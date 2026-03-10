@@ -1,7 +1,8 @@
 ---
 title: "new.unresolvableReturnType"
-shortDescription: "Generic template types of a constructor cannot be resolved from the provided arguments."
+shortDescription: "Return type of a constructor call contains an unresolvable type after template substitution."
 ignorable: true
+feasible: false
 ---
 
 ## Code example
@@ -9,59 +10,66 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-/**
- * @template T
- */
-class Collection
-{
-	/** @param T $item */
-	public function __construct(private mixed $item)
-	{
-	}
+interface Loggable {}
 
-	/** @return T */
-	public function first(): mixed
-	{
-		return $this->item;
-	}
+/**
+ * @template T of object
+ */
+class Wrapper
+{
+	/**
+	 * @param T $value
+	 * @phpstan-self-out self<T&Loggable>
+	 */
+	public function __construct(private object $value) {}
 }
+
+class PlainObject {}
 
 function doFoo(): void
 {
-	$collection = new Collection(); // ERROR: Unable to resolve the return type of constructor of class Collection.
-	$collection->first();
+	new Wrapper(new PlainObject());
 }
 ```
 
 ## Why is it reported?
 
-The constructor of the class uses generic template types in its return type (or the class is generic), but PHPStan cannot resolve those template types from the arguments passed to the constructor. This means that the type information flowing from the `new` expression into subsequent method calls or property accesses will be incomplete, which may lead to inaccurate analysis.
+PHPStan reports this error when the return type of a `new` expression contains an unresolvable type after generic template substitution. The return type of a constructor call is the class itself with its template parameters resolved. If the resolved template types make the class type contain an impossible intersection or an otherwise unresolvable type, PHPStan reports this error.
 
-This typically happens when a generic class constructor expects arguments that help PHPStan infer the template types, but those arguments are missing or have types that are too broad.
+In the example above, if the constructor's `@phpstan-self-out` resolves to `self<PlainObject&Loggable>`, and `PlainObject` does not implement `Loggable`, the intersection is impossible and the return type becomes unresolvable.
 
 ## How to fix it
 
-Pass arguments to the constructor that allow PHPStan to resolve the template types:
+Pass an argument whose type satisfies all constraints:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
++class LoggableObject implements Loggable
++{
++	public function log(): void {}
++}
++
  function doFoo(): void
  {
--	$collection = new Collection();
-+	$collection = new Collection('hello');
- 	$collection->first(); // PHPStan now knows this returns string
+-	new Wrapper(new PlainObject());
++	$w = new Wrapper(new LoggableObject());
  }
 ```
 
-Or specify the template type explicitly using a PHPDoc `@var` annotation on the variable:
+Or constrain the template type so the intersection is always valid:
 
-```php
-<?php declare(strict_types = 1);
-
-function doFoo(): void
-{
-	/** @var Collection<string> $collection */
-	$collection = new Collection();
-}
+```diff-php
+ /**
+- * @template T of object
++ * @template T of Loggable
+  */
+ class Wrapper
+ {
+-	/**
+-	 * @param T $value
+-	 * @phpstan-self-out self<T&Loggable>
+-	 */
+-	public function __construct(private object $value) {}
++	/** @param T $value */
++	public function __construct(private object $value) {}
+ }
 ```

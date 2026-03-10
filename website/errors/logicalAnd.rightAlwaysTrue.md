@@ -9,11 +9,10 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-function doFoo(int $x): void
+function doFoo(bool $flag): bool
 {
-	if ($x > 0 and $x >= 0) { // ERROR: Right side of and is always true.
-		echo 'positive';
-	}
+	$t = true;
+	return $flag and $t;
 }
 ```
 
@@ -23,7 +22,7 @@ PHPStan determined that the right side of the `and` expression always evaluates 
 
 The `and` keyword is the low-precedence version of `&&`. This identifier specifically covers the `and` keyword; for `&&`, see [`booleanAnd.rightAlwaysTrue`](/errors/booleanAnd.rightAlwaysTrue).
 
-In the example above, when `$x > 0` is true, `$x >= 0` is necessarily also true, making the right side redundant.
+In the example above, `$t` is always `true`, so the right side of `and` is redundant and the result depends entirely on `$flag`.
 
 ## How to fix it
 
@@ -32,12 +31,11 @@ Remove the redundant right side if it is not needed:
 ```diff-php
  <?php declare(strict_types = 1);
 
- function doFoo(int $x): void
+ function doFoo(bool $flag): bool
  {
--	if ($x > 0 and $x >= 0) {
-+	if ($x > 0) {
- 		echo 'positive';
- 	}
+-	$t = true;
+-	return $flag and $t;
++	return $flag;
  }
 ```
 
@@ -46,11 +44,11 @@ Or fix the logic if the condition should test something different:
 ```diff-php
  <?php declare(strict_types = 1);
 
- function doFoo(int $x): void
+-function doFoo(bool $flag): bool
++function doFoo(bool $flag, bool $other): bool
  {
--	if ($x > 0 and $x >= 0) {
-+	if ($x > 0 and $x < 100) {
- 		echo 'positive';
- 	}
+-	$t = true;
+-	return $flag and $t;
++	return $flag and $other;
  }
 ```

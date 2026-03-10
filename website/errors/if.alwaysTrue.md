@@ -9,10 +9,11 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-function greet(string $name): void
+function doFoo(): void
 {
-	if (is_string($name)) {
-		echo 'Hello, ' . $name;
+	$x = 5;
+	if ($x) {
+		echo 'always reached';
 	}
 }
 ```
@@ -21,6 +22,8 @@ function greet(string $name): void
 
 The `if` condition is always true based on the types and values PHPStan has inferred at that point in the code. This means the `if` branch will always execute, making the condition redundant. This usually points to an unnecessary check, a logic error, or a misunderstanding of the types involved.
 
+In the example above, `$x` is always `5` (truthy), so the condition is always satisfied.
+
 ## How to fix it
 
 Remove the redundant condition if the check is unnecessary:
@@ -28,12 +31,13 @@ Remove the redundant condition if the check is unnecessary:
 ```diff-php
  <?php declare(strict_types = 1);
 
- function greet(string $name): void
+ function doFoo(): void
  {
--	if (is_string($name)) {
--		echo 'Hello, ' . $name;
+-	$x = 5;
+-	if ($x) {
+-		echo 'always reached';
 -	}
-+	echo 'Hello, ' . $name;
++	echo 'always reached';
  }
 ```
 
@@ -42,11 +46,14 @@ If the condition was meant to distinguish between different cases, fix the condi
 ```diff-php
  <?php declare(strict_types = 1);
 
- function greet(string $name): void
+-function doFoo(): void
++function doFoo(int $x): void
  {
--	if (is_string($name)) {
-+	if ($name !== '') {
- 		echo 'Hello, ' . $name;
+-	$x = 5;
+-	if ($x) {
+-		echo 'always reached';
++	if ($x > 0) {
++		echo 'positive';
  	}
  }
 ```

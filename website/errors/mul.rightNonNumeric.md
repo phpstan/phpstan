@@ -9,8 +9,10 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-/** @var string $value */
-$result = 5 * $value;
+function multiply(int $a, bool $flag): int
+{
+	return $a * $flag;
+}
 ```
 
 ## Why is it reported?
@@ -24,20 +26,20 @@ The right operand of the multiplication operator (`*`) is not a numeric type. PH
 Ensure the operand is a numeric type:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
--/** @var string $value */
--$result = 5 * $value;
-+/** @var int $value */
-+$result = 5 * $value;
+-function multiply(int $a, bool $flag): int
++function multiply(int $a, int $b): int
+ {
+-	return $a * $flag;
++	return $a * $b;
+ }
 ```
 
 Or explicitly cast the value:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- /** @var string $value */
--$result = 5 * $value;
-+$result = 5 * (int) $value;
+ function multiply(int $a, bool $flag): int
+ {
+-	return $a * $flag;
++	return $a * (int) $flag;
+ }
 ```

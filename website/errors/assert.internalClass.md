@@ -9,33 +9,20 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-class InternalHelper
-{
+namespace Vendor {
+	/** @internal */
+	class InternalHelper {}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\InternalHelper;
-
-class Checker
-{
-	/**
-	 * @phpstan-assert InternalHelper $value
-	 */
-	public function assertHelper(mixed $value): void
-	{
-		// ...
+namespace App {
+	class Checker {
+		/**
+		 * @phpstan-assert \Vendor\InternalHelper $value
+		 * @param mixed $value
+		 */
+		public function assertHelper($value): void
+		{
+		}
 	}
 }
 ```
@@ -49,17 +36,15 @@ A `@phpstan-assert` PHPDoc tag references a class that is marked as `@internal`.
 Use a public (non-internal) type in the `@phpstan-assert` tag instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  class Checker
  {
  	/**
--	 * @phpstan-assert InternalHelper $value
-+	 * @phpstan-assert PublicHelper $value
+-	 * @phpstan-assert \Vendor\InternalHelper $value
++	 * @phpstan-assert \Vendor\PublicHelper $value
+ 	 * @param mixed $value
  	 */
- 	public function assertHelper(mixed $value): void
+ 	public function assertHelper($value): void
  	{
- 		// ...
  	}
  }
 ```

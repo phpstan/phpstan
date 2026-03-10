@@ -1,7 +1,8 @@
 ---
 title: "requireImplements.deprecatedClass"
-shortDescription: "Tag @phpstan-require-implements references a deprecated class."
+shortDescription: "@phpstan-require-implements references a deprecated class."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -17,31 +18,29 @@ class OldService
 /**
  * @phpstan-require-implements OldService
  */
-interface ServiceAware
+trait MyTrait
 {
 }
 ```
 
 ## Why is it reported?
 
-A `@phpstan-require-implements` PHPDoc tag references a class that has been marked as `@deprecated`. This means the trait or interface is requiring implementing classes to depend on a type that is scheduled for removal. The deprecation notice typically indicates a replacement exists.
+This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) extension.
 
-This rule is provided by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) package.
+A `@phpstan-require-implements` PHPDoc tag references a class that has been marked as `@deprecated`. Deprecated classes are planned for removal in a future version.
+
+Note: triggering this identifier requires `@phpstan-require-implements` to reference a class, but this tag expects an interface. PHPStan therefore always also reports a `requireImplements.class` error alongside this one, and in practice the deprecation identifier is not reported.
 
 ## How to fix it
 
-Replace the deprecated class with its recommended replacement in the `@phpstan-require-implements` tag:
+Replace the deprecated class with a proper interface reference:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  /**
 - * @phpstan-require-implements OldService
-+ * @phpstan-require-implements NewService
++ * @phpstan-require-implements NewServiceInterface
   */
- interface ServiceAware
+ trait MyTrait
  {
  }
 ```
-
-If the deprecated class has no direct replacement, consider restructuring the code to remove the `@phpstan-require-implements` constraint, or update it to reference the new replacement type that serves the same role.

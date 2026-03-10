@@ -2,6 +2,7 @@
 title: "enum.implementsInternalTrait"
 shortDescription: "Enum references an internal trait from another package."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example

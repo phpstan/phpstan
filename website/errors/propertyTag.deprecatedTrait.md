@@ -2,6 +2,7 @@
 title: "propertyTag.deprecatedTrait"
 shortDescription: "@property PHPDoc tag references a deprecated trait."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,13 +10,13 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-/** @deprecated Use SomethingElse instead */
-trait HelperTrait
+/** @deprecated Use NewHelper instead */
+trait OldHelper
 {
 }
 
 /**
- * @property HelperTrait $helper // ERROR: PHPDoc tag @property references deprecated trait HelperTrait.
+ * @property OldHelper $helper
  */
 class Foo
 {
@@ -24,20 +25,20 @@ class Foo
 
 ## Why is it reported?
 
-The `@property` PHPDoc tag references a trait that has been marked as `@deprecated`. Traits are not valid types in PHP, and using a deprecated trait as a type in a `@property` tag compounds two issues: the type is not valid, and the referenced trait is deprecated.
+This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) extension.
 
-This rule is provided by the [phpstan/phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) package.
+The `@property` PHPDoc tag references a trait that has been marked as `@deprecated`. Deprecated traits are planned for removal in a future version. Additionally, traits are not valid types in PHP, so using a deprecated trait in a `@property` tag compounds two issues.
+
+Note: in practice, the `propertyTag.trait` error (reporting that traits are not valid types in `@property`) takes precedence and this deprecation identifier is not reported alongside it.
 
 ## How to fix it
 
-Replace the deprecated trait reference in the `@property` tag with a valid, non-deprecated type such as an interface or class:
+Replace the deprecated trait reference in the `@property` tag with a valid, non-deprecated type:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  /**
-- * @property HelperTrait $helper
-+ * @property HelperInterface $helper
+- * @property OldHelper $helper
++ * @property NewHelper $helper
   */
  class Foo
  {

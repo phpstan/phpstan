@@ -2,6 +2,7 @@
 title: "trait.disallowedSubtype"
 shortDescription: "Trait is used in a class that is not an allowed subtype of a sealed type."
 ignorable: true
+feasible: false
 ---
 
 ## Code example

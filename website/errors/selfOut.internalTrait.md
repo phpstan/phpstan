@@ -1,7 +1,8 @@
 ---
 title: "selfOut.internalTrait"
-shortDescription: "Tag @phpstan-self-out references an internal trait from another package."
+shortDescription: "Tag @phpstan-self-out references an internal trait."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,53 +10,38 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	trait InternalTrait {}
+}
 
-// Defined in a third-party package:
-// /** @internal */
-// trait InternalTrait {}
-
-use ThirdParty\InternalTrait;
-
-class MyClass
-{
-    /**
-     * @phpstan-self-out self&InternalTrait
-     */
-    public function applyTrait(): void
-    {
-        // ...
-    }
+namespace App {
+	class Builder {
+		/**
+		 * @phpstan-self-out \Vendor\InternalTrait
+		 */
+		public function build(): void {}
+	}
 }
 ```
 
 ## Why is it reported?
 
-The `@phpstan-self-out` PHPDoc tag references a trait that is marked as `@internal`. Internal symbols are not meant to be used outside the package or namespace that defines them. Referencing an internal trait in a `@phpstan-self-out` tag creates a dependency on an internal implementation detail that may change without notice.
+The `@phpstan-self-out` PHPDoc tag references a trait that is marked as `@internal`. Internal traits are not meant to be used outside the package that defines them.
+
+Note: triggering this identifier requires using a trait in `@phpstan-self-out`, which is not a valid type. PHPStan therefore always also reports a `selfOut.trait` error alongside this one.
 
 ## How to fix it
 
 Replace the internal trait with a public interface or class:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use ThirdParty\InternalTrait;
-+use ThirdParty\PublicInterface;
-
- class MyClass
- {
-     /**
--     * @phpstan-self-out self&InternalTrait
-+     * @phpstan-self-out self&PublicInterface
-      */
--    public function applyTrait(): void
-+    public function applyInterface(): void
-     {
-         // ...
-     }
+ class Builder {
+ 	/**
+-	 * @phpstan-self-out \Vendor\InternalTrait
++	 * @phpstan-self-out \Vendor\PublicInterface
+ 	 */
+ 	public function build(): void {}
  }
 ```
 

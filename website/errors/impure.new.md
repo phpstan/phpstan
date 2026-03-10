@@ -11,6 +11,7 @@ ignorable: true
 
 class Logger
 {
+	/** @phpstan-impure */
 	public function __construct()
 	{
 		echo 'Logger initialized';
@@ -22,13 +23,13 @@ class Logger
  */
 function createLogger(): Logger
 {
-	return new Logger(); // ERROR: Impure instantiation of class Logger in pure function createLogger().
+	return new Logger();
 }
 ```
 
 ## Why is it reported?
 
-A function or method marked as `@phpstan-pure` must not have side effects and must always return the same result for the same inputs. Instantiating a class with `new` is considered impure when the constructor has side effects (such as writing to a file, echoing output, or modifying global state). Even if the constructor appears side-effect-free, PHPStan reports this when it detects that the constructor is impure or possibly impure.
+A function or method marked as `@phpstan-pure` must not have side effects and must always return the same result for the same inputs. Instantiating a class with `new` is considered impure when the constructor is known to have side effects (such as writing to a file, echoing output, or modifying global state). PHPStan reports this when the constructor is explicitly marked as `@phpstan-impure`.
 
 ## How to fix it
 
@@ -39,9 +40,8 @@ If the class constructor is truly side-effect-free, mark it as `@phpstan-pure`:
 
  class Logger
  {
-+	/**
-+	 * @phpstan-pure
-+	 */
+-	/** @phpstan-impure */
++	/** @phpstan-pure */
  	public function __construct()
  	{
 -		echo 'Logger initialized';

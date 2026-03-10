@@ -7,17 +7,23 @@ ignorable: true
 ## Code example
 
 ```php
-<?php declare(strict_types = 1);
+<?php declare(strict_types = 1); // lint >= 8.1
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	enum Status {
+		case Active;
+		case Inactive;
+	}
+}
 
-use Internal\Status;
-
-/**
- * @phpstan-sealed Status
- */
-interface StatusProvider
-{
+namespace App {
+	/**
+	 * @phpstan-sealed \Vendor\Status
+	 */
+	interface StatusProvider
+	{
+	}
 }
 ```
 

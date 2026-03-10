@@ -2,6 +2,7 @@
 title: "possiblyImpure.die"
 shortDescription: "Pure function possibly uses die which terminates the script."
 ignorable: true
+feasible: false
 ---
 
 ## Code example

@@ -1,6 +1,6 @@
 ---
 title: "property.internalTrait"
-shortDescription: "Property type references an internal trait from outside its namespace."
+shortDescription: "Property type declaration references an internal trait."
 ignorable: true
 ---
 
@@ -9,47 +9,36 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
-
-use Library\InternalTrait;
-
-class Foo
-{
-	/** The trait is marked @internal by the library */
-	public InternalTrait $helper;
+namespace Vendor {
+	/** @internal */
+	trait InternalTrait {
+		public function doSomething(): void {}
+	}
 }
-```
 
-Where `Library\InternalTrait` is referenced via a native property type intersection or similar type usage, and is:
-
-```php
-<?php declare(strict_types = 1);
-
-namespace Library;
-
-/** @internal */
-trait InternalTrait
-{
-	public function doSomething(): void {}
+namespace App {
+	class Foo {
+		/** @var \Vendor\InternalTrait */
+		public $helper; // error: Property $helper references internal trait Vendor\InternalTrait in its type.
+	}
 }
 ```
 
 ## Why is it reported?
 
-A property type references a trait that has been marked as `@internal`. Internal traits are implementation details of their package and are not meant to be used by external code. They may change or be removed without notice in future versions. This can be reported for:
-
-- Native property type declarations using internal traits
-- Accessing a property on an object whose declaring class is an internal trait
+A property type references a trait that has been marked as `@internal`. Internal traits are implementation details of their package and are not meant to be used by external code. They may change or be removed without notice in future versions. Referencing an internal trait in a property type declaration creates a fragile dependency on implementation details.
 
 ## How to fix it
 
 Replace the internal trait reference with the package's public API:
 
 ```diff-php
- class Foo
- {
--	public InternalTrait $helper;
-+	public PublicInterface $helper;
+ namespace App {
+ 	class Foo {
+-		/** @var \Vendor\InternalTrait */
+-		public $helper;
++		public \Vendor\PublicInterface $helper;
+ 	}
  }
 ```
 

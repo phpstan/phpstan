@@ -9,10 +9,10 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-use PHPStan\Type\StringType;
+use PHPStan\Type\FileTypeMapper;
 
 // Inside a PHPStan extension
-$type = new StringType();
+$fileTypeMapper = new FileTypeMapper();
 ```
 
 ## Why is it reported?

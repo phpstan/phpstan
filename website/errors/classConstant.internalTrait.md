@@ -9,30 +9,18 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-trait InternalTrait
-{
-	public const INTERNAL_VALUE = 42;
+namespace Vendor {
+	/** @internal */
+	trait InternalTrait {
+		public const VALUE = 42;
+	}
 }
 
-class PublicClass
-{
-	use InternalTrait;
+namespace App {
+	function test(): int {
+		return \Vendor\InternalTrait::VALUE; // error: Access to constant VALUE of internal trait Vendor\InternalTrait from outside its root namespace Vendor.
+	}
 }
-```
-
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-use SomeLibrary\PublicClass;
-
-echo PublicClass::INTERNAL_VALUE;
 ```
 
 ## Why is it reported?
@@ -42,3 +30,12 @@ The constant is defined on a trait that is marked as `@internal`. Internal types
 ## How to fix it
 
 Use a public (non-internal) constant or API instead. If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.
+
+```diff-php
+ namespace App {
+ 	function test(): int {
+-		return \Vendor\InternalTrait::VALUE;
++		return \Vendor\PublicClass::VALUE;
+ 	}
+ }
+```

@@ -1,6 +1,6 @@
 ---
 title: "classConstant.deprecatedTrait"
-shortDescription: "Accessing a class constant defined in a deprecated trait."
+shortDescription: "Accessing a class constant on a deprecated trait."
 ignorable: true
 ---
 
@@ -10,36 +10,25 @@ ignorable: true
 <?php declare(strict_types = 1);
 
 /** @deprecated Use NewHelper instead */
-trait DeprecatedHelper
+trait OldHelper
 {
 	public const VERSION = '1.0';
 }
 
-class MyClass
-{
-	use DeprecatedHelper;
-}
-
-function doFoo(): void
-{
-	echo MyClass::VERSION;
-}
+echo OldHelper::VERSION;
 ```
 
 ## Why is it reported?
 
-The class constant being accessed belongs to a trait that is marked as `@deprecated`. Accessing constants from deprecated traits indicates reliance on code that is scheduled for removal. This rule is part of the `phpstan-deprecation-rules` package and helps identify usages that should be migrated.
+This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) extension.
+
+A class constant is accessed directly on a trait that has been marked as `@deprecated`. Deprecated traits are planned for removal in a future version, and code should not rely on their constants.
 
 ## How to fix it
 
-Replace the deprecated constant access with the recommended alternative:
+Access the constant from a non-deprecated source instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- function doFoo(): void
- {
--	echo MyClass::VERSION;
-+	echo NewHelper::VERSION;
- }
+-echo OldHelper::VERSION;
++echo NewHelper::VERSION;
 ```

@@ -2,6 +2,7 @@
 title: "possiblyImpure.require"
 shortDescription: "Pure function uses require which can execute arbitrary code."
 ignorable: true
+feasible: false
 ---
 
 ## Code example

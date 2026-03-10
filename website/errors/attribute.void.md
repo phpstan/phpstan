@@ -2,6 +2,7 @@
 title: "attribute.void"
 shortDescription: "Return value of a void-returning call is used in an attribute context."
 ignorable: true
+feasible: false
 ---
 
 ## Code example

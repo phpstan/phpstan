@@ -22,6 +22,8 @@ The function is being called with a different letter casing than its declaration
 
 In the example above, `myFunction` is declared with a lowercase `m`, but called as `MyFunction` with an uppercase `M`.
 
+This error is reported only when the [`checkFunctionNameCase`](/config-reference#checkfunctionnamecase) option is enabled.
+
 ## How to fix it
 
 Match the casing of the function call to the function declaration:

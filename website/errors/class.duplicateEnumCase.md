@@ -1,6 +1,6 @@
 ---
 title: "class.duplicateEnumCase"
-shortDescription: "Enum case is declared more than once in the same enum."
+shortDescription: "Enum case is declared more than once in a class body."
 ignorable: false
 ---
 
@@ -9,45 +9,26 @@ ignorable: false
 ```php
 <?php declare(strict_types = 1);
 
-enum Suit: string
+class Foo
 {
-	case Hearts = 'hearts';
-	case Diamonds = 'diamonds';
-	case Hearts = 'h';
+	case Active;
+	case Active;
 }
 ```
 
 ## Why is it reported?
 
-An enum declares the same case name more than once. PHP does not allow redeclaring an enum case within the same enum body. This is a fatal error.
-
-In the example above, the case `Hearts` is declared twice in the enum `Suit`.
+The same enum case name is declared more than once in a class body. PHP does not allow redeclaring an enum case within the same type. This is reported by a generic duplicate-declaration rule that checks all class-like structures uniformly. While enum cases inside a non-enum class are not valid PHP, PHPStan still detects the duplicate declaration.
 
 ## How to fix it
 
-Remove the duplicate enum case declaration, keeping only one:
+Remove the duplicate enum case declaration, or rename one of them:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- enum Suit: string
+ class Foo
  {
- 	case Hearts = 'hearts';
- 	case Diamonds = 'diamonds';
--	case Hearts = 'h';
- }
-```
-
-If the duplicate cases were intended to represent different values, rename one of them:
-
-```diff-php
- <?php declare(strict_types = 1);
-
- enum Suit: string
- {
- 	case Hearts = 'hearts';
- 	case Diamonds = 'diamonds';
--	case Hearts = 'h';
-+	case HeartsShort = 'h';
+ 	case Active;
+-	case Active;
++	case Inactive;
  }
 ```

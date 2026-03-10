@@ -9,9 +9,10 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-function test(bool $a): bool
+function doFoo(bool $flag): bool
 {
-	return $a xor ($a && !$a);
+	$f = false;
+	return $flag xor $f;
 }
 ```
 
@@ -19,16 +20,33 @@ function test(bool $a): bool
 
 The right side of the `xor` operator always evaluates to `false`. This makes the `xor` expression equivalent to just the left side, because `$left xor false` always equals `$left`. The right operand is redundant and likely indicates a logic error.
 
+In the example above, `$f` is always `false`, so `$flag xor $f` is equivalent to `$flag`.
+
 ## How to fix it
 
-Review the logic and either remove the `xor` expression entirely if the right side is not needed, or correct the right-side condition so that it can actually evaluate to `true`.
+Simplify the expression by removing the redundant `xor`:
 
 ```diff-php
  <?php declare(strict_types = 1);
 
- function test(bool $a): bool
+ function doFoo(bool $flag): bool
  {
--	return $a xor ($a && !$a);
-+	return $a xor someOtherCondition();
+-	$f = false;
+-	return $flag xor $f;
++	return $flag;
+ }
+```
+
+Or fix the right-side condition so that it can actually evaluate to `true`:
+
+```diff-php
+ <?php declare(strict_types = 1);
+
+-function doFoo(bool $flag): bool
++function doFoo(bool $flag, bool $other): bool
+ {
+-	$f = false;
+-	return $flag xor $f;
++	return $flag xor $other;
  }
 ```

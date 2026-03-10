@@ -2,6 +2,7 @@
 title: "enum.implementsInternalEnum"
 shortDescription: "Enum implements an internal enum from another package."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example

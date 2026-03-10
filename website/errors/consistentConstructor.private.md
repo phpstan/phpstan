@@ -1,6 +1,6 @@
 ---
 title: "consistentConstructor.private"
-shortDescription: "Class with @consistentConstructor has a private constructor that cannot be overridden."
+shortDescription: "Class with @phpstan-consistent-constructor has a private constructor that cannot be overridden."
 ignorable: true
 ---
 
@@ -9,7 +9,7 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-/** @consistentConstructor */
+/** @phpstan-consistent-constructor */
 class Foo
 {
 	private function __construct()
@@ -20,7 +20,7 @@ class Foo
 
 ## Why is it reported?
 
-The `@consistentConstructor` PHPDoc tag tells PHPStan to enforce that all child classes maintain a compatible constructor signature with the parent class. However, a `private` constructor cannot be overridden by child classes at all -- it prevents inheritance of the constructor entirely. Marking a private constructor as consistent is contradictory because child classes cannot call or match the parent constructor.
+The `@phpstan-consistent-constructor` PHPDoc tag tells PHPStan to enforce that all child classes maintain a compatible constructor signature with the parent class. However, a `private` constructor cannot be overridden by child classes at all -- it prevents inheritance of the constructor entirely. Marking a private constructor as consistent is contradictory because child classes cannot call or match the parent constructor.
 
 If the class is also `final`, this error is not reported because final classes cannot have child classes.
 
@@ -31,7 +31,7 @@ Change the constructor visibility to `protected` or `public` so child classes ca
 ```diff-php
  <?php declare(strict_types = 1);
 
- /** @consistentConstructor */
+ /** @phpstan-consistent-constructor */
  class Foo
  {
 -	private function __construct()
@@ -41,12 +41,12 @@ Change the constructor visibility to `protected` or `public` so child classes ca
  }
 ```
 
-Alternatively, if the class is not meant to be extended, make it `final` and remove the `@consistentConstructor` tag:
+Alternatively, if the class is not meant to be extended, make it `final` and remove the `@phpstan-consistent-constructor` tag:
 
 ```diff-php
  <?php declare(strict_types = 1);
 
--/** @consistentConstructor */
+-/** @phpstan-consistent-constructor */
 -class Foo
 +final class Foo
  {

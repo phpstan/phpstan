@@ -9,37 +9,33 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-interface InternalInterface
-{
+namespace Vendor {
+	/** @internal */
+	interface InternalInterface {}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\InternalInterface;
-
-/**
- * @phpstan-require-implements InternalInterface
- */
-trait MyTrait
-{
+namespace App {
+	/**
+	 * @phpstan-require-implements \Vendor\InternalInterface
+	 */
+	trait MyTrait {}
 }
 ```
 
 ## Why is it reported?
 
-A `@phpstan-require-implements` PHPDoc tag references an interface that is marked as `@internal`. Internal types are not part of the package's public API and may change or be removed without notice.
+The `@phpstan-require-implements` PHPDoc tag references an interface that is marked as `@internal`. Internal interfaces are not part of the public API of their package and may change or be removed without notice. Depending on an internal interface in a `@phpstan-require-implements` constraint creates a fragile dependency on implementation details.
 
 ## How to fix it
 
-Use a public (non-internal) interface in the `@phpstan-require-implements` tag instead. If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.
+Use a public (non-internal) interface in the `@phpstan-require-implements` tag instead:
+
+```diff-php
+ /**
+- * @phpstan-require-implements \Vendor\InternalInterface
++ * @phpstan-require-implements \Vendor\PublicInterface
+  */
+ trait MyTrait {}
+```
+
+If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.

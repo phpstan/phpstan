@@ -9,12 +9,12 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-use PHPStan\Type\Type;
-use PHPStan\Type\StringType;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\Php\PhpMethodReflection;
 
-function doFoo(Type $type): void
+function doFoo(MethodReflection $method): void
 {
-	if ($type instanceof StringType) { // ERROR: Although StringType is covered by backward compatibility promise, this instanceof assumption might break because it's not guaranteed to always stay the same.
+	if ($method instanceof PhpMethodReflection) { // ERROR: Although PhpMethodReflection is covered by backward compatibility promise, this instanceof assumption might break because it's not guaranteed to always stay the same.
 		// ...
 	}
 }
@@ -24,7 +24,7 @@ function doFoo(Type $type): void
 
 This error is reported when an `instanceof` check is used against a PHPStan class that is covered by the [backward compatibility promise](https://phpstan.org/developing-extensions/backward-compatibility-promise), but the specific `instanceof` assumption might break in a future minor version. While the class itself is part of the public API, PHPStan does not guarantee that a value currently represented by a specific class will always be represented by that same class.
 
-For example, a type that is currently a `StringType` instance might be represented differently in a future version, even though the `StringType` class itself still exists.
+For example, a type that is currently a `PhpMethodReflection` instance might be represented differently in a future version, even though the `PhpMethodReflection` class itself still exists.
 
 ## How to fix it
 

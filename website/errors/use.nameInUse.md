@@ -11,16 +11,16 @@ ignorable: false
 
 namespace App;
 
-use SomeOtherNamespace\Foo;
-
 class Foo
 {
 }
+
+use SomeOtherNamespace\Foo;
 ```
 
 ## Why is it reported?
 
-A `use` import introduces a name that is already taken by another declaration in the same namespace scope. In the example, the `use` statement imports `SomeOtherNamespace\Foo` as `Foo`, but there is also a class named `Foo` declared in the same namespace. This creates a naming conflict that PHP cannot resolve.
+A `use` import introduces a name that is already taken by another declaration in the same namespace scope. In the example, the class `Foo` is declared in the `App` namespace, and then a `use` statement tries to import `SomeOtherNamespace\Foo` as `Foo`. This creates a naming conflict that PHP cannot resolve.
 
 This is a PHP compile-time error -- having two definitions for the same name in the same scope is not allowed.
 
@@ -33,12 +33,12 @@ Use an alias for the imported name to avoid the conflict:
 
  namespace App;
 
--use SomeOtherNamespace\Foo;
-+use SomeOtherNamespace\Foo as OtherFoo;
-
  class Foo
  {
  }
+
+-use SomeOtherNamespace\Foo;
++use SomeOtherNamespace\Foo as OtherFoo;
 ```
 
 Or remove the conflicting `use` statement if it is not needed:
@@ -48,9 +48,9 @@ Or remove the conflicting `use` statement if it is not needed:
 
  namespace App;
 
--use SomeOtherNamespace\Foo;
--
  class Foo
  {
  }
+-
+-use SomeOtherNamespace\Foo;
 ```

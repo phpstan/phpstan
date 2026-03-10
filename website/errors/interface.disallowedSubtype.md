@@ -1,6 +1,6 @@
 ---
 title: "interface.disallowedSubtype"
-shortDescription: "Class implements a sealed interface that does not allow this subtype."
+shortDescription: "Interface extends a sealed interface that does not allow this subtype."
 ignorable: true
 ---
 
@@ -9,43 +9,43 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-/**
- * @phpstan-sealed
- * @phpstan-require-extends AllowedImplementation
- */
-interface Contract
+/** @phpstan-sealed AllowedInterface */
+interface SealedInterface
 {
 }
 
-class AllowedImplementation implements Contract
+interface AllowedInterface extends SealedInterface
 {
 }
 
-class DisallowedImplementation implements Contract
+interface DisallowedInterface extends SealedInterface
 {
 }
 ```
 
 ## Why is it reported?
 
-The interface or class restricts which types are allowed to extend or implement it using `AllowedSubTypesClassReflectionExtension`. The reported class is not in the list of allowed subtypes. This mechanism enforces closed hierarchies where only specific implementations are permitted, similar to sealed classes in other languages.
+The interface extends another interface that has been marked as sealed using the `@phpstan-sealed` PHPDoc tag. A sealed interface restricts which types are allowed to extend it. The `DisallowedInterface` is not listed among the allowed subtypes, so PHPStan reports it.
+
+This mechanism enforces closed hierarchies where only specific implementations are permitted, similar to sealed classes in other languages.
 
 ## How to fix it
 
-If the class should be an allowed subtype, register it with the appropriate extension. Otherwise, use a different approach that does not require implementing the restricted interface:
+Add the interface to the list of allowed subtypes in the sealed declaration:
 
 ```diff-php
--class DisallowedImplementation implements Contract
-+class DisallowedImplementation
+-/** @phpstan-sealed AllowedInterface */
++/** @phpstan-sealed AllowedInterface|DisallowedInterface */
+ interface SealedInterface
  {
  }
 ```
 
-Or restructure the code to extend one of the allowed implementations:
+Or remove the sealed parent from the interface declaration if it should not extend the sealed interface:
 
 ```diff-php
--class DisallowedImplementation implements Contract
-+class DisallowedImplementation extends AllowedImplementation
+-interface DisallowedInterface extends SealedInterface
++interface DisallowedInterface
  {
  }
 ```

@@ -9,7 +9,10 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-$result = 1 + new stdClass();
+function add(int $a, bool $flag): int
+{
+	return $a + $flag;
+}
 ```
 
 ## Why is it reported?
@@ -23,13 +26,20 @@ This rule is part of [phpstan-strict-rules](https://github.com/phpstan/phpstan-s
 Ensure the right operand is a numeric type:
 
 ```diff-php
--$result = 1 + $input;
-+$result = 1 + (int) $input;
+-function add(int $a, bool $flag): int
++function add(int $a, int $b): int
+ {
+-	return $a + $flag;
++	return $a + $b;
+ }
 ```
 
-Or use the correct operation for the intended types:
+Or cast the value explicitly:
 
 ```diff-php
--$result = $string + $otherString;
-+$result = $number + $otherNumber;
+ function add(int $a, bool $flag): int
+ {
+-	return $a + $flag;
++	return $a + (int) $flag;
+ }
 ```

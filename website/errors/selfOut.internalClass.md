@@ -1,6 +1,6 @@
 ---
 title: "selfOut.internalClass"
-shortDescription: "Tag @phpstan-self-out references an internal class from another package."
+shortDescription: "Tag @phpstan-self-out references an internal class."
 ignorable: true
 ---
 
@@ -9,23 +9,18 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	class InternalType {}
+}
 
-// Defined in a third-party package:
-// /** @internal */
-// class InternalHelper {}
-
-use ThirdParty\InternalHelper;
-
-class MyClass
-{
-    /**
-     * @phpstan-self-out self&InternalHelper
-     */
-    public function apply(): void
-    {
-        // ...
-    }
+namespace App {
+	class Builder {
+		/**
+		 * @phpstan-self-out \Vendor\InternalType
+		 */
+		public function build(): void {}
+	}
 }
 ```
 
@@ -38,23 +33,12 @@ The `@phpstan-self-out` PHPDoc tag references a class that is marked as `@intern
 Replace the internal class with a public type:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use ThirdParty\InternalHelper;
-+use ThirdParty\PublicInterface;
-
- class MyClass
- {
-     /**
--     * @phpstan-self-out self&InternalHelper
-+     * @phpstan-self-out self&PublicInterface
-      */
-     public function apply(): void
-     {
-         // ...
-     }
+ class Builder {
+ 	/**
+-	 * @phpstan-self-out \Vendor\InternalType
++	 * @phpstan-self-out \Vendor\PublicType
+ 	 */
+ 	public function build(): void {}
  }
 ```
 

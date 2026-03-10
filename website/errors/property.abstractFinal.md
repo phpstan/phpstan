@@ -11,7 +11,9 @@ ignorable: false
 
 abstract class Foo
 {
-	abstract final public string $name { get; } // ERROR: Property cannot be both abstract and final.
+	abstract public string $name {
+		final get;
+	}
 }
 ```
 
@@ -19,33 +21,32 @@ abstract class Foo
 
 A property (or its hook) cannot be both `abstract` and `final`. The `abstract` modifier requires subclasses to provide an implementation, while `final` prevents subclasses from overriding it. These two modifiers are mutually exclusive and combining them is a contradiction that PHP does not allow.
 
-This also applies when an abstract property has a final hook without a body.
+In the example above, the property is declared `abstract` and the `get` hook is declared `final` without a body. A `final` hook without a body is still abstract (it has no implementation), so this creates a conflict -- the hook would need to be implemented by subclasses but the `final` modifier prevents that.
 
 ## How to fix it
 
-Remove one of the conflicting modifiers. If the property should be overridden by subclasses, keep `abstract`:
+Remove the `final` modifier from the abstract hook:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  abstract class Foo
  {
--	abstract final public string $name { get; }
-+	abstract public string $name { get; }
+ 	abstract public string $name {
+-		final get;
++		get;
+ 	}
  }
 ```
 
-If the property should not be overridden, provide an implementation and use `final`:
+Or provide an implementation and use `final` to prevent further overriding:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
 -abstract class Foo
 +class Foo
  {
--	abstract final public string $name { get; }
-+	final public string $name {
-+		get => 'default';
-+	}
+-	abstract public string $name {
+-		final get;
++	public string $name {
++		final get => 'default';
+ 	}
  }
 ```

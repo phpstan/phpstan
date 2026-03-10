@@ -9,15 +9,19 @@ ignorable: false
 ```php
 <?php declare(strict_types = 1);
 
-abstract class Base
+interface HasValue
 {
-	abstract public string $name { get; set; }
+	public int $value { get; }
 }
 
-class Child extends Base
+class Foo implements HasValue
 {
-	public string $name { // ERROR: Property Child::$name overriding readable property Base::$name also has to be readable.
-		set => $value;
+	private int $stored = 0;
+
+	public int $value {
+		set {
+			$this->stored = $value;
+		}
 	}
 }
 ```
@@ -26,6 +30,8 @@ class Child extends Base
 
 When a child class overrides a property from a parent class or interface, it must preserve the readability contract. If the parent property is readable (has a `get` hook or is a regular property), the overriding property must also be readable. Removing readability from an overriding property would break the [Liskov Substitution Principle](https://en.wikipedia.org/wiki/Liskov_substitution_principle) -- code that expects to read the property based on the parent type would fail.
 
+In the example above, the interface `HasValue` declares `$value` as readable (`get`), but the implementing class defines only a `set` hook that stores to a different field. This makes the property virtual and write-only, violating the readability contract.
+
 This rule applies to PHP 8.4+ property hooks.
 
 ## How to fix it
@@ -33,18 +39,17 @@ This rule applies to PHP 8.4+ property hooks.
 Add a `get` hook to the overriding property so it remains readable:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- abstract class Base
+ class Foo implements HasValue
  {
- 	abstract public string $name { get; set; }
- }
+ 	private int $stored = 0;
 
- class Child extends Base
- {
- 	public string $name {
-+		get => $this->name;
- 		set => $value;
+ 	public int $value {
++		get {
++			return $this->stored;
++		}
+ 		set {
+ 			$this->stored = $value;
+ 		}
  	}
  }
 ```

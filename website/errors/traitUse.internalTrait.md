@@ -9,32 +9,17 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-trait InternalTrait
-{
-    public function doSomething(): void
-    {
-        // ...
-    }
+namespace Vendor {
+	/** @internal */
+	trait InternalTrait {
+		public function doSomething(): void {}
+	}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\InternalTrait;
-
-class Foo
-{
-    use InternalTrait;
+namespace App {
+	class MyClass {
+		use \Vendor\InternalTrait;
+	}
 }
 ```
 
@@ -49,17 +34,11 @@ Using an internal trait from another package creates a dependency on implementat
 Use a public (non-internal) trait from the package instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use SomeLibrary\InternalTrait;
-+use SomeLibrary\PublicTrait;
-
- class Foo
- {
--    use InternalTrait;
-+    use PublicTrait;
+ namespace App {
+ 	class MyClass {
+-		use \Vendor\InternalTrait;
++		use \Vendor\PublicTrait;
+ 	}
  }
 ```
 

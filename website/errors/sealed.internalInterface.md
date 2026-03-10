@@ -1,6 +1,6 @@
 ---
 title: "sealed.internalInterface"
-shortDescription: "Tag @phpstan-sealed references an internal interface from another package."
+shortDescription: "Tag @phpstan-sealed references an internal interface."
 ignorable: true
 ---
 
@@ -9,37 +9,29 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-interface InternalInterface
-{
+namespace Vendor {
+	/** @internal */
+	interface InternalInterface {}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\InternalInterface;
-
-/**
- * @phpstan-sealed InternalInterface
- */
-class Foo
-{
+namespace App {
+	/** @phpstan-sealed \Vendor\InternalInterface */
+	class MyBase {}
 }
 ```
 
 ## Why is it reported?
 
-A `@phpstan-sealed` PHPDoc tag references an interface that is marked as `@internal`. Internal types are not part of the package's public API and may change or be removed without notice.
+The `@phpstan-sealed` PHPDoc tag references an interface that is marked as `@internal`. Internal interfaces are not part of the public API of their package and may change or be removed without notice. Referencing an internal interface in a `@phpstan-sealed` tag creates a dependency on an implementation detail that could break at any time.
 
 ## How to fix it
 
-Use a public (non-internal) interface in the `@phpstan-sealed` tag instead. If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.
+Use a public (non-internal) interface in the `@phpstan-sealed` tag:
+
+```diff-php
+-/** @phpstan-sealed \Vendor\InternalInterface */
++/** @phpstan-sealed \Vendor\PublicInterface */
+ class MyBase {}
+```
+
+If the interface is internal to the same package, the error will not be reported. The `@internal` restriction only applies to cross-package usage.

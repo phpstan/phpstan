@@ -9,12 +9,15 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	enum InternalStatus: string {
+		case Active = 'active';
+	}
+}
 
-use Vendor\Internal\Status;
-
-function doFoo(Status $status): void // ERROR: Parameter $status has typehint with internal enum Vendor\Internal\Status.
-{
+namespace App {
+	function process(\Vendor\InternalStatus $status): void {}
 }
 ```
 
@@ -27,16 +30,9 @@ The parameter type hint references an enum that is marked as `@internal`. Intern
 Use the public API provided by the package instead of referencing internal enums directly:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use Vendor\Internal\Status;
-+use Vendor\PublicStatus;
-
--function doFoo(Status $status): void
-+function doFoo(PublicStatus $status): void
- {
+ namespace App {
+-	function process(\Vendor\InternalStatus $status): void {}
++	function process(\Vendor\PublicStatus $status): void {}
  }
 ```
 

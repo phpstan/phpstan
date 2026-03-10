@@ -1,7 +1,8 @@
 ---
 title: "attribute.deprecatedInterface"
-shortDescription: "Attribute references a deprecated interface."
+shortDescription: "Attribute references a deprecated interface (deprecation-rules)."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -10,26 +11,32 @@ ignorable: true
 <?php declare(strict_types = 1);
 
 /** @deprecated Use NewInterface instead */
-interface OldInterface {}
+interface OldInterface
+{
+}
 
 #[OldInterface]
-class Foo {}
+class Foo
+{
+}
 ```
 
 ## Why is it reported?
 
-An attribute references an interface that has been marked as `@deprecated`. Using deprecated interfaces in attributes should be avoided because they are scheduled for removal in a future version.
-
 This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) extension.
+
+An attribute references an interface that has been marked as `@deprecated`. Deprecated interfaces are planned for removal in a future version, and attributes should not rely on them.
+
+Note: triggering this identifier requires using an interface as an attribute, which PHP does not support. PHPStan therefore always also reports an `attribute.notAttribute` error, and in practice the deprecation identifier is not reported alongside it.
 
 ## How to fix it
 
-Use the replacement suggested in the deprecation message:
+Replace the deprecated interface with a proper attribute class:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
 -#[OldInterface]
-+#[NewInterface]
- class Foo {}
++#[NewAttribute]
+ class Foo
+ {
+ }
 ```

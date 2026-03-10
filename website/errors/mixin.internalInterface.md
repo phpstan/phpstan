@@ -9,15 +9,16 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	interface InternalInterface {
+		public function doFoo(): void;
+	}
+}
 
-use Vendor\Internal\RepositoryInterface;
-
-/**
- * @mixin RepositoryInterface
- */
-class Foo // ERROR: PHPDoc tag @mixin references internal interface Vendor\Internal\RepositoryInterface.
-{
+namespace App {
+	/** @mixin \Vendor\InternalInterface */
+	class MyClass {}
 }
 ```
 
@@ -30,19 +31,10 @@ The `@mixin` PHPDoc tag references an interface that is marked as `@internal`. I
 Use a public (non-internal) interface or class provided by the package instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use Vendor\Internal\RepositoryInterface;
-+use Vendor\PublicRepositoryInterface;
-
- /**
-- * @mixin RepositoryInterface
-+ * @mixin PublicRepositoryInterface
-  */
- class Foo
- {
+ namespace App {
+-	/** @mixin \Vendor\InternalInterface */
++	/** @mixin \Vendor\PublicInterface */
+ 	class MyClass {}
  }
 ```
 

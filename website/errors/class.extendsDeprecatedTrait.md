@@ -1,7 +1,8 @@
 ---
 title: "class.extendsDeprecatedTrait"
-shortDescription: "Class extends a deprecated class."
+shortDescription: "Class extends a deprecated trait."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,12 +10,12 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-/** @deprecated Use NewBaseClass instead */
-class OldBaseClass
+/** @deprecated Use NewHelper instead */
+trait OldTrait
 {
 }
 
-class Foo extends OldBaseClass
+class Foo extends OldTrait
 {
 }
 ```
@@ -23,19 +24,18 @@ class Foo extends OldBaseClass
 
 This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) extension.
 
-A class extends a class that has been marked as `@deprecated`. Extending deprecated classes ties your code to implementations that are planned for removal and should be migrated away from.
+A class extends a trait that has been marked as `@deprecated`. Deprecated traits are planned for removal in a future version.
 
-In the example above, class `Foo` extends `OldBaseClass`, which is deprecated.
+Note: triggering this identifier requires a class to extend a trait, which PHP itself forbids. PHPStan therefore always also reports a non-ignorable `class.extendsTrait` error alongside this one.
 
 ## How to fix it
 
-Replace the deprecated base class with its recommended replacement:
+Use `use` to include the trait, or extend a proper class instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
--class Foo extends OldBaseClass
-+class Foo extends NewBaseClass
+-class Foo extends OldTrait
++class Foo
  {
++	use NewHelper;
  }
 ```

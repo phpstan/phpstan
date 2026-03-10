@@ -11,7 +11,12 @@ ignorable: true
 
 class Foo
 {
-	public int $value = 0;
+	private int $value;
+
+	public function __construct(int $value)
+	{
+		$this->value = $value;
+	}
 
 	public function doFoo(): void
 	{
@@ -24,7 +29,7 @@ class Foo
 
 ## Why is it reported?
 
-The `isset()` check (or `??` null-coalescing operator, or `empty()`) is used on a property that has a native type and is known to be initialized. A typed property that is initialized can never be `null` (unless `null` is part of its declared type) and can never be in an uninitialized state at the point of the check. The `isset()` call is therefore redundant -- it always evaluates to `true`.
+The `isset()` check is used on a property that has a native type and is known to be initialized. PHPStan determined that `$this->value` is always assigned in the constructor, so the property can never be in an uninitialized state at the point of the check. Since the type `int` is also not nullable, `isset()` always evaluates to `true`, making the check redundant.
 
 ## How to fix it
 
@@ -40,9 +45,9 @@ Remove the unnecessary `isset()` check:
  }
 ```
 
-If the property might legitimately be uninitialized in some code paths, declare it without a default value and consider making it nullable:
+If the property might legitimately be uninitialized in some code paths, consider making it nullable:
 
 ```diff-php
--public int $value = 0;
-+public ?int $value = null;
+-private int $value;
++private ?int $value = null;
 ```

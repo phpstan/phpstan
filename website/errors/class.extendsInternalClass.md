@@ -9,9 +9,13 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// Assuming SomeLibrary\InternalBase is marked @internal
-class MyClass extends \SomeLibrary\InternalBase
-{
+namespace Vendor {
+	/** @internal */
+	class InternalBase {}
+}
+
+namespace App {
+	class MyClass extends \Vendor\InternalBase {}
 }
 ```
 
@@ -24,21 +28,13 @@ The class extends another class that is marked as `@internal` by its declaring l
 Extend a public base class provided by the library instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
--class MyClass extends \SomeLibrary\InternalBase
-+class MyClass extends \SomeLibrary\PublicBase
- {
- }
+-class MyClass extends \Vendor\InternalBase {}
++class MyClass extends \Vendor\PublicBase {}
 ```
 
 Or implement a public interface instead of extending the internal class:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
--class MyClass extends \SomeLibrary\InternalBase
-+class MyClass implements \SomeLibrary\PublicInterface
- {
- }
+-class MyClass extends \Vendor\InternalBase {}
++class MyClass implements \Vendor\PublicInterface {}
 ```

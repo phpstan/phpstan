@@ -2,6 +2,7 @@
 title: "methodTag.deprecatedTrait"
 shortDescription: "PHPDoc @method tag references a deprecated trait."
 ignorable: true
+unlikely: true
 ---
 
 This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) extension.

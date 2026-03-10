@@ -9,42 +9,36 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// Assuming SomeLibrary\InternalException is marked @internal
-try {
-    someLibraryCall();
-} catch (\SomeLibrary\InternalException $e) {
-    // ...
+namespace Vendor {
+	/** @internal */
+	interface InternalExceptionInterface {}
+}
+
+namespace App {
+	function doFoo(): void
+	{
+		try {
+			throw new \Exception();
+		} catch (\Vendor\InternalExceptionInterface $e) {
+		}
+	}
 }
 ```
 
 ## Why is it reported?
 
-The `catch` block references an interface (or class) that is marked as `@internal` by its declaring library. Internal types are implementation details not meant for use by external code. Depending on internal types in `catch` blocks makes the code fragile because the library may rename, remove, or restructure those types without notice.
+A `catch` block references an interface that is marked as `@internal`. Internal types are not meant to be used outside of the package or namespace where they are defined. Catching internal interfaces creates a dependency on implementation details that may change without notice in future versions.
 
 ## How to fix it
 
-Catch the public exception type that the library exposes instead:
+Catch a public (non-internal) exception type instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  try {
-     someLibraryCall();
--} catch (\SomeLibrary\InternalException $e) {
-+} catch (\SomeLibrary\PublicException $e) {
-     // ...
- }
-```
-
-Or catch a broader, public exception type:
-
-```diff-php
- <?php declare(strict_types = 1);
-
- try {
-     someLibraryCall();
--} catch (\SomeLibrary\InternalException $e) {
+ 	throw new \Exception();
+-} catch (\Vendor\InternalExceptionInterface $e) {
 +} catch (\RuntimeException $e) {
-     // ...
  }
 ```
+
+If the library provides a public exception class or interface for this purpose, catch that instead.

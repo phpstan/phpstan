@@ -2,6 +2,7 @@
 title: "possiblyImpure.propertyUnset"
 shortDescription: "Pure function unsets a property which modifies object state."
 ignorable: true
+feasible: false
 ---
 
 ## Code example

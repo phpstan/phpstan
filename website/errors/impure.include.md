@@ -9,8 +9,8 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-#[\Pure]
-function loadTranslations(string $locale): array
+/** @phpstan-pure */
+function loadTranslations(string $locale): mixed
 {
 	return include __DIR__ . '/translations/' . $locale . '.php';
 }
@@ -18,17 +18,17 @@ function loadTranslations(string $locale): array
 
 ## Why is it reported?
 
-A function or method marked as pure must not have side effects and must depend only on its parameters. Using `include` or `include_once` inside a pure function is an impure operation because it reads a file from disk and executes its contents. File system access is inherently impure since the result can vary depending on external state such as file contents, file existence, or file permissions.
+A function or method marked as `@phpstan-pure` must not have side effects and must depend only on its parameters. Using `include` or `include_once` inside a pure function is an impure operation because it reads a file from disk and executes its contents. File system access is inherently impure since the result can vary depending on external state such as file contents, file existence, or file permissions.
 
 ## How to fix it
 
-Remove the `#[\Pure]` attribute if the function needs to use `include`:
+Remove the `@phpstan-pure` annotation if the function needs to use `include`:
 
 ```diff-php
  <?php declare(strict_types = 1);
 
--#[\Pure]
- function loadTranslations(string $locale): array
+-/** @phpstan-pure */
+ function loadTranslations(string $locale): mixed
  {
  	return include __DIR__ . '/translations/' . $locale . '.php';
  }
@@ -39,12 +39,12 @@ Alternatively, restructure the code so that the file loading happens outside the
 ```diff-php
  <?php declare(strict_types = 1);
 
--#[\Pure]
--function loadTranslations(string $locale): array
+-/** @phpstan-pure */
+-function loadTranslations(string $locale): mixed
 -{
 -	return include __DIR__ . '/translations/' . $locale . '.php';
 -}
-+#[\Pure]
++/** @phpstan-pure */
 +function filterTranslations(array $translations, string $key): string
 +{
 +	return $translations[$key] ?? $key;

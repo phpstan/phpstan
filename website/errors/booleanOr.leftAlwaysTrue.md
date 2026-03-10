@@ -9,48 +9,50 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-function doFoo(int $x): void
+function doFoo(int $i): void
 {
-	if ($x >= 0 || $x > 5) {
-		// ...
+	$t = true;
+	if ($t || $i > 0) {
+		echo 'left always true';
 	}
 }
 ```
 
 ## Why is it reported?
 
-The left side of a `||` (or `or`) expression always evaluates to `true`. Because `||` uses short-circuit evaluation, when the left side is always true, the right side is never evaluated, making the entire expression pointless.
+The left side of a `||` expression always evaluates to `true`. Because `||` uses short-circuit evaluation, when the left side is always true, the right side is never evaluated, making the entire expression always `true`.
 
-In the example above, if `$x >= 0` is always true in the given scope, the condition `$x > 5` on the right side is unreachable.
+In the example above, `$t` is always `true`, so `$i > 0` on the right side is never evaluated.
 
 ## How to fix it
 
-Review the logic of the condition. The left side being always true usually means one of the following:
-
-The condition is redundant and can be simplified:
+Simplify the condition by removing the redundant parts:
 
 ```diff-php
  <?php declare(strict_types = 1);
 
- function doFoo(int $x): void
+ function doFoo(int $i): void
  {
--	if ($x >= 0 || $x > 5) {
-+	if ($x >= 0) {
- 		// ...
- 	}
+-	$t = true;
+-	if ($t || $i > 0) {
+-		echo 'left always true';
+-	}
++	echo 'left always true';
  }
 ```
 
-Or the condition contains a logic error and should use `&&` instead:
+Or fix the left side if it should not always be true:
 
 ```diff-php
  <?php declare(strict_types = 1);
 
- function doFoo(int $x): void
+-function doFoo(int $i): void
++function doFoo(int $i, bool $flag): void
  {
--	if ($x >= 0 || $x > 5) {
-+	if ($x >= 0 && $x > 5) {
- 		// ...
+-	$t = true;
+-	if ($t || $i > 0) {
++	if ($flag || $i > 0) {
+ 		echo 'something';
  	}
  }
 ```

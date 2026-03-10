@@ -2,6 +2,7 @@
 title: "new.void"
 shortDescription: "Result of a new expression is used in a context where it evaluates to void."
 ignorable: true
+feasible: false
 ---
 
 ## Code example

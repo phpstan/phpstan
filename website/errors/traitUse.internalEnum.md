@@ -2,6 +2,7 @@
 title: "traitUse.internalEnum"
 shortDescription: "Trait use statement references an internal enum from another package."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,30 +10,17 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-enum InternalStatus: string
-{
-	case Active = 'active';
-	case Inactive = 'inactive';
+namespace Vendor {
+	/** @internal */
+	enum InternalEnum {
+		case A;
+	}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\InternalStatus;
-
-class Foo
-{
-    use InternalStatus;
+namespace App {
+	class MyClass {
+		use \Vendor\InternalEnum;
+	}
 }
 ```
 
@@ -40,24 +28,18 @@ class Foo
 
 The `use` statement inside a class body references an enum that is marked as `@internal`. Internal enums are not part of the public API of the package that defines them. They may change or be removed in any version without notice.
 
-While using an enum in a `use` statement is already incorrect (only traits can be used this way), the internal access error is also reported because the referenced symbol is internal to another package.
+Using an enum in a `use` statement is already incorrect (only traits can be used this way), but the internal access error is also reported because the referenced symbol is internal to another package.
 
 ## How to fix it
 
 Only traits can be used in a class body `use` statement. If you need functionality from the library, look for a public trait that provides it:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use SomeLibrary\InternalStatus;
-+use SomeLibrary\PublicTrait;
-
- class Foo
- {
--    use InternalStatus;
-+    use PublicTrait;
+ namespace App {
+ 	class MyClass {
+-		use \Vendor\InternalEnum;
++		use \Vendor\PublicTrait;
+ 	}
  }
 ```
 

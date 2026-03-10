@@ -2,6 +2,7 @@
 title: "attribute.internalTrait"
 shortDescription: "Attribute references an internal trait."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,27 +10,42 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
+namespace Vendor {
+	/** @internal */
+	trait InternalTrait {}
 
-namespace SomeLibrary;
-
-/** @internal */
-trait InternalTrait
-{
+	class Foo {
+		use InternalTrait;
+	}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
+namespace App {
+	use Vendor\InternalTrait;
 
-// In your code, referencing the internal trait in an attribute context:
-// Attribute references internal trait SomeLibrary\InternalTrait.
+	#[InternalTrait]
+	class Bar {}
+}
 ```
 
 ## Why is it reported?
 
 An attribute references a trait that is marked as `@internal`. Internal types are not part of the package's public API and may change or be removed without notice. Using internal types in attribute contexts creates a fragile dependency on implementation details.
 
+Traits cannot be used as attribute classes, so using a trait in an attribute context is invalid regardless of the `@internal` annotation.
+
 ## How to fix it
 
-Use a public (non-internal) type instead. If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.
+Use a public (non-internal) attribute class instead:
+
+```diff-php
+ namespace App;
+
+-use Vendor\InternalTrait;
++use Vendor\PublicAttribute;
+
+-#[InternalTrait]
++#[PublicAttribute]
+ class Bar {}
+```
+
+If no public alternative exists, define your own attribute class.

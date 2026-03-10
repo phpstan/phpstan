@@ -1,6 +1,6 @@
 ---
 title: "property.deprecatedTrait"
-shortDescription: "Property type references a deprecated trait or class."
+shortDescription: "Property type references a deprecated trait."
 ignorable: true
 ---
 
@@ -10,34 +10,32 @@ ignorable: true
 <?php declare(strict_types = 1);
 
 /** @deprecated Use NewHelper instead */
-class Helper
+trait OldHelper
 {
-	public int $value = 0;
 }
 
-class Service
+class Foo
 {
-	/** @var Helper */
+	/** @var OldHelper */
 	public $helper;
 }
 ```
 
 ## Why is it reported?
 
-The property's native type declaration references a deprecated trait (or class that is actually a trait). Continuing to use deprecated types couples code to APIs that are planned for removal.
+This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) extension.
 
-This also triggers when accessing a property of an object whose declaring class is deprecated.
+A property has a PHPDoc type that references a trait marked as `@deprecated`. Deprecated traits are planned for removal in a future version, and property types should not rely on them.
 
 ## How to fix it
 
-Replace the deprecated type with its recommended replacement:
+Replace the deprecated trait with a non-deprecated type:
 
 ```diff-php
- class Service
+ class Foo
  {
--	/** @var Helper */
--	public $helper;
+-	/** @var OldHelper */
 +	/** @var NewHelper */
-+	public $helper;
+ 	public $helper;
  }
 ```

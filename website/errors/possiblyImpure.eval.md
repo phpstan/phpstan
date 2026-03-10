@@ -2,6 +2,7 @@
 title: "possiblyImpure.eval"
 shortDescription: "Pure function possibly uses eval which can have arbitrary side effects."
 ignorable: true
+feasible: false
 ---
 
 ## Code example

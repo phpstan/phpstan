@@ -9,14 +9,16 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	interface InternalInterface {}
+}
 
-use Some\Internal\InternalInterface;
-
-function checkHandler(object $obj): void
-{
-	if ($obj instanceof InternalInterface) { // ERROR: Instanceof references internal interface InternalInterface.
-		// ...
+namespace App {
+	function checkHandler(object $obj): void
+	{
+		if ($obj instanceof \Vendor\InternalInterface) {
+		}
 	}
 }
 ```
@@ -30,18 +32,10 @@ The interface used in the `instanceof` expression has been marked as `@internal`
 Use a public interface or class provided by the package instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use Some\Internal\InternalInterface;
-+use Some\PublicInterface;
-
  function checkHandler(object $obj): void
  {
--	if ($obj instanceof InternalInterface) {
-+	if ($obj instanceof PublicInterface) {
- 		// ...
+-	if ($obj instanceof \Vendor\InternalInterface) {
++	if ($obj instanceof \Vendor\PublicInterface) {
  	}
  }
 ```

@@ -1,6 +1,6 @@
 ---
 title: "argument.unresolvableType"
-shortDescription: "Generic template type cannot be resolved from the argument type."
+shortDescription: "Argument type becomes unresolvable after generic template type substitution."
 ignorable: true
 ---
 
@@ -9,39 +9,40 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-/**
- * @template T
- * @param T[] $items
- * @return T|null
- */
-function firstOrNull(array $items): mixed
+class Foo
 {
-	return count($items) > 0 ? $items[0] : null;
+	/**
+	 * @template T
+	 * @param T $p
+	 * @param value-of<T> $v
+	 */
+	public function doBar($p, $v): void
+	{
+	}
 }
 
-function doFoo(mixed $list): void
+function doFoo(Foo $foo): void
 {
-	$first = firstOrNull($list);
+	$foo->doBar(0, 0);
 }
 ```
 
 ## Why is it reported?
 
-PHPStan reports this error when calling a [generic](/blog/generics-in-php-using-phpdocs) function or method and it cannot resolve the template type from the provided arguments. Generic functions declare template types via `@template` PHPDoc tags, and the return type depends on what gets passed as arguments.
+PHPStan reports this error when calling a [generic](/blog/generics-in-php-using-phpdocs) function or method and a parameter's type becomes unresolvable after template type substitution. This happens when the template type resolves to a value that makes a dependent type meaningless.
 
-In the example above, `firstOrNull` expects `T[]` so that it can resolve `T`. When `mixed` is passed instead of a specific array type, PHPStan cannot determine what `T` is. To prevent `mixed` from being propagated further, PHPStan reports this error and asks for a more specific argument.
-
-Learn more: [Solving PHPStan error "Unable to resolve the template type"](/blog/solving-phpstan-error-unable-to-resolve-template-type)
+In the example above, `doBar` declares `value-of<T>` for the second parameter `$v`. When `T` resolves to `int` (because `0` is passed as the first argument), `value-of<int>` is not a valid type construct since `int` is not an array or enum. The resolved parameter type becomes unresolvable.
 
 ## How to fix it
 
-Pass a more specific type so that PHPStan can resolve the template type from the argument:
+Pass an argument whose type makes the dependent type parameter resolvable. For `value-of<T>`, `T` should be an array or an enum type:
 
 ```diff-php
--function doFoo(mixed $list): void
-+/** @param int[] $list */
-+function doFoo(array $list): void
+ function doFoo(Foo $foo): void
  {
- 	$first = firstOrNull($list);
+-	$foo->doBar(0, 0);
++	/** @var array{a: 1, b: 2} $arr */
++	$arr = ['a' => 1, 'b' => 2];
++	$foo->doBar($arr, 1);
  }
 ```

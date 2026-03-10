@@ -6,10 +6,12 @@ ignorable: true
 
 ## Code example
 
+This error is reported when the same trait name is declared in multiple files within the analysed codebase:
+
 ```php
+// file1.php
 <?php declare(strict_types = 1);
 
-// file: src/Helpers/MyTrait.php
 namespace App\Helpers;
 
 trait MyTrait
@@ -21,9 +23,9 @@ trait MyTrait
 ```
 
 ```php
+// file2.php
 <?php declare(strict_types = 1);
 
-// file: src/Legacy/MyTrait.php
 namespace App\Helpers;
 
 trait MyTrait
@@ -36,7 +38,7 @@ trait MyTrait
 
 ## Why is it reported?
 
-The same trait name is declared in multiple files. When PHP autoloading encounters two traits with the same fully qualified name, only one will be loaded. The other declaration is effectively dead code, which can lead to confusion and unexpected behaviour depending on which file gets loaded first.
+The same trait name is declared in multiple files within the registered [stub files](/user-guide/stub-files).
 
 ## How to fix it
 
@@ -45,7 +47,7 @@ Rename one of the duplicate traits to give it a unique fully qualified name:
 ```diff-php
  <?php declare(strict_types = 1);
 
- // file: src/Legacy/MyTrait.php
+ // file2.php
 -namespace App\Helpers;
 +namespace App\Legacy;
 

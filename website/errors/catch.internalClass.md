@@ -9,29 +9,19 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-class InternalException extends \RuntimeException
-{
+namespace Vendor {
+	/** @internal */
+	class InternalException extends \Exception {}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\InternalException;
-
-try {
-	// ...
-} catch (InternalException $e) {
-	// ...
+namespace App {
+	function doFoo(): void
+	{
+		try {
+			throw new \Exception();
+		} catch (\Vendor\InternalException $e) {
+		}
+	}
 }
 ```
 
@@ -44,17 +34,10 @@ A `catch` block is catching an exception class that is marked as `@internal`. In
 Catch a public (non-internal) parent exception class instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use SomeLibrary\InternalException;
-
  try {
- 	// ...
--} catch (InternalException $e) {
+ 	throw new \Exception();
+-} catch (\Vendor\InternalException $e) {
 +} catch (\RuntimeException $e) {
- 	// ...
  }
 ```
 

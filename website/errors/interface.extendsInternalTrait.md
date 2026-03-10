@@ -2,6 +2,7 @@
 title: "interface.extendsInternalTrait"
 shortDescription: "Interface extends a trait marked as @internal."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,35 +10,33 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	trait HelperTrait {}
 
-use Some\Internal\HelperTrait;
+	class Foo {
+		use HelperTrait;
+	}
+}
 
-interface MyInterface extends HelperTrait // ERROR: Interface MyInterface extends internal trait HelperTrait.
-{
+namespace App {
+	interface MyInterface extends \Vendor\HelperTrait {}
 }
 ```
 
 ## Why is it reported?
 
-The interface declaration attempts to extend a trait that is marked as `@internal`. This is problematic for two reasons: first, interfaces cannot extend traits in PHP (this is a language-level error), and second, the trait is internal to its package and not meant to be referenced outside of it. Internal types may change without notice in future versions.
+The interface declaration attempts to extend a trait that is marked as `@internal`. Internal types are not part of the package's public API and may change or be removed without notice.
+
+Interfaces cannot extend traits in PHP -- interfaces can only extend other interfaces. This code is invalid regardless of the `@internal` annotation.
 
 ## How to fix it
 
-Interfaces can only extend other interfaces. Replace the trait reference with the correct interface:
+Extend a public (non-internal) interface instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use Some\Internal\HelperTrait;
-+use Some\PublicInterface;
-
--interface MyInterface extends HelperTrait
-+interface MyInterface extends PublicInterface
- {
- }
+-interface MyInterface extends \Vendor\HelperTrait {}
++interface MyInterface extends \Vendor\PublicInterface {}
 ```
 
 If you need the functionality provided by the trait, define the methods directly in the interface and have implementing classes use the trait separately.

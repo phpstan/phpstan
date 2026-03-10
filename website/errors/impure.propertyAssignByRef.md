@@ -2,6 +2,7 @@
 title: "impure.propertyAssignByRef"
 shortDescription: "Pure function creates a reference to a property, which may cause side effects."
 ignorable: true
+feasible: false
 ---
 
 ## Code example
@@ -25,7 +26,7 @@ class Foo
 
 ## Why is it reported?
 
-The method is declared as pure using `@phpstan-pure`, but it creates a reference to an object property (`$ref = &$this->value`). Assigning a variable by reference to a property is a possibly impure operation because modifying the reference variable later would mutate the object's state, which violates the purity contract.
+The method is declared as pure using `@phpstan-pure`, but it creates a reference to an object property (`$ref = &$this->value`). Assigning a variable by reference to a property is an impure operation because modifying the reference variable later would mutate the object's state, which violates the purity contract.
 
 Pure functions and methods must not have side effects -- they should only compute and return a value based on their inputs.
 

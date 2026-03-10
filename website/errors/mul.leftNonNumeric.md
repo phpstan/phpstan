@@ -9,9 +9,9 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-function multiply(string $a, int $b): int
+function multiply(bool $flag, int $b): int
 {
-	return $a * $b;
+	return $flag * $b;
 }
 ```
 
@@ -26,19 +26,20 @@ This rule is provided by the [phpstan-strict-rules](https://github.com/phpstan/p
 Ensure the left operand is a numeric type before performing multiplication:
 
 ```diff-php
--function multiply(string $a, int $b): int
+-function multiply(bool $flag, int $b): int
 +function multiply(int $a, int $b): int
  {
- 	return $a * $b;
+-	return $flag * $b;
++	return $a * $b;
  }
 ```
 
-If the value is a numeric string, cast it explicitly:
+Or cast the value explicitly:
 
 ```diff-php
- function multiply(string $a, int $b): int
+ function multiply(bool $flag, int $b): int
  {
--	return $a * $b;
-+	return (int) $a * $b;
+-	return $flag * $b;
++	return (int) $flag * $b;
  }
 ```

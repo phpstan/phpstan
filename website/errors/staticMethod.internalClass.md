@@ -9,11 +9,18 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	class InternalService {
+		public static function doFoo(): void {}
+	}
+}
 
-use Internal\CacheDriver;
-
-$data = CacheDriver::getAll();
+namespace App {
+	function test(): void {
+		\Vendor\InternalService::doFoo(); // error: Call to static method doFoo() of internal class Vendor\InternalService from outside its root namespace Vendor.
+	}
+}
 ```
 
 ## Why is it reported?
@@ -22,16 +29,13 @@ A static method is being called on a class that is marked as `@internal`. Intern
 
 ## How to fix it
 
-Use the public API provided by the package instead of accessing internal classes directly.
+Use the public API provided by the package instead of accessing internal classes directly:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use Internal\CacheDriver;
-+use Public\Cache;
-
--$data = CacheDriver::getAll();
-+$data = Cache::getAll();
+ namespace App {
+ 	function test(): void {
+-		\Vendor\InternalService::doFoo();
++		\Vendor\PublicService::doFoo();
+ 	}
+ }
 ```

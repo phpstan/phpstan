@@ -1,6 +1,6 @@
 ---
 title: "method.unresolvableReturnType"
-shortDescription: "Return type of a method call contains a generic type that cannot be resolved."
+shortDescription: "Return type of a method call contains an unresolvable type after template substitution."
 ignorable: true
 ---
 
@@ -9,39 +9,64 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-/**
- * @template T
- */
-class Collection
+interface Loggable
+{
+	public function log(): void;
+}
+
+class Service
 {
 	/**
-	 * @param T $item
-	 * @return T
+	 * @template T of object
+	 * @param T $value
+	 * @return T&Loggable
 	 */
-	public function wrap($item)
+	public function makeLoggable(object $value): object
 	{
-		return $item;
+		return $value;
 	}
 }
 
-/** @var Collection<string> $collection */
-$collection = new Collection();
-$result = $collection->wrap(123);
+class PlainObject {}
+
+function doFoo(Service $service): void
+{
+	$service->makeLoggable(new PlainObject());
+}
 ```
 
 ## Why is it reported?
 
-The return type of a method call contains an unresolvable type. This usually happens with generic (templated) methods where the template type cannot be resolved based on the arguments provided. PHPStan cannot determine what the actual return type will be, which reduces the quality of type analysis for subsequent code.
+PHPStan reports this error when the return type of a method call contains an unresolvable type after generic template substitution. This happens when the template type resolves to a value that makes the return type impossible.
+
+In the example above, `makeLoggable` returns `T&Loggable`. When called with `new PlainObject()`, `T` resolves to `PlainObject`. Since `PlainObject` does not implement `Loggable`, the intersection `PlainObject&Loggable` is impossible and PHPStan cannot determine a valid return type.
 
 ## How to fix it
 
-Ensure that the arguments passed to the method provide enough type information for PHPStan to resolve the template types. This typically means passing arguments that match the expected template parameter types.
+Pass an argument whose type satisfies all constraints in the return type:
 
 ```diff-php
- <?php declare(strict_types = 1);
++class LoggableObject implements Loggable
++{
++	public function log(): void {}
++}
++
+ function doFoo(Service $service): void
+ {
+-	$service->makeLoggable(new PlainObject());
++	$result = $service->makeLoggable(new LoggableObject());
+ }
+```
 
- /** @var Collection<string> $collection */
- $collection = new Collection();
--$result = $collection->wrap(123);
-+$result = $collection->wrap('hello');
+Or constrain the template type to require the interface upfront:
+
+```diff-php
+ /**
+- * @template T of object
++ * @template T of Loggable
+  * @param T $value
+- * @return T&Loggable
++ * @return T
+  */
+ public function makeLoggable(object $value): object
 ```

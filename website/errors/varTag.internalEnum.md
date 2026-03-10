@@ -9,12 +9,21 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	enum InternalEnum {
+		case A;
+	}
+}
 
-use Internal\CacheStrategy;
+namespace App {
+	function getStatus(): object {
+		return new \stdClass();
+	}
 
-/** @var CacheStrategy $strategy */
-$strategy = getStrategy();
+	/** @var \Vendor\InternalEnum $status */
+	$status = getStatus();
+}
 ```
 
 ## Why is it reported?
@@ -23,17 +32,12 @@ The `@var` PHPDoc tag references an enum that is marked as `@internal` in anothe
 
 ## How to fix it
 
-Use the public API type instead of the internal enum in the `@var` tag.
+Use the public API type instead of the internal enum in the `@var` tag:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use Internal\CacheStrategy;
-+use Public\CacheStrategy;
-
--/** @var CacheStrategy $strategy */
-+/** @var CacheStrategy $strategy */
- $strategy = getStrategy();
+ namespace App {
+-	/** @var \Vendor\InternalEnum $status */
++	/** @var \Vendor\PublicEnum $status */
+ 	$status = getStatus();
+ }
 ```

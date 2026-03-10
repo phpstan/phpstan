@@ -9,48 +9,42 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-class SomeClass
-{
-}
+class SomeClass {}
 
 /**
- * @phpstan-import-type SomeClass from AnotherClass
+ * @phpstan-type SomeClass string
  */
-class Foo
+class AnotherClass
 {
 }
 ```
 
 ## Why is it reported?
 
-A type alias imported via `@phpstan-import-type` or defined via `@phpstan-type` conflicts with an existing class, interface, trait, or enum name in the current scope. In the example above, importing a type alias named `SomeClass` conflicts with the existing `SomeClass` class.
+A type alias defined via `@phpstan-type` or imported via `@phpstan-import-type` conflicts with an existing class, interface, trait, or enum name in the current scope. In the example above, defining a type alias named `SomeClass` conflicts with the existing `SomeClass` class.
 
 This ambiguity would make it unclear whether `SomeClass` refers to the actual class or the type alias.
 
 ## How to fix it
 
-Use the `as` keyword to rename the imported type alias to avoid the conflict:
+Choose a different name for the type alias that does not conflict with an existing type:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  /**
-- * @phpstan-import-type SomeClass from AnotherClass
-+ * @phpstan-import-type SomeClass from AnotherClass as SomeClassAlias
+- * @phpstan-type SomeClass string
++ * @phpstan-type SomeClassAlias string
   */
- class Foo
+ class AnotherClass
  {
  }
 ```
 
-Or choose a different name for the local type alias:
+When using `@phpstan-import-type`, use the `as` keyword to rename the imported type alias:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  /**
-- * @phpstan-type MyAlias string
-+ * @phpstan-type MyStringAlias string
+- * @phpstan-import-type SomeClass from AnotherClass
++ * @phpstan-import-type SomeClass from AnotherClass as SomeClassAlias
   */
  class Foo
  {

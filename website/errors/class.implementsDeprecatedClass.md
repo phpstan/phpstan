@@ -1,7 +1,8 @@
 ---
 title: "class.implementsDeprecatedClass"
-shortDescription: "Class implements a deprecated interface."
+shortDescription: "Class implements a deprecated class."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,32 +10,31 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-/** @deprecated Use NewInterface instead */
-interface OldInterface
+/** @deprecated Use NewService instead */
+class OldService
 {
-
 }
 
-class Foo implements OldInterface // reported
+class Foo implements OldService
 {
-
 }
 ```
 
 ## Why is it reported?
 
-The class in the `implements` clause is marked as `@deprecated`. Deprecated symbols are scheduled for removal in a future version, and new code should not rely on them. Continuing to implement a deprecated interface means the code will need to be updated when the deprecated symbol is removed.
+This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) extension.
 
-This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) package.
+A class implements a class (not an interface) that has been marked as `@deprecated`. Deprecated classes are planned for removal in a future version.
+
+Note: triggering this identifier requires a class to implement another class, which PHP itself forbids. PHPStan therefore always also reports a non-ignorable `classImplements.class` error alongside this one.
 
 ## How to fix it
 
-Replace the deprecated interface with its suggested replacement, if one is provided in the deprecation message.
+Implement a proper interface instead of a deprecated class:
 
 ```diff-php
--class Foo implements OldInterface
-+class Foo implements NewInterface
+-class Foo implements OldService
++class Foo implements NewServiceInterface
  {
-
  }
 ```

@@ -10,7 +10,7 @@ ignorable: true
 <?php declare(strict_types = 1);
 
 /**
- * @mixin T
+ * @mixin int&string
  */
 class QueryBuilder
 {
@@ -19,34 +19,34 @@ class QueryBuilder
 
 ## Why is it reported?
 
-The `@mixin` PHPDoc tag contains a type that PHPStan cannot resolve. This typically happens when the type references a template type that is not declared on the current class, references an undefined class, or uses invalid type syntax.
+The `@mixin` PHPDoc tag contains a type that PHPStan cannot resolve. This typically happens when the type expression evaluates to an impossible type, uses invalid type syntax, or references types in a way that produces an error during type resolution.
 
-In the example above, `T` is used in the `@mixin` tag but is not declared as a `@template` type parameter on the class, so PHPStan cannot determine what it refers to.
+In the example above, `int&string` is an impossible intersection type -- no value can be both `int` and `string` at the same time -- so PHPStan cannot resolve it to a meaningful type.
 
 ## How to fix it
 
-If the intent is to use a generic type, declare it with `@template` first:
+Reference a concrete class directly:
 
 ```diff-php
-+/**
-+ * @template T of Connection
-+ * @mixin T
-+ */
--/**
-- * @mixin T
-- */
+ /**
+- * @mixin int&string
++ * @mixin Connection
+  */
  class QueryBuilder
  {
  }
 ```
 
-Or reference a concrete class directly:
+If the intent is to use a generic type, declare it with `@template` first:
 
 ```diff-php
- /**
-- * @mixin T
-+ * @mixin Connection
-  */
++/**
++ * @template T of object
++ * @mixin T
++ */
+-/**
+- * @mixin int&string
+- */
  class QueryBuilder
  {
  }

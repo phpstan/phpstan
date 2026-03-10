@@ -12,7 +12,12 @@ ignorable: false
 trait MyTrait
 {
 	public string $name;
-	public int $name;
+	public string $name;
+}
+
+class Foo
+{
+	use MyTrait;
 }
 ```
 
@@ -28,6 +33,6 @@ Remove the duplicate property declaration:
  trait MyTrait
  {
  	public string $name;
--	public int $name;
+-	public string $name;
  }
 ```

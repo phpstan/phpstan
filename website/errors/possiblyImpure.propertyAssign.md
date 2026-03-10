@@ -2,6 +2,7 @@
 title: "possiblyImpure.propertyAssign"
 shortDescription: "Pure function possibly assigns a value to an object property."
 ignorable: true
+feasible: false
 ---
 
 ## Code example

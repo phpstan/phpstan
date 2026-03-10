@@ -9,25 +9,21 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	class Service {
+		/** @internal */
+		public int $connectionCount = 0;
 
-class Service
-{
-	/** @internal */
-	public int $connectionCount = 0;
+		public function getConnectionCount(): int {
+			return $this->connectionCount;
+		}
+	}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-namespace External;
-
-use App\Service;
-
-function checkConnections(Service $service): int
-{
-	return $service->connectionCount; // ERROR: Access to internal property App\Service::$connectionCount from outside its root namespace App.
+namespace App {
+	function checkConnections(\Vendor\Service $service): int {
+		return $service->connectionCount; // error: Access to internal property Vendor\Service::$connectionCount from outside its root namespace Vendor.
+	}
 }
 ```
 
@@ -42,16 +38,11 @@ PHPStan checks internal access based on the root namespace. Code within the same
 Use the public API of the class instead of accessing internal properties:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace External;
-
- use App\Service;
-
- function checkConnections(Service $service): int
- {
--	return $service->connectionCount;
-+	return $service->getConnectionCount();
+ namespace App {
+ 	function checkConnections(\Vendor\Service $service): int {
+-		return $service->connectionCount;
++		return $service->getConnectionCount();
+ 	}
  }
 ```
 

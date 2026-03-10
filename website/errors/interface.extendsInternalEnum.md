@@ -2,6 +2,7 @@
 title: "interface.extendsInternalEnum"
 shortDescription: "Interface extends an enum marked as @internal."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example

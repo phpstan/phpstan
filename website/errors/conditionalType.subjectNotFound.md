@@ -9,21 +9,20 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-class Foo
+/**
+ * @return (int is string ? true : false)
+ */
+function doFoo(): bool
 {
-    /**
-     * @return ($value is string ? int : bool)
-     */
-    public function doFoo(mixed $value): int|bool
-    {
-        // ...
-    }
+	return true;
 }
 ```
 
 ## Why is it reported?
 
-A conditional return type uses a subject type that does not reference any `@template` tag. In a class method without `@template` tags, the subject of a conditional type must refer to a parameter using the `$param is Type` syntax rather than a bare type name.
+A conditional return type uses a subject type (`int`) that does not reference any `@template` tag or function parameter. The subject of a conditional return type must be either a template type declared via `@template` or a parameter reference using the `$param is Type` syntax.
+
+In the example above, `int` is a bare type name that is not declared as a template type, so PHPStan cannot evaluate the condition.
 
 ## How to fix it
 
@@ -32,18 +31,16 @@ If the condition depends on a parameter, use the `$param is Type` syntax:
 ```diff-php
  <?php declare(strict_types = 1);
 
- class Foo
+ /**
++ * @param string|int $value
+- * @return (int is string ? true : false)
++ * @return ($value is string ? true : false)
+  */
+-function doFoo(): bool
++function doFoo($value): bool
  {
-     /**
--     * @return ($value is string ? int : bool)
-+     * @param string|int $value
-+     * @return ($value is string ? int : bool)
-      */
--    public function doFoo(mixed $value): int|bool
-+    public function doFoo(string|int $value): int|bool
-     {
-         // ...
-     }
+-	return true;
++	return is_string($value);
  }
 ```
 
@@ -52,17 +49,16 @@ If you intend to use a template type as the subject, declare it with `@template`
 ```diff-php
  <?php declare(strict_types = 1);
 
- class Foo
+ /**
++ * @template T
+- * @return (int is string ? true : false)
++ * @param T $value
++ * @return (T is string ? true : false)
+  */
+-function doFoo(): bool
++function doFoo($value): bool
  {
-     /**
-+     * @template T
--     * @return (int is string ? int : bool)
-+     * @return (T is string ? int : bool)
-      */
--    public function doFoo(mixed $value): int|bool
-+    public function doFoo(mixed $value): int|bool
-     {
-         // ...
-     }
+-	return true;
++	return is_string($value);
  }
 ```

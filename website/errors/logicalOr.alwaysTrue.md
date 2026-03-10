@@ -9,9 +9,9 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-function doFoo(int $i): void
+function doFoo(int $i): bool
 {
-	$result = ($i >= 0) or ($i < 0); // ERROR: Result of or is always true.
+	return ($i >= 0) or ($i < 0);
 }
 ```
 
@@ -28,10 +28,10 @@ Fix the logic to produce a meaningful condition:
 ```diff-php
  <?php declare(strict_types = 1);
 
- function doFoo(int $i): void
+ function doFoo(int $i): bool
  {
--	$result = ($i >= 0) or ($i < 0);
-+	$result = ($i >= 0) or ($i === -1);
+-	return ($i >= 0) or ($i < 0);
++	return ($i >= 0) or ($i === -1);
  }
 ```
 
@@ -40,9 +40,10 @@ Or simplify the expression if the result is intentionally always `true`:
 ```diff-php
  <?php declare(strict_types = 1);
 
- function doFoo(int $i): void
+-function doFoo(int $i): bool
++function doFoo(int $i): true
  {
--	$result = ($i >= 0) or ($i < 0);
-+	$result = true;
+-	return ($i >= 0) or ($i < 0);
++	return true;
  }
 ```

@@ -1,6 +1,6 @@
 ---
 title: "catch.deprecatedTrait"
-shortDescription: "Catch block references a type that uses a deprecated trait."
+shortDescription: "Catch block references a deprecated trait."
 ignorable: true
 ---
 
@@ -10,19 +10,13 @@ ignorable: true
 <?php declare(strict_types = 1);
 
 /** @deprecated Use NewException instead */
-trait OldExceptionTrait
+trait OldTrait
 {
-}
-
-class MyException extends \Exception
-{
-	use OldExceptionTrait;
 }
 
 try {
-	// ...
-} catch (MyException $e) {
-	// The catch block itself is fine, but the trait is deprecated
+	throw new \Exception();
+} catch (OldTrait $e) {
 }
 ```
 
@@ -30,29 +24,16 @@ try {
 
 This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) extension.
 
-The `catch` block references a type that uses a deprecated trait. The trait has been marked with a `@deprecated` PHPDoc tag, indicating it is scheduled for removal or replacement. Any usage of deprecated types should be migrated to the recommended alternative.
+The `catch` block references a trait that has been marked as `@deprecated`. Deprecated traits are planned for removal in a future version. Since traits cannot be thrown or caught in PHP, this code is already incorrect, and the deprecated trait reference compounds the problem.
 
 ## How to fix it
 
-Replace the deprecated trait with its recommended replacement:
-
-```diff-php
- <?php declare(strict_types = 1);
-
- class MyException extends \Exception
- {
--	use OldExceptionTrait;
-+	use NewExceptionTrait;
- }
-```
-
-Or if the deprecation affects the caught class directly, catch the replacement class instead:
+Catch a proper exception class instead of a deprecated trait:
 
 ```diff-php
  try {
- 	// ...
--} catch (MyException $e) {
-+} catch (NewException $e) {
- 	// ...
+ 	throw new \Exception();
+-} catch (OldTrait $e) {
++} catch (\Exception $e) {
  }
 ```

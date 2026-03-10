@@ -9,17 +9,16 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	interface InternalInterface {}
+}
 
-// Assume InternalInterface is marked @internal in another package
-
-/**
- * @method \Vendor\InternalInterface createHandler()
- */
-class HandlerFactory
-{
-	// error: PHPDoc tag @method for createHandler() references
-	//        internal interface Vendor\InternalInterface.
+namespace App {
+	/**
+	 * @method \Vendor\InternalInterface getHandler()
+	 */
+	class MyClass {}
 }
 ```
 
@@ -29,14 +28,14 @@ The `@method` PHPDoc tag declares a magic method whose signature references an i
 
 ## How to fix it
 
-Replace the internal interface reference with a public API type from the package, or define a local interface that mirrors the needed contract.
+Replace the internal interface reference with a public API type from the package, or define a local interface that mirrors the needed contract:
 
 ```diff-php
- /**
-- * @method \Vendor\InternalInterface createHandler()
-+ * @method \Vendor\HandlerInterface createHandler()
-  */
- class HandlerFactory
- {
+ namespace App {
+ 	/**
+-	 * @method \Vendor\InternalInterface getHandler()
++	 * @method \Vendor\PublicInterface getHandler()
+ 	 */
+ 	class MyClass {}
  }
 ```

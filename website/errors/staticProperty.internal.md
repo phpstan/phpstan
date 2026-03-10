@@ -9,18 +9,16 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace ThirdParty {
+	class Config {
+		/** @internal */
+		public static string $secretKey = 'abc';
+	}
+}
 
-// Defined in a third-party package:
-// namespace ThirdParty;
-// class Config {
-//     /** @internal */
-//     public static string $secretKey = 'abc';
-// }
-
-use ThirdParty\Config;
-
-$key = Config::$secretKey;
+namespace App {
+	$key = \ThirdParty\Config::$secretKey;
+}
 ```
 
 ## Why is it reported?

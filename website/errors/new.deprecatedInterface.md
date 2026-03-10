@@ -1,43 +1,36 @@
 ---
 title: "new.deprecatedInterface"
-shortDescription: "Instantiating a class that implements a deprecated interface."
+shortDescription: "Instantiation of a deprecated interface."
 ignorable: true
+unlikely: true
 ---
-
-This error is reported by `phpstan/phpstan-deprecation-rules`.
 
 ## Code example
 
 ```php
 <?php declare(strict_types = 1);
 
-/** @deprecated Use NewCacheInterface instead */
-interface OldCacheInterface
+/** @deprecated Use NewInterface instead */
+interface OldInterface
 {
 }
 
-class FileCache implements OldCacheInterface
-{
-}
-
-$cache = new FileCache();
+$x = new OldInterface();
 ```
 
 ## Why is it reported?
 
-An object is being instantiated from a class that implements a deprecated interface, or the class itself is a deprecated interface-like structure being referenced in a `new` expression context. The `@deprecated` tag on the interface signals that it should no longer be used, and all code depending on it should migrate to the recommended replacement.
+This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) extension.
+
+A deprecated interface is used in a `new` expression. Deprecated interfaces are planned for removal in a future version.
+
+Note: triggering this identifier requires instantiating an interface, which PHP does not allow. PHPStan therefore always also reports a `new.interface` error, and in practice the deprecation identifier is not reported alongside it.
 
 ## How to fix it
 
-Update the code to use the replacement class or interface as indicated in the deprecation message.
+Instantiate a concrete class that implements the replacement interface:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
--class FileCache implements OldCacheInterface
-+class FileCache implements NewCacheInterface
- {
- }
-
- $cache = new FileCache();
+-$x = new OldInterface();
++$x = new ConcreteImplementation();
 ```

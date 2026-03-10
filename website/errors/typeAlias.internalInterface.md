@@ -1,6 +1,6 @@
 ---
 title: "typeAlias.internalInterface"
-shortDescription: "Type alias references an internal interface from another package."
+shortDescription: "Type alias references an internal interface."
 ignorable: true
 ---
 
@@ -9,19 +9,18 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	interface InternalInterface {}
+}
 
-use Vendor\Internal\SomeInterface;
-
-/**
- * @phpstan-type MyType SomeInterface
- */
-class Foo
-{
+namespace App {
+	/**
+	 * @phpstan-type MyAlias \Vendor\InternalInterface
+	 */
+	class Config {}
 }
 ```
-
-Where `SomeInterface` is marked as `@internal` in the `Vendor` package.
 
 ## Why is it reported?
 
@@ -29,16 +28,14 @@ A PHPStan type alias (`@phpstan-type`) references an interface that is marked as
 
 ## How to fix it
 
-Replace the internal interface with a public type from the package.
+Replace the internal interface with a public type from the package:
 
 ```diff-php
  /**
-- * @phpstan-type MyType SomeInterface
-+ * @phpstan-type MyType PublicInterface
+- * @phpstan-type MyAlias \Vendor\InternalInterface
++ * @phpstan-type MyAlias \Vendor\PublicInterface
   */
- class Foo
- {
- }
+ class Config {}
 ```
 
-If no public alternative exists, consider whether the type alias is necessary, or contact the package maintainer to request a public API.
+If the interface is internal to the same package, the error will not be reported. The `@internal` restriction only applies to cross-package usage.

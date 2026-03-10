@@ -9,44 +9,52 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-class Foo
+class TypeChecker
 {
-	public function isValid(): bool
+	/** @phpstan-assert-if-true string $value */
+	public function isString(mixed $value): bool
 	{
-		return true;
+		return is_string($value);
 	}
 }
 
-function doFoo(Foo $foo): void
+function doFoo(TypeChecker $checker, int $value): void
 {
-	if ($foo->isValid()) {
-		if ($foo->isValid()) {
-			// ...
-		}
+	if ($checker->isString($value)) {
+		echo 'impossible';
 	}
 }
 ```
 
 ## Why is it reported?
 
-A method call that acts as a type check will always evaluate to `false` based on the types PHPStan knows at that point. This means the condition can never be satisfied, so the code inside the branch is dead code.
+A method call that acts as a type check always evaluates to `false` based on the types PHPStan knows at that point. This means the condition can never be satisfied, so the code inside the branch is dead code.
 
-Common examples include calling `is_*()` style methods on values whose type has already been narrowed, or calling type-checking methods on values that can never match the checked type.
+In the example above, `$value` is typed as `int`, and `TypeChecker::isString()` uses `@phpstan-assert-if-true string $value` to assert the value is a `string`. Since `int` and `string` are incompatible types, the method will always return `false`.
 
 ## How to fix it
 
-Remove the redundant check if the type has already been narrowed:
+Remove the dead branch if the type check is impossible:
 
 ```diff-php
- function doFoo(Foo $foo): void
+ function doFoo(TypeChecker $checker, int $value): void
  {
- 	if ($foo->isValid()) {
--		if ($foo->isValid()) {
--			// ...
--		}
-+		// ...
- 	}
+-	if ($checker->isString($value)) {
+-		echo 'impossible';
+-	}
++	// $value is always int, no need to check for string
  }
 ```
 
-If the method should be able to return different values, fix the return type or the method's logic so that the check can actually evaluate to `false`.
+Or fix the parameter type if the check should be meaningful:
+
+```diff-php
+-function doFoo(TypeChecker $checker, int $value): void
++function doFoo(TypeChecker $checker, mixed $value): void
+ {
+ 	if ($checker->isString($value)) {
+-		echo 'impossible';
++		echo 'confirmed string';
+ 	}
+ }
+```

@@ -2,6 +2,7 @@
 title: "possiblyImpure.exit"
 shortDescription: "Pure function possibly uses exit which terminates the script."
 ignorable: true
+feasible: false
 ---
 
 ## Code example

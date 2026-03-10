@@ -9,28 +9,17 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-class InternalAttribute
-{
+namespace Vendor {
+	/** @internal */
+	#[\Attribute]
+	class InternalAttribute {}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
+namespace App {
+	use Vendor\InternalAttribute;
 
-// In your code:
-
-namespace App;
-
-use SomeLibrary\InternalAttribute;
-
-#[InternalAttribute]
-class Foo
-{
+	#[InternalAttribute]
+	class Foo {}
 }
 ```
 
@@ -43,16 +32,14 @@ An attribute references a class that is marked as `@internal`. Internal types ar
 Use a public (non-internal) attribute class instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  namespace App;
 
--use SomeLibrary\InternalAttribute;
-+use SomeLibrary\PublicAttribute;
+-use Vendor\InternalAttribute;
++use Vendor\PublicAttribute;
 
 -#[InternalAttribute]
 +#[PublicAttribute]
- class Foo
- {
- }
+ class Foo {}
 ```
+
+If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.

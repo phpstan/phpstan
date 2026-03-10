@@ -9,18 +9,18 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	trait InternalTrait {
+		public static string $debug = 'off';
+	}
+}
 
-// Defined in a third-party package:
-// namespace ThirdParty;
-// /** @internal */
-// trait InternalConfig {
-//     public static string $debugMode = 'off';
-// }
-
-use ThirdParty\InternalConfig;
-
-$mode = InternalConfig::$debugMode;
+namespace App {
+	function test(): string {
+		return \Vendor\InternalTrait::$debug; // error: Access to static property $debug of internal trait Vendor\InternalTrait from outside its root namespace Vendor.
+	}
+}
 ```
 
 ## Why is it reported?
@@ -32,15 +32,12 @@ A static property is being accessed on a trait that is marked as `@internal`. In
 Use the public API of the package instead of accessing static properties on internal traits:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use ThirdParty\InternalConfig;
-+use ThirdParty\PublicConfig;
-
--$mode = InternalConfig::$debugMode;
-+$mode = PublicConfig::getDebugMode();
+ namespace App {
+ 	function test(): string {
+-		return \Vendor\InternalTrait::$debug;
++		return \Vendor\PublicConfig::getDebugMode();
+ 	}
+ }
 ```
 
 If the trait is internal to the same package, the error will not be reported. The `@internal` restriction only applies to cross-package usage.

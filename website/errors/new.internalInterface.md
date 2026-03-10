@@ -1,7 +1,8 @@
 ---
 title: "new.internalInterface"
-shortDescription: "Instantiating a class that implements an internal interface."
+shortDescription: "Referencing an internal interface in an instantiation context."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,43 +10,33 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-interface Handler
-{
+namespace Vendor {
+	/** @internal */
+	interface Handler {
+		public function handle(): void;
+	}
 }
 
-class DefaultHandler implements Handler
-{
+namespace App {
+	$handler = new \Vendor\Handler(); // error: Instantiation of internal interface Vendor\Handler.
 }
 ```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\DefaultHandler;
-
-$handler = new DefaultHandler();
-```
+In practice, this is typically reported as [Cannot instantiate interface](/error-identifiers/new.interface) (`new.interface`) because interfaces cannot be instantiated at all. The `new.internalInterface` identifier is reported when the internal access violation is the primary concern.
 
 ## Why is it reported?
 
-The `new` expression instantiates a class that implements an interface marked as `@internal`. Internal types are not meant to be used outside of the package or namespace where they are defined. Instantiating classes that depend on internal interfaces creates a fragile dependency on implementation details that can change without notice.
+An internal interface is being used in an instantiation context from outside its root namespace. Interfaces marked as `@internal` are not meant to be used outside of the package or namespace where they are defined. They may change or be removed without notice in future versions.
 
 ## How to fix it
 
-Use a public (non-internal) type instead. Check whether the library provides a public factory method or a public interface for the same purpose:
+Use a public (non-internal) type and a factory or concrete class from the package's public API instead:
 
 ```diff-php
--$handler = new DefaultHandler();
-+$handler = HandlerFactory::create();
+ namespace App {
+-	$handler = new \Vendor\Handler();
++	$handler = \Vendor\HandlerFactory::create();
+ }
 ```
 
 If you control the internal interface, consider making it public or providing a public alternative.

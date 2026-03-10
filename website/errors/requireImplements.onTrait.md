@@ -2,6 +2,7 @@
 title: "requireImplements.onTrait"
 shortDescription: "Tag @phpstan-require-implements is used on a class or enum instead of a trait."
 ignorable: true
+feasible: false
 ---
 
 ## Code example

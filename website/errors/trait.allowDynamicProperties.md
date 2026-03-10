@@ -13,6 +13,11 @@ ignorable: false
 trait DynamicTrait
 {
 }
+
+class Foo
+{
+	use DynamicTrait;
+}
 ```
 
 ## Why is it reported?
@@ -24,8 +29,6 @@ The `#[\AllowDynamicProperties]` attribute cannot be used with traits. Traits ar
 Remove the attribute from the trait and apply it to the classes that use the trait instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
 -#[\AllowDynamicProperties]
  trait DynamicTrait
  {

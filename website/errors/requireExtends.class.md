@@ -2,6 +2,7 @@
 title: "requireExtends.class"
 shortDescription: "@phpstan-require-extends is used on a class instead of a trait or interface."
 ignorable: true
+feasible: false
 ---
 
 ## Code example
@@ -9,10 +10,14 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
+class SomeClass
+{
+}
+
 /**
  * @phpstan-require-extends SomeClass
  */
-class InvalidUsage // ERROR: PHPDoc tag @phpstan-require-extends is only valid on trait or interface.
+interface InvalidUsage // ERROR: PHPDoc tag @phpstan-require-extends is only valid on trait or interface.
 {
 }
 ```

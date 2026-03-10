@@ -9,35 +9,35 @@ ignorable: false
 ```php
 <?php declare(strict_types = 1);
 
-class ParentClass
+interface HasValue
 {
-	public string $name;
+	public int $value { get; set; }
 }
 
-class ChildClass extends ParentClass
+class Foo implements HasValue
 {
-	public string $name {
-		get => 'fixed';
+	public int $value {
+		get => 42;
 	}
 }
 ```
 
 ## Why is it reported?
 
-A child class overrides a writable property from a parent class but makes it non-writable. In the example above, `ParentClass::$name` is writable, but `ChildClass::$name` only defines a `get` hook without a `set` hook, making it read-only. This violates the property contract established by the parent class.
+A child class overrides a writable property from a parent class or interface but makes it non-writable. In the example above, the interface `HasValue` declares `$value` as both readable and writable, but `Foo` only defines a `get` hook. Since the `get` hook does not reference the backing store, the property becomes virtual and has no `set` capability. This violates the writability contract established by the interface.
+
+This rule applies to PHP 8.4+ property hooks.
 
 ## How to fix it
 
 Ensure the overriding property also supports writes:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- class ChildClass extends ParentClass
+ class Foo implements HasValue
  {
- 	public string $name {
- 		get => 'fixed';
-+		set => $this->name = $value;
+ 	public int $value {
+ 		get => 42;
++		set => $value;
  	}
  }
 ```

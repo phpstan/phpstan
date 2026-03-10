@@ -1,6 +1,6 @@
 ---
 title: "new.internalTrait"
-shortDescription: "Referencing an internal trait from another package in a new expression."
+shortDescription: "Instantiating an internal trait from outside its namespace."
 ignorable: true
 ---
 
@@ -9,39 +9,29 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
-
-// Assume InternalTrait is marked @internal in vendor/some-package
-
-class MyClass
-{
-	use \Vendor\InternalTrait; // reported via a different identifier
+namespace Vendor {
+	/** @internal */
+	trait InternalTrait {
+		public function doSomething(): void {}
+	}
 }
 
-/**
- * @method \Vendor\InternalTrait doSomething()
- */
-class Factory
-{
-	// error: PHPDoc tag @method for doSomething() references
-	//        internal trait Vendor\InternalTrait.
+namespace App {
+	$obj = new \Vendor\InternalTrait(); // error: Instantiation of internal trait Vendor\InternalTrait.
 }
 ```
 
 ## Why is it reported?
 
-The code references a trait that is marked as `@internal` in another package. Internal traits are implementation details of their package and may change or be removed in any release without following semantic versioning. Referencing them from outside the package creates fragile dependencies.
+The code attempts to instantiate a trait marked as `@internal`. Traits cannot be instantiated directly, and on top of that, this trait is an internal implementation detail of its package. Internal traits may change or be removed in any release without following semantic versioning.
 
 ## How to fix it
 
-Avoid referencing internal traits from other packages. Use public API types instead.
+Traits are not meant to be instantiated. Use a class from the package's public API instead:
 
 ```diff-php
- /**
-- * @method \Vendor\InternalTrait doSomething()
-+ * @method \Vendor\PublicInterface doSomething()
-  */
- class Factory
- {
+ namespace App {
+-	$obj = new \Vendor\InternalTrait();
++	$obj = new \Vendor\PublicService();
  }
 ```

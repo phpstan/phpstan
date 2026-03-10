@@ -9,15 +9,24 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-class Config
-{
-	public bool $enabled = true;
+class Bar {}
 
-	public function check(): void
+class Foo
+{
+	public Bar $bar;
+
+	public function __construct()
 	{
-		if (empty($this->enabled)) {
-			echo 'Disabled';
-		}
+		$this->bar = new Bar();
+	}
+}
+
+function test(): void
+{
+	$foo = new Foo();
+	$foo->bar = new Bar();
+	if (empty($foo->bar)) {
+		echo 'empty';
 	}
 }
 ```
@@ -26,45 +35,36 @@ class Config
 
 The property used inside `empty()` has a type that PHPStan can fully evaluate for emptiness. When the property type is always falsy or never falsy, the `empty()` check is either always `true` or always `false`, indicating a logic error or a check that should be written more explicitly.
 
-In the example above, `$this->enabled` is typed as `bool`. PHPStan reports this because it can determine the exact behavior of `empty()` on the property's type, and the check should be expressed as an explicit comparison instead of relying on `empty()`.
+In the example above, `$foo->bar` is typed as `Bar`, which is an object and can never be falsy. The `empty()` call on it always returns `false`.
 
 ## How to fix it
 
-Replace `empty()` with an explicit comparison that expresses the intended check:
+Remove the redundant `empty()` check since an object value is never falsy:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- class Config
+ function test(): void
  {
- 	public bool $enabled = true;
-
- 	public function check(): void
- 	{
--		if (empty($this->enabled)) {
-+		if (!$this->enabled) {
- 			echo 'Disabled';
- 		}
- 	}
+ 	$foo = new Foo();
+ 	$foo->bar = new Bar();
+-	if (empty($foo->bar)) {
+-		echo 'empty';
+-	}
++	echo $foo->bar::class;
  }
 ```
 
-If the property can legitimately be unset or uninitialized, adjust the type to reflect that:
+If the property can legitimately be nullable, adjust the type to reflect that:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- class Config
+ class Foo
  {
--	public bool $enabled = true;
-+	public ?bool $enabled = null;
+-	public Bar $bar;
++	public ?Bar $bar;
 
- 	public function check(): void
+ 	public function __construct()
  	{
--		if (empty($this->enabled)) {
-+		if ($this->enabled === null || !$this->enabled) {
- 			echo 'Disabled';
- 		}
+-		$this->bar = new Bar();
++		$this->bar = null;
  	}
  }
 ```

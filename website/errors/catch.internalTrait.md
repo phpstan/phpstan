@@ -2,6 +2,7 @@
 title: "catch.internalTrait"
 shortDescription: "Catch block references an internal trait from another package."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,36 +10,40 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In vendor/some-library/src/InternalTrait.php:
-// namespace SomeLibrary;
-// /** @internal */
-// trait SomeInternalTrait {}
+namespace Vendor {
+	/** @internal */
+	trait SomeInternalTrait {}
 
-// In your code:
-namespace App;
+	class Foo {
+		use SomeInternalTrait;
+	}
+}
 
-use SomeLibrary\SomeInternalTrait;
-
-try {
-    // ...
-} catch (SomeInternalTrait $e) { // reported
-    // ...
+namespace App {
+	function doFoo(): void
+	{
+		try {
+			throw new \Exception();
+		} catch (\Vendor\SomeInternalTrait $e) {
+		}
+	}
 }
 ```
 
 ## Why is it reported?
 
-A `catch` block references a trait that is marked as `@internal` by its library. Internal symbols are not meant to be used outside of the package that defines them. While catching a trait in a `catch` block is unusual and likely an error in itself, PHPStan specifically flags the usage of an internal trait in this context.
+A `catch` block references a trait that is marked as `@internal`. Internal types are not meant to be used outside of the package or namespace where they are defined. Catching internal types creates a dependency on implementation details that may change without notice in future versions.
+
+Traits are not throwable, so catching a trait in a `catch` block is invalid regardless of the `@internal` annotation.
 
 ## How to fix it
 
-Catch the appropriate exception class instead of referencing an internal trait.
+Catch a public (non-internal) exception class instead:
 
 ```diff-php
  try {
-     // ...
--} catch (SomeInternalTrait $e) {
-+} catch (SomeException $e) {
-     // ...
+ 	throw new \Exception();
+-} catch (\Vendor\SomeInternalTrait $e) {
++} catch (\RuntimeException $e) {
  }
 ```

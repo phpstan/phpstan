@@ -9,17 +9,20 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	trait InternalTrait {
+		public static function helper(): string {
+			return 'result';
+		}
+	}
+}
 
-// Defined in a third-party package:
-// /** @internal */
-// trait InternalTrait {
-//     public static function helperMethod(): string { return 'result'; }
-// }
-
-use ThirdParty\InternalTrait;
-
-InternalTrait::helperMethod();
+namespace App {
+	function test(): void {
+		\Vendor\InternalTrait::helper(); // error: Call to static method helper() of internal trait Vendor\InternalTrait from outside its root namespace Vendor.
+	}
+}
 ```
 
 ## Why is it reported?
@@ -31,15 +34,12 @@ A static method is being called on a trait that is marked as `@internal`. Intern
 Use the public API of the package instead of calling static methods on internal traits:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use ThirdParty\InternalTrait;
-+use ThirdParty\PublicHelper;
-
--InternalTrait::helperMethod();
-+PublicHelper::helperMethod();
+ namespace App {
+ 	function test(): void {
+-		\Vendor\InternalTrait::helper();
++		\Vendor\PublicHelper::helper();
+ 	}
+ }
 ```
 
 If the trait is internal to the same package, the error will not be reported. The `@internal` restriction only applies to cross-package usage.

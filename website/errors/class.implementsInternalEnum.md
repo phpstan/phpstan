@@ -2,6 +2,7 @@
 title: "class.implementsInternalEnum"
 shortDescription: "Class implements an internal enum."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,52 +10,32 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-enum Status
-{
-	case Active;
-	case Inactive;
+namespace Vendor {
+	/** @internal */
+	enum Status {
+		case Active;
+		case Inactive;
+	}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\Status;
-
-class Foo implements Status
-{
+namespace App {
+	class Foo implements \Vendor\Status {}
 }
 ```
 
 ## Why is it reported?
 
-A class implements an enum that is marked as `@internal`. Internal types are not meant to be used outside the package or namespace where they are defined. While enums cannot actually be implemented by classes in PHP, PHPStan reports this as an internal usage violation because the reference to the internal type is itself problematic.
+The class uses an enum in its `implements` clause that is marked as `@internal`. Internal types are not meant to be used outside the package or namespace where they are defined.
+
+Enums cannot be implemented by classes in PHP. This code is invalid regardless of the `@internal` annotation.
 
 ## How to fix it
 
-Use a public (non-internal) interface or class instead:
+Use a public (non-internal) interface instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use SomeLibrary\Status;
-+use SomeLibrary\StatusInterface;
-
--class Foo implements Status
-+class Foo implements StatusInterface
- {
- }
+-class Foo implements \Vendor\Status {}
++class Foo implements \Vendor\StatusInterface {}
 ```
 
-If the library provides a public interface for this purpose, use that instead.
+If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.

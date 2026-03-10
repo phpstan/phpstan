@@ -7,21 +7,23 @@ ignorable: true
 ## Code example
 
 ```php
-<?php declare(strict_types = 1);
+<?php declare(strict_types = 1); // lint >= 8.1
 
-namespace App;
+namespace ThirdParty {
+	/** @internal */
+	enum InternalStatus {
+		case Active;
+		case Inactive;
+	}
+}
 
-// Defined in a third-party package:
-// /** @internal */
-// enum InternalStatus { case Active; case Inactive; }
-
-use ThirdParty\InternalStatus;
-
-/**
- * @phpstan-type StatusList list<InternalStatus>
- */
-class MyClass
-{
+namespace App {
+	/**
+	 * @phpstan-type StatusList list<\ThirdParty\InternalStatus>
+	 */
+	class MyClass
+	{
+	}
 }
 ```
 

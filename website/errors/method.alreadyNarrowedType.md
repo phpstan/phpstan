@@ -9,49 +9,54 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-class Collection
+class TypeChecker
 {
-	/** @var array<int, string> */
-	private array $items = [];
-
-	public function has(string $key): bool
+	/** @phpstan-assert-if-true string $value */
+	public function isString(mixed $value): bool
 	{
-		return isset($this->items[$key]);
+		return is_string($value);
 	}
 }
 
-function doFoo(Collection $collection): void
+function doFoo(TypeChecker $checker, string $value): void
 {
-	if ($collection->has('foo')) {
-		// ...
-	} elseif ($collection->has('foo')) { // ERROR: will always evaluate to true
-		// ...
+	if ($checker->isString($value)) {
+		echo 'already known to be string';
 	}
 }
 ```
 
 ## Why is it reported?
 
-A method call that acts as a type-checking or type-narrowing operation will always evaluate to true. PHPStan has already inferred enough type information to determine that the result of this method call is always `true` in this context.
+A method call that acts as a type-checking or type-narrowing operation always evaluates to `true`. PHPStan has already inferred enough type information to determine that the result of this method call is always `true` in this context.
 
-This typically occurs when the same type check is performed redundantly, or when previous conditions already guarantee the result.
+In the example above, `$value` is already typed as `string`, and `TypeChecker::isString()` uses `@phpstan-assert-if-true string $value` to narrow the type. Since the type is already `string`, the method will always return `true`.
+
+This typically occurs when the same type check is performed redundantly, or when the parameter types already guarantee the result.
 
 ## How to fix it
 
-Remove the redundant check, or fix the logic to test for a different condition:
+Remove the redundant check if the type is already known:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- function doFoo(Collection $collection): void
+ function doFoo(TypeChecker $checker, string $value): void
  {
- 	if ($collection->has('foo')) {
- 		// ...
--	} elseif ($collection->has('foo')) {
-+	} elseif ($collection->has('bar')) {
- 		// ...
- 	}
+-	if ($checker->isString($value)) {
+-		echo 'already known to be string';
+-	}
++	echo 'already known to be string';
  }
 ```
 
-If the check is no longer needed in an `elseif`/`else` chain, remove remaining cases below and the error will disappear.
+Or fix the parameter type if the check should be meaningful:
+
+```diff-php
+-function doFoo(TypeChecker $checker, string $value): void
++function doFoo(TypeChecker $checker, mixed $value): void
+ {
+ 	if ($checker->isString($value)) {
+-		echo 'already known to be string';
++		echo 'confirmed string';
+ 	}
+ }
+```

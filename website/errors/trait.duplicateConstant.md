@@ -2,6 +2,7 @@
 title: "trait.duplicateConstant"
 shortDescription: "Constant is declared more than once in the same trait."
 ignorable: false
+feasible: false
 ---
 
 ## Code example
@@ -13,6 +14,11 @@ trait MyTrait
 {
     public const FOO = 1;
     public const FOO = 2;
+}
+
+class Foo
+{
+    use MyTrait;
 }
 ```
 
@@ -27,8 +33,6 @@ Traits gained support for constants in PHP 8.2. Like classes, they cannot contai
 Remove the duplicate constant declaration and keep only one:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  trait MyTrait
  {
      public const FOO = 1;
@@ -39,8 +43,6 @@ Remove the duplicate constant declaration and keep only one:
 If you need different constant values, give them different names:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  trait MyTrait
  {
      public const FOO = 1;

@@ -2,6 +2,7 @@
 title: "possiblyImpure.include"
 shortDescription: "Pure function uses include which can execute arbitrary code."
 ignorable: true
+feasible: false
 ---
 
 ## Code example

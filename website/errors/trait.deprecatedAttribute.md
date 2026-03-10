@@ -1,6 +1,6 @@
 ---
 title: "trait.deprecatedAttribute"
-shortDescription: "#[Deprecated] attribute on a trait is not supported on this PHP version."
+shortDescription: "#[\\Deprecated] attribute on a trait requires PHP 8.5+."
 ignorable: false
 ---
 
@@ -12,6 +12,11 @@ ignorable: false
 #[\Deprecated]
 trait MyTrait
 {
+}
+
+class Foo
+{
+	use MyTrait;
 }
 ```
 

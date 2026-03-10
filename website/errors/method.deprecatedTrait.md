@@ -1,6 +1,6 @@
 ---
 title: "method.deprecatedTrait"
-shortDescription: "Called method belongs to a trait marked as @deprecated."
+shortDescription: "Called method belongs to a deprecated trait."
 ignorable: true
 ---
 
@@ -12,40 +12,37 @@ ignorable: true
 /** @deprecated Use NewHelper instead */
 trait OldHelper
 {
-	public function help(): void
-	{
-	}
+	public function help(): void {}
 }
 
 class Foo
 {
-	use OldHelper;
-}
-
-function doFoo(Foo $foo): void
-{
-	$foo->help(); // ERROR: Call to method help() of deprecated trait OldHelper.
+	/** @param OldHelper $x */
+	public function doFoo($x): void
+	{
+		$x->help();
+	}
 }
 ```
 
 ## Why is it reported?
 
-This error is reported by `phpstan/phpstan-deprecation-rules`.
+This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) extension.
 
-The method being called is declared in a trait that has been marked as deprecated with the `@deprecated` PHPDoc tag. Even though the method itself may not be deprecated, calling it through a class that uses a deprecated trait signals usage of deprecated functionality. The deprecation notice typically suggests a replacement to use instead.
+A method is called on a value whose type is a deprecated trait. The trait has been marked with `@deprecated`, indicating it is scheduled for removal. Calling methods on deprecated trait types means the code depends on functionality that will eventually be removed.
 
 ## How to fix it
 
-Replace the usage of the deprecated trait with the suggested replacement:
+Replace the deprecated trait type with its recommended replacement:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  class Foo
  {
--	use OldHelper;
-+	use NewHelper;
+-	/** @param OldHelper $x */
++	/** @param NewHelper $x */
+ 	public function doFoo($x): void
+ 	{
+ 		$x->help();
+ 	}
  }
 ```
-
-Or call a method from a non-deprecated source if one is available.

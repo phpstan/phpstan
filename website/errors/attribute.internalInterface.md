@@ -2,6 +2,7 @@
 title: "attribute.internalInterface"
 shortDescription: "Attribute references an internal interface."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,27 +10,38 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-interface InternalInterface
-{
+namespace Vendor {
+	/** @internal */
+	interface InternalInterface {}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
+namespace App {
+	use Vendor\InternalInterface;
 
-// In your code, referencing the internal interface in an attribute context:
-// Attribute references internal interface SomeLibrary\InternalInterface.
+	#[InternalInterface]
+	class Foo {}
+}
 ```
 
 ## Why is it reported?
 
 An attribute references an interface that is marked as `@internal`. Internal types are not part of the package's public API and may change or be removed without notice. Using internal types in attribute contexts creates a fragile dependency on implementation details.
 
+Interfaces cannot be used as attribute classes, so using an interface in an attribute context is invalid regardless of the `@internal` annotation.
+
 ## How to fix it
 
-Use a public (non-internal) interface instead. If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.
+Use a public (non-internal) attribute class instead:
+
+```diff-php
+ namespace App;
+
+-use Vendor\InternalInterface;
++use Vendor\PublicAttribute;
+
+-#[InternalInterface]
++#[PublicAttribute]
+ class Foo {}
+```
+
+If no public alternative exists, define your own attribute class.

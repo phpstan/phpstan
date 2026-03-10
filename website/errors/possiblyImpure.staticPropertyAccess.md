@@ -2,6 +2,7 @@
 title: "possiblyImpure.staticPropertyAccess"
 shortDescription: "Pure function accesses a static property which is shared mutable state."
 ignorable: true
+feasible: false
 ---
 
 ## Code example

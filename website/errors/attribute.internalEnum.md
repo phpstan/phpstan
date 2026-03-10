@@ -2,6 +2,7 @@
 title: "attribute.internalEnum"
 shortDescription: "Attribute references an internal enum."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,30 +10,19 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-enum Priority: int
-{
-	case Low = 1;
-	case High = 2;
+namespace Vendor {
+	/** @internal */
+	enum Priority: int {
+		case Low = 1;
+		case High = 2;
+	}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
+namespace App {
+	use Vendor\Priority;
 
-// In your code:
-
-namespace App;
-
-use SomeLibrary\Priority;
-
-#[Priority]
-class Foo
-{
+	#[Priority]
+	class Foo {}
 }
 ```
 
@@ -40,29 +30,21 @@ class Foo
 
 An attribute references an enum that is marked as `@internal`. Internal types are not meant to be used outside of the package or namespace where they are defined. Depending on internal types in your attributes creates a fragile dependency on implementation details that can change without notice.
 
-In the example above, the `#[Priority]` attribute references the internal `Priority` enum from `SomeLibrary`.
+Enums cannot be used as attribute classes, so using an enum in an attribute context is invalid regardless of the `@internal` annotation.
 
 ## How to fix it
 
-Use a public (non-internal) type as the attribute instead. If the library provides a public attribute class or enum, use that. Otherwise, define your own attribute:
+Use a public (non-internal) attribute class instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  namespace App;
 
--use SomeLibrary\Priority;
-+#[\Attribute]
-+class Priority
-+{
-+	public function __construct(public int $level = 1)
-+	{
-+	}
-+}
+-use Vendor\Priority;
++use Vendor\PublicAttribute;
 
 -#[Priority]
-+#[Priority(level: 2)]
- class Foo
- {
- }
++#[PublicAttribute]
+ class Foo {}
 ```
+
+If no public alternative exists, define your own attribute class.

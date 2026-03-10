@@ -2,6 +2,7 @@
 title: "requireImplements.internalClass"
 shortDescription: "Tag @phpstan-require-implements references an internal class."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,41 +10,35 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-lib:
-
-/** @internal */
-class InternalHelper
-{
+namespace Vendor {
+	/** @internal */
+	class InternalHelper {}
 }
 
-// In your code:
-
-/**
- * @phpstan-require-implements InternalHelper
- */
-interface HelperAware
-{
+namespace App {
+	/**
+	 * @phpstan-require-implements \Vendor\InternalHelper
+	 */
+	trait HelperAware {}
 }
 ```
 
 ## Why is it reported?
 
-The `@phpstan-require-implements` PHPDoc tag references a class that is marked as `@internal`. Internal classes are not meant to be used outside the package or namespace they belong to. Referencing an internal class in a `@phpstan-require-implements` tag creates a dependency on an implementation detail that may change without notice.
+The `@phpstan-require-implements` PHPDoc tag references a class that is marked as `@internal`. Internal classes are not meant to be used outside the package that defines them.
+
+Note: triggering this identifier requires using a class in `@phpstan-require-implements`, which only accepts interfaces. PHPStan therefore always also reports a `requireImplements.class` error alongside this one.
 
 ## How to fix it
 
-Replace the internal class with a public API type that serves the same purpose:
+Use a public (non-internal) interface instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  /**
-- * @phpstan-require-implements InternalHelper
-+ * @phpstan-require-implements PublicHelperInterface
+- * @phpstan-require-implements \Vendor\InternalHelper
++ * @phpstan-require-implements \Vendor\PublicHelperInterface
   */
- interface HelperAware
- {
- }
+ trait HelperAware {}
 ```
 
-If the internal class is within the same package and the usage is intentional, the `@internal` tag may need to be reconsidered, or the `@phpstan-require-implements` tag should be removed in favor of a different design approach.
+If the internal class is within the same package and the usage is intentional, the `@internal` tag may need to be reconsidered, or a different design approach should be used.

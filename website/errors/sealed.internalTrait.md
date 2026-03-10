@@ -9,19 +9,18 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace ThirdParty {
+	/** @internal */
+	trait InternalTrait {}
+}
 
-// Defined in a third-party package:
-// /** @internal */
-// trait InternalTrait {}
-
-use ThirdParty\InternalTrait;
-
-/**
- * @phpstan-sealed InternalTrait
- */
-interface HandlerProvider
-{
+namespace App {
+	/**
+	 * @phpstan-sealed \ThirdParty\InternalTrait
+	 */
+	interface HandlerProvider
+	{
+	}
 }
 ```
 

@@ -9,14 +9,13 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	interface InternalServiceInterface {}
+}
 
-// In package vendor/some-package:
-// /** @internal */
-// interface InternalServiceInterface {}
-
-interface MyServiceInterface extends \Vendor\InternalServiceInterface
-{
+namespace App {
+	interface MyServiceInterface extends \Vendor\InternalServiceInterface {}
 }
 ```
 
@@ -29,28 +28,18 @@ The interface extends another interface that is marked as `@internal`. Internal 
 Extend a non-internal interface instead, or define the required methods directly:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--interface MyServiceInterface extends \Vendor\InternalServiceInterface
+-interface MyServiceInterface extends \Vendor\InternalServiceInterface {}
 +interface MyServiceInterface
- {
++{
 +	public function execute(): void;
- }
++}
 ```
 
 If the package provides a public interface for the same purpose, extend that instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--interface MyServiceInterface extends \Vendor\InternalServiceInterface
-+interface MyServiceInterface extends \Vendor\PublicServiceInterface
- {
- }
+-interface MyServiceInterface extends \Vendor\InternalServiceInterface {}
++interface MyServiceInterface extends \Vendor\PublicServiceInterface {}
 ```
 
 If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.

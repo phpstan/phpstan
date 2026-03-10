@@ -10,7 +10,7 @@ ignorable: true
 <?php declare(strict_types = 1);
 
 /**
- * @phpstan-type Callback callable(Foo): void
+ * @phpstan-type MyType = string&int
  */
 class Foo
 {
@@ -19,22 +19,32 @@ class Foo
 
 ## Why is it reported?
 
-A type alias defined via `@phpstan-type` contains a type that PHPStan cannot fully resolve. This can happen when the type definition references the class it is defined on in a way that creates a circular reference, or when it contains type constructs that lead to resolution issues.
+A type alias defined via `@phpstan-type` contains a type that PHPStan cannot resolve. This happens when the type evaluates to an impossible type, such as an intersection of incompatible scalar types, or uses invalid type syntax.
 
-In the example above, the `Callback` type alias references `Foo` in a callable parameter, but since the type alias is defined on `Foo` itself, this creates a circular reference that PHPStan cannot resolve.
+In the example above, `string&int` is an impossible intersection type -- no value can be both a `string` and an `int` at the same time. PHPStan cannot resolve this to a meaningful type.
 
 ## How to fix it
 
-Avoid self-referencing constructs in the type definition:
+Replace the unresolvable type with a valid type:
 
 ```diff-php
  /**
-- * @phpstan-type Callback callable(Foo): void
-+ * @phpstan-type Callback callable(mixed): void
+- * @phpstan-type MyType = string&int
++ * @phpstan-type MyType = string|int
   */
  class Foo
  {
  }
 ```
 
-Or define the type alias on a different class that does not create a circular reference.
+If the intent is to use an intersection type, it must involve compatible types (typically interfaces or classes with an inheritance relationship):
+
+```diff-php
+ /**
+- * @phpstan-type MyType = string&int
++ * @phpstan-type MyType = Countable&Traversable
+  */
+ class Foo
+ {
+ }
+```

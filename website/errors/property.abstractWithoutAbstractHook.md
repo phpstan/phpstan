@@ -13,9 +13,8 @@ abstract class Shape
 {
 	abstract public string $name {
 		get {
-			return 'shape';
+			return "shape";
 		}
-		set;
 	}
 }
 ```
@@ -35,10 +34,9 @@ Make at least one hook abstract by removing its body:
  {
  	abstract public string $name {
 -		get {
--			return 'shape';
+-			return "shape";
 -		}
 +		get;
- 		set;
  	}
  }
 ```
@@ -52,11 +50,8 @@ Alternatively, remove the `abstract` keyword from the property if all hooks shou
 -	abstract public string $name {
 +	public string $name {
  		get {
- 			return 'shape';
+ 			return "shape";
  		}
-+		set {
-+			$this->name = $value;
-+		}
  	}
  }
 ```

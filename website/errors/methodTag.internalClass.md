@@ -9,15 +9,16 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	class InternalResult {}
+}
 
-use Vendor\Internal\Helper;
-
-/**
- * @method Helper createHelper()
- */
-class Foo // ERROR: PHPDoc tag @method for createHelper() references internal class Vendor\Internal\Helper.
-{
+namespace App {
+	/**
+	 * @method \Vendor\InternalResult doFoo()
+	 */
+	class MyClass {}
 }
 ```
 
@@ -30,19 +31,12 @@ A `@method` PHPDoc tag references a class that is marked as `@internal`. Interna
 Use a public (non-internal) type from the package instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use Vendor\Internal\Helper;
-+use Vendor\PublicHelper;
-
- /**
-- * @method Helper createHelper()
-+ * @method PublicHelper createHelper()
-  */
- class Foo
- {
+ namespace App {
+ 	/**
+-	 * @method \Vendor\InternalResult doFoo()
++	 * @method \Vendor\PublicResult doFoo()
+ 	 */
+ 	class MyClass {}
  }
 ```
 

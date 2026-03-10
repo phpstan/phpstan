@@ -9,30 +9,16 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-interface InternalInterface
-{
+namespace Vendor {
+	/** @internal */
+	interface InternalInterface {}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\InternalInterface;
-
-/**
- * @property InternalInterface $handler
- */
-class Foo
-{
+namespace App {
+	/**
+	 * @property \Vendor\InternalInterface $handler
+	 */
+	class MyClass {}
 }
 ```
 
@@ -42,4 +28,16 @@ A `@property` PHPDoc tag references an interface that is marked as `@internal`. 
 
 ## How to fix it
 
-Use a public (non-internal) type in the `@property` tag instead. If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.
+Use a public (non-internal) type in the `@property` tag instead:
+
+```diff-php
+ namespace App {
+ 	/**
+-	 * @property \Vendor\InternalInterface $handler
++	 * @property \Vendor\PublicInterface $handler
+ 	 */
+ 	class MyClass {}
+ }
+```
+
+If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.

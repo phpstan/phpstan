@@ -11,21 +11,22 @@ ignorable: true
 
 function classify(int $value): string
 {
+	$flag = 1;
 	if ($value > 0) {
 		return 'positive';
-	} elseif (is_int($value)) {
+	} elseif ($flag) {
 		return 'zero or negative';
+	} else {
+		return 'unknown';
 	}
-
-	return 'unknown';
 }
 ```
 
 ## Why is it reported?
 
-The condition in the `elseif` branch always evaluates to `true`. This means the `elseif` is equivalent to a plain `else`, and any code after it is unreachable. This typically indicates that the condition is redundant or that the logic does not match the developer's intent.
+The condition in the `elseif` branch always evaluates to `true`. This means the `elseif` is equivalent to a plain `else`, and any branches after it are unreachable. This typically indicates that the condition is redundant or that the logic does not match the developer's intent.
 
-In the example above, `$value` is typed as `int`, so `is_int($value)` is always `true` regardless of the `if` branch above.
+In the example above, `$flag` is always `1` (truthy), so the `elseif` branch is always entered when `$value > 0` is false, making the `else` branch unreachable.
 
 ## How to fix it
 
@@ -36,14 +37,15 @@ Replace the `elseif` with `else` if the condition is truly unnecessary:
 
  function classify(int $value): string
  {
+-	$flag = 1;
  	if ($value > 0) {
  		return 'positive';
--	} elseif (is_int($value)) {
+-	} elseif ($flag) {
 +	} else {
  		return 'zero or negative';
+-	} else {
+-		return 'unknown';
  	}
--
--	return 'unknown';
  }
 ```
 
@@ -54,16 +56,16 @@ Or write a more specific condition if different cases need to be distinguished:
 
  function classify(int $value): string
  {
+-	$flag = 1;
  	if ($value > 0) {
  		return 'positive';
--	} elseif (is_int($value)) {
+-	} elseif ($flag) {
 -		return 'zero or negative';
 +	} elseif ($value === 0) {
 +		return 'zero';
-+	} else {
+ 	} else {
+-		return 'unknown';
 +		return 'negative';
  	}
--
--	return 'unknown';
  }
 ```

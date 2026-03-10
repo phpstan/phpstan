@@ -1,6 +1,6 @@
 ---
 title: "property.internalInterface"
-shortDescription: "Property type references an internal interface from outside its namespace."
+shortDescription: "Property type declaration references an internal interface."
 ignorable: true
 ---
 
@@ -9,47 +9,34 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
-
-use Library\InternalInterface;
-
-class Foo
-{
-	/** The interface is marked @internal by the library */
-	public InternalInterface $service;
+namespace Vendor {
+	/** @internal */
+	interface InternalInterface {
+		public function execute(): void;
+	}
 }
-```
 
-Where `Library\InternalInterface` is:
-
-```php
-<?php declare(strict_types = 1);
-
-namespace Library;
-
-/** @internal */
-interface InternalInterface
-{
-	public function execute(): void;
+namespace App {
+	class Foo {
+		public \Vendor\InternalInterface $service; // error: Property $service references internal interface Vendor\InternalInterface in its type.
+	}
 }
 ```
 
 ## Why is it reported?
 
-A property type references an interface that has been marked as `@internal`. Internal interfaces are implementation details of their package and are not meant to be used by external code. They may change or be removed without notice in future versions. This can be reported for:
-
-- Native property type declarations using internal interfaces
-- Accessing a property on an object whose declaring class is an internal interface
+A property's native type declaration references an interface that has been marked as `@internal`. Internal interfaces are implementation details of their package and are not meant to be used by external code. They may change or be removed without notice in future versions. Using an internal interface in a property type creates a fragile dependency on implementation details.
 
 ## How to fix it
 
 Replace the internal interface with the package's public API:
 
 ```diff-php
- class Foo
- {
--	public InternalInterface $service;
-+	public PublicInterface $service;
+ namespace App {
+ 	class Foo {
+-		public \Vendor\InternalInterface $service;
++		public \Vendor\PublicInterface $service;
+ 	}
  }
 ```
 

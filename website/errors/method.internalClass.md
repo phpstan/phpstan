@@ -9,13 +9,18 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	class Service {
+		public function process(): void {}
+	}
+}
 
-use Vendor\Internal\Service;
-
-function doFoo(Service $service): void
-{
-	$service->process(); // ERROR: Call to method process() of internal class Vendor\Internal\Service from outside its root namespace Vendor.
+namespace App {
+	function doFoo(\Vendor\Service $service): void
+	{
+		$service->process();
+	}
 }
 ```
 

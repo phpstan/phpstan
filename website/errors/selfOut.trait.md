@@ -15,12 +15,14 @@ trait MyTrait
 
 class MyClass
 {
-    /**
-     * @phpstan-self-out self&MyTrait
-     */
-    public function apply(): void
-    {
-    }
+	use MyTrait;
+
+	/**
+	 * @phpstan-self-out MyTrait
+	 */
+	public function apply(): void
+	{
+	}
 }
 ```
 
@@ -40,12 +42,15 @@ Replace the trait with an interface that describes the contract:
 
  class MyClass
  {
-     /**
--     * @phpstan-self-out self&MyTrait
-+     * @phpstan-self-out self&MyInterface
-      */
-     public function apply(): void
-     {
-     }
+-	use MyTrait;
++	use SomeTrait;
+
+ 	/**
+-	 * @phpstan-self-out MyTrait
++	 * @phpstan-self-out self&MyInterface
+ 	 */
+ 	public function apply(): void
+ 	{
+ 	}
  }
 ```

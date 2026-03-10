@@ -9,15 +9,20 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	class Service {
+		/** @internal */
+		public static function doInternal(): void {}
 
-use ThirdParty\Foo;
+		public static function doPublic(): void {}
+	}
+}
 
-// ThirdParty\Foo has:
-// /** @internal */
-// public static function doInternal(): void {}
-
-Foo::doInternal();
+namespace App {
+	function test(): void {
+		\Vendor\Service::doInternal(); // error: Call to internal static method Vendor\Service::doInternal() from outside its root namespace Vendor.
+	}
+}
 ```
 
 ## Why is it reported?
@@ -29,12 +34,12 @@ A static method marked as `@internal` is being called from outside its root name
 Use the public API provided by the package instead:
 
 ```diff-php
- namespace App;
-
- use ThirdParty\Foo;
-
--Foo::doInternal();
-+Foo::doPublicAlternative();
+ namespace App {
+ 	function test(): void {
+-		\Vendor\Service::doInternal();
++		\Vendor\Service::doPublic();
+ 	}
+ }
 ```
 
 If the method is internal to the same package, the error will not be reported. The `@internal` restriction only applies to cross-package usage (calls from outside the root namespace).

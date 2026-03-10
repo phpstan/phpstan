@@ -10,63 +10,50 @@ ignorable: true
 <?php declare(strict_types = 1);
 
 /**
- * @template T
+ * @template T of int
  * @param T $value
  * @return T
  */
-function identity(mixed $value): mixed
+function identity($value)
 {
-    return $value;
+	return $value;
 }
 
-/**
- * @template T
- * @return T
- */
-function broken(): mixed
-{
-    return null;
-}
-
-function doFoo(): void
-{
-    // T cannot be resolved because there is no argument
-    // that would allow PHPStan to infer the template type
-    broken();
-}
+$result = identity('hello');
 ```
 
 ## Why is it reported?
 
-The called function or method declares a template type (generic type parameter) that appears in the return type, but PHPStan cannot determine what concrete type it should resolve to based on the provided arguments. This typically happens when the template type is used in the return type but none of the parameters allow PHPStan to infer it from the call site.
+The called function or method declares a template type (generic type parameter) with a bound, but the provided argument does not satisfy the bound. PHPStan cannot resolve the template type because the argument type falls outside the allowed range specified by the `@template T of ...` constraint.
+
+In the example above, the template type `T` is bounded to `int`, but a `string` is passed. PHPStan cannot resolve `T` because `string` is not a subtype of `int`.
 
 Learn more: [Solving PHPStan error "Unable to resolve template type"](/blog/solving-phpstan-error-unable-to-resolve-template-type)
 
 ## How to fix it
 
-Pass an argument that allows PHPStan to infer the template type:
+Pass an argument that satisfies the template bound:
+
+```diff-php
+ <?php declare(strict_types = 1);
+
+-$result = identity('hello');
++$result = identity(42);
+```
+
+Or widen the template bound if more types should be accepted:
 
 ```diff-php
  <?php declare(strict_types = 1);
 
  /**
-  * @template T
-- * @return T
-+ * @param class-string<T> $class
-+ * @return T
+- * @template T of int
++ * @template T of int|string
+  * @param T $value
+  * @return T
   */
--function broken(): mixed
-+function create(string $class): mixed
+ function identity($value)
  {
--    return null;
-+    return new $class();
+ 	return $value;
  }
-```
-
-Or specify the template type explicitly using PHPDoc:
-
-```diff-php
--broken();
-+/** @var string $result */
-+$result = broken();
 ```

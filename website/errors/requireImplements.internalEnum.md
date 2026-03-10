@@ -2,45 +2,45 @@
 title: "requireImplements.internalEnum"
 shortDescription: "Tag @phpstan-require-implements references an internal enum."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
 
 ```php
-<?php declare(strict_types = 1);
+<?php declare(strict_types = 1); // lint >= 8.1
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-enum InternalEnum
-{
-	case A;
+namespace Vendor {
+	/** @internal */
+	enum InternalEnum {
+		case A;
+	}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\InternalEnum;
-
-/**
- * @phpstan-require-implements InternalEnum
- */
-trait MyTrait
-{
+namespace App {
+	/**
+	 * @phpstan-require-implements \Vendor\InternalEnum
+	 */
+	trait MyTrait {}
 }
 ```
 
 ## Why is it reported?
 
-A `@phpstan-require-implements` PHPDoc tag references an enum that is marked as `@internal`. Internal types are not part of the package's public API and may change or be removed without notice.
+The `@phpstan-require-implements` PHPDoc tag references an enum that is marked as `@internal`. Internal types are not part of the public API of their package and may change or be removed without notice.
+
+Note: triggering this identifier requires using an enum in `@phpstan-require-implements`, which only accepts interfaces. PHPStan therefore always also reports a `requireImplements.enum` error alongside this one.
 
 ## How to fix it
 
-Use a public (non-internal) type in the `@phpstan-require-implements` tag instead. If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.
+Use a public (non-internal) interface in the `@phpstan-require-implements` tag instead:
+
+```diff-php
+ /**
+- * @phpstan-require-implements \Vendor\InternalEnum
++ * @phpstan-require-implements \Vendor\PublicInterface
+  */
+ trait MyTrait {}
+```
+
+If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.

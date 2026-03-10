@@ -9,39 +9,46 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-function doFoo(int $value): void
+class Foo
 {
-	if (isset($value)) {
-		// ...
+	public function getValue(): int
+	{
+		return 5;
+	}
+}
+
+function doFoo(Foo $foo): void
+{
+	if (isset($foo->getValue())) {
+		echo $foo->getValue();
 	}
 }
 ```
 
 ## Why is it reported?
 
-The expression inside `isset()` is never `null` based on the types PHPStan has inferred, so the `isset()` check is unnecessary -- it will always evaluate to `true`. The variable `$value` is typed as `int`, which cannot be `null`, so `isset($value)` serves no purpose.
-
-The same applies to `empty()` checks and `??` (null coalescing) expressions when the left side is never `null`.
+The expression inside `isset()` is never `null` based on the types PHPStan has inferred, so the `isset()` check is unnecessary -- it will always evaluate to `true`. In the example above, `getValue()` returns `int`, which cannot be `null`, so `isset($foo->getValue())` serves no purpose.
 
 ## How to fix it
 
-Remove the unnecessary `isset()` check if the value is always defined and non-null:
+Remove the unnecessary `isset()` check if the expression is always non-null:
 
 ```diff-php
--	if (isset($value)) {
-+	if (true) { // or simply remove the condition
- 		// ...
- 	}
+ function doFoo(Foo $foo): void
+ {
+-	if (isset($foo->getValue())) {
+-		echo $foo->getValue();
+-	}
++	echo $foo->getValue();
+ }
 ```
 
-If the value should be nullable, update the type declaration:
+If the return value should be nullable, update the return type:
 
 ```diff-php
--function doFoo(int $value): void
-+function doFoo(?int $value): void
- {
- 	if (isset($value)) {
- 		// ...
+-	public function getValue(): int
++	public function getValue(): ?int
+ 	{
+ 		return 5;
  	}
- }
 ```

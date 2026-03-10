@@ -2,6 +2,7 @@
 title: "mixin.internalTrait"
 shortDescription: "PHPDoc @mixin tag references an internal trait."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,15 +10,20 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	trait InternalTrait {
+		public function doSomething(): void {}
+	}
 
-use Some\Internal\HelperTrait;
+	class Foo {
+		use InternalTrait;
+	}
+}
 
-/**
- * @mixin HelperTrait
- */
-class Foo // ERROR: PHPDoc tag @mixin references internal trait HelperTrait.
-{
+namespace App {
+	/** @mixin \Vendor\InternalTrait */
+	class MyClass {}
 }
 ```
 
@@ -25,24 +31,17 @@ class Foo // ERROR: PHPDoc tag @mixin references internal trait HelperTrait.
 
 The `@mixin` PHPDoc tag references a trait that is marked as `@internal`. Internal traits are not part of the public API of the package that defines them. Referencing internal types in PHPDoc tags creates a dependency on implementation details that may change without notice in future versions of the package.
 
+Traits are not valid types in PHP, so using one in a `@mixin` tag is problematic regardless of the internal status.
+
 ## How to fix it
 
 Use a public class or interface provided by the package instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use Some\Internal\HelperTrait;
-+use Some\PublicHelper;
-
- /**
-- * @mixin HelperTrait
-+ * @mixin PublicHelper
-  */
- class Foo
- {
+ namespace App {
+-	/** @mixin \Vendor\InternalTrait */
++	/** @mixin \Vendor\PublicClass */
+ 	class MyClass {}
  }
 ```
 

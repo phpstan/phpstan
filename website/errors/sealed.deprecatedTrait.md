@@ -1,6 +1,6 @@
 ---
 title: "sealed.deprecatedTrait"
-shortDescription: "Tag @phpstan-sealed references a deprecated trait."
+shortDescription: "@phpstan-sealed references a deprecated trait."
 ignorable: true
 ---
 
@@ -13,38 +13,29 @@ ignorable: true
 trait DeprecatedTrait {}
 
 /**
- * @phpstan-sealed(AllowedClass)
- * @phpstan-require-extends SomeBase
+ * @phpstan-sealed DeprecatedTrait
  */
-class MyClass
+class Foo
 {
-    /** @deprecated */
-    use DeprecatedTrait;
 }
 ```
 
 ## Why is it reported?
 
-The `@phpstan-sealed` PHPDoc tag references a trait that has been marked as `@deprecated`. Deprecated symbols are scheduled for removal or replacement. Using a deprecated trait in a `@phpstan-sealed` declaration ties the sealed constraint to an API that will eventually be removed.
+This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) extension.
+
+The `@phpstan-sealed` PHPDoc tag references a trait that has been marked as `@deprecated`. Deprecated traits are planned for removal in a future version, and sealed constraints should not depend on them.
 
 ## How to fix it
 
 Replace the deprecated trait reference with its non-deprecated replacement:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  /**
-- * @phpstan-sealed(DeprecatedTrait)
-+ * @phpstan-sealed(NewTrait)
+- * @phpstan-sealed DeprecatedTrait
++ * @phpstan-sealed NewTrait
   */
- class MyClass
+ class Foo
  {
--    use DeprecatedTrait;
-+    use NewTrait;
  }
 ```
-
-Or remove the `@phpstan-sealed` tag if the constraint is no longer needed.
-
-This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) extension.

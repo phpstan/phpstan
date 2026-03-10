@@ -9,17 +9,17 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	enum InternalStatus {
+		case Active;
+	}
+}
 
-// Defined in a third-party package:
-// /** @internal */
-// enum InternalStatus { case Active; case Inactive; }
-
-use ThirdParty\InternalStatus;
-
-function getStatus(): InternalStatus
-{
-    // ...
+namespace App {
+	function getStatus(): \Vendor\InternalStatus {
+		return \Vendor\InternalStatus::Active;
+	}
 }
 ```
 
@@ -32,17 +32,12 @@ The native return type declaration of a function or method references an enum th
 Replace the internal enum with a public enum or interface from the package in the return type:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use ThirdParty\InternalStatus;
-+use ThirdParty\Status;
-
--function getStatus(): InternalStatus
-+function getStatus(): Status
- {
-     // ...
+ namespace App {
+-	function getStatus(): \Vendor\InternalStatus {
+-		return \Vendor\InternalStatus::Active;
++	function getStatus(): \Vendor\PublicStatus {
++		// ...
+ 	}
  }
 ```
 

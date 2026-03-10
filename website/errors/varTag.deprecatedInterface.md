@@ -14,10 +14,16 @@ interface OldLogger
 {
 }
 
-class Foo
+/** @return mixed */
+function getLogger()
 {
-	/** @var OldLogger */
-	public $logger;
+	return null;
+}
+
+function doFoo(): void
+{
+	/** @var OldLogger $x */
+	$x = getLogger();
 }
 ```
 
@@ -25,39 +31,14 @@ class Foo
 
 This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) extension.
 
-A `@var` PHPDoc tag references a deprecated interface. Deprecated interfaces are scheduled for removal or replacement. Referencing them in type annotations propagates the dependency on a deprecated API.
+An inline `@var` PHPDoc tag references an interface that has been marked as `@deprecated`. Deprecated interfaces are planned for removal in a future version, and type annotations should not rely on them.
 
 ## How to fix it
 
 Update the `@var` tag to reference the replacement interface:
 
 ```diff-php
- class Foo
- {
--	/** @var OldLogger */
-+	/** @var NewLogger */
- 	public $logger;
- }
-```
-
-If possible, use a native type declaration instead of a `@var` tag:
-
-```diff-php
- class Foo
- {
--	/** @var OldLogger */
--	public $logger;
-+	public NewLogger $logger;
- }
-```
-
-If the calling code is itself deprecated, the error will not be reported. Mark the class as deprecated if it is part of a deprecation migration:
-
-```diff-php
-+/** @deprecated */
- class Foo
- {
- 	/** @var OldLogger */
- 	public $logger;
- }
+-	/** @var OldLogger $x */
++	/** @var NewLogger $x */
+ 	$x = getLogger();
 ```

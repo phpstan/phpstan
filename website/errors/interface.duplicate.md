@@ -6,10 +6,12 @@ ignorable: true
 
 ## Code example
 
+This error is reported when the same interface is declared in multiple files within the analysed codebase:
+
 ```php
+// file1.php
 <?php declare(strict_types = 1);
 
-// In file: src/Contracts/Logger.php
 namespace App\Contracts;
 
 interface Logger
@@ -19,9 +21,9 @@ interface Logger
 ```
 
 ```php
+// file2.php
 <?php declare(strict_types = 1);
 
-// In file: src/Legacy/Logger.php
 namespace App\Contracts;
 
 interface Logger
@@ -32,9 +34,7 @@ interface Logger
 
 ## Why is it reported?
 
-The same interface is declared in multiple files within the analysed codebase. PHP does not allow two interfaces with the same fully-qualified name. When the autoloader loads one of them, the other becomes unreachable, and if both files are included, a fatal error occurs.
-
-In the example above, `App\Contracts\Logger` is defined in two different files.
+The same interface is declared in multiple files within the registered [stub files](/user-guide/stub-files).
 
 ## How to fix it
 

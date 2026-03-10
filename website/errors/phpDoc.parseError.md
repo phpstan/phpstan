@@ -10,16 +10,16 @@ ignorable: true
 <?php declare(strict_types = 1);
 
 /**
- * @param array<int, > $values
+ * @param int|& $value
  */
-function doFoo(array $values): void
+function doFoo($value): void
 {
 }
 ```
 
 ## Why is it reported?
 
-The PHPDoc tag contains a value that could not be parsed. In the example above, the `@param` tag has an incomplete generic type `array<int, >` (missing the value type after the comma).
+The PHPDoc tag contains a value that could not be parsed. In the example above, the `@param` tag has an invalid type `int|&` -- the `&` is not a valid type and cannot appear after the union operator `|`.
 
 ## How to fix it
 
@@ -29,10 +29,11 @@ Fix the PHPDoc syntax:
  <?php declare(strict_types = 1);
 
  /**
-- * @param array<int, > $values
-+ * @param array<int, string> $values
+- * @param int|& $value
++ * @param int $value
   */
- function doFoo(array $values): void
+-function doFoo($value): void
++function doFoo(int $value): void
  {
  }
 ```

@@ -1,6 +1,6 @@
 ---
 title: "enum.duplicateProperty"
-shortDescription: "Property with the same name is declared more than once."
+shortDescription: "Property is declared more than once in an enum."
 ignorable: false
 ---
 
@@ -9,52 +9,29 @@ ignorable: false
 ```php
 <?php declare(strict_types = 1);
 
-enum Suit: string
+enum Status
 {
-	case Hearts = 'hearts';
+	case Active;
 
-	// Enums cannot have properties, but if they could,
-	// this rule also applies to classes and interfaces
-}
-```
-
-This error is reported by the same rule that checks classes and interfaces for duplicate property declarations:
-
-```php
-<?php declare(strict_types = 1);
-
-class Foo
-{
-	public int $prop;
-	public int $prop;
+	public int $value;
+	public int $value;
 }
 ```
 
 ## Why is it reported?
 
-A property with the same name is declared more than once in the same class or enum. PHP does not allow redeclaring properties within a single class definition. This also applies when a property is declared both as a regular property and as a constructor-promoted property.
+A property with the same name is declared more than once in the same enum. Enums cannot have instance properties in PHP, but PHPStan still detects the duplicate declaration through its generic duplicate-declaration rule that checks all class-like structures uniformly.
 
 ## How to fix it
 
 Remove the duplicate property declaration:
 
 ```diff-php
- class Foo
+ enum Status
  {
- 	public int $prop;
--	public int $prop;
- }
-```
+ 	case Active;
 
-If using constructor promotion, remove the separate property declaration:
-
-```diff-php
- class Foo
- {
--	public int $prop;
--
- 	public function __construct(
- 		public int $prop,
- 	) {}
+ 	public int $value;
+-	public int $value;
  }
 ```

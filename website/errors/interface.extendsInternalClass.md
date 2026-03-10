@@ -1,7 +1,8 @@
 ---
 title: "interface.extendsInternalClass"
-shortDescription: "Interface extends an internal type from another package."
+shortDescription: "Interface extends an internal class from another package."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,27 +10,13 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-class InternalClass
-{
+namespace Vendor {
+	/** @internal */
+	class InternalClass {}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\InternalClass;
-
-interface MyInterface extends InternalClass
-{
+namespace App {
+	interface MyInterface extends \Vendor\InternalClass {}
 }
 ```
 
@@ -37,6 +24,15 @@ interface MyInterface extends InternalClass
 
 An interface extends a type that is marked as `@internal`. Internal types are not part of the package's public API and may change or be removed without notice. Depending on internal types in your interface definitions makes your code fragile.
 
+An interface cannot extend a class in PHP -- interfaces can only extend other interfaces. This code is invalid regardless of the `@internal` annotation.
+
 ## How to fix it
 
-Use a public (non-internal) type instead. If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.
+Extend a public (non-internal) interface instead:
+
+```diff-php
+-interface MyInterface extends \Vendor\InternalClass {}
++interface MyInterface extends \Vendor\PublicInterface {}
+```
+
+If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.

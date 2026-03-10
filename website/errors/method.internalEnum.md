@@ -9,13 +9,22 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	enum Status: string {
+		case Active = 'active';
+		case Inactive = 'inactive';
 
-use Vendor\Internal\Status;
+		public function label(): string {
+			return $this->value;
+		}
+	}
+}
 
-function doFoo(Status $status): void
-{
-	$status->label(); // ERROR: Call to method label() of internal enum Vendor\Internal\Status from outside its root namespace Vendor.
+namespace App {
+	function test(\Vendor\Status $status): string {
+		return $status->label(); // error: Call to method label() of internal enum Vendor\Status from outside its root namespace Vendor.
+	}
 }
 ```
 
@@ -28,17 +37,12 @@ A method is being called on an object whose type is an enum marked as `@internal
 Use the public API provided by the package instead of accessing internal enums directly:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use Vendor\Internal\Status;
-+use Vendor\PublicStatus;
-
--function doFoo(Status $status): void
-+function doFoo(PublicStatus $status): void
- {
- 	$status->label();
+ namespace App {
+-	function test(\Vendor\Status $status): string {
+-		return $status->label();
++	function test(\Vendor\PublicStatus $status): string {
++		return $status->label();
+ 	}
  }
 ```
 

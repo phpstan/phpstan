@@ -9,35 +9,23 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-enum Status: string
-{
-	case Active = 'active';
-	case Inactive = 'inactive';
+namespace Vendor {
+	/** @internal */
+	enum Status: string {
+		case Active = 'active';
+		case Inactive = 'inactive';
+	}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\Status;
-
-class Validator
-{
-	/**
-	 * @phpstan-assert Status $value
-	 */
-	public function assertStatus(mixed $value): void
-	{
-		// ...
+namespace App {
+	class Validator {
+		/**
+		 * @phpstan-assert \Vendor\Status $value
+		 * @param mixed $value
+		 */
+		public function assertStatus($value): void
+		{
+		}
 	}
 }
 ```

@@ -2,6 +2,7 @@
 title: "requireImplements.deprecatedEnum"
 shortDescription: "Tag @phpstan-require-implements references a deprecated enum."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example

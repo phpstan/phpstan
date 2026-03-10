@@ -9,14 +9,16 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	class InternalService {}
+}
 
-use Some\Internal\InternalService;
-
-function checkService(object $obj): void
-{
-	if ($obj instanceof InternalService) { // ERROR: Instanceof references internal class InternalService.
-		// ...
+namespace App {
+	function checkService(object $obj): void
+	{
+		if ($obj instanceof \Vendor\InternalService) {
+		}
 	}
 }
 ```

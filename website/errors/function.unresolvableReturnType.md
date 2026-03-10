@@ -1,6 +1,6 @@
 ---
 title: "function.unresolvableReturnType"
-shortDescription: "Return type of a function call contains an unresolvable generic type."
+shortDescription: "Return type of a function call contains an unresolvable type after template substitution."
 ignorable: true
 ---
 
@@ -9,62 +9,61 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-/**
- * @template T
- * @param T $value
- * @return T
- */
-function identity(mixed $value): mixed
+interface Loggable
 {
-    return $value;
+	public function log(): void;
 }
 
 /**
  * @template T of object
- * @param class-string<T> $class
- * @return T
+ * @param T $value
+ * @return T&Loggable
  */
-function create(string $class): object
+function makeLoggable(object $value): object
 {
-    return new $class();
+	return $value;
 }
+
+class PlainObject {}
 
 function doFoo(): void
 {
-    $result = create(identity('stdClass'));
+	$result = makeLoggable(new PlainObject());
 }
 ```
 
 ## Why is it reported?
 
-The return type of a function call contains an unresolvable type. This happens when a function's return type depends on generic template types that PHPStan cannot fully resolve from the provided arguments. The result is that PHPStan cannot determine the precise return type, which may lead to less accurate analysis downstream.
+PHPStan reports this error when the return type of a function call contains an unresolvable type after generic template substitution. This happens when the template type resolves to a value that makes the return type impossible.
 
-This typically occurs when generic functions are composed in complex ways, or when the type information flowing through nested function calls is insufficient for PHPStan to resolve all template types.
+In the example above, `makeLoggable` returns `T&Loggable`. When called with `new PlainObject()`, `T` resolves to `PlainObject`. Since `PlainObject` does not implement `Loggable`, the intersection `PlainObject&Loggable` is impossible and PHPStan cannot determine a valid return type.
 
 ## How to fix it
 
-Break the expression into separate steps so PHPStan can resolve the types at each stage:
+Pass an argument whose type satisfies all constraints in the return type:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
++class LoggableObject implements Loggable
++{
++	public function log(): void {}
++}
++
  function doFoo(): void
  {
--    $result = create(identity('stdClass'));
-+    $className = identity('stdClass');
-+    $result = create($className);
+-	$result = makeLoggable(new PlainObject());
++	$result = makeLoggable(new LoggableObject());
  }
 ```
 
-Or provide explicit type annotations to help PHPStan understand the types:
+Or constrain the template type to require the interface upfront:
 
-```php
-<?php declare(strict_types = 1);
-
-function doFoo(): void
-{
-    /** @var class-string<\stdClass> $className */
-    $className = identity('stdClass');
-    $result = create($className);
-}
+```diff-php
+ /**
+- * @template T of object
++ * @template T of Loggable
+  * @param T $value
+- * @return T&Loggable
++ * @return T
+  */
+ function makeLoggable(object $value): object
 ```

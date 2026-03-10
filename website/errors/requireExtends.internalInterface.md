@@ -2,6 +2,7 @@
 title: "requireExtends.internalInterface"
 shortDescription: "@phpstan-require-extends references an internal interface."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
@@ -9,49 +10,43 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-interface InternalInterface
-{
+namespace Vendor {
+	/** @internal */
+	interface InternalInterface {}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\InternalInterface;
-
-/**
- * @phpstan-require-extends InternalInterface
- */
-interface MyInterface
-{
+namespace App {
+	/**
+	 * @phpstan-require-extends \Vendor\InternalInterface
+	 */
+	interface MyInterface {}
 }
 ```
 
 ## Why is it reported?
 
-The `@phpstan-require-extends` PHPDoc tag references an interface that is marked as `@internal`. Internal interfaces are not part of the public API of the package that defines them and may change or be removed without notice. Depending on them in a `@phpstan-require-extends` constraint creates a fragile dependency on implementation details.
+The `@phpstan-require-extends` PHPDoc tag references an interface that is marked as `@internal`. Internal interfaces are not part of the public API of their package and may change or be removed without notice.
+
+Note: triggering this identifier requires using an interface in `@phpstan-require-extends`, which only accepts classes. PHPStan therefore always also reports a `requireExtends.interface` error alongside this one.
 
 ## How to fix it
 
-Use a public (non-internal) interface in the `@phpstan-require-extends` tag:
+If the intent is to require implementing an interface, use `@phpstan-require-implements` instead:
 
 ```diff-php
  /**
-- * @phpstan-require-extends InternalInterface
-+ * @phpstan-require-extends PublicInterface
+- * @phpstan-require-extends \Vendor\InternalInterface
++ * @phpstan-require-implements \Vendor\PublicInterface
   */
- interface MyInterface
- {
- }
+ interface MyInterface {}
 ```
 
-If the interface is internal to your own project, the error is not reported when the usage is within the same root namespace. Reorganize your namespaces so that internal types are only used within their own namespace boundary.
+If a class constraint is needed, use a public (non-internal) class:
+
+```diff-php
+ /**
+- * @phpstan-require-extends \Vendor\InternalInterface
++ * @phpstan-require-extends \Vendor\PublicBaseClass
+  */
+ interface MyInterface {}
+```

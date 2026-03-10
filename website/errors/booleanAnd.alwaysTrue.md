@@ -9,42 +9,47 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
+/** @param positive-int $i */
 function doFoo(int $i): void
 {
-	$one = 1;
-	$result = $one && $i;
+	if ($i > 0 && is_int($i)) {
+		echo 'always';
+	}
 }
 ```
 
 ## Why is it reported?
 
-The result of the `&&` (boolean AND) expression always evaluates to `true`. This happens when both sides of the operator are always truthy, making the condition constant. In this example, `$one` is always `1` (truthy) and the result of the entire `&&` expression is always `true` when used outside a first-level statement. This usually indicates a logic error, a redundant check, or dead code.
+The result of the `&&` (boolean AND) expression always evaluates to `true`. This happens when both sides of the operator are always truthy, making the condition constant. In this example, `$i` is a `positive-int`, so `$i > 0` is always `true` and `is_int($i)` is also always `true`. This usually indicates a logic error, a redundant check, or dead code.
 
 ## How to fix it
 
-Remove the redundant operand if the condition is always true:
+Remove the redundant condition if the check is unnecessary:
 
 ```diff-php
  <?php declare(strict_types = 1);
 
+ /** @param positive-int $i */
  function doFoo(int $i): void
  {
--	$one = 1;
--	$result = $one && $i;
-+	$result = (bool) $i;
+-	if ($i > 0 && is_int($i)) {
+-		echo 'always';
+-	}
++	echo 'always';
  }
 ```
 
-Or fix the logic to use the correct variable so the result is not always the same:
+Or fix the logic to use conditions that are meaningful:
 
 ```diff-php
  <?php declare(strict_types = 1);
 
--function doFoo(int $i): void
-+function doFoo(int $i, bool $flag): void
+ /** @param positive-int $i */
+ function doFoo(int $i): void
  {
--	$one = 1;
--	$result = $one && $i;
-+	$result = $flag && $i;
+-	if ($i > 0 && is_int($i)) {
++	if ($i > 0 && $i < 100) {
+ 		echo 'always';
+ 	}
  }
 ```

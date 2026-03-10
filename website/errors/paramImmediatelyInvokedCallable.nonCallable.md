@@ -12,7 +12,7 @@ ignorable: true
 /**
  * @param-immediately-invoked-callable $callback
  */
-function doFoo(string $callback): void
+function doFoo(int $callback): void
 {
 }
 ```
@@ -29,7 +29,7 @@ Change the parameter type to a callable type:
  /**
   * @param-immediately-invoked-callable $callback
   */
--function doFoo(string $callback): void
+-function doFoo(int $callback): void
 +function doFoo(callable $callback): void
  {
  }
@@ -41,7 +41,7 @@ Or remove the tag if the parameter is not intended to be callable:
 -/**
 - * @param-immediately-invoked-callable $callback
 - */
- function doFoo(string $callback): void
+ function doFoo(int $callback): void
  {
  }
 ```

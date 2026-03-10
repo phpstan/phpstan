@@ -1,6 +1,6 @@
 ---
 title: "parameter.deprecatedTrait"
-shortDescription: "Parameter type declaration references a class using a deprecated trait."
+shortDescription: "Parameter type references a deprecated trait."
 ignorable: true
 ---
 
@@ -16,39 +16,30 @@ trait OldHelper
 
 class Foo
 {
-	use OldHelper;
-}
-
-function process(Foo $foo): void
-{
-	// ...
+	/** @param OldHelper $x */
+	public function doFoo($x): void
+	{
+	}
 }
 ```
 
 ## Why is it reported?
 
-A function or method parameter has a type declaration that references a class using a deprecated trait. The trait has been marked with a `@deprecated` PHPDoc tag, indicating it is scheduled for removal or replacement.
+This error is reported by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) extension.
 
-This rule is provided by the [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) package.
+A function or method parameter has a PHPDoc type that references a trait marked as `@deprecated`. Deprecated traits are planned for removal in a future version, and parameter types should not rely on them.
 
 ## How to fix it
 
-Replace the deprecated trait with its recommended replacement in the class:
+Replace the deprecated trait with a non-deprecated type in the PHPDoc tag:
 
 ```diff-php
  class Foo
  {
--	use OldHelper;
-+	use NewHelper;
- }
-```
-
-Or update the parameter type to use a class that does not depend on the deprecated trait:
-
-```diff-php
--function process(Foo $foo): void
-+function process(Bar $bar): void
- {
- 	// ...
+-	/** @param OldHelper $x */
++	/** @param NewHelper $x */
+ 	public function doFoo($x): void
+ 	{
+ 	}
  }
 ```

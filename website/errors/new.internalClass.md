@@ -9,11 +9,14 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	class InternalHelper {}
+}
 
-// Assume InternalHelper is marked @internal in vendor/some-package
-
-$helper = new \Vendor\InternalHelper(); // error: Instantiation of internal class Vendor\InternalHelper.
+namespace App {
+	$helper = new \Vendor\InternalHelper(); // error: Instantiation of internal class Vendor\InternalHelper.
+}
 ```
 
 ## Why is it reported?
@@ -25,8 +28,10 @@ The class being instantiated is marked as `@internal`, meaning it is not part of
 Use the public API provided by the package instead of instantiating its internal classes directly.
 
 ```diff-php
--$helper = new \Vendor\InternalHelper();
-+$helper = \Vendor\HelperFactory::create();
+ namespace App {
+-	$helper = new \Vendor\InternalHelper();
++	$helper = \Vendor\HelperFactory::create();
+ }
 ```
 
 If no public alternative exists, consider opening a feature request with the package maintainer.

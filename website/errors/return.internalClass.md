@@ -9,17 +9,15 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	class InternalResult {}
+}
 
-// Defined in a third-party package:
-// /** @internal */
-// class InternalHelper {}
-
-use ThirdParty\InternalHelper;
-
-function createHelper(): InternalHelper
-{
-    // ...
+namespace App {
+	function getResult(): \Vendor\InternalResult {
+		return new \Vendor\InternalResult();
+	}
 }
 ```
 
@@ -32,17 +30,12 @@ The native return type declaration of a function or method references a class th
 Replace the internal class with a public class or interface from the package in the return type:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
--use ThirdParty\InternalHelper;
-+use ThirdParty\HelperInterface;
-
--function createHelper(): InternalHelper
-+function createHelper(): HelperInterface
- {
-     // ...
+ namespace App {
+-	function getResult(): \Vendor\InternalResult {
+-		return new \Vendor\InternalResult();
++	function getResult(): \Vendor\ResultInterface {
++		// ...
+ 	}
  }
 ```
 

@@ -9,30 +9,16 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-// In package vendor/some-library:
-
-namespace SomeLibrary;
-
-/** @internal */
-class InternalClass
-{
+namespace Vendor {
+	/** @internal */
+	class InternalClass {}
 }
-```
 
-```php
-<?php declare(strict_types = 1);
-
-// In your code:
-
-namespace App;
-
-use SomeLibrary\InternalClass;
-
-/**
- * @property InternalClass $helper
- */
-class Foo
-{
+namespace App {
+	/**
+	 * @property \Vendor\InternalClass $helper
+	 */
+	class MyClass {}
 }
 ```
 
@@ -42,4 +28,16 @@ A `@property` PHPDoc tag references a class that is marked as `@internal`. Inter
 
 ## How to fix it
 
-Use a public (non-internal) type in the `@property` tag instead. If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.
+Use a public (non-internal) type in the `@property` tag instead:
+
+```diff-php
+ namespace App {
+ 	/**
+-	 * @property \Vendor\InternalClass $helper
++	 * @property \Vendor\PublicClass $helper
+ 	 */
+ 	class MyClass {}
+ }
+```
+
+If no public alternative exists, consider reaching out to the package maintainers to request a public API for your use case.

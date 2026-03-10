@@ -10,7 +10,7 @@ ignorable: true
 <?php declare(strict_types = 1);
 
 /**
- * @phpstan-type MyType array{name: string, value: }
+ * @phpstan-type MyType int<0>
  */
 class Foo
 {
@@ -19,22 +19,20 @@ class Foo
 
 ## Why is it reported?
 
-A type alias defined via `@phpstan-type` contains a type definition that cannot be parsed. The type syntax in the alias is malformed or uses unsupported constructs, resulting in an error type that PHPStan cannot resolve.
+A type alias defined via `@phpstan-type` contains a type definition that resolves to an invalid type. While the type syntax may be parseable, it produces an error type that PHPStan cannot work with.
 
 Common causes include:
-- Syntax errors in the type definition (missing parts, extra commas, unclosed brackets)
-- Using type syntax that PHPStan does not recognize
+- Using invalid generic type arguments (e.g. `int<0>` instead of `int<0, max>`)
+- Type definitions that resolve to impossible or contradictory types
 
 ## How to fix it
 
-Correct the type definition syntax in the `@phpstan-type` tag:
+Correct the type definition in the `@phpstan-type` tag:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
  /**
-- * @phpstan-type MyType array{name: string, value: }
-+ * @phpstan-type MyType array{name: string, value: mixed}
+- * @phpstan-type MyType int<0>
++ * @phpstan-type MyType int<0, max>
   */
  class Foo
  {

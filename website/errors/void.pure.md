@@ -9,12 +9,9 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-class Formatter
+function calculate(int $a, int $b): void
 {
-	private function format(string $input): void
-	{
-		$result = strtoupper($input);
-	}
+	$result = $a + $b;
 }
 ```
 
@@ -22,7 +19,7 @@ class Formatter
 
 A function or method returns `void`, has no side effects, does not throw exceptions, does not modify parameters by reference, and does not have any `@phpstan-assert` tags. A void function without side effects is useless -- it performs computation but discards the result without affecting any observable state.
 
-This is reported for private methods and standalone functions where PHPStan can determine that no side effects occur.
+This is reported for standalone functions and private methods where PHPStan can determine that no side effects occur.
 
 ## How to fix it
 
@@ -31,14 +28,11 @@ If the function is supposed to produce a result, return it instead of discarding
 ```diff-php
  <?php declare(strict_types = 1);
 
- class Formatter
+-function calculate(int $a, int $b): void
++function calculate(int $a, int $b): int
  {
--	private function format(string $input): void
-+	private function format(string $input): string
- 	{
--		$result = strtoupper($input);
-+		return strtoupper($input);
- 	}
+-	$result = $a + $b;
++	return $a + $b;
  }
 ```
 
@@ -47,13 +41,10 @@ If the function is supposed to have side effects (e.g., writing to a file or mod
 ```diff-php
  <?php declare(strict_types = 1);
 
- class Formatter
+ function calculate(int $a, int $b): void
  {
- 	private function format(string $input): void
- 	{
- 		$result = strtoupper($input);
-+		echo $result;
- 	}
+ 	$result = $a + $b;
++	echo $result;
  }
 ```
 
@@ -62,12 +53,9 @@ If the function is intentionally impure but PHPStan cannot detect the side effec
 ```diff-php
  <?php declare(strict_types = 1);
 
- class Formatter
++/** @phpstan-impure */
+ function calculate(int $a, int $b): void
  {
-+	/** @phpstan-impure */
- 	private function format(string $input): void
- 	{
- 		$result = strtoupper($input);
- 	}
+ 	$result = $a + $b;
  }
 ```

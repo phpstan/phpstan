@@ -9,22 +9,17 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-namespace App;
+namespace Vendor {
+	/** @internal */
+	function internalHelper(): void {}
 
-function doFoo(): void
-{
-	\SomeLibrary\internalHelper();
+	function publicHelper(): void {}
 }
-```
 
-Where `\SomeLibrary\internalHelper()` is declared as:
-
-```php
-namespace SomeLibrary;
-
-/** @internal */
-function internalHelper(): void
-{
+namespace App {
+	function test(): void {
+		\Vendor\internalHelper(); // error: Call to internal function Vendor\internalHelper() from outside its root namespace Vendor.
+	}
 }
 ```
 
@@ -37,14 +32,11 @@ The function being called is marked with the `@internal` PHPDoc tag. Internal fu
 Use a public API function provided by the library instead:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
- namespace App;
-
- function doFoo(): void
- {
--	\SomeLibrary\internalHelper();
-+	\SomeLibrary\publicHelper();
+ namespace App {
+ 	function test(): void {
+-		\Vendor\internalHelper();
++		\Vendor\publicHelper();
+ 	}
  }
 ```
 

@@ -1,7 +1,7 @@
 ---
 title: "closure.useThis"
-shortDescription: "Closure unnecessarily imports $this via the use clause."
-ignorable: true
+shortDescription: "Closure attempts to import $this via the use clause."
+ignorable: false
 ---
 
 ## Code example
@@ -13,27 +13,25 @@ class Foo
 {
 	public function doFoo(): void
 	{
-		$self = $this;
-		$fn = function () use ($self) {
-			$self->doSomething();
+		$fn = static function () use ($this) {
+			echo $this->bar();
 		};
 	}
 
-	public function doSomething(): void
+	public function bar(): string
 	{
+		return 'bar';
 	}
 }
 ```
 
 ## Why is it reported?
 
-The closure uses `$this` assigned to another variable in its `use` clause. Non-static closures in PHP already have access to `$this` automatically, so passing it through a variable is unnecessary and less clear.
-
-This can also be reported when `$this` is directly placed in the `use` clause (`use ($this)`), which is a PHP syntax error.
+The `$this` variable cannot be used as a lexical variable in a closure's `use` clause. PHP does not allow `use ($this)` -- it is a syntax error. Non-static closures already have access to `$this` automatically, so importing it is both unnecessary and invalid.
 
 ## How to fix it
 
-Use `$this` directly inside the closure body:
+Remove `$this` from the `use` clause and make the closure non-static so it has access to `$this`:
 
 ```diff-php
  <?php declare(strict_types = 1);
@@ -42,16 +40,16 @@ Use `$this` directly inside the closure body:
  {
  	public function doFoo(): void
  	{
--		$self = $this;
--		$fn = function () use ($self) {
--			$self->doSomething();
+-		$fn = static function () use ($this) {
+-			echo $this->bar();
 +		$fn = function () {
-+			$this->doSomething();
++			echo $this->bar();
  		};
  	}
 
- 	public function doSomething(): void
+ 	public function bar(): string
  	{
+ 		return 'bar';
  	}
  }
 ```

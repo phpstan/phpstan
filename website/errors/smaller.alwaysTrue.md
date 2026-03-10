@@ -9,10 +9,11 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-function checkAge(int $age): void
+/** @param negative-int $i */
+function doFoo(int $i): void
 {
-	if ($age < PHP_INT_MAX) {
-		echo 'Always reaches here';
+	if ($i < 0) {
+		echo 'always negative';
 	}
 }
 ```
@@ -21,22 +22,32 @@ function checkAge(int $age): void
 
 The `<` comparison is always true based on the types of the operands. This indicates that the condition is redundant because the left side is always strictly less than the right side given their possible values. Such comparisons often signal a logic error or an overly broad type.
 
+In the example above, `$i` is a `negative-int` (always `<= -1`), so `$i < 0` is always `true`.
+
 ## How to fix it
 
-Remove the unnecessary condition, or adjust the comparison to reflect the actual constraint you intend to enforce.
+Remove the unnecessary condition:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
--function checkAge(int $age): void
-+/**
-+ * @param int<0, 150> $age
-+ */
-+function checkAge(int $age): void
+ /** @param negative-int $i */
+ function doFoo(int $i): void
  {
--	if ($age < PHP_INT_MAX) {
-+	if ($age < 18) {
- 		echo 'Too young';
+-	if ($i < 0) {
+-		echo 'always negative';
+-	}
++	echo 'always negative';
+ }
+```
+
+Or adjust the comparison to reflect the actual constraint you intend to enforce:
+
+```diff-php
+ /** @param negative-int $i */
+ function doFoo(int $i): void
+ {
+-	if ($i < 0) {
++	if ($i < -10) {
+ 		echo 'very negative';
  	}
  }
 ```
