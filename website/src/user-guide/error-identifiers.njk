@@ -16,6 +16,15 @@ sectionTitle: User Guide
 {% endblock %}
 
 {% block scripts %}
+	<script>
+		window.__EXCLUDED_ERROR_IDENTIFIERS__ = [
+			{%- for id in errorIdentifiers -%}
+				{%- if id.doc and (id.doc.feasible === false or id.doc.unlikely === true) -%}
+					"{{ id.identifier }}",
+				{%- endif -%}
+			{%- endfor -%}
+		];
+	</script>
 	<script src="/js/error-identifiers.ts" type="module"></script>
 {% endblock %}
 

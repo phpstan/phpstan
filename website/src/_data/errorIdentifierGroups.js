@@ -29,6 +29,8 @@ module.exports = async () => {
 
 		// Read front matter from .md file
 		let ignorable = true;
+		let feasible = true;
+		let unlikely = false;
 		let shortDescription = null;
 		const docPath = errorsDir + '/' + identifier + '.md';
 		if (fs.existsSync(docPath)) {
@@ -36,9 +38,20 @@ module.exports = async () => {
 			if (file.data.ignorable === false) {
 				ignorable = false;
 			}
+			if (file.data.feasible === false) {
+				feasible = false;
+			}
+			if (file.data.unlikely === true) {
+				unlikely = true;
+			}
 			if (file.data.shortDescription) {
 				shortDescription = file.data.shortDescription;
 			}
+		}
+
+		// Skip identifiers that are not feasible or are unlikely
+		if (!feasible || unlikely) {
+			continue;
 		}
 
 		groups.get(prefix).push({
@@ -50,6 +63,7 @@ module.exports = async () => {
 	}
 
 	return [...groups.entries()]
+		.filter(([, items]) => items.length > 0)
 		.sort(([a], [b]) => a.localeCompare(b))
 		.map(([prefix, items]) => ({
 			prefix,

@@ -32,6 +32,12 @@ sectionTitle: User Guide
 {% endif %}
 {% endblock %}
 
+{% block metaRobots %}
+{% if errorIdentifier.doc and (errorIdentifier.doc.feasible === false or errorIdentifier.doc.unlikely === true) %}
+<meta name="robots" content="noindex">
+{% endif %}
+{% endblock %}
+
 {% block scripts %}
 	<script src="/js/error-identifier-detail.ts" type="module"></script>
 {% endblock %}
@@ -49,6 +55,16 @@ Every error reported by PHPStan has an error identifier. Here's [a list of all e
 {% endmarkdown %}
 
 {% if errorIdentifier.doc %}
+
+{% if errorIdentifier.doc.feasible === false %}
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+This error is not likely to ever be reported in practice. The identifier exists because of an entirely theoretical possible combination of inputs when calling <code>RuleErrorBuilder::identifier()</code>.
+</div>
+{% elif errorIdentifier.doc.unlikely === true %}
+<div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
+This error can be reported by PHPStan, but only under circumstances where a more severe error about the code is already reported.
+</div>
+{% endif %}
 
 {{ errorIdentifier.doc.content | renderMarkdown | safe }}
 

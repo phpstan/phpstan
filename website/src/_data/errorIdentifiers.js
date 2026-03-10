@@ -47,6 +47,8 @@ module.exports = async () => {
 			const file = matter(await fsPromises.readFile(docPath, 'utf8'));
 			item.doc = {
 				ignorable: file.data.ignorable !== false,
+				feasible: file.data.feasible !== false,
+				unlikely: file.data.unlikely === true,
 				shortDescription: file.data.shortDescription || null,
 				content: file.content,
 			};
