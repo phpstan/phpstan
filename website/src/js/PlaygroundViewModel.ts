@@ -33,8 +33,10 @@ export class PlaygroundViewModel {
 	isSharing: ko.Observable<boolean>;
 	xhr: JQuery.jqXHR | null;
 	shareXhr: JQuery.jqXHR | null;
+	resultXhr: JQuery.jqXHR | null;
 	id: ko.Observable<string | null>;
 	resultUrl: string | null;
+	sampleUrl: string | null;
 	isHashMatch: boolean;
 	hasServerError: ko.Observable<boolean>;
 
@@ -77,9 +79,11 @@ export class PlaygroundViewModel {
 		this.isSharing = ko.observable<boolean>(false);
 		this.xhr = null;
 		this.shareXhr = null;
+		this.resultXhr = null;
 
 		const legacyHashMatch = urlPath.match(/^\/r\/([a-f0-9]{32})$/);
 		let resultUrl = null;
+		let sampleUrl: string | null = null;
 		let id: string | null = null;
 		if (legacyHashMatch !== null) {
 			id = legacyHashMatch[1];
@@ -90,9 +94,11 @@ export class PlaygroundViewModel {
 		if (hashMatch !== null) {
 			id = hashMatch[1];
 			resultUrl = this.apiBaseUrl + '/result?id=' + id;
+			sampleUrl = this.apiBaseUrl + '/sample?id=' + id;
 		}
 
 		this.resultUrl = resultUrl;
+		this.sampleUrl = sampleUrl;
 		this.isHashMatch = hashMatch !== null;
 
 		this.id = ko.observable(id);
@@ -149,6 +155,10 @@ export class PlaygroundViewModel {
 		if (this.shareXhr !== null) {
 			this.shareXhr.abort();
 			this.shareXhr = null;
+		}
+		if (this.resultXhr !== null) {
+			this.resultXhr.abort();
+			this.resultXhr = null;
 		}
 
 		this.isLoading(true);
@@ -263,34 +273,70 @@ export class PlaygroundViewModel {
 	}
 
 	init(initCallback: () => void): void {
-		if (this.resultUrl !== null) {
-			$.get(this.resultUrl).done((data) => {
+		if (this.sampleUrl !== null && this.resultUrl !== null) {
+			const originalId = this.id();
+			$.get(this.sampleUrl).done((data) => {
 				this.code(data.code);
 
-				if (this.isHashMatch) {
-					let tabs;
-					if (typeof data.tabs !== 'undefined') {
-						tabs = this.createTabs(data.tabs);
-					} else {
-						tabs = this.createTabs([{errors: data.errors, title: 'PHP 7.4'}]);
-					}
-					this.currentTabIndex(0);
-					this.legacyResult(null);
+				let tabs;
+				if (typeof data.tabs !== 'undefined') {
+					tabs = this.createTabs(data.tabs);
+				} else {
+					tabs = this.createTabs([{errors: data.errors, title: 'PHP 7.4'}]);
+				}
+				this.tabs(tabs);
+				this.currentTabIndex(0);
+				this.legacyResult(null);
+				this.upToDateTabs(null);
+				this.level(data.level);
+				this.strictRules(data.config.strictRules);
+				this.bleedingEdge(data.config.bleedingEdge);
+				this.treatPhpDocTypesAsCertain(data.config.treatPhpDocTypesAsCertain);
 
-					const upToDateTabs = this.createTabs(data.upToDateTabs);
-					if (this.areTabsDifferent(tabs, upToDateTabs)) {
-						this.tabs(tabs);
+				initCallback();
+				this.startAcceptingChanges();
+
+				this.resultXhr = $.get(this.resultUrl!).done((resultData) => {
+					if (this.id() !== originalId) {
+						return;
+					}
+
+					let savedTabs;
+					if (typeof resultData.tabs !== 'undefined') {
+						savedTabs = this.createTabs(resultData.tabs);
+					} else {
+						savedTabs = this.createTabs([{errors: resultData.errors, title: 'PHP 7.4'}]);
+					}
+					const upToDateTabs = this.createTabs(resultData.upToDateTabs);
+
+					if (this.areTabsDifferent(savedTabs, upToDateTabs)) {
+						this.tabs(savedTabs);
 						this.upToDateTabs(upToDateTabs);
 					} else {
 						this.tabs(upToDateTabs);
 						this.upToDateTabs(null);
 					}
-				} else {
-					this.tabs([]);
-					this.currentTabIndex(null);
-					this.legacyResult(data.htmlErrors);
-					this.upToDateTabs(this.createTabs(data.upToDateTabs));
-				}
+				});
+			}).fail(() => {
+				this.hasServerError(true);
+				const scope = new Sentry.Scope();
+				scope.setExtra('id', this.id());
+				Sentry.captureMessage('Server error - could not get analysed result');
+				initCallback();
+				this.startAcceptingChanges();
+			});
+			return;
+		}
+
+		if (this.resultUrl !== null) {
+			$.get(this.resultUrl).done((data) => {
+				this.code(data.code);
+
+				this.tabs([]);
+				this.currentTabIndex(null);
+				this.legacyResult(data.htmlErrors);
+				this.upToDateTabs(this.createTabs(data.upToDateTabs));
+
 				this.level(data.level);
 				this.strictRules(data.config.strictRules);
 				this.bleedingEdge(data.config.bleedingEdge);
