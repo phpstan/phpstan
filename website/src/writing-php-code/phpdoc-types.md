@@ -28,7 +28,7 @@ Basic types
 * `empty`
 * `array`, `associative-array`
 * `iterable`
-* `callable`, `pure-callable`
+* `callable`, `pure-callable`, `pure-Closure`
 * `resource`, `closed-resource`, `open-resource`
 * `void`
 * `object`, `callable-object`, `callable-array`
