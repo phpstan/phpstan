@@ -322,6 +322,24 @@ You can constrain the type variable with an upper bound using `of`:
 function clone(Animal $animal): Animal { ... }
 ```
 
+You can also provide a default type using `=`. When type arguments have defaults, they don't have to be specified when using the generic class:
+
+```php
+/**
+ * @template T = string
+ * @template U = int
+ */
+class Pair {}
+```
+
+With the class above, these are all valid:
+
+- `Pair` — both `T` and `U` use their defaults (`string` and `int`)
+- `Pair<bool>` — `T` is `bool`, `U` uses its default (`int`)
+- `Pair<bool, float>` — both `T` and `U` are specified explicitly
+
+Defaults can be combined with upper bounds: `@template T of object = stdClass`.
+
 The template type name must not conflict with an existing class name. If you have a class named `T` in your codebase, use a different name like `TValue` for the template type.
 
 ### Variance

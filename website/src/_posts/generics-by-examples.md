@@ -358,3 +358,24 @@ class Bar
     use Part;
 }
 ```
+
+Make some type arguments optional with template type defaults
+------------------------
+
+Type variables can have a default using `=`. When type arguments have defaults, they don't have to be specified when using the generic class:
+
+```php
+/**
+ * @template T = string
+ * @template U = int
+ */
+class Pair {}
+```
+
+With the class above, these are all valid:
+
+- `Pair` — both `T` and `U` use their defaults (`string` and `int`)
+- `Pair<bool>` — `T` is `bool`, `U` uses its default (`int`)
+- `Pair<bool, float>` — both `T` and `U` are specified explicitly
+
+Defaults can be combined with upper bounds: `@template T of object = stdClass`.
