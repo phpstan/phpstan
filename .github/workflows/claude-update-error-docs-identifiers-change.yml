@@ -1,0 +1,26 @@
+name: "Claude Update Error Docs"
+
+on:
+  push:
+    branches:
+      - "2.2.x"
+    paths:
+      - '.github/workflows/claude-update-error-docs-identifiers-change.yml'
+      - 'website/src/errorsIdentifiers.json'
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
+        with:
+          egress-policy: audit
+
+      - name: Trigger Claude Update Error Docs
+        env:
+          GH_TOKEN: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+        run: gh workflow run claude-update-error-docs.yml -f sha=${{ github.sha }} --repo phpstan-bot/phpstan
