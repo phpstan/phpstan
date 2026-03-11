@@ -823,6 +823,22 @@ Parallel processing is also disabled when running with [`--debug`](/user-guide/c
 
 Sets the maximum buffer size in bytes for communication between the main process and worker processes during parallel analysis. You might need to increase this if you encounter issues with very large analysis results.
 
+### `parallel.loadLimit`
+
+**default**: `1.0`
+
+A percentage in the range `[0.0, 1.0]` representing the fraction of available CPU cores that PHPStan should use for parallel workers. The number of available cores is determined by the system load average — busy cores are subtracted from the total.
+
+For example, if the system has 11 cores and 5 are busy, there are 6 available cores. Setting `loadLimit` to `0.7` means PHPStan will use 70% of 6 = 4 cores for parallel workers. Setting it to `null` skips this check entirely.
+
+Note that `1.0` does not mean "no limit" — it means 100% of the _available_ cores, not the total number of cores on the machine.
+
+```yaml
+parameters:
+	parallel:
+		loadLimit: null # skip load-based adjustment
+```
+
 Clickable editor URL
 -----------------
 
@@ -901,6 +917,14 @@ parameters:
     tips:
         treatPhpDocTypesAsCertain: false
 ```
+
+#### `tips.possiblyImpure`
+
+**default**: `true`
+
+When set to `true`, PHPStan appends a tip to "always true/false" condition errors when the condition contains a function or method call whose return value was remembered (treated as pure). The tip suggests annotating the function with `@phpstan-impure` if it actually has side effects.
+
+Set to `false` to suppress these tips globally.
 
 ### `tipsOfTheDay`
 
