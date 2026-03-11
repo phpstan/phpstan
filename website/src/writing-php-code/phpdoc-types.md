@@ -167,6 +167,25 @@ This is useful if we want to tell that a method from a parent class will return 
 
 A narrower `@return $this` instead of `@return static` can also be used, and PHPStan will check if you're really returning the same object instance and not just an object of the child class.
 
+When used inside a [generic](/blog/generics-in-php-using-phpdocs) class, `static<T>` can be used to specify type arguments for the returned `static` type:
+
+```php
+/**
+ * @template T
+ */
+class Collection
+{
+	/**
+	 * @param T $item
+	 * @return static<T>
+	 */
+	public function add($item): static
+	{
+		// ...
+	}
+}
+```
+
 Generics
 -------------------------
 
