@@ -29,7 +29,7 @@ sectionTitle: User Guide
 {% endblock %}
 
 {% block metaRobots %}
-{% if errorIdentifier.doc and (errorIdentifier.doc.feasible === false or errorIdentifier.doc.unlikely === true) %}
+{% if errorIdentifier.doc and errorIdentifier.doc.feasible === false %}
 <meta name="robots" content="noindex">
 {% endif %}
 {% endblock %}
