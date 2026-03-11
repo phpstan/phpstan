@@ -522,30 +522,159 @@ export class PlaygroundViewModel {
 			'use function PHPStan\\dumpType;\n' +
 			'use function PHPStan\\Testing\\assertType;\n' +
 			'\n' +
-			'class HelloWorld\n' +
+			'class CoffeeBreak\n' +
 			'{\n' +
-			'\tpublic function sayHello(DateTimeImutable $date): void\n' +
+			'\tpublic function getDuration(): int { return 15; }\n' +
+			'}\n' +
+			'\n' +
+			'class MondayMorning\n' +
+			'{\n' +
+			'\tprivate bool $coffeeConsumed = false;\n' +
+			'\n' +
+			'\tpublic function startDay(string|int $task): string\n' +
 			'\t{\n' +
-			'\t\techo \'Hello, \' . $date->format(\'j. n. Y\');\n' +
+			'\t\t$this->coffeeConsumed = true;\n' +
+			'\t\t\n' +
+			'\t\t/** @var DateTime $deadline */\n' +
+			'\t\t$deadline = new DateTimeImmutable(\'friday\');\n' +
+			'\t\t$deadline->modify(\'-1 week\'); // that will help\n' +
+			'\t\t\n' +
+			'\t\t$words = count(explode(\' \', $task));\n' +
+			'\t\tif ($words === 0) { echo \'if only\'; }\n' +
+			'\t\t$this->deployToProduction();\n' +
+			'\t\treturn array_pop($task);\n' +
 			'\t}\n' +
-			'}'
+			'}\n' +
+			'\n' +
+			'$cb = new CoffeeBreak();\n' +
+			'if (isset($cb->getDuration())) { echo \'break time\'; }\n' +
+			'\n' +
+			'echo sprintf(\'%s %s\', \'safe\');\n'
 		);
 		initCallback();
 		this.tabs([
 			new PlaygroundTabViewModel([
 				{
-					message: 'Parameter $date of method HelloWorld::sayHello() has invalid typehint type DateTimeImutable.',
-					line: 8,
+					message: 'Property MondayMorning::$coffeeConsumed is never read, only written.',
+					line: 13,
 					ignorable: true,
-					identifier: 'class.notFound',
+					identifier: 'property.onlyWritten',
+					tip: 'See: https://phpstan.org/developing-extensions/always-read-written-properties',
 				},
 				{
-					message: 'Call to method format() on an unknown class DateTimeImutable.',
-					line: 10,
+					message: 'PHPDoc tag @var with type DateTime is not subtype of native type DateTimeImmutable.',
+					line: 20,
 					ignorable: true,
-					identifier: 'class.notFound',
+					identifier: 'varTag.nativeType',
 				},
-			], '', true),
+				{
+					message: 'Parameter #2 $string of function explode expects string, int|string given.',
+					line: 23,
+					ignorable: true,
+					identifier: 'argument.type',
+				},
+				{
+					message: 'Strict comparison using === between int<1, max> and 0 will always evaluate to false.',
+					line: 24,
+					ignorable: true,
+					identifier: 'identical.alwaysFalse',
+					tip: 'Because the type is coming from a PHPDoc, you can turn off this check by setting <code>treatPhpDocTypesAsCertain: false</code> in your <code>%configurationFile%</code>.',
+				},
+				{
+					message: 'Call to an undefined method MondayMorning::deployToProduction().',
+					line: 25,
+					ignorable: true,
+					identifier: 'method.notFound',
+				},
+				{
+					message: 'Method MondayMorning::startDay() should return string but returns null.',
+					line: 26,
+					ignorable: true,
+					identifier: 'return.type',
+				},
+				{
+					message: 'Parameter #1 $array of function array_pop expects array, int|string given.',
+					line: 26,
+					ignorable: true,
+					identifier: 'argument.type',
+				},
+				{
+					message: 'Expression in isset() is not nullable.',
+					line: 31,
+					ignorable: true,
+					identifier: 'isset.expr',
+				},
+				{
+					message: 'Call to sprintf contains 2 placeholders, 1 value given.',
+					line: 33,
+					ignorable: true,
+					identifier: 'argument.sprintf',
+				},
+			], 'PHP 8.0 \u2013 8.5 (9 errors)', true),
+			new PlaygroundTabViewModel([
+				{
+					message: 'Property MondayMorning::$coffeeConsumed is never read, only written.',
+					line: 13,
+					ignorable: true,
+					identifier: 'property.onlyWritten',
+					tip: 'See: https://phpstan.org/developing-extensions/always-read-written-properties',
+				},
+				{
+					message: 'Method MondayMorning::startDay() uses native union types but they\'re supported only on PHP 8.0 and later.',
+					line: 15,
+					ignorable: false,
+					identifier: 'parameter.unionTypeNotSupported',
+				},
+				{
+					message: 'PHPDoc tag @var with type DateTime is not subtype of native type DateTimeImmutable.',
+					line: 20,
+					ignorable: true,
+					identifier: 'varTag.nativeType',
+				},
+				{
+					message: 'Parameter #2 $str of function explode expects string, int|string given.',
+					line: 23,
+					ignorable: true,
+					identifier: 'argument.type',
+				},
+				{
+					message: 'Strict comparison using === between int<1, max> and 0 will always evaluate to false.',
+					line: 24,
+					ignorable: true,
+					identifier: 'identical.alwaysFalse',
+					tip: 'Because the type is coming from a PHPDoc, you can turn off this check by setting <code>treatPhpDocTypesAsCertain: false</code> in your <code>%configurationFile%</code>.',
+				},
+				{
+					message: 'Call to an undefined method MondayMorning::deployToProduction().',
+					line: 25,
+					ignorable: true,
+					identifier: 'method.notFound',
+				},
+				{
+					message: 'Method MondayMorning::startDay() should return string but returns null.',
+					line: 26,
+					ignorable: true,
+					identifier: 'return.type',
+				},
+				{
+					message: 'Parameter #1 $stack of function array_pop expects array, int|string given.',
+					line: 26,
+					ignorable: true,
+					identifier: 'argument.type',
+				},
+				{
+					message: 'Expression in isset() is not nullable.',
+					line: 31,
+					ignorable: true,
+					identifier: 'isset.expr',
+				},
+				{
+					message: 'Call to sprintf contains 2 placeholders, 1 value given.',
+					line: 33,
+					ignorable: true,
+					identifier: 'argument.sprintf',
+				},
+			], 'PHP 7.2 \u2013 7.4 (10 errors)', false),
 		]);
 		this.currentTabIndex(0);
 		this.legacyResult(null);
