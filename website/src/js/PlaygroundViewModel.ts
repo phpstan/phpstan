@@ -524,7 +524,7 @@ export class PlaygroundViewModel {
 			'\n' +
 			'class CoffeeBreak\n' +
 			'{\n' +
-			'\tpublic function getDuration(): int { return 15; }\n' +
+			'\tpublic function getDuration(): int { }\n' +
 			'}\n' +
 			'\n' +
 			'class MondayMorning\n' +
@@ -554,6 +554,12 @@ export class PlaygroundViewModel {
 		initCallback();
 		this.tabs([
 			new PlaygroundTabViewModel([
+				{
+					message: 'Method CoffeeBreak::getDuration() should return int but return statement is missing.',
+					line: 8,
+					ignorable: true,
+					identifier: 'return.missing',
+				},
 				{
 					message: 'Property MondayMorning::$coffeeConsumed is never read, only written.',
 					line: 13,
@@ -610,8 +616,14 @@ export class PlaygroundViewModel {
 					ignorable: true,
 					identifier: 'argument.sprintf',
 				},
-			], 'PHP 8.0 \u2013 8.5 (9 errors)', true),
+			], 'PHP 8.0 \u2013 8.5 (10 errors)', true),
 			new PlaygroundTabViewModel([
+				{
+					message: 'Method CoffeeBreak::getDuration() should return int but return statement is missing.',
+					line: 8,
+					ignorable: true,
+					identifier: 'return.missing',
+				},
 				{
 					message: 'Property MondayMorning::$coffeeConsumed is never read, only written.',
 					line: 13,
@@ -674,7 +686,7 @@ export class PlaygroundViewModel {
 					ignorable: true,
 					identifier: 'argument.sprintf',
 				},
-			], 'PHP 7.2 \u2013 7.4 (10 errors)', false),
+			], 'PHP 7.2 \u2013 7.4 (11 errors)', false),
 		]);
 		this.currentTabIndex(0);
 		this.legacyResult(null);
