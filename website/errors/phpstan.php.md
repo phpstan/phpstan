@@ -1,7 +1,7 @@
 ---
 title: "phpstan.php"
 shortDescription: "Native PHP warning, notice, or deprecation triggered during analysis."
-ignorable: true
+ignorable: false
 ---
 
 ## Code example
