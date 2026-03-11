@@ -2,6 +2,7 @@
 title: "traitUse.deprecatedInterface"
 shortDescription: "Trait use statement references a deprecated interface."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
