@@ -2,6 +2,7 @@
 title: "class.implementsDeprecatedEnum"
 shortDescription: "Class references a deprecated enum in its implements clause."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example

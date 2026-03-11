@@ -2,6 +2,7 @@
 title: "interface.extendsDeprecatedTrait"
 shortDescription: "Interface extends a deprecated trait."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
