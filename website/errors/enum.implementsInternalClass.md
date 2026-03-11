@@ -2,6 +2,7 @@
 title: "enum.implementsInternalClass"
 shortDescription: "Enum implements an internal class from another package."
 ignorable: true
+unlikely: true
 ---
 
 ## Code example
