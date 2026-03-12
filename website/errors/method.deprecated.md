@@ -44,3 +44,21 @@ Replace the call with the recommended alternative:
 -$repo->getUser(1);
 +$repo->findById(1);
 ```
+
+If a child class overrides a deprecated method from its parent and the override is no longer deprecated, use `@not-deprecated` to break the inheritance chain:
+
+```diff-php
+ class ChildRepository extends UserRepository
+ {
++	/** @not-deprecated */
+ 	public function getUser(int $id): object
+ 	{
+ 		// new implementation
+ 	}
+ }
+
+ $child = new ChildRepository();
+ $child->getUser(1); // OK
+```
+
+Without `@not-deprecated`, the overridden method inherits the `@deprecated` tag from the parent class and calls to it are still reported as deprecated. Learn more in [PHPDoc Basics](/writing-php-code/phpdocs-basics#deprecations).
