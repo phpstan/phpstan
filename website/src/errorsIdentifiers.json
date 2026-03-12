@@ -12796,12 +12796,12 @@
     "phpunit.invalidPhpDoc": {
         "PHPStan\\Rules\\PHPUnit\\NoMissingSpaceInClassAnnotationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AnnotationHelper.php#L60"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AnnotationHelper.php#L55"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\NoMissingSpaceInMethodAnnotationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AnnotationHelper.php#L60"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AnnotationHelper.php#L55"
             ]
         }
     },
