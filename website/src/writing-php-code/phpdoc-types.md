@@ -219,6 +219,18 @@ function fillArray(int $size): array
 }
 ```
 
+The condition can also be negated with `is not`:
+
+```php
+/**
+ * @return ($value is not null ? string : never)
+ */
+function stringify(mixed $value): string
+{
+	...
+}
+```
+
 It can be combined with generics as well in both the condition and the if-else types:
 
 ```php
@@ -371,8 +383,15 @@ This feature enables usage of strong types in codebases where arrays of various 
 * `array{int, int}` (keys are `0` and `1`, also known as a tuple)
 * `array{0: int, 1?: int}` (key `1` is optional in the array)
 * `array{foo: int, bar: string}` (quotes around array keys for simple strings aren't necessary)
+* `array{Foo::BAR: int}` (class constant as a key)
 
 This is different from [general arrays](#general-arrays) that mandate that all the keys and values must be of a specific homogeneous type. Array shapes allow each key and value to be different.
+
+The `list`, `non-empty-list`, and `non-empty-array` keywords can also be used with shape syntax:
+
+* `list{int, string}` (equivalent to `array{0: int, 1: string}`)
+* `non-empty-list{int, string}`
+* `non-empty-array{foo: int, bar: string}`
 
 Object shapes
 -------------------------
@@ -402,6 +421,9 @@ Constant enumerations are also supported:
 * `Foo::SOME_CONSTANT|Bar::OTHER_CONSTANT`
 * `self::SOME_*` (all constants on `self` that start with `SOME_`)
 * `Foo::*` (all constants on `Foo`)
+* `Foo::FOO_*BAR` (constants matching a prefix and suffix pattern)
+* `Foo::*FOO*` (constants containing a substring)
+* `self::*BAR` (constants ending with a suffix)
 
 Global constants
 -------------------------
@@ -425,6 +447,8 @@ The `callable` typehint has been in PHP for a long time. But it doesn't allow en
 * `\Closure(int, int): string` (narrower `Closure` type can also be used instead of `callable`)
 * `pure-callable(int, int): string` (callable that doesn't have any side effects when called)
 * `pure-Closure(int, int): string` (Closure that doesn't have any side effects when called)
+* `Closure<T>(T, int): T` (generic closure with a template type parameter)
+* `Closure<T of Foo>(T): T` (generic closure with a bounded template type parameter)
 
 Parameter types and return type are required. Use `mixed` if you don't want to use a more specific type.
 
