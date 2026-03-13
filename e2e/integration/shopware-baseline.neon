@@ -883,6 +883,12 @@ parameters:
 			path: repo/tests/integration/Core/Content/Product/Subscriber/ProductLoadedSubscriberTest.php
 
 		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertSame() with ''int'' and *NEVER* will always evaluate to false.'
+			identifier: staticMethod.impossibleType
+			count: 1
+			path: repo/tests/integration/Core/Framework/App/Lifecycle/AppLifecycleTest.php
+
+		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\CustomField\CustomFieldServiceTest::testGetCustomFieldField() invoked with 14 parameters, 2 required.'
 			identifier: arguments.count
 			count: 1
