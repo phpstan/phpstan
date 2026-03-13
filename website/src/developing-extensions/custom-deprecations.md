@@ -9,13 +9,13 @@ This is useful when you want to mark a class, method, constant or property as de
 
 There are several interfaces you can implement to achieve this:
 
-- [`PHPStan\Reflection\Deprecation\ClassConstantDeprecationExtension`](https://apiref.phpstan.org/2.1.x/PHPStan.Reflection.Deprecation.ClassConstantDeprecationExtension.html)
-- [`PHPStan\Reflection\Deprecation\ClassDeprecationExtension`](https://apiref.phpstan.org/2.1.x/PHPStan.Reflection.Deprecation.ClassDeprecationExtension.html)
-- [`PHPStan\Reflection\Deprecation\ConstantDeprecationExtension`](https://apiref.phpstan.org/2.1.x/PHPStan.Reflection.Deprecation.ConstantDeprecationExtension.html)
-- [`PHPStan\Reflection\Deprecation\EnumCaseDeprecationExtension`](https://apiref.phpstan.org/2.1.x/PHPStan.Reflection.Deprecation.EnumCaseDeprecationExtension.html)
-- [`PHPStan\Reflection\Deprecation\FunctionDeprecationExtension`](https://apiref.phpstan.org/2.1.x/PHPStan.Reflection.Deprecation.FunctionDeprecationExtension.html)
-- [`PHPStan\Reflection\Deprecation\MethodDeprecationExtension`](https://apiref.phpstan.org/2.1.x/PHPStan.Reflection.Deprecation.MethodDeprecationExtension.html)
-- [`PHPStan\Reflection\Deprecation\PropertyDeprecationExtension`](https://apiref.phpstan.org/2.1.x/PHPStan.Reflection.Deprecation.PropertyDeprecationExtension.html)
+- [`PHPStan\Reflection\Deprecation\ClassConstantDeprecationExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Reflection.Deprecation.ClassConstantDeprecationExtension.html)
+- [`PHPStan\Reflection\Deprecation\ClassDeprecationExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Reflection.Deprecation.ClassDeprecationExtension.html)
+- [`PHPStan\Reflection\Deprecation\ConstantDeprecationExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Reflection.Deprecation.ConstantDeprecationExtension.html)
+- [`PHPStan\Reflection\Deprecation\EnumCaseDeprecationExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Reflection.Deprecation.EnumCaseDeprecationExtension.html)
+- [`PHPStan\Reflection\Deprecation\FunctionDeprecationExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Reflection.Deprecation.FunctionDeprecationExtension.html)
+- [`PHPStan\Reflection\Deprecation\MethodDeprecationExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Reflection.Deprecation.MethodDeprecationExtension.html)
+- [`PHPStan\Reflection\Deprecation\PropertyDeprecationExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Reflection.Deprecation.PropertyDeprecationExtension.html)
 
 
 For example, if you want to mark a class as deprecated using the `#[MyDeprecated]` attribute, you can implement the `ClassDeprecationExtension` interface like this:

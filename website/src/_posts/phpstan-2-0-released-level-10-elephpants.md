@@ -25,7 +25,7 @@ We're [accepting orders](/merch) for the next four weeks (until Sunday, December
 
 ---
 
-And now to the code part. The [comprehensive release notes](https://github.com/phpstan/phpstan/releases/tag/2.0.0) are massive, consisting of over 180 items. That's why, for the first time ever, PHPStan 2.0 also comes with easy-to-follow [upgrading guide](https://github.com/phpstan/phpstan/blob/2.1.x/UPGRADING.md), for both end users and extension developers.
+And now to the code part. The [comprehensive release notes](https://github.com/phpstan/phpstan/releases/tag/2.0.0) are massive, consisting of over 180 items. That's why, for the first time ever, PHPStan 2.0 also comes with easy-to-follow [upgrading guide](https://github.com/phpstan/phpstan/blob/__BRANCH__/UPGRADING.md), for both end users and extension developers.
 
 It's really hard to pick and choose my favourite features and changes from 2.0, but I'll try. Here we go:
 

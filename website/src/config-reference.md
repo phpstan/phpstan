@@ -270,7 +270,7 @@ parameters:
 	customRulesetUsed: true
 ```
 
-You can then choose your own ruleset by copying parts of the [level configuration files](https://github.com/phpstan/phpstan-src/tree/2.1.x/conf) from PHPStan sources, or include your own custom rules.
+You can then choose your own ruleset by copying parts of the [level configuration files](https://github.com/phpstan/phpstan-src/tree/__BRANCH__/conf) from PHPStan sources, or include your own custom rules.
 
 
 Bleeding edge

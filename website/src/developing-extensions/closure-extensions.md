@@ -7,7 +7,7 @@ Parameter Closure Type
 
 Sometimes, you might want to change the type of a closure parameter to a function or method call based on the context. For example, the closure might have a generic argument, and you want to change the inner type.
 
-You can create an extension that implements [MethodParameterClosureTypeExtension](https://apiref.phpstan.org/2.1.x/PHPStan.Type.MethodParameterClosureTypeExtension.html):
+You can create an extension that implements [MethodParameterClosureTypeExtension](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.MethodParameterClosureTypeExtension.html):
 
 ```php
 use PhpParser\Node\Expr\MethodCall;
@@ -43,8 +43,8 @@ services:
 
 There's also analogous functionality for:
 
-* **static methods** using [`StaticMethodParameterClosureTypeExtension`](https://apiref.phpstan.org/2.1.x/PHPStan.Type.StaticMethodParameterClosureTypeExtension.html) interface and `phpstan.staticMethodParameterClosureTypeExtension` service tag.
-* **functions** using [`FunctionParameterClosureTypeExtension`](https://apiref.phpstan.org/2.1.x/PHPStan.Type.FunctionParameterClosureTypeExtension.html) interface and `phpstan.functionParameterClosureTypeExtension` service tag.
+* **static methods** using [`StaticMethodParameterClosureTypeExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.StaticMethodParameterClosureTypeExtension.html) interface and `phpstan.staticMethodParameterClosureTypeExtension` service tag.
+* **functions** using [`FunctionParameterClosureTypeExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.FunctionParameterClosureTypeExtension.html) interface and `phpstan.functionParameterClosureTypeExtension` service tag.
 
 Parameter Closure This
 ---------------
@@ -53,7 +53,7 @@ Parameter Closure This
 
 While PHPStan supports `@param-closure-this` to [change the meaning of `$this`](/writing-php-code/phpdocs-basics#callables) inside closures, sometimes static PHPDocs are not sufficient or don't have the necessary context to describe the closure's `$this` parameter.
 
-You can create an extension that implements [MethodParameterClosureThisExtension](https://apiref.phpstan.org/2.1.x/PHPStan.Type.MethodParameterClosureThisExtension.html):
+You can create an extension that implements [MethodParameterClosureThisExtension](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.MethodParameterClosureThisExtension.html):
 
 ```php
 use PhpParser\Node\Expr\MethodCall;
@@ -89,5 +89,5 @@ services:
 
 There's also analogous functionality for:
 
-* **static methods** using [`StaticMethodParameterClosureThisExtension`](https://apiref.phpstan.org/2.1.x/PHPStan.Type.StaticMethodParameterClosureThisExtension.html) interface and `phpstan.staticMethodParameterClosureThisExtension` service tag.
-* **functions** using [`FunctionParameterClosureThisExtension`](https://apiref.phpstan.org/2.1.x/PHPStan.Type.FunctionParameterClosureThisExtension.html) interface and `phpstan.functionParameterClosureThisExtension` service tag.
+* **static methods** using [`StaticMethodParameterClosureThisExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.StaticMethodParameterClosureThisExtension.html) interface and `phpstan.staticMethodParameterClosureThisExtension` service tag.
+* **functions** using [`FunctionParameterClosureThisExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.FunctionParameterClosureThisExtension.html) interface and `phpstan.functionParameterClosureThisExtension` service tag.

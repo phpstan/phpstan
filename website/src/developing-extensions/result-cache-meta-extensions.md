@@ -8,7 +8,7 @@ But sometimes the project setup or custom extensions are so complex, the result 
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.1.2</div>
 
-You can implement [ResultCacheMetaExtension interface](https://apiref.phpstan.org/2.1.x/PHPStan.Analyser.ResultCache.ResultCacheMetaExtension.html) which returns a hash:
+You can implement [ResultCacheMetaExtension interface](https://apiref.phpstan.org/__BRANCH__/PHPStan.Analyser.ResultCache.ResultCacheMetaExtension.html) which returns a hash:
 
 ```php
 interface ResultCacheMetaExtension

@@ -5,6 +5,8 @@ const readingTime = require('reading-time');
 const mermaid = require("headless-mermaid");
 const fs = require("fs");
 const crypto = require("crypto");
+const util = require("util");
+const { exec } = require("child_process");
 const captureWebsite = import("capture-website");
 const { fixTypos } = require('typopo');
 const anchor = require('markdown-it-anchor');
@@ -172,6 +174,15 @@ module.exports = async function (eleventyConfig) {
 			+ "\n"
 			+ '<meta property="og:image" content="/images/social-' + this.page.fileSlug + '.png" />';
 	})
+
+	const { stdout: branchStdout } = await util.promisify(exec)('git rev-parse --abbrev-ref HEAD');
+	const gitBranch = branchStdout.trim();
+	eleventyConfig.addTransform("replaceBranch", function(content) {
+		if (this.page.outputPath && (this.page.outputPath.endsWith(".html") || this.page.outputPath.endsWith(".xml"))) {
+			return content.replaceAll("__BRANCH__", gitBranch);
+		}
+		return content;
+	});
 
 	eleventyConfig.on('eleventy.after', async () => {
 		const matter = require('gray-matter');

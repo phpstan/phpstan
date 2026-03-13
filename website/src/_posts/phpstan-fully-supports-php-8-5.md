@@ -91,7 +91,7 @@ $result = "Hello World"
 
 What's interesting is that most of PHPStan doesn't actually see the pipe operator at all. The AST gets rewritten on-the-fly to traditional function calls. This is pretty neat because it means all existing rules — type checking, argument validation, return type inference — just work with pipe expressions for free. No need to go and teach every single rule about a new syntax. The transformation handles `FuncCall`, `MethodCall`, and `StaticCall` with first-class callables, so `$x |> $obj->method(...)` simply becomes `$obj->method($x)`.
 
-The only rule that actually operates on the `Pipe` node directly is [`PipeOperatorRule`](https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Operators/PipeOperatorRule.php), which checks that the callable on the right side doesn't accept its parameter by reference:
+The only rule that actually operates on the `Pipe` node directly is [`PipeOperatorRule`](https://github.com/phpstan/phpstan-src/blob/__BRANCH__/src/Rules/Operators/PipeOperatorRule.php), which checks that the callable on the right side doesn't accept its parameter by reference:
 
 ```php
 // PHPStan reports:
@@ -151,7 +151,7 @@ New functions: `array_first()` and `array_last()`
 
 Finally, PHP gets proper functions for getting the first and last element of an array. Unlike `reset()` and `end()`, these don't mess with the array's internal pointer, so they're truly pure functions.
 
-PHPStan's [`ArrayFirstLastDynamicReturnTypeExtension`](https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Type/Php/ArrayFirstLastDynamicReturnTypeExtension.php) ([#4499](https://github.com/phpstan/phpstan-src/pull/4499), thanks [@canvural](https://github.com/canvural)!) understands them precisely:
+PHPStan's [`ArrayFirstLastDynamicReturnTypeExtension`](https://github.com/phpstan/phpstan-src/blob/__BRANCH__/src/Type/Php/ArrayFirstLastDynamicReturnTypeExtension.php) ([#4499](https://github.com/phpstan/phpstan-src/pull/4499), thanks [@canvural](https://github.com/canvural)!) understands them precisely:
 
 ```php
 /** @param non-empty-array<int, string> $nonEmpty */
@@ -178,7 +178,7 @@ PHP 8.5 deprecates the non-canonical cast names:
 (binary) $m;  // Deprecated! Use (string)
 ```
 
-The [`DeprecatedCastRule`](https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/Cast/DeprecatedCastRule.php) reports these so you can clean them up before upgrading.
+The [`DeprecatedCastRule`](https://github.com/phpstan/phpstan-src/blob/__BRANCH__/src/Rules/Cast/DeprecatedCastRule.php) reports these so you can clean them up before upgrading.
 
 Deprecated backtick operator
 --------------------

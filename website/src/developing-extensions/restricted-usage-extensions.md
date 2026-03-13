@@ -9,7 +9,7 @@ These extensions allow you to restrict where methods, properties, functions etc.
 Methods
 -----------------
 
-To report method calls from restricted places, implement [`RestrictedMethodUsageExtension`](https://apiref.phpstan.org/2.1.x/PHPStan.Rules.RestrictedUsage.RestrictedMethodUsageExtension.html) interface.
+To report method calls from restricted places, implement [`RestrictedMethodUsageExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Rules.RestrictedUsage.RestrictedMethodUsageExtension.html) interface.
 
 It accepts [method reflection](/developing-extensions/reflection) and [Scope](https://phpstan.org/developing-extensions/scope). It looks like this:
 
@@ -30,7 +30,7 @@ interface RestrictedMethodUsageExtension
 
 This extension is called for traditional method calls like `$foo->doBar(1, 2, 3)`, but also for [first-class callables](https://wiki.php.net/rfc/first_class_callable_syntax) like `$foo->doBar(...)`. It's also called for static method calls like `Foo::doBar(1, 2, 3)` and the first-class callable counterpart `Foo::doBar(...)`.
 
-It can decide not to report anything, or to return [`RestrictedUsage`](https://apiref.phpstan.org/2.1.x/PHPStan.Rules.RestrictedUsage.RestrictedUsage.html) object which carries the error message and identifier.
+It can decide not to report anything, or to return [`RestrictedUsage`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Rules.RestrictedUsage.RestrictedUsage.html) object which carries the error message and identifier.
 
 Here's an example of an implementation:
 
@@ -70,7 +70,7 @@ Extension implementing RestrictedMethodUsageExtension has to be registered in th
 Class names
 -----------------
 
-The [RestrictedClassNameUsageExtension](https://apiref.phpstan.org/2.1.x/PHPStan.Rules.RestrictedUsage.RestrictedClassNameUsageExtension.html) is called for standalone class name references like in "class extends", "class implements", various parameter and return types, [PHPDoc references](/writing-php-code/phpdocs-basics), but also for static method calls like `Foo::doBar()`, static property and class constants accesses. In total there are [more than 25 locations](https://github.com/phpstan/phpstan-src/blob/2.1.x/src/Rules/ClassNameUsageLocation.php#L18-L43) this extension is called for.
+The [RestrictedClassNameUsageExtension](https://apiref.phpstan.org/__BRANCH__/PHPStan.Rules.RestrictedUsage.RestrictedClassNameUsageExtension.html) is called for standalone class name references like in "class extends", "class implements", various parameter and return types, [PHPDoc references](/writing-php-code/phpdocs-basics), but also for static method calls like `Foo::doBar()`, static property and class constants accesses. In total there are [more than 25 locations](https://github.com/phpstan/phpstan-src/blob/__BRANCH__/src/Rules/ClassNameUsageLocation.php#L18-L43) this extension is called for.
 
 To ease the writing of error messages and identifiers that would differentiate between these locations, this extension is called with an extra argument when compared to other Restricted Usage extensions.
 
@@ -91,7 +91,7 @@ interface RestrictedClassNameUsageExtension
 }
 ```
 
-[ClassNameUsageLocation](https://apiref.phpstan.org/2.1.x/PHPStan.Rules.ClassNameUsageLocation.html) object offers `createMessage()` and `createIdentifier()` methods so when the extension decides to return the [`RestrictedUsage`](https://apiref.phpstan.org/2.1.x/PHPStan.Rules.RestrictedUsage.RestrictedUsage.html) object, the creation typically looks like this:
+[ClassNameUsageLocation](https://apiref.phpstan.org/__BRANCH__/PHPStan.Rules.ClassNameUsageLocation.html) object offers `createMessage()` and `createIdentifier()` methods so when the extension decides to return the [`RestrictedUsage`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Rules.RestrictedUsage.RestrictedUsage.html) object, the creation typically looks like this:
 
 ```php
 return RestrictedUsage::create(
@@ -124,7 +124,7 @@ Properties
 
 The remaining extensions are all analogous to the one about methods so if you want to know more details, check out the documentation above.
 
-[`RestrictedPropertyUsageExtension`](https://apiref.phpstan.org/2.1.x/PHPStan.Rules.RestrictedUsage.RestrictedPropertyUsageExtension.html) interface looks like this:
+[`RestrictedPropertyUsageExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Rules.RestrictedUsage.RestrictedPropertyUsageExtension.html) interface looks like this:
 
 ```php
 namespace PHPStan\Rules\RestrictedUsage;
@@ -156,7 +156,7 @@ Extension implementing RestrictedPropertyUsageExtension has to be registered in 
 Class constants
 -----------------
 
-[`RestrictedClassConstantUsageExtension`](https://apiref.phpstan.org/2.1.x/PHPStan.Rules.RestrictedUsage.RestrictedClassConstantUsageExtension.html) interface looks like this:
+[`RestrictedClassConstantUsageExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Rules.RestrictedUsage.RestrictedClassConstantUsageExtension.html) interface looks like this:
 
 ```php
 namespace PHPStan\Rules\RestrictedUsage;
@@ -186,7 +186,7 @@ Extension implementing RestrictedClassConstantUsageExtension has to be registere
 Functions
 -----------------
 
-[`RestrictedFunctionUsageExtension`](https://apiref.phpstan.org/2.1.x/PHPStan.Rules.RestrictedUsage.RestrictedFunctionUsageExtension.html) interface looks like this:
+[`RestrictedFunctionUsageExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Rules.RestrictedUsage.RestrictedFunctionUsageExtension.html) interface looks like this:
 
 ```php
 namespace PHPStan\Rules\RestrictedUsage;

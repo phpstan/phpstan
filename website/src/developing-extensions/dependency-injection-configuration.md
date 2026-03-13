@@ -40,7 +40,7 @@ The dependency injection container is responsible for creating our service class
 
 <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">
 
-PHPStan itself is [configured and assembled the same way](https://github.com/phpstan/phpstan-src/tree/2.1.x/conf).
+PHPStan itself is [configured and assembled the same way](https://github.com/phpstan/phpstan-src/tree/__BRANCH__/conf).
 
 The final configuration is the product of merging all the involved configuration files together.
 
@@ -129,4 +129,4 @@ parametersSchema:
 	])
 ```
 
-The schema is enforced using the [`nette/schema`](https://doc.nette.org/en/3.1/schema) library. See how [PHPStan's own schema](https://github.com/phpstan/phpstan-src/blob/2.1.x/conf/parametersSchema.neon) is defined to get an idea how to define yours.
+The schema is enforced using the [`nette/schema`](https://doc.nette.org/en/3.1/schema) library. See how [PHPStan's own schema](https://github.com/phpstan/phpstan-src/blob/__BRANCH__/conf/parametersSchema.neon) is defined to get an idea how to define yours.
