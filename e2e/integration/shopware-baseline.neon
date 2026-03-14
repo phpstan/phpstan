@@ -577,16 +577,16 @@ parameters:
 			path: repo/src/Core/Framework/DataAbstractionLayer/FieldSerializer/VersionFieldSerializer.php
 
 		-
+			rawMessage: 'Parameter #1 $ids of class Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria constructor expects array<string>|null, array<array<string>|string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Search/Criteria.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Framework\DataAbstractionLayer\Write\WriteException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Framework/DataAbstractionLayer/Write/WriteException.php
-
-		-
-			rawMessage: Casting to bool something that's already *NEVER*.
-			identifier: cast.useless
-			count: 1
-			path: repo/src/Core/Framework/Feature/FeatureFlagRegistry.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\Migration\Command\MigrationCommand::getMigrationGenerator() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -883,12 +883,6 @@ parameters:
 			path: repo/tests/integration/Core/Content/Product/Subscriber/ProductLoadedSubscriberTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertSame() with ''int'' and *NEVER* will always evaluate to false.'
-			identifier: staticMethod.impossibleType
-			count: 1
-			path: repo/tests/integration/Core/Framework/App/Lifecycle/AppLifecycleTest.php
-
-		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\CustomField\CustomFieldServiceTest::testGetCustomFieldField() invoked with 14 parameters, 2 required.'
 			identifier: arguments.count
 			count: 1
@@ -1099,18 +1093,6 @@ parameters:
 			path: repo/tests/integration/Storefront/Framework/Routing/RequestTransformerTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertSame() with ''core.webhook…'' and *NEVER* will always evaluate to false.'
-			identifier: staticMethod.impossibleType
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1671723392AddWebhookLifetimeConfigTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertSame() with ''{"_value": "1209600…'' and *NEVER* will always evaluate to false.'
-			identifier: staticMethod.impossibleType
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1671723392AddWebhookLifetimeConfigTest.php
-
-		-
 			rawMessage: 'Method Shopware\Tests\Migration\Core\V6_6\Migration1703850843FixSearchConfigTest::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -1145,30 +1127,6 @@ parameters:
 			identifier: argument.type
 			count: 3
 			path: repo/tests/migration/Core/V6_6/Migration1721202771UpdateDefaultSearchConfigTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertSame() with ''core.sitemap…'' and *NEVER* will always evaluate to false.'
-			identifier: staticMethod.impossibleType
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1730059142AddNewSitemapConfigForExcludingHiddenProductsTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertSame() with ''{"_value": false}'' and *NEVER* will always evaluate to false.'
-			identifier: staticMethod.impossibleType
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1730059142AddNewSitemapConfigForExcludingHiddenProductsTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertSame() with ''core.listing…'' and *NEVER* will always evaluate to false.'
-			identifier: staticMethod.impossibleType
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1735112885AddDefaultSearchResultSortingTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertSame() with ''core.listing…'' and *NEVER* will always evaluate to false.'
-			identifier: staticMethod.impossibleType
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1749644517AddListingVariantNameSystemConfigOptionTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Bench\BenchExtension::findFixtures() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
