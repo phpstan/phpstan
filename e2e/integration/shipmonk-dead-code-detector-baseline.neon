@@ -1,2 +1,7 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			rawMessage: 'Method ShipMonk\PHPStan\DeadCode\Debug\DebugUsagePrinter::__construct() throws checked exception PHPStan\DependencyInjection\ParameterNotFoundException but it''s missing from the PHPDoc @throws tag.'
+			identifier: missingType.checkedException
+			count: 3
+			path: repo/src/Debug/DebugUsagePrinter.php
