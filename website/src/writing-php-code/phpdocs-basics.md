@@ -408,6 +408,8 @@ foo($a);
 \PHPStan\dumpType($a); // int
 ```
 
+When the output type depends on the arguments passed to the call, you can write a [parameter out type extension](/developing-extensions/parameter-out-type-extensions) to resolve it dynamically.
+
 Change type of current object after calling a method
 ---------------
 

@@ -92,6 +92,26 @@
                     "link": "/developing-extensions/closure-extensions"
                 },
                 {
+                    "title": "Parameter Out Type Extensions",
+                    "link": "/developing-extensions/parameter-out-type-extensions"
+                },
+                {
+                    "title": "Expression Type Resolver Extensions",
+                    "link": "/developing-extensions/expression-type-resolver-extensions"
+                },
+                {
+                    "title": "Operator Type Specifying Extensions",
+                    "link": "/developing-extensions/operator-type-specifying-extensions"
+                },
+                {
+                    "title": "Exception Type Resolver",
+                    "link": "/developing-extensions/exception-type-resolver"
+                },
+                {
+                    "title": "Forbidden Class Name Extensions",
+                    "link": "/developing-extensions/forbidden-class-name-extensions"
+                },
+                {
                     "title": "Custom PHPDoc Types",
                     "link": "/developing-extensions/custom-phpdoc-types"
                 },
@@ -123,6 +143,10 @@
                 {
                     "title": "Allowed Subtypes",
                     "link": "/developing-extensions/allowed-subtypes"
+                },
+                {
+                    "title": "Additional Constructors",
+                    "link": "/developing-extensions/additional-constructors-extensions"
                 }
             ]
         },
@@ -132,6 +156,14 @@
                 {
                     "title": "Testing",
                     "link": "/developing-extensions/testing"
+                },
+                {
+                    "title": "Stub Files Extensions",
+                    "link": "/developing-extensions/stub-files-extensions"
+                },
+                {
+                    "title": "Diagnose Extensions",
+                    "link": "/developing-extensions/diagnose-extensions"
                 },
                 {
                     "title": "Result Cache Meta Extensions",

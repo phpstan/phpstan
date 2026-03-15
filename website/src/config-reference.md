@@ -484,6 +484,8 @@ public function setFoo(int $foo): void
 }
 ```
 
+If properties are initialized in methods other than the constructor, see [`additionalConstructors`](#additionalconstructors) or [additional constructors extensions](/developing-extensions/additional-constructors-extensions).
+
 ### `checkDynamicProperties`
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
@@ -709,6 +711,8 @@ Exceptions
 ------------
 
 Advanced exceptions-related rules are available. [Read this article for more details »](/blog/bring-your-exceptions-under-control).
+
+For custom logic that dynamically decides whether an exception is checked or unchecked based on scope, you can implement a custom [exception type resolver](/developing-extensions/exception-type-resolver).
 
 Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.tooWideThrowType`, `exceptions.check.throwTypeCovariance`, `exceptions.check.tooWideImplicitThrowType`
 
@@ -956,6 +960,8 @@ parameters:
 ```
 
 This is useful when injecting dependencies with setter methods, or when writing "wither" methods on immutable objects.
+
+For dynamic logic, you can also write an [additional constructors extension](/developing-extensions/additional-constructors-extensions).
 
 ### `propertyAlwaysWrittenTags`
 

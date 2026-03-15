@@ -44,3 +44,5 @@ Stub files are analysed independently from the rest of your codebase. This means
 *This is a way of tackling the problem of optional dependencies. We want to report any undefined names used in the stubs to prevent typos, but at the same time we also need to support optional dependencies in PHPStan extensions. That's why all the symbols must be defined again in the stubs, even as [empty shells](https://github.com/phpstan/phpstan-phpunit/blob/26394996368b6d033d012547d3197f4e07e23021/stubs/MockObject.stub).*
 
 </div>
+
+If you need to load stub files conditionally based on custom logic (like the PHP version or installed extensions), you can write a [stub files extension](/developing-extensions/stub-files-extensions).

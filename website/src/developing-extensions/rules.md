@@ -315,6 +315,59 @@ Restricted Usage Extensions
 
 If you want to restrict where can methods, properties, functions etc. be accessed from, you don't have to implement a custom rule and figure out all of the above. Check out [Restricted Usage Extensions](/developing-extensions/restricted-usage-extensions) with simple interfaces. They cover a lot of ground with very little effort.
 
+Invoking rules for synthetic nodes
+---------------
+
+Sometimes you want your rule to check a virtual AST node that doesn't exist in the source code. For example, you might be writing a rule for a factory method like `Factory::create(Foo::class, 1, 2, 3)` and want PHPStan to check it as if it were `new Foo(1, 2, 3)`.
+
+You can achieve this by typehinting the second parameter of `processNode()` as `Scope&NodeCallbackInvoker`:
+
+```php
+use PhpParser\Node;
+use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Name;
+use PHPStan\Analyser\NodeCallbackInvoker;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\Rule;
+
+/**
+ * @implements Rule<StaticCall>
+ */
+class FactoryCreateRule implements Rule
+{
+
+	public function getNodeType(): string
+	{
+		return StaticCall::class;
+	}
+
+	/**
+	 * @param Scope&NodeCallbackInvoker $scope
+	 */
+	public function processNode(Node $node, Scope $scope): array
+	{
+		// ... check that $node is a Factory::create() call ...
+
+		// Invoke rules as if "new Foo(1, 2, 3)" was in the code
+		$scope->invokeNodeCallback(
+			new New_(new Name($className), $args)
+		);
+
+		return [];
+	}
+
+}
+```
+
+When you call `$scope->invokeNodeCallback()`, PHPStan will invoke all registered rules for the given node type as if that node actually existed in the source code.
+
+<div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 mb-4" role="alert">
+
+Be careful to avoid infinite recursion. If your rule creates a synthetic node of the same type it listens for, make sure you have a condition to detect and skip the synthetic invocation. You can set a custom attribute on the synthetic node (e.g. `$node->setAttribute('synthetic', true)`) and check for it at the beginning of `processNode()`.
+
+</div>
+
 Collectors
 ---------------
 

@@ -170,7 +170,7 @@ To diagnose why PHPStan is behaving a certain way, you can run the `diagnose` co
 vendor/bin/phpstan diagnose [options]
 ```
 
-It outputs useful information like current PHP runtime version, current PHP version for analysis (which might be different based on configuration), current PHPStan version etc. Custom extensions can also implement [`DiagnoseExtension interface`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Diagnose.DiagnoseExtension.html) to add their own information that also gets printed when running the `diagnose` command.
+It outputs useful information like current PHP runtime version, current PHP version for analysis (which might be different based on configuration), current PHPStan version etc. Custom extensions can also implement [`DiagnoseExtension interface`](/developing-extensions/diagnose-extensions) to add their own information that also gets printed when running the `diagnose` command.
 
 The same information is also printed when you run [`analyse` command](/user-guide/command-line-usage#analysing-code) with `-vvv`.
 

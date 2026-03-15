@@ -67,6 +67,41 @@ These extensions allow you to override the closure type passed to function and m
 
 [Learn more »](/developing-extensions/closure-extensions)
 
+Parameter out type extensions
+-------------------
+
+If a function or method modifies a by-reference parameter and the output type depends on the arguments passed, you can write a parameter out type extension to resolve it dynamically.
+
+[Learn more »](/developing-extensions/parameter-out-type-extensions)
+
+Expression type resolver extensions
+-------------------
+
+A catch-all extension point that lets you override the inferred type of any expression — more general than dynamic return type extensions which only work for specific method/function calls.
+
+[Learn more »](/developing-extensions/expression-type-resolver-extensions)
+
+Operator type specifying extensions
+-------------------
+
+If you're working with PHP extensions that overload arithmetic operators (like GMP or BCMath), you can describe how operators should infer types for your custom objects.
+
+[Learn more »](/developing-extensions/operator-type-specifying-extensions)
+
+Exception type resolver
+-------------------
+
+Lets you write custom logic to dynamically decide whether an exception is checked or unchecked, with access to the scope where the exception is thrown.
+
+[Learn more »](/developing-extensions/exception-type-resolver)
+
+Forbidden class name extensions
+-------------------
+
+If your project has classes that should never be referenced directly (like generated proxy classes), you can dynamically report their usage.
+
+[Learn more »](/developing-extensions/forbidden-class-name-extensions)
+
 Custom PHPDoc Types
 -------------------
 
@@ -94,6 +129,27 @@ Allowed subtypes
 PHP language doesn't have a concept of sealed classes - a way to restrict class hierarchies and provide more control over inheritance. So any interface or non-final class can have an infinite number of child classes. But PHPStan provides an extension type to tell the analyzer the complete list of allowed child classes.
 
 [Learn more »](/developing-extensions/allowed-subtypes)
+
+Additional constructors
+-------------------
+
+If properties are initialized in methods other than the constructor (like `setUp()` in PHPUnit), you can dynamically mark those methods as constructors so they're not reported as uninitialized.
+
+[Learn more »](/developing-extensions/additional-constructors-extensions)
+
+Stub files extensions
+-------------------
+
+If you need to load stub files conditionally based on custom logic (like the PHP version or installed extensions), you can write a stub files extension.
+
+[Learn more »](/developing-extensions/stub-files-extensions)
+
+Diagnose extensions
+-------------------
+
+Custom extensions can output diagnostic information visible when running the `analyse` command with `-vvv` or the `diagnose` command.
+
+[Learn more »](/developing-extensions/diagnose-extensions)
 
 Deprecations
 -------------------
