@@ -5,6 +5,6 @@ $commit = trim(shell_exec('git rev-parse HEAD'));
 
 $repoUrl = preg_replace('/\.git$/', '', $gitUrl);
 $config = [];
-$config['parameters']['editorUrlTitle'] = sprintf('%s/commit/%s/%%relFile%%#L%%line%%', $repoUrl, $commit);
+$config['parameters']['editorUrlTitle'] = $repoUrl .'/commit/'. $commit. '/%%relFile%%#L%%line%%';
 
 return $config;
