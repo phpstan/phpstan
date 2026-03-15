@@ -1,6 +1,6 @@
 <?php
 
-putenv('COLUMNS=400');
+putenv('COLUMNS=500');
 
 $commit = trim(shell_exec('git rev-parse HEAD'));
 
