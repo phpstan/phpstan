@@ -1,3 +1,4 @@
 includes:
 	- repo/phpstan.neon.dist
 	- sylius-baseline.neon
+	- editor-link-repo.php

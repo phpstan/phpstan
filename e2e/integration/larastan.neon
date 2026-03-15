@@ -1,6 +1,7 @@
 includes:
 	- repo/phpstan.neon.dist
 	- larastan-baseline.neon
+	- editor-link-repo.php
 
 parameters:
 	level: 8

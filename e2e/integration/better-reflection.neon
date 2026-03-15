@@ -1,6 +1,7 @@
 includes:
 	- better-reflection-baseline.neon
 	- repo/phpstan.neon
+	- editor-link-repo.php
 
 parameters:
 	reportUnmatchedIgnoredErrors: false

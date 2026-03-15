@@ -1,3 +1,4 @@
 includes:
 	- repo/phpstan.neon
 	- efabrica-phpstan-latte-baseline.neon
+	- editor-link-repo.php

@@ -1,3 +1,4 @@
 includes:
 	- repo/phpstan.neon.dist
 	- shipmonk-dead-code-detector-baseline.neon
+	- editor-link-repo.php
