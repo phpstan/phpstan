@@ -1,3 +1,4 @@
 includes:
 	- repo/phpstan.neon
 	- carbon-baseline.neon
+	- editor-link-repo.php
