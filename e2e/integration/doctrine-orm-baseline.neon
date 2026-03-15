@@ -31,6 +31,36 @@ parameters:
 			path: repo/src/Internal/Hydration/AbstractHydrator.php
 
 		-
+			message: '#^Parameter \#1 \$mappingArray of static method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:fromMappingArray\(\) expects array\{fieldName\: string, sourceEntity\: class\-string, targetEntity\: class\-string, cascade\?\: list\<''all''\|''detach''\|''persist''\|''refresh''\|''remove''\>, fetch\?\: 2\|3\|4\|null, inherited\?\: class\-string\|null, declared\?\: class\-string\|null, cache\?\: array\<mixed\>\|null, \.\.\.\}, non\-empty\-array\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Mapping/ClassMetadata.php
+
+		-
+			message: '#^Parameter \#1 \$mappingArray of static method Doctrine\\ORM\\Mapping\\ManyToManyOwningSideMapping\:\:fromMappingArrayAndNamingStrategy\(\) expects array\{fieldName\: string, sourceEntity\: class\-string, targetEntity\: class\-string, cascade\?\: list\<''all''\|''detach''\|''persist''\|''refresh''\|''remove''\>, fetch\?\: 2\|3\|4\|null, inherited\?\: class\-string\|null, declared\?\: class\-string\|null, cache\?\: array\<mixed\>\|null, \.\.\.\}, non\-empty\-array\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Mapping/ClassMetadata.php
+
+		-
+			message: '#^Parameter \#1 \$mappingArray of static method Doctrine\\ORM\\Mapping\\OneToManyAssociationMapping\:\:fromMappingArrayAndName\(\) expects array\{fieldName\: string, sourceEntity\: class\-string, targetEntity\: class\-string, cascade\?\: list\<''all''\|''detach''\|''persist''\|''refresh''\|''remove''\>, fetch\?\: 2\|3\|4\|null, inherited\?\: class\-string\|null, declared\?\: class\-string\|null, cache\?\: array\<mixed\>\|null, \.\.\.\}, non\-empty\-array\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Mapping/ClassMetadata.php
+
+		-
+			message: '#^Parameter \#1 \$mappingArray of static method Doctrine\\ORM\\Mapping\\ToOneInverseSideMapping\:\:fromMappingArrayAndName\(\) expects array\{fieldName\: string, sourceEntity\: class\-string, targetEntity\: class\-string, cascade\?\: list\<''all''\|''detach''\|''persist''\|''refresh''\|''remove''\>, fetch\?\: 2\|3\|4\|null, inherited\?\: class\-string\|null, declared\?\: class\-string\|null, cache\?\: array\<mixed\>\|null, \.\.\.\}, non\-empty\-array\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Mapping/ClassMetadata.php
+
+		-
+			message: '#^Parameter \#1 \$mappingArray of static method Doctrine\\ORM\\Mapping\\ToOneOwningSideMapping\:\:fromMappingArrayAndName\(\) expects array\{fieldName\: string, sourceEntity\: class\-string, targetEntity\: class\-string, cascade\?\: list\<''all''\|''detach''\|''persist''\|''refresh''\|''remove''\>, fetch\?\: 2\|3\|4\|null, inherited\?\: class\-string\|null, declared\?\: class\-string\|null, cache\?\: array\<mixed\>\|null, \.\.\.\}, non\-empty\-array\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 2
+			path: repo/src/Mapping/ClassMetadata.php
+
+		-
 			message: '#^Asserted type string for \$this\-\>indexBy\(\) with type string does not narrow down the type\.$#'
 			identifier: assert.alreadyNarrowedType
 			count: 1

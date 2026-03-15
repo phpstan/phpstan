@@ -13,6 +13,12 @@ parameters:
 			path: repo/src/Driver/IBMDB2/Statement.php
 
 		-
+			rawMessage: 'Only booleans are allowed in a ternary operator condition, mixed given.'
+			identifier: ternary.condNotBoolean
+			count: 1
+			path: repo/src/Driver/PDO/SQLSrv/Driver.php
+
+		-
 			rawMessage: 'Property Doctrine\DBAL\Driver\PgSQL\Connection::$connection in isset() is not nullable nor uninitialized.'
 			identifier: isset.initializedProperty
 			count: 1
@@ -31,28 +37,10 @@ parameters:
 			path: repo/src/Driver/SQLSrv/Result.php
 
 		-
-			rawMessage: 'Method Doctrine\DBAL\Driver\SQLite3\Result::rowCount() has Doctrine\DBAL\Driver\Exception in PHPDoc @throws tag but it''s not thrown.'
-			identifier: throws.unusedType
-			count: 1
-			path: repo/src/Driver/SQLite3/Result.php
-
-		-
 			rawMessage: 'Only booleans are allowed in a while condition, int|false given.'
 			identifier: while.condNotBoolean
 			count: 1
 			path: repo/src/Schema/SQLServerSchemaManager.php
-
-		-
-			rawMessage: 'Method Doctrine\DBAL\Connection@anonymous/tests/ConnectionTest.php:735::commit() has Doctrine\DBAL\Exception in PHPDoc @throws tag but it''s not thrown.'
-			identifier: throws.unusedType
-			count: 1
-			path: repo/tests/ConnectionTest.php
-
-		-
-			rawMessage: 'Method Doctrine\DBAL\Connection@anonymous/tests/ConnectionTest.php:735::rollBack() has Doctrine\DBAL\Exception in PHPDoc @throws tag but it''s not thrown.'
-			identifier: throws.unusedType
-			count: 1
-			path: repo/tests/ConnectionTest.php
 
 		-
 			rawMessage: 'Only booleans are allowed in a while condition, mixed given.'

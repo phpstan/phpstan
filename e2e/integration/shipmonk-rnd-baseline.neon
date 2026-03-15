@@ -1,2 +1,7 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			rawMessage: 'Offset int<0, max> might not exist on array<int, PHPStan\Type\Type>.'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Rule/AllowComparingOnlyComparableTypesRule.php

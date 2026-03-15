@@ -7,12 +7,6 @@ parameters:
 			path: repo/src/Core/Checkout/Cart/CartValueResolver.php
 
 		-
-			rawMessage: 'Parameter #1 $array of function array_sum expects an array of values castable to number, array<mixed> given.'
-			identifier: argument.type
-			count: 3
-			path: repo/src/Core/Checkout/Cart/Delivery/Struct/DeliveryPositionCollection.php
-
-		-
 			rawMessage: 'Method Shopware\Core\Checkout\Cart\LineItem\Group\LineItemGroupServiceRegistry::getPackagers() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -25,16 +19,16 @@ parameters:
 			path: repo/src/Core/Checkout/Cart/LineItem/Group/LineItemGroupServiceRegistry.php
 
 		-
-			rawMessage: 'Parameter #1 $array of function array_sum expects an array of values castable to number, array<mixed> given.'
-			identifier: argument.type
-			count: 2
-			path: repo/src/Core/Checkout/Cart/Price/Struct/PriceCollection.php
-
-		-
-			rawMessage: 'Parameter #1 $array of function array_sum expects an array of values castable to number, array<mixed> given.'
+			rawMessage: 'Parameter #1 $data of method Shopware\Core\Checkout\Cart\LineItemFactoryHandler\LineItemFactoryInterface::create() expects array<string, mixed>, array<int|string, mixed> given.'
 			identifier: argument.type
 			count: 1
-			path: repo/src/Core/Checkout/Cart/Tax/Struct/CalculatedTaxCollection.php
+			path: repo/src/Core/Checkout/Cart/LineItemFactoryRegistry.php
+
+		-
+			rawMessage: 'Parameter #2 $data of method Shopware\Core\Checkout\Cart\LineItemFactoryHandler\LineItemFactoryInterface::update() expects array<string, mixed>, array<int|string, mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Checkout/Cart/LineItemFactoryRegistry.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Checkout\Customer\CustomerValueResolver::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -83,6 +77,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Core/Content/Product/PropertyGroupSorter.php
+
+		-
+			rawMessage: Casting to string something that's already string.
+			identifier: cast.useless
+			count: 2
+			path: repo/src/Core/DevOps/Test/AnnotationTagTester.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\Adapter\Asset\FallbackUrlPackage::applyFallback() should return list<string> but returns list<bool|float|int|string|null>.'
@@ -577,6 +577,12 @@ parameters:
 			path: repo/src/Core/Framework/DataAbstractionLayer/FieldSerializer/VersionFieldSerializer.php
 
 		-
+			rawMessage: 'Parameter #1 $ids of class Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria constructor expects array<string>|null, array<array<string>|string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Search/Criteria.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Framework\DataAbstractionLayer\Write\WriteException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -643,12 +649,6 @@ parameters:
 			path: repo/src/Core/Framework/Routing/RequestDataBagResolver.php
 
 		-
-			rawMessage: 'Parameter #1 $array of function array_sum expects an array of values castable to number, list given.'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Core/Framework/Script/Debugging/ScriptTraces.php
-
-		-
 			rawMessage: 'Method Shopware\Core\Framework\Script\Facade\ArrayFacade::getIterator() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -685,10 +685,34 @@ parameters:
 			path: repo/src/Core/Framework/Validation/WriteConstraintViolationException.php
 
 		-
+			rawMessage: 'Offset ''host'' might not exist on non-empty-array{scheme?: string, host?: string, port?: int<0, 65535>, user?: string, pass?: string, path?: string, query?: string, fragment?: string}.'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Core/Installer/Controller/FinishController.php
+
+		-
 			rawMessage: 'Method Shopware\Core\System\SalesChannel\Context\SalesChannelContextValueResolver::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/System/SalesChannel/Context/SalesChannelContextValueResolver.php
+
+		-
+			rawMessage: 'Call to function assert() with true will always evaluate to true.'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Core/System/Snippet/SnippetService.php
+
+		-
+			rawMessage: 'Offset ''language'' on array{0: non-falsy-string, locale: non-falsy-string, 1: non-falsy-string, language: non-falsy-string, 2: non-falsy-string, script: non-falsy-string|null, 3: non-falsy-string|null, region: non-falsy-string|null, ...} in empty() always exists and is not falsy.'
+			identifier: empty.offset
+			count: 1
+			path: repo/src/Core/System/Snippet/SnippetService.php
+
+		-
+			rawMessage: 'Offset ''host'' might not exist on non-empty-array{scheme?: string, host?: string, port?: int<0, 65535>, user?: string, pass?: string, path?: string, query?: string, fragment?: string}.'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Storefront/Controller/ContextController.php
 
 		-
 			rawMessage: 'Method Shopware\Storefront\Theme\Exception\ThemeConfigException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -1055,6 +1079,12 @@ parameters:
 			identifier: arguments.count
 			count: 10
 			path: repo/tests/integration/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Offset 1 might not exist on array{}|array{non-falsy-string, string}.'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/tests/integration/Storefront/Controller/StorefrontControllerTest.php
 
 		-
 			rawMessage: 'Parameter #1 $salesChannels of method Shopware\Tests\Integration\Storefront\Framework\Routing\RequestTransformerTest::testDomainResolving() expects array<string, array<string, string>|string>, array<int, array<string, array<array<string, string>>|bool|string>> given.'
@@ -1469,6 +1499,12 @@ parameters:
 			identifier: argument.type
 			count: 2
 			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Dbal/CriteriaFieldsResolverTest.php
+
+		-
+			rawMessage: 'Offset 1 might not exist on array{}|array{non-falsy-string, non-empty-string}.'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Dbal/QueryBuilderTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Field\TestFieldSerializer::encode() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
