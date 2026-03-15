@@ -1,5 +1,7 @@
 <?php
 
+putenv('COLUMNS=400');
+
 $commit = trim(shell_exec('git rev-parse HEAD'));
 
 $gitUrl = trim(shell_exec('git remote get-url origin'));
