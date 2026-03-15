@@ -1,0 +1,3 @@
+includes:
+	- repo/phpstan.types.neon.dist
+	- laravel-types-baseline.neon

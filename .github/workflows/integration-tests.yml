@@ -246,14 +246,14 @@ jobs:
             ref: 00f0216e493867f399401397cc40347f869a7e1e
             setup: |
               composer install
-            phpstan-command: ../../../phpstan.phar analyse -c phpstan.src.neon.dist
+            phpstan-command: ../../../phpstan.phar analyse -c ../laravel.neon
             baseline-file: laravel-baseline.neon
           - php-version: 8.2
             repo: laravel/framework
             ref: 00f0216e493867f399401397cc40347f869a7e1e
             setup: |
               composer install
-            phpstan-command: ../../../phpstan.phar analyse -c phpstan.types.neon.dist
+            phpstan-command: ../../../phpstan.phar analyse -c ../laravel-types.neon
             baseline-file: laravel-types-baseline.neon
           - php-version: 8.4
             repo: Roave/BetterReflection

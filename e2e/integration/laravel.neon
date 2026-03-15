@@ -1,0 +1,3 @@
+includes:
+	- repo/phpstan.src.neon.dist
+	- laravel-baseline.neon
