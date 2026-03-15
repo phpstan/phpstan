@@ -1,3 +1,4 @@
 includes:
 	- repo/phpstan.neon.dist
 	- doctrine-dbal-baseline.neon
+	- editor-link-repo.php
