@@ -1,7 +1,7 @@
 includes:
     - repo/project-base/app/phpstan.neon
     - shopsys-project-base-baseline.neon
-	- editor-link-repo.php
+    - editor-link-repo.php
 
 parameters:
     reportUnmatchedIgnoredErrors: false
