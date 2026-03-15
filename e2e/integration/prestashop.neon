@@ -2,3 +2,4 @@ includes:
 	- repo/phpstan.neon.dist
 	- prestashop-baseline.neon
 	- phar://phpstan.phar/conf/bleedingEdge.neon
+	- editor-link-repo.php

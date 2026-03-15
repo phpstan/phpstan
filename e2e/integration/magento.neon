@@ -1,3 +1,4 @@
 includes:
 	- repo/phpstan.neon
 	- magento-baseline.neon
+	- editor-link-repo.php

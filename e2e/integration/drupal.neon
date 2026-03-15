@@ -1,6 +1,7 @@
 includes:
 	- repo/core/phpstan.neon.dist
 	- drupal-baseline.neon
+	- editor-link-repo.php
 
 parameters:
 	reportUnmatchedIgnoredErrors: false

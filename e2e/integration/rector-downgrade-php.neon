@@ -1,3 +1,4 @@
 includes:
 	- repo/phpstan.neon
 	- rector-downgrade-php-baseline.neon
+	- editor-link-repo.php
