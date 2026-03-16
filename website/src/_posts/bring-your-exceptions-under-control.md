@@ -61,7 +61,7 @@ parameters:
 			- 'LogicException' # Mark LogicException and child classes as unchecked
 ```
 
-Since version 0.12.88 PHPStan also supports marking all exceptions as unchecked by default, and list the criteria for the only checked exception classes:
+Since version 0.12.88 PHPStan also supports marking all exceptions as unchecked by default, by defining at least one of `checkedExceptionRegexes` or `checkedExceptionClasses`:
 
 ```neon
 parameters:
