@@ -14,9 +14,19 @@ Many basic concepts about static analysis are shared among all the extension typ
 Custom rules
 -------------------
 
+Custom rules
+------------------
+
 PHPStan allows writing custom rules to check for specific situations in your own codebase.
 
 [Learn more »](/developing-extensions/rules)
+
+Collectors
+------------------
+
+If you want to write rules that take a look at the whole codebase instead of a single AST node, you can take advantage of collectors to gather data across all files.
+
+[Learn more »](/developing-extensions/collectors)
 
 Restricted usage extensions
 -------------------
@@ -25,19 +35,15 @@ These extensions allow you to restrict where methods, properties, functions etc.
 
 [Learn more »](/developing-extensions/restricted-usage-extensions)
 
-Error formatters
-------------------
+Forbidden class name extensions
+-------------------
 
-PHPStan outputs errors via so-called error formatters. You can implement your own format.
+If your project has classes that should never be referenced directly (like generated proxy classes), you can dynamically report their usage.
 
-[Learn more »](/developing-extensions/error-formatters)
+[Learn more »](/developing-extensions/forbidden-class-name-extensions)
 
-Class reflection extensions
-------------------
-
-Classes in PHP can expose "magic" properties and methods decided in run-time using class methods like `__get`, `__set`, and `__call`. Because PHPStan is all about static analysis (testing code for errors without running it), it has to know about those properties and methods beforehand.
-
-[Learn more »](/developing-extensions/class-reflection-extensions)
+Type inference
+-------------------
 
 Dynamic return type extensions
 -------------------
@@ -88,20 +94,6 @@ If you're working with PHP extensions that overload arithmetic operators (like G
 
 [Learn more »](/developing-extensions/operator-type-specifying-extensions)
 
-Exception type resolver
--------------------
-
-Lets you write custom logic to dynamically decide whether an exception is checked or unchecked, with access to the scope where the exception is thrown.
-
-[Learn more »](/developing-extensions/exception-type-resolver)
-
-Forbidden class name extensions
--------------------
-
-If your project has classes that should never be referenced directly (like generated proxy classes), you can dynamically report their usage.
-
-[Learn more »](/developing-extensions/forbidden-class-name-extensions)
-
 Custom PHPDoc Types
 -------------------
 
@@ -109,19 +101,22 @@ PHPStan lets you override how it converts PHPDoc AST coming from its phpdoc-pars
 
 [Learn more »](/developing-extensions/custom-phpdoc-types)
 
-Always-read and written properties
+Metadata
 -------------------
 
-This extension allows you to mark private properties as always-read and written even if the surrounding code doesn't look like that.
+Class reflection extensions
+------------------
 
-[Learn more »](/developing-extensions/always-read-written-properties)
+Classes in PHP can expose "magic" properties and methods decided in run-time using class methods like `__get`, `__set`, and `__call`. Because PHPStan is all about static analysis (testing code for errors without running it), it has to know about those properties and methods beforehand.
 
-Always-used class constants
+[Learn more »](/developing-extensions/class-reflection-extensions)
+
+Deprecations
 -------------------
 
-This extension allows you to mark private class constants as always-used even if the surrounding code doesn't look like that.
+PHPStan lets you provide custom deprecation information based on e.g. native PHP attributes. Such information is then used in e.g. `ClassReflection::isDeprecated()`
 
-[Learn more »](/developing-extensions/always-used-class-constants)
+[Learn more »](/developing-extensions/custom-deprecations)
 
 Allowed subtypes
 -------------------
@@ -137,6 +132,13 @@ If properties are initialized in methods other than the constructor (like `setUp
 
 [Learn more »](/developing-extensions/additional-constructors-extensions)
 
+Exception type resolver
+-------------------
+
+Lets you write custom logic to dynamically decide whether an exception is checked or unchecked, with access to the scope where the exception is thrown.
+
+[Learn more »](/developing-extensions/exception-type-resolver)
+
 Stub files extensions
 -------------------
 
@@ -144,16 +146,50 @@ If you need to load stub files conditionally based on custom logic (like the PHP
 
 [Learn more »](/developing-extensions/stub-files-extensions)
 
+Dead code detection
+-------------------
+
+Always-read and written properties
+-------------------
+
+This extension allows you to mark private properties as always-read and written even if the surrounding code doesn't look like that.
+
+[Learn more »](/developing-extensions/always-read-written-properties)
+
+Always-used class constants
+-------------------
+
+This extension allows you to mark private class constants as always-used even if the surrounding code doesn't look like that.
+
+[Learn more »](/developing-extensions/always-used-class-constants)
+
+Always-used methods
+-------------------
+
+This extension allows you to mark private class methods as always-used even if the surrounding code doesn't look like that.
+
+[Learn more »](/developing-extensions/always-used-methods)
+
+Output & infrastructure
+-------------------
+
+Error formatters
+------------------
+
+PHPStan outputs errors via so-called error formatters. You can implement your own format.
+
+[Learn more »](/developing-extensions/error-formatters)
+
+Ignore error extensions
+-------------------
+
+These extensions let you ignore specific errors based on error type, AST node, and scope context.
+
+[Learn more »](/developing-extensions/ignore-error-extensions)
+
 Diagnose extensions
 -------------------
 
 Custom extensions can output diagnostic information visible when running the `analyse` command with `-vvv` or the `diagnose` command.
 
 [Learn more »](/developing-extensions/diagnose-extensions)
-
-Deprecations
--------------------
-
-PHPStan lets you provide custom deprecation information based on e.g. native PHP attributes. Such information is then used in e.g. `ClassReflection::isDeprecated()`
-
-[Learn more »](/developing-extensions/custom-deprecations)

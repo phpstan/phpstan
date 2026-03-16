@@ -53,7 +53,7 @@
             ]
         },
         {
-            "label": "Extension Types",
+            "label": "Custom Rules",
             "items": [
                 {
                     "title": "Custom Rules",
@@ -68,13 +68,14 @@
                     "link": "/developing-extensions/restricted-usage-extensions"
                 },
                 {
-                    "title": "Error Formatters",
-                    "link": "/developing-extensions/error-formatters"
-                },
-                {
-                    "title": "Class Reflection Extensions",
-                    "link": "/developing-extensions/class-reflection-extensions"
-                },
+                    "title": "Forbidden Class Name Extensions",
+                    "link": "/developing-extensions/forbidden-class-name-extensions"
+                }
+            ]
+        },
+        {
+            "label": "Type Inference",
+            "items": [
                 {
                     "title": "Dynamic Return Type Extensions",
                     "link": "/developing-extensions/dynamic-return-type-extensions"
@@ -104,24 +105,37 @@
                     "link": "/developing-extensions/operator-type-specifying-extensions"
                 },
                 {
-                    "title": "Exception Type Resolver",
-                    "link": "/developing-extensions/exception-type-resolver"
-                },
-                {
-                    "title": "Forbidden Class Name Extensions",
-                    "link": "/developing-extensions/forbidden-class-name-extensions"
-                },
-                {
                     "title": "Custom PHPDoc Types",
                     "link": "/developing-extensions/custom-phpdoc-types"
+                }
+            ]
+        },
+        {
+            "label": "Metadata",
+            "items": [
+                {
+                    "title": "Class Reflection Extensions",
+                    "link": "/developing-extensions/class-reflection-extensions"
                 },
                 {
                     "title": "Custom Deprecations",
                     "link": "/developing-extensions/custom-deprecations"
                 },
                 {
-                    "title": "Ignore Error Extensions",
-                    "link": "/developing-extensions/ignore-error-extensions"
+                    "title": "Allowed Subtypes",
+                    "link": "/developing-extensions/allowed-subtypes"
+                },
+                {
+                    "title": "Additional Constructors",
+                    "link": "/developing-extensions/additional-constructors-extensions"
+                },
+                {
+                    "title": "Exception Type Resolver",
+                    "link": "/developing-extensions/exception-type-resolver"
+                },
+                {
+                    "title": "Stub Files Extensions",
+                    "link": "/developing-extensions/stub-files-extensions"
                 }
             ]
         },
@@ -139,27 +153,19 @@
                 {
                     "title": "Always-Used Methods",
                     "link": "/developing-extensions/always-used-methods"
-                },
-                {
-                    "title": "Allowed Subtypes",
-                    "link": "/developing-extensions/allowed-subtypes"
-                },
-                {
-                    "title": "Additional Constructors",
-                    "link": "/developing-extensions/additional-constructors-extensions"
                 }
             ]
         },
         {
-            "label": "Infrastructure",
+            "label": "Output & Infrastructure",
             "items": [
                 {
-                    "title": "Testing",
-                    "link": "/developing-extensions/testing"
+                    "title": "Error Formatters",
+                    "link": "/developing-extensions/error-formatters"
                 },
                 {
-                    "title": "Stub Files Extensions",
-                    "link": "/developing-extensions/stub-files-extensions"
+                    "title": "Ignore Error Extensions",
+                    "link": "/developing-extensions/ignore-error-extensions"
                 },
                 {
                     "title": "Diagnose Extensions",
@@ -168,6 +174,10 @@
                 {
                     "title": "Result Cache Meta Extensions",
                     "link": "/developing-extensions/result-cache-meta-extensions"
+                },
+                {
+                    "title": "Testing",
+                    "link": "/developing-extensions/testing"
                 },
                 {
                     "title": "Backward Compatibility Promise",
