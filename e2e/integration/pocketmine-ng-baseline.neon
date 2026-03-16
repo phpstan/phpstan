@@ -5,3 +5,10 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/console/ConsoleReaderChildProcessDaemon.php
+
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 2
+			path: repo/src/Server.php
