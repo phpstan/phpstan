@@ -552,7 +552,7 @@ jobs:
   integration-update-baseline:
     name: "Integration - Update baselines"
     runs-on: "ubuntu-latest"
-    needs: pmmp-tests
+    needs: [integration-run-phpstan, pmmp-tests]
     if: "failure() && github.repository_owner == 'phpstan' && inputs.ref == 'refs/heads/2.1.x'"
 
     steps:
@@ -592,7 +592,8 @@ jobs:
     runs-on: "ubuntu-latest"
     timeout-minutes: 30
 
-    needs: integration-run-phpstan
+    needs: check-phar-checksum
+    if: "needs.check-phar-checksum.outputs.checksum-result == 'different'"
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
