@@ -1,20 +1,163 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Parameter \#2 \$descriptor_spec of function proc_open expects array\<1\|2, list\<string\>\|resource\>, array\{1\: array\{''socket''\}, 2\: resource\|false\} given\.$#'
+			message: '#^Parameter \#1 \$array of function sort expects an array of values castable to string, array\<mixed\> given\.$#'
 			identifier: argument.type
 			count: 1
-			path: repo/src/console/ConsoleReaderChildProcessDaemon.php
-
+			path: repo/build/generate-block-serializer-consts.php
 
 		-
 			message: '#^Cannot cast mixed to string\.$#'
 			identifier: cast.string
-			count: 2
+			count: 1
 			path: repo/src/Server.php
 
 		-
+			message: '#^Parameter \#1 \$array of function sort expects an array of values castable to string, array\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/command/defaults/WhitelistCommand.php
+
+		-
+			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, list\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/command/defaults/WhitelistCommand.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 3
+			path: repo/src/item/Item.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: repo/src/plugin/PluginDescription.php
+
+		-
 			message: '#^Cannot cast mixed to string\.$#'
 			identifier: cast.string
-			count: 5
+			count: 4
 			path: repo/src/plugin/PluginDescription.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, ''strval'' given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/plugin/PluginDescription.php
+
+		-
+			message: '#^Parameter \#1 \$data of static method pocketmine\\permission\\PermissionParser\:\:loadPermissions\(\) expects array\<string, array\<string, mixed\>\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/plugin/PluginDescription.php
+
+		-
+			message: '#^Parameter \#1 \$description of class pocketmine\\plugin\\PluginDescriptionCommandEntry constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/plugin/PluginDescription.php
+
+		-
+			message: '#^Parameter \#1 \$name of static method pocketmine\\plugin\\PluginEnableOrder\:\:fromString\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/plugin/PluginDescription.php
+
+		-
+			message: '#^Parameter \#2 \$usageMessage of class pocketmine\\plugin\\PluginDescriptionCommandEntry constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/plugin/PluginDescription.php
+
+		-
+			message: '#^Parameter \#3 \$aliases of class pocketmine\\plugin\\PluginDescriptionCommandEntry constructor expects list\<string\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/plugin/PluginDescription.php
+
+		-
+			message: '#^Parameter \#5 \$permissionDeniedMessage of class pocketmine\\plugin\\PluginDescriptionCommandEntry constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/plugin/PluginDescription.php
+
+		-
+			message: '#^Property pocketmine\\plugin\\PluginDescription\:\:\$authors \(array\<string\>\) does not accept array\<mixed\>\.$#'
+			identifier: assign.propertyType
+			count: 2
+			path: repo/src/plugin/PluginDescription.php
+
+		-
+			message: '#^Property pocketmine\\plugin\\PluginDescription\:\:\$depend \(list\<string\>\) does not accept list\<mixed\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/plugin/PluginDescription.php
+
+		-
+			message: '#^Property pocketmine\\plugin\\PluginDescription\:\:\$loadBefore \(list\<string\>\) does not accept list\<mixed\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/plugin/PluginDescription.php
+
+		-
+			message: '#^Property pocketmine\\plugin\\PluginDescription\:\:\$softDepend \(list\<string\>\) does not accept list\<mixed\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/plugin/PluginDescription.php
+
+		-
+			message: '#^Property pocketmine\\scheduler\\AsyncTask\:\:\$progressUpdates \(pmmp\\thread\\ThreadSafeArray\<int, string\>\|null\) is never assigned pmmp\\thread\\ThreadSafeArray\<int, string\> so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: repo/src/scheduler/AsyncTask.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_unique expects an array of values castable to string, array\<string, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/phpunit/block/BlockTypeIdsTest.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_unique expects an array of values castable to string, array\<string, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/phpunit/item/ItemTypeIdsTest.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 3
+			path: repo/tools/generate-item-upgrade-schema.php
+
+		-
+			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: repo/tools/generate-item-upgrade-schema.php
+
+		-
+			message: '#^Part \$meta \(mixed\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
+			count: 1
+			path: repo/tools/generate-item-upgrade-schema.php
+
+		-
+			message: '#^Part \$newId \(mixed\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
+			count: 2
+			path: repo/tools/generate-item-upgrade-schema.php
+
+		-
+			message: '#^Part \$oldId \(mixed\) of encapsed string cannot be cast to string\.$#'
+			identifier: encapsedStringPart.nonString
+			count: 2
+			path: repo/tools/generate-item-upgrade-schema.php
+
+		-
+			message: '#^Possibly invalid array key type mixed\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 10
+			path: repo/tools/generate-item-upgrade-schema.php
