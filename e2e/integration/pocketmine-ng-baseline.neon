@@ -12,3 +12,9 @@ parameters:
 			identifier: cast.string
 			count: 2
 			path: repo/src/Server.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 5
+			path: repo/src/plugin/PluginDescription.php

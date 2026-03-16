@@ -644,7 +644,7 @@ jobs:
       - name: "Generate baseline"
         if: ${{ failure() }}
         working-directory: "e2e/integration/repo"
-        run: ../../../phpstan.phar analyse -c ../pocketmine-ng.neon --memory-limit=2G -b ../pocketmine-ng-baseline.neon -vv
+        run: ../../../phpstan.phar analyse -c ../pocketmine-ng.neon --memory-limit=2G -b ../pocketmine-ng-baseline.neon
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: ${{ failure() }}
