@@ -94,7 +94,7 @@ Related config keys: [`ignoreErrors`](/user-guide/ignoring-errors#ignoring-in-co
 
 **default**: `false`
 
-When set to `true`, PHPStan reports `@phpstan-ignore` identifiers that don't have an accompanying comment in parentheses explaining why the error is being ignored.
+When set to `true`, PHPStan reports `@phpstan-ignore` identifiers that don't have an accompanying comment in parentheses explaining why the error is being ignored. It also disallows `@phpstan-ignore-line` and `@phpstan-ignore-next-line` completely, because these don't support error identifiers and comments.
 
 ```php
 echo $foo; // @phpstan-ignore variable.undefined — reported, no comment
@@ -103,6 +103,10 @@ echo $foo; // @phpstan-ignore variable.undefined (not available at this point) �
 // Multiple identifiers: each one needs its own comment
 echo $foo; // @phpstan-ignore variable.undefined, wrong.id — both reported
 echo $foo; // @phpstan-ignore variable.undefined (reason), wrong.id (reason) — OK
+
+echo $foo; // @phpstan-ignore-line — reported, not allowed
+// @phpstan-ignore-next-line — reported, not allowed
+echo $foo;
 ```
 
 Discovering symbols

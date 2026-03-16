@@ -68,7 +68,18 @@ The reason why a certain error is ignored using `@phpstan-ignore` can be put int
 echo $foo; // @phpstan-ignore variable.undefined (Because we are lazy)
 ```
 
-You can also choose to ignore all errors on a specific line using `@phpstan-ignore-line` and `@phpstan-ignore-next-line`.
+### Requiring comments for `@phpstan-ignore`
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.1.41</div>
+
+By setting [`reportIgnoresWithoutComments`](/config-reference#reportignoreswithoutcomments) to `true` in your configuration, PHPStan will report `@phpstan-ignore` identifiers that don't have an accompanying comment in parentheses explaining why the error is being ignored. It will also disallow `@phpstan-ignore-line` and `@phpstan-ignore-next-line` completely, because these don't support error identifiers and comments.
+
+```yaml
+parameters:
+	reportIgnoresWithoutComments: true
+```
+
+You can also choose to ignore all errors on a specific line using `@phpstan-ignore-line` and `@phpstan-ignore-next-line`. These are not allowed when [`reportIgnoresWithoutComments`](/config-reference#reportignoreswithoutcomments) is set to `true`.
 
 ```php
 echo $foo; // @phpstan-ignore-line
