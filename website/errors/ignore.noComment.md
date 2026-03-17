@@ -1,7 +1,7 @@
 ---
 title: "ignore.noComment"
 shortDescription: "Ignore with identifier has no comment."
-ignorable: true
+ignorable: false
 ---
 
 ## Code example
