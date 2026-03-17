@@ -1,7 +1,7 @@
 ---
 title: "ignore.allLineErrors"
 shortDescription: "Ignoring all errors on a line is not allowed."
-ignorable: true
+ignorable: false
 ---
 
 ## Code example
