@@ -1,7 +1,7 @@
 ---
 title: "ignore.unmatchedLine"
 shortDescription: "Ignore-line or ignore-next-line comment is on a line with no error."
-ignorable: true
+ignorable: false
 ---
 
 ## Code example
