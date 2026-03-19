@@ -129,7 +129,7 @@ The [online playground](https://phpstan.org/try) already notifies you about key 
 
 Additionally, the [`reportNonIntStringArrayKey`](/config-reference#reportNonIntStringArrayKey) option (available since PHPStan 2.1.39) can report when non-int/non-string types like booleans, floats, or `null` are used as array keys:
 
-```neon
+```yaml
 parameters:
     reportNonIntStringArrayKey: true
 ```
@@ -137,7 +137,7 @@ parameters:
 ```php
 $array = [];
 $array[true] = 'value';  // Reported: Invalid array key type true.
-$array[4.5] = 'value';   // Reported: Invalid array key type floa.
+$array[4.5] = 'value';   // Reported: Invalid array key type float.
 $array[null] = 'value';  // Reported: Invalid array key type null.
 ```
 
@@ -146,7 +146,7 @@ These features catch explicit misuses of non-int/non-string types as keys. But t
 PHPStan 2.2: non-decimal-int-string
 ------------------------
 
-PHPStan 2.2, coming soom at some point in spring 2026, will introduce a new type: `non-decimal-int-string`.
+PHPStan 2.2, coming soon at some point in spring 2026, will introduce a new type: `non-decimal-int-string`.
 
 A *decimal integer string* is a string that PHP considers a valid decimal integer and would cast to `int` when used as an array key — like `'0'`, `'123'`, or `'42'`.
 
