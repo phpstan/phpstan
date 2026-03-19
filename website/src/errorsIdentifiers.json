@@ -12594,6 +12594,20 @@
             ]
         }
     },
+    "phpstanPlayground.arrayDimFetchCast": {
+        "PHPStan\\Rules\\Playground\\ArrayDimCastRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Playground/ArrayDimCastRule.php#L55"
+            ]
+        }
+    },
+    "phpstanPlayground.arrayKeyCast": {
+        "PHPStan\\Rules\\Playground\\LiteralArrayKeyCastRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Playground/LiteralArrayKeyCastRule.php#L51"
+            ]
+        }
+    },
     "phpstanPlayground.configParameter": {
         "PHPStan\\Rules\\Playground\\PromoteParameterRule": {
             "phpstan/phpstan-src": [
