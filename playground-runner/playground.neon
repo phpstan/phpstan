@@ -1,5 +1,7 @@
 rules:
+	- PHPStan\Rules\Playground\ArrayDimCastRule
 	- PHPStan\Rules\Playground\FunctionNeverRule
+	- PHPStan\Rules\Playground\LiteralArrayKeyCastRule
 	- PHPStan\Rules\Playground\MethodNeverRule
 	- PHPStan\Rules\Playground\NotAnalysedTraitRule
 	- PHPStan\Rules\Playground\NoPhpCodeRule
