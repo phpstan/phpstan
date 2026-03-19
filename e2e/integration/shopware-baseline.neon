@@ -1285,6 +1285,12 @@ parameters:
 			path: repo/tests/unit/Core/Content/Cms/Subscriber/CmsVersionMergeSubscriberTest.php
 
 		-
+			rawMessage: Match arm comparison between 2 and 2 is always true.
+			identifier: match.alwaysTrue
+			count: 1
+			path: repo/tests/unit/Core/Content/Flow/Dispatching/FlowExecutorTest.php
+
+		-
 			rawMessage: 'Parameter $prices of method Shopware\Tests\Unit\Core\Content\ImportExport\DataAbstractionLayer\Serializer\Field\PriceSerializerTest::testSerializePrices() expects array<string, array<string, mixed>>|Shopware\Core\Framework\DataAbstractionLayer\Pricing\Price|null, array<int, Shopware\Core\Framework\DataAbstractionLayer\Pricing\Price> given.'
 			identifier: argument.type
 			count: 2
