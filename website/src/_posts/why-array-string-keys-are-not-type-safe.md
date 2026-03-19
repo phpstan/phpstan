@@ -121,13 +121,13 @@ What PHPStan already does
 
 I've been laying the groundwork for solving this problem.
 
-The [online playground](https://phpstan.org/try) already notifies you about key casts. When you write a literal array or access an array with a key that will be cast, PHPStan tells you:
+The [online playground](/try) already notifies you about key casts. When you write a literal array or access an array with a key that will be cast, PHPStan tells you:
 
 > Key '1234' (string) will be cast to 1234 (int) in the array access.
 
-[See this example in the playground »](https://phpstan.org/r/8d89c4bb-9966-42fb-8e5d-1ebb12fe31cc)
+[See this example in the playground »](/r/188f1e7b-a708-4f8f-b483-7b812d4ab09c)
 
-Additionally, the [`reportNonIntStringArrayKey`](/config-reference#reportNonIntStringArrayKey) option (available since PHPStan 2.1.39) can report when non-int/non-string types like booleans, floats, or `null` are used as array keys:
+Additionally, the [`reportNonIntStringArrayKey`](/config-reference#reportnonintstringarraykey) option (available since PHPStan 2.1.39) can report when non-int/non-string types like booleans, floats, or `null` are used as array keys:
 
 ```yaml
 parameters:
