@@ -108,6 +108,59 @@ foreach ($declaredTraits as [$file, $name, $line]) {
 return $errors;
 ```
 
+Emitting collected data from rules
+---------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.2.0</div>
+
+Rules can emit collected data directly, without having to write a separate Collector class. The emitted data is aggregated the same way as data from Collectors and can be consumed by rules registered for [`CollectedDataNode`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Node.CollectedDataNode.html).
+
+You can achieve this by typehinting the second parameter of `processNode()` as `Scope&CollectedDataEmitter`:
+
+```php
+use PhpParser\Node;
+use PhpParser\Node\Expr\MethodCall;
+use PHPStan\Analyser\CollectedDataEmitter;
+use PHPStan\Analyser\Scope;
+use PHPStan\Rules\Rule;
+
+/**
+ * @implements Rule<MethodCall>
+ */
+class MyRule implements Rule
+{
+
+	public function getNodeType(): string
+	{
+		return MethodCall::class;
+	}
+
+	/**
+	 * @param Scope&CollectedDataEmitter $scope
+	 */
+	public function processNode(Node $node, Scope $scope): array
+	{
+		if (!$node->name instanceof Node\Identifier) {
+			return [];
+		}
+
+		// Emit data as if it came from MyCollector
+		$scope->emitCollectedData(MyCollector::class, $node->name->toString());
+
+		return [];
+	}
+
+}
+```
+
+The referenced Collector class (`MyCollector` in the example above) must exist and implement the `Collector` interface. It's used to verify the data type statically and to identify the collected data. However, it does **not** need to be registered as a collector in the configuration, unless you also want it to collect data on its own.
+
+The emitted data can then be consumed by a rule registered for `CollectedDataNode` the same way as data from regular collectors:
+
+```php
+$collectedData = $node->get(MyCollector::class);
+```
+
 Testing collectors
 ---------------
 

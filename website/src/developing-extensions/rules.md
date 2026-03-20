@@ -377,6 +377,10 @@ PHPStan rules are executed in isolation across multiple processes so it's not po
 
 In order to write a specific category of rules like unused code detection, we need to use collectors. [Learn more »](/developing-extensions/collectors)
 
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.2.0</div>
+
+Rules can also emit collected data directly without writing a separate Collector class, by typehinting the second parameter of `processNode()` as `Scope&CollectedDataEmitter`. [Learn more »](/developing-extensions/collectors#emitting-collected-data-from-rules)
+
 More custom rules examples
 ---------------
 
