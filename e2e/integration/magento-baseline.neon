@@ -49,31 +49,31 @@ parameters:
 			path: repo/src/bitExpert/PHPStan/Magento/Autoload/ProxyAutoloader.php
 
 		-
-			message: '#^Parameter \#2 \$scope of method bitExpert\\PHPStan\\Magento\\Rules\\AbstractModelRetrieveCollectionViaFactoryRule\:\:processNode\(\) expects PHPStan\\Analyser\\NodeCallbackInvoker&PHPStan\\Analyser\\Scope, PHPStan\\Analyser\\Scope&PHPUnit\\Framework\\MockObject\\MockObject given\.$#'
+			message: '#^Parameter \#2 \$scope of method bitExpert\\PHPStan\\Magento\\Rules\\AbstractModelRetrieveCollectionViaFactoryRule\:\:processNode\(\) expects PHPStan\\Analyser\\CollectedDataEmitter&PHPStan\\Analyser\\NodeCallbackInvoker&PHPStan\\Analyser\\Scope, PHPStan\\Analyser\\Scope&PHPUnit\\Framework\\MockObject\\MockObject given\.$#'
 			identifier: argument.type
 			count: 2
 			path: repo/tests/bitExpert/PHPStan/Magento/Rules/AbstractModelRetrieveCollectionViaFactoryRuleUnitTest.php
 
 		-
-			message: '#^Parameter \#2 \$scope of method bitExpert\\PHPStan\\Magento\\Rules\\AbstractModelUseServiceContractRule\:\:processNode\(\) expects PHPStan\\Analyser\\NodeCallbackInvoker&PHPStan\\Analyser\\Scope, PHPStan\\Analyser\\Scope&PHPUnit\\Framework\\MockObject\\MockObject given\.$#'
+			message: '#^Parameter \#2 \$scope of method bitExpert\\PHPStan\\Magento\\Rules\\AbstractModelUseServiceContractRule\:\:processNode\(\) expects PHPStan\\Analyser\\CollectedDataEmitter&PHPStan\\Analyser\\NodeCallbackInvoker&PHPStan\\Analyser\\Scope, PHPStan\\Analyser\\Scope&PHPUnit\\Framework\\MockObject\\MockObject given\.$#'
 			identifier: argument.type
 			count: 2
 			path: repo/tests/bitExpert/PHPStan/Magento/Rules/AbstractModelUseServiceContractRuleUnitTest.php
 
 		-
-			message: '#^Parameter \#2 \$scope of method bitExpert\\PHPStan\\Magento\\Rules\\GetCollectionMockMethodNeedsCollectionSubclassRule\:\:processNode\(\) expects PHPStan\\Analyser\\NodeCallbackInvoker&PHPStan\\Analyser\\Scope, PHPStan\\Analyser\\Scope&PHPUnit\\Framework\\MockObject\\MockObject given\.$#'
+			message: '#^Parameter \#2 \$scope of method bitExpert\\PHPStan\\Magento\\Rules\\GetCollectionMockMethodNeedsCollectionSubclassRule\:\:processNode\(\) expects PHPStan\\Analyser\\CollectedDataEmitter&PHPStan\\Analyser\\NodeCallbackInvoker&PHPStan\\Analyser\\Scope, PHPStan\\Analyser\\Scope&PHPUnit\\Framework\\MockObject\\MockObject given\.$#'
 			identifier: argument.type
 			count: 2
 			path: repo/tests/bitExpert/PHPStan/Magento/Rules/GetCollectionMockMethodNeedsCollectionSubclassRuleUnitTest.php
 
 		-
-			message: '#^Parameter \#2 \$scope of method bitExpert\\PHPStan\\Magento\\Rules\\ResourceModelsShouldBeUsedDirectlyRule\:\:processNode\(\) expects PHPStan\\Analyser\\NodeCallbackInvoker&PHPStan\\Analyser\\Scope, PHPStan\\Analyser\\Scope&PHPUnit\\Framework\\MockObject\\MockObject given\.$#'
+			message: '#^Parameter \#2 \$scope of method bitExpert\\PHPStan\\Magento\\Rules\\ResourceModelsShouldBeUsedDirectlyRule\:\:processNode\(\) expects PHPStan\\Analyser\\CollectedDataEmitter&PHPStan\\Analyser\\NodeCallbackInvoker&PHPStan\\Analyser\\Scope, PHPStan\\Analyser\\Scope&PHPUnit\\Framework\\MockObject\\MockObject given\.$#'
 			identifier: argument.type
 			count: 2
 			path: repo/tests/bitExpert/PHPStan/Magento/Rules/ResourceModelsShouldBeUsedDirectlyRuleUnitTest.php
 
 		-
-			message: '#^Parameter \#2 \$scope of method bitExpert\\PHPStan\\Magento\\Rules\\SetTemplateDisallowedForBlockRule\:\:processNode\(\) expects PHPStan\\Analyser\\NodeCallbackInvoker&PHPStan\\Analyser\\Scope, PHPStan\\Analyser\\Scope&PHPUnit\\Framework\\MockObject\\MockObject given\.$#'
+			message: '#^Parameter \#2 \$scope of method bitExpert\\PHPStan\\Magento\\Rules\\SetTemplateDisallowedForBlockRule\:\:processNode\(\) expects PHPStan\\Analyser\\CollectedDataEmitter&PHPStan\\Analyser\\NodeCallbackInvoker&PHPStan\\Analyser\\Scope, PHPStan\\Analyser\\Scope&PHPUnit\\Framework\\MockObject\\MockObject given\.$#'
 			identifier: argument.type
 			count: 2
 			path: repo/tests/bitExpert/PHPStan/Magento/Rules/SetTemplateDisallowedForBlockRuleUnitTest.php

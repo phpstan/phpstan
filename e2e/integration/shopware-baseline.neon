@@ -61,6 +61,12 @@ parameters:
 			path: repo/src/Core/Content/Media/Commands/GenerateThumbnailsCommand.php
 
 		-
+			rawMessage: 'Constant SORT_DESC is not allowed for parameter #2 $flags of function arsort.'
+			identifier: argument.invalidConstant
+			count: 1
+			path: repo/src/Core/Content/Product/Cms/ProductListingCmsElementResolver.php
+
+		-
 			rawMessage: 'Call to an undefined method object::assign().'
 			identifier: method.notFound
 			count: 1
@@ -77,6 +83,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Core/Content/Product/PropertyGroupSorter.php
+
+		-
+			rawMessage: 'Constant SORT_DESC is not allowed for parameter #2 $flags of function arsort.'
+			identifier: argument.invalidConstant
+			count: 1
+			path: repo/src/Core/Content/Product/SalesChannel/Listing/Processor/SortingListingProcessor.php
 
 		-
 			rawMessage: Casting to string something that's already string.
@@ -863,6 +875,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/integration/Core/Content/Product/Cart/ProductCartProcessorTest.php
+
+		-
+			rawMessage: 'Constant SORT_DESC is not allowed for parameter #2 $flags of function arsort.'
+			identifier: argument.invalidConstant
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/Cms/ProductListingCmsElementResolverTest.php
 
 		-
 			rawMessage: 'Parameter #2 $searchTerms of method Shopware\Tests\Integration\Core\Content\Product\SalesChannel\ProductSearchRouteTest::testProductSearch() expects array<string, bool>, array<int|string, bool> given.'
