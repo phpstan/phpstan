@@ -29,7 +29,7 @@ function doLog(Logger $logger): void
 
 ## Why is it reported?
 
-The call uses a named argument `message:` based on the parameter name defined in `Logger::log()`, but `FileLogger` renames that parameter to `$text`. If the actual object at runtime is a `FileLogger`, PHP will throw a `TypeError` because it does not recognize the named argument `message`.
+The call uses a named argument `message:` based on the parameter name defined in `Logger::log()`, but `FileLogger` renames that parameter to `$text`. If the actual object at runtime is a `FileLogger`, PHP will throw an `Error` because it does not recognize the named argument `message`.
 
 Named arguments in PHP 8.0+ are matched by name, not position. When a subclass or implementation renames a parameter, calls using the parent's parameter name will fail at runtime for instances of the subclass.
 
