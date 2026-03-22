@@ -19,6 +19,7 @@ Each file follows this exact structure:
 ```markdown
 ---
 title: "<identifier>"
+shortDescription: "One sentence describing when this error is reported."
 ignorable: true
 ---
 
@@ -42,6 +43,7 @@ Ways to fix the error.
 ### Frontmatter
 
 - `title`: The error identifier (e.g., `"property.notFound"`)
+- `shortDescription`: One sentence (ending with a period) describing when the error is reported. Written from a user's perspective — what code pattern causes PHPStan to report this error. Examples: `"Accessing a private property from outside the declaring class."`, `"Loose comparison using == will always evaluate to true."`, `"Pure function uses print, which produces output as a side effect."`
 - `ignorable`: `true` for most identifiers. Set to `false` for identifiers that use `->nonIgnorable()` in the rule builder chain, or that start with `phpstan.` or `phpstanPlayground.`
 
 ### Code example
@@ -142,6 +144,7 @@ For `website/errors/deadCode.unreachable.md`:
 ```markdown
 ---
 title: "deadCode.unreachable"
+shortDescription: "Code after a return, throw, or other terminating statement can never be executed."
 ignorable: true
 ---
 
