@@ -1,5 +1,6 @@
 ---
 title: "argument.parameterRenamedInSubtype"
+shortDescription: "Using a named argument whose parameter name was renamed in a subtype, causing a runtime error."
 ignorable: true
 ---
 
