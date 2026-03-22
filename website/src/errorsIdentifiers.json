@@ -917,6 +917,13 @@
             ]
         }
     },
+    "argument.parameterRenamedInSubtype": {
+        "PHPStan\\Rules\\Methods\\MethodCallWithPossiblyRenamedNamedArgumentRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodCallWithPossiblyRenamedNamedArgumentRule.php#L67"
+            ]
+        }
+    },
     "argument.positionalAfterNamed": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
