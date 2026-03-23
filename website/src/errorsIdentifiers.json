@@ -2172,6 +2172,13 @@
             ]
         }
     },
+    "assign.this": {
+        "PHPStan\\Rules\\Variables\\InvalidVariableAssignRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Variables/InvalidVariableAssignRule.php#L35"
+            ]
+        }
+    },
     "assignOp.invalid": {
         "PHPStan\\Rules\\Operators\\InvalidBinaryOperationRule": {
             "phpstan/phpstan-src": [
