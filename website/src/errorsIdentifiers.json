@@ -12374,6 +12374,20 @@
             ]
         }
     },
+    "parameter.superglobal": {
+        "PHPStan\\Rules\\Functions\\InvalidParameterNameRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/InvalidParameterNameRule.php#L41"
+            ]
+        }
+    },
+    "parameter.this": {
+        "PHPStan\\Rules\\Functions\\InvalidParameterNameRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/InvalidParameterNameRule.php#L50"
+            ]
+        }
+    },
     "parameter.trait": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
