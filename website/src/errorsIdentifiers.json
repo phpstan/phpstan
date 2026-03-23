@@ -5989,6 +5989,13 @@
             ]
         }
     },
+    "enum.caseOutsideOfEnum": {
+        "PHPStan\\Rules\\EnumCases\\EnumCaseOutsideEnumRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/EnumCases/EnumCaseOutsideEnumRule.php#L32"
+            ]
+        }
+    },
     "enum.caseType": {
         "PHPStan\\Rules\\Classes\\EnumSanityRule": {
             "phpstan/phpstan-src": [
