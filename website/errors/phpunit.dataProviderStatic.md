@@ -11,13 +11,12 @@ This error is reported by `phpstan/phpstan-phpunit`.
 ```php
 <?php declare(strict_types = 1);
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class FooTest extends TestCase
 {
-	/**
-	 * @dataProvider provideData
-	 */
+	#[DataProvider('provideData')]
 	public function testSomething(string $value): void
 	{
 		self::assertNotEmpty($value);
@@ -41,9 +40,7 @@ Add the `static` keyword to the data provider method:
 ```diff-php
  class FooTest extends TestCase
  {
- 	/**
- 	 * @dataProvider provideData
- 	 */
+ 	#[DataProvider('provideData')]
  	public function testSomething(string $value): void
  	{
  		self::assertNotEmpty($value);

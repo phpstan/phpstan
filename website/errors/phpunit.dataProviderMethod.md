@@ -9,13 +9,12 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class MyTest extends TestCase
 {
-	/**
-	 * @dataProvider provideData
-	 */
+	#[DataProvider('provideData')]
 	public function testSomething(string $value): void
 	{
 		self::assertNotEmpty($value);
@@ -30,17 +29,15 @@ class MyTest extends TestCase
 
 ## Why is it reported?
 
-The `@dataProvider` annotation or `#[DataProvider]` attribute references a method that does not exist on the test class. PHPUnit will fail at runtime when it cannot find the data provider method.
+The `#[DataProvider]` attribute or `@dataProvider` annotation references a method that does not exist on the test class. PHPUnit will fail at runtime when it cannot find the data provider method.
 
 ## How to fix it
 
 Ensure the data provider method name matches exactly:
 
 ```diff-php
- /**
-- * @dataProvider provideData
-+ * @dataProvider provideItems
-  */
+-#[DataProvider('provideData')]
++#[DataProvider('provideItems')]
  public function testSomething(string $value): void
  {
  	self::assertNotEmpty($value);

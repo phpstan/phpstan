@@ -9,13 +9,12 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class MyTest extends TestCase
 {
-	/**
-	 * @dataProvider provideData
-	 */
+	#[DataProvider('provideData')]
 	public function testFoo(int $value): void
 	{
 		$this->assertGreaterThan(0, $value);
@@ -32,15 +31,13 @@ class MyTest extends TestCase
 
 This rule is part of [phpstan-phpunit](https://github.com/phpstan/phpstan-phpunit).
 
-A `@dataProvider` annotation references a method that is not public. PHPUnit requires data provider methods to be public so that the test runner can access them.
+A `#[DataProvider]` attribute references a method that is not public. PHPUnit requires data provider methods to be public so that the test runner can access them.
 
 ## How to fix it
 
 Change the data provider method's visibility to `public`:
 
 ```diff-php
- <?php declare(strict_types = 1);
-
 -	private function provideData(): array
 +	public function provideData(): array
  	{

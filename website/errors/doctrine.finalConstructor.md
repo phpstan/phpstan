@@ -11,9 +11,7 @@ ignorable: true
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class MyEntity
 {
 	final public function __construct(private string $name)
@@ -39,9 +37,7 @@ Remove the `final` keyword from the constructor:
 
  use Doctrine\ORM\Mapping as ORM;
 
- /**
-  * @ORM\Entity()
-  */
+ #[ORM\Entity]
  class MyEntity
  {
 -	final public function __construct(private string $name)

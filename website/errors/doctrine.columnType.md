@@ -11,14 +11,10 @@ ignorable: true
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class User
 {
-	/**
-	 * @ORM\Column(type="string")
-	 */
+	#[ORM\Column(type: 'string')]
 	private int $name;
 }
 ```
@@ -43,14 +39,10 @@ Align the PHP property type with the Doctrine column type:
 
  use Doctrine\ORM\Mapping as ORM;
 
- /**
-  * @ORM\Entity()
-  */
+ #[ORM\Entity]
  class User
  {
- 	/**
- 	 * @ORM\Column(type="string")
- 	 */
+ 	#[ORM\Column(type: 'string')]
 -	private int $name;
 +	private string $name;
  }
@@ -63,15 +55,11 @@ Or change the Doctrine column type to match the property type:
 
  use Doctrine\ORM\Mapping as ORM;
 
- /**
-  * @ORM\Entity()
-  */
+ #[ORM\Entity]
  class User
  {
- 	/**
--	 * @ORM\Column(type="string")
-+	 * @ORM\Column(type="integer")
- 	 */
+-	#[ORM\Column(type: 'string')]
++	#[ORM\Column(type: 'integer')]
  	private int $name;
  }
 ```
@@ -83,14 +71,10 @@ For nullable columns, make sure the property type includes `null`:
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity()
- */
+#[ORM\Entity]
 class User
 {
-	/**
-	 * @ORM\Column(type="string", nullable=true)
-	 */
+	#[ORM\Column(type: 'string', nullable: true)]
 	private ?string $name = null;
 }
 ```
