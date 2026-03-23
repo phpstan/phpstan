@@ -24,6 +24,8 @@ PHP does not allow re-assigning `$this`. The `$this` variable is a special read-
 
 This error is reported regardless of context — inside instance methods, static methods, and even standalone functions where `$this` is not available at all.
 
+An exception is made for classes that implement `ArrayAccess`, where `$this` assignment is allowed.
+
 This error is not ignorable.
 
 ## How to fix it
