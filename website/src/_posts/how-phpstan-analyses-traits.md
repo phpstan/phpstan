@@ -2,6 +2,9 @@
 title: "How PHPStan analyses traits"
 date: 2021-05-16
 tags: guides
+searchKeywords:
+  - trait
+  - traits
 ---
 
 Traits are a mechanism to reuse code. They're copy-paste implemented at the language level. Contents of a used trait become part of the class that uses it.

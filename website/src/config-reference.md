@@ -16,6 +16,11 @@ searchKeywords:
   - reportUnmatchedIgnoredErrors
   - stdclass
   - universalObjectCratesClasses
+  - configuration
+  - settings
+  - override
+  - checkMissingOverrideMethodAttribute
+  - namespace
 ---
 
 <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-4" role="alert">

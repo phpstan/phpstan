@@ -31,6 +31,21 @@ searchKeywords:
   - closure
   - attributes
   - require
+  - method
+  - "@use"
+  - "@phpstan-var"
+  - phpstan-var
+  - "@phpstan-return"
+  - phpstan-return
+  - "@phpstan-param"
+  - "@see"
+  - interface
+  - override
+  - parameter
+  - "@param"
+  - "@yield"
+  - trait
+  - traits
 ---
 
 PHPDocs are a big part of what makes PHPStan work. PHP in its most recent versions can express a lot of things in the native typehints, but it still leaves a lot of room for PHPDocs to augment the information.

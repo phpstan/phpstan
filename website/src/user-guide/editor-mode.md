@@ -1,5 +1,12 @@
 ---
 title: Editor Mode
+searchKeywords:
+  - lsp
+  - language server
+  - ide
+  - vscode
+  - phpstorm
+  - editor integration
 ---
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.1.17</div>

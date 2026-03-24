@@ -2,6 +2,12 @@
 title: "Bring your exceptions under control with @throws"
 date: 2021-05-12
 tags: guides
+searchKeywords:
+  - throws
+  - "@throws"
+  - exception
+  - exceptions
+  - checked exceptions
 ---
 
 The most common detected bugs [^telemetry] by PHPStan are:
