@@ -28,18 +28,22 @@ export class MainMenuViewModel {
 		this.mainMenuOpen = ko.observable<boolean>(false);
 		this.sidebarOpen = ko.observable<boolean>(false);
 
-		docsearch({
-			container: '#docsearch',
+		const docsearchOptions = {
 			appId: '563YUB35R3',
 			indexName: 'phpstan',
 			apiKey: '38f6379285feb01cc915c6967c715ec2',
-		});
-		docsearch({
-			container: '#docsearch-mobile',
-			appId: '563YUB35R3',
-			indexName: 'phpstan',
-			apiKey: '38f6379285feb01cc915c6967c715ec2',
-		});
+			transformItems: (items: any[]) => {
+				return items.map((item) => {
+					const query = (document.querySelector('.DocSearch-Input') as HTMLInputElement)?.value?.trim();
+					if (query && item.url && !item.url.includes('#') && query.length >= 3) {
+						item.url = item.url + '#:~:text=' + encodeURIComponent(query);
+					}
+					return item;
+				});
+			},
+		};
+		docsearch({ container: '#docsearch', ...docsearchOptions });
+		docsearch({ container: '#docsearch-mobile', ...docsearchOptions });
 	}
 
 	toggleMainMenu(): void {
