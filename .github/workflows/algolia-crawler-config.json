@@ -118,7 +118,8 @@
       "ignorePlurals": true,
       "advancedSyntax": true,
       "attributeCriteriaComputedByMinProximity": true,
-      "removeWordsIfNoResults": "allOptional"
+      "removeWordsIfNoResults": "allOptional",
+      "exactOnSingleWordQuery": "word"
     }
   },
   "appId": "563YUB35R3",
