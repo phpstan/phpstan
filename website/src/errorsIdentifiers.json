@@ -8609,6 +8609,13 @@
             ]
         }
     },
+    "global.this": {
+        "PHPStan\\Rules\\Variables\\ThisInGlobalStatementRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Variables/ThisInGlobalStatementRule.php#L40"
+            ]
+        }
+    },
     "greater.alwaysFalse": {
         "PHPStan\\Rules\\Comparison\\NumberComparisonOperatorsConstantConditionRule": {
             "phpstan/phpstan-src": [
@@ -15547,6 +15554,13 @@
         "PHPStan\\Rules\\Operators\\InvalidComparisonOperationRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Operators/InvalidComparisonOperationRule.php#L170"
+            ]
+        }
+    },
+    "static.this": {
+        "PHPStan\\Rules\\Variables\\ThisInStaticStatementRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Variables/ThisInStaticStatementRule.php#L36"
             ]
         }
     },
