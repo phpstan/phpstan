@@ -214,4 +214,4 @@ function getMap(): Map
 
 Some template types may have defaults (`@template T = mixed`). In that case only the required parameters need to be specified, but specifying all of them gives PHPStan the most type information.
 
-In PHPStan 1.x this error was possible to ignore with configuration parameter `checkGenericClassInNonGenericObjectType: false` but in PHPStan 2.0 this parameter was removed in favor of ignoring by identifier:
+In PHPStan 1.x this error was possible to ignore with configuration parameter `checkGenericClassInNonGenericObjectType: false` but in PHPStan 2.0 this parameter was removed in favor of ignoring by identifier. Learn more in the [upgrading guide](/blog/upgrading-from-phpstan-1-to-2#removed-option-checkgenericclassinnongenericobjecttype).

@@ -76,4 +76,4 @@ For a more specific array shape, use array shape syntax:
  }
 ```
 
-In PHPStan 1.x this error was possible to ignore with configuration parameter `checkMissingIterableValueType: false` but in PHPStan 2.0 this parameter was removed in favor of ignoring by identifier:
+In PHPStan 1.x this error was possible to ignore with configuration parameter `checkMissingIterableValueType: false` but in PHPStan 2.0 this parameter was removed in favor of ignoring by identifier. Learn more in the [upgrading guide](/blog/upgrading-from-phpstan-1-to-2#removed-option-checkmissingiterablevaluetype).
