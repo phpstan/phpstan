@@ -1,5 +1,28 @@
 ---
 title: PHPDoc Types
+searchKeywords:
+  - array
+  - array-key
+  - list
+  - array shape
+  - associative-array
+  - object
+  - class-string
+  - non-empty-string
+  - string
+  - closure
+  - callable
+  - value-of
+  - key-of
+  - import-type
+  - "@phpstan-import-type"
+  - import
+  - "@phpstan-type"
+  - phpstan-type
+  - enum
+  - conditional
+  - generics
+  - template
 ---
 
 A PHPDoc type is what's written in place of `[Type]` in annotations like `@var [Type]` or `@param [Type] $foo`. [Learn more about PHPDoc basics »](/writing-php-code/phpdocs-basics)

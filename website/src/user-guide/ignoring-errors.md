@@ -1,5 +1,13 @@
 ---
 title: Ignoring Errors
+searchKeywords:
+  - ignore
+  - "@phpstan-ignore"
+  - phpstan-ignore
+  - exclude
+  - excludePaths
+  - suppress
+  - fix
 ---
 
 You might want to ignore some errors found by PHPStan for various reasons:

@@ -1,5 +1,36 @@
 ---
 title: PHPDocs Basics
+searchKeywords:
+  - "@template"
+  - template
+  - "@extends"
+  - extends
+  - "@implements"
+  - implements
+  - "@method"
+  - "@mixin"
+  - mixin
+  - "@var"
+  - "@param"
+  - "@return"
+  - return
+  - "@throws"
+  - throws
+  - "@deprecated"
+  - deprecated
+  - "@phpstan-pure"
+  - pure
+  - impure
+  - "@phpstan-sealed"
+  - sealed
+  - generics
+  - generic
+  - covariant
+  - variance
+  - callable
+  - closure
+  - attributes
+  - require
 ---
 
 PHPDocs are a big part of what makes PHPStan work. PHP in its most recent versions can express a lot of things in the native typehints, but it still leaves a lot of room for PHPDocs to augment the information.

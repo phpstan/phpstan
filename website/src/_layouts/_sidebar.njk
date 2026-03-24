@@ -16,6 +16,7 @@
 				<span id="sectionTitle" class="group flex-grow items-center px-3 py-2 text-lg leading-5 font-bold text-gray-900">{{ sectionTitle }}</span>
 
 				<span id="algoliaSectionTitle" class="hidden">{% block algoliaSectionTitle %}{{ sectionTitle }}{% endblock %}</span>
+			{% if searchKeywords %}<span id="algoliaSearchKeywords" class="hidden">{{ searchKeywords | join(", ") }}</span>{% endif %}
 
 				<a href="#" class="md:hidden text-gray-400 hover:text-gray-500" data-bind="click: closeSidebar">
 					<svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">

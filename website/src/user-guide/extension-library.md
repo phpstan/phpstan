@@ -1,5 +1,13 @@
 ---
 title: Extension Library
+searchKeywords:
+  - symfony
+  - doctrine
+  - laravel
+  - larastan
+  - phpunit
+  - nette
+  - wordpress
 ---
 
 Unique feature of PHPStan is the ability to define and statically check "magic" behaviour of classes - accessing properties that are not defined in the class but are created in `__get` and `__set` and invoking methods using `__call`.

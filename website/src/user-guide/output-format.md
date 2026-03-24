@@ -1,5 +1,11 @@
 ---
 title: Output Format
+searchKeywords:
+  - vscode
+  - editor
+  - gitlab
+  - json
+  - junit
 ---
 
 PHPStan supports different output formats through various so-called error formatters.
