@@ -103,10 +103,10 @@
         "words",
         "filters",
         "exact",
-        "desc(weight.pageRank)",
         "typo",
         "proximity",
         "attribute",
+        "desc(weight.pageRank)",
         "custom"
       ],
       "highlightPreTag": "<span class=\"algolia-docsearch-suggestion--highlight\">",
