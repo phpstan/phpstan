@@ -36,7 +36,7 @@ export class MainMenuViewModel {
 				return items.map((item) => {
 					const query = (document.querySelector('.DocSearch-Input') as HTMLInputElement)?.value?.trim();
 					if (query && item.url && !item.url.includes('#') && query.length >= 3) {
-						item.url = item.url + '#:~:text=' + encodeURIComponent(query);
+						item.url = item.url + '#:~:text=' + encodeURIComponent(query).replace(/-/g, '%2D');
 					}
 					return item;
 				});
