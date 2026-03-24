@@ -323,6 +323,10 @@ Security-focused `literal-string` is inspired by the [`is_literal()` RFC](https:
 
 `uppercase-string` accepts strings where `strtoupper($string) === $string` is true.
 
+`decimal-int-string` accepts strings that contain a decimal integer representation and are cast to an integer when used as an array key (e.g. `'0'`, `'123'`, `'-1'`).
+
+`non-decimal-int-string` accepts strings that are not decimal integers and stay as strings when used as an array key (e.g. `'+1'`, `'00'`, `'1.2'`, `'foo'`).
+
 Combined string types are also supported: `non-empty-lowercase-string`, `non-empty-uppercase-string`, and `non-empty-literal-string`.
 
 Global type aliases
