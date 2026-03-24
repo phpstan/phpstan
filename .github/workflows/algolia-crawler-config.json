@@ -19,7 +19,7 @@
       "pathsToMatch": ["https://phpstan.org/**", "!https://phpstan.org/blog/**", "!https://phpstan.org/error-identifiers/**"],
       "recordExtractor": {
         "__type": "function",
-        "source": "({ helpers, $ }) => { const records = helpers.docsearch({ recordProps: { lvl1: [\"main h1\", \"h1\", \"head > title\"], content: [\"main p, main li\", \"p, li\"], lvl0: { selectors: \"#algoliaSectionTitle\", defaultValue: \"Documentation\" }, lvl2: [\"main h2\", \"h2\"], lvl3: [\"main h3\", \"h3\"], lvl4: [\"main h4\", \"h4\"], pageRank: \"90\" }, aggregateContent: true }); const keywords = $('#algoliaSearchKeywords').text(); if (keywords) { records.forEach(r => { r.searchKeywords = keywords; }); } return records; }"
+        "source": "({ helpers, $ }) => { const records = helpers.docsearch({ recordProps: { lvl1: [\".content h1\", \"head > title\"], content: [\".content p, .content li\"], lvl0: { selectors: \"#algoliaSectionTitle\", defaultValue: \"Documentation\" }, lvl2: [\".content h2\"], lvl3: [\".content h3\"], lvl4: [\".content h4\"], pageRank: \"90\" }, aggregateContent: true }); const keywords = $('#algoliaSearchKeywords').text(); if (keywords) { records.forEach(r => { r.searchKeywords = keywords; }); } return records; }"
       }
     },
     {
@@ -27,7 +27,7 @@
       "pathsToMatch": ["https://phpstan.org/error-identifiers/**"],
       "recordExtractor": {
         "__type": "function",
-        "source": "({ helpers }) => { return helpers.docsearch({ recordProps: { lvl1: [\"main h1\", \"h1\", \"head > title\"], content: [\"main p, main li\", \"p, li\"], lvl0: { selectors: \"#algoliaSectionTitle\", defaultValue: \"Error Identifiers\" }, lvl2: [\"main h2\", \"h2\"], lvl3: [\"main h3\", \"h3\"], lvl4: [\"main h4\", \"h4\"], pageRank: \"30\" }, aggregateContent: true }); }"
+        "source": "({ helpers }) => { return helpers.docsearch({ recordProps: { lvl1: [\".content h1\", \"head > title\"], content: [\".content p, .content li\"], lvl0: { selectors: \"#algoliaSectionTitle\", defaultValue: \"Error Identifiers\" }, lvl2: [\".content h2\"], lvl3: [\".content h3\"], lvl4: [\".content h4\"], pageRank: \"30\" }, aggregateContent: true }); }"
       }
     },
     {
@@ -35,7 +35,7 @@
       "pathsToMatch": ["https://phpstan.org/blog/**"],
       "recordExtractor": {
         "__type": "function",
-        "source": "({ helpers }) => { return helpers.docsearch({ recordProps: { lvl1: [\"main h1\", \"h1\", \"head > title\"], content: [\"main p, main li\", \"p, li\"], lvl0: { selectors: \"#algoliaSectionTitle\", defaultValue: \"Blog\" }, lvl2: [\"main h2\", \"h2\"], lvl3: [\"main h3\", \"h3\"], lvl4: [\"main h4\", \"h4\"], pageRank: \"50\" }, aggregateContent: true }); }"
+        "source": "({ helpers }) => { return helpers.docsearch({ recordProps: { lvl1: [\".content h1\", \"head > title\"], content: [\".content p, .content li\"], lvl0: { selectors: \"#algoliaSectionTitle\", defaultValue: \"Blog\" }, lvl2: [\".content h2\"], lvl3: [\".content h3\"], lvl4: [\".content h4\"], pageRank: \"50\" }, aggregateContent: true }); }"
       }
     },
     {
@@ -43,7 +43,7 @@
       "pathsToMatch": ["https://apiref.phpstan.org/2.2.x/**"],
       "recordExtractor": {
         "__type": "function",
-        "source": "({ helpers }) => { return helpers.docsearch({ recordProps: { lvl1: [\"main h1\", \"h1\", \"head > title\"], content: [\"main p, main li\", \"p, li\"], lvl0: { selectors: \"#sectionTitle\", defaultValue: \"API Reference\" }, lvl2: [\"main h2\", \"h2\"], lvl3: [\"main h3\", \"h3\"], lvl4: [\"main h4\", \"h4\"], pageRank: \"10\" }, aggregateContent: true }); }"
+        "source": "({ helpers }) => { return helpers.docsearch({ recordProps: { lvl1: [\".layout-content h1\", \"h1\", \"head > title\"], content: [\".layout-content p, .layout-content li\", \"p, li\"], lvl0: { selectors: \"#sectionTitle\", defaultValue: \"API Reference\" }, lvl2: [\".layout-content h2\", \"h2\"], lvl3: [\".layout-content h3\", \"h3\"], lvl4: [\".layout-content h4\", \"h4\"], pageRank: \"10\" }, aggregateContent: true }); }"
       }
     }
   ],
