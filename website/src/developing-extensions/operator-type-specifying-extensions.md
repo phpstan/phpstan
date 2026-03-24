@@ -79,3 +79,31 @@ services:
 		tags:
 			- phpstan.broker.operatorTypeSpecifyingExtension
 ```
+
+Unary Operator Type Specifying Extensions
+---
+
+For unary operators (`-`, `+`, `~`), there's a separate [interface](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.UnaryOperatorTypeSpecifyingExtension.html):
+
+```php
+namespace PHPStan\Type;
+
+interface UnaryOperatorTypeSpecifyingExtension
+{
+
+	public function isOperatorSupported(string $operatorSigil, Type $operand): bool;
+
+	public function specifyType(string $operatorSigil, Type $operand): Type;
+
+}
+```
+
+It works the same way as the binary variant but takes a single operand instead of two. Register it with the `phpstan.broker.unaryOperatorTypeSpecifyingExtension` service tag:
+
+```yaml
+services:
+	-
+		class: App\PHPStan\DecimalUnaryOperatorExtension
+		tags:
+			- phpstan.broker.unaryOperatorTypeSpecifyingExtension
+```
