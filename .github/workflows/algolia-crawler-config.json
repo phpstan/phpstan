@@ -51,7 +51,7 @@
         "type"
       ],
       "attributesToHighlight": ["hierarchy", "hierarchy_camel", "content"],
-      "attributesToSnippet": ["content:10"],
+      "attributesToSnippet": ["content:30"],
       "camelCaseAttributes": ["hierarchy", "hierarchy_radio", "content"],
       "searchableAttributes": [
         "unordered(hierarchy_radio_camel.lvl0)",
@@ -94,16 +94,16 @@
       "ranking": [
         "words",
         "filters",
-        "typo",
-        "attribute",
-        "proximity",
         "exact",
+        "typo",
+        "proximity",
+        "attribute",
         "custom"
       ],
       "highlightPreTag": "<span class=\"algolia-docsearch-suggestion--highlight\">",
       "highlightPostTag": "</span>",
-      "minWordSizefor1Typo": 3,
-      "minWordSizefor2Typos": 7,
+      "minWordSizefor1Typo": 4,
+      "minWordSizefor2Typos": 8,
       "allowTyposOnNumericTokens": false,
       "minProximity": 1,
       "ignorePlurals": true,
