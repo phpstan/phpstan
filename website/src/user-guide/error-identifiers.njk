@@ -1,33 +1,27 @@
 ---
 title: Error Identifiers
-pageType: documentation
 permalink: "/error-identifiers.html"
-layout: null
-sectionTitle: User Guide
+searchKeywords:
+  - error identifiers
+  - error identifier
+  - identifier
+  - identifiers
 ---
-
-{% extends "../_layouts/_sidebar.njk" %}
-
-{% block mainTitle %}{% endblock %}
-{% block editPageLink %}{% endblock %}
 
 {% block metaDescription %}
 <meta name="description" content="Complete list of all PHPStan error identifiers. Error identifiers categorize errors reported by PHPStan and can be used to ignore specific errors in your PHP code.">
 {% endblock %}
 
 {% block scripts %}
+	<script src="/js/user-guide.ts" type="module"></script>
 	<script src="/js/error-identifiers.ts" type="module"></script>
 {% endblock %}
 
-{% block innerContent %}
-
-<h1 class="leading-tight">Error Identifiers</h1>
-
-<p>Every error reported by PHPStan is associated with an error identifier. The identifier is printed alongside each error in the analysis output:</p>
+Every error reported by PHPStan is associated with an error identifier. The identifier is printed alongside each error in the analysis output:
 
 <img src="/images/error-identifiers-output.png" alt="PHPStan error output showing error identifiers" class="my-6 rounded-lg shadow-lg" loading="lazy">
 
-<p>Error identifiers are also visible when browsing errors with <a href="/blog/introducing-phpstan-pro" class="phpstan-pro-label">PHPStan Pro</a>.</p>
+Error identifiers are also visible when browsing errors with <a href="/blog/introducing-phpstan-pro" class="phpstan-pro-label">PHPStan Pro</a>.
 
 {% markdown %}
 
@@ -105,5 +99,3 @@ Each error identifier has its own detail page with information about why the err
 	<li><a href="/error-identifiers/{{ group.prefix }}">{{ group.prefix }}.*</a> ({{ group.count }} {{ "identifier" if group.count === 1 else "identifiers" }})</li>
 {% endfor %}
 </ul>
-
-{% endblock %}
