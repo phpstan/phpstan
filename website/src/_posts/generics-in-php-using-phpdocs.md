@@ -2,6 +2,9 @@
 title: "Generics in PHP using PHPDocs"
 date: 2019-12-02
 tags: guides
+searchKeywords:
+  - "@template"
+  - template
 ---
 
 Generics is a really complex topic. It's basically a programming language inside a programming language. But it's also incredibly useful. I hope to introduce it pretty easily for you with a lot of examples so you can get a good idea of how generics work and how you can write your own generic code.
