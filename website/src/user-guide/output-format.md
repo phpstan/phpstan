@@ -3,13 +3,6 @@ title: Output Format
 searchKeywords:
   - vscode
   - vs code
-  - editor
-  - gitlab
-  - json
-  - junit
-  - html
-  - ci
-  - phpstorm
 ---
 
 PHPStan supports different output formats through various so-called error formatters.
