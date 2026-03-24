@@ -3,6 +3,10 @@
 @import './../node_modules/prismjs/plugins/diff-highlight/prism-diff-highlight.css';
 
 @import "tailwindcss";
+
+::target-text {
+	@apply bg-blue-100;
+}
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 @source "../tmp/**/*.html";

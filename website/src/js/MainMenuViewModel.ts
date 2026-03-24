@@ -35,7 +35,9 @@ export class MainMenuViewModel {
 			transformItems: (items: any[]) => {
 				return items.map((item) => {
 					const query = (document.querySelector('.DocSearch-Input') as HTMLInputElement)?.value?.trim();
-					if (query && item.url && !item.url.includes('#') && query.length >= 3) {
+					const contentMatch = item._highlightResult?.content?.matchLevel !== undefined
+						&& item._highlightResult.content.matchLevel !== 'none';
+					if (query && item.url && !item.url.includes('#') && query.length >= 3 && item.type !== 'lvl1' && contentMatch) {
 						item.url = item.url + '#:~:text=' + encodeURIComponent(query).replace(/-/g, '%2D');
 					}
 					return item;
