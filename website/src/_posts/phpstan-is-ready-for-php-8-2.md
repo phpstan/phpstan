@@ -28,7 +28,7 @@ $foo->test = 'oh my';
 echo $foo->test;
 ```
 
-[PHPStan always reported](https://phpstan.org/r/33d1cb67-39ca-40ee-889d-841bc1719123) this code as being wrong, but you were able to work around it with `isset()` and other similar techniques:
+[PHPStan always reported](/r/33d1cb67-39ca-40ee-889d-841bc1719123) this code as being wrong, but you were able to work around it with `isset()` and other similar techniques:
 
 ```php
 function (Foo $foo): void {
@@ -38,7 +38,7 @@ function (Foo $foo): void {
 };
 ```
 
-But with PHP 8.2 and onward, PHPStan knows that this `isset()` [is always going to report `false`](https://phpstan.org/r/05e3273f-500a-4129-9517-4991931e459e).
+But with PHP 8.2 and onward, PHPStan knows that this `isset()` [is always going to report `false`](/r/05e3273f-500a-4129-9517-4991931e459e).
 
 There are some internal changes in PHPStan to make sure it behaves consistently. For example magic `@property` PHPDocs are not going to have any effect in classes that cannot have dynamic properties.
 
@@ -72,7 +72,7 @@ function restore_error_handler() : true
 Readonly classes
 ---------------
 
-`Readonly` classes [mark all their properties](https://php.watch/versions/8.2/readonly-classes) as being `readonly`. PHPStan applies [all the same limitations](https://phpstan.org/r/2e1c02a3-b748-4d76-8689-e3d0efb738e9) to readonly classes it already applies to readonly properties:
+`Readonly` classes [mark all their properties](https://php.watch/versions/8.2/readonly-classes) as being `readonly`. PHPStan applies [all the same limitations](/r/2e1c02a3-b748-4d76-8689-e3d0efb738e9) to readonly classes it already applies to readonly properties:
 
 ```php
 readonly class Foo

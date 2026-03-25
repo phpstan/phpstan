@@ -572,7 +572,7 @@ IteratorAggregate<Key, Value>
 Generator<TKey, TValue, TSend, TReturn>
 ```
 
-And PHPStan can type-check all of that. Try it out in the [on-line PHPStan playground](https://phpstan.org/r/0eaa8d12-2237-489a-9165-eb243d637329):
+And PHPStan can type-check all of that. Try it out in the [on-line PHPStan playground](/r/0eaa8d12-2237-489a-9165-eb243d637329):
 
 ```php
 class Foo {}

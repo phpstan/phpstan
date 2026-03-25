@@ -34,7 +34,7 @@ function doSomething(Foo $foo)
 }
 ```
 
-Having intersection types also solved more complex issues like [this](https://phpstan.org/r/2b417e6e863b6db40d42d2bd31eb28eb). Static analysis is hard. The hardest part for me is finding out of what type can each variable and expression be after a series of complex conditions and loops in a dynamic language like PHP. Under the umbrella of intersection types, we successfully set out to improve the engine. Type-inferring (someone might say type-guessing) in PHPStan now matches behaviour of PHP as close as possible.
+Having intersection types also solved more complex issues like [this](/r/2b417e6e863b6db40d42d2bd31eb28eb). Static analysis is hard. The hardest part for me is finding out of what type can each variable and expression be after a series of complex conditions and loops in a dynamic language like PHP. Under the umbrella of intersection types, we successfully set out to improve the engine. Type-inferring (someone might say type-guessing) in PHPStan now matches behaviour of PHP as close as possible.
 
 ## Next-gen phpDoc parser
 

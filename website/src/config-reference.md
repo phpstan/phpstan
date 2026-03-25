@@ -357,7 +357,7 @@ Existing outside of rule levels there are additional parameters affecting analys
 
 **default**: `true` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `false`)
 
-**example**: [with `true`](https://phpstan.org/r/23bb1a01-c802-4e60-a50a-73b9b8c3d7bf), [with `false`](https://phpstan.org/r/ad4a5198-099b-4f1a-99a5-1dd9eb9cc7c6)
+**example**: [with `true`](/r/23bb1a01-c802-4e60-a50a-73b9b8c3d7bf), [with `false`](/r/ad4a5198-099b-4f1a-99a5-1dd9eb9cc7c6)
 
 When set to `false` it prevents reading variables set in `for` loop initial statement and `while` loop condition after the loop.
 
@@ -365,7 +365,7 @@ When set to `false` it prevents reading variables set in `for` loop initial stat
 
 **default**: `true` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `false`)
 
-**example**: [with `true`](https://phpstan.org/r/daf81a57-4f06-44d5-9d76-8fa2ce937db5), [with `false`](https://phpstan.org/r/df2ac8cf-761d-4606-bdd9-46468010863d)
+**example**: [with `true`](/r/daf81a57-4f06-44d5-9d76-8fa2ce937db5), [with `false`](/r/df2ac8cf-761d-4606-bdd9-46468010863d)
 
 When set to `false` it prevents reading key and value variables set in foreach when iterating over a non-empty array.
 
@@ -375,7 +375,7 @@ When set to `false` it prevents reading key and value variables set in foreach w
 
 **default**: `true` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `false`)
 
-**example**: [with `true`](https://phpstan.org/r/cdee163b-325a-4189-8b85-1fc6f103dcb7), [with `false`](https://phpstan.org/r/2d6facb9-e4bc-45bf-a8b1-52c70851bac4)
+**example**: [with `true`](/r/cdee163b-325a-4189-8b85-1fc6f103dcb7), [with `false`](/r/2d6facb9-e4bc-45bf-a8b1-52c70851bac4)
 
 When set to `false` it prevents reading key and value variables set in a separate code block in `{...}`.
 
@@ -383,7 +383,7 @@ When set to `false` it prevents reading key and value variables set in a separat
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
 
-**example**: [with `false`](https://phpstan.org/r/cc69160f-4c08-4e28-a210-119088381ae2), [with `true`](https://phpstan.org/r/d80c3739-bf4c-431f-abe9-3a0a37a6a13a)
+**example**: [with `false`](/r/cc69160f-4c08-4e28-a210-119088381ae2), [with `true`](/r/d80c3739-bf4c-431f-abe9-3a0a37a6a13a)
 
 When set to `true`, it reports code paths with missing `return` statement in functions and methods with `@return mixed` PHPDoc.
 
@@ -391,7 +391,7 @@ When set to `true`, it reports code paths with missing `return` statement in fun
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
 
-**example**: [with `false`](https://phpstan.org/r/1d6b7920-71e5-4f69-a1fd-8e0e7ed48e28), [with `true`](https://phpstan.org/r/3b876a1a-743e-42c7-8a5e-0c143372f74b)
+**example**: [with `false`](/r/1d6b7920-71e5-4f69-a1fd-8e0e7ed48e28), [with `true`](/r/3b876a1a-743e-42c7-8a5e-0c143372f74b)
 
 When set to `true`, it reports function and method calls with incorrect name case.
 
@@ -399,7 +399,7 @@ When set to `true`, it reports function and method calls with incorrect name cas
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
 
-**example**: [with `false`](https://phpstan.org/r/0c0a8ef1-945c-4fc9-abe2-5e4e286186aa), [with `true`](https://phpstan.org/r/a2c4e602-b7ec-4f5e-9c72-bdd67800f8f5)
+**example**: [with `false`](/r/0c0a8ef1-945c-4fc9-abe2-5e4e286186aa), [with `true`](/r/a2c4e602-b7ec-4f5e-9c72-bdd67800f8f5)
 
 When set to `true`, it reports references to built-in classes with incorrect name case.
 
@@ -407,23 +407,23 @@ When set to `true`, it reports references to built-in classes with incorrect nam
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
 
-**example**: [with `false`](https://phpstan.org/r/34e1217e-8ac4-46b9-b753-49916ca74963), [with `true`](https://phpstan.org/r/772bbb00-21f7-4286-8856-f52f45a25c1a)
+**example**: [with `false`](/r/34e1217e-8ac4-46b9-b753-49916ca74963), [with `true`](/r/772bbb00-21f7-4286-8856-f52f45a25c1a)
 
-When set to `true`, it reports violations of parameter type contravariance and return type covariance. By default, PHPStan only reports completely incompatible types in signatures, [see this example](https://phpstan.org/r/65d77b12-3421-48b4-b27c-b76a01a22f98).
+When set to `true`, it reports violations of parameter type contravariance and return type covariance. By default, PHPStan only reports completely incompatible types in signatures, [see this example](/r/65d77b12-3421-48b4-b27c-b76a01a22f98).
 
 ### `reportMaybesInPropertyPhpDocTypes`
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
 
-**example**: [with `false`](https://phpstan.org/r/b9648bc4-619f-4fe5-8c75-d79b3cd2fc96), [with `true`](https://phpstan.org/r/4e2ad8f5-21b4-4382-a6d9-9a8a33e487a3)
+**example**: [with `false`](/r/b9648bc4-619f-4fe5-8c75-d79b3cd2fc96), [with `true`](/r/4e2ad8f5-21b4-4382-a6d9-9a8a33e487a3)
 
-When set to `true`, it reports violations of property type invariance. By default, PHPStan only reports completely incompatible PHPDoc types, [see this example](https://phpstan.org/r/64857536-abc5-49c6-b7f8-1600df1460cf).
+When set to `true`, it reports violations of property type invariance. By default, PHPStan only reports completely incompatible PHPDoc types, [see this example](/r/64857536-abc5-49c6-b7f8-1600df1460cf).
 
 ### `reportStaticMethodSignatures`
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
 
-**example**: [with `false`](https://phpstan.org/r/b132c693-006d-481d-a3b0-2535b3c33b5a), [with `true`](https://phpstan.org/r/8a2faef7-d64c-46f9-ada8-a68a4675c283)
+**example**: [with `false`](/r/b132c693-006d-481d-a3b0-2535b3c33b5a), [with `true`](/r/8a2faef7-d64c-46f9-ada8-a68a4675c283)
 
 When set to `true`, it reports violations of parameter type contravariance and return type covariance in static methods.
 
@@ -431,9 +431,9 @@ When set to `true`, it reports violations of parameter type contravariance and r
 
 **default**: `false`
 
-**example**: [with `false`](https://phpstan.org/r/42d444cc-83cd-416f-916d-1223952a3983), [with `true`](https://phpstan.org/r/62d9f650-4fd8-4e74-bf61-bfd2a1166265)
+**example**: [with `false`](/r/42d444cc-83cd-416f-916d-1223952a3983), [with `true`](/r/62d9f650-4fd8-4e74-bf61-bfd2a1166265)
 
-When set to `true`, it reports return typehints that could be narrowed down because some of the listed types are never returned from a public or protected method. For [private methods](https://phpstan.org/r/45ebd3b5-3868-43b6-becc-2c31578b4b1c) PHPStan does this by default.
+When set to `true`, it reports return typehints that could be narrowed down because some of the listed types are never returned from a public or protected method. For [private methods](/r/45ebd3b5-3868-43b6-becc-2c31578b4b1c) PHPStan does this by default.
 
 ```php
 public function doFoo(): ?string
@@ -449,7 +449,7 @@ public function doFoo(): ?string
 
 **default**: `false`
 
-When set to `true`, it reports param-out typehints that could be narrowed down because some of the listed types are never returned from a public or protected method. For [private methods](https://phpstan.org/r/7df92fe3-cc07-4f8e-ac46-bd42e678f23c) PHPStan does this by default.
+When set to `true`, it reports param-out typehints that could be narrowed down because some of the listed types are never returned from a public or protected method. For [private methods](/r/7df92fe3-cc07-4f8e-ac46-bd42e678f23c) PHPStan does this by default.
 
 ```php
 /**
@@ -500,7 +500,7 @@ If properties are initialized in methods other than the constructor, see [`addit
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
 
-**example**: [with `false`](https://phpstan.org/r/3784cac0-9773-4975-8e10-2dc3412a059d), [with `true`](https://phpstan.org/r/e2c2a609-3181-44c5-ad04-e1fac42a40f8)
+**example**: [with `false`](/r/3784cac0-9773-4975-8e10-2dc3412a059d), [with `true`](/r/e2c2a609-3181-44c5-ad04-e1fac42a40f8)
 
 When set to `true`, it reports use of dynamic properties as undefined.
 
@@ -508,7 +508,7 @@ When set to `true`, it reports use of dynamic properties as undefined.
 
 **default**: `true`
 
-**example**: [with `true`](https://phpstan.org/r/2433535b-2983-4d02-8762-0680d8b522bc), [with `false`](https://phpstan.org/r/2d67a9e2-2ef0-4115-864a-e3191346b9b8)
+**example**: [with `true`](/r/2433535b-2983-4d02-8762-0680d8b522bc), [with `false`](/r/2d67a9e2-2ef0-4115-864a-e3191346b9b8)
 
 By default, PHPStan considers all functions that return a value to be pure. That means that second call to the same function in the same scope will return the same narrowed type:
 
@@ -547,7 +547,7 @@ parameters:
 
 **default**: `false`
 
-**example**: [with `false`](https://phpstan.org/r/009ebdf3-812f-4e03-a790-7f4054d60bf8), [with `true`](https://phpstan.org/r/13881884-be81-4848-a41e-85c179232901)
+**example**: [with `false`](/r/009ebdf3-812f-4e03-a790-7f4054d60bf8), [with `true`](/r/13881884-be81-4848-a41e-85c179232901)
 
 PHPStan defines benevolent union types, such as `array-key`. Benevolent unions aren't checked strictly even at the highest level:
 
@@ -628,7 +628,7 @@ By setting `reportAlwaysTrueInLastCondition` to `true` the error in `elseif` wil
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true` with bleeding edge)
 
-**example**: [with `true`](https://phpstan.org/r/d6f23858-e966-404b-9b70-f18b4099aa4d), [with `false`](https://phpstan.org/r/f7314f39-9593-49e1-a0a5-4afa04582f09)
+**example**: [with `true`](/r/d6f23858-e966-404b-9b70-f18b4099aa4d), [with `false`](/r/f7314f39-9593-49e1-a0a5-4afa04582f09)
 
 By default, PHPStan does not report when array keys are used that are neither integers nor strings at compile time:
 
@@ -645,7 +645,7 @@ By setting `reportNonIntStringArrayKey` to true, PHPStan will report these cases
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
 
-**example**: [with `true`](https://phpstan.org/r/55f53970-7db4-41e9-8444-473fb1475690), [with `false`](https://phpstan.org/r/25b91a89-848a-4873-8c2f-5422b32ed217)
+**example**: [with `true`](/r/55f53970-7db4-41e9-8444-473fb1475690), [with `false`](/r/25b91a89-848a-4873-8c2f-5422b32ed217)
 
 By default PHPStan reports wrong type in `@var` tag only for native types on the right side of `=`. With `reportWrongPhpDocTypeInVarTag` set to `true` it will consider PHPDoc types too.
 
@@ -708,7 +708,7 @@ Controls whether PHPStan reports missing `#[\Override]` attribute on properties 
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
 
-**example**: [with `false`](https://phpstan.org/r/2abca81b-ebb4-4443-ab88-d59cf1405355), [with `true`](https://phpstan.org/r/37874f07-e0f8-4768-853a-82771e090998)
+**example**: [with `false`](/r/2abca81b-ebb4-4443-ab88-d59cf1405355), [with `true`](/r/37874f07-e0f8-4768-853a-82771e090998)
 
 Requires Bleeding Edge until PHPStan 3.0. It determines which value types are allowed to be passed to various placeholders in printf-like functions:
 
@@ -734,7 +734,7 @@ Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedException
 
 **default**: `true`
 
-**example**: [with `true`](https://phpstan.org/r/efe607c5-8802-4ef7-b837-84dc69f4acd9), [with `false`](https://phpstan.org/r/14cb6b53-0210-480b-b224-241ff97d9dc0)
+**example**: [with `true`](/r/efe607c5-8802-4ef7-b837-84dc69f4acd9), [with `false`](/r/14cb6b53-0210-480b-b224-241ff97d9dc0)
 
 When set to `true` (the default), a function or method without a `@throws` tag is assumed to potentially throw any exception. When set to `false`, absent `@throws` is interpreted as the function not throwing any exception. You can write `@throws void` to explicitly mark a function that doesn't throw.
 
@@ -742,7 +742,7 @@ When set to `true` (the default), a function or method without a `@throws` tag i
 
 **default**: `false`
 
-**example**: [with `false`](https://phpstan.org/r/d6e0825c-2b5c-4b56-a4e8-675cef8698b4), [with `true`](https://phpstan.org/r/c4c7d2f0-e80e-4591-9feb-0cd1e27dfd57)
+**example**: [with `false`](/r/d6e0825c-2b5c-4b56-a4e8-675cef8698b4), [with `true`](/r/c4c7d2f0-e80e-4591-9feb-0cd1e27dfd57)
 
 When set to `true`, it reports missing `@throws` tags for checked exceptions above functions and methods. Requires configuring `exceptions.checkedExceptionClasses` or `exceptions.checkedExceptionRegexes`.
 
@@ -750,7 +750,7 @@ When set to `true`, it reports missing `@throws` tags for checked exceptions abo
 
 **default**: `false`
 
-**example**: [with `false`](https://phpstan.org/r/4422656f-a166-4290-bbc0-4f28b426c722), [with `true`](https://phpstan.org/r/e3116d8d-f3ef-4a39-9994-a1a0638039e5)
+**example**: [with `false`](/r/4422656f-a166-4290-bbc0-4f28b426c722), [with `true`](/r/e3116d8d-f3ef-4a39-9994-a1a0638039e5)
 
 When set to `true`, it reports `@throws` PHPDoc types that could be narrowed down because some of the listed exception types are never thrown from the function body.
 
@@ -929,7 +929,7 @@ PHPStan will automatically infer the `config.platform.php` version from the last
 
 **default**: `false`
 
-**example**: [with `false`](https://phpstan.org/r/585cd7b6-d844-4d77-b5b0-0a1c27860a40), [with `true`](https://phpstan.org/r/25a7b04d-4710-47f0-9694-b2d992284994)
+**example**: [with `false`](/r/585cd7b6-d844-4d77-b5b0-0a1c27860a40), [with `true`](/r/25a7b04d-4710-47f0-9694-b2d992284994)
 
 When set to `true`, it doesn't require typehints for properties if the types can be inferred from constructor injection:
 
@@ -946,7 +946,7 @@ public function __construct(Foo $foo)
 
 **default**: `true`
 
-**example**: [with `true`](https://phpstan.org/r/af59f2c2-9700-4c0a-9fe6-c51b70a08d43), [with `false`](https://phpstan.org/r/c7d4173c-d3ba-4857-a260-ce9cac36e399)
+**example**: [with `true`](/r/af59f2c2-9700-4c0a-9fe6-c51b70a08d43), [with `false`](/r/c7d4173c-d3ba-4857-a260-ce9cac36e399)
 
 PHPStan by default doesn't differentiate between PHPDoc and native types. It considers them both as certain.
 

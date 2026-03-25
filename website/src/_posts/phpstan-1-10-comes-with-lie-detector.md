@@ -157,7 +157,7 @@ enum Foo
 +       💡 Remove remaining cases below this one and this error will disappear too.
 ```
 
-PHPStan tries to be helpful and shows a tip next to the 💡 emoji on the command line. These tips are now [incorporated into the playground](https://phpstan.org/r/1b9cf4e1-5c2a-4e2f-b56d-b0846a303bd5) as well. If you remove the `default` case, PHPStan will no longer complain about this piece of code. Until you add a new enum case.
+PHPStan tries to be helpful and shows a tip next to the 💡 emoji on the command line. These tips are now [incorporated into the playground](/r/1b9cf4e1-5c2a-4e2f-b56d-b0846a303bd5) as well. If you remove the `default` case, PHPStan will no longer complain about this piece of code. Until you add a new enum case.
 
 
 Why my type isn't accepted here?
@@ -167,9 +167,9 @@ It's not always obvious what is PHPStan complaining about. Type safety is of the
 
 PHPStan 1.10 includes helpful contextual tips in these less intuitive scenarios. My favourites are:
 
-* [About `@template-covariant`](https://phpstan.org/r/61cfbb65-1a04-471a-a5c5-d61f0540ae1d)
-* [About callable parameter contravariance](https://phpstan.org/r/24a23b74-af27-4443-986c-04af61427d50)
-* [About complex array shapes](https://phpstan.org/r/fed1c275-46d0-434f-b9c4-3212f4df6d1c)
+* [About `@template-covariant`](/r/61cfbb65-1a04-471a-a5c5-d61f0540ae1d)
+* [About callable parameter contravariance](/r/24a23b74-af27-4443-986c-04af61427d50)
+* [About complex array shapes](/r/fed1c275-46d0-434f-b9c4-3212f4df6d1c)
 
 
 Deprecation of `instanceof *Type`

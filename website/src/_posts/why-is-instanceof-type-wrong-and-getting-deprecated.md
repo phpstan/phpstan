@@ -150,4 +150,4 @@ Once we deprecate and eradicate `$type instanceof *Type` from PHPStan itself and
 
 [^templateTypes]: Right now each bound (like `@template T of int`) requires to have a custom class like `TemplateIntegerType`, so that both `$type instanceof IntegerType` and `$type instanceof TemplateType` pass.
 
-[^subtractable]: Only few selected types are currently subtractable, like `mixed` or `object`. [Playground example](https://phpstan.org/r/6a8c7fbb-9d55-41dd-8913-60ff3aa37f1f)
+[^subtractable]: Only few selected types are currently subtractable, like `mixed` or `object`. [Playground example](/r/6a8c7fbb-9d55-41dd-8913-60ff3aa37f1f)

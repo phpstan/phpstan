@@ -211,7 +211,7 @@ And once we deprecate and eradicate `$type instanceof *Type` from all 3rd party 
 
 [^templateTypes]: Right now each bound (like `@template T of int`) requires to have a custom class like `TemplateIntegerType`, so that both `$type instanceof IntegerType` and `$type instanceof TemplateType` pass.
 
-[^subtractable]: Only few selected types are currently subtractable, like `mixed` or `object`. [Playground example](https://phpstan.org/r/6a8c7fbb-9d55-41dd-8913-60ff3aa37f1f)
+[^subtractable]: Only few selected types are currently subtractable, like `mixed` or `object`. [Playground example](/r/6a8c7fbb-9d55-41dd-8913-60ff3aa37f1f)
 
 [Martin Herndl](https://github.com/herndlm/) started this refactoring in PHPStan 1.9.0 by tackling various use-cases for array types, it's the main reason why the **Internals** section of the [release notes](https://github.com/phpstan/phpstan/releases/tag/1.9.0) is bigger than usual. I hope that others will join this effort as well, because the end result will be worth it.
 

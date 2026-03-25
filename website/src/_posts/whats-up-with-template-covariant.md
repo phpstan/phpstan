@@ -76,8 +76,8 @@ You'll get this error:
 
 To summarize:
 
-* `@template` declares an invariant type variable: The object `Collection<Animal>` accepts only another `Collection<Animal>`. But the collection can be mutable and the type variable can be present in a parameter position. [Playground example »](https://phpstan.org/r/81513715-c26f-4a25-9709-a956d6d3e02b)
-* `@template-covariant` declares a covariant type variable: The object `Collection<Animal>` also accepts `Collection<Cat>`, but the type variable cannot be present in a parameter position. [Playground example »](https://phpstan.org/r/d2f62e2c-52fc-4956-87ea-fc4c8d481384)
+* `@template` declares an invariant type variable: The object `Collection<Animal>` accepts only another `Collection<Animal>`. But the collection can be mutable and the type variable can be present in a parameter position. [Playground example »](/r/81513715-c26f-4a25-9709-a956d6d3e02b)
+* `@template-covariant` declares a covariant type variable: The object `Collection<Animal>` also accepts `Collection<Cat>`, but the type variable cannot be present in a parameter position. [Playground example »](/r/d2f62e2c-52fc-4956-87ea-fc4c8d481384)
 
 ## Call-site variance
 

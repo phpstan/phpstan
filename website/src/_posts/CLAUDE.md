@@ -95,7 +95,7 @@ Examples:
 
 - Cross-references to other blog posts: `[Learn more](/blog/article-slug)`
 - Links to documentation: `[configuration](/config-reference)`
-- Playground examples: `[playground example](https://phpstan.org/r/uuid-here)` or `[Link to this example on the playground](https://phpstan.org/r/uuid-here)`
+- Playground examples: `[playground example](/r/uuid-here)` or `[Link to this example on the playground](/r/uuid-here)`
 - GitHub releases: `[PHPStan 1.9.0](https://github.com/phpstan/phpstan/releases/tag/1.9.0)`
 - Credit contributors with GitHub profile links
 

@@ -329,7 +329,7 @@ $d = foo(new MyOriginal());
 \PHPStan\dumpType($d); // MyDerivative :)
 ```
 
-[Link to this example on the playground »](https://phpstan.org/r/a2f3ac06-8daf-4d59-a5da-4ef4f0a1ebe8)
+[Link to this example on the playground »](/r/a2f3ac06-8daf-4d59-a5da-4ef4f0a1ebe8)
 
 Specify template type variable of a generic trait when using it
 ------------------------
