@@ -468,6 +468,8 @@ public function doFoo(&$x): void {
 
 **default**: `false`
 
+**example**: [with `false`](/r/92117bc4-22a7-4cef-b7b7-1ae53cf30b87), [with `true`](/r/aa7fa006-b3b9-479a-8324-393f45d94804)
+
 When set to `true`, it reports `@throws` PHPDoc types that could be narrowed down because some of the listed exception types are never thrown from a public or protected method. For private methods and methods in final classes PHPStan does this by default.
 
 ```php
