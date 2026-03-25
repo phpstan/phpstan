@@ -4,10 +4,37 @@ import {PromiseResult} from 'aws-sdk/lib/request';
 import middy from 'middy';
 import { cors } from 'middy/middlewares';
 import { v4 as uuid } from 'uuid';
+import { z } from 'zod';
 
 SentryInit({
 	dsn: 'https://f56a0e1f5022472982e901e7a5d08514@sentry.io/1319481',
 });
+
+const optionsSchema = z.object({
+	inferPrivatePropertyTypeFromConstructor: z.boolean().optional(),
+	rememberPossiblyImpureFunctionValues: z.boolean().optional(),
+	checkBenevolentUnionTypes: z.boolean().optional(),
+	checkTooWideTypesInProtectedAndPublicMethods: z.boolean().optional(),
+	implicitThrows: z.boolean().optional(),
+	reportUncheckedExceptionDeadCatch: z.boolean().optional(),
+	uncheckedExceptionClasses: z.array(z.string()).optional(),
+	checkedExceptionClasses: z.array(z.string()).optional(),
+	missingCheckedExceptionInThrows: z.boolean().optional(),
+	tooWideThrowType: z.boolean().optional(),
+	tooWideImplicitThrowType: z.boolean().optional(),
+}).passthrough();
+
+type PlaygroundOptions = z.infer<typeof optionsSchema>;
+
+function validateOptions(input: unknown): PlaygroundOptions | undefined {
+	if (input === undefined || input === null) {
+		return undefined;
+	}
+	if (typeof input !== 'object') {
+		return undefined;
+	}
+	return optionsSchema.parse(input);
+}
 
 interface HttpRequest {
 	body: string;
@@ -37,19 +64,24 @@ async function analyseResultInternal(
 	runBleedingEdge: boolean,
 	treatPhpDocTypesAsCertain: boolean,
 	phpVersions: number[],
+	options?: PlaygroundOptions,
 ): Promise<any[]> {
 	const lambdaPromises: [Promise<PromiseResult<Lambda.InvocationResponse, AWSError>>, number][] = [];
 	for (const phpVersion of phpVersions) {
+		const payload: any = {
+			code: code,
+			level: level,
+			strictRules: runStrictRules,
+			bleedingEdge: runBleedingEdge,
+			treatPhpDocTypesAsCertain: treatPhpDocTypesAsCertain,
+			phpVersion: phpVersion,
+		};
+		if (options && Object.keys(options).length > 0) {
+			payload.options = options;
+		}
 		lambdaPromises.push([lambda.invoke({
 			FunctionName: 'phpstan-runner-prod-main',
-			Payload: JSON.stringify({
-				code: code,
-				level: level,
-				strictRules: runStrictRules,
-				bleedingEdge: runBleedingEdge,
-				treatPhpDocTypesAsCertain: treatPhpDocTypesAsCertain,
-				phpVersion: phpVersion,
-			}),
+			Payload: JSON.stringify(payload),
 		}).promise(), phpVersion]);
 	}
 
@@ -239,6 +271,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 		const runBleedingEdge = typeof json.bleedingEdge !== 'undefined' ? json.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.treatPhpDocTypesAsCertain !== 'undefined' ? json.treatPhpDocTypesAsCertain : true;
 		const saveResult: boolean = typeof json.saveResult !== 'undefined' ? json.saveResult : true;
+		const options = validateOptions(json.options);
 
 		const versionedErrors = await analyseResultInternal(
 			json.code,
@@ -247,6 +280,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 			runBleedingEdge,
 			treatPhpDocTypesAsCertain,
 			[70200, 70300, 70400, 80000, 80100, 80200, 80300, 80400, 80500],
+			options,
 		);
 		const response: any = {
 			tabs: createTabs(versionedErrors),
@@ -268,6 +302,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 						strictRules: runStrictRules,
 						bleedingEdge: runBleedingEdge,
 						treatPhpDocTypesAsCertain: treatPhpDocTypesAsCertain,
+						options: options,
 					},
 				}),
 			}).promise();
@@ -280,6 +315,12 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 			body: JSON.stringify(response),
 		});
 	} catch (e) {
+		if (e instanceof z.ZodError) {
+			return Promise.resolve({
+				statusCode: 400,
+				body: JSON.stringify({error: 'Invalid options', details: e.issues}),
+			});
+		}
 		console.error(e);
 		captureException(e);
 		return Promise.resolve({statusCode: 500});
@@ -297,6 +338,7 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 		const strictRules = typeof json.config.strictRules !== 'undefined' ? json.config.strictRules : false;
 		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true;
+		const options = validateOptions(json.config?.options);
 
 		let phpVersionsToAnalyse: number[] = [70200, 70300, 70400, 80000];
 		if (typeof json.versionedErrors !== 'undefined') {
@@ -328,6 +370,7 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 			bleedingEdge,
 			treatPhpDocTypesAsCertain,
 			phpVersionsToAnalyse,
+			options,
 		);
 		const newTabs = createTabs(newResult);
 
@@ -340,6 +383,7 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 				strictRules,
 				bleedingEdge,
 				treatPhpDocTypesAsCertain,
+				options,
 			},
 			upToDateTabs: newTabs,
 			upToDateVersionedErrors: newResult,
@@ -423,6 +467,7 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 		const strictRules = typeof json.config.strictRules !== 'undefined' ? json.config.strictRules : false;
 		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true;
+		const options = validateOptions(json.config?.options);
 
 		const bodyJson: any = {
 			code: json.code,
@@ -433,6 +478,7 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 				strictRules,
 				bleedingEdge,
 				treatPhpDocTypesAsCertain,
+				options,
 			},
 		};
 		if (typeof json.versionedErrors !== 'undefined') {
