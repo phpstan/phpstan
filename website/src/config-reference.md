@@ -746,6 +746,14 @@ Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedException
 
 When set to `true` (the default), a function or method without a `@throws` tag is assumed to potentially throw any exception. When set to `false`, absent `@throws` is interpreted as the function not throwing any exception. You can write `@throws void` to explicitly mark a function that doesn't throw.
 
+### `exceptions.reportUncheckedExceptionDeadCatch`
+
+**default**: `true`
+
+**example**: [with `false`](/r/8ea48a1a-61ec-41c3-8097-5665c46efe72), [with `true`](/r/6a211a87-80ed-425a-8dce-820bf548a60a)
+
+When set to `true` (the default), PHPStan reports dead catch blocks for unchecked exceptions — catch blocks that can never be reached because the called code never throws that exception type. Set to `false` if you don't plan to annotate `@throws` tags for unchecked exceptions but still occasionally catch them.
+
 ### `exceptions.check.missingCheckedExceptionInThrows`
 
 **default**: `false`

@@ -10,6 +10,8 @@ permalink: "/try.html"
 	<script src="/js/playground.ts" type="module"></script>
 {% endblock %}
 
+{% macro refLink(anchor) %}<a href="/config-reference#{{ anchor }}" target="_blank" class="text-gray-400 hover:text-gray-600" onclick="event.stopPropagation()"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-3.5 h-3.5"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></a>{% endmacro %}
+
 {% block content %}
 
 <dialog id="optionsDialog" class="options-dialog rounded-xl shadow-2xl border border-gray-200 dark:border-black p-0 w-[calc(100%-2rem)] max-w-4xl backdrop:bg-black/50" data-bind="click: handleOptionsBackdropClick">
@@ -36,31 +38,31 @@ permalink: "/try.html"
 				<div class="space-y-3">
 					<label class="flex items-center gap-2.5 cursor-pointer">
 						<input type="checkbox" data-bind="checked: strictRules" class="border-gray-300 rounded dark:border-current">
-						<span data-bind="css: { 'text-blue-600': isNonDefault('strictRules') }">Strict rules</span>
+						<span class="flex items-center gap-1.5" data-bind="css: { 'text-blue-600': isNonDefault('strictRules') }">Strict rules{{ refLink('stricter-analysis') }}</span>
 					</label>
 					<label class="flex items-center gap-2.5 cursor-pointer">
 						<input type="checkbox" data-bind="checked: bleedingEdge" class="border-gray-300 rounded dark:border-current">
-						<span data-bind="css: { 'text-blue-600': isNonDefault('bleedingEdge') }">Bleeding edge</span>
+						<span class="flex items-center gap-1.5" data-bind="css: { 'text-blue-600': isNonDefault('bleedingEdge') }">Bleeding edge{{ refLink('bleeding-edge') }}</span>
 					</label>
 					<label class="flex items-center gap-2.5 cursor-pointer">
 						<input type="checkbox" data-bind="checked: treatPhpDocTypesAsCertain" class="border-gray-300 rounded dark:border-current">
-						<span data-bind="css: { 'text-blue-600': isNonDefault('treatPhpDocTypesAsCertain') }">Treat PHPDoc types as certain</span>
+						<span class="flex items-center gap-1.5" data-bind="css: { 'text-blue-600': isNonDefault('treatPhpDocTypesAsCertain') }">Treat PHPDoc types as certain{{ refLink('treatphpdoctypesascertain') }}</span>
 					</label>
 					<label class="flex items-center gap-2.5 cursor-pointer">
 						<input type="checkbox" data-bind="checked: inferPrivatePropertyTypeFromConstructor" class="border-gray-300 rounded dark:border-current">
-						<span data-bind="css: { 'text-blue-600': isNonDefault('inferPrivatePropertyTypeFromConstructor') }">Infer private property type from constructor</span>
+						<span class="flex items-center gap-1.5" data-bind="css: { 'text-blue-600': isNonDefault('inferPrivatePropertyTypeFromConstructor') }">Infer private property type from constructor{{ refLink('inferprivatepropertytypefromconstructor') }}</span>
 					</label>
 					<label class="flex items-center gap-2.5 cursor-pointer">
 						<input type="checkbox" data-bind="checked: rememberPossiblyImpureFunctionValues" class="border-gray-300 rounded dark:border-current">
-						<span data-bind="css: { 'text-blue-600': isNonDefault('rememberPossiblyImpureFunctionValues') }">Remember possibly impure function values</span>
+						<span class="flex items-center gap-1.5" data-bind="css: { 'text-blue-600': isNonDefault('rememberPossiblyImpureFunctionValues') }">Remember possibly impure function values{{ refLink('rememberpossiblyimpurefunctionvalues') }}</span>
 					</label>
 					<label class="flex items-center gap-2.5 cursor-pointer">
 						<input type="checkbox" data-bind="checked: checkBenevolentUnionTypes" class="border-gray-300 rounded dark:border-current">
-						<span data-bind="css: { 'text-blue-600': isNonDefault('checkBenevolentUnionTypes') }">Check benevolent union types</span>
+						<span class="flex items-center gap-1.5" data-bind="css: { 'text-blue-600': isNonDefault('checkBenevolentUnionTypes') }">Check benevolent union types{{ refLink('checkbenevolentuniontypes') }}</span>
 					</label>
 					<label class="flex items-center gap-2.5 cursor-pointer">
 						<input type="checkbox" data-bind="checked: checkTooWideTypesInProtectedAndPublicMethods" class="border-gray-300 rounded dark:border-current">
-						<span data-bind="css: { 'text-blue-600': isNonDefault('checkTooWideTypesInProtectedAndPublicMethods') }">Check too wide types in protected and public methods</span>
+						<span class="flex items-center gap-1.5" data-bind="css: { 'text-blue-600': isNonDefault('checkTooWideTypesInProtectedAndPublicMethods') }">Check too wide types in non-private methods{{ refLink('checktoowidereturntypesinprotectedandpublicmethods') }}</span>
 					</label>
 				</div>
 			</fieldset>
@@ -70,15 +72,15 @@ permalink: "/try.html"
 				<div class="space-y-3">
 					<label class="flex items-center gap-2.5 cursor-pointer">
 						<input type="checkbox" data-bind="checked: implicitThrows" class="border-gray-300 rounded dark:border-current">
-						<span data-bind="css: { 'text-blue-600': isNonDefault('implicitThrows') }">Implicit throws</span>
+						<span class="flex items-center gap-1.5" data-bind="css: { 'text-blue-600': isNonDefault('implicitThrows') }">Implicit <code class="text-xs px-1 py-0.5 bg-gray-100 rounded font-mono">@throws</code>{{ refLink('exceptions.implicitthrows') }}</span>
 					</label>
 					<label class="flex items-center gap-2.5 cursor-pointer">
 						<input type="checkbox" data-bind="checked: missingCheckedExceptionInThrows" class="border-gray-300 rounded dark:border-current">
-						<span data-bind="css: { 'text-blue-600': isNonDefault('missingCheckedExceptionInThrows') }">Missing checked exception in throws</span>
+						<span class="flex items-center gap-1.5" data-bind="css: { 'text-blue-600': isNonDefault('missingCheckedExceptionInThrows') }">Missing checked exception in <code class="text-xs px-1 py-0.5 bg-gray-100 rounded font-mono">@throws</code>{{ refLink('exceptions.check.missingcheckedexceptioninthrows') }}</span>
 					</label>
 					<label class="flex items-center gap-2.5 cursor-pointer">
 						<input type="checkbox" data-bind="checked: reportUncheckedExceptionDeadCatch" class="border-gray-300 rounded dark:border-current">
-						<span data-bind="css: { 'text-blue-600': isNonDefault('reportUncheckedExceptionDeadCatch') }">Report unchecked exception dead catch</span>
+						<span class="flex items-center gap-1.5" data-bind="css: { 'text-blue-600': isNonDefault('reportUncheckedExceptionDeadCatch') }">Report unchecked exception dead catch{{ refLink('exceptions.reportuncheckedexceptiondeadcatch') }}</span>
 					</label>
 
 					<!-- Note: show only when missingCheckedExceptionInThrows or reportUncheckedExceptionDeadCatch are on -->
@@ -93,7 +95,7 @@ permalink: "/try.html"
 
 					<label class="flex items-center gap-2.5 cursor-pointer">
 						<input type="checkbox" data-bind="checked: tooWideImplicitThrowType" class="border-gray-300 rounded dark:border-current">
-						<span data-bind="css: { 'text-blue-600': isNonDefault('tooWideImplicitThrowType') }">Too wide implicit throw type</span>
+						<span class="flex items-center gap-1.5" data-bind="css: { 'text-blue-600': isNonDefault('tooWideImplicitThrowType') }">Too wide implicit <code class="text-xs px-1 py-0.5 bg-gray-100 rounded font-mono">@throws</code> type{{ refLink('exceptions.check.toowideimplicitthrowtype') }}</span>
 					</label>
 				</div>
 			</fieldset>
