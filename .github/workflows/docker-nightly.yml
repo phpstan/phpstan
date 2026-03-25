@@ -27,7 +27,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - docker-file: "./docker/Dockerfile.php.8.4"
+          - docker-file: "./docker/Dockerfile.php.8.5"
             image-tag-suffix: ""
           - docker-file: "./docker/Dockerfile.php.8.0"
             image-tag-suffix: "-php8.0"
@@ -39,6 +39,8 @@ jobs:
             image-tag-suffix: "-php8.3"
           - docker-file: "./docker/Dockerfile.php.8.4"
             image-tag-suffix: "-php8.4"
+          - docker-file: "./docker/Dockerfile.php.8.5"
+            image-tag-suffix: "-php8.5"
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
