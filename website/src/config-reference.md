@@ -431,6 +431,8 @@ When set to `true`, it reports violations of parameter type contravariance and r
 
 **default**: `false`
 
+**example**: [with `false`](https://phpstan.org/r/42d444cc-83cd-416f-916d-1223952a3983), [with `true`](https://phpstan.org/r/62d9f650-4fd8-4e74-bf61-bfd2a1166265)
+
 When set to `true`, it reports return typehints that could be narrowed down because some of the listed types are never returned from a public or protected method. For [private methods](https://phpstan.org/r/45ebd3b5-3868-43b6-becc-2c31578b4b1c) PHPStan does this by default.
 
 ```php
@@ -506,6 +508,8 @@ When set to `true`, it reports use of dynamic properties as undefined.
 
 **default**: `true`
 
+**example**: [with `true`](https://phpstan.org/r/2433535b-2983-4d02-8762-0680d8b522bc), [with `false`](https://phpstan.org/r/2d67a9e2-2ef0-4115-864a-e3191346b9b8)
+
 By default, PHPStan considers all functions that return a value to be pure. That means that second call to the same function in the same scope will return the same narrowed type:
 
 ```php
@@ -542,6 +546,8 @@ parameters:
 ### `checkBenevolentUnionTypes`
 
 **default**: `false`
+
+**example**: [with `false`](https://phpstan.org/r/009ebdf3-812f-4e03-a790-7f4054d60bf8), [with `true`](https://phpstan.org/r/13881884-be81-4848-a41e-85c179232901)
 
 PHPStan defines benevolent union types, such as `array-key`. Benevolent unions aren't checked strictly even at the highest level:
 
@@ -724,6 +730,30 @@ For custom logic that dynamically decides whether an exception is checked or unc
 
 Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.tooWideThrowType`, `exceptions.check.throwTypeCovariance`, `exceptions.check.tooWideImplicitThrowType`
 
+### `exceptions.implicitThrows`
+
+**default**: `true`
+
+**example**: [with `true`](https://phpstan.org/r/efe607c5-8802-4ef7-b837-84dc69f4acd9), [with `false`](https://phpstan.org/r/14cb6b53-0210-480b-b224-241ff97d9dc0)
+
+When set to `true` (the default), a function or method without a `@throws` tag is assumed to potentially throw any exception. When set to `false`, absent `@throws` is interpreted as the function not throwing any exception. You can write `@throws void` to explicitly mark a function that doesn't throw.
+
+### `exceptions.check.missingCheckedExceptionInThrows`
+
+**default**: `false`
+
+**example**: [with `false`](https://phpstan.org/r/d6e0825c-2b5c-4b56-a4e8-675cef8698b4), [with `true`](https://phpstan.org/r/c4c7d2f0-e80e-4591-9feb-0cd1e27dfd57)
+
+When set to `true`, it reports missing `@throws` tags for checked exceptions above functions and methods. Requires configuring `exceptions.checkedExceptionClasses` or `exceptions.checkedExceptionRegexes`.
+
+### `exceptions.check.tooWideThrowType`
+
+**default**: `false`
+
+**example**: [with `false`](https://phpstan.org/r/4422656f-a166-4290-bbc0-4f28b426c722), [with `true`](https://phpstan.org/r/e3116d8d-f3ef-4a39-9994-a1a0638039e5)
+
+When set to `true`, it reports `@throws` PHPDoc types that could be narrowed down because some of the listed exception types are never thrown from the function body.
+
 ### `exceptions.check.throwTypeCovariance`
 
 **default**: `false`
@@ -898,6 +928,8 @@ PHPStan will automatically infer the `config.platform.php` version from the last
 ### `inferPrivatePropertyTypeFromConstructor`
 
 **default**: `false`
+
+**example**: [with `false`](https://phpstan.org/r/585cd7b6-d844-4d77-b5b0-0a1c27860a40), [with `true`](https://phpstan.org/r/25a7b04d-4710-47f0-9694-b2d992284994)
 
 When set to `true`, it doesn't require typehints for properties if the types can be inferred from constructor injection:
 
