@@ -764,6 +764,8 @@ When set to `true`, it enforces that `@throws` types in overriding methods are c
 
 **default**: `false`
 
+**example**: [with `false`](/r/9addfc65-4e62-44c7-a459-aa37d37faac5), [with `true`](/r/36bdac56-7df9-47aa-b00d-da45c524b859)
+
 When set to `true`, it extends [`throws.unusedType`](/error-identifiers/throws.unusedType) to also report too-wide `@throws` types that were inherited or implicitly inferred, not just those explicitly written in PHPDoc. By default, only explicitly written `@throws` types are checked.
 
 Vague typehints
