@@ -20,7 +20,6 @@ const optionsSchema = z.object({
 	uncheckedExceptionClasses: z.array(z.string()).optional(),
 	checkedExceptionClasses: z.array(z.string()).optional(),
 	missingCheckedExceptionInThrows: z.boolean().optional(),
-	tooWideThrowType: z.boolean().optional(),
 	tooWideImplicitThrowType: z.boolean().optional(),
 }).passthrough();
 

@@ -30,7 +30,6 @@ const optionDefaults = {
 	reportUncheckedExceptionDeadCatch: false,
 	uncheckedExceptionClasses: '',
 	checkedExceptionClasses: '',
-	tooWideThrowType: false,
 	tooWideImplicitThrowType: false,
 };
 
@@ -65,7 +64,6 @@ export class PlaygroundViewModel {
 	reportUncheckedExceptionDeadCatch: ko.Observable<boolean>;
 	uncheckedExceptionClasses: ko.Observable<string>;
 	checkedExceptionClasses: ko.Observable<string>;
-	tooWideThrowType: ko.Observable<boolean>;
 	tooWideImplicitThrowType: ko.Observable<boolean>;
 
 	changedOptionsCount: ko.PureComputed<number>;
@@ -138,7 +136,6 @@ export class PlaygroundViewModel {
 		this.reportUncheckedExceptionDeadCatch = ko.observable<boolean>(optionDefaults.reportUncheckedExceptionDeadCatch);
 		this.uncheckedExceptionClasses = ko.observable<string>(optionDefaults.uncheckedExceptionClasses);
 		this.checkedExceptionClasses = ko.observable<string>(optionDefaults.checkedExceptionClasses);
-		this.tooWideThrowType = ko.observable<boolean>(optionDefaults.tooWideThrowType);
 		this.tooWideImplicitThrowType = ko.observable<boolean>(optionDefaults.tooWideImplicitThrowType);
 
 		this.allOptions = optionKeys.map(key => this[key] as ko.Observable<any>);

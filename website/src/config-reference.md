@@ -734,7 +734,7 @@ Advanced exceptions-related rules are available. [Read this article for more det
 
 For custom logic that dynamically decides whether an exception is checked or unchecked based on scope, you can implement a custom [exception type resolver](/developing-extensions/exception-type-resolver).
 
-Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.tooWideThrowType`, `exceptions.check.throwTypeCovariance`, `exceptions.check.tooWideImplicitThrowType`
+Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.throwTypeCovariance`, `exceptions.check.tooWideImplicitThrowType`
 
 ### `exceptions.implicitThrows`
 
@@ -752,12 +752,6 @@ When set to `true` (the default), a function or method without a `@throws` tag i
 
 When set to `true`, it reports missing `@throws` tags for checked exceptions above functions and methods. Requires configuring `exceptions.checkedExceptionClasses` or `exceptions.checkedExceptionRegexes`.
 
-### `exceptions.check.tooWideThrowType`
-
-**default**: `false`
-
-When set to `true`, it reports `@throws` PHPDoc types that could be narrowed down because some of the listed exception types are never thrown from the function body.
-
 ### `exceptions.check.throwTypeCovariance`
 
 **default**: `false`
@@ -770,7 +764,7 @@ When set to `true`, it enforces that `@throws` types in overriding methods are c
 
 **default**: `false`
 
-When set to `true`, it extends `exceptions.check.tooWideThrowType` to also report too-wide `@throws` types that were inherited or implicitly inferred, not just those explicitly written in PHPDoc. By default, only explicitly written `@throws` types are checked.
+When set to `true`, it extends [`throws.unusedType`](/error-identifiers/throws.unusedType) to also report too-wide `@throws` types that were inherited or implicitly inferred, not just those explicitly written in PHPDoc. By default, only explicitly written `@throws` types are checked.
 
 Vague typehints
 ------------
