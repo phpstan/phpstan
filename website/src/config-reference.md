@@ -431,9 +431,9 @@ When set to `true`, it reports violations of parameter type contravariance and r
 
 **default**: `false`
 
-**example**: [with `false`](/r/42d444cc-83cd-416f-916d-1223952a3983), [with `true`](/r/62d9f650-4fd8-4e74-bf61-bfd2a1166265)
+**example**: [with `false`](/r/11de1608-ef3a-41b8-923a-a46b5367e2bd), [with `true`](/r/fe4250b4-e56b-4972-9562-9b1c8b143559)
 
-When set to `true`, it reports return typehints that could be narrowed down because some of the listed types are never returned from a public or protected method. For [private methods](/r/45ebd3b5-3868-43b6-becc-2c31578b4b1c) PHPStan does this by default.
+When set to `true`, it reports return typehints that could be narrowed down because some of the listed types are never returned from a public or protected method. For [private methods](/r/cd10f589-4557-47ff-8f5c-fd66e85469d2) PHPStan does this by default.
 
 ```php
 public function doFoo(): ?string
@@ -448,6 +448,8 @@ public function doFoo(): ?string
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.1.23</div>
 
 **default**: `false`
+
+**example**: [with `false`](/r/df982d3c-9788-4be9-ada3-535bc1d7ab44), [with `true`](/r/a70d9b5c-e2d5-4d1d-839d-fa96687f9440)
 
 When set to `true`, it reports param-out typehints that could be narrowed down because some of the listed types are never returned from a public or protected method. For [private methods](/r/7df92fe3-cc07-4f8e-ac46-bd42e678f23c) PHPStan does this by default.
 
@@ -481,6 +483,8 @@ public function doFoo(): void {
 ### `checkUninitializedProperties`
 
 **default**: `false`
+
+**example**: [playground](/r/b4d6868f-1ea4-4af2-8aae-700250de05fe)
 
 When set to `true`, it reports properties with native types that weren't initialized in the class constructor.
 
@@ -670,6 +674,8 @@ This option strictens checks used in `reportWrongPhpDocTypeInVarTag`. It strictl
 
 **default**: `false`
 
+**example**: [playground](/r/8804a9d0-16a6-4671-848b-cfd5848b6cdb)
+
 When set to `true`, PHPStan reports missing `#[\Override]` attribute above methods that override a method coming from their parent classes, implemented interfaces, or abstract method from a used trait.
 
 ```php
@@ -734,7 +740,7 @@ Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedException
 
 **default**: `true`
 
-**example**: [with `true`](/r/efe607c5-8802-4ef7-b837-84dc69f4acd9), [with `false`](/r/14cb6b53-0210-480b-b224-241ff97d9dc0)
+**example**: [with `true`](/r/c8a2ba3a-2121-4661-a717-7d7b0a163387), [with `false`](/r/195ae8a1-ffb9-43a5-a84b-661af20a5a51)
 
 When set to `true` (the default), a function or method without a `@throws` tag is assumed to potentially throw any exception. When set to `false`, absent `@throws` is interpreted as the function not throwing any exception. You can write `@throws void` to explicitly mark a function that doesn't throw.
 
@@ -742,7 +748,7 @@ When set to `true` (the default), a function or method without a `@throws` tag i
 
 **default**: `false`
 
-**example**: [with `false`](/r/d6e0825c-2b5c-4b56-a4e8-675cef8698b4), [with `true`](/r/c4c7d2f0-e80e-4591-9feb-0cd1e27dfd57)
+**example**: [with `false`](/r/25faef78-318f-4d03-a537-b8c3d51ccde5), [with `true`](/r/efc31418-db3e-4f08-95f9-a24794292ba1)
 
 When set to `true`, it reports missing `@throws` tags for checked exceptions above functions and methods. Requires configuring `exceptions.checkedExceptionClasses` or `exceptions.checkedExceptionRegexes`.
 
@@ -750,13 +756,13 @@ When set to `true`, it reports missing `@throws` tags for checked exceptions abo
 
 **default**: `false`
 
-**example**: [with `false`](/r/4422656f-a166-4290-bbc0-4f28b426c722), [with `true`](/r/e3116d8d-f3ef-4a39-9994-a1a0638039e5)
-
 When set to `true`, it reports `@throws` PHPDoc types that could be narrowed down because some of the listed exception types are never thrown from the function body.
 
 ### `exceptions.check.throwTypeCovariance`
 
 **default**: `false`
+
+**example**: [playground](/r/bc4e2f13-d946-407a-bccf-6e437fa12577)
 
 When set to `true`, it enforces that `@throws` types in overriding methods are covariant with the parent method's `@throws` types. A child method cannot declare broader exception types than its parent. This follows the Liskov Substitution Principle for exception declarations.
 
