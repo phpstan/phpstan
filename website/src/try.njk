@@ -118,19 +118,19 @@ permalink: "/try.html"
 	<div style="display: none" data-bind="visible: true">
 		<div data-bind="codeMirror: code, codeMirrorErrors: currentTab() !== null ? currentTab().errors : [], codeMirrorInitialUrlId: isHashMatch ? id() : null, codeMirrorUrlIdChange: onEditorUrlIdChange.bind($data), codeMirrorRestoredState: restoredEditorState"></div>
 
-		<div class="flex items-center mt-4 flex-col md:flex-row md:gap-6">
+		<div class="flex items-center gap-3 mx-4 md:mx-0">
 			<!-- ko if: legacyResult() === null -->
 				<!-- ko if: !isSharing() -->
-					<a href="#" data-bind="click: share" class="inline-flex flex-grow md:flex-grow-0 mx-4 md:mx-0 items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 hover:bg-gray-200 w-auto md:w-32 h-10 justify-center border-gray-300 border dark:border-black">
-						<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
-						<span class="ml-2" data-bind="text: shareText"></span>
+					<a href="#" data-bind="click: share" class="inline-flex items-center px-3 h-10 rounded-md text-base font-medium bg-gray-100 hover:bg-gray-200 justify-center border border-gray-300 dark:border-black flex-1 md:flex-none md:w-28">
+						<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-4 h-4"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+						<span class="ml-1.5" data-bind="text: shareText"></span>
 					</a>
 				<!-- /ko -->
 
 				<!-- ko if: isSharing() -->
-					<span class="inline-flex flex-grow md:flex-grow-0 mx-4 md:mx-0  items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 w-auto md:w-32 h-10 justify-center border-gray-300 border">
+					<span class="inline-flex items-center px-3 h-10 rounded-md text-base font-medium bg-gray-100 justify-center border border-gray-300 flex-1 md:flex-none md:w-28">
 						<!-- By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL -->
-						<svg width="120" height="30" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#3f83f8" class="h-12 w-12">
+						<svg width="120" height="30" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#3f83f8" class="h-8 w-8">
 							<circle cx="15" cy="15" r="15">
 								<animate attributeName="r" from="15" to="15"
 											begin="0s" dur="0.8s"
@@ -165,7 +165,7 @@ permalink: "/try.html"
 					</span>
 				<!-- /ko -->
 			<!-- /ko -->
-			<select class="block mt-4 md:mt-0 mx-4 md:mx-0 rounded-md border border-gray-300 dark:border-black" data-bind="value: level">
+			<select class="h-10 rounded-md border border-gray-300 dark:border-black text-base flex-1 md:flex-none" data-bind="value: level">
 				<option value="0">Level 0</option>
 				<option value="1">Level 1</option>
 				<option value="2">Level 2</option>
@@ -179,7 +179,7 @@ permalink: "/try.html"
 				<option value="10">Level 10</option>
 			</select>
 
-			<button data-bind="click: openOptions" class="inline-flex items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 hover:bg-gray-200 w-auto md:w-32 h-10 justify-center border-gray-300 border dark:border-black mt-4 md:mt-0 mx-4 md:mx-0 relative cursor-pointer">
+			<button data-bind="click: openOptions" class="inline-flex items-center px-3 h-10 rounded-md text-base font-medium bg-gray-100 hover:bg-gray-200 justify-center border border-gray-300 dark:border-black flex-1 md:flex-none md:w-28 relative cursor-pointer">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
 					<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -223,13 +223,13 @@ permalink: "/try.html"
 			<!-- ko with: currentTab() -->
 				<div class="flex items-stretch mx-4 md:mx-0">
 					<!-- ko if: errors.length > 0 && $parent.tabs().length < 2 -->
-					<span class="inline-flex flex-grow justify-center md:flex-grow-0 items-center px-4 py-3 h-12 rounded-lg text-lg font-medium leading-4 bg-red-100 text-red-900 mt-4 dark:border dark:border-current" data-bind="text: errorsText"></span>
+					<span class="inline-flex items-center px-4 py-2 rounded-md text-base font-medium bg-red-50 text-red-700 border border-red-200 mt-4" data-bind="text: errorsText"></span>
 					<!-- /ko -->
 
 					<!-- ko if: errors.length === 0 -->
-					<span class="inline-flex flex-grow justify-center md:flex-grow-0 items-center px-4 py-3 h-12 rounded-lg text-lg font-medium leading-4 bg-green-100 text-green-900 mt-4 dark:border dark:border-current">
-											No errors!
-										</span>
+					<span class="inline-flex items-center px-4 py-2 rounded-md text-base font-medium bg-green-50 text-green-700 border border-green-200 mt-4">
+						No errors!
+					</span>
 					<!-- /ko -->
 				</div>
 				<!-- ko if: errors.length > 0 -->
