@@ -12,16 +12,113 @@ permalink: "/try.html"
 
 {% block content %}
 
+<dialog id="optionsDialog" class="options-dialog rounded-xl shadow-2xl border border-gray-200 dark:border-black p-0 w-[calc(100%-2rem)] max-w-4xl backdrop:bg-black/50" data-bind="click: handleOptionsBackdropClick">
+	<div class="p-6">
+		<div class="flex items-center justify-between mb-4">
+			<div class="flex items-center gap-3">
+				<h2 class="text-lg font-semibold">Options</h2>
+				<a href="/config-reference" target="_blank" class="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 hover:underline">Config reference<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-4 h-4 ml-1"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></a>
+			</div>
+			<button type="button" data-bind="click: cancelOptions" class="text-gray-400 hover:text-gray-600 p-1 cursor-pointer">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+				</svg>
+			</button>
+		</div>
+
+		<div class="mb-5">
+			<button type="button" data-bind="click: resetOptionsToDefaults, disable: !isNotDefaults()" class="text-sm px-3 py-1.5 rounded-md border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 disabled:bg-gray-50 disabled:text-gray-400 disabled:border-gray-200 disabled:cursor-default cursor-pointer">Reset to defaults</button>
+		</div>
+
+		<div class="flex flex-col md:flex-row md:gap-12">
+			<fieldset class="md:flex-1 border-t border-gray-200 pt-4 md:border-t-0 md:pt-0">
+				<legend class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">General</legend>
+				<div class="space-y-3">
+					<label class="flex items-center gap-2.5 cursor-pointer">
+						<input type="checkbox" data-bind="checked: strictRules" class="border-gray-300 rounded dark:border-current">
+						<span data-bind="css: { 'text-blue-600': isNonDefault('strictRules') }">Strict rules</span>
+					</label>
+					<label class="flex items-center gap-2.5 cursor-pointer">
+						<input type="checkbox" data-bind="checked: bleedingEdge" class="border-gray-300 rounded dark:border-current">
+						<span data-bind="css: { 'text-blue-600': isNonDefault('bleedingEdge') }">Bleeding edge</span>
+					</label>
+					<label class="flex items-center gap-2.5 cursor-pointer">
+						<input type="checkbox" data-bind="checked: treatPhpDocTypesAsCertain" class="border-gray-300 rounded dark:border-current">
+						<span data-bind="css: { 'text-blue-600': isNonDefault('treatPhpDocTypesAsCertain') }">Treat PHPDoc types as certain</span>
+					</label>
+					<label class="flex items-center gap-2.5 cursor-pointer">
+						<input type="checkbox" data-bind="checked: inferPrivatePropertyTypeFromConstructor" class="border-gray-300 rounded dark:border-current">
+						<span data-bind="css: { 'text-blue-600': isNonDefault('inferPrivatePropertyTypeFromConstructor') }">Infer private property type from constructor</span>
+					</label>
+					<label class="flex items-center gap-2.5 cursor-pointer">
+						<input type="checkbox" data-bind="checked: rememberPossiblyImpureFunctionValues" class="border-gray-300 rounded dark:border-current">
+						<span data-bind="css: { 'text-blue-600': isNonDefault('rememberPossiblyImpureFunctionValues') }">Remember possibly impure function values</span>
+					</label>
+					<label class="flex items-center gap-2.5 cursor-pointer">
+						<input type="checkbox" data-bind="checked: checkBenevolentUnionTypes" class="border-gray-300 rounded dark:border-current">
+						<span data-bind="css: { 'text-blue-600': isNonDefault('checkBenevolentUnionTypes') }">Check benevolent union types</span>
+					</label>
+					<label class="flex items-center gap-2.5 cursor-pointer">
+						<input type="checkbox" data-bind="checked: checkTooWideTypesInProtectedAndPublicMethods" class="border-gray-300 rounded dark:border-current">
+						<span data-bind="css: { 'text-blue-600': isNonDefault('checkTooWideTypesInProtectedAndPublicMethods') }">Check too wide types in protected and public methods</span>
+					</label>
+				</div>
+			</fieldset>
+
+			<fieldset class="md:flex-1 mt-4 pt-4 border-t border-gray-200 md:mt-0 md:pt-0 md:border-t-0">
+				<legend class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">Exceptions</legend>
+				<div class="space-y-3">
+					<label class="flex items-center gap-2.5 cursor-pointer">
+						<input type="checkbox" data-bind="checked: implicitThrows" class="border-gray-300 rounded dark:border-current">
+						<span data-bind="css: { 'text-blue-600': isNonDefault('implicitThrows') }">Implicit throws</span>
+					</label>
+					<label class="flex items-center gap-2.5 cursor-pointer">
+						<input type="checkbox" data-bind="checked: missingCheckedExceptionInThrows" class="border-gray-300 rounded dark:border-current">
+						<span data-bind="css: { 'text-blue-600': isNonDefault('missingCheckedExceptionInThrows') }">Missing checked exception in throws</span>
+					</label>
+					<label class="flex items-center gap-2.5 cursor-pointer">
+						<input type="checkbox" data-bind="checked: reportUncheckedExceptionDeadCatch" class="border-gray-300 rounded dark:border-current">
+						<span data-bind="css: { 'text-blue-600': isNonDefault('reportUncheckedExceptionDeadCatch') }">Report unchecked exception dead catch</span>
+					</label>
+
+					<!-- Note: show only when missingCheckedExceptionInThrows or reportUncheckedExceptionDeadCatch are on -->
+					<div>
+						<label for="uncheckedExceptionClasses" class="block text-sm font-medium mb-1" data-bind="css: { 'text-blue-600': isNonDefault('uncheckedExceptionClasses'), 'text-gray-700': !isNonDefault('uncheckedExceptionClasses') }">Unchecked exception classes</label>
+						<textarea id="uncheckedExceptionClasses" data-bind="value: uncheckedExceptionClasses, valueUpdate: 'input'" rows="2" placeholder="One class per line, e.g.&#10;\LogicException" class="w-full text-sm rounded-md border-gray-300 font-mono dark:border-current"></textarea>
+					</div>
+					<div>
+						<label for="checkedExceptionClasses" class="block text-sm font-medium mb-1" data-bind="css: { 'text-blue-600': isNonDefault('checkedExceptionClasses'), 'text-gray-700': !isNonDefault('checkedExceptionClasses') }">Checked exception classes</label>
+						<textarea id="checkedExceptionClasses" data-bind="value: checkedExceptionClasses, valueUpdate: 'input'" rows="2" placeholder="One class per line, e.g.&#10;\RuntimeException" class="w-full text-sm rounded-md border-gray-300 font-mono dark:border-current"></textarea>
+					</div>
+
+					<label class="flex items-center gap-2.5 cursor-pointer">
+						<input type="checkbox" data-bind="checked: tooWideThrowType" class="border-gray-300 rounded dark:border-current">
+						<span data-bind="css: { 'text-blue-600': isNonDefault('tooWideThrowType') }">Too wide throw type</span>
+					</label>
+					<label class="flex items-center gap-2.5 cursor-pointer">
+						<input type="checkbox" data-bind="checked: tooWideImplicitThrowType" class="border-gray-300 rounded dark:border-current">
+						<span data-bind="css: { 'text-blue-600': isNonDefault('tooWideImplicitThrowType') }">Too wide implicit throw type</span>
+					</label>
+				</div>
+			</fieldset>
+		</div>
+
+		<div class="mt-6 pt-5 border-t border-gray-200">
+			<button type="button" data-bind="click: applyOptions" class="w-full md:w-auto px-5 py-2 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 cursor-pointer">Apply changes</button>
+		</div>
+	</div>
+</dialog>
+
 <div class="content-playground">
 	<span id="sectionTitle" class="hidden">Playground</span>
-	<p class="mb-4 px-4 md:px-0 pt-4">Try out PHPStan and all of its features here in the editor. <a href="/" class="underline hover:no-underline">Learn more about PHPStan »</a></p>
+	<p class="mb-4 px-4 md:px-0 pt-4">Try out PHPStan and all of its features here in the editor. <a href="/" class="underline hover:no-underline">Learn more about PHPStan &raquo;</a></p>
 	<div data-bind="visible: false" class="mx-auto w-12 h-12 my-12">
 		<div class="spinner"></div>
 	</div>
 	<div style="display: none" data-bind="visible: true">
 		<div data-bind="codeMirror: code, codeMirrorErrors: currentTab() !== null ? currentTab().errors : [], codeMirrorInitialUrlId: isHashMatch ? id() : null, codeMirrorUrlIdChange: onEditorUrlIdChange.bind($data), codeMirrorRestoredState: restoredEditorState"></div>
 
-		<div class="flex items-center mt-4 flex-col md:flex-row">
+		<div class="flex items-center mt-4 flex-col md:flex-row md:gap-6">
 			<!-- ko if: legacyResult() === null -->
 				<!-- ko if: !isSharing() -->
 					<a href="#" data-bind="click: share" class="inline-flex flex-grow md:flex-grow-0 mx-4 md:mx-0 items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 hover:bg-gray-200 w-auto md:w-32 h-10 justify-center border-gray-300 border dark:border-black">
@@ -68,7 +165,7 @@ permalink: "/try.html"
 					</span>
 				<!-- /ko -->
 			<!-- /ko -->
-			<select class="block mt-4 md:mt-0 mx-4 md:mx-0 md:ml-6 rounded-md border border-gray-300 dark:border-black" data-bind="value: level">
+			<select class="block mt-4 md:mt-0 mx-4 md:mx-0 rounded-md border border-gray-300 dark:border-black" data-bind="value: level">
 				<option value="0">Level 0</option>
 				<option value="1">Level 1</option>
 				<option value="2">Level 2</option>
@@ -82,20 +179,16 @@ permalink: "/try.html"
 				<option value="10">Level 10</option>
 			</select>
 
-			<label class="inline-flex items-center px-4 mt-4 md:mt-0 ml-0 md:ml-4">
-				<input type="checkbox" data-bind="checked: strictRules" class="border-gray-300 rounded dark:border-current">
-				<span class="ml-2">Strict rules</span>
-			</label>
-
-			<label class="inline-flex items-center px-4 mt-4 md:mt-0">
-				<input type="checkbox" data-bind="checked: bleedingEdge" class="border-gray-300 rounded dark:border-current">
-				<span class="ml-2">Bleeding edge</span>
-			</label>
-
-			<label class="inline-flex items-center px-4 mt-4 md:mt-0">
-				<input type="checkbox" data-bind="checked: treatPhpDocTypesAsCertain" class="border-gray-300 rounded dark:border-current">
-				<span class="ml-2">Treat PHPDoc types as certain</span>
-			</label>
+			<button data-bind="click: openOptions" class="inline-flex items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 hover:bg-gray-200 w-auto md:w-32 h-10 justify-center border-gray-300 border dark:border-black mt-4 md:mt-0 mx-4 md:mx-0 relative cursor-pointer">
+				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+					<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+				</svg>
+				<span class="ml-1.5">Options</span>
+				<!-- ko if: changedOptionsCount() > 0 -->
+				<span class="absolute -top-2 -right-2 inline-flex items-center justify-center min-w-5 h-5 px-1 text-xs font-bold text-white bg-blue-500 rounded-full" data-bind="text: changedOptionsCount"></span>
+				<!-- /ko -->
+			</button>
 		</div>
 
 		<!-- ko if: isLoading -->

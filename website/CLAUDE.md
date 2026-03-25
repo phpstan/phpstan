@@ -72,3 +72,33 @@ When making changes, build with `npm run build` and compare the `dist/` director
 - No whole sections of generated HTML should disappear
 - The website should still look the same visually
 - Check that pages render correctly, not just that the build succeeds
+
+### Playwright Screenshots for UI Development
+
+When working on visual UI changes (especially the playground), use Playwright to take screenshots and iterate on the design. The dev server runs at `http://localhost:5173` (started via `npm run watch`). Use Node.js scripts with `@playwright/test` (installed in the project) like this:
+
+```js
+node -e "
+const { chromium } = require('@playwright/test');
+(async () => {
+  const browser = await chromium.launch();
+  const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+  await page.goto('http://localhost:5173/try');
+  await page.waitForTimeout(2000);
+  // Interact with the page (click buttons, open dialogs, etc.)
+  await page.click('button:has-text(\"Options\")');
+  await page.waitForTimeout(500);
+  await page.screenshot({ path: '/tmp/screenshot.png' });
+  await browser.close();
+})();
+"
+```
+
+Also check the browser console for errors:
+
+```js
+page.on('console', msg => { if (msg.type() === 'error') console.log(msg.text()); });
+page.on('pageerror', err => console.log(err.message));
+```
+
+Take screenshots at multiple viewport sizes (desktop 1280x900, mobile 375x812) to verify responsive layouts. Read the screenshot images to visually inspect the result, then adjust code and re-screenshot as needed.

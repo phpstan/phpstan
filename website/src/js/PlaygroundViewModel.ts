@@ -14,6 +14,30 @@ import {historyField} from '@codemirror/commands';
 declare const __PAGES_JSON__: Record<string, string>;
 const pages = __PAGES_JSON__;
 
+const optionDefaults = {
+	// legacy options that existed for a long time
+	strictRules: false,
+	bleedingEdge: false,
+	treatPhpDocTypesAsCertain: true,
+
+	// new options - we made the options modal dialog for them
+	inferPrivatePropertyTypeFromConstructor: true,
+	rememberPossiblyImpureFunctionValues: true,
+	checkBenevolentUnionTypes: false,
+	checkTooWideTypesInProtectedAndPublicMethods: false,
+	implicitThrows: true,
+	missingCheckedExceptionInThrows: false,
+	reportUncheckedExceptionDeadCatch: false,
+	uncheckedExceptionClasses: '',
+	checkedExceptionClasses: '',
+	tooWideThrowType: false,
+	tooWideImplicitThrowType: false,
+};
+
+type OptionName = keyof typeof optionDefaults;
+const optionKeys = Object.keys(optionDefaults) as OptionName[];
+const defaultValues = Object.values(optionDefaults);
+
 export class PlaygroundViewModel {
 
 	mainMenu: MainMenuViewModel;
@@ -32,6 +56,20 @@ export class PlaygroundViewModel {
 	strictRules: ko.Observable<boolean>;
 	bleedingEdge: ko.Observable<boolean>;
 	treatPhpDocTypesAsCertain: ko.Observable<boolean>;
+	inferPrivatePropertyTypeFromConstructor: ko.Observable<boolean>;
+	rememberPossiblyImpureFunctionValues: ko.Observable<boolean>;
+	checkBenevolentUnionTypes: ko.Observable<boolean>;
+	checkTooWideTypesInProtectedAndPublicMethods: ko.Observable<boolean>;
+	implicitThrows: ko.Observable<boolean>;
+	missingCheckedExceptionInThrows: ko.Observable<boolean>;
+	reportUncheckedExceptionDeadCatch: ko.Observable<boolean>;
+	uncheckedExceptionClasses: ko.Observable<string>;
+	checkedExceptionClasses: ko.Observable<string>;
+	tooWideThrowType: ko.Observable<boolean>;
+	tooWideImplicitThrowType: ko.Observable<boolean>;
+
+	changedOptionsCount: ko.PureComputed<number>;
+	isNotDefaults: ko.PureComputed<boolean>;
 
 	isLoading: ko.Observable<boolean>;
 	isSharing: ko.Observable<boolean>;
@@ -55,6 +93,13 @@ export class PlaygroundViewModel {
 	linkify: typeof linkifyStr;
 
 	slugify: typeof slugify;
+
+	// All option observables in the same order as optionDefaults
+	private allOptions: ko.Observable<any>[];
+	private optionsSnapshot: any[] | null;
+
+	// New option entries for save/restore/API (excludes the three legacy top-level ones)
+	private newOptionEntries: [string, ko.Observable<any>][];
 
 	constructor(urlPath: string) {
 		this.mainMenu = new MainMenuViewModel();
@@ -81,9 +126,33 @@ export class PlaygroundViewModel {
 		this.upToDateTabs = ko.observable(null);
 
 		this.level = ko.observable('10');
-		this.strictRules = ko.observable<boolean>(false);
-		this.bleedingEdge = ko.observable<boolean>(false);
-		this.treatPhpDocTypesAsCertain = ko.observable<boolean>(true);
+		this.strictRules = ko.observable<boolean>(optionDefaults.strictRules);
+		this.bleedingEdge = ko.observable<boolean>(optionDefaults.bleedingEdge);
+		this.treatPhpDocTypesAsCertain = ko.observable<boolean>(optionDefaults.treatPhpDocTypesAsCertain);
+		this.inferPrivatePropertyTypeFromConstructor = ko.observable<boolean>(optionDefaults.inferPrivatePropertyTypeFromConstructor);
+		this.rememberPossiblyImpureFunctionValues = ko.observable<boolean>(optionDefaults.rememberPossiblyImpureFunctionValues);
+		this.checkBenevolentUnionTypes = ko.observable<boolean>(optionDefaults.checkBenevolentUnionTypes);
+		this.checkTooWideTypesInProtectedAndPublicMethods = ko.observable<boolean>(optionDefaults.checkTooWideTypesInProtectedAndPublicMethods);
+		this.implicitThrows = ko.observable<boolean>(optionDefaults.implicitThrows);
+		this.missingCheckedExceptionInThrows = ko.observable<boolean>(optionDefaults.missingCheckedExceptionInThrows);
+		this.reportUncheckedExceptionDeadCatch = ko.observable<boolean>(optionDefaults.reportUncheckedExceptionDeadCatch);
+		this.uncheckedExceptionClasses = ko.observable<string>(optionDefaults.uncheckedExceptionClasses);
+		this.checkedExceptionClasses = ko.observable<string>(optionDefaults.checkedExceptionClasses);
+		this.tooWideThrowType = ko.observable<boolean>(optionDefaults.tooWideThrowType);
+		this.tooWideImplicitThrowType = ko.observable<boolean>(optionDefaults.tooWideImplicitThrowType);
+
+		this.allOptions = optionKeys.map(key => this[key] as ko.Observable<any>);
+		this.newOptionEntries = optionKeys.slice(3).map(key => [key, this[key] as ko.Observable<any>] as [string, ko.Observable<any>]);
+
+		this.optionsSnapshot = null;
+
+		this.changedOptionsCount = ko.pureComputed(() => {
+			return this.allOptions.filter((o, i) => o() !== defaultValues[i]).length;
+		});
+
+		this.isNotDefaults = ko.pureComputed(() => {
+			return this.changedOptionsCount() > 0;
+		});
 
 		this.isLoading = ko.observable<boolean>(false);
 		this.isSharing = ko.observable<boolean>(false);
@@ -146,6 +215,91 @@ export class PlaygroundViewModel {
 		this.slugify = slugify;
 	}
 
+	// --- Options dialog ---
+
+	openOptions(): void {
+		this.optionsSnapshot = this.allOptions.map(o => o());
+		const dialog = document.getElementById('optionsDialog') as HTMLDialogElement;
+		dialog.showModal();
+	}
+
+	applyOptions(): void {
+		const changed = this.hasOptionsChangedFromSnapshot();
+		this.optionsSnapshot = null;
+		(document.getElementById('optionsDialog') as HTMLDialogElement).close();
+		if (changed) {
+			this.doInstantAnalyse();
+		}
+	}
+
+	cancelOptions(): void {
+		if (this.optionsSnapshot) {
+			this.allOptions.forEach((o, i) => o(this.optionsSnapshot![i]));
+		}
+		this.optionsSnapshot = null;
+		(document.getElementById('optionsDialog') as HTMLDialogElement).close();
+	}
+
+	resetOptionsToDefaults(): void {
+		this.allOptions.forEach((o, i) => o(defaultValues[i]));
+	}
+
+	isNonDefault(name: OptionName): boolean {
+		return (this[name] as ko.Observable<any>)() !== optionDefaults[name];
+	}
+
+	handleOptionsBackdropClick(_: PlaygroundViewModel, event: Event): boolean {
+		const dialog = document.getElementById('optionsDialog') as HTMLDialogElement;
+		if (event.target === dialog) {
+			if (!this.hasOptionsChangedFromSnapshot()) {
+				this.optionsSnapshot = null;
+				dialog.close();
+			}
+			return false;
+		}
+		return true;
+	}
+
+	private hasOptionsChangedFromSnapshot(): boolean {
+		if (!this.optionsSnapshot) return false;
+		return this.allOptions.some((o, i) => o() !== this.optionsSnapshot![i]);
+	}
+
+	private getApiOptions(): Record<string, any> {
+		const parseClasses = (s: string): string[] =>
+			s.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+		const opts: Record<string, any> = {};
+		for (const [key, obs] of this.newOptionEntries) {
+			opts[key] = obs();
+		}
+		opts.uncheckedExceptionClasses = parseClasses(this.uncheckedExceptionClasses());
+		opts.checkedExceptionClasses = parseClasses(this.checkedExceptionClasses());
+		return opts;
+	}
+
+	private getOptionsState(): Record<string, any> {
+		const state: Record<string, any> = {};
+		for (const [key, obs] of this.newOptionEntries) {
+			state[key] = obs();
+		}
+		return state;
+	}
+
+	private restoreOptionsState(opts: Record<string, any>): void {
+		for (const [key, obs] of this.newOptionEntries) {
+			if (key in opts) {
+				let value = opts[key];
+				// API returns arrays for exception classes, convert to newline-separated strings
+				if ((key === 'uncheckedExceptionClasses' || key === 'checkedExceptionClasses') && Array.isArray(value)) {
+					value = value.join('\n');
+				}
+				obs(value);
+			}
+		}
+	}
+
+	// --- Core ---
+
 	switchTab(index: number): void {
 		const currentIndex = this.currentTabIndex();
 		if (currentIndex !== null) {
@@ -190,6 +344,7 @@ export class PlaygroundViewModel {
 				strictRules: this.strictRules(),
 				bleedingEdge: this.bleedingEdge(),
 				treatPhpDocTypesAsCertain: this.treatPhpDocTypesAsCertain(),
+				options: this.getApiOptions(),
 				saveResult,
 			}),
 			contentType: 'application/json'
@@ -302,6 +457,18 @@ export class PlaygroundViewModel {
 		}
 	}
 
+	private doInstantAnalyse(): void {
+		if (this.editorView) {
+			this.editorView.dispatch({
+				effects: [setUrlId.of(null)],
+				annotations: [Transaction.addToHistory.of(false)],
+			});
+		}
+		this.savedTabsByUrlId.clear();
+		this.preanalyse();
+		this.analyse(false);
+	}
+
 	startAcceptingChanges(): void {
 		window.addEventListener('beforeunload', () => {
 			if (!this.isLoading()) {
@@ -328,21 +495,18 @@ export class PlaygroundViewModel {
 			});
 		});
 
-		const instantAnalyse = () => {
-			if (this.editorView) {
-				this.editorView.dispatch({
-					effects: [setUrlId.of(null)],
-					annotations: [Transaction.addToHistory.of(false)],
-				});
-			}
-			this.savedTabsByUrlId.clear();
-			this.preanalyse();
-			this.analyse(false);
-		};
-		this.level.subscribe(instantAnalyse);
-		this.strictRules.subscribe(instantAnalyse);
-		this.bleedingEdge.subscribe(instantAnalyse);
-		this.treatPhpDocTypesAsCertain.subscribe(instantAnalyse);
+		this.level.subscribe(() => {
+			this.doInstantAnalyse();
+		});
+
+		// Esc key on dialog: revert and close
+		const dialog = document.getElementById('optionsDialog');
+		if (dialog) {
+			dialog.addEventListener('cancel', (e) => {
+				e.preventDefault();
+				this.cancelOptions();
+			});
+		}
 	}
 
 	showUpToDateTabs(): void {
@@ -367,6 +531,7 @@ export class PlaygroundViewModel {
 				strictRules: this.strictRules(),
 				bleedingEdge: this.bleedingEdge(),
 				treatPhpDocTypesAsCertain: this.treatPhpDocTypesAsCertain(),
+				options: this.getOptionsState(),
 			},
 			tabs: this.tabs().map(t => ({errors: t.errors, title: t.title})),
 			currentTabIndex: this.currentTabIndex(),
@@ -402,6 +567,9 @@ export class PlaygroundViewModel {
 			this.strictRules(saved.settings.strictRules);
 			this.bleedingEdge(saved.settings.bleedingEdge);
 			this.treatPhpDocTypesAsCertain(saved.settings.treatPhpDocTypesAsCertain);
+			if (saved.settings.options) {
+				this.restoreOptionsState(saved.settings.options);
+			}
 			this.id(saved.id);
 			this.restoredEditorState = saved.editorState;
 
@@ -443,6 +611,9 @@ export class PlaygroundViewModel {
 				this.strictRules(data.config.strictRules);
 				this.bleedingEdge(data.config.bleedingEdge);
 				this.treatPhpDocTypesAsCertain(data.config.treatPhpDocTypesAsCertain);
+				if (data.config.options) {
+					this.restoreOptionsState(data.config.options);
+				}
 
 				if (originalId !== null) {
 					this.savedTabsByUrlId.set(originalId, {tabs, upToDateTabs: null});
@@ -505,6 +676,9 @@ export class PlaygroundViewModel {
 				this.strictRules(data.config.strictRules);
 				this.bleedingEdge(data.config.bleedingEdge);
 				this.treatPhpDocTypesAsCertain(data.config.treatPhpDocTypesAsCertain);
+				if (data.config.options) {
+					this.restoreOptionsState(data.config.options);
+				}
 			}).fail(() => {
 				this.hasServerError(true);
 				const scope = new Sentry.Scope();
