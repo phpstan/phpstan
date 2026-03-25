@@ -27,7 +27,7 @@ const optionDefaults = {
 	checkTooWideTypesInProtectedAndPublicMethods: false,
 	implicitThrows: true,
 	missingCheckedExceptionInThrows: false,
-	reportUncheckedExceptionDeadCatch: false,
+	reportUncheckedExceptionDeadCatch: true,
 	uncheckedExceptionClasses: '',
 	checkedExceptionClasses: '',
 	tooWideImplicitThrowType: false,

@@ -75,12 +75,12 @@ permalink: "/try.html"
 						<span class="flex items-center gap-1.5" data-bind="css: { 'text-blue-600': isNonDefault('implicitThrows') }">Implicit <code class="text-xs px-1 py-0.5 bg-gray-100 rounded font-mono">@throws</code>{{ refLink('exceptions.implicitthrows') }}</span>
 					</label>
 					<label class="flex items-center gap-2.5 cursor-pointer">
-						<input type="checkbox" data-bind="checked: missingCheckedExceptionInThrows" class="border-gray-300 rounded dark:border-current">
-						<span class="flex items-center gap-1.5" data-bind="css: { 'text-blue-600': isNonDefault('missingCheckedExceptionInThrows') }">Missing checked exception in <code class="text-xs px-1 py-0.5 bg-gray-100 rounded font-mono">@throws</code>{{ refLink('exceptions.check.missingcheckedexceptioninthrows') }}</span>
-					</label>
-					<label class="flex items-center gap-2.5 cursor-pointer">
 						<input type="checkbox" data-bind="checked: reportUncheckedExceptionDeadCatch" class="border-gray-300 rounded dark:border-current">
 						<span class="flex items-center gap-1.5" data-bind="css: { 'text-blue-600': isNonDefault('reportUncheckedExceptionDeadCatch') }">Report unchecked exception dead catch{{ refLink('exceptions.reportuncheckedexceptiondeadcatch') }}</span>
+					</label>
+					<label class="flex items-center gap-2.5 cursor-pointer">
+						<input type="checkbox" data-bind="checked: missingCheckedExceptionInThrows" class="border-gray-300 rounded dark:border-current">
+						<span class="flex items-center gap-1.5" data-bind="css: { 'text-blue-600': isNonDefault('missingCheckedExceptionInThrows') }">Missing checked exception in <code class="text-xs px-1 py-0.5 bg-gray-100 rounded font-mono">@throws</code>{{ refLink('exceptions.check.missingcheckedexceptioninthrows') }}</span>
 					</label>
 
 					<!-- Note: show only when missingCheckedExceptionInThrows or reportUncheckedExceptionDeadCatch are on -->
