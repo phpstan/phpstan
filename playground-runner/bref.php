@@ -54,15 +54,36 @@ return function ($event) use ($phpstanVersion) {
 		$configFiles[] = $file;
 	}
 
+	$options = $event['options'] ?? [];
+
+	$parameters = [
+		'inferPrivatePropertyTypeFromConstructor' => $options['inferPrivatePropertyTypeFromConstructor'] ?? true,
+		'treatPhpDocTypesAsCertain' => $event['treatPhpDocTypesAsCertain'] ?? true,
+		'phpVersion' => $event['phpVersion'] ?? 80000,
+		'sourceLocatorPlaygroundMode' => true,
+		'rememberPossiblyImpureFunctionValues' => $options['rememberPossiblyImpureFunctionValues'] ?? true,
+		'checkBenevolentUnionTypes' => $options['checkBenevolentUnionTypes'] ?? false,
+		'checkTooWideReturnTypesInProtectedAndPublicMethods' => $options['checkTooWideTypesInProtectedAndPublicMethods'] ?? false,
+		'checkTooWideParameterOutInProtectedAndPublicMethods' => $options['checkTooWideTypesInProtectedAndPublicMethods'] ?? false,
+		'checkTooWideThrowTypesInProtectedAndPublicMethods' => $options['checkTooWideTypesInProtectedAndPublicMethods'] ?? false,
+	];
+
+	$parameters['exceptions'] = [
+		'implicitThrows' => $options['implicitThrows'] ?? true,
+		'reportUncheckedExceptionDeadCatch' => $options['reportUncheckedExceptionDeadCatch'] ?? false,
+		'uncheckedExceptionClasses' => $options['uncheckedExceptionClasses'] ?? [],
+		'checkedExceptionClasses' => $options['checkedExceptionClasses'] ?? [],
+		'check' => [
+			'missingCheckedExceptionInThrows' => $options['missingCheckedExceptionInThrows'] ?? false,
+			'tooWideThrowType' => $options['tooWideThrowType'] ?? false,
+			'tooWideImplicitThrowType' => $options['tooWideImplicitThrowType'] ?? false,
+		],
+	];
+
 	$finalConfigFile = '/tmp/run-phpstan-tmp.neon';
 	$neon = \Nette\Neon\Neon::encode([
 		'includes' => $configFiles,
-		'parameters' => [
-			'inferPrivatePropertyTypeFromConstructor' => true,
-			'treatPhpDocTypesAsCertain' => $event['treatPhpDocTypesAsCertain'] ?? true,
-			'phpVersion' => $event['phpVersion'] ?? 80000,
-            'sourceLocatorPlaygroundMode' => true,
-		],
+		'parameters' => $parameters,
 		'services' => [
 			'currentPhpVersionSimpleParser!' => [
 				'factory' => '@currentPhpVersionRichParser',
