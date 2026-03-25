@@ -212,9 +212,9 @@ permalink: "/try.html"
 		<!-- /ko -->
 
 		<!-- ko if: tabs().length > 1 && !isLoading() && legacyResult() === null -->
-			<nav class="flex mt-4 border-b border-gray-400">
+			<nav class="flex mt-4 mx-4 md:mx-0 border-b border-gray-200">
 				<!-- ko foreach: tabs -->
-					<a href="#" class="relative px-3 py-2 font-medium text-md mr-4 leading-5 rounded-md rounded-b-none text-gray-500 border-l border-t border-r" data-bind="click: $parent.switchTab.bind($parent, $index()), text: title, class: tabClass, style: { 'top': isActive() ? '1px' : '0' }"></a>
+					<a href="#" class="px-4 py-2.5 text-base font-medium border border-b-0 rounded-t-lg -mb-px transition-colors" data-bind="click: $parent.switchTab.bind($parent, $index()), text: title, class: tabClass"></a>
 				<!-- /ko -->
 			</nav>
 		<!-- /ko -->
@@ -233,42 +233,43 @@ permalink: "/try.html"
 					<!-- /ko -->
 				</div>
 				<!-- ko if: errors.length > 0 -->
-					<table class="w-full mt-8">
+					<div class="mt-6 border border-gray-200 rounded-lg overflow-hidden mx-4 md:mx-0">
+					<table class="w-full">
 						<thead>
 						<tr>
-							<th class="px-6 py-3 border-b border-gray-400 bg-gray-100 text-left text-base leading-4 font-medium text-gray-800 tracking-wider">
+							<th class="px-5 py-3 border-b border-gray-200 bg-gray-50 text-left text-sm font-bold text-gray-700 uppercase tracking-wide w-16">
 								Line
 							</th>
-							<th class="px-6 py-3 border-b border-gray-400 bg-gray-100 text-left text-base leading-4 font-medium text-gray-800 tracking-wider">
+							<th class="px-5 py-3 border-b border-gray-200 bg-gray-50 text-left text-sm font-bold text-gray-700 uppercase tracking-wide">
 								Error
 							</th>
 						</tr>
 						</thead>
-						<tbody class="bg-white">
+						<tbody>
 							<!-- ko foreach: errors -->
-								<tr>
-									<td class="px-6 py-4 whitespace-nowrap border-b border-gray-200 text-base leading-5 font-medium text-gray-500" data-bind="text: line"></td>
-									<td class="px-6 py-4 border-b border-gray-200 text-base leading-5 text-gray-900">
-										<div class="flex items-center">
-											<div class="flex-shrink">
+								<tr class="hover:bg-gray-50 transition-colors">
+									<td class="px-5 py-3.5 border-b border-gray-100 text-base font-mono text-gray-500 align-top" data-bind="text: line"></td>
+									<td class="px-5 py-3.5 border-b border-gray-100 text-base leading-relaxed text-gray-900">
+										<div class="flex items-start">
+											<div class="flex-1 min-w-0">
 												<div data-bind="text: message" style="white-space: preserve;"></div>
 												<!-- ko if: $data.tip -->
-													<div class="mt-2 text-gray-500 text-sm" data-bind="html: $root.linkify($data.tip)"></div>
+													<div class="mt-1.5 text-gray-500 text-sm leading-relaxed" data-bind="html: $root.linkify($data.tip)"></div>
 												<!-- /ko -->
 											</div>
 
-
-											<div class="flex flex-shrink-0 ml-2 md:flex-grow md:justify-end md:ml-4">
-												<!-- ko if: $data.identifier -->
-													<a target="_blank" class="inline-flex items-center justify-center w-6 h-6 ml-1 rounded-full bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold leading-none" data-bind="attr: { href: '/error-identifiers/' + $data.identifier }">?</a>
-												<!-- /ko -->
+											<!-- ko if: $data.identifier -->
+											<div class="flex-shrink-0 ml-3">
+												<a target="_blank" class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold leading-none" data-bind="attr: { href: '/error-identifiers/' + $data.identifier }">?</a>
 											</div>
+											<!-- /ko -->
 										</div>
 									</td>
 								</tr>
 							<!-- /ko -->
 						</tbody>
 					</table>
+					</div>
 				<!-- /ko -->
 			<!-- /ko -->
 		<!-- /ko -->

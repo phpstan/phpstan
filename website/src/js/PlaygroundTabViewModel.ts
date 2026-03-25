@@ -37,17 +37,17 @@ export class PlaygroundTabViewModel {
 			const isActive = this.isActive();
 			if (isActive) {
 				if (this.errors.length > 0) {
-					return 'bg-red-100 text-red-500 cursor-default border-gray-400';
+					return 'bg-white text-red-600 border-gray-200 border-b-white cursor-default';
 				}
 
-				return 'bg-green-100 text-green-500 cursor-default border-gray-400';
+				return 'bg-white text-green-600 border-gray-200 border-b-white cursor-default';
 			}
 
 			if (this.errors.length > 0) {
-				return 'bg-gray-100 text-red-400 hover:bg-white';
+				return 'bg-gray-50 text-red-600 border-transparent hover:bg-gray-100';
 			}
 
-			return 'bg-gray-100 text-green-400 hover:bg-white';
+			return 'bg-gray-50 text-green-600 border-transparent hover:bg-gray-100';
 		});
 		this.isActive = ko.observable(active);
 	}
