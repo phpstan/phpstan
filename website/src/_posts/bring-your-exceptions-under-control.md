@@ -95,13 +95,47 @@ parameters:
 Report extra exceptions in `@throws` that aren't actually thrown
 ------------------------
 
-When `@throws` contains an exception that isn't thrown in the function body, PHPStan can report it with the following setting:
+When `@throws` contains an exception that isn't thrown in the function body, PHPStan reports it:
 
-```neon
-parameters:
-	exceptions:
-		check:
-			tooWideThrowType: true
+```php
+/**
+ * @throws \LogicException|\RuntimeException
+ */
+function doFoo(): void
+{
+	// Function doFoo() has RuntimeException in PHPDoc @throws tag but it\'s not thrown.
+	if (rand(0, 1)) {
+		throw new \LogicException();
+	}
+}
+```
+
+This is also always reported for private methods. For public methods, you have to enable `checkTooWideThrowTypesInProtectedAndPublicMethods: true`.
+
+Additionally, you can enable `exceptions.check.tooWideImplicitThrowType` to also report too-wide `@throws` types that were inherited or implicitly inferred, not just those explicitly written in PHPDoc. By default, only explicitly written `@throws` types are checked.
+
+```php
+class Foo
+{
+
+	/** @throws \InvalidArgumentException */
+	public function doFoo(): void
+	{
+	
+	}
+
+}
+
+class Bar extends Foo
+{
+
+	public function doFoo(): void
+	{
+		// does not throw the exception, but `@throws` is implicitly inherited
+		// Error: Method Bar::doFoo() has InvalidArgumentException in PHPDoc @throws tag but it\'s not thrown.
+	}
+
+}
 ```
 
 Dead catch reporting
