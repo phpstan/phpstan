@@ -8,16 +8,15 @@ It's hosted on [GitHub Container Registry](https://github.com/phpstan/phpstan/pk
 
 ## Supported tags
 
+- `2-php8.5`, `latest-php8.5` (PHP 8.5)
+- `2-php8.4`, `latest-php8.4` (PHP 8.4)
 - `2-php8.3`, `latest-php8.3` (PHP 8.3)
 - `2-php8.2`, `latest-php8.2` (PHP 8.2)
 - `2-php8.1`, `latest-php8.1` (PHP 8.1)
 - `2-php8.0`, `latest-php8.0` (PHP 8.0)
 
-- `1-php8.3` (PHP 8.3)
-- `1-php8.2` (PHP 8.2)
-- `1-php8.1` (PHP 8.1)
-- `1-php8.0` (PHP 8.0)
-
+- `nightly-php8.5` - latest dev version (PHP 8.5)
+- `nightly-php8.4` - latest dev version (PHP 8.4)
 - `nightly-php8.3` - latest dev version (PHP 8.3)
 - `nightly-php8.2` - latest dev version (PHP 8.2)
 - `nightly-php8.1` - latest dev version (PHP 8.1)
