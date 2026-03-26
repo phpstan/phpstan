@@ -227,7 +227,7 @@ And the output is a `callmap.json` file with every method call in your codebase:
 A more complex example: Extracting error identifiers
 --------------------
 
-I use this same pattern myself to [generate the error identifier documentation](/user-guide/error-identifiers) on this website. Every PHPStan error has a [unique identifier](/blog/phpstan-1-11-errors-identifiers-phpstan-pro-reboot) like `argument.type` or `deadCode.unreachable`. The [identifier extractor](https://github.com/phpstan/phpstan/tree/2.2.x/identifier-extractor) scans the PHPStan source code and all 1st-party extensions to find where these identifiers are defined.
+I use this same pattern myself to [generate the error identifier documentation](/error-identifiers) on this website. Every PHPStan error has a [unique identifier](/blog/phpstan-1-11-errors-identifiers-phpstan-pro-reboot) like `argument.type` or `deadCode.unreachable`. The [identifier extractor](https://github.com/phpstan/phpstan/tree/2.2.x/identifier-extractor) scans the PHPStan source code and all 1st-party extensions to find where these identifiers are defined.
 
 It's more complex than the callmap example because it uses four different collectors, each targeting a different code pattern:
 
