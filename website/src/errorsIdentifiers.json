@@ -12767,7 +12767,7 @@
         },
         "PHPStan\\PhpDoc\\StubValidator": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/PhpDoc/StubValidator.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/PhpDoc/StubValidator.php#L88"
             ]
         }
     },
