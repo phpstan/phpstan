@@ -139,6 +139,12 @@ parameters:
 			path: repo/tools/generate-item-upgrade-schema.php
 
 		-
+			message: '#^Constant JSON_THROW_ON_ERROR is not allowed for parameter \#3 \$depth of function json_decode\.$#'
+			identifier: argument.invalidConstant
+			count: 1
+			path: repo/tools/generate-item-upgrade-schema.php
+
+		-
 			message: '#^Part \$meta \(mixed\) of encapsed string cannot be cast to string\.$#'
 			identifier: encapsedStringPart.nonString
 			count: 1
