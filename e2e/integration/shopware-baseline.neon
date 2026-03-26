@@ -37,6 +37,12 @@ parameters:
 			path: repo/src/Core/Checkout/Customer/CustomerValueResolver.php
 
 		-
+			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
+			identifier: argument.invalidConstant
+			count: 1
+			path: repo/src/Core/Content/Cms/Subscriber/UnusedMediaSubscriber.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Content\Flow\DataAbstractionLayer\FieldSerializer\FlowTemplateConfigFieldSerializer::encode() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -59,6 +65,12 @@ parameters:
 			identifier: varTag.nativeType
 			count: 1
 			path: repo/src/Core/Content/Media/Commands/GenerateThumbnailsCommand.php
+
+		-
+			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
+			identifier: argument.invalidConstant
+			count: 1
+			path: repo/src/Core/Content/Media/Subscriber/CustomFieldsUnusedMediaSubscriber.php
 
 		-
 			rawMessage: 'Constant SORT_DESC is not allowed for parameter #2 $flags of function arsort.'
@@ -149,6 +161,18 @@ parameters:
 			identifier: nullCoalesce.offset
 			count: 1
 			path: repo/src/Core/Framework/App/Context/Gateway/AppContextGateway.php
+
+		-
+			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
+			identifier: argument.invalidConstant
+			count: 1
+			path: repo/src/Core/Framework/App/Lifecycle/Registration/StoreHandshake.php
+
+		-
+			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
+			identifier: argument.invalidConstant
+			count: 4
+			path: repo/src/Core/Framework/App/Privileges/Privileges.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\DataAbstractionLayer\Dbal\JoinGroupBuilder::getDuplicates() should return array<string> but returns list<int|string>.'
@@ -637,6 +661,12 @@ parameters:
 			path: repo/src/Core/Framework/Migration/MigrationRuntime.php
 
 		-
+			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
+			identifier: argument.invalidConstant
+			count: 1
+			path: repo/src/Core/Framework/Plugin/Composer/Factory.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Framework\Plugin\Requirement\Exception\RequirementStackException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -707,6 +737,12 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/System/SalesChannel/Context/SalesChannelContextValueResolver.php
+
+		-
+			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
+			identifier: argument.invalidConstant
+			count: 1
+			path: repo/src/Core/System/Snippet/Service/TranslationMetadataLoader.php
 
 		-
 			rawMessage: 'Call to function assert() with true will always evaluate to true.'
@@ -901,6 +937,24 @@ parameters:
 			path: repo/tests/integration/Core/Content/Product/Subscriber/ProductLoadedSubscriberTest.php
 
 		-
+			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
+			identifier: argument.invalidConstant
+			count: 1
+			path: repo/tests/integration/Core/Framework/Api/ApiAwareTest.php
+
+		-
+			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
+			identifier: argument.invalidConstant
+			count: 1
+			path: repo/tests/integration/Core/Framework/Api/Controller/SyncControllerTest.php
+
+		-
+			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
+			identifier: argument.invalidConstant
+			count: 2
+			path: repo/tests/integration/Core/Framework/App/Privileges/PrivilegesTest.php
+
+		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\CustomField\CustomFieldServiceTest::testGetCustomFieldField() invoked with 14 parameters, 2 required.'
 			identifier: arguments.count
 			count: 1
@@ -1031,6 +1085,12 @@ parameters:
 			identifier: staticMethod.alreadyNarrowedType
 			count: 1
 			path: repo/tests/integration/Core/Framework/Webhook/Service/WebhookLoaderTest.php
+
+		-
+			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
+			identifier: argument.invalidConstant
+			count: 4
+			path: repo/tests/integration/Core/System/CustomEntity/CustomEntityTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\System\SalesChannel\Context\SalesChannelContextTest::testEnsureLoginShouldThrowAnException() invoked with 4 parameters, 3 required.'
@@ -1517,6 +1577,12 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/tests/unit/Core/Framework/Adapter/Translation/TranslatorTest.php
+
+		-
+			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
+			identifier: argument.invalidConstant
+			count: 4
+			path: repo/tests/unit/Core/Framework/Api/ApiDefinition/Generator/OpenApi/OpenApiDefinitionSchemaBuilderTest.php
 
 		-
 			rawMessage: 'Parameter #2 $expected of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Dbal\CriteriaFieldsResolverTest::testResolveFields() expects array<int, mixed>, array<string, array<string, array>> given.'
@@ -2099,6 +2165,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/System/SystemConfig/Validation/SystemConfigValidatorTest.php
+
+		-
+			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
+			identifier: argument.invalidConstant
+			count: 1
+			path: repo/tests/unit/Core/System/UsageData/Consent/ConsentReporterTest.php
 
 		-
 			rawMessage: 'Parameter $config of method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::testBuildMultipleLanguages() expects array{array{and_logic: string, field: string, tokenize: int, ranking: int}}, array{array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}} given.'
