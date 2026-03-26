@@ -2,6 +2,8 @@
 title: Ignoring Errors
 searchKeywords:
   - suppress
+  - ignore
+  - ignoreErrors
 ---
 
 You might want to ignore some errors found by PHPStan for various reasons:
