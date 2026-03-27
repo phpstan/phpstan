@@ -91,6 +91,12 @@ parameters:
 			path: repo/src/Query/SqlWalker.php
 
 		-
+			message: '#^Call to function method_exists\(\) with ''Symfony\\\\Component\\\\Console\\\\Application'' and ''addCommand'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Tools/Console/ConsoleRunner.php
+
+		-
 			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isToMany\(\) will always evaluate to true\.$#'
 			identifier: method.alreadyNarrowedType
 			count: 1
