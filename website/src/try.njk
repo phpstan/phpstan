@@ -64,6 +64,26 @@ permalink: "/try.html"
 						<input type="checkbox" data-bind="checked: checkTooWideTypesInProtectedAndPublicMethods" class="border-gray-300 rounded dark:border-current">
 						<span class="flex items-center gap-1.5" data-bind="css: { 'text-blue-600': isNonDefault('checkTooWideTypesInProtectedAndPublicMethods') }">Check too wide types in non-private methods{{ refLink('checktoowidereturntypesinprotectedandpublicmethods') }}</span>
 					</label>
+					<div>
+						<div class="flex items-center gap-1.5 mb-1.5">
+							<span class="text-sm font-medium" data-bind="css: { 'text-blue-600': isNonDefault('reportUnsafeArrayStringKeyCasting'), 'text-gray-700': !isNonDefault('reportUnsafeArrayStringKeyCasting') }">Array String Keys</span>
+							<a href="/blog/why-array-string-keys-are-not-type-safe" target="_blank" class="text-gray-400 hover:text-gray-600" onclick="event.stopPropagation()"><svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-3.5 h-3.5"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg></a>
+						</div>
+						<div class="flex gap-4 ml-0.5">
+							<label class="flex items-center gap-1.5 cursor-pointer">
+								<input type="radio" name="reportUnsafeArrayStringKeyCasting" data-bind="checked: reportUnsafeArrayStringKeyCasting" value="null" class="border-gray-300 dark:border-current">
+								<span>Unsafe</span>
+							</label>
+							<label class="flex items-center gap-1.5 cursor-pointer">
+								<input type="radio" name="reportUnsafeArrayStringKeyCasting" data-bind="checked: reportUnsafeArrayStringKeyCasting" value="detect" class="border-gray-300 dark:border-current">
+								<span>Detect</span>
+							</label>
+							<label class="flex items-center gap-1.5 cursor-pointer">
+								<input type="radio" name="reportUnsafeArrayStringKeyCasting" data-bind="checked: reportUnsafeArrayStringKeyCasting" value="prevent" class="border-gray-300 dark:border-current">
+								<span>Prevent</span>
+							</label>
+						</div>
+					</div>
 				</div>
 			</fieldset>
 

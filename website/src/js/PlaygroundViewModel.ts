@@ -31,6 +31,7 @@ const optionDefaults = {
 	uncheckedExceptionClasses: '',
 	checkedExceptionClasses: '',
 	tooWideImplicitThrowType: false,
+	reportUnsafeArrayStringKeyCasting: 'null',
 };
 
 type OptionName = keyof typeof optionDefaults;
@@ -65,6 +66,7 @@ export class PlaygroundViewModel {
 	uncheckedExceptionClasses: ko.Observable<string>;
 	checkedExceptionClasses: ko.Observable<string>;
 	tooWideImplicitThrowType: ko.Observable<boolean>;
+	reportUnsafeArrayStringKeyCasting: ko.Observable<string>;
 
 	changedOptionsCount: ko.PureComputed<number>;
 	isNotDefaults: ko.PureComputed<boolean>;
@@ -137,6 +139,7 @@ export class PlaygroundViewModel {
 		this.uncheckedExceptionClasses = ko.observable<string>(optionDefaults.uncheckedExceptionClasses);
 		this.checkedExceptionClasses = ko.observable<string>(optionDefaults.checkedExceptionClasses);
 		this.tooWideImplicitThrowType = ko.observable<boolean>(optionDefaults.tooWideImplicitThrowType);
+		this.reportUnsafeArrayStringKeyCasting = ko.observable<string>(optionDefaults.reportUnsafeArrayStringKeyCasting);
 
 		this.allOptions = optionKeys.map(key => this[key] as ko.Observable<any>);
 		this.newOptionEntries = optionKeys.slice(3).map(key => [key, this[key] as ko.Observable<any>] as [string, ko.Observable<any>]);
@@ -271,6 +274,7 @@ export class PlaygroundViewModel {
 		}
 		opts.uncheckedExceptionClasses = parseClasses(this.uncheckedExceptionClasses());
 		opts.checkedExceptionClasses = parseClasses(this.checkedExceptionClasses());
+		opts.reportUnsafeArrayStringKeyCasting = opts.reportUnsafeArrayStringKeyCasting === 'null' ? null : opts.reportUnsafeArrayStringKeyCasting;
 		return opts;
 	}
 
@@ -289,6 +293,10 @@ export class PlaygroundViewModel {
 				// API returns arrays for exception classes, convert to newline-separated strings
 				if ((key === 'uncheckedExceptionClasses' || key === 'checkedExceptionClasses') && Array.isArray(value)) {
 					value = value.join('\n');
+				}
+				// API returns null for reportUnsafeArrayStringKeyCasting, convert to 'null' string for radio binding
+				if (key === 'reportUnsafeArrayStringKeyCasting' && value === null) {
+					value = 'null';
 				}
 				obs(value);
 			}
