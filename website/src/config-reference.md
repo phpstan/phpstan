@@ -581,6 +581,23 @@ parameters:
     checkBenevolentUnionTypes: true
 ```
 
+### `reportUnsafeArrayStringKeyCasting`
+
+**default**: `null` (disabled)
+
+Controls how PHPStan handles the fact that PHP automatically casts numeric string array keys to integers. Accepts `'detect'`, `'prevent'`, or `null`.
+
+In PHP, when you use a numeric string like `"1"` as an array key, it gets silently cast to an integer. This means `array<string, mixed>` isn't entirely accurate — some of those "string" keys might actually become integers at runtime.
+
+- **`null`** (default): PHPStan does not account for this behavior. `array<string, mixed>` keys are treated as `string`.
+- **`'detect'`**: PHPStan infers array keys declared as `string` to be `int|non-decimal-int-string`, reflecting that numeric strings get cast to integers.
+- **`'prevent'`**: PHPStan narrows array keys declared as `string` to `non-decimal-int-string` only, preventing numeric string keys from being used.
+
+```yaml
+parameters:
+    reportUnsafeArrayStringKeyCasting: detect
+```
+
 ### `reportPossiblyNonexistentGeneralArrayOffset`
 
 By default PHPStan does not report possibly nonexistent offset on general arrays:
@@ -736,7 +753,7 @@ Advanced exceptions-related rules are available. [Read this article for more det
 
 For custom logic that dynamically decides whether an exception is checked or unchecked based on scope, you can implement a custom [exception type resolver](/developing-extensions/exception-type-resolver).
 
-Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.throwTypeCovariance`, `exceptions.check.tooWideImplicitThrowType`
+Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.tooWideThrowType`, `exceptions.check.throwTypeCovariance`, `exceptions.check.tooWideImplicitThrowType`
 
 ### `exceptions.implicitThrows`
 
@@ -761,6 +778,25 @@ When set to `true` (the default), PHPStan reports dead catch blocks for unchecke
 **example**: [with `false`](/r/25faef78-318f-4d03-a537-b8c3d51ccde5), [with `true`](/r/efc31418-db3e-4f08-95f9-a24794292ba1)
 
 When set to `true`, it reports missing `@throws` tags for checked exceptions above functions and methods. Requires configuring `exceptions.checkedExceptionClasses` or `exceptions.checkedExceptionRegexes`.
+
+### `exceptions.check.tooWideThrowType`
+
+**default**: `true`
+
+**example**: [with `true`](/r/aa7fa006-b3b9-479a-8324-393f45d94804), [with `false`](/r/92117bc4-22a7-4cef-b7b7-1ae53cf30b87)
+
+When set to `true`, PHPStan reports `@throws` types that are declared but never actually thrown from a function or method. This rule is activated at level 4 and above.
+
+```php
+/**
+ * @throws \InvalidArgumentException|\DomainException
+ */
+function doFoo(): void
+{
+    // DomainException is declared in @throws but never thrown
+    throw new \InvalidArgumentException();
+}
+```
 
 ### `exceptions.check.throwTypeCovariance`
 
