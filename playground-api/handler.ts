@@ -21,6 +21,7 @@ const optionsSchema = z.object({
 	checkedExceptionClasses: z.array(z.string()).optional(),
 	missingCheckedExceptionInThrows: z.boolean().optional(),
 	tooWideImplicitThrowType: z.boolean().optional(),
+	reportUnsafeArrayStringKeyCasting: z.enum(['detect', 'prevent']).nullable().optional(),
 }).passthrough();
 
 type PlaygroundOptions = z.infer<typeof optionsSchema>;
