@@ -66,6 +66,7 @@ return function ($event) use ($phpstanVersion) {
 		'checkTooWideReturnTypesInProtectedAndPublicMethods' => $options['checkTooWideTypesInProtectedAndPublicMethods'] ?? false,
 		'checkTooWideParameterOutInProtectedAndPublicMethods' => $options['checkTooWideTypesInProtectedAndPublicMethods'] ?? false,
 		'checkTooWideThrowTypesInProtectedAndPublicMethods' => $options['checkTooWideTypesInProtectedAndPublicMethods'] ?? false,
+        'reportUnsafeArrayStringKeyCasting' => $options['reportUnsafeArrayStringKeyCasting'] ?? null,
 	];
 
 	$parameters['exceptions'] = [
