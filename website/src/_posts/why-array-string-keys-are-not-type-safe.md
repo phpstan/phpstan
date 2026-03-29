@@ -143,10 +143,10 @@ $array[null] = 'value';  // Reported: Invalid array key type null.
 
 These features catch explicit misuses of non-int/non-string types as keys. But they don't solve the fundamental problem: any `string` might be a decimal integer string, and once it's used as an array key, it silently becomes an `int`. PHPStan couldn't do anything about this — until now.
 
-PHPStan 2.2: non-decimal-int-string
+PHPStan 2.2.0: non-decimal-int-string
 ------------------------
 
-PHPStan 2.2, coming soon at some point in spring 2026, will introduce a new type: `non-decimal-int-string`.
+PHPStan 2.2.0 introduces two new types: `non-decimal-int-string` and `decimal-int-string`.
 
 A *decimal integer string* is a string that PHP considers a valid decimal integer and would cast to `int` when used as an array key — like `'0'`, `'123'`, or `'42'`.
 
@@ -173,7 +173,27 @@ function processData(array $data): void
 
 No more `TypeError` at runtime. No more surprise re-indexing by `array_merge`. No more failed strict key lookups. The type system finally tells the truth about what your array keys actually are.
 
-Additionally, `array<string, mixed>` will be optionally interpreted as `array<non-decimal-int-string, mixed>`. When this is enabled, PHPStan will make sure that only safe non-decimal-int strings are used as keys in string-keyed arrays. This will usher in a new era of array type safety in PHP.
+You can start using `non-decimal-int-string` in your type annotations today. It makes sense anywhere you need array keys that are guaranteed to stay as strings.
+
+reportUnsafeArrayStringKeyCasting
+------------------------
+
+But you shouldn't have to rewrite all your `array<string, mixed>` annotations by hand. That's where the new [`reportUnsafeArrayStringKeyCasting`](/config-reference#reportunsafearraystringkeycasting) config parameter comes in. It has three values:
+
+**`null`** (default) — behaviour as it is today. No additional checks. [Playground example »](/r/dcbe6433-b2bb-4c1e-b378-2d61190ff253)
+
+**`'detect'`** — typehinted `array<string, mixed>` accepts other `array<string, mixed>`, but when you get a key out of it, the key type will be `int|non-decimal-int-string` instead of `string`. This reveals the potential issues in your code without requiring you to change any type annotations. [Playground example »](/r/170d5184-42cd-4ad1-8cc7-c10d83d0f967)
+
+**`'prevent'`** — typehinted `array<string, mixed>` is essentially treated as `array<non-decimal-int-string, mixed>`. It will only accept another array with safe string keys. Additionally, any `string` being used as an array key is correctly narrowed to `int|non-decimal-int-string`. This is the strictest mode and gives you the most protection. [Playground example »](/r/c05a336c-727e-44ae-81d8-1e63bfaac563)
+
+```yaml
+parameters:
+    reportUnsafeArrayStringKeyCasting: detect # or: prevent
+```
+
+I'd recommend starting with `detect` to see how your codebase is affected, and then moving to `prevent` once you've addressed the findings.
+
+Please note this is highly experimental and things can change as I adjust and make the types more practical and useful.
 
 ---
 

@@ -647,6 +647,31 @@ $array[null] = 'value';  // null key is converted to ''
 
 By setting `reportNonIntStringArrayKey` to true, PHPStan will report these cases, helping you catch potentially confusing implicit conversions.
 
+### `reportUnsafeArrayStringKeyCasting`
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.2.0</div>
+
+**default**: `null`
+
+**example**: [unsafe (null)](/r/dcbe6433-b2bb-4c1e-b378-2d61190ff253), [detect](/r/170d5184-42cd-4ad1-8cc7-c10d83d0f967), [prevent](/r/c05a336c-727e-44ae-81d8-1e63bfaac563)
+
+PHP silently casts array keys that look like decimal integers from `string` to `int`. This means `array<string, mixed>` can't guarantee that keys are actually strings at runtime. [Read more about this problem »](/blog/why-array-string-keys-are-not-type-safe)
+
+PHPStan 2.2.0 introduces `non-decimal-int-string` and `decimal-int-string` types alongside this config parameter to give you control over how strictly array string keys are checked.
+
+This parameter accepts three values:
+
+* **`null`** (default) — Current behaviour. No additional checks. String keys that look like decimal integers are silently cast to `int` at runtime without any PHPStan errors.
+* **`'detect'`** — Typehinted `array<string, mixed>` accepts other `array<string, mixed>`, but when you get a key out of it (e.g. via `foreach` or `array_keys`), the key type will be `int|non-decimal-int-string` instead of `string`. This reveals potential issues without requiring you to change all your array type annotations.
+* **`'prevent'`** — Typehinted `array<string, mixed>` is essentially treated as `array<non-decimal-int-string, mixed>`. It will only accept another array with safe string keys. Additionally, any `string` being used as an array key is correctly narrowed to `int|non-decimal-int-string`.
+
+```yaml
+parameters:
+    reportUnsafeArrayStringKeyCasting: detect # or: prevent, null
+```
+
+Please note this is highly experimental and things can change as the types are adjusted and made more practical and useful.
+
 ### `reportWrongPhpDocTypeInVarTag`
 
 **default**: `false` ([strict-rules](https://github.com/phpstan/phpstan-strict-rules) sets it to `true`)
