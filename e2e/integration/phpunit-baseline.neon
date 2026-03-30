@@ -5,3 +5,9 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Framework/TestSuite.php
+
+		-
+			rawMessage: 'Property PHPUnit\Runner\ErrorHandler::$globalDeprecations (list<array<int, int|string>>) on left side of ?? is not nullable.'
+			identifier: nullCoalesce.property
+			count: 1
+			path: repo/src/Runner/ErrorHandler.php
