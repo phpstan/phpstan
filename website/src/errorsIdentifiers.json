@@ -6579,7 +6579,7 @@
     "filterVar.nullOnFailureAndThrowOnFailure": {
         "PHPStan\\Rules\\Functions\\FilterVarRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/FilterVarRule.php#L60"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/FilterVarRule.php#L68"
             ]
         }
     },
