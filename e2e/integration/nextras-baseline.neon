@@ -29,3 +29,15 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Entity/Reflection/ModifierParser.php
+
+		-
+			rawMessage: 'Call to function assert() with true will always evaluate to true.'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Repository/RemovalHelper.php
+
+		-
+			rawMessage: Instanceof between Nextras\Orm\Entity\IEntity and Nextras\Orm\Entity\IEntity will always evaluate to true.
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Repository/RemovalHelper.php
