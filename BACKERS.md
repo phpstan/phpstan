@@ -167,6 +167,5 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/fetova"> (fetova)</a></li>
 <li><a href="https://github.com/m1rm">Miriam Müller (m1rm)</a></li>
 <li><a href="https://github.com/matijabelec">Matija (matijabelec)</a></li>
-<li><a href="https://github.com/Herafia">Laura (Herafia)</a></li>
 <!-- indi-org -->
 </ul>
