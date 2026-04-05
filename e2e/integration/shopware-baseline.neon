@@ -103,6 +103,12 @@ parameters:
 			path: repo/src/Core/Content/Product/SalesChannel/Listing/Processor/SortingListingProcessor.php
 
 		-
+			rawMessage: 'Return type (Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult<Shopware\Core\Framework\DataAbstractionLayer\EntityCollection<Shopware\Core\Framework\DataAbstractionLayer\Entity>>) of method Shopware\Core\Content\Test\ImportExport\MockRepository::search() should be compatible with return type (Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult<Shopware\Core\Framework\DataAbstractionLayer\EntityCollection>) of method Shopware\Core\Framework\DataAbstractionLayer\EntityRepository<TEntityCollection of Shopware\Core\Framework\DataAbstractionLayer\EntityCollection>::search()'
+			identifier: method.childReturnType
+			count: 1
+			path: repo/src/Core/Content/Test/ImportExport/MockRepository.php
+
+		-
 			rawMessage: Casting to string something that's already string.
 			identifier: cast.useless
 			count: 2
