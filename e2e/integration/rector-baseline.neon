@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Provide more specific return type "Iterator" over abstract one$#'
+			identifier: typePerfect.narrowReturnObjectType
+			count: 1
+			path: repo/rules-tests/Naming/Naming/UseImportsResolver/UseImportsResolverTest.php
+
+		-
 			message: '#^If condition is always false\.$#'
 			identifier: if.alwaysFalse
 			count: 1
@@ -17,6 +23,12 @@ parameters:
 			identifier: symplify.forbiddenExtendOfNonAbstractClass
 			count: 1
 			path: repo/src/NodeTypeResolver/PHPStan/ObjectWithoutClassTypeWithParentTypes.php
+
+		-
+			message: '#^Provide more specific return type "PhpParser\\Node" over abstract one$#'
+			identifier: typePerfect.narrowReturnObjectType
+			count: 1
+			path: repo/src/PhpParser/Node/NodeFactory.php
 
 		-
 			message: '#^Only abstract classes can be extended$#'
@@ -83,3 +95,39 @@ parameters:
 			identifier: symplify.forbiddenExtendOfNonAbstractClass
 			count: 1
 			path: repo/src/StaticTypeMapper/ValueObject/Type/SimpleStaticType.php
+
+		-
+			message: '#^Provide more specific return type "Iterator" over abstract one$#'
+			identifier: typePerfect.narrowReturnObjectType
+			count: 1
+			path: repo/src/Testing/PHPUnit/AbstractRectorTestCase.php
+
+		-
+			message: '#^Provide more specific return type "Iterator" over abstract one$#'
+			identifier: typePerfect.narrowReturnObjectType
+			count: 3
+			path: repo/tests/BetterPhpDocParser/PhpDocInfo/PhpDocInfoPrinter/PhpDocInfoPrinterTest.php
+
+		-
+			message: '#^Provide more specific return type "Iterator" over abstract one$#'
+			identifier: typePerfect.narrowReturnObjectType
+			count: 1
+			path: repo/tests/BetterPhpDocParser/PhpDocParser/ClassAnnotationMatcher/ResolveTagToKnownFullyQualifiedNameTest.php
+
+		-
+			message: '#^Provide more specific return type "Iterator" over abstract one$#'
+			identifier: typePerfect.narrowReturnObjectType
+			count: 2
+			path: repo/tests/BetterPhpDocParser/PhpDocParser/TagValueNodeReprint/TagValueNodeReprintTest.php
+
+		-
+			message: '#^Provide more specific return type "Iterator" over abstract one$#'
+			identifier: typePerfect.narrowReturnObjectType
+			count: 1
+			path: repo/tests/Comments/CommentRemover/CommentRemoverTest.php
+
+		-
+			message: '#^Provide more specific return type "Iterator" over abstract one$#'
+			identifier: typePerfect.narrowReturnObjectType
+			count: 1
+			path: repo/tests/NodeTypeResolver/PerNodeTypeResolver/PropertyFetchTypeResolver/PropertyFetchTypeResolverTest.php
