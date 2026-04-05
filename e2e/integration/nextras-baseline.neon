@@ -7,6 +7,12 @@ parameters:
 			path: repo/src/Bridges/NetteDI/PhpDocRepositoryFinder.php
 
 		-
+			rawMessage: 'Parameter #1 $repository of class Nextras\Orm\Collection\Helpers\ArrayCollectionHelper constructor expects Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>, Nextras\Orm\Repository\IRepository<E of Nextras\Orm\Entity\IEntity> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Collection/ArrayCollection.php
+
+		-
 			rawMessage: 'Call to an undefined method object::onEntityAttach().'
 			identifier: method.notFound
 			count: 1
@@ -29,6 +35,144 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Entity/Reflection/ModifierParser.php
+
+		-
+			rawMessage: 'Method Nextras\Orm\Mapper\Dbal\DbalMapper::createCollectionManyHasMany() should return Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity> but returns Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Mapper/Dbal/DbalMapper.php
+
+		-
+			rawMessage: 'Method Nextras\Orm\Mapper\Dbal\DbalMapper::createCollectionManyHasOne() should return Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity> but returns Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Mapper/Dbal/DbalMapper.php
+
+		-
+			rawMessage: 'Method Nextras\Orm\Mapper\Dbal\DbalMapper::createCollectionOneHasMany() should return Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity> but returns Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Mapper/Dbal/DbalMapper.php
+
+		-
+			rawMessage: 'Method Nextras\Orm\Mapper\Dbal\DbalMapper::createCollectionOneHasOne() should return Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity> but returns Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Mapper/Dbal/DbalMapper.php
+
+		-
+			rawMessage: 'Method Nextras\Orm\Mapper\Memory\ArrayMapper::createCollectionManyHasMany() should return Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity> but returns Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Mapper/Memory/ArrayMapper.php
+
+		-
+			rawMessage: 'Method Nextras\Orm\Mapper\Memory\ArrayMapper::createCollectionManyHasOne() should return Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity> but returns Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Mapper/Memory/ArrayMapper.php
+
+		-
+			rawMessage: 'Method Nextras\Orm\Mapper\Memory\ArrayMapper::createCollectionOneHasMany() should return Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity> but returns Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Mapper/Memory/ArrayMapper.php
+
+		-
+			rawMessage: 'Method Nextras\Orm\Mapper\Memory\ArrayMapper::createCollectionOneHasOne() should return Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity> but returns Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Mapper/Memory/ArrayMapper.php
+
+		-
+			rawMessage: PHPDoc tag @var with type Nextras\Orm\Repository\IRepository<E of Nextras\Orm\Entity\IEntity> is not subtype of type Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>.
+			identifier: varTag.type
+			count: 1
+			path: repo/src/Mapper/Memory/ArrayMapper.php
+
+		-
+			rawMessage: 'Property Nextras\Orm\Mapper\Memory\ArrayMapper::$repository (Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>|null) is never assigned Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity> so it can be removed from the property type.'
+			identifier: property.unusedType
+			count: 1
+			path: repo/src/Mapper/Memory/ArrayMapper.php
+
+		-
+			rawMessage: 'Property Nextras\Orm\Mapper\Memory\ArrayMapper<E of Nextras\Orm\Entity\IEntity>::$repository (Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>|null) does not accept Nextras\Orm\Repository\IRepository<E of Nextras\Orm\Entity\IEntity>.'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/Mapper/Memory/ArrayMapper.php
+
+		-
+			rawMessage: 'Method Nextras\Orm\Model\Model::getRepository() should return T of Nextras\Orm\Repository\IRepository<E of Nextras\Orm\Entity\IEntity> but returns Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Model/Model.php
+
+		-
+			rawMessage: PHPDoc tag @var with type Nextras\Orm\Repository\IRepository<E of Nextras\Orm\Entity\IEntity> is not subtype of type Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>.
+			identifier: varTag.type
+			count: 1
+			path: repo/src/Model/Model.php
+
+		-
+			rawMessage: 'Parameter #1 $className of method Nextras\Orm\Model\IRepositoryLoader::getRepository() expects class-string<Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>>, class-string<T of Nextras\Orm\Repository\IRepository<E of Nextras\Orm\Entity\IEntity>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Model/Model.php
+
+		-
+			rawMessage: 'Unable to resolve the template type T in call to method Nextras\Orm\Model\IRepositoryLoader::getRepository()'
+			identifier: argument.templateType
+			count: 1
+			path: repo/src/Model/Model.php
+
+		-
+			rawMessage: 'Parameter #1 $repositories of class Nextras\Orm\Model\SimpleRepositoryLoader constructor expects list<Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>>, list<Nextras\Orm\Repository\IRepository<E of Nextras\Orm\Entity\IEntity>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Model/SimpleModelFactory.php
+
+		-
+			rawMessage: 'Parameter #1 $repositories of static method Nextras\Orm\Model\Model::getConfiguration() expects array<string, class-string<Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>>|Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>>, array<string, Nextras\Orm\Repository\IRepository<E of Nextras\Orm\Entity\IEntity>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Model/SimpleModelFactory.php
+
+		-
+			rawMessage: PHPDoc tag @var with type Nextras\Orm\Repository\IRepository<E of Nextras\Orm\Entity\IEntity> is not subtype of type Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>.
+			identifier: varTag.type
+			count: 1
+			path: repo/src/Relationships/HasMany.php
+
+		-
+			rawMessage: PHPDoc tag @var with type Nextras\Orm\Repository\IRepository<E of Nextras\Orm\Entity\IEntity> is not subtype of type Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>.
+			identifier: varTag.type
+			count: 1
+			path: repo/src/Relationships/HasOne.php
+
+		-
+			rawMessage: PHPDoc tag @var with type Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity> is not subtype of type Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity>.
+			identifier: varTag.type
+			count: 1
+			path: repo/src/Relationships/ManyHasMany.php
+
+		-
+			rawMessage: PHPDoc tag @var with type Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity> is not subtype of type Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity>.
+			identifier: varTag.type
+			count: 1
+			path: repo/src/Relationships/ManyHasOne.php
+
+		-
+			rawMessage: PHPDoc tag @var with type Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity> is not subtype of type Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity>.
+			identifier: varTag.type
+			count: 1
+			path: repo/src/Relationships/OneHasMany.php
+
+		-
+			rawMessage: PHPDoc tag @var with type Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity> is not subtype of type Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity>.
+			identifier: varTag.type
+			count: 1
+			path: repo/src/Relationships/OneHasOne.php
 
 		-
 			rawMessage: 'Call to function assert() with true will always evaluate to true.'
