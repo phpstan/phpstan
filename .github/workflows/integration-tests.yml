@@ -62,7 +62,7 @@ jobs:
             script: |
               git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 2.3.2
+              git checkout ffbf1039f74226453855afadb17d0449c79347fd
               cp ../rector-composer.lock composer.lock
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
@@ -74,7 +74,7 @@ jobs:
             script: |
               git clone https://github.com/rectorphp/rector-downgrade-php.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout a110e2fcf94e7513739f54bc27cd473ba9eff5d5
+              git checkout 77ccf646e697589619b4dda07865b1d638b64b83
               cp ../rector-downgrade-php-composer.lock composer.lock
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
