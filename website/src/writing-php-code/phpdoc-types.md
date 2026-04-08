@@ -49,6 +49,8 @@ Classes and interfaces
 
 A fully-qualified name (FQN) like `\Foo\Bar\Baz`, or a relative name like `Baz` resolved based on the current namespace and `use` statements can be used.
 
+`self` refers to the current class and `parent` refers to the parent class, just like in PHP itself.
+
 Trait names cannot be used in PHPDocs, as they [don't work as native PHP typehints](https://3v4l.org/Ifr2J) either.
 
 Integer ranges
