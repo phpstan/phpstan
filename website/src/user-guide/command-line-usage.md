@@ -195,3 +195,66 @@ Example: `--memory-limit 1G`
 ### `--debug`
 
 Thrown exceptions (internal errors) will not be caught and their stack trace will be printed in full when this option is added.
+
+Bisecting regressions
+--------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.1.47</div>
+
+To find the first PHPStan commit that introduced a regression, you can run the `bisect` command:
+
+```bash
+vendor/bin/phpstan bisect [options] [<paths>...]
+```
+
+This command performs a binary search over PHPStan releases, similar to `git bisect`. It's useful when a regression is only reproducible with your project's configuration and analysing with phpstan-src directly isn't feasible.
+
+The command will:
+
+1. Ask for a "good" (working) and "bad" (broken) PHPStan release version
+2. Fetch the list of commits between those two releases from the GitHub API
+3. Perform a binary search — for each step, it downloads the corresponding `phpstan.phar`, runs the analysis, and asks you whether the result is "good" or "bad"
+4. When the search converges, it prints the first bad commit along with links to the phpstan-src commits that were pushed together
+
+Downloaded PHARs are cached in your system's temp directory to avoid re-downloading on repeated runs.
+
+### GitHub token
+
+The command needs a GitHub token to query the GitHub API and download PHAR files. It looks for the token in the following order:
+
+1. `GITHUB_TOKEN` or `GH_TOKEN` environment variable
+2. `github-oauth` token in `~/.composer/auth.json`
+
+### `--good`
+
+Specifies the good (old) PHPStan release version where the analysis still works correctly.
+
+Example: `--good 2.1.0`
+
+### `--bad`
+
+Specifies the bad (new) PHPStan release version where the regression appears.
+
+Example: `--bad 2.1.5`
+
+If `--good` and `--bad` are not provided, the command will ask for them interactively.
+
+### `--configuration|-c`
+
+Specifies the path to a [configuration file](/config-reference). Relative paths are resolved based on the current working directory.
+
+### `--level|-l`
+
+Specifies the [rule level](/user-guide/rule-levels) to run.
+
+### `--autoload-file|-a`
+
+If your application uses a custom autoloader, you should set it up and register in a PHP file that is passed to this CLI option. Relative paths are resolved based on the current working directory.
+
+[Learn more »](/user-guide/discovering-symbols)
+
+### `--memory-limit`
+
+Specifies the memory limit in the same format `php.ini` accepts.
+
+Example: `--memory-limit 1G`
