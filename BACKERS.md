@@ -52,6 +52,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/route4me">Route4Me Route Planner (route4me)</a></li>
 <li><a href="https://github.com/belsimpel">Belsimpel.nl B.V. (belsimpel)</a></li>
 <li><a href="https://github.com/passbolt">Passbolt (passbolt)</a></li>
+<li><a href="https://github.com/netroutingcom">Netrouging (netroutingcom)</a></li>
 <!-- bronze-org -->
 </ul>
 
