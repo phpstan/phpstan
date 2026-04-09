@@ -80,7 +80,7 @@ Want your logo here? [Learn more »](https://phpstan.org/sponsor)
 <br>
 <a href="https://www.crisp.nl/"><img src="website/src/images/sponsor/crisp.png" alt="Crisp.nl" width="283" height="64"></a>
 <br>
-
+<a href="https://www.netrouting.com/"><img src="website/src/images/sponsor/netrouting.png" alt="Netrouting" width="254" height="65"></a>
 
 
 [**You can sponsor my open-source work on PHPStan through GitHub Sponsors and also directly.**](https://phpstan.org/sponsor)
