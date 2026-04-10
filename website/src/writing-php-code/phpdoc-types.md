@@ -201,7 +201,7 @@ Generic type syntax:
 * `Collection<contravariant Type>` — call-site contravariance (accepts supertypes)
 * `Collection<*>` — [star projection](/blog/guide-to-call-site-generic-variance#star-projections) (any type argument, both read and write restricted)
 
-Many built-in PHP classes like `ArrayIterator`, `SplObjectStorage`, `ReflectionClass`, `WeakMap`, and others are made generic through PHPStan's [stub files](https://github.com/phpstan/phpstan-src/tree/2.x/stubs). For example, `ReflectionClass<Foo>` knows it reflects the `Foo` class and `ReflectionClass::newInstance()` returns `Foo`.
+Many built-in PHP classes like `ArrayIterator`, `SplObjectStorage`, `ReflectionClass`, `WeakMap`, and others are made generic through PHPStan's [stub files](https://github.com/phpstan/phpstan-src/tree/2.2.x/stubs). For example, `ReflectionClass<Foo>` knows it reflects the `Foo` class and `ReflectionClass::newInstance()` returns `Foo`.
 
 See also [Generics By Examples »](/blog/generics-by-examples).
 
