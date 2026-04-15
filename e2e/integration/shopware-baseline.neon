@@ -163,6 +163,12 @@ parameters:
 			path: repo/src/Core/Framework/App/Checkout/Gateway/AppCheckoutGateway.php
 
 		-
+			rawMessage: 'Property Shopware\Core\Framework\App\ShopId\FingerprintMismatch::$expectedStamp (string) on left side of ?? is not nullable.'
+			identifier: nullCoalesce.property
+			count: 1
+			path: repo/src/Core/Framework/App/Command/CheckShopIdCommand.php
+
+		-
 			rawMessage: Offset 'command' on *NEVER* on left side of ?? always exists and is not nullable.
 			identifier: nullCoalesce.offset
 			count: 1
@@ -707,6 +713,12 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Framework/ShopwareHttpException.php
+
+		-
+			rawMessage: 'Property Shopware\Core\Framework\Sso\Config\LoginConfig::$redirectUri (string) on left side of ?? is not nullable.'
+			identifier: nullCoalesce.property
+			count: 1
+			path: repo/src/Core/Framework/Sso/Config/LoginConfigService.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\Store\Exception\StoreApiException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
