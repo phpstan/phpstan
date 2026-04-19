@@ -543,7 +543,7 @@ jobs:
         working-directory: ${{ matrix.phpstan-cwd || 'e2e/integration/repo' }}
         run: "${{ matrix.phpstan-command }} -b ../${{ matrix.baseline-file }}"
 
-      - name: Workaround actions/upload-artifact#176
+      - name: "Workaround actions/upload-artifact#176"
         run: |
           echo "BASELINE_REALPATH=$(realpath e2e/integration/${{ matrix.baseline-file }})" >> $GITHUB_ENV
 
