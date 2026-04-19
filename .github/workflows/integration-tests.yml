@@ -544,14 +544,15 @@ jobs:
         run: "${{ matrix.phpstan-command }} -b ../${{ matrix.baseline-file }}"
 
       - name: "Workaround actions/upload-artifact#176"
+        id: baseline
         run: |
-          echo "BASELINE_REALPATH=$(realpath e2e/integration/${{ matrix.baseline-file }})" >> $GITHUB_ENV
+          echo "REALPATH=$(realpath e2e/integration/${{ matrix.baseline-file }})" >> "$GITHUB_OUTPUT"
 
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         if: ${{ failure() }}
         with:
           name: baselines-${{ matrix.baseline-file }}
-          path: "${{ env.BASELINE_REALPATH }}"
+          path: "${{ steps.baseline.outputs.REALPATH }}"
 
   integration-update-baseline:
     name: "Integration - Update baselines"
