@@ -12725,21 +12725,21 @@
     "phpstan.dumpNativeType": {
         "PHPStan\\Rules\\Debug\\DumpNativeTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Debug/DumpNativeTypeRule.php#L59"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Debug/DumpNativeTypeRule.php#L61"
             ]
         }
     },
     "phpstan.dumpPhpDocType": {
         "PHPStan\\Rules\\Debug\\DumpPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Debug/DumpPhpDocTypeRule.php#L59"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Debug/DumpPhpDocTypeRule.php#L61"
             ]
         }
     },
     "phpstan.dumpType": {
         "PHPStan\\Rules\\Debug\\DumpTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Debug/DumpTypeRule.php#L59"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Debug/DumpTypeRule.php#L61"
             ]
         }
     },
