@@ -267,7 +267,7 @@ export class PlaygroundViewModel {
 
 	private getApiOptions(): Record<string, any> {
 		const parseClasses = (s: string): string[] =>
-			s.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+			s.split('\n').map(l => l.trim().replace(/^\\+/, '')).filter(l => l.length > 0);
 		const opts: Record<string, any> = {};
 		for (const [key, obs] of this.newOptionEntries) {
 			opts[key] = obs();
