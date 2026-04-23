@@ -37,6 +37,12 @@ parameters:
 			path: repo/core/lib/Drupal/Core/TypedData/Plugin/DataType/ItemList.php
 
 		-
+			message: '#^Offset ''system_main'' on array\{''\#type''\: ''table'', ''\#header''\: array\{Drupal\\Core\\StringTranslation\\TranslatableMarkup, Drupal\\Core\\StringTranslation\\TranslatableMarkup, Drupal\\Core\\StringTranslation\\TranslatableMarkup, Drupal\\Core\\StringTranslation\\TranslatableMarkup, Drupal\\Core\\StringTranslation\\TranslatableMarkup\}, ''\#attributes''\: array\{id\: ''blocks''\}, ''\#attached''\?\: array\{drupalSettings\: array\{blockPlacement\: bool\|float\|int\|string\|null\}\}\} in isset\(\) does not exist\.$#'
+			identifier: isset.offset
+			count: 1
+			path: repo/core/modules/block/src/BlockListBuilder.php
+
+		-
 			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
 			identifier: empty.variable
 			count: 1

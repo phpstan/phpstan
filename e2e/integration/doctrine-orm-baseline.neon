@@ -19,15 +19,9 @@ parameters:
 			path: repo/src/Internal/Hydration/AbstractHydrator.php
 
 		-
-			message: '#^Offset ''class'' might not exist on array\{args\: array\}\|array\{class\: ReflectionClass\<object\>, args\: array, obj\: object\}\.$#'
-			identifier: offsetAccess.notFound
-			count: 1
-			path: repo/src/Internal/Hydration/AbstractHydrator.php
-
-		-
 			message: '#^Offset ''class'' might not exist on array\{class\?\: ReflectionClass\<object\>, args\: array\}\.$#'
 			identifier: offsetAccess.notFound
-			count: 1
+			count: 2
 			path: repo/src/Internal/Hydration/AbstractHydrator.php
 
 		-
