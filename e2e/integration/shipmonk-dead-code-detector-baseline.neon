@@ -1,2 +1,7 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			rawMessage: Cannot use array destructuring on mixed.
+			identifier: offsetAccess.nonArray
+			count: 1
+			path: repo/tests/Rule/DeadCodeRuleTest.php
