@@ -121,12 +121,6 @@ parameters:
 			path: repo/src/Core/Framework/Adapter/Asset/FallbackUrlPackage.php
 
 		-
-			rawMessage: 'Cannot access offset int<0, max> on array<mixed>|bool|int|string.'
-			identifier: offsetAccess.nonOffsetAccessible
-			count: 1
-			path: repo/src/Core/Framework/Adapter/Database/MySQLFactory.php
-
-		-
 			rawMessage: 'Method Shopware\Core\Framework\Adapter\Twig\AppTemplateIterator::__construct() has parameter $templateIterator with generic interface IteratorAggregate but does not specify its types: TKey, TValue'
 			identifier: missingType.generics
 			count: 1
@@ -1133,6 +1127,18 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/integration/Core/System/Snippet/Subscriber/CustomFieldSubscriberTest.php
+
+		-
+			rawMessage: 'Offset ''global'' might not exist on array{global?: non-empty-list<Shopware\Core\System\SystemConfig\Event\BeforeSystemConfigMultipleChangedEvent|Shopware\Core\System\SystemConfig\Event\SystemConfigChangedHook|Shopware\Core\System\SystemConfig\Event\SystemConfigMultipleChangedEvent>, sales_channel?: non-empty-list<Shopware\Core\System\SystemConfig\Event\BeforeSystemConfigMultipleChangedEvent|Shopware\Core\System\SystemConfig\Event\SystemConfigChangedHook|Shopware\Core\System\SystemConfig\Event\SystemConfigMultipleChangedEvent>}.'
+			identifier: offsetAccess.notFound
+			count: 3
+			path: repo/tests/integration/Core/System/SystemConfig/SystemConfigServiceTest.php
+
+		-
+			rawMessage: 'Offset ''sales_channel'' might not exist on array{global: array{Shopware\Core\System\SystemConfig\Event\BeforeSystemConfigMultipleChangedEvent|Shopware\Core\System\SystemConfig\Event\SystemConfigChangedHook|Shopware\Core\System\SystemConfig\Event\SystemConfigMultipleChangedEvent}, sales_channel?: non-empty-list<Shopware\Core\System\SystemConfig\Event\BeforeSystemConfigMultipleChangedEvent|Shopware\Core\System\SystemConfig\Event\SystemConfigChangedHook|Shopware\Core\System\SystemConfig\Event\SystemConfigMultipleChangedEvent>}.'
+			identifier: offsetAccess.notFound
+			count: 3
+			path: repo/tests/integration/Core/System/SystemConfig/SystemConfigServiceTest.php
 
 		-
 			rawMessage: 'Parameter $formConfigs of method Shopware\Tests\Integration\Core\System\SystemConfig\Validation\SystemConfigValidatorTest::testValidate() expects array{elements: array<array{config: array<string, bool|int|string>, name: string}>}, array{array{elements: array{array{name: ''core…'', config: array{required: true, maxLength: 255}}, array{name: ''core…'', config: array{required: true, maxLength: 255}}}}} given.'
@@ -2189,6 +2195,12 @@ parameters:
 			identifier: argument.invalidConstant
 			count: 1
 			path: repo/tests/unit/Core/System/UsageData/Consent/ConsentReporterTest.php
+
+		-
+			rawMessage: 'Offset ''create''|''delete''|''update'' might not exist on array{create?: int<0, max>, update?: int<0, max>, delete?: int<0, max>}.'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/tests/unit/Core/System/UsageData/Services/EntityDispatchServiceTest.php
 
 		-
 			rawMessage: 'Parameter $config of method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::testBuildMultipleLanguages() expects array{array{and_logic: string, field: string, tokenize: int, ranking: int}}, array{array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}} given.'
