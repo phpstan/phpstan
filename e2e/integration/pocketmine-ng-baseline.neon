@@ -25,6 +25,18 @@ parameters:
 			path: repo/src/command/defaults/WhitelistCommand.php
 
 		-
+			message: '#^Offset 0\|1 might not exist on array\{1\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…'', 0\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…''\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/data/bedrock/item/ItemSerializerDeserializerRegistrar.php
+
+		-
+			message: '#^Offset 0\|1\|2\|3 might not exist on array\{0\?\: array\{1\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…'', 0\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…''\}, 1\?\: array\{1\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…'', 0\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…''\}, 2\?\: array\{1\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…'', 0\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…''\}, 3\?\: array\{1\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…'', 0\?\: ''minecraft\:copper…''\|''minecraft\:exposed…''\|''minecraft\:oxidized…''\|''minecraft\:waxed…''\|''minecraft\:weathered…''\}\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/data/bedrock/item/ItemSerializerDeserializerRegistrar.php
+
+		-
 			message: '#^Cannot cast mixed to int\.$#'
 			identifier: cast.int
 			count: 3
@@ -107,12 +119,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: repo/src/plugin/PluginDescription.php
-
-		-
-			message: '#^Property pocketmine\\scheduler\\AsyncTask\:\:\$progressUpdates \(pmmp\\thread\\ThreadSafeArray\<int, string\>\|null\) is never assigned pmmp\\thread\\ThreadSafeArray\<int, string\> so it can be removed from the property type\.$#'
-			identifier: property.unusedType
-			count: 1
-			path: repo/src/scheduler/AsyncTask.php
 
 		-
 			message: '#^Parameter \#1 \$array of function array_unique expects an array of values castable to string, array\<string, mixed\> given\.$#'
