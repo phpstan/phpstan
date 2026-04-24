@@ -14141,22 +14141,22 @@
     "property.readOnlyAssignNotInConstructor": {
         "PHPStan\\Rules\\Properties\\ReadOnlyPropertyAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L116"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L123"
             ]
         }
     },
     "property.readOnlyAssignNotOnThis": {
         "PHPStan\\Rules\\Properties\\ReadOnlyPropertyAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L99"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L106"
             ]
         }
     },
     "property.readOnlyAssignOutOfClass": {
         "PHPStan\\Rules\\Properties\\ReadOnlyPropertyAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L73",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L82"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L75",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L88"
             ]
         }
     },
