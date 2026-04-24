@@ -37,6 +37,12 @@ parameters:
 			path: repo/src/Core/Checkout/Customer/CustomerValueResolver.php
 
 		-
+			rawMessage: 'Parameter #1 $array (array<non-empty-list>) to function array_filter does not contain falsy values, the array will always stay the same.'
+			identifier: arrayFilter.same
+			count: 1
+			path: repo/src/Core/Content/Cms/DataResolver/CmsSlotsDataResolver.php
+
+		-
 			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
 			identifier: argument.invalidConstant
 			count: 1
