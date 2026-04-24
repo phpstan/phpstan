@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Property Rector\\DowngradePhp72\\Rector\\ClassMethod\\DowngradeParameterTypeWideningRector\:\:\$unsafeTypesToMethods \(array\<string, array\<string\>\>\) does not accept array\<string, iterable\<string\>\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/rules/DowngradePhp72/Rector/ClassMethod/DowngradeParameterTypeWideningRector.php

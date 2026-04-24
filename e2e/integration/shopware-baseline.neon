@@ -37,6 +37,12 @@ parameters:
 			path: repo/src/Core/Checkout/Customer/CustomerValueResolver.php
 
 		-
+			rawMessage: 'Parameter #1 $array (array<non-empty-list>) to function array_filter does not contain falsy values, the array will always stay the same.'
+			identifier: arrayFilter.same
+			count: 1
+			path: repo/src/Core/Content/Cms/DataResolver/CmsSlotsDataResolver.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Content\Flow\DataAbstractionLayer\FieldSerializer\FlowTemplateConfigFieldSerializer::encode() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
