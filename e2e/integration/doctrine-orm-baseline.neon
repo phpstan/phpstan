@@ -61,8 +61,14 @@ parameters:
 			path: repo/src/Mapping/ToManyAssociationMapping.php
 
 		-
-			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isToMany\(\) will always evaluate to true\.$#'
-			identifier: method.alreadyNarrowedType
+			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isIndexed\(\) will always evaluate to false\.$#'
+			identifier: method.impossibleType
+			count: 1
+			path: repo/src/Persisters/Entity/BasicEntityPersister.php
+
+		-
+			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isToMany\(\) will always evaluate to false\.$#'
+			identifier: method.impossibleType
 			count: 1
 			path: repo/src/Persisters/Entity/BasicEntityPersister.php
 
