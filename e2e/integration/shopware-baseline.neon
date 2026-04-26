@@ -31,10 +31,28 @@ parameters:
 			path: repo/src/Core/Checkout/Cart/LineItemFactoryRegistry.php
 
 		-
+			rawMessage: Using nullsafe method call on non-nullable type Shopware\Core\Checkout\Cart\CartBehavior. Use -> instead.
+			identifier: nullsafe.neverNull
+			count: 2
+			path: repo/src/Core/Checkout/Cart/Order/OrderConverter.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Checkout\Customer\CustomerValueResolver::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Checkout/Customer/CustomerValueResolver.php
+
+		-
+			rawMessage: Using nullsafe method call on non-nullable type Shopware\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerEntity. Use -> instead.
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/src/Core/Checkout/Customer/Service/GuestAuthenticator.php
+
+		-
+			rawMessage: Using nullsafe method call on non-nullable type Shopware\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerEntity. Use -> instead.
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/src/Core/Checkout/Document/Renderer/AbstractDocumentRenderer.php
 
 		-
 			rawMessage: 'Parameter #1 $array (array<non-empty-list>) to function array_filter does not contain falsy values, the array will always stay the same.'
@@ -695,6 +713,12 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Framework/Validation/Exception/ConstraintViolationException.php
+
+		-
+			rawMessage: 'PHPDoc tag @var with type array<mixed>|ArrayAccess<int|string, mixed> is not subtype of native type non-empty-array<mixed, mixed>|ArrayAccess.'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/src/Core/Framework/Validation/HappyPathValidator.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\Validation\WriteConstraintViolationException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
