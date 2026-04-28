@@ -115,10 +115,23 @@ jobs:
           attempt_limit: 5
           attempt_delay: 1000
 
+      - name: "Parse extension entry"
+        id: extension
+        run: |
+          entry="${{ matrix.extension-name }}"
+          name="${entry%% *}"
+          ref=""
+          if [[ "$entry" == *' '* ]]; then
+            ref="${entry#* }"
+          fi
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "ref=$ref" >> "$GITHUB_OUTPUT"
+
       - name: "Checkout extension"
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
         with:
-          repository: "phpstan/${{ matrix.extension-name }}"
+          repository: "phpstan/${{ steps.extension.outputs.name }}"
+          ref: ${{ steps.extension.outputs.ref }}
           path: extension
 
       - uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
