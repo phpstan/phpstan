@@ -159,6 +159,18 @@ jobs:
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit
+          - php-version: 8.5
+            name: Prado tests
+            script: |
+              git clone https://github.com/pradosoft/prado.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout 56d62b850ec51a5eee6298a8fb26134950725a21
+              composer install
+              composer require --dev phpstan/phpstan
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              vendor/bin/phpunit --testsuite phpstan
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
@@ -443,6 +455,13 @@ jobs:
               npm run build:dev
             phpstan-command: ../../../phpstan.phar analyse -c ../wordpress.neon --memory-limit=2G
             baseline-file: wordpress-baseline.neon
+          - php-version: 8.5
+            repo: pradosoft/prado
+            ref: 56d62b850ec51a5eee6298a8fb26134950725a21
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../prado.neon --memory-limit=2G
+            baseline-file: prado-baseline.neon
           - php-version: 8.4
             repo: briannesbitt/Carbon
             ref: 3.11.0
