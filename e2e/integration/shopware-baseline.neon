@@ -127,6 +127,12 @@ parameters:
 			path: repo/src/Core/Framework/Adapter/Twig/AppTemplateIterator.php
 
 		-
+			rawMessage: 'Parameter #2 $array of function implode expects array<string>, array<mixed, mixed>&callable given.'
+			identifier: argument.type
+			count: 4
+			path: repo/src/Core/Framework/Adapter/Twig/SecurityExtension.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Framework\Api\Context\ContextValueResolver::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -1081,7 +1087,7 @@ parameters:
 			path: repo/tests/integration/Core/System/Snippet/Subscriber/CustomFieldSubscriberTest.php
 
 		-
-			rawMessage: 'Offset ''global'' might not exist on array{global?: non-empty-list<Shopware\Core\System\SystemConfig\Event\BeforeSystemConfigMultipleChangedEvent|Shopware\Core\System\SystemConfig\Event\SystemConfigChangedHook|Shopware\Core\System\SystemConfig\Event\SystemConfigMultipleChangedEvent>, sales_channel?: non-empty-list<Shopware\Core\System\SystemConfig\Event\BeforeSystemConfigMultipleChangedEvent|Shopware\Core\System\SystemConfig\Event\SystemConfigChangedHook|Shopware\Core\System\SystemConfig\Event\SystemConfigMultipleChangedEvent>}.'
+			rawMessage: 'Offset ''global'' might not exist on non-empty-array{global?: non-empty-list<Shopware\Core\System\SystemConfig\Event\BeforeSystemConfigMultipleChangedEvent|Shopware\Core\System\SystemConfig\Event\SystemConfigChangedHook|Shopware\Core\System\SystemConfig\Event\SystemConfigMultipleChangedEvent>, sales_channel?: non-empty-list<Shopware\Core\System\SystemConfig\Event\BeforeSystemConfigMultipleChangedEvent|Shopware\Core\System\SystemConfig\Event\SystemConfigChangedHook|Shopware\Core\System\SystemConfig\Event\SystemConfigMultipleChangedEvent>}.'
 			identifier: offsetAccess.notFound
 			count: 3
 			path: repo/tests/integration/Core/System/SystemConfig/SystemConfigServiceTest.php
@@ -2137,7 +2143,7 @@ parameters:
 			path: repo/tests/unit/Core/System/SystemConfig/Validation/SystemConfigValidatorTest.php
 
 		-
-			rawMessage: 'Offset ''create''|''delete''|''update'' might not exist on array{create?: int<0, max>, update?: int<0, max>, delete?: int<0, max>}.'
+			rawMessage: 'Offset ''create''|''delete''|''update'' might not exist on non-empty-array{create?: int<0, max>, update?: int<0, max>, delete?: int<0, max>}.'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: repo/tests/unit/Core/System/UsageData/Services/EntityDispatchServiceTest.php

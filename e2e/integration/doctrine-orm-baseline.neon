@@ -103,6 +103,12 @@ parameters:
 			path: repo/src/UnitOfWork.php
 
 		-
+			message: '#^Parameter \#1 \$object of method ReflectionClass\<covariant object\>\:\:initializeLazyObject\(\) expects never, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/UnitOfWork.php
+
+		-
 			message: '#^Unable to resolve the template type T in call to static method Symfony\\Component\\VarExporter\\Hydrator\:\:hydrate\(\)$#'
 			identifier: argument.templateType
 			count: 1
