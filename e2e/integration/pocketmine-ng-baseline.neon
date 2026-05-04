@@ -25,13 +25,13 @@ parameters:
 			path: repo/src/command/defaults/WhitelistCommand.php
 
 		-
-			message: '#^Offset 0\|1 might not exist on array\{1\?\: \*NEVER\*, 0\?\: \*NEVER\*\}\.$#'
+			message: '#^Offset 0\|1 might not exist on non\-empty\-array\{1\?\: \*NEVER\*, 0\?\: \*NEVER\*\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: repo/src/data/bedrock/item/ItemSerializerDeserializerRegistrar.php
 
 		-
-			message: '#^Offset 0\|1\|2\|3 might not exist on array\{0\?\: array\{1\?\: \*NEVER\*, 0\?\: \*NEVER\*\}, 1\?\: array\{1\?\: \*NEVER\*, 0\?\: \*NEVER\*\}, 2\?\: array\{1\?\: \*NEVER\*, 0\?\: \*NEVER\*\}, 3\?\: array\{1\?\: \*NEVER\*, 0\?\: \*NEVER\*\}\}\.$#'
+			message: '#^Offset 0\|1\|2\|3 might not exist on non\-empty\-array\{0\?\: non\-empty\-array\{1\?\: \*NEVER\*, 0\?\: \*NEVER\*\}, 1\?\: non\-empty\-array\{1\?\: \*NEVER\*, 0\?\: \*NEVER\*\}, 2\?\: non\-empty\-array\{1\?\: \*NEVER\*, 0\?\: \*NEVER\*\}, 3\?\: non\-empty\-array\{1\?\: \*NEVER\*, 0\?\: \*NEVER\*\}\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: repo/src/data/bedrock/item/ItemSerializerDeserializerRegistrar.php
