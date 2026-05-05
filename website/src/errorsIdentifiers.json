@@ -9966,7 +9966,7 @@
         },
         "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L137"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L148"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
@@ -9975,19 +9975,19 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L272",
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L300",
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L320",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L137"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L148"
             ]
         }
     },
     "method.childReturnType": {
         "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L96"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L85",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L96",
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/OverridingMethodRule.php#L283",
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/OverridingMethodRule.php#L296"
             ]
@@ -10056,6 +10056,18 @@
         "PHPStan\\Rules\\Comparison\\ImpossibleCheckTypeMethodCallRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Comparison/ImpossibleCheckTypeMethodCallRule.php#L82"
+            ]
+        }
+    },
+    "method.impure": {
+        "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L77"
+            ]
+        },
+        "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L77"
             ]
         }
     },
