@@ -48,3 +48,5 @@ Write to the property where appropriate, for example in the constructor:
 ```
 
 If the property is no longer needed, remove it and its usages.
+
+If the property is written through a mechanism not visible to PHPStan (such as reflection, serialization, or dependency injection), a [custom extension](https://phpstan.org/developing-extensions/always-read-written-properties) can be used to inform PHPStan about the write.
