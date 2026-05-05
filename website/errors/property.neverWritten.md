@@ -7,6 +7,8 @@ ignorable: true
 ## Code example
 
 ```php
+<?php declare(strict_types = 1);
+
 class Queue
 {
 	private int $anotherProp;
