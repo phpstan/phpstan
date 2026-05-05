@@ -11232,6 +11232,13 @@
             ]
         }
     },
+    "new.dateInterval": {
+        "PHPStan\\Rules\\DateIntervalInstantiationRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DateIntervalInstantiationRule.php#L53"
+            ]
+        }
+    },
     "new.dateTime": {
         "PHPStan\\Rules\\DateTimeInstantiationRule": {
             "phpstan/phpstan-src": [
