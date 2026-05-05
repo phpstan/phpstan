@@ -13963,14 +13963,14 @@
     "property.neverRead": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L244"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L262"
             ]
         }
     },
     "property.neverWritten": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L258"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L276"
             ]
         }
     },
@@ -14036,14 +14036,14 @@
     "property.onlyRead": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L263"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L281"
             ]
         }
     },
     "property.onlyWritten": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L249"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L267"
             ]
         }
     },
@@ -14349,7 +14349,7 @@
     "property.unused": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L238"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L256"
             ]
         }
     },
