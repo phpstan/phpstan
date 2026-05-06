@@ -1,6 +1,18 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: 'Parameter #1 $type of method Nette\DI\Definitions\ServiceDefinition::setType() expects class-string|null, string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Bridges/NetteDI/OrmExtension.php
+
+		-
+			rawMessage: 'Parameter #1 $type of method Nette\DI\Definitions\ServiceDefinition::setType() expects class-string|null, string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Bridges/NetteDI/PhpDocRepositoryFinder.php
+
+		-
 			rawMessage: 'Parameter #2 $context of static method Nette\Utils\Reflection::expandClassName() expects ReflectionClass<object>, ReflectionClass<Nextras\Orm\Model\IModel> given.'
 			identifier: argument.type
 			count: 1
@@ -185,3 +197,21 @@ parameters:
 			identifier: instanceof.alwaysTrue
 			count: 1
 			path: repo/src/Repository/RemovalHelper.php
+
+		-
+			rawMessage: 'Parameter #1 $generator of method Nette\DI\ContainerLoader::load() expects callable(Nette\DI\Compiler): (string|null), Closure(Nette\DI\Compiler): void given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/cases/integration/BridgeNetteDI/dic-extension-multiple.phpt
+
+		-
+			rawMessage: 'Parameter #1 $generator of method Nette\DI\ContainerLoader::load() expects callable(Nette\DI\Compiler): (string|null), Closure(Nette\DI\Compiler): void given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/cases/integration/BridgeNetteDI/dic-extension-order.phpt
+
+		-
+			rawMessage: 'Parameter #1 $generator of method Nette\DI\ContainerLoader::load() expects callable(Nette\DI\Compiler): (string|null), Closure(Nette\DI\Compiler): void given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/cases/integration/BridgeNetteDI/dic-finder.phpt
