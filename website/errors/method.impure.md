@@ -31,9 +31,6 @@ class Bar extends Foo
 ## Why is it reported?
 
 When a parent class or interface declares a method as pure (`@phpstan-pure`), all overriding methods must also be pure. A pure method guarantees it has no side effects and its return value depends only on its arguments. Code that calls the parent method relies on this guarantee — if a child class introduces side effects or non-deterministic behavior, it violates the contract.
-
-This check is enabled by [bleeding edge](/blog/what-is-bleeding-edge) configuration.
-
 ## How to fix it
 
 Remove the `@phpstan-impure` annotation if the method is actually pure:
