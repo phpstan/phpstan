@@ -739,6 +739,12 @@ parameters:
 			path: repo/src/Core/Installer/Controller/FinishController.php
 
 		-
+			rawMessage: 'Method Shopware\Core\Kernel::getKernelParameters() should return array<string, array<string, mixed>|bool|float|int|string|UnitEnum|null> but returns array<string, array|bool|float|int|string|UnitEnum|null>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Kernel.php
+
+		-
 			rawMessage: 'Method Shopware\Core\System\SalesChannel\Context\SalesChannelContextValueResolver::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -1553,6 +1559,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Content/Product/Subscriber/ProductSubscriberTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Adapter\Translation\ArrayCache::get() has parameter $metadata with no value type specified in iterable type array.'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/tests/unit/Core/Framework/Adapter/Translation/TranslatorTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Adapter\Translation\TranslatorTest::provideTracingExamples() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'

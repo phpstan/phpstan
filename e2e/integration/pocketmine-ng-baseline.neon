@@ -25,6 +25,12 @@ parameters:
 			path: repo/src/command/defaults/WhitelistCommand.php
 
 		-
+			message: '#^Casting to list\<string\> something that''s already list\<string\>\.$#'
+			identifier: cast.useless
+			count: 1
+			path: repo/src/crash/CrashDump.php
+
+		-
 			message: '#^Offset 0\|1 might not exist on non\-empty\-array\{1\?\: \*NEVER\*, 0\?\: \*NEVER\*\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
