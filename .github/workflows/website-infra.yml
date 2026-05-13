@@ -58,104 +58,10 @@ jobs:
         working-directory: ./website/infra
         run: "npx cdk synth --all --quiet"
 
-  diff:
-    name: "Diff"
-    runs-on: "ubuntu-latest"
-    needs: test
-    permissions:
-      id-token: write
-      contents: read
-      pull-requests: write
-
-    steps:
-      - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
-        with:
-          egress-policy: audit
-
-      - name: "Checkout"
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
-
-      - name: "Install Node"
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
-        with:
-          node-version: "22"
-          cache: "npm"
-          cache-dependency-path: website/infra/package-lock.json
-
-      - name: "Install dependencies"
-        working-directory: ./website/infra
-        run: "npm ci"
-
-      - name: "Configure AWS credentials"
-        uses: aws-actions/configure-aws-credentials@d979d5b3a71173a29b74b5b88418bfda9437d885 # v6.1.1
-        with:
-          role-to-assume: ${{ vars.INFRA_DEPLOY_ROLE_ARN }}
-          aws-region: us-east-1
-
-      - name: "CDK diff"
-        working-directory: ./website/infra
-        run: |
-          set -o pipefail
-          npx cdk diff --all --no-color 2>&1 | tee /tmp/cdk-diff.txt
-
-      - name: "Comment diff on PR"
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-        with:
-          script: |
-            const fs = require('fs');
-            const marker = '<!-- website-infra-cdk-diff -->';
-            const maxLen = 60000; // stay under GitHub's 65536-char comment limit
-            let diff = fs.readFileSync('/tmp/cdk-diff.txt', 'utf8');
-            let truncated = false;
-            if (diff.length > maxLen) {
-              diff = diff.slice(0, maxLen);
-              truncated = true;
-            }
-            const note = truncated
-              ? '\n\n_Output truncated. See the full diff in the workflow run logs._'
-              : '';
-            const body = [
-              marker,
-              '### `cdk diff` for `website/infra`',
-              '',
-              '<details><summary>Click to expand</summary>',
-              '',
-              '```',
-              diff,
-              '```',
-              '',
-              '</details>' + note,
-            ].join('\n');
-            const { data: comments } = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-            });
-            const existing = comments.find(c => c.body && c.body.startsWith(marker));
-            if (existing) {
-              await github.rest.issues.updateComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: existing.id,
-                body,
-              });
-            } else {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                body,
-              });
-            }
-
   deploy:
     name: "Deploy"
     runs-on: "ubuntu-latest"
-    needs:
-      - test
-      - diff
+    needs: test
     if: "github.event_name == 'push' && github.ref == 'refs/heads/2.2.x'"
     permissions:
       id-token: write
