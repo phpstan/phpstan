@@ -8,12 +8,14 @@ on:
     paths:
       - '.github/workflows/website.yml'
       - 'website/**'
+      - '!website/infra/**'
   push:
     branches:
       - "2.2.x"
     paths:
       - '.github/workflows/website.yml'
       - 'website/**'
+      - '!website/infra/**'
 
 jobs:
   typescript-check:

@@ -1,0 +1,29 @@
+{
+	"name": "phpstan-website-infra",
+	"version": "1.0.0",
+	"license": "MIT",
+	"private": true,
+	"bin": {
+		"infra": "bin/infra.js"
+	},
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"check": "tsc -p tsconfig.json --noEmit",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"cdk": "cdk",
+		"synth": "cdk synth --all",
+		"diff": "cdk diff --all",
+		"deploy": "cdk deploy --all"
+	},
+	"devDependencies": {
+		"@types/node": "^22.10.0",
+		"aws-cdk": "^2.1010.0",
+		"aws-cdk-lib": "^2.180.0",
+		"constructs": "^10.4.2",
+		"ts-node": "^10.9.2",
+		"typescript": "^5.7.2",
+		"vitest": "^3.0.0"
+	}
+}
