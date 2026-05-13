@@ -19,18 +19,19 @@ export interface WebsiteStackProps extends cdk.StackProps {
 	readonly apexDomain: string;
 	readonly wwwDomain: string;
 	readonly testDomain: string;
-	readonly productionAliases: boolean;
 }
 
 // The website infrastructure: private S3 bucket served via CloudFront with OAC,
 // a single CloudFront Function 2.0 handling host redirect + URL rewriting, a
-// Response Headers Policy for security headers, ACM cert (DNS-validated), and
-// Route 53 records.
+// Response Headers Policy for security headers, ACM cert (DNS-validated), and a
+// Route 53 record for the staging alias.
 //
-// The `productionAliases` flag switches the distribution between test mode
-// (only `new.phpstan.org`) and production mode (`phpstan.org` + `www.phpstan.org`).
-// The cert always covers all three names so the cutover is alias-only — no cert
-// reissue needed.
+// The distribution carries all three aliases (apex + www + `new.phpstan.org`)
+// at all times — the staging alias stays around as a useful pre-deploy URL.
+// The apex and www Route 53 records were created out-of-band during the
+// initial cutover from the legacy distributions and are NOT managed by CDK,
+// because CloudFormation can't UPSERT a Route 53 record that already exists
+// from a separate API call. Only the `new.phpstan.org` record is managed here.
 export class WebsiteStack extends cdk.Stack {
 	readonly bucket: s3.Bucket;
 	readonly distribution: cloudfront.Distribution;
@@ -92,12 +93,10 @@ export class WebsiteStack extends cdk.Stack {
 			},
 		});
 
-		const domainNames = props.productionAliases
-			? [props.apexDomain, props.wwwDomain]
-			: [props.testDomain];
+		const domainNames = [props.apexDomain, props.wwwDomain, props.testDomain];
 
 		this.distribution = new cloudfront.Distribution(this, 'Distribution', {
-			comment: `phpstan.org (productionAliases=${props.productionAliases})`,
+			comment: 'phpstan.org website',
 			domainNames,
 			certificate,
 			defaultRootObject: 'index.html',
@@ -123,40 +122,16 @@ export class WebsiteStack extends cdk.Stack {
 		const distributionTarget = route53.RecordTarget.fromAlias(
 			new route53Targets.CloudFrontTarget(this.distribution),
 		);
-
-		if (props.productionAliases) {
-			new route53.ARecord(this, 'ApexARecord', {
-				zone: hostedZone,
-				recordName: props.apexDomain,
-				target: distributionTarget,
-			});
-			new route53.AaaaRecord(this, 'ApexAaaaRecord', {
-				zone: hostedZone,
-				recordName: props.apexDomain,
-				target: distributionTarget,
-			});
-			new route53.ARecord(this, 'WwwARecord', {
-				zone: hostedZone,
-				recordName: props.wwwDomain,
-				target: distributionTarget,
-			});
-			new route53.AaaaRecord(this, 'WwwAaaaRecord', {
-				zone: hostedZone,
-				recordName: props.wwwDomain,
-				target: distributionTarget,
-			});
-		} else {
-			new route53.ARecord(this, 'TestARecord', {
-				zone: hostedZone,
-				recordName: props.testDomain,
-				target: distributionTarget,
-			});
-			new route53.AaaaRecord(this, 'TestAaaaRecord', {
-				zone: hostedZone,
-				recordName: props.testDomain,
-				target: distributionTarget,
-			});
-		}
+		new route53.ARecord(this, 'TestARecord', {
+			zone: hostedZone,
+			recordName: props.testDomain,
+			target: distributionTarget,
+		});
+		new route53.AaaaRecord(this, 'TestAaaaRecord', {
+			zone: hostedZone,
+			recordName: props.testDomain,
+			target: distributionTarget,
+		});
 
 		this.websiteDeployRole = this.createWebsiteDeployRole(props);
 
