@@ -172,6 +172,9 @@ jobs:
     if: "github.ref == 'refs/heads/2.2.x'"
     runs-on: "ubuntu-latest"
     concurrency: website
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@5ef0c079ce82195b2a36a210272d6b661572d83e # v2.14.2
@@ -184,25 +187,24 @@ jobs:
           name: website-dist
           path: dist
 
-      - name: "Sync with S3"
-        uses: jakejarvis/s3-sync-action@be0c4ab89158cac4278689ebedd8407dd5f35a83 # v0.5.1
+      - name: "Configure AWS credentials"
+        uses: aws-actions/configure-aws-credentials@d979d5b3a71173a29b74b5b88418bfda9437d885 # v6.1.1
         with:
-          args: --exclude '.git*/*' --exclude '*.map' --follow-symlinks
-        env:
-          SOURCE_DIR: './dist'
-          AWS_REGION: 'eu-west-1'
-          AWS_S3_BUCKET: "web-phpstan.org"
-          AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: ${{ vars.WEBSITE_DEPLOY_ROLE_ARN }}
+          aws-region: us-east-1
+
+      - name: "Sync with S3"
+        run: |
+          aws s3 sync ./dist "s3://${{ vars.WEBSITE_BUCKET }}" \
+            --exclude '.git*/*' \
+            --exclude '*.map' \
+            --follow-symlinks
 
       - name: "Invalidate CloudFront"
-        uses: chetan/invalidate-cloudfront-action@12d242edc7752fca9140c2034be28792ad22c5a8 # v2.4.1
-        env:
-          DISTRIBUTION: "E1W83FJ5FCYXPT"
-          PATHS: '/*'
-          AWS_REGION: 'eu-west-1'
-          AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${{ vars.WEBSITE_DISTRIBUTION_ID }}" \
+            --paths '/*'
 
       - name: "Trigger Algolia Crawler"
         run: |

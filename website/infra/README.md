@@ -2,8 +2,8 @@
 
 CDK app that defines the AWS infrastructure for [phpstan.org](https://phpstan.org):
 the private S3 bucket, the CloudFront distribution, the edge function for URL
-rewriting, the response headers policy, the ACM cert, the Route 53 records, and
-the IAM roles assumed by GitHub Actions via OIDC.
+rewriting, the response headers policy, the ACM cert, the staging Route 53
+record, and the IAM roles assumed by GitHub Actions via OIDC.
 
 See `../CLAUDE.md` for the parent website project conventions.
 
@@ -11,19 +11,16 @@ See `../CLAUDE.md` for the parent website project conventions.
 
 | Stack | Resources |
 | --- | --- |
-| `PhpstanOrgGithubOidc` | GitHub OIDC provider + `phpstan-org-infra-deploy` role (used by this workflow) |
-| `PhpstanOrgWebsite` | S3 bucket (OAC), CloudFront distribution, CF Function 2.0, Response Headers Policy, ACM cert, Route 53 records, `phpstan-org-website-deploy` role (used by `website.yml`) |
+| `PhpstanOrgGithubOidc` | GitHub OIDC provider + `phpstan-org-infra-deploy` role (used by `website-infra.yml`) |
+| `PhpstanOrgWebsite` | S3 bucket (OAC), CloudFront distribution with all three aliases (apex + www + `new.phpstan.org`), CF Function 2.0, Response Headers Policy, ACM cert, the `new.phpstan.org` Route 53 record, and `phpstan-org-website-deploy` role (used by `website.yml`) |
 
 Region for both: `us-east-1` (required for CloudFront + ACM).
 
-## The `productionAliases` flag
+## Out-of-band resources
 
-`PhpstanOrgWebsite` reads a CDK context flag `productionAliases` (default `false`):
+The apex (`phpstan.org`) and www (`www.phpstan.org`) Route 53 records are **not** managed by CDK. They were created during the initial cutover from the legacy distributions via raw `change-resource-record-sets` calls, and CloudFormation can't UPSERT a record that already exists outside of its own state. They are managed manually via the AWS Console or CLI. The `new.phpstan.org` record is the only Route 53 record CDK touches.
 
-- `false` (test mode): distribution carries only `new.phpstan.org`. The Route 53 records point this alias at the new distribution. Use this to validate the new stack end-to-end while the live site still runs on the legacy distributions.
-- `true` (production): distribution carries `phpstan.org` + `www.phpstan.org`. Route 53 alias records for both are managed here, replacing the legacy distributions.
-
-The ACM cert covers all three names from day one, so flipping the flag does not reissue the cert.
+If you ever need to bring those records under CDK management, use `cdk import` against the apex/www `AWS::Route53::RecordSet` resources after adding the corresponding constructs to `WebsiteStack`. That import flow is interactive and not worth the ceremony unless DNS records start drifting.
 
 ## Local development
 
@@ -35,66 +32,41 @@ npm run synth     # cdk synth --all
 npm run diff      # cdk diff --all (needs AWS creds for the target account)
 ```
 
-## First-time bootstrap (one-off, from a maintainer's laptop)
+## One-time bootstrap (already done)
 
-The deploy workflow assumes an IAM role that doesn't exist yet, and it deploys
-via the CDK bootstrap roles which also don't exist yet. Both must be created
-once from a workstation that already has admin AWS credentials.
+These commands have been run once and don't need to be repeated unless the account is rebuilt from scratch:
 
 ```sh
 # CDK bootstrap (creates cdk-hnb659fds-* roles used for subsequent deploys)
 npx cdk bootstrap aws://928192134594/us-east-1
 
-# Deploy the OIDC stack so the workflow can assume the deploy role on subsequent runs
+# Deploy the OIDC stack
 npx cdk deploy PhpstanOrgGithubOidc
 ```
 
-After this:
-- Note the `InfraDeployRoleArn` output and set it as the `INFRA_DEPLOY_ROLE_ARN` repository variable on GitHub (Settings → Secrets and variables → Actions → Variables).
-- From now on, every PR touching `website/infra/**` runs `cdk diff` and posts the diff to the PR; every merge to `2.2.x` runs `cdk deploy`.
+GitHub repo variables that need to be set after first deploy:
 
-## Cutover runbook (test → production)
+- `INFRA_DEPLOY_ROLE_ARN` — the `InfraDeployRoleArn` output of `PhpstanOrgGithubOidc`. Used by `website-infra.yml`.
+- `WEBSITE_DEPLOY_ROLE_ARN` — the `WebsiteDeployRoleArn` output of `PhpstanOrgWebsite`. Used by `website.yml`.
+- `WEBSITE_BUCKET` — `phpstan-org-web`.
+- `WEBSITE_DISTRIBUTION_ID` — the `DistributionId` output of `PhpstanOrgWebsite`.
 
-The aim is to move phpstan.org and www.phpstan.org from the legacy distributions
-(`E1W83FJ5FCYXPT`, `E3VJ14QANBNGO9`) to the new distribution defined here.
+## Rollback to the legacy distributions (emergency only)
 
-1. **Verify on the test alias.** With `productionAliases: false`, push to `2.2.x` and let the workflow deploy. After the cert validates and the distribution finishes deploying:
-   - Sync `website/dist/` to `phpstan-org-web` (the new bucket) once, manually, so there is content to test against.
-   - Verify `https://new.phpstan.org/` returns 200 with HSTS, X-Content-Type-Options, X-Frame-Options, Referrer-Policy and no X-XSS-Protection.
-   - Verify `https://new.phpstan.org/user-guide/getting-started.html` returns a 301 to `/user-guide/getting-started`, which then returns 200.
-   - Verify `https://new.phpstan.org/r/<some-id>` serves the playground page.
-   - Verify `https://new.phpstan.org/error-identifiers/<some-id>` serves that page.
-   - Use Playwright (see `website/CLAUDE.md`) for an end-to-end smoke pass.
-2. **Free the apex and www aliases on the legacy distributions.** CloudFront refuses to attach the same alias to two distributions. From the AWS console (or CLI):
-   ```sh
-   # Edit E1W83FJ5FCYXPT and remove the `phpstan.org` alias.
-   # Edit E3VJ14QANBNGO9 and remove the `www.phpstan.org` alias.
-   ```
-   Both legacy distributions stay live on their `*.cloudfront.net` domain while the alias is gone, but DNS still points to them at this stage so the live site briefly becomes unavailable. Time this step with the next one — they should be back-to-back.
-3. **Flip the flag.** Open a PR that sets `"productionAliases": true` in `cdk.json` (`context` block). Merge it. The workflow will attach the prod aliases to the new distribution and rewrite the Route 53 records to point apex and www at the new distribution.
-4. **Final website deploy.** Run `website.yml` (push or `workflow_dispatch`) to make sure the new bucket has fresh content.
-5. **Verify production.** Re-run the checks from step 1 against `https://phpstan.org/` and `https://www.phpstan.org/`. Watch CloudWatch on both old distributions for ~15 minutes to confirm traffic has moved.
+The legacy distributions `E1W83FJ5FCYXPT` (apex) and `E3VJ14QANBNGO9` (www) still exist with their content (S3 buckets `web-phpstan.org`, `web-www.phpstan.org`) but without aliases attached. If a serious issue lands on the new stack, rollback steps:
 
-### Rollback
+1. Detach `phpstan.org` from the new distribution (CDK-managed `E2Y6ZJDXUL323J` — edit aliases via CLI to drop apex/www).
+2. Re-attach `phpstan.org` to `E1W83FJ5FCYXPT` and `www.phpstan.org` to `E3VJ14QANBNGO9` (each requires an `update-distribution` with the original aliases list).
+3. UPSERT Route 53 records back to the legacy CloudFront domains (`d31fkacuhtx2im.cloudfront.net` for apex, `d3jnpr60rvn14q.cloudfront.net` for www).
 
-If something goes wrong after step 3:
-1. Revert the `productionAliases` PR. The workflow re-deploys the new stack in test mode (aliases come off, Route 53 records flip back to `new.phpstan.org`).
-2. Re-attach `phpstan.org` and `www.phpstan.org` aliases to `E1W83FJ5FCYXPT` and `E3VJ14QANBNGO9` respectively (manual, in the AWS console).
-3. Update Route 53 to alias back to the old distributions.
+Each cutover hop (legacy ↔ new) takes ~5–10 min of intermittent 403s while CloudFront edges propagate, so this isn't free, but it's possible.
 
-The legacy distributions, the old buckets and the Lambda@Edge function are not
-touched by CDK — they stay around as a fallback until the cleanup runbook below
-is run.
+## Cleanup runbook (when the new stack has been stable for ~1 week)
 
-## Cleanup runbook (after production is stable)
-
-Run this only after the new infra has been carrying production traffic for a
-sensible cooling-off period (a week is plenty for a low-risk static site).
-
-- Delete CloudFront distribution `E1W83FJ5FCYXPT` (disable first, wait for it to deploy, then delete).
+- Delete CloudFront distribution `E1W83FJ5FCYXPT` (disable, wait, delete).
 - Delete CloudFront distribution `E3VJ14QANBNGO9` (same).
 - Delete CloudFront functions `phpstan-org-viewer-request` and `secure-headers-response`.
-- Delete the Lambda@Edge function `web-phpstan-prg-rewrite-url` (replicas take ~hours to fully drain after dissociation — be patient).
+- Delete the Lambda@Edge function `web-phpstan-prg-rewrite-url` (replicas take ~hours to drain after dissociation — be patient).
 - Delete the IAM role `web-phpstan-org-request-lambda-role`.
 - Empty and delete S3 buckets `web-phpstan.org` and `web-www.phpstan.org`.
-- Delete the legacy ACM cert `arn:aws:acm:us-east-1:928192134594:certificate/5c906d85-3885-4a8c-af99-27c9fee23c33` if it's no longer in use (it is also currently bound to legacy distribution E3VJ14QANBNGO9 — only delete after that distribution is gone).
+- Delete the legacy ACM cert `arn:aws:acm:us-east-1:928192134594:certificate/5c906d85-3885-4a8c-af99-27c9fee23c33` once it's no longer referenced.

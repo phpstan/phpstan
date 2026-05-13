@@ -14,18 +14,15 @@ Both stacks deploy to `us-east-1` (required for CloudFront + ACM).
 | Stack | Defined in | Resources |
 | --- | --- | --- |
 | `PhpstanOrgGithubOidc` | `lib/github-oidc-stack.ts` | GitHub OIDC provider + `phpstan-org-infra-deploy` role (used by `website-infra.yml` to deploy this CDK app) |
-| `PhpstanOrgWebsite` | `lib/website-stack.ts` | S3 bucket (OAC, private, versioned), CloudFront distribution, CF Function 2.0, Response Headers Policy, ACM cert (DNS-validated, covers all 3 hostnames), Route 53 records, and `phpstan-org-website-deploy` role (used by `website.yml` to sync content + invalidate) |
+| `PhpstanOrgWebsite` | `lib/website-stack.ts` | S3 bucket (OAC, private, versioned), CloudFront distribution carrying all three aliases (apex + www + `new.phpstan.org`), CF Function 2.0, Response Headers Policy, ACM cert (DNS-validated, covers all 3 hostnames), the `new.phpstan.org` Route 53 record, and `phpstan-org-website-deploy` role (used by `website.yml` to sync content + invalidate) |
 
-`bin/infra.ts` is the CDK app entrypoint. It hard-codes the account/region/repo/zone constants and reads one CDK context flag, `productionAliases`, that switches the distribution between test and production aliases (see below).
+`bin/infra.ts` is the CDK app entrypoint. It hard-codes the account/region/repo/zone constants. No runtime flags.
 
-## The `productionAliases` flag
+## Out-of-band resources
 
-Defined in `cdk.json` under `context`, default `false`. Flipping it controls the distribution aliases and the Route 53 records:
+The apex (`phpstan.org`) and www (`www.phpstan.org`) Route 53 records are **not** managed by CDK. They were created during the initial cutover from the legacy distributions via raw `change-resource-record-sets` calls, and CloudFormation cannot UPSERT a record that already exists outside its own state. They are managed manually via the AWS Console or CLI. The `new.phpstan.org` record is the only Route 53 record CDK touches.
 
-- `false` (test mode): aliases = `['new.phpstan.org']`. Route 53 A/AAAA for `new.phpstan.org` → new distribution. Legacy distributions still serve apex + www.
-- `true` (production): aliases = `['phpstan.org', 'www.phpstan.org']`. Route 53 A/AAAA for apex + www → new distribution. Legacy aliases must be detached from `E1W83FJ5FCYXPT` and `E3VJ14QANBNGO9` *before* deploying with this flag set, because CloudFront refuses an alias attached to another distribution.
-
-The ACM cert covers all three names from day one, so flipping the flag does not reissue the cert.
+If you change the new distribution's CloudFront domain (e.g., a recreate), you must also update the apex/www Route 53 records to point at the new domain — CDK will not do it for you. The README has the rollback runbook with explicit `change-resource-record-sets` payloads.
 
 ## Edge function
 

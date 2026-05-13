@@ -19,8 +19,6 @@ const apexDomain = 'phpstan.org';
 const wwwDomain = 'www.phpstan.org';
 const testDomain = 'new.phpstan.org';
 
-const productionAliases = app.node.tryGetContext('productionAliases') === true;
-
 const oidcStack = new GithubOidcStack(app, 'PhpstanOrgGithubOidc', {
 	env,
 	githubOrg,
@@ -40,8 +38,7 @@ new WebsiteStack(app, 'PhpstanOrgWebsite', {
 	apexDomain,
 	wwwDomain,
 	testDomain,
-	productionAliases,
-	description: `phpstan.org website (S3 + CloudFront + CF Function). productionAliases=${productionAliases}`,
+	description: 'phpstan.org website (S3 + CloudFront + CF Function)',
 });
 
 app.synth();
