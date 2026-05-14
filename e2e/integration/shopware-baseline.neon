@@ -127,7 +127,7 @@ parameters:
 			path: repo/src/Core/Framework/Adapter/Twig/AppTemplateIterator.php
 
 		-
-			rawMessage: 'Parameter #2 $array of function implode expects array<string>, array<mixed, mixed>&callable given.'
+			rawMessage: 'Parameter #2 $array of function implode expects array<string>, callable&list<mixed> given.'
 			identifier: argument.type
 			count: 4
 			path: repo/src/Core/Framework/Adapter/Twig/SecurityExtension.php
@@ -773,6 +773,18 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Storefront/Theme/Exception/ThemeConfigException.php
+
+		-
+			rawMessage: 'Call to function array_key_exists() with ''value'' and array{value: mixed, scss?: true, type: string} will always evaluate to true.'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Storefront/Theme/ThemeCompiler.php
+
+		-
+			rawMessage: 'Offset ''type'' on array{value: array<mixed>|string|null, scss?: true, type: string} in isset() always exists and is not nullable.'
+			identifier: isset.offset
+			count: 1
+			path: repo/src/Storefront/Theme/ThemeCompiler.php
 
 		-
 			rawMessage: 'Parameter #1 $assertType of method PHPStan\Testing\TypeInferenceTestCase::assertFileAsserts() expects string, bool|float|int|list<string>|PHPStan\TrinaryLogic|string|null given.'

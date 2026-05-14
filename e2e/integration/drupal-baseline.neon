@@ -49,7 +49,19 @@ parameters:
 			path: repo/core/modules/block_content/tests/src/Functional/BlockContentTypeTest.php
 
 		-
+			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: repo/core/modules/block_content/tests/src/Functional/BlockContentTypeTest.php
+
+		-
 			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: repo/core/modules/block_content/tests/src/Functional/PageEditTest.php
+
+		-
+			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
 			identifier: empty.variable
 			count: 1
 			path: repo/core/modules/block_content/tests/src/Functional/PageEditTest.php
@@ -62,6 +74,12 @@ parameters:
 
 		-
 			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: repo/core/modules/dblog/tests/src/Functional/DbLogTest.php
+
+		-
+			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
 			identifier: empty.variable
 			count: 1
 			path: repo/core/modules/dblog/tests/src/Functional/DbLogTest.php
@@ -85,7 +103,19 @@ parameters:
 			path: repo/core/modules/help/tests/src/Functional/HelpTopicTest.php
 
 		-
+			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: repo/core/modules/help/tests/src/Functional/HelpTopicTest.php
+
+		-
 			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: repo/core/modules/language/tests/src/Functional/LanguageBreadcrumbTest.php
+
+		-
+			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
 			identifier: empty.variable
 			count: 1
 			path: repo/core/modules/language/tests/src/Functional/LanguageBreadcrumbTest.php
@@ -97,7 +127,19 @@ parameters:
 			path: repo/core/modules/node/tests/src/Functional/NodeTitleTest.php
 
 		-
+			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: repo/core/modules/node/tests/src/Functional/NodeTitleTest.php
+
+		-
 			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: repo/core/modules/node/tests/src/Functional/NodeTypeTest.php
+
+		-
+			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
 			identifier: empty.variable
 			count: 1
 			path: repo/core/modules/node/tests/src/Functional/NodeTypeTest.php
@@ -109,7 +151,19 @@ parameters:
 			path: repo/core/modules/system/tests/src/Functional/Menu/BreadcrumbFrontCacheContextsTest.php
 
 		-
+			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: repo/core/modules/system/tests/src/Functional/Menu/BreadcrumbFrontCacheContextsTest.php
+
+		-
 			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: repo/core/modules/system/tests/src/Functional/Menu/BreadcrumbTest.php
+
+		-
+			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
 			identifier: empty.variable
 			count: 1
 			path: repo/core/modules/system/tests/src/Functional/Menu/BreadcrumbTest.php
@@ -133,7 +187,19 @@ parameters:
 			path: repo/core/modules/taxonomy/tests/src/Functional/TermTest.php
 
 		-
+			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: repo/core/modules/taxonomy/tests/src/Functional/TermTest.php
+
+		-
 			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: repo/core/modules/taxonomy/tests/src/Functional/TermTranslationTest.php
+
+		-
+			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
 			identifier: empty.variable
 			count: 1
 			path: repo/core/modules/taxonomy/tests/src/Functional/TermTranslationTest.php
