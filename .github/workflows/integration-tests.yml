@@ -357,6 +357,7 @@ jobs:
 
             # from build.xml
             phpstan-command: ../../../phpstan.phar analyse -c ../shopsys.neon -l 5 packages/*/src packages/*/tests utils/*/src utils/*/tests project-base/app/app project-base/app/src
+            baseline-file: shopsys-baseline.neon
           - php-version: 8.4
             repo: shopsys/shopsys
             ref: v18.0.0
