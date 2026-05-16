@@ -761,7 +761,7 @@ Advanced exceptions-related rules are available. [Read this article for more det
 
 For custom logic that dynamically decides whether an exception is checked or unchecked based on scope, you can implement a custom [exception type resolver](/developing-extensions/exception-type-resolver).
 
-Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.throwTypeCovariance`, `exceptions.check.tooWideImplicitThrowType`
+Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.tooWideThrowType`, `exceptions.check.throwTypeCovariance`, `exceptions.check.tooWideImplicitThrowType`
 
 ### `exceptions.implicitThrows`
 
@@ -786,6 +786,24 @@ When set to `true` (the default), PHPStan reports dead catch blocks for unchecke
 **example**: [with `false`](/r/25faef78-318f-4d03-a537-b8c3d51ccde5), [with `true`](/r/efc31418-db3e-4f08-95f9-a24794292ba1)
 
 When set to `true`, it reports missing `@throws` tags for checked exceptions above functions and methods. Requires configuring `exceptions.checkedExceptionClasses` or `exceptions.checkedExceptionRegexes`.
+
+### `exceptions.check.tooWideThrowType`
+
+**default**: `true`
+
+Controls whether PHPStan reports exception types listed in `@throws` PHPDoc tags that are never actually thrown by the function or method. This is the master switch for the [`throws.unusedType`](/error-identifiers/throws.unusedType) error identifier at level 4 and above. Set to `false` to disable all too-wide throw type checking.
+
+```php
+/**
+ * @throws \InvalidArgumentException|\RuntimeException
+ */
+function doFoo(): void {
+    // "Function doFoo() has RuntimeException in PHPDoc @throws tag but it's not thrown."
+    throw new \InvalidArgumentException();
+}
+```
+
+By default, this only checks explicitly written `@throws` tags on private methods, methods in final classes, and functions. To extend the check to protected and public methods, see [`checkTooWideThrowTypesInProtectedAndPublicMethods`](#checktoowidethrowtypesinprotectedandpublicmethods). To also check implicitly inferred throws, see [`exceptions.check.tooWideImplicitThrowType`](#exceptionschecktooWideImplicitThrowType).
 
 ### `exceptions.check.throwTypeCovariance`
 
