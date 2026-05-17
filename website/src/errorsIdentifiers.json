@@ -5409,8 +5409,8 @@
     "classConstant.phpDocType": {
         "PHPStan\\Rules\\Constants\\ValueAssignedToClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L104",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L93"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L122",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L133"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatibleClassConstantPhpDocTypeRule": {
@@ -5458,8 +5458,9 @@
     "classConstant.value": {
         "PHPStan\\Rules\\Constants\\ValueAssignedToClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L126",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L80"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L109",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L155",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/ValueAssignedToClassConstantRule.php#L90"
             ]
         },
         "PHPStan\\Rules\\Traits\\ConflictingTraitConstantsRule": {
@@ -5610,6 +5611,13 @@
             ]
         }
     },
+    "constant.defineValue": {
+        "PHPStan\\Rules\\Constants\\ValueAssignedToDefineRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/ValueAssignedToDefineRule.php#L77"
+            ]
+        }
+    },
     "constant.deprecated": {
         "PHPStan\\Rules\\Deprecations\\FetchingDeprecatedConstRule": {
             "phpstan/phpstan-deprecation-rules": [
@@ -5631,6 +5639,13 @@
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInUseRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Namespaces/ExistingNamesInUseRule.php#L80"
+            ]
+        }
+    },
+    "constant.value": {
+        "PHPStan\\Rules\\Constants\\ValueAssignedToGlobalConstantRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/ValueAssignedToGlobalConstantRule.php#L57"
             ]
         }
     },
