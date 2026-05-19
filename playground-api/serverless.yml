@@ -2,7 +2,7 @@ service: phpstan-playground-api
 
 provider:
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs24.x
   architecture: arm64
   stage: prod
   region: eu-west-1
