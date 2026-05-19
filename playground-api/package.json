@@ -20,9 +20,9 @@
 		"zod": "^4.3.6"
 	},
 	"devDependencies": {
-		"@tsconfig/node20": "^20.1.0",
+		"@tsconfig/node24": "^24.0.0",
 		"@types/aws-lambda": "^8.10.112",
-		"@types/node": "^20.0.0",
+		"@types/node": "^24.0.0",
 		"@types/uuid": "^9.0.1",
 		"@typescript-eslint/eslint-plugin": "^6.7.5",
 		"@typescript-eslint/parser": "^6.7.5",
