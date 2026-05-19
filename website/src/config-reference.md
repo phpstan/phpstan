@@ -761,7 +761,7 @@ Advanced exceptions-related rules are available. [Read this article for more det
 
 For custom logic that dynamically decides whether an exception is checked or unchecked based on scope, you can implement a custom [exception type resolver](/developing-extensions/exception-type-resolver).
 
-Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.throwTypeCovariance`, `exceptions.check.tooWideImplicitThrowType`
+Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.tooWideThrowType`, `exceptions.check.throwTypeCovariance`, `exceptions.check.tooWideImplicitThrowType`
 
 ### `exceptions.implicitThrows`
 
@@ -794,6 +794,25 @@ When set to `true`, it reports missing `@throws` tags for checked exceptions abo
 **example**: [playground](/r/bc4e2f13-d946-407a-bccf-6e437fa12577)
 
 When set to `true`, it enforces that `@throws` types in overriding methods are covariant with the parent method's `@throws` types. A child method cannot declare broader exception types than its parent. This follows the Liskov Substitution Principle for exception declarations.
+
+### `exceptions.check.tooWideThrowType`
+
+**default**: `true`
+
+When set to `true`, PHPStan reports `@throws` PHPDoc types that list exception classes that are never actually thrown by the function or method. This check is enabled at [rule level](/user-guide/rule-levels) 4 and up.
+
+```php
+/**
+ * @throws \InvalidArgumentException|\DomainException
+ */
+function doFoo(): void
+{
+	// DomainException in PHPDoc @throws tag but it's not thrown.
+	throw new \InvalidArgumentException();
+}
+```
+
+Set to `false` to disable this check. See also [`exceptions.check.tooWideImplicitThrowType`](#exceptionschecktooWideimplicitthrowtype) which extends this to also check implicitly inferred throw types.
 
 ### `exceptions.check.tooWideImplicitThrowType`
 
