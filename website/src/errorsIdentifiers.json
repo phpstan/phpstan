@@ -8631,6 +8631,13 @@
             ]
         }
     },
+    "goto.labelUndefined": {
+        "PHPStan\\Rules\\Keywords\\GotoUndefinedLabelRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Keywords/GotoUndefinedLabelRule.php#L38"
+            ]
+        }
+    },
     "greater.alwaysFalse": {
         "PHPStan\\Rules\\Comparison\\NumberComparisonOperatorsConstantConditionRule": {
             "phpstan/phpstan-src": [
@@ -9712,6 +9719,13 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/IssetCheck.php#L288",
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/IssetCheck.php#L339",
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/IssetCheck.php#L70"
+            ]
+        }
+    },
+    "label.unused": {
+        "PHPStan\\Rules\\Keywords\\UnusedLabelRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Keywords/UnusedLabelRule.php#L34"
             ]
         }
     },
