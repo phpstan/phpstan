@@ -1,8 +1,6 @@
 import {captureException, init as SentryInit} from '@sentry/node';
 import {AWSError, Lambda, S3} from 'aws-sdk';
 import {PromiseResult} from 'aws-sdk/lib/request';
-import middy from 'middy';
-import { cors } from 'middy/middlewares';
 import { v4 as uuid } from 'uuid';
 import { z } from 'zod';
 
@@ -546,11 +544,22 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 	}
 }
 
-const corsMiddleware = cors();
+function withCors<T extends HttpRequest>(handler: (request: T) => Promise<HttpResponse>): (event: T) => Promise<HttpResponse & {headers: Record<string, string>}> {
+	return async (event) => {
+		const result = await handler(event);
+		return {
+			...result,
+			headers: {
+				...((result as HttpResponse & {headers?: Record<string, string>}).headers ?? {}),
+				'Access-Control-Allow-Origin': '*',
+			},
+		};
+	};
+}
 
 module.exports = {
-	analyseResult: middy(analyseResult).use(corsMiddleware),
-	retrieveResult: middy(retrieveResult).use(corsMiddleware),
-	retrieveSample: middy(retrieveSample).use(corsMiddleware),
-	retrieveLegacyResult: middy(retrieveLegacyResult).use(corsMiddleware),
+	analyseResult: withCors(analyseResult),
+	retrieveResult: withCors(retrieveResult),
+	retrieveSample: withCors(retrieveSample),
+	retrieveLegacyResult: withCors(retrieveLegacyResult),
 };
