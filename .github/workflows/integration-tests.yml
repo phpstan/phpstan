@@ -62,7 +62,7 @@ jobs:
             script: |
               git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 05371b72780605a5e868d389815d5f173cd86efe
+              git checkout 85da0298d4af7fdec0c56575e4aa11b4ac80c380
               cp ../rector-composer.lock composer.lock
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
@@ -215,7 +215,7 @@ jobs:
         include:
           - php-version: 8.4
             repo: rectorphp/rector-src
-            ref: 05371b72780605a5e868d389815d5f173cd86efe
+            ref: 85da0298d4af7fdec0c56575e4aa11b4ac80c380
             setup: |
               cp ../rector-composer.lock composer.lock
               composer install
