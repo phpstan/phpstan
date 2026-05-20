@@ -4300,64 +4300,64 @@
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L107",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L269"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L268"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L107",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L269"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L268"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L107",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L269"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L268"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L231"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L230"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L231"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L230"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L231"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L230"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L159"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L158"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L159"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L158"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L159"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L158"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L212"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L211"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L212"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L211"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L212"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L211"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
@@ -4675,7 +4675,7 @@
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L157"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L155"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
@@ -8725,8 +8725,8 @@
     "ignore.count": {
         "PHPStan\\Analyser\\Ignore\\IgnoredErrorHelperResult": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L191",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L215"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L225",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L256"
             ]
         }
     },
@@ -8747,7 +8747,7 @@
     "ignore.unmatched": {
         "PHPStan\\Analyser\\Ignore\\IgnoredErrorHelperResult": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L234"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L275"
             ]
         }
     },
@@ -10665,34 +10665,34 @@
     "methodTag.trait": {
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L240"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L239"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L240"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L239"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L240"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L239"
             ]
         }
     },
     "methodTag.unresolvableType": {
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L260"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L259"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L260"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L259"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L260"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L259"
             ]
         }
     },
@@ -10713,112 +10713,112 @@
     "missingType.callable": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L231"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L230"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L231"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L230"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L231"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L230"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L216"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L215"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L216"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L215"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L216"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L215"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L108"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L107"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L108"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L107"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L108"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L107"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L197"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L196"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L197"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L196"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L197"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L196"
             ]
         },
         "PHPStan\\Rules\\Constants\\MissingClassConstantTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/MissingClassConstantTypehintRule.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/MissingClassConstantTypehintRule.php#L91"
             ]
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L114"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L113"
             ]
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionReturnTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/MissingFunctionReturnTypehintRule.php#L75"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/MissingFunctionReturnTypehintRule.php#L74"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L118"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L117"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodReturnTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodReturnTypehintRule.php#L88"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodReturnTypehintRule.php#L87"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodSelfOutTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodSelfOutTypeRule.php#L82"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodSelfOutTypeRule.php#L81"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/AssertRuleHelper.php#L209"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/AssertRuleHelper.php#L208"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/AssertRuleHelper.php#L209"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/AssertRuleHelper.php#L208"
             ]
         },
         "PHPStan\\Rules\\Properties\\MissingPropertyTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/MissingPropertyTypehintRule.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/MissingPropertyTypehintRule.php#L85"
             ]
         },
         "PHPStan\\Rules\\Properties\\SetPropertyHookParameterRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/SetPropertyHookParameterRule.php#L156"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/SetPropertyHookParameterRule.php#L155"
             ]
         }
     },
@@ -10842,17 +10842,17 @@
     "missingType.generics": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L220"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L219"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L220"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L219"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L220"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L219"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
@@ -10872,17 +10872,17 @@
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L98"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L97"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L98"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L97"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L98"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L97"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
@@ -10902,17 +10902,17 @@
         },
         "PHPStan\\Rules\\Constants\\MissingClassConstantTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/MissingClassConstantTypehintRule.php#L82"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/MissingClassConstantTypehintRule.php#L81"
             ]
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L104"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L103"
             ]
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionReturnTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/MissingFunctionReturnTypehintRule.php#L66"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/MissingFunctionReturnTypehintRule.php#L65"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
@@ -10937,159 +10937,159 @@
         },
         "PHPStan\\Rules\\Methods\\MissingMethodParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L106"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodReturnTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodReturnTypehintRule.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodReturnTypehintRule.php#L77"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodSelfOutTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodSelfOutTypeRule.php#L71"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodSelfOutTypeRule.php#L70"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/AssertRuleHelper.php#L199"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/AssertRuleHelper.php#L198"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L121"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L119"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/AssertRuleHelper.php#L199"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/AssertRuleHelper.php#L198"
             ]
         },
         "PHPStan\\Rules\\Properties\\MissingPropertyTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/MissingPropertyTypehintRule.php#L76"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/MissingPropertyTypehintRule.php#L75"
             ]
         },
         "PHPStan\\Rules\\Properties\\SetPropertyHookParameterRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/SetPropertyHookParameterRule.php#L145"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/SetPropertyHookParameterRule.php#L144"
             ]
         }
     },
     "missingType.iterableValue": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L207"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L206"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L207"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L206"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L207"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L206"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L204"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L203"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L204"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L203"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L204"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MethodTagCheck.php#L203"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L88"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L87"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L88"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L87"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L88"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L87"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L185"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L184"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L185"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L184"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L185"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L184"
             ]
         },
         "PHPStan\\Rules\\Constants\\MissingClassConstantTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/MissingClassConstantTypehintRule.php#L70"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Constants/MissingClassConstantTypehintRule.php#L69"
             ]
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/MissingFunctionParameterTypehintRule.php#L91"
             ]
         },
         "PHPStan\\Rules\\Functions\\MissingFunctionReturnTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/MissingFunctionReturnTypehintRule.php#L55"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/MissingFunctionReturnTypehintRule.php#L54"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodParameterTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L94"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodParameterTypehintRule.php#L93"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodReturnTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodReturnTypehintRule.php#L66"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodReturnTypehintRule.php#L65"
             ]
         },
         "PHPStan\\Rules\\Methods\\MissingMethodSelfOutTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodSelfOutTypeRule.php#L58"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MissingMethodSelfOutTypeRule.php#L57"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/AssertRuleHelper.php#L187"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/AssertRuleHelper.php#L186"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L110"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L108"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/AssertRuleHelper.php#L187"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/AssertRuleHelper.php#L186"
             ]
         },
         "PHPStan\\Rules\\Properties\\MissingPropertyTypehintRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/MissingPropertyTypehintRule.php#L64"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/MissingPropertyTypehintRule.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\SetPropertyHookParameterRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/SetPropertyHookParameterRule.php#L132"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/SetPropertyHookParameterRule.php#L131"
             ]
         }
     },
@@ -11200,34 +11200,34 @@
     "mixin.trait": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L168"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L167"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L168"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L167"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L168"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L167"
             ]
         }
     },
     "mixin.unresolvableType": {
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L141"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L140"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L141"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L140"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L141"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/MixinCheck.php#L140"
             ]
         }
     },
@@ -11849,13 +11849,13 @@
     "offsetAccess.notFound": {
         "PHPStan\\Rules\\Arrays\\ArrayDestructuringRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L138",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L139",
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L82"
             ]
         },
         "PHPStan\\Rules\\Arrays\\NonexistentOffsetInArrayDimFetchRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L138",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L139",
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchCheck.php#L82"
             ]
         }
@@ -14549,34 +14549,34 @@
     "propertyTag.trait": {
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L221"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L220"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L221"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L220"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L221"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L220"
             ]
         }
     },
     "propertyTag.unresolvableType": {
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L241"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L240"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L241"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L240"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L241"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/PropertyTagCheck.php#L240"
             ]
         }
     },
@@ -16904,17 +16904,17 @@
     "typeAlias.circular": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L356"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L355"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L356"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L355"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L356"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L355"
             ]
         }
     },
@@ -17026,17 +17026,17 @@
     "typeAlias.invalidType": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L364"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L363"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L364"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L363"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L364"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L363"
             ]
         }
     },
@@ -17060,34 +17060,34 @@
     "typeAlias.trait": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L278"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L277"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L278"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L277"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L278"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L277"
             ]
         }
     },
     "typeAlias.unresolvableType": {
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L294"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L293"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L294"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L293"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L294"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/LocalTypeAliasesCheck.php#L293"
             ]
         }
     },
@@ -17288,7 +17288,7 @@
     "varTag.trait": {
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L144"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L142"
             ]
         }
     },
@@ -17307,7 +17307,7 @@
     "varTag.unresolvableType": {
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L96"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/PhpDoc/InvalidPhpDocVarTagTypeRule.php#L95"
             ]
         }
     },
