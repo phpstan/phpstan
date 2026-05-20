@@ -37,6 +37,18 @@ parameters:
 			path: repo/src/Compiler/NodeVisitor/AddTypeToComponentNodeVisitor.php
 
 		-
+			rawMessage: 'Call to function is_string() with string will always evaluate to true.'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Compiler/NodeVisitor/ChangeFiltersNodeVisitor.php
+
+		-
+			rawMessage: 'Call to function is_string() with string will always evaluate to true.'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Compiler/NodeVisitor/ChangeFunctionsNodeVisitor.php
+
+		-
 			rawMessage: Possibly invalid array key type string|null.
 			identifier: offsetAccess.invalidOffset
 			count: 1
