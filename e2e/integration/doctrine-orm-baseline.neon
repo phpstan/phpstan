@@ -61,8 +61,14 @@ parameters:
 			path: repo/src/Mapping/ToManyAssociationMapping.php
 
 		-
-			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isToMany\(\) will always evaluate to true\.$#'
-			identifier: method.alreadyNarrowedType
+			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isIndexed\(\) will always evaluate to false\.$#'
+			identifier: method.impossibleType
+			count: 1
+			path: repo/src/Persisters/Entity/BasicEntityPersister.php
+
+		-
+			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isToMany\(\) will always evaluate to false\.$#'
+			identifier: method.impossibleType
 			count: 1
 			path: repo/src/Persisters/Entity/BasicEntityPersister.php
 
@@ -99,6 +105,12 @@ parameters:
 		-
 			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isToOneOwningSide\(\) will always evaluate to true\.$#'
 			identifier: method.alreadyNarrowedType
+			count: 1
+			path: repo/src/UnitOfWork.php
+
+		-
+			message: '#^Parameter \#1 \$object of method ReflectionClass\<covariant object\>\:\:initializeLazyObject\(\) expects never, object given\.$#'
+			identifier: argument.type
 			count: 1
 			path: repo/src/UnitOfWork.php
 
