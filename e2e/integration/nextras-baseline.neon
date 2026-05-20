@@ -43,8 +43,20 @@ parameters:
 			path: repo/src/Entity/AbstractEntity.php
 
 		-
+			rawMessage: 'Call to function assert() with true will always evaluate to true.'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Entity/Reflection/ModifierParser.php
+
+		-
 			rawMessage: 'Parameter #2 $context of static method Nette\Utils\Reflection::expandClassName() expects ReflectionClass<object>, ReflectionClass<covariant object> given.'
 			identifier: argument.type
+			count: 1
+			path: repo/src/Entity/Reflection/ModifierParser.php
+
+		-
+			rawMessage: 'Strict comparison using !== between Nextras\Orm\Entity\Reflection\Parser\Token and null will always evaluate to true.'
+			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: repo/src/Entity/Reflection/ModifierParser.php
 
@@ -97,12 +109,6 @@ parameters:
 			path: repo/src/Mapper/Memory/ArrayMapper.php
 
 		-
-			rawMessage: PHPDoc tag @var with type Nextras\Orm\Repository\IRepository<E of Nextras\Orm\Entity\IEntity> is not subtype of type Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>.
-			identifier: varTag.type
-			count: 1
-			path: repo/src/Mapper/Memory/ArrayMapper.php
-
-		-
 			rawMessage: 'Property Nextras\Orm\Mapper\Memory\ArrayMapper::$repository (Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>|null) is never assigned Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity> so it can be removed from the property type.'
 			identifier: property.unusedType
 			count: 1
@@ -117,12 +123,6 @@ parameters:
 		-
 			rawMessage: 'Method Nextras\Orm\Model\Model::getRepository() should return T of Nextras\Orm\Repository\IRepository<E of Nextras\Orm\Entity\IEntity> but returns Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>.'
 			identifier: return.type
-			count: 1
-			path: repo/src/Model/Model.php
-
-		-
-			rawMessage: PHPDoc tag @var with type Nextras\Orm\Repository\IRepository<E of Nextras\Orm\Entity\IEntity> is not subtype of type Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>.
-			identifier: varTag.type
 			count: 1
 			path: repo/src/Model/Model.php
 
@@ -149,42 +149,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Model/SimpleModelFactory.php
-
-		-
-			rawMessage: PHPDoc tag @var with type Nextras\Orm\Repository\IRepository<E of Nextras\Orm\Entity\IEntity> is not subtype of type Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>.
-			identifier: varTag.type
-			count: 1
-			path: repo/src/Relationships/HasMany.php
-
-		-
-			rawMessage: PHPDoc tag @var with type Nextras\Orm\Repository\IRepository<E of Nextras\Orm\Entity\IEntity> is not subtype of type Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>.
-			identifier: varTag.type
-			count: 1
-			path: repo/src/Relationships/HasOne.php
-
-		-
-			rawMessage: PHPDoc tag @var with type Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity> is not subtype of type Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity>.
-			identifier: varTag.type
-			count: 1
-			path: repo/src/Relationships/ManyHasMany.php
-
-		-
-			rawMessage: PHPDoc tag @var with type Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity> is not subtype of type Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity>.
-			identifier: varTag.type
-			count: 1
-			path: repo/src/Relationships/ManyHasOne.php
-
-		-
-			rawMessage: PHPDoc tag @var with type Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity> is not subtype of type Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity>.
-			identifier: varTag.type
-			count: 1
-			path: repo/src/Relationships/OneHasMany.php
-
-		-
-			rawMessage: PHPDoc tag @var with type Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity> is not subtype of type Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity>.
-			identifier: varTag.type
-			count: 1
-			path: repo/src/Relationships/OneHasOne.php
 
 		-
 			rawMessage: 'Call to function assert() with true will always evaluate to true.'
