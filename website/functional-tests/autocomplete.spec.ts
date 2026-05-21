@@ -83,3 +83,10 @@ test('completes global functions by prefix', async ({page}) => {
 	await expect(popup(page)).toBeVisible({timeout: COMPLETION_TIMEOUT});
 	expect((await labels(page)).some((l) => l.startsWith('str_re'))).toBeTruthy();
 });
+
+test('completes PHPStan stub functions shipped from phpstan-src', async ({page}) => {
+	await setCode(page, '<?php\n\\PHPStan\\Testing\\assertT');
+	await page.keyboard.press('Control+Space');
+	await expect(popup(page)).toBeVisible({timeout: COMPLETION_TIMEOUT});
+	expect((await labels(page)).some((l) => l.startsWith('assertType'))).toBeTruthy();
+});

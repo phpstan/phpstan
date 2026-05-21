@@ -7,6 +7,14 @@
 // hits a memory-corruption bug on wasm32-unknown-unknown but is correct on
 // wasm32-wasip1.
 import {WASI, OpenFile, File as WasiFile, ConsoleStdout} from '@bjorn3/browser_wasi_shim';
+// PHPStan stub shells fetched from phpstan-src by `npm run build:stubs`. Opened
+// as hidden documents (below) so the editor autocompletes PHPStan's own symbols
+// alongside phpstorm-stubs and the file being edited.
+import testingStub from './stubs/Testing.php?raw';
+
+const STUBS: ReadonlyArray<{uri: string; text: string}> = [
+	{uri: 'file:///stubs/phpstan/Testing.php', text: testingStub},
+];
 
 // `self` is a DedicatedWorkerGlobalScope here; typed loosely to avoid pulling
 // the webworker lib into the project's DOM-typed build.
@@ -66,10 +74,29 @@ function callHandle(message: string): string | undefined {
 	return response;
 }
 
+let stubsLoaded = false;
+
+// Open the PHPStan stub shells once, right after the client's `initialize`, so
+// their symbols are indexed before any completion request. They use hidden
+// `file:///stubs/...` URIs the editor never references.
+function loadStubs(): void {
+	for (const stub of STUBS) {
+		callHandle(JSON.stringify({
+			jsonrpc: '2.0',
+			method: 'textDocument/didOpen',
+			params: {textDocument: {uri: stub.uri, languageId: 'php', version: 1, text: stub.text}},
+		}));
+	}
+}
+
 ctx.onmessage = async (e: MessageEvent) => {
 	const message = e.data as string;
 	await ensureReady();
 	const response = callHandle(message);
+	if (!stubsLoaded) {
+		stubsLoaded = true;
+		loadStubs();
+	}
 	if (response !== undefined) {
 		ctx.postMessage(response);
 	}

@@ -68,6 +68,7 @@
 		"watch": "run-p watch:*",
 		"build": "npm run build:11ty && npm run build:vite",
 		"build:wasm": "bash scripts/build-wasm.sh",
+		"build:stubs": "bash scripts/fetch-stubs.sh",
 		"test:visual": "playwright test --config=visual-tests/playwright.config.ts",
 		"test:visual:update": "playwright test --config=visual-tests/playwright.config.ts --update-snapshots",
 		"test:functional": "playwright test --config=functional-tests/playwright.config.ts"
