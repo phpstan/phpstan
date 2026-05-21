@@ -13,6 +13,7 @@ import {errorsCompartment, errorsFacet, lineErrors, updateErrorsEffect} from "./
 import {hover} from "./editor/hover";
 import {materialDark} from "./editor/darkTheme";
 import {urlIdField, urlIdExtensions} from "./editor/urlId";
+import {docBlockKeymap} from "./editor/docBlock";
 
 ko.bindingHandlers.codeMirror = {
 	init: (element, valueAccessor, allBindings, viewModel, bindingContext) => {
@@ -48,6 +49,7 @@ ko.bindingHandlers.codeMirror = {
 			// highlightActiveLine(),
 			// highlightSelectionMatches(),
 			keymap.of([
+				...docBlockKeymap,
 				indentWithTab,
 				...closeBracketsKeymap,
 				...defaultKeymap,
