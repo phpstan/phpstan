@@ -4,3 +4,8 @@
 /visual-tests/test-results/
 /visual-tests/playwright-report/
 /playwright-report/
+
+# PHPantom wasm (built via npm run build:wasm)
+src/js/phpantom/pkg-wasi/*.wasm
+.phpantom-build/
+functional-tests/test-results/

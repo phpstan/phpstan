@@ -5,7 +5,7 @@ import {keymap, highlightSpecialChars, drawSelection,
 import {Compartment, EditorState} from '@codemirror/state'
 import {defaultHighlightStyle, syntaxHighlighting, indentOnInput, indentUnit, bracketMatching} from '@codemirror/language'
 import {defaultKeymap, history, historyField, historyKeymap, indentWithTab} from '@codemirror/commands'
-import {closeBrackets, closeBracketsKeymap} from '@codemirror/autocomplete'
+import {closeBrackets, closeBracketsKeymap, completionKeymap} from '@codemirror/autocomplete'
 import {highlightSelectionMatches} from '@codemirror/search'
 import {php} from '@codemirror/lang-php'
 import { PHPStanError } from './PHPStanError';
@@ -15,6 +15,8 @@ import {hover} from "./editor/hover";
 import {materialDark} from "./editor/darkTheme";
 import {urlIdField, urlIdExtensions} from "./editor/urlId";
 import {docBlockKeymap} from "./editor/docBlock";
+import {phpantomHover} from "./editor/phpantomHover";
+import {phpantomLsp, PHP_URI} from "./phpantom/lspClient";
 
 ko.bindingHandlers.codeMirror = {
 	init: (element, valueAccessor, allBindings, viewModel, bindingContext) => {
@@ -51,6 +53,7 @@ ko.bindingHandlers.codeMirror = {
 			// highlightActiveLine(),
 			// highlightSelectionMatches(),
 			keymap.of([
+				...completionKeymap,
 				...docBlockKeymap,
 				indentWithTab,
 				...closeBracketsKeymap,
@@ -58,7 +61,6 @@ ko.bindingHandlers.codeMirror = {
 				// ...searchKeymap,
 				...historyKeymap,
 				// ...foldKeymap,
-				// ...completionKeymap,
 				// ...lintKeymap
 			]),
 			php(),
@@ -84,6 +86,8 @@ ko.bindingHandlers.codeMirror = {
 			errorsCompartment.of(errorsFacet.of(errors)),
 			lineErrors,
 			hover,
+			phpantomHover,
+			phpantomLsp.plugin(PHP_URI, 'php'),
 			EditorView.baseTheme({
 				'.cm-tooltip.cm-tooltip-hover': {
 					border: 'none',
