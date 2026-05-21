@@ -288,7 +288,26 @@ jobs:
           aws s3 sync ./dist "s3://${{ vars.WEBSITE_BUCKET }}" \
             --exclude '.git*/*' \
             --exclude '*.map' \
+            --exclude '*.wasm' \
             --follow-symlinks
+
+      # CloudFront only auto-compresses objects up to 10 MB, and the PHPantom
+      # wasm is larger, so it would be served uncompressed. Upload it
+      # pre-compressed with Brotli instead (the browser decompresses it
+      # transparently). The wasm is excluded from the sync above so this stays
+      # the only copy in the bucket.
+      - name: "Upload WebAssembly with Brotli encoding"
+        run: |
+          command -v brotli >/dev/null || { sudo apt-get update && sudo apt-get install -y brotli; }
+          find dist -name '*.wasm' -print0 | while IFS= read -r -d '' f; do
+            key="${f#dist/}"
+            brotli -f -q 11 "$f"
+            aws s3 cp "$f.br" "s3://${{ vars.WEBSITE_BUCKET }}/$key" \
+              --content-type application/wasm \
+              --content-encoding br \
+              --cache-control 'public, max-age=31536000, immutable'
+            echo "uploaded $key (brotli: $(wc -c <"$f") -> $(wc -c <"$f.br") bytes)"
+          done
 
       - name: "Invalidate CloudFront"
         run: |
