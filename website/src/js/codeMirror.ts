@@ -6,6 +6,7 @@ import {Compartment, EditorState} from '@codemirror/state'
 import {defaultHighlightStyle, syntaxHighlighting, indentOnInput, indentUnit, bracketMatching} from '@codemirror/language'
 import {defaultKeymap, history, historyField, historyKeymap, indentWithTab} from '@codemirror/commands'
 import {closeBrackets, closeBracketsKeymap} from '@codemirror/autocomplete'
+import {highlightSelectionMatches} from '@codemirror/search'
 import {php} from '@codemirror/lang-php'
 import { PHPStanError } from './PHPStanError';
 import { ttcn } from './ttcn-theme';
@@ -43,6 +44,7 @@ ko.bindingHandlers.codeMirror = {
 			syntaxHighlighting(defaultHighlightStyle, {fallback: true}),
 			bracketMatching(),
 			closeBrackets(),
+			highlightSelectionMatches(),
 			// autocompletion(),
 			// rectangularSelection(),
 			// crosshairCursor(),

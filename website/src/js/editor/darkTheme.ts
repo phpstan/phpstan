@@ -57,7 +57,9 @@ export const materialDarkTheme = EditorView.theme({
 	},
 
 	'.cm-activeLine': {backgroundColor: config.activeLine},
-	'.cm-selectionMatch': {backgroundColor: config.selection},
+	// Stronger than the regular selection (config.selection, ~12% alpha) so that
+	// occurrences of the selected text are actually noticeable on the dark background.
+	'.cm-selectionMatch': {backgroundColor: '#80CBC440'},
 
 	'&.cm-focused .cm-matchingBracket, &.cm-focused .cm-nonmatchingBracket': {
 		backgroundColor: config.matchingBracket,
