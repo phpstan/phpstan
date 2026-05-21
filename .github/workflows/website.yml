@@ -46,9 +46,45 @@ jobs:
         working-directory: ./website
         run: "npm run check"
 
+  build-wasm:
+    name: "Build PHPantom wasm"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@ab7a9404c0f3da075243ca237b5fac12c98deaa5 # v2.19.3
+        with:
+          egress-policy: audit
+
+      - name: "Checkout"
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: "Install Node"
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "24"
+
+      - name: "Install Rust"
+        run: |
+          rustup update stable
+          rustup default stable
+          rustc --version
+
+      - name: "Build wasm (cargo -> wasm32-wasip1)"
+        working-directory: ./website
+        run: "npm run build:wasm"
+
+      - name: "Upload PHPantom wasm"
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: phpantom-wasm
+          path: website/src/js/phpantom/pkg-wasi/phpantom_lsp.wasm
+          if-no-files-found: error
+
   build:
     name: "Build"
     runs-on: "ubuntu-latest"
+    needs: build-wasm
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
@@ -65,6 +101,12 @@ jobs:
           node-version: "24"
           cache: "npm"
           cache-dependency-path: website/package-lock.json
+
+      - name: "Download PHPantom wasm"
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: phpantom-wasm
+          path: website/src/js/phpantom/pkg-wasi
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc" # v2
@@ -163,12 +205,60 @@ jobs:
           commit-message: "Update visual tests screenshots"
           committer: "phpstan-bot <ondrej+phpstanbot@mirtes.cz>"
 
+  functional-tests:
+    name: "Functional Tests"
+    runs-on: "ubuntu-latest"
+    needs: build
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@ab7a9404c0f3da075243ca237b5fac12c98deaa5 # v2.19.3
+        with:
+          egress-policy: audit
+
+      - name: "Checkout"
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      - name: "Install Node"
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "24"
+          cache: "npm"
+          cache-dependency-path: website/package-lock.json
+
+      - name: "Download website dist"
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: website-dist
+          path: website/dist
+
+      - name: "Install dependencies"
+        working-directory: ./website
+        run: "npm ci"
+
+      - name: "Install Playwright browsers"
+        working-directory: ./website
+        run: "npx playwright install --with-deps chromium"
+
+      - name: "Run functional tests"
+        working-directory: ./website
+        run: "npm run test:functional"
+
+      - name: "Upload test results"
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        if: failure()
+        with:
+          name: functional-test-results
+          path: website/functional-tests/test-results/
+          retention-days: 30
+
   deploy:
     name: "Deploy"
     needs:
       - typescript-check
       - build
       - visual-regression
+      - functional-tests
     if: "github.ref == 'refs/heads/2.2.x'"
     runs-on: "ubuntu-latest"
     concurrency: website

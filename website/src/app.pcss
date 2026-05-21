@@ -252,3 +252,31 @@ h3.hash-target code {
 .options-dialog::backdrop {
 	@apply bg-black/50;
 }
+
+/* PHPantom (wasm) hover tooltip — rendered Markdown with Prism-highlighted PHP. */
+.cm-phpantom-hover {
+	@apply max-w-lg rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs leading-relaxed text-gray-900 shadow-lg dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100;
+	max-height: 320px;
+	overflow: auto;
+}
+.cm-phpantom-hover > :first-child {
+	@apply mt-0;
+}
+.cm-phpantom-hover > :last-child {
+	@apply mb-0;
+}
+.cm-phpantom-hover p {
+	@apply my-1;
+}
+.cm-phpantom-hover pre {
+	@apply my-1 overflow-auto rounded-md bg-gray-50 p-2;
+}
+.cm-phpantom-hover pre code {
+	@apply text-xs font-normal;
+}
+.cm-phpantom-hover :not(pre) > code {
+	@apply rounded bg-gray-100 px-1 dark:bg-gray-700;
+}
+.cm-phpantom-hover hr {
+	@apply my-2 border-gray-200 dark:border-gray-600;
+}

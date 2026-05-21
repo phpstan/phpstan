@@ -3,9 +3,11 @@
 	"version": "1.0.0",
 	"license": "MIT",
 	"dependencies": {
+		"@bjorn3/browser_wasi_shim": "^0.4.2",
 		"@codemirror/commands": "^6.2.2",
 		"@codemirror/lang-php": "^6.0.1",
 		"@codemirror/language": "^6.6.0",
+		"@codemirror/lsp-client": "^6.2.4",
 		"@codemirror/search": "^6.7.0",
 		"@codemirror/state": "^6.2.0",
 		"@codemirror/view": "^6.9.2",
@@ -40,6 +42,7 @@
 		"glob": "^13.0.0",
 		"headless-mermaid": "^1.3.0",
 		"luxon": "^3.0.0",
+		"markdown-it": "^14.1.1",
 		"markdown-it-abbr": "^1.0.4",
 		"markdown-it-anchor": "^9.2.0",
 		"markdown-it-attrs": "^4.1.3",
@@ -64,8 +67,10 @@
 		"build:11ty": "eleventy",
 		"watch": "run-p watch:*",
 		"build": "npm run build:11ty && npm run build:vite",
+		"build:wasm": "bash scripts/build-wasm.sh",
 		"test:visual": "playwright test --config=visual-tests/playwright.config.ts",
-		"test:visual:update": "playwright test --config=visual-tests/playwright.config.ts --update-snapshots"
+		"test:visual:update": "playwright test --config=visual-tests/playwright.config.ts --update-snapshots",
+		"test:functional": "playwright test --config=functional-tests/playwright.config.ts"
 	},
 	"browserslist": [
 		"defaults",
