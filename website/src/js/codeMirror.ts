@@ -16,6 +16,7 @@ import {materialDark} from "./editor/darkTheme";
 import {urlIdField, urlIdExtensions} from "./editor/urlId";
 import {docBlockKeymap} from "./editor/docBlock";
 import {phpantomHover} from "./editor/phpantomHover";
+import {goToDefinition} from "./editor/goToDefinition";
 import {phpantomLsp, PHP_URI} from "./phpantom/lspClient";
 
 ko.bindingHandlers.codeMirror = {
@@ -87,6 +88,7 @@ ko.bindingHandlers.codeMirror = {
 			lineErrors,
 			hover,
 			phpantomHover,
+			goToDefinition,
 			phpantomLsp.plugin(PHP_URI, 'php'),
 			EditorView.baseTheme({
 				'.cm-tooltip.cm-tooltip-hover': {

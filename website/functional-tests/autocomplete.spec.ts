@@ -124,7 +124,7 @@ test('selects the parameter placeholder after completing a method with args', as
 
 	// The first placeholder ($name) is selected — not the empty $0 — and the
 	// LSP escape is unescaped (no leading backslash).
-	await expect.poll(() => page.evaluate(() => window.getSelection()!.toString())).toBe('$name');
+	await expect.poll(() => page.evaluate(() => window.getSelection()!.toString()), {timeout: COMPLETION_TIMEOUT}).toBe('$name');
 });
 
 test('adds a use statement when completing a class inside a namespace', async ({page}) => {
@@ -144,4 +144,27 @@ test('adds a use statement when completing a class inside a namespace', async ({
 	// additionalTextEdits add the import alongside the inserted name.
 	const doc = page.locator('.cm-content').first();
 	await expect(doc).toContainText('use DateTimeImmutable;');
+});
+
+test('Cmd/Ctrl-click jumps to an in-file declaration', async ({page}) => {
+	await setCode(page, [
+		'<?php',
+		'class Greeter {',
+		'    public function greet(): string { return "hi"; }',
+		'}',
+		'$g = new Greeter();',
+		'$g->greet();',
+	].join('\n'));
+	// Let the worker index the document before resolving the definition.
+	await page.waitForTimeout(500);
+
+	// Modifier-click the greet() call (second 'greet' token; the first is the
+	// declaration). ControlOrMeta maps to Cmd on macOS, Ctrl elsewhere — the
+	// same split the extension uses.
+	await page.locator('.cm-content').getByText('greet', {exact: true}).nth(1)
+		.click({modifiers: ['ControlOrMeta']});
+
+	// The declaration line flashes (and the cursor jumps there).
+	await expect(page.locator('.cm-goto-def-flash'))
+		.toContainText('function greet', {timeout: COMPLETION_TIMEOUT});
 });
