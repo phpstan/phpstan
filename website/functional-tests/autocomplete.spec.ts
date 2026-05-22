@@ -91,6 +91,20 @@ test('completes PHPStan stub functions shipped from phpstan-src', async ({page})
 	expect((await labels(page)).some((l) => l.startsWith('assertType'))).toBeTruthy();
 });
 
+test('completes the PHPStan\\dumpType helper', async ({page}) => {
+	await setCode(page, '<?php\n\\PHPStan\\dump');
+	await page.keyboard.press('Control+Space');
+	await expect(popup(page)).toBeVisible({timeout: COMPLETION_TIMEOUT});
+	expect((await labels(page)).some((l) => l.startsWith('dumpType'))).toBeTruthy();
+});
+
+test('completes static members of the TrinaryLogic stub class', async ({page}) => {
+	await setCode(page, '<?php\n\\PHPStan\\TrinaryLogic::');
+	await page.keyboard.press('Control+Space');
+	await expect(popup(page)).toBeVisible({timeout: COMPLETION_TIMEOUT});
+	expect((await labels(page)).some((l) => l.startsWith('createYes'))).toBeTruthy();
+});
+
 // The two tests below depend on the patched @codemirror/autocomplete and
 // @codemirror/lsp-client (see patches/). Without those patches the parameter
 // placeholder isn't selected and the auto-import use statement isn't applied.
