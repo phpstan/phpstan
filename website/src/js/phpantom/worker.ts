@@ -7,14 +7,20 @@
 // hits a memory-corruption bug on wasm32-unknown-unknown but is correct on
 // wasm32-wasip1.
 import {WASI, OpenFile, File as WasiFile, ConsoleStdout} from '@bjorn3/browser_wasi_shim';
-// PHPStan stub shells fetched from phpstan-src by `npm run build:stubs`. Opened
-// as hidden documents (below) so the editor autocompletes PHPStan's own symbols
-// alongside phpstorm-stubs and the file being edited.
-import testingStub from './stubs/Testing.php?raw';
+// PHPStan stub shells built by `npm run build:stubs` (cleaned sources from
+// phpstan-src, mirroring its layout). Loaded recursively and opened as hidden
+// documents (below) so the editor autocompletes PHPStan's own symbols alongside
+// phpstorm-stubs and the file being edited. Globbing the directory means new
+// stubs need no change here.
+const stubModules = import.meta.glob<string>('./stubs/**/*.php', {
+	query: '?raw',
+	import: 'default',
+	eager: true,
+});
 
-const STUBS: ReadonlyArray<{uri: string; text: string}> = [
-	{uri: 'file:///stubs/phpstan/Testing.php', text: testingStub},
-];
+const STUBS: ReadonlyArray<{uri: string; text: string}> = Object.entries(stubModules).map(
+	([path, text]) => ({uri: 'file:///stubs/' + path.replace(/^\.\//, ''), text}),
+);
 
 // `self` is a DedicatedWorkerGlobalScope here; typed loosely to avoid pulling
 // the webworker lib into the project's DOM-typed build.

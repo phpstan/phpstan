@@ -1,0 +1,7 @@
+{
+    "description": "Build tooling for the playground PHPStan stub shells (not shipped).",
+    "require": {
+        "php": ">=8.0",
+        "nikic/php-parser": "^5.0"
+    }
+}

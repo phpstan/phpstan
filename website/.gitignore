@@ -11,4 +11,5 @@ src/js/phpantom/pkg-wasi/*.wasm
 functional-tests/test-results/
 
 # PHPStan stub shells (fetched via npm run build:stubs)
-src/js/phpantom/stubs/*.php
+src/js/phpantom/stubs/
+scripts/stubs/vendor/
