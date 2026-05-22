@@ -1,4 +1,4 @@
-import * as ko from 'knockout';
+import ko from '@tko/build.knockout';
 import $ from 'jquery';
 import littlefoot from 'littlefoot';
 import docsearch from '@docsearch/js';

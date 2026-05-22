@@ -1,5 +1,5 @@
 import {PHPStanError} from './PHPStanError';
-import * as ko from 'knockout';
+import ko from '@tko/build.knockout';
 
 export class PlaygroundTabViewModel {
 

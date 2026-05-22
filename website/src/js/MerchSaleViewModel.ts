@@ -1,4 +1,4 @@
-import * as ko from 'knockout';
+import ko from '@tko/build.knockout';
 import $ from 'jquery';
 import countries from './data/countries.json';
 import { loadStripe, Stripe, StripeCardElement } from '@stripe/stripe-js';
