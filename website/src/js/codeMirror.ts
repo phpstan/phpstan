@@ -17,6 +17,7 @@ import {urlIdField, urlIdExtensions} from "./editor/urlId";
 import {docBlockKeymap} from "./editor/docBlock";
 import {phpantomHover} from "./editor/phpantomHover";
 import {goToDefinition} from "./editor/goToDefinition";
+import {occurrenceHighlight, inlineRename} from "./editor/occurrences";
 import {phpantomLsp, PHP_URI} from "./phpantom/lspClient";
 
 ko.bindingHandlers.codeMirror = {
@@ -54,6 +55,10 @@ ko.bindingHandlers.codeMirror = {
 			// highlightActiveLine(),
 			// highlightSelectionMatches(),
 			keymap.of([
+				// Ctrl-R starts inline rename of the symbol under the cursor (all
+				// occurrences become editable at once). preventDefault so it never
+				// falls through to the browser's reload.
+				{key: "Ctrl-r", run: inlineRename, preventDefault: true},
 				...completionKeymap,
 				...docBlockKeymap,
 				indentWithTab,
@@ -89,6 +94,7 @@ ko.bindingHandlers.codeMirror = {
 			hover,
 			phpantomHover,
 			goToDefinition,
+			occurrenceHighlight,
 			phpantomLsp.plugin(PHP_URI, 'php'),
 			EditorView.baseTheme({
 				'.cm-tooltip.cm-tooltip-hover': {
