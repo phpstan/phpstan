@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import * as ko from 'knockout';
+import ko from '@tko/build.knockout';
 import { MerchSaleViewModel } from './MerchSaleViewModel';
 import { MainMenuViewModel } from './MainMenuViewModel';
 

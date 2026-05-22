@@ -1,4 +1,4 @@
-import * as ko from 'knockout';
+import ko from '@tko/build.knockout';
 
 declare const __ERRORS_IDENTIFIERS_JSON__: Record<string, Record<string, Record<string, string[]>>>;
 declare const __EXCLUDED_ERROR_IDENTIFIERS_JSON__: string[];

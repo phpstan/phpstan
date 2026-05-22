@@ -1,4 +1,4 @@
-import * as ko from 'knockout';
+import ko from '@tko/build.knockout';
 import {EditorView} from '@codemirror/view'
 import {keymap, highlightSpecialChars, drawSelection,
 	lineNumbers} from '@codemirror/view'

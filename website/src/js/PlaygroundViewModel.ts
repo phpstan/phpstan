@@ -1,4 +1,4 @@
-import * as ko from 'knockout';
+import ko from '@tko/build.knockout';
 import {PHPStanError} from './PHPStanError';
 import $ from 'jquery';
 import {MainMenuViewModel} from './MainMenuViewModel';

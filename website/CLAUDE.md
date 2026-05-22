@@ -8,7 +8,7 @@ Static website for PHPStan - PHP Static Analysis Tool.
 - **Bundler:** Vite
 - **Styling:** TailwindCSS v3 with PostCSS and autoprefixer
 - **Templating:** Nunjucks (11ty layouts/includes), Markdown (content pages, blog posts)
-- **Client-side JS:** Knockout.js, TypeScript (ES6 target), jQuery
+- **Client-side JS:** TKO (Technical Knockout 4, the Knockout.js successor), TypeScript (ES6 target), jQuery
 - **Code editor:** CodeMirror 6 (playground)
 - **Syntax highlighting:** Prism.js (build-time via 11ty plugin)
 - **Search:** Algolia DocSearch

@@ -1,4 +1,4 @@
-import * as ko from 'knockout';
+import ko from '@tko/build.knockout';
 import { MerchSaleViewModel, TShirtSize, TShirtType } from './MerchSaleViewModel';
 
 export class TShirtCartItem {
