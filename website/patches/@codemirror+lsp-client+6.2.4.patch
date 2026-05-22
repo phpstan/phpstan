@@ -1,0 +1,52 @@
+diff --git a/node_modules/@codemirror/lsp-client/dist/index.js b/node_modules/@codemirror/lsp-client/dist/index.js
+index d05b720..fd286e8 100644
+--- a/node_modules/@codemirror/lsp-client/dist/index.js
++++ b/node_modules/@codemirror/lsp-client/dist/index.js
+@@ -3,7 +3,7 @@ import { ChangeSet, MapMode, Facet, EditorState, StateField, StateEffect, Prec }
+ import { language, highlightingFor, getIndentUnit, indentUnit } from '@codemirror/language';
+ import { Marked } from 'marked';
+ import { highlightCode } from '@lezer/highlight';
+-import { autocompletion, snippet } from '@codemirror/autocomplete';
++import { autocompletion, snippet, insertCompletionText } from '@codemirror/autocomplete';
+ import { setDiagnostics } from '@codemirror/lint';
+ 
+ let context = null;
+@@ -918,11 +918,36 @@ const serverCompletionSource = context => {
+                     option.detail = item.detail;
+                 if (item.sortText)
+                     option.sortText = item.sortText;
++                let editApply;
+                 if (insertTextFormat == 2 /* Snippet */) {
+-                    option.apply = (view, c, from, to) => snippet(text.replace(/\$(\d+)/g, "${$1}"))(view, c, from, to);
++                    // Unescape LSP snippet escapes (\$, \}, \\) and brace bare $N tab stops.
++                    editApply = (view, c, from, to) => snippet(text.replace(/\\([$}\\])|\$(\d+)/g, (_m, e, f) => e != null ? e : "${" + f + "}"))(view, c, from, to);
+                 }
+                 else if (option.label != text) {
+-                    option.apply = text;
++                    editApply = text;
++                }
++                let extraEdits = item.additionalTextEdits;
++                if (extraEdits && extraEdits.length) {
++                    // Apply additionalTextEdits (e.g. an auto-import `use` statement) along
++                    // with the completion, remapping the completion range through them.
++                    let edits = extraEdits;
++                    option.apply = (view, c, from, to) => {
++                        let changes = view.state.changes(edits.map(e => ({
++                            from: plugin.fromPosition(e.range.start),
++                            to: plugin.fromPosition(e.range.end),
++                            insert: e.newText,
++                        })));
++                        view.dispatch({ changes });
++                        from = changes.mapPos(from, 1);
++                        to = changes.mapPos(to, 1);
++                        if (typeof editApply == "function")
++                            editApply(view, c, from, to);
++                        else
++                            view.dispatch(insertCompletionText(view.state, editApply ?? text, from, to));
++                    };
++                }
++                else if (editApply != null) {
++                    option.apply = editApply;
+                 }
+                 if (item.documentation)
+                     option.info = () => renderDocInfo(plugin, item.documentation);
