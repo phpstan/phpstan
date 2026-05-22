@@ -169,3 +169,58 @@ test('Cmd/Ctrl-click jumps to an in-file declaration', async ({page}) => {
 	await expect(page.locator('.cm-goto-def-flash'))
 		.toContainText('function greet', {timeout: COMPLETION_TIMEOUT});
 });
+
+test('highlights every occurrence of the symbol under the cursor', async ({page}) => {
+	await setCode(page, [
+		'<?php',
+		'function sum($total) {',
+		'    return $total + $total;',
+		'}',
+	].join('\n'));
+	await page.waitForTimeout(500);
+
+	await page.locator('.cm-content').getByText('$total', {exact: true}).first().click();
+	// The param declaration + both uses.
+	await expect.poll(() => page.locator('.cm-occurrence').count(), {timeout: COMPLETION_TIMEOUT}).toBe(3);
+});
+
+test('Ctrl-R inline-renames a variable across its scope, keeping the $', async ({page}) => {
+	await setCode(page, [
+		'<?php',
+		'function sum($total) {',
+		'    return $total + $total;',
+		'}',
+	].join('\n'));
+	await page.waitForTimeout(500);
+
+	await page.locator('.cm-content').getByText('$total', {exact: true}).first().click();
+	await page.keyboard.press('Control+r');
+	// All three occurrences become selections you edit at once.
+	await expect.poll(() => page.locator('.cm-selectionBackground').count(), {timeout: COMPLETION_TIMEOUT}).toBe(3);
+	await page.keyboard.type('amount');
+
+	const doc = page.locator('.cm-content').first();
+	await expect(doc).toContainText('function sum($amount)');
+	await expect(doc).toContainText('return $amount + $amount;');
+});
+
+test('Ctrl-R rename of a method is type-aware (same-named method on another class untouched)', async ({page}) => {
+	await setCode(page, [
+		'<?php',
+		'class A { public function run(): int { return 1; } }',
+		'class B { public function run(): int { return 2; } }',
+		'$a = new A(); echo $a->run();',
+	].join('\n'));
+	await page.waitForTimeout(500);
+
+	// Rename from the $a->run() call: only A::run (declaration + this call).
+	await page.locator('.cm-content').getByText('run', {exact: true}).last().click();
+	await page.keyboard.press('Control+r');
+	await expect.poll(() => page.locator('.cm-selectionBackground').count(), {timeout: COMPLETION_TIMEOUT}).toBe(2);
+	await page.keyboard.type('execute');
+
+	const doc = page.locator('.cm-content').first();
+	await expect(doc).toContainText('class A { public function execute()');
+	await expect(doc).toContainText('$a->execute();');
+	await expect(doc).toContainText('class B { public function run()'); // untouched
+});
