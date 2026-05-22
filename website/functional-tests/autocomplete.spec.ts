@@ -118,9 +118,10 @@ test('selects the parameter placeholder after completing a method with args', as
 
 	await page.keyboard.press('Control+Space');
 	await expect(popup(page)).toBeVisible({timeout: COMPLETION_TIMEOUT});
-	// Wait until the worker has actually surfaced greet before accepting it.
-	await expect.poll(() => labels(page), {timeout: COMPLETION_TIMEOUT}).toContain('greet($name)');
-	await page.keyboard.press('Enter');
+	// Click the option rather than pressing Enter — Enter accepts whichever item
+	// happens to be highlighted, which races with the worker on slow CI.
+	await page.locator('.cm-tooltip-autocomplete li').filter({hasText: 'greet'})
+		.first().click({timeout: COMPLETION_TIMEOUT});
 
 	// The first placeholder ($name) is selected — not the empty $0 — and the
 	// LSP escape is unescaped (no leading backslash).
@@ -138,12 +139,12 @@ test('adds a use statement when completing a class inside a namespace', async ({
 
 	await page.keyboard.press('Control+Space');
 	await expect(popup(page)).toBeVisible({timeout: COMPLETION_TIMEOUT});
-	await expect.poll(() => labels(page), {timeout: COMPLETION_TIMEOUT}).toContain('DateTimeImmutable');
-	await page.keyboard.press('Enter');
+	await page.locator('.cm-tooltip-autocomplete li').filter({hasText: 'DateTimeImmutable'})
+		.first().click({timeout: COMPLETION_TIMEOUT});
 
 	// additionalTextEdits add the import alongside the inserted name.
 	const doc = page.locator('.cm-content').first();
-	await expect(doc).toContainText('use DateTimeImmutable;');
+	await expect(doc).toContainText('use DateTimeImmutable;', {timeout: COMPLETION_TIMEOUT});
 });
 
 test('Cmd/Ctrl-click jumps to an in-file declaration', async ({page}) => {
