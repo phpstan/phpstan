@@ -16,7 +16,7 @@
 set -euo pipefail
 
 REPO="${PHPANTOM_REPO:-https://github.com/ondrejmirtes/phpantom_lsp.git}"
-REF="${PHPANTOM_REF:-39cd19623546c06e48fb553b237024183b48835c}"
+REF="${PHPANTOM_REF:-f196a7fb80b01cc7f4a9ad5bf7d75de47f1a4edc}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WEBSITE_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"

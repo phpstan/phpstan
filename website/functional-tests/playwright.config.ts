@@ -12,6 +12,10 @@ export default defineConfig({
 	testDir: '.',
 	outputDir: './test-results',
 	fullyParallel: true,
+	// Each page downloads + compiles the ~11 MB PHPantom wasm; running them in
+	// parallel contends for CPU/memory and makes completion/jump requests flaky.
+	// Serialise the suite to keep it stable (it's only a handful of tests).
+	workers: 1,
 	forbidOnly: !!process.env.CI,
 	retries: process.env.CI ? 2 : 0,
 	reporter: process.env.CI ? 'github' : 'list',

@@ -280,3 +280,20 @@ h3.hash-target code {
 .cm-phpantom-hover hr {
 	@apply my-2 border-gray-200 dark:border-gray-600;
 }
+
+/* Cmd/Ctrl-hover affordance + jump-target flash for go-to-definition. */
+.cm-goto-def-link {
+	cursor: pointer;
+	text-decoration: underline;
+}
+.cm-goto-def-flash {
+	animation: cm-goto-def-flash 1.2s ease-out;
+}
+@keyframes cm-goto-def-flash {
+	from {
+		background-color: rgba(250, 204, 21, 0.45);
+	}
+	to {
+		background-color: transparent;
+	}
+}
