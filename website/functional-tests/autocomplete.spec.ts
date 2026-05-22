@@ -198,10 +198,34 @@ test('Ctrl-R inline-renames a variable across its scope, keeping the $', async (
 	// All three occurrences become selections you edit at once.
 	await expect.poll(() => page.locator('.cm-selectionBackground').count(), {timeout: COMPLETION_TIMEOUT}).toBe(3);
 	await page.keyboard.type('amount');
+	await page.keyboard.press('Enter'); // confirm
 
 	const doc = page.locator('.cm-content').first();
 	await expect(doc).toContainText('function sum($amount)');
 	await expect(doc).toContainText('return $amount + $amount;');
+	// Enter confirms and leaves a single cursor — no lingering multi-selection.
+	await expect.poll(() => page.locator('.cm-cursor').count()).toBe(1);
+});
+
+test('Esc reverts an inline rename', async ({page}) => {
+	await setCode(page, [
+		'<?php',
+		'function sum($total) {',
+		'    return $total + $total;',
+		'}',
+	].join('\n'));
+	await page.waitForTimeout(500);
+
+	await page.locator('.cm-content').getByText('$total', {exact: true}).first().click();
+	await page.keyboard.press('Control+r');
+	await expect.poll(() => page.locator('.cm-selectionBackground').count(), {timeout: COMPLETION_TIMEOUT}).toBe(3);
+	await page.keyboard.type('zzz');
+	await page.keyboard.press('Escape'); // cancel
+
+	const doc = page.locator('.cm-content').first();
+	await expect(doc).not.toContainText('zzz');
+	await expect(doc).toContainText('return $total + $total;');
+	await expect.poll(() => page.locator('.cm-cursor').count()).toBe(1);
 });
 
 test('Ctrl-R rename of a method is type-aware (same-named method on another class untouched)', async ({page}) => {
@@ -218,6 +242,7 @@ test('Ctrl-R rename of a method is type-aware (same-named method on another clas
 	await page.keyboard.press('Control+r');
 	await expect.poll(() => page.locator('.cm-selectionBackground').count(), {timeout: COMPLETION_TIMEOUT}).toBe(2);
 	await page.keyboard.type('execute');
+	await page.keyboard.press('Enter');
 
 	const doc = page.locator('.cm-content').first();
 	await expect(doc).toContainText('class A { public function execute()');
