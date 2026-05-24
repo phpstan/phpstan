@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to function is_int\(\) with \-2\|\-1\|263\|264\|265\|306\|327\|328\|329\|330\|339\|353\|355\|389\|407\|408 will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/lib/PhpParser/compatibility_tokens.php

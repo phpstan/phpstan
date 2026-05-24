@@ -1,22 +1,46 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Provide more specific return type "Iterator" over abstract one$#'
-			identifier: typePerfect.narrowReturnObjectType
+			message: '#^PHPDoc tag @var with type array\<string, int\> is not subtype of native type array\<int\|string, int\<1, max\>\>\.$#'
+			identifier: varTag.nativeType
 			count: 1
-			path: repo/rules-tests/Naming/Naming/UseImportsResolver/UseImportsResolverTest.php
+			path: repo/rules/Naming/PhpArray/ArrayFilter.php
 
 		-
-			message: '#^If condition is always false\.$#'
-			identifier: if.alwaysFalse
+			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
 			count: 1
-			path: repo/rules/Php73/Rector/FuncCall/JsonThrowOnErrorRector.php
+			path: repo/src/Autoloading/BootstrapFilesIncluder.php
 
 		-
-			message: '#^Class Rector\\Util\\FileHasher referenced with incorrect case\: Rector\\Util\\Filehasher\.$#'
-			identifier: class.nameCase
+			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
 			count: 1
-			path: repo/src/ChangesReporting/Output/GitlabOutputFormatter.php
+			path: repo/src/Caching/Detector/ChangedFilesDetector.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: repo/src/Config/RectorConfig.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/src/Config/RectorConfig.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/src/Configuration/ConfigurationFactory.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/src/FileSystem/FilesystemTweaker.php
 
 		-
 			message: '#^Only abstract classes can be extended$#'
@@ -25,10 +49,28 @@ parameters:
 			path: repo/src/NodeTypeResolver/PHPStan/ObjectWithoutClassTypeWithParentTypes.php
 
 		-
-			message: '#^Provide more specific return type "PhpParser\\Node" over abstract one$#'
-			identifier: typePerfect.narrowReturnObjectType
+			message: '#^PHPDoc tag @var with type int is not subtype of native type int\<0, 65535\>\|false\|null\.$#'
+			identifier: varTag.nativeType
 			count: 1
-			path: repo/src/PhpParser/Node/NodeFactory.php
+			path: repo/src/Parallel/Application/ParallelFileProcessor.php
+
+		-
+			message: '#^PHPDoc tag @var with type array\<class\-string\<PhpParser\\Node\\Expr\\BinaryOp\>, class\-string\<PhpParser\\Node\\Expr\\AssignOp\>\> is not subtype of native type array\{PhpParser\\Node\\Expr\\BinaryOp\\BitwiseOr\: ''PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\BitwiseOr'', PhpParser\\Node\\Expr\\BinaryOp\\BitwiseAnd\: ''PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\BitwiseAnd'', PhpParser\\Node\\Expr\\BinaryOp\\BitwiseXor\: ''PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\BitwiseXor'', PhpParser\\Node\\Expr\\BinaryOp\\Plus\: ''PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\Plus'', PhpParser\\Node\\Expr\\BinaryOp\\Div\: ''PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\Div'', PhpParser\\Node\\Expr\\BinaryOp\\Mul\: ''PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\Mul'', PhpParser\\Node\\Expr\\BinaryOp\\Minus\: ''PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\Minus'', PhpParser\\Node\\Expr\\BinaryOp\\Concat\: ''PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\Concat'', \.\.\.\}\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/src/PhpParser/Node/AssignAndBinaryMap.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/src/Skipper/FileSystem/FnMatchPathNormalizer.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 2
+			path: repo/src/Skipper/RealpathMatcher.php
 
 		-
 			message: '#^Only abstract classes can be extended$#'
@@ -95,39 +137,3 @@ parameters:
 			identifier: symplify.forbiddenExtendOfNonAbstractClass
 			count: 1
 			path: repo/src/StaticTypeMapper/ValueObject/Type/SimpleStaticType.php
-
-		-
-			message: '#^Provide more specific return type "Iterator" over abstract one$#'
-			identifier: typePerfect.narrowReturnObjectType
-			count: 1
-			path: repo/src/Testing/PHPUnit/AbstractRectorTestCase.php
-
-		-
-			message: '#^Provide more specific return type "Iterator" over abstract one$#'
-			identifier: typePerfect.narrowReturnObjectType
-			count: 3
-			path: repo/tests/BetterPhpDocParser/PhpDocInfo/PhpDocInfoPrinter/PhpDocInfoPrinterTest.php
-
-		-
-			message: '#^Provide more specific return type "Iterator" over abstract one$#'
-			identifier: typePerfect.narrowReturnObjectType
-			count: 1
-			path: repo/tests/BetterPhpDocParser/PhpDocParser/ClassAnnotationMatcher/ResolveTagToKnownFullyQualifiedNameTest.php
-
-		-
-			message: '#^Provide more specific return type "Iterator" over abstract one$#'
-			identifier: typePerfect.narrowReturnObjectType
-			count: 2
-			path: repo/tests/BetterPhpDocParser/PhpDocParser/TagValueNodeReprint/TagValueNodeReprintTest.php
-
-		-
-			message: '#^Provide more specific return type "Iterator" over abstract one$#'
-			identifier: typePerfect.narrowReturnObjectType
-			count: 1
-			path: repo/tests/Comments/CommentRemover/CommentRemoverTest.php
-
-		-
-			message: '#^Provide more specific return type "Iterator" over abstract one$#'
-			identifier: typePerfect.narrowReturnObjectType
-			count: 1
-			path: repo/tests/NodeTypeResolver/PerNodeTypeResolver/PropertyFetchTypeResolver/PropertyFetchTypeResolverTest.php
