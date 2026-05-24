@@ -37,6 +37,30 @@ parameters:
 			path: repo/src/Core/Checkout/Customer/CustomerValueResolver.php
 
 		-
+			rawMessage: Casting to int something that's already int.
+			identifier: cast.useless
+			count: 1
+			path: repo/src/Core/Checkout/Customer/ImitateCustomerTokenGenerator.php
+
+		-
+			rawMessage: Using nullsafe method call on non-nullable type Shopware\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerEntity. Use -> instead.
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/src/Core/Checkout/Customer/Service/GuestAuthenticator.php
+
+		-
+			rawMessage: Using nullsafe method call on non-nullable type Shopware\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerEntity. Use -> instead.
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/src/Core/Checkout/Document/Renderer/AbstractDocumentRenderer.php
+
+		-
+			rawMessage: 'Strict comparison using === between int<1, max> and 0 will always evaluate to false.'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/src/Core/Content/Category/Service/CategoryBreadcrumbBuilder.php
+
+		-
 			rawMessage: 'Parameter #1 $array (array<non-empty-list>) to function array_filter does not contain falsy values, the array will always stay the same.'
 			identifier: arrayFilter.same
 			count: 1
@@ -53,6 +77,18 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Content/Flow/DataAbstractionLayer/FieldSerializer/FlowTemplateConfigFieldSerializer.php
+
+		-
+			rawMessage: Casting to string something that's already string.
+			identifier: cast.useless
+			count: 1
+			path: repo/src/Core/Content/Flow/Dispatching/Action/SetOrderStateAction.php
+
+		-
+			rawMessage: 'Offset 0 on non-empty-list<string> in isset() always exists and is not nullable.'
+			identifier: isset.offset
+			count: 1
+			path: repo/src/Core/Content/ImportExport/Service/MappingService.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Content\MeasurementSystem\Field\MeasurementUnitsFieldSerializer::encode() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -85,6 +121,18 @@ parameters:
 			path: repo/src/Core/Content/Product/Cms/ProductListingCmsElementResolver.php
 
 		-
+			rawMessage: Offset 0 on non-empty-list<string> on left side of ?? always exists and is not nullable.
+			identifier: nullCoalesce.offset
+			count: 1
+			path: repo/src/Core/Content/Product/DataAbstractionLayer/ProductStreamUpdater.php
+
+		-
+			rawMessage: 'Variable $arrayKeys in empty() is never defined.'
+			identifier: empty.variable
+			count: 1
+			path: repo/src/Core/Content/Product/Hook/Pricing/PriceCollectionFacade.php
+
+		-
 			rawMessage: 'Call to an undefined method object::assign().'
 			identifier: method.notFound
 			count: 1
@@ -107,6 +155,18 @@ parameters:
 			identifier: argument.invalidConstant
 			count: 1
 			path: repo/src/Core/Content/Product/SalesChannel/Listing/Processor/SortingListingProcessor.php
+
+		-
+			rawMessage: Casting to string something that's already string.
+			identifier: cast.useless
+			count: 1
+			path: repo/src/Core/Content/Product/SearchKeyword/ProductSearchKeywordAnalyzer.php
+
+		-
+			rawMessage: 'Call to function is_string() with string will always evaluate to true.'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Core/Content/ProductExport/Service/ProductExportGenerator.php
 
 		-
 			rawMessage: 'Return type (Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult<Shopware\Core\Framework\DataAbstractionLayer\EntityCollection<Shopware\Core\Framework\DataAbstractionLayer\Entity>>) of method Shopware\Core\Content\Test\ImportExport\MockRepository::search() should be compatible with return type (Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult<Shopware\Core\Framework\DataAbstractionLayer\EntityCollection>) of method Shopware\Core\Framework\DataAbstractionLayer\EntityRepository<TEntityCollection of Shopware\Core\Framework\DataAbstractionLayer\EntityCollection>::search()'
@@ -637,6 +697,12 @@ parameters:
 			path: repo/src/Core/Framework/DataAbstractionLayer/Write/WriteException.php
 
 		-
+			rawMessage: Casting to int something that's already int.
+			identifier: cast.useless
+			count: 1
+			path: repo/src/Core/Framework/Increment/ArrayIncrementer.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Framework\Migration\Command\MigrationCommand::getMigrationGenerator() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -683,6 +749,12 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Framework/Plugin/Requirement/Exception/RequirementStackException.php
+
+		-
+			rawMessage: 'Parameter #1 $array (list<mixed>) of array_values is already a list, call has no effect.'
+			identifier: arrayValues.list
+			count: 1
+			path: repo/src/Core/Framework/Plugin/Util/AssetService.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\Routing\Annotation\CriteriaValueResolver::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -751,6 +823,18 @@ parameters:
 			path: repo/src/Core/Installer/Controller/FinishController.php
 
 		-
+			rawMessage: 'Method Shopware\Core\Kernel::getKernelParameters() should return array<string, array<string, mixed>|bool|float|int|string|UnitEnum|null> but returns array<string, array|bool|float|int|string|UnitEnum|null>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Kernel.php
+
+		-
+			rawMessage: Casting to string something that's already string.
+			identifier: cast.useless
+			count: 1
+			path: repo/src/Core/Maintenance/System/Struct/DatabaseConnectionInformation.php
+
+		-
 			rawMessage: 'Method Shopware\Core\System\SalesChannel\Context\SalesChannelContextValueResolver::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -781,10 +865,34 @@ parameters:
 			path: repo/src/Storefront/Controller/ContextController.php
 
 		-
+			rawMessage: Offset 0 on non-empty-list<string> on left side of ?? always exists and is not nullable.
+			identifier: nullCoalesce.offset
+			count: 1
+			path: repo/src/Storefront/Page/Robots/Parser/RobotsDirectiveParser.php
+
+		-
 			rawMessage: 'Method Shopware\Storefront\Theme\Exception\ThemeConfigException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Storefront/Theme/Exception/ThemeConfigException.php
+
+		-
+			rawMessage: 'Call to function array_key_exists() with ''value'' and array{value: mixed, scss?: true, type: string} will always evaluate to true.'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Storefront/Theme/ThemeCompiler.php
+
+		-
+			rawMessage: 'Offset ''type'' on array{value: array<mixed>|string|null, scss?: true, type: string} in isset() always exists and is not nullable.'
+			identifier: isset.offset
+			count: 1
+			path: repo/src/Storefront/Theme/ThemeCompiler.php
+
+		-
+			rawMessage: Casting to string something that's already string.
+			identifier: cast.useless
+			count: 1
+			path: repo/src/Storefront/Theme/ThemeMergedConfigBuilder.php
 
 		-
 			rawMessage: 'Parameter #1 $assertType of method PHPStan\Testing\TypeInferenceTestCase::assertFileAsserts() expects string, bool|float|int|list<string>|PHPStan\TrinaryLogic|string|null given.'
@@ -799,6 +907,12 @@ parameters:
 			path: repo/tests/devops/Core/DevOps/StaticAnalyse/PHPStan/Type/CollectionHasSpecifyingExtensionTest.php
 
 		-
+			rawMessage: Casting to string something that's already string.
+			identifier: cast.useless
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Cart/CartTaxTest.php
+
+		-
 			rawMessage: 'Parameter #2 $expectations of method Shopware\Tests\Integration\Core\Checkout\Cart\Facade\CartFacadeTest::testScripts() expects array<string, Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice|null>, array<string, array<string, array<string, Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice>|Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice>|Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice> given.'
 			identifier: argument.type
 			count: 1
@@ -811,10 +925,28 @@ parameters:
 			path: repo/tests/integration/Core/Checkout/Cart/Facade/CartFacadeTest.php
 
 		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 2
+			path: repo/tests/integration/Core/Checkout/Cart/Rule/LineItemListPriceRuleTest.php
+
+		-
+			rawMessage: Casting to string something that's already string.
+			identifier: cast.useless
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Cart/SalesChannel/CartItemUpdateRouteTest.php
+
+		-
 			rawMessage: 'Parameter #1 $vatIds of method Shopware\Tests\Integration\Core\Checkout\Customer\SalesChannel\ChangeCustomerProfileRouteTest::testChangeVatIdsOfCommercialAccount() expects array<string|null>|null, array<int, true> given.'
 			identifier: argument.type
 			count: 1
 			path: repo/tests/integration/Core/Checkout/Customer/SalesChannel/ChangeCustomerProfileRouteTest.php
+
+		-
+			rawMessage: Casting to string something that's already string.
+			identifier: cast.useless
+			count: 2
+			path: repo/tests/integration/Core/Checkout/Customer/SalesChannel/DeleteAddressRouteTest.php
 
 		-
 			rawMessage: 'Parameter #1 $data of method Shopware\Tests\Integration\Core\Checkout\Customer\SalesChannel\UpsertAddressRouteTest::testCreateAddress() expects array<string, string>, array<string, string|null> given.'
@@ -857,6 +989,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/integration/Core/Checkout/Document/Renderer/StornoRendererTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 2 and array{mixed, mixed} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Document/Service/DocumentGeneratorTest.php
 
 		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Checkout\\Document\\Renderer\\RenderedDocument'' and Shopware\Core\Checkout\Document\Renderer\RenderedDocument will always evaluate to true.'
@@ -973,6 +1111,78 @@ parameters:
 			path: repo/tests/integration/Core/Framework/App/Privileges/PrivilegesTest.php
 
 		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''read-protected'' and array{entity: string, properties: array<string, array{type: string, flags: array<string, mixed>}>, write-protected: bool, read-protected: bool, flags?: list<Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Flag>} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Framework/Api/ApiDefinition/Generator/EntitySchemaGeneratorTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''write-protected'' and array{entity: string, properties: array<string, array{type: string, flags: array<string, mixed>}>, write-protected: bool, read-protected: bool, flags?: list<Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Flag>} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Framework/Api/ApiDefinition/Generator/EntitySchemaGeneratorTest.php
+
+		-
+			rawMessage: Casting to string something that's already string.
+			identifier: cast.useless
+			count: 1
+			path: repo/tests/integration/Core/Framework/App/ActionButton/ExecutorTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with 0 and *NEVER* will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Framework/App/Lifecycle/AppLifecycleTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 2
+			path: repo/tests/integration/Core/Framework/App/Lifecycle/Registration/AppRegistrationServiceTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 6
+			path: repo/tests/integration/Core/Framework/App/Payment/AppAsyncPaymentHandlerTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 2
+			path: repo/tests/integration/Core/Framework/App/Payment/AppPreparedPaymentHandlerTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 2
+			path: repo/tests/integration/Core/Framework/App/Payment/AppRecurringHandlerTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 2
+			path: repo/tests/integration/Core/Framework/App/Payment/AppRefundHandlerTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''fingerprints'' and *NEVER* will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Framework/App/ShopId/ShopIdProviderTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''id'' and *NEVER* will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Framework/App/ShopId/ShopIdProviderTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''version'' and *NEVER* will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Framework/App/ShopId/ShopIdProviderTest.php
+
+		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\CustomField\CustomFieldServiceTest::testGetCustomFieldField() invoked with 14 parameters, 2 required.'
 			identifier: arguments.count
 			count: 1
@@ -983,6 +1193,12 @@ parameters:
 			identifier: argument.type
 			count: 11
 			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/EntityRepositoryTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 2
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/Event/EntityWrittenEventSerializationTest.php
 
 		-
 			rawMessage: 'Parameter #1 $input of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\ConfigJsonFieldSerializerTest::testSerializer() expects array<string, int>|bool|float|int|string|null, array<int, array<int, int>> given.'
@@ -1081,6 +1297,48 @@ parameters:
 			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/StringFieldSerializerTest.php
 
 		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''categoryId'' and *NEVER* will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/Search/EntitySearcherTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''productId'' and *NEVER* will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/Search/EntitySearcherTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotNull() with null will always evaluate to false.'
+			identifier: staticMethod.impossibleType
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/Search/Parser/AggregationParserTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 0 and array{array<string, mixed>} will always evaluate to false.'
+			identifier: staticMethod.impossibleType
+			count: 2
+			path: repo/tests/integration/Core/Framework/Demodata/PersonalData/CleanPersonalDataCommandTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 0 and list{0: array<string, mixed>, 1: array<string, mixed>, 2?: array<string, mixed>, 3?: array<string, mixed>, 4?: array<string, mixed>} will always evaluate to false.'
+			identifier: staticMethod.impossibleType
+			count: 2
+			path: repo/tests/integration/Core/Framework/Demodata/PersonalData/CleanPersonalDataCommandTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 1 and array{array<string, mixed>, array<string, mixed>} will always evaluate to false.'
+			identifier: staticMethod.impossibleType
+			count: 1
+			path: repo/tests/integration/Core/Framework/Demodata/PersonalData/CleanPersonalDataCommandTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 1 and array{array<string, mixed>} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 4
+			path: repo/tests/integration/Core/Framework/Demodata/PersonalData/CleanPersonalDataCommandTest.php
+
+		-
 			rawMessage: 'Parameter #1 $featureConfig of method Shopware\Tests\Integration\Core\Framework\FeatureFlag\FeatureTest::testIsActive() expects array<string, array{name?: string, default?: bool, major?: bool, description?: string}>, array{''FEATURE_NEXT_101''} given.'
 			identifier: argument.type
 			count: 8
@@ -1093,10 +1351,28 @@ parameters:
 			path: repo/tests/integration/Core/Framework/FeatureFlag/FeatureTest.php
 
 		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Framework/Notification/Api/NotificationControllerTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertSame() with ''SwagTestComposerLoa…'' and ''SwagTestComposerLoa…'' will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/integration/Core/Framework/Plugin/KernelPluginLoader/ComposerPluginLoaderTest.php
+
+		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Seo\SeoUrl\SeoUrlRepositoryTest::emptyGenerator() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/tests/integration/Core/Framework/Seo/SeoUrl/SeoUrlRepositoryTest.php
+
+		-
+			rawMessage: Casting to string something that's already string.
+			identifier: cast.useless
+			count: 1
+			path: repo/tests/integration/Core/Framework/Sso/Helper/FakeTokenGenerator.php
 
 		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Framework\\Webhook\\AclPrivilegeCollection'' and Shopware\Core\Framework\Webhook\AclPrivilegeCollection will always evaluate to true.'
@@ -1115,6 +1391,12 @@ parameters:
 			identifier: arguments.count
 			count: 2
 			path: repo/tests/integration/Core/System/SalesChannel/Context/SalesChannelContextTest.php
+
+		-
+			rawMessage: Casting to string something that's already string.
+			identifier: cast.useless
+			count: 4
+			path: repo/tests/integration/Core/System/Snippet/SnippetServiceTest.php
 
 		-
 			rawMessage: 'Parameter #2 $expectedResult of method Shopware\Tests\Integration\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects array<int, array<int, array<int|string, string>|Symfony\Component\Translation\MessageCatalogue>>, array<string, string> given.'
@@ -1177,12 +1459,6 @@ parameters:
 			path: repo/tests/integration/Elasticsearch/Admin/AdminSearchControllerTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertEmpty() with array{} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/integration/Elasticsearch/Framework/Indexing/ElasticsearchIndexerTest.php
-
-		-
 			rawMessage: 'Method Shopware\Tests\Integration\Elasticsearch\Product\ProductSearchQueryBuilderTest::testSearch() invoked with 3 parameters, 4 required.'
 			identifier: arguments.count
 			count: 10
@@ -1199,6 +1475,18 @@ parameters:
 			identifier: argument.type
 			count: 10
 			path: repo/tests/integration/Storefront/Framework/Routing/RequestTransformerTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''configuration_key'' and array{} will always evaluate to false.'
+			identifier: staticMethod.impossibleType
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1671723392AddWebhookLifetimeConfigTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''configuration_value'' and *NEVER* will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1671723392AddWebhookLifetimeConfigTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Migration\Core\V6_6\Migration1703850843FixSearchConfigTest::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -1237,10 +1525,64 @@ parameters:
 			path: repo/tests/migration/Core/V6_6/Migration1721202771UpdateDefaultSearchConfigTest.php
 
 		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''configuration_key'' and array{} will always evaluate to false.'
+			identifier: staticMethod.impossibleType
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1730059142AddNewSitemapConfigForExcludingHiddenProductsTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''configuration_value'' and *NEVER* will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1730059142AddNewSitemapConfigForExcludingHiddenProductsTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''configuration_key'' and array{} will always evaluate to false.'
+			identifier: staticMethod.impossibleType
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1735112885AddDefaultSearchResultSortingTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''configuration_value'' and *NEVER* will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/migration/Core/V6_6/Migration1735112885AddDefaultSearchResultSortingTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''configuration_key'' and array{} will always evaluate to false.'
+			identifier: staticMethod.impossibleType
+			count: 1
+			path: repo/tests/migration/Core/V6_7/Migration1749644517AddListingVariantNameSystemConfigOptionTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''configuration_value'' and *NEVER* will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/migration/Core/V6_7/Migration1749644517AddListingVariantNameSystemConfigOptionTest.php
+
+		-
 			rawMessage: 'Method Shopware\Tests\Bench\BenchExtension::findFixtures() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/tests/performance/bench/BenchExtension.php
+
+		-
+			rawMessage: PHPDoc tag @var with type string is not subtype of native type class-string|false.
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/tests/performance/bench/BenchExtension.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''amount'' and array{date: string, amount: float, count: int} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Administration/Dashboard/OrderAmountServiceTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''date'' and array{date: string, amount: float, count: int} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Administration/Dashboard/OrderAmountServiceTest.php
 
 		-
 			rawMessage: 'Parameter #3 $assetKeys of method Shopware\Tests\Unit\Administration\Framework\Twig\ViteFileAccessorDecoratorTest::testGetData() expects list<string>, array{''entryPoints'', ''administration'', ''js'', 0} given.'
@@ -1301,6 +1643,18 @@ parameters:
 			identifier: method.void
 			count: 4
 			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemVariantValueRuleTest.php
+
+		-
+			rawMessage: 'Parameter #1 $array (array{array{id: string}, array{id: string}, array{id: string}}) of array_values is already a list, call has no effect.'
+			identifier: arrayValues.list
+			count: 1
+			path: repo/tests/unit/Core/Checkout/Customer/DeleteUnusedGuestCustomerServiceTest.php
+
+		-
+			rawMessage: Casting to int something that's already int.
+			identifier: cast.useless
+			count: 1
+			path: repo/tests/unit/Core/Checkout/Customer/ImitateCustomerTokenGeneratorTest.php
 
 		-
 			rawMessage: 'Parameter #3 $expectedStruct of method Shopware\Tests\Unit\Core\Checkout\Customer\Subscriber\AddressHashSubscriberTest::testGenerate() expects array<string, string|null>, array<string, array|string> given.'
@@ -1513,6 +1867,24 @@ parameters:
 			path: repo/tests/unit/Core/Content/Media/Metadata/MetadataLoaderTest.php
 
 		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with 1 and array{mixed, mixed, mixed} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Core/Content/Newsletter/SalesChannel/NewsletterSubscribeRouteTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with 1 and array{mixed, mixed} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Core/Content/Newsletter/SalesChannel/NewsletterSubscribeRouteTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with 2 and array{mixed, mixed, mixed} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Core/Content/Newsletter/SalesChannel/NewsletterSubscribeRouteTest.php
+
+		-
 			rawMessage: 'Parameter $doiSettings of method Shopware\Tests\Unit\Core\Content\Newsletter\SalesChannel\NewsletterSubscribeRouteTest::testSubscribeToNewsletterViaCmsForm() expects array{isDoubleOptIn: bool, doubleOptInRegistered: bool}, array{''core.newsletter.doubleOptIn'': false, ''core.newsletter.doubleOptInRegistered'': false} given.'
 			identifier: argument.type
 			count: 5
@@ -1613,6 +1985,53 @@ parameters:
 			identifier: argument.invalidConstant
 			count: 4
 			path: repo/tests/unit/Core/Framework/Api/ApiDefinition/Generator/OpenApi/OpenApiDefinitionSchemaBuilderTest.php
+		-
+			rawMessage: 'Strict comparison using !== between string and false will always evaluate to true.'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/tests/unit/Core/Framework/Adapter/Twig/SwEscapeFilterTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''paths'' and array{paths: array{}} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Api/ApiDefinition/Generator/StoreApiGeneratorTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''paths'' and array{paths: null} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Api/ApiDefinition/Generator/StoreApiGeneratorTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 0 and array{} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Api/ApiDefinition/Generator/StoreApiGeneratorTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 2 and array{mixed, mixed} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Core/Framework/App/Cms/Xml/BlockTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 2
+			path: repo/tests/unit/Core/Framework/App/InAppPurchases/Payload/InAppPurchasesPayloadServiceTest.php
+
+		-
+			rawMessage: Casting to string something that's already string.
+			identifier: cast.useless
+			count: 2
+			path: repo/tests/unit/Core/Framework/App/Lifecycle/AppLifecycleTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Core/Framework/App/TaxProvider/Payload/TaxProviderPayloadServiceTest.php
 
 		-
 			rawMessage: 'Parameter #2 $expected of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Dbal\CriteriaFieldsResolverTest::testResolveFields() expects array<int, mixed>, array<string, array<string, array>> given.'
@@ -1637,6 +2056,12 @@ parameters:
 			identifier: argument.type
 			count: 10
 			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/FieldSerializer/EnumFieldSerializerTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''value'' and non-empty-array will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
 
 		-
 			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testContainsFilter() expects array{type: ''contains'', field: string, value: mixed}, array{type: ''contains'', field: ''foo''} given.'
@@ -1799,6 +2224,18 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Write/WriteInputValidatorTest.php
+
+		-
+			rawMessage: Casting to string something that's already string.
+			identifier: cast.useless
+			count: 2
+			path: repo/tests/unit/Core/Framework/MessageQueue/Command/DeactivateScheduledTaskCommandTest.php
+
+		-
+			rawMessage: Casting to string something that's already string.
+			identifier: cast.useless
+			count: 2
+			path: repo/tests/unit/Core/Framework/MessageQueue/Command/ScheduleScheduledTaskCommandTest.php
 
 		-
 			rawMessage: 'Parameter $existingTagAttributes of method Shopware\Tests\Unit\Core\Framework\MessageQueue\MessageHandlerCompilerPassTest::testAddsTagsAttributesFromAttribute() expects array<string, string>, array<string, int|string> given.'
@@ -2023,6 +2460,18 @@ parameters:
 			path: repo/tests/unit/Core/Framework/Sso/Config/LoginConfigServiceTest.php
 
 		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with 0 and array{mixed, mixed} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Update/Api/UpdateControllerTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with 1 and array{mixed, mixed} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Update/Api/UpdateControllerTest.php
+
+		-
 			rawMessage: 'Method Shopware\Tests\Unit\Core\Installer\Database\DatabaseMigratorTest::emptyGenerator() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -2057,6 +2506,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Service/ServiceRegistry/ClientTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 2 and array{Shopware\Core\System\CustomEntity\Xml\Config\AdminUi\XmlElements\Card, Shopware\Core\System\CustomEntity\Xml\Config\AdminUi\XmlElements\Card} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Core/System/CustomEntity/Xml/Config/CustomEntityEnrichmentServiceTest.php
 
 		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertEmpty() with array{} will always evaluate to true.'
@@ -2203,7 +2658,13 @@ parameters:
 			path: repo/tests/unit/Core/System/UsageData/Consent/ConsentReporterTest.php
 
 		-
-			rawMessage: 'Offset ''create''|''delete''|''update'' might not exist on array{create?: int<0, max>, update?: int<0, max>, delete?: int<0, max>}.'
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''associationField'' and array{associationField: Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField, idField: Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyIdField|null} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Core/System/UsageData/Services/EntityDefinitionServiceTest.php
+
+		-
+			rawMessage: 'Offset ''create''|''delete''|''update'' might not exist on non-empty-array{create?: int<0, max>, update?: int<0, max>, delete?: int<0, max>}.'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: repo/tests/unit/Core/System/UsageData/Services/EntityDispatchServiceTest.php
@@ -2273,6 +2734,24 @@ parameters:
 			identifier: argument.type
 			count: 3
 			path: repo/tests/unit/Elasticsearch/TokenQueryBuilderTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''Shopware\\Storefront\\Event\\StorefrontRenderEvent'' and non-empty-array will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/unit/Storefront/Framework/Routing/TemplateDataSubscriberTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with 0 and array{Shopware\Storefront\Page\Robots\Parser\ParseIssue, Shopware\Storefront\Page\Robots\Parser\ParseIssue} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 2
+			path: repo/tests/unit/Storefront/Page/Robots/Parser/ParsedRobotsTest.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with 1 and array{Shopware\Storefront\Page\Robots\Parser\ParseIssue, Shopware\Storefront\Page\Robots\Parser\ParseIssue} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 2
+			path: repo/tests/unit/Storefront/Page/Robots/Parser/ParsedRobotsTest.php
 
 		-
 			rawMessage: 'Parameter #1 $config of method Shopware\Tests\Unit\Storefront\Theme\ThemeCompilerTest::testDumpVariables() expects array<string>, array<string, array<string, array<string, array<int|string, bool|int|list<array<string, string>>|string>|bool|string>>> given.'

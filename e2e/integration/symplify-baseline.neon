@@ -583,6 +583,12 @@ parameters:
 			path: repo/src/Rules/UppercaseConstantRule.php
 
 		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Symfony/ConfigClosure/SymfonyClosureServicesExcludeResolver.php
+
+		-
 			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
 			identifier: typeCoverage.constantTypeCoverage
 			count: 1

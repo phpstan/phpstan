@@ -65,3 +65,9 @@ parameters:
 			identifier: unset.possiblyHookedProperty
 			count: 1
 			path: repo/tests/FunctionalTestCase.php
+
+		-
+			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 1 and array{Doctrine\DBAL\Schema\Column} will always evaluate to true.'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: repo/tests/Schema/TableTest.php
