@@ -1,7 +1,37 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Call to an undefined method Tests\\App\\Test\\Codeception\\AcceptanceTester\:\:selectOptionInSelect2ByCssAndValue\(\)\.$#'
-			identifier: method.notFound
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertSame\(\) with ''123456\.79'' and ''123456\.79'' will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
 			count: 1
-			path: repo/project-base/app/tests/App/Acceptance/acceptance/PageObject/Admin/ProductAdvancedSearchPage.php
+			path: tests/App/Unit/NumberFormattingTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertArrayHasKey\(\) with arguments 0, non\-empty\-array and ''Response does not…'' will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/FrontendApiBundle/Functional/Category/PromotedCategoriesTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertArrayHasKey\(\) with ''tokens'' and non\-empty\-array will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/FrontendApiBundle/Functional/Customer/User/RecoverPasswordTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertArrayHasKey\(\) with ''tokens'' and non\-empty\-array will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: tests/FrontendApiBundle/Functional/Customer/User/RegisterTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertArrayHasKey\(\) with ''tokens'' and non\-empty\-array will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 2
+			path: tests/FrontendApiBundle/Functional/Login/LoginTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertArrayHasKey\(\) with arguments 0, non\-empty\-array and ''Response does not…'' will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/FrontendApiBundle/Functional/Product/PromotedProductsTest.php
