@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: 'Call to function is_callable() with callable(): mixed will always evaluate to true.'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
 			rawMessage: 'Method PHPUnit\Framework\TestSuite::getIterator() return type with generic interface Iterator does not specify its types: TKey, TValue'
 			identifier: missingType.generics
 			count: 1
@@ -11,3 +17,9 @@ parameters:
 			identifier: nullCoalesce.property
 			count: 1
 			path: repo/src/Runner/ErrorHandler.php
+
+		-
+			rawMessage: 'Offset 0 on non-empty-list<string> in isset() always exists and is not nullable.'
+			identifier: isset.offset
+			count: 1
+			path: repo/src/TextUI/Configuration/Cli/Builder.php
