@@ -184,7 +184,7 @@ jobs:
         with:
           node-version: "20"
 
-      - uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
+      - uses: "ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda" # v4.0.0
 
       - name: "Download phpstan.phar"
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
@@ -507,7 +507,7 @@ jobs:
           php-version: "${{ matrix.php-version }}"
           ini-file: development
 
-      - uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
+      - uses: "ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda" # v4.0.0
 
       - name: "Download phpstan.phar"
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
@@ -607,7 +607,7 @@ jobs:
           install-path: "./bin"
           pm-version-major: "5"
 
-      - uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
+      - uses: "ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda" # v4.0.0
 
       - name: "Download phpstan.phar"
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
@@ -622,7 +622,7 @@ jobs:
           path: e2e/integration/repo
 
       - name: "Install dependencies"
-        uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
+        uses: "ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda" # v4.0.0
         with:
           working-directory: "e2e/integration/repo"
 
