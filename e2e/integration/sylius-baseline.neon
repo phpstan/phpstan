@@ -1,6 +1,97 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Negated boolean expression is always true\\.$#"
-			count: 2
-			path: repo/src/Sylius/Bundle/UserBundle/Console/Command/AbstractRoleCommand.php
+			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesProviderInterface\:\:provideForPeriodInChannel\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesProviderInterface.php
+
+		-
+			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:generateMergedByPeriod\(\) has parameter \$firstArray with no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+
+		-
+			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:generateMergedByPeriod\(\) has parameter \$secondArray with no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+
+		-
+			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:generateMergedByPeriod\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+
+		-
+			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:getStatisticsData\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+
+		-
+			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:indexByPeriodWithKeys\(\) has parameter \$items with no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+
+		-
+			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:indexByPeriodWithKeys\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+
+		-
+			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:mergeArraysByPeriod\(\) has parameter \$firstArray with no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+
+		-
+			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:mergeArraysByPeriod\(\) has parameter \$secondArray with no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+
+		-
+			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:mergeArraysByPeriod\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+
+		-
+			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:provide\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+
+		-
+			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:withFormattedDates\(\) has parameter \$sales with no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+
+		-
+			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:withFormattedDates\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+
+		-
+			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProviderInterface\:\:provide\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProviderInterface.php
+
+		-
+			message: '#^Method Sylius\\Component\\Core\\Statistics\\ValueObject\\Statistics\:\:__construct\(\) has parameter \$sales with no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Sylius/Component/Core/Statistics/ValueObject/Statistics.php
+
+		-
+			message: '#^Method Sylius\\Component\\Core\\Statistics\\ValueObject\\Statistics\:\:getSales\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Sylius/Component/Core/Statistics/ValueObject/Statistics.php

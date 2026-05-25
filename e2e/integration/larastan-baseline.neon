@@ -1,19 +1,13 @@
 parameters:
 	ignoreErrors:
 		-
-			rawMessage: 'Method Larastan\Larastan\Support\ViewFileHelper::getAllViewFilePaths() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
+			rawMessage: 'Parameter #3 $options of static method Orchestra\Testbench\Foundation\Application::create() expects array{extra?: array{env?: array, providers?: array<int, class-string>, dont-discover?: array<int, string>, bootstrappers?: array<int, class-string>|class-string|null}, load_environment_variables?: bool, enabled_package_discoveries?: bool}, array{enables_package_discoveries: true, extra: array{env: array, providers: array<int, class-string>, dont-discover: array<int, string>, bootstrappers: array<int, class-string>|class-string|null}} given.'
+			identifier: argument.type
 			count: 1
-			path: repo/src/Support/ViewFileHelper.php
+			path: repo/src/ApplicationResolver.php
 
 		-
-			rawMessage: 'Method Larastan\Larastan\Support\ViewFileHelper::getAllViewNames() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
+			rawMessage: 'Parameter #3 $options of static method Orchestra\Testbench\Foundation\Application::create() expects array{extra?: array{env?: array, providers?: array<int, class-string>, dont-discover?: array<int, string>, bootstrappers?: array<int, class-string>|class-string|null}, load_environment_variables?: bool, enabled_package_discoveries?: bool}, array{enables_package_discoveries: true} given.'
+			identifier: argument.type
 			count: 1
-			path: repo/src/Support/ViewFileHelper.php
-
-		-
-			rawMessage: 'Method Larastan\Larastan\Support\ViewFileHelper::getRootViewFilePaths() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
-			identifier: missingType.generics
-			count: 1
-			path: repo/src/Support/ViewFileHelper.php
+			path: repo/src/ApplicationResolver.php

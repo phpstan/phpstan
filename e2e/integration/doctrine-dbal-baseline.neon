@@ -7,6 +7,24 @@ parameters:
 			path: repo/src/Connections/PrimaryReadReplicaConnection.php
 
 		-
+			rawMessage: 'Method Doctrine\DBAL\Driver\IBMDB2\Exception\CannotCopyStreamToStream::new() has parameter $error with no value type specified in unsealed extra keys (...).'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Driver/IBMDB2/Exception/CannotCopyStreamToStream.php
+
+		-
+			rawMessage: 'Method Doctrine\DBAL\Driver\IBMDB2\Exception\CannotCreateTemporaryFile::new() has parameter $error with no value type specified in unsealed extra keys (...).'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Driver/IBMDB2/Exception/CannotCreateTemporaryFile.php
+
+		-
+			rawMessage: 'Method Doctrine\DBAL\Driver\IBMDB2\Exception\PrepareFailed::new() has parameter $error with no value type specified in unsealed extra keys (...).'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/src/Driver/IBMDB2/Exception/PrepareFailed.php
+
+		-
 			rawMessage: 'Offset ''uri'' might not exist on array{timed_out: bool, blocked: bool, eof: bool, unread_bytes: int, stream_type: string, wrapper_type: string, wrapper_data: mixed, mode: string, ...}.'
 			identifier: offsetAccess.notFound
 			count: 1
@@ -37,10 +55,22 @@ parameters:
 			path: repo/src/Driver/SQLSrv/Result.php
 
 		-
+			rawMessage: 'Offset ''type'' might not exist on array{unique: mixed, autoincrement: mixed, default: mixed, ...<string, mixed>}.'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/src/Platforms/SQLitePlatform.php
+
+		-
 			rawMessage: 'Only booleans are allowed in a while condition, int|false given.'
 			identifier: while.condNotBoolean
 			count: 1
 			path: repo/src/Schema/SQLServerSchemaManager.php
+
+		-
+			rawMessage: 'Method Doctrine\DBAL\Tools\DsnParser::parse() should return array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...} but returns array<mixed>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Tools/DsnParser.php
 
 		-
 			rawMessage: 'Only booleans are allowed in a while condition, mixed given.'
@@ -67,7 +97,7 @@ parameters:
 			path: repo/tests/FunctionalTestCase.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 1 and array{Doctrine\DBAL\Schema\Column} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
+			rawMessage: 'Method Doctrine\DBAL\Tests\TestUtil::mapConnectionParameters() should return array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...} but returns array{driver?: mixed, user?: mixed, password?: mixed, host?: mixed, dbname?: mixed, memory?: mixed, port?: mixed, server?: mixed, ...}.'
+			identifier: return.type
 			count: 1
-			path: repo/tests/Schema/TableTest.php
+			path: repo/tests/TestUtil.php
