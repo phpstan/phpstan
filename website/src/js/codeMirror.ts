@@ -21,7 +21,7 @@ import {occurrenceHighlight, inlineRename} from "./editor/occurrences";
 import {phpantomLsp, PHP_URI} from "./phpantom/lspClient";
 
 ko.bindingHandlers.codeMirror = {
-	init: (element, valueAccessor, allBindings, viewModel, bindingContext) => {
+	init: (element, valueAccessor, allBindings) => {
 		// from https://github.com/codemirror/basic-setup/blob/78d1a916147c8c19678838cbdbf9396a8d1a6460/src/codemirror.ts
 		// options explained here: https://codemirror.net/docs/ref/
 
@@ -37,6 +37,7 @@ ko.bindingHandlers.codeMirror = {
 			lineNumbers(),
 			// highlightActiveLineGutter(),
 			highlightSpecialChars({
+				// eslint-disable-next-line no-control-regex -- intentionally matches control characters to highlight them
 				addSpecialChars: /[\u0000-\u0008\u000b-\u001f\u007f-\u009f\u00a0\u00ad\u061c\u2000-\u200f\u2028\u2029\u2060\u2066-\u2069\ufeff\ufff9-\ufffc]/g
 			}),
 			history(),
@@ -138,7 +139,7 @@ ko.bindingHandlers.codeMirror = {
 };
 
 ko.bindingHandlers.codeMirrorErrors = {
-	update: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) => {
+	update: (element, valueAccessor) => {
 		const editor: EditorView = ko.utils.domData.get(element, 'codeMirror');
 		const errors: PHPStanError[] = ko.unwrap(valueAccessor());
 

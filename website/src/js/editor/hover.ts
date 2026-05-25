@@ -2,7 +2,7 @@ import {hoverTooltip} from "@codemirror/view";
 import {PHPStanError} from "../PHPStanError";
 import {errorsFacet} from "./errors";
 
-export const hover = hoverTooltip((view, pos, side) => {
+export const hover = hoverTooltip((view, pos) => {
 	const currentErrors: PHPStanError[] = view.state.facet(errorsFacet);
 	const line = view.state.doc.lineAt(pos);
 	const lineErrors: PHPStanError[] = [];

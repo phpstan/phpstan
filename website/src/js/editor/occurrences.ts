@@ -22,7 +22,7 @@ interface LspRange { start: LspPosition; end: LspPosition }
 interface LspLocation { uri: string; range: LspRange }
 interface DocumentHighlight { range: LspRange }
 interface TextEdit { range: LspRange; newText: string }
-interface WorkspaceEdit { changes?: {[uri: string]: TextEdit[]} }
+interface WorkspaceEdit { changes?: Record<string, TextEdit[]> }
 interface PositionParams { textDocument: {uri: string}; position: LspPosition }
 
 function toLspPosition(state: EditorState, offset: number): LspPosition {

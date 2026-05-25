@@ -4,16 +4,16 @@ import countries from './data/countries.json';
 import { loadStripe, Stripe, StripeCardElement } from '@stripe/stripe-js';
 import { TShirtCartItem } from './TShirtCartItem';
 
-export type TShirtType = {
+export interface TShirtType {
 	id: string,
 	htmlClass: TShirtColor,
 	name: string,
 	price: number,
 	style: TShirtStyle,
 	sizes: TShirtSize[],
-};
+}
 
-type Country = {
+interface Country {
 	country_code: string,
 	country_name: string,
 	phone_code: string,
@@ -28,7 +28,7 @@ type TShirtStyle = 'Straight' | 'Fitted';
 type TShirtView = 'front' | 'back';
 type TElephpantView = 'left' | 'right';
 
-type TDistributor = {
+interface TDistributor {
 	id: string,
 	name: string,
 	country: string,
@@ -630,7 +630,7 @@ export class MerchSaleViewModel {
 				agreeToTerms: this.agreeToTerms(),
 			};
 			window.localStorage.setItem('phpstan-merch-24', JSON.stringify(json));
-		} catch (e) {
+		} catch {
 			// pass
 		}
 	}
@@ -709,7 +709,7 @@ export class MerchSaleViewModel {
 
 			this.agreeToPrivacyPolicy(json.agreeToPrivacyPolicy);
 			this.agreeToTerms(json.agreeToTerms);
-		} catch (e) {
+		} catch {
 			// pass
 		}
 	}
@@ -964,7 +964,7 @@ export class MerchSaleViewModel {
 			contentType: 'application/json; charset=utf-8',
 			dataType: 'json',
 			data: JSON.stringify(this.getDataPayload()),
-		}).done((result) => {
+		}).done(() => {
 			this.markOrderAsSuccessful();
 		}).fail((response) => {
 			if (typeof response.responseJSON !== 'undefined') {
@@ -990,7 +990,7 @@ export class MerchSaleViewModel {
 
 		try {
 			window.localStorage.removeItem('phpstan-merch-24');
-		} catch (e) {
+		} catch {
 			// pass
 		}
 	}

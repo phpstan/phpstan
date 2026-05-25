@@ -48,11 +48,11 @@ export class ErrorIdentifierSearchViewModel {
 			}
 
 			const matches: SearchResult[] = [];
-			for (let i = 0; i < this.allIdentifiers.length; i++) {
-				if (this.allIdentifiers[i].toLowerCase().indexOf(q) !== -1) {
+			for (const identifier of this.allIdentifiers) {
+				if (identifier.toLowerCase().indexOf(q) !== -1) {
 					matches.push({
-						identifier: this.allIdentifiers[i],
-						link: '/error-identifiers/' + this.allIdentifiers[i],
+						identifier: identifier,
+						link: '/error-identifiers/' + identifier,
 					});
 					if (matches.length >= 10) {
 						break;
