@@ -223,6 +223,12 @@ parameters:
 			path: repo/src/Rules/Enum/RequireUniqueEnumConstantRule.php
 
 		-
+			message: '#^Parameter \#1 \$array of function array_count_values expects array\<int\|string\>, array\<bool\|float\|int\|string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Rules/Enum/RequireUniqueEnumConstantRule.php
+
+		-
 			message: '#^Out of 239 possible constant types, only 0 \- 0\.0 %% actually have it\. Add more constant types to get over 99 %%$#'
 			identifier: typeCoverage.constantTypeCoverage
 			count: 3
