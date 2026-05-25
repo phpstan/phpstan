@@ -1,13 +1,79 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: 'Property PHPUnit\Framework\Exception::$serializableTrace (list<array{file: string, line: int, function: string}>) does not accept list<array{file: string, line: int, function: string, class: class-string, type: ''->''|''::'', object: object}|array{function: string}>.'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/Framework/Exception/Exception.php
+
+		-
+			rawMessage: 'Property PHPUnit\Framework\Exception::$serializableTrace (list<array{file: string, line: int, function: string}>) does not accept list<array{function: string, line?: int, file?: string, class?: class-string, type?: ''->''|''::'', args?: list<mixed>, object?: object}>.'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/Framework/Exception/Exception.php
+
+		-
 			rawMessage: 'Method PHPUnit\Framework\TestSuite::getIterator() return type with generic interface Iterator does not specify its types: TKey, TValue'
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Framework/TestSuite.php
 
 		-
+			rawMessage: 'Method PHPUnit\Runner\ErrorHandler::errorStackTrace() should return list<array{file: string, line: int|null, class?: class-string, function?: string, type: string}> but returns list<array{function: string, line?: int, file?: string, class?: class-string, type?: ''->''|''::'', args?: list<mixed>, object?: object}>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Runner/ErrorHandler.php
+
+		-
+			rawMessage: 'Method PHPUnit\Runner\ErrorHandler::guessDeprecationFrame() never returns array{file: non-empty-string, line: int<1, max>} so it can be removed from the return type.'
+			identifier: return.unusedType
+			count: 1
+			path: repo/src/Runner/ErrorHandler.php
+
+		-
+			rawMessage: 'Method PHPUnit\Runner\ErrorHandler::guessDeprecationFrame() should return array{file: non-empty-string, line: int<1, max>}|null but returns array{file: string, line: int|null, class?: class-string, function?: string, type: string}.'
+			identifier: return.type
+			count: 2
+			path: repo/src/Runner/ErrorHandler.php
+
+		-
+			rawMessage: 'Parameter #1 $frame of method PHPUnit\Runner\ErrorHandler::frameIsFunction() expects array{class?: class-string, function?: non-empty-string}, array{file: string, line: int|null, class?: class-string, function?: string, type: string} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/src/Runner/ErrorHandler.php
+
+		-
+			rawMessage: 'Parameter #1 $frame of method PHPUnit\Runner\ErrorHandler::frameIsMethod() expects array{class?: class-string, function?: non-empty-string}, array{file: string, line: int|null, class?: class-string, function?: string, type: string} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/src/Runner/ErrorHandler.php
+
+		-
 			rawMessage: 'Property PHPUnit\Runner\ErrorHandler::$globalDeprecations (list<array<int, int|string>>) on left side of ?? is not nullable.'
 			identifier: nullCoalesce.property
 			count: 1
 			path: repo/src/Runner/ErrorHandler.php
+
+		-
+			rawMessage: 'Parameter #5 $trace of class PHPUnit\Framework\PhptAssertionFailedError constructor expects list<array{file: string, line: int, function: string, type: string}>, non-empty-list<non-empty-array{function?: string, line?: int, file?: string, class?: class-string, type?: ''->''|''::'', args?: list<mixed>, object?: object}> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Runner/Phpt/TestCase.php
+
+		-
+			rawMessage: 'Parameter #1 $frame of static method PHPUnit\Util\Filter::shouldPrintFrame() expects array{file?: non-empty-string}, array{file: string, line: int|null, class?: class-string, function?: string, type: string} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Util/Filter.php
+
+		-
+			rawMessage: 'Parameter #1 $frames of static method PHPUnit\Util\Filter::stackTraceAsString() expects list<array{file: string, line: int|null, class?: class-string, function?: string, type: string}>, list<non-empty-array{function?: string, line?: int, file?: string, class?: class-string, type?: string, args?: list<mixed>, object?: object}> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Util/Filter.php
+
+		-
+			rawMessage: 'Parameter #1 $trace of static method PHPUnit\Util\Filter::frameExists() expects list<array{file?: non-empty-string, line?: int}>, list<array{function: string, line?: int, file?: string, class?: class-string, type?: string, args?: list<mixed>, object?: object}> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Util/Filter.php

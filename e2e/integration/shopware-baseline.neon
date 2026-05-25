@@ -7,6 +7,18 @@ parameters:
 			path: repo/src/Core/Checkout/Cart/CartValueResolver.php
 
 		-
+			rawMessage: Throwing new exceptions within classes are not allowed. Please use domain exception pattern. See https://github.com/shopware/platform/blob/v6.4.20.0/adr/2022-02-24-domain-exceptions.md
+			identifier: shopware.domainException
+			count: 1
+			path: repo/src/Core/Checkout/Cart/Error/Error.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Checkout\Cart\Facade\ScriptPriceStubs::validatePrice() should return array<string, array{gross: float, net: float, linked?: bool}> but returns non-empty-array<string, array{gross: float, net: float, linked?: bool, currencyId?: string}>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Checkout/Cart/Facade/ScriptPriceStubs.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Checkout\Cart\LineItem\Group\LineItemGroupServiceRegistry::getPackagers() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -31,16 +43,28 @@ parameters:
 			path: repo/src/Core/Checkout/Cart/LineItemFactoryRegistry.php
 
 		-
+			rawMessage: Using nullsafe method call on non-nullable type Shopware\Core\Checkout\Cart\CartBehavior. Use -> instead.
+			identifier: nullsafe.neverNull
+			count: 2
+			path: repo/src/Core/Checkout/Cart/Order/OrderConverter.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Checkout\Cart\Order\Transformer\CustomerTransformer::transform() should return array{customerId: string, email: string, firstName: string, lastName: string, salutationId: string|null, title: string|null, vatIds: array<string>|null, customerNumber: string, ...} but returns array{customerId: string, email: string, firstName: string, lastName: string, salutationId: string|null, title: string|null, vatIds: array<string>|null, company: string|null, ...}.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Checkout/Cart/Order/Transformer/CustomerTransformer.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Checkout\Cart\Order\Transformer\DeliveryTransformer::transform() should return array{id?: string, shippingDateEarliest: string, shippingDateLatest: string, shippingOrderAddress?: mixed, shippingCosts: Shopware\Core\Checkout\Cart\Price\Struct\CalculatedPrice, positions: array<array{price: Shopware\Core\Checkout\Cart\Price\Struct\CalculatedPrice}>, stateId: string} but returns array{id?: string, shippingDateEarliest: non-falsy-string, shippingDateLatest: non-falsy-string, shippingMethodId: string, shippingOrderAddress?: array<string, array<mixed>|string>, shippingCosts: Shopware\Core\Checkout\Cart\Price\Struct\CalculatedPrice, positions: list<array{id: string|null, price: Shopware\Core\Checkout\Cart\Price\Struct\CalculatedPrice, orderLineItemId: mixed, orderLineItemVersionId: string}>, stateId: string, ...}.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Checkout/Cart/Order/Transformer/DeliveryTransformer.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Checkout\Customer\CustomerValueResolver::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Checkout/Customer/CustomerValueResolver.php
-
-		-
-			rawMessage: Casting to int something that's already int.
-			identifier: cast.useless
-			count: 1
-			path: repo/src/Core/Checkout/Customer/ImitateCustomerTokenGenerator.php
 
 		-
 			rawMessage: Using nullsafe method call on non-nullable type Shopware\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerEntity. Use -> instead.
@@ -55,10 +79,10 @@ parameters:
 			path: repo/src/Core/Checkout/Document/Renderer/AbstractDocumentRenderer.php
 
 		-
-			rawMessage: 'Strict comparison using === between int<1, max> and 0 will always evaluate to false.'
-			identifier: identical.alwaysFalse
+			rawMessage: 'Method Shopware\Core\Checkout\Promotion\Util\PromotionCodeService::splitPattern() should return array{prefix?: string, replacement: string, suffix?: string, replacementString: string, replacementArray: array<string>} but returns array{0: non-empty-string, prefix: string, 1: string, replacement: non-falsy-string, 2: non-falsy-string, 3: non-falsy-string, suffix: string, 4: string, ...}.'
+			identifier: return.type
 			count: 1
-			path: repo/src/Core/Content/Category/Service/CategoryBreadcrumbBuilder.php
+			path: repo/src/Core/Checkout/Promotion/Util/PromotionCodeService.php
 
 		-
 			rawMessage: 'Parameter #1 $array (array<non-empty-list>) to function array_filter does not contain falsy values, the array will always stay the same.'
@@ -79,16 +103,34 @@ parameters:
 			path: repo/src/Core/Content/Flow/DataAbstractionLayer/FieldSerializer/FlowTemplateConfigFieldSerializer.php
 
 		-
-			rawMessage: Casting to string something that's already string.
-			identifier: cast.useless
+			rawMessage: 'Parameter #5 $config of method Shopware\Core\Content\ImportExport\Service\ImportExportService::prepareExport() expects array{mapping?: array<array{key: string, mappedKey: string}|Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping>|null, updateBy?: array<string, mixed>|null, parameters?: array<string, mixed>|null}, array<mixed> given.'
+			identifier: argument.type
 			count: 1
-			path: repo/src/Core/Content/Flow/Dispatching/Action/SetOrderStateAction.php
+			path: repo/src/Core/Content/ImportExport/Controller/ImportExportActionController.php
 
 		-
-			rawMessage: 'Offset 0 on non-empty-list<string> in isset() always exists and is not nullable.'
-			identifier: isset.offset
+			rawMessage: 'Parameter #5 $config of method Shopware\Core\Content\ImportExport\Service\ImportExportService::prepareImport() expects array{mapping?: array<array{key: string, mappedKey: string}|Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping>|null, updateBy?: array<string, mixed>|null, parameters?: array<string, mixed>|null}, array<mixed> given.'
+			identifier: argument.type
 			count: 1
-			path: repo/src/Core/Content/ImportExport/Service/MappingService.php
+			path: repo/src/Core/Content/ImportExport/Controller/ImportExportActionController.php
+
+		-
+			rawMessage: 'Parameter #5 $config of method Shopware\Core\Content\ImportExport\Service\ImportExportService::prepareExport() expects array{mapping?: array<array{key: string, mappedKey: string}|Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping>|null, updateBy?: array<string, mixed>|null, parameters?: array<string, mixed>|null}, array<mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Content/ImportExport/ImportExport.php
+
+		-
+			rawMessage: 'Parameter #1 $data of method Shopware\Core\Content\Mail\Service\MailService::buildContents() expects array{contentPlain: string, contentHtml: string}, non-empty-array<string, mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Content/Mail/Service/MailService.php
+
+		-
+			rawMessage: 'Parameter #6 $additionalData of method Shopware\Core\Content\Mail\Service\AbstractMailFactory::create() expects array{attachmentsConfig?: Shopware\Core\Content\Mail\Service\MailAttachmentsConfig|null, recipientsCc?: array<string, string|null>|string, recipientsBcc?: array<string, string|null>|string, replyTo?: array<string, string|null>|string, returnPath?: array<string, string|null>|string}, non-empty-array<string, mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Content/Mail/Service/MailService.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Content\MeasurementSystem\Field\MeasurementUnitsFieldSerializer::encode() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -115,22 +157,22 @@ parameters:
 			path: repo/src/Core/Content/Media/Subscriber/CustomFieldsUnusedMediaSubscriber.php
 
 		-
+			rawMessage: 'Method Shopware\Core\Content\Media\Thumbnail\ThumbnailService::generateAndSave() should return list<array{id: string, mediaId: string, width: int, height: int}> but returns list<array{id: non-falsy-string, mediaId: string, mediaThumbnailSizeId: string, width: int<1, max>, height: int<1, max>}>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Content/Media/Thumbnail/ThumbnailService.php
+
+		-
 			rawMessage: 'Constant SORT_DESC is not allowed for parameter #2 $flags of function arsort.'
 			identifier: argument.invalidConstant
 			count: 1
 			path: repo/src/Core/Content/Product/Cms/ProductListingCmsElementResolver.php
 
 		-
-			rawMessage: Offset 0 on non-empty-list<string> on left side of ?? always exists and is not nullable.
-			identifier: nullCoalesce.offset
+			rawMessage: 'Parameter #3 $configFields of method Shopware\Core\Content\Product\SearchKeyword\ProductSearchKeywordAnalyzerInterface::analyze() expects array<int, array{field: string, tokenize: ''0''|''1''|bool, ranking: float|int|numeric-string}>, array<int, array{field: string, tokenize: ''0''|''1'', ranking: numeric-string, language_id: string}> given.'
+			identifier: argument.type
 			count: 1
-			path: repo/src/Core/Content/Product/DataAbstractionLayer/ProductStreamUpdater.php
-
-		-
-			rawMessage: 'Variable $arrayKeys in empty() is never defined.'
-			identifier: empty.variable
-			count: 1
-			path: repo/src/Core/Content/Product/Hook/Pricing/PriceCollectionFacade.php
+			path: repo/src/Core/Content/Product/DataAbstractionLayer/SearchKeywordUpdater.php
 
 		-
 			rawMessage: 'Call to an undefined method object::assign().'
@@ -157,22 +199,40 @@ parameters:
 			path: repo/src/Core/Content/Product/SalesChannel/Listing/Processor/SortingListingProcessor.php
 
 		-
-			rawMessage: Casting to string something that's already string.
-			identifier: cast.useless
+			rawMessage: Throwing new exceptions within classes are not allowed. Please use domain exception pattern. See https://github.com/shopware/platform/blob/v6.4.20.0/adr/2022-02-24-domain-exceptions.md
+			identifier: shopware.domainException
 			count: 1
-			path: repo/src/Core/Content/Product/SearchKeyword/ProductSearchKeywordAnalyzer.php
+			path: repo/src/Core/Content/ProductExport/Error/Error.php
 
 		-
-			rawMessage: 'Call to function is_string() with string will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
+			rawMessage: 'PHPDoc tag @var with type array{languageId: string, id: string, url: string, locale: string, onlyLocale: bool} is not subtype of type array{languageId: string, id: string, url: string, locale: string}.'
+			identifier: varTag.type
 			count: 1
-			path: repo/src/Core/Content/ProductExport/Service/ProductExportGenerator.php
+			path: repo/src/Core/Content/Seo/HreflangLoader.php
+
+		-
+			rawMessage: 'Parameter #1 $domains of method Shopware\Core\Content\Seo\HreflangLoader::getLanguageToDomainMapping() expects list<array{languageId: string, id: string, url: string, locale: string}>, list<array{languageId: string, id: string, url: string, locale: string, onlyLocale: bool}> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Content/Seo/HreflangLoader.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Content\Seo\SeoResolver::resolve() should return array{id?: string, pathInfo: string, isCanonical: bool|string, canonicalPathInfo?: string} but returns non-empty-array<string, mixed>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Content/Seo/SeoResolver.php
 
 		-
 			rawMessage: 'Return type (Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult<Shopware\Core\Framework\DataAbstractionLayer\EntityCollection<Shopware\Core\Framework\DataAbstractionLayer\Entity>>) of method Shopware\Core\Content\Test\ImportExport\MockRepository::search() should be compatible with return type (Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult<Shopware\Core\Framework\DataAbstractionLayer\EntityCollection>) of method Shopware\Core\Framework\DataAbstractionLayer\EntityRepository<TEntityCollection of Shopware\Core\Framework\DataAbstractionLayer\EntityCollection>::search()'
 			identifier: method.childReturnType
 			count: 1
 			path: repo/src/Core/Content/Test/ImportExport/MockRepository.php
+
+		-
+			rawMessage: 'Property Shopware\Core\Content\Test\Product\ProductBuilder::$price (array{}|array{gross: float, net: float, linked: bool, listPrice: array{gross: float, net: float, linked: bool}}) does not accept non-empty-array<string, array{gross: float, net: float, linked: bool, listPrice?: array{gross: float, net: float, linked: bool}|float, currencyId?: string}|bool|float>.'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/Core/Content/Test/Product/ProductBuilder.php
 
 		-
 			rawMessage: Casting to string something that's already string.
@@ -187,10 +247,64 @@ parameters:
 			path: repo/src/Core/Framework/Adapter/Asset/FallbackUrlPackage.php
 
 		-
+			rawMessage: 'Parameter #1 $params of static method Doctrine\DBAL\DriverManager::getConnection() expects array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...}, array{charset: string, driver: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', application_name?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions: non-empty-array<mixed>, host?: string, ...} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/Adapter/Database/MySQLFactory.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Framework\Adapter\Twig\AppTemplateIterator::__construct() has parameter $templateIterator with generic interface IteratorAggregate but does not specify its types: TKey, TValue'
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Framework/Adapter/Twig/AppTemplateIterator.php
+
+		-
+			rawMessage: 'Parameter #2 $array of function implode expects array<string>, callable&list<mixed> given.'
+			identifier: argument.type
+			count: 4
+			path: repo/src/Core/Framework/Adapter/Twig/SecurityExtension.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Framework\Api\ApiDefinition\Generator\EntitySchemaGenerator::parseField() should return array{type: string, flags: array<string, mixed>} but returns array{type: ''association'', relation: ''many_to_many'', local: string, reference: string, mapping: string, entity: string, flags: array, localField: string|null, ...}.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Framework/Api/ApiDefinition/Generator/EntitySchemaGenerator.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Framework\Api\ApiDefinition\Generator\EntitySchemaGenerator::parseField() should return array{type: string, flags: array<string, mixed>} but returns array{type: ''association'', relation: ''many_to_one'', entity: string, flags: array, localField: string|null, referenceField: string|null}.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Framework/Api/ApiDefinition/Generator/EntitySchemaGenerator.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Framework\Api\ApiDefinition\Generator\EntitySchemaGenerator::parseField() should return array{type: string, flags: array<string, mixed>} but returns array{type: ''association'', relation: ''one_to_many'', entity: string, flags: array, localField: string|null, referenceField: string|null, primary: string}.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Framework/Api/ApiDefinition/Generator/EntitySchemaGenerator.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Framework\Api\ApiDefinition\Generator\EntitySchemaGenerator::parseField() should return array{type: string, flags: array<string, mixed>} but returns array{type: ''association'', relation: ''one_to_one'', entity: string, flags: array, localField: string|null, referenceField: string|null}.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Framework/Api/ApiDefinition/Generator/EntitySchemaGenerator.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Framework\Api\ApiDefinition\Generator\EntitySchemaGenerator::parseField() should return array{type: string, flags: array<string, mixed>} but returns array{type: string, properties: array<string, array{type: string, flags: array<string, mixed>}>, flags: array<string, mixed>}.'
+			identifier: return.type
+			count: 2
+			path: repo/src/Core/Framework/Api/ApiDefinition/Generator/EntitySchemaGenerator.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Framework\Api\ApiDefinition\Generator\OpenApiFileLoader::loadOpenapiSpecification() should return array{paths: array<string, array<mixed>>, components: array<mixed>} but returns array{paths: array, components: array, tags: array}.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Framework/Api/ApiDefinition/Generator/OpenApiFileLoader.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Framework\Api\ApiDefinition\Generator\OpenApiFileLoader::loadOpenapiSpecification() should return array{paths: array<string, array<mixed>>, components: array<mixed>} but returns array{paths: array{}, components: array{}, tags: array{}}.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Framework/Api/ApiDefinition/Generator/OpenApiFileLoader.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\Api\Context\ContextValueResolver::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -229,10 +343,40 @@ parameters:
 			path: repo/src/Core/Framework/App/Command/CheckShopIdCommand.php
 
 		-
+			rawMessage: 'Parameter #2 $app of method Shopware\Core\Framework\App\Lifecycle\AbstractAppLifecycle::delete() expects array{id: string}, array{id: string, roleId: string} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/App/Command/UninstallAppCommand.php
+
+		-
 			rawMessage: Offset 'command' on *NEVER* on left side of ?? always exists and is not nullable.
 			identifier: nullCoalesce.offset
 			count: 1
 			path: repo/src/Core/Framework/App/Context/Gateway/AppContextGateway.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Framework\App\Lifecycle\AppLifecycle::getWebhooks() should return array<array{name: string, eventName: string, url: string, appId: string, active?: bool, errorCount?: int}> but returns list<array{name: string, event: string, url: string, appId: string, eventName: string}|array{name: string, eventName: string, url: string, appId: string, active: true, errorCount: 0}>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Framework/App/Lifecycle/AppLifecycle.php
+
+		-
+			rawMessage: 'Parameter #1 $webhooks of method Shopware\Core\Framework\App\Lifecycle\Persister\WebhookPersister::updateWebhooksFromArray() expects array<array{name: string, eventName: string, url: string, onlyLiveVersion?: bool, errorCount?: int}>, array<array{name: string, eventName: string, url: string, appId: string, active?: bool, errorCount?: int}> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/App/Lifecycle/AppLifecycle.php
+
+		-
+			rawMessage: 'Parameter #2 $app of method Shopware\Core\Framework\App\Lifecycle\AbstractAppLifecycle::delete() expects array{id: string}, array{id: string, version: string, roleId: string} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/App/Lifecycle/AppLifecycleIterator.php
+
+		-
+			rawMessage: 'Parameter #3 $app of method Shopware\Core\Framework\App\Lifecycle\AbstractAppLifecycle::update() expects array{id: string, roleId: string}, array{id: string, version: string, roleId: string} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/App/Lifecycle/AppLifecycleIterator.php
 
 		-
 			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
@@ -245,6 +389,12 @@ parameters:
 			identifier: argument.invalidConstant
 			count: 4
 			path: repo/src/Core/Framework/App/Privileges/Privileges.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Framework\DataAbstractionLayer\AttributeEntityCompiler::compile() should return list<array{type: ''entity''|''mapping'', since?: string|null, parent: string|null, entity_class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Entity>, entity_name: string, collection_class?: class-string<Shopware\Core\Framework\DataAbstractionLayer\EntityCollection<Shopware\Core\Framework\DataAbstractionLayer\Entity>>, fields: list<array{type?: string, name?: string, class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Field\Field>, flags: array<string, array<string, array<bool|string>|string>|null>, translated: bool, args: list<string|false>}>, source?: string, ...}> but returns non-empty-list<array{type: ''entity'', since: string|null, parent: string|null, entity_class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Entity>, entity_name: string, hydrator_class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Dbal\EntityHydrator>, collection_class: class-string<Shopware\Core\Framework\DataAbstractionLayer\EntityCollection>, fields: list<array{type: string, name: string, class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Field\Field>, flags: array<string, array<string, array<bool|string>|string>|null>, translated: bool, args: list<string|false>}>}|array{type: ''mapping'', parent: null, entity_class: class-string<Shopware\Core\Framework\Struct\ArrayEntity>, entity_name: string, fields: list<array{type?: string, name?: string, class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Field\Field>, flags: array<string, array<string, array<bool|string>|string>|null>, translated: bool, args: list<string|false>}>, source: string, reference: string}>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/AttributeEntityCompiler.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\DataAbstractionLayer\Dbal\JoinGroupBuilder::getDuplicates() should return array<string> but returns list<int|string>.'
@@ -691,16 +841,52 @@ parameters:
 			path: repo/src/Core/Framework/DataAbstractionLayer/Search/Criteria.php
 
 		-
+			rawMessage: 'Parameter #2 $query of static method Shopware\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParser::getFilterByRelativeTime() expects array{type: string, field?: string, value?: mixed, parameters?: array{operator: ''gt''|''gte''|''lt''|''lte''}, queries?: list<array{type: string, field?: string, value?: mixed}>}, non-empty-array<string, mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParser.php
+
+		-
+			rawMessage: 'Parameter #1 $payload of method Shopware\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder::addLimit() expects array{limit: int}, non-empty-array<string, mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Search/RequestCriteriaBuilder.php
+
+		-
+			rawMessage: 'Parameter #1 $payload of method Shopware\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder::addSorting() expects array{sort: list<array{order: string, type: string, field: string}>|string}, non-empty-array<string, mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Search/RequestCriteriaBuilder.php
+
+		-
+			rawMessage: 'Parameter #1 $payload of method Shopware\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder::setPage() expects array{page: int, limit?: int}, non-empty-array<string, mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Search/RequestCriteriaBuilder.php
+
+		-
+			rawMessage: 'Parameter #2 $payload of method Shopware\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder::addFilter() expects array{filter: array<mixed>}, non-empty-array<string, mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Search/RequestCriteriaBuilder.php
+
+		-
+			rawMessage: 'Parameter #2 $payload of method Shopware\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder::addPostFilter() expects array{post-filter: array<mixed>}, non-empty-array<string, mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Search/RequestCriteriaBuilder.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Framework\DataAbstractionLayer\Write\WriteException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Framework/DataAbstractionLayer/Write/WriteException.php
 
 		-
-			rawMessage: Casting to int something that's already int.
-			identifier: cast.useless
+			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{''v6.5.0.0'': array{default: bool, major: bool, toggleable: bool}, ''v6.6.0.0'': array{default: bool, major: bool, toggleable: bool}, ''v6.7.0.0'': array{default: bool, major: bool, toggleable: bool}, ''v6.8.0.0'': array{default: bool, major: bool, toggleable: bool}, DISABLE_VUE_COMPAT: array{default: bool, major: bool, toggleable: bool}, ACCESSIBILITY_TWEAKS: array{default: bool, major: bool, toggleable: bool, description: string}, TELEMETRY_METRICS: array{default: bool, major: bool, toggleable: bool, description: string}, FLOW_EXECUTION_AFTER_BUSINESS_PROCESS: array{default: bool, major: bool, toggleable: bool, description: string}, ...} given.'
+			identifier: argument.type
 			count: 1
-			path: repo/src/Core/Framework/Increment/ArrayIncrementer.php
+			path: repo/src/Core/Framework/DependencyInjection/CompilerPass/FeatureFlagCompilerPass.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\Migration\Command\MigrationCommand::getMigrationGenerator() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -739,6 +925,18 @@ parameters:
 			path: repo/src/Core/Framework/Migration/MigrationRuntime.php
 
 		-
+			rawMessage: 'Method Shopware\Core\Framework\Plugin\BundleConfigGenerator::generateAppConfigs() should return array<string, array{basePath: string, views: array<string>, technicalName: string, administration?: array{path: string, entryFilePath: string|null, webpack: string|null}, storefront: array{path: string, entryFilePath: string|null, webpack: string|null, styleFiles: array<string>}}> but returns array<string, array{basePath: non-falsy-string, views: array{''Resources/views''}, technicalName: string, isTheme: bool, storefront: array{path: ''Resources/app…'', entryFilePath: string|null, webpack: string|null, styleFiles: array<string>}}>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Framework/Plugin/BundleConfigGenerator.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Framework\Plugin\BundleConfigGenerator::generatePluginConfigs() should return array<string, array{basePath: string, views: array<string>, technicalName: string, administration?: array{path: string, entryFilePath: string|null, webpack: string|null}, storefront: array{path: string, entryFilePath: string|null, webpack: string|null, styleFiles: array<string>}}> but returns array<string, array{basePath: non-falsy-string, views: array{''Resources/views''}, technicalName: string, isTheme: bool, administration: array{path: ''Resources/app…'', entryFilePath: string|null, webpack: string|null}, storefront: array{path: ''Resources/app…'', entryFilePath: string|null, webpack: string|null, styleFiles: array<string>}}>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Framework/Plugin/BundleConfigGenerator.php
+
+		-
 			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
 			identifier: argument.invalidConstant
 			count: 1
@@ -751,16 +949,22 @@ parameters:
 			path: repo/src/Core/Framework/Plugin/Requirement/Exception/RequirementStackException.php
 
 		-
-			rawMessage: 'Parameter #1 $array (list<mixed>) of array_values is already a list, call has no effect.'
-			identifier: arrayValues.list
+			rawMessage: 'PHPDoc tag @var with type array{enabled: bool, id: string, reset?: DateInterval|string, policy: string, limits?: list<array{limit?: int, domain?: string, interval: string}>, limit?: int, rate?: array<string, string>} is not subtype of type array{id: string, policy: string, limit?: int, rate?: array<string, string>}.'
+			identifier: varTag.type
 			count: 1
-			path: repo/src/Core/Framework/Plugin/Util/AssetService.php
+			path: repo/src/Core/Framework/RateLimiter/RateLimiterFactory.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\Routing\Annotation\CriteriaValueResolver::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Framework/Routing/Annotation/CriteriaValueResolver.php
+
+		-
+			rawMessage: 'Parameter #1 $params of method Shopware\Core\Framework\Routing\ApiRequestContextResolver::getLanguageIdChain() expects array{languageId: non-falsy-string, systemFallbackLanguageId: non-falsy-string}, array{currencyId: string, languageId: non-falsy-string, systemFallbackLanguageId: non-falsy-string, currencyFactory: float, currencyPrecision: int, versionId: string|null, considerInheritance: bool} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/Routing/ApiRequestContextResolver.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\Routing\QueryDataBagResolver::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -799,6 +1003,36 @@ parameters:
 			path: repo/src/Core/Framework/Store/Exception/StoreApiException.php
 
 		-
+			rawMessage: 'Parameter #1 $accessTokenData of method Shopware\Core\Framework\Store\Services\FirstRunWizardService::createAccessTokenStruct() expects array{shopSecret?: string}, array{firstRunWizardUserToken: array{token: string, expirationDate: string}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/Store/Services/FirstRunWizardService.php
+
+		-
+			rawMessage: 'Parameter #1 $accessTokenData of method Shopware\Core\Framework\Store\Services\FirstRunWizardService::createAccessTokenStruct() expects array{shopSecret?: string}, array{shopUserToken: array{token: string, expirationDate: string}, shopSecret: string} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/Store/Services/FirstRunWizardService.php
+
+		-
+			rawMessage: 'Parameter #2 $app of method Shopware\Core\Framework\App\Lifecycle\AbstractAppLifecycle::delete() expects array{id: string}, array{id: string, roleId: string} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/src/Core/Framework/Store/Services/StoreAppLifecycleService.php
+
+		-
+			rawMessage: 'Parameter #3 $app of method Shopware\Core\Framework\App\Lifecycle\AbstractAppLifecycle::update() expects array{id: string, roleId: string}, array{id: string, version: string, roleId: string} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/Store/Services/StoreAppLifecycleService.php
+
+		-
+			rawMessage: 'Parameter #1 $extensionList of method Shopware\Core\Framework\Store\Services\StoreClient::getUpdateListFromStore() expects list<array{name: string, version: string|null}>, list<array{name: string, version: string|null, inAppFeatures: string}> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/Store/Services/StoreClient.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Framework\Test\DataAbstractionLayer\Write\NonUuidFkField\NonUuidFkFieldSerializer::encode() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -809,6 +1043,12 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Framework/Validation/Exception/ConstraintViolationException.php
+
+		-
+			rawMessage: 'PHPDoc tag @var with type array<mixed>|ArrayAccess<int|string, mixed> is not subtype of native type non-empty-array<mixed, mixed>|ArrayAccess.'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/src/Core/Framework/Validation/HappyPathValidator.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\Validation\WriteConstraintViolationException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -823,22 +1063,88 @@ parameters:
 			path: repo/src/Core/Installer/Controller/FinishController.php
 
 		-
+			rawMessage: 'Method Shopware\Core\Installer\Controller\ShopConfigurationController::getCountryIsos() should return list<array{iso3: string, default: bool}> but returns list<array{iso3: string, default: bool, translated: string}>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Installer/Controller/ShopConfigurationController.php
+
+		-
+			rawMessage: 'Parameter #1 $user of method Shopware\Core\Installer\Configuration\AdminConfigurationService::createAdmin() expects array{email: string, username: string, firstName: string, lastName: string, password: string}, array{email: string, username: string, firstName: string, lastName: string, password: string, locale: string} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Installer/Controller/ShopConfigurationController.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Kernel::getKernelParameters() should return array<string, array<string, mixed>|bool|float|int|string|UnitEnum|null> but returns array<string, array|bool|float|int|string|UnitEnum|null>.'
 			identifier: return.type
 			count: 1
 			path: repo/src/Core/Kernel.php
 
 		-
-			rawMessage: Casting to string something that's already string.
-			identifier: cast.useless
+			rawMessage: 'Method Shopware\Core\Migration\V6_3\Migration1590758953ProductFeatureSet::fetchLanguageIds() should return array{0?: string} but returns array<mixed, mixed>.'
+			identifier: return.type
 			count: 1
-			path: repo/src/Core/Maintenance/System/Struct/DatabaseConnectionInformation.php
+			path: repo/src/Core/Migration/V6_3/Migration1590758953ProductFeatureSet.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Migration\V6_3\Migration1600338271AddTopsellerSorting::getTopsellerSorting() should return array{id: string, priority: int, active: int, locked: int, fields: string, created_at: string, translations: array{de-DE: string, en-GB: string}} but returns array{id: non-falsy-string, url_key: ''topseller'', priority: 0, active: 1, locked: 0, fields: non-empty-string, created_at: non-falsy-string, translations: array{de-DE: ''Topseller'', en-GB: ''Topseller''}}.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Migration/V6_3/Migration1600338271AddTopsellerSorting.php
+
+		-
+			rawMessage: 'Parameter #4 $states of class Shopware\Core\Migration\Traits\StateMachineMigration constructor expects list<array{id?: string, technicalName: string}>, array{array{technicalName: string, de: string, en: string}, array{technicalName: string, de: string, en: string}, array{technicalName: string, de: string, en: string}, array{technicalName: string, de: string, en: string}, array{technicalName: string, de: string, en: string}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Migration/V6_4/Migration1643878976AddCaptureRefundStateMachines.php
+
+		-
+			rawMessage: 'Parameter #4 $states of class Shopware\Core\Migration\Traits\StateMachineMigration constructor expects list<array{id?: string, technicalName: string}>, array{array{technicalName: string, de: string, en: string}, array{technicalName: string, de: string, en: string}, array{technicalName: string, de: string, en: string}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Migration/V6_4/Migration1643878976AddCaptureRefundStateMachines.php
+
+		-
+			rawMessage: 'Method Shopware\Core\System\DependencyInjection\CompilerPass\SalesChannelEntityCompilerPass::formatData() should return array<string, array{entityName: string, fallback?: string}> but returns array<string, array{entityName: string, fallBack?: mixed}>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/System/DependencyInjection/CompilerPass/SalesChannelEntityCompilerPass.php
+
+		-
+			rawMessage: 'Parameter #2 $baseEntityDefinitions of method Shopware\Core\System\DependencyInjection\CompilerPass\SalesChannelEntityCompilerPass::addExtensions() expects array<string, array{entityName: string}>, array<string, array{entityName: string, fallback?: string}> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/System/DependencyInjection/CompilerPass/SalesChannelEntityCompilerPass.php
+
+		-
+			rawMessage: 'Parameter #3 $salesChannelDefinitions of method Shopware\Core\System\DependencyInjection\CompilerPass\SalesChannelEntityCompilerPass::addExtensions() expects array<string, array{entityName: string}>, array<string, array{entityName: string, fallback?: string}> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/System/DependencyInjection/CompilerPass/SalesChannelEntityCompilerPass.php
+
+		-
+			rawMessage: 'Parameter #2 $options of method Shopware\Core\System\SalesChannel\Context\ContextFactory::getContext() expects array{originalContext?: Shopware\Core\Framework\Context, version-id?: string, languageId?: string}, array<string, mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/System/SalesChannel/Context/BaseSalesChannelContextFactory.php
 
 		-
 			rawMessage: 'Method Shopware\Core\System\SalesChannel\Context\SalesChannelContextValueResolver::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/System/SalesChannel/Context/SalesChannelContextValueResolver.php
+
+		-
+			rawMessage: 'Parameter #4 $requestFilters of method Shopware\Core\System\Snippet\SnippetService::getList() expects array{edited?: true, added?: true, empty?: true, author?: list<string>, namespace?: list<string>, term?: string}, array<mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/System/Snippet/Api/SnippetController.php
+
+		-
+			rawMessage: 'Parameter #5 $sort of method Shopware\Core\System\Snippet\SnippetService::getList() expects array{}|array{sortBy: string, sortDirection: string}, array<mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/System/Snippet/Api/SnippetController.php
 
 		-
 			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
@@ -859,22 +1165,106 @@ parameters:
 			path: repo/src/Core/System/Snippet/SnippetService.php
 
 		-
+			rawMessage: 'Method Shopware\Core\System\SystemConfig\Event\SystemConfigChangedHook::getWebhookPayload() should return array{changes: array<string>} but returns array{changes: list<non-falsy-string>, salesChannelId: string|null}.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/System/SystemConfig/Event/SystemConfigChangedHook.php
+
+		-
+			rawMessage: 'Method Shopware\Core\System\SystemConfig\Event\SystemConfigChangedHook::getWebhookPayload() should return array{changes: array<string>} but returns array{changes: list<string>, salesChannelId: string|null}.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/System/SystemConfig/Event/SystemConfigChangedHook.php
+
+		-
+			rawMessage: 'Parameter #1 $params of method Doctrine\DBAL\Connection::__construct() expects array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...}, array{url: ''sqlite:///:memory:''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Test/Stub/Doctrine/FakeConnection.php
+
+		-
+			rawMessage: 'Method Shopware\Elasticsearch\Admin\AdminSearchRegistry::parseErrors() should return array<array{reason: string}|string> but returns list<array{index: mixed, id: mixed, type: mixed, reason: mixed}>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Elasticsearch/Admin/AdminSearchRegistry.php
+
+		-
+			rawMessage: 'Return type (array<string, array{id: string, textBoosted: string, text: string}>) of method Shopware\Elasticsearch\Admin\Indexer\ProductAdminSearchIndexer::fetch() should be compatible with return type (array<string, array{id: string, text: string}>) of method Shopware\Elasticsearch\Admin\Indexer\AbstractAdminIndexer::fetch()'
+			identifier: method.childReturnType
+			count: 1
+			path: repo/src/Elasticsearch/Admin/Indexer/ProductAdminSearchIndexer.php
+
+		-
+			rawMessage: 'Parameter #1 $result of method Shopware\Elasticsearch\Framework\DataAbstractionLayer\ElasticsearchEntitySearchHydrator::extractHits() expects array{hits: array{hits: array<int, array{inner_hits?: array{inner?: array<mixed>}}>}}, array{hits: array{hits: array<int, array<mixed>>}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Elasticsearch/Framework/DataAbstractionLayer/ElasticsearchEntitySearchHydrator.php
+
+		-
+			rawMessage: 'Parameter #1 $result of method Shopware\Elasticsearch\Framework\DataAbstractionLayer\ElasticsearchEntitySearchHydrator::extractHits() expects array{hits: array{hits: array<int, array{inner_hits?: array{inner?: array<mixed>}}>}}, array{hits: array{hits: array<int, array{_id?: string, _score?: float, _source?: array<mixed>, inner_hits?: array{inner?: array<mixed>}}>}, aggregations?: array<string, array<string, mixed>>} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Elasticsearch/Framework/DataAbstractionLayer/ElasticsearchEntitySearchHydrator.php
+
+		-
+			rawMessage: 'Method Shopware\Elasticsearch\Framework\DataAbstractionLayer\ElasticsearchEntitySearcher::parseGrouping() should return array{field: string, inner_hits?: array{name: string}} but returns array{field: string, inner_hits: array{name: ''inner'', collapse: array{field: string, inner_hits?: array{name: string}}}}.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Elasticsearch/Framework/DataAbstractionLayer/ElasticsearchEntitySearcher.php
+
+		-
+			rawMessage: 'Parameter #1 $items of static method Shopware\Elasticsearch\ElasticsearchException::indexingError() expects array<array{reason: string}|string>, array<array{index: string, id: string, type: string, reason: string}> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Elasticsearch/Framework/Indexing/ElasticsearchIndexer.php
+
+		-
+			rawMessage: 'Method Shopware\Elasticsearch\Product\CustomFieldUpdater::getTypeFromCustomFieldType() should return array{type: string} but returns array{fields: array{search: array{type: ''text'', analyzer: ''sw_whitespace…''}, ngram: array{type: ''text'', analyzer: ''sw_ngram_analyzer''}}, type: ''keyword'', ignore_above: 10000, normalizer: ''sw_lowercase…''}|array{type: ''boolean''}|array{type: ''date'', format: ''yyyy-MM-dd HH:mm:ss…'', ignore_malformed: true}|array{type: ''double''}|array{type: ''long''}|array{type: ''object'', dynamic: true}.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Elasticsearch/Product/CustomFieldUpdater.php
+
+		-
+			rawMessage: 'Parameter #1 $customFields of method Shopware\Elasticsearch\Product\CustomFieldUpdater::mapCustomFieldsToEsTypes() expects array<array{name: string, type: string}>, list<array{id: string, name: string, type: string}> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Elasticsearch/Product/CustomFieldUpdater.php
+
+		-
+			rawMessage: 'Method Shopware\Elasticsearch\Product\ElasticsearchProductDefinition::getMapping() should return array{_source?: array{includes: array<string>}, properties: array<mixed>} but returns array{dynamic_templates: array{array{cheapest_price: array{match: ''cheapest_price_rule*'', mapping: array{type: ''double''}}}, array{price_percentage: array{path_match: ''price.*.percentage.*'', mapping: array{type: ''double''}}}, array{long_to_double: array{match_mapping_type: ''long'', mapping: array{type: ''double''}}}}, properties: array<non-falsy-string, array<string, mixed>>, _source?: array{includes: array{''id'', ''autoIncrement''}}}.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Elasticsearch/Product/ElasticsearchProductDefinition.php
+
+		-
+			rawMessage: 'Parameter #2 $request of method Shopware\Elasticsearch\Profiler\ClientProfiler::assembleElasticsearchUrl() expects array{index?: string, body?: array<string, mixed>}, array<string, mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Elasticsearch/Profiler/ClientProfiler.php
+
+		-
+			rawMessage: 'Property Shopware\Elasticsearch\Profiler\ClientProfiler::$requests (list<array{url: string, request: array<string, mixed>, response: array<string, mixed>, time: float, backtrace: string}>) does not accept non-empty-list<array{url: string, client?: string, request: array<string, mixed>, response: array, time: float, backtrace: string}>.'
+			identifier: assign.propertyType
+			count: 2
+			path: repo/src/Elasticsearch/Profiler/ClientProfiler.php
+
+		-
 			rawMessage: 'Offset ''host'' might not exist on non-empty-array{scheme?: string, host?: string, port?: int<0, 65535>, user?: string, pass?: string, path?: string, query?: string, fragment?: string}.'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: repo/src/Storefront/Controller/ContextController.php
 
 		-
-			rawMessage: Offset 0 on non-empty-list<string> on left side of ?? always exists and is not nullable.
-			identifier: nullCoalesce.offset
-			count: 1
-			path: repo/src/Storefront/Page/Robots/Parser/RobotsDirectiveParser.php
-
-		-
 			rawMessage: 'Method Shopware\Storefront\Theme\Exception\ThemeConfigException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Storefront/Theme/Exception/ThemeConfigException.php
+
+		-
+			rawMessage: 'Parameter #1 $cacheOptions of class ScssPhp\ScssPhp\Compiler constructor expects array{cacheDir?: string, prefix?: string, forceRefresh?: string, checkImportResolutions?: bool}|null, array<string, mixed>|null given.'
+			identifier: argument.type
+			count: 2
+			path: repo/src/Storefront/Theme/ScssPhpCompiler.php
 
 		-
 			rawMessage: 'Call to function array_key_exists() with ''value'' and array{value: mixed, scss?: true, type: string} will always evaluate to true.'
@@ -889,10 +1279,10 @@ parameters:
 			path: repo/src/Storefront/Theme/ThemeCompiler.php
 
 		-
-			rawMessage: Casting to string something that's already string.
-			identifier: cast.useless
+			rawMessage: 'Parameter #1 $config of method Shopware\Storefront\Theme\ThemeCompiler::dumpVariables() expects array{fields?: array<array{value: array<mixed>|string|null, scss?: bool, type: string}>}, array<string, mixed> given.'
+			identifier: argument.type
 			count: 1
-			path: repo/src/Storefront/Theme/ThemeMergedConfigBuilder.php
+			path: repo/src/Storefront/Theme/ThemeCompiler.php
 
 		-
 			rawMessage: 'Parameter #1 $assertType of method PHPStan\Testing\TypeInferenceTestCase::assertFileAsserts() expects string, bool|float|int|list<string>|PHPStan\TrinaryLogic|string|null given.'
@@ -907,12 +1297,6 @@ parameters:
 			path: repo/tests/devops/Core/DevOps/StaticAnalyse/PHPStan/Type/CollectionHasSpecifyingExtensionTest.php
 
 		-
-			rawMessage: Casting to string something that's already string.
-			identifier: cast.useless
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/CartTaxTest.php
-
-		-
 			rawMessage: 'Parameter #2 $expectations of method Shopware\Tests\Integration\Core\Checkout\Cart\Facade\CartFacadeTest::testScripts() expects array<string, Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice|null>, array<string, array<string, array<string, Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice>|Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice>|Shopware\Tests\Integration\Core\Checkout\Cart\Facade\ExpectedPrice> given.'
 			identifier: argument.type
 			count: 1
@@ -925,16 +1309,16 @@ parameters:
 			path: repo/tests/integration/Core/Checkout/Cart/Facade/CartFacadeTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
+			rawMessage: 'Parameter #1 $orderData of method Shopware\Tests\Integration\Core\Checkout\Cart\Order\OrderRecalculationControllerTest::getDeliveryData() expects array{lineItems: array<int, array{id: string}>}, non-empty-array<string, mixed> given.'
+			identifier: argument.type
 			count: 2
-			path: repo/tests/integration/Core/Checkout/Cart/Rule/LineItemListPriceRuleTest.php
+			path: repo/tests/integration/Core/Checkout/Cart/Order/OrderRecalculationControllerTest.php
 
 		-
-			rawMessage: Casting to string something that's already string.
-			identifier: cast.useless
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\Tax\TaxCalculationTypeTest::calculationProvider() should return array<array{array<Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint>, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection}> but returns array{array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection}, array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection}, array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection}, array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, true}, array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, true}, array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, true}}.'
+			identifier: return.type
 			count: 1
-			path: repo/tests/integration/Core/Checkout/Cart/SalesChannel/CartItemUpdateRouteTest.php
+			path: repo/tests/integration/Core/Checkout/Cart/Tax/TaxCalculationTypeTest.php
 
 		-
 			rawMessage: 'Parameter #1 $vatIds of method Shopware\Tests\Integration\Core\Checkout\Customer\SalesChannel\ChangeCustomerProfileRouteTest::testChangeVatIdsOfCommercialAccount() expects array<string|null>|null, array<int, true> given.'
@@ -943,16 +1327,28 @@ parameters:
 			path: repo/tests/integration/Core/Checkout/Customer/SalesChannel/ChangeCustomerProfileRouteTest.php
 
 		-
-			rawMessage: Casting to string something that's already string.
-			identifier: cast.useless
-			count: 2
-			path: repo/tests/integration/Core/Checkout/Customer/SalesChannel/DeleteAddressRouteTest.php
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Customer\SalesChannel\RegisterRouteTest::registerWithDomainAndLeadingSlashProvider() should return array{array{array{domain: string, expectDomain: string}}, array{array{domain: string, expectDomain: string}}} but returns array{array{array{domain: ''http://my-evil-page'', expectDomain: ''http://my-evil-page''}}, array{array{domain: ''http://my-evil-page/'', expectDomain: ''http://my-evil-page''}}, array{array{domain: ''http://my-evil-page…'', expectDomain: ''http://my-evil-page''}}}.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Customer/SalesChannel/RegisterRouteTest.php
 
 		-
 			rawMessage: 'Parameter #1 $data of method Shopware\Tests\Integration\Core\Checkout\Customer\SalesChannel\UpsertAddressRouteTest::testCreateAddress() expects array<string, string>, array<string, string|null> given.'
 			identifier: argument.type
 			count: 1
 			path: repo/tests/integration/Core/Checkout/Customer/SalesChannel/UpsertAddressRouteTest.php
+
+		-
+			rawMessage: 'Parameter #1 $options of class Shopware\Core\Checkout\Customer\Validation\Constraint\CustomerVatIdentification constructor expects array{countryId: string, shouldCheck?: bool}|null, array{message: ''Invalid VAT ID'', countryId: string, shouldCheck: false} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Customer/Validation/Constraint/CustomerVatIdentificationValidatorTest.php
+
+		-
+			rawMessage: 'Parameter #1 $options of class Shopware\Core\Checkout\Customer\Validation\Constraint\CustomerVatIdentification constructor expects array{countryId: string, shouldCheck?: bool}|null, array{message: ''Invalid VAT ID'', countryId: string, shouldCheck: true} given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/integration/Core/Checkout/Customer/Validation/Constraint/CustomerVatIdentificationValidatorTest.php
 
 		-
 			rawMessage: 'Parameter #5 $additionalConfig of method Shopware\Tests\Integration\Core\Checkout\Document\Renderer\CreditNoteRendererTest::testRender() expects array<string, int>, array<string, array<string, string>> given.'
@@ -991,22 +1387,112 @@ parameters:
 			path: repo/tests/integration/Core/Checkout/Document/Renderer/StornoRendererTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 2 and array{mixed, mixed} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/integration/Core/Checkout/Document/Service/DocumentGeneratorTest.php
-
-		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Checkout\\Document\\Renderer\\RenderedDocument'' and Shopware\Core\Checkout\Document\Renderer\RenderedDocument will always evaluate to true.'
 			identifier: staticMethod.alreadyNarrowedType
 			count: 1
 			path: repo/tests/integration/Core/Checkout/Document/Service/PdfRendererTest.php
 
 		-
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Shipping\ShippingMethodRepositoryTest::createShippingMethodDummyArray() should return array<array{id: string, bindShippingfree: bool, name: string, tax_type: null, availabilityRule: array<string, mixed>, deliveryTime: array{id: string, name: string, min: int, max: int, unit: string}}> but returns array{array{id: string, bindShippingfree: false, name: ''test'', technicalName: ''shipping_test'', tax_type: null, availabilityRule: array{id: string, name: ''asd'', priority: 2}, deliveryTime: array{id: string, name: string, min: int, max: int, unit: string}}}.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Shipping/ShippingMethodRepositoryTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Flow\SendMailActionTest::getMatchingDocument() should return array{}|array{id: string, technical_name: string, documentId: string, filename: string} but returns non-empty-array<string, string>.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Flow/SendMailActionTest.php
+
+		-
 			rawMessage: 'Parameter #2 $documentTypeIds of method Shopware\Tests\Integration\Core\Content\Flow\SendMailActionTest::testEmailSend() expects array<string>|null, array<int, string|null> given.'
 			identifier: argument.type
 			count: 1
 			path: repo/tests/integration/Core/Content/Flow/SendMailActionTest.php
+
+		-
+			rawMessage: 'Parameter #6 $additionalData of method Shopware\Core\Content\Mail\Service\MailFactory::create() expects array{attachmentsConfig?: Shopware\Core\Content\Mail\Service\MailAttachmentsConfig|null, recipientsCc?: array<string, string|null>|string, recipientsBcc?: array<string, string|null>|string, replyTo?: array<string, string|null>|string, returnPath?: array<string, string|null>|string}, array<string, mixed> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Flow/SendMailActionTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{field: Shopware\Core\Framework\DataAbstractionLayer\Field\Field, inputValue: mixed, expected: mixed}, array{mappings: array{Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping, Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping}, field: Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields, inputValue: array{test_custom_field_number: 96, test_custom_field_text: ''foobar''}, expected: array{customFields: ''{"test_custom_field…'', ''customFields.test_custom_field_number'': 96, ''customFields.test_custom_field_text'': ''foobar''}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Field/CustomFieldsSerializerTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{field: Shopware\Core\Framework\DataAbstractionLayer\Field\Field, inputValue: mixed, expected: mixed}, array{mappings: array{Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping, Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping}, field: Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields, inputValue: array{test_custom_field_text: '''', test_custom_field_number: ''''}, expected: null} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Field/CustomFieldsSerializerTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{field: Shopware\Core\Framework\DataAbstractionLayer\Field\Field, inputValue: mixed, expected: mixed}, array{mappings: array{Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping, Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping}, field: Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields, inputValue: array{test_custom_field_text: '''', test_custom_field_number: 99}, expected: array{test_custom_field_number: 99}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Field/CustomFieldsSerializerTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{field: Shopware\Core\Framework\DataAbstractionLayer\Field\Field, inputValue: mixed, expected: mixed}, array{mappings: array{Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping, Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping}, field: Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields, inputValue: array{test_custom_field_text: ''hello world'', test_custom_field_number: 99}, expected: array{test_custom_field_text: ''hello world'', test_custom_field_number: 99}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Field/CustomFieldsSerializerTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{field: Shopware\Core\Framework\DataAbstractionLayer\Field\Field, inputValue: mixed, expected: mixed}, array{mappings: array{Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping, Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping}, field: Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields, inputValue: array{}, expected: array{customFields: ''[]''}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Field/CustomFieldsSerializerTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{field: Shopware\Core\Framework\DataAbstractionLayer\Field\Field, inputValue: mixed, expected: mixed}, array{mappings: array{Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping}, field: Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields, inputValue: array{test_custom_field_boolean: true}, expected: array{customFields: ''{"test_custom_field…'', ''customFields.test_custom_field_boolean'': true}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Field/CustomFieldsSerializerTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{field: Shopware\Core\Framework\DataAbstractionLayer\Field\Field, inputValue: mixed, expected: mixed}, array{mappings: array{Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping}, field: Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields, inputValue: array{test_custom_field_boolean: true}, expected: array{test_custom_field_boolean: true}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Field/CustomFieldsSerializerTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{field: Shopware\Core\Framework\DataAbstractionLayer\Field\Field, inputValue: mixed, expected: mixed}, array{mappings: array{Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping}, field: Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields, inputValue: array{test_custom_field_number: 42}, expected: array{customFields: ''{"test_custom_field…'', ''customFields.test_custom_field_number'': 42}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Field/CustomFieldsSerializerTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{field: Shopware\Core\Framework\DataAbstractionLayer\Field\Field, inputValue: mixed, expected: mixed}, array{mappings: array{Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping}, field: Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields, inputValue: array{test_custom_field_text: ''''}, expected: null} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Field/CustomFieldsSerializerTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{field: Shopware\Core\Framework\DataAbstractionLayer\Field\Field, inputValue: mixed, expected: mixed}, array{mappings: array{Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping}, field: Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields, inputValue: array{test_custom_field_text: null, test_custom_field_number: 42}, expected: array{customFields: ''{"test_custom_field…'', ''customFields.test_custom_field_number'': 42, ''customFields.test_custom_field_text'': null}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Field/CustomFieldsSerializerTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{field: Shopware\Core\Framework\DataAbstractionLayer\Field\Field, inputValue: mixed, expected: mixed}, array{mappings: array{Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping}, field: Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields, inputValue: array{}, expected: null} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Field/CustomFieldsSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #2 $mappings of method Shopware\Tests\Integration\Core\Content\ImportExport\AbstractImportExportTestCase::updateProfileMapping() expects array<array{key: string, mappedKey: string}|Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping>, array<array{key: string, mappedKey: ''name'', useDefaultValue: true, defaultValue: ''MyDefaultNameForPro…''}|array{key: string, mappedKey: string}|Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/ImportExportTest.php
+
+		-
+			rawMessage: 'Parameter #2 $mappings of method Shopware\Tests\Integration\Core\Content\ImportExport\AbstractImportExportTestCase::updateProfileMapping() expects array<array{key: string, mappedKey: string}|Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping>, array<array{key: string, mappedKey: string, requiredByUser?: true}|Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping> given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/integration/Core/Content/ImportExport/ImportExportTest.php
 
 		-
 			rawMessage: 'Parameter $record of method Shopware\Tests\Integration\Core\Content\ImportExport\Subscriber\ProductCategoryPathsSubscriberTest::testCategoryPathToAssignment() expects array<array<string, mixed>>, array<string, array<int, array<string, string>>> given.'
@@ -1019,6 +1505,12 @@ parameters:
 			identifier: argument.type
 			count: 8
 			path: repo/tests/integration/Core/Content/ImportExport/Subscriber/ProductCategoryPathsSubscriberTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Media\DataAbstractionLayer\Indexing\MediaFolderIndexerTest::getData() should return array{array<int, array<string, array<int, array<string, string>>|string>>, list<string>} but returns array{list<array{children?: array{array<''children''|''configurationId''|''id''|''name'', array{array<''children''|''configurationId''|''id''|''name'', array{array{id: non-falsy-string, name: ''child-0''|''child-1'', configurationId: non-falsy-string}}|non-falsy-string>}|non-falsy-string>}, id?: non-falsy-string, name?: non-falsy-string, configurationId?: non-falsy-string}>, list<non-falsy-string>}.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Media/DataAbstractionLayer/Indexing/MediaFolderIndexerTest.php
 
 		-
 			rawMessage: 'Parameter #1 $testData of method Shopware\Tests\Integration\Core\Content\Newsletter\Service\NewsletterRecipientServiceTest::testSubscribeNewsletterExpectsConstraintViolationException() expects array<int, array<int, array<string, string|null>>>, array<string, null> given.'
@@ -1037,6 +1529,42 @@ parameters:
 			identifier: argument.type
 			count: 3
 			path: repo/tests/integration/Core/Content/Newsletter/Service/NewsletterRecipientServiceTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Product\Cart\ProductCartProcessorTest::productFeatureProvider() should return array<array{array{type: string}, array<string, mixed>, array{type: string, value: mixed, label: string}}> but returns array{array{array{type: ''product'', id: null, name: ''description'', position: 1}, array{translations: array{''2fbb5fe2e29a4d70aa5854ce7ce3e20b'': array{name: ''Default'', description: ''Default''}, cc72c24b82684d72a4ce91054da264bf: array{description: ''Lorem ipsum dolor…''}}}, array{label: ''description'', value: ''Lorem ipsum dolor…'', type: ''product''}}, array{array{type: ''product'', id: null, name: ''manufacturerNumber'', position: 1}, array{manufacturerNumber: ''22ee3d8063da''}, array{label: ''manufacturerNumber'', value: ''22ee3d8063da'', type: ''product''}}, array{array{type: ''property'', id: ''7c8e7851ff88447ba25…'', name: null, position: 2}, array{properties: array{array{id: ''bf821e9e20684857904…''}, array{id: ''0cfabe6eab0440b0974…''}}, options: array{array{id: ''bf821e9e20684857904…'', position: 99, colorHexCode: ''#189eff'', group: array{id: ''7c8e7851ff88447ba25…'', position: 1, translations: array{''2fbb5fe2e29a4d70aa5854ce7ce3e20b'': array{name: ''Default'', description: ''Default'', displayType: ''Default'', sortingType: ''Default''}, cc72c24b82684d72a4ce91054da264bf: array{name: ''swag_color'', description: ''Lorem ipsum'', displayType: ''color'', sortingType: ''alphanumeric''}}}, translations: array{''2fbb5fe2e29a4d70aa5854ce7ce3e20b'': array{name: ''Default''}, cc72c24b82684d72a4ce91054da264bf: array{name: ''Blue''}}}, array{id: ''0cfabe6eab0440b0974…'', position: 98, colorHexCode: ''#ff0000'', groupId: ''7c8e7851ff88447ba25…'', translations: array{''2fbb5fe2e29a4d70aa5854ce7ce3e20b'': array{name: ''Default''}, cc72c24b82684d72a4ce91054da264bf: array{name: ''Red''}}}}}, array{label: ''swag_color'', value: array{''0cfabe6eab0440b0974b7b7164556612'': array{id: ''0cfabe6eab0440b0974…'', name: ''Red'', mediaId: null, colorHexCode: ''#ff0000''}, bf821e9e206848579049bc1694c5c3e7: array{id: ''bf821e9e20684857904…'', name: ''Blue'', mediaId: null, colorHexCode: ''#189eff''}}, type: ''property''}}, array{array{type: ''customField'', id: null, name: ''lorem_ipsum'', position: 3}, array{translations: array{''2fbb5fe2e29a4d70aa5854ce7ce3e20b'': array{name: ''Default'', customFields: array{lorem_ipsum: ''Default''}}, cc72c24b82684d72a4ce91054da264bf: array{customFields: array{lorem_ipsum: ''Dolor sit amet.''}}}}, array{label: ''lorem_ipsum'', value: array{id: ''24c8b3e8cacc4bf2a74…'', type: ''text'', content: ''Dolor sit amet.''}, type: ''customField''}}, array{array{type: ''referencePrice'', id: null, name: null, position: 0}, array{translations: array{''2fbb5fe2e29a4d70aa5854ce7ce3e20b'': array{name: ''Default'', packUnit: ''Default'', packUnitPlural: ''Default''}, cc72c24b82684d72a4ce91054da264bf: array{packUnit: ''Can'', packUnitPlural: ''Cans''}}, unit: array{translations: array{''2fbb5fe2e29a4d70aa5854ce7ce3e20b'': array{shortCode: ''Default'', name: ''Default''}, cc72c24b82684d72a4ce91054da264bf: array{shortCode: ''l'', name: ''litres''}}}, purchaseUnit: 2, referenceUnit: 0.33}, array{label: ''referencePrice'', value: array{purchaseUnit: 2.0, referenceUnit: 0.33, unitName: ''litres''}, type: ''referencePrice''}}}.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/Cart/ProductCartProcessorTest.php
+
+		-
+			rawMessage: 'Parameter #1 $testedFeature of method Shopware\Tests\Integration\Core\Content\Product\Cart\ProductCartProcessorTest::testProductFeaturesContainCorrectInformation() expects array{type: string}, array{type: ''customField'', id: null, name: ''lorem_ipsum'', position: 3} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/Cart/ProductCartProcessorTest.php
+
+		-
+			rawMessage: 'Parameter #1 $testedFeature of method Shopware\Tests\Integration\Core\Content\Product\Cart\ProductCartProcessorTest::testProductFeaturesContainCorrectInformation() expects array{type: string}, array{type: ''product'', id: null, name: ''description'', position: 1} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/Cart/ProductCartProcessorTest.php
+
+		-
+			rawMessage: 'Parameter #1 $testedFeature of method Shopware\Tests\Integration\Core\Content\Product\Cart\ProductCartProcessorTest::testProductFeaturesContainCorrectInformation() expects array{type: string}, array{type: ''product'', id: null, name: ''manufacturerNumber'', position: 1} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/Cart/ProductCartProcessorTest.php
+
+		-
+			rawMessage: 'Parameter #1 $testedFeature of method Shopware\Tests\Integration\Core\Content\Product\Cart\ProductCartProcessorTest::testProductFeaturesContainCorrectInformation() expects array{type: string}, array{type: ''property'', id: ''7c8e7851ff88447ba25…'', name: null, position: 2} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/Cart/ProductCartProcessorTest.php
+
+		-
+			rawMessage: 'Parameter #1 $testedFeature of method Shopware\Tests\Integration\Core\Content\Product\Cart\ProductCartProcessorTest::testProductFeaturesContainCorrectInformation() expects array{type: string}, array{type: ''referencePrice'', id: null, name: null, position: 0} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/Cart/ProductCartProcessorTest.php
 
 		-
 			rawMessage: 'Parameter #3 $expectedFeature of method Shopware\Tests\Integration\Core\Content\Product\Cart\ProductCartProcessorTest::testProductFeaturesContainCorrectInformation() expects array{type: string, value: array{price: string}, label: string}, array{label: ''description'', value: ''Lorem ipsum dolor…'', type: ''product''} given.'
@@ -1075,6 +1603,12 @@ parameters:
 			path: repo/tests/integration/Core/Content/Product/Cms/ProductListingCmsElementResolverTest.php
 
 		-
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Product\SalesChannel\ProductListingTest::createProducts() should return array<array{id: string, productNumber: string, width: string, stock: int, name: string}> but returns list<array{id: non-falsy-string, productNumber: non-falsy-string, width: literal-string&non-falsy-string&numeric-string, stock: 1, name: literal-string&non-falsy-string, price: array{array{currencyId: ''b7d2554b0ce847cd82f…'', gross: 10, net: 9, linked: false}}, manufacturer: array{id: string, name: ''test''}, tax: array{id: string, taxRate: 17, name: ''with id''}, ...}>.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/SalesChannel/ProductListingTest.php
+
+		-
 			rawMessage: 'Parameter #2 $searchTerms of method Shopware\Tests\Integration\Core\Content\Product\SalesChannel\ProductSearchRouteTest::testProductSearch() expects array<string, bool>, array<int|string, bool> given.'
 			identifier: argument.type
 			count: 6
@@ -1105,82 +1639,40 @@ parameters:
 			path: repo/tests/integration/Core/Framework/Api/Controller/SyncControllerTest.php
 
 		-
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\App\Cms\Xml\SlotTest::provideSlots() should return list<array{name: string, type: string, config: array<string, array<string, int|string>>, position: int}> but returns array{array{blockIndex: 0, name: ''left'', type: ''manufacturer-logo'', config: array{displayMode: array{source: ''static'', value: ''cover''}}, position: 0}, array{blockIndex: 1, name: ''middle'', type: ''product-slider'', config: array{backgroundColor: array{source: ''static'', value: ''red''}, displayMode: array{source: ''static'', value: ''auto''}}, position: 0}, array{blockIndex: 2, name: ''right'', type: ''buy-box'', config: array{displayMode: array{source: ''static'', value: ''contain''}}, position: 0}}.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/App/Cms/Xml/SlotTest.php
+
+		-
+			rawMessage: 'Parameter #2 $app of method Shopware\Core\Framework\App\Lifecycle\AbstractAppLifecycle::delete() expects array{id: string}, array{id: non-falsy-string, roleId: non-falsy-string} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/integration/Core/Framework/App/Lifecycle/AppLifecycleTest.php
+
+		-
+			rawMessage: 'Parameter #1 $webhooks of method Shopware\Core\Framework\App\Lifecycle\Persister\WebhookPersister::updateWebhooksFromArray() expects array<array{name: string, eventName: string, url: string, onlyLiveVersion?: bool, errorCount?: int}>, array{array{name: ''hook1'', eventName: ''product.written'', url: ''https://example.com…''}, array{name: ''hook2'', eventName: ''category.written'', url: ''https://example.com…'', onlyLiveVersion: true}, array{name: ''hook3'', eventName: ''rule.written'', url: ''https://example.com…'', onlyLiveVersion: false, active: false}} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/integration/Core/Framework/App/Lifecycle/WebhookPersisterTest.php
+
+		-
+			rawMessage: 'Parameter #1 $webhooks of method Shopware\Core\Framework\App\Lifecycle\Persister\WebhookPersister::updateWebhooksFromArray() expects array<array{name: string, eventName: string, url: string, onlyLiveVersion?: bool, errorCount?: int}>, array{array{name: ''hook1'', eventName: ''product.written'', url: ''https://example.com…''}, array{name: ''hook2'', eventName: ''category.written'', url: ''https://example.com…'', onlyLiveVersion: true}, array{name: ''hook3'', eventName: ''rule.written'', url: ''https://example.com…'', onlyLiveVersion: false, active: true}} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/integration/Core/Framework/App/Lifecycle/WebhookPersisterTest.php
+
+		-
+			rawMessage: 'Parameter #1 $webhooks of method Shopware\Core\Framework\App\Lifecycle\Persister\WebhookPersister::updateWebhooksFromArray() expects array<array{name: string, eventName: string, url: string, onlyLiveVersion?: bool, errorCount?: int}>, array{array{name: ''hook1'', eventName: ''product.written'', url: ''new-url''}, array{name: ''hook2'', eventName: ''category.written'', url: ''new-url-2'', onlyLiveVersion: true}, array{name: ''hook3'', eventName: ''rule.written'', url: ''new-url-3'', onlyLiveVersion: false, active: true}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/App/Lifecycle/WebhookPersisterTest.php
+
+		-
 			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
 			identifier: argument.invalidConstant
 			count: 2
 			path: repo/tests/integration/Core/Framework/App/Privileges/PrivilegesTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''read-protected'' and array{entity: string, properties: array<string, array{type: string, flags: array<string, mixed>}>, write-protected: bool, read-protected: bool, flags?: list<Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Flag>} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/integration/Core/Framework/Api/ApiDefinition/Generator/EntitySchemaGeneratorTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''write-protected'' and array{entity: string, properties: array<string, array{type: string, flags: array<string, mixed>}>, write-protected: bool, read-protected: bool, flags?: list<Shopware\Core\Framework\DataAbstractionLayer\Field\Flag\Flag>} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/integration/Core/Framework/Api/ApiDefinition/Generator/EntitySchemaGeneratorTest.php
-
-		-
-			rawMessage: Casting to string something that's already string.
-			identifier: cast.useless
-			count: 1
-			path: repo/tests/integration/Core/Framework/App/ActionButton/ExecutorTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with 0 and *NEVER* will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/integration/Core/Framework/App/Lifecycle/AppLifecycleTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 2
-			path: repo/tests/integration/Core/Framework/App/Lifecycle/Registration/AppRegistrationServiceTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 6
-			path: repo/tests/integration/Core/Framework/App/Payment/AppAsyncPaymentHandlerTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 2
-			path: repo/tests/integration/Core/Framework/App/Payment/AppPreparedPaymentHandlerTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 2
-			path: repo/tests/integration/Core/Framework/App/Payment/AppRecurringHandlerTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 2
-			path: repo/tests/integration/Core/Framework/App/Payment/AppRefundHandlerTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''fingerprints'' and *NEVER* will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/integration/Core/Framework/App/ShopId/ShopIdProviderTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''id'' and *NEVER* will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/integration/Core/Framework/App/ShopId/ShopIdProviderTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''version'' and *NEVER* will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/integration/Core/Framework/App/ShopId/ShopIdProviderTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\CustomField\CustomFieldServiceTest::testGetCustomFieldField() invoked with 14 parameters, 2 required.'
@@ -1189,16 +1681,52 @@ parameters:
 			path: repo/tests/integration/Core/Framework/CustomField/CustomFieldServiceTest.php
 
 		-
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\EntityExtensionTest::getCategoriesData() should return array{id: string, productNumber: string, stock: int, name: string, ean: string, price: array{array{currencyId: string, gross: int, net: int, linked: bool}}, manufacturer: array{name: string}, tax: array{name: string, taxRate: int}, ...} but returns array{id: string, productNumber: non-falsy-string, stock: 1, name: ''category test'', ean: ''test'', price: array{array{currencyId: ''b7d2554b0ce847cd82f…'', gross: 15, net: 10, linked: false}}, manufacturer: array{name: ''test''}, tax: array{name: ''test'', taxRate: 15}, ...}.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/EntityExtensionTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\EntityExtensionTest::getPricesData() should return array{id: string, productNumber: string, stock: int, name: string, ean: string, price: array{array{currencyId: string, gross: int, net: int, linked: bool}}, manufacturer: array{name: string}, tax: array{name: string, taxRate: int}, ...} but returns array{id: string, productNumber: non-falsy-string, stock: 1, name: ''price test'', ean: ''test'', price: array{array{currencyId: ''b7d2554b0ce847cd82f…'', gross: 15, net: 10, linked: false}}, manufacturer: array{name: ''test''}, tax: array{name: ''test'', taxRate: 15}, ...}.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/EntityExtensionTest.php
+
+		-
 			rawMessage: 'Parameter #1 $products of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\EntityRepositoryTest::testProductPropertiesQueries() expects array<string, mixed>, array<int, array<string, mixed>> given.'
 			identifier: argument.type
 			count: 11
 			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/EntityRepositoryTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 2
-			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/Event/EntityWrittenEventSerializationTest.php
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\Field\PriceFieldTest::cashRoundingFilterProvider() should return array<string, array{0: Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, 1: list<array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}>, 2: list<string>, 3: Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig, 4?: string}> but returns array{''0.01 interval default currency'': array{Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}}, array{string, string}, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig}, ''0.01 interval currency fallback'': array{Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}, array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}}, array{string, string}, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig, string}, ''0.05 interval default currency'': array{Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, ...}, list<string>, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig}, ''0.05 interval currency fallback'': array{Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, ...}, list<string>, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig, string}, ''0.10 interval default currency'': array{Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}}, list<string>, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig}, ''0.10 interval currency fallback'': array{Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}}, list<string>, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig, string}, ''0.50 interval default currency'': array{Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, ...}, list<string>, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig}, ''0.50 interval currency fallback'': array{Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, ...}, list<string>, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig, string}, ...}.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/Field/PriceFieldTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\Field\PriceFieldTest::cashRoundingSortingProvider() should return array<string, array{0: list<array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}>, 1: list<string>, 2: Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig, 3?: string}> but returns array{''0.01 interval default currency'': array{array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}}, array{string, string}, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig}, ''0.01 interval currency fallback'': array{array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}, array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}}, array{string, string}, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig, string}, ''0.05 interval default currency'': array{array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}}, array{string, string, string}, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig, string}, ''0.05 interval currency fallback'': array{array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}, array{currencyId: string, gross: float, net: 1, linked: true}}}}, array{string, string, string}, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig, string}}.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/Field/PriceFieldTest.php
+
+		-
+			rawMessage: 'Parameter #1 $records of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\Field\PriceFieldTest::testCashRoundingSorting() expects list<array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}>, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}, array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/Field/PriceFieldTest.php
+
+		-
+			rawMessage: 'Parameter #1 $records of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\Field\PriceFieldTest::testCashRoundingSorting() expects list<array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}>, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}, array{currencyId: string, gross: float, net: 1, linked: true}}}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/Field/PriceFieldTest.php
+
+		-
+			rawMessage: 'Parameter #2 $records of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\Field\PriceFieldTest::testCashRoundingFilter() expects list<array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}>, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}, array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/Field/PriceFieldTest.php
 
 		-
 			rawMessage: 'Parameter #1 $input of method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\FieldSerializer\ConfigJsonFieldSerializerTest::testSerializer() expects array<string, int>|bool|float|int|string|null, array<int, array<int, int>> given.'
@@ -1297,48 +1825,6 @@ parameters:
 			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/FieldSerializer/StringFieldSerializerTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''categoryId'' and *NEVER* will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/Search/EntitySearcherTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''productId'' and *NEVER* will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/Search/EntitySearcherTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotNull() with null will always evaluate to false.'
-			identifier: staticMethod.impossibleType
-			count: 1
-			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/Search/Parser/AggregationParserTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 0 and array{array<string, mixed>} will always evaluate to false.'
-			identifier: staticMethod.impossibleType
-			count: 2
-			path: repo/tests/integration/Core/Framework/Demodata/PersonalData/CleanPersonalDataCommandTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 0 and list{0: array<string, mixed>, 1: array<string, mixed>, 2?: array<string, mixed>, 3?: array<string, mixed>, 4?: array<string, mixed>} will always evaluate to false.'
-			identifier: staticMethod.impossibleType
-			count: 2
-			path: repo/tests/integration/Core/Framework/Demodata/PersonalData/CleanPersonalDataCommandTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 1 and array{array<string, mixed>, array<string, mixed>} will always evaluate to false.'
-			identifier: staticMethod.impossibleType
-			count: 1
-			path: repo/tests/integration/Core/Framework/Demodata/PersonalData/CleanPersonalDataCommandTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 1 and array{array<string, mixed>} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 4
-			path: repo/tests/integration/Core/Framework/Demodata/PersonalData/CleanPersonalDataCommandTest.php
-
-		-
 			rawMessage: 'Parameter #1 $featureConfig of method Shopware\Tests\Integration\Core\Framework\FeatureFlag\FeatureTest::testIsActive() expects array<string, array{name?: string, default?: bool, major?: bool, description?: string}>, array{''FEATURE_NEXT_101''} given.'
 			identifier: argument.type
 			count: 8
@@ -1351,16 +1837,10 @@ parameters:
 			path: repo/tests/integration/Core/Framework/FeatureFlag/FeatureTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
+			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{''v6.5.0.0'': array{default: bool, major: bool, toggleable: bool}, ''v6.6.0.0'': array{default: bool, major: bool, toggleable: bool}, ''v6.7.0.0'': array{default: bool, major: bool, toggleable: bool}, ''v6.8.0.0'': array{default: bool, major: bool, toggleable: bool}, DISABLE_VUE_COMPAT: array{default: bool, major: bool, toggleable: bool}, ACCESSIBILITY_TWEAKS: array{default: bool, major: bool, toggleable: bool, description: string}, TELEMETRY_METRICS: array{default: bool, major: bool, toggleable: bool, description: string}, FLOW_EXECUTION_AFTER_BUSINESS_PROCESS: array{default: bool, major: bool, toggleable: bool, description: string}, ...} given.'
+			identifier: argument.type
 			count: 1
-			path: repo/tests/integration/Core/Framework/Notification/Api/NotificationControllerTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertSame() with ''SwagTestComposerLoa…'' and ''SwagTestComposerLoa…'' will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/integration/Core/Framework/Plugin/KernelPluginLoader/ComposerPluginLoaderTest.php
+			path: repo/tests/integration/Core/Framework/FeatureFlag/IdleFeatureFlagTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Seo\SeoUrl\SeoUrlRepositoryTest::emptyGenerator() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -1369,10 +1849,28 @@ parameters:
 			path: repo/tests/integration/Core/Framework/Seo/SeoUrl/SeoUrlRepositoryTest.php
 
 		-
-			rawMessage: Casting to string something that's already string.
-			identifier: cast.useless
+			rawMessage: 'Parameter #1 $rawConfig of class Shopware\Core\Framework\Sso\Config\LoginConfigService constructor expects array{use_default: bool, client_id: non-empty-string, client_secret: non-empty-string, redirect_uri: non-empty-string, base_url: non-empty-string, authorize_path: non-empty-string, token_path: non-empty-string, jwks_path: non-empty-string, ...}, array{use_default: false, client_id: ''client_id'', client_secret: ''client_secret'', redirect_uri: ''http://redirect.uri'', base_url: ''http://base.uri'', session_key: ''session_key'', authorize_path: ''/authorize'', token_path: ''/token'', ...} given.'
+			identifier: argument.type
 			count: 1
-			path: repo/tests/integration/Core/Framework/Sso/Helper/FakeTokenGenerator.php
+			path: repo/tests/integration/Core/Framework/Sso/ShopwareGrantTypeTest.php
+
+		-
+			rawMessage: 'Parameter #1 $rawConfig of class Shopware\Core\Framework\Sso\Config\LoginConfigService constructor expects array{use_default: bool, client_id: non-empty-string, client_secret: non-empty-string, redirect_uri: non-empty-string, base_url: non-empty-string, authorize_path: non-empty-string, token_path: non-empty-string, jwks_path: non-empty-string, ...}, array{use_default: false, client_id: ''client_id'', client_secret: ''client_secret'', redirect_uri: ''http://redirect.uri'', base_url: ''http://base.uri'', session_key: ''session_key'', authorize_path: ''/authorize'', token_path: ''/token'', ...} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/Sso/UserService/ShopwareRefreshTokenGrantTypeTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Sso\UserService\UserServiceTest::getTokenUserData() should return array{id: string, user_id: string, user_sub: string, token: Shopware\Core\Framework\Sso\UserService\Token, expiry: string}|null but returns non-empty-array<string, mixed>.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/integration/Core/Framework/Sso/UserService/UserServiceTest.php
+
+		-
+			rawMessage: 'Property Shopware\Tests\Integration\Core\Framework\Telemetry\MeterTest::$definitions (array<string, array{type: string, description: string, unit?: string, config?: array<string, mixed>, enabled?: bool}>) does not accept array{''plugin.install.count'': array{description: string, type: string, enabled: bool, parameters: array, labels: array}, ''app.install.count'': array{description: string, type: string, enabled: bool, parameters: array, labels: array}, ''cache.invalidate.count'': array{description: string, type: string, enabled: bool, parameters: array, labels: array}, ''messenger.message.size'': array{description: string, enabled: bool, type: string, unit: string, parameters: array{buckets: array<int, int>}, labels: array}, ''dal.associations.count'': array{description: string, type: string, enabled: bool, parameters: array, labels: array}, ''database.locks.count'': array{description: string, enabled: bool, type: string, parameters: array, labels: array}}.'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/tests/integration/Core/Framework/Telemetry/MeterTest.php
 
 		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Framework\\Webhook\\AclPrivilegeCollection'' and Shopware\Core\Framework\Webhook\AclPrivilegeCollection will always evaluate to true.'
@@ -1393,12 +1891,6 @@ parameters:
 			path: repo/tests/integration/Core/System/SalesChannel/Context/SalesChannelContextTest.php
 
 		-
-			rawMessage: Casting to string something that's already string.
-			identifier: cast.useless
-			count: 4
-			path: repo/tests/integration/Core/System/Snippet/SnippetServiceTest.php
-
-		-
 			rawMessage: 'Parameter #2 $expectedResult of method Shopware\Tests\Integration\Core\System\Snippet\SnippetServiceTest::testGetStorefrontSnippets() expects array<int, array<int, array<int|string, string>|Symfony\Component\Translation\MessageCatalogue>>, array<string, string> given.'
 			identifier: argument.type
 			count: 2
@@ -1417,7 +1909,7 @@ parameters:
 			path: repo/tests/integration/Core/System/Snippet/Subscriber/CustomFieldSubscriberTest.php
 
 		-
-			rawMessage: 'Offset ''global'' might not exist on array{global?: non-empty-list<Shopware\Core\System\SystemConfig\Event\BeforeSystemConfigMultipleChangedEvent|Shopware\Core\System\SystemConfig\Event\SystemConfigChangedHook|Shopware\Core\System\SystemConfig\Event\SystemConfigMultipleChangedEvent>, sales_channel?: non-empty-list<Shopware\Core\System\SystemConfig\Event\BeforeSystemConfigMultipleChangedEvent|Shopware\Core\System\SystemConfig\Event\SystemConfigChangedHook|Shopware\Core\System\SystemConfig\Event\SystemConfigMultipleChangedEvent>}.'
+			rawMessage: 'Offset ''global'' might not exist on non-empty-array{global?: non-empty-list<Shopware\Core\System\SystemConfig\Event\BeforeSystemConfigMultipleChangedEvent|Shopware\Core\System\SystemConfig\Event\SystemConfigChangedHook|Shopware\Core\System\SystemConfig\Event\SystemConfigMultipleChangedEvent>, sales_channel?: non-empty-list<Shopware\Core\System\SystemConfig\Event\BeforeSystemConfigMultipleChangedEvent|Shopware\Core\System\SystemConfig\Event\SystemConfigChangedHook|Shopware\Core\System\SystemConfig\Event\SystemConfigMultipleChangedEvent>}.'
 			identifier: offsetAccess.notFound
 			count: 3
 			path: repo/tests/integration/Core/System/SystemConfig/SystemConfigServiceTest.php
@@ -1459,6 +1951,12 @@ parameters:
 			path: repo/tests/integration/Elasticsearch/Admin/AdminSearchControllerTest.php
 
 		-
+			rawMessage: 'Parameter #4 $case of method Shopware\Tests\Integration\Elasticsearch\Product\ElasticsearchProductTest::assertSorting() expects array{ids: array<string>}, array{ids: list<string>, rules: list<string>} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/integration/Elasticsearch/Product/ElasticsearchProductTest.php
+
+		-
 			rawMessage: 'Method Shopware\Tests\Integration\Elasticsearch\Product\ProductSearchQueryBuilderTest::testSearch() invoked with 3 parameters, 4 required.'
 			identifier: arguments.count
 			count: 10
@@ -1477,16 +1975,16 @@ parameters:
 			path: repo/tests/integration/Storefront/Framework/Routing/RequestTransformerTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''configuration_key'' and array{} will always evaluate to false.'
-			identifier: staticMethod.impossibleType
+			rawMessage: 'Parameter #2 $app of method Shopware\Core\Framework\App\Lifecycle\AbstractAppLifecycle::delete() expects array{id: string}, array{id: string, name: string, roleId: string} given.'
+			identifier: argument.type
 			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1671723392AddWebhookLifetimeConfigTest.php
+			path: repo/tests/integration/Storefront/Theme/Subscriber/AppLifecycleSubscriberTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''configuration_value'' and *NEVER* will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
+			rawMessage: 'Parameter #1 $params of class Doctrine\DBAL\Connection constructor expects array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...}, array{application_name?: string, charset?: string, dbname: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...} given.'
+			identifier: argument.type
 			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1671723392AddWebhookLifetimeConfigTest.php
+			path: repo/tests/migration/Core/MigrationForeignDefaultLanguageTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Migration\Core\V6_6\Migration1703850843FixSearchConfigTest::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -1525,64 +2023,10 @@ parameters:
 			path: repo/tests/migration/Core/V6_6/Migration1721202771UpdateDefaultSearchConfigTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''configuration_key'' and array{} will always evaluate to false.'
-			identifier: staticMethod.impossibleType
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1730059142AddNewSitemapConfigForExcludingHiddenProductsTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''configuration_value'' and *NEVER* will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1730059142AddNewSitemapConfigForExcludingHiddenProductsTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''configuration_key'' and array{} will always evaluate to false.'
-			identifier: staticMethod.impossibleType
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1735112885AddDefaultSearchResultSortingTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''configuration_value'' and *NEVER* will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/migration/Core/V6_6/Migration1735112885AddDefaultSearchResultSortingTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''configuration_key'' and array{} will always evaluate to false.'
-			identifier: staticMethod.impossibleType
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1749644517AddListingVariantNameSystemConfigOptionTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''configuration_value'' and *NEVER* will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/migration/Core/V6_7/Migration1749644517AddListingVariantNameSystemConfigOptionTest.php
-
-		-
 			rawMessage: 'Method Shopware\Tests\Bench\BenchExtension::findFixtures() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
 			path: repo/tests/performance/bench/BenchExtension.php
-
-		-
-			rawMessage: PHPDoc tag @var with type string is not subtype of native type class-string|false.
-			identifier: varTag.nativeType
-			count: 1
-			path: repo/tests/performance/bench/BenchExtension.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''amount'' and array{date: string, amount: float, count: int} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/unit/Administration/Dashboard/OrderAmountServiceTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''date'' and array{date: string, amount: float, count: int} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/unit/Administration/Dashboard/OrderAmountServiceTest.php
 
 		-
 			rawMessage: 'Parameter #3 $assetKeys of method Shopware\Tests\Unit\Administration\Framework\Twig\ViteFileAccessorDecoratorTest::testGetData() expects list<string>, array{''entryPoints'', ''administration'', ''js'', 0} given.'
@@ -1607,6 +2051,18 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Checkout/Cart/Order/OrderConverterTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Price\AmountCalculatorTest::calculateAmountWithGrossPricesProvider() should return list<array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection}> but returns array{array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection, ''horizontal''}, array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection, ''horizontal''}, array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection, ''horizontal''}, array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection, ''horizontal''}, array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection, ''horizontal''}, array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection, ''horizontal''}, array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection, ''horizontal''}, array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection, ''horizontal''}, ...}.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/unit/Core/Checkout/Cart/Price/AmountCalculatorTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Cart\Price\AmountCalculatorTest::calculateAmountWithNetPricesProvider() should return list<array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection}> but returns array{array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection, ''horizontal''}, array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection, ''horizontal''}, array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection, ''horizontal''}, array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection, ''horizontal''}, array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection, ''horizontal''}, array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection, ''horizontal''}, array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection, ''horizontal''}, array{Shopware\Core\Checkout\Cart\Price\Struct\CartPrice, Shopware\Core\Checkout\Cart\Price\Struct\PriceCollection, ''vertical''}, ...}.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/unit/Core/Checkout/Cart/Price/AmountCalculatorTest.php
 
 		-
 			rawMessage: 'Parameter $customFieldValueInLineItem of method Shopware\Tests\Unit\Core\Checkout\Cart\Rule\LineItemCustomFieldRuleTest::testCustomFieldCartScope() expects bool|string|null, array<int, int> given.'
@@ -1643,18 +2099,6 @@ parameters:
 			identifier: method.void
 			count: 4
 			path: repo/tests/unit/Core/Checkout/Cart/Rule/LineItemVariantValueRuleTest.php
-
-		-
-			rawMessage: 'Parameter #1 $array (array{array{id: string}, array{id: string}, array{id: string}}) of array_values is already a list, call has no effect.'
-			identifier: arrayValues.list
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Customer/DeleteUnusedGuestCustomerServiceTest.php
-
-		-
-			rawMessage: Casting to int something that's already int.
-			identifier: cast.useless
-			count: 1
-			path: repo/tests/unit/Core/Checkout/Customer/ImitateCustomerTokenGeneratorTest.php
 
 		-
 			rawMessage: 'Parameter #3 $expectedStruct of method Shopware\Tests\Unit\Core\Checkout\Customer\Subscriber\AddressHashSubscriberTest::testGenerate() expects array<string, string|null>, array<string, array|string> given.'
@@ -1717,6 +2161,12 @@ parameters:
 			path: repo/tests/unit/Core/Checkout/Order/OrderAddressServiceTest.php
 
 		-
+			rawMessage: 'Method Shopware\Tests\Unit\Core\Checkout\Order\SalesChannel\OrderRouteTest::customerDataProvider() should return array<string, array{bool|null, string|null, string|null, class-string<Throwable>|null}> but returns array{''no customer'': array{null, ''test@example.com'', ''AA-345'', ''Shopware\\Core\\Checkout\\Customer\\CustomerException''}, ''no guest customer'': array{false, ''test@example.com'', ''AA-345'', ''Shopware\\Core\\Checkout\\Customer\\CustomerException''}, ''no request e-mail'': array{true, null, ''AA-345'', ''Shopware\\Core\\Checkout\\Order\\Exception\\GuestNotAuthenticatedException''}, ''no request postal code'': array{true, ''test@example.com'', null, ''Shopware\\Core\\Checkout\\Order\\Exception\\GuestNotAuthenticatedException''}, ''wrong e-mail'': array{true, ''false@example.com'', ''AA-345'', ''Shopware\\Core\\Checkout\\Order\\Exception\\WrongGuestCredentialsException''}, ''wrong postal code'': array{true, ''test@example.com'', ''12345'', ''Shopware\\Core\\Checkout\\Order\\Exception\\WrongGuestCredentialsException''}, ''valid guest'': array{true, ''test@example.com'', ''AA-345'', null}, ''valid guest uppercase email'': array{true, ''Test@Example.Com'', ''AA-345'', null}, ...}.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/unit/Core/Checkout/Order/SalesChannel/OrderRouteTest.php
+
+		-
 			rawMessage: 'Parameter $expectedWrites of method Shopware\Tests\Unit\Core\Content\Cms\Subscriber\CmsVersionMergeSubscriberTest::testOnVersionMerge() expects array{insert: array<string, array<int, mixed>>, update: array<string, array<int, mixed>>, delete: array<string, array<int, mixed>>}, array{insert: array{cms_slot: array{array{id: non-falsy-string, blockId: non-falsy-string, cmsBlockVersionId: non-falsy-string}}}, delete: array{cms_block: array{array{id: non-falsy-string, versionId: non-falsy-string}}}} given.'
 			identifier: argument.type
 			count: 2
@@ -1763,6 +2213,24 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Content/ImportExport/DataAbstractionLayer/Serializer/Field/PriceSerializerTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{activity: string}, array{activity: ''dryrun'', method: ''import''} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Content/ImportExport/Message/ImportExportHandlerTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{activity: string}, array{activity: ''export'', method: ''export''} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Content/ImportExport/Message/ImportExportHandlerTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{activity: string}, array{activity: ''import'', method: ''import''} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Content/ImportExport/Message/ImportExportHandlerTest.php
 
 		-
 			rawMessage: 'Parameter $entities of method Shopware\Tests\Unit\Core\Content\ImportExport\Service\SupportedFeaturesServiceTest::testConstruct() expects iterable<string>, array<int, array> given.'
@@ -1867,24 +2335,6 @@ parameters:
 			path: repo/tests/unit/Core/Content/Media/Metadata/MetadataLoaderTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with 1 and array{mixed, mixed, mixed} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/unit/Core/Content/Newsletter/SalesChannel/NewsletterSubscribeRouteTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with 1 and array{mixed, mixed} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/unit/Core/Content/Newsletter/SalesChannel/NewsletterSubscribeRouteTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with 2 and array{mixed, mixed, mixed} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/unit/Core/Content/Newsletter/SalesChannel/NewsletterSubscribeRouteTest.php
-
-		-
 			rawMessage: 'Parameter $doiSettings of method Shopware\Tests\Unit\Core\Content\Newsletter\SalesChannel\NewsletterSubscribeRouteTest::testSubscribeToNewsletterViaCmsForm() expects array{isDoubleOptIn: bool, doubleOptInRegistered: bool}, array{''core.newsletter.doubleOptIn'': false, ''core.newsletter.doubleOptInRegistered'': false} given.'
 			identifier: argument.type
 			count: 5
@@ -1975,6 +2425,36 @@ parameters:
 			path: repo/tests/unit/Core/Content/Product/Subscriber/ProductSubscriberTest.php
 
 		-
+			rawMessage: 'Generator expects value type array{clientMaxAge?: int, sharedMaxAge?: int, maxAge?: int, states?: list<string>}, array{input: array{clientMaxAge: 100, sharedMaxAge: 200, states: array{''foo''}}, expectedMaxAge: 100, expectedSMaxAge: 200, expectedStates: array{''foo''}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Adapter/Cache/Http/CacheAttributeTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{clientMaxAge?: int, sharedMaxAge?: int, maxAge?: int, states?: list<string>}, array{input: array{maxAge: 300}, expectedMaxAge: null, expectedSMaxAge: 300, expectedStates: null} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Adapter/Cache/Http/CacheAttributeTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{clientMaxAge?: int, sharedMaxAge?: int, maxAge?: int, states?: list<string>}, array{input: array{sharedMaxAge: 400, maxAge: 300}, expectedMaxAge: null, expectedSMaxAge: 400, expectedStates: null} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Adapter/Cache/Http/CacheAttributeTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{clientMaxAge?: int, sharedMaxAge?: int, maxAge?: int, states?: list<string>}, array{input: array{}, expectedMaxAge: null, expectedSMaxAge: null, expectedStates: null} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Adapter/Cache/Http/CacheAttributeTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Adapter\Translation\ArrayCache::get() has parameter $metadata with no value type specified in iterable type array.'
+			identifier: missingType.iterableValue
+			count: 1
+			path: repo/tests/unit/Core/Framework/Adapter/Translation/TranslatorTest.php
+
+		-
 			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\Adapter\Translation\TranslatorTest::provideTracingExamples() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -1985,53 +2465,18 @@ parameters:
 			identifier: argument.invalidConstant
 			count: 4
 			path: repo/tests/unit/Core/Framework/Api/ApiDefinition/Generator/OpenApi/OpenApiDefinitionSchemaBuilderTest.php
+
 		-
-			rawMessage: 'Strict comparison using !== between string and false will always evaluate to true.'
-			identifier: notIdentical.alwaysTrue
+			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{FOO: array{name: ''Foo'', default: true, toggleable: true, active: false, major: true, description: ''This is a test…''}, BAR: array{name: ''Bar'', default: true, toggleable: true, active: false, major: false, description: ''This is another…''}, NEWFEATURE: array{name: ''newFeature'', default: true, toggleable: true, major: false, description: ''This is new test…''}} given.'
+			identifier: argument.type
 			count: 1
-			path: repo/tests/unit/Core/Framework/Adapter/Twig/SwEscapeFilterTest.php
+			path: repo/tests/unit/Core/Framework/Api/Controller/FeatureFlagControllerTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''paths'' and array{paths: array{}} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
+			rawMessage: 'Parameter #1 $data of static method Shopware\Core\Framework\App\TaxProvider\Response\TaxProviderResponse::create() expects array{lineItemTaxes: array<string, array<array{tax: float, taxRate: float, price: float}>>, deliveryTaxes: array<string, array<array{tax: float, taxRate: float, price: float}>>, cartPriceTaxes: array<array{tax: float, taxRate: float, price: float}>}, array{lineItemTaxes: non-empty-array<string, array{array{tax: 1.0, taxRate: 1.0, price: 1.0}}|array{array{tax: 2.0, taxRate: 2.0, price: 2.0, label: ''some tax''}, array{tax: 3.0, taxRate: 3.0, price: 3.0}}>, deliveryTaxes: non-empty-array<string, array{array{tax: 4.0, taxRate: 4.0, price: 4.0}}|array{array{tax: 5.0, taxRate: 5.0, price: 5.0}, array{tax: 6.0, taxRate: 6.0, price: 6.0}}>, cartPriceTaxes: array{array{tax: 7.0, taxRate: 7.0, price: 7.0, label: ''some other tax''}, array{tax: 8.0, taxRate: 8.0, price: 8.0}}} given.'
+			identifier: argument.type
 			count: 1
-			path: repo/tests/unit/Core/Framework/Api/ApiDefinition/Generator/StoreApiGeneratorTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''paths'' and array{paths: null} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/unit/Core/Framework/Api/ApiDefinition/Generator/StoreApiGeneratorTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 0 and array{} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/unit/Core/Framework/Api/ApiDefinition/Generator/StoreApiGeneratorTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 2 and array{mixed, mixed} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/unit/Core/Framework/App/Cms/Xml/BlockTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 2
-			path: repo/tests/unit/Core/Framework/App/InAppPurchases/Payload/InAppPurchasesPayloadServiceTest.php
-
-		-
-			rawMessage: Casting to string something that's already string.
-			identifier: cast.useless
-			count: 2
-			path: repo/tests/unit/Core/Framework/App/Lifecycle/AppLifecycleTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertNotFalse() with non-empty-string will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/unit/Core/Framework/App/TaxProvider/Payload/TaxProviderPayloadServiceTest.php
+			path: repo/tests/unit/Core/Framework/App/TaxProvider/Response/TaxProviderResponseTest.php
 
 		-
 			rawMessage: 'Parameter #2 $expected of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Dbal\CriteriaFieldsResolverTest::testResolveFields() expects array<int, mixed>, array<string, array<string, array>> given.'
@@ -2058,10 +2503,16 @@ parameters:
 			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/FieldSerializer/EnumFieldSerializerTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''value'' and non-empty-array will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
+			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\FieldSerializer\LongTextFieldSerializerTest::getHtmlSanitizerFieldSets() should return array<string, array{sets?: list<string>|null}> but returns array{''product_translation.description'': array{set: array{''basic'', ''media'', ''HTML5''}}}.'
+			identifier: return.type
 			count: 1
-			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParserTest.php
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/FieldSerializer/LongTextFieldSerializerTest.php
+
+		-
+			rawMessage: 'Parameter #3 $sets of class Shopware\Core\Framework\Util\HtmlSanitizer constructor expects array<string, array{name?: string, tags?: list<string>, attributes?: list<string>, options?: array<string, mixed>, custom_attributes?: array<string, array<string, list<string>>>}>, array<string, array<string, mixed>> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/FieldSerializer/LongTextFieldSerializerTest.php
 
 		-
 			rawMessage: 'Parameter #1 $filter of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\Parser\QueryStringParserTest::testContainsFilter() expects array{type: ''contains'', field: string, value: mixed}, array{type: ''contains'', field: ''foo''} given.'
@@ -2214,6 +2665,42 @@ parameters:
 			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/RequestCriteriaBuilderTest.php
 
 		-
+			rawMessage: 'Generator expects value type array{configKeyedByLanguageId: array<string, array<array{and_logic: string, field: string, tokenize: int, ranking: float}>>, expectedResult: array<array{and_logic: string, field: string, tokenize: int, ranking: float}>}, array{configKeyedByLanguageId: array{''2fbb5fe2e29a4d70aa5854ce7ce3e20b'': array{array{and_logic: ''and'', excluded_terms: non-empty-string|false, min_search_length: 15, field: ''name'', tokenize: 0, ranking: 50.0}}|array{array{and_logic: ''and'', field: ''name'', tokenize: 1, ranking: 100.0, excluded_terms: non-empty-string|false, min_search_length: 5}}, ...<non-falsy-string, array{array{and_logic: ''and'', excluded_terms: non-empty-string|false, min_search_length: 15, field: ''name'', tokenize: 0, ranking: 50.0}}>}, expectedResult: array{array{and_logic: ''and'', excluded_terms: array{''term1'', ''term2''}, min_search_length: 5, field: ''name'', tokenize: 1, ranking: 100.0}}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/SearchConfigLoaderTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{configKeyedByLanguageId: array<string, array<array{and_logic: string, field: string, tokenize: int, ranking: float}>>, expectedResult: array<array{and_logic: string, field: string, tokenize: int, ranking: float}>}, array{configKeyedByLanguageId: array{''2fbb5fe2e29a4d70aa5854ce7ce3e20b'': array{array{and_logic: ''and'', excluded_terms: non-empty-string|false, min_search_length: 5, field: ''name'', tokenize: 1, ranking: 2.0}}}, expectedResult: array{array{and_logic: ''and'', excluded_terms: array{''term1'', ''term2''}, min_search_length: 5, field: ''name'', tokenize: 1, ranking: 2.0}}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/SearchConfigLoaderTest.php
+
+		-
+			rawMessage: 'Parameter $configKeyedByLanguageId of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\SearchConfigLoaderTest::testLoad() expects array<non-falsy-string, array<array{and_logic: string, field: string, tokenize: int, ranking: float}>>, array{''2fbb5fe2e29a4d70aa5854ce7ce3e20b'': array{array{and_logic: ''and'', excluded_terms: non-empty-string|false, min_search_length: 15, field: ''name'', tokenize: 0, ranking: 50.0}}|array{array{and_logic: ''and'', field: ''name'', tokenize: 1, ranking: 100.0, excluded_terms: non-empty-string|false, min_search_length: 5}}, ...<non-falsy-string, array{array{and_logic: ''and'', excluded_terms: non-empty-string|false, min_search_length: 15, field: ''name'', tokenize: 0, ranking: 50.0}}>} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/SearchConfigLoaderTest.php
+
+		-
+			rawMessage: 'Parameter $configKeyedByLanguageId of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\SearchConfigLoaderTest::testLoad() expects array<non-falsy-string, array<array{and_logic: string, field: string, tokenize: int, ranking: float}>>, array{''2fbb5fe2e29a4d70aa5854ce7ce3e20b'': array{array{and_logic: ''and'', excluded_terms: non-empty-string|false, min_search_length: 5, field: ''name'', tokenize: 1, ranking: 2.0}}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/SearchConfigLoaderTest.php
+
+		-
+			rawMessage: 'Parameter $expectedResult of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\SearchConfigLoaderTest::testLoad() expects array<array{and_logic: string, field: string, tokenize: int, ranking: float}>, array{array{and_logic: ''and'', excluded_terms: array{''term1'', ''term2''}, min_search_length: 5, field: ''name'', tokenize: 1, ranking: 100.0}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/SearchConfigLoaderTest.php
+
+		-
+			rawMessage: 'Parameter $expectedResult of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Search\SearchConfigLoaderTest::testLoad() expects array<array{and_logic: string, field: string, tokenize: int, ranking: float}>, array{array{and_logic: ''and'', excluded_terms: array{''term1'', ''term2''}, min_search_length: 5, field: ''name'', tokenize: 1, ranking: 2.0}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Search/SearchConfigLoaderTest.php
+
+		-
 			rawMessage: 'Parameter $input of method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Write\WriteInputValidatorTest::testInvalidWriteInputs() expects array<array<string, mixed>>, array<int, array<int, string>> given.'
 			identifier: argument.type
 			count: 4
@@ -2226,16 +2713,184 @@ parameters:
 			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Write/WriteInputValidatorTest.php
 
 		-
-			rawMessage: Casting to string something that's already string.
-			identifier: cast.useless
-			count: 2
-			path: repo/tests/unit/Core/Framework/MessageQueue/Command/DeactivateScheduledTaskCommandTest.php
+			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{FEATURE_ONE: array{name: ''Feature 1'', default: true, toggleable: true, active: true, description: ''This is a test…''}, FEATURE_TWO: array{name: ''Feature 2'', default: true, toggleable: true, active: true, description: ''This is another…''}, FEATURE_THREE: array{name: ''Feature 3'', default: true, toggleable: true, active: true}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/Command/FeatureDisableCommandTest.php
 
 		-
-			rawMessage: Casting to string something that's already string.
-			identifier: cast.useless
+			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{FEATURE_ONE: array{name: ''Feature 1'', default: true, toggleable: true, active: false, description: ''This is a test…''}, FEATURE_TWO: array{name: ''Feature 2'', default: true, toggleable: true, active: false, description: ''This is another…''}, FEATURE_THREE: array{name: ''Feature 3'', default: true, toggleable: true, active: false}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/Command/FeatureEnableCommandTest.php
+
+		-
+			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{FEATURE_ONE: array{name: ''Feature 1'', default: true, toggleable: true, active: true, major: true, description: ''This is a test…''}, FEATURE_TWO: array{name: ''Feature 2'', default: true, toggleable: true, active: false, major: true, description: ''This is another…''}, FEATURE_THREE: array{name: ''Feature 3'', default: true, toggleable: true, active: true, major: true}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/Command/FeatureListCommandTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{staticFeatureFlags: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>, stored: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>|string, expected: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>}, array{enabled: false, staticFeatureFlags: array{FEATURE_STATIC: array{active: true, major: false, default: false, toggleable: true, description: '''', static: true}}, stored: array{FEATURE_STORED: array{active: true, major: false, default: false, toggleable: true, description: ''''}}, expected: array{FEATURE_STATIC: array{active: true, major: false, default: false, toggleable: true, description: '''', static: true}}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{staticFeatureFlags: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>, stored: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>|string, expected: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>}, array{enabled: false, staticFeatureFlags: array{}, stored: array{FEATURE_STORED: array{active: true, major: false, default: false, toggleable: true, description: ''''}}, expected: array{}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{staticFeatureFlags: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>, stored: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>|string, expected: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>}, array{enabled: true, staticFeatureFlags: array{FEATURE_STATIC: array{active: true, major: false, default: false, toggleable: true, description: '''', static: true}}, stored: array{FEATURE_STORED: array{active: true, major: false, default: false, toggleable: true, description: ''''}}, expected: array{FEATURE_STATIC: array{active: true, major: false, default: false, toggleable: true, description: '''', static: true}, FEATURE_STORED: array{active: true, major: false, default: false, toggleable: true, description: ''''}}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{staticFeatureFlags: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>, stored: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>|string, expected: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>}, array{enabled: true, staticFeatureFlags: array{FEATURE_STATIC: array{active: true, major: false, default: false, toggleable: true, description: '''', static: true}}, stored: array{FEATURE_STORED: array{active: true, major: true, default: false, toggleable: true, description: ''''}, FEATURE_STATIC: array{active: true, major: true, default: false, toggleable: true, description: ''''}}, expected: array{FEATURE_STATIC: array{active: true, major: false, default: false, toggleable: true, description: '''', static: true}}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{staticFeatureFlags: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>, stored: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>|string, expected: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>}, array{enabled: true, staticFeatureFlags: array{FEATURE_STATIC: array{active: true, major: false, default: false, toggleable: true, description: '''', static: true}}, stored: array{FEATURE_STORED: array{active: true, major: true, default: false, toggleable: true, description: ''''}}, expected: array{FEATURE_STATIC: array{active: true, major: false, default: false, toggleable: true, description: '''', static: true}}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{staticFeatureFlags: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>, stored: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>|string, expected: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>}, array{enabled: true, staticFeatureFlags: array{FEATURE_STATIC: array{active: true, major: false, default: false, toggleable: true, description: '''', static: true}}, stored: array{}, expected: array{FEATURE_STATIC: array{active: true, major: false, default: false, toggleable: true, description: '''', static: true}}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{staticFeatureFlags: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>, stored: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>|string, expected: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>}, array{enabled: true, staticFeatureFlags: array{}, stored: array{FEATURE_STORED: array{active: true, major: false, default: false, toggleable: true, description: ''''}}, expected: array{FEATURE_STORED: array{active: true, major: false, default: false, toggleable: true, description: ''''}}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{staticFeatureFlags: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>, stored: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>|string, expected: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>}, array{enabled: true, staticFeatureFlags: array{}, stored: array{}, expected: array{}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{staticFeatureFlags: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>, stored: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>|string, expected: array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>}, array{enabled: true, staticFeatureFlags: array{}, stored: non-empty-string, expected: array{FEATURE_STORED: array{active: true, major: false, default: false, toggleable: true, description: ''''}}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{FEATURE_ABC: array{active: false, toggleable: true, major: false}, FEATURE_MAJOR: array{active: false, toggleable: true, major: true}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{FEATURE_ABC: array{active: false, toggleable: true, major: false}, FEATURE_MAJOR: array{active: true, toggleable: true, major: true}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{FEATURE_ABC: array{active: false, toggleable: true, major: false}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{FEATURE_ABC: array{active: true, major: false}, FEATURE_MAJOR: array{active: false, major: true, toggleable: false}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{FEATURE_ABC: array{active: true, major: false}, FEATURE_MAJOR: array{active: false, major: true, toggleable: true}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{FEATURE_ABC: array{active: true, toggleable: true, major: false}, FEATURE_MAJOR: array{active: false, toggleable: true, major: true}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{FEATURE_ABC: array{active: true, toggleable: true, major: false}, FEATURE_MAJOR: array{active: true, toggleable: true, major: true}} given.'
+			identifier: argument.type
+			count: 3
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{FEATURE_ABC: array{active: true, toggleable: true, major: false}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{FEATURE_TOGGLEABLE_FALSE: array{active: false, toggleable: false}, FEATURE_TOGGLEABLE_TRUE: array{active: false, toggleable: true}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{FEATURE_TOGGLEABLE_FALSE: array{active: true, toggleable: false}, FEATURE_TOGGLEABLE_TRUE: array{active: true, toggleable: true}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter #3 $staticFeatureFlags of class Shopware\Core\Framework\Feature\FeatureFlagRegistry constructor expects array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>, array{FEATURE_STORED: array{active: true, major: false, default: false, toggleable: true, description: ''''}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Core\Framework\Feature\FeatureFlagRegistryTest::testRegister() expects array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>, array{FEATURE_STATIC: array{active: true, major: false, default: false, toggleable: true, description: '''', static: true}, FEATURE_STORED: array{active: true, major: false, default: false, toggleable: true, description: ''''}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Core\Framework\Feature\FeatureFlagRegistryTest::testRegister() expects array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>, array{FEATURE_STATIC: array{active: true, major: false, default: false, toggleable: true, description: '''', static: true}} given.'
+			identifier: argument.type
+			count: 4
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Core\Framework\Feature\FeatureFlagRegistryTest::testRegister() expects array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>, array{FEATURE_STORED: array{active: true, major: false, default: false, toggleable: true, description: ''''}} given.'
+			identifier: argument.type
 			count: 2
-			path: repo/tests/unit/Core/Framework/MessageQueue/Command/ScheduleScheduledTaskCommandTest.php
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter $staticFeatureFlags of method Shopware\Tests\Unit\Core\Framework\Feature\FeatureFlagRegistryTest::testRegister() expects array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>, array{FEATURE_STATIC: array{active: true, major: false, default: false, toggleable: true, description: '''', static: true}} given.'
+			identifier: argument.type
+			count: 5
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter $stored of method Shopware\Tests\Unit\Core\Framework\Feature\FeatureFlagRegistryTest::testRegister() expects array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>|string, array{FEATURE_STORED: array{active: true, major: false, default: false, toggleable: true, description: ''''}} given.'
+			identifier: argument.type
+			count: 4
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter $stored of method Shopware\Tests\Unit\Core\Framework\Feature\FeatureFlagRegistryTest::testRegister() expects array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>|string, array{FEATURE_STORED: array{active: true, major: true, default: false, toggleable: true, description: ''''}, FEATURE_STATIC: array{active: true, major: true, default: false, toggleable: true, description: ''''}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
+
+		-
+			rawMessage: 'Parameter $stored of method Shopware\Tests\Unit\Core\Framework\Feature\FeatureFlagRegistryTest::testRegister() expects array<string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}>|string, array{FEATURE_STORED: array{active: true, major: true, default: false, toggleable: true, description: ''''}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/Feature/FeatureFlagRegistryTest.php
 
 		-
 			rawMessage: 'Parameter $existingTagAttributes of method Shopware\Tests\Unit\Core\Framework\MessageQueue\MessageHandlerCompilerPassTest::testAddsTagsAttributesFromAttribute() expects array<string, string>, array<string, int|string> given.'
@@ -2260,6 +2915,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Framework/Plugin/Command/PluginCreateCommandTest.php
+
+		-
+			rawMessage: 'Parameter #1 $config of class Shopware\Core\Framework\RateLimiter\RateLimiterFactory constructor expects array{enabled: bool, id: string, reset?: DateInterval|string, policy: string, limits?: list<array{limit?: int, domain?: string, interval: string}>, limit?: int, rate?: array<string, string>}, array{enabled: true, id: ''test_limiter'', policy: ''sliding_window'', limit: 1, interval: ''15 seconds''} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/Framework/RateLimiter/Policy/RateLimiterFactoryTest.php
 
 		-
 			rawMessage: 'Parameter #1 $customFields of method Shopware\Tests\Unit\Core\Framework\Rule\CustomFieldRuleTest::testCustomFieldRuleMatchesValues() expects array<string, array<string>|bool|float|string>, array<int|string, array<string>|string>|bool|string|null given.'
@@ -2460,16 +3121,16 @@ parameters:
 			path: repo/tests/unit/Core/Framework/Sso/Config/LoginConfigServiceTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with 0 and array{mixed, mixed} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/unit/Core/Framework/Update/Api/UpdateControllerTest.php
+			rawMessage: 'Parameter #3 $sets of class Shopware\Core\Framework\Util\HtmlSanitizer constructor expects array<string, array{name?: string, tags?: list<string>, attributes?: list<string>, options?: array<string, mixed>, custom_attributes?: array<string, array<string, list<string>>>}>, array<string, array<string, mixed>> given.'
+			identifier: argument.type
+			count: 4
+			path: repo/tests/unit/Core/Framework/Util/HtmlSanitizerTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with 1 and array{mixed, mixed} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/unit/Core/Framework/Update/Api/UpdateControllerTest.php
+			rawMessage: 'Parameter #4 $fieldSets of class Shopware\Core\Framework\Util\HtmlSanitizer constructor expects array<string, array{sets?: list<string>|null}>, array<string, array<string, list<string>>> given.'
+			identifier: argument.type
+			count: 4
+			path: repo/tests/unit/Core/Framework/Util/HtmlSanitizerTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Unit\Core\Installer\Database\DatabaseMigratorTest::emptyGenerator() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -2508,10 +3169,10 @@ parameters:
 			path: repo/tests/unit/Core/Service/ServiceRegistry/ClientTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertCount() with 2 and array{Shopware\Core\System\CustomEntity\Xml\Config\AdminUi\XmlElements\Card, Shopware\Core\System\CustomEntity\Xml\Config\AdminUi\XmlElements\Card} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
+			rawMessage: 'Parameter #2 $options of method Shopware\Core\System\SalesChannel\Context\ContextFactory::getContext() expects array{originalContext?: Shopware\Core\Framework\Context, version-id?: string, languageId?: string}, array{languageId: ''2fbb5fe2e29a4d70aa5…'', currencyId: non-falsy-string, countryId: non-falsy-string} given.'
+			identifier: argument.type
 			count: 1
-			path: repo/tests/unit/Core/System/CustomEntity/Xml/Config/CustomEntityEnrichmentServiceTest.php
+			path: repo/tests/unit/Core/System/SalesChannel/Context/ContextFactoryTest.php
 
 		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertEmpty() with array{} will always evaluate to true.'
@@ -2658,16 +3319,70 @@ parameters:
 			path: repo/tests/unit/Core/System/UsageData/Consent/ConsentReporterTest.php
 
 		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''associationField'' and array{associationField: Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationField, idField: Shopware\Core\Framework\DataAbstractionLayer\Field\ManyToManyIdField|null} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/unit/Core/System/UsageData/Services/EntityDefinitionServiceTest.php
-
-		-
 			rawMessage: 'Offset ''create''|''delete''|''update'' might not exist on non-empty-array{create?: int<0, max>, update?: int<0, max>, delete?: int<0, max>}.'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: repo/tests/unit/Core/System/UsageData/Services/EntityDispatchServiceTest.php
+
+		-
+			rawMessage: 'Parameter #1 $items of static method Shopware\Elasticsearch\ElasticsearchException::indexingError() expects array<array{reason: string}|string>, array{array{reason: ''foo'', type: ''mapper_parsing…''}, array{reason: ''bar''}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Elasticsearch/ElasticsearchExceptionTest.php
+
+		-
+			rawMessage: 'Parameter #4 $result of method Shopware\Elasticsearch\Framework\DataAbstractionLayer\ElasticsearchEntitySearchHydrator::hydrate() expects array{hits?: array{hits: array<int, array{_id?: string, _score?: float, _source?: array<mixed>, inner_hits?: array{inner?: array<mixed>}}>}, aggregations?: array<string, array<string, mixed>>}, array{hits: array{total: array{value: 2}, hits: array{array{_id: ''1'', _score: 1.0, _source: array{field: ''value''}, inner_hits: array{inner: array{hits: array{hits: array{array{_id: ''2'', _score: 2.0, _source: array{field: ''value''}}, array{_id: ''3'', _score: 2.0, _source: array{field: ''value''}}}}}}}}}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Elasticsearch/Framework/DataAbstractionLayer/ElasticsearchEntitySearchHydratorTest.php
+
+		-
+			rawMessage: 'Parameter #4 $result of method Shopware\Elasticsearch\Framework\DataAbstractionLayer\ElasticsearchEntitySearchHydrator::hydrate() expects array{hits?: array{hits: array<int, array{_id?: string, _score?: float, _source?: array<mixed>, inner_hits?: array{inner?: array<mixed>}}>}, aggregations?: array<string, array<string, mixed>>}, array{hits: array{total: array{value: 2}, hits: array{}}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Elasticsearch/Framework/DataAbstractionLayer/ElasticsearchEntitySearchHydratorTest.php
+
+		-
+			rawMessage: 'Parameter #1 $items of static method Shopware\Elasticsearch\ElasticsearchException::indexingError() expects array<array{reason: string}|string>, array{array{index: ''foo'', id: ''1'', type: ''mapper_parsing…'', reason: ''failed to parse''}} given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Elasticsearch/Framework/Indexing/ElasticsearchIndexerTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{config: array{array{and_logic: string, field: string, tokenize: int, ranking: float|int}}, term: string, expected: array<string, mixed>}, array{config: array{array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}}, term: ''foo 2023'', expected: array{dis_max: array{queries: array<mixed>}}} given.'
+			identifier: generator.valueType
+			count: 4
+			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{config: array{array{and_logic: string, field: string, tokenize: int, ranking: float|int}}, term: string, expected: array<string, mixed>}, array{config: array{array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}}, term: ''foo'', expected: array{bool: array<string, array<mixed>>}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{config: array{array{and_logic: string, field: string, tokenize: int, ranking: float|int}}, term: string, expected: array<string, mixed>}, array{config: array{array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}}, term: ''foo 2023 2024'', expected: array{bool: array<string, array<mixed>>}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Generator expects value type array{config: array{array{and_logic: string, field: string, tokenize: int, ranking: float|int}}, term: string, expected: array<string, mixed>}, array{config: array{array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}}, term: ''foo'', expected: array{bool: array<string, array<mixed>>}} given.'
+			identifier: generator.valueType
+			count: 1
+			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::disMax() should return array{dis_max: array{queries: array<mixed>}} but returns array{dis_max: array{queries: array<mixed>, boost?: float}}.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::matchPhrasePrefix() should return array{match_phrase_prefix: array<string, array{query: float|int|string, boost: float, slop: int}>} but returns array{match_phrase_prefix: non-empty-array<string, array{query: float|int|string, boost: float, slop: int, max_expansions: int}>}.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
 
 		-
 			rawMessage: 'Parameter $config of method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::testBuildMultipleLanguages() expects array{array{and_logic: string, field: string, tokenize: int, ranking: int}}, array{array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}} given.'
@@ -2679,6 +3394,18 @@ parameters:
 			rawMessage: 'Parameter $config of method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::testBuildMultipleLanguages() expects array{array{and_logic: string, field: string, tokenize: int, ranking: int}}, array{array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}} given.'
 			identifier: argument.type
 			count: 1
+			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Parameter $config of method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::testBuildSingleLanguage() expects array{array{and_logic: string, field: string, tokenize: int, ranking: float}}, array{array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}} given.'
+			identifier: argument.type
+			count: 2
+			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
+
+		-
+			rawMessage: 'Parameter $config of method Shopware\Tests\Unit\Elasticsearch\Product\ProductSearchQueryBuilderTest::testBuildSingleLanguage() expects array{array{and_logic: string, field: string, tokenize: int, ranking: float}}, array{array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}} given.'
+			identifier: argument.type
+			count: 2
 			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
 
 		-
@@ -2712,6 +3439,18 @@ parameters:
 			path: repo/tests/unit/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
 
 		-
+			rawMessage: 'Method Shopware\Tests\Unit\Elasticsearch\TokenQueryBuilderTest::disMax() should return array{dis_max: array{queries: array<mixed>}} but returns array{dis_max: array{queries: array<mixed>, boost?: float}}.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/unit/Elasticsearch/TokenQueryBuilderTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Unit\Elasticsearch\TokenQueryBuilderTest::matchPhrasePrefix() should return array{match_phrase_prefix: array<string, array{query: float|int|string, boost: float, slop: int}>} but returns array{match_phrase_prefix: non-empty-array<string, array{query: float|int|string, boost: float, slop: int, max_expansions: int, analyzer?: string}>}.'
+			identifier: return.type
+			count: 1
+			path: repo/tests/unit/Elasticsearch/TokenQueryBuilderTest.php
+
+		-
 			rawMessage: 'Parameter $expected of method Shopware\Tests\Unit\Elasticsearch\TokenQueryBuilderTest::testBuildMultipleLanguages() expects array{string: mixed}, array{bool: array<string, array<mixed>>} given.'
 			identifier: argument.type
 			count: 3
@@ -2734,24 +3473,6 @@ parameters:
 			identifier: argument.type
 			count: 3
 			path: repo/tests/unit/Elasticsearch/TokenQueryBuilderTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with ''Shopware\\Storefront\\Event\\StorefrontRenderEvent'' and non-empty-array will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 1
-			path: repo/tests/unit/Storefront/Framework/Routing/TemplateDataSubscriberTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with 0 and array{Shopware\Storefront\Page\Robots\Parser\ParseIssue, Shopware\Storefront\Page\Robots\Parser\ParseIssue} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 2
-			path: repo/tests/unit/Storefront/Page/Robots/Parser/ParsedRobotsTest.php
-
-		-
-			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertArrayHasKey() with 1 and array{Shopware\Storefront\Page\Robots\Parser\ParseIssue, Shopware\Storefront\Page\Robots\Parser\ParseIssue} will always evaluate to true.'
-			identifier: staticMethod.alreadyNarrowedType
-			count: 2
-			path: repo/tests/unit/Storefront/Page/Robots/Parser/ParsedRobotsTest.php
 
 		-
 			rawMessage: 'Parameter #1 $config of method Shopware\Tests\Unit\Storefront\Theme\ThemeCompilerTest::testDumpVariables() expects array<string>, array<string, array<string, array<string, array<int|string, bool|int|list<array<string, string>>|string>|bool|string>>> given.'
