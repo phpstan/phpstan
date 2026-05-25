@@ -15,7 +15,7 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: Eomm/why-don-t-you-tweet@54e11450e21479faa5db172b9f2c10a29aedfc62 # v1.1.0
+      - uses: Eomm/why-don-t-you-tweet@d9ec12835f4d494dda920f95f885df3dba380493 # v2.0.0
         if: ${{ !github.event.repository.private }}
         with:
           # GitHub event payload

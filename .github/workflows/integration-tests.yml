@@ -192,16 +192,16 @@ jobs:
           ini-file: development
 
       - name: "Install Node"
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # v6.4.0
         with:
           node-version: "24"
 
-      - uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
+      - uses: "ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda" # v4.0.0
 
       - name: "Download phpstan.phar"
         uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea # v3.8.0
         with:
-          action: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+          action: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
           with: |
             name: phar-file
           attempt_limit: 5
@@ -539,12 +539,12 @@ jobs:
           php-version: "${{ matrix.php-version }}"
           ini-file: development
 
-      - uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
+      - uses: "ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda" # v4.0.0
 
       - name: "Download phpstan.phar"
         uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea # v3.8.0
         with:
-          action: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+          action: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
           with: |
             name: phar-file
           attempt_limit: 5
@@ -572,7 +572,7 @@ jobs:
         working-directory: ${{ matrix.phpstan-cwd || 'e2e/integration/repo' }}
         run: "${{ matrix.phpstan-command }} -b ../${{ matrix.baseline-file }}"
 
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ failure() }}
         with:
           name: baselines-${{ matrix.baseline-file }}
@@ -598,7 +598,7 @@ jobs:
           token: ${{ secrets.phpstan-bot-token }}
 
       - name: "Download baselines"
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           pattern: baselines-*
           merge-multiple: true
@@ -606,7 +606,7 @@ jobs:
 
       - name: "Create Pull Request"
         id: create-pr
-        uses: peter-evans/create-pull-request@c5a7806660adbe173f04e3e038b0ccdcd758773c # v6.1.0
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
         with:
           token: ${{ secrets.phpstan-bot-token }}
           branch: "create-pull-request/baselines-2.2.x"
@@ -643,12 +643,12 @@ jobs:
           install-path: "./bin"
           pm-version-major: "5"
 
-      - uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
+      - uses: "ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda" # v4.0.0
 
       - name: "Download phpstan.phar"
         uses: Wandalen/wretry.action@e68c23e6309f2871ca8ae4763e7629b9c258e1ea # v3.8.0
         with:
-          action: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+          action: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
           with: |
             name: phar-file
           attempt_limit: 5
@@ -662,7 +662,7 @@ jobs:
           path: e2e/integration/repo
 
       - name: "Install dependencies"
-        uses: "ramsey/composer-install@3cf229dc2919194e9e36783941438d17239e8520" # v3
+        uses: "ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda" # v4.0.0
         with:
           working-directory: "e2e/integration/repo"
 
@@ -675,7 +675,7 @@ jobs:
         working-directory: "e2e/integration/repo"
         run: ../../../phpstan.phar analyse -c ../pocketmine-ng.neon --memory-limit=2G -b ../pocketmine-ng-baseline.neon
 
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: ${{ failure() }}
         with:
           name: baselines-pocketmine-ng.neon
