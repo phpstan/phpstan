@@ -57,8 +57,8 @@
 		"tailwindcss": "^4.1.18",
 		"typescript": "^5.0.2",
 		"typopo": "^2.5.4",
-		"vite": "^7.3.1",
-		"vite-plugin-static-copy": "^3.2.0"
+		"vite": "^8.0.14",
+		"vite-plugin-static-copy": "^4.1.0"
 	},
 	"scripts": {
 		"postinstall": "patch-package",

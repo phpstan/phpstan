@@ -69,8 +69,10 @@ export default defineConfig({
 				{ src: 'errorsIdentifiers.json', dest: '.' },
 				{ src: 'pages.json', dest: '.' },
 				{ src: 'release.txt', dest: '.' },
-				{ src: 'images-emails/**/*', dest: 'images-emails' },
-				{ src: 'images-emails-2/**/*', dest: 'images-emails-2' },
+				// vite-plugin-static-copy v4 always preserves the matched source
+				// path, so dest is '.' to avoid doubling the directory name.
+				{ src: 'images-emails/**/*', dest: '.' },
+				{ src: 'images-emails-2/**/*', dest: '.' },
 			],
 		}),
 	],
