@@ -11,6 +11,18 @@
 @plugin "@tailwindcss/typography";
 @source "../tmp/**/*.html";
 
+/*
+ * littlefoot v4 resets the footnote popover text to `font-family: initial`,
+ * which falls back to the browser-default serif instead of the page font.
+ * Restore inheritance of the page font (Inter), matching littlefoot v3.
+ * (Setting this via --popover-font-family doesn't work: a CSS-wide keyword
+ * like `inherit` in a custom property makes the variable itself inherit,
+ * so var() falls back to `initial` again -- so set font-family directly.)
+ */
+.littlefoot__content {
+	font-family: inherit;
+}
+
 html.dark {
 	background-color: #000 !important;
 	color-scheme: dark;
