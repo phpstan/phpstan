@@ -36,7 +36,7 @@ The intersection `array{a: X}&array{b: Y}` would make sense if the array shapes 
 - `array{foo: int, ...<string, int>}` - constrain the extra keys' key and value types
 - `array{foo: int, ...<Bar>}` - a single type inside `...<>` is the value type (key is implied to be `array-key` which is a [benevolent union](/config-reference#checkbenevolentuniontypes) of `int|string`)
 - `list{X, Y, ...<Z>}` - lists only allow a single value type after first two keys (the key is always `int`)
-- `array{foo: int, ...}` - bare `...` means any extra keys (shorthand for `...<array-key, mixed>`). Please not that bare `...` does not pass PHPStan's level 6 and you have to explicitly state the value type.
+- `array{foo: int, ...}` - bare `...` means any extra keys (shorthand for `...<array-key, mixed>`)
 
 I consider this very intuitive because the part after `...` works the same way in general arrays like `array<string, int>`. [^syntaxOrigin]
 
