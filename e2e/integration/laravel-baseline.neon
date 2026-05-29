@@ -1,13 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Variable \$action on left side of \?\? always exists and is not nullable\.$#'
-			identifier: nullCoalesce.variable
+			message: '#^Access to undefined constant Pdo\\Mysql\:\:ATTR_SSL_VERIFY_SERVER_CERT\.$#'
+			identifier: classConstant.notFound
 			count: 1
-			path: repo/src/Illuminate/Foundation/Console/RouteListCommand.php
-
-		-
-			message: '#^Variable \$shouldRetry on left side of \?\? always exists and is always null\.$#'
-			identifier: nullCoalesce.variable
-			count: 1
-			path: repo/src/Illuminate/Http/Client/PendingRequest.php
+			path: repo/src/Illuminate/Database/Schema/MySqlSchemaState.php

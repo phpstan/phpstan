@@ -109,6 +109,15 @@ parameters:
 			path: repo/src/UnitOfWork.php
 
 		-
+			message: '''
+				#^Call to method hydrate\(\) of deprecated class Symfony\\Component\\VarExporter\\Hydrator\:
+				since Symfony 8\.1, use deepclone_hydrate\(\) from the deepclone extension instead$#
+			'''
+			identifier: staticMethod.deprecatedClass
+			count: 1
+			path: repo/src/UnitOfWork.php
+
+		-
 			message: '#^Parameter \#1 \$object of method ReflectionClass\<covariant object\>\:\:initializeLazyObject\(\) expects never, object given\.$#'
 			identifier: argument.type
 			count: 1
