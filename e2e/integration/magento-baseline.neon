@@ -1,54 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Parameter \#1 \$key of method PHPStan\\Cache\\Cache\:\:load\(\) expects non\-empty\-string, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: repo/src/bitExpert/PHPStan/Magento/Autoload/ExtensionAutoloader.php
-
-		-
-			message: '#^Parameter \#1 \$key of method PHPStan\\Cache\\Cache\:\:save\(\) expects non\-empty\-string, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/bitExpert/PHPStan/Magento/Autoload/ExtensionAutoloader.php
-
-		-
-			message: '#^Parameter \#1 \$key of method PHPStan\\Cache\\Cache\:\:load\(\) expects non\-empty\-string, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: repo/src/bitExpert/PHPStan/Magento/Autoload/ExtensionInterfaceAutoloader.php
-
-		-
-			message: '#^Parameter \#1 \$key of method PHPStan\\Cache\\Cache\:\:save\(\) expects non\-empty\-string, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/bitExpert/PHPStan/Magento/Autoload/ExtensionInterfaceAutoloader.php
-
-		-
-			message: '#^Parameter \#1 \$key of method PHPStan\\Cache\\Cache\:\:load\(\) expects non\-empty\-string, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: repo/src/bitExpert/PHPStan/Magento/Autoload/FactoryAutoloader.php
-
-		-
-			message: '#^Parameter \#1 \$key of method PHPStan\\Cache\\Cache\:\:save\(\) expects non\-empty\-string, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/bitExpert/PHPStan/Magento/Autoload/FactoryAutoloader.php
-
-		-
-			message: '#^Parameter \#1 \$key of method PHPStan\\Cache\\Cache\:\:load\(\) expects non\-empty\-string, string given\.$#'
-			identifier: argument.type
-			count: 2
-			path: repo/src/bitExpert/PHPStan/Magento/Autoload/ProxyAutoloader.php
-
-		-
-			message: '#^Parameter \#1 \$key of method PHPStan\\Cache\\Cache\:\:save\(\) expects non\-empty\-string, string given\.$#'
-			identifier: argument.type
-			count: 1
-			path: repo/src/bitExpert/PHPStan/Magento/Autoload/ProxyAutoloader.php
-
-		-
 			message: '#^Parameter \#2 \$scope of method bitExpert\\PHPStan\\Magento\\Rules\\AbstractModelRetrieveCollectionViaFactoryRule\:\:processNode\(\) expects PHPStan\\Analyser\\CollectedDataEmitter&PHPStan\\Analyser\\NodeCallbackInvoker&PHPStan\\Analyser\\Scope, PHPStan\\Analyser\\Scope&PHPUnit\\Framework\\MockObject\\MockObject given\.$#'
 			identifier: argument.type
 			count: 2
