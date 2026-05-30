@@ -2139,6 +2139,11 @@
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/MissingReadOnlyPropertyAssignRule.php#L77"
             ]
+        },
+        "PHPStan\\Rules\\Properties\\ReadOnlyPropertyAssignRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L118"
+            ]
         }
     },
     "assign.readOnlyPropertyByPhpDoc": {
@@ -14204,22 +14209,22 @@
     "property.readOnlyAssignNotInConstructor": {
         "PHPStan\\Rules\\Properties\\ReadOnlyPropertyAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L123"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L135"
             ]
         }
     },
     "property.readOnlyAssignNotOnThis": {
         "PHPStan\\Rules\\Properties\\ReadOnlyPropertyAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L106"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L110"
             ]
         }
     },
     "property.readOnlyAssignOutOfClass": {
         "PHPStan\\Rules\\Properties\\ReadOnlyPropertyAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L75",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L88"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L76",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/ReadOnlyPropertyAssignRule.php#L89"
             ]
         }
     },
