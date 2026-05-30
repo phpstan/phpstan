@@ -7,27 +7,41 @@ const fs = require("fs");
 const crypto = require("crypto");
 const util = require("util");
 const { exec } = require("child_process");
-const captureWebsite = import("capture-website");
 const { fixTypos } = require('typopo');
 const anchor = require('markdown-it-anchor');
 const nunjucks = require("nunjucks");
 
 process.setMaxListeners(0);
 
-// Build-time Mermaid rendering via Playwright. Replaces the abandoned
-// headless-mermaid package (which bundled an obsolete puppeteer whose
-// Chromium download path Google retired, breaking the build). A single
-// browser is launched lazily, reused across all diagrams, and closed when
-// the build finishes (see the 'eleventy.after' hook below). The mermaid
-// library is injected from node_modules, so no network access is needed.
+// Build-time headless browser (Playwright), shared by Mermaid diagram
+// rendering and social-image generation. Launched lazily, reused across the
+// whole build, and closed when the build (or each watch rebuild) finishes via
+// the 'eleventy.after' hook. This replaces two separate, fragile browser
+// stacks -- headless-mermaid (an abandoned package bundling an obsolete
+// puppeteer whose Chromium download path Google retired) and capture-website
+// (a second puppeteer) -- each of which pulled in its own Chromium and was a
+// recurring source of CI breakage.
 const mermaidScriptPath = require.resolve('mermaid/dist/mermaid.min.js');
-let mermaidBrowserPromise = null;
+let buildBrowserPromise = null;
 
-async function renderMermaid(definition) {
-	if (mermaidBrowserPromise === null) {
-		mermaidBrowserPromise = chromium.launch({ args: ['--no-sandbox'] });
+function getBuildBrowser() {
+	if (buildBrowserPromise === null) {
+		buildBrowserPromise = chromium.launch({ args: ['--no-sandbox'] });
 	}
-	const browser = await mermaidBrowserPromise;
+	return buildBrowserPromise;
+}
+
+async function closeBuildBrowser() {
+	if (buildBrowserPromise !== null) {
+		const browser = await buildBrowserPromise;
+		buildBrowserPromise = null;
+		await browser.close();
+	}
+}
+
+// The mermaid library is injected from node_modules, so no network is needed.
+async function renderMermaid(definition) {
+	const browser = await getBuildBrowser();
 	const page = await browser.newPage();
 	try {
 		await page.setContent('<!DOCTYPE html><html><body></body></html>');
@@ -42,11 +56,19 @@ async function renderMermaid(definition) {
 	}
 }
 
-async function closeMermaidBrowser() {
-	if (mermaidBrowserPromise !== null) {
-		const browser = await mermaidBrowserPromise;
-		mermaidBrowserPromise = null;
-		await browser.close();
+// Render the social-image HTML string to an 800x418 PNG buffer. The HTML is
+// fully self-contained (inline CSS + base64 font and logo), so no network
+// access is needed; we still wait for document.fonts so text never renders in
+// a fallback face.
+async function renderSocialImage(html) {
+	const browser = await getBuildBrowser();
+	const page = await browser.newPage({ viewport: { width: 800, height: 418 } });
+	try {
+		await page.setContent(html, { waitUntil: 'load' });
+		await page.evaluate(() => document.fonts.ready);
+		return await page.screenshot({ fullPage: true });
+	} finally {
+		await page.close();
 	}
 }
 
@@ -183,15 +205,15 @@ module.exports = async function (eleventyConfig) {
 
 	// Close the shared Mermaid browser once the build (or each watch rebuild)
 	// finishes, so the process can exit cleanly.
-	eleventyConfig.on('eleventy.after', closeMermaidBrowser);
+	eleventyConfig.on('eleventy.after', closeBuildBrowser);
 
 	const nunjucksEnv = new nunjucks.Environment(new nunjucks.FileSystemLoader('.'));
 	nunjucksEnv.addFilter('fixTypos', (text) => fixTypos(text, 'en-us'));
-	// Social images are rendered from an HTML string by a headless browser
-	// (capture-website), so relative node_modules paths can't be resolved.
-	// Inline the self-hosted Inter subsets as base64 data URIs instead, keeping
-	// the social-image template free of the external rsms.me stylesheet too.
-	// Titles are headings in the Latin script, so latin + latin-ext suffice.
+	// The social-image template is rendered headlessly from an HTML string, so
+	// it must be fully self-contained -- no external stylesheet, font, or
+	// image. Inline the Inter subsets (Latin scripts cover the headings) and
+	// the logo as base64 data URIs. font-display: block so text never renders
+	// in a fallback face during capture.
 	const socialImageFontFace = ['latin', 'latin-ext'].map((subset) => {
 		const file = require.resolve('@fontsource-variable/inter/files/inter-' + subset + '-wght-normal.woff2');
 		const base64 = fs.readFileSync(file).toString('base64');
@@ -203,29 +225,46 @@ module.exports = async function (eleventyConfig) {
 			+ "\tsrc: url('data:font/woff2;base64," + base64 + "') format('woff2');\n"
 			+ "}";
 	}).join("\n");
+	const socialImageLogo = 'data:image/png;base64,' + fs.readFileSync('src/images/logo.png').toString('base64');
+
+	// Generated social images are cached by a hash of everything that affects
+	// their output: the template, the inlined font and logo, and the per-post
+	// title and date. The cache directory is persisted across CI runs, so only
+	// posts whose inputs changed are re-rendered.
+	const socialImageVersion = crypto.createHash('sha256')
+		.update(fs.readFileSync('./src/_includes/social/socialImage.njk'))
+		.update(socialImageFontFace)
+		.update(socialImageLogo)
+		.digest('hex');
+	const socialImageCacheDir = '.cache/social';
+
 	eleventyConfig.addAsyncShortcode('socialImages', async function (title) {
 		if (process.env.ELEVENTY_RUN_MODE === 'watch') {
 			return '<meta name="twitter:image" content="/images/logo-big.png" />'
 				+ "\n"
 				+ '<meta property="og:image" content="/images/logo-big.png" />';
 		}
-		const content = nunjucksEnv.render('./src/_includes/social/socialImage.njk', {
-			title: title,
-			date: DateTime.fromJSDate(this.page.date, {zone: 'utc'}).toFormat('DDD'),
-			fontFace: socialImageFontFace,
-		});
-		const capture = await captureWebsite;
-		const image = await capture.default.buffer(content, {
-			inputType: 'html',
-			width: 800,
-			height: 418,
-			fullPage: true,
-			launchOptions: {
-				args: ['--no-sandbox'],
-			},
-		});
-		const name = 'tmp/images/social-' + this.page.fileSlug + '.png';
-		fs.writeFileSync(name, image);
+		const date = DateTime.fromJSDate(this.page.date, {zone: 'utc'}).toFormat('DDD');
+		const id = crypto.createHash('sha256')
+			.update(socialImageVersion).update('\0').update(title).update('\0').update(date)
+			.digest('hex');
+		const cachePath = socialImageCacheDir + '/' + id + '.png';
+
+		let image;
+		if (fs.existsSync(cachePath)) {
+			image = fs.readFileSync(cachePath);
+		} else {
+			const content = nunjucksEnv.render('./src/_includes/social/socialImage.njk', {
+				title: title,
+				date: date,
+				fontFace: socialImageFontFace,
+				logo: socialImageLogo,
+			});
+			image = await renderSocialImage(content);
+			fs.mkdirSync(socialImageCacheDir, { recursive: true });
+			fs.writeFileSync(cachePath, image);
+		}
+		fs.writeFileSync('tmp/images/social-' + this.page.fileSlug + '.png', image);
 
 		return '<meta name="twitter:image" content="/images/social-' + this.page.fileSlug + '.png" />'
 			+ "\n"

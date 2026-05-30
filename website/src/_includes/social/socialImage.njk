@@ -4,19 +4,42 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge"></head>
-	<script src="https://cdn.tailwindcss.com"></script>
-	<style>{{ fontFace | safe }}</style>
-	<script>
-	tailwind.config = {
-		theme: {
-			extend: {
-				fontFamily: {
-					sans: ['Inter Variable'],
-				},
-			},
-		},
-	}
-	</script>
+	<style>
+	{{ fontFace | safe }}
+	* { margin: 0; padding: 0; box-sizing: border-box; }
+	html, body { height: 100%; }
+	body { font-family: 'Inter Variable', ui-sans-serif, system-ui, sans-serif; }
+	img, svg { display: block; }
+	img { max-width: 100%; }
+	.bg-blue-700 { background-color: #1d4ed8; }
+	.bg-white { background-color: #ffffff; }
+	.text-white { color: #ffffff; }
+	.flex { display: flex; }
+	.flex-col { flex-direction: column; }
+	.flex-grow { flex-grow: 1; }
+	.items-center { align-items: center; }
+	.items-end { align-items: flex-end; }
+	.justify-center { justify-content: center; }
+	.justify-end { justify-content: flex-end; }
+	.min-h-screen { min-height: 100vh; }
+	.p-3 { padding: 0.75rem; }
+	.pl-10 { padding-left: 2.5rem; }
+	.pr-12 { padding-right: 3rem; }
+	.py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+	.ml-6 { margin-left: 1.5rem; }
+	.h-16 { height: 4rem; }
+	.h-6 { height: 1.5rem; }
+	.rounded-full { border-radius: 9999px; }
+	.aspect-square { aspect-ratio: 1 / 1; }
+	.text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+	.text-2xl { font-size: 1.5rem; line-height: 2rem; }
+	.font-semibold { font-weight: 600; }
+	.font-medium { font-weight: 500; }
+	/* line-height/letter-spacing utilities come last so they win over the
+	   font-size utilities above, matching Tailwind's generated order. */
+	.tracking-normal { letter-spacing: 0; }
+	.leading-normal { line-height: 1.5; }
+	</style>
 </head>
 <body class="bg-blue-700 text-white">
 	<div class="flex flex-col min-h-screen pl-10 pr-12 py-12">
@@ -24,7 +47,7 @@
 		<div class="flex items-center">
 			<div class="flex items-center">
 				<div class="bg-white rounded-full p-3 aspect-square flex justify-center items-center">
-					<img class="h-16" src="https://i.imgur.com/2kQZ2bn.png"/>
+					<img class="h-16" src="{{ logo }}"/>
 				</div>
 				<svg xmlns="http://www.w3.org/2000/svg" class="h-6 ml-6" viewBox="0 0 275 46" fill="none">
 					<g clip-path="url(#clip0)">

@@ -1,6 +1,7 @@
 /dist
 /node_modules
 /tmp
+/.cache
 /visual-tests/test-results/
 /visual-tests/playwright-report/
 /playwright-report/

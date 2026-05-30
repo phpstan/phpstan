@@ -122,6 +122,13 @@ jobs:
         working-directory: ./website
         run: "npx playwright install --with-deps chromium"
 
+      - name: "Cache generated social images"
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+        with:
+          path: website/.cache/social
+          key: "social-images-${{ hashFiles('website/src/_posts/**', 'website/src/_includes/social/socialImage.njk') }}"
+          restore-keys: "social-images-"
+
       - name: "Put release into release.txt"
         working-directory: ./website
         run: echo -n "$(git rev-parse --short HEAD)" > src/release.txt

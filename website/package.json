@@ -38,7 +38,6 @@
 		"@types/prismjs": "^1.26.0",
 		"@typescript-eslint/eslint-plugin": "^6.7.5",
 		"@typescript-eslint/parser": "^6.7.5",
-		"capture-website": "^3.2.0",
 		"eslint": "^8.51.0",
 		"glob": "^13.0.0",
 		"knockout": "^3.5.1",
