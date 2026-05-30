@@ -4,6 +4,14 @@ import littlefoot from 'littlefoot';
 import docsearch from '@docsearch/js';
 import '@docsearch/css';
 
+// Self-hosted Inter (variable font) via npm, replacing the external
+// https://rsms.me/inter/inter.css stylesheet. SIL Open Font License 1.1.
+// Imported here (the menu loads on every page) rather than in app.pcss so
+// that Vite — not Tailwind's @import inliner — bundles and fingerprints the
+// woff2 files. Exposes the "Inter Variable" family used by tailwind.config.js.
+import '@fontsource-variable/inter/index.css';
+import '@fontsource-variable/inter/wght-italic.css';
+
 $(() => {
 	littlefoot();
 });

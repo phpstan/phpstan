@@ -147,6 +147,22 @@ module.exports = async function (eleventyConfig) {
 
 	const nunjucksEnv = new nunjucks.Environment(new nunjucks.FileSystemLoader('.'));
 	nunjucksEnv.addFilter('fixTypos', (text) => fixTypos(text, 'en-us'));
+	// Social images are rendered from an HTML string by a headless browser
+	// (capture-website), so relative node_modules paths can't be resolved.
+	// Inline the self-hosted Inter subsets as base64 data URIs instead, keeping
+	// the social-image template free of the external rsms.me stylesheet too.
+	// Titles are headings in the Latin script, so latin + latin-ext suffice.
+	const socialImageFontFace = ['latin', 'latin-ext'].map((subset) => {
+		const file = require.resolve('@fontsource-variable/inter/files/inter-' + subset + '-wght-normal.woff2');
+		const base64 = fs.readFileSync(file).toString('base64');
+		return "@font-face {\n"
+			+ "\tfont-family: 'Inter Variable';\n"
+			+ "\tfont-style: normal;\n"
+			+ "\tfont-weight: 100 900;\n"
+			+ "\tfont-display: block;\n"
+			+ "\tsrc: url('data:font/woff2;base64," + base64 + "') format('woff2');\n"
+			+ "}";
+	}).join("\n");
 	eleventyConfig.addAsyncShortcode('socialImages', async function (title) {
 		if (process.env.ELEVENTY_RUN_MODE === 'watch') {
 			return '<meta name="twitter:image" content="/images/logo-big.png" />'
@@ -156,6 +172,7 @@ module.exports = async function (eleventyConfig) {
 		const content = nunjucksEnv.render('./src/_includes/social/socialImage.njk', {
 			title: title,
 			date: DateTime.fromJSDate(this.page.date, {zone: 'utc'}).toFormat('DDD'),
+			fontFace: socialImageFontFace,
 		});
 		const capture = await captureWebsite;
 		const image = await capture.default.buffer(content, {

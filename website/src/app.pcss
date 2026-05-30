@@ -4,6 +4,19 @@
 
 @import "tailwindcss";
 
+/*
+ * Set Inter as the default sans-serif font. Tailwind v4 reads the theme from
+ * CSS (@theme), not from the legacy fontFamily entry in tailwind.config.js,
+ * so --font-sans must be defined here for `font-sans` and the default body
+ * font to actually use Inter. The "Inter Variable" family is registered by
+ * the @fontsource-variable/inter import in MainMenuViewModel.ts; the rest of
+ * the stack is Tailwind's default system fallback.
+ */
+@theme {
+	--font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif,
+		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
 ::target-text {
 	@apply bg-blue-100;
 }

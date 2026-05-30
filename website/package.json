@@ -12,6 +12,7 @@
 		"@codemirror/state": "^6.2.0",
 		"@codemirror/view": "^6.9.2",
 		"@docsearch/js": "3",
+		"@fontsource-variable/inter": "^5.2.8",
 		"@sentry/browser": "^7.52.1",
 		"@stripe/stripe-js": "^4.9.0",
 		"@tko/build.knockout": "^4.1.0",
