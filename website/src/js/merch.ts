@@ -16,6 +16,7 @@ $(async () => {
 			merchSale: new MerchSaleViewModel(urlParams.has('distributor') ? urlParams.get('distributor') : null),
 		});
 	} catch (e) {
+		// eslint-disable-next-line no-console -- surface the fatal initialisation error
 		console.error(e);
 		ko.applyBindings({
 			hasFatalError: true,

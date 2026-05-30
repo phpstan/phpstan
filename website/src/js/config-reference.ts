@@ -115,9 +115,9 @@ function initScrollSpy(): void {
 		}
 
 		// Pick the topmost visible section (in document order)
-		for (let i = 0; i < sections.length; i++) {
-			if (visibleSections.has(sections[i].id)) {
-				setActive(sections[i].id);
+		for (const section of sections) {
+			if (visibleSections.has(section.id)) {
+				setActive(section.id);
 				return;
 			}
 		}
@@ -126,9 +126,9 @@ function initScrollSpy(): void {
 		// by picking the last heading that's above the viewport
 		const scrollTop = window.scrollY + 100; // offset for fixed nav
 		let lastAbove: string | null = null;
-		for (let i = 0; i < sections.length; i++) {
-			if (sections[i].offsetTop <= scrollTop) {
-				lastAbove = sections[i].id;
+		for (const section of sections) {
+			if (section.offsetTop <= scrollTop) {
+				lastAbove = section.id;
 			}
 		}
 		if (lastAbove) {

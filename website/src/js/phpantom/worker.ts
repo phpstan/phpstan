@@ -18,7 +18,7 @@ const stubModules = import.meta.glob<string>('./stubs/**/*.php', {
 	eager: true,
 });
 
-const STUBS: ReadonlyArray<{uri: string; text: string}> = Object.entries(stubModules).map(
+const STUBS: readonly {uri: string; text: string}[] = Object.entries(stubModules).map(
 	([path, text]) => ({uri: 'file:///stubs/' + path.replace(/^\.\//, ''), text}),
 );
 
@@ -47,7 +47,9 @@ function ensureReady(): Promise<void> {
 			const url = new URL('./pkg-wasi/phpantom_lsp.wasm', import.meta.url);
 			const wasi = new WASI([], [], [
 				new OpenFile(new WasiFile([])), // fd 0: stdin (unused)
+				// eslint-disable-next-line no-console -- forwards the WASM module's stdout
 				ConsoleStdout.lineBuffered((m: string) => console.log('[phpantom]', m)), // fd 1
+				// eslint-disable-next-line no-console -- forwards the WASM module's stderr
 				ConsoleStdout.lineBuffered((m: string) => console.warn('[phpantom]', m)), // fd 2
 			]);
 			const bytes = await (await fetch(url)).arrayBuffer();
