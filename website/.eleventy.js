@@ -2,7 +2,7 @@ const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 const pluginRss = require("@11ty/eleventy-plugin-rss").default;
 const { DateTime } = require("luxon");
 const readingTime = require('reading-time');
-const mermaid = require("headless-mermaid");
+const { chromium } = require("@playwright/test");
 const fs = require("fs");
 const crypto = require("crypto");
 const util = require("util");
@@ -13,6 +13,42 @@ const anchor = require('markdown-it-anchor');
 const nunjucks = require("nunjucks");
 
 process.setMaxListeners(0);
+
+// Build-time Mermaid rendering via Playwright. Replaces the abandoned
+// headless-mermaid package (which bundled an obsolete puppeteer whose
+// Chromium download path Google retired, breaking the build). A single
+// browser is launched lazily, reused across all diagrams, and closed when
+// the build finishes (see the 'eleventy.after' hook below). The mermaid
+// library is injected from node_modules, so no network access is needed.
+const mermaidScriptPath = require.resolve('mermaid/dist/mermaid.min.js');
+let mermaidBrowserPromise = null;
+
+async function renderMermaid(definition) {
+	if (mermaidBrowserPromise === null) {
+		mermaidBrowserPromise = chromium.launch({ args: ['--no-sandbox'] });
+	}
+	const browser = await mermaidBrowserPromise;
+	const page = await browser.newPage();
+	try {
+		await page.setContent('<!DOCTYPE html><html><body></body></html>');
+		await page.addScriptTag({ path: mermaidScriptPath });
+		return await page.evaluate(async (def) => {
+			window.mermaid.initialize({ startOnLoad: false });
+			const { svg } = await window.mermaid.render('mermaid-diagram', def);
+			return svg;
+		}, definition);
+	} finally {
+		await page.close();
+	}
+}
+
+async function closeMermaidBrowser() {
+	if (mermaidBrowserPromise !== null) {
+		const browser = await mermaidBrowserPromise;
+		mermaidBrowserPromise = null;
+		await browser.close();
+	}
+}
 
 module.exports = async function (eleventyConfig) {
 	const { EleventyRenderPlugin } = await import("@11ty/eleventy");
@@ -137,13 +173,17 @@ module.exports = async function (eleventyConfig) {
 	eleventyConfig.addFilter("debug", (content) => `<pre>${inspect(content)}</pre>`);
 
 	eleventyConfig.addPairedShortcode('mermaid', async (content) => {
-		const svg = await mermaid.execute(content);
+		const svg = await renderMermaid(content);
 		const id = crypto.createHash('sha256').update(svg).digest('hex');
 		const name = 'tmp/images/mermaid-' + id + '.svg';
 		fs.writeFileSync(name, svg);
 
 		return '<img class="mb-8" src="/images/mermaid-' + id + '.svg" />'
 	});
+
+	// Close the shared Mermaid browser once the build (or each watch rebuild)
+	// finishes, so the process can exit cleanly.
+	eleventyConfig.on('eleventy.after', closeMermaidBrowser);
 
 	const nunjucksEnv = new nunjucks.Environment(new nunjucks.FileSystemLoader('.'));
 	nunjucksEnv.addFilter('fixTypos', (text) => fixTypos(text, 'en-us'));
