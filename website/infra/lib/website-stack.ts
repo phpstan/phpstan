@@ -117,6 +117,24 @@ export class WebsiteStack extends cdk.Stack {
 					eventType: cloudfront.FunctionEventType.VIEWER_REQUEST,
 				}],
 			},
+			// A missing object behind OAC returns 403 from S3 (there is no
+			// s3:ListBucket grant), and the edge function rewrites unknown clean
+			// URLs to `.html` before they reach the origin. Map both 403 and 404
+			// to the styled /404.html, served with a real 404 status.
+			errorResponses: [
+				{
+					httpStatus: 403,
+					responseHttpStatus: 404,
+					responsePagePath: '/404.html',
+					ttl: cdk.Duration.minutes(5),
+				},
+				{
+					httpStatus: 404,
+					responseHttpStatus: 404,
+					responsePagePath: '/404.html',
+					ttl: cdk.Duration.minutes(5),
+				},
+			],
 		});
 
 		const distributionTarget = route53.RecordTarget.fromAlias(

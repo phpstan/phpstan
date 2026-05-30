@@ -1,0 +1,48 @@
+---
+permalink: /404.html
+title: Page Not Found
+pageType: notFound
+eleventyExcludeFromCollections: true
+---
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="noindex">
+	<title>{{ title }} | PHPStan</title>
+	<link rel="stylesheet" href="/app.pcss">
+	<link rel="icon" type="image/png" href="/images/favicon.png">
+	<script src="https://cdn.usefathom.com/script.js" data-site="UDESFNRN" defer></script>
+	<script src="/js/notFound.ts" type="module"></script>
+	{#
+		Fathom 404 tracking -- method 1 ("detect 404 via template page"):
+		https://usefathom.com/docs/events/404-page-tracking
+		Records each missing URL as its own event, e.g. "404: /haha".
+	#}
+	<script>
+		window.addEventListener('load', function () {
+			if (typeof window.fathom !== 'undefined') {
+				window.fathom.trackEvent('404: ' + window.location.pathname);
+			}
+		});
+	</script>
+</head>
+<body class="min-h-screen bg-gray-50 flex flex-col items-center justify-center text-center px-6 py-16">
+	<a href="/" class="inline-block">
+		<img class="h-16 w-auto mx-auto rounded-lg" src="/images/logo.png" alt="PHPStan">
+	</a>
+	<p class="mt-8 text-base font-semibold text-blue-600">404</p>
+	<h1 class="mt-3 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">Page not found</h1>
+	<p class="mt-6 text-lg leading-7 text-gray-600">Sorry, we couldn’t find the page you’re looking for.</p>
+	<div class="mt-10 flex flex-wrap items-center justify-center gap-3">
+		{% for item in mainMenu %}
+			{% if item.link === "/" %}
+				<a href="{{ item.link }}" class="rounded-md bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-150 ease-in-out">{{ item.title }}</a>
+			{% else %}
+				<a href="{{ item.link }}" class="rounded-md bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-150 ease-in-out">{{ item.title }}</a>
+			{% endif %}
+		{% endfor %}
+	</div>
+</body>
+</html>

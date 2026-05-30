@@ -106,6 +106,25 @@ describe('WebsiteStack', () => {
 		});
 	});
 
+	it('serves the styled /404.html (as a 404) for 403 and 404 origin responses', () => {
+		template.hasResourceProperties('AWS::CloudFront::Distribution', {
+			DistributionConfig: Match.objectLike({
+				CustomErrorResponses: Match.arrayWith([
+					Match.objectLike({
+						ErrorCode: 403,
+						ResponseCode: 404,
+						ResponsePagePath: '/404.html',
+					}),
+					Match.objectLike({
+						ErrorCode: 404,
+						ResponseCode: 404,
+						ResponsePagePath: '/404.html',
+					}),
+				]),
+			}),
+		});
+	});
+
 	it('issues an ACM cert covering all three names', () => {
 		template.hasResourceProperties('AWS::CertificateManager::Certificate', {
 			DomainName: 'phpstan.org',
