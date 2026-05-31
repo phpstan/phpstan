@@ -7,18 +7,6 @@ parameters:
 			path: repo/build/generate-block-serializer-consts.php
 
 		-
-			message: '#^Match arm comparison between ''G'' and ''G'' is always true\.$#'
-			identifier: match.alwaysTrue
-			count: 1
-			path: repo/src/MemoryManager.php
-
-		-
-			message: '#^Comparison operation "\>\=" between 1 and 0 is always true\.$#'
-			identifier: greaterOrEqual.alwaysTrue
-			count: 1
-			path: repo/src/PocketMine.php
-
-		-
 			message: '#^Cannot cast mixed to string\.$#'
 			identifier: cast.string
 			count: 1
@@ -37,22 +25,16 @@ parameters:
 			path: repo/src/command/defaults/WhitelistCommand.php
 
 		-
-			message: '#^Result of && is always false\.$#'
-			identifier: booleanAnd.alwaysFalse
-			count: 1
-			path: repo/src/crafting/json/ItemStackData.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between 7 and 1 will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
-			count: 1
-			path: repo/src/crafting/json/ItemStackData.php
-
-		-
 			message: '#^Casting to list\<string\> something that''s already list\<string\>\.$#'
 			identifier: cast.useless
 			count: 1
 			path: repo/src/crash/CrashDump.php
+
+		-
+			message: '#^Property pocketmine\\data\\bedrock\\block\\upgrade\\model\\BlockStateUpgradeSchemaModelTag\:\:\$string \(string\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: repo/src/data/bedrock/block/upgrade/BlockStateUpgradeSchemaUtils.php
 
 		-
 			message: '#^Offset 0\|1 might not exist on non\-empty\-array\{0\?\: \*NEVER\*, 1\?\: \*NEVER\*\}\.$#'
@@ -149,12 +131,6 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: repo/src/plugin/PluginDescription.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
-			count: 1
-			path: repo/src/utils/Timezone.php
 
 		-
 			message: '#^Parameter \#1 \$array of function array_unique expects an array of values castable to string, array\<string, mixed\> given\.$#'

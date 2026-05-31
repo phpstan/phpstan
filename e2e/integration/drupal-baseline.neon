@@ -205,6 +205,12 @@ parameters:
 			path: repo/core/modules/taxonomy/tests/src/Functional/TermTranslationTest.php
 
 		-
+			message: '#^Variable \$untranslatable_configs in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: repo/core/modules/views/src/FieldViewsDataProvider.php
+
+		-
 			message: '#^Cannot unset offset ''\#title'' on array\{''\#theme_wrappers''\: array\{''container''\}, ''\#attributes''\: array\{class\: array\{''scroll''\}, data\-drupal\-views\-scroll\: true\}\}\.$#'
 			identifier: unset.offset
 			count: 1
