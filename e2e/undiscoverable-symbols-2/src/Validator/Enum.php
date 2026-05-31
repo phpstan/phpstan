@@ -31,7 +31,7 @@ class Enum extends Constraint
     /**
      * {@inheritdoc}
      *
-     * @param class-string<ClabsEnum<int>>|class-string<ClabsEnum<string>>|class-string<\BackedEnum>|array{class:class-string<ClabsEnum<string>>|class-string<\BackedEnum>} $class
+     * @param class-string<ClabsEnum<int>>|class-string<ClabsEnum<string>>|class-string<\BackedEnum>|array{class:class-string<ClabsEnum<string>>|class-string<\BackedEnum>, message:string} $class
      * @param array<string,mixed>                                                                                                                                           $options
      */
     public function __construct(
