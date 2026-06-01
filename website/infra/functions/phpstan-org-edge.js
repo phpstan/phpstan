@@ -12,9 +12,9 @@
 //
 // Note on `/`: CloudFront applies DefaultRootObject AFTER viewer-request runs, so
 // for a root request this function sees `uri === '/'`. We leave it alone and let
-// DefaultRootObject (`index.html`) take over for the origin fetch. Same for any
-// other trailing-slash URI — letting it pass through preserves current behavior
-// (subdir trailing-slash 404s).
+// DefaultRootObject (`index.html`) take over for the origin fetch. Any other
+// trailing-slash URI (e.g. `/blog/foo/`) is 301'd to its slash-less canonical
+// form (`/blog/foo`), which then gets `.html` appended on the follow-up request.
 
 function formatQuerystring(qs) {
 	var parts = [];
@@ -54,6 +54,16 @@ function handler(event) {
 			statusDescription: 'Moved Permanently',
 			headers: {
 				location: { value: uri.substring(0, uri.length - 5) + qs },
+			},
+		};
+	}
+
+	if (uri.length > 1 && uri.endsWith('/')) {
+		return {
+			statusCode: 301,
+			statusDescription: 'Moved Permanently',
+			headers: {
+				location: { value: uri.substring(0, uri.length - 1) + qs },
 			},
 		};
 	}

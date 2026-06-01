@@ -133,9 +133,38 @@ describe('phpstan-org-edge handler', () => {
 			expect(result.statusCode).toBeUndefined();
 		});
 
-		it('leaves /user-guide/ unchanged (trailing slash passes through)', () => {
+	});
+
+	describe('trailing slash redirect', () => {
+		it('loads phpstan-2-0-released-level-10-elephpants.html for the slash-less URL', () => {
+			const result = handler(makeEvent('/blog/phpstan-2-0-released-level-10-elephpants'));
+			expect(result.uri).toBe('/blog/phpstan-2-0-released-level-10-elephpants.html');
+			expect(result.statusCode).toBeUndefined();
+		});
+
+		it('redirects /blog/phpstan-2-0-released-level-10-elephpants/ to the slash-less URL', () => {
+			const result = handler(makeEvent('/blog/phpstan-2-0-released-level-10-elephpants/'));
+			expect(result.statusCode).toBe(301);
+			expect(result.headers.location.value).toBe('/blog/phpstan-2-0-released-level-10-elephpants');
+		});
+
+		it('redirects /user-guide/ to /user-guide', () => {
 			const result = handler(makeEvent('/user-guide/'));
-			expect(result.uri).toBe('/user-guide/');
+			expect(result.statusCode).toBe(301);
+			expect(result.headers.location.value).toBe('/user-guide');
+		});
+
+		it('preserves querystring on the trailing slash redirect', () => {
+			const result = handler(makeEvent('/blog/', 'phpstan.org', {
+				page: { value: '2' },
+			}));
+			expect(result.statusCode).toBe(301);
+			expect(result.headers.location.value).toBe('/blog?page=2');
+		});
+
+		it('leaves / unchanged (DefaultRootObject serves index.html, no redirect loop)', () => {
+			const result = handler(makeEvent('/'));
+			expect(result.uri).toBe('/');
 			expect(result.statusCode).toBeUndefined();
 		});
 	});

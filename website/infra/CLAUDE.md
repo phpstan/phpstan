@@ -51,7 +51,7 @@ order matters:
 3. `uri.startsWith('/r/')` → rewrite to `/try.html` (playground short links — all `/r/*` resolve to the same page).
 4. `uri.startsWith('/error-identifiers/')` and not `.js`/`.css` → append `.html`.
 5. Last path segment has no `.` and is non-empty → append `.html`.
-6. Trailing slash → pass through. CloudFront's `defaultRootObject: 'index.html'` handles the root request *after* the function runs.
+6. Trailing slash on a non-root URI (`uri.length > 1`) → 301 to the slash-less canonical form (`/blog/foo/` → `/blog/foo`, which then gets `.html` appended on the follow-up request). The root `/` is left alone — CloudFront's `defaultRootObject: 'index.html'` handles it *after* the function runs, and redirecting `/` would loop.
 
 Querystring is preserved on the 301 redirects via the `formatQuerystring` helper, which handles both single-value and multi-value params.
 
@@ -66,7 +66,7 @@ website/infra/
 ├── functions/
 │   └── phpstan-org-edge.js   # CloudFront Function 2.0 source
 ├── test/
-│   ├── phpstan-org-edge.test.ts   # Vitest: 18 cases on the edge function
+│   ├── phpstan-org-edge.test.ts   # Vitest: 22 cases on the edge function
 │   └── website-stack.test.ts      # Vitest: CDK assertions on the synth template
 ├── cdk.json                  # CDK config + context (incl. productionAliases)
 ├── package.json
@@ -90,7 +90,7 @@ website/infra/
 ```sh
 npm ci             # install (run after pulling)
 npm run check      # tsc --noEmit
-npm test           # vitest run — 29 tests (edge function + stack assertions)
+npm test           # vitest run — 32 tests (edge function + stack assertions)
 npm run synth      # cdk synth --all (no AWS creds needed)
 npm run diff       # cdk diff --all (needs AWS creds for the target account)
 npm run deploy     # cdk deploy --all
