@@ -56,8 +56,8 @@ jobs:
     # https://docs.github.com/en/free-pro-team@latest/actions/guides/about-service-containers
     services:
       database:
-        # see https://github.com/docker-library/official-images/pull/21283/files
-        image: 'mysql@f8c2facfccdc3c8b8b2c9b5a6aec31db3115105b' # 8.4.9
+        # see https://hub.docker.com/_/mysql
+        image: 'mysql:8.4.9@sha256:c36050afdca850f23cef85703f84c7531a5ae155a11b5ee1c60acb09937c4084' # 8.4.9
         env:
           MYSQL_ROOT_PASSWORD: root
         ports:
