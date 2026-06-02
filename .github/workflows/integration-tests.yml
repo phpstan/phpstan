@@ -617,6 +617,8 @@ jobs:
             ref: 42562f5a908c149393cae041e3a57b7c8f0ac982
             setup: |
               composer install
+              composer require sqlftw/sqlftw
+              composer require doctrine/dbal:^4
               mysql -uroot -h127.0.0.1 -proot < tests/schema.sql
             phpstan-command: ../../../phpstan.phar analyse -c ../phpstan-dba.neon
             baseline-file: phpstan-dba-baseline.neon
