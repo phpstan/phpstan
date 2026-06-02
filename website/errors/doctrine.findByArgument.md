@@ -32,7 +32,13 @@ function doFoo(EntityManager $em): void
 
 ## Why is it reported?
 
-The `findBy()` and `findOneBy()` methods on a Doctrine entity repository accept an array of field names as criteria. The field `nonexistent` does not exist on the `User` entity, so the call will fail at runtime with a Doctrine exception.
+The `findBy()` method on a Doctrine entity repository accepts an array of field names as criteria. The field `nonexistent` does not exist on the `User` entity, so the call will fail at runtime with a Doctrine exception.
+
+When [bleeding edge](/blog/what-is-bleeding-edge) is enabled, the field names in the second argument (the order-by array) are checked the same way:
+
+```php
+$repository->findBy(['name' => 'test'], ['nonexistent' => 'ASC']);
+```
 
 This rule is provided by the [phpstan-doctrine](https://github.com/phpstan/phpstan-doctrine) extension.
 
@@ -43,4 +49,11 @@ Use a field name that actually exists on the entity:
 ```diff-php
 - $repository->findBy(['nonexistent' => 'test']);
 + $repository->findBy(['name' => 'test']);
+```
+
+The same applies to the order-by argument:
+
+```diff-php
+- $repository->findBy(['name' => 'test'], ['nonexistent' => 'ASC']);
++ $repository->findBy(['name' => 'test'], ['id' => 'ASC']);
 ```
