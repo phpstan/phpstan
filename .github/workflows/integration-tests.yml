@@ -601,6 +601,12 @@ jobs:
               cp ../../../bootstrap.php Packages/Libraries/phpstan/phpstan/bootstrap.php
             phpstan-command: bin/phpstan analyse -c ../flow-legacy.neon
             baseline-file: flow-legacy-baseline.neon
+          - php-version: 8.5
+            repo: staabm/phpstan-dba
+            ref: 42562f5a908c149393cae041e3a57b7c8f0ac982
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
