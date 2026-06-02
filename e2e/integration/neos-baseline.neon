@@ -1,0 +1,1381 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Strict comparison using \!\=\= between Neos\\ContentRepository\\Core\\Feature\\NodeModification\\Dto\\SerializedPropertyValues and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentGraph.DoctrineDbalAdapter/src/DoctrineDbalContentGraphProjection.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between non\-empty\-array\<string, Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Node\> and array\{\} will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentGraph.DoctrineDbalAdapter/src/Domain/Repository/NodeFactory.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.BehavioralTests/Classes/PhpstanRules/ApiOrInternalAnnotationRule.php
+
+		-
+			message: '#^Instanceof between PhpParser\\Node\\Stmt\\Class_ and PhpParser\\Node\\Stmt\\Class_ will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.BehavioralTests/Classes/PhpstanRules/ApiOrInternalAnnotationRule.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.BehavioralTests/Classes/PhpstanRules/DeclareStrictTypesRule.php
+
+		-
+			message: '#^Instanceof between PHPStan\\Node\\FileNode and PHPStan\\Node\\FileNode will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.BehavioralTests/Classes/PhpstanRules/DeclareStrictTypesRule.php
+
+		-
+			message: '#^Method Neos\\ContentRepository\\BehavioralTests\\PhpstanRules\\DeclareStrictTypesRule\:\:processNode\(\) should return list\<PHPStan\\Rules\\IdentifierRuleError\> but returns array\{''File is missing a …''\}\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.BehavioralTests/Classes/PhpstanRules/DeclareStrictTypesRule.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.BehavioralTests/Classes/PhpstanRules/InternalMethodsNotAllowedOutsideContentRepositoryRule.php
+
+		-
+			message: '#^Doing instanceof PHPStan\\Type\\ObjectType is error\-prone and deprecated\. Use Type\:\:isObject\(\) or Type\:\:getObjectClassNames\(\) instead\.$#'
+			identifier: phpstanApi.instanceofType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.BehavioralTests/Classes/PhpstanRules/InternalMethodsNotAllowedOutsideContentRepositoryRule.php
+
+		-
+			message: '#^Instanceof between PhpParser\\Node\\Expr\\CallLike and PhpParser\\Node\\Expr\\CallLike will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.BehavioralTests/Classes/PhpstanRules/InternalMethodsNotAllowedOutsideContentRepositoryRule.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.BehavioralTests/Classes/PhpstanRules/NoStringCastingRule.php
+
+		-
+			message: '#^Doing instanceof PHPStan\\Type\\ObjectType is error\-prone and deprecated\. Use Type\:\:isObject\(\) or Type\:\:getObjectClassNames\(\) instead\.$#'
+			identifier: phpstanApi.instanceofType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.BehavioralTests/Classes/PhpstanRules/NoStringCastingRule.php
+
+		-
+			message: '#^Instanceof between PhpParser\\Node\\Expr\\Cast\\String_ and PhpParser\\Node\\Expr\\Cast\\String_ will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.BehavioralTests/Classes/PhpstanRules/NoStringCastingRule.php
+
+		-
+			message: '#^Method Neos\\ContentRepository\\BehavioralTests\\PhpstanRules\\NoStringCastingRule\:\:processNode\(\) should return list\<PHPStan\\Rules\\IdentifierRuleError\> but returns array\{PHPStan\\Rules\\RuleError\}\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.BehavioralTests/Classes/PhpstanRules/NoStringCastingRule.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 3
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.BehavioralTests/Classes/ProjectionRaceConditionTester/Dto/TraceEntries.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\BehavioralTests\\ProjectionRaceConditionTester\\Dto\\TraceEntry and Neos\\ContentRepository\\BehavioralTests\\ProjectionRaceConditionTester\\Dto\\TraceEntry will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 3
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.BehavioralTests/Classes/ProjectionRaceConditionTester/Dto/TraceEntries.php
+
+		-
+			message: '#^Property Neos\\EventStore\\Model\\Event\\EventMetadata\:\:\$value \(array\<string, mixed\>\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/CommandHandler/CommandSimulator.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>value" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/CommandHandler/CommandSimulator.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Dimension/ContentDimensionConstraintSet.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Dimension\\ContentDimensionConstraints and Neos\\ContentRepository\\Core\\Dimension\\ContentDimensionConstraints will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Dimension/ContentDimensionConstraintSet.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Dimension\\ContentDimensionValue and Neos\\ContentRepository\\Core\\Dimension\\ContentDimensionValue will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Dimension/ContentDimensionValues.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/DimensionSpace/AbstractDimensionSpacePoint.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/DimensionSpace/ContentDimensionZookeeper.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Dimension\\ContentDimension and Neos\\ContentRepository\\Core\\Dimension\\ContentDimension will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/DimensionSpace/ContentDimensionZookeeper.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Dimension\\ContentDimensionValueSpecializationDepth and Neos\\ContentRepository\\Core\\Dimension\\ContentDimensionValueSpecializationDepth will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/DimensionSpace/ContentSubgraphVariationWeight.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\DimensionSpace\\DimensionSpacePoint and Neos\\ContentRepository\\Core\\DimensionSpace\\DimensionSpacePoint will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/DimensionSpace/DimensionSpacePointSet.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\DimensionSpace\\OriginDimensionSpacePoint and Neos\\ContentRepository\\Core\\DimensionSpace\\OriginDimensionSpacePoint will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/DimensionSpace/OriginDimensionSpacePointSet.php
+
+		-
+			message: '#^Method Neos\\ContentRepository\\Core\\EventStore\\Events\:\:map\(\) should return non\-empty\-list\<T\> but returns non\-empty\-array\<T\>\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/EventStore/Events.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>value" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/EventStore/InitiatingEventMetadata.php
+
+		-
+			message: '#^Method Neos\\ContentRepository\\Core\\EventStore\\PublishedEvents\:\:map\(\) should return non\-empty\-list\<T\> but returns non\-empty\-array\<T\>\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/EventStore/PublishedEvents.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeAggregateCommandHandler.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\NodeAggregate and Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\NodeAggregate will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeAggregateCommandHandler.php
+
+		-
+			message: '#^Property Neos\\ContentRepository\\Core\\Feature\\NodeCreation\\Command\\CreateNodeAggregateWithNodeAndSerializedProperties\:\:\$references \(Neos\\ContentRepository\\Core\\Feature\\NodeReferencing\\Dto\\SerializedNodeReferences\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeAggregateCommandHandler.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>tetheredNodeTypeDefinitions" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeAggregateCommandHandler.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeCreation/Dto/NodeAggregateIdsByNodePaths.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\SharedModel\\Node\\NodeAggregateId and Neos\\ContentRepository\\Core\\SharedModel\\Node\\NodeAggregateId will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeCreation/Dto/NodeAggregateIdsByNodePaths.php
+
+		-
+			message: '#^Call to function array_key_exists\(\) with ''type'' and array\{type\: string, value\: array\<int\|string, mixed\>\|ArrayObject\<int\|string, mixed\>\|bool\|float\|int\|string\} will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeModification/Dto/SerializedPropertyValue.php
+
+		-
+			message: '#^Call to function array_key_exists\(\) with ''value'' and array\{type\: string, value\: array\<int\|string, mixed\>\|ArrayObject\<int\|string, mixed\>\|bool\|float\|int\|string\} will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeModification/Dto/SerializedPropertyValue.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeModification/Dto/SerializedPropertyValues.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Feature\\Common\\RebasableToOtherWorkspaceInterface and JsonSerializable will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/RebaseableCommand.php
+
+		-
+			message: '#^Impure yield in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:discardWorkspace\(\)\.$#'
+			identifier: impure.yield
+			count: 3
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to function array_filter\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:reopenContentStreamWithoutConstraintChecks\(\)\.$#'
+			identifier: possiblyImpure.functionCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\DecoratedEvent\:\:create\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:forkContentStream\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\DecoratedEvent\:\:create\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:reopenContentStreamWithoutConstraintChecks\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\Events\:\:with\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:closeContentStream\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\Events\:\:with\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:discardWorkspace\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\Events\:\:with\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:forkContentStream\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\Events\:\:with\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStreamWithoutConstraintChecks\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\EventStore\\Events\:\:with\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:reopenContentStreamWithoutConstraintChecks\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:fromContentStreamId\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:closeContentStream\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:fromContentStreamId\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:forkContentStream\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:fromContentStreamId\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStreamWithoutConstraintChecks\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:fromContentStreamId\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:reopenContentStreamWithoutConstraintChecks\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:getEventStreamName\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:closeContentStream\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:getEventStreamName\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:forkContentStream\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:getEventStreamName\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStreamWithoutConstraintChecks\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\ContentStreamEventStreamName\:\:getEventStreamName\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:reopenContentStreamWithoutConstraintChecks\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\WorkspaceEventStreamName\:\:fromWorkspaceName\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:discardWorkspace\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\ContentRepository\\Core\\Feature\\WorkspaceEventStreamName\:\:getEventStreamName\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:discardWorkspace\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\EventStore\\Model\\EventStream\\ExpectedVersion\:\:ANY\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:discardWorkspace\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\EventStore\\Model\\EventStream\\ExpectedVersion\:\:ANY\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStreamWithoutConstraintChecks\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\EventStore\\Model\\EventStream\\ExpectedVersion\:\:ANY\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:reopenContentStreamWithoutConstraintChecks\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\EventStore\\Model\\EventStream\\ExpectedVersion\:\:NO_STREAM\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:forkContentStream\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\EventStore\\Model\\EventStream\\ExpectedVersion\:\:fromVersion\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:closeContentStream\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\EventStore\\EventsToPublish in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:closeContentStream\(\)\.$#'
+			identifier: possiblyImpure.new
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\EventStore\\EventsToPublish in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:discardWorkspace\(\)\.$#'
+			identifier: possiblyImpure.new
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\EventStore\\EventsToPublish in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:forkContentStream\(\)\.$#'
+			identifier: possiblyImpure.new
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\EventStore\\EventsToPublish in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStreamWithoutConstraintChecks\(\)\.$#'
+			identifier: possiblyImpure.new
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\EventStore\\EventsToPublish in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:reopenContentStreamWithoutConstraintChecks\(\)\.$#'
+			identifier: possiblyImpure.new
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\Feature\\ContentStreamClosing\\Event\\ContentStreamWasClosed in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:closeContentStream\(\)\.$#'
+			identifier: possiblyImpure.new
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\Feature\\ContentStreamClosing\\Event\\ContentStreamWasReopened in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:reopenContentStreamWithoutConstraintChecks\(\)\.$#'
+			identifier: possiblyImpure.new
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\Feature\\ContentStreamForking\\Event\\ContentStreamWasForked in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:forkContentStream\(\)\.$#'
+			identifier: possiblyImpure.new
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\Feature\\ContentStreamRemoval\\Event\\ContentStreamWasRemoved in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStreamWithoutConstraintChecks\(\)\.$#'
+			identifier: possiblyImpure.new
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure instantiation of class Neos\\ContentRepository\\Core\\Feature\\WorkspacePublication\\Event\\WorkspaceWasDiscarded in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:discardWorkspace\(\)\.$#'
+			identifier: possiblyImpure.new
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Parameter \#4 \$skippedEvents of class Neos\\ContentRepository\\Core\\Feature\\WorkspaceRebase\\Event\\WorkspaceWasRebased constructor expects list\<Neos\\EventStore\\Model\\Event\\SequenceNumber\>, array\<Neos\\EventStore\\Model\\Event\\SequenceNumber\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceRebase/Event/WorkspaceWasRebased.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Symfony\\Component\\Serializer\\Normalizer\\DenormalizerInterface and ''supportsDenormaliza…'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Infrastructure/Property/Normalizer/CollectionTypeDenormalizer.php
+
+		-
+			message: '#^Property Neos\\ContentRepository\\Core\\Infrastructure\\Property\\Normalizer\\CollectionTypeDenormalizer\:\:\$serializer \(Symfony\\Component\\Serializer\\Normalizer\\DenormalizerInterface\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Infrastructure/Property/Normalizer/CollectionTypeDenormalizer.php
+
+		-
+			message: '#^Method Neos\\ContentRepository\\Core\\NodeType\\NodeType\:\:__construct\(\) has InvalidArgumentException in PHPDoc @throws tag but it''s not thrown\.$#'
+			identifier: throws.unusedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/NodeType/NodeType.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/NodeType/NodeTypeManager.php
+
+		-
+			message: '#^Method Neos\\ContentRepository\\Core\\NodeType\\NodeTypeNames\:\:map\(\) should return list\<T\> but returns array\<T\>\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/NodeType/NodeTypeNames.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\NodeType\\TetheredNodeTypeDefinition and Neos\\ContentRepository\\Core\\NodeType\\TetheredNodeTypeDefinition will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/NodeType/TetheredNodeTypeDefinitions.php
+
+		-
+			message: '#^PHPDoc tag @internal has invalid value \(\(the properties themselves are readonly; only the write\-methods are API\.\)\: Unexpected token "properties", expected ''\)'' at offset 26 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/CountAncestorNodesFilter.php
+
+		-
+			message: '#^PHPDoc tag @internal has invalid value \(\(the properties themselves are readonly; only the write\-methods are API\.\)\: Unexpected token "properties", expected ''\)'' at offset 26 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/CountBackReferencesFilter.php
+
+		-
+			message: '#^PHPDoc tag @internal has invalid value \(\(the properties themselves are readonly; only the write\-methods are API\.\)\: Unexpected token "properties", expected ''\)'' at offset 26 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/CountChildNodesFilter.php
+
+		-
+			message: '#^PHPDoc tag @internal has invalid value \(\(the properties themselves are readonly; only the write\-methods are API\.\)\: Unexpected token "properties", expected ''\)'' at offset 26 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/CountDescendantNodesFilter.php
+
+		-
+			message: '#^PHPDoc tag @internal has invalid value \(\(the properties themselves are readonly; only the write\-methods are API\.\)\: Unexpected token "properties", expected ''\)'' at offset 26 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/CountReferencesFilter.php
+
+		-
+			message: '#^PHPDoc tag @internal has invalid value \(\(the properties themselves are readonly; only the write\-methods are API\.\)\: Unexpected token "properties", expected ''\)'' at offset 26 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/FindAncestorNodesFilter.php
+
+		-
+			message: '#^PHPDoc tag @internal has invalid value \(\(the properties themselves are readonly; only the write\-methods are API\.\)\: Unexpected token "properties", expected ''\)'' at offset 26 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/FindBackReferencesFilter.php
+
+		-
+			message: '#^PHPDoc tag @internal has invalid value \(\(the properties themselves are readonly; only the write\-methods are API\.\)\: Unexpected token "properties", expected ''\)'' at offset 26 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/FindChildNodesFilter.php
+
+		-
+			message: '#^PHPDoc tag @internal has invalid value \(\(the properties themselves are readonly; only the write\-methods are API\.\)\: Unexpected token "properties", expected ''\)'' at offset 26 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/FindClosestNodeFilter.php
+
+		-
+			message: '#^PHPDoc tag @internal has invalid value \(\(the properties themselves are readonly; only the write\-methods are API\.\)\: Unexpected token "properties", expected ''\)'' at offset 26 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/FindDescendantNodesFilter.php
+
+		-
+			message: '#^PHPDoc tag @internal has invalid value \(\(the properties themselves are readonly; only the write\-methods are API\.\)\: Unexpected token "properties", expected ''\)'' at offset 26 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/FindPrecedingSiblingNodesFilter.php
+
+		-
+			message: '#^PHPDoc tag @internal has invalid value \(\(the properties themselves are readonly; only the write\-methods are API\.\)\: Unexpected token "properties", expected ''\)'' at offset 26 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/FindReferencesFilter.php
+
+		-
+			message: '#^PHPDoc tag @internal has invalid value \(\(the properties themselves are readonly; only the write\-methods are API\)\)\: Unexpected token "properties", expected ''\)'' at offset 26 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/FindRootNodeAggregatesFilter.php
+
+		-
+			message: '#^PHPDoc tag @internal has invalid value \(\(the properties themselves are readonly; only the write\-methods are API\.\)\: Unexpected token "properties", expected ''\)'' at offset 26 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/FindSubtreeFilter.php
+
+		-
+			message: '#^PHPDoc tag @internal has invalid value \(\(the properties themselves are readonly; only the write\-methods are API\.\)\: Unexpected token "properties", expected ''\)'' at offset 26 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/FindSucceedingSiblingNodesFilter.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/NodeType/ExpandedNodeTypeCriteria.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\NodeType\\NodeType and Neos\\ContentRepository\\Core\\NodeType\\NodeType will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/NodeType/ExpandedNodeTypeCriteria.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>offsetEnd" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Filter/PropertyValue/PropertyValueCriteriaParser.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\NodeAggregate and Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\NodeAggregate will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/NodeAggregates.php
+
+		-
+			message: '#^Method Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\NodeTags\:\:map\(\) should return list\<T\> but returns array\<T\>\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/NodeTags.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Node and Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Node will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Nodes.php
+
+		-
+			message: '#^Method Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Nodes\:\:map\(\) should return list\<T\> but returns array\<int, T\>\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ContentGraph/Nodes.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Projection\\ProjectionStateInterface and Neos\\ContentRepository\\Core\\Projection\\ProjectionStateInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ProjectionStates.php
+
+		-
+			message: '#^Method Neos\\ContentRepository\\Core\\Service\\ContentRepositoryMaintainer\:\:findAllContentStreamStreamNames\(\) should return list\<Neos\\EventStore\\Model\\Event\\StreamName\> but returns array\<int\<0, max\>, Neos\\EventStore\\Model\\Event\\StreamName\>\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Service/ContentRepositoryMaintainer.php
+
+		-
+			message: '#^Method Neos\\ContentRepository\\Core\\Service\\ContentRepositoryMaintainer\:\:findAllWorkspaceStreamNames\(\) should return list\<Neos\\EventStore\\Model\\Event\\StreamName\> but returns array\<int\<0, max\>, Neos\\EventStore\\Model\\Event\\StreamName\>\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Service/ContentRepositoryMaintainer.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>sequenceNumber" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Service/ContentRepositoryMaintainer.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\SharedModel\\ContentRepository\\ContentRepositoryId and Neos\\ContentRepository\\Core\\SharedModel\\ContentRepository\\ContentRepositoryId will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/SharedModel/ContentRepository/ContentRepositoryIds.php
+
+		-
+			message: '#^Call to function is_callable\(\) with ''uuid_create'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/SharedModel/Id/UuidFactory.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\SharedModel\\Workspace\\Workspace and Neos\\ContentRepository\\Core\\SharedModel\\Workspace\\Workspace will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/SharedModel/Workspace/Workspaces.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Subscription\\Subscriber\\ProjectionSubscriber and Neos\\ContentRepository\\Core\\Subscription\\Subscriber\\ProjectionSubscriber will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Subscription/Subscriber/Subscribers.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Subscription\\SubscriptionId and Neos\\ContentRepository\\Core\\Subscription\\SubscriptionId will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Subscription/SubscriptionIds.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Subscription\\SubscriptionStatus and Neos\\ContentRepository\\Core\\Subscription\\SubscriptionStatus will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Subscription/SubscriptionStatusFilter.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Subscription\\Subscription and Neos\\ContentRepository\\Core\\Subscription\\Subscription will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Subscription/Subscriptions.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Dbal/Classes/SubscriptionStore/DoctrineSubscriptionStore.php
+
+		-
+			message: '#^Instanceof between Doctrine\\DBAL\\Result and Doctrine\\DBAL\\Result will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Dbal/Classes/SubscriptionStore/DoctrineSubscriptionStore.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>value" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Export/src/Event/ValueObject/ExportedEvent.php
+
+		-
+			message: '#^Cannot call method addAdjustment\(\) on array\<mixed\>\|object\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Export/src/Processors/AssetRepositoryImportProcessor.php
+
+		-
+			message: '#^Cannot call method refresh\(\) on array\<mixed\>\|object\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Export/src/Processors/AssetRepositoryImportProcessor.php
+
+		-
+			message: '#^Cannot call method setCaption\(\) on array\<mixed\>\|object\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Export/src/Processors/AssetRepositoryImportProcessor.php
+
+		-
+			message: '#^Cannot call method setCopyrightNotice\(\) on array\<mixed\>\|object\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Export/src/Processors/AssetRepositoryImportProcessor.php
+
+		-
+			message: '#^Cannot call method setTitle\(\) on array\<mixed\>\|object\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Export/src/Processors/AssetRepositoryImportProcessor.php
+
+		-
+			message: '#^Parameter \#1 \$object of method Neos\\Media\\Domain\\Repository\\AssetRepository\:\:add\(\) expects Neos\\Media\\Domain\\Model\\AssetInterface, array\<mixed\>\|object given\.$#'
+			identifier: argument.type
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Export/src/Processors/AssetRepositoryImportProcessor.php
+
+		-
+			message: '#^Method Neos\\ContentRepository\\LegacyNodeMigration\\Processors\\EventExportProcessor\:\:processNodeDataWithoutFallbackToEmptyDimension\(\) never returns array\<Neos\\ContentRepository\\Core\\SharedModel\\Node\\NodeName\> so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.LegacyNodeMigration/Classes/Processors/EventExportProcessor.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.NodeAccess/Classes/FlowQueryOperations/FindOperation.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Node and Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Node will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.NodeAccess/Classes/FlowQueryOperations/FindOperation.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_unique expects an array of values castable to string, list\<Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Node\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.NodeAccess/Classes/FlowQueryOperations/HasOperation.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Node and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.NodeAccess/Classes/FlowQueryOperations/NextAllOperation.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Node and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.NodeAccess/Classes/FlowQueryOperations/NextUntilOperation.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Nodes and Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Nodes will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.NodeAccess/Classes/FlowQueryOperations/ParentsUntilOperation.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Node and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.NodeAccess/Classes/FlowQueryOperations/ParentsUntilOperation.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Node and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.NodeAccess/Classes/FlowQueryOperations/PrevAllOperation.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Node and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.NodeAccess/Classes/FlowQueryOperations/PrevUntilOperation.php
+
+		-
+			message: '#^Cannot call static method from\(\) on string\|null\.$#'
+			identifier: staticMethod.nonObject
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.NodeMigration/src/Transformation/ChangePropertyTypeFromScalarToBackedEnumTransformationFactory.php
+
+		-
+			message: '#^PHPDoc tag @var with type array\<int\<2, max\>, string\> is not subtype of native type non\-empty\-list\<string\>\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.StructureAdjustment/src/Adjustment/TetheredNodeAdjustments.php
+
+		-
+			message: '#^Possibly invalid array key type string\|null\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.StructureAdjustment/src/Adjustment/TetheredNodeAdjustments.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>tetheredNodeTypeDefinitions" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.StructureAdjustment/src/Adjustment/TetheredNodeAdjustments.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>value" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.StructureAdjustment/src/StructureAdjustmentService.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\CRBehavioralTestsSubjectProvider is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/CRBehavioralTestsSubjectProvider.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\CRTestSuiteRuntimeVariables is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/CRTestSuiteRuntimeVariables.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\CRTestSuiteTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/CRTestSuiteTrait.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\CurrentSubgraphTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/CurrentSubgraphTrait.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\Features\\ContentStreamClosing is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/Features/ContentStreamClosing.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\Features\\NodeCreation is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/Features/NodeCreation.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\Features\\NodeModification is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/Features/NodeModification.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\Features\\NodeMove is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/Features/NodeMove.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\Features\\NodeReferencing is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/Features/NodeReferencing.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\Features\\NodeRemoval is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/Features/NodeRemoval.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\Features\\NodeRenaming is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/Features/NodeRenaming.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\Features\\SubtreeTagging is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/Features/SubtreeTagging.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\Features\\WorkspaceCreation is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/Features/WorkspaceCreation.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\GenericCommandExecutionAndEventPublication is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/GenericCommandExecutionAndEventPublication.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\MigrationsTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/MigrationsTrait.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\NodeTraversalTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/NodeTraversalTrait.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\ProjectedNodeAggregateTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/ProjectedNodeAggregateTrait.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\ProjectedNodeTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/ProjectedNodeTrait.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\ProjectionIntegrityViolationDetectionTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/ProjectionIntegrityViolationDetectionTrait.php
+
+		-
+			message: '#^Trait Neos\\ContentRepository\\TestSuite\\Behavior\\Features\\Bootstrap\\StructureAdjustmentsTrait is used zero times and is not analysed\.$#'
+			identifier: trait.unused
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Behavior/Features/Bootstrap/StructureAdjustmentsTrait.php
+
+		-
+			message: '#^Class Neos\\ContentRepository\\TestSuite\\Fakes\\FakeProjectionFactory implements generic interface Neos\\ContentRepository\\Core\\Projection\\ProjectionFactoryInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Fakes/FakeProjectionFactory.php
+
+		-
+			message: '#^Method Neos\\ContentRepository\\TestSuite\\Fakes\\FakeProjectionFactory\:\:build\(\) return type with generic interface Neos\\ContentRepository\\Core\\Projection\\ProjectionInterface does not specify its types\: TState$#'
+			identifier: missingType.generics
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Fakes/FakeProjectionFactory.php
+
+		-
+			message: '#^PHPDoc tag @implements has invalid value \(ProjectionFactoryInterface\<ProjectionInterface\<ProjectionStateInterface\>\>\>\)\: Unexpected token "\>", expected TOKEN_HORIZONTAL_WS at offset 92 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.TestSuite/Classes/Fakes/FakeProjectionFactory.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.ContentRepositoryRegistry/Classes/Command/StructureAdjustmentsCommandController.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\StructureAdjustment\\Adjustment\\StructureAdjustment and Neos\\ContentRepository\\StructureAdjustment\\Adjustment\\StructureAdjustment will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.ContentRepositoryRegistry/Classes/Command/StructureAdjustmentsCommandController.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between string and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepositoryRegistry/Classes/Configuration/NodeTypeEnrichmentService.php
+
+		-
+			message: '#^Cannot unset property Neos\\Fusion\\Core\\Cache\\CacheSegmentParser\:\:\$content because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/Cache/CacheSegmentParser.php
+
+		-
+			message: '#^Non\-standard \(integer\) cast is deprecated in PHP 8\.5\. Use \(int\) instead\.$#'
+			identifier: cast.deprecated
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/Cache/ContentCache.php
+
+		-
+			message: '#^Parameter &\$content by\-ref type of method Neos\\Fusion\\Core\\Cache\\ContentCache\:\:replaceCachePlaceholders\(\) expects string, string\|null given\.$#'
+			identifier: parameterByRef.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/Cache/ContentCache.php
+
+		-
+			message: '#^Parameter &\$content by\-ref type of method Neos\\Fusion\\Core\\Cache\\ContentCache\:\:replaceUncachedPlaceholders\(\) expects string, string\|null given\.$#'
+			identifier: parameterByRef.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/Cache/ContentCache.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between int and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/Cache/ContentCache.php
+
+		-
+			message: '#^Instanceof between Neos\\Fusion\\Core\\DslInterface and Neos\\Fusion\\Core\\DslInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/DslFactory.php
+
+		-
+			message: '#^Possibly invalid array key type string\|null\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/FusionSourceCodeCollection.php
+
+		-
+			message: '#^PHPDoc tag @var with type array\{base\: string, end\: string\} is not subtype of native type array\{0\: non\-falsy\-string, base\: string, 1\: string, end\: string, 2\: string\}\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/ObjectTreeParser/FilePatternResolver.php
+
+		-
+			message: '#^Offset int\<min, 0\>\|int\<2, max\> might not exist on array\{2\: ''/\^\\\\/\\\\/\.\*/'', 3\: ''/\^\#\.\*/'', 4\: "`\^\\n  /\\\\\*           …", 6\: ''/\^\[\\\\n\\\\r\]\+/'', 5\: ''/\^\[ \\\\t\]\+/'', 16\: ''/\^\(\?\>true\|TRUE\)\\\\b/'', 17\: ''/\^\(\?\>false\|FALSE\)\\\\b/'', 18\: ''/\^\(\?\>null\|NULL\)\\\\b/'', \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/ObjectTreeParser/Lexer.php
+
+		-
+			message: '#^Cannot call method buildHttpResponse\(\) on Neos\\Flow\\Mvc\\ActionResponse\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/Runtime.php
+
+		-
+			message: '#^Cannot call method getStatusCode\(\) on Neos\\Flow\\Mvc\\ActionResponse\|null\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/Runtime.php
+
+		-
+			message: '#^Dead catch \- Neos\\Flow\\Mvc\\Exception\\ForwardException is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/Runtime.php
+
+		-
+			message: '#^Dead catch \- Neos\\Flow\\Mvc\\Exception\\StopActionException is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/Runtime.php
+
+		-
+			message: '#^Dead catch \- Neos\\Flow\\Security\\Exception is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/Runtime.php
+
+		-
+			message: '#^PHPDoc tag @var has invalid value \(\$fusionObject AbstractArrayFusionObject\)\: Unexpected token "\$fusionObject", expected type at offset 9 on line 1$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/Runtime.php
+
+		-
+			message: '#^Method Neos\\Neos\\AssetUsage\\Dto\\AssetUsages\:\:count\(\) should return int\<0, max\> but returns int\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/AssetUsage/Dto/AssetUsages.php
+
+		-
+			message: '#^PHPDoc tag @return with type array\<Neos\\Neos\\AssetUsage\\Domain\\AssetUsage\>\|Iterator\<mixed, Neos\\Neos\\AssetUsage\\Domain\\AssetUsage\> is not subtype of native type Iterator\.$#'
+			identifier: return.phpDocType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/AssetUsage/Dto/AssetUsages.php
+
+		-
+			message: '#^PHPDoc tag @var has invalid value \(\$site Site\)\: Unexpected token "\$site", expected type at offset 9 on line 1$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Backend/MenuHelper.php
+
+		-
+			message: '#^Invalid array key type null\.$#'
+			identifier: array.invalidKey
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Module/Administration/SitesController.php
+
+		-
+			message: '#^Method Neos\\Neos\\Controller\\Module\\Administration\\UsersController\:\:getAuthenticationProviders\(\) should return array\<string\> but returns list\<array\<string, mixed\>\>\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Module/Administration/UsersController.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Service/NodesController.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\SharedModel\\Node\\NodeAggregateId and Neos\\ContentRepository\\Core\\SharedModel\\Node\\NodeAggregateId will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Service/NodesController.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\SharedModel\\Node\\NodeAggregateId and Neos\\ContentRepository\\Core\\SharedModel\\Node\\NodeAggregateId will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Service/NodeDuplication/NodeAggregateIdMapping.php
+
+		-
+			message: '#^Dead catch \- PDOException is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Service/SiteImportService.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/FrontendRouting/DimensionResolution/Resolver/AutoUriPathResolverFactory.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Dimension\\ContentDimension and Neos\\ContentRepository\\Core\\Dimension\\ContentDimension will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/FrontendRouting/DimensionResolution/Resolver/AutoUriPathResolverFactory.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/FrontendRouting/DimensionResolution/Resolver/CompositeResolver.php
+
+		-
+			message: '#^Instanceof between Neos\\Neos\\FrontendRouting\\DimensionResolution\\DimensionResolverInterface and Neos\\Neos\\FrontendRouting\\DimensionResolution\\DimensionResolverInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/FrontendRouting/DimensionResolution/Resolver/CompositeResolver.php
+
+		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/FrontendRouting/DimensionResolution/Resolver/UriPathResolver.php
+
+		-
+			message: '#^Instanceof between Neos\\Neos\\FrontendRouting\\DimensionResolution\\Resolver\\UriPathResolver\\SegmentMappingElement and Neos\\Neos\\FrontendRouting\\DimensionResolution\\Resolver\\UriPathResolver\\SegmentMappingElement will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/FrontendRouting/DimensionResolution/Resolver/UriPathResolver.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between int\<min, \-1\>\|int\<1, max\> and 0 will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/FrontendRouting/Projection/DocumentUriPathProjection.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>value" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Fusion/Cache/ContentCacheFlusher.php
+
+		-
+			message: '#^PHPDoc tag @var has invalid value \(\$data array\<string, mixed\>\)\: Unexpected token "\$data", expected type at offset 9 on line 1$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Fusion/Cache/NeosFusionContextSerializer.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-falsy\-string and '''' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 3
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Fusion/ConvertUrisImplementation.php
+
+		-
+			message: '#^Possibly invalid array key type string\|null\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Fusion/DimensionsMenuItemsImplementation.php
+
+		-
+			message: '#^PHPDoc tag @var with type Psr\\Http\\Message\\ResponseInterface is not subtype of native type GuzzleHttp\\Psr7\\Response\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Fusion/ExceptionHandlers/PageHandler.php
+
+		-
+			message: '#^Instanceof between Doctrine\\Common\\Collections\\Collection\<int\|string, mixed\> and Doctrine\\Common\\Collections\\Collection will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Fusion/Helper/ArrayHelper.php
+
+		-
+			message: '#^Method Neos\\Neos\\Fusion\\Helper\\CachingHelper\:\:nodeTag\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Fusion/Helper/CachingHelper.php
+
+		-
+			message: '#^PHPDoc tag @return has invalid value \(array\<int,string\>,\)\: Unexpected token ",", expected TOKEN_HORIZONTAL_WS at offset 347 on line 7$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Fusion/Helper/CachingHelper.php
+
+		-
+			message: '#^Instanceof between Neos\\Media\\Domain\\Model\\AssetInterface and Neos\\Media\\Domain\\Model\\AssetInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Fusion/ImageUriImplementation.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Node and Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\Node will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Fusion/MenuItemsImplementation.php
+
+		-
+			message: '#^Method Neos\\Neos\\Fusion\\MenuItemsImplementation\:\:getMaximumLevels\(\) should return int but returns int\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Fusion/MenuItemsImplementation.php
+
+		-
+			message: '#^Instanceof between Neos\\Neos\\PendingChangesProjection\\Change and Neos\\Neos\\PendingChangesProjection\\Change will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/PendingChangesProjection/Changes.php
+
+		-
+			message: '#^Parameter &\$width by\-ref type of method Neos\\Neos\\Presentation\\Dimensions\\VisualContentDimension\:\:traverseDimension\(\) expects int, \(float\|int\) given\.$#'
+			identifier: parameterByRef.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Presentation/Dimensions/VisualContentDimension.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between string and false will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/ResourceManagement/NodeTypesStreamWrapper.php
+
+		-
+			message: '#^Cannot call method getData\(\) on array\<mixed\>\|object\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Service/Controller/DataSourceController.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Service/DataSource/AbstractDataSource.php
+
+		-
+			message: '#^Instanceof between DateTime and DateTimeInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Service/Mapping/DateStringConverter.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Service/XliffService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>value" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Utility/NodeUriPathSegmentGenerator.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between mixed and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/View/FusionExceptionView.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between mixed and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/View/FusionView.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between Neos\\Flow\\Security\\Context and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/ViewHelpers/Backend/IfModuleAccessibleViewHelper.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between mixed and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/ViewHelpers/ContentElement/EditableViewHelper.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between string and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/ViewHelpers/Link/ModuleViewHelper.php
+
+		-
+			message: '#^Method Neos\\SiteKickstarter\\Generator\\AfxTemplateGenerator\:\:generateSitePackage\(\) should return list\<string\> but returns array\<int, string\>\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.SiteKickstarter/Classes/Generator/AfxTemplateGenerator.php
+
+		-
+			message: '#^Parameter \$addedTags of class Neos\\Workspace\\Ui\\ViewModel\\Review\\ContentChanges\\TagContentChange constructor expects list\<string\>, array\<string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/Controller/WorkspaceController.php
+
+		-
+			message: '#^Parameter \$removedTags of class Neos\\Workspace\\Ui\\ViewModel\\Review\\ContentChanges\\TagContentChange constructor expects list\<string\>, array\<string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/Controller/WorkspaceController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>write" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/Controller/WorkspaceController.php
+
+		-
+			message: '#^Instanceof between Neos\\Workspace\\Ui\\Domain\\TrashBin\\TrashItem and Neos\\Workspace\\Ui\\Domain\\TrashBin\\TrashItem will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/Domain/TrashBin/TrashItems.php
+
+		-
+			message: '#^Instanceof between Neos\\Workspace\\Ui\\ViewModel\\Restore\\RestoreListItemVariantDetails and Neos\\Workspace\\Ui\\ViewModel\\Restore\\RestoreListItemVariantDetails will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/ViewModel/Restore/RestoreListItemVariantDetailsCollection.php
+
+		-
+			message: '#^Instanceof between Neos\\Workspace\\Ui\\ViewModel\\Restore\\RestoreListItem and Neos\\Workspace\\Ui\\ViewModel\\Restore\\RestoreListItem will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/ViewModel/Restore/RestoreListItems.php
+
+		-
+			message: '#^Instanceof between Neos\\Workspace\\Ui\\ViewModel\\Review\\ChangeItem and Neos\\Workspace\\Ui\\ViewModel\\Review\\ChangeItem will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/ViewModel/Review/ChangeItems.php
+
+		-
+			message: '#^Instanceof between Neos\\Workspace\\Ui\\ViewModel\\Review\\ContentChangeItem and Neos\\Workspace\\Ui\\ViewModel\\Review\\ContentChangeItem will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/ViewModel/Review/ContentChangeItems.php
+
+		-
+			message: '#^Call to function in_array\(\) with arguments ''title'', array\{''title''\} and true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/ViewModel/Workspace/Sorting.php
+
+		-
+			message: '#^Instanceof between Neos\\Workspace\\Ui\\ViewModel\\Workspace\\WorkspaceListItem and Neos\\Workspace\\Ui\\ViewModel\\Workspace\\WorkspaceListItem will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/ViewModel/Workspace/WorkspaceListItems.php

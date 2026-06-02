@@ -515,6 +515,29 @@ jobs:
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../phpcs.neon
             baseline-file: phpcs-baseline.neon
+          - php-version: 8.5
+            repo: neos/neos-development-collection
+            ref: dd811d590fdb98ca6f09ad2cc59158c173779093
+            phpstan-cwd: e2e/integration/neos-dist
+            setup: |
+              # Neos is a monorepo package collection. PHPStan must run from
+              # within a Neos distribution where the collection is split into
+              # Packages/Neos and the Flow framework into Packages/Framework
+              # (its phpstan.neon.dist references ../Framework/bootstrap-phpstan.php).
+              # This mirrors how Neos runs PHPStan in its own CI:
+              # https://github.com/neos/neos-development-collection/blob/9.2/.github/workflows/build.yml
+              git checkout -b build
+              git clone https://github.com/neos/neos-development-distribution.git ../neos-dist
+              cd ../neos-dist
+              git checkout 8327d571dce4a2de6ab7788bb415cbf1a706bb39
+              composer config repositories.neos '{ "type": "path", "url": "../repo", "options": { "symlink": false } }'
+              composer require --no-update neos/neos-development-collection:"dev-build as 9.2.x-dev"
+              composer update --no-progress --no-interaction
+              cp ../../../phpstan.phar Packages/Libraries/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan Packages/Libraries/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php Packages/Libraries/phpstan/phpstan/bootstrap.php
+            phpstan-command: bin/phpstan analyse -c ../neos.neon
+            baseline-file: neos-baseline.neon
 
     steps:
       - name: Harden the runner (Audit all outbound calls)

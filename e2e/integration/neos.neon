@@ -1,0 +1,6 @@
+includes:
+	- neos-dist/Packages/Neos/phpstan.neon.dist
+	- neos-baseline.neon
+
+parameters:
+	reportUnmatchedIgnoredErrors: false
