@@ -194,7 +194,7 @@ jobs:
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               mysql -uroot -h127.0.0.1 -proot < tests/schema.sql
-              vendor/bin/phpunit --testsuite phpstan              
+              composer run phpunit
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
