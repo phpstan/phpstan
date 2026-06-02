@@ -5776,7 +5776,7 @@
     "doctrine.countArgument": {
         "PHPStan\\Rules\\Doctrine\\ORM\\RepositoryMethodCallRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/RepositoryMethodCallRule.php#L85"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/RepositoryMethodCallRule.php#L91"
             ]
         }
     },
@@ -5824,14 +5824,16 @@
     "doctrine.findByArgument": {
         "PHPStan\\Rules\\Doctrine\\ORM\\RepositoryMethodCallRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/RepositoryMethodCallRule.php#L85"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/RepositoryMethodCallRule.php#L129",
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/RepositoryMethodCallRule.php#L91"
             ]
         }
     },
     "doctrine.findOneByArgument": {
         "PHPStan\\Rules\\Doctrine\\ORM\\RepositoryMethodCallRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/RepositoryMethodCallRule.php#L85"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/RepositoryMethodCallRule.php#L129",
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/RepositoryMethodCallRule.php#L91"
             ]
         }
     },
