@@ -187,13 +187,15 @@ jobs:
             script: |
               git clone https://github.com/staabm/phpstan-dba.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 42562f5a908c149393cae041e3a57b7c8f0ac982
+              git checkout 61f76f1edca9b32de863561a2258000b885948d1
               composer install
               composer require --dev phpstan/phpstan
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               mysql -uroot -h127.0.0.1 -proot < tests/schema.sql
+              composer require sqlftw/sqlftw
+              composer require doctrine/dbal:^4
               composer run phpunit
 
     steps:
@@ -614,7 +616,7 @@ jobs:
             baseline-file: flow-legacy-baseline.neon
           - php-version: 8.5
             repo: staabm/phpstan-dba
-            ref: 42562f5a908c149393cae041e3a57b7c8f0ac982
+            ref: 61f76f1edca9b32de863561a2258000b885948d1
             setup: |
               composer install
               composer require sqlftw/sqlftw
