@@ -57,7 +57,7 @@ jobs:
     services:
       database:
         # see https://github.com/docker-library/official-images/pull/21283/files
-        image: 'mysql:f8c2facfccdc3c8b8b2c9b5a6aec31db3115105b' # 8.4.9
+        image: 'mysql@f8c2facfccdc3c8b8b2c9b5a6aec31db3115105b' # 8.4.9
         env:
           MYSQL_ROOT_PASSWORD: root
         ports:
