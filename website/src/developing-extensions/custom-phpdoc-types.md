@@ -229,8 +229,9 @@ PHPStan ships several built-in late-resolvable types you can study as references
 - [`KeyOfType`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.KeyOfType.html) - `key-of<T>`
 - [`ValueOfType`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.ValueOfType.html) - `value-of<T>`
 - [`OffsetAccessType`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.OffsetAccessType.html) - `T[K]`
-- [`ConditionalType`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.ConditionalType.html) and [`ConditionalTypeForParameter`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.ConditionalTypeForParameter.html) - `T extends X ? Y : Z`
+- [`NewObjectType`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.NewObjectType.html) - `new<T>`
 - [`ClassConstantAccessType`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.ClassConstantAccessType.html) - `T::SOME_CONSTANT`
-- [`NewObjectType`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.NewObjectType.html) - `new T`
+- [`ConditionalType`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.ConditionalType.html) - [conditional return types](/writing-php-code/phpdoc-types#conditional-return-types) like `(T is string ? int : float)`
+- [`ConditionalTypeForParameter`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.ConditionalTypeForParameter.html) - conditional types keyed on a parameter, like `($size is positive-int ? non-empty-list<T> : list<T>)`
 
 So when your `TypeNodeResolverExtension` builds a custom type whose result depends on generics, return a late-resolvable type from `resolve()` instead of trying to compute the final type up front.
