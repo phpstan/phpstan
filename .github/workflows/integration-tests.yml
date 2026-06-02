@@ -195,7 +195,7 @@ jobs:
               mysql -uroot -h127.0.0.1 -proot < tests/schema.sql
               composer require sqlftw/sqlftw
               composer require doctrine/dbal:^4
-              DBA_REFLECTOR=pdo-mysql DBA_MODE=record composer run phpunit
+              DBA_REFLECTOR=pdo-mysql DBA_MODE=recording composer run phpunit
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
