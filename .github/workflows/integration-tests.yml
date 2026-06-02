@@ -618,7 +618,8 @@ jobs:
             setup: |
               composer install
               mysql -uroot -h127.0.0.1 -proot < tests/schema.sql
-            phpstan-command: ../../../phpstan.phar analyse
+            phpstan-command: ../../../phpstan.phar analyse -c ../phpstan-dba.neon
+            baseline-file: phpstan-dba-baseline.neon
 
     steps:
       - name: Harden the runner (Audit all outbound calls)

@@ -1,0 +1,6 @@
+includes:
+	- repo/phpstan.neon.dist
+	- phpstan-dba-baseline.neon
+
+parameters:
+	reportUnmatchedIgnoredErrors: false
