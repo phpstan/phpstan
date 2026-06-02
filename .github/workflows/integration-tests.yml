@@ -189,14 +189,13 @@ jobs:
               cd e2e/integration/repo
               git checkout 61f76f1edca9b32de863561a2258000b885948d1
               composer install
-              composer require --dev phpstan/phpstan
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               mysql -uroot -h127.0.0.1 -proot < tests/schema.sql
               composer require sqlftw/sqlftw
               composer require doctrine/dbal:^4
-              composer run phpunit
+              DBA_REFLECTOR=pdo-mysql DBA_MODE=recording composer run phpunit
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
