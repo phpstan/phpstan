@@ -53,6 +53,16 @@ jobs:
     needs: check-phar-checksum
     if: "needs.check-phar-checksum.outputs.checksum-result == 'different'"
 
+    # https://docs.github.com/en/free-pro-team@latest/actions/guides/about-service-containers
+    services:
+      database:
+        image: 'mysql:8.0'
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: '--health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3'
+
     strategy:
       fail-fast: false
       matrix:
@@ -171,6 +181,19 @@ jobs:
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit --testsuite phpstan
+          - php-version: 8.5
+            name: phpstan-dba tests
+            script: |
+              git clone https://github.com/staabm/phpstan-dba.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout 42562f5a908c149393cae041e3a57b7c8f0ac982
+              composer install
+              composer require --dev phpstan/phpstan
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              mysql -uroot -h127.0.0.1 -proot < tests/schema.sql
+              vendor/bin/phpunit --testsuite phpstan              
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
