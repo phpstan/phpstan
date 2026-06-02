@@ -241,6 +241,17 @@ jobs:
     needs: check-phar-checksum
     if: "needs.check-phar-checksum.outputs.checksum-result == 'different'"
 
+    # https://docs.github.com/en/free-pro-team@latest/actions/guides/about-service-containers
+    services:
+      database:
+      # see https://hub.docker.com/_/mysql
+        image: 'mysql:8.4.9@sha256:c36050afdca850f23cef85703f84c7531a5ae155a11b5ee1c60acb09937c4084' # 8.4.9
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: '--health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3'
+
     strategy:
       fail-fast: false
       matrix:
@@ -606,6 +617,7 @@ jobs:
             ref: 42562f5a908c149393cae041e3a57b7c8f0ac982
             setup: |
               composer install
+              mysql -uroot -h127.0.0.1 -proot < tests/schema.sql
             phpstan-command: ../../../phpstan.phar analyse
 
     steps:
