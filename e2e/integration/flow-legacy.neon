@@ -1,0 +1,6 @@
+includes:
+	- flow-dist/Packages/Framework/phpstan-legacy.neon.dist
+	- flow-legacy-baseline.neon
+
+parameters:
+	reportUnmatchedIgnoredErrors: false

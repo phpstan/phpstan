@@ -1,0 +1,145 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Non\-standard \(integer\) cast is deprecated in PHP 8\.5\. Use \(int\) instead\.$#'
+			identifier: cast.deprecated
+			count: 4
+			path: flow-dist/Packages/Framework/Neos.Eel/Classes/FlowQuery/Operations/SliceOperation.php
+
+		-
+			message: '#^Non\-standard \(integer\) cast is deprecated in PHP 8\.5\. Use \(int\) instead\.$#'
+			identifier: cast.deprecated
+			count: 7
+			path: flow-dist/Packages/Framework/Neos.Eel/Classes/Helper/DateHelper.php
+
+		-
+			message: '#^Non\-standard \(integer\) cast is deprecated in PHP 8\.5\. Use \(int\) instead\.$#'
+			identifier: cast.deprecated
+			count: 4
+			path: flow-dist/Packages/Framework/Neos.Eel/Classes/Helper/StringHelper.php
+
+		-
+			message: '#^Parameter &\$result @param\-out type of method Neos\\Error\\Messages\\Result\:\:flattenTree\(\) expects array\<string, array\<int, mixed\>\>, array given\.$#'
+			identifier: paramOut.type
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Error.Messages/Classes/Result.php
+
+		-
+			message: '#^Non\-standard \(boolean\) cast is deprecated in PHP 8\.5\. Use \(bool\) instead\.$#'
+			identifier: cast.deprecated
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Http/Client/Browser.php
+
+		-
+			message: '#^Non\-standard \(boolean\) cast is deprecated in PHP 8\.5\. Use \(bool\) instead\.$#'
+			identifier: cast.deprecated
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Mvc/Routing/Route.php
+
+		-
+			message: '#^Non\-standard \(boolean\) cast is deprecated in PHP 8\.5\. Use \(bool\) instead\.$#'
+			identifier: cast.deprecated
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Mvc/Routing/UriBuilder.php
+
+		-
+			message: '#^Cannot unset property Neos\\Flow\\Persistence\\Doctrine\\Query\:\:\$parameters because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Persistence/Doctrine/Query.php
+
+		-
+			message: '#^Non\-standard \(boolean\) cast is deprecated in PHP 8\.5\. Use \(bool\) instead\.$#'
+			identifier: cast.deprecated
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Persistence/Doctrine/Repository.php
+
+		-
+			message: '#^Return type \(Neos\\Flow\\Persistence\\QueryResultInterface\) of method Neos\\Flow\\Persistence\\Doctrine\\Repository\:\:findAll\(\) should be compatible with return type \(array\<object\>\) of method Doctrine\\Persistence\\ObjectRepository\<object\>\:\:findAll\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Persistence/Doctrine/Repository.php
+
+		-
+			message: '#^Return type \(Neos\\Flow\\Persistence\\QueryResultInterface\) of method Neos\\Flow\\Persistence\\Doctrine\\Repository\:\:findAll\(\) should be compatible with return type \(list\<object\>\) of method Doctrine\\ORM\\EntityRepository\<object\>\:\:findAll\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Persistence/Doctrine/Repository.php
+
+		-
+			message: '#^Non\-standard \(boolean\) cast is deprecated in PHP 8\.5\. Use \(bool\) instead\.$#'
+			identifier: cast.deprecated
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Persistence/Repository.php
+
+		-
+			message: '#^Non\-standard \(boolean\) cast is deprecated in PHP 8\.5\. Use \(bool\) instead\.$#'
+			identifier: cast.deprecated
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Property/TypeConverter/BooleanConverter.php
+
+		-
+			message: '#^Non\-standard \(integer\) cast is deprecated in PHP 8\.5\. Use \(int\) instead\.$#'
+			identifier: cast.deprecated
+			count: 3
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Property/TypeConverter/DateTimeConverter.php
+
+		-
+			message: '#^Non\-standard \(integer\) cast is deprecated in PHP 8\.5\. Use \(int\) instead\.$#'
+			identifier: cast.deprecated
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Property/TypeConverter/IntegerConverter.php
+
+		-
+			message: '#^Cannot call method getSha1\(\) on array\<mixed\>\|object\.$#'
+			identifier: method.nonObject
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ResourceManagement/ResourceManager.php
+
+		-
+			message: '#^Cannot call method setFilename\(\) on array\<mixed\>\|object\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ResourceManagement/ResourceManager.php
+
+		-
+			message: '#^Non\-standard \(boolean\) cast is deprecated in PHP 8\.5\. Use \(bool\) instead\.$#'
+			identifier: cast.deprecated
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ResourceManagement/ResourceManager.php
+
+		-
+			message: '#^Non\-standard \(boolean\) cast is deprecated in PHP 8\.5\. Use \(bool\) instead\.$#'
+			identifier: cast.deprecated
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ResourceManagement/Target/FileSystemSymlinkTarget.php
+
+		-
+			message: '#^Non\-standard \(boolean\) cast is deprecated in PHP 8\.5\. Use \(bool\) instead\.$#'
+			identifier: cast.deprecated
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/ResourceManagement/Target/FileSystemTarget.php
+
+		-
+			message: '#^Non\-standard \(boolean\) cast is deprecated in PHP 8\.5\. Use \(bool\) instead\.$#'
+			identifier: cast.deprecated
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Security/RequestPattern/ControllerObjectName.php
+
+		-
+			message: '#^Non\-standard \(boolean\) cast is deprecated in PHP 8\.5\. Use \(bool\) instead\.$#'
+			identifier: cast.deprecated
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Security/RequestPattern/Uri.php
+
+		-
+			message: '#^Non\-standard \(boolean\) cast is deprecated in PHP 8\.5\. Use \(bool\) instead\.$#'
+			identifier: cast.deprecated
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Session/Session.php
+
+		-
+			message: '#^Non\-standard \(integer\) cast is deprecated in PHP 8\.5\. Use \(int\) instead\.$#'
+			identifier: cast.deprecated
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Flow/Classes/Session/Session.php

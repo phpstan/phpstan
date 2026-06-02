@@ -1,0 +1,175 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Instanceof between Neos\\Flow\\Mvc\\ActionRequest and Neos\\Flow\\Mvc\\ActionRequest will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/Core/Rendering/RenderingContext.php
+
+		-
+			message: '#^Non\-standard \(boolean\) cast is deprecated in PHP 8\.5\. Use \(bool\) instead\.$#'
+			identifier: cast.deprecated
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/Core/ViewHelper/AbstractConditionViewHelper.php
+
+		-
+			message: '#^Offset ''__thenClosure'' on \*NEVER\* in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/Core/ViewHelper/AbstractConditionViewHelper.php
+
+		-
+			message: '#^Instanceof between Neos\\FluidAdaptor\\Core\\Rendering\\FlowAwareRenderingContextInterface&TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface and Neos\\FluidAdaptor\\Core\\Rendering\\FlowAwareRenderingContextInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/Core/ViewHelper/AbstractViewHelper.php
+
+		-
+			message: '#^Instanceof between Neos\\FluidAdaptor\\Core\\Widget\\AbstractWidgetController and Neos\\FluidAdaptor\\Core\\Widget\\AbstractWidgetController will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/Core/Widget/AbstractWidgetViewHelper.php
+
+		-
+			message: '#^Parameter \#1 \$request \(Neos\\Flow\\Mvc\\ActionRequest\|null\) of method Neos\\FluidAdaptor\\View\\StandaloneView\:\:__construct\(\) is not contravariant with parameter \#1 \$options \(array\|null\) of method Neos\\FluidAdaptor\\View\\AbstractTemplateView\:\:__construct\(\)\.$#'
+			identifier: method.childParameterType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/View/StandaloneView.php
+
+		-
+			message: '#^Call to function is_object\(\) with object will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Form/AbstractFormViewHelper.php
+
+		-
+			message: '#^Non\-standard \(boolean\) cast is deprecated in PHP 8\.5\. Use \(bool\) instead\.$#'
+			identifier: cast.deprecated
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Form/CheckboxViewHelper.php
+
+		-
+			message: '#^Instanceof between Neos\\Flow\\Mvc\\ActionRequest and Neos\\Flow\\Mvc\\ActionRequest will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/FormViewHelper.php
+
+		-
+			message: '#^Instanceof between Neos\\Flow\\Mvc\\ActionRequest and Neos\\Flow\\Mvc\\ActionRequest will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Link/ActionViewHelper.php
+
+		-
+			message: '#^Instanceof between Neos\\Flow\\Mvc\\ActionRequest and Neos\\Flow\\Mvc\\ActionRequest will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Uri/ActionViewHelper.php
+
+		-
+			message: '#^Call to an undefined method object\:\:execute\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Widget/Controller/AutocompleteController.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getConstraint\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Widget/Controller/AutocompleteController.php
+
+		-
+			message: '#^Call to an undefined method object\:\:like\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Widget/Controller/AutocompleteController.php
+
+		-
+			message: '#^Call to an undefined method object\:\:logicalAnd\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Widget/Controller/AutocompleteController.php
+
+		-
+			message: '#^Call to an undefined method object\:\:matching\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Widget/Controller/AutocompleteController.php
+
+		-
+			message: '#^Call to an undefined method object\:\:setLimit\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Widget/Controller/AutocompleteController.php
+
+		-
+			message: '#^Non\-standard \(integer\) cast is deprecated in PHP 8\.5\. Use \(int\) instead\.$#'
+			identifier: cast.deprecated
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Widget/Controller/AutocompleteController.php
+
+		-
+			message: '#^Non\-standard \(integer\) cast is deprecated in PHP 8\.5\. Use \(int\) instead\.$#'
+			identifier: cast.deprecated
+			count: 8
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Widget/Controller/PaginateController.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Utility.Arrays/Classes/Arrays.php
+
+		-
+			message: '#^Instanceof between ArrayAccess\<int\|string, mixed\> and ArrayAccess will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Utility.Arrays/Classes/Arrays.php
+
+		-
+			message: '#^Call to function is_float\(\) with float will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Utility.Files/Classes/Files.php
+
+		-
+			message: '#^Call to function is_numeric\(\) with \*NEVER\* will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Utility.Files/Classes/Files.php
+
+		-
+			message: '#^Possibly invalid array key type float\|int\<\-1, max\>\.$#'
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Utility.Files/Classes/Files.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Utility.ObjectHandling/Classes/ObjectAccess.php
+
+		-
+			message: '#^Call to function is_int\(\) with int will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: flow-dist/Packages/Framework/Neos.Utility.ObjectHandling/Classes/ObjectAccess.php
+
+		-
+			message: '#^Call to function is_object\(\) with object will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 6
+			path: flow-dist/Packages/Framework/Neos.Utility.ObjectHandling/Classes/ObjectAccess.php
+
+		-
+			message: '#^Parameter \#1 \$class of class ReflectionProperty constructor expects class\-string\|object, string given\.$#'
+			identifier: argument.type
+			count: 3
+			path: flow-dist/Packages/Framework/Neos.Utility.ObjectHandling/Classes/ObjectAccess.php
+
+		-
+			message: '#^Non\-standard \(integer\) cast is deprecated in PHP 8\.5\. Use \(int\) instead\.$#'
+			identifier: cast.deprecated
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.Utility.Unicode/Classes/Functions.php
