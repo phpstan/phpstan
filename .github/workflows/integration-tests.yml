@@ -53,6 +53,17 @@ jobs:
     needs: check-phar-checksum
     if: "needs.check-phar-checksum.outputs.checksum-result == 'different'"
 
+    # https://docs.github.com/en/free-pro-team@latest/actions/guides/about-service-containers
+    services:
+      database:
+        # see https://hub.docker.com/_/mysql
+        image: 'mysql:8.4.9@sha256:c36050afdca850f23cef85703f84c7531a5ae155a11b5ee1c60acb09937c4084' # 8.4.9
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: '--health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3'
+
     strategy:
       fail-fast: false
       matrix:
@@ -171,6 +182,19 @@ jobs:
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               vendor/bin/phpunit --testsuite phpstan
+          - php-version: 8.5
+            name: phpstan-dba tests
+            script: |
+              git clone https://github.com/staabm/phpstan-dba.git e2e/integration/repo
+              cd e2e/integration/repo
+              git checkout 42562f5a908c149393cae041e3a57b7c8f0ac982
+              composer install
+              composer require --dev phpstan/phpstan
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              mysql -uroot -h127.0.0.1 -proot < tests/schema.sql
+              composer run phpunit
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
@@ -216,6 +240,17 @@ jobs:
 
     needs: check-phar-checksum
     if: "needs.check-phar-checksum.outputs.checksum-result == 'different'"
+
+    # https://docs.github.com/en/free-pro-team@latest/actions/guides/about-service-containers
+    services:
+      database:
+      # see https://hub.docker.com/_/mysql
+        image: 'mysql:8.4.9@sha256:c36050afdca850f23cef85703f84c7531a5ae155a11b5ee1c60acb09937c4084' # 8.4.9
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: '--health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3'
 
     strategy:
       fail-fast: false
@@ -577,6 +612,16 @@ jobs:
               cp ../../../bootstrap.php Packages/Libraries/phpstan/phpstan/bootstrap.php
             phpstan-command: bin/phpstan analyse -c ../flow-legacy.neon
             baseline-file: flow-legacy-baseline.neon
+          - php-version: 8.5
+            repo: staabm/phpstan-dba
+            ref: 42562f5a908c149393cae041e3a57b7c8f0ac982
+            setup: |
+              composer install
+              composer require sqlftw/sqlftw
+              composer require doctrine/dbal:^4
+              mysql -uroot -h127.0.0.1 -proot < tests/schema.sql
+            phpstan-command: ../../../phpstan.phar analyse -c ../phpstan-dba.neon
+            baseline-file: phpstan-dba-baseline.neon
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
