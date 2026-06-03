@@ -101,7 +101,7 @@ jobs:
           enable-cache: false
 
       - name: Run zizmor
-        run: uvx zizmor@1.20.0 --persona=auditor --format=sarif --strict-collection . > results.sarif
+        run: uvx zizmor@1.25.2 --persona=auditor --format=sarif --strict-collection . > results.sarif
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
