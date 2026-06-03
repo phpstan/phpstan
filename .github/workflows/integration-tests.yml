@@ -57,7 +57,7 @@ jobs:
     services:
       database:
         # see https://hub.docker.com/_/mysql
-        image: "${{ case(matrix.mysql, matrix.mysql, '') }}"
+        image: "${{ matrix.mysql || '' }}"
         env:
           MYSQL_ROOT_PASSWORD: root
         ports:
