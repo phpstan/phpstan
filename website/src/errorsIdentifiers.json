@@ -6758,7 +6758,7 @@
     "function.resultUnused": {
         "PHPStan\\Rules\\DeadCode\\CallToFunctionStatementWithoutImpurePointsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/CallToFunctionStatementWithoutImpurePointsRule.php#L48"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/CallToFunctionStatementWithoutImpurePointsRule.php#L60"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionStatementWithoutSideEffectsRule": {
@@ -10293,7 +10293,7 @@
     "method.resultUnused": {
         "PHPStan\\Rules\\DeadCode\\CallToMethodStatementWithoutImpurePointsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/CallToMethodStatementWithoutImpurePointsRule.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/CallToMethodStatementWithoutImpurePointsRule.php#L70"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallToMethodStatementWithoutSideEffectsRule": {
@@ -11403,7 +11403,7 @@
     "new.resultUnused": {
         "PHPStan\\Rules\\DeadCode\\CallToConstructorStatementWithoutImpurePointsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/CallToConstructorStatementWithoutImpurePointsRule.php#L48"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/CallToConstructorStatementWithoutImpurePointsRule.php#L60"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallToConstructorStatementWithoutSideEffectsRule": {
@@ -15902,7 +15902,7 @@
     "staticMethod.resultUnused": {
         "PHPStan\\Rules\\DeadCode\\CallToStaticMethodStatementWithoutImpurePointsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/CallToStaticMethodStatementWithoutImpurePointsRule.php#L58"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/DeadCode/CallToStaticMethodStatementWithoutImpurePointsRule.php#L67"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallToStaticMethodStatementWithoutSideEffectsRule": {
