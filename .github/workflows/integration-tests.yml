@@ -57,7 +57,7 @@ jobs:
     services:
       database:
         # see https://hub.docker.com/_/mysql
-        image: 'mysql:8.4.9@sha256:c36050afdca850f23cef85703f84c7531a5ae155a11b5ee1c60acb09937c4084' # 8.4.9
+        image: "${{ matrix.mysql || '' }}"
         env:
           MYSQL_ROOT_PASSWORD: root
         ports:
@@ -184,6 +184,7 @@ jobs:
               vendor/bin/phpunit --testsuite phpstan
           - php-version: 8.5
             name: phpstan-dba tests
+            mysql: 'mysql:8.4.9@sha256:c36050afdca850f23cef85703f84c7531a5ae155a11b5ee1c60acb09937c4084' # 8.4.9
             script: |
               git clone https://github.com/staabm/phpstan-dba.git e2e/integration/repo
               cd e2e/integration/repo
@@ -246,7 +247,7 @@ jobs:
     services:
       database:
       # see https://hub.docker.com/_/mysql
-        image: 'mysql:8.4.9@sha256:c36050afdca850f23cef85703f84c7531a5ae155a11b5ee1c60acb09937c4084' # 8.4.9
+        image: "${{ matrix.mysql || '' }}"
         env:
           MYSQL_ROOT_PASSWORD: root
         ports:
@@ -621,6 +622,7 @@ jobs:
               composer require sqlftw/sqlftw
               composer require doctrine/dbal:^4
               mysql -uroot -h127.0.0.1 -proot < tests/schema.sql
+            mysql: 'mysql:8.4.9@sha256:c36050afdca850f23cef85703f84c7531a5ae155a11b5ee1c60acb09937c4084' # 8.4.9
             phpstan-command: ../../../phpstan.phar analyse -c ../phpstan-dba.neon
             baseline-file: phpstan-dba-baseline.neon
 
