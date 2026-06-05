@@ -52,6 +52,16 @@ interface PHPStanError {
 	ignorable?: boolean,
 }
 
+const ALL_PHP_VERSIONS: number[] = [70200, 70300, 70400, 80000, 80100, 80200, 80300, 80400, 80500];
+
+function errorsEqual(a: PHPStanError, b: PHPStanError): boolean {
+	return a.line === b.line
+		&& a.message === b.message
+		&& a.tip === b.tip
+		&& a.identifier === b.identifier
+		&& a.ignorable === b.ignorable;
+}
+
 const lambda = new Lambda();
 const s3 = new S3();
 
@@ -171,33 +181,7 @@ function createTabs(versionedErrors: {phpVersion: number, errors: PHPStanError[]
 			if (!errors.hasOwnProperty(i)) {
 				continue;
 			}
-			const error = errors[i];
-			const lastError = last.errors[i];
-			if (error.line !== lastError.line) {
-				versions.push(last);
-				last = current;
-				merge = false;
-				break;
-			}
-			if (error.message !== lastError.message) {
-				versions.push(last);
-				last = current;
-				merge = false;
-				break;
-			}
-			if (error.tip !== lastError.tip) {
-				versions.push(last);
-				last = current;
-				merge = false;
-				break;
-			}
-			if (error.identifier !== lastError.identifier) {
-				versions.push(last);
-				last = current;
-				merge = false;
-				break;
-			}
-			if (error.ignorable !== lastError.ignorable) {
+			if (!errorsEqual(errors[i], last.errors[i])) {
 				versions.push(last);
 				last = current;
 				merge = false;
@@ -277,7 +261,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 			runStrictRules,
 			runBleedingEdge,
 			treatPhpDocTypesAsCertain,
-			[70200, 70300, 70400, 80000, 80100, 80200, 80300, 80400, 80500],
+			ALL_PHP_VERSIONS,
 			options,
 		);
 		const response: any = {
@@ -408,30 +392,7 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 				if (firstFilteredNewTab.errors.length === firstNewTab.errors.length) {
 					let isSame = true;
 					for (let i = 0; i < firstFilteredNewTab.errors.length; i++) {
-						const error = firstFilteredNewTab.errors[i];
-						const otherError = firstNewTab.errors[i];
-
-						if (error.line !== otherError.line) {
-							isSame = false;
-							break;
-						}
-
-						if (error.message !== otherError.message) {
-							isSame = false;
-							break;
-						}
-
-						if (error.tip !== otherError.tip) {
-							isSame = false;
-							break;
-						}
-
-						if (error.identifier !== otherError.identifier) {
-							isSame = false;
-							break;
-						}
-
-						if (error.ignorable !== otherError.ignorable) {
+						if (!errorsEqual(firstFilteredNewTab.errors[i], firstNewTab.errors[i])) {
 							isSame = false;
 							break;
 						}
@@ -518,7 +479,7 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 			false,
 			false,
 			true,
-			[70200, 70300, 70400, 80000, 80100, 80200, 80300, 80400, 80500],
+			ALL_PHP_VERSIONS,
 		);
 
 		return Promise.resolve({
