@@ -175,6 +175,16 @@ No more `TypeError` at runtime. No more surprise re-indexing by `array_merge`. N
 
 You can start using `non-decimal-int-string` in your type annotations today. It makes sense anywhere you need array keys that are guaranteed to stay as strings.
 
+And if you have a plain `string` that you want to narrow down to one of these types, PHPStan understands a `preg_match()` against a decimal-integer pattern:
+
+```php
+if (preg_match('/^-?[0-9]+$/', $x)) {
+    // $x is decimal-int-string
+} else {
+    // $x is non-decimal-int-string
+}
+```
+
 reportUnsafeArrayStringKeyCasting
 ------------------------
 
