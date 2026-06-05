@@ -511,7 +511,7 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 		}).promise();
 		const inputJson = JSON.parse(inputObject.Body as string);
 		const AnsiToHtml = require('ansi-to-html');
-		const convert = new AnsiToHtml();
+		const convert = new AnsiToHtml({ escapeXML: true });
 		const result = await analyseResultInternal(
 			inputJson.phpCode,
 			inputJson.level.toString(),
