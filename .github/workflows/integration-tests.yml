@@ -188,7 +188,7 @@ jobs:
             script: |
               git clone https://github.com/staabm/phpstan-dba.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 61f76f1edca9b32de863561a2258000b885948d1
+              git checkout 594dc1fe9831ce551371ecdfc2acf1377abcc9b0
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
@@ -616,7 +616,7 @@ jobs:
             baseline-file: flow-legacy-baseline.neon
           - php-version: 8.5
             repo: staabm/phpstan-dba
-            ref: 61f76f1edca9b32de863561a2258000b885948d1
+            ref: 594dc1fe9831ce551371ecdfc2acf1377abcc9b0
             setup: |
               composer install
               composer require sqlftw/sqlftw
