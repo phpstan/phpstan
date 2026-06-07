@@ -306,10 +306,10 @@ Security-focused `literal-string` is inspired by the [`is_literal()` RFC](https:
 
 `non-decimal-int-string` accepts strings that are not decimal integers and stay as strings when used as an array key (e.g. `'+1'`, `'00'`, `'1.2'`, `'foo'`).
 
-You can narrow a `string` to these types yourself with a `preg_match()` against a decimal-integer pattern:
+You can narrow a `string` to these types yourself by checking whether it survives an `int` round-trip:
 
 ```php
-if (preg_match('/^-?[0-9]+$/', $x)) {
+if ((string) (int) $x === $x) {
     // $x is decimal-int-string
 } else {
     // $x is non-decimal-int-string
