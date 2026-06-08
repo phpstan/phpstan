@@ -409,6 +409,15 @@ The `list`, `non-empty-list`, and `non-empty-array` keywords can also be used wi
 * `non-empty-list{int, string}`
 * `non-empty-array{foo: int, bar: string}`
 
+Array shapes are sealed by default, meaning they do not allow extra keys. To make them unsealed, add the `...` syntax as the last element:
+
+* `array{foo: int, ...}` (bare `...` allows any extra keys, shorthand for `...<array-key, mixed>`)
+* `array{foo: int, ...<string, int>}` (constrain the extra keys' key and value types)
+* `array{foo: int, ...<Bar>}` (a single type inside `...<>` is the value type, the key is implied to be `array-key`)
+* `list{int, string, ...<int>}` (lists only allow a single value type after the listed keys, the key is always `int`)
+
+Read more about unsealed array shapes in [a dedicated article](/blog/phpstan-2-2-unsealed-array-shapes-safer-array-keys).
+
 Object shapes
 -------------------------
 
