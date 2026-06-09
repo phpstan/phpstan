@@ -463,6 +463,12 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Infrastructure/Property/Normalizer/CollectionTypeDenormalizer.php
 
 		-
+			message: '#^Strict comparison using \=\=\= between false and false will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/NodeType/ConstraintCheck.php
+
+		-
 			message: '#^Method Neos\\ContentRepository\\Core\\NodeType\\NodeType\:\:__construct\(\) has InvalidArgumentException in PHPDoc @throws tag but it''s not thrown\.$#'
 			identifier: throws.unusedType
 			count: 1
@@ -797,12 +803,6 @@ parameters:
 			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.NodeAccess/Classes/FlowQueryOperations/PrevUntilOperation.php
-
-		-
-			message: '#^Cannot call static method from\(\) on string\|null\.$#'
-			identifier: staticMethod.nonObject
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.NodeMigration/src/Transformation/ChangePropertyTypeFromScalarToBackedEnumTransformationFactory.php
 
 		-
 			message: '#^PHPDoc tag @var with type array\<int\<2, max\>, string\> is not subtype of native type non\-empty\-list\<string\>\.$#'

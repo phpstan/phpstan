@@ -91,6 +91,12 @@ parameters:
 			path: repo/src/LatteContext/Finder/MethodCallFinder.php
 
 		-
+			rawMessage: 'Parameter #1 $mapping of method Nette\Application\PresenterFactory::setMapping() expects array<string, array{string, string, string}|string>, array<string, array{0: string, 1: string, 2?: string}|string> given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/LinkProcessor/FakePresenterFactory.php
+
+		-
 			rawMessage: 'Parameter #2 $array of function implode expects array<string>, list<mixed> given.'
 			identifier: argument.type
 			count: 1
