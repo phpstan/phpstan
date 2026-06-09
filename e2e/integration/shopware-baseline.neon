@@ -247,7 +247,7 @@ parameters:
 			path: repo/src/Core/Framework/Adapter/Asset/FallbackUrlPackage.php
 
 		-
-			rawMessage: 'Parameter #1 $params of static method Doctrine\DBAL\DriverManager::getConnection() expects array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...}, array{charset: string, driver: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', application_name?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions: non-empty-array<mixed>, host?: string, ...} given.'
+			rawMessage: 'Parameter #1 $params of static method Doctrine\DBAL\DriverManager::getConnection() expects array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...}, array{charset: string, driver: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', application_name?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions: array{17: true, 2: 5, 1002: ''SET @@session.time…'', ...<mixed>}, host?: string, ...} given.'
 			identifier: argument.type
 			count: 1
 			path: repo/src/Core/Framework/Adapter/Database/MySQLFactory.php
@@ -3167,6 +3167,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Service/ServiceRegistry/ClientTest.php
+
+		-
+			rawMessage: 'Call to method Shopware\Core\System\SalesChannel\Api\ResponseFields::isAllowed() on a separate line has no effect.'
+			identifier: method.resultUnused
+			count: 2
+			path: repo/tests/unit/Core/System/SalesChannel/Api/ResponseFieldsTest.php
 
 		-
 			rawMessage: 'Parameter #2 $options of method Shopware\Core\System\SalesChannel\Context\ContextFactory::getContext() expects array{originalContext?: Shopware\Core\Framework\Context, version-id?: string, languageId?: string}, array{languageId: ''2fbb5fe2e29a4d70aa5…'', currencyId: non-falsy-string, countryId: non-falsy-string} given.'
