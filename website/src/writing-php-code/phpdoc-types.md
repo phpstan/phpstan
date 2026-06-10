@@ -472,6 +472,8 @@ The `callable` typehint has been in PHP for a long time. But it doesn't allow en
 * `\Closure(int, int): string` (narrower `Closure` type can also be used instead of `callable`)
 * `pure-callable(int, int): string` (callable that doesn't have any side effects when called)
 * `pure-Closure(int, int): string` (Closure that doesn't have any side effects when called)
+* `static-closure(int, int): string` (Closure that isn't bound to any `$this`)
+* `static-pure-closure(int, int): string` (Closure that is both static and pure)
 * `Closure<T>(T, int): T` (generic closure with a template type parameter)
 * `Closure<T of Foo>(T): T` (generic closure with a bounded template type parameter)
 
