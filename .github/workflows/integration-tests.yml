@@ -30,7 +30,7 @@ jobs:
           egress-policy: audit
 
       - name: "Checkout"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
@@ -205,13 +205,13 @@ jobs:
           egress-policy: audit
 
       - name: "Checkout"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc" # v2.37.1
+        uses: "shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240" # 2.37.2
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
@@ -633,13 +633,13 @@ jobs:
           egress-policy: audit
 
       - name: "Checkout"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
 
       - name: "Install PHP"
-        uses: "shivammathur/setup-php@7c071dfe9dc99bdf297fa79cb49ea005b9fcadbc" # v2.37.1
+        uses: "shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240" # 2.37.2
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
@@ -653,7 +653,7 @@ jobs:
           name: phar-file
 
       - name: "Checkout project"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           repository: "${{ matrix.repo }}"
           ref: "${{ matrix.ref }}"
@@ -693,7 +693,7 @@ jobs:
           egress-policy: audit
 
       - name: "Checkout"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
@@ -733,7 +733,7 @@ jobs:
           egress-policy: audit
 
       - name: "Checkout"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
@@ -753,7 +753,7 @@ jobs:
           name: phar-file
 
       - name: "Checkout PMMP"
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
         with:
           repository: "pmmp/PocketMine-MP"
           ref: 5.37.3
