@@ -508,7 +508,7 @@ jobs:
             ref: v5.6.1
             setup: |
               composer install
-            phpstan-command: ../../../phpstan.phar analyse
+            phpstan-command: ../../../phpstan.phar analyse -c ../php-parser.neon
             baseline-file: php-parser-baseline.neon
           - php-version: 8.4
             repo: efabrica-team/phpstan-latte
@@ -554,7 +554,7 @@ jobs:
             baseline-file: phpcs-baseline.neon
           - php-version: 8.5
             repo: neos/neos-development-collection
-            ref: dd811d590fdb98ca6f09ad2cc59158c173779093
+            ref: 8d1a0065c385f634b596534d7d6e5ce5202aa089
             phpstan-cwd: e2e/integration/neos-dist
             setup: |
               # Neos is a monorepo package collection. PHPStan must run from

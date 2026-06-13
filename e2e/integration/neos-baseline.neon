@@ -355,12 +355,6 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
 
 		-
-			message: '#^Possibly impure call to method Neos\\EventStore\\Model\\EventStream\\ExpectedVersion\:\:ANY\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:discardWorkspace\(\)\.$#'
-			identifier: possiblyImpure.methodCall
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
-
-		-
 			message: '#^Possibly impure call to method Neos\\EventStore\\Model\\EventStream\\ExpectedVersion\:\:ANY\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:removeContentStreamWithoutConstraintChecks\(\)\.$#'
 			identifier: possiblyImpure.methodCall
 			count: 1
@@ -380,6 +374,12 @@ parameters:
 
 		-
 			message: '#^Possibly impure call to method Neos\\EventStore\\Model\\EventStream\\ExpectedVersion\:\:fromVersion\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:closeContentStream\(\)\.$#'
+			identifier: possiblyImpure.methodCall
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
+
+		-
+			message: '#^Possibly impure call to method Neos\\EventStore\\Model\\EventStream\\ExpectedVersion\:\:fromVersion\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:discardWorkspace\(\)\.$#'
 			identifier: possiblyImpure.methodCall
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
@@ -629,18 +629,6 @@ parameters:
 			identifier: instanceof.alwaysTrue
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Projection/ProjectionStates.php
-
-		-
-			message: '#^Method Neos\\ContentRepository\\Core\\Service\\ContentRepositoryMaintainer\:\:findAllContentStreamStreamNames\(\) should return list\<Neos\\EventStore\\Model\\Event\\StreamName\> but returns array\<int\<0, max\>, Neos\\EventStore\\Model\\Event\\StreamName\>\.$#'
-			identifier: return.type
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Service/ContentRepositoryMaintainer.php
-
-		-
-			message: '#^Method Neos\\ContentRepository\\Core\\Service\\ContentRepositoryMaintainer\:\:findAllWorkspaceStreamNames\(\) should return list\<Neos\\EventStore\\Model\\Event\\StreamName\> but returns array\<int\<0, max\>, Neos\\EventStore\\Model\\Event\\StreamName\>\.$#'
-			identifier: return.type
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Service/ContentRepositoryMaintainer.php
 
 		-
 			message: '#^Using nullsafe property access "\?\-\>sequenceNumber" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
@@ -1329,6 +1317,12 @@ parameters:
 		-
 			message: '#^Parameter \$removedTags of class Neos\\Workspace\\Ui\\ViewModel\\Review\\ContentChanges\\TagContentChange constructor expects list\<string\>, array\<string\> given\.$#'
 			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/Controller/WorkspaceController.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between Neos\\Neos\\Domain\\Model\\WorkspaceRoleSubjectType\:\:GROUP and Neos\\Neos\\Domain\\Model\\WorkspaceRoleSubjectType\:\:GROUP will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/Controller/WorkspaceController.php
 

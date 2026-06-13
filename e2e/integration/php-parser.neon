@@ -1,0 +1,7 @@
+includes:
+	- repo/phpstan.neon.dist
+	- php-parser-baseline.neon
+	- editor-link-repo.php
+
+parameters:
+    reportUnmatchedIgnoredErrors: false
