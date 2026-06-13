@@ -391,6 +391,12 @@ parameters:
 			path: repo/src/Core/Framework/App/Privileges/Privileges.php
 
 		-
+			rawMessage: Casting class ReflectionType to string is deprecated.
+			identifier: class.toStringDeprecated
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/AttributeEntityCompiler.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Framework\DataAbstractionLayer\AttributeEntityCompiler::compile() should return list<array{type: ''entity''|''mapping'', since?: string|null, parent: string|null, entity_class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Entity>, entity_name: string, collection_class?: class-string<Shopware\Core\Framework\DataAbstractionLayer\EntityCollection<Shopware\Core\Framework\DataAbstractionLayer\Entity>>, fields: list<array{type?: string, name?: string, class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Field\Field>, flags: array<string, array<string, array<bool|string>|string>|null>, translated: bool, args: list<string|false>}>, source?: string, ...}> but returns non-empty-list<array{type: ''entity'', since: string|null, parent: string|null, entity_class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Entity>, entity_name: string, hydrator_class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Dbal\EntityHydrator>, collection_class: class-string<Shopware\Core\Framework\DataAbstractionLayer\EntityCollection>, fields: list<array{type: string, name: string, class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Field\Field>, flags: array<string, array<string, array<bool|string>|string>|null>, translated: bool, args: list<string|false>}>}|array{type: ''mapping'', parent: null, entity_class: class-string<Shopware\Core\Framework\Struct\ArrayEntity>, entity_name: string, fields: list<array{type?: string, name?: string, class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Field\Field>, flags: array<string, array<string, array<bool|string>|string>|null>, translated: bool, args: list<string|false>}>, source: string, reference: string}>.'
 			identifier: return.type
 			count: 1
