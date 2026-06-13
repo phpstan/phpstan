@@ -1087,6 +1087,18 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/AssetUsage/Dto/AssetUsages.php
 
 		-
+			message: '#^Cannot call method getFlattenedErrors\(\) on Neos\\Error\\Messages\\Result\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/DomainCommandController.php
+
+		-
+			message: '#^Cannot call method hasErrors\(\) on Neos\\Error\\Messages\\Result\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/DomainCommandController.php
+
+		-
 			message: '#^PHPDoc tag @var has invalid value \(\$site Site\)\: Unexpected token "\$site", expected type at offset 9 on line 1$#'
 			identifier: phpDoc.parseError
 			count: 1
@@ -1283,6 +1295,18 @@ parameters:
 			identifier: nullsafe.neverNull
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Utility/NodeUriPathSegmentGenerator.php
+
+		-
+			message: '#^Cannot call method getErrors\(\) on Neos\\Error\\Messages\\Result\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Validation/Validator/PasswordValidator.php
+
+		-
+			message: '#^Cannot call method hasErrors\(\) on Neos\\Error\\Messages\\Result\|null\.$#'
+			identifier: method.nonObject
+			count: 3
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Validation/Validator/PasswordValidator.php
 
 		-
 			message: '#^Strict comparison using \!\=\= between mixed and null will always evaluate to true\.$#'
