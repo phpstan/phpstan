@@ -508,7 +508,7 @@ jobs:
             ref: v5.6.1
             setup: |
               composer install
-            phpstan-command: ../../../phpstan.phar analyse
+            phpstan-command: ../../../phpstan.phar analyse -c ../php-parser.neon
             baseline-file: php-parser-baseline.neon
           - php-version: 8.4
             repo: efabrica-team/phpstan-latte

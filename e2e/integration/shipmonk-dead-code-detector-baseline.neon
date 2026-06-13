@@ -5,3 +5,15 @@ parameters:
 			identifier: offsetAccess.nonArray
 			count: 1
 			path: repo/tests/Rule/DeadCodeRuleTest.php
+
+		-
+			rawMessage: 'Trying to invoke (Closure(): void)|null but it might not be a callable.'
+			identifier: callable.nonCallable
+			count: 1
+			path: repo/tests/Rule/DeadCodeRuleTest.php
+
+		-
+			rawMessage: 'Trying to invoke (Closure(ShipMonk\PHPStan\DeadCode\Error\BlackMember): string)|null but it might not be a callable.'
+			identifier: callable.nonCallable
+			count: 1
+			path: repo/tests/Rule/DeadCodeRuleTest.php
