@@ -215,3 +215,9 @@ parameters:
 			identifier: unset.offset
 			count: 1
 			path: repo/core/modules/views_ui/src/Form/Ajax/Display.php
+
+		-
+			message: '#^Path in require\(\) __DIR__ \. ''/\.\./\.\./\.\./\.\./\.\./autoload\.php'' is not a file or it does not exist\.$#'
+			identifier: require.fileNotFound
+			count: 1
+			path: repo/core/tests/Drupal/Tests/BrowserTestBase.php
