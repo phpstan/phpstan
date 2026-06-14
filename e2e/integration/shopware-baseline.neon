@@ -3157,6 +3157,12 @@ parameters:
 			path: repo/tests/unit/Core/Installer/Requirements/EnvironmentRequirementsValidatorTest.php
 
 		-
+			rawMessage: 'Path in require() __DIR__ . ''/.env.local.php'' is not a file or it does not exist.'
+			identifier: require.fileNotFound
+			count: 1
+			path: repo/tests/unit/Core/Maintenance/System/Command/SystemSetupCommandTest.php
+
+		-
 			rawMessage: 'Parameter $insertCallback of method Shopware\Tests\Unit\Core\Maintenance\System\Service\ShopConfiguratorTest::testSetDefaultLanguageShouldAddMissingCountryStatesTranslations() expects callable(string, array<string, string>): void, Closure(string, array): 1 given.'
 			identifier: argument.type
 			count: 5
