@@ -1,76 +1,16 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^PHPDoc tag @var with type array\<string, int\> is not subtype of native type array\<int\|string, int\<1, max\>\>\.$#'
+			message: '#^PHPDoc tag @var with type array\<PHPStan\\Type\\Constant\\ConstantArrayType\> is not subtype of native type non\-empty\-array\<int\<0, max\>\|string, PHPStan\\Type\\ArrayType\>\.$#'
 			identifier: varTag.nativeType
 			count: 1
-			path: repo/rules/Naming/PhpArray/ArrayFilter.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
-			count: 1
-			path: repo/src/Autoloading/BootstrapFilesIncluder.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
-			count: 1
-			path: repo/src/Caching/Detector/ChangedFilesDetector.php
-
-		-
-			message: '#^Result of && is always false\.$#'
-			identifier: booleanAnd.alwaysFalse
-			count: 1
-			path: repo/src/Config/RectorConfig.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
-			count: 1
-			path: repo/src/Config/RectorConfig.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
-			count: 1
-			path: repo/src/Configuration/ConfigurationFactory.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
-			count: 1
-			path: repo/src/FileSystem/FilesystemTweaker.php
+			path: repo/rules/Privatization/TypeManipulator/ArrayTypeLeastCommonDenominatorResolver.php
 
 		-
 			message: '#^Only abstract classes can be extended$#'
 			identifier: symplify.forbiddenExtendOfNonAbstractClass
 			count: 1
 			path: repo/src/NodeTypeResolver/PHPStan/ObjectWithoutClassTypeWithParentTypes.php
-
-		-
-			message: '#^PHPDoc tag @var with type int is not subtype of native type int\<0, 65535\>\|false\|null\.$#'
-			identifier: varTag.nativeType
-			count: 1
-			path: repo/src/Parallel/Application/ParallelFileProcessor.php
-
-		-
-			message: '#^PHPDoc tag @var with type array\<class\-string\<PhpParser\\Node\\Expr\\BinaryOp\>, class\-string\<PhpParser\\Node\\Expr\\AssignOp\>\> is not subtype of native type array\{PhpParser\\Node\\Expr\\BinaryOp\\BitwiseOr\: ''PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\BitwiseOr'', PhpParser\\Node\\Expr\\BinaryOp\\BitwiseAnd\: ''PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\BitwiseAnd'', PhpParser\\Node\\Expr\\BinaryOp\\BitwiseXor\: ''PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\BitwiseXor'', PhpParser\\Node\\Expr\\BinaryOp\\Plus\: ''PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\Plus'', PhpParser\\Node\\Expr\\BinaryOp\\Div\: ''PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\Div'', PhpParser\\Node\\Expr\\BinaryOp\\Mul\: ''PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\Mul'', PhpParser\\Node\\Expr\\BinaryOp\\Minus\: ''PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\Minus'', PhpParser\\Node\\Expr\\BinaryOp\\Concat\: ''PhpParser\\\\Node\\\\Expr\\\\AssignOp\\\\Concat'', \.\.\.\}\.$#'
-			identifier: varTag.nativeType
-			count: 1
-			path: repo/src/PhpParser/Node/AssignAndBinaryMap.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
-			count: 1
-			path: repo/src/Skipper/FileSystem/FnMatchPathNormalizer.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between string and false will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
-			count: 2
-			path: repo/src/Skipper/RealpathMatcher.php
 
 		-
 			message: '#^Only abstract classes can be extended$#'
