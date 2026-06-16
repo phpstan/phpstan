@@ -9039,14 +9039,14 @@
     "include.fileNotFound": {
         "PHPStan\\Rules\\Keywords\\RequireFileExistsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Keywords/RequireFileExistsRule.php#L146"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Keywords/RequireFileExistsRule.php#L159"
             ]
         }
     },
     "includeOnce.fileNotFound": {
         "PHPStan\\Rules\\Keywords\\RequireFileExistsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Keywords/RequireFileExistsRule.php#L146"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Keywords/RequireFileExistsRule.php#L159"
             ]
         }
     },
@@ -14665,7 +14665,7 @@
     "require.fileNotFound": {
         "PHPStan\\Rules\\Keywords\\RequireFileExistsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Keywords/RequireFileExistsRule.php#L146"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Keywords/RequireFileExistsRule.php#L159"
             ]
         }
     },
@@ -14961,7 +14961,7 @@
     "requireOnce.fileNotFound": {
         "PHPStan\\Rules\\Keywords\\RequireFileExistsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Keywords/RequireFileExistsRule.php#L146"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Keywords/RequireFileExistsRule.php#L159"
             ]
         }
     },
