@@ -1,19 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Offset 0 on non\-empty\-list\<string\> on left side of \?\? always exists and is not nullable\.$#'
-			identifier: nullCoalesce.offset
-			count: 1
-			path: repo/packages/administration/src/Component/Security/AccessControl/RouteAccessControlDataProvider.php
-
-		-
 			message: '#^Strict comparison using \!\=\= between int\|string and false will always evaluate to true\.$#'
 			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: repo/packages/migrations/src/Component/Doctrine/Migrations/MigrationsLockComparator.php
-
-		-
-			message: '#^Comparison operation "\>" between int\<1, max\> and 0 is always true\.$#'
-			identifier: greater.alwaysTrue
-			count: 1
-			path: repo/utils/releaser/src/ReleaseWorker/ReleaseCandidate/UpdateUpgradeReleaseWorker.php
