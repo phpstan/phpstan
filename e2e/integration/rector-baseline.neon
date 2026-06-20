@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: repo/rules/Php70/Rector/StaticCall/StaticCallOnNonStaticToInstanceCallRector.php
+
+		-
 			message: '#^PHPDoc tag @var with type array\<PHPStan\\Type\\Constant\\ConstantArrayType\> is not subtype of native type non\-empty\-array\<int\<0, max\>\|string, PHPStan\\Type\\ArrayType\>\.$#'
 			identifier: varTag.nativeType
 			count: 1
