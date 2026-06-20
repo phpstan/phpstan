@@ -1,6 +1,6 @@
 ---
 title: "phpunit.attributeRequiresPhpVersion"
-shortDescription: "RequiresPhp attribute needs a comparison operator before the version number."
+shortDescription: "The PHP version requirement in a RequiresPhp attribute is invalid, incomplete, or always false."
 ignorable: true
 ---
 
@@ -26,9 +26,13 @@ This rule is provided by the [phpstan-phpunit](https://github.com/phpstan/phpsta
 
 ## Why is it reported?
 
-The `#[RequiresPhp]` attribute specifies a bare version number like `'8.1'` without a comparison operator. Depending on the PHPUnit version, this is either required to include an operator or the bare version syntax is deprecated.
+The `#[RequiresPhp]` attribute mirrors how PHPUnit parses its version requirement, so PHPStan can warn about requirements that PHPUnit would reject or that can never be satisfied. This identifier covers several distinct problems:
 
-In newer PHPUnit versions, the version requirement must include an explicit comparison operator (e.g. `>= 8.1`). Passing only a numeric version string is ambiguous and may not behave as expected.
+- **Version requirement is missing operator.** A bare version number like `'8.1'` has no comparison operator. Newer PHPUnit versions require an explicit operator (e.g. `>= 8.1`); without one the requirement is ambiguous.
+- **Version requirement without operator is deprecated.** On PHPUnit versions where the bare syntax still works but is deprecated, the same `'8.1'` form is reported when [phpstan-deprecation-rules](https://github.com/phpstan/phpstan-deprecation-rules) is installed.
+- **Version requirement is incomplete.** The version is not written in full `major.minor.patch` form (for example `'8.1'` instead of `'8.1.0'`). PHPUnit 12.5+ warns about incomplete versions because they can be interpreted inconsistently. Reported under [bleeding edge](/blog/what-is-bleeding-edge).
+- **Version requirement will always evaluate to false.** The constraint can never match any analysed PHP version, so the test would always be skipped.
+- The constraint string cannot be parsed at all (e.g. `'abc'`), in which case the underlying parser error message is reported.
 
 ## How to fix it
 
@@ -50,3 +54,12 @@ Add a comparison operator to the version requirement:
  	}
  }
 ```
+
+Write the version in its full `major.minor.patch` form to avoid the incomplete-version warning:
+
+```diff-php
+-	#[RequiresPhp('>= 8.1')]
++	#[RequiresPhp('>= 8.1.0')]
+```
+
+If the requirement can never match any PHP version you analyse, correct the operator or version so the constraint is satisfiable, or remove the attribute.
