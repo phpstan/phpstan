@@ -400,6 +400,7 @@ This feature enables usage of strong types in codebases where arrays of various 
 * `array{0: int, 1?: int}` (key `1` is optional in the array)
 * `array{foo: int, bar: string}` (quotes around array keys for simple strings aren't necessary)
 * `array{Foo::BAR: int}` (class constant as a key)
+* `array{Foo::class: int}` (`class` constant as a key)
 
 This is different from [general arrays](#general-arrays) that mandate that all the keys and values must be of a specific homogeneous type. Array shapes allow each key and value to be different.
 
