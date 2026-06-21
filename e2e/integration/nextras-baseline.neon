@@ -25,18 +25,6 @@ parameters:
 			path: repo/src/Collection/ArrayCollection.php
 
 		-
-			rawMessage: 'Call to function assert() with true will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/src/Collection/Helpers/ConditionParser.php
-
-		-
-			rawMessage: Comparison operation ">" between 1 and 0 is always true.
-			identifier: greater.alwaysTrue
-			count: 1
-			path: repo/src/Collection/Helpers/ConditionParser.php
-
-		-
 			rawMessage: 'Call to an undefined method object::onEntityAttach().'
 			identifier: method.notFound
 			count: 1
@@ -53,6 +41,18 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: repo/src/Entity/AbstractEntity.php
+
+		-
+			rawMessage: Cannot instantiate class using string|null.
+			identifier: new.nonObject
+			count: 1
+			path: repo/src/Entity/AbstractEntity.php
+
+		-
+			rawMessage: Cannot instantiate class using string|null.
+			identifier: new.nonObject
+			count: 1
+			path: repo/src/Entity/Embeddable/Embeddable.php
 
 		-
 			rawMessage: 'Call to function assert() with true will always evaluate to true.'
