@@ -13163,11 +13163,11 @@
     "phpunit.attributeRequiresPhpVersion": {
         "PHPStan\\Rules\\PHPUnit\\AttributeRequiresPhpVersionRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeRequiresPhpVersionRule.php#L107",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeRequiresPhpVersionRule.php#L134",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeRequiresPhpVersionRule.php#L153",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeRequiresPhpVersionRule.php#L163",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeRequiresPhpVersionRule.php#L172"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L115",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L134",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L144",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L153",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L88"
             ]
         }
     },
