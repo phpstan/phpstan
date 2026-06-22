@@ -53,6 +53,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/passbolt">Passbolt (passbolt)</a></li>
 <li><a href="https://github.com/netroutingcom">Netrouting.com (netroutingcom)</a></li>
 <li><a href="https://github.com/Legacy-Heroes">Legacy Heroes (Legacy-Heroes)</a></li>
+<li><a href="https://github.com/LambdaTest-Inc">TestMu AI Open Source Office (Formerly LambdaTest) (LambdaTest-Inc)</a></li>
 <!-- bronze-org -->
 </ul>
 
