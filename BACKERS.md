@@ -39,7 +39,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/RightCapitalHQ">RightCapital (RightCapitalHQ)</a></li>
 <li><a href="https://github.com/zolweb">ZOL (zolweb)</a></li>
 <li><a href="https://github.com/TicketSwap">TicketSwap (TicketSwap)</a></li>
-<li><a href="https://github.com/craftcms">Craft CMS (craftcms)</a></li>
 <li><a href="https://github.com/cdn77">CDN77.com (cdn77)</a></li>
 <!-- bronze -->
 
@@ -51,7 +50,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/route4me">Route4Me Route Planner (route4me)</a></li>
 <li><a href="https://github.com/belsimpel">Belsimpel.nl B.V. (belsimpel)</a></li>
 <li><a href="https://github.com/passbolt">Passbolt (passbolt)</a></li>
-<li><a href="https://github.com/netroutingcom">Netrouting.com (netroutingcom)</a></li>
 <li><a href="https://github.com/Legacy-Heroes">Legacy Heroes (Legacy-Heroes)</a></li>
 <li><a href="https://github.com/LambdaTest-Inc">TestMu AI Open Source Office (Formerly LambdaTest) (LambdaTest-Inc)</a></li>
 <!-- bronze-org -->
