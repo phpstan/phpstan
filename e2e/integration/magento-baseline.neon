@@ -1,6 +1,18 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Missing call to parent\:\:setUp\(\) method\.$#'
+			identifier: phpunit.callParent
+			count: 1
+			path: repo/tests/bitExpert/PHPStan/Magento/Reflection/Framework/DataObjectMagicMethodReflectionExtensionUnitTest.php
+
+		-
+			message: '#^Missing call to parent\:\:setUp\(\) method\.$#'
+			identifier: phpunit.callParent
+			count: 1
+			path: repo/tests/bitExpert/PHPStan/Magento/Reflection/Framework/Session/SessionManagerMagicMethodReflectionExtensionUnitTest.php
+
+		-
 			message: '#^Parameter \#2 \$scope of method bitExpert\\PHPStan\\Magento\\Rules\\AbstractModelRetrieveCollectionViaFactoryRule\:\:processNode\(\) expects PHPStan\\Analyser\\CollectedDataEmitter&PHPStan\\Analyser\\NodeCallbackInvoker&PHPStan\\Analyser\\Scope, PHPStan\\Analyser\\Scope&PHPUnit\\Framework\\MockObject\\MockObject given\.$#'
 			identifier: argument.type
 			count: 2
@@ -29,3 +41,21 @@ parameters:
 			identifier: argument.type
 			count: 2
 			path: repo/tests/bitExpert/PHPStan/Magento/Rules/SetTemplateDisallowedForBlockRuleUnitTest.php
+
+		-
+			message: '#^Missing call to parent\:\:setUp\(\) method\.$#'
+			identifier: phpunit.callParent
+			count: 1
+			path: repo/tests/bitExpert/PHPStan/Magento/Type/ControllerResultFactoryReturnTypeExtensionUnitTest.php
+
+		-
+			message: '#^Missing call to parent\:\:setUp\(\) method\.$#'
+			identifier: phpunit.callParent
+			count: 1
+			path: repo/tests/bitExpert/PHPStan/Magento/Type/ObjectManagerDynamicReturnTypeExtensionUnitTest.php
+
+		-
+			message: '#^Missing call to parent\:\:setUp\(\) method\.$#'
+			identifier: phpunit.callParent
+			count: 1
+			path: repo/tests/bitExpert/PHPStan/Magento/Type/TestFrameworkObjectManagerDynamicReturnTypeExtensionUnitTest.php
