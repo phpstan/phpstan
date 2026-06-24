@@ -11812,12 +11812,12 @@
     "nullsafe.neverNull": {
         "PHPStan\\Rules\\Methods\\NullsafeMethodCallRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/NullsafeMethodCallRule.php#L35"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/NullsafeMethodCallRule.php#L62"
             ]
         },
         "PHPStan\\Rules\\Properties\\NullsafePropertyFetchRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/NullsafePropertyFetchRule.php#L43"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Properties/NullsafePropertyFetchRule.php#L66"
             ]
         },
         "PHPStan\\Rules\\Variables\\EmptyRule": {
