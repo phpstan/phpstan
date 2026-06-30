@@ -31,12 +31,6 @@ parameters:
 			path: repo/src/crash/CrashDump.php
 
 		-
-			message: '#^Property pocketmine\\data\\bedrock\\block\\upgrade\\model\\BlockStateUpgradeSchemaModelTag\:\:\$string \(string\) in isset\(\) is not nullable\.$#'
-			identifier: isset.property
-			count: 1
-			path: repo/src/data/bedrock/block/upgrade/BlockStateUpgradeSchemaUtils.php
-
-		-
 			message: '#^Offset 0\|1 might not exist on non\-empty\-array\{0\?\: \*NEVER\*, 1\?\: \*NEVER\*\}\.$#'
 			identifier: offsetAccess.notFound
 			count: 1
@@ -53,6 +47,12 @@ parameters:
 			identifier: cast.int
 			count: 3
 			path: repo/src/item/Item.php
+
+		-
+			message: '#^Cannot call method getPermissionRecalculationCallbacks\(\) on pocketmine\\player\\Player\|null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: repo/src/network/mcpe/NetworkSession.php
 
 		-
 			message: '#^Match arm comparison between 4 and 4 is always true\.$#'
