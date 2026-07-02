@@ -165,6 +165,12 @@ Maximum number of resolved PHPDoc blocks cached in memory. PHPDoc resolution is 
 
 Maximum number of file name scope maps (namespace and import context) cached in memory. Used during PHPDoc resolution to look up the correct namespace and `use` statement context.
 
+### `cache.phpStormStubsNodesCountMax`
+
+**default**: `128`
+
+Maximum number of parsed nodes from the [JetBrains PHP core stubs](https://github.com/JetBrains/phpstorm-stubs) cached in memory. These stubs are used to reflect built-in PHP functions and classes. Setting it to `0` removes the limit entirely.
+
 Analysed files
 -----------------------
 
@@ -761,7 +767,7 @@ Advanced exceptions-related rules are available. [Read this article for more det
 
 For custom logic that dynamically decides whether an exception is checked or unchecked based on scope, you can implement a custom [exception type resolver](/developing-extensions/exception-type-resolver).
 
-Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.throwTypeCovariance`, `exceptions.check.tooWideImplicitThrowType`
+Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.throwTypeCovariance`, `exceptions.check.tooWideThrowType`, `exceptions.check.tooWideImplicitThrowType`
 
 ### `exceptions.implicitThrows`
 
@@ -794,6 +800,24 @@ When set to `true`, it reports missing `@throws` tags for checked exceptions abo
 **example**: [playground](/r/bc4e2f13-d946-407a-bccf-6e437fa12577)
 
 When set to `true`, it enforces that `@throws` types in overriding methods are covariant with the parent method's `@throws` types. A child method cannot declare broader exception types than its parent. This follows the Liskov Substitution Principle for exception declarations.
+
+### `exceptions.check.tooWideThrowType`
+
+**default**: `true`
+
+When set to `true` (the default), PHPStan reports `@throws` types that list exception types that are never actually thrown by the function or method, using the [`throws.unusedType`](/error-identifiers/throws.unusedType) identifier. Set it to `false` to disable this check completely. This has effect on [rule level](/user-guide/rule-levels) 4 and up.
+
+```php
+/**
+ * @throws \InvalidArgumentException|\RuntimeException
+ */
+public function doFoo(): void {
+	// Method Foo::doFoo() never throws \RuntimeException so it can be removed from the @throws type.
+	throw new \InvalidArgumentException();
+}
+```
+
+By default, only explicitly written `@throws` types are checked. To also report too-wide types that were inherited or implicitly inferred, enable [`exceptions.check.tooWideImplicitThrowType`](#exceptionschecktoowideimplicitthrowtype).
 
 ### `exceptions.check.tooWideImplicitThrowType`
 
