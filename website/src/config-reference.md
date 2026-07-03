@@ -165,6 +165,12 @@ Maximum number of resolved PHPDoc blocks cached in memory. PHPDoc resolution is 
 
 Maximum number of file name scope maps (namespace and import context) cached in memory. Used during PHPDoc resolution to look up the correct namespace and `use` statement context.
 
+### `cache.phpStormStubsNodesCountMax`
+
+**default**: `128`
+
+Maximum number of parsed nodes from the bundled JetBrains PhpStorm stubs (definitions of built-in PHP functions, classes, and constants) kept in an in-memory cache. Setting it to `0` removes the limit.
+
 Analysed files
 -----------------------
 
@@ -761,7 +767,7 @@ Advanced exceptions-related rules are available. [Read this article for more det
 
 For custom logic that dynamically decides whether an exception is checked or unchecked based on scope, you can implement a custom [exception type resolver](/developing-extensions/exception-type-resolver).
 
-Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.throwTypeCovariance`, `exceptions.check.tooWideImplicitThrowType`
+Related config keys: `exceptions.implicitThrows`, `exceptions.uncheckedExceptionRegexes`, `exceptions.uncheckedExceptionClasses`, `exceptions.checkedExceptionRegexes`, `exceptions.checkedExceptionClasses`, `exceptions.reportUncheckedExceptionDeadCatch`, `exceptions.check.missingCheckedExceptionInThrows`, `exceptions.check.tooWideThrowType`, `exceptions.check.throwTypeCovariance`, `exceptions.check.tooWideImplicitThrowType`
 
 ### `exceptions.implicitThrows`
 
@@ -786,6 +792,24 @@ When set to `true` (the default), PHPStan reports dead catch blocks for unchecke
 **example**: [with `false`](/r/25faef78-318f-4d03-a537-b8c3d51ccde5), [with `true`](/r/efc31418-db3e-4f08-95f9-a24794292ba1)
 
 When set to `true`, it reports missing `@throws` tags for checked exceptions above functions and methods. Requires configuring `exceptions.checkedExceptionClasses` or `exceptions.checkedExceptionRegexes`.
+
+### `exceptions.check.tooWideThrowType`
+
+**default**: `true`
+
+When set to `true` (the default), PHPStan reports `@throws` PHPDoc types on functions and methods that list exception types that are never actually thrown, so they can be narrowed down or removed. This check ([`throws.unusedType`](/error-identifiers/throws.unusedType)) is enabled from [rule level](/user-guide/rule-levels) 4.
+
+```php
+/**
+ * @throws \InvalidArgumentException|\RuntimeException
+ */
+function doFoo(): void {
+	// Function doFoo() never throws RuntimeException so it can be removed from the @throws type.
+	throw new \InvalidArgumentException();
+}
+```
+
+By default only explicitly written `@throws` types are checked. To also check inherited or implicitly inferred `@throws` types, see [`exceptions.check.tooWideImplicitThrowType`](#exceptionschecktoowideimplicitthrowtype).
 
 ### `exceptions.check.throwTypeCovariance`
 
