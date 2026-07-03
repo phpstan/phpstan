@@ -165,6 +165,18 @@ Maximum number of resolved PHPDoc blocks cached in memory. PHPDoc resolution is 
 
 Maximum number of file name scope maps (namespace and import context) cached in memory. Used during PHPDoc resolution to look up the correct namespace and `use` statement context.
 
+### `cache.phpStormStubsNodesCountMax`
+
+**default**: `128`
+
+Maximum number of parsed nodes from the bundled [JetBrains phpstorm-stubs](https://github.com/JetBrains/phpstorm-stubs) kept in memory. These stubs provide the signatures of built-in PHP functions, classes, and constants. Increasing this value uses more memory but can avoid re-parsing stub files. Set it to `0` for an unlimited cache.
+
+### `cache.memberCacheKeysMax`
+
+**default**: `2048`
+
+Maximum number of classes whose reflected members (methods and properties, both native and including annotations) are kept in an in-memory LRU cache. When the limit is exceeded, the members of the least-recently-used class are evicted. Set it to `0` for an unlimited cache, which uses more memory on large codebases.
+
 Analysed files
 -----------------------
 
