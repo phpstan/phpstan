@@ -153,6 +153,12 @@ Relative path in the `tmpDir` key is resolved based on the directory of the conf
 
 Maximum number of parsed PHP files cached in memory by the parser. Increasing this value uses more memory but can speed up analysis by avoiding re-parsing frequently accessed files.
 
+### `cache.nodesByStringSourceBytesMax`
+
+**default**: `4194304` (4 MB)
+
+A second cap on the in-memory parser cache, working alongside [`cache.nodesByStringCountMax`](#cachenodesbystringcountmax). It limits the total size (in bytes) of the source code whose parsed ASTs are kept in memory. Because a parsed AST takes up roughly 50–60× more memory than its source code, this byte-based cap prevents a few large files from pinning hundreds of megabytes in each worker process. When the limit is exceeded, the least-recently-used entries are evicted. Set it to `0` to disable the byte-based cap and rely solely on the entry-count limit.
+
 ### `cache.resolvedPhpDocBlockCacheCountMax`
 
 **default**: `2048`
