@@ -177,6 +177,12 @@ Maximum number of parsed nodes from the bundled [JetBrains phpstorm-stubs](https
 
 Maximum number of classes whose reflected members (methods and properties, both native and including annotations) are kept in an in-memory LRU cache. When the limit is exceeded, the members of the least-recently-used class are evicted. Set it to `0` for an unlimited cache, which uses more memory on large codebases.
 
+### `cache.resolvedLocalTypeAliasesCountMax`
+
+**default**: `2048`
+
+Maximum number of resolved local type aliases (`@phpstan-type` aliases defined in class PHPDocs) kept in an in-memory LRU cache. Because a resolved alias type transitively pins the class reflections it references, the least-recently-used entry is evicted once this limit is exceeded to keep memory usage in check. Set it to `0` for an unlimited cache.
+
 Analysed files
 -----------------------
 
