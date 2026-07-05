@@ -43,12 +43,6 @@ parameters:
 			path: repo/src/Core/Checkout/Cart/LineItemFactoryRegistry.php
 
 		-
-			rawMessage: Using nullsafe method call on non-nullable type Shopware\Core\Checkout\Cart\CartBehavior. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 2
-			path: repo/src/Core/Checkout/Cart/Order/OrderConverter.php
-
-		-
 			rawMessage: 'Method Shopware\Core\Checkout\Cart\Order\Transformer\CustomerTransformer::transform() should return array{customerId: string, email: string, firstName: string, lastName: string, salutationId: string|null, title: string|null, vatIds: array<string>|null, customerNumber: string, ...} but returns array{customerId: string, email: string, firstName: string, lastName: string, salutationId: string|null, title: string|null, vatIds: array<string>|null, company: string|null, ...}.'
 			identifier: return.type
 			count: 1
@@ -65,18 +59,6 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Checkout/Customer/CustomerValueResolver.php
-
-		-
-			rawMessage: Using nullsafe method call on non-nullable type Shopware\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerEntity. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: repo/src/Core/Checkout/Customer/Service/GuestAuthenticator.php
-
-		-
-			rawMessage: Using nullsafe method call on non-nullable type Shopware\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerEntity. Use -> instead.
-			identifier: nullsafe.neverNull
-			count: 1
-			path: repo/src/Core/Checkout/Document/Renderer/AbstractDocumentRenderer.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Checkout\Promotion\Util\PromotionCodeService::splitPattern() should return array{prefix?: string, replacement: string, suffix?: string, replacementString: string, replacementArray: array<string>} but returns array{0: non-empty-string, prefix: string, 1: string, replacement: non-falsy-string, 2: non-falsy-string, 3: non-falsy-string, suffix: string, 4: string, ...}.'
@@ -257,6 +239,12 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Framework/Adapter/Twig/AppTemplateIterator.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Framework\Adapter\Twig\Extension\TwigFeaturesWithInheritanceExtension::include() should return string but returns string|Twig\Markup.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Framework/Adapter/Twig/Extension/TwigFeaturesWithInheritanceExtension.php
 
 		-
 			rawMessage: 'Parameter #2 $array of function implode expects array<string>, callable&list<mixed> given.'
