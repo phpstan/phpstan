@@ -505,4 +505,4 @@ Notes
 
 **Missing types in your IDE?**
 
-If PhpStorm or your preferred IDE is reporting missing types, you can usually resolve this by running the **Invalidate Caches** function.
+If PhpStorm or your preferred IDE is reporting missing types, you can usually resolve this by running the **Invalidate Caches...** function (or similar IDE functionality). For PHPStorm can be located in menu: **File** -> **Invalidate Caches...** -> confirme the **Invalidate and Restart** button.
