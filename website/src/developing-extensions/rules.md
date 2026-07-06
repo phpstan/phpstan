@@ -499,3 +499,10 @@ class ImmutableObjectRule implements Rule
 }
 ```
 </details>
+
+Notes
+---------------
+
+**Missing types in your IDE?**
+
+If PhpStorm or your preferred IDE is reporting missing types, you can usually resolve this by running the **Invalidate Caches** function.
