@@ -552,6 +552,33 @@ class UserRepository
 }
 ```
 
+Conditionally pure functions
+---------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.2</div>
+
+A higher-order function that accepts a callable is only pure when the callable it receives is itself pure — much like how PHP's own `array_map()` behaves. Use the `@pure-unless-callable-is-impure` tag to mark a function or method as pure unless the callable passed to the named parameter is impure:
+
+```php
+/**
+ * @param callable(int): int $f
+ * @param array<int> $arr
+ * @return array<int>
+ * @pure-unless-callable-is-impure $f
+ */
+function myMap(callable $f, array $arr): array
+{
+	$result = [];
+	foreach ($arr as $i => $v) {
+		$result[$i] = $f($v);
+	}
+
+	return $result;
+}
+```
+
+When `myMap()` is called with a pure callback, PHPStan treats the whole call as pure. If the passed callback has side effects, the call is considered impure instead. The tag is inherited by overriding methods, and keeps applying to the matching parameter even when a child class renames it.
+
 Enforcing class inheritance for interfaces and traits
 ---------------
 
