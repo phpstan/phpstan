@@ -8775,264 +8775,264 @@
     "impure.betweenPhpTags": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.die": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.echo": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.eval": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.exit": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.functionCall": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.global": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.include": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.methodCall": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.new": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.print": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.propertyAssign": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.propertyAssignByRef": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.propertyUnset": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.require": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.static": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.staticPropertyAccess": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.superglobal": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.yield": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impure.yieldFrom": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "impureFunction.pure": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L106"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L140"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L106"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L140"
             ]
         }
     },
     "impureMethod.pure": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L106"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L140"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L106"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L140"
             ]
         }
     },
@@ -10010,7 +10010,7 @@
         },
         "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L148"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L160"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
@@ -10019,19 +10019,19 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L272",
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L300",
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L320",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L148"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L160"
             ]
         }
     },
     "method.childReturnType": {
         "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L96"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L108"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L96",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L108",
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/OverridingMethodRule.php#L316",
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/OverridingMethodRule.php#L329"
             ]
@@ -10112,6 +10112,18 @@
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L77"
+            ]
+        }
+    },
+    "method.impureOverridePureUnlessCallable": {
+        "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L89"
+            ]
+        },
+        "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L89"
             ]
         }
     },
@@ -13131,20 +13143,20 @@
     "phpunit.attributeRequiresPhpVersion": {
         "PHPStan\\Rules\\PHPUnit\\AttributeRequiresPhpVersionRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L123",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L142",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L152",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L161",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L89"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L116",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L135",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L145",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L154",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L82"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\ClassAttributeRequiresPhpVersionRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L123",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L142",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L152",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L161",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L89"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L116",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L135",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L145",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L154",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L82"
             ]
         }
     },
@@ -13306,240 +13318,240 @@
     "possiblyImpure.betweenPhpTags": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.die": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.echo": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.eval": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.exit": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.functionCall": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.global": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.include": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.methodCall": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.new": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.print": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.propertyAssign": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.propertyAssignByRef": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.propertyUnset": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.require": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.static": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.staticPropertyAccess": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.superglobal": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.yield": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
     "possiblyImpure.yieldFrom": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L85"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L210"
             ]
         }
     },
@@ -14592,48 +14604,72 @@
     "pureFunction.parameterByRef": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L104"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L104"
+            ]
+        }
+    },
+    "pureFunction.redundantUnlessCallable": {
+        "PHPStan\\Rules\\Pure\\PureFunctionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L91"
+            ]
+        },
+        "PHPStan\\Rules\\Pure\\PureMethodRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L91"
             ]
         }
     },
     "pureFunction.void": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L74"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L117"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L74"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L117"
             ]
         }
     },
     "pureMethod.parameterByRef": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L104"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L104"
+            ]
+        }
+    },
+    "pureMethod.redundantUnlessCallable": {
+        "PHPStan\\Rules\\Pure\\PureFunctionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L91"
+            ]
+        },
+        "PHPStan\\Rules\\Pure\\PureMethodRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L91"
             ]
         }
     },
     "pureMethod.void": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L74"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L117"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L74"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L117"
             ]
         }
     },
@@ -17360,12 +17396,12 @@
     "void.pure": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L148"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L182"
             ]
         },
         "PHPStan\\Rules\\Pure\\PureMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L148"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Pure/FunctionPurityCheck.php#L182"
             ]
         }
     },
