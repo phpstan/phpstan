@@ -6671,7 +6671,7 @@
     "function.duplicate": {
         "PHPStan\\Rules\\Functions\\DuplicateFunctionDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/DuplicateFunctionDeclarationRule.php#L57"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Functions/DuplicateFunctionDeclarationRule.php#L67"
             ]
         }
     },
