@@ -3612,7 +3612,7 @@
     "class.duplicate": {
         "PHPStan\\Rules\\Classes\\DuplicateClassDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/DuplicateClassDeclarationRule.php#L64"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/DuplicateClassDeclarationRule.php#L73"
             ]
         }
     },
@@ -6070,7 +6070,7 @@
     "enum.duplicate": {
         "PHPStan\\Rules\\Classes\\DuplicateClassDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/DuplicateClassDeclarationRule.php#L64"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/DuplicateClassDeclarationRule.php#L73"
             ]
         }
     },
@@ -9158,7 +9158,7 @@
     "interface.duplicate": {
         "PHPStan\\Rules\\Classes\\DuplicateClassDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/DuplicateClassDeclarationRule.php#L64"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/DuplicateClassDeclarationRule.php#L73"
             ]
         }
     },
@@ -13143,20 +13143,20 @@
     "phpunit.attributeRequiresPhpVersion": {
         "PHPStan\\Rules\\PHPUnit\\AttributeRequiresPhpVersionRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L116",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L135",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L145",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L154",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L82"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L117",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L152",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L162",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L171",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L83"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\ClassAttributeRequiresPhpVersionRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L116",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L135",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L145",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L154",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L82"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L117",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L152",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L162",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L171",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L83"
             ]
         }
     },
@@ -16482,7 +16482,7 @@
     "trait.duplicate": {
         "PHPStan\\Rules\\Classes\\DuplicateClassDeclarationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/DuplicateClassDeclarationRule.php#L64"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Classes/DuplicateClassDeclarationRule.php#L73"
             ]
         }
     },
