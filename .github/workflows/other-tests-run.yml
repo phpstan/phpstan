@@ -38,6 +38,17 @@ jobs:
         with:
           name: phar-file
           path: phpstan.phar
+
+      # The reusable workflow downloads the turbo extension binaries as an
+      # artifact next to the phar; upload the committed ones (the placeholder
+      # keeps the artifact valid before the first binaries land).
+      - name: "Prepare turbo extension files"
+        run: mkdir -p turbo-ext && touch turbo-ext/placeholder
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: turbo-ext-files
+          path: turbo-ext
   other-tests:
     needs: upload-phar
     uses: ./.github/workflows/other-tests.yml

@@ -79,6 +79,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
               vendor/bin/phpunit
           - php-version: 8.4
             name: Rector downgrade PHP tests
@@ -91,6 +92,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
               vendor/bin/phpunit
           - php-version: 8.4
             name: Symplify tests
@@ -103,6 +105,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
               vendor/bin/phpunit
           - php-version: 8.4
             name: Larastan tests PHP 8.4, ^12.48
@@ -115,6 +118,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
               composer run-script test:unit
           - php-version: 8.4
             name: Carbon tests
@@ -125,6 +129,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
               vendor/bin/phpunit tests/PHPStan
           - php-version: 8.1
             name: shipmonk/phpstan-rules tests
@@ -136,6 +141,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
               vendor/bin/phpunit tests
           - php-version: 8.4
             name: shipmonk/dead-code-detector tests
@@ -147,6 +153,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
               vendor/bin/phpunit tests
 #          - php-version: 8.4
 #            name: efabrica-team/phpstan-latte tests
@@ -169,6 +176,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
               vendor/bin/phpunit
           - php-version: 8.5
             name: Prado tests
@@ -181,6 +189,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
               vendor/bin/phpunit --testsuite phpstan
           - php-version: 8.5
             name: phpstan-dba tests
@@ -193,6 +202,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
               mysql -uroot -h127.0.0.1 -proot < tests/schema.sql
               composer require sqlftw/sqlftw
               composer require doctrine/dbal:^4
@@ -228,6 +238,12 @@ jobs:
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: phar-file
+
+      - name: "Download turbo extension"
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: turbo-ext-files
+          path: turbo-ext
 
       - name: "Tests"
         run: "${{ matrix.script }}"
@@ -284,6 +300,7 @@ jobs:
               cp ../../../phpstan.phar tools/.phpstan/vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan tools/.phpstan/vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php tools/.phpstan/vendor/phpstan/phpstan/bootstrap.php
+              rm -rf tools/.phpstan/vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext tools/.phpstan/vendor/phpstan/phpstan/turbo-ext
             phpstan-command: tools/.phpstan/vendor/bin/phpstan analyse -c ../phpunit.neon
             baseline-file: phpunit-baseline.neon
           - php-version: 8.3
@@ -309,6 +326,7 @@ jobs:
               cp ../../../phpstan.phar tools/vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan tools/vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php tools/vendor/phpstan/phpstan/bootstrap.php
+              rm -rf tools/vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext tools/vendor/phpstan/phpstan/turbo-ext
             phpstan-command: tools/vendor/bin/phpstan analyse -c ../better-reflection.neon
             baseline-file: better-reflection-baseline.neon
 #          - php-version: 8.1
@@ -358,6 +376,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
             phpstan-command: ../../../phpstan.phar analyse -c ../larastan.neon
             baseline-file: larastan-baseline.neon
           - php-version: 8.4
@@ -461,6 +480,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
             phpstan-command: vendor/bin/phpstan analyse -c ../shipmonk.neon
             baseline-file: shipmonk-rnd-baseline.neon
           - php-version: 8.4
@@ -471,6 +491,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
             phpstan-command: vendor/bin/phpstan analyse -c ../shipmonk-dead-code-detector.neon
             baseline-file: shipmonk-dead-code-detector-baseline.neon
           - php-version: 8.4
@@ -518,6 +539,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
             phpstan-command: ../../../phpstan.phar analyze src --level=max -c ../efabrica-phpstan-latte.neon
             baseline-file: efabrica-phpstan-latte-baseline.neon
           - php-version: 8.2
@@ -529,6 +551,7 @@ jobs:
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
             phpstan-command: ../../../phpstan.phar analyse -c ../bladestan.neon
             baseline-file: bladestan-baseline.neon
 #          - php-version: 8.2
@@ -573,6 +596,7 @@ jobs:
               cp ../../../phpstan.phar Packages/Libraries/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan Packages/Libraries/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php Packages/Libraries/phpstan/phpstan/bootstrap.php
+              rm -rf Packages/Libraries/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext Packages/Libraries/phpstan/phpstan/turbo-ext
             phpstan-command: bin/phpstan analyse -c ../neos.neon
             baseline-file: neos-baseline.neon
           - php-version: 8.5
@@ -594,6 +618,7 @@ jobs:
               cp ../../../phpstan.phar Packages/Libraries/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan Packages/Libraries/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php Packages/Libraries/phpstan/phpstan/bootstrap.php
+              rm -rf Packages/Libraries/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext Packages/Libraries/phpstan/phpstan/turbo-ext
             phpstan-command: bin/phpstan analyse -c ../flow.neon
             baseline-file: flow-baseline.neon
           - php-version: 8.5
@@ -612,6 +637,7 @@ jobs:
               cp ../../../phpstan.phar Packages/Libraries/phpstan/phpstan/phpstan.phar
               cp ../../../phpstan Packages/Libraries/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php Packages/Libraries/phpstan/phpstan/bootstrap.php
+              rm -rf Packages/Libraries/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext Packages/Libraries/phpstan/phpstan/turbo-ext
             phpstan-command: bin/phpstan analyse -c ../flow-legacy.neon
             baseline-file: flow-legacy-baseline.neon
           - php-version: 8.5
@@ -651,6 +677,12 @@ jobs:
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: phar-file
+
+      - name: "Download turbo extension"
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: turbo-ext-files
+          path: turbo-ext
 
       - name: "Checkout project"
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
@@ -751,6 +783,12 @@ jobs:
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: phar-file
+
+      - name: "Download turbo extension"
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: turbo-ext-files
+          path: turbo-ext
 
       - name: "Checkout PMMP"
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
