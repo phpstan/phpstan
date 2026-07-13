@@ -5790,12 +5790,12 @@
     "doctrine.dql": {
         "PHPStan\\Rules\\Doctrine\\ORM\\DqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/DqlRule.php#L79"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/DqlRule.php#L76"
             ]
         },
         "PHPStan\\Rules\\Doctrine\\ORM\\QueryBuilderDqlRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L119"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.0.x/src/Rules/Doctrine/ORM/QueryBuilderDqlRule.php#L116"
             ]
         }
     },
