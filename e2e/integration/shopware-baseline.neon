@@ -1501,7 +1501,7 @@ parameters:
 			path: repo/tests/integration/Core/Content/ImportExport/Subscriber/ProductCategoryPathsSubscriberTest.php
 
 		-
-			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Media\DataAbstractionLayer\Indexing\MediaFolderIndexerTest::getData() should return array{array<int, array<string, array<int, array<string, string>>|string>>, list<string>} but returns array{list<array{children?: array{array<''children''|''configurationId''|''id''|''name'', array{array<''children''|''configurationId''|''id''|''name'', array{array{id: non-falsy-string, name: ''child-0''|''child-1'', configurationId: non-falsy-string}}|non-falsy-string>}|non-falsy-string>}, id?: non-falsy-string, name?: non-falsy-string, configurationId?: non-falsy-string}>, list<non-falsy-string>}.'
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Media\DataAbstractionLayer\Indexing\MediaFolderIndexerTest::getData() should return array{array<int, array<string, array<int, array<string, string>>|string>>, list<string>} but returns array{list<array{id?: non-falsy-string, name?: non-falsy-string, configurationId?: non-falsy-string, children?: array{array<''children''|''configurationId''|''id''|''name'', array{array<''children''|''configurationId''|''id''|''name'', array{array{id: non-falsy-string, name: ''child-0''|''child-1'', configurationId: non-falsy-string}}|non-falsy-string>}|non-falsy-string>}}>, list<non-falsy-string>}.'
 			identifier: return.type
 			count: 1
 			path: repo/tests/integration/Core/Content/Media/DataAbstractionLayer/Indexing/MediaFolderIndexerTest.php

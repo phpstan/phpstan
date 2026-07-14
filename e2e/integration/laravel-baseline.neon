@@ -1,7 +1,13 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Access to undefined constant Pdo\\Mysql\:\:ATTR_SSL_VERIFY_SERVER_CERT\.$#'
-			identifier: classConstant.notFound
+			message: '#^Cannot unset property Illuminate\\Routing\\Route\:\:\$container because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
 			count: 1
-			path: repo/src/Illuminate/Database/Schema/MySqlSchemaState.php
+			path: repo/src/Illuminate/Routing/Route.php
+
+		-
+			message: '#^Cannot unset property Illuminate\\Routing\\Route\:\:\$router because it might have hooks in a subclass\.$#'
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/Illuminate/Routing/Route.php
