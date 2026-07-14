@@ -280,7 +280,7 @@ jobs:
             setup: |
               cp ../rector-composer.lock composer.lock
               composer install
-            phpstan-command: ../../../phpstan.phar analyse -c ../rector.neon
+            phpstan-command: ../../../phpstan.phar analyse -c ../rector.neon -vvv
             baseline-file: rector-baseline.neon
           - php-version: 8.4
             repo: rectorphp/rector-downgrade-php
@@ -308,14 +308,14 @@ jobs:
             ref: 1d3c6c59f78b390c46671ea597024f07043b93c9
             setup: |
               composer install
-            phpstan-command: ../../../phpstan.phar analyse -c ../laravel.neon
+            phpstan-command: ../../../phpstan.phar analyse -c ../laravel.neon -vvv
             baseline-file: laravel-baseline.neon
           - php-version: 8.3
             repo: laravel/framework
             ref: 1d3c6c59f78b390c46671ea597024f07043b93c9
             setup: |
               composer install
-            phpstan-command: ../../../phpstan.phar analyse -c ../laravel-types.neon
+            phpstan-command: ../../../phpstan.phar analyse -c ../laravel-types.neon -vvv
             baseline-file: laravel-types-baseline.neon
           - php-version: 8.4
             repo: Roave/BetterReflection
@@ -401,7 +401,7 @@ jobs:
               composer require --dev phpstan/phpstan:^2.1.35 phpstan/phpstan-phpunit:^2.0.12 phpstan/phpstan-symfony:^2.0.11
               composer run framework:schema:dump
               php src/Core/DevOps/StaticAnalyze/phpstan-bootstrap.php
-            phpstan-command: ../../../phpstan.phar analyse -c ../shopware.neon
+            phpstan-command: ../../../phpstan.phar analyse -c ../shopware.neon -vvv
             baseline-file: shopware-baseline.neon
           - php-version: 8.4
             repo: Sylius/Sylius
@@ -410,7 +410,7 @@ jobs:
               export DATABASE_URL=sqlite:///%kernel.project_dir%/var/data.db
               cp ../sylius-composer.lock composer.lock
               composer install
-            phpstan-command: ../../../phpstan.phar analyse -c ../sylius.neon
+            phpstan-command: ../../../phpstan.phar analyse -c ../sylius.neon -vvv
             baseline-file: sylius-baseline.neon
           - php-version: 8.4
             repo: shopsys/shopsys
@@ -420,7 +420,7 @@ jobs:
               composer install
 
             # from build.xml
-            phpstan-command: ../../../phpstan.phar analyse -c ../shopsys.neon -l 5 packages/*/src packages/*/tests utils/*/src utils/*/tests project-base/app/app project-base/app/src
+            phpstan-command: ../../../phpstan.phar analyse -c ../shopsys.neon -l 5 packages/*/src packages/*/tests utils/*/src utils/*/tests project-base/app/app project-base/app/src -vvv
             baseline-file: shopsys-baseline.neon
           - php-version: 8.4
             repo: shopsys/shopsys
@@ -435,7 +435,7 @@ jobs:
               COMPOSER_ROOT_VERSION=18.0.0 composer install
 
             # test project-base separately
-            phpstan-command: ../../../../../phpstan.phar analyse -c ../../../shopsys-project-base.neon -l 5 src tests
+            phpstan-command: ../../../../../phpstan.phar analyse -c ../../../shopsys-project-base.neon -l 5 src tests -vvv
             baseline-file: ../../shopsys-project-base-baseline.neon
           - php-version: 8.4
             repo: doctrine/orm
@@ -499,7 +499,7 @@ jobs:
             ref: 11.2.4
             setup: |
               composer install
-            phpstan-command: ../../../phpstan.phar analyse -c ../drupal.neon
+            phpstan-command: ../../../phpstan.phar analyse -c ../drupal.neon -vvv
             baseline-file: drupal-baseline.neon
           - php-version: 8.5
             repo: WordPress/wordpress-develop
@@ -508,7 +508,7 @@ jobs:
               composer install
               npm ci --ignore-scripts
               npm run build:dev
-            phpstan-command: ../../../phpstan.phar analyse -c ../wordpress.neon --memory-limit=2G
+            phpstan-command: ../../../phpstan.phar analyse -c ../wordpress.neon --memory-limit=2G -vvv
             baseline-file: wordpress-baseline.neon
           - php-version: 8.5
             repo: pradosoft/prado
@@ -597,7 +597,7 @@ jobs:
               cp ../../../phpstan Packages/Libraries/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php Packages/Libraries/phpstan/phpstan/bootstrap.php
               rm -rf Packages/Libraries/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext Packages/Libraries/phpstan/phpstan/turbo-ext
-            phpstan-command: bin/phpstan analyse -c ../neos.neon
+            phpstan-command: bin/phpstan analyse -c ../neos.neon -vvv
             baseline-file: neos-baseline.neon
           - php-version: 8.5
             repo: neos/flow-development-collection
@@ -804,7 +804,7 @@ jobs:
 
       - name: "PHPStan"
         working-directory: "e2e/integration/repo"
-        run: ../../../phpstan.phar analyse -c ../pocketmine-ng.neon --memory-limit=2G
+        run: ../../../phpstan.phar analyse -c ../pocketmine-ng.neon --memory-limit=2G -vvv
 
       - name: "Generate baseline"
         if: ${{ failure() }}
