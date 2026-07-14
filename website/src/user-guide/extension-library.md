@@ -101,5 +101,6 @@ Unofficial extensions
 * [symplify / phpstan-rules](https://github.com/symplify/phpstan-rules)
 * [roave / no-floaters](https://github.com/Roave/no-floaters)
 * [PHP Language Extensions](https://github.com/DaveLiddament/phpstan-php-language-extensions)
+* [kayw-geek / phpstan-type-trace](https://github.com/kayw-geek/phpstan-type-trace)
 
 [**Find more on Packagist!**](https://packagist.org/?type=phpstan-extension)
