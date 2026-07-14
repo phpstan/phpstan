@@ -143,10 +143,10 @@ jobs:
       - name: "Copy current PHAR"
         working-directory: extension
         run: |
-          cp ../phpstan.phar vendor/phpstan/phpstan/phpstan.phar && \
-          cp ../phpstan vendor/phpstan/phpstan/phpstan && \
-          cp ../bootstrap.php vendor/phpstan/phpstan/bootstrap.php && \
-          rm -rf vendor/phpstan/phpstan/turbo-ext && \
+          cp ../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+          cp ../phpstan vendor/phpstan/phpstan/phpstan
+          cp ../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+          rm -rf vendor/phpstan/phpstan/turbo-ext
           cp -R ../turbo-ext vendor/phpstan/phpstan/turbo-ext
 
       - name: "Script"
