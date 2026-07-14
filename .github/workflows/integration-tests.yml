@@ -303,14 +303,14 @@ jobs:
               rm -rf tools/.phpstan/vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext tools/.phpstan/vendor/phpstan/phpstan/turbo-ext
             phpstan-command: tools/.phpstan/vendor/bin/phpstan analyse -c ../phpunit.neon
             baseline-file: phpunit-baseline.neon
-          - php-version: 8.3
+          - php-version: 8.4
             repo: laravel/framework
             ref: 1d3c6c59f78b390c46671ea597024f07043b93c9
             setup: |
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../laravel.neon -vvv
             baseline-file: laravel-baseline.neon
-          - php-version: 8.3
+          - php-version: 8.4
             repo: laravel/framework
             ref: 1d3c6c59f78b390c46671ea597024f07043b93c9
             setup: |
