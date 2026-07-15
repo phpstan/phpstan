@@ -14,6 +14,10 @@ on:
       - 'phpstan'
       - '.phar-checksum'
       - 'bootstrap.php'
+      # The images bundle the turbo binaries via the composer package, and
+      # binaries can land without a phar change (a new platform or PHP minor
+      # at an unchanged extension version).
+      - 'turbo-ext/**'
 
 permissions:
   contents: read
