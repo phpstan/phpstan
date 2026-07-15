@@ -41,3 +41,139 @@ jobs:
 
       - name: "Print release URL"
         run: echo "${{ steps.release.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
+
+  turbo-release:
+    # Publishes the turbo extension binaries this repository carries under
+    # turbo-ext/ as a phpstan/turbo-ext release of the same tag, named per
+    # PIE's release-asset conventions so `pie install phpstan/turbo` finds
+    # them. The tag itself is created in phpstan/turbo-ext by the
+    # subsplit-turbo-ext.yml workflow in phpstan/phpstan-src.
+    name: "Turbo extension release"
+    runs-on: "ubuntu-latest"
+    timeout-minutes: 10
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
+        with:
+          egress-policy: audit
+
+      - name: "Checkout"
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          persist-credentials: false
+
+      - name: "Package the turbo binaries as PIE release assets"
+        id: package
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          if [ ! -d turbo-ext ]; then
+            echo "This tag carries no turbo-ext binaries, skipping."
+            echo "count=0" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          mkdir pie-assets
+          work="$(mktemp -d)"
+          shopt -s nullglob
+
+          # Non-Windows asset naming (PIE's PrePackagedBinaryAssetName,
+          # matched lowercase):
+          # php_{ext}-{version}_php{minor}-{arch}-{os}-{libc}[-zts].zip —
+          # and the zip must contain the binary as plain phpstan_turbo.so
+          # (PIE's UnixBuild::prePackagedBinary expects exactly that name).
+          pack_so() { # <so file> <asset base name>
+            cp "$1" "$work/phpstan_turbo.so"
+            zip -q -X -j "pie-assets/$2.zip" "$work/phpstan_turbo.so"
+          }
+
+          for dir in turbo-ext/linux-*; do
+            target="${dir#turbo-ext/linux-}"
+            libc="${target%-*}"
+            arch="${target##*-}"
+            if [ "$libc" = "gnu" ]; then libc=glibc; fi
+            for so in "$dir"/phpstan_turbo-*.so; do
+              ver="$(basename "$so" .so)"; ver="${ver#phpstan_turbo-}"
+              minor="${ver%-zts}"
+              ts=""
+              if [ "$ver" != "$minor" ]; then ts="-zts"; fi
+              pack_so "$so" "php_phpstan_turbo-${TAG}_php${minor}-${arch}-linux-${libc}${ts}"
+            done
+          done
+
+          # The macOS binaries are universal — publish each under both
+          # architecture names. {libc} on Darwin is bsdlibc: PIE's
+          # LibcFlavour::detect() returns Bsd whenever otool exists.
+          for so in turbo-ext/macos/phpstan_turbo-*.so; do
+            minor="$(basename "$so" .so)"; minor="${minor#phpstan_turbo-}"
+            for arch in x86_64 arm64; do
+              pack_so "$so" "php_phpstan_turbo-${TAG}_php${minor}-${arch}-darwin-bsdlibc"
+            done
+          done
+
+          # Windows asset naming differs (PIE's WindowsExtensionAssetName):
+          # php_{ext}-{version}-{minor}-{ts|nts}-{compiler}-{arch}.zip
+          # containing the same-named .dll. The 8.3 DLLs are linked with the
+          # v142 toolset → vs16, 8.4/8.5 with v143 → vs17 (mirrors the
+          # turbo-compile-windows matrix in phpstan-src).
+          for dll in turbo-ext/windows-x86_64/phpstan_turbo-*.dll; do
+            ver="$(basename "$dll" .dll)"; ver="${ver#phpstan_turbo-}"
+            minor="${ver%-zts}"
+            ts="nts"
+            if [ "$ver" != "$minor" ]; then ts="ts"; fi
+            vs="vs17"
+            if [ "$minor" = "8.3" ]; then vs="vs16"; fi
+            name="php_phpstan_turbo-${TAG}-${minor}-${ts}-${vs}-x86_64"
+            cp "$dll" "$work/$name.dll"
+            zip -q -X -j "pie-assets/$name.zip" "$work/$name.dll"
+          done
+
+          # every binary must have produced an asset (the macOS ones two) —
+          # a layout change must fail here, not publish a partial set
+          binaries="$(find turbo-ext -type f \( -name 'phpstan_turbo-*.so' -o -name 'phpstan_turbo-*.dll' \) | wc -l)"
+          macos="$(find turbo-ext/macos -type f -name 'phpstan_turbo-*.so' 2>/dev/null | wc -l)"
+          count="$(find pie-assets -type f | wc -l)"
+          echo "packaged $count assets from $binaries binaries:"
+          ls -l pie-assets
+          if [ "$count" -ne "$((binaries + macos))" ]; then
+            echo "::error::Expected $((binaries + macos)) assets, produced $count."
+            exit 1
+          fi
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+
+      - name: "Create the phpstan/turbo-ext release and upload the assets"
+        if: steps.package.outputs.count != '0'
+        env:
+          GH_TOKEN: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          # The subsplit workflow in phpstan/phpstan-src tags phpstan/turbo-ext
+          # when the monorepo is tagged; the release must point at that tag,
+          # so fail loudly if it has not appeared — re-run this job once it has.
+          if ! gh api "repos/phpstan/turbo-ext/git/ref/tags/$TAG" > /dev/null; then
+            echo "::error::Tag $TAG does not exist in phpstan/turbo-ext yet. The subsplit-turbo-ext.yml workflow in phpstan-src creates it; re-run this job once it has."
+            exit 1
+          fi
+
+          # Releases in the phpstan org are immutable — a published release
+          # can never gain or replace assets. Create a draft, upload every
+          # asset into it, and only then publish. A re-run resumes a
+          # half-finished draft; a published release is final.
+          state="$(gh api repos/phpstan/turbo-ext/releases --jq 'first(.[] | select(.tag_name == env.TAG) | if .draft then "draft" else "published" end)')"
+          case "${state:-absent}" in
+            published)
+              echo "Release $TAG is already published and immutable, nothing to do."
+              exit 0
+              ;;
+            draft)
+              echo "Draft release $TAG already exists, resuming the upload."
+              ;;
+            absent)
+              gh release create "$TAG" --repo phpstan/turbo-ext --verify-tag --draft \
+                --title "$TAG" \
+                --notes "Prebuilt \`phpstan_turbo\` binaries for [PIE](https://github.com/php/pie): \`pie install phpstan/turbo\`. Matches [PHPStan $TAG](https://github.com/phpstan/phpstan/releases/tag/$TAG)."
+              ;;
+          esac
+          gh release upload "$TAG" --repo phpstan/turbo-ext --clobber pie-assets/*
+          gh release edit "$TAG" --repo phpstan/turbo-ext --draft=false
