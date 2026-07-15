@@ -6675,6 +6675,13 @@
             ]
         }
     },
+    "function.impossibleHaystackValue": {
+        "PHPStan\\Rules\\Comparison\\ImpossibleInArrayHaystackFiniteTypesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Comparison/ImpossibleInArrayHaystackFiniteTypesRule.php#L138"
+            ]
+        }
+    },
     "function.impossibleType": {
         "PHPStan\\Rules\\Comparison\\ImpossibleCheckTypeFunctionCallRule": {
             "phpstan/phpstan-src": [
