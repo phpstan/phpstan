@@ -11760,6 +11760,13 @@
             ]
         }
     },
+    "nullCoalesce.unnecessary": {
+        "PHPStan\\Rules\\Variables\\NullCoalesceRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Variables/NullCoalesceRule.php#L95"
+            ]
+        }
+    },
     "nullCoalesce.variable": {
         "PHPStan\\Rules\\Variables\\EmptyRule": {
             "phpstan/phpstan-src": [
