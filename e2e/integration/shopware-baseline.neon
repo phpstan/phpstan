@@ -31,6 +31,12 @@ parameters:
 			path: repo/src/Core/Checkout/Cart/LineItem/Group/LineItemGroupServiceRegistry.php
 
 		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/src/Core/Checkout/Cart/LineItem/LineItemQuantitySplitter.php
+
+		-
 			rawMessage: 'Parameter #1 $data of method Shopware\Core\Checkout\Cart\LineItemFactoryHandler\LineItemFactoryInterface::create() expects array<string, mixed>, array<int|string, mixed> given.'
 			identifier: argument.type
 			count: 1
@@ -61,6 +67,24 @@ parameters:
 			path: repo/src/Core/Checkout/Customer/CustomerValueResolver.php
 
 		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/src/Core/Checkout/Customer/Validation/Constraint/CustomerEmailUnique.php
+
+		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/src/Core/Checkout/Customer/Validation/Constraint/CustomerPasswordMatches.php
+
+		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/src/Core/Checkout/Customer/Validation/Constraint/CustomerVatIdentification.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Checkout\Promotion\Util\PromotionCodeService::splitPattern() should return array{prefix?: string, replacement: string, suffix?: string, replacementString: string, replacementArray: array<string>} but returns array{0: non-empty-string, prefix: string, 1: string, replacement: non-falsy-string, 2: non-falsy-string, 3: non-falsy-string, suffix: string, 4: string, ...}.'
 			identifier: return.type
 			count: 1
@@ -77,6 +101,12 @@ parameters:
 			identifier: argument.invalidConstant
 			count: 1
 			path: repo/src/Core/Content/Cms/Subscriber/UnusedMediaSubscriber.php
+
+		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 2
+			path: repo/src/Core/Content/Cookie/Service/CookieProvider.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Content\Flow\DataAbstractionLayer\FieldSerializer\FlowTemplateConfigFieldSerializer::encode() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -137,6 +167,12 @@ parameters:
 			identifier: argument.invalidConstant
 			count: 1
 			path: repo/src/Core/Content/Media/Subscriber/CustomFieldsUnusedMediaSubscriber.php
+
+		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/src/Core/Content/Media/Subscriber/VideoCoverCleanupSubscriber.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Content\Media\Thumbnail\ThumbnailService::generateAndSave() should return list<array{id: string, mediaId: string, width: int, height: int}> but returns list<array{id: non-falsy-string, mediaId: string, mediaThumbnailSizeId: string, width: int<1, max>, height: int<1, max>}>.'
@@ -235,6 +271,12 @@ parameters:
 			path: repo/src/Core/Framework/Adapter/Database/MySQLFactory.php
 
 		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/src/Core/Framework/Adapter/Redis/RedisConnectionsCompilerPass.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Framework\Adapter\Twig\AppTemplateIterator::__construct() has parameter $templateIterator with generic interface IteratorAggregate but does not specify its types: TKey, TValue'
 			identifier: missingType.generics
 			count: 1
@@ -307,6 +349,12 @@ parameters:
 			path: repo/src/Core/Framework/Api/Controller/ApiController.php
 
 		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/src/Core/Framework/Api/Controller/UserController.php
+
+		-
 			rawMessage: 'Parameter #2 $id of method Shopware\Core\Framework\Api\Response\ResponseFactoryInterface::createRedirectResponse() expects string, string|null given.'
 			identifier: argument.type
 			count: 1
@@ -371,6 +419,12 @@ parameters:
 			identifier: argument.invalidConstant
 			count: 1
 			path: repo/src/Core/Framework/App/Lifecycle/Registration/StoreHandshake.php
+
+		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/src/Core/Framework/App/Manifest/ModuleLoader.php
 
 		-
 			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
@@ -841,6 +895,12 @@ parameters:
 			path: repo/src/Core/Framework/DataAbstractionLayer/Search/Parser/QueryStringParser.php
 
 		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Search/RequestCriteriaBuilder.php
+
+		-
 			rawMessage: 'Parameter #1 $payload of method Shopware\Core\Framework\DataAbstractionLayer\Search\RequestCriteriaBuilder::addLimit() expects array{limit: int}, non-empty-array<string, mixed> given.'
 			identifier: argument.type
 			count: 1
@@ -871,6 +931,18 @@ parameters:
 			path: repo/src/Core/Framework/DataAbstractionLayer/Search/RequestCriteriaBuilder.php
 
 		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 3
+			path: repo/src/Core/Framework/DataAbstractionLayer/Validation/EntityExists.php
+
+		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 3
+			path: repo/src/Core/Framework/DataAbstractionLayer/Validation/EntityNotExists.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Framework\DataAbstractionLayer\Write\WriteException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -881,6 +953,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Core/Framework/DependencyInjection/CompilerPass/FeatureFlagCompilerPass.php
+
+		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/src/Core/Framework/Increment/IncrementerGatewayCompilerPass.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\Migration\Command\MigrationCommand::getMigrationGenerator() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -1099,6 +1177,12 @@ parameters:
 			path: repo/src/Core/Migration/V6_4/Migration1643878976AddCaptureRefundStateMachines.php
 
 		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 2
+			path: repo/src/Core/Service/AppInfo.php
+
+		-
 			rawMessage: 'Method Shopware\Core\System\DependencyInjection\CompilerPass\SalesChannelEntityCompilerPass::formatData() should return array<string, array{entityName: string, fallback?: string}> but returns array<string, array{entityName: string, fallBack?: mixed}>.'
 			identifier: return.type
 			count: 1
@@ -1139,6 +1223,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Core/System/Snippet/Api/SnippetController.php
+
+		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 2
+			path: repo/src/Core/System/Snippet/Command/Util/CountryAgnosticFileLinter.php
 
 		-
 			rawMessage: 'Constant JSON_THROW_ON_ERROR is not allowed for parameter #3 $depth of function json_decode.'
@@ -1249,6 +1339,12 @@ parameters:
 			path: repo/src/Storefront/Controller/ContextController.php
 
 		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/src/Storefront/Framework/Seo/SeoUrlRoute/ProductPageSeoUrlRoute.php
+
+		-
 			rawMessage: 'Method Shopware\Storefront\Theme\Exception\ThemeConfigException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -1277,6 +1373,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Storefront/Theme/ThemeCompiler.php
+
+		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/src/Storefront/Theme/ThemeMergedConfigBuilder.php
 
 		-
 			rawMessage: 'Parameter #1 $assertType of method PHPStan\Testing\TypeInferenceTestCase::assertFileAsserts() expects string, bool|float|int|list<string>|PHPStan\TrinaryLogic|string|null given.'
@@ -1393,6 +1495,12 @@ parameters:
 			path: repo/tests/integration/Core/Checkout/Shipping/ShippingMethodRepositoryTest.php
 
 		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/tests/integration/Core/Content/Cms/DataResolver/CmsSlotsDataResolverTest.php
+
+		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Flow\SendMailActionTest::getMatchingDocument() should return array{}|array{id: string, technical_name: string, documentId: string, filename: string} but returns non-empty-array<string, string>.'
 			identifier: return.type
 			count: 1
@@ -1409,6 +1517,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/integration/Core/Content/Flow/SendMailActionTest.php
+
+		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/Api/ImportExportLogApiTest.php
 
 		-
 			rawMessage: 'Generator expects value type array{field: Shopware\Core\Framework\DataAbstractionLayer\Field\Field, inputValue: mixed, expected: mixed}, array{mappings: array{Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping, Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping}, field: Shopware\Core\Framework\DataAbstractionLayer\Field\CustomFields, inputValue: array{test_custom_field_number: 96, test_custom_field_text: ''foobar''}, expected: array{customFields: ''{"test_custom_field…'', ''customFields.test_custom_field_number'': 96, ''customFields.test_custom_field_text'': ''foobar''}} given.'
@@ -1835,6 +1949,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/integration/Core/Framework/FeatureFlag/IdleFeatureFlagTest.php
+
+		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/tests/integration/Core/Framework/Rule/PaymentMethodRuleAccessibleTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\Seo\SeoUrl\SeoUrlRepositoryTest::emptyGenerator() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -2465,6 +2585,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Framework/Api/Controller/FeatureFlagControllerTest.php
+
+		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/tests/unit/Core/Framework/App/ShopId/ShopIdProviderTest.php
 
 		-
 			rawMessage: 'Parameter #1 $data of static method Shopware\Core\Framework\App\TaxProvider\Response\TaxProviderResponse::create() expects array{lineItemTaxes: array<string, array<array{tax: float, taxRate: float, price: float}>>, deliveryTaxes: array<string, array<array{tax: float, taxRate: float, price: float}>>, cartPriceTaxes: array<array{tax: float, taxRate: float, price: float}>}, array{lineItemTaxes: non-empty-array<string, array{array{tax: 1.0, taxRate: 1.0, price: 1.0}}|array{array{tax: 2.0, taxRate: 2.0, price: 2.0, label: ''some tax''}, array{tax: 3.0, taxRate: 3.0, price: 3.0}}>, deliveryTaxes: non-empty-array<string, array{array{tax: 4.0, taxRate: 4.0, price: 4.0}}|array{array{tax: 5.0, taxRate: 5.0, price: 5.0}, array{tax: 6.0, taxRate: 6.0, price: 6.0}}>, cartPriceTaxes: array{array{tax: 7.0, taxRate: 7.0, price: 7.0, label: ''some other tax''}, array{tax: 8.0, taxRate: 8.0, price: 8.0}}} given.'
@@ -3353,6 +3479,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Elasticsearch/Framework/Indexing/ElasticsearchIndexerTest.php
+
+		-
+			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
+			identifier: nullCoalesce.unnecessary
+			count: 1
+			path: repo/tests/unit/Elasticsearch/Product/ElasticsearchProductDefinitionTest.php
 
 		-
 			rawMessage: 'Generator expects value type array{config: array{array{and_logic: string, field: string, tokenize: int, ranking: float|int}}, term: string, expected: array<string, mixed>}, array{config: array{array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}, array{and_logic: string, field: string, tokenize: int, ranking: float}}, term: ''foo 2023'', expected: array{dis_max: array{queries: array<mixed>}}} given.'
