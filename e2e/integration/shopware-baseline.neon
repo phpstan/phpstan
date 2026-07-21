@@ -3295,6 +3295,12 @@ parameters:
 			path: repo/tests/unit/Core/Service/ServiceRegistry/ClientTest.php
 
 		-
+			rawMessage: 'Parameter #1 $source of method DOMDocument::loadXML() expects non-empty-string, string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/unit/Core/System/CustomEntity/Xml/CustomEntityXmlSchemaValidatorTest.php
+
+		-
 			rawMessage: 'Call to method Shopware\Core\System\SalesChannel\Api\ResponseFields::isAllowed() on a separate line has no effect.'
 			identifier: method.resultUnused
 			count: 2
