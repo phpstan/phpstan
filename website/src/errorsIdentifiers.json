@@ -10017,7 +10017,7 @@
         },
         "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L160"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L167"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
@@ -10026,19 +10026,19 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L272",
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L300",
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodParameterComparisonHelper.php#L320",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L160"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L167"
             ]
         }
     },
     "method.childReturnType": {
         "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L108"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L115"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L108",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L115",
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/OverridingMethodRule.php#L316",
                 "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/OverridingMethodRule.php#L329"
             ]
@@ -10113,24 +10113,24 @@
     "method.impure": {
         "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L77"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L84"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L77"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L84"
             ]
         }
     },
     "method.impureOverridePureUnlessCallable": {
         "PHPStan\\Rules\\Methods\\MethodSignatureRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L89"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L96"
             ]
         },
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L89"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Methods/MethodSignatureRule.php#L96"
             ]
         }
     },
@@ -12980,8 +12980,8 @@
     "phpstanApi.instanceofType": {
         "PHPStan\\Rules\\Api\\ApiInstanceofTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Api/ApiInstanceofTypeRule.php#L158",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Api/ApiInstanceofTypeRule.php#L167"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Api/ApiInstanceofTypeRule.php#L101",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Api/ApiInstanceofTypeRule.php#L92"
             ]
         }
     },
