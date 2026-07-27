@@ -132,6 +132,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/amsoell">Andy Soell (amsoell)</a></li>
 <li><a href="https://github.com/maantje">Jamie Schouten (maantje)</a></li>
 <li><a href="https://github.com/verfriemelt-dot-org">ಠ_ಠ (verfriemelt-dot-org)</a></li>
+<li><a href="https://github.com/pavel-rossinsky">Pavel Rossinsky (pavel-rossinsky)</a></li>
 <!-- indi -->
 
 <!-- indi-org --><li><a href="https://github.com/hxv">Michał Włodarczyk (hxv)</a></li>
@@ -153,6 +154,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/alisqi">AlisQI (alisqi)</a></li>
 <li><a href="https://github.com/WyriHaximus">Cees-Jan Kiewiet (WyriHaximus)</a></li>
 <li><a href="https://github.com/lubatti">Lautaro Lubatti (lubatti)</a></li>
+<li><a href="https://github.com/kassner">Rafael Kassner (kassner)</a></li>
 <li><a href="https://github.com/ssddanbrown">Dan Brown (ssddanbrown)</a></li>
 <li><a href="https://github.com/BinaryKitten">Kathryn Reeve (BinaryKitten)</a></li>
 <li><a href="https://github.com/richardgaunt"> (richardgaunt)</a></li>
