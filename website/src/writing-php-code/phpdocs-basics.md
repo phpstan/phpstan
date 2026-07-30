@@ -383,7 +383,40 @@ class FilteredCollection extends Collection
 }
 ```
 
+While `@extends` and `@implements` belong above the class, `@use` has to be written above the `use` statement inside the class body:
+
+```php
+/**
+ * @template T
+ */
+trait CollectionTrait
+{
+	/** @param T $item */
+	public function add($item): void { ... }
+}
+
+class DogShelter
+{
+	/** @use CollectionTrait<Dog> */
+	use CollectionTrait;
+}
+```
+
 You must specify all declared type arguments. Omitting them or providing the wrong number results in an error. The type arguments must also respect any upper bounds declared with `of` on the parent's `@template`.
+
+### Alternative tag names
+
+`@template-extends`, `@template-implements`, and `@template-use` are aliases of `@extends`, `@implements`, and `@use`. They behave exactly the same, so you only need them if you also want another tool that expects these names to understand your code:
+
+```php
+/**
+ * @template-extends Collection<Dog>
+ * @template-implements Countable<Dog>
+ */
+class DogShelter extends Collection implements Countable
+{
+}
+```
 
 Narrowing types after function call
 ----------------
