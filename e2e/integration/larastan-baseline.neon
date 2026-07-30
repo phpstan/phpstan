@@ -1,13 +1,19 @@
 parameters:
 	ignoreErrors:
 		-
-			rawMessage: 'Parameter #3 $options of static method Orchestra\Testbench\Foundation\Application::create() expects array{extra?: array{env?: array, providers?: array<int, class-string>, dont-discover?: array<int, string>, bootstrappers?: array<int, class-string>|class-string|null}, load_environment_variables?: bool, enabled_package_discoveries?: bool}, array{enables_package_discoveries: true, extra: array{env: array, providers: array<int, class-string>, dont-discover: array<int, string>, bootstrappers: array<int, class-string>|class-string|null}} given.'
-			identifier: argument.type
+			rawMessage: Switch condition comparison between 'nullabletimestamps'|'nullabletimestampstz'|'remembertoken'|'timestamps'|'timestampstz' and 'droptimestamps' is always false.
+			identifier: switch.alwaysFalse
 			count: 1
-			path: repo/src/ApplicationResolver.php
+			path: repo/src/Properties/SchemaAggregator.php
 
 		-
-			rawMessage: 'Parameter #3 $options of static method Orchestra\Testbench\Foundation\Application::create() expects array{extra?: array{env?: array, providers?: array<int, class-string>, dont-discover?: array<int, string>, bootstrappers?: array<int, class-string>|class-string|null}, load_environment_variables?: bool, enabled_package_discoveries?: bool}, array{enables_package_discoveries: true} given.'
-			identifier: argument.type
+			rawMessage: Switch condition comparison between 'nullabletimestamps'|'nullabletimestampstz'|'remembertoken'|'timestamps'|'timestampstz' and 'droptimestampstz' is always false.
+			identifier: switch.alwaysFalse
 			count: 1
-			path: repo/src/ApplicationResolver.php
+			path: repo/src/Properties/SchemaAggregator.php
+
+		-
+			rawMessage: Switch condition comparison between 'nullabletimestamps'|'nullabletimestampstz'|'timestamps'|'timestampstz' and 'dropremembertoken' is always false.
+			identifier: switch.alwaysFalse
+			count: 1
+			path: repo/src/Properties/SchemaAggregator.php
