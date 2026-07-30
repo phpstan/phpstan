@@ -16321,6 +16321,27 @@
             ]
         }
     },
+    "switch.alwaysFalse": {
+        "PHPStan\\Rules\\Comparison\\SwitchConditionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Comparison/SwitchConditionRule.php#L126"
+            ]
+        }
+    },
+    "switch.alwaysTrue": {
+        "PHPStan\\Rules\\Comparison\\SwitchConditionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Comparison/SwitchConditionRule.php#L146"
+            ]
+        }
+    },
+    "switch.duplicateCase": {
+        "PHPStan\\Rules\\Comparison\\SwitchConditionRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/Comparison/SwitchConditionRule.php#L79"
+            ]
+        }
+    },
     "switch.type": {
         "PHPStan\\Rules\\SwitchConditions\\MatchingTypeInSwitchCaseConditionRule": {
             "phpstan/phpstan-strict-rules": [
