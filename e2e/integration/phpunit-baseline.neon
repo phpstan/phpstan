@@ -55,6 +55,24 @@ parameters:
 			path: repo/src/Runner/ErrorHandler.php
 
 		-
+			rawMessage: 'Class PHPUnit\Runner\Filter\GroupFilterIterator extends generic class RecursiveFilterIterator but does not specify its types: TKey, TValue, TIterator'
+			identifier: missingType.generics
+			count: 1
+			path: repo/src/Runner/Filter/GroupFilterIterator.php
+
+		-
+			rawMessage: 'Class PHPUnit\Runner\Filter\NameFilterIterator extends generic class RecursiveFilterIterator but does not specify its types: TKey, TValue, TIterator'
+			identifier: missingType.generics
+			count: 1
+			path: repo/src/Runner/Filter/NameFilterIterator.php
+
+		-
+			rawMessage: 'Class PHPUnit\Runner\Filter\TestIdFilterIterator extends generic class RecursiveFilterIterator but does not specify its types: TKey, TValue, TIterator'
+			identifier: missingType.generics
+			count: 1
+			path: repo/src/Runner/Filter/TestIdFilterIterator.php
+
+		-
 			rawMessage: 'Parameter #5 $trace of class PHPUnit\Framework\PhptAssertionFailedError constructor expects list<array{file: string, line: int, function: string, type: string}>, non-empty-list<non-empty-array{function?: string, line?: int, file?: string, class?: class-string, type?: ''->''|''::'', args?: list<mixed>, object?: object}> given.'
 			identifier: argument.type
 			count: 1
