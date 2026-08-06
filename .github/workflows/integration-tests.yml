@@ -492,7 +492,7 @@ jobs:
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
-            phpstan-command: vendor/bin/phpstan analyse -c ../shipmonk-dead-code-detector.neon
+            phpstan-command: vendor/bin/phpstan analyse -c ../shipmonk-dead-code-detector.neon --allow-empty-baseline
             baseline-file: shipmonk-dead-code-detector-baseline.neon
           - php-version: 8.4
             repo: drupal/drupal
