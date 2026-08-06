@@ -276,7 +276,7 @@ jobs:
         include:
           - php-version: 8.4
             repo: rectorphp/rector-src
-            ref: 7c4ef1277d567c641cd7c96c6120aaa65bc3bf49
+            ref: b14e0ab42ac3a596418f1bbf25df4d88ba9a373f
             setup: |
               cp ../rector-composer.lock composer.lock
               composer install
