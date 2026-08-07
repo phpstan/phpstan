@@ -1,7 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Strict comparison using \!\=\= between int\|string and false will always evaluate to true\.$#'
-			identifier: notIdentical.alwaysTrue
+			message: '#^Function pg_query_split not found\.$#'
+			identifier: function.notFound
 			count: 1
-			path: repo/packages/migrations/src/Component/Doctrine/Migrations/MigrationsLockComparator.php
+			path: repo/packages/mcp/src/Component/Database/Query/PostgresQueryParser.php
