@@ -412,7 +412,7 @@ jobs:
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../sylius.neon -vvv
             baseline-file: sylius-baseline.neon
-          - php-version: 8.4
+          - php-version: 8.5
             repo: shopsys/shopsys
             ref: v19.0.0
             setup: |
@@ -422,7 +422,7 @@ jobs:
             # from build.xml
             phpstan-command: ../../../phpstan.phar analyse -c ../shopsys.neon -l 5 packages/*/src packages/*/tests utils/*/src utils/*/tests project-base/app/app project-base/app/src -vvv
             baseline-file: shopsys-baseline.neon
-          - php-version: 8.4
+          - php-version: 8.5
             repo: shopsys/shopsys
             ref: v19.0.0
             phpstan-cwd: e2e/integration/repo/project-base/app
