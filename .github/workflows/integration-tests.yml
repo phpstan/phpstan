@@ -412,27 +412,27 @@ jobs:
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../sylius.neon -vvv
             baseline-file: sylius-baseline.neon
-          - php-version: 8.4
+          - php-version: 8.5
             repo: shopsys/shopsys
-            ref: v18.0.0
+            ref: v19.0.0
             setup: |
               cp ../shopsys-composer.lock composer.lock
-              composer install
+              composer install --ignore-platform-req=ext-pg_query
 
             # from build.xml
             phpstan-command: ../../../phpstan.phar analyse -c ../shopsys.neon -l 5 packages/*/src packages/*/tests utils/*/src utils/*/tests project-base/app/app project-base/app/src -vvv
             baseline-file: shopsys-baseline.neon
-          - php-version: 8.4
+          - php-version: 8.5
             repo: shopsys/shopsys
-            ref: v18.0.0
+            ref: v19.0.0
             phpstan-cwd: e2e/integration/repo/project-base/app
             setup: |
               cp ../shopsys-composer.lock composer.lock
-              COMPOSER_ROOT_VERSION=18.0.0 composer install
+              COMPOSER_ROOT_VERSION=19.0.0 composer install --ignore-platform-req=ext-pg_query
               rm parameters_monorepo.yaml
               cd project-base/app
               cp ../../../shopsys-project-base-composer.lock composer.lock
-              COMPOSER_ROOT_VERSION=18.0.0 composer install
+              COMPOSER_ROOT_VERSION=19.0.0 composer install --ignore-platform-req=ext-pg_query
 
             # test project-base separately
             phpstan-command: ../../../../../phpstan.phar analyse -c ../../../shopsys-project-base.neon -l 5 src tests -vvv
