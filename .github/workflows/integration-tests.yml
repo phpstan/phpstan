@@ -428,11 +428,11 @@ jobs:
             phpstan-cwd: e2e/integration/repo/project-base/app
             setup: |
               cp ../shopsys-composer.lock composer.lock
-              COMPOSER_ROOT_VERSION=18.0.0 composer install
+              COMPOSER_ROOT_VERSION=19.0.0 composer install
               rm parameters_monorepo.yaml
               cd project-base/app
               cp ../../../shopsys-project-base-composer.lock composer.lock
-              COMPOSER_ROOT_VERSION=18.0.0 composer install
+              COMPOSER_ROOT_VERSION=19.0.0 composer install
 
             # test project-base separately
             phpstan-command: ../../../../../phpstan.phar analyse -c ../../../shopsys-project-base.neon -l 5 src tests -vvv
