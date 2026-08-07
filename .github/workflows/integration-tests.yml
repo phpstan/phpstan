@@ -414,7 +414,7 @@ jobs:
             baseline-file: sylius-baseline.neon
           - php-version: 8.4
             repo: shopsys/shopsys
-            ref: v20.0.0
+            ref: v19.0.0
             setup: |
               cp ../shopsys-composer.lock composer.lock
               composer install
@@ -424,7 +424,7 @@ jobs:
             baseline-file: shopsys-baseline.neon
           - php-version: 8.4
             repo: shopsys/shopsys
-            ref: v20.0.0
+            ref: v19.0.0
             phpstan-cwd: e2e/integration/repo/project-base/app
             setup: |
               cp ../shopsys-composer.lock composer.lock
