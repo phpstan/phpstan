@@ -148,3 +148,7 @@ zlib
 
 [Zend Modules]
 ```
+
+## Running PHPStan via MegaLinter
+
+If you're setting up multiple linters in CI at once, [MegaLinter](https://megalinter.io/) is an open-source linters aggregator whose Docker images run PHPStan out of the box, alongside analyzers for other languages. See its [PHPStan page](https://megalinter.io/latest/descriptors/php_phpstan/) for configuration details.
