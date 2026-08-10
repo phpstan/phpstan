@@ -68,12 +68,10 @@ jobs:
           build-args: |
             PHPSTAN_VERSION=${{ github.ref_name }}
           platforms: ${{ matrix.platform }}
+          # Release builds deliberately use no layer cache: every release
+          # binary is compiled fresh in this run from the upstream sources,
+          # the same posture phar.yml takes.
           outputs: type=image,name=ghcr.io/phpstan/phpstan,push-by-digest=true,name-canonical=true,push=true
-          # The scope is shared with the nightly workflow: both build identical
-          # instrument layers from the same Dockerfiles, so a release reuses
-          # what a recent nightly already compiled.
-          cache-from: type=gha, scope=docker-${{ matrix.key }}-${{ matrix.platform }}
-          cache-to: type=gha, scope=docker-${{ matrix.key }}-${{ matrix.platform }}
 
       - name: Export digest
         env:
