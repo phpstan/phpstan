@@ -16,7 +16,10 @@ set -eux
 export COMPOSER_HOME=/composer COMPOSER_ALLOW_SUPERUSER=1
 
 php_build_flags() {
-	export CFLAGS="$PHP_CFLAGS" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS"
+	# -Wno-error=incompatible-pointer-types: PHP <= 8.1 sources predate GCC 14
+	# turning this warning into an error (musl fopencookie seeker signature);
+	# the stock images were built back when it was a warning.
+	export CFLAGS="$PHP_CFLAGS -Wno-error=incompatible-pointer-types" CPPFLAGS="$PHP_CPPFLAGS" LDFLAGS="$PHP_LDFLAGS"
 }
 
 case "$1" in
