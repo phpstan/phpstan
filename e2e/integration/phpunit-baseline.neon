@@ -1,97 +1,1897 @@
 parameters:
 	ignoreErrors:
 		-
-			rawMessage: 'Property PHPUnit\Framework\Exception::$serializableTrace (list<array{file: string, line: int, function: string}>) does not accept list<array{file: string, line: int, function: string, class: class-string, type: ''->''|''::'', object: object}|array{function: string}>.'
-			identifier: assign.propertyType
+			rawMessage: 'Parameter $className of method PHPUnit\Event\DispatchingEmitter::testRegisteredComparator() has invalid type SebastianBergmann\Comparator\Comparator.'
+			identifier: class.notFound
 			count: 1
-			path: repo/src/Framework/Exception/Exception.php
+			path: repo/src/Event/Emitter/DispatchingEmitter.php
 
 		-
-			rawMessage: 'Property PHPUnit\Framework\Exception::$serializableTrace (list<array{file: string, line: int, function: string}>) does not accept list<array{function: string, line?: int, file?: string, class?: class-string, type?: ''->''|''::'', args?: list<mixed>, object?: object}>.'
-			identifier: assign.propertyType
+			rawMessage: 'Parameter $className of method PHPUnit\Event\Emitter::testRegisteredComparator() has invalid type SebastianBergmann\Comparator\Comparator.'
+			identifier: class.notFound
 			count: 1
-			path: repo/src/Framework/Exception/Exception.php
+			path: repo/src/Event/Emitter/Emitter.php
 
 		-
-			rawMessage: 'Method PHPUnit\Framework\TestSuite::getIterator() return type with generic interface Iterator does not specify its types: TKey, TValue'
-			identifier: missingType.generics
+			rawMessage: 'Method PHPUnit\Event\Test\ComparatorRegistered::className() has invalid return type SebastianBergmann\Comparator\Comparator.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Event/Events/Test/ComparatorRegistered.php
+
+		-
+			rawMessage: 'Parameter $className of method PHPUnit\Event\Test\ComparatorRegistered::__construct() has invalid type SebastianBergmann\Comparator\Comparator.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Event/Events/Test/ComparatorRegistered.php
+
+		-
+			rawMessage: Property PHPUnit\Event\Test\ComparatorRegistered::$className has unknown class SebastianBergmann\Comparator\Comparator as its type.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Event/Events/Test/ComparatorRegistered.php
+
+		-
+			rawMessage: 'Call to method getActual() on an unknown class SebastianBergmann\Comparator\ComparisonFailure.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Event/Value/ComparisonFailureBuilder.php
+
+		-
+			rawMessage: 'Call to method getActualAsString() on an unknown class SebastianBergmann\Comparator\ComparisonFailure.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Event/Value/ComparisonFailureBuilder.php
+
+		-
+			rawMessage: 'Call to method getDiff() on an unknown class SebastianBergmann\Comparator\ComparisonFailure.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Event/Value/ComparisonFailureBuilder.php
+
+		-
+			rawMessage: 'Call to method getExpected() on an unknown class SebastianBergmann\Comparator\ComparisonFailure.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Event/Value/ComparisonFailureBuilder.php
+
+		-
+			rawMessage: 'Call to method getExpectedAsString() on an unknown class SebastianBergmann\Comparator\ComparisonFailure.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Event/Value/ComparisonFailureBuilder.php
+
+		-
+			rawMessage: 'Parameter $comparisonFailure of method PHPUnit\Framework\Constraint\Constraint::fail() has invalid type SebastianBergmann\Comparator\ComparisonFailure.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/Constraint.php
+
+		-
+			rawMessage: 'Call to method getMessage() on an unknown class SebastianBergmann\Comparator\ComparisonFailure.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/Equality/IsEqual.php
+
+		-
+			rawMessage: 'Call to static method getInstance() on an unknown class SebastianBergmann\Comparator\Factory.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/Equality/IsEqual.php
+
+		-
+			rawMessage: Caught class SebastianBergmann\Comparator\ComparisonFailure not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/Equality/IsEqual.php
+
+		-
+			rawMessage: 'Call to method getMessage() on an unknown class SebastianBergmann\Comparator\ComparisonFailure.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/Equality/IsEqualCanonicalizing.php
+
+		-
+			rawMessage: 'Call to static method getInstance() on an unknown class SebastianBergmann\Comparator\Factory.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/Equality/IsEqualCanonicalizing.php
+
+		-
+			rawMessage: Caught class SebastianBergmann\Comparator\ComparisonFailure not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/Equality/IsEqualCanonicalizing.php
+
+		-
+			rawMessage: 'Call to method getMessage() on an unknown class SebastianBergmann\Comparator\ComparisonFailure.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/Equality/IsEqualIgnoringCase.php
+
+		-
+			rawMessage: 'Call to static method getInstance() on an unknown class SebastianBergmann\Comparator\Factory.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/Equality/IsEqualIgnoringCase.php
+
+		-
+			rawMessage: Caught class SebastianBergmann\Comparator\ComparisonFailure not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/Equality/IsEqualIgnoringCase.php
+
+		-
+			rawMessage: 'Call to method getMessage() on an unknown class SebastianBergmann\Comparator\ComparisonFailure.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/Equality/IsEqualWithDelta.php
+
+		-
+			rawMessage: 'Call to static method getInstance() on an unknown class SebastianBergmann\Comparator\Factory.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/Equality/IsEqualWithDelta.php
+
+		-
+			rawMessage: Caught class SebastianBergmann\Comparator\ComparisonFailure not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/Equality/IsEqualWithDelta.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Comparator\ComparisonFailure not found.
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/Constraint/IsIdentical.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Comparator\ComparisonFailure not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/JsonMatches.php
+
+		-
+			rawMessage: 'Parameter $comparisonFailure of method PHPUnit\Framework\Constraint\JsonMatches::fail() has invalid type SebastianBergmann\Comparator\ComparisonFailure.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/JsonMatches.php
+
+		-
+			rawMessage: 'Call to method diff() on an unknown class SebastianBergmann\Diff\Differ.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/String/StringMatchesFormatDescription.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Diff\Differ not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/String/StringMatchesFormatDescription.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/String/StringMatchesFormatDescription.php
+
+		-
+			rawMessage: 'Method PHPUnit\Framework\Constraint\StringMatchesFormatDescription::differ() has invalid return type SebastianBergmann\Diff\Differ.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Constraint/String/StringMatchesFormatDescription.php
+
+		-
+			rawMessage: 'Method PHPUnit\Framework\ExpectationFailedException::getComparisonFailure() has invalid return type SebastianBergmann\Comparator\ComparisonFailure.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Exception/ExpectationFailedException.php
+
+		-
+			rawMessage: 'Parameter $comparisonFailure of method PHPUnit\Framework\ExpectationFailedException::__construct() has invalid type SebastianBergmann\Comparator\ComparisonFailure.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Exception/ExpectationFailedException.php
+
+		-
+			rawMessage: Property PHPUnit\Framework\ExpectationFailedException::$comparisonFailure has unknown class SebastianBergmann\Comparator\ComparisonFailure as its type.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/Exception/ExpectationFailedException.php
+
+		-
+			rawMessage: 'Call to method asString() on an unknown class SebastianBergmann\Type\Type.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/ConfigurableMethod.php
+
+		-
+			rawMessage: 'Call to method isAssignable() on an unknown class SebastianBergmann\Type\Type.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/ConfigurableMethod.php
+
+		-
+			rawMessage: 'Call to static method fromValue() on an unknown class SebastianBergmann\Type\Type.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/ConfigurableMethod.php
+
+		-
+			rawMessage: 'Parameter $returnType of method PHPUnit\Framework\MockObject\ConfigurableMethod::__construct() has invalid type SebastianBergmann\Type\Type.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/ConfigurableMethod.php
+
+		-
+			rawMessage: Property PHPUnit\Framework\MockObject\ConfigurableMethod::$returnType has unknown class SebastianBergmann\Type\Type as its type.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/ConfigurableMethod.php
+
+		-
+			rawMessage: 'Call to method asString() on an unknown class SebastianBergmann\Type\Type.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/MockObject/Generator/DoubledMethod.php
+
+		-
+			rawMessage: 'Call to method fromParameterTypes() on an unknown class SebastianBergmann\Type\ReflectionMapper.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/DoubledMethod.php
+
+		-
+			rawMessage: 'Call to method fromReturnType() on an unknown class SebastianBergmann\Type\ReflectionMapper.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/DoubledMethod.php
+
+		-
+			rawMessage: 'Call to method isNever() on an unknown class SebastianBergmann\Type\Type.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/DoubledMethod.php
+
+		-
+			rawMessage: 'Call to method isVoid() on an unknown class SebastianBergmann\Type\Type.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/DoubledMethod.php
+
+		-
+			rawMessage: 'Call to method render() on an unknown class SebastianBergmann\Template\Template.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/MockObject/Generator/DoubledMethod.php
+
+		-
+			rawMessage: 'Call to method setVar() on an unknown class SebastianBergmann\Template\Template.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/MockObject/Generator/DoubledMethod.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Template\Template not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/DoubledMethod.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Type\ReflectionMapper not found.
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/MockObject/Generator/DoubledMethod.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Type\UnknownType not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/DoubledMethod.php
+
+		-
+			rawMessage: 'Method PHPUnit\Framework\MockObject\Generator\DoubledMethod::loadTemplate() has invalid return type SebastianBergmann\Template\Template.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/DoubledMethod.php
+
+		-
+			rawMessage: 'Method PHPUnit\Framework\MockObject\Generator\DoubledMethod::returnType() has invalid return type SebastianBergmann\Type\Type.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/DoubledMethod.php
+
+		-
+			rawMessage: 'Parameter #8 $returnType of class PHPUnit\Framework\MockObject\Generator\DoubledMethod constructor expects SebastianBergmann\Type\Type, SebastianBergmann\Type\UnknownType given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/DoubledMethod.php
+
+		-
+			rawMessage: 'Parameter $returnType of method PHPUnit\Framework\MockObject\Generator\DoubledMethod::__construct() has invalid type SebastianBergmann\Type\Type.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/DoubledMethod.php
+
+		-
+			rawMessage: Property PHPUnit\Framework\MockObject\Generator\DoubledMethod::$returnType has unknown class SebastianBergmann\Type\Type as its type.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/DoubledMethod.php
+
+		-
+			rawMessage: Property PHPUnit\Framework\MockObject\Generator\DoubledMethod::$templates has unknown class SebastianBergmann\Template\Template as its type.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/DoubledMethod.php
+
+		-
+			rawMessage: 'Call to method fromPropertyType() on an unknown class SebastianBergmann\Type\ReflectionMapper.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/Generator.php
+
+		-
+			rawMessage: 'Call to method render() on an unknown class SebastianBergmann\Template\Template.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/MockObject/Generator/Generator.php
+
+		-
+			rawMessage: 'Call to method setVar() on an unknown class SebastianBergmann\Template\Template.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/MockObject/Generator/Generator.php
+
+		-
+			rawMessage: 'Call to static method fromName() on an unknown class SebastianBergmann\Type\Type.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/Generator.php
+
+		-
+			rawMessage: Class PHPUnit\Framework\MockObject\DoubledCloneMethod not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/Generator.php
+
+		-
+			rawMessage: Class PHPUnit\Framework\MockObject\Method not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/Generator.php
+
+		-
+			rawMessage: Class PHPUnit\Framework\MockObject\MockObjectApi not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/Generator.php
+
+		-
+			rawMessage: Class PHPUnit\Framework\MockObject\ProxiedCloneMethod not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/Generator.php
+
+		-
+			rawMessage: Class PHPUnit\Framework\MockObject\StubApi not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/Generator.php
+
+		-
+			rawMessage: Instantiated class PHPUnit\Framework\MockObject\TestDoubleState not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/Generator.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Template\Template not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/Generator.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Type\ReflectionMapper not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/Generator.php
+
+		-
+			rawMessage: 'Method PHPUnit\Framework\MockObject\Generator\Generator::loadTemplate() has invalid return type SebastianBergmann\Template\Template.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/Generator.php
+
+		-
+			rawMessage: Property PHPUnit\Framework\MockObject\Generator\Generator::$templates has unknown class SebastianBergmann\Template\Template as its type.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/Generator.php
+
+		-
+			rawMessage: 'Method PHPUnit\Framework\MockObject\Generator\HookedProperty::type() has invalid return type SebastianBergmann\Type\Type.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/HookedProperty.php
+
+		-
+			rawMessage: 'Parameter $type of method PHPUnit\Framework\MockObject\Generator\HookedProperty::__construct() has invalid type SebastianBergmann\Type\Type.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/HookedProperty.php
+
+		-
+			rawMessage: Property PHPUnit\Framework\MockObject\Generator\HookedProperty::$type has unknown class SebastianBergmann\Type\Type as its type.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Generator/HookedProperty.php
+
+		-
+			rawMessage: 'Call to method asString() on an unknown class SebastianBergmann\Type\Type.'
+			identifier: class.notFound
+			count: 3
+			path: repo/src/Framework/MockObject/Generator/HookedPropertyGenerator.php
+
+		-
+			rawMessage: 'Method PHPUnit\Framework\MockObject\StubInternal::__phpunit_state() has invalid return type PHPUnit\Framework\MockObject\TestDoubleState.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Runtime/Interface/StubInternal.php
+
+		-
+			rawMessage: 'Call to method configurableMethods() on an unknown class PHPUnit\Framework\MockObject\TestDoubleState.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Runtime/ReturnValueGenerator.php
+
+		-
+			rawMessage: 'Call to method generateReturnValues() on an unknown class PHPUnit\Framework\MockObject\TestDoubleState.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Runtime/ReturnValueGenerator.php
+
+		-
+			rawMessage: Instantiated class PHPUnit\Framework\MockObject\TestDoubleState not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/MockObject/Runtime/ReturnValueGenerator.php
+
+		-
+			rawMessage: Access to constant class on an unknown class SebastianBergmann\Comparator\Comparator.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Call to method addClassNamePrefix() on an unknown class SebastianBergmann\GlobalState\ExcludeList.'
+			identifier: class.notFound
+			count: 6
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Call to method addGlobalVariable() on an unknown class SebastianBergmann\GlobalState\ExcludeList.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Call to method addStaticProperty() on an unknown class SebastianBergmann\GlobalState\ExcludeList.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Call to method copy() on an unknown class DeepCopy\DeepCopy.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Call to method diff() on an unknown class SebastianBergmann\Diff\Differ.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Call to method enumerate() on an unknown class SebastianBergmann\ObjectEnumerator\Enumerator.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Call to method globalVariables() on an unknown class SebastianBergmann\GlobalState\Snapshot.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Call to method restoreGlobalVariables() on an unknown class SebastianBergmann\GlobalState\Restorer.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Call to method restoreStaticProperties() on an unknown class SebastianBergmann\GlobalState\Restorer.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Call to method skipUncloneable() on an unknown class DeepCopy\DeepCopy.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Call to method staticProperties() on an unknown class SebastianBergmann\GlobalState\Snapshot.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Call to method superGlobalVariables() on an unknown class SebastianBergmann\GlobalState\Snapshot.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Call to static method getInstance() on an unknown class SebastianBergmann\Comparator\Factory.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: Caught class SebastianBergmann\Invoker\TimeoutException not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: Class SebastianBergmann\Comparator\Factory not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: Class SebastianBergmann\GlobalState\Snapshot not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: Instantiated class DeepCopy\DeepCopy not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Diff\Differ not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\GlobalState\ExcludeList not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\GlobalState\Restorer not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\GlobalState\Snapshot not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\ObjectEnumerator\Enumerator not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Method PHPUnit\Framework\TestCase::createGlobalStateSnapshot() has invalid return type SebastianBergmann\GlobalState\Snapshot.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: PHPDoc tag @throws with type PHPUnit\Event\NoPreviousThrowableException|PHPUnit\Framework\Exception|PHPUnit\Runner\Exception|PHPUnit\Util\Exception|SebastianBergmann\CodeCoverage\InvalidArgumentException|SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException|SebastianBergmann\Template\InvalidArgumentException is not subtype of Throwable
+			identifier: throws.notThrowable
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Parameter $after of method PHPUnit\Framework\TestCase::compareGlobalStateSnapshots() has invalid type SebastianBergmann\GlobalState\Snapshot.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Parameter $before of method PHPUnit\Framework\TestCase::compareGlobalStateSnapshots() has invalid type SebastianBergmann\GlobalState\Snapshot.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Parameter $comparator of method PHPUnit\Framework\TestCase::registerComparator() has invalid type SebastianBergmann\Comparator\Comparator.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: Property PHPUnit\Framework\TestCase::$customComparators has unknown class SebastianBergmann\Comparator\Comparator as its type.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: Property PHPUnit\Framework\TestCase::$snapshot has unknown class SebastianBergmann\GlobalState\Snapshot as its type.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: 'Call to method merge() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestRunner/ChildProcessResultProcessor.php
+
+		-
+			rawMessage: Class SebastianBergmann\CodeCoverage\CodeCoverage not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestRunner/ChildProcessResultProcessor.php
+
+		-
+			rawMessage: 'Call to method render() on an unknown class SebastianBergmann\Template\Template.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestRunner/SeparateProcessTestRunner.php
+
+		-
+			rawMessage: 'Call to method setVar() on an unknown class SebastianBergmann\Template\Template.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestRunner/SeparateProcessTestRunner.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Template\Template not found.
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/TestRunner/SeparateProcessTestRunner.php
+
+		-
+			rawMessage: PHPDoc tag @throws with type PHPUnit\Event\NoPreviousThrowableException|PHPUnit\Framework\Exception|PHPUnit\Runner\Exception|PHPUnit\Util\Exception|SebastianBergmann\Template\InvalidArgumentException is not subtype of Throwable
+			identifier: throws.notThrowable
+			count: 1
+			path: repo/src/Framework/TestRunner/SeparateProcessTestRunner.php
+
+		-
+			rawMessage: 'Call to method canInvokeWithTimeout() on an unknown class SebastianBergmann\Invoker\Invoker.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestRunner/TestRunner.php
+
+		-
+			rawMessage: 'Call to method getMessage() on an unknown class SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestRunner/TestRunner.php
+
+		-
+			rawMessage: 'Call to method invoke() on an unknown class SebastianBergmann\Invoker\Invoker.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestRunner/TestRunner.php
+
+		-
+			rawMessage: 'Call to method isNotEmpty() on an unknown class SebastianBergmann\CodeCoverage\Test\Target\TargetCollection.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/TestRunner/TestRunner.php
+
+		-
+			rawMessage: Caught class SebastianBergmann\CodeCoverage\Exception not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestRunner/TestRunner.php
+
+		-
+			rawMessage: Caught class SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestRunner/TestRunner.php
+
+		-
+			rawMessage: Caught class SebastianBergmann\Invoker\TimeoutException not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestRunner/TestRunner.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Invoker\Invoker not found.
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/TestRunner/TestRunner.php
+
+		-
+			rawMessage: Iterating over an object of an unknown class SebastianBergmann\CodeCoverage\Test\Target\TargetCollection.
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Framework/TestRunner/TestRunner.php
+
+		-
+			rawMessage: PHPDoc tag @throws with type PHPUnit\Runner\Exception|SebastianBergmann\CodeCoverage\InvalidArgumentException|SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException is not subtype of Throwable
+			identifier: throws.notThrowable
+			count: 1
+			path: repo/src/Framework/TestRunner/TestRunner.php
+
+		-
+			rawMessage: 'Parameter $coversTargets of method PHPUnit\Framework\TestRunner::performSanityChecks() has invalid type SebastianBergmann\CodeCoverage\Test\Target\TargetCollection.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestRunner/TestRunner.php
+
+		-
+			rawMessage: 'Parameter $usesTargets of method PHPUnit\Framework\TestRunner::performSanityChecks() has invalid type SebastianBergmann\CodeCoverage\Test\Target\TargetCollection.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Framework/TestRunner/TestRunner.php
+
+		-
+			rawMessage: PHPDoc tag @throws with type PHPUnit\Event\NoPreviousThrowableException|PHPUnit\Event\RuntimeException|PHPUnit\Framework\Exception|SebastianBergmann\CodeCoverage\InvalidArgumentException|SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException is not subtype of Throwable
+			identifier: throws.notThrowable
 			count: 1
 			path: repo/src/Framework/TestSuite.php
 
 		-
-			rawMessage: 'Method PHPUnit\Runner\ErrorHandler::errorStackTrace() should return list<array{file: string, line: int|null, class?: class-string, function?: string, type: string}> but returns list<array{function: string, line?: int, file?: string, class?: class-string, type?: ''->''|''::'', args?: list<mixed>, object?: object}>.'
-			identifier: return.type
-			count: 1
-			path: repo/src/Runner/ErrorHandler.php
-
-		-
-			rawMessage: 'Method PHPUnit\Runner\ErrorHandler::guessDeprecationFrame() never returns array{file: non-empty-string, line: int<1, max>} so it can be removed from the return type.'
-			identifier: return.unusedType
-			count: 1
-			path: repo/src/Runner/ErrorHandler.php
-
-		-
-			rawMessage: 'Method PHPUnit\Runner\ErrorHandler::guessDeprecationFrame() should return array{file: non-empty-string, line: int<1, max>}|null but returns array{file: string, line: int|null, class?: class-string, function?: string, type: string}.'
-			identifier: return.type
+			rawMessage: 'Call to static method forClass() on an unknown class SebastianBergmann\CodeCoverage\Test\Target\Target.'
+			identifier: class.notFound
 			count: 2
-			path: repo/src/Runner/ErrorHandler.php
+			path: repo/src/Metadata/Api/CodeCoverage.php
 
 		-
-			rawMessage: 'Parameter #1 $frame of method PHPUnit\Runner\ErrorHandler::frameIsFunction() expects array{class?: class-string, function?: non-empty-string}, array{file: string, line: int|null, class?: class-string, function?: string, type: string} given.'
-			identifier: argument.type
+			rawMessage: 'Call to static method forClassesThatExtendClass() on an unknown class SebastianBergmann\CodeCoverage\Test\Target\Target.'
+			identifier: class.notFound
 			count: 2
-			path: repo/src/Runner/ErrorHandler.php
+			path: repo/src/Metadata/Api/CodeCoverage.php
 
 		-
-			rawMessage: 'Parameter #1 $frame of method PHPUnit\Runner\ErrorHandler::frameIsMethod() expects array{class?: class-string, function?: non-empty-string}, array{file: string, line: int|null, class?: class-string, function?: string, type: string} given.'
-			identifier: argument.type
+			rawMessage: 'Call to static method forClassesThatImplementInterface() on an unknown class SebastianBergmann\CodeCoverage\Test\Target\Target.'
+			identifier: class.notFound
 			count: 2
-			path: repo/src/Runner/ErrorHandler.php
+			path: repo/src/Metadata/Api/CodeCoverage.php
 
 		-
-			rawMessage: 'Property PHPUnit\Runner\ErrorHandler::$globalDeprecations (list<array<int, int|string>>) on left side of ?? is not nullable.'
-			identifier: nullCoalesce.property
+			rawMessage: 'Call to static method forFunction() on an unknown class SebastianBergmann\CodeCoverage\Test\Target\Target.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Metadata/Api/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to static method forMethod() on an unknown class SebastianBergmann\CodeCoverage\Test\Target\Target.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Metadata/Api/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to static method forNamespace() on an unknown class SebastianBergmann\CodeCoverage\Test\Target\Target.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Metadata/Api/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to static method forTrait() on an unknown class SebastianBergmann\CodeCoverage\Test\Target\Target.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Metadata/Api/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to static method fromArray() on an unknown class SebastianBergmann\CodeCoverage\Test\Target\TargetCollection.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Metadata/Api/CodeCoverage.php
+
+		-
+			rawMessage: 'Method PHPUnit\Metadata\Api\CodeCoverage::coversTargets() has invalid return type SebastianBergmann\CodeCoverage\Test\Target\TargetCollection.'
+			identifier: class.notFound
 			count: 1
-			path: repo/src/Runner/ErrorHandler.php
+			path: repo/src/Metadata/Api/CodeCoverage.php
 
 		-
-			rawMessage: 'Class PHPUnit\Runner\Filter\GroupFilterIterator extends generic class RecursiveFilterIterator but does not specify its types: TKey, TValue, TIterator'
-			identifier: missingType.generics
+			rawMessage: 'Method PHPUnit\Metadata\Api\CodeCoverage::usesTargets() has invalid return type SebastianBergmann\CodeCoverage\Test\Target\TargetCollection.'
+			identifier: class.notFound
 			count: 1
-			path: repo/src/Runner/Filter/GroupFilterIterator.php
+			path: repo/src/Metadata/Api/CodeCoverage.php
 
 		-
-			rawMessage: 'Class PHPUnit\Runner\Filter\NameFilterIterator extends generic class RecursiveFilterIterator but does not specify its types: TKey, TValue, TIterator'
-			identifier: missingType.generics
+			rawMessage: 'Call to method asString() on an unknown class PharIo\Version\VersionConstraint.'
+			identifier: class.notFound
 			count: 1
-			path: repo/src/Runner/Filter/NameFilterIterator.php
+			path: repo/src/Metadata/Version/ConstraintRequirement.php
 
 		-
-			rawMessage: 'Class PHPUnit\Runner\Filter\TestIdFilterIterator extends generic class RecursiveFilterIterator but does not specify its types: TKey, TValue, TIterator'
-			identifier: missingType.generics
+			rawMessage: 'Call to method complies() on an unknown class PharIo\Version\VersionConstraint.'
+			identifier: class.notFound
 			count: 1
-			path: repo/src/Runner/Filter/TestIdFilterIterator.php
+			path: repo/src/Metadata/Version/ConstraintRequirement.php
 
 		-
-			rawMessage: 'Parameter #5 $trace of class PHPUnit\Framework\PhptAssertionFailedError constructor expects list<array{file: string, line: int, function: string, type: string}>, non-empty-list<non-empty-array{function?: string, line?: int, file?: string, class?: class-string, type?: ''->''|''::'', args?: list<mixed>, object?: object}> given.'
-			identifier: argument.type
+			rawMessage: Instantiated class PharIo\Version\Version not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Metadata/Version/ConstraintRequirement.php
+
+		-
+			rawMessage: 'Parameter $constraint of method PHPUnit\Metadata\Version\ConstraintRequirement::__construct() has invalid type PharIo\Version\VersionConstraint.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Metadata/Version/ConstraintRequirement.php
+
+		-
+			rawMessage: Property PHPUnit\Metadata\Version\ConstraintRequirement::$constraint has unknown class PharIo\Version\VersionConstraint as its type.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Metadata/Version/ConstraintRequirement.php
+
+		-
+			rawMessage: 'Call to method parse() on an unknown class PharIo\Version\VersionConstraintParser.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Metadata/Version/Requirement.php
+
+		-
+			rawMessage: Caught class PharIo\Version\UnsupportedVersionConstraintException not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Metadata/Version/Requirement.php
+
+		-
+			rawMessage: Instantiated class PharIo\Version\VersionConstraintParser not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Metadata/Version/Requirement.php
+
+		-
+			rawMessage: 'Call to method cacheStaticAnalysis() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method disableAnnotationsForIgnoringCode() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method doNotIgnoreDeprecatedCode() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method enableAnnotationsForIgnoringCode() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method enableCheckForUnintentionallyCoveredCode() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method excludeSubclassesOfThisClassFromUnintentionallyCoveredCodeCheck() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method excludeUncoveredFiles() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method forLineAndPathCoverage() on an unknown class SebastianBergmann\CodeCoverage\Driver\Selector.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method forLineCoverage() on an unknown class SebastianBergmann\CodeCoverage\Driver\Selector.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method getMessage() on an unknown class SebastianBergmann\CodeCoverage\Exception.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method ignoreDeprecatedCode() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method includeUncoveredFiles() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method isEmpty() on an unknown class SebastianBergmann\CodeCoverage\Filter.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method message() on an unknown class SebastianBergmann\CodeCoverage\Test\Target\ValidationFailure.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method nameAndVersion() on an unknown class SebastianBergmann\CodeCoverage\Driver\Driver.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method process() on an unknown class SebastianBergmann\CodeCoverage\Report\Clover.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method process() on an unknown class SebastianBergmann\CodeCoverage\Report\Cobertura.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method process() on an unknown class SebastianBergmann\CodeCoverage\Report\Crap4j.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method process() on an unknown class SebastianBergmann\CodeCoverage\Report\Html\Facade.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method process() on an unknown class SebastianBergmann\CodeCoverage\Report\OpenClover.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method process() on an unknown class SebastianBergmann\CodeCoverage\Report\PHP.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method process() on an unknown class SebastianBergmann\CodeCoverage\Report\Text.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method process() on an unknown class SebastianBergmann\CodeCoverage\Report\Xml\Facade.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method start() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method start() on an unknown class SebastianBergmann\Timer\Timer.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method stop() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method stop() on an unknown class SebastianBergmann\Timer\Timer.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method validate() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method warmCache() on an unknown class SebastianBergmann\CodeCoverage\StaticAnalysis\CacheWarmer.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to static method default() on an unknown class SebastianBergmann\CodeCoverage\Report\Html\CustomCssFile.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to static method default() on an unknown class SebastianBergmann\CodeCoverage\Report\Thresholds.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to static method failure() on an unknown class SebastianBergmann\CodeCoverage\Test\TestStatus\TestStatus.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to static method from() on an unknown class SebastianBergmann\CodeCoverage\Report\Html\Colors.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to static method from() on an unknown class SebastianBergmann\CodeCoverage\Report\Html\CustomCssFile.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to static method from() on an unknown class SebastianBergmann\CodeCoverage\Report\Thresholds.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to static method large() on an unknown class SebastianBergmann\CodeCoverage\Test\TestSize\TestSize.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to static method medium() on an unknown class SebastianBergmann\CodeCoverage\Test\TestSize\TestSize.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to static method small() on an unknown class SebastianBergmann\CodeCoverage\Test\TestSize\TestSize.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to static method success() on an unknown class SebastianBergmann\CodeCoverage\Test\TestStatus\TestStatus.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to static method unknown() on an unknown class SebastianBergmann\CodeCoverage\Test\TestSize\TestSize.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to static method unknown() on an unknown class SebastianBergmann\CodeCoverage\Test\TestStatus\TestStatus.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Caught class SebastianBergmann\CodeCoverage\Exception not found.
+			identifier: class.notFound
+			count: 8
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Class SebastianBergmann\CodeCoverage\Test\Target\TargetCollection not found.
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Class SebastianBergmann\CodeCoverage\Test\Target\ValidationFailure not found.
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Class SebastianBergmann\Comparator\Comparator not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\CodeCoverage\CodeCoverage not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\CodeCoverage\Driver\Selector not found.
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\CodeCoverage\Report\Clover not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\CodeCoverage\Report\Cobertura not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\CodeCoverage\Report\Crap4j not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\CodeCoverage\Report\Html\Facade not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\CodeCoverage\Report\OpenClover not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\CodeCoverage\Report\PHP not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\CodeCoverage\Report\Text not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\CodeCoverage\Report\Xml\Facade not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\CodeCoverage\StaticAnalysis\CacheWarmer not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Timer\Timer not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Method PHPUnit\Runner\CodeCoverage::codeCoverage() has invalid return type SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Method PHPUnit\Runner\CodeCoverage::timer() has invalid return type SebastianBergmann\Timer\Timer.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: PHPDoc tag @throws with type SebastianBergmann\Timer\NoActiveTimerException is not subtype of Throwable
+			identifier: throws.notThrowable
+			count: 2
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Parameter $covers of method PHPUnit\Runner\CodeCoverage::stop() has invalid type SebastianBergmann\CodeCoverage\Test\Target\TargetCollection.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Parameter $e of method PHPUnit\Runner\CodeCoverage::codeCoverageGenerationFailed() has invalid type SebastianBergmann\CodeCoverage\Exception.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Parameter $filter of method PHPUnit\Runner\CodeCoverage::activate() has invalid type SebastianBergmann\CodeCoverage\Filter.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Parameter $uses of method PHPUnit\Runner\CodeCoverage::stop() has invalid type SebastianBergmann\CodeCoverage\Test\Target\TargetCollection.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Property PHPUnit\Runner\CodeCoverage::$codeCoverage has unknown class SebastianBergmann\CodeCoverage\CodeCoverage as its type.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Property PHPUnit\Runner\CodeCoverage::$driver has unknown class SebastianBergmann\CodeCoverage\Driver\Driver as its type.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: Property PHPUnit\Runner\CodeCoverage::$timer has unknown class SebastianBergmann\Timer\Timer as its type.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
+			rawMessage: 'Call to method getFilesAsArray() on an unknown class SebastianBergmann\FileIterator\Facade.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Extension/PharLoader.php
+
+		-
+			rawMessage: 'Call to method getMessage() on an unknown class PharIo\Manifest\Exception.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Extension/PharLoader.php
+
+		-
+			rawMessage: 'Call to static method fromFile() on an unknown class PharIo\Manifest\ManifestLoader.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Extension/PharLoader.php
+
+		-
+			rawMessage: Caught class PharIo\Manifest\Exception not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Extension/PharLoader.php
+
+		-
+			rawMessage: Instantiated class PharIo\Manifest\ApplicationName not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Extension/PharLoader.php
+
+		-
+			rawMessage: Instantiated class PharIo\Version\Version not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Extension/PharLoader.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\FileIterator\Facade not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Extension/PharLoader.php
+
+		-
+			rawMessage: 'Call to method render() on an unknown class SebastianBergmann\Template\Template.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Phpt/Renderer.php
+
+		-
+			rawMessage: 'Call to method setVar() on an unknown class SebastianBergmann\Template\Template.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Phpt/Renderer.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Template\Template not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Phpt/Renderer.php
+
+		-
+			rawMessage: PHPDoc tag @throws with type SebastianBergmann\Template\InvalidArgumentException is not subtype of Throwable
+			identifier: throws.notThrowable
+			count: 1
+			path: repo/src/Runner/Phpt/Renderer.php
+
+		-
+			rawMessage: Access to constant INPUT_OUTPUT on an unknown class staabm\SideEffectsDetector\SideEffect.
+			identifier: class.notFound
 			count: 1
 			path: repo/src/Runner/Phpt/TestCase.php
 
 		-
-			rawMessage: 'Parameter #1 $frame of static method PHPUnit\Util\Filter::shouldPrintFrame() expects array{file?: non-empty-string}, array{file: string, line: int|null, class?: class-string, function?: string, type: string} given.'
-			identifier: argument.type
+			rawMessage: Access to constant STANDARD_OUTPUT on an unknown class staabm\SideEffectsDetector\SideEffect.
+			identifier: class.notFound
 			count: 1
-			path: repo/src/Util/Filter.php
+			path: repo/src/Runner/Phpt/TestCase.php
 
 		-
-			rawMessage: 'Parameter #1 $frames of static method PHPUnit\Util\Filter::stackTraceAsString() expects list<array{file: string, line: int|null, class?: class-string, function?: string, type: string}>, list<non-empty-array{function?: string, line?: int, file?: string, class?: class-string, type?: string, args?: list<mixed>, object?: object}> given.'
-			identifier: argument.type
+			rawMessage: 'Call to method append() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
 			count: 1
-			path: repo/src/Util/Filter.php
+			path: repo/src/Runner/Phpt/TestCase.php
 
 		-
-			rawMessage: 'Parameter #1 $trace of static method PHPUnit\Util\Filter::frameExists() expects list<array{file?: non-empty-string, line?: int}>, list<array{function: string, line?: int, file?: string, class?: class-string, type?: string, args?: list<mixed>, object?: object}> given.'
-			identifier: argument.type
+			rawMessage: 'Call to method cacheDirectory() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
 			count: 1
-			path: repo/src/Util/Filter.php
+			path: repo/src/Runner/Phpt/TestCase.php
+
+		-
+			rawMessage: 'Call to method cachesStaticAnalysis() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Phpt/TestCase.php
+
+		-
+			rawMessage: 'Call to method collectsBranchAndPathCoverage() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Phpt/TestCase.php
+
+		-
+			rawMessage: 'Call to method getDiff() on an unknown class SebastianBergmann\Comparator\ComparisonFailure.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Phpt/TestCase.php
+
+		-
+			rawMessage: 'Call to method getSideEffects() on an unknown class staabm\SideEffectsDetector\SideEffectsDetector.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Phpt/TestCase.php
+
+		-
+			rawMessage: 'Call to method start() on an unknown class SebastianBergmann\CodeCoverage\CodeCoverage.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Phpt/TestCase.php
+
+		-
+			rawMessage: 'Call to static method fromXdebugWithoutPathCoverage() on an unknown class SebastianBergmann\CodeCoverage\Data\RawCodeCoverageData.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Runner/Phpt/TestCase.php
+
+		-
+			rawMessage: 'Call to static method large() on an unknown class SebastianBergmann\CodeCoverage\Test\TestSize\TestSize.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Phpt/TestCase.php
+
+		-
+			rawMessage: 'Call to static method unknown() on an unknown class SebastianBergmann\CodeCoverage\Test\TestStatus\TestStatus.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Phpt/TestCase.php
+
+		-
+			rawMessage: Instantiated class staabm\SideEffectsDetector\SideEffectsDetector not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Phpt/TestCase.php
+
+		-
+			rawMessage: 'Method PHPUnit\Runner\Phpt\TestCase::cleanupForCoverage() has invalid return type SebastianBergmann\CodeCoverage\Data\RawCodeCoverageData.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Phpt/TestCase.php
+
+		-
+			rawMessage: PHPDoc tag @throws with type PHPUnit\Event\NoPreviousThrowableException|PHPUnit\Framework\Exception|PHPUnit\Runner\Exception|SebastianBergmann\CodeCoverage\InvalidArgumentException|SebastianBergmann\CodeCoverage\ReflectionException|SebastianBergmann\CodeCoverage\TestIdMissingException|SebastianBergmann\CodeCoverage\UnintentionallyCoveredCodeException|SebastianBergmann\Template\InvalidArgumentException is not subtype of Throwable
+			identifier: throws.notThrowable
+			count: 1
+			path: repo/src/Runner/Phpt/TestCase.php
+
+		-
+			rawMessage: 'Call to method asString() on an unknown class SebastianBergmann\Version.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Version.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Version not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Runner/Version.php
+
+		-
+			rawMessage: 'Call to method start() on an unknown class SebastianBergmann\Timer\Timer.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Application.php
+
+		-
+			rawMessage: 'Call to method stop() on an unknown class SebastianBergmann\Timer\Timer.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Application.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Timer\Timer not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Application.php
+
+		-
+			rawMessage: 'Call to method hasColorSupport() on an unknown class SebastianBergmann\Environment\Console.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Command/Commands/CheckPhpConfigurationCommand.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Environment\Console not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Command/Commands/CheckPhpConfigurationCommand.php
+
+		-
+			rawMessage: 'Call to method start() on an unknown class SebastianBergmann\Timer\Timer.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Command/Commands/WarmCodeCoverageCacheCommand.php
+
+		-
+			rawMessage: 'Call to method stop() on an unknown class SebastianBergmann\Timer\Timer.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Command/Commands/WarmCodeCoverageCacheCommand.php
+
+		-
+			rawMessage: 'Call to method warmCache() on an unknown class SebastianBergmann\CodeCoverage\StaticAnalysis\CacheWarmer.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Command/Commands/WarmCodeCoverageCacheCommand.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\CodeCoverage\StaticAnalysis\CacheWarmer not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Command/Commands/WarmCodeCoverageCacheCommand.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Timer\Timer not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Command/Commands/WarmCodeCoverageCacheCommand.php
+
+		-
+			rawMessage: PHPDoc tag @throws with type PHPUnit\TextUI\Configuration\NoCoverageCacheDirectoryException|SebastianBergmann\Timer\NoActiveTimerException is not subtype of Throwable
+			identifier: throws.notThrowable
+			count: 1
+			path: repo/src/TextUI/Command/Commands/WarmCodeCoverageCacheCommand.php
+
+		-
+			rawMessage: 'Call to method getCode() on an unknown class SebastianBergmann\CliParser\Exception.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/Cli/Builder.php
+
+		-
+			rawMessage: 'Call to method getMessage() on an unknown class SebastianBergmann\CliParser\Exception.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/Cli/Builder.php
+
+		-
+			rawMessage: 'Call to method parse() on an unknown class SebastianBergmann\CliParser\Parser.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/Cli/Builder.php
+
+		-
+			rawMessage: Caught class SebastianBergmann\CliParser\Exception not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/Cli/Builder.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\CliParser\Parser not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/Cli/Builder.php
+
+		-
+			rawMessage: 'Call to method includeFiles() on an unknown class SebastianBergmann\CodeCoverage\Filter.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/CodeCoverageFilterRegistry.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\CodeCoverage\Filter not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/CodeCoverageFilterRegistry.php
+
+		-
+			rawMessage: 'Method PHPUnit\TextUI\Configuration\CodeCoverageFilterRegistry::get() has invalid return type SebastianBergmann\CodeCoverage\Filter.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/CodeCoverageFilterRegistry.php
+
+		-
+			rawMessage: Property PHPUnit\TextUI\Configuration\CodeCoverageFilterRegistry::$filter has unknown class SebastianBergmann\CodeCoverage\Filter as its type.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/CodeCoverageFilterRegistry.php
+
+		-
+			rawMessage: 'Call to method canInvokeWithTimeout() on an unknown class SebastianBergmann\Invoker\Invoker.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/Merger.php
+
+		-
+			rawMessage: 'Call to method getNumberOfColumns() on an unknown class SebastianBergmann\Environment\Console.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/Merger.php
+
+		-
+			rawMessage: 'Call to method hasColorSupport() on an unknown class SebastianBergmann\Environment\Console.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/Merger.php
+
+		-
+			rawMessage: 'Call to static method default() on an unknown class SebastianBergmann\CodeCoverage\Report\Html\Colors.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/Merger.php
+
+		-
+			rawMessage: 'Call to static method default() on an unknown class SebastianBergmann\CodeCoverage\Report\Thresholds.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/Merger.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Environment\Console not found.
+			identifier: class.notFound
+			count: 2
+			path: repo/src/TextUI/Configuration/Merger.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Invoker\Invoker not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/Merger.php
+
+		-
+			rawMessage: 'Call to method getFilesAsArray() on an unknown class SebastianBergmann\FileIterator\Facade.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/TextUI/Configuration/SourceMapper.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\FileIterator\Facade not found.
+			identifier: class.notFound
+			count: 2
+			path: repo/src/TextUI/Configuration/SourceMapper.php
+
+		-
+			rawMessage: 'Call to method getFilesAsArray() on an unknown class SebastianBergmann\FileIterator\Facade.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/TestSuiteBuilder.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\FileIterator\Facade not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/TestSuiteBuilder.php
+
+		-
+			rawMessage: 'Call to static method default() on an unknown class SebastianBergmann\CodeCoverage\Report\Html\Colors.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/Xml/Loader.php
+
+		-
+			rawMessage: 'Call to static method default() on an unknown class SebastianBergmann\CodeCoverage\Report\Thresholds.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/Xml/Loader.php
+
+		-
+			rawMessage: 'Call to method getFilesAsArray() on an unknown class SebastianBergmann\FileIterator\Facade.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/Xml/TestSuiteMapper.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\FileIterator\Facade not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Configuration/Xml/TestSuiteMapper.php
+
+		-
+			rawMessage: 'Call to method getNumberOfColumns() on an unknown class SebastianBergmann\Environment\Console.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Help.php
+
+		-
+			rawMessage: 'Call to method hasColorSupport() on an unknown class SebastianBergmann\Environment\Console.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Help.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Environment\Console not found.
+			identifier: class.notFound
+			count: 2
+			path: repo/src/TextUI/Help.php
+
+		-
+			rawMessage: 'Call to method resourceUsage() on an unknown class SebastianBergmann\Timer\ResourceUsageFormatter.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Output/Facade.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Timer\ResourceUsageFormatter not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Output/Facade.php
+
+		-
+			rawMessage: 'Parameter $duration of method PHPUnit\TextUI\Output\Facade::printResult() has invalid type SebastianBergmann\Timer\Duration.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/TextUI/Output/Facade.php
+
+		-
+			rawMessage: Class DeepCopy\DeepCopy not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class PharIo\Manifest\Manifest not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class PharIo\Version\Version not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\CliParser\Parser not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\CodeCoverage\CodeCoverage not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\Comparator\Comparator not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\Complexity\Calculator not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\Diff\Diff not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\Environment\Runtime not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\Exporter\Exporter not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\FileIterator\Facade not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\GlobalState\Snapshot not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\Invoker\Invoker not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\LinesOfCode\Counter not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\ObjectEnumerator\Enumerator not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\ObjectReflector\ObjectReflector not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\RecursionContext\Context not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\Template\Template not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\Timer\Timer not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\Type\TypeName not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class SebastianBergmann\Version not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class TheSeer\Tokenizer\Tokenizer not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: Class staabm\SideEffectsDetector\SideEffectsDetector not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: 'Constant PHPUnit\Util\ExcludeList::EXCLUDED_CLASS_NAMES (array<class-string, int>) does not accept value array{Composer\Autoload\ClassLoader: 1, DeepCopy\DeepCopy: 1, PhpParser\Parser: 1, PharIo\Manifest\Manifest: 1, PharIo\Version\Version: 1, PHPUnit\Framework\TestCase: 2, SebastianBergmann\CodeCoverage\CodeCoverage: 1, SebastianBergmann\FileIterator\Facade: 1, ...}.'
+			identifier: classConstant.value
+			count: 1
+			path: repo/src/Util/ExcludeList.php
+
+		-
+			rawMessage: 'Call to method export() on an unknown class SebastianBergmann\Exporter\Exporter.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/Exporter.php
+
+		-
+			rawMessage: 'Call to method shortenedExport() on an unknown class SebastianBergmann\Exporter\Exporter.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/Exporter.php
+
+		-
+			rawMessage: 'Call to method shortenedRecursiveExport() on an unknown class SebastianBergmann\Exporter\Exporter.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/Exporter.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Exporter\Exporter not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/Exporter.php
+
+		-
+			rawMessage: 'Method PHPUnit\Util\Exporter::exporter() has invalid return type SebastianBergmann\Exporter\Exporter.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/Exporter.php
+
+		-
+			rawMessage: Property PHPUnit\Util\Exporter::$exporter has unknown class SebastianBergmann\Exporter\Exporter as its type.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/Exporter.php
+
+		-
+			rawMessage: 'Call to method getCurrentSettings() on an unknown class SebastianBergmann\Environment\Runtime.'
+			identifier: class.notFound
+			count: 2
+			path: repo/src/Util/PHP/DefaultJobRunner.php
+
+		-
+			rawMessage: 'Call to method hasPCOV() on an unknown class SebastianBergmann\Environment\Runtime.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/PHP/DefaultJobRunner.php
+
+		-
+			rawMessage: 'Call to method hasXdebug() on an unknown class SebastianBergmann\Environment\Runtime.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/PHP/DefaultJobRunner.php
+
+		-
+			rawMessage: Instantiated class SebastianBergmann\Environment\Runtime not found.
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/PHP/DefaultJobRunner.php
+
+		-
+			rawMessage: Unable to resolve the template type T in call to function array_values
+			identifier: argument.templateType
+			count: 1
+			path: repo/src/Util/PHP/DefaultJobRunner.php
+
+		-
+			rawMessage: 'Call to method getDiff() on an unknown class SebastianBergmann\Comparator\ComparisonFailure.'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Util/ThrowableToStringMapper.php
