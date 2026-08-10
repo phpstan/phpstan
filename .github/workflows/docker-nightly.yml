@@ -93,8 +93,11 @@ jobs:
           platforms: ${{ matrix.platform }}
           tags: ${{ github.event_name == 'pull_request' && 'phpstan-pr-test' || '' }}
           outputs: ${{ github.event_name == 'pull_request' && 'type=docker' || 'type=image,name=ghcr.io/phpstan/phpstan,push-by-digest=true,name-canonical=true,push=true' }}
-          cache-from: type=gha, scope=${{ github.workflow }}-${{ matrix.key }}-${{ matrix.platform }}
-          cache-to: type=gha, scope=${{ github.workflow }}-${{ matrix.key }}-${{ matrix.platform }}
+          # Pull requests build without any cache: they must not evict the
+          # nightly/stable scopes from the repository cache quota, and an
+          # uncached build validates the whole build path.
+          cache-from: ${{ github.event_name != 'pull_request' && format('type=gha, scope={0}-{1}-{2}', github.workflow, matrix.key, matrix.platform) || '' }}
+          cache-to: ${{ github.event_name != 'pull_request' && format('type=gha, scope={0}-{1}-{2}', github.workflow, matrix.key, matrix.platform) || '' }}
 
       - name: Verify the built image
         if: github.event_name == 'pull_request'
