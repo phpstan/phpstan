@@ -9,6 +9,10 @@
 
 name: Docker image nightly
 
+# On pull requests the images are built and smoke-tested but nothing is
+# pushed: the build loads the image into the runner's Docker instead of
+# pushing by digest, and the merge job does not run.
+
 on:
   push:
     branches:
@@ -23,14 +27,24 @@ on:
       # binaries can land without a phar change (a new platform or PHP minor
       # at an unchanged extension version).
       - 'turbo-ext/**'
+  pull_request:
+    paths:
+      - '.github/workflows/docker-nightly.yml'
+      - 'docker/**'
+      - 'phpstan'
+      - '.phar-checksum'
+      - 'bootstrap.php'
+      - 'turbo-ext/**'
 
 permissions:
   contents: read
-  packages: write
 
 jobs:
   build:
     runs-on: ${{ matrix.runner }}
+    permissions:
+      contents: read
+      packages: write
     concurrency: docker-nightly-${{ github.ref }}-${{ matrix.key }}-${{ matrix.platform }}
     strategy:
       fail-fast: false
@@ -60,6 +74,7 @@ jobs:
         uses: docker/setup-buildx-action@bb05f3f5519dd87d3ba754cc423b652a5edd6d2c # v4.2.0
 
       - name: Login to ghcr
+        if: github.event_name != 'pull_request'
         uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
         with:
           registry: ghcr.io
@@ -74,19 +89,28 @@ jobs:
           context: ./docker
           file: "${{ matrix.docker-file }}"
           build-args: |
-            PHPSTAN_VERSION=2.2.x-dev#${{ github.sha }}
+            PHPSTAN_VERSION=${{ github.event_name == 'pull_request' && '2.2.x-dev' || format('2.2.x-dev#{0}', github.sha) }}
           platforms: ${{ matrix.platform }}
-          outputs: type=image,name=ghcr.io/phpstan/phpstan,push-by-digest=true,name-canonical=true,push=true
+          tags: ${{ github.event_name == 'pull_request' && 'phpstan-pr-test' || '' }}
+          outputs: ${{ github.event_name == 'pull_request' && 'type=docker' || 'type=image,name=ghcr.io/phpstan/phpstan,push-by-digest=true,name-canonical=true,push=true' }}
           cache-from: type=gha, scope=${{ github.workflow }}-${{ matrix.key }}-${{ matrix.platform }}
           cache-to: type=gha, scope=${{ github.workflow }}-${{ matrix.key }}-${{ matrix.platform }}
 
+      - name: Verify the built image
+        if: github.event_name == 'pull_request'
+        run: |
+          docker run --rm --entrypoint php phpstan-pr-test -v
+          docker run --rm phpstan-pr-test --version
+
       - name: Export digest
+        if: github.event_name != 'pull_request'
         run: |
           mkdir -p "${RUNNER_TEMP}/digests"
           digest="${{ steps.build.outputs.digest }}"
           touch "${RUNNER_TEMP}/digests/${digest#sha256:}"
 
       - name: Upload digest
+        if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: digests-${{ matrix.key }}-${{ strategy.job-index }}
@@ -95,7 +119,11 @@ jobs:
           retention-days: 1
 
   merge:
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     needs: build
     concurrency: docker-nightly-merge-${{ github.ref }}-${{ matrix.key }}
     strategy:
