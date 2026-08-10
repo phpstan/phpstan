@@ -96,9 +96,6 @@ jobs:
           # Pull requests build without any cache: they must not evict the
           # nightly/stable scopes from the repository cache quota, and an
           # uncached build validates the whole build path.
-          # The scope is shared with the stable workflow: both build identical
-          # instrument layers from the same Dockerfiles, so a release reuses
-          # what a recent nightly already compiled.
           cache-from: ${{ github.event_name != 'pull_request' && format('type=gha, scope=docker-{0}-{1}', matrix.key, matrix.platform) || '' }}
           cache-to: ${{ github.event_name != 'pull_request' && format('type=gha, scope=docker-{0}-{1}', matrix.key, matrix.platform) || '' }}
 
