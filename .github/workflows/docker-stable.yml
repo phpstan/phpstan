@@ -16,11 +16,13 @@ on:
 
 permissions:
   contents: read
-  packages: write
 
 jobs:
   build:
     runs-on: ${{ matrix.runner }}
+    permissions:
+      contents: read
+      packages: write
     concurrency: docker-stable-${{ github.ref }}-${{ matrix.key }}-${{ matrix.platform }}
     strategy:
       fail-fast: false
@@ -90,6 +92,9 @@ jobs:
 
   merge:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     needs: build
     concurrency: docker-stable-merge-${{ github.ref }}-${{ matrix.key }}
     strategy:
