@@ -69,8 +69,11 @@ jobs:
             PHPSTAN_VERSION=${{ github.ref_name }}
           platforms: ${{ matrix.platform }}
           outputs: type=image,name=ghcr.io/phpstan/phpstan,push-by-digest=true,name-canonical=true,push=true
-          cache-from: type=gha, scope=${{ github.workflow }}-${{ matrix.key }}-${{ matrix.platform }}
-          cache-to: type=gha, scope=${{ github.workflow }}-${{ matrix.key }}-${{ matrix.platform }}
+          # The scope is shared with the nightly workflow: both build identical
+          # instrument layers from the same Dockerfiles, so a release reuses
+          # what a recent nightly already compiled.
+          cache-from: type=gha, scope=docker-${{ matrix.key }}-${{ matrix.platform }}
+          cache-to: type=gha, scope=docker-${{ matrix.key }}-${{ matrix.platform }}
 
       - name: Export digest
         env:
