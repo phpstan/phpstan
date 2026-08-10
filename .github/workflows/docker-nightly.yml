@@ -164,9 +164,11 @@ jobs:
       - name: Create multi-platform manifest
         working-directory: ${{ runner.temp }}/digests
         run: |
+          digests=()
+          for digest in *; do digests+=("ghcr.io/phpstan/phpstan@sha256:${digest}"); done
           docker buildx imagetools create \
             -t "ghcr.io/phpstan/phpstan:nightly${{ matrix.image-tag-suffix }}" \
-            $(printf 'ghcr.io/phpstan/phpstan@sha256:%s ' *)
+            "${digests[@]}"
 
       - name: Inspect
         run: docker buildx imagetools inspect "ghcr.io/phpstan/phpstan:nightly${{ matrix.image-tag-suffix }}"
