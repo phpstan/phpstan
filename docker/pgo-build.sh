@@ -83,8 +83,10 @@ rebuild)
 	make prof-clean
 	php_build_flags
 	# -fprofile-partial-training keeps GCC from pessimizing code the
-	# training did not reach (untrained != cold)
-	make -j"$(nproc)" PROF_FLAGS="-fprofile-use -fprofile-correction -fprofile-partial-training -Wno-missing-profile -Wno-coverage-mismatch" all
+	# training did not reach (untrained != cold); -fno-tracer works around
+	# GCC's tracer pass crashing on ext/session under -fprofile-use
+	# (https://github.com/php/php-src/issues/18807)
+	make -j"$(nproc)" PROF_FLAGS="-fprofile-use -fprofile-correction -fprofile-partial-training -fno-tracer -Wno-missing-profile -Wno-coverage-mismatch" all
 	make INSTALL_ROOT=/pgo-install install-cli
 	/pgo-install/usr/local/bin/php -v
 	;;
