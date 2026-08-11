@@ -119,7 +119,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/ricklambrechts">Rick Lambrechts (ricklambrechts)</a></li>
 <li><a href="https://github.com/SomeBdyElse">Hannes Lau (SomeBdyElse)</a></li>
 <li><a href="https://github.com/EmilMassey">Emil Masiakowski (EmilMassey)</a></li>
-<li><a href="https://github.com/hirokinoue">Hiroki Inoue (hirokinoue)</a></li>
+<li><a href="https://github.com/hirokinoue">hirokinoue (hirokinoue)</a></li>
 <li><a href="https://github.com/greew">Jesper Skytte Marcussen (greew)</a></li>
 <li><a href="https://github.com/jesperbeisner">Jesper Beisner (jesperbeisner)</a></li>
 <li><a href="https://github.com/vazaha-nl">Lennart Hengstmengel (vazaha-nl)</a></li>
