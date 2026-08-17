@@ -113,11 +113,7 @@ Because of limitations with Bitbucket's cache feature, the cache is only uploade
 ```yaml
 definitions:
   caches:
-    phpstan:
-      key:
-        files: # the files you want pipelines to check for changes when deciding whether to use the cache, or download fresh dependencies.
-          - composer.lock
-      path: tmp # same as in phpstan.neon
+    phpstan: tmp # same as in phpstan.neon
 
 pipelines:
   default:
