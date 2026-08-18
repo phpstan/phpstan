@@ -25,6 +25,12 @@ parameters:
 			path: repo/src/Collection/ArrayCollection.php
 
 		-
+			rawMessage: 'Parameter #1 $haystack of function str_contains expects non-empty-string, string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Collection/Helpers/ConditionParser.php
+
+		-
 			rawMessage: 'Call to an undefined method object::onEntityAttach().'
 			identifier: method.notFound
 			count: 1
@@ -61,6 +67,12 @@ parameters:
 			path: repo/src/Entity/Reflection/ModifierParser.php
 
 		-
+			rawMessage: 'Parameter #1 $haystack of function str_contains expects non-empty-string, string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Entity/Reflection/ModifierParser.php
+
+		-
 			rawMessage: 'Parameter #2 $context of static method Nette\Utils\Reflection::expandClassName() expects ReflectionClass<object>, ReflectionClass<covariant object> given.'
 			identifier: argument.type
 			count: 1
@@ -71,6 +83,18 @@ parameters:
 			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: repo/src/Entity/Reflection/ModifierParser.php
+
+		-
+			rawMessage: 'Parameter #1 $haystack of function str_ends_with expects non-empty-string, string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Mapper/Dbal/Conventions/Inflector/CamelCaseInflector.php
+
+		-
+			rawMessage: 'Parameter #1 $haystack of function str_ends_with expects non-empty-string, string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Mapper/Dbal/Conventions/Inflector/SnakeCaseInflector.php
 
 		-
 			rawMessage: 'Method Nextras\Orm\Mapper\Dbal\DbalMapper::createCollectionManyHasMany() should return Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity> but returns Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity>.'
@@ -191,3 +215,15 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/cases/integration/BridgeNetteDI/dic-finder.phpt
+
+		-
+			rawMessage: 'Parameter #1 $haystack of function str_contains expects non-empty-string, string given.'
+			identifier: argument.type
+			count: 4
+			path: repo/tests/inc/QueryChecker.php
+
+		-
+			rawMessage: 'Parameter $needle of function str_starts_with expects non-empty-string, string given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/inc/model/TestingPrefixFunction.php
