@@ -26,6 +26,11 @@ function clearTemp(): void
 	);
 
 	foreach ($files as $fileinfo) {
+		if ($fileinfo->isLink()) {
+			// Remove the link itself; never operate on its target.
+			unlink($fileinfo->getPathname());
+			continue;
+		}
 		$todo = ($fileinfo->isDir() ? 'rmdir' : 'unlink');
 		$todo($fileinfo->getRealPath());
 	}
