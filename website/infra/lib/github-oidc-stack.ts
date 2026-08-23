@@ -24,10 +24,8 @@ export class GithubOidcStack extends cdk.Stack {
 			clientIds: ['sts.amazonaws.com'],
 		});
 
-		const subjectPrefix = `repo:${props.githubOrg}/${props.githubRepo}`;
 		const allowedSubjects = [
-			`${subjectPrefix}:ref:refs/heads/${props.deployBranch}`,
-			`${subjectPrefix}:pull_request`,
+			`repo:${props.githubOrg}/${props.githubRepo}:ref:refs/heads/${props.deployBranch}`,
 		];
 
 		this.infraDeployRole = new iam.Role(this, 'InfraDeployRole', {
