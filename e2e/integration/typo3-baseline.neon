@@ -1,0 +1,19 @@
+parameters:
+	ignoreErrors:
+		-
+			rawMessage: 'Class Symfony\Component\Uid\UuidV4 referenced with incorrect case: Symfony\Component\Uid\Uuidv4.'
+			identifier: class.nameCase
+			count: 1
+			path: repo/typo3/sysext/backend/Classes/Security/ContentSecurityPolicy/CspAjaxController.php
+
+		-
+			rawMessage: 'Class Doctrine\DBAL\Platforms\PostgreSQLPlatform referenced with incorrect case: Doctrine\DBAL\Platforms\PostgreSqlPlatform.'
+			identifier: class.nameCase
+			count: 1
+			path: repo/typo3/sysext/core/Classes/DataHandling/DataHandler.php
+
+		-
+			rawMessage: 'Class TYPO3\CMS\Core\TypoScript\Tokenizer\Token\Token referenced with incorrect case: TYPO3\CMS\Core\TypoScript\Tokenizer\Token\token.'
+			identifier: class.nameCase
+			count: 3
+			path: repo/typo3/sysext/core/Tests/Unit/TypoScript/Tokenizer/TokenizerInterfaceTest.php
