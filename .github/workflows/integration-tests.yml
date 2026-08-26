@@ -120,6 +120,18 @@ jobs:
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
               composer run-script test:unit
+          - php-version: 8.5
+            name: phpstan-laravel tests
+            script: |
+              git clone https://github.com/calebdw/phpstan-laravel.git --depth 1 -b v1.5.0 e2e/integration/repo
+              cd e2e/integration/repo
+              cp ../phpstan-laravel-composer.lock composer.lock
+              composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
+              composer run-script test:unit
           - php-version: 8.4
             name: Carbon tests
             script: |
@@ -379,6 +391,18 @@ jobs:
               rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
             phpstan-command: ../../../phpstan.phar analyse -c ../larastan.neon
             baseline-file: larastan-baseline.neon
+          - php-version: 8.5
+            repo: calebdw/phpstan-laravel
+            ref: v1.5.0
+            setup: |
+              cp ../phpstan-laravel-composer.lock composer.lock
+              composer install
+              cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../../phpstan vendor/phpstan/phpstan/phpstan
+              cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
+            phpstan-command: ../../../phpstan.phar analyse -c ../phpstan-laravel.neon
+            baseline-file: phpstan-laravel-baseline.neon
           - php-version: 8.4
             repo: bitExpert/phpstan-magento
             ref: f5640e72f0cfaa966dcd329ae2ffd1a789321c7a

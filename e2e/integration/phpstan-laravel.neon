@@ -1,0 +1,4 @@
+includes:
+	- repo/phpstan.neon.dist
+	- phpstan-laravel-baseline.neon
+	- editor-link-repo.php
