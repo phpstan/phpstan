@@ -526,6 +526,13 @@ jobs:
             phpstan-command: ../../../phpstan.phar analyse -c ../drupal.neon -vvv
             baseline-file: drupal-baseline.neon
           - php-version: 8.5
+            repo: TYPO3/typo3
+            ref: d7b21b717b1acc3a228b7b99de23e07ad6060da1
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../typo3.neon --memory-limit=2G
+            baseline-file: typo3-baseline.neon
+          - php-version: 8.5
             repo: WordPress/wordpress-develop
             ref: 7924b71d7a2392a1ff27e09cdea6d4be809a4a34
             setup: |
