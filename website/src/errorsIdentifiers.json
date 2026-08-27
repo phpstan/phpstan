@@ -2745,20 +2745,20 @@
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L217",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L528"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L221",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L532"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L217",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L528"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L221",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L532"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L217",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L528"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L221",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L532"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
@@ -2773,8 +2773,8 @@
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L217",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L528"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L221",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L532"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
@@ -2784,8 +2784,8 @@
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L217",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L528"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L221",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L532"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
@@ -3838,312 +3838,312 @@
     "class.nameCase": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassInClassExtendsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassInInstanceOfRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassInTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassesInClassImplementsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassesInEnumImplementsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassesInInterfaceExtendsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Exceptions\\CaughtExceptionExistenceRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\TraitTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInGroupUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyHookPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\RequireImplementsDefinitionTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\SealedDefinitionClassRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         }
     },
@@ -4427,29 +4427,29 @@
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L169",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L256",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L326",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L449",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L539"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L173",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L260",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L330",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L453",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L543"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L169",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L256",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L326",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L449",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L539"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L173",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L260",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L330",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L453",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L543"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L169",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L256",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L326",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L449",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L539"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L173",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L260",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L330",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L453",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L543"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
@@ -4602,11 +4602,11 @@
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L169",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L256",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L326",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L449",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L539"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L173",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L260",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L330",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L453",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L543"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
@@ -4742,11 +4742,11 @@
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L169",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L256",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L326",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L449",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L539"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L173",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L260",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L330",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L453",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L543"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
@@ -6219,312 +6219,312 @@
     "enum.nameCase": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassInClassExtendsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassInInstanceOfRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassInTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassesInClassImplementsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassesInEnumImplementsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassesInInterfaceExtendsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Exceptions\\CaughtExceptionExistenceRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\TraitTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInGroupUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyHookPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\RequireImplementsDefinitionTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\SealedDefinitionClassRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         }
     },
@@ -9278,312 +9278,312 @@
     "interface.nameCase": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassInClassExtendsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassInInstanceOfRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassInTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassesInClassImplementsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassesInEnumImplementsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassesInInterfaceExtendsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Exceptions\\CaughtExceptionExistenceRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\TraitTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInGroupUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyHookPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\RequireImplementsDefinitionTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\SealedDefinitionClassRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         }
     },
@@ -10350,27 +10350,27 @@
     "method.templateTypeNotInParameter": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L615"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L619"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L615"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L619"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L615"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L619"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L615"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L619"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L615"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L619"
             ]
         }
     },
@@ -12261,27 +12261,27 @@
     "parameter.implicitlyNullable": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L833"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L837"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L833"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L837"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L833"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L837"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L833"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L837"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L833"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L837"
             ]
         }
     },
@@ -12328,27 +12328,27 @@
     "parameter.noParent": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L502"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L506"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L502"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L506"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L502"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L506"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L502"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L506"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L502"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L506"
             ]
         }
     },
@@ -12460,27 +12460,27 @@
     "parameter.requiredAfterOptional": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L650"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L654"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L650"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L654"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L650"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L654"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L650"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L654"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L650"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L654"
             ]
         }
     },
@@ -12501,96 +12501,96 @@
     "parameter.trait": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L178",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L463"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L182",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L467"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L178",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L463"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L182",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L467"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L178",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L463"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L182",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L467"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L178",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L463"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L182",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L467"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L178",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L463"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L182",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L467"
             ]
         }
     },
     "parameter.unionTypeNotSupported": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L129",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L381"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L133",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L385"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L129",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L381"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L133",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L385"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L129",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L381"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L133",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L385"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L129",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L381"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L133",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L385"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L129",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L381"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L133",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L385"
             ]
         }
     },
     "parameter.unresolvableNativeType": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L157",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L434"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L161",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L438"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L157",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L434"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L161",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L438"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L157",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L434"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L161",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L438"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L157",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L434"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L161",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L438"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L157",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L434"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L161",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L438"
             ]
         }
     },
@@ -15167,27 +15167,27 @@
     "return.noParent": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L583"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L587"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L583"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L587"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L583"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L587"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L583"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L587"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L583"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L587"
             ]
         }
     },
@@ -15245,32 +15245,32 @@
     "return.trait": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L264",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L549"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L268",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L553"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L264",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L549"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L268",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L553"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L264",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L549"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L268",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L553"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L264",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L549"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L268",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L553"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L264",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L549"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L268",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L553"
             ]
         }
     },
@@ -15300,64 +15300,64 @@
     "return.unionTypeNotSupported": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L232",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L391"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L236",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L395"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L232",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L391"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L236",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L395"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L232",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L391"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L236",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L395"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L232",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L391"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L236",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L395"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L232",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L391"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L236",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L395"
             ]
         }
     },
     "return.unresolvableNativeType": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L244",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L513"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L248",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L244",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L513"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L248",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L244",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L513"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L248",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L244",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L513"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L248",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L244",
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L513"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L248",
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L517"
             ]
         }
     },
@@ -15582,27 +15582,27 @@
     "selfOut.trait": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L336"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L340"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L336"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L340"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L336"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L340"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L336"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L340"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L336"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/FunctionDefinitionCheck.php#L340"
             ]
         }
     },
@@ -16579,312 +16579,312 @@
     "trait.nameCase": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassInClassExtendsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassInInstanceOfRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassInTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassesInClassImplementsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassesInEnumImplementsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassesInInterfaceExtendsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\LocalTypeTraitUseAliasesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MethodTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\MixinTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Classes\\PropertyTagTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Exceptions\\CaughtExceptionExistenceRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\ClassTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\FunctionTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\InterfaceTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTagTemplateTypeTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\MethodTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Generics\\TraitTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInGroupUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyHookPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocVarTagTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionClassRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\RequireExtendsDefinitionTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\RequireImplementsDefinitionTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\SealedDefinitionClassRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L61"
+                "https://github.com/phpstan/phpstan-src/blob/2.2.x/src/Rules/ClassCaseSensitivityCheck.php#L63"
             ]
         }
     },
