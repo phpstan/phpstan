@@ -181,28 +181,10 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/EventStore/PublishedEvents.php
 
 		-
-			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeAggregateCommandHandler.php
-
-		-
-			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\NodeAggregate and Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\NodeAggregate will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeAggregateCommandHandler.php
-
-		-
-			message: '#^Property Neos\\ContentRepository\\Core\\Feature\\NodeCreation\\Command\\CreateNodeAggregateWithNodeAndSerializedProperties\:\:\$references \(Neos\\ContentRepository\\Core\\Feature\\NodeReferencing\\Dto\\SerializedNodeReferences\) on left side of \?\? is not nullable\.$#'
-			identifier: nullCoalesce.property
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeAggregateCommandHandler.php
-
-		-
 			message: '#^Using nullsafe property access "\?\-\>tetheredNodeTypeDefinitions" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
 			identifier: nullsafe.neverNull
-			count: 2
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeAggregateCommandHandler.php
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/Common/TetheredNodeInternals.php
 
 		-
 			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
@@ -215,6 +197,12 @@ parameters:
 			identifier: instanceof.alwaysTrue
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeCreation/Dto/NodeAggregateIdsByNodePaths.php
+
+		-
+			message: '#^Property Neos\\ContentRepository\\Core\\Feature\\NodeCreation\\Command\\CreateNodeAggregateWithNodeAndSerializedProperties\:\:\$references \(Neos\\ContentRepository\\Core\\Feature\\NodeReferencing\\Dto\\SerializedNodeReferences\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeCreation/NodeCreation.php
 
 		-
 			message: '#^Call to function array_key_exists\(\) with ''type'' and array\{type\: string, value\: array\<int\|string, mixed\>\|ArrayObject\<int\|string, mixed\>\|bool\|float\|int\|string\} will always evaluate to true\.$#'
@@ -235,6 +223,18 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeModification/Dto/SerializedPropertyValues.php
 
 		-
+			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeTypeChange/NodeTypeChange.php
+
+		-
+			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\NodeAggregate and Neos\\ContentRepository\\Core\\Projection\\ContentGraph\\NodeAggregate will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/NodeTypeChange/NodeTypeChange.php
+
+		-
 			message: '#^Instanceof between Neos\\ContentRepository\\Core\\Feature\\Common\\RebasableToOtherWorkspaceInterface and JsonSerializable will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
 			count: 1
@@ -244,12 +244,6 @@ parameters:
 			message: '#^Impure yield in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:discardWorkspace\(\)\.$#'
 			identifier: impure.yield
 			count: 3
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
-
-		-
-			message: '#^Possibly impure call to function array_filter\(\) in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:reopenContentStreamWithoutConstraintChecks\(\)\.$#'
-			identifier: possiblyImpure.functionCall
-			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/WorkspaceCommandHandler.php
 
 		-
@@ -461,12 +455,6 @@ parameters:
 			identifier: property.unusedType
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Infrastructure/Property/Normalizer/CollectionTypeDenormalizer.php
-
-		-
-			message: '#^Strict comparison using \=\=\= between false and false will always evaluate to true\.$#'
-			identifier: identical.alwaysTrue
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/NodeType/ConstraintCheck.php
 
 		-
 			message: '#^Method Neos\\ContentRepository\\Core\\NodeType\\NodeType\:\:__construct\(\) has InvalidArgumentException in PHPDoc @throws tag but it''s not thrown\.$#'
@@ -801,12 +789,6 @@ parameters:
 		-
 			message: '#^Possibly invalid array key type string\|null\.$#'
 			identifier: offsetAccess.invalidOffset
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.StructureAdjustment/src/Adjustment/TetheredNodeAdjustments.php
-
-		-
-			message: '#^Using nullsafe property access "\?\-\>tetheredNodeTypeDefinitions" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
-			identifier: nullsafe.neverNull
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.StructureAdjustment/src/Adjustment/TetheredNodeAdjustments.php
 
