@@ -628,6 +628,10 @@ jobs:
               cp ../../../phpstan Packages/Libraries/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php Packages/Libraries/phpstan/phpstan/bootstrap.php
               rm -rf Packages/Libraries/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext Packages/Libraries/phpstan/phpstan/turbo-ext
+              # Flow's bootstrap (run by bootstrap-phpstan.php in every parallel
+              # worker) creates these directories non-atomically and exits on a
+              # lost mkdir race - create them upfront.
+              mkdir -p Data/Persistent Data/Temporary/Testing
             phpstan-command: bin/phpstan analyse -c ../neos.neon -vvv
             baseline-file: neos-baseline.neon
           - php-version: 8.5
@@ -650,6 +654,10 @@ jobs:
               cp ../../../phpstan Packages/Libraries/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php Packages/Libraries/phpstan/phpstan/bootstrap.php
               rm -rf Packages/Libraries/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext Packages/Libraries/phpstan/phpstan/turbo-ext
+              # Flow's bootstrap (run by bootstrap-phpstan.php in every parallel
+              # worker) creates these directories non-atomically and exits on a
+              # lost mkdir race - create them upfront.
+              mkdir -p Data/Persistent Data/Temporary/Testing
             phpstan-command: bin/phpstan analyse -c ../flow.neon
             baseline-file: flow-baseline.neon
           - php-version: 8.5
@@ -669,6 +677,10 @@ jobs:
               cp ../../../phpstan Packages/Libraries/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php Packages/Libraries/phpstan/phpstan/bootstrap.php
               rm -rf Packages/Libraries/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext Packages/Libraries/phpstan/phpstan/turbo-ext
+              # Flow's bootstrap (run by bootstrap-phpstan.php in every parallel
+              # worker) creates these directories non-atomically and exits on a
+              # lost mkdir race - create them upfront.
+              mkdir -p Data/Persistent Data/Temporary/Testing
             phpstan-command: bin/phpstan analyse -c ../flow-legacy.neon
             baseline-file: flow-legacy-baseline.neon
           - php-version: 8.5
