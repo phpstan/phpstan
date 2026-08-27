@@ -1,22 +1,49 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Right side of && is always true\.$#'
-			identifier: booleanAnd.rightAlwaysTrue
+			message: '''
+				#^Call to deprecated method toMutatingScope\(\) of interface PHPStan\\Analyser\\Scope\:
+				The scope answers every ask directly \- call the methods on the scope itself, or toWalkScope\(\) for the engine\-facing walk scope\.$#
+			'''
+			identifier: method.deprecated
 			count: 1
-			path: repo/rules/Php70/Rector/StaticCall/StaticCallOnNonStaticToInstanceCallRector.php
+			path: repo/rules/Php81/NodeManipulator/NullToStrictStringIntConverter.php
 
 		-
-			message: '#^PHPDoc tag @var with type array\<PHPStan\\Type\\Constant\\ConstantArrayType\> is not subtype of native type non\-empty\-array\<int\<0, max\>\|string, PHPStan\\Type\\ArrayType\>\.$#'
-			identifier: varTag.nativeType
+			message: '#^Call to method toMutatingScope\(\) on an unknown class PHPStan\\Analyser\\Fiber\\FiberScope\.$#'
+			identifier: class.notFound
 			count: 1
-			path: repo/rules/Privatization/TypeManipulator/ArrayTypeLeastCommonDenominatorResolver.php
+			path: repo/rules/Php81/NodeManipulator/NullToStrictStringIntConverter.php
+
+		-
+			message: '#^Class PHPStan\\Analyser\\Fiber\\FiberScope not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/rules/Php81/NodeManipulator/NullToStrictStringIntConverter.php
 
 		-
 			message: '#^Only abstract classes can be extended$#'
 			identifier: symplify.forbiddenExtendOfNonAbstractClass
 			count: 1
 			path: repo/src/NodeTypeResolver/PHPStan/ObjectWithoutClassTypeWithParentTypes.php
+
+		-
+			message: '#^Call to deprecated method toMutatingScope\(\) of class PHPStan\\Analyser\\MutatingScope\.$#'
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/NodeTypeResolver/PHPStan/Scope/PHPStanNodeScopeResolver.php
+
+		-
+			message: '#^Call to method toMutatingScope\(\) on an unknown class PHPStan\\Analyser\\Fiber\\FiberScope\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/NodeTypeResolver/PHPStan/Scope/PHPStanNodeScopeResolver.php
+
+		-
+			message: '#^Class PHPStan\\Analyser\\Fiber\\FiberScope not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/NodeTypeResolver/PHPStan/Scope/PHPStanNodeScopeResolver.php
 
 		-
 			message: '#^Only abstract classes can be extended$#'

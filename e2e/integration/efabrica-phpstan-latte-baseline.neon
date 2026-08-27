@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: 'Class Nette\Utils\FileSystem referenced with incorrect case: Nette\Utils\Filesystem.'
+			identifier: class.nameCase
+			count: 7
+			path: repo/src/Analyser/LatteContextAnalyser.php
+
+		-
 			rawMessage: Possibly invalid array key type class-string|false.
 			identifier: offsetAccess.invalidOffset
 			count: 1
@@ -55,12 +61,6 @@ parameters:
 			path: repo/src/Compiler/NodeVisitor/RenderBlockNodeVisitor.php
 
 		-
-			rawMessage: 'Parameter #3 of function sprintf is expected to be int by placeholder #2 ("%%d"), string given.'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Error/TableErrorFormatter.php
-
-		-
 			rawMessage: 'Offset ''block'' on array{0: non-falsy-string, 1: string, block: string, 2: string} in isset() always exists and is not nullable.'
 			identifier: isset.offset
 			count: 1
@@ -101,3 +101,9 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Resolver/ValueResolver/ValueResolver.php
+
+		-
+			rawMessage: 'Class Nette\Utils\FileSystem referenced with incorrect case: Nette\Utils\Filesystem.'
+			identifier: class.nameCase
+			count: 2
+			path: repo/src/Temp/TempDirResolver.php

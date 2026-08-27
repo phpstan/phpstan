@@ -13,12 +13,6 @@ parameters:
 			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/Core/ViewHelper/AbstractConditionViewHelper.php
 
 		-
-			message: '#^Offset ''__thenClosure'' on \*NEVER\* in isset\(\) always exists and is not nullable\.$#'
-			identifier: isset.offset
-			count: 1
-			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/Core/ViewHelper/AbstractConditionViewHelper.php
-
-		-
 			message: '#^Instanceof between Neos\\FluidAdaptor\\Core\\Rendering\\FlowAwareRenderingContextInterface&TYPO3Fluid\\Fluid\\Core\\Rendering\\RenderingContextInterface and Neos\\FluidAdaptor\\Core\\Rendering\\FlowAwareRenderingContextInterface will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
 			count: 1

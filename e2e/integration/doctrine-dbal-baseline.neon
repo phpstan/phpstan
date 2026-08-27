@@ -85,6 +85,12 @@ parameters:
 			path: repo/tests/FunctionalTestCase.php
 
 		-
+			rawMessage: 'Class Doctrine\DBAL\Platforms\SQLitePlatform referenced with incorrect case: Doctrine\DBAL\Platforms\SqlitePlatform.'
+			identifier: class.nameCase
+			count: 1
+			path: repo/tests/Platforms/SQLitePlatformTest.php
+
+		-
 			rawMessage: 'Method Doctrine\DBAL\Tests\TestUtil::mapConnectionParameters() should return array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...} but returns array{driver?: mixed, user?: mixed, password?: mixed, host?: mixed, dbname?: mixed, memory?: mixed, port?: mixed, server?: mixed, ...}.'
 			identifier: return.type
 			count: 1
