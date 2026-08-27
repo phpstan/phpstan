@@ -529,7 +529,10 @@ jobs:
             repo: TYPO3/typo3
             ref: d7b21b717b1acc3a228b7b99de23e07ad6060da1
             setup: |
-              composer install
+              # The checkout is a detached HEAD with no branch, so Composer cannot
+              # derive the root version and the monorepo's "replace: typo3/cms-*"
+              # entries stop satisfying typo3/testing-framework's requirements.
+              COMPOSER_ROOT_VERSION=14.0.x-dev composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../typo3.neon --memory-limit=2G
             baseline-file: typo3-baseline.neon
           - php-version: 8.5
