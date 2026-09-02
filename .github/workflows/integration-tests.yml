@@ -86,7 +86,7 @@ jobs:
             script: |
               git clone https://github.com/rectorphp/rector-downgrade-php.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout e77a75a01090f2f58e60d92944b82e5840b44718
+              git checkout 1beef93a7e2771e0d0fc42e6d1d22ecb9321e8e8
               cp ../rector-downgrade-php-composer.lock composer.lock
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
@@ -296,7 +296,7 @@ jobs:
             baseline-file: rector-baseline.neon
           - php-version: 8.4
             repo: rectorphp/rector-downgrade-php
-            ref: e77a75a01090f2f58e60d92944b82e5840b44718
+            ref: 1beef93a7e2771e0d0fc42e6d1d22ecb9321e8e8
             setup: |
               cp ../rector-downgrade-php-composer.lock composer.lock
               COMPOSER_ROOT_VERSION=dev-main composer install
