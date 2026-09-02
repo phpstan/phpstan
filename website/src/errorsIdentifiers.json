@@ -5524,12 +5524,12 @@
     "closure.unusedUse": {
         "PHPStan\\Rules\\Classes\\UnusedConstructorParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedFunctionParametersCheck.php#L58"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedFunctionParametersCheck.php#L62"
             ]
         },
         "PHPStan\\Rules\\Functions\\UnusedClosureUsesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedFunctionParametersCheck.php#L58"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedFunctionParametersCheck.php#L62"
             ]
         }
     },
@@ -5684,12 +5684,12 @@
     "constructor.unusedParameter": {
         "PHPStan\\Rules\\Classes\\UnusedConstructorParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedFunctionParametersCheck.php#L58"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedFunctionParametersCheck.php#L62"
             ]
         },
         "PHPStan\\Rules\\Functions\\UnusedClosureUsesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedFunctionParametersCheck.php#L58"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedFunctionParametersCheck.php#L62"
             ]
         }
     },
@@ -6651,7 +6651,7 @@
     "function.alreadyNarrowedType": {
         "PHPStan\\Rules\\Comparison\\ImpossibleCheckTypeFunctionCallRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleCheckTypeFunctionCallRule.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleCheckTypeFunctionCallRule.php#L115"
             ]
         }
     },
@@ -6685,7 +6685,7 @@
     "function.impossibleType": {
         "PHPStan\\Rules\\Comparison\\ImpossibleCheckTypeFunctionCallRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleCheckTypeFunctionCallRule.php#L89"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleCheckTypeFunctionCallRule.php#L91"
             ]
         }
     },
@@ -9990,7 +9990,7 @@
     "method.alreadyNarrowedType": {
         "PHPStan\\Rules\\Comparison\\ImpossibleCheckTypeMethodCallRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleCheckTypeMethodCallRule.php#L120"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleCheckTypeMethodCallRule.php#L122"
             ]
         }
     },
@@ -10106,7 +10106,7 @@
     "method.impossibleType": {
         "PHPStan\\Rules\\Comparison\\ImpossibleCheckTypeMethodCallRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleCheckTypeMethodCallRule.php#L94"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleCheckTypeMethodCallRule.php#L96"
             ]
         }
     },
@@ -13053,12 +13053,12 @@
     "phpstanApi.varTagAssumption": {
         "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L135"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L142"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L135"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L142"
             ]
         }
     },
@@ -15700,7 +15700,7 @@
     "staticMethod.alreadyNarrowedType": {
         "PHPStan\\Rules\\Comparison\\ImpossibleCheckTypeStaticMethodCallRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleCheckTypeStaticMethodCallRule.php#L121"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleCheckTypeStaticMethodCallRule.php#L123"
             ]
         }
     },
@@ -15803,7 +15803,7 @@
     "staticMethod.impossibleType": {
         "PHPStan\\Rules\\Comparison\\ImpossibleCheckTypeStaticMethodCallRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleCheckTypeStaticMethodCallRule.php#L95"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleCheckTypeStaticMethodCallRule.php#L97"
             ]
         }
     },
@@ -17350,12 +17350,12 @@
     "varTag.nativeType": {
         "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L120"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L113"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L120"
             ]
         }
     },
@@ -17380,12 +17380,12 @@
     "varTag.type": {
         "PHPStan\\Rules\\PhpDoc\\VarTagChangedExpressionTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L123"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L130"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\WrongVariableNameInVarTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L123"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/VarTagTypeRuleHelper.php#L130"
             ]
         }
     },
