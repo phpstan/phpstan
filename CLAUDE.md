@@ -68,7 +68,7 @@ Key workflows in `.github/workflows/`:
 
 ### Current Branch
 
-The main development branch for this repository is `2.2.x`.
+The main development branch for this repository is `2.3.x`.
 
 ## Website
 

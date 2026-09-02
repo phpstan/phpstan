@@ -9,7 +9,7 @@ COPY pgo-build.sh /usr/local/bin/pgo-build
 RUN pgo-build instrument
 
 ARG PHPSTAN_VERSION
-ARG PHPSTAN_SRC_REF=2.2.x
+ARG PHPSTAN_SRC_REF=2.3.x
 
 RUN pgo-build train
 

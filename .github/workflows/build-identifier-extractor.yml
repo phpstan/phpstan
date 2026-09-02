@@ -9,7 +9,7 @@ on:
       - '.github/workflows/build-identifier-extractor.yml'
   push:
     branches:
-      - "2.2.x"
+      - "2.3.x"
     paths:
       - 'identifier-extractor/**'
       - '.github/workflows/build-identifier-extractor.yml'

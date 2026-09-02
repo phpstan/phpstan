@@ -6,7 +6,7 @@ on:
   pull_request:
   push:
     branches:
-      - "2.2.x"
+      - "2.3.x"
 
 permissions:
   contents: read
