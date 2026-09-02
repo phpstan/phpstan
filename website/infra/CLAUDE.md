@@ -105,7 +105,7 @@ npm run deploy     # cdk deploy --all
 
 1. `test` — `npm ci && npm run check && npm test && npx cdk synth --all` (no AWS creds).
 2. `diff` (needs: `test`) — assumes `INFRA_DEPLOY_ROLE_ARN` via OIDC, runs `cdk diff --all`, posts a sticky PR comment with the diff.
-3. `deploy` (needs: `[test, diff]`, only on push to `2.2.x`) — assumes the same role, runs `cdk deploy --all --require-approval never`.
+3. `deploy` (needs: `[test, diff]`, only on push to `2.3.x`) — assumes the same role, runs `cdk deploy --all --require-approval never`.
 
 The deploy is gated on **both** test and diff succeeding, so a broken edge
 function unit test or a CDK synth error blocks the deploy.

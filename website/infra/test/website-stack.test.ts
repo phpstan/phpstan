@@ -7,7 +7,7 @@ const baseProps = {
 	env: { account: '928192134594', region: 'us-east-1' },
 	githubOrg: 'phpstan',
 	githubRepo: 'phpstan',
-	deployBranch: '2.2.x',
+	deployBranch: '2.3.x',
 	oidcProviderArn: 'arn:aws:iam::928192134594:oidc-provider/token.actions.githubusercontent.com',
 	hostedZoneId: 'Z3OJGVJEUUWZDN',
 	hostedZoneName: 'phpstan.org',
@@ -144,7 +144,7 @@ describe('WebsiteStack', () => {
 		});
 	});
 
-	it('creates the website-deploy role scoped to the 2.2.x branch via OIDC', () => {
+	it('creates the website-deploy role scoped to the 2.3.x branch via OIDC', () => {
 		template.hasResourceProperties('AWS::IAM::Role', {
 			RoleName: 'phpstan-org-website-deploy',
 			AssumeRolePolicyDocument: Match.objectLike({
@@ -154,7 +154,7 @@ describe('WebsiteStack', () => {
 						Condition: {
 							StringEquals: { 'token.actions.githubusercontent.com:aud': 'sts.amazonaws.com' },
 							StringLike: {
-								'token.actions.githubusercontent.com:sub': 'repo:phpstan/phpstan:ref:refs/heads/2.2.x',
+								'token.actions.githubusercontent.com:sub': 'repo:phpstan/phpstan:ref:refs/heads/2.3.x',
 							},
 						},
 					}),

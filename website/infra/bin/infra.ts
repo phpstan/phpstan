@@ -11,7 +11,7 @@ const env = { account, region };
 
 const githubOrg = 'phpstan';
 const githubRepo = 'phpstan';
-const deployBranch = '2.2.x';
+const deployBranch = '2.3.x';
 
 const hostedZoneId = 'Z3OJGVJEUUWZDN';
 const hostedZoneName = 'phpstan.org';
