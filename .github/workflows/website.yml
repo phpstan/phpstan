@@ -11,7 +11,7 @@ on:
       - '!website/infra/**'
   push:
     branches:
-      - "2.2.x"
+      - "2.3.x"
     paths:
       - '.github/workflows/website.yml'
       - 'website/**'
@@ -274,7 +274,7 @@ jobs:
       - build
       - visual-regression
       - functional-tests
-    if: "github.ref == 'refs/heads/2.2.x'"
+    if: "github.ref == 'refs/heads/2.3.x'"
     runs-on: "ubuntu-latest"
     concurrency: website
     permissions:

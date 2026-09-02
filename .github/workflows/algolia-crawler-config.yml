@@ -3,7 +3,7 @@ name: "Algolia Crawler Config Update"
 on:
   push:
     branches:
-      - "2.2.x"
+      - "2.3.x"
     paths:
       - '.github/workflows/algolia-crawler-config.json'
       - '.github/workflows/algolia-crawler-config.yml'

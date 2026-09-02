@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - "2.2.x"
+      - "2.3.x"
     paths:
       - '.github/workflows/update-playground-runner.yml'
       - 'playground-runner/**'

@@ -40,7 +40,7 @@ The final deployable output is the `dist/` directory.
 
 ### Deployment
 
-Built on GitHub Actions, deployed to AWS S3 (`web-phpstan.org` bucket) with CloudFront CDN invalidation. Triggered by pushes to `2.1.x` branch affecting `website/**`.
+Built on GitHub Actions, deployed to AWS S3 (`web-phpstan.org` bucket) with CloudFront CDN invalidation. Triggered by pushes to `2.3.x` branch affecting `website/**`.
 
 ## Source Structure
 

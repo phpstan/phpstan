@@ -122,7 +122,7 @@ final class CleaningVisitor extends NodeVisitorAbstract
 
 }
 
-$ref = getenv('PHPSTAN_SRC_REF') ?: '2.2.x';
+$ref = getenv('PHPSTAN_SRC_REF') ?: '2.3.x';
 $base = "https://raw.githubusercontent.com/phpstan/phpstan-src/$ref";
 $outDir = __DIR__ . '/../../src/js/phpantom/stubs';
 

@@ -3,7 +3,7 @@ name: "Claude Update Error Docs"
 on:
   push:
     branches:
-      - "2.2.x"
+      - "2.3.x"
     paths:
       - '.github/workflows/claude-update-error-docs-identifiers-change.yml'
       - 'website/src/errorsIdentifiers.json'

@@ -16,7 +16,7 @@ name: Docker image nightly
 on:
   push:
     branches:
-      - "2.2.x"
+      - "2.3.x"
     paths:
       - '.github/workflows/docker-nightly.yml'
       - 'docker/**'
@@ -89,7 +89,7 @@ jobs:
           context: ./docker
           file: "${{ matrix.docker-file }}"
           build-args: |
-            PHPSTAN_VERSION=${{ github.event_name == 'pull_request' && '2.2.x-dev' || format('2.2.x-dev#{0}', github.sha) }}
+            PHPSTAN_VERSION=${{ github.event_name == 'pull_request' && '2.3.x-dev' || format('2.3.x-dev#{0}', github.sha) }}
           platforms: ${{ matrix.platform }}
           tags: ${{ github.event_name == 'pull_request' && 'phpstan-pr-test' || '' }}
           outputs: ${{ github.event_name == 'pull_request' && 'type=docker' || 'type=image,name=ghcr.io/phpstan/phpstan,push-by-digest=true,name-canonical=true,push=true' }}
