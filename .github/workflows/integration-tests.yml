@@ -99,7 +99,7 @@ jobs:
             script: |
               git clone https://github.com/symplify/phpstan-rules.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 947b9c72900454bb0a13c461456be116acc9e258
+              git checkout 31b31b0160aac4c9d86815a1e19c00c2c88f302e
               cp ../symplify-composer.lock composer.lock
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
@@ -373,7 +373,7 @@ jobs:
             baseline-file: slevomat-cs-tests-baseline.neon
           - php-version: 8.4
             repo: symplify/phpstan-rules
-            ref: 947b9c72900454bb0a13c461456be116acc9e258
+            ref: 31b31b0160aac4c9d86815a1e19c00c2c88f302e
             setup: |
               cp ../symplify-composer.lock composer.lock
               composer install
