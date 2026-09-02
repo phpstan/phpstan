@@ -1,11 +1,11 @@
 {
   "rateLimit": 8,
-  "startUrls": ["https://phpstan.org/", "https://apiref.phpstan.org/2.2.x/namespace-PHPStan.html"],
+  "startUrls": ["https://phpstan.org/", "https://apiref.phpstan.org/2.3.x/namespace-PHPStan.html"],
   "sitemaps": [],
   "ignoreCanonicalTo": false,
   "discoveryPatterns": [
     "https://phpstan.org/**",
-    "https://apiref.phpstan.org/2.2.x/**"
+    "https://apiref.phpstan.org/2.3.x/**"
   ],
   "exclusionPatterns": [
     "https://phpstan.org/merch*",
@@ -48,7 +48,7 @@
     },
     {
       "indexName": "phpstan",
-      "pathsToMatch": ["https://apiref.phpstan.org/2.2.x/**"],
+      "pathsToMatch": ["https://apiref.phpstan.org/2.3.x/**"],
       "recordExtractor": {
         "__type": "function",
         "source": "({ helpers }) => { return helpers.docsearch({ recordProps: { lvl1: [\".layout-content h1\", \"h1\", \"head > title\"], content: [\".layout-content h2, .layout-content h3, .layout-content h4, .layout-content p, .layout-content li\", \"h2, h3, h4, p, li\"], lvl0: { selectors: \"#sectionTitle\", defaultValue: \"API Reference\" }, pageRank: \"1\" }, aggregateContent: true }); }"
