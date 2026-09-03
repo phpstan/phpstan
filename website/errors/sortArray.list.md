@@ -18,7 +18,7 @@ function doFoo(array $list): void
 
 ## Why is it reported?
 
-`ksort()` sorts an array by its keys. A [list](/blog/whats-up-with-arrays-part-1) is an array whose keys are consecutive integers starting from `0`, so its keys are already in ascending order. With the default `SORT_REGULAR` flag (or `SORT_NUMERIC`), sorting those keys leaves the array unchanged, so the call has no effect. This usually indicates a logic error or leftover code.
+`ksort()` sorts an array by its keys. A list is an array whose keys are consecutive integers starting from `0`, so its keys are already in ascending order. With the default `SORT_REGULAR` flag (or `SORT_NUMERIC`), sorting those keys leaves the array unchanged, so the call has no effect. This usually indicates a logic error or leftover code.
 
 This check is part of PHPStan's [bleeding edge](/blog/what-is-bleeding-edge) and runs at [rule level](/user-guide/rule-levels) 5.
 
