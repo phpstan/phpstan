@@ -1,6 +1,6 @@
 ---
 title: "phpunit.coversInterface"
-shortDescription: "@covers annotation references an interface which has no executable code."
+shortDescription: "#[CoversClass] attribute references an interface which has no executable code."
 ignorable: true
 ---
 
@@ -9,6 +9,7 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 interface LoggerInterface
@@ -16,9 +17,7 @@ interface LoggerInterface
 	public function log(string $message): void;
 }
 
-/**
- * @covers \LoggerInterface
- */
+#[CoversClass(LoggerInterface::class)]
 class LoggerTest extends TestCase
 {
 	public function testLog(): void
@@ -32,21 +31,20 @@ This rule is provided by the [phpstan-phpunit](https://github.com/phpstan/phpsta
 
 ## Why is it reported?
 
-The `@covers` annotation references an interface. PHPUnit code coverage tracks the execution of concrete code, and interfaces do not contain executable code. Covering an interface is not meaningful because there is no code to measure coverage for.
+The `#[CoversClass]` attribute references an interface. PHPUnit code coverage tracks the execution of concrete code, and interfaces do not contain executable code. Covering an interface is not meaningful because there is no code to measure coverage for.
 
 ## How to fix it
 
-Change the `@covers` annotation to reference the concrete class that implements the interface:
+Change the `#[CoversClass]` attribute to reference the concrete class that implements the interface:
 
 ```diff-php
  <?php declare(strict_types = 1);
 
+ use PHPUnit\Framework\Attributes\CoversClass;
  use PHPUnit\Framework\TestCase;
 
- /**
-- * @covers \LoggerInterface
-+ * @covers \FileLogger
-  */
+-#[CoversClass(LoggerInterface::class)]
++#[CoversClass(FileLogger::class)]
  class LoggerTest extends TestCase
  {
  	public function testLog(): void

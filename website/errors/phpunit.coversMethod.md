@@ -1,6 +1,6 @@
 ---
 title: "phpunit.coversMethod"
-shortDescription: "@covers annotation references a method that does not exist on the class."
+shortDescription: "#[CoversMethod] attribute references a method that does not exist on the class."
 ignorable: true
 ---
 
@@ -9,11 +9,10 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
+use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \App\Calculator::nonExistentMethod
- */
+#[CoversMethod(\App\Calculator::class, 'nonExistentMethod')]
 class CalculatorTest extends TestCase
 {
 	public function testAdd(): void
@@ -28,19 +27,17 @@ class CalculatorTest extends TestCase
 
 This error is reported by the [phpstan-phpunit](https://github.com/phpstan/phpstan-phpunit) extension.
 
-The `@covers` annotation references a method that does not exist on the specified class. This means the code coverage report will not correctly attribute coverage, and the annotation may indicate a typo or an outdated reference to a method that has been renamed or removed.
+The `#[CoversMethod]` attribute references a method that does not exist on the specified class. This means the code coverage report will not correctly attribute coverage, and the attribute may indicate a typo or an outdated reference to a method that has been renamed or removed.
 
 ## How to fix it
 
-Fix the method name in the `@covers` annotation to reference an existing method:
+Fix the method name in the `#[CoversMethod]` attribute to reference an existing method:
 
 ```diff-php
  <?php declare(strict_types = 1);
 
- /**
-- * @covers \App\Calculator::nonExistentMethod
-+ * @covers \App\Calculator::add
-  */
+-#[CoversMethod(\App\Calculator::class, 'nonExistentMethod')]
++#[CoversMethod(\App\Calculator::class, 'add')]
  class CalculatorTest extends TestCase
  {
  	public function testAdd(): void
@@ -51,4 +48,13 @@ Fix the method name in the `@covers` annotation to reference an existing method:
  }
 ```
 
-If the `@covers` annotation references a class or function that cannot be found, make sure to use a fully qualified name (starting with `\`).
+If covering the entire class instead of a specific method, use `#[CoversClass]` instead:
+
+```diff-php
+-use PHPUnit\Framework\Attributes\CoversMethod;
++use PHPUnit\Framework\Attributes\CoversClass;
+
+-#[CoversMethod(\App\Calculator::class, 'nonExistentMethod')]
++#[CoversClass(\App\Calculator::class)]
+ class CalculatorTest extends TestCase
+```
