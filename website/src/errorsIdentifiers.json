@@ -9046,14 +9046,14 @@
     "include.fileNotFound": {
         "PHPStan\\Rules\\Keywords\\RequireFileExistsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L178"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L163"
             ]
         }
     },
     "includeOnce.fileNotFound": {
         "PHPStan\\Rules\\Keywords\\RequireFileExistsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L178"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L163"
             ]
         }
     },
@@ -12830,8 +12830,8 @@
         },
         "PHPStan\\Analyser\\FileAnalyserCallback": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L138",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L187"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L139",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L196"
             ]
         },
         "PHPStan\\PhpDoc\\StubValidator": {
@@ -12886,10 +12886,10 @@
         },
         "PHPStan\\Analyser\\FileAnalyserCallback": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L146",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L154",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L195",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L203"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L147",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L155",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L204",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L212"
             ]
         }
     },
@@ -14707,7 +14707,7 @@
     "require.fileNotFound": {
         "PHPStan\\Rules\\Keywords\\RequireFileExistsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L178"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L163"
             ]
         }
     },
@@ -15003,7 +15003,7 @@
     "requireOnce.fileNotFound": {
         "PHPStan\\Rules\\Keywords\\RequireFileExistsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L178"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L163"
             ]
         }
     },
