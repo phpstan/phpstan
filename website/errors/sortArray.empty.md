@@ -1,6 +1,6 @@
 ---
 title: "sortArray.empty"
-shortDescription: "Calling an in-place sort function on an array that is always empty."
+shortDescription: "Calling a sort function on an array that is always empty has no effect."
 ignorable: true
 ---
 
@@ -11,39 +11,39 @@ ignorable: true
 
 function doFoo(): void
 {
-	$a = [];
-	sort($a);
+	$array = [];
+	sort($array);
 }
 ```
 
 ## Why is it reported?
 
-In-place sort functions like `sort()`, `ksort()`, `asort()`, `usort()`, etc. reorder the elements of the array passed to them by reference. An empty array has no elements to reorder, so the call has no effect. This usually indicates a logic error — the array is sorted before it is populated, or the wrong variable is being sorted.
+Sorting rearranges the elements of an array. An empty array has no elements, so the sort call cannot change anything. PHPStan knows from the type (`array{}`) that the array is always empty, making the call a no-op.
 
-This check is part of PHPStan's [bleeding edge](/blog/what-is-bleeding-edge) and runs at [rule level](/user-guide/rule-levels) 5.
+This applies both to key-preserving sort functions (`arsort`, `asort`, `krsort`, `ksort`, `natcasesort`, `natsort`, `uasort`, `uksort`) and to reindexing sort functions (`rsort`, `shuffle`, `sort`, `usort`). Such a call usually signals a logic error — most often the array is filled somewhere else than expected, or the sort was left over from refactoring.
 
 ## How to fix it
 
-Remove the pointless sort call:
+If the sort is unnecessary, remove it:
 
 ```diff-php
  function doFoo(): void
  {
- 	$a = [];
--	sort($a);
+ 	$array = [];
+-	sort($array);
  }
 ```
 
-If the array is meant to contain elements, populate it before sorting:
+If the array is supposed to contain elements, make sure it is populated before sorting:
 
 ```diff-php
  function doFoo(): void
  {
- 	$a = [];
-+	$a[] = 'b';
-+	$a[] = 'a';
- 	sort($a);
+ 	$array = [];
++	$array[] = 3;
++	$array[] = 1;
+ 	sort($array);
  }
 ```
 
-If the array type comes from a PHPDoc that you believe is inaccurate, you can turn off this check by setting [`treatPhpDocTypesAsCertain: false`](/config-reference#treatphpdoctypesascertain).
+This rule uses the analysed type, which may come from PHPDoc. If you don't want PHPDoc types to be treated as certain here, set [`treatPhpDocTypesAsCertain: false`](/config-reference#treatphpdoctypesascertain).
