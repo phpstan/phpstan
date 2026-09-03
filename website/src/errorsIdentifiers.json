@@ -15676,7 +15676,7 @@
             ]
         }
     },
-    "sortArray.singleElement": {
+    "sortArray.noop": {
         "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
