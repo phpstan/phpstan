@@ -1966,48 +1966,6 @@
             ]
         }
     },
-    "arsort.empty": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "arsort.list": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "arsort.singleElement": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "asort.empty": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "asort.list": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "asort.singleElement": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
     "assert.alreadyNarrowedType": {
         "PHPStan\\Rules\\PhpDoc\\FunctionAssertRule": {
             "phpstan/phpstan-src": [
@@ -9778,48 +9736,6 @@
             ]
         }
     },
-    "krsort.empty": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "krsort.list": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "krsort.singleElement": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "ksort.empty": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "ksort.list": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "ksort.singleElement": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
     "label.unused": {
         "PHPStan\\Rules\\Keywords\\UnusedLabelRule": {
             "phpstan/phpstan-src": [
@@ -11374,48 +11290,6 @@
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticMultiplicationRule": {
             "phpstan/phpstan-strict-rules": [
                 "https://github.com/phpstan/phpstan-strict-rules/blob/2.0.x/src/Rules/Operators/OperandsInArithmeticMultiplicationRule.php#L59"
-            ]
-        }
-    },
-    "natcasesort.empty": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "natcasesort.list": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "natcasesort.singleElement": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "natsort.empty": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "natsort.list": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "natsort.singleElement": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
             ]
         }
     },
@@ -15565,27 +15439,6 @@
             ]
         }
     },
-    "rsort.empty": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "rsort.list": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "rsort.singleElement": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
     "sealed.deprecatedClass": {
         "PHPStan\\Rules\\Deprecations\\RestrictedDeprecatedClassNameUsageExtension": {
             "phpstan/phpstan-deprecation-rules": [
@@ -15767,27 +15620,6 @@
             ]
         }
     },
-    "shuffle.empty": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "shuffle.list": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "shuffle.singleElement": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
     "smaller.alwaysFalse": {
         "PHPStan\\Rules\\Comparison\\NumberComparisonOperatorsConstantConditionRule": {
             "phpstan/phpstan-src": [
@@ -15830,21 +15662,21 @@
             ]
         }
     },
-    "sort.empty": {
+    "sortArray.empty": {
         "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
             ]
         }
     },
-    "sort.list": {
+    "sortArray.list": {
         "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
             ]
         }
     },
-    "sort.singleElement": {
+    "sortArray.singleElement": {
         "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
@@ -17365,48 +17197,6 @@
             ]
         }
     },
-    "uasort.empty": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "uasort.list": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "uasort.singleElement": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "uksort.empty": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "uksort.list": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "uksort.singleElement": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
     "unaryMinus.nonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandInArithmeticUnaryMinusRule": {
             "phpstan/phpstan-strict-rules": [
@@ -17495,27 +17285,6 @@
         "PHPStan\\Rules\\Names\\UsedNamesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Names/UsedNamesRule.php#L135"
-            ]
-        }
-    },
-    "usort.empty": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "usort.list": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
-            ]
-        }
-    },
-    "usort.singleElement": {
-        "PHPStan\\Rules\\Functions\\SortWithoutEffectRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/SortWithoutEffectRule.php#L121"
             ]
         }
     },
