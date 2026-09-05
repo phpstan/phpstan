@@ -1,5 +1,5 @@
 ---
-title: "sortArray.singleElement"
+title: "sortArray.noop"
 shortDescription: "Calling an in-place sort function on an array that has at most one element."
 ignorable: true
 ---
