@@ -8739,8 +8739,8 @@
     "ignore.count": {
         "PHPStan\\Analyser\\Ignore\\IgnoredErrorHelperResult": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L313",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L344"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L353",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L384"
             ]
         }
     },
@@ -8761,7 +8761,7 @@
     "ignore.unmatched": {
         "PHPStan\\Analyser\\Ignore\\IgnoredErrorHelperResult": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L363"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L403"
             ]
         }
     },
