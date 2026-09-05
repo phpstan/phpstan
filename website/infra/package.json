@@ -18,12 +18,12 @@
 		"deploy": "cdk deploy --all"
 	},
 	"devDependencies": {
-		"@types/node": "^22.10.0",
+		"@types/node": "^24.0.0",
 		"aws-cdk": "^2.1122.0",
 		"aws-cdk-lib": "2.266.0",
 		"constructs": "^10.4.2",
 		"ts-node": "^10.9.2",
-		"typescript": "^5.7.2",
-		"vitest": "^3.0.0"
+		"typescript": "^7.0.0",
+		"vitest": "^5.0.0"
 	}
 }
