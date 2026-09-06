@@ -1,6 +1,6 @@
 ---
 title: "phpunit.coversDuplicate"
-shortDescription: "Duplicate @covers annotation is redundant with the class-level annotation."
+shortDescription: "Duplicate #[CoversClass] attribute is redundant."
 ignorable: true
 ---
 
@@ -9,16 +9,13 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @covers \App\UserService
- */
+#[CoversClass(\App\UserService::class)]
+#[CoversClass(\App\UserService::class)]
 class UserServiceTest extends TestCase
 {
-	/**
-	 * @covers \App\UserService
-	 */
 	public function testCreate(): void
 	{
 		// ...
@@ -28,28 +25,19 @@ class UserServiceTest extends TestCase
 
 ## Why is it reported?
 
-There are two cases where this identifier is reported:
-
-1. A method-level `@covers` annotation references the same class or method that is already covered by a class-level `@covers` annotation. The method-level annotation is redundant because the class-level annotation already covers it.
-2. The `@coversDefaultClass` annotation is defined multiple times on the same class.
+The `#[CoversClass]` attribute referencing the same class appears more than once on the test class. The duplicate attribute is redundant and should be removed.
 
 This rule is provided by the [phpstan-phpunit](https://github.com/phpstan/phpstan-phpunit) package.
 
-In the example above, both the class and the method have `@covers \App\UserService`, making the method-level annotation redundant.
-
 ## How to fix it
 
-Remove the redundant method-level `@covers` annotation:
+Remove the duplicate `#[CoversClass]` attribute:
 
 ```diff-php
- /**
-  * @covers \App\UserService
-  */
+ #[CoversClass(\App\UserService::class)]
+-#[CoversClass(\App\UserService::class)]
  class UserServiceTest extends TestCase
  {
--	/**
--	 * @covers \App\UserService
--	 */
  	public function testCreate(): void
  	{
  		// ...
@@ -57,15 +45,13 @@ Remove the redundant method-level `@covers` annotation:
  }
 ```
 
-If the method is intended to cover a specific method rather than the whole class, be more specific:
+If covering a specific method in addition to the whole class, use `#[CoversMethod]` instead:
 
 ```diff-php
- 	/**
--	 * @covers \App\UserService
-+	 * @covers \App\UserService::create
- 	 */
- 	public function testCreate(): void
- 	{
- 		// ...
- 	}
++use PHPUnit\Framework\Attributes\CoversMethod;
+
+ #[CoversClass(\App\UserService::class)]
+-#[CoversClass(\App\UserService::class)]
++#[CoversMethod(\App\UserService::class, 'create')]
+ class UserServiceTest extends TestCase
 ```

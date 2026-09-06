@@ -1,6 +1,6 @@
 ---
 title: "phpunit.covers"
-shortDescription: "@covers annotation references an invalid or non-existent symbol."
+shortDescription: "Code coverage attribute references a non-existent class or function."
 ignorable: true
 ---
 
@@ -9,9 +9,9 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-/**
- * @covers \App\NonExistentClass
- */
+use PHPUnit\Framework\Attributes\CoversClass;
+
+#[CoversClass(\App\NonExistentClass::class)]
 class MyTest extends \PHPUnit\Framework\TestCase
 {
 	public function testSomething(): void
@@ -23,45 +23,29 @@ class MyTest extends \PHPUnit\Framework\TestCase
 
 ## Why is it reported?
 
-The `@covers` or `@coversDefaultClass` annotation references an invalid class, function, or method. This can happen when:
+The `#[CoversClass]` attribute or `@covers` annotation references a class, function, or method that cannot be found. This can happen when:
 
 - The referenced class or function does not exist
-- The annotation value is empty
-- The class name is not fully qualified (missing leading backslash)
-- A `@coversDefaultClass` is used on a method instead of a class
+- The class name is not fully qualified
 
 This rule is provided by the [phpstan-phpunit](https://github.com/phpstan/phpstan-phpunit) extension.
 
 ## How to fix it
 
-Ensure the `@covers` annotation references an existing, fully qualified class or function:
+Ensure the `#[CoversClass]` attribute references an existing class:
 
 ```diff-php
  <?php declare(strict_types = 1);
 
- /**
-- * @covers \App\NonExistentClass
-+ * @covers \App\ExistingClass
-  */
+ use PHPUnit\Framework\Attributes\CoversClass;
+
+-#[CoversClass(\App\NonExistentClass::class)]
++#[CoversClass(\App\ExistingClass::class)]
  class MyTest extends \PHPUnit\Framework\TestCase
  {
  	public function testSomething(): void
  	{
  		// ...
  	}
- }
-```
-
-If the class name is not fully qualified, add the leading backslash:
-
-```diff-php
- <?php declare(strict_types = 1);
-
- /**
-- * @covers MyClass
-+ * @covers \App\MyClass
-  */
- class MyTest extends \PHPUnit\Framework\TestCase
- {
  }
 ```
