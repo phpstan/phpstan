@@ -86,7 +86,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/forrest79">Jakub Trmota (forrest79)</a></li>
 <li><a href="https://github.com/lcobucci">Luís Cobucci (lcobucci)</a></li>
 <li><a href="https://github.com/complexgmbh">Complex GmbH & Co. KG (complexgmbh)</a></li>
-<li><a href="https://github.com/afilina">Anna Filina (afilina)</a></li>
 <li><a href="https://github.com/einenlum">Yann Rabiller (einenlum)</a></li>
 <li><a href="https://github.com/nikophil">Nicolas PHILIPPE (nikophil)</a></li>
 <li><a href="https://github.com/solcik">David Šolc (solcik)</a></li>
@@ -95,7 +94,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/nicwortel">Nic Wortel (nicwortel)</a></li>
 <li><a href="https://github.com/customgento">CustomGento (customgento)</a></li>
 <li><a href="https://github.com/johnbillion">John Blackbourn (johnbillion)</a></li>
-<li><a href="https://github.com/dbu">David Buchmann (dbu)</a></li>
 <li><a href="https://github.com/drealecs">Alexandru Pătrănescu (drealecs)</a></li>
 <li><a href="https://github.com/Luxian">Lucian NEAG (Luxian)</a></li>
 <li><a href="https://github.com/christiansipola">Christian Sjöström (christiansipola)</a></li>
