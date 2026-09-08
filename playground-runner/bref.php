@@ -2,6 +2,10 @@
 
 use Symfony\Component\Console\Formatter\OutputFormatter;
 
+// bin/phpstan does the same: PHPStan allocates heavily and leans on the process
+// ending rather than on the cycle collector.
+gc_disable();
+
 require __DIR__.'/vendor/autoload.php';
 require __DIR__.'/runner-config.php';
 
