@@ -43,7 +43,9 @@ Choosing the right AST node
 
 People unfamiliar with the [AST](/developing-extensions/abstract-syntax-tree) don't know which node type to return from the `getNodeType()` method to get started. Fortunately we can follow a simple guide to find the right type.
 
-Write a small piece of code that contains the situation we want the rule to report:
+The quickest way is the **AST X-Ray** in the [playground](/try): switch it on with the button in the editor's corner, paste the code, and hover any part of it. The popup names the node under the pointer, its properties, and the type PHPStan resolved for it if it's an expression.
+
+The same can be done locally with a rule. Write a small piece of code that contains the situation we want the rule to report:
 
 ```php
 class Foo

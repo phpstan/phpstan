@@ -20,7 +20,7 @@ import {goToDefinition} from "./editor/goToDefinition";
 import {occurrenceHighlight, inlineRename} from "./editor/occurrences";
 import {phpantomLsp, PHP_URI} from "./phpantom/lspClient";
 import {xray, setXRayData, setXRayEnabled, setXRayBusy} from "./editor/xray";
-import {XRayData} from "./XRayData";
+import {PlaygroundTabViewModel} from "./PlaygroundTabViewModel";
 
 ko.bindingHandlers.codeMirror = {
 	init: (element, valueAccessor, allBindings, viewModel, bindingContext) => {
@@ -149,7 +149,16 @@ ko.bindingHandlers.codeMirror = {
 ko.bindingHandlers.codeMirrorXRay = {
 	update: (element, valueAccessor) => {
 		const editor: EditorView = ko.utils.domData.get(element, 'codeMirror');
-		const value: {enabled: boolean, busy: boolean, data: XRayData | null} = ko.unwrap(valueAccessor());
+		// The observables are passed uncalled and read here: TKO's expression
+		// parser hands over a fresh copy of any value it evaluates itself, which
+		// would make the data look new on every update.
+		const raw: {enabled: ko.Observable<boolean>, busy: ko.PureComputed<boolean>, tab: ko.PureComputed<PlaygroundTabViewModel | null>} = valueAccessor();
+		const tab = ko.unwrap(raw.tab);
+		const value = {
+			enabled: ko.unwrap(raw.enabled),
+			busy: ko.unwrap(raw.busy),
+			data: tab !== null ? tab.xray() : null,
+		};
 		const last: Partial<typeof value> = ko.utils.domData.get(element, 'codeMirrorXRayLast') ?? {};
 		const effects: StateEffect<unknown>[] = [];
 		if (last.enabled !== value.enabled) {
@@ -163,7 +172,7 @@ ko.bindingHandlers.codeMirrorXRay = {
 		if (last.data !== value.data) {
 			effects.push(setXRayData.of(value.data));
 		}
-		ko.utils.domData.set(element, 'codeMirrorXRayLast', {...value});
+		ko.utils.domData.set(element, 'codeMirrorXRayLast', value);
 		if (effects.length > 0) {
 			editor.dispatch({effects});
 		}
