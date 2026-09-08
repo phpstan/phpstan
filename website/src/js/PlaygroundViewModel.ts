@@ -628,28 +628,41 @@ export class PlaygroundViewModel {
 
 	savePlaygroundState(): void {
 		if (!this.editorView) return;
-		const state = {
-			editorState: this.editorView.state.toJSON({history: historyField, urlId: urlIdField}),
-			settings: {
-				level: this.level(),
-				strictRules: this.strictRules(),
-				bleedingEdge: this.bleedingEdge(),
-				treatPhpDocTypesAsCertain: this.treatPhpDocTypesAsCertain(),
-				options: this.getOptionsState(),
-			},
-			tabs: this.tabs().map(t => ({errors: t.errors, title: t.title})),
-			currentTabIndex: this.currentTabIndex(),
-			legacyResult: this.legacyResult(),
-			upToDateTabs: this.upToDateTabs()?.map(t => ({errors: t.errors, title: t.title})) ?? null,
-			savedTabsByUrlId: Object.fromEntries(
-				[...this.savedTabsByUrlId].map(([k, v]) => [k, {
-					tabs: v.tabs.map(t => ({errors: t.errors, title: t.title})),
-					upToDateTabs: v.upToDateTabs?.map(t => ({errors: t.errors, title: t.title})) ?? null,
-				}])
-			),
-			id: this.id(),
+		const editorState = this.editorView.state.toJSON({history: historyField, urlId: urlIdField});
+		const build = (withXRay: boolean) => {
+			const tab = (t: PlaygroundTabViewModel): {errors: PHPStanError[], title: string, xray?: XRayData} => {
+				const xray = t.xray();
+				return withXRay && xray !== null ? {errors: t.errors, title: t.title, xray} : {errors: t.errors, title: t.title};
+			};
+			return {
+				editorState,
+				settings: {
+					level: this.level(),
+					strictRules: this.strictRules(),
+					bleedingEdge: this.bleedingEdge(),
+					treatPhpDocTypesAsCertain: this.treatPhpDocTypesAsCertain(),
+					options: this.getOptionsState(),
+				},
+				tabs: this.tabs().map(tab),
+				currentTabIndex: this.currentTabIndex(),
+				legacyResult: this.legacyResult(),
+				upToDateTabs: this.upToDateTabs()?.map(tab) ?? null,
+				savedTabsByUrlId: Object.fromEntries(
+					[...this.savedTabsByUrlId].map(([k, v]) => [k, {
+						tabs: v.tabs.map(tab),
+						upToDateTabs: v.upToDateTabs?.map(tab) ?? null,
+					}])
+				),
+				id: this.id(),
+			};
 		};
-		window.history.replaceState(state, '', window.location.pathname);
+		try {
+			window.history.replaceState(build(true), '', window.location.pathname);
+		} catch {
+			// Browsers cap the size of a history entry; the X-Ray data is the
+			// bulk of it and can be fetched again, the rest cannot.
+			window.history.replaceState(build(false), '', window.location.pathname);
+		}
 	}
 
 	static loadSavedState(): any | null {
