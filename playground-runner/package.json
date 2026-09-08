@@ -3,11 +3,13 @@
 	"version": "1.0.0",
 	"description": "",
 	"scripts": {
-		"deploy": "serverless deploy"
+		"deploy": "serverless deploy",
+		"precompile": "node precompile.mjs"
 	},
 	"author": "",
 	"license": "MIT",
 	"dependencies": {
-		"osls": "^3.59.3"
+		"osls": "^3.59.3",
+		"@aws-sdk/client-lambda": "^3.700.0"
 	}
 }

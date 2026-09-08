@@ -6,3 +6,5 @@ parameters:
 	paths:
 		- bref.php
 		- ignoreErrors.php
+		- precompile.php
+		- runner-config.php
