@@ -8,6 +8,7 @@ gc_disable();
 
 require __DIR__.'/vendor/autoload.php';
 require __DIR__.'/runner-config.php';
+require __DIR__.'/xray.php';
 
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
@@ -146,7 +147,11 @@ return function ($event) use ($phpstanVersion) {
 		$errors[] = $error;
 	}
 
-    $response = ['result' => $errors, 'version' => $phpstanVersion];
+    $response = [
+        'result' => $errors,
+        'version' => $phpstanVersion,
+        'xray' => playground_xray($code, $analyserResult->getAnalyserResult()->getCollectedData()[$codePath] ?? []),
+    ];
 
     if (count($diffs) > 0) {
         /** @var \PHPStan\Fixable\Patcher $patcher */

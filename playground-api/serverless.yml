@@ -1,4 +1,6 @@
-service: phpstan-playground-api
+# SERVICE_SUFFIX / RUNNER_FUNCTION let a copy be deployed next to production,
+# e.g. SERVICE_SUFFIX=-xray RUNNER_FUNCTION=phpstan-runner2-prod-main.
+service: phpstan-playground-api${env:SERVICE_SUFFIX, ''}
 
 provider:
   name: aws
@@ -6,6 +8,8 @@ provider:
   architecture: arm64
   stage: prod
   region: eu-west-1
+  environment:
+    RUNNER_FUNCTION: ${env:RUNNER_FUNCTION, 'phpstan-runner-prod-main'}
 
 plugins:
 - serverless-plugin-typescript

@@ -3,6 +3,7 @@ import {AWSError, Lambda, S3} from 'aws-sdk';
 import {PromiseResult} from 'aws-sdk/lib/request';
 import { v4 as uuid } from 'uuid';
 import { z } from 'zod';
+import { createHash } from 'crypto';
 
 SentryInit({
 	dsn: 'https://f56a0e1f5022472982e901e7a5d08514@sentry.io/1319481',
@@ -52,8 +53,88 @@ interface PHPStanError {
 	ignorable?: boolean,
 }
 
+// "AST X-Ray" payload produced by the runner: every AST node with its UTF-16
+// offsets, its sub-nodes and, for expressions, the type PHPStan resolved.
+// Passed through untouched; see playground-runner/xray.php for the layout.
+interface XRayData {
+	strings: string[],
+	nodes: [number, number, number, number, number, (number | number[])[]][],
+}
+
+interface VersionedErrors {
+	phpVersion: number,
+	errors: PHPStanError[],
+	fixedCode?: string,
+	fixedCodeDiff?: string,
+	xray?: XRayData,
+}
+
+// Stored next to a shared result as api/xray/<id>.json. Identical payloads
+// (most PHP versions agree) are stored once and referenced by hash.
+interface StoredXRay {
+	versions: Record<string, string>,
+	payloads: Record<string, XRayData>,
+}
+
+const RUNNER_FUNCTION = process.env.RUNNER_FUNCTION ?? 'phpstan-runner-prod-main';
+
 const lambda = new Lambda();
 const s3 = new S3();
+
+function stripXRay(versionedErrors: VersionedErrors[]): VersionedErrors[] {
+	return versionedErrors.map((version) => {
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
+		const {xray, ...rest} = version;
+		return rest;
+	});
+}
+
+function packXRay(versionedErrors: VersionedErrors[]): StoredXRay | null {
+	const stored: StoredXRay = {versions: {}, payloads: {}};
+	for (const version of versionedErrors) {
+		if (typeof version.xray === 'undefined') {
+			continue;
+		}
+		const json = JSON.stringify(version.xray);
+		const hash = createHash('sha1').update(json).digest('hex');
+		stored.versions[version.phpVersion.toString()] = hash;
+		stored.payloads[hash] = version.xray;
+	}
+
+	return Object.keys(stored.versions).length > 0 ? stored : null;
+}
+
+function attachXRay(versionedErrors: VersionedErrors[], stored: StoredXRay | null): VersionedErrors[] {
+	if (stored === null) {
+		return versionedErrors;
+	}
+	return versionedErrors.map((version) => {
+		const hash = stored.versions[version.phpVersion.toString()];
+		if (typeof hash === 'undefined' || typeof stored.payloads[hash] === 'undefined') {
+			return version;
+		}
+		return {...version, xray: stored.payloads[hash]};
+	});
+}
+
+async function readXRay(id: string): Promise<StoredXRay | null> {
+	try {
+		const object = await s3.getObject({
+			Bucket: 'phpstan-playground',
+			Key: 'api/xray/' + id + '.json',
+		}).promise();
+		return JSON.parse(object.Body as string);
+	} catch (e) {
+		// Results older than the feature have no object. Without s3:ListBucket a
+		// missing key comes back as AccessDenied rather than NoSuchKey.
+		const code = (e as AWSError).code;
+		if (code !== 'NoSuchKey' && code !== 'AccessDenied' && code !== 'NotFound') {
+			console.error(e);
+			captureException(e);
+		}
+		return null;
+	}
+}
 
 async function analyseResultInternal(
 	code: string,
@@ -63,7 +144,7 @@ async function analyseResultInternal(
 	treatPhpDocTypesAsCertain: boolean,
 	phpVersions: number[],
 	options?: PlaygroundOptions,
-): Promise<any[]> {
+): Promise<VersionedErrors[]> {
 	const lambdaPromises: [Promise<PromiseResult<Lambda.InvocationResponse, AWSError>>, number][] = [];
 	for (const phpVersion of phpVersions) {
 		const payload: any = {
@@ -78,19 +159,19 @@ async function analyseResultInternal(
 			payload.options = options;
 		}
 		lambdaPromises.push([lambda.invoke({
-			FunctionName: 'phpstan-runner-prod-main',
+			FunctionName: RUNNER_FUNCTION,
 			Payload: JSON.stringify(payload),
 		}).promise(), phpVersion]);
 	}
 
-	const versionedErrors: any[] = [];
+	const versionedErrors: VersionedErrors[] = [];
 	for (const tuple of lambdaPromises) {
 		const promise = tuple[0];
 		const phpVersion = tuple[1];
 		const lambdaResult = await promise;
 
 		const jsonResponse = JSON.parse(lambdaResult.Payload as string);
-		const data: any = {
+		const data: VersionedErrors = {
 			phpVersion: phpVersion,
 			errors: jsonResponse.result.map((error: any): PHPStanError => {
 				const obj: PHPStanError = {
@@ -115,19 +196,30 @@ async function analyseResultInternal(
 		if (typeof jsonResponse.fixedCodeDiff !== 'undefined') {
 			data.fixedCodeDiff = jsonResponse.fixedCodeDiff;
 		}
+		if (typeof jsonResponse.xray !== 'undefined') {
+			data.xray = jsonResponse.xray;
+		}
 		versionedErrors.push(data);
 	}
 
 	return versionedErrors;
 }
 
-function createTabs(versionedErrors: {phpVersion: number, errors: PHPStanError[], fixedCode?: string, fixedCodeDiff?: string}[]): any[] {
-	const versions: {versions: number[], errors: PHPStanError[], fixedCode?: string, fixedCodeDiff?: string}[] = [];
-	let last: {versions: number[], errors: PHPStanError[], fixedCode?: string, fixedCodeDiff?: string} | null = null;
+interface TabGroup {
+	versions: number[],
+	errors: PHPStanError[],
+	fixedCode?: string,
+	fixedCodeDiff?: string,
+	xray?: XRayData,
+}
+
+function createTabs(versionedErrors: VersionedErrors[]): any[] {
+	const versions: TabGroup[] = [];
+	let last: TabGroup | null = null;
 	for (const version of versionedErrors) {
 		const phpVersion = version.phpVersion;
 		const errors = version.errors;
-		const current: {versions: number[], errors: PHPStanError[], fixedCode?: string, fixedCodeDiff?: string} = {
+		const current: TabGroup = {
 			versions: [phpVersion],
 			errors,
 		};
@@ -136,6 +228,9 @@ function createTabs(versionedErrors: {phpVersion: number, errors: PHPStanError[]
 		}
 		if (typeof version.fixedCodeDiff !== 'undefined') {
 			current.fixedCodeDiff = version.fixedCodeDiff;
+		}
+		if (typeof version.xray !== 'undefined') {
+			current.xray = version.xray;
 		}
 		if (last === null) {
 			last = current;
@@ -210,6 +305,11 @@ function createTabs(versionedErrors: {phpVersion: number, errors: PHPStanError[]
 		}
 
 		last.versions.push(phpVersion);
+		// Versions are grouped by identical errors only; the X-Ray of a group is
+		// that of its newest PHP version (types from stubs can differ between versions).
+		if (typeof version.xray !== 'undefined') {
+			last.xray = version.xray;
+		}
 	}
 
 	if (last !== null) {
@@ -256,6 +356,9 @@ function createTabs(versionedErrors: {phpVersion: number, errors: PHPStanError[]
 		if (typeof version.fixedCodeDiff !== 'undefined') {
 			tabData.fixedCodeDiff = version.fixedCodeDiff;
 		}
+		if (typeof version.xray !== 'undefined') {
+			tabData.xray = version.xray;
+		}
 		tabs.push(tabData);
 	}
 
@@ -282,18 +385,18 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 		);
 		const response: any = {
 			tabs: createTabs(versionedErrors),
-			versionedErrors,
+			versionedErrors: stripXRay(versionedErrors),
 		};
 
 		if (saveResult) {
 			const id: string = uuid() as string;
-			await s3.putObject({
+			const puts = [s3.putObject({
 				Bucket: 'phpstan-playground',
 				Key: 'api/results/' + id + '.json',
 				ContentType: 'application/json',
 				Body: JSON.stringify({
 					code: json.code,
-					versionedErrors: versionedErrors,
+					versionedErrors: stripXRay(versionedErrors),
 					version: 'N/A',
 					level: json.level,
 					config: {
@@ -303,7 +406,17 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 						options: options,
 					},
 				}),
-			}).promise();
+			}).promise()];
+			const xray = packXRay(versionedErrors);
+			if (xray !== null) {
+				puts.push(s3.putObject({
+					Bucket: 'phpstan-playground',
+					Key: 'api/xray/' + id + '.json',
+					ContentType: 'application/json',
+					Body: JSON.stringify(xray),
+				}).promise());
+			}
+			await Promise.all(puts);
 
 			response.id = id;
 		}
@@ -328,10 +441,13 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 	try {
 		const id = request.queryStringParameters.id;
-		const object = await s3.getObject({
-			Bucket: 'phpstan-playground',
-			Key: 'api/results/' + id + '.json',
-		}).promise();
+		const [object, storedXRay] = await Promise.all([
+			s3.getObject({
+				Bucket: 'phpstan-playground',
+				Key: 'api/results/' + id + '.json',
+			}).promise(),
+			readXRay(id),
+		]);
 		const json = JSON.parse(object.Body as string);
 		const strictRules = typeof json.config.strictRules !== 'undefined' ? json.config.strictRules : false;
 		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
@@ -384,16 +500,16 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 				options,
 			},
 			upToDateTabs: newTabs,
-			upToDateVersionedErrors: newResult,
+			upToDateVersionedErrors: stripXRay(newResult),
 		};
 
 		if (typeof json.versionedErrors !== 'undefined') {
-			bodyJson.versionedErrors = json.versionedErrors;
+			bodyJson.versionedErrors = stripXRay(json.versionedErrors);
 		} else {
 			bodyJson.versionedErrors = [{phpVersion: 70400, errors: json.errors}];
 		}
 		if (typeof json.versionedErrors !== 'undefined') {
-			bodyJson.tabs = createTabs(json.versionedErrors);
+			bodyJson.tabs = createTabs(attachXRay(json.versionedErrors, storedXRay));
 
 			const originalPhpVersions: number[] = json.versionedErrors.map((errors: {phpVersion: number, errors: PHPStanError[]}) => {
 				return errors.phpVersion;
@@ -457,10 +573,13 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 	try {
 		const id = request.queryStringParameters.id;
-		const object = await s3.getObject({
-			Bucket: 'phpstan-playground',
-			Key: 'api/results/' + id + '.json',
-		}).promise();
+		const [object, storedXRay] = await Promise.all([
+			s3.getObject({
+				Bucket: 'phpstan-playground',
+				Key: 'api/results/' + id + '.json',
+			}).promise(),
+			readXRay(id),
+		]);
 		const json = JSON.parse(object.Body as string);
 		const strictRules = typeof json.config.strictRules !== 'undefined' ? json.config.strictRules : false;
 		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
@@ -480,11 +599,11 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 			},
 		};
 		if (typeof json.versionedErrors !== 'undefined') {
-			bodyJson.versionedErrors = json.versionedErrors;
+			bodyJson.versionedErrors = stripXRay(json.versionedErrors);
 		} else {
 			bodyJson.versionedErrors = [{phpVersion: 70400, errors: json.errors}];
 		}
-		bodyJson.tabs = createTabs(bodyJson.versionedErrors);
+		bodyJson.tabs = createTabs(attachXRay(bodyJson.versionedErrors, storedXRay));
 		return Promise.resolve({
 			statusCode: 200,
 			body: JSON.stringify(bodyJson),
@@ -527,7 +646,7 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 				code: inputJson.phpCode,
 				htmlErrors: convert.toHtml(JSON.parse(outputObject.Body as string).output),
 				upToDateTabs: createTabs(result),
-				upToDateVersionedErrors: result,
+				upToDateVersionedErrors: stripXRay(result),
 				version: inputJson.phpStanVersion,
 				level: inputJson.level.toString(),
 				config: {

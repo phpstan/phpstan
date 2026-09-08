@@ -1,8 +1,12 @@
 import {hoverTooltip} from "@codemirror/view";
 import {PHPStanError} from "../PHPStanError";
 import {errorsFacet} from "./errors";
+import {isXRayActive} from "./xray";
 
 export const hover = hoverTooltip((view, pos, side) => {
+	if (isXRayActive(view.state)) {
+		return null;
+	}
 	const currentErrors: PHPStanError[] = view.state.facet(errorsFacet);
 	const line = view.state.doc.lineAt(pos);
 	const lineErrors: PHPStanError[] = [];
