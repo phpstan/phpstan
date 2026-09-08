@@ -57,8 +57,7 @@ the logo of your company in PHPStan's README and the website.
 # Small Teams
 
 <ul>
-<!-- small --><li><a href="https://github.com/martin-georgiev">Martin Georgiev (martin-georgiev)</a></li>
-<li><a href="https://github.com/glami">GLAMI (glami)</a></li>
+<!-- small --><li><a href="https://github.com/glami">GLAMI (glami)</a></li>
 <li><a href="https://github.com/visol">visol (visol)</a></li>
 <!-- small -->
 
