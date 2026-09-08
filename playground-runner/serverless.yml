@@ -1,4 +1,6 @@
-service: phpstan-runner
+# SERVICE_SUFFIX lets a copy be deployed next to production (e.g. "2" for
+# phpstan-runner2, which the playground API's role may already invoke).
+service: phpstan-runner${env:SERVICE_SUFFIX, ''}
 
 provider:
     name: aws

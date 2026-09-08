@@ -13,6 +13,14 @@ conditionalTags:
 
 services:
 	-
+		class: PHPStanPlayground\XRay\AstNodesCollector
+		tags:
+			- phpstan.collector
+	-
+		class: PHPStanPlayground\XRay\ExprTypesCollector
+		tags:
+			- phpstan.collector
+	-
 		class: PHPStan\Rules\Playground\StaticVarWithoutTypeRule
 	-
 		class: PHPStan\Rules\Playground\PromoteParameterRule

@@ -14,6 +14,11 @@
 		"sentry/sentry": "^4.0",
 		"symfony/console": "^7.0"
 	},
+	"autoload": {
+		"psr-4": {
+			"PHPStanPlayground\\": "src/"
+		}
+	},
 	"config": {
         "platform": {
             "php": "8.4.99"

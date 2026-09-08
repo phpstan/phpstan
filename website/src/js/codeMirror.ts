@@ -2,7 +2,7 @@ import ko from '@tko/build.knockout';
 import {EditorView} from '@codemirror/view'
 import {keymap, highlightSpecialChars, drawSelection,
 	lineNumbers} from '@codemirror/view'
-import {Compartment, EditorState} from '@codemirror/state'
+import {Compartment, EditorState, StateEffect} from '@codemirror/state'
 import {defaultHighlightStyle, syntaxHighlighting, indentOnInput, indentUnit, bracketMatching} from '@codemirror/language'
 import {defaultKeymap, history, historyField, historyKeymap, indentWithTab} from '@codemirror/commands'
 import {closeBrackets, closeBracketsKeymap, completionKeymap} from '@codemirror/autocomplete'
@@ -19,6 +19,8 @@ import {phpantomHover} from "./editor/phpantomHover";
 import {goToDefinition} from "./editor/goToDefinition";
 import {occurrenceHighlight, inlineRename} from "./editor/occurrences";
 import {phpantomLsp, PHP_URI} from "./phpantom/lspClient";
+import {xray, setXRayData, setXRayEnabled, setXRayBusy} from "./editor/xray";
+import {XRayData} from "./XRayData";
 
 ko.bindingHandlers.codeMirror = {
 	init: (element, valueAccessor, allBindings, viewModel, bindingContext) => {
@@ -30,6 +32,7 @@ ko.bindingHandlers.codeMirror = {
 		const initialUrlId: string | null = allBindings.get('codeMirrorInitialUrlId') ?? null;
 		const urlIdChange: ((id: string | null) => void) | null = allBindings.get('codeMirrorUrlIdChange') ?? null;
 		const restoredState: any | null = allBindings.get('codeMirrorRestoredState') ?? null;
+		const xrayToggle: ((enabled: boolean) => void) | null = allBindings.get('codeMirrorXRayToggle') ?? null;
 
 		const themeCompartment = new Compartment();
 
@@ -96,11 +99,17 @@ ko.bindingHandlers.codeMirror = {
 			goToDefinition,
 			occurrenceHighlight,
 			phpantomLsp.plugin(PHP_URI, 'php'),
+			xray({onToggle: (enabled) => xrayToggle?.(enabled)}),
 			EditorView.baseTheme({
 				'.cm-tooltip.cm-tooltip-hover': {
 					border: 'none',
 					background: 'transparent',
 				},
+			}),
+			// A little airier than CodeMirror's 1.4, and the same with AST X-Ray on:
+			// its boxes fit in this spacing, so the code stays put when it's toggled.
+			EditorView.theme({
+				'.cm-content': {lineHeight: '1.6'},
 			}),
 			themeCompartment.of(
 				document.documentElement.classList.contains('dark')
@@ -134,6 +143,30 @@ ko.bindingHandlers.codeMirror = {
 		darkModeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
 		ko.utils.domData.set(element, 'codeMirror', editor);
+	},
+};
+
+ko.bindingHandlers.codeMirrorXRay = {
+	update: (element, valueAccessor) => {
+		const editor: EditorView = ko.utils.domData.get(element, 'codeMirror');
+		const value: {enabled: boolean, busy: boolean, data: XRayData | null} = ko.unwrap(valueAccessor());
+		const last: Partial<typeof value> = ko.utils.domData.get(element, 'codeMirrorXRayLast') ?? {};
+		const effects: StateEffect<unknown>[] = [];
+		if (last.enabled !== value.enabled) {
+			effects.push(setXRayEnabled.of(value.enabled));
+		}
+		if (last.busy !== value.busy) {
+			effects.push(setXRayBusy.of(value.busy));
+		}
+		// Only when the data itself changes: the editor keeps the node positions
+		// mapped through edits, and re-sending the same data would reset them.
+		if (last.data !== value.data) {
+			effects.push(setXRayData.of(value.data));
+		}
+		ko.utils.domData.set(element, 'codeMirrorXRayLast', {...value});
+		if (effects.length > 0) {
+			editor.dispatch({effects});
+		}
 	},
 };
 

@@ -4,6 +4,7 @@ import Prism from 'prismjs';
 import 'prismjs/components/prism-markup-templating';
 import 'prismjs/components/prism-php';
 import {phpantomLsp, PHP_URI} from '../phpantom/lspClient';
+import {isXRayActive} from './xray';
 
 // PHPantom returns LSP hover as Markdown (fenced ```php blocks for signatures,
 // prose for docblock descriptions). Render it properly, with Prism syntax
@@ -46,6 +47,9 @@ interface HoverParams {
 // We render hover ourselves (rather than lsp-client's hoverTooltips) to get
 // Prism-highlighted code blocks.
 export const phpantomHover = hoverTooltip(async (view, pos) => {
+	if (isXRayActive(view.state)) {
+		return null;
+	}
 	const doc = view.state.doc;
 	const line = doc.lineAt(pos);
 

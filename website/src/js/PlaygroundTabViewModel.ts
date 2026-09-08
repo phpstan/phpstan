@@ -1,4 +1,5 @@
 import {PHPStanError} from './PHPStanError';
+import {XRayData} from './XRayData';
 import ko from '@tko/build.knockout';
 
 export class PlaygroundTabViewModel {
@@ -11,8 +12,13 @@ export class PlaygroundTabViewModel {
 
 	title: string;
 
-	constructor(errors: PHPStanError[], title: string, active: boolean) {
+	// AST X-Ray data for this tab's newest PHP version; null when the result
+	// predates the feature (fetched on demand when the toggle is flipped).
+	xray: ko.Observable<XRayData | null>;
+
+	constructor(errors: PHPStanError[], title: string, active: boolean, xray: XRayData | null = null) {
 		this.errors = errors;
+		this.xray = ko.observable(xray);
 
 		const errorsCount = this.errors.length;
 		if (errorsCount === 1) {

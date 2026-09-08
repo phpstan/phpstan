@@ -10,6 +10,8 @@ import {EditorView} from '@codemirror/view';
 import {Transaction} from '@codemirror/state';
 import {setUrlId, urlIdField} from './editor/urlId';
 import {historyField} from '@codemirror/commands';
+import {XRayData} from './XRayData';
+import {isXRayAvailable, xrayUnavailable} from './editor/xray';
 
 declare const __PAGES_JSON__: Record<string, string>;
 const pages = __PAGES_JSON__;
@@ -37,6 +39,8 @@ const optionDefaults = {
 type OptionName = keyof typeof optionDefaults;
 const optionKeys = Object.keys(optionDefaults) as OptionName[];
 const defaultValues = Object.values(optionDefaults);
+
+const xrayStorageKey = 'phpstan-playground-xray';
 
 export class PlaygroundViewModel {
 
@@ -76,13 +80,19 @@ export class PlaygroundViewModel {
 	xhr: JQuery.jqXHR | null;
 	shareXhr: JQuery.jqXHR | null;
 	resultXhr: JQuery.jqXHR | null;
+
+	// AST X-Ray toggle (remembered across visits) and the request that fetches
+	// the data for results that don't carry it (old share URLs, restored state).
+	xrayEnabled: ko.Observable<boolean>;
+	xrayLoading: ko.Observable<boolean>;
+	xrayXhr: JQuery.jqXHR | null;
 	id: ko.Observable<string | null>;
 	resultUrl: string | null;
 	sampleUrl: string | null;
 	isHashMatch: boolean;
 	hasServerError: ko.Observable<boolean>;
 
-	apiBaseUrl: string = 'https://api.phpstan.org';
+	apiBaseUrl: string = import.meta.env.VITE_PLAYGROUND_API ?? 'https://api.phpstan.org';
 
 	editorView: EditorView | null;
 	urlIdJustRestored: boolean;
@@ -159,6 +169,15 @@ export class PlaygroundViewModel {
 		this.xhr = null;
 		this.shareXhr = null;
 		this.resultXhr = null;
+		this.xrayEnabled = ko.observable<boolean>(PlaygroundViewModel.loadXRayPreference());
+		this.xrayLoading = ko.observable<boolean>(false);
+		this.xrayXhr = null;
+		// Follows the window: off when it gets too narrow, back to the remembered
+		// choice when it widens again.
+		xrayUnavailable?.addEventListener('change', () => {
+			this.xrayEnabled(PlaygroundViewModel.loadXRayPreference());
+			this.ensureXRay();
+		});
 		this.editorView = null;
 		this.urlIdJustRestored = false;
 		this.savedTabsByUrlId = new Map();
@@ -303,6 +322,81 @@ export class PlaygroundViewModel {
 		}
 	}
 
+	// --- AST X-Ray ---
+
+	private static loadXRayPreference(): boolean {
+		if (!isXRayAvailable()) {
+			return false;
+		}
+		try {
+			return window.localStorage.getItem(xrayStorageKey) === '1';
+		} catch {
+			return false;
+		}
+	}
+
+	onXRayToggle(enabled: boolean): void {
+		this.xrayEnabled(enabled);
+		try {
+			window.localStorage.setItem(xrayStorageKey, enabled ? '1' : '0');
+		} catch {
+			// private mode etc. - the toggle just isn't remembered
+		}
+		this.ensureXRay();
+	}
+
+	// Fetch X-Ray data when the toggle is on and the shown result has none.
+	ensureXRay(): void {
+		if (!this.xrayEnabled() || !isXRayAvailable()) {
+			return;
+		}
+		const tab = this.currentTab();
+		if (tab === null || tab.xray() !== null || this.xrayXhr !== null) {
+			return;
+		}
+		this.fetchXRay();
+	}
+
+	private fetchXRay(): void {
+		const tabs = this.tabs();
+		const code = this.code();
+		this.xrayLoading(true);
+		this.xrayXhr = $.ajax({
+			type: 'POST',
+			url: this.apiBaseUrl + '/analyse',
+			dataType: 'json',
+			data: JSON.stringify({
+				code,
+				level: this.level(),
+				strictRules: this.strictRules(),
+				bleedingEdge: this.bleedingEdge(),
+				treatPhpDocTypesAsCertain: this.treatPhpDocTypesAsCertain(),
+				options: this.getApiOptions(),
+				saveResult: false,
+			}),
+			contentType: 'application/json',
+		}).done((data) => {
+			if (this.code() !== code || this.tabs() !== tabs) {
+				return;
+			}
+			const fresh: {xray?: XRayData}[] = data.tabs ?? [];
+			if (fresh.length === 0) {
+				return;
+			}
+			// A stored result was grouped into tabs by an older PHPStan; when the
+			// grouping still matches, pair the tabs up, otherwise use the newest.
+			tabs.forEach((tab, i) => {
+				const source = fresh.length === tabs.length ? fresh[i] : fresh[0];
+				if (tab.xray() === null) {
+					tab.xray(source.xray ?? fresh[0].xray ?? null);
+				}
+			});
+		}).always(() => {
+			this.xrayXhr = null;
+			this.xrayLoading(false);
+		});
+	}
+
 	// --- Core ---
 
 	switchTab(index: number): void {
@@ -334,6 +428,10 @@ export class PlaygroundViewModel {
 			this.resultXhr.abort();
 			this.resultXhr = null;
 		}
+		if (this.xrayXhr !== null) {
+			this.xrayXhr.abort();
+			this.xrayXhr = null;
+		}
 
 		this.isLoading(true);
 	}
@@ -359,6 +457,7 @@ export class PlaygroundViewModel {
 			this.legacyResult(null);
 			this.upToDateTabs(null);
 			this.savePlaygroundState();
+			this.ensureXRay();
 		}).fail((xhr, textStatus) => {
 			if (textStatus === 'abort') {
 				return;
@@ -459,6 +558,7 @@ export class PlaygroundViewModel {
 				this.legacyResult(null);
 				this.upToDateTabs(saved.upToDateTabs);
 			}
+			this.ensureXRay();
 		}
 	}
 
@@ -512,6 +612,8 @@ export class PlaygroundViewModel {
 				this.cancelOptions();
 			});
 		}
+
+		this.ensureXRay();
 	}
 
 	showUpToDateTabs(): void {
@@ -525,6 +627,7 @@ export class PlaygroundViewModel {
 		this.legacyResult(null);
 		this.upToDateTabs(null);
 		this.id(null);
+		this.ensureXRay();
 	}
 
 	savePlaygroundState(): void {
@@ -923,11 +1026,11 @@ export class PlaygroundViewModel {
 		return false;
 	}
 
-	createTabs(tabs: {errors: PHPStanError[], title: string}[]): PlaygroundTabViewModel[] {
+	createTabs(tabs: {errors: PHPStanError[], title: string, xray?: XRayData}[]): PlaygroundTabViewModel[] {
 		const viewModelTabs: PlaygroundTabViewModel[] = [];
 		let versionOrder = 0;
 		for (const tab of tabs) {
-			viewModelTabs.push(new PlaygroundTabViewModel(tab.errors, tab.title, versionOrder === 0));
+			viewModelTabs.push(new PlaygroundTabViewModel(tab.errors, tab.title, versionOrder === 0, tab.xray ?? null));
 			versionOrder++;
 		}
 
