@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4ba754b7676472e6838a1b07b862c91",
+    "content-hash": "1574d9721774d0e974b8eb7abd23a277",
     "packages": [
         {
             "name": "clue/ndjson-react",
@@ -381,16 +381,16 @@
         },
         {
             "name": "entropy/entropy",
-            "version": "0.4.12",
+            "version": "0.4.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TomasVotruba/entropy.git",
-                "reference": "fa763e4fc4271658e9a7e1f41279ed2a4911765c"
+                "reference": "b2c703a93350f49ce67d150bb8560e886be01027"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TomasVotruba/entropy/zipball/fa763e4fc4271658e9a7e1f41279ed2a4911765c",
-                "reference": "fa763e4fc4271658e9a7e1f41279ed2a4911765c",
+                "url": "https://api.github.com/repos/TomasVotruba/entropy/zipball/b2c703a93350f49ce67d150bb8560e886be01027",
+                "reference": "b2c703a93350f49ce67d150bb8560e886be01027",
                 "shasum": ""
             },
             "require": {
@@ -425,9 +425,9 @@
             "description": "Entropy framework",
             "support": {
                 "issues": "https://github.com/TomasVotruba/entropy/issues",
-                "source": "https://github.com/TomasVotruba/entropy/tree/0.4.12"
+                "source": "https://github.com/TomasVotruba/entropy/tree/0.4.13"
             },
-            "time": "2026-08-25T15:38:26+00:00"
+            "time": "2026-09-03T19:53:04+00:00"
         },
         {
             "name": "evenement/evenement",
@@ -812,11 +812,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.2.12",
+            "version": "2.2.13",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/174b0d88710f00a42598886504dd7a146f91ace5",
-                "reference": "174b0d88710f00a42598886504dd7a146f91ace5",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9ba9ac76ee9c5cf5b56d58eb5deec6315b7a0260",
+                "reference": "9ba9ac76ee9c5cf5b56d58eb5deec6315b7a0260",
                 "shasum": ""
             },
             "require": {
@@ -872,7 +872,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-31T19:09:43+00:00"
+            "time": "2026-09-03T20:38:19+00:00"
         },
         {
             "name": "psr/container",
@@ -1559,12 +1559,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-doctrine.git",
-                "reference": "b997d3fa0f1a131c206b16c7b9708f05ec0a27fd"
+                "reference": "bacd0fd462cd1e346d33548bdef9a2d0cccc3aa6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-doctrine/zipball/b997d3fa0f1a131c206b16c7b9708f05ec0a27fd",
-                "reference": "b997d3fa0f1a131c206b16c7b9708f05ec0a27fd",
+                "url": "https://api.github.com/repos/rectorphp/rector-doctrine/zipball/bacd0fd462cd1e346d33548bdef9a2d0cccc3aa6",
+                "reference": "bacd0fd462cd1e346d33548bdef9a2d0cccc3aa6",
                 "shasum": ""
             },
             "require": {
@@ -1605,7 +1605,7 @@
             "support": {
                 "source": "https://github.com/rectorphp/rector-doctrine/tree/main"
             },
-            "time": "2026-08-29T17:32:02+00:00"
+            "time": "2026-09-08T19:21:34+00:00"
         },
         {
             "name": "rector/rector-downgrade-php",
@@ -1613,12 +1613,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector-downgrade-php.git",
-                "reference": "1beef93a7e2771e0d0fc42e6d1d22ecb9321e8e8"
+                "reference": "ad2e1bbf4290aecfa61ecc3426718caa1760321c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector-downgrade-php/zipball/1beef93a7e2771e0d0fc42e6d1d22ecb9321e8e8",
-                "reference": "1beef93a7e2771e0d0fc42e6d1d22ecb9321e8e8",
+                "url": "https://api.github.com/repos/rectorphp/rector-downgrade-php/zipball/ad2e1bbf4290aecfa61ecc3426718caa1760321c",
+                "reference": "ad2e1bbf4290aecfa61ecc3426718caa1760321c",
                 "shasum": ""
             },
             "require": {
@@ -1660,7 +1660,7 @@
             "support": {
                 "source": "https://github.com/rectorphp/rector-downgrade-php/tree/main"
             },
-            "time": "2026-09-02T08:46:17+00:00"
+            "time": "2026-09-08T12:44:43+00:00"
         },
         {
             "name": "rector/rector-phpunit",
@@ -2490,16 +2490,16 @@
         },
         {
             "name": "tomasvotruba/class-leak",
-            "version": "2.2.0",
+            "version": "2.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TomasVotruba/class-leak.git",
-                "reference": "cdc1c116f3deaa68ebd338fa2f791a0b4a52ad87"
+                "reference": "bc56eb6d4940e250f959a5a5ee7dcb2f064c2725"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TomasVotruba/class-leak/zipball/cdc1c116f3deaa68ebd338fa2f791a0b4a52ad87",
-                "reference": "cdc1c116f3deaa68ebd338fa2f791a0b4a52ad87",
+                "url": "https://api.github.com/repos/TomasVotruba/class-leak/zipball/bc56eb6d4940e250f959a5a5ee7dcb2f064c2725",
+                "reference": "bc56eb6d4940e250f959a5a5ee7dcb2f064c2725",
                 "shasum": ""
             },
             "require": {
@@ -2543,7 +2543,7 @@
             "description": "Detect leaking classes",
             "support": {
                 "issues": "https://github.com/TomasVotruba/class-leak/issues",
-                "source": "https://github.com/TomasVotruba/class-leak/tree/2.2.0"
+                "source": "https://github.com/TomasVotruba/class-leak/tree/2.2.4"
             },
             "funding": [
                 {
@@ -2555,7 +2555,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-29T20:55:33+00:00"
+            "time": "2026-09-03T08:44:47+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -3145,16 +3145,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "14.3.1",
+            "version": "14.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "6ce313bb110384148d1dc7695a99175f59529069"
+                "reference": "93d62632fb675b76c9b941fdcfcfa10ffb9dea75"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/6ce313bb110384148d1dc7695a99175f59529069",
-                "reference": "6ce313bb110384148d1dc7695a99175f59529069",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/93d62632fb675b76c9b941fdcfcfa10ffb9dea75",
+                "reference": "93d62632fb675b76c9b941fdcfcfa10ffb9dea75",
                 "shasum": ""
             },
             "require": {
@@ -3173,7 +3173,7 @@
                 "theseer/tokenizer": "^2.0.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^13.3.1"
+                "phpunit/phpunit": "^13.3.2"
             },
             "suggest": {
                 "ext-pcov": "PHP extension that provides line coverage",
@@ -3211,7 +3211,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
                 "security": "https://github.com/sebastianbergmann/php-code-coverage/security/policy",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/14.3.1"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/14.3.2"
             },
             "funding": [
                 {
@@ -3231,7 +3231,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-16T05:23:47+00:00"
+            "time": "2026-09-04T03:46:43+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -5042,16 +5042,16 @@
         },
         {
             "name": "symplify/easy-coding-standard",
-            "version": "13.2.19",
+            "version": "13.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ecsphp/ecs.git",
-                "reference": "a2af21c295837302b095180659971029a8294200"
+                "reference": "91848a91bfe688ee2c597c5d9f03d47c8855c743"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ecsphp/ecs/zipball/a2af21c295837302b095180659971029a8294200",
-                "reference": "a2af21c295837302b095180659971029a8294200",
+                "url": "https://api.github.com/repos/ecsphp/ecs/zipball/91848a91bfe688ee2c597c5d9f03d47c8855c743",
+                "reference": "91848a91bfe688ee2c597c5d9f03d47c8855c743",
                 "shasum": ""
             },
             "require": {
@@ -5061,9 +5061,6 @@
                 "friendsofphp/php-cs-fixer": "<3.95.20",
                 "phpcsstandards/php_codesniffer": "<4.0.4",
                 "symplify/coding-standard": "<13.0"
-            },
-            "suggest": {
-                "ext-dom": "Needed to support checkstyle output format in class CheckstyleOutputFormatter"
             },
             "bin": [
                 "bin/ecs"
@@ -5086,9 +5083,9 @@
                 "static analysis"
             ],
             "support": {
-                "source": "https://github.com/ecsphp/ecs/tree/13.2.19"
+                "source": "https://github.com/ecsphp/ecs/tree/13.3.2"
             },
-            "time": "2026-08-24T17:02:37+00:00"
+            "time": "2026-09-07T09:07:35+00:00"
         },
         {
             "name": "symplify/phpstan-rules",
@@ -5218,16 +5215,16 @@
         },
         {
             "name": "tomasvotruba/fast-unit",
-            "version": "v0.1.4",
+            "version": "v0.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TomasVotruba/fast-unit.git",
-                "reference": "35196ad4d4a34a872c7d589c4ba47f2372e1eed3"
+                "reference": "57ebf237ac8b962b55fa0775c3c21eae066be2f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TomasVotruba/fast-unit/zipball/35196ad4d4a34a872c7d589c4ba47f2372e1eed3",
-                "reference": "35196ad4d4a34a872c7d589c4ba47f2372e1eed3",
+                "url": "https://api.github.com/repos/TomasVotruba/fast-unit/zipball/57ebf237ac8b962b55fa0775c3c21eae066be2f6",
+                "reference": "57ebf237ac8b962b55fa0775c3c21eae066be2f6",
                 "shasum": ""
             },
             "require": {
@@ -5256,9 +5253,9 @@
             ],
             "support": {
                 "issues": "https://github.com/TomasVotruba/fast-unit/issues",
-                "source": "https://github.com/TomasVotruba/fast-unit/tree/v0.1.4"
+                "source": "https://github.com/TomasVotruba/fast-unit/tree/v0.1.6"
             },
-            "time": "2026-08-15T15:21:16+00:00"
+            "time": "2026-09-07T06:59:11+00:00"
         },
         {
             "name": "tomasvotruba/type-coverage",
