@@ -78,7 +78,28 @@ jobs:
         working-directory: ./playground-runner
         run: rm -rf vendor/phpstan/phpstan/.git
 
+      # The DI containers are compiled by the deployed function itself, because their
+      # cache key contains the absolute paths inside the Lambda package. So: deploy,
+      # compile the matrix, deploy again with the containers included. Without them a
+      # fresh execution environment spends ~1.5s compiling one before it can analyse
+      # anything, and with nine PHP versions fanned out that lands on most requests.
       - name: "Deploy"
+        working-directory: ./playground-runner
+        env:
+          AWS_DEFAULT_REGION: "eu-west-1"
+          AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
+        run: "npm run deploy"
+
+      - name: "Precompile DI containers"
+        working-directory: ./playground-runner
+        env:
+          AWS_DEFAULT_REGION: "eu-west-1"
+          AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
+        run: "npm run precompile"
+
+      - name: "Deploy with precompiled containers"
         working-directory: ./playground-runner
         env:
           AWS_DEFAULT_REGION: "eu-west-1"

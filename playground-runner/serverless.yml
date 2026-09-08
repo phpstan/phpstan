@@ -22,6 +22,26 @@ functions:
         description: ''
         timeout: 20
         runtime: php-85
+        # 1769 MB is where Lambda hands a function a full vCPU. PHPStan is
+        # single-threaded, so nothing above it helps - and because the analysis
+        # finishes proportionally sooner, a request costs about the same in
+        # GB-seconds as it did at 1024 MB.
+        memorySize: 1769
+        environment:
+            # Reuse the PHP process for up to 50 invocations instead of starting a
+            # fresh one every time (Bref's default). That keeps the loaded classes,
+            # the opened phar and the in-memory OPcache alive across requests.
+            # Each request still builds its own DI container and resets PHPStan's
+            # global state, so requests stay isolated from one another. The bound
+            # exists because PHPStan retains a little memory per container built.
+            BREF_LOOP_MAX: 50
+    precompile:
+        handler: precompile.php
+        # Build-time only, invoked by precompile.mjs between the two deploys.
+        description: 'Compiles the DI container matrix shipped in precompiled-containers/'
+        timeout: 900
+        memorySize: 3009
+        runtime: php-85
     ignoreErrors:
         handler: ignoreErrors.php
         runtime: php-85-fpm

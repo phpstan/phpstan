@@ -1,3 +1,4 @@
 /vendor
 /.serverless
 /node_modules
+/precompiled-containers
