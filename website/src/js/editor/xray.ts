@@ -585,7 +585,7 @@ function renderPopup(state: XRayState): HTMLElement {
 		rows.append(labelDom, valueDom);
 	};
 	if (node.type !== null) {
-		addRow('type', node.type, 'cm-xray-popup-type');
+		addRow('PHPStan type', node.type, 'cm-xray-popup-type');
 	}
 	for (const prop of node.props) {
 		addRow(prop.name, describeValue(state.nodes, prop.value), '');
