@@ -40,8 +40,6 @@ type OptionName = keyof typeof optionDefaults;
 const optionKeys = Object.keys(optionDefaults) as OptionName[];
 const defaultValues = Object.values(optionDefaults);
 
-const xrayStorageKey = 'phpstan-playground-xray';
-
 export class PlaygroundViewModel {
 
 	mainMenu: MainMenuViewModel;
@@ -81,8 +79,9 @@ export class PlaygroundViewModel {
 	shareXhr: JQuery.jqXHR | null;
 	resultXhr: JQuery.jqXHR | null;
 
-	// AST X-Ray toggle (remembered across visits) and the request that fetches
-	// the data for results that don't carry it (old share URLs, restored state).
+	// AST X-Ray toggle (deliberately not remembered: not in localStorage nor in
+	// the history state) and the request that fetches the data for results that
+	// don't carry it (old share URLs, restored state).
 	xrayEnabled: ko.Observable<boolean>;
 	xrayLoading: ko.Observable<boolean>;
 	xrayBusy: ko.PureComputed<boolean>;
@@ -170,15 +169,15 @@ export class PlaygroundViewModel {
 		this.xhr = null;
 		this.shareXhr = null;
 		this.resultXhr = null;
-		this.xrayEnabled = ko.observable<boolean>(PlaygroundViewModel.loadXRayPreference());
+		this.xrayEnabled = ko.observable<boolean>(false);
 		this.xrayLoading = ko.observable<boolean>(false);
 		this.xrayBusy = ko.pureComputed(() => this.xrayLoading() || this.isLoading());
 		this.xrayXhr = null;
-		// Follows the window: off when it gets too narrow, back to the remembered
-		// choice when it widens again.
+		// Off when the window gets too narrow for it.
 		xrayUnavailable?.addEventListener('change', () => {
-			this.xrayEnabled(PlaygroundViewModel.loadXRayPreference());
-			this.ensureXRay();
+			if (!isXRayAvailable()) {
+				this.xrayEnabled(false);
+			}
 		});
 		this.editorView = null;
 		this.urlIdJustRestored = false;
@@ -326,24 +325,8 @@ export class PlaygroundViewModel {
 
 	// --- AST X-Ray ---
 
-	private static loadXRayPreference(): boolean {
-		if (!isXRayAvailable()) {
-			return false;
-		}
-		try {
-			return window.localStorage.getItem(xrayStorageKey) === '1';
-		} catch {
-			return false;
-		}
-	}
-
 	onXRayToggle(enabled: boolean): void {
 		this.xrayEnabled(enabled);
-		try {
-			window.localStorage.setItem(xrayStorageKey, enabled ? '1' : '0');
-		} catch {
-			// private mode etc. - the toggle just isn't remembered
-		}
 		this.ensureXRay();
 	}
 
