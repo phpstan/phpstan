@@ -134,7 +134,7 @@ permalink: "/try.html"
 		<div class="spinner"></div>
 	</div>
 	<div style="display: none" data-bind="visible: true">
-		<div data-bind="codeMirror: code, codeMirrorErrors: currentTab() !== null ? currentTab().errors : [], codeMirrorInitialUrlId: isHashMatch ? id() : null, codeMirrorUrlIdChange: onEditorUrlIdChange.bind($data), codeMirrorRestoredState: restoredEditorState, codeMirrorXRayToggle: onXRayToggle.bind($data), codeMirrorXRay: { enabled: xrayEnabled(), busy: xrayLoading() || isLoading(), data: currentTab() !== null ? currentTab().xray() : null }"></div>
+		<div data-bind="codeMirror: code, codeMirrorErrors: currentTab() !== null ? currentTab().errors : [], codeMirrorInitialUrlId: isHashMatch ? id() : null, codeMirrorUrlIdChange: onEditorUrlIdChange.bind($data), codeMirrorRestoredState: restoredEditorState, codeMirrorXRayToggle: onXRayToggle.bind($data), codeMirrorXRay: { enabled: xrayEnabled, busy: xrayBusy, tab: currentTab }"></div>
 
 		<div class="flex items-center mt-4 flex-row gap-2 md:gap-6 px-4 md:px-0">
 			<!-- ko if: legacyResult() === null -->

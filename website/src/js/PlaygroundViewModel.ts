@@ -11,7 +11,7 @@ import {Transaction} from '@codemirror/state';
 import {setUrlId, urlIdField} from './editor/urlId';
 import {historyField} from '@codemirror/commands';
 import {XRayData} from './XRayData';
-import {isXRayAvailable, xrayUnavailable} from './editor/xray';
+import {isXRayAvailable, startXRayRequest, xrayUnavailable} from './editor/xray';
 
 declare const __PAGES_JSON__: Record<string, string>;
 const pages = __PAGES_JSON__;
@@ -85,6 +85,7 @@ export class PlaygroundViewModel {
 	// the data for results that don't carry it (old share URLs, restored state).
 	xrayEnabled: ko.Observable<boolean>;
 	xrayLoading: ko.Observable<boolean>;
+	xrayBusy: ko.PureComputed<boolean>;
 	xrayXhr: JQuery.jqXHR | null;
 	id: ko.Observable<string | null>;
 	resultUrl: string | null;
@@ -171,6 +172,7 @@ export class PlaygroundViewModel {
 		this.resultXhr = null;
 		this.xrayEnabled = ko.observable<boolean>(PlaygroundViewModel.loadXRayPreference());
 		this.xrayLoading = ko.observable<boolean>(false);
+		this.xrayBusy = ko.pureComputed(() => this.xrayLoading() || this.isLoading());
 		this.xrayXhr = null;
 		// Follows the window: off when it gets too narrow, back to the remembered
 		// choice when it widens again.
@@ -345,6 +347,13 @@ export class PlaygroundViewModel {
 		this.ensureXRay();
 	}
 
+	// Lets the editor map the answer through whatever is typed meanwhile.
+	private markXRayRequest(): void {
+		if (this.editorView) {
+			this.editorView.dispatch({effects: startXRayRequest.of(null)});
+		}
+	}
+
 	// Fetch X-Ray data when the toggle is on and the shown result has none.
 	ensureXRay(): void {
 		if (!this.xrayEnabled() || !isXRayAvailable()) {
@@ -361,6 +370,7 @@ export class PlaygroundViewModel {
 		const tabs = this.tabs();
 		const code = this.code();
 		this.xrayLoading(true);
+		this.markXRayRequest();
 		this.xrayXhr = $.ajax({
 			type: 'POST',
 			url: this.apiBaseUrl + '/analyse',
@@ -437,6 +447,7 @@ export class PlaygroundViewModel {
 	}
 
 	analyse(saveResult: boolean): JQuery.jqXHR {
+		this.markXRayRequest();
 		this.xhr = $.ajax({
 			type: 'POST',
 			url: this.apiBaseUrl + '/analyse',

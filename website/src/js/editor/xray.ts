@@ -1,5 +1,5 @@
 import {EditorView, layer, RectangleMarker, LayerMarker, ViewPlugin, ViewUpdate, showTooltip, Tooltip} from '@codemirror/view';
-import {EditorSelection, EditorState, Extension, Facet, StateEffect, StateField, Text} from '@codemirror/state';
+import {ChangeSet, EditorSelection, EditorState, Extension, Facet, StateEffect, StateField, Text} from '@codemirror/state';
 import {XRayData} from '../XRayData';
 
 // AST X-Ray: a toggle in the editor's corner that outlines every AST node
@@ -47,11 +47,17 @@ interface XRayState {
 	hovered: number;
 	// Where the popup for the hovered node is anchored.
 	anchor: number;
+	// Edits made since the last analysis request went out. The data that
+	// answers it refers to the document as it was then, so it is mapped through
+	// these on arrival; null before the first request.
+	pending: ChangeSet | null;
 }
 
 export const setXRayData = StateEffect.define<XRayData | null>();
 export const setXRayEnabled = StateEffect.define<boolean>();
 export const setXRayBusy = StateEffect.define<boolean>();
+// Dispatched right before an analysis request is sent.
+export const startXRayRequest = StateEffect.define<null>();
 const setHovered = StateEffect.define<{node: number; anchor: number}>();
 
 const xrayConfig = Facet.define<{onToggle: (enabled: boolean) => void}, {onToggle: (enabled: boolean) => void}>({
@@ -72,8 +78,10 @@ function isHiddenKind(kind: string): boolean {
 	return kind.startsWith('Name') || kind.startsWith('Identifier') || kind === 'VarLikeIdentifier' || kind === 'Stmt\\Nop';
 }
 
-function buildNodes(data: XRayData, doc: Text): XRayNode[] {
+function buildNodes(data: XRayData, doc: Text, pending: ChangeSet | null): XRayNode[] {
 	const string = (index: number): string => data.strings[index] ?? '';
+	const mapFrom = (pos: number): number => Math.min(pending ? pending.mapPos(pos, 1) : pos, doc.length);
+	const mapTo = (pos: number): number => Math.min(pending ? pending.mapPos(pos, -1) : pos, doc.length);
 	const propValue = (value: number | number[]): XRayProp['value'] => {
 		if (Array.isArray(value)) {
 			return value.map(v => v >= 0 ? v : string(-v - 1));
@@ -85,10 +93,11 @@ function buildNodes(data: XRayData, doc: Text): XRayNode[] {
 		for (let i = 0; i + 1 < props.length; i += 2) {
 			parsedProps.push({name: string(props[i] as number), value: propValue(props[i + 1])});
 		}
+		const mappedFrom = mapFrom(from);
 		return {
 			kind: string(kind),
-			from: Math.min(from, doc.length),
-			to: Math.min(to, doc.length),
+			from: mappedFrom,
+			to: Math.max(mappedFrom, mapTo(to)),
 			parent,
 			depth: 0,
 			type: type >= 0 ? string(type) : null,
@@ -147,20 +156,23 @@ function layoutNodes(nodes: XRayNode[], doc: Text): void {
 }
 
 export const xrayField = StateField.define<XRayState>({
-	create: () => ({enabled: false, busy: false, nodes: [], hovered: -1, anchor: 0}),
+	create: () => ({enabled: false, busy: false, nodes: [], hovered: -1, anchor: 0, pending: null}),
 	update(state, tr) {
 		let next = state;
 		if (tr.docChanged) {
+			// Like a decoration set, the boxes follow edits until fresh data arrives.
 			const nodes = state.nodes.map(node => {
 				const from = tr.changes.mapPos(node.from, 1);
 				return {...node, from, to: Math.max(from, tr.changes.mapPos(node.to, -1))};
 			});
 			layoutNodes(nodes, tr.state.doc);
-			next = {...next, nodes, hovered: -1};
+			next = {...next, nodes, hovered: -1, pending: state.pending ? state.pending.compose(tr.changes) : null};
 		}
 		for (const effect of tr.effects) {
-			if (effect.is(setXRayData)) {
-				next = {...next, nodes: effect.value ? buildNodes(effect.value, tr.state.doc) : [], hovered: -1};
+			if (effect.is(startXRayRequest)) {
+				next = {...next, pending: ChangeSet.empty(tr.state.doc.length)};
+			} else if (effect.is(setXRayData)) {
+				next = {...next, nodes: effect.value ? buildNodes(effect.value, tr.state.doc, next.pending) : [], hovered: -1};
 			} else if (effect.is(setXRayEnabled)) {
 				const enabled = effect.value && isXRayAvailable();
 				next = {...next, enabled, hovered: enabled ? next.hovered : -1};
