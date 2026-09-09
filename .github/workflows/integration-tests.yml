@@ -74,6 +74,13 @@ jobs:
               git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
               cd e2e/integration/repo
               git checkout 63a2f160d277cee79e1e0762be505d2cdb55da7d
+              # bin/rector.php reads preload-split-package.php when a vendor/ directory sits
+              # four levels above bin/, which is how it recognises being installed at
+              # vendor/rector/rector. Cloned here, that probe finds this repository's own
+              # vendor/, so both preload files load. They declare the same
+              # isPHPStanTestPreloaded() function, so the second one is a fatal error and
+              # every spawned bin/rector call writes nothing.
+              rm preload-split-package.php
               cp ../rector-composer.lock composer.lock
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
