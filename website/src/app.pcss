@@ -76,6 +76,9 @@ html.dark {
 .cm-editor {
 	font-size: 15px;
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+	/* Its own stacking context: the AST X-Ray toggle and popup use z-index
+	   inside the editor and must stay below the fixed top menu. */
+	isolation: isolate;
 	@apply border rounded-md my-8 outline-hidden overflow-hidden;
 }
 

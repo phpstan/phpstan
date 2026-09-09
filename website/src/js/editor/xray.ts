@@ -209,9 +209,13 @@ interface Box {
 	right: number;
 	bottom: number;
 	block: boolean;
+	// The full row a single-line box sits in (its hit region spans it).
+	rowTop?: number;
+	rowBottom?: number;
 }
 
-// Boxes from the last layout, in layer coordinates, for hit-testing.
+// Hit regions from the last layout, in layer coordinates. They are derived
+// from the drawn boxes but tile the area without gaps (see hitRegions).
 const hitBoxes = new WeakMap<EditorView, Box[]>();
 
 // Dash length and period of the box outlines, in pixels.
@@ -324,6 +328,8 @@ function layoutBoxes(view: EditorView, state: XRayState): Box[] {
 					top: rowTop + ROW_MARGIN,
 					bottom: rowTop + rowHeight - ROW_MARGIN,
 					block: false,
+					rowTop,
+					rowBottom: rowTop + rowHeight,
 				});
 			}
 			return;
@@ -372,6 +378,127 @@ function layoutBoxes(view: EditorView, state: XRayState): Box[] {
 
 	snapEdges(boxes);
 	return boxes;
+}
+
+// Whitespace, or a line that is only a comment (or part of a docblock).
+const BLANK_OR_COMMENT = /^\s*(?:\/\/.*|#.*|\/\*.*|\*.*)?$/;
+
+function nearestDrawnAncestor(nodes: XRayNode[], index: number): number {
+	for (let p = nodes[index].parent; p >= 0; p = nodes[p].parent) {
+		if (nodes[p].drawn) {
+			return p;
+		}
+	}
+	return -1;
+}
+
+// The hover regions. The drawn boxes leave gaps (the margin between rows, the
+// space after a statement, blank lines) that would all fall to the enclosing
+// block, so the pointer crossing from one line to the next would flash the
+// block's popup. Instead the regions tile the area like states on a map:
+//  - a single-line region spans its whole row;
+//  - the outermost statement on a row also owns what follows it when that is
+//    only whitespace or a comment, and two on one row meet halfway;
+//  - blank or comment-only rows between two statements of the same block are
+//    split between them at the middle;
+//  - the statements of a block share one left edge (the leftmost of them), so
+//    their differing paddings don't leave a jagged boundary with the block.
+// Indentation and the block's own text (`{`, a return type, ...) stay with the
+// block, so it remains hoverable.
+function hitRegions(view: EditorView, state: XRayState, boxes: Box[]): Box[] {
+	const doc = view.state.doc;
+	const nodes = state.nodes;
+	const base = layerBase(view);
+	const contentRight = (view.contentDOM.getBoundingClientRect().right - base.left) / view.scaleX;
+	const hits: Box[] = boxes.map(box => box.block || box.rowTop === undefined || box.rowBottom === undefined
+		? {...box}
+		: {...box, top: box.rowTop, bottom: box.rowBottom});
+
+	// Outermost single-line regions, i.e. those directly inside a block (or at
+	// the top level), grouped by row and by that block.
+	const isOutermost = (index: number): boolean => {
+		const ancestor = nearestDrawnAncestor(nodes, index);
+		return ancestor < 0 || nodes[ancestor].multiLine;
+	};
+	const blockOf = (index: number): number => {
+		let p = nearestDrawnAncestor(nodes, index);
+		while (p >= 0 && !nodes[p].multiLine) {
+			p = nearestDrawnAncestor(nodes, p);
+		}
+		return p;
+	};
+	const rows = new Map<number, Box[]>();
+	const groups = new Map<number, Map<number, Box[]>>();
+	for (const hit of hits) {
+		if (hit.block || !isOutermost(hit.node)) {
+			continue;
+		}
+		const rowKey = Math.round(hit.top);
+		(rows.get(rowKey) ?? rows.set(rowKey, []).get(rowKey)!).push(hit);
+		// Only statements take part in the block-wide rules; a parameter or a
+		// type on the block's header line is the block's own business.
+		if (!nodes[hit.node].kind.startsWith('Stmt\\')) {
+			continue;
+		}
+		const group = groups.get(blockOf(hit.node)) ?? groups.set(blockOf(hit.node), new Map()).get(blockOf(hit.node))!;
+		(group.get(rowKey) ?? group.set(rowKey, []).get(rowKey)!).push(hit);
+	}
+
+	for (const row of rows.values()) {
+		row.sort((a, b) => a.left - b.left);
+		for (let i = 0; i < row.length; i++) {
+			const current = row[i];
+			const next = row[i + 1];
+			const node = nodes[current.node];
+			if (next !== undefined) {
+				if (BLANK_OR_COMMENT.test(doc.sliceString(node.to, nodes[next.node].from))) {
+					const middle = (current.right + next.left) / 2;
+					current.right = middle;
+					next.left = middle;
+				}
+			} else if (BLANK_OR_COMMENT.test(doc.sliceString(node.to, doc.lineAt(node.to).to))) {
+				current.right = contentRight;
+			}
+		}
+	}
+
+	for (const group of groups.values()) {
+		const rowKeys = [...group.keys()].sort((a, b) => a - b);
+		const groupLeft = Math.min(...[...group.values()].flat().map(h => h.left));
+		for (const row of group.values()) {
+			// The leftmost statement of the row reaches the shared edge; a second
+			// statement on the same row already meets the first halfway.
+			const first = row.reduce((a, b) => a.left <= b.left ? a : b);
+			first.left = groupLeft;
+		}
+		for (let i = 0; i + 1 < rowKeys.length; i++) {
+			const upper = group.get(rowKeys[i])!;
+			const lower = group.get(rowKeys[i + 1])!;
+			const upperBottom = Math.max(...upper.map(h => h.bottom));
+			const lowerTop = Math.min(...lower.map(h => h.top));
+			if (lowerTop <= upperBottom) {
+				continue; // adjacent rows, nothing in between
+			}
+			const firstLine = doc.lineAt(nodes[upper[0].node].from).number;
+			const lastLine = doc.lineAt(nodes[lower[0].node].from).number;
+			let blank = true;
+			for (let n = firstLine + 1; n < lastLine && blank; n++) {
+				blank = BLANK_OR_COMMENT.test(doc.line(n).text);
+			}
+			if (!blank) {
+				continue;
+			}
+			const middle = (upperBottom + lowerTop) / 2;
+			for (const hit of upper) {
+				hit.bottom = middle;
+			}
+			for (const hit of lower) {
+				hit.top = middle;
+			}
+		}
+	}
+
+	return hits;
 }
 
 // Vertical edges of boxes on the same row that end up a pixel or two apart
@@ -430,7 +557,7 @@ function buildMarkers(view: EditorView): readonly LayerMarker[] {
 		return [];
 	}
 	const boxes = layoutBoxes(view, state);
-	hitBoxes.set(view, boxes);
+	hitBoxes.set(view, hitRegions(view, state, boxes));
 	const markers: LayerMarker[] = [];
 	for (const box of boxes) {
 		// Whole pixels keep the 1px dashes crisp and the shared edges identical.
@@ -517,11 +644,13 @@ const hoverPlugin = ViewPlugin.fromClass(class {
 			this.clear();
 			return;
 		}
+		// Anchor the popup at the pointer's own row, so it opens above that row
+		// and never underneath the pointer (a region can extend into rows above
+		// its node).
 		const node = state.nodes[hit];
-		const anchor = node.multiLine
-			? (this.view.posAtCoords({x: event.clientX, y: event.clientY}, false) ?? node.from)
-			: node.from;
-		this.view.dispatch({effects: setHovered.of({node: hit, anchor: Math.max(node.from, Math.min(node.to, anchor))})});
+		const pointerPos = this.view.posAtCoords({x: event.clientX, y: event.clientY}, false) ?? node.from;
+		const anchor = node.multiLine ? pointerPos : Math.max(this.view.state.doc.lineAt(pointerPos).from, Math.min(node.from, pointerPos));
+		this.view.dispatch({effects: setHovered.of({node: hit, anchor})});
 	}
 }, {
 	eventHandlers: {
@@ -789,7 +918,9 @@ const theme = EditorView.baseTheme({
 	'.cm-tooltip.cm-xray-tooltip': {
 		border: 'none',
 		background: 'transparent',
-		zIndex: '30',
+		// Never in the pointer's way: the hover is resolved from coordinates on
+		// the content, and a tooltip catching the pointer would end the hover.
+		pointerEvents: 'none',
 	},
 	'.cm-xray-popup': {
 		maxWidth: '36rem',
