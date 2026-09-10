@@ -2153,6 +2153,13 @@
             ]
         }
     },
+    "assign.redundant": {
+        "PHPStan\\Rules\\DeadCode\\UnusedVariableRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedVariableRule.php#L87"
+            ]
+        }
+    },
     "assign.staticPropertyPrivateSet": {
         "PHPStan\\Rules\\Properties\\AccessStaticPropertiesInAssignRule": {
             "phpstan/phpstan-src": [
@@ -2181,6 +2188,13 @@
         "PHPStan\\Rules\\Variables\\InvalidVariableAssignRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/InvalidVariableAssignRule.php#L44"
+            ]
+        }
+    },
+    "assign.unused": {
+        "PHPStan\\Rules\\DeadCode\\UnusedVariableRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedVariableRule.php#L71"
             ]
         }
     },
@@ -3585,6 +3599,13 @@
         "PHPStan\\Rules\\Exceptions\\CaughtExceptionExistenceRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Exceptions/CaughtExceptionExistenceRule.php#L69"
+            ]
+        }
+    },
+    "catch.unusedVariable": {
+        "PHPStan\\Rules\\DeadCode\\UnusedVariableRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedVariableRule.php#L71"
             ]
         }
     },
@@ -5527,14 +5548,9 @@
         }
     },
     "closure.unusedUse": {
-        "PHPStan\\Rules\\Classes\\UnusedConstructorParametersRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedFunctionParametersCheck.php#L62"
-            ]
-        },
         "PHPStan\\Rules\\Functions\\UnusedClosureUsesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedFunctionParametersCheck.php#L62"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/UnusedClosureUsesRule.php#L62"
             ]
         }
     },
@@ -5643,7 +5659,7 @@
         },
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInGroupUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Namespaces/ExistingNamesInGroupUseRule.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Namespaces/ExistingNamesInGroupUseRule.php#L81"
             ]
         },
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInUseRule": {
@@ -5689,12 +5705,17 @@
     "constructor.unusedParameter": {
         "PHPStan\\Rules\\Classes\\UnusedConstructorParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedFunctionParametersCheck.php#L62"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L70"
             ]
         },
-        "PHPStan\\Rules\\Functions\\UnusedClosureUsesRule": {
+        "PHPStan\\Rules\\Functions\\UnusedFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedFunctionParametersCheck.php#L62"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L70"
+            ]
+        },
+        "PHPStan\\Rules\\Methods\\UnusedMethodParametersRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L70"
             ]
         }
     },
@@ -6646,6 +6667,20 @@
             ]
         }
     },
+    "foreach.unusedKey": {
+        "PHPStan\\Rules\\DeadCode\\UnusedVariableRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedVariableRule.php#L71"
+            ]
+        }
+    },
+    "foreach.unusedValue": {
+        "PHPStan\\Rules\\DeadCode\\UnusedVariableRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedVariableRule.php#L71"
+            ]
+        }
+    },
     "foreach.valueOverwrite": {
         "PHPStan\\Rules\\ForeachLoop\\OverwriteVariablesWithForeachRule": {
             "phpstan/phpstan-strict-rules": [
@@ -6729,7 +6764,7 @@
         },
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInGroupUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Namespaces/ExistingNamesInGroupUseRule.php#L123"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Namespaces/ExistingNamesInGroupUseRule.php#L121"
             ]
         },
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInUseRule": {
@@ -6751,7 +6786,7 @@
         },
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInGroupUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Namespaces/ExistingNamesInGroupUseRule.php#L100"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Namespaces/ExistingNamesInGroupUseRule.php#L98"
             ]
         },
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInUseRule": {
@@ -6876,6 +6911,23 @@
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L651"
+            ]
+        }
+    },
+    "function.unusedParameter": {
+        "PHPStan\\Rules\\Classes\\UnusedConstructorParametersRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L70"
+            ]
+        },
+        "PHPStan\\Rules\\Functions\\UnusedFunctionParametersRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L70"
+            ]
+        },
+        "PHPStan\\Rules\\Methods\\UnusedMethodParametersRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L70"
             ]
         }
     },
@@ -10485,6 +10537,23 @@
             ]
         }
     },
+    "method.unusedParameter": {
+        "PHPStan\\Rules\\Classes\\UnusedConstructorParametersRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L70"
+            ]
+        },
+        "PHPStan\\Rules\\Functions\\UnusedFunctionParametersRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L70"
+            ]
+        },
+        "PHPStan\\Rules\\Methods\\UnusedMethodParametersRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L70"
+            ]
+        }
+    },
     "method.variance": {
         "PHPStan\\Rules\\Generics\\ClassAncestorsRule": {
             "phpstan/phpstan-src": [
@@ -13600,6 +13669,13 @@
             ]
         }
     },
+    "postDec.unused": {
+        "PHPStan\\Rules\\DeadCode\\UnusedVariableRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedVariableRule.php#L71"
+            ]
+        }
+    },
     "postInc.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
@@ -13618,6 +13694,13 @@
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L158"
+            ]
+        }
+    },
+    "postInc.unused": {
+        "PHPStan\\Rules\\DeadCode\\UnusedVariableRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedVariableRule.php#L71"
             ]
         }
     },
@@ -13656,6 +13739,13 @@
             ]
         }
     },
+    "preDec.unused": {
+        "PHPStan\\Rules\\DeadCode\\UnusedVariableRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedVariableRule.php#L71"
+            ]
+        }
+    },
     "preInc.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
@@ -13674,6 +13764,13 @@
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L158"
+            ]
+        }
+    },
+    "preInc.unused": {
+        "PHPStan\\Rules\\DeadCode\\UnusedVariableRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedVariableRule.php#L71"
             ]
         }
     },
@@ -14056,14 +14153,14 @@
     "property.neverRead": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L266"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L267"
             ]
         }
     },
     "property.neverWritten": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L280"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L281"
             ]
         }
     },
@@ -14129,14 +14226,14 @@
     "property.onlyRead": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L285"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L286"
             ]
         }
     },
     "property.onlyWritten": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L271"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L272"
             ]
         }
     },
@@ -14442,7 +14539,7 @@
     "property.unused": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L260"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L261"
             ]
         }
     },
@@ -17463,6 +17560,13 @@
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/DefinedVariableRule.php#L88",
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/DefinedVariableRule.php#L97"
+            ]
+        }
+    },
+    "variable.unused": {
+        "PHPStan\\Rules\\DeadCode\\UnusedVariableRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedVariableRule.php#L71"
             ]
         }
     },
