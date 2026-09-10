@@ -24,6 +24,6 @@
 		"constructs": "^10.4.2",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.7.2",
-		"vitest": "^3.0.0"
+		"vitest": "^4.0.0"
 	}
 }
