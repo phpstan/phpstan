@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
         with:
           egress-policy: audit
 
@@ -26,6 +26,6 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
 
       - name: "Check for typos"
-        uses: "crate-ci/typos@bee27e3a4fd1ea2111cf90ab89cd076c870fce14" # v1.48.0
+        uses: "crate-ci/typos@d43b6c087ac471e2ea7b8af622ff15f05c0c365b" # v1.50.1
         with:
           files: "README.md website/"
