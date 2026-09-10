@@ -4487,6 +4487,11 @@
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/RuleLevelHelper.php#L243"
             ]
         },
+        "PHPStan\\Rules\\Functions\\ReturnTypeAfterFinallyRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/RuleLevelHelper.php#L243"
+            ]
+        },
         "PHPStan\\Rules\\Functions\\ReturnTypeRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/RuleLevelHelper.php#L243"
@@ -15004,6 +15009,13 @@
         "PHPStan\\Rules\\Keywords\\RequireFileExistsRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L163"
+            ]
+        }
+    },
+    "return.byRefFinally": {
+        "PHPStan\\Rules\\Functions\\ReturnTypeAfterFinallyRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/ReturnTypeAfterFinallyRule.php#L101"
             ]
         }
     },
