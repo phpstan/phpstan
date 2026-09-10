@@ -102,14 +102,12 @@ jobs:
             done
           done
 
-          # The macOS binaries are universal — publish each under both
-          # architecture names. {libc} on Darwin is bsdlibc: PIE's
-          # LibcFlavour::detect() returns Bsd whenever otool exists.
-          for so in turbo-ext/macos/phpstan_turbo-*.so; do
+          # macOS is arm64 only (setup-php dropped Intel runners). {libc} on
+          # Darwin is bsdlibc: PIE's LibcFlavour::detect() returns Bsd
+          # whenever otool exists.
+          for so in turbo-ext/macos-arm64/phpstan_turbo-*.so; do
             minor="$(basename "$so" .so)"; minor="${minor#phpstan_turbo-}"
-            for arch in x86_64 arm64; do
-              pack_so "$so" "php_phpstan_turbo-${TAG}_php${minor}-${arch}-darwin-bsdlibc"
-            done
+            pack_so "$so" "php_phpstan_turbo-${TAG}_php${minor}-arm64-darwin-bsdlibc"
           done
 
           # Windows asset naming differs (PIE's WindowsExtensionAssetName):
@@ -129,15 +127,14 @@ jobs:
             zip -q -X -j "pie-assets/$name.zip" "$work/$name.dll"
           done
 
-          # every binary must have produced an asset (the macOS ones two) —
-          # a layout change must fail here, not publish a partial set
+          # every binary must have produced an asset — a layout change must
+          # fail here, not publish a partial set
           binaries="$(find turbo-ext -type f \( -name 'phpstan_turbo-*.so' -o -name 'phpstan_turbo-*.dll' \) | wc -l)"
-          macos="$(find turbo-ext/macos -type f -name 'phpstan_turbo-*.so' 2>/dev/null | wc -l)"
           count="$(find pie-assets -type f | wc -l)"
           echo "packaged $count assets from $binaries binaries:"
           ls -l pie-assets
-          if [ "$count" -ne "$((binaries + macos))" ]; then
-            echo "::error::Expected $((binaries + macos)) assets, produced $count."
+          if [ "$count" -ne "$binaries" ]; then
+            echo "::error::Expected $binaries assets, produced $count."
             exit 1
           fi
           echo "count=$count" >> "$GITHUB_OUTPUT"
