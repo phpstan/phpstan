@@ -1,6 +1,6 @@
 ---
 title: "return.byRefFinally"
-shortDescription: "A finally block modifies the value a function returns by reference, so the caller receives a type that no longer matches the declared return type."
+shortDescription: "A finally block changes the value a by-reference return hands back to the caller, breaking the declared return type."
 ignorable: true
 ---
 
@@ -9,7 +9,7 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-function &byRefChangedInFinally(): int
+function &doFoo(): int
 {
 	$x = 0;
 	try {
@@ -22,18 +22,16 @@ function &byRefChangedInFinally(): int
 
 ## Why is it reported?
 
-A function that returns by reference (declared with `&`) hands the caller a reference to the returned variable rather than a copy of its value. A `finally` block always runs *after* the `return` statement is evaluated but *before* control leaves the function, so any change it makes to the returned variable is what the caller actually receives.
+A function that returns by reference (`function &doFoo()`) hands the caller a reference to the returned variable instead of a copy of its value. The `finally` block runs after the `return` expression is evaluated but before control is handed back to the caller, so any change it makes to that variable is what the caller actually receives.
 
-In the example, `return $x;` captures `$x` while it still holds the `int` `0`, but the `finally` block then assigns the `string` `'test'` to it. Because the reference is still bound to `$x`, the caller ends up with `'test'`, which violates the declared `int` return type.
-
-This differs from a function that returns by value: without `&`, the returned value is copied at the `return` statement, so a later `finally` assignment cannot affect it. The rule only reports functions that return by reference and are not generators.
+Here the `return` statement points at `int` `$x`, but the `finally` block reassigns `$x` to a `string`. Because the return is by reference, the caller ends up with the `string`, violating the declared `int` return type.
 
 ## How to fix it
 
-Do not modify the returned variable inside the `finally` block:
+Do not reassign the returned variable inside the `finally` block:
 
 ```diff-php
- function &byRefChangedInFinally(): int
+ function &doFoo(): int
  {
  	$x = 0;
  	try {
@@ -44,27 +42,11 @@ Do not modify the returned variable inside the `finally` block:
  }
 ```
 
-If the `finally` block genuinely needs to reset or clean up its own state, use a separate variable so the returned reference is left untouched:
+If the reference semantics are not needed, return by value by removing the `&`. The `finally` block then no longer affects the returned value:
 
 ```diff-php
- function &byRefChangedInFinally(): int
- {
- 	$x = 0;
-+	$cleanup = 0;
- 	try {
- 		return $x;
- 	} finally {
--		$x = 'test';
-+		$cleanup = 'test';
- 	}
- }
-```
-
-If the function does not actually need to return by reference, drop the `&` so the value is copied at the `return` statement and the `finally` block can no longer affect the result:
-
-```diff-php
--function &byRefChangedInFinally(): int
-+function byRefChangedInFinally(): int
+-function &doFoo(): int
++function doFoo(): int
  {
  	$x = 0;
  	try {
