@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Cannot call method end\(\) on null\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: repo/packages/framework/src/Component/UploadedFile/Config/UploadedFileConfigDefinition.php
+
+		-
 			message: '#^Function pg_query_split not found\.$#'
 			identifier: function.notFound
 			count: 1

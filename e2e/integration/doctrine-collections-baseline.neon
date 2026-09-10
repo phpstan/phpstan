@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Property Doctrine\\Common\\Collections\\ArrayCollection\<TKey of \(int\|string\),T\>\:\:\$elements \(array\<TKey of \(int\|string\), T\>\) does not accept array\<int\|TKey of \(int\|string\), T\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/src/ArrayCollection.php
+
+		-
 			message: '#^Instanceof between Doctrine\\Common\\Collections\\Expr\\Expression and Doctrine\\Common\\Collections\\Expr\\Expression will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
 			count: 1

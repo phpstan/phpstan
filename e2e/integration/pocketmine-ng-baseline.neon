@@ -139,6 +139,42 @@ parameters:
 			path: repo/src/plugin/PluginDescription.php
 
 		-
+			message: '#^Parameter \#1 \$list of method pocketmine\\thread\\ThreadSafeClassLoader\:\:appendOrPrependLookupEntry\(\) expects pmmp\\thread\\ThreadSafeArray\<int, string\>, pmmp\\thread\\ThreadSafeArray\<\(int\|string\), mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/thread/ThreadSafeClassLoader.php
+
+		-
+			message: '#^pmmp\\thread\\ThreadSafeArray\<string, pmmp\\thread\\ThreadSafeArray\<int, string\>\> does not accept pmmp\\thread\\ThreadSafeArray\<\(int\|string\), mixed\>\.$#'
+			identifier: offsetAssign.valueType
+			count: 1
+			path: repo/src/thread/ThreadSafeClassLoader.php
+
+		-
+			message: '#^Method pocketmine\\world\\World\:\:checkChunkPopulationPreconditions\(\) should return array\{pocketmine\\promise\\PromiseResolver\<pocketmine\\world\\format\\Chunk\>\|null, bool\} but returns array\{pocketmine\\promise\\PromiseResolver\<mixed\>, false\}\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/src/world/World.php
+
+		-
+			message: '#^Method pocketmine\\world\\World\:\:internalOrderChunkPopulation\(\) should return pocketmine\\promise\\Promise\<pocketmine\\world\\format\\Chunk\> but returns pocketmine\\promise\\Promise\<mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/src/world/World.php
+
+		-
+			message: '#^Property pocketmine\\world\\World\:\:\$chunkPopulationRequestMap \(array\<int, pocketmine\\promise\\PromiseResolver\<pocketmine\\world\\format\\Chunk\>\>\) does not accept non\-empty\-array\<int, pocketmine\\promise\\PromiseResolver\<mixed\>\>\.$#'
+			identifier: assign.propertyType
+			count: 2
+			path: repo/src/world/World.php
+
+		-
+			message: '#^SplFixedArray\<SplFixedArray\<float\>\> does not accept SplFixedArray\<mixed\>\.$#'
+			identifier: offsetAssign.valueType
+			count: 2
+			path: repo/src/world/generator/noise/Noise.php
+
+		-
 			message: '#^Parameter \#1 \$array of function array_unique expects an array of values castable to string, array\<string, mixed\> given\.$#'
 			identifier: argument.type
 			count: 1

@@ -1,97 +1,151 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesProviderInterface\:\:provideForPeriodInChannel\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesProviderInterface.php
+			path: repo/src/Sylius/Bundle/AddressingBundle/DependencyInjection/Configuration.php
 
 		-
-			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:generateMergedByPeriod\(\) has parameter \$firstArray with no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+			path: repo/src/Sylius/Bundle/AdminBundle/DependencyInjection/Configuration.php
 
 		-
-			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:generateMergedByPeriod\(\) has parameter \$secondArray with no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:arrayNode\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+			path: repo/src/Sylius/Bundle/AttributeBundle/DependencyInjection/Configuration.php
 
 		-
-			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:generateMergedByPeriod\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+			path: repo/src/Sylius/Bundle/ChannelBundle/DependencyInjection/Configuration.php
 
 		-
-			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:getStatisticsData\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition\:\:arrayNode\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+			path: repo/src/Sylius/Bundle/CoreBundle/DependencyInjection/Configuration.php
 
 		-
-			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:indexByPeriodWithKeys\(\) has parameter \$items with no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+			path: repo/src/Sylius/Bundle/CoreBundle/DependencyInjection/Configuration.php
 
 		-
-			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:indexByPeriodWithKeys\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+			path: repo/src/Sylius/Bundle/CoreBundle/Fixture/CatalogPromotionFixture.php
 
 		-
-			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:mergeArraysByPeriod\(\) has parameter \$firstArray with no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+			path: repo/src/Sylius/Bundle/CoreBundle/Fixture/PromotionFixture.php
 
 		-
-			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:mergeArraysByPeriod\(\) has parameter \$secondArray with no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:scalarNode\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+			path: repo/src/Sylius/Bundle/CoreBundle/Fixture/ShippingMethodFixture.php
 
 		-
-			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:mergeArraysByPeriod\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+			path: repo/src/Sylius/Bundle/CurrencyBundle/DependencyInjection/Configuration.php
 
 		-
-			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:provide\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+			path: repo/src/Sylius/Bundle/CustomerBundle/DependencyInjection/Configuration.php
 
 		-
-			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:withFormattedDates\(\) has parameter \$sales with no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+			path: repo/src/Sylius/Bundle/InventoryBundle/DependencyInjection/Configuration.php
 
 		-
-			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProvider\:\:withFormattedDates\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProvider.php
+			path: repo/src/Sylius/Bundle/LocaleBundle/DependencyInjection/Configuration.php
 
 		-
-			message: '#^Method Sylius\\Component\\Core\\Statistics\\Provider\\SalesStatisticsProviderInterface\:\:provide\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: repo/src/Sylius/Component/Core/Statistics/Provider/SalesStatisticsProviderInterface.php
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: repo/src/Sylius/Bundle/OrderBundle/DependencyInjection/Configuration.php
 
 		-
-			message: '#^Method Sylius\\Component\\Core\\Statistics\\ValueObject\\Statistics\:\:__construct\(\) has parameter \$sales with no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:arrayNode\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: repo/src/Sylius/Component/Core/Statistics/ValueObject/Statistics.php
+			path: repo/src/Sylius/Bundle/PaymentBundle/DependencyInjection/Configuration.php
 
 		-
-			message: '#^Method Sylius\\Component\\Core\\Statistics\\ValueObject\\Statistics\:\:getSales\(\) return type has no value type specified in unsealed extra keys \(\.\.\.\)\.$#'
-			identifier: missingType.iterableValue
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
 			count: 1
-			path: repo/src/Sylius/Component/Core/Statistics/ValueObject/Statistics.php
+			path: repo/src/Sylius/Bundle/PaymentBundle/DependencyInjection/Configuration.php
+
+		-
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: repo/src/Sylius/Bundle/PayumBundle/DependencyInjection/Configuration.php
+
+		-
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:arrayNode\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Sylius/Bundle/ProductBundle/DependencyInjection/Configuration.php
+
+		-
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:arrayNode\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Sylius/Bundle/PromotionBundle/DependencyInjection/Configuration.php
+
+		-
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Sylius/Bundle/ReviewBundle/DependencyInjection/Configuration.php
+
+		-
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Sylius/Bundle/ShippingBundle/DependencyInjection/Configuration.php
+
+		-
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:arrayNode\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Sylius/Bundle/ShopBundle/DependencyInjection/Configuration.php
+
+		-
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Sylius/Bundle/TaxationBundle/DependencyInjection/Configuration.php
+
+		-
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:arrayNode\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Sylius/Bundle/TaxonomyBundle/DependencyInjection/Configuration.php
+
+		-
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Sylius/Bundle/UserBundle/DependencyInjection/Configuration.php
