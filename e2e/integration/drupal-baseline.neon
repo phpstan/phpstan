@@ -13,6 +13,12 @@ parameters:
 			path: repo/core/lib/Drupal/Core/Entity/ContentEntityForm.php
 
 		-
+			message: '#^Relying on entity queries to check access by default is deprecated in drupal\:9\.2\.0 and an error will be thrown from drupal\:10\.0\.0\. Call \\Drupal\\Core\\Entity\\Query\\QueryInterface\:\:accessCheck\(\) with TRUE or FALSE to specify whether access should be checked\.$#'
+			identifier: entityQueryHasAccessCheck.noAccessCheck
+			count: 1
+			path: repo/core/lib/Drupal/Core/Entity/ContentEntityStorageBase.php
+
+		-
 			message: '#^Method Drupal\\Core\\Entity\\FieldableEntityInterface\:\:get\(\) return type with generic interface Drupal\\Core\\Field\\FieldItemListInterface does not specify its types\: T$#'
 			identifier: missingType.generics
 			count: 1
@@ -43,46 +49,10 @@ parameters:
 			path: repo/core/modules/block/src/BlockListBuilder.php
 
 		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/block_content/tests/src/Functional/BlockContentTypeTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/block_content/tests/src/Functional/BlockContentTypeTest.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/block_content/tests/src/Functional/PageEditTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/block_content/tests/src/Functional/PageEditTest.php
-
-		-
 			message: '#^Method Drupal\\contact\\MessageForm\:\:validateForm\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: repo/core/modules/contact/src/MessageForm.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/dblog/tests/src/Functional/DbLogTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/dblog/tests/src/Functional/DbLogTest.php
 
 		-
 			message: '#^Variable \$height in empty\(\) always exists and is always falsy\.$#'
@@ -97,78 +67,6 @@ parameters:
 			path: repo/core/modules/filter/src/FilterProcessResult.php
 
 		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/help/tests/src/Functional/HelpTopicTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/help/tests/src/Functional/HelpTopicTest.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/language/tests/src/Functional/LanguageBreadcrumbTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/language/tests/src/Functional/LanguageBreadcrumbTest.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/node/tests/src/Functional/NodeTitleTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/node/tests/src/Functional/NodeTitleTest.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/node/tests/src/Functional/NodeTypeTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/node/tests/src/Functional/NodeTypeTest.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/system/tests/src/Functional/Menu/BreadcrumbFrontCacheContextsTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/system/tests/src/Functional/Menu/BreadcrumbFrontCacheContextsTest.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/system/tests/src/Functional/Menu/BreadcrumbTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/system/tests/src/Functional/Menu/BreadcrumbTest.php
-
-		-
 			message: '#^Method Drupal\\taxonomy\\Plugin\\views\\argument_default\\Tid\:\:getCacheTags\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -181,30 +79,6 @@ parameters:
 			path: repo/core/modules/taxonomy/src/TermForm.php
 
 		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/taxonomy/tests/src/Functional/TermTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/taxonomy/tests/src/Functional/TermTest.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/taxonomy/tests/src/Functional/TermTranslationTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/taxonomy/tests/src/Functional/TermTranslationTest.php
-
-		-
 			message: '#^Variable \$untranslatable_configs in empty\(\) always exists and is not falsy\.$#'
 			identifier: empty.variable
 			count: 1
@@ -215,3 +89,9 @@ parameters:
 			identifier: unset.offset
 			count: 1
 			path: repo/core/modules/views_ui/src/Form/Ajax/Display.php
+
+		-
+			message: '#^Relying on entity queries to check access by default is deprecated in drupal\:9\.2\.0 and an error will be thrown from drupal\:10\.0\.0\. Call \\Drupal\\Core\\Entity\\Query\\QueryInterface\:\:accessCheck\(\) with TRUE or FALSE to specify whether access should be checked\.$#'
+			identifier: entityQueryHasAccessCheck.noAccessCheck
+			count: 2
+			path: repo/core/tests/Drupal/KernelTests/Core/Entity/EntityQueryTest.php
