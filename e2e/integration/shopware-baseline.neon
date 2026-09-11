@@ -85,6 +85,18 @@ parameters:
 			path: repo/src/Core/Checkout/Customer/Validation/Constraint/CustomerVatIdentification.php
 
 		-
+			rawMessage: 'Call to function assert() with true will always evaluate to true.'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Core/Checkout/Payment/PaymentProcessor.php
+
+		-
+			rawMessage: Instanceof between Shopware\Core\Checkout\Payment\Cart\Token\TokenStruct and Shopware\Core\Checkout\Payment\Cart\Token\TokenStruct will always evaluate to true.
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Core/Checkout/Payment/PaymentProcessor.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Checkout\Promotion\Util\PromotionCodeService::splitPattern() should return array{prefix?: string, replacement: string, suffix?: string, replacementString: string, replacementArray: array<string>} but returns array{0: non-empty-string, prefix: string, 1: string, replacement: non-falsy-string, 2: non-falsy-string, 3: non-falsy-string, suffix: string, 4: string, ...}.'
 			identifier: return.type
 			count: 1
@@ -955,36 +967,6 @@ parameters:
 			path: repo/src/Core/Framework/DependencyInjection/CompilerPass/FeatureFlagCompilerPass.php
 
 		-
-			rawMessage: 'Call to an undefined method Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition::arrayNode().'
-			identifier: method.notFound
-			count: 1
-			path: repo/src/Core/Framework/DependencyInjection/Configuration.php
-
-		-
-			rawMessage: 'Call to an undefined method Symfony\Component\Config\Definition\Builder\TreeBuilder::arrayNode().'
-			identifier: method.notFound
-			count: 2
-			path: repo/src/Core/Framework/DependencyInjection/Configuration.php
-
-		-
-			rawMessage: 'Call to an undefined method Symfony\Component\Config\Definition\Builder\TreeBuilder::booleanNode().'
-			identifier: method.notFound
-			count: 1
-			path: repo/src/Core/Framework/DependencyInjection/Configuration.php
-
-		-
-			rawMessage: 'Call to an undefined method Symfony\Component\Config\Definition\Builder\TreeBuilder::end().'
-			identifier: method.notFound
-			count: 5
-			path: repo/src/Core/Framework/DependencyInjection/Configuration.php
-
-		-
-			rawMessage: 'Call to an undefined method Symfony\Component\Config\Definition\Builder\TreeBuilder::variableNode().'
-			identifier: method.notFound
-			count: 1
-			path: repo/src/Core/Framework/DependencyInjection/Configuration.php
-
-		-
 			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
 			identifier: nullCoalesce.unnecessary
 			count: 1
@@ -1307,12 +1289,6 @@ parameters:
 			identifier: method.childReturnType
 			count: 1
 			path: repo/src/Elasticsearch/Admin/Indexer/ProductAdminSearchIndexer.php
-
-		-
-			rawMessage: 'Call to an undefined method Symfony\Component\Config\Definition\Builder\TreeBuilder::end().'
-			identifier: method.notFound
-			count: 1
-			path: repo/src/Elasticsearch/DependencyInjection/Configuration.php
 
 		-
 			rawMessage: 'Parameter #1 $result of method Shopware\Elasticsearch\Framework\DataAbstractionLayer\ElasticsearchEntitySearchHydrator::extractHits() expects array{hits: array{hits: array<int, array{inner_hits?: array{inner?: array<mixed>}}>}}, array{hits: array{hits: array<int, array<mixed>>}} given.'
