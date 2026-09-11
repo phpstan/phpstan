@@ -437,16 +437,16 @@
         },
         {
             "name": "nette/di",
-            "version": "v3.2.6",
+            "version": "v3.2.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/di.git",
-                "reference": "481ca2553e792daffa7fcf0ed43f705d80603fa4"
+                "reference": "7b00ce16011f628e5861a81a2dbf74edcd4e97cd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/di/zipball/481ca2553e792daffa7fcf0ed43f705d80603fa4",
-                "reference": "481ca2553e792daffa7fcf0ed43f705d80603fa4",
+                "url": "https://api.github.com/repos/nette/di/zipball/7b00ce16011f628e5861a81a2dbf74edcd4e97cd",
+                "reference": "7b00ce16011f628e5861a81a2dbf74edcd4e97cd",
                 "shasum": ""
             },
             "require": {
@@ -456,7 +456,7 @@
                 "nette/php-generator": "^4.1.6",
                 "nette/robot-loader": "^4.0",
                 "nette/schema": "^1.2.5",
-                "nette/utils": "^4.0",
+                "nette/utils": "^4.0.6",
                 "php": "8.1 - 8.5"
             },
             "require-dev": {
@@ -464,6 +464,7 @@
                 "nette/tester": "^2.6",
                 "phpstan/extension-installer": "^1.4@stable",
                 "phpstan/phpstan": "^2.1@stable",
+                "psr/container": "^1.1 || ^2.0",
                 "tracy/tracy": "^2.9"
             },
             "type": "library",
@@ -509,9 +510,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/di/issues",
-                "source": "https://github.com/nette/di/tree/v3.2.6"
+                "source": "https://github.com/nette/di/tree/v3.2.7"
             },
-            "time": "2026-05-06T02:17:57+00:00"
+            "time": "2026-08-27T01:12:29+00:00"
         },
         {
             "name": "nette/neon",
@@ -1346,11 +1347,11 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "2.2.11",
+            "version": "2.2.13",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/0eb899d48d9b784eee3f1b58a6c9dc79734cf811",
-                "reference": "0eb899d48d9b784eee3f1b58a6c9dc79734cf811",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/9ba9ac76ee9c5cf5b56d58eb5deec6315b7a0260",
+                "reference": "9ba9ac76ee9c5cf5b56d58eb5deec6315b7a0260",
                 "shasum": ""
             },
             "require": {
@@ -1406,7 +1407,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-31T10:33:10+00:00"
+            "time": "2026-09-03T20:38:19+00:00"
         },
         {
             "name": "phpstan/phpstan-deprecation-rules",
