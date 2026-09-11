@@ -131,8 +131,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/pavel-rossinsky">Pavel Rossinsky (pavel-rossinsky)</a></li>
 <!-- indi -->
 
-<!-- indi-org --><li><a href="https://github.com/hxv">Michał Włodarczyk (hxv)</a></li>
-<li><a href="https://github.com/Schrank">Fabian Blechschmidt (Schrank)</a></li>
+<!-- indi-org --><li><a href="https://github.com/Schrank">Fabian Blechschmidt (Schrank)</a></li>
 <li><a href="https://github.com/ScottHelme">Scott Helme (ScottHelme)</a></li>
 <li><a href="https://github.com/aspirantzhang">Aspirant Zhang (aspirantzhang)</a></li>
 <li><a href="https://github.com/oliverklee">Oliver Klee (oliverklee)</a></li>
