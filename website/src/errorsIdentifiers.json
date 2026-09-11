@@ -4171,7 +4171,7 @@
     "class.nameInUse": {
         "PHPStan\\Rules\\Names\\UsedNamesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Names/UsedNamesRule.php#L103"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Names/UsedNamesRule.php#L112"
             ]
         }
     },
@@ -6557,7 +6557,7 @@
     "enum.nameInUse": {
         "PHPStan\\Rules\\Names\\UsedNamesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Names/UsedNamesRule.php#L103"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Names/UsedNamesRule.php#L112"
             ]
         }
     },
@@ -9647,7 +9647,7 @@
     "interface.nameInUse": {
         "PHPStan\\Rules\\Names\\UsedNamesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Names/UsedNamesRule.php#L103"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Names/UsedNamesRule.php#L112"
             ]
         }
     },
@@ -17021,7 +17021,7 @@
     "trait.nameInUse": {
         "PHPStan\\Rules\\Names\\UsedNamesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Names/UsedNamesRule.php#L103"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Names/UsedNamesRule.php#L112"
             ]
         }
     },
@@ -17393,7 +17393,7 @@
     "use.nameInUse": {
         "PHPStan\\Rules\\Names\\UsedNamesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Names/UsedNamesRule.php#L135"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Names/UsedNamesRule.php#L145"
             ]
         }
     },
