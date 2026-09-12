@@ -36,12 +36,22 @@ function validateOptions(input: unknown): PlaygroundOptions | undefined {
 
 interface HttpRequest {
 	body: string;
-	queryStringParameters: any;
+	queryStringParameters: {[key: string]: string | undefined} | null;
 }
 
 interface HttpResponse {
 	statusCode: number;
 	body?: string;
+}
+
+class BadRequestError extends Error {}
+
+function requireId(request: HttpRequest): string {
+	const id = request.queryStringParameters?.id;
+	if (typeof id !== 'string' || id === '') {
+		throw new BadRequestError('Missing id query parameter');
+	}
+	return id;
 }
 
 interface PHPStanError {
@@ -327,7 +337,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 
 async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 	try {
-		const id = request.queryStringParameters.id;
+		const id = requireId(request);
 		const object = await s3.getObject({
 			Bucket: 'phpstan-playground',
 			Key: 'api/results/' + id + '.json',
@@ -448,6 +458,9 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 			body: JSON.stringify(bodyJson),
 		});
 	} catch (e) {
+		if (e instanceof BadRequestError) {
+			return Promise.resolve({statusCode: 400});
+		}
 		console.error(e);
 		captureException(e);
 		return Promise.resolve({statusCode: 500});
@@ -456,7 +469,7 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 
 async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 	try {
-		const id = request.queryStringParameters.id;
+		const id = requireId(request);
 		const object = await s3.getObject({
 			Bucket: 'phpstan-playground',
 			Key: 'api/results/' + id + '.json',
@@ -490,6 +503,9 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 			body: JSON.stringify(bodyJson),
 		});
 	} catch (e) {
+		if (e instanceof BadRequestError) {
+			return Promise.resolve({statusCode: 400});
+		}
 		console.error(e);
 		captureException(e);
 		return Promise.resolve({statusCode: 500});
@@ -498,8 +514,8 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 
 async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse> {
 	try {
-		const id = request.queryStringParameters.id;
-		const firstTwoChars = id.substr(0, 2);
+		const id = requireId(request);
+		const firstTwoChars = id.slice(0, 2);
 		const path = 'data/results/' + firstTwoChars + '/' + id;
 		const inputObject = await s3.getObject({
 			Bucket: 'phpstan-playground',
@@ -538,6 +554,9 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 			}),
 		});
 	} catch (e) {
+		if (e instanceof BadRequestError) {
+			return Promise.resolve({statusCode: 400});
+		}
 		console.error(e);
 		captureException(e);
 		return Promise.resolve({statusCode: 500});
