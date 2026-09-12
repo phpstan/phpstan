@@ -41,7 +41,7 @@ class ErrorWithIdentifierCollector implements Collector
 
 		$identifier = $scope->getType($args[0]->value);
 		if (count($identifier->getConstantStrings()) === 0) {
-			throw new ShouldNotHappenException(sprintf('Unknown identifier'));
+			throw new ShouldNotHappenException(sprintf('Unknown identifier in %s on line %d', $scope->getFile(), $args[0]->getStartLine()));
 		}
 
 		$calledOnType = $scope->getType($node->var);
