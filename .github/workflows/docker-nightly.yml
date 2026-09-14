@@ -49,7 +49,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        key: [ "php8.0", "php8.1", "php8.2", "php8.3", "php8.4", "php8.5" ]
+        key: [ "php8.0", "php8.1", "php8.2", "php8.3", "php8.4", "php8.5", "php8.6" ]
         platform: [ "linux/amd64", "linux/arm64" ]
         include:
           - { key: "php8.0", docker-file: "./docker/Dockerfile.php.8.0", image-tag-suffix: "-php8.0" }
@@ -58,6 +58,7 @@ jobs:
           - { key: "php8.3", docker-file: "./docker/Dockerfile.php.8.3", image-tag-suffix: "-php8.3" }
           - { key: "php8.4", docker-file: "./docker/Dockerfile.php.8.4", image-tag-suffix: "-php8.4" }
           - { key: "php8.5", docker-file: "./docker/Dockerfile.php.8.5", image-tag-suffix: "-php8.5" }
+          - { key: "php8.6", docker-file: "./docker/Dockerfile.php.8.6", image-tag-suffix: "-php8.6" }
           - { platform: "linux/amd64", runner: "ubuntu-latest" }
           - { platform: "linux/arm64", runner: "ubuntu-24.04-arm" }
     steps:
@@ -142,6 +143,7 @@ jobs:
           - { key: "php8.3", digest-key: "php8.3", image-tag-suffix: "-php8.3" }
           - { key: "php8.4", digest-key: "php8.4", image-tag-suffix: "-php8.4" }
           - { key: "php8.5", digest-key: "php8.5", image-tag-suffix: "-php8.5" }
+          - { key: "php8.6", digest-key: "php8.6", image-tag-suffix: "-php8.6" }
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0

@@ -1,0 +1,46 @@
+# Stage 1: rebuild the php binary with profile-guided optimization, trained
+# by running this very PHPStan release on the phpstan-src codebase. All the
+# logic lives in pgo-build.sh.
+FROM php:8.6-rc-cli-alpine AS pgo-builder
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+COPY pgo-build.sh /usr/local/bin/pgo-build
+
+RUN pgo-build instrument
+
+ARG PHPSTAN_VERSION
+ARG PHPSTAN_SRC_REF=2.3.x
+
+RUN pgo-build train
+
+RUN pgo-build rebuild
+
+# Stage 2: the shipped image - identical to the stock one except for the
+# profile-guided php binary dropped in over the original.
+FROM php:8.6-rc-cli-alpine
+
+ENV COMPOSER_HOME="/composer" \
+    COMPOSER_ALLOW_SUPERUSER="1" \
+    PATH="/composer/vendor/bin:$PATH" \
+    PHP_CONF_DIR="/usr/local/etc/php/conf.d" \
+    PHPSTAN_PRO_WEB_PORT="11111"
+
+COPY --from=pgo-builder /pgo-install/usr/local/bin/php /usr/local/bin/php
+
+RUN echo "memory_limit=-1" > $PHP_CONF_DIR/99_memory-limit.ini \
+    && apk add --no-cache git
+
+VOLUME ["/app"]
+
+WORKDIR /app
+
+EXPOSE 11111
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+ARG PHPSTAN_VERSION
+
+RUN composer global require phpstan/phpstan:"$PHPSTAN_VERSION" --prefer-dist \
+	&& composer clear-cache
+
+ENTRYPOINT ["phpstan"]
