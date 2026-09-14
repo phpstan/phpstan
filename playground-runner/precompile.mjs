@@ -12,7 +12,7 @@ const OUT = 'precompiled-containers';
 const CHUNK = 24;
 
 const levels = Array.from({ length: 11 }, (_, i) => String(i));
-const versions = [70200, 70300, 70400, 80000, 80100, 80200, 80300, 80400, 80500];
+const versions = [70200, 70300, 70400, 80000, 80100, 80200, 80300, 80400, 80500, 80600];
 const flags = [];
 for (const strictRules of [false, true]) {
 	for (const bleedingEdge of [false, true]) {
