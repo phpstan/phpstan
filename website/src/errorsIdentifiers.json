@@ -1898,7 +1898,7 @@
     "array.duplicateKey": {
         "PHPStan\\Rules\\Arrays\\DuplicateKeysInLiteralArraysRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Arrays/DuplicateKeysInLiteralArraysRule.php#L165"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Arrays/DuplicateKeysInLiteralArraysRule.php#L178"
             ]
         }
     },
