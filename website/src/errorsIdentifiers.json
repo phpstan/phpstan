@@ -13459,21 +13459,21 @@
     "phpunit.assertFalse": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameBooleanExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L65"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L66"
             ]
         }
     },
     "phpunit.assertNull": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameNullExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameNullExpectedRule.php#L51"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameNullExpectedRule.php#L52"
             ]
         }
     },
     "phpunit.assertTrue": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameBooleanExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L51"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L52"
             ]
         }
     },
