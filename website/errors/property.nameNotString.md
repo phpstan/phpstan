@@ -23,9 +23,11 @@ function doFoo(Foo $foo): void
 
 ## Why is it reported?
 
-When accessing an object property dynamically using the `$obj->$name` syntax, the `$name` expression must evaluate to a string. If the value used as the property name is not a string (for example, an array or object), the property access is invalid and will produce unexpected behavior or errors at runtime.
+When accessing an object property dynamically using the `$obj->$name` syntax, the `$name` expression must produce a string. PHP casts the name to string at runtime, so a `string`, an `int`, or an object implementing `Stringable` are all accepted. Values that cannot be cast to a string — such as an `array` or a plain `object` — are invalid and result in an error.
 
 In the example above, the variable `$name` is an array (`["bar"]`), which is not a valid property name.
+
+This check is currently part of [Bleeding Edge](/blog/what-is-bleeding-edge).
 
 ## How to fix it
 

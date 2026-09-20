@@ -22,7 +22,9 @@ function doFoo(int $name): void
 
 ## Why is it reported?
 
-When accessing a class constant dynamically with `ClassName::{$expr}` (available since PHP 8.3), the expression must evaluate to a string. If the expression has a non-string type such as `int`, `object`, or `mixed`, PHP will throw a `TypeError` at runtime. In the example above, `$name` is an `int`, which is not a valid class constant name.
+When accessing a class constant dynamically with `ClassName::{$expr}` (available since PHP 8.3), the expression must be a string. Constant names are not cast to string at runtime, so even an object implementing `Stringable` is not accepted — only an actual `string` works. If the expression has a non-string type such as `int`, `object`, or `mixed`, the access is invalid. In the example above, `$name` is an `int`, which is not a valid class constant name.
+
+This check is currently part of [Bleeding Edge](/blog/what-is-bleeding-edge).
 
 ## How to fix it
 
