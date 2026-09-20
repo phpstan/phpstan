@@ -1,6 +1,7 @@
 includes:
 	- repo/Build/phpstan/phpstan.neon
 	- typo3-baseline.neon
+	- editor-link-repo.php
 
 parameters:
 	reportUnmatchedIgnoredErrors: false
