@@ -64,7 +64,7 @@ jobs:
         extension-name:
           - "phpstan-phpunit"
           - "phpstan-strict-rules 2.0.x"
-          - "phpstan-mockery"
+          - "phpstan-mockery 9d45af05205f9a8a72554e647ac5ed5813ca37b2"
           - "phpstan-doctrine"
           - "phpstan-symfony"
           - "phpstan-deprecation-rules"
