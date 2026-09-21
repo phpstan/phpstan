@@ -11696,7 +11696,7 @@
     "nette.rethrowException": {
         "PHPStan\\Rule\\Nette\\RethrowExceptionRule": {
             "phpstan/phpstan-nette": [
-                "https://github.com/phpstan/phpstan-nette/blob/2.0.x/src/Rule/Nette/RethrowExceptionRule.php#L89"
+                "https://github.com/phpstan/phpstan-nette/blob/2.0.x/src/Rule/Nette/RethrowExceptionRule.php#L79"
             ]
         }
     },
