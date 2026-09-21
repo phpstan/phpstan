@@ -1,0 +1,604 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "parameters": {
+      "additionalProperties": false,
+      "properties": {
+        "level": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "const": 0,
+                  "markdownDescription": "basic checks, unknown classes, unknown functions, unknown methods called on `$this`, wrong number of arguments passed to those methods and functions, always undefined variables"
+                },
+                {
+                  "const": 1,
+                  "markdownDescription": "possibly undefined variables, unknown magic methods and properties on classes with `__call` and `__get`"
+                },
+                {
+                  "const": 2,
+                  "markdownDescription": "unknown methods checked on all expressions (not just `$this`), validating PHPDocs"
+                },
+                {
+                  "const": 3,
+                  "markdownDescription": "return types, types assigned to properties"
+                },
+                {
+                  "const": 4,
+                  "markdownDescription": "basic dead code checking - always false `instanceof` and other type checks, dead `else` branches, unreachable code after return; etc."
+                },
+                {
+                  "const": 5,
+                  "markdownDescription": "checking types of arguments passed to methods and functions"
+                },
+                {
+                  "const": 6,
+                  "markdownDescription": "report missing typehints"
+                },
+                {
+                  "const": 7,
+                  "markdownDescription": "report partially wrong union types - if you call a method that only exists on some types in a union type, level 7 starts to report that; other possibly incorrect situations"
+                },
+                {
+                  "const": 8,
+                  "markdownDescription": "report calling methods and accessing properties on nullable types"
+                },
+                {
+                  "const": 9,
+                  "markdownDescription": "be strict about explicit `mixed` type - the only allowed operation you can do with it is to pass it to another `mixed`"
+                },
+                {
+                  "const": 10,
+                  "markdownDescription": "(New in PHPStan 2.0) be even more strict about the `mixed` type - reports errors even for implicit mixed (missing type), not just explicit mixed"
+                }
+              ],
+              "default": 0
+            },
+            {
+              "const": "max",
+              "markdownDescription": "(New in PHPStan 2.0) be even more strict about the `mixed` type - reports errors even for implicit mixed (missing type), not just explicit mixed"
+            }
+          ]
+        },
+        "paths": {
+          "items": {
+            "type": "string"
+          }
+        },
+        "treatPhpDocTypesAsCertain": {
+          "type": "boolean"
+        },
+        "reportIgnoresWithoutComments": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "When set to `true`, PHPStan reports `@phpstan-ignore` identifiers that don’t have an accompanying comment in parentheses explaining why the error is being ignored. It also disallows `@phpstan-ignore-line` and `@phpstan-ignore-next-line` completely, because these don’t support error identifiers and comments.",
+          "examples": [
+            "echo $foo; # @phpstan-ignore variable.undefined — reported, no comment\necho $foo; # @phpstan-ignore variable.undefined (not available at this point) — OK\n\n# Multiple identifiers: each one needs its own comment\necho $foo; # @phpstan-ignore variable.undefined, wrong.id — both reported\necho $foo; # @phpstan-ignore variable.undefined (reason), wrong.id (reason) — OK\n\necho $foo; # @phpstan-ignore-line — reported, not allowed\n# @phpstan-ignore-next-line — reported, not allowed\necho $foo;"
+          ]
+        },
+        "errorFormat": {
+          "oneOf": [
+            {
+              "title": "table",
+              "markdownDescription": "Grouped errors by file, colorized. For human consumption. Additionally, the `table` formatter will detect it runs in a Continuous Integration environment like GitHub Actions and TeamCity, and besides the table it will also output errors in the specific format for that environment."
+            },
+            {
+              "const": "raw",
+              "markdownDescription": "Contains one error per line, with path to file, line number, and error description"
+            },
+            {
+              "const": "checkstyle",
+              "markdownDescription": "Creates a checkstyle.xml compatible output. Note that you’d have to redirect output into a file in order to capture the results for later processing."
+            },
+            {
+              "const": "json",
+              "markdownDescription": "Creates minified .json output without whitespaces. Note that you’d have to redirect output into a file in order to capture the results for later processing."
+            },
+            {
+              "const": "prettyJson",
+              "markdownDescription": "Creates human readable .json output with whitespaces and indentations. Note that you’d have to redirect output into a file in order to capture the results for later processing."
+            },
+            {
+              "const": "junit",
+              "markdownDescription": "Creates JUnit compatible output. Note that you’d have to redirect output into a file in order to capture the results for later processing."
+            },
+            {
+              "const": "github",
+              "markdownDescription": "Creates GitHub Actions compatible output."
+            },
+            {
+              "const": "gitlab",
+              "markdownDescription": "Creates format for use Code Quality widget on GitLab Merge Request."
+            },
+            {
+              "const": "teamcity",
+              "markdownDescription": "Creates TeamCity compatible output."
+            }
+          ],
+          "default": "table"
+        },
+        "editorUrl": {
+          "enum": [
+            "phpstorm://open?file=%%file%%&line=%%line%%",
+            "vscode://file/%%file%%:%%line%%",
+            "atom://core/open/file?filename=%%file%%&line=%%line%%"
+          ]
+        },
+        "editorUrlTitle": {
+          "const": "%%relFile%%:%%line%%"
+        },
+        "reportUnmatchedIgnoredErrors": {
+          "type": "boolean"
+        },
+        "excludePaths": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "additionalProperties": false,
+              "properties": {
+                "analyse": {
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "analyseAndScan": {
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "ignoreErrors": {
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  },
+                  "messages": {
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "paths": {
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "count": {
+                    "type": "integer"
+                  },
+                  "identifier": {
+                    "type": "string"
+                  },
+                  "identifiers": {
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "reportUnmatched": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              {
+                "additionalProperties": false,
+                "properties": {
+                  "rawMessage": {
+                    "type": "string"
+                  },
+                  "rawMessages": {
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "path": {
+                    "type": "string"
+                  },
+                  "paths": {
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "count": {
+                    "type": "integer"
+                  },
+                  "identifier": {
+                    "type": "string"
+                  },
+                  "identifiers": {
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "reportUnmatched": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "parallel": {
+          "additionalProperties": false,
+          "properties": {
+            "maximumNumberOfProcesses": {
+              "type": "integer"
+            }
+          }
+        },
+        "scanFiles": {
+          "items": {
+            "type": "string"
+          }
+        },
+        "scanDirectories": {
+          "items": {
+            "type": "string"
+          }
+        },
+        "bootstrapFiles": {
+          "items": {
+            "type": "string"
+          }
+        },
+        "tips": {
+          "additionalProperties": false,
+          "properties": {
+            "discoveringSymbols": {
+              "type": "boolean"
+            }
+          }
+        },
+        "tmpDir": {
+          "type": "string"
+        },
+        "cache": {
+          "additionalProperties": false,
+          "properties": {
+            "nodesByStringCountMax": {
+              "type": "integer",
+              "default": 256,
+              "description": "Maximum number of parsed PHP files cached in memory by the parser. Increasing this value uses more memory but can speed up analysis by avoiding re-parsing frequently accessed files."
+            },
+            "resolvedPhpDocBlockCacheCountMax": {
+              "type": "integer",
+              "default": 2048,
+              "description": "Maximum number of resolved PHPDoc blocks cached in memory. PHPDoc resolution is expensive, so this cache improves performance. Increase this for very large codebases with many PHPDoc annotations."
+            },
+            "nameScopeMapMemoryCacheCountMax": {
+              "type": "integer",
+              "default": 2048,
+              "description": "Maximum number of file name scope maps (namespace and import context) cached in memory. Used during PHPDoc resolution to look up the correct namespace and use statement context."
+            }
+          }
+        },
+        "fileExtensions": {
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "php"
+          ]
+        },
+        "featureToggles": {
+          "additionalProperties": false,
+          "properties": {
+            "bleedingEdge": {
+              "type": "boolean",
+              "default": true
+            },
+            "checkNonStringableDynamicAccess": {
+              "type": "boolean",
+              "default": true
+            },
+            "checkParameterCastableToNumberFunctions": {
+              "type": "boolean",
+              "default": true
+            },
+            "skipCheckGenericClasses": {
+              "type": "array",
+              "default": []
+            },
+            "stricterFunctionMap": {
+              "type": "boolean",
+              "default": true
+            },
+            "reportPreciseLineForUnusedFunctionParameter": {
+              "type": "boolean",
+              "default": true
+            },
+            "checkPrintfParameterTypes": {
+              "type": "boolean",
+              "default": true
+            },
+            "internalTag": {
+              "type": "boolean",
+              "default": true
+            },
+            "newStaticInAbstractClassStaticMethod": {
+              "type": "boolean",
+              "default": true
+            },
+            "checkExtensionsForComparisonOperators": {
+              "type": "boolean",
+              "default": true
+            },
+            "checkGenericIterableClasses": {
+              "type": "boolean",
+              "default": true
+            },
+            "reportTooWideBool": {
+              "type": "boolean",
+              "default": true
+            },
+            "rawMessageInBaseline": {
+              "type": "boolean",
+              "default": true
+            },
+            "reportNestedTooWideType": {
+              "type": "boolean",
+              "default": false
+            },
+            "assignToByRefForeachExpr": {
+              "type": "boolean",
+              "default": true
+            },
+            "curlSetOptArrayTypes": {
+              "type": "boolean",
+              "default": true
+            },
+            "magicDirInInclude": {
+              "type": "boolean",
+              "default": true
+            },
+            "checkDateIntervalConstructor": {
+              "type": "boolean",
+              "default": true
+            },
+            "reportMethodPurityOverride": {
+              "type": "boolean",
+              "default": true
+            },
+            "checkDynamicConstantNameValues": {
+              "type": "boolean",
+              "default": true
+            },
+            "unusedLabel": {
+              "type": "boolean",
+              "default": true
+            },
+            "newOnNonObject": {
+              "type": "boolean",
+              "default": true
+            }
+          }
+        },
+        "strictRules": {
+          "additionalProperties": false,
+          "properties": {
+            "allRules": {
+              "type": "boolean",
+              "default": false
+            },
+            "disallowedLooseComparison": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Disallow loose comparison via `==` and `!=`."
+            },
+            "booleansInConditions": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Require booleans in `if`, `elseif`, ternary operator, after `!`, and on both sides of `&&` and `||`."
+            },
+            "booleansInLoopConditions": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Require booleans in `while` and `do while` loop conditions."
+            },
+            "uselessCast": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Detect useless casts — e.g. casting to `int` when the expression is already `int`."
+            },
+            "requireParentConstructorCall": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Require calling parent constructor."
+            },
+            "disallowedBacktick": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Disallow usage of backtick operator (<code>$ls = &grave;ls -la&grave;</code>)."
+            },
+            "disallowedEmpty": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Disallow `empty()` - it's a very loose comparison (see [manual](https://php.net/empty)), it's recommended to use more strict one."
+            },
+            "disallowedImplicitArrayCreation": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Disallow implicit array creation through `$var[] =` when the variable does not exist yet."
+            },
+            "disallowedShortTernary": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Disallow short ternary operator (`?:`) - implies weak comparison, it's recommended to use null coalesce operator (`??`) or ternary operator with strict condition."
+            },
+            "overwriteVariablesWithLoop": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "<ul><li>Disallow overwriting variables with `foreach` key and value variables.</li><li>Disallow overwriting variables with `for` loop initial assignment.</li></ul>"
+            },
+            "closureUsesThis": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Closure should use `$this` directly instead of using `$this` variable indirectly."
+            },
+            "matchingInheritedMethodNames": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Correct case for inherited and implemented method names."
+            },
+            "numericOperandsInArithmeticOperators": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Require numeric operands in `+`, `-`, `*`, `/`, `%`, `**`, `+$var`, `-$var`, `$var++`, `$var--`, `++$var` and `--$var`."
+            },
+            "strictFunctionCalls": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "These functions contain a `$strict` parameter for better type safety, it must be set to true: <ul><li>`in_array` (3rd parameter)</li><li>`array_search` (3rd parameter)</li><li>`array_keys` (3rd parameter; only if the 2nd parameter `$search_value` is provided)</li><li>`base64_decode` (2nd parameter).</li></ul>"
+            },
+            "dynamicCallOnStaticMethod": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Check that statically declared methods are called statically."
+            },
+            "switchConditionsMatchingType": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Types in `switch` condition and `case` value must match. PHP compares them loosely by default and that can lead to unexpected results."
+            },
+            "noVariableVariables": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Disallow variable variables (`$$foo`, `$this->$method()` etc.)."
+            },
+            "strictArrayFilter": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Require `array_filter()` to have a callback parameter to avoid loose comparison semantics."
+            },
+            "illegalConstructorMethodCall": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Disallow calling `__construct()` on an existing object or as a static call outside of parent constructor."
+            },
+            "checkAlwaysTrueInstanceof": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Always true `instanceof`, type-checking `is_*` functions and strict comparisons `===`/`!==`. These checks can be turned off by setting `checkAlwaysTrueInstanceof`, `checkAlwaysTrueCheckTypeFunctionCall` and `checkAlwaysTrueStrictComparison` to false."
+            },
+            "checkAlwaysTrueCheckTypeFunctionCall": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Always true `instanceof`, type-checking `is_*` functions and strict comparisons `===`/`!==`. These checks can be turned off by setting `checkAlwaysTrueInstanceof`, `checkAlwaysTrueCheckTypeFunctionCall` and `checkAlwaysTrueStrictComparison` to false."
+            },
+            "checkAlwaysTrueStrictComparison": {
+              "type": "boolean",
+              "default": false,
+              "markdownDescription": "Always true `instanceof`, type-checking `is_*` functions and strict comparisons `===`/`!==`. These checks can be turned off by setting `checkAlwaysTrueInstanceof`, `checkAlwaysTrueCheckTypeFunctionCall` and `checkAlwaysTrueStrictComparison` to false."
+            }
+          }
+        },
+        "checkUninitializedProperties": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "When set to `true`, it reports properties with native types that weren’t initialized in the class constructor.<hr />If properties are initialized in methods other than the constructor, see [`additionalConstructors`](https://phpstan.org/config-reference#additionalconstructors) or [additional constructors extensions](https://phpstan.org/developing-extensions/additional-constructors-extensions).<hr />",
+          "examples": [
+            "// \"Class has an uninitialized property $foo. Give it default value or assign it in the constructor.\"\nprivate int $foo;\n\npublic function setFoo(int $foo): void\n{\n\t$this->foo = $foo;\n}"
+          ]
+        },
+        "checkBenevolentUnionTypes": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "PHPStan defines benevolent union types, such as `array-key`. Benevolent unions aren’t checked strictly even at the highest level<hr />Enable stricter analysis of benevolent union types with the `checkBenevolentUnionTypes` option (needs level 7 or higher)",
+          "examples": [
+            "public function requireInt(int $value): void {}\npublic function requireString(string $value): void {}\n\n/**\n  * @param array-key  $value1 // array-key is a benevolent union (int|string)\n  * @param int|string $value2\n  */\npublic function test($value1, int|string $value2): int\n{\n\t$this->requireInt($value1);    // No error\n\t$this->requireString($value1); // No error\n\t$this->requireInt($value2);    // Error\n\t$this->requireString($value2); // Error\n}"
+          ]
+        },
+        "rememberPossiblyImpureFunctionValues": {
+          "type": "boolean",
+          "default": true,
+          "examples": [
+            "/* By default, PHPStan considers all functions that return a value to be pure. That means that second call to the same function in the same scope will return the same narrowed type */\npublic function getName(): string\n{\n\treturn $this->name;\n}\n\nif ($this->getName() === 'Foo') {\n\techo $this->getName(); // still 'Foo'\n}",
+            "/* This is a sane default in case of getters but sometimes we have a function that can return different values based on a global state like a random number generator, database, or time. */\npublic function getRandomNumber(): int\n{\n\treturn rand();\n}\n\nif ($this->getRandomNumber() === 4) {\n\techo $this->getRandomNumber(); // it's not going to be 4 but PHPStan will think it is\n}",
+            "/* You can mark getRandomNumber() with /** @phpstan-impure */ but if you have many functions like this in your codebase and don’t want to assume functions return the same value when called multiple times, you can set rememberPossiblyImpureFunctionValues to false */\nparameters:\n\trememberPossiblyImpureFunctionValues: false"
+          ]
+        },
+        "reportPossiblyNonexistentGeneralArrayOffset": {
+          "type": "boolean",
+          "markdownDescription": "By setting `reportPossiblyNonexistentGeneralArrayOffset` to `true` this will be reported as an error. This option has effect on [rule level](https://phpstan.org/user-guide/rule-levels) 7 and up.",
+          "examples": [
+            "/* By default PHPStan does not report possibly nonexistent offset on general arrays */\n/**\n  * @param array<string, int> $array\n  */\npublic function doFoo(array $array): int\n{\n\treturn $array['foo'];\n}"
+          ]
+        },
+        "reportPossiblyNonexistentConstantArrayOffset": {
+          "type": "boolean",
+          "markdownDescription": "By setting `reportPossiblyNonexistentConstantArrayOffset` to `true` this will be reported as an error. This option has effect on [rule level](https://phpstan.org/user-guide/rule-levels) 7 and up.",
+          "examples": [
+            "/* By default PHPStan does not report possibly nonexistent offset on array shapes */\npublic function doFoo(string $s): void\n{\n\t$a = [];\n\t$a['foo'] = 1;\n\techo $a[$s];\n}"
+          ]
+        },
+        "exceptions": {
+          "additionalProperties": false,
+          "properties": {
+            "uncheckedExceptionRegexes": {
+              "items": {
+                "type": "string"
+              }
+            },
+            "uncheckedExceptionClasses": {
+              "items": {
+                "type": "string"
+              }
+            },
+            "check": {
+              "additionalProperties": false,
+              "properties": {
+                "missingCheckedExceptionInThrows": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "reportUncheckedExceptionDeadCatch": {
+              "type": "boolean"
+            },
+            "implicitThrows": {
+              "type": "boolean"
+            }
+          }
+        },
+        "stubFiles": {
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "includes": {
+      "items": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "enum": [
+              "phar://phpstan.phar/conf/bleedingEdge.neon",
+              "vendor/phpstan/phpstan/conf/bleedingEdge.neon"
+            ]
+          }
+        ],
+        "type": "string"
+      }
+    }
+  }
+}
