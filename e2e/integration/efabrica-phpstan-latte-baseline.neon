@@ -25,6 +25,12 @@ parameters:
 			path: repo/src/Compiler/Compiler/Latte3Compiler.php
 
 		-
+			rawMessage: Value assigned to variable $newMethodCall is never read.
+			identifier: assign.unused
+			count: 2
+			path: repo/src/Compiler/NodeVisitor/AddFormClassesNodeVisitor.php
+
+		-
 			rawMessage: 'Offset ''block_name'' on array{0: non-falsy-string, define: non-falsy-string, 1: non-falsy-string, block_name: string, 2: string, parameters: string, 3: string, line: numeric-string, ...} in isset() always exists and is not nullable.'
 			identifier: isset.offset
 			count: 1
@@ -101,6 +107,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Resolver/ValueResolver/ValueResolver.php
+
+		-
+			rawMessage: Foreach value variable $template is never read.
+			identifier: foreach.unusedValue
+			count: 1
+			path: repo/src/Rule/LatteTemplatesRule.php
 
 		-
 			rawMessage: 'Class Nette\Utils\FileSystem referenced with incorrect case: Nette\Utils\Filesystem.'

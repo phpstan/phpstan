@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Constructor of class Prado\\Collections\\TPagedList has an unused parameter \$readOnly\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: repo/framework/Collections/TPagedList.php

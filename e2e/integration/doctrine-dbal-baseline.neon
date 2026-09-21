@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: Foreach value variable $replica is never read.
+			identifier: foreach.unusedValue
+			count: 1
+			path: repo/src/Connections/PrimaryReadReplicaConnection.php
+
+		-
 			rawMessage: 'Parameter #1 $input of function array_rand expects non-empty-array, array<array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...}> given.'
 			identifier: argument.type
 			count: 1
@@ -37,10 +43,52 @@ parameters:
 			path: repo/src/Driver/SQLSrv/Result.php
 
 		-
+			rawMessage: Foreach value variable $className is never read.
+			identifier: foreach.unusedValue
+			count: 1
+			path: repo/src/Platforms/AbstractPlatform.php
+
+		-
+			rawMessage: Variable $unquotedName is never read.
+			identifier: variable.unused
+			count: 1
+			path: repo/src/Platforms/OraclePlatform.php
+
+		-
+			rawMessage: 'Method Doctrine\DBAL\Platforms\SQLServerPlatform::getAlterTableAddDefaultConstraintClause() has an unused parameter $tableName.'
+			identifier: method.unusedParameter
+			count: 1
+			path: repo/src/Platforms/SQLServerPlatform.php
+
+		-
+			rawMessage: Foreach value variable $renamedIndex is never read.
+			identifier: foreach.unusedValue
+			count: 1
+			path: repo/src/Platforms/SQLitePlatform.php
+
+		-
 			rawMessage: 'Offset ''type'' might not exist on array{unique: mixed, autoincrement: mixed, default: mixed, ...<string, mixed>}.'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: repo/src/Platforms/SQLitePlatform.php
+
+		-
+			rawMessage: Foreach value variable $joins is never read.
+			identifier: foreach.unusedValue
+			count: 1
+			path: repo/src/Query/QueryBuilder.php
+
+		-
+			rawMessage: 'Value assigned to $tableColumn[''name''] is never read.'
+			identifier: assign.unused
+			count: 1
+			path: repo/src/Schema/MySQLSchemaManager.php
+
+		-
+			rawMessage: 'Value assigned to $tableColumn[''name''] is never read.'
+			identifier: assign.unused
+			count: 1
+			path: repo/src/Schema/PostgreSQLSchemaManager.php
 
 		-
 			rawMessage: 'Only booleans are allowed in a while condition, int|false given.'
@@ -67,6 +115,12 @@ parameters:
 			path: repo/tests/Functional/Driver/OCI8/ResultTest.php
 
 		-
+			rawMessage: Foreach value variable $name is never read.
+			identifier: foreach.unusedValue
+			count: 1
+			path: repo/tests/Functional/PortabilityTest.php
+
+		-
 			rawMessage: 'Only booleans are allowed in a while condition, array<string, mixed>|false given.'
 			identifier: while.condNotBoolean
 			count: 2
@@ -77,6 +131,30 @@ parameters:
 			identifier: assign.byRefForeachExpr
 			count: 2
 			path: repo/tests/Functional/Query/QueryBuilderTest.php
+
+		-
+			rawMessage: Variable $plainSelect1 is never read.
+			identifier: variable.unused
+			count: 1
+			path: repo/tests/Functional/Query/QueryBuilderTest.php
+
+		-
+			rawMessage: Variable $plainSelect2 is never read.
+			identifier: variable.unused
+			count: 1
+			path: repo/tests/Functional/Query/QueryBuilderTest.php
+
+		-
+			rawMessage: Variable $plainSelect3 is never read.
+			identifier: variable.unused
+			count: 1
+			path: repo/tests/Functional/Query/QueryBuilderTest.php
+
+		-
+			rawMessage: Variable $diff is never read.
+			identifier: variable.unused
+			count: 1
+			path: repo/tests/Functional/Schema/SchemaManagerFunctionalTestCase.php
 
 		-
 			rawMessage: Cannot unset property Doctrine\DBAL\Tests\FunctionalTestCase::$connection because it might have hooks in a subclass.
@@ -91,7 +169,7 @@ parameters:
 			path: repo/tests/Platforms/SQLitePlatformTest.php
 
 		-
-			rawMessage: 'Method Doctrine\DBAL\Tests\TestUtil::mapConnectionParameters() should return array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...} but returns array{driver?: mixed, user?: mixed, password?: mixed, host?: mixed, dbname?: mixed, memory?: mixed, port?: mixed, server?: mixed, ...}.'
+			rawMessage: 'Method Doctrine\DBAL\Tests\TestUtil::mapConnectionParameters() should return array{application_name?: string, charset?: string, dbname?: string, defaultTableOptions?: array<string, mixed>, driver?: ''ibm_db2''|''mysqli''|''oci8''|''pdo_mysql''|''pdo_oci''|''pdo_pgsql''|''pdo_sqlite''|''pdo_sqlsrv''|''pgsql''|''sqlite3''|''sqlsrv'', driverClass?: class-string<Doctrine\DBAL\Driver>, driverOptions?: array<mixed>, host?: string, ...} but returns array{driver?: mixed, user?: mixed, password?: mixed, host?: mixed, dbname?: mixed, memory?: mixed, port?: int, server?: mixed, ...}.'
 			identifier: return.type
 			count: 1
 			path: repo/tests/TestUtil.php

@@ -17,3 +17,21 @@ parameters:
 			identifier: switch.alwaysFalse
 			count: 1
 			path: repo/src/Properties/SchemaAggregator.php
+
+		-
+			rawMessage: Value assigned to variable $firstMethodCall is never read.
+			identifier: assign.unused
+			count: 1
+			path: repo/src/Properties/SchemaAggregator.php
+
+		-
+			rawMessage: 'Strict comparison using !== between PhpParser\Node\Expr and null will always evaluate to true.'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/src/ReturnTypes/CollectionFilterRejectDynamicReturnTypeExtension.php
+
+		-
+			rawMessage: 'Method Larastan\Larastan\Rules\OctaneCompatibilityRule::checkForThisAppUsage() has an unused parameter $scope.'
+			identifier: method.unusedParameter
+			count: 1
+			path: repo/src/Rules/OctaneCompatibilityRule.php

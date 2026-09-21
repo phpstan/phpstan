@@ -13,22 +13,10 @@ parameters:
 			path: repo/src/Bridges/NetteDI/PhpDocRepositoryFinder.php
 
 		-
-			rawMessage: 'Parameter #2 $context of static method Nette\Utils\Reflection::expandClassName() expects ReflectionClass<object>, ReflectionClass<Nextras\Orm\Model\IModel> given.'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Bridges/NetteDI/PhpDocRepositoryFinder.php
-
-		-
 			rawMessage: 'Parameter #1 $repository of class Nextras\Orm\Collection\Helpers\ArrayCollectionHelper constructor expects Nextras\Orm\Repository\IRepository<Nextras\Orm\Entity\IEntity>, Nextras\Orm\Repository\IRepository<E of Nextras\Orm\Entity\IEntity> given.'
 			identifier: argument.type
 			count: 1
 			path: repo/src/Collection/ArrayCollection.php
-
-		-
-			rawMessage: 'Parameter #1 $haystack of function str_contains expects non-empty-string, string given.'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Collection/Helpers/ConditionParser.php
 
 		-
 			rawMessage: 'Call to an undefined method object::onEntityAttach().'
@@ -55,6 +43,12 @@ parameters:
 			path: repo/src/Entity/AbstractEntity.php
 
 		-
+			rawMessage: Foreach value variable $metadataProperty is never read.
+			identifier: foreach.unusedValue
+			count: 1
+			path: repo/src/Entity/AbstractEntity.php
+
+		-
 			rawMessage: Cannot instantiate class using string|null.
 			identifier: new.nonObject
 			count: 1
@@ -63,12 +57,6 @@ parameters:
 		-
 			rawMessage: 'Call to function assert() with true will always evaluate to true.'
 			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/src/Entity/Reflection/ModifierParser.php
-
-		-
-			rawMessage: 'Parameter #1 $haystack of function str_contains expects non-empty-string, string given.'
-			identifier: argument.type
 			count: 1
 			path: repo/src/Entity/Reflection/ModifierParser.php
 
@@ -85,16 +73,10 @@ parameters:
 			path: repo/src/Entity/Reflection/ModifierParser.php
 
 		-
-			rawMessage: 'Parameter #1 $haystack of function str_ends_with expects non-empty-string, string given.'
-			identifier: argument.type
+			rawMessage: Foreach value variable $metadataProperty is never read.
+			identifier: foreach.unusedValue
 			count: 1
-			path: repo/src/Mapper/Dbal/Conventions/Inflector/CamelCaseInflector.php
-
-		-
-			rawMessage: 'Parameter #1 $haystack of function str_ends_with expects non-empty-string, string given.'
-			identifier: argument.type
-			count: 1
-			path: repo/src/Mapper/Dbal/Conventions/Inflector/SnakeCaseInflector.php
+			path: repo/src/Entity/ToArrayConverter.php
 
 		-
 			rawMessage: 'Method Nextras\Orm\Mapper\Dbal\DbalMapper::createCollectionManyHasMany() should return Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity> but returns Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity>.'
@@ -119,6 +101,12 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: repo/src/Mapper/Dbal/DbalMapper.php
+
+		-
+			rawMessage: Foreach key variable $joiningStorageKey is never read.
+			identifier: foreach.unusedKey
+			count: 1
+			path: repo/src/Mapper/Dbal/RelationshipMapperOneHasMany.php
 
 		-
 			rawMessage: 'Method Nextras\Orm\Mapper\Memory\ArrayMapper::createCollectionManyHasMany() should return Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity> but returns Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity>.'
@@ -187,6 +175,12 @@ parameters:
 			path: repo/src/Model/SimpleModelFactory.php
 
 		-
+			rawMessage: Foreach value variable $entity is never read.
+			identifier: foreach.unusedValue
+			count: 1
+			path: repo/src/Relationships/OneHasMany.php
+
+		-
 			rawMessage: 'Call to function assert() with true will always evaluate to true.'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -217,13 +211,73 @@ parameters:
 			path: repo/tests/cases/integration/BridgeNetteDI/dic-finder.phpt
 
 		-
-			rawMessage: 'Parameter #1 $haystack of function str_contains expects non-empty-string, string given.'
-			identifier: argument.type
-			count: 4
-			path: repo/tests/inc/QueryChecker.php
+			rawMessage: Catch variable $e is never read.
+			identifier: catch.unusedVariable
+			count: 1
+			path: repo/tests/cases/integration/Entity/entity.insert.phpt
 
 		-
-			rawMessage: 'Parameter $needle of function str_starts_with expects non-empty-string, string given.'
-			identifier: argument.type
+			rawMessage: Variable $tagA is never read.
+			identifier: variable.unused
 			count: 1
-			path: repo/tests/inc/model/TestingPrefixFunction.php
+			path: repo/tests/cases/integration/Relationships/relationships.manyHasMany.collection.phpt
+
+		-
+			rawMessage: Variable $tagB is never read.
+			identifier: variable.unused
+			count: 1
+			path: repo/tests/cases/integration/Relationships/relationships.manyHasMany.collection.phpt
+
+		-
+			rawMessage: Variable $bookA is never read.
+			identifier: variable.unused
+			count: 1
+			path: repo/tests/cases/integration/Relationships/relationships.oneHasMany.collection.phpt
+
+		-
+			rawMessage: Variable $bookB is never read.
+			identifier: variable.unused
+			count: 1
+			path: repo/tests/cases/integration/Relationships/relationships.oneHasMany.collection.phpt
+
+		-
+			rawMessage: Foreach value variable $book is never read.
+			identifier: foreach.unusedValue
+			count: 1
+			path: 'repo/tests/cases/integration/Relationships/relationships.oneHasMany.isLoaded().phpt'
+
+		-
+			rawMessage: Catch variable $e is never read.
+			identifier: catch.unusedVariable
+			count: 1
+			path: repo/tests/cases/integration/Relationships/relationships.oneHasMany.persistence.phpt
+
+		-
+			rawMessage: Catch variable $e is never read.
+			identifier: catch.unusedVariable
+			count: 1
+			path: repo/tests/cases/integration/Relationships/relationships.oneHasMany.phpt
+
+		-
+			rawMessage: Variable $book is never read.
+			identifier: variable.unused
+			count: 1
+			path: repo/tests/cases/integration/Relationships/relationships.oneHasOne.phpt
+
+		-
+			rawMessage: Variable $authors is never read.
+			identifier: variable.unused
+			count: 2
+			path: repo/tests/cases/unit/Collection/ArrayCollectionTest.phpt
+
+		-
+			rawMessage: Variable $books is never read.
+			identifier: variable.unused
+			count: 6
+			path: repo/tests/cases/unit/Collection/ArrayCollectionTest.phpt
+
+		-
+			rawMessage: Variable $one is never read.
+			identifier: variable.unused
+			count: 1
+			path: repo/tests/cases/unit/Collection/FetchPairsHelperTest.phpt
