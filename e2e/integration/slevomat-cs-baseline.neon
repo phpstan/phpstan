@@ -1,0 +1,13 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^For loop initial assignment overwrites variable \$i\.$#'
+			identifier: for.variableOverwrite
+			count: 2
+			path: repo/SlevomatCodingStandard/Sniffs/TypeHints/DeclareStrictTypesSniff.php
+
+		-
+			message: '#^Foreach overwrites \$typeNode with its value variable\.$#'
+			identifier: foreach.valueOverwrite
+			count: 1
+			path: repo/SlevomatCodingStandard/Sniffs/TypeHints/NullTypeHintOnLastPositionSniff.php

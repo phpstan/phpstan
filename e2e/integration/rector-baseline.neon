@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Strict comparison using \=\=\= between non\-empty\-list and array\{\} will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/rules/DeadCode/Rector/ClassMethod/RemoveUselessAssignFromPropertyPromotionRector.php
+
+		-
 			message: '''
 				#^Call to deprecated method toMutatingScope\(\) of interface PHPStan\\Analyser\\Scope\:
 				The scope answers every ask directly \- call the methods on the scope itself, or toWalkScope\(\) for the engine\-facing walk scope\.$#
