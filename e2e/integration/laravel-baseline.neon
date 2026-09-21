@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Variable \$actualMessage in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: repo/src/Illuminate/Foundation/Testing/Concerns/InteractsWithExceptionHandling.php
+
+		-
 			message: '#^Cannot unset property Illuminate\\Routing\\Route\:\:\$container because it might have hooks in a subclass\.$#'
 			identifier: unset.possiblyHookedProperty
 			count: 1

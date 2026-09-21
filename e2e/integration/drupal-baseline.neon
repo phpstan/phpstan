@@ -31,6 +31,24 @@ parameters:
 			path: repo/core/lib/Drupal/Core/Entity/FieldableEntityInterface.php
 
 		-
+			message: '#^Constructor of class Drupal\\Core\\Extension\\Plugin\\Validation\\Constraint\\ExtensionNameConstraint has an unused parameter \$pattern\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: repo/core/lib/Drupal/Core/Extension/Plugin/Validation/Constraint/ExtensionNameConstraint.php
+
+		-
+			message: '#^Constructor of class Drupal\\Core\\Field\\FallbackFieldTypeCategory has an unused parameter \$plugin_id\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: repo/core/lib/Drupal/Core/Field/FallbackFieldTypeCategory.php
+
+		-
+			message: '#^Variable \$url in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: repo/core/lib/Drupal/Core/Field/Plugin/Field/FieldFormatter/StringFormatter.php
+
+		-
 			message: '#^Method Drupal\\Core\\TypedData\\Plugin\\DataType\\ItemList\:\:getIterator\(\) return type with generic class ArrayIterator does not specify its types\: TKey, TValue$#'
 			identifier: missingType.generics
 			count: 1
@@ -43,46 +61,10 @@ parameters:
 			path: repo/core/modules/block/src/BlockListBuilder.php
 
 		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/block_content/tests/src/Functional/BlockContentTypeTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/block_content/tests/src/Functional/BlockContentTypeTest.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/block_content/tests/src/Functional/PageEditTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/block_content/tests/src/Functional/PageEditTest.php
-
-		-
 			message: '#^Method Drupal\\contact\\MessageForm\:\:validateForm\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
 			path: repo/core/modules/contact/src/MessageForm.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/dblog/tests/src/Functional/DbLogTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/dblog/tests/src/Functional/DbLogTest.php
 
 		-
 			message: '#^Variable \$height in empty\(\) always exists and is always falsy\.$#'
@@ -97,76 +79,10 @@ parameters:
 			path: repo/core/modules/filter/src/FilterProcessResult.php
 
 		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
+			message: '#^Anonymous function has an unused use \$resource_type\.$#'
+			identifier: closure.unusedUse
 			count: 1
-			path: repo/core/modules/help/tests/src/Functional/HelpTopicTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/help/tests/src/Functional/HelpTopicTest.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/language/tests/src/Functional/LanguageBreadcrumbTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/language/tests/src/Functional/LanguageBreadcrumbTest.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/node/tests/src/Functional/NodeTitleTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/node/tests/src/Functional/NodeTitleTest.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/node/tests/src/Functional/NodeTypeTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/node/tests/src/Functional/NodeTypeTest.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/system/tests/src/Functional/Menu/BreadcrumbFrontCacheContextsTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/system/tests/src/Functional/Menu/BreadcrumbFrontCacheContextsTest.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/system/tests/src/Functional/Menu/BreadcrumbTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/system/tests/src/Functional/Menu/BreadcrumbTest.php
+			path: repo/core/modules/jsonapi/tests/src/Functional/ResourceTestBase.php
 
 		-
 			message: '#^Method Drupal\\taxonomy\\Plugin\\views\\argument_default\\Tid\:\:getCacheTags\(\) has no return type specified\.$#'
@@ -179,30 +95,6 @@ parameters:
 			identifier: missingType.return
 			count: 1
 			path: repo/core/modules/taxonomy/src/TermForm.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/taxonomy/tests/src/Functional/TermTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/taxonomy/tests/src/Functional/TermTest.php
-
-		-
-			message: '#^Variable \$parts in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/taxonomy/tests/src/Functional/TermTranslationTest.php
-
-		-
-			message: '#^Variable \$trail in empty\(\) always exists and is always falsy\.$#'
-			identifier: empty.variable
-			count: 1
-			path: repo/core/modules/taxonomy/tests/src/Functional/TermTranslationTest.php
 
 		-
 			message: '#^Variable \$untranslatable_configs in empty\(\) always exists and is not falsy\.$#'

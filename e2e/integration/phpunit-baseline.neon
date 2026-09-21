@@ -1,7 +1,7 @@
 parameters:
 	ignoreErrors:
 		-
-			rawMessage: 'Property PHPUnit\Framework\Exception::$serializableTrace (list<array{file: string, line: int, function: string}>) does not accept list<array{file: string, line: int, function: string, class: class-string, type: ''->''|''::'', object: object}|array{function: string}>.'
+			rawMessage: 'Property PHPUnit\Framework\Exception::$serializableTrace (list<array{file: string, line: int, function: string}>) does not accept list<array{file: string, line: int, function: string, class?: class-string, type?: ''->''|''::'', object?: object}>.'
 			identifier: assign.propertyType
 			count: 1
 			path: repo/src/Framework/Exception/Exception.php
@@ -11,6 +11,18 @@ parameters:
 			identifier: assign.propertyType
 			count: 1
 			path: repo/src/Framework/Exception/Exception.php
+
+		-
+			rawMessage: Foreach value variable $handler is never read.
+			identifier: foreach.unusedValue
+			count: 2
+			path: repo/src/Framework/TestCase.php
+
+		-
+			rawMessage: Value assigned to variable $e is never read.
+			identifier: assign.unused
+			count: 1
+			path: repo/src/Framework/TestRunner/TestRunner.php
 
 		-
 			rawMessage: 'Method PHPUnit\Framework\TestSuite::getIterator() return type with generic interface Iterator does not specify its types: TKey, TValue'
@@ -77,6 +89,18 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/src/Runner/Phpt/TestCase.php
+
+		-
+			rawMessage: 'Variable $resultCollectedFromEvents in isset() always exists and is not nullable.'
+			identifier: isset.variable
+			count: 1
+			path: repo/src/TextUI/Application.php
+
+		-
+			rawMessage: Variable $colors is assigned value 'never' but it already has that value.
+			identifier: assign.redundant
+			count: 1
+			path: repo/src/TextUI/Configuration/Xml/Loader.php
 
 		-
 			rawMessage: 'Parameter #1 $frame of static method PHPUnit\Util\Filter::shouldPrintFrame() expects array{file?: non-empty-string}, array{file: string, line: int|null, class?: class-string, function?: string, type: string} given.'
