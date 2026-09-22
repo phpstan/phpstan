@@ -2099,14 +2099,14 @@
     "assign.byRefForeachExpr": {
         "PHPStan\\Rules\\Variables\\AssignToByRefExprFromForeachRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/AssignToByRefExprFromForeachRule.php#L49"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/AssignToByRefExprFromForeachRule.php#L54"
             ]
         }
     },
     "assign.invalidExpr": {
         "PHPStan\\Rules\\Operators\\InvalidAssignVarRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidAssignVarRule.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidAssignVarRule.php#L68"
             ]
         }
     },
@@ -2222,7 +2222,7 @@
     "assignOp.invalid": {
         "PHPStan\\Rules\\Operators\\InvalidBinaryOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidBinaryOperationRule.php#L127"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidBinaryOperationRule.php#L132"
             ]
         }
     },
@@ -3053,7 +3053,7 @@
     "binaryOp.invalid": {
         "PHPStan\\Rules\\Operators\\InvalidBinaryOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidBinaryOperationRule.php#L127"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidBinaryOperationRule.php#L132"
             ]
         }
     },
@@ -7213,14 +7213,14 @@
     "generator.outOfFunction": {
         "PHPStan\\Rules\\Generators\\YieldInGeneratorRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Generators/YieldInGeneratorRule.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Generators/YieldInGeneratorRule.php#L55"
             ]
         }
     },
     "generator.returnType": {
         "PHPStan\\Rules\\Generators\\YieldInGeneratorRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Generators/YieldInGeneratorRule.php#L79"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Generators/YieldInGeneratorRule.php#L84"
             ]
         }
     },
@@ -10530,12 +10530,12 @@
         },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDataRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L144"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L144"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L144"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L144"
             ]
         }
     },
@@ -12193,28 +12193,28 @@
     "nullableType.mixed": {
         "PHPStan\\Rules\\Types\\InvalidTypesInUnionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Types/InvalidTypesInUnionRule.php#L117"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Types/InvalidTypesInUnionRule.php#L122"
             ]
         }
     },
     "nullableType.never": {
         "PHPStan\\Rules\\Types\\InvalidTypesInUnionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Types/InvalidTypesInUnionRule.php#L117"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Types/InvalidTypesInUnionRule.php#L122"
             ]
         }
     },
     "nullableType.void": {
         "PHPStan\\Rules\\Types\\InvalidTypesInUnionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Types/InvalidTypesInUnionRule.php#L117"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Types/InvalidTypesInUnionRule.php#L122"
             ]
         }
     },
     "nullsafe.assign": {
         "PHPStan\\Rules\\Operators\\InvalidAssignVarRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidAssignVarRule.php#L45"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidAssignVarRule.php#L50"
             ]
         }
     },
@@ -12231,7 +12231,7 @@
         },
         "PHPStan\\Rules\\Operators\\InvalidAssignVarRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidAssignVarRule.php#L54"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidAssignVarRule.php#L59"
             ]
         }
     },
@@ -12325,7 +12325,7 @@
     "offsetAssign.valueType": {
         "PHPStan\\Rules\\Arrays\\OffsetAccessValueAssignmentRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Arrays/OffsetAccessValueAssignmentRule.php#L91"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Arrays/OffsetAccessValueAssignmentRule.php#L96"
             ]
         }
     },
@@ -13151,15 +13151,15 @@
     "phpDoc.parseError": {
         "PHPStan\\Rules\\PhpDoc\\InvalidPhpDocTagValueRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/InvalidPhpDocTagValueRule.php#L102",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/InvalidPhpDocTagValueRule.php#L88"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/InvalidPhpDocTagValueRule.php#L107",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/InvalidPhpDocTagValueRule.php#L93"
             ]
         }
     },
     "phpDoc.phpstanTag": {
         "PHPStan\\Rules\\PhpDoc\\InvalidPHPStanDocTagRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/InvalidPHPStanDocTagRule.php#L123"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/InvalidPHPStanDocTagRule.php#L128"
             ]
         }
     },
@@ -13230,8 +13230,8 @@
         },
         "PHPStan\\Analyser\\FileAnalyserCallback": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L139",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L196"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L159",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L221"
             ]
         },
         "PHPStan\\PhpDoc\\StubValidator": {
@@ -13286,10 +13286,10 @@
         },
         "PHPStan\\Analyser\\FileAnalyserCallback": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L147",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L155",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L204",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L212"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L167",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L175",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L229",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L237"
             ]
         }
     },
@@ -13526,190 +13526,178 @@
     "phpunit.assertCount": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameWithCountRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L52",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L60"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L52",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L60"
             ]
         }
     },
     "phpunit.assertEquals": {
         "PHPStan\\Rules\\PHPUnit\\AssertEqualsIsDiscouragedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertEqualsIsDiscouragedRule.php#L74"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertEqualsIsDiscouragedRule.php#L74"
             ]
         }
     },
     "phpunit.assertFalse": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameBooleanExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L66"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L65"
             ]
         }
     },
     "phpunit.assertNull": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameNullExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameNullExpectedRule.php#L52"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameNullExpectedRule.php#L51"
             ]
         }
     },
     "phpunit.assertTrue": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameBooleanExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L52"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L51"
             ]
         }
     },
     "phpunit.attributeRequiresPhpVersion": {
         "PHPStan\\Rules\\PHPUnit\\AttributeRequiresPhpVersionRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L117",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L152",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L162",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L171",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L83"
-            ]
-        },
-        "PHPStan\\Rules\\PHPUnit\\ClassAttributeRequiresPhpVersionRule": {
-            "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L117",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L152",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L162",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L171",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L83"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AttributeRequiresPhpVersionRule.php#L75",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AttributeRequiresPhpVersionRule.php#L84"
             ]
         }
     },
     "phpunit.callParent": {
         "PHPStan\\Rules\\PHPUnit\\ShouldCallParentMethodsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/ShouldCallParentMethodsRule.php#L60"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/ShouldCallParentMethodsRule.php#L60"
             ]
         }
     },
     "phpunit.covers": {
         "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L121",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L76"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/CoversHelper.php#L121",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/CoversHelper.php#L76"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\ClassMethodCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/ClassMethodCoversExistsRule.php#L93",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L121",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L76"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/ClassMethodCoversExistsRule.php#L93",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/CoversHelper.php#L121",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/CoversHelper.php#L76"
             ]
         }
     },
     "phpunit.coversClass": {
         "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/ClassCoversExistsRule.php#L77"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/ClassCoversExistsRule.php#L77"
             ]
         }
     },
     "phpunit.coversDuplicate": {
         "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/ClassCoversExistsRule.php#L64"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/ClassCoversExistsRule.php#L64"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\ClassMethodCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/ClassMethodCoversExistsRule.php#L101"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/ClassMethodCoversExistsRule.php#L101"
             ]
         }
     },
     "phpunit.coversInterface": {
         "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L103"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/CoversHelper.php#L103"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\ClassMethodCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L103"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/CoversHelper.php#L103"
             ]
         }
     },
     "phpunit.coversMethod": {
         "PHPStan\\Rules\\PHPUnit\\ClassCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L110",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L121"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/CoversHelper.php#L110",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/CoversHelper.php#L121"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\ClassMethodCoversExistsRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L110",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/CoversHelper.php#L121"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/CoversHelper.php#L110",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/CoversHelper.php#L121"
             ]
         }
     },
     "phpunit.dataProviderClass": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDataRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L116"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L116"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L116"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L116"
             ]
         }
     },
     "phpunit.dataProviderMethod": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDataRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L130"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L130"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L130"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L130"
             ]
         }
     },
     "phpunit.dataProviderPublic": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDataRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L154"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L154"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L154"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L154"
             ]
         }
     },
     "phpunit.dataProviderStatic": {
         "PHPStan\\Rules\\PHPUnit\\DataProviderDataRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L168"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L168"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/DataProviderHelper.php#L168"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L168"
             ]
         }
     },
     "phpunit.invalidPhpDoc": {
         "PHPStan\\Rules\\PHPUnit\\NoMissingSpaceInClassAnnotationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AnnotationHelper.php#L55"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AnnotationHelper.php#L55"
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\NoMissingSpaceInMethodAnnotationRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/AnnotationHelper.php#L55"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AnnotationHelper.php#L55"
             ]
         }
     },
     "phpunit.mockMethod": {
         "PHPStan\\Rules\\PHPUnit\\MockMethodCallRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.0.x/src/Rules/PHPUnit/MockMethodCallRule.php#L101"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/MockMethodCallRule.php#L101"
             ]
         }
     },
@@ -14094,7 +14082,7 @@
     "postDec.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L90"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L95"
             ]
         }
     },
@@ -14108,7 +14096,7 @@
     "postDec.type": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L158"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L163"
             ]
         }
     },
@@ -14129,7 +14117,7 @@
     "postInc.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L90"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L95"
             ]
         }
     },
@@ -14143,7 +14131,7 @@
     "postInc.type": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L158"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L163"
             ]
         }
     },
@@ -14178,7 +14166,7 @@
     "preDec.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L90"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L95"
             ]
         }
     },
@@ -14192,7 +14180,7 @@
     "preDec.type": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L158"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L163"
             ]
         }
     },
@@ -14213,7 +14201,7 @@
     "preInc.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L90"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L95"
             ]
         }
     },
@@ -14227,7 +14215,7 @@
     "preInc.type": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L158"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L163"
             ]
         }
     },
@@ -15099,7 +15087,7 @@
     "property.writeOnly": {
         "PHPStan\\Rules\\Properties\\ReadingWriteOnlyPropertiesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Properties/ReadingWriteOnlyPropertiesRule.php#L73"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Properties/ReadingWriteOnlyPropertiesRule.php#L78"
             ]
         }
     },
@@ -17244,7 +17232,7 @@
     "throws.notThrowable": {
         "PHPStan\\Rules\\PhpDoc\\InvalidThrowsPhpDocValueRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/InvalidThrowsPhpDocValueRule.php#L82"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/InvalidThrowsPhpDocValueRule.php#L87"
             ]
         }
     },
@@ -17982,7 +17970,7 @@
     "unaryOp.invalid": {
         "PHPStan\\Rules\\Operators\\InvalidUnaryOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidUnaryOperationRule.php#L84"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidUnaryOperationRule.php#L89"
             ]
         }
     },
@@ -17996,21 +17984,21 @@
     "unionType.mixed": {
         "PHPStan\\Rules\\Types\\InvalidTypesInUnionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Types/InvalidTypesInUnionRule.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Types/InvalidTypesInUnionRule.php#L106"
             ]
         }
     },
     "unionType.never": {
         "PHPStan\\Rules\\Types\\InvalidTypesInUnionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Types/InvalidTypesInUnionRule.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Types/InvalidTypesInUnionRule.php#L106"
             ]
         }
     },
     "unionType.void": {
         "PHPStan\\Rules\\Types\\InvalidTypesInUnionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Types/InvalidTypesInUnionRule.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Types/InvalidTypesInUnionRule.php#L106"
             ]
         }
     },
