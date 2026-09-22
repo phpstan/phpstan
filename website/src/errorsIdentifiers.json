@@ -424,8 +424,8 @@
     "argument.fscanf": {
         "PHPStan\\Rules\\Functions\\PrintfParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParametersRule.php#L122",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParametersRule.php#L94"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParametersRule.php#L125",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParametersRule.php#L97"
             ]
         }
     },
@@ -1037,24 +1037,24 @@
     "argument.printf": {
         "PHPStan\\Rules\\Functions\\PrintfParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParametersRule.php#L122",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParametersRule.php#L94"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParametersRule.php#L125",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParametersRule.php#L97"
             ]
         }
     },
     "argument.sprintf": {
         "PHPStan\\Rules\\Functions\\PrintfParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParametersRule.php#L122",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParametersRule.php#L94"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParametersRule.php#L125",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParametersRule.php#L97"
             ]
         }
     },
     "argument.sscanf": {
         "PHPStan\\Rules\\Functions\\PrintfParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParametersRule.php#L122",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParametersRule.php#L94"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParametersRule.php#L125",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParametersRule.php#L97"
             ]
         }
     },
@@ -1320,7 +1320,7 @@
         },
         "PHPStan\\Rules\\Functions\\PrintfParameterTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParameterTypeRule.php#L167"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfParameterTypeRule.php#L169"
             ]
         },
         "PHPStan\\Rules\\Functions\\RandomIntParametersRule": {
@@ -1754,16 +1754,16 @@
     "argument.vprintf": {
         "PHPStan\\Rules\\Functions\\PrintfArrayParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfArrayParametersRule.php#L149",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfArrayParametersRule.php#L75"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfArrayParametersRule.php#L150",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfArrayParametersRule.php#L76"
             ]
         }
     },
     "argument.vsprintf": {
         "PHPStan\\Rules\\Functions\\PrintfArrayParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfArrayParametersRule.php#L149",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfArrayParametersRule.php#L75"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfArrayParametersRule.php#L150",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfArrayParametersRule.php#L76"
             ]
         }
     },
