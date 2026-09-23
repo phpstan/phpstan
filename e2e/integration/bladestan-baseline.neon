@@ -7,12 +7,6 @@ parameters:
 			path: repo/src/Compiler/LivewireTagCompiler.php
 
 		-
-			message: '#^Method Bladestan\\NodeAnalyzer\\ViewVariableAnalyzer\:\:resolve\(\) throws checked exception ValueError but it''s missing from the PHPDoc @throws tag\.$#'
-			identifier: missingType.checkedException
-			count: 1
-			path: repo/src/NodeAnalyzer/ViewVariableAnalyzer.php
-
-		-
 			message: '#^Negated boolean expression is always false\.$#'
 			identifier: booleanNot.alwaysFalse
 			count: 1

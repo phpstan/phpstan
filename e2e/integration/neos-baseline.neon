@@ -685,42 +685,6 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Export/src/Event/ValueObject/ExportedEvent.php
 
 		-
-			message: '#^Cannot call method addAdjustment\(\) on array\<mixed\>\|object\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Export/src/Processors/AssetRepositoryImportProcessor.php
-
-		-
-			message: '#^Cannot call method refresh\(\) on array\<mixed\>\|object\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Export/src/Processors/AssetRepositoryImportProcessor.php
-
-		-
-			message: '#^Cannot call method setCaption\(\) on array\<mixed\>\|object\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Export/src/Processors/AssetRepositoryImportProcessor.php
-
-		-
-			message: '#^Cannot call method setCopyrightNotice\(\) on array\<mixed\>\|object\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Export/src/Processors/AssetRepositoryImportProcessor.php
-
-		-
-			message: '#^Cannot call method setTitle\(\) on array\<mixed\>\|object\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Export/src/Processors/AssetRepositoryImportProcessor.php
-
-		-
-			message: '#^Parameter \#1 \$object of method Neos\\Media\\Domain\\Repository\\AssetRepository\:\:add\(\) expects Neos\\Media\\Domain\\Model\\AssetInterface, array\<mixed\>\|object given\.$#'
-			identifier: argument.type
-			count: 2
-			path: neos-dist/Packages/Neos/Neos.ContentRepository.Export/src/Processors/AssetRepositoryImportProcessor.php
-
-		-
 			message: '#^Method Neos\\ContentRepository\\LegacyNodeMigration\\Processors\\EventExportProcessor\:\:processNodeDataWithoutFallbackToEmptyDimension\(\) never returns array\<Neos\\ContentRepository\\Core\\SharedModel\\Node\\NodeName\> so it can be removed from the return type\.$#'
 			identifier: return.unusedType
 			count: 1
@@ -955,6 +919,12 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepositoryRegistry/Classes/Configuration/NodeTypeEnrichmentService.php
 
 		-
+			message: '#^Unable to resolve the template type T in call to method Neos\\Flow\\Persistence\\PersistenceManagerInterface\:\:getObjectByIdentifier\(\)$#'
+			identifier: argument.templateType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepositoryRegistry/Classes/Infrastructure/Property/Normalizer/DoctrinePersistentObjectNormalizer.php
+
+		-
 			message: '#^Cannot unset property Neos\\Fusion\\Core\\Cache\\CacheSegmentParser\:\:\$content because it might have hooks in a subclass\.$#'
 			identifier: unset.possiblyHookedProperty
 			count: 1
@@ -1045,6 +1015,12 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.Fusion/Classes/Core/Runtime.php
 
 		-
+			message: '#^Call to an undefined method object\:\:getNodeName\(\)\.$#'
+			identifier: method.notFound
+			count: 3
+			path: neos-dist/Packages/Neos/Neos.Media.Browser/Classes/Controller/UsageController.php
+
+		-
 			message: '#^Method Neos\\Neos\\AssetUsage\\Dto\\AssetUsages\:\:count\(\) should return int\<0, max\> but returns int\|null\.$#'
 			identifier: return.type
 			count: 1
@@ -1057,10 +1033,82 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/AssetUsage/Dto/AssetUsages.php
 
 		-
+			message: '#^Call to an undefined method object\:\:getHostname\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/DomainCommandController.php
+
+		-
+			message: '#^Method Neos\\Neos\\Command\\DomainCommandController\:\:findDomainsByHostnamePattern\(\) should return array\<Neos\\Neos\\Domain\\Model\\Domain\> but returns array\<object\>\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/DomainCommandController.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getName\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/SiteCommandController.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getNodeName\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/SiteCommandController.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getSiteResourcesPackageKey\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/SiteCommandController.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getState\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/SiteCommandController.php
+
+		-
+			message: '#^Method Neos\\Neos\\Command\\SiteCommandController\:\:findSitesByNodeNamePattern\(\) should return array\<Neos\\Neos\\Domain\\Model\\Site\> but returns array\<object\>\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/SiteCommandController.php
+
+		-
+			message: '#^Parameter \#2 \$callback of function array_filter expects \(callable\(object\)\: bool\)\|null, Closure\(Neos\\Neos\\Domain\\Model\\Site\)\: bool given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/SiteCommandController.php
+
+		-
+			message: '#^Method Neos\\Neos\\Command\\UserCommandController\:\:findUsersByUsernamePattern\(\) should return array\<Neos\\Neos\\Domain\\Model\\User\> but returns array\<object\>\.$#'
+			identifier: return.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/UserCommandController.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Neos\\Neos\\Command\\UserCommandController\:\:getTableRowForUser\(\) expects Neos\\Neos\\Domain\\Model\\User, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/UserCommandController.php
+
+		-
+			message: '#^Parameter \#1 \$user of method Neos\\Neos\\Domain\\Service\\UserService\:\:getUsername\(\) expects Neos\\Neos\\Domain\\Model\\User, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Command/UserCommandController.php
+
+		-
 			message: '#^PHPDoc tag @var has invalid value \(\$site Site\)\: Unexpected token "\$site", expected type at offset 9 on line 1$#'
 			identifier: phpDoc.parseError
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Backend/MenuHelper.php
+
+		-
+			message: '#^Call to an undefined method object\:\:getSiteResourcesPackageKey\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Module/Administration/SitesController.php
 
 		-
 			message: '#^Invalid array key type null\.$#'
@@ -1075,6 +1123,18 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Module/Administration/UsersController.php
 
 		-
+			message: '#^PHPDoc type array\<string, string\> of property Neos\\Neos\\Controller\\Service\\AssetProxiesController\:\:\$viewFormatToObjectNameMap is not covariant with PHPDoc type array\<string, class\-string\> of overridden property Neos\\Flow\\Mvc\\Controller\\ActionController\:\:\$viewFormatToObjectNameMap\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Service/AssetProxiesController.php
+
+		-
+			message: '#^PHPDoc type array\<string, string\> of property Neos\\Neos\\Controller\\Service\\ContentDimensionsController\:\:\$viewFormatToObjectNameMap is not covariant with PHPDoc type array\<string, class\-string\> of overridden property Neos\\Flow\\Mvc\\Controller\\ActionController\:\:\$viewFormatToObjectNameMap\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Service/ContentDimensionsController.php
+
+		-
 			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -1087,6 +1147,108 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Service/NodesController.php
 
 		-
+			message: '#^PHPDoc type array\<string, string\> of property Neos\\Neos\\Controller\\Service\\NodesController\:\:\$viewFormatToObjectNameMap is not covariant with PHPDoc type array\<string, class\-string\> of overridden property Neos\\Flow\\Mvc\\Controller\\ActionController\:\:\$viewFormatToObjectNameMap\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Controller/Service/NodesController.php
+
+		-
+			message: '#^Class Neos\\Neos\\Domain\\Repository\\DomainRepository extends generic class Neos\\Flow\\Persistence\\Repository but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/DomainRepository.php
+
+		-
+			message: '#^PHPDoc tag @method for method Neos\\Neos\\Domain\\Repository\\DomainRepository\:\:findByActive\(\) return type contains generic interface Neos\\Flow\\Persistence\\QueryResultInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/DomainRepository.php
+
+		-
+			message: '#^PHPDoc tag @method for method Neos\\Neos\\Domain\\Repository\\DomainRepository\:\:findByHostname\(\) return type contains generic interface Neos\\Flow\\Persistence\\QueryResultInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/DomainRepository.php
+
+		-
+			message: '#^PHPDoc tag @method for method Neos\\Neos\\Domain\\Repository\\DomainRepository\:\:findBySite\(\) return type contains generic interface Neos\\Flow\\Persistence\\QueryResultInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/DomainRepository.php
+
+		-
+			message: '#^PHPDoc type array\<string, string\> of property Neos\\Neos\\Domain\\Repository\\DomainRepository\:\:\$defaultOrderings is not covariant with PHPDoc type array\<string, ''ASC''\|''DESC''\> of overridden property Neos\\Flow\\Persistence\\Repository\<object\>\:\:\$defaultOrderings\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/DomainRepository.php
+
+		-
+			message: '#^Parameter \#2 \$domains of method Neos\\Neos\\Domain\\Service\\DomainMatchingStrategy\:\:getSortedMatches\(\) expects array\<Neos\\Neos\\Domain\\Model\\Domain\>, array\<object\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/DomainRepository.php
+
+		-
+			message: '#^Class Neos\\Neos\\Domain\\Repository\\SiteRepository extends generic class Neos\\Flow\\Persistence\\Repository but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/SiteRepository.php
+
+		-
+			message: '#^PHPDoc tag @method for method Neos\\Neos\\Domain\\Repository\\SiteRepository\:\:findByNodeName\(\) return type contains generic interface Neos\\Flow\\Persistence\\QueryResultInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/SiteRepository.php
+
+		-
+			message: '#^PHPDoc tag @method for method Neos\\Neos\\Domain\\Repository\\SiteRepository\:\:findByState\(\) return type contains generic interface Neos\\Flow\\Persistence\\QueryResultInterface but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/SiteRepository.php
+
+		-
+			message: '#^PHPDoc type array\<string, string\> of property Neos\\Neos\\Domain\\Repository\\SiteRepository\:\:\$defaultOrderings is not covariant with PHPDoc type array\<string, ''ASC''\|''DESC''\> of overridden property Neos\\Flow\\Persistence\\Repository\<object\>\:\:\$defaultOrderings\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/SiteRepository.php
+
+		-
+			message: '#^Class Neos\\Neos\\Domain\\Repository\\UserRepository extends generic class Neos\\Flow\\Persistence\\Doctrine\\Repository but does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/UserRepository.php
+
+		-
+			message: '#^Method Neos\\Neos\\Domain\\Repository\\UserRepository\:\:findAllOrdered\(\) return type with generic interface Neos\\Flow\\Persistence\\QueryResultInterface does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/UserRepository.php
+
+		-
+			message: '#^Method Neos\\Neos\\Domain\\Repository\\UserRepository\:\:findAllOrderedByUsername\(\) return type with generic interface Neos\\Flow\\Persistence\\QueryResultInterface does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/UserRepository.php
+
+		-
+			message: '#^Method Neos\\Neos\\Domain\\Repository\\UserRepository\:\:findBySearchTerm\(\) return type with generic interface Neos\\Flow\\Persistence\\QueryResultInterface does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/UserRepository.php
+
+		-
+			message: '#^Parameter \#1 \$orderings of method Neos\\Flow\\Persistence\\QueryInterface\<object\>\:\:setOrderings\(\) expects array\<string, ''ASC''\|''DESC''\>, non\-empty\-array\<string, string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/UserRepository.php
+
+		-
+			message: '#^Parameter \#1 \$orderings of method Neos\\Flow\\Persistence\\QueryInterface\<object\>\:\:setOrderings\(\) expects array\<string, ''ASC''\|''DESC''\>, non\-empty\-array\{''accounts\.accountIdentifier''\?\: string, ''accounts\.lastSuccessfulAuthenticationDate''\?\: string, ''name\.fullName''\?\: string\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Repository/UserRepository.php
+
+		-
 			message: '#^Instanceof between Neos\\ContentRepository\\Core\\SharedModel\\Node\\NodeAggregateId and Neos\\ContentRepository\\Core\\SharedModel\\Node\\NodeAggregateId will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
 			count: 1
@@ -1097,6 +1259,24 @@ parameters:
 			identifier: catch.neverThrown
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Service/SiteImportService.php
+
+		-
+			message: '#^Parameter \#1 \$site of method Neos\\Neos\\Domain\\Service\\SiteService\:\:pruneSite\(\) expects Neos\\Neos\\Domain\\Model\\Site, object given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Service/SiteService.php
+
+		-
+			message: '#^Method Neos\\Neos\\Domain\\Service\\UserService\:\:getUsers\(\) return type with generic interface Neos\\Flow\\Persistence\\QueryResultInterface does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Service/UserService.php
+
+		-
+			message: '#^Method Neos\\Neos\\Domain\\Service\\UserService\:\:searchUsers\(\) return type with generic interface Neos\\Flow\\Persistence\\QueryResultInterface does not specify its types\: T$#'
+			identifier: missingType.generics
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Domain/Service/UserService.php
 
 		-
 			message: '#^Call to function assert\(\) with true will always evaluate to true\.$#'
@@ -1225,12 +1405,6 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/ResourceManagement/NodeTypesStreamWrapper.php
 
 		-
-			message: '#^Cannot call method getData\(\) on array\<mixed\>\|object\.$#'
-			identifier: method.nonObject
-			count: 1
-			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Service/Controller/DataSourceController.php
-
-		-
 			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -1245,6 +1419,12 @@ parameters:
 		-
 			message: '#^Call to function is_array\(\) with array\<mixed\> will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Service/XliffService.php
+
+		-
+			message: '#^Parameter \#1 \$labelValue of method Neos\\Neos\\Service\\XliffService\:\:getTranslationUnitValue\(\) expects array\<string, mixed\>, array\<int, array\<string, string\>\> given\.$#'
+			identifier: argument.type
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/Service/XliffService.php
 
@@ -1273,6 +1453,12 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.Neos/Classes/ViewHelpers/Backend/IfModuleAccessibleViewHelper.php
 
 		-
+			message: '#^Parameter \#2 \$subject of function preg_match expects string, Neos\\Flow\\I18n\\Locale\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Neos/Classes/ViewHelpers/Backend/JavascriptConfigurationViewHelper.php
+
+		-
 			message: '#^Strict comparison using \=\=\= between mixed and null will always evaluate to false\.$#'
 			identifier: identical.alwaysFalse
 			count: 1
@@ -1289,6 +1475,18 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.SiteKickstarter/Classes/Generator/AfxTemplateGenerator.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(object\)\: mixed\)\|null, Closure\(Neos\\Neos\\Domain\\Model\\User\)\: Neos\\Neos\\Domain\\Model\\WorkspaceRoleSubject given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/Controller/WorkspaceController.php
+
+		-
+			message: '#^Parameter \#2 \$callback of function array_reduce expects callable\(array, object\)\: array, Closure\(array, Neos\\Neos\\Domain\\Model\\User\)\: non\-empty\-array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/Controller/WorkspaceController.php
 
 		-
 			message: '#^Parameter \$addedTags of class Neos\\Workspace\\Ui\\ViewModel\\Review\\ContentChanges\\TagContentChange constructor expects list\<string\>, array\<string\> given\.$#'
