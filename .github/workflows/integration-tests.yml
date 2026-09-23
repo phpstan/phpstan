@@ -748,12 +748,12 @@ jobs:
         run: "${{ matrix.phpstan-command }}"
 
       - name: "Generate baseline"
-        if: ${{ failure() }}
+        if: ${{ failure() && matrix.baseline-file }}
         working-directory: ${{ matrix.phpstan-cwd || 'e2e/integration/repo' }}
         run: "${{ matrix.phpstan-command }} -b ../${{ matrix.baseline-file }}"
 
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        if: ${{ failure() }}
+        if: ${{ failure() && matrix.baseline-file }}
         with:
           name: baselines-${{ matrix.baseline-file }}
           path: "e2e/integration/${{ matrix.baseline-file }}"
