@@ -72,7 +72,6 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/adamlundrigan">Adam Lundrigan (adamlundrigan)</a></li>
 <li><a href="https://github.com/escopecz">John Linhart (escopecz)</a></li>
 <li><a href="https://github.com/Ocramius">Marco Pivetta (Ocramius)</a></li>
-<li><a href="https://github.com/ldebrouwer">Luc (ldebrouwer)</a></li>
 <li><a href="https://github.com/Kocal">Hugo Alliaume (Kocal)</a></li>
 <li><a href="https://github.com/Dukolm"> (Dukolm)</a></li>
 <li><a href="https://github.com/zonuexe">USAMI Kenta (zonuexe)</a></li>
