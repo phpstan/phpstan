@@ -29,7 +29,7 @@ function mightThrow(): void
 
 The `catch` block binds the caught exception to `$e`, and that value *is* read — but only by `$e = rand(0, 1) ? $e : null`, whose result no code ever observes. The exception feeds a closed computation that produces nothing.
 
-This is different from [`catch.unusedVariable`](/error-identifiers/catch.unusedVariable), where the exception variable is never read at all. Here the value flows through further computation, but that computation is itself dead, so binding the exception has no effect. This usually points to a logic error where the exception was meant to be used.
+A `catch` variable that is never read at all is not reported. Here, however, the value flows through further computation that is itself dead, so binding the exception has no effect. This usually points to a logic error where the exception was meant to be used.
 
 This is only reported on PHP 8.0 and later, where non-capturing catches are available.
 

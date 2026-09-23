@@ -1,6 +1,6 @@
 ---
 title: "assign.unused"
-shortDescription: "A value assigned to a variable is overwritten before it is ever read."
+shortDescription: "A value assigned to a variable is never read afterwards."
 ignorable: true
 ---
 
@@ -9,19 +9,19 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
-function doFoo(): int
+function doFoo(): void
 {
 	$a = 1;
+	echo $a;
 	$a = 2;
-	return $a;
 }
 ```
 
 ## Why is it reported?
 
-The value `1` assigned to `$a` is never read — the variable is overwritten by `$a = 2` before its first value is ever used. This is a dead store: the assignment computes a value that no code observes.
+The value `2` assigned to `$a` is never read — no code after the assignment looks at `$a` again. This is a dead store: the assignment computes a value that no code observes.
 
-Unlike [`variable.unused`](/error-identifiers/variable.unused), the variable itself *is* used later; only this particular assignment is redundant. Dead stores often point to a logic error, such as forgetting to use the first value or an accidental overwrite.
+Unlike [`variable.unused`](/error-identifiers/variable.unused), the variable itself *is* read elsewhere; only this particular assignment is redundant. Unlike [`assign.overwritten`](/error-identifiers/assign.overwritten), nothing replaces the value — it is simply never used. Dead stores often point to leftover code or a logic error, such as forgetting to use the new value.
 
 This rule is part of PHPStan's dead code analysis. It is reported at [rule level](/user-guide/rule-levels) 4 and above, and is currently part of [Bleeding Edge](/blog/what-is-bleeding-edge).
 
@@ -30,22 +30,24 @@ This rule is part of PHPStan's dead code analysis. It is reported at [rule level
 Remove the assignment whose value is never read:
 
 ```diff-php
- function doFoo(): int
- {
--	$a = 1;
- 	$a = 2;
- 	return $a;
- }
-```
-
-Or, if the first value should have been used, fix the logic so it is read before being overwritten:
-
-```diff-php
- function doFoo(): int
+ function doFoo(): void
  {
  	$a = 1;
-+	echo $a;
- 	$a = 2;
- 	return $a;
+ 	echo $a;
+-	$a = 2;
  }
 ```
+
+Or use the assigned value if it was intended to be read:
+
+```diff-php
+ function doFoo(): void
+ {
+ 	$a = 1;
+ 	echo $a;
+ 	$a = 2;
++	echo $a;
+ }
+```
+
+If you deliberately want to keep the assignment, prefix the variable name with an underscore. PHPStan ignores variables whose name starts with `_`.
