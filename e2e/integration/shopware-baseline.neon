@@ -49,6 +49,18 @@ parameters:
 			path: repo/src/Core/Checkout/Cart/LineItemFactoryRegistry.php
 
 		-
+			rawMessage: 'Array has 2 duplicate keys with value ''pinAutomaticPromotions'' (''pinAutomaticPromotions'', \Shopware\Core\Checkout\CheckoutPermissions::PIN_AUTOMATIC_PROMOTIONS).'
+			identifier: array.duplicateKey
+			count: 2
+			path: repo/src/Core/Checkout/Cart/Order/RecalculationService.php
+
+		-
+			rawMessage: 'Array has 2 duplicate keys with value ''pinManualPromotions'' (''pinManualPromotions'', \Shopware\Core\Checkout\CheckoutPermissions::PIN_MANUAL_PROMOTIONS).'
+			identifier: array.duplicateKey
+			count: 1
+			path: repo/src/Core/Checkout/Cart/Order/RecalculationService.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Checkout\Cart\Order\Transformer\CustomerTransformer::transform() should return array{customerId: string, email: string, firstName: string, lastName: string, salutationId: string|null, title: string|null, vatIds: array<string>|null, customerNumber: string, ...} but returns array{customerId: string, email: string, firstName: string, lastName: string, salutationId: string|null, title: string|null, vatIds: array<string>|null, company: string|null, ...}.'
 			identifier: return.type
 			count: 1
@@ -301,10 +313,88 @@ parameters:
 			path: repo/src/Core/Framework/Adapter/Twig/Extension/TwigFeaturesWithInheritanceExtension.php
 
 		-
+			rawMessage: Class Shopware\Core\Framework\Adapter\Twig\Node\MacroOverrideNode extends @final class Twig\Node\MacroNode.
+			identifier: class.extendsFinalByPhpDoc
+			count: 1
+			path: repo/src/Core/Framework/Adapter/Twig/Node/MacroOverrideNode.php
+
+		-
 			rawMessage: 'Parameter #2 $array of function implode expects array<string>, callable&list<mixed> given.'
 			identifier: argument.type
 			count: 4
 			path: repo/src/Core/Framework/Adapter/Twig/SecurityExtension.php
+
+		-
+			rawMessage: '''
+				Call to method __construct() of deprecated class Twig\Node\Expression\Variable\AssignTemplateVariable:
+				since Twig 3.29, use AssignMacroVariable instead
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: repo/src/Core/Framework/Adapter/Twig/TokenParser/FromTokenParser.php
+
+		-
+			rawMessage: '''
+				Call to method __construct() of deprecated class Twig\Node\Expression\Variable\TemplateVariable:
+				since Twig 3.29, use MacroVariable instead
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: repo/src/Core/Framework/Adapter/Twig/TokenParser/FromTokenParser.php
+
+		-
+			rawMessage: '''
+				Instantiation of deprecated class Twig\Node\Expression\Variable\AssignTemplateVariable:
+				since Twig 3.29, use AssignMacroVariable instead
+			'''
+			identifier: new.deprecatedClass
+			count: 1
+			path: repo/src/Core/Framework/Adapter/Twig/TokenParser/FromTokenParser.php
+
+		-
+			rawMessage: '''
+				Instantiation of deprecated class Twig\Node\Expression\Variable\TemplateVariable:
+				since Twig 3.29, use MacroVariable instead
+			'''
+			identifier: new.deprecatedClass
+			count: 1
+			path: repo/src/Core/Framework/Adapter/Twig/TokenParser/FromTokenParser.php
+
+		-
+			rawMessage: '''
+				Call to method __construct() of deprecated class Twig\Node\Expression\Variable\AssignTemplateVariable:
+				since Twig 3.29, use AssignMacroVariable instead
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: repo/src/Core/Framework/Adapter/Twig/TokenParser/ImportTokenParser.php
+
+		-
+			rawMessage: '''
+				Call to method __construct() of deprecated class Twig\Node\Expression\Variable\TemplateVariable:
+				since Twig 3.29, use MacroVariable instead
+			'''
+			identifier: method.deprecatedClass
+			count: 1
+			path: repo/src/Core/Framework/Adapter/Twig/TokenParser/ImportTokenParser.php
+
+		-
+			rawMessage: '''
+				Instantiation of deprecated class Twig\Node\Expression\Variable\AssignTemplateVariable:
+				since Twig 3.29, use AssignMacroVariable instead
+			'''
+			identifier: new.deprecatedClass
+			count: 1
+			path: repo/src/Core/Framework/Adapter/Twig/TokenParser/ImportTokenParser.php
+
+		-
+			rawMessage: '''
+				Instantiation of deprecated class Twig\Node\Expression\Variable\TemplateVariable:
+				since Twig 3.29, use MacroVariable instead
+			'''
+			identifier: new.deprecatedClass
+			count: 1
+			path: repo/src/Core/Framework/Adapter/Twig/TokenParser/ImportTokenParser.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\Api\ApiDefinition\Generator\EntitySchemaGenerator::parseField() should return array{type: string, flags: array<string, mixed>} but returns array{type: ''association'', relation: ''many_to_many'', local: string, reference: string, mapping: string, entity: string, flags: array, localField: string|null, ...}.'
@@ -443,12 +533,6 @@ parameters:
 			identifier: argument.invalidConstant
 			count: 4
 			path: repo/src/Core/Framework/App/Privileges/Privileges.php
-
-		-
-			rawMessage: Casting class ReflectionType to string is deprecated.
-			identifier: class.toStringDeprecated
-			count: 1
-			path: repo/src/Core/Framework/DataAbstractionLayer/AttributeEntityCompiler.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\DataAbstractionLayer\AttributeEntityCompiler::compile() should return list<array{type: ''entity''|''mapping'', since?: string|null, parent: string|null, entity_class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Entity>, entity_name: string, collection_class?: class-string<Shopware\Core\Framework\DataAbstractionLayer\EntityCollection<Shopware\Core\Framework\DataAbstractionLayer\Entity>>, fields: list<array{type?: string, name?: string, class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Field\Field>, flags: array<string, array<string, array<bool|string>|string>|null>, translated: bool, args: list<string|false>}>, source?: string, ...}> but returns non-empty-list<array{type: ''entity'', since: string|null, parent: string|null, entity_class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Entity>, entity_name: string, hydrator_class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Dbal\EntityHydrator>, collection_class: class-string<Shopware\Core\Framework\DataAbstractionLayer\EntityCollection>, fields: list<array{type: string, name: string, class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Field\Field>, flags: array<string, array<string, array<bool|string>|string>|null>, translated: bool, args: list<string|false>}>}|array{type: ''mapping'', parent: null, entity_class: class-string<Shopware\Core\Framework\Struct\ArrayEntity>, entity_name: string, fields: list<array{type?: string, name?: string, class: class-string<Shopware\Core\Framework\DataAbstractionLayer\Field\Field>, flags: array<string, array<string, array<bool|string>|string>|null>, translated: bool, args: list<string|false>}>, source: string, reference: string}>.'
@@ -1249,18 +1333,6 @@ parameters:
 			path: repo/src/Core/System/Snippet/Service/TranslationMetadataLoader.php
 
 		-
-			rawMessage: 'Call to function assert() with true will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
-			count: 1
-			path: repo/src/Core/System/Snippet/SnippetService.php
-
-		-
-			rawMessage: 'Offset ''language'' on array{0: non-falsy-string, locale: non-falsy-string, 1: non-falsy-string, language: non-falsy-string, 2: non-falsy-string, script: non-falsy-string|null, 3: non-falsy-string|null, region: non-falsy-string|null, ...} in empty() always exists and is not falsy.'
-			identifier: empty.offset
-			count: 1
-			path: repo/src/Core/System/Snippet/SnippetService.php
-
-		-
 			rawMessage: 'Method Shopware\Core\System\SystemConfig\Event\SystemConfigChangedHook::getWebhookPayload() should return array{changes: array<string>} but returns array{changes: list<non-falsy-string>, salesChannelId: string|null}.'
 			identifier: return.type
 			count: 1
@@ -1423,6 +1495,12 @@ parameters:
 			path: repo/tests/integration/Core/Checkout/Cart/Order/OrderRecalculationControllerTest.php
 
 		-
+			rawMessage: 'Array has 2 duplicate keys with value ''keepInactiveProduct'' (''keepInactiveProduct'', \Shopware\Core\Content\Product\Cart\ProductCartProcessor::KEEP_INACTIVE_PRODUCT).'
+			identifier: array.duplicateKey
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Cart/Order/RecalculationServiceTest.php
+
+		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\Tax\TaxCalculationTypeTest::calculationProvider() should return array<array{array<Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint>, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection}> but returns array{array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection}, array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection}, array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection}, array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, true}, array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, true}, array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, true}}.'
 			identifier: return.type
 			count: 1
@@ -1505,6 +1583,24 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: repo/tests/integration/Core/Checkout/Shipping/ShippingMethodRepositoryTest.php
+
+		-
+			rawMessage: 'Array has 2 duplicate keys with value ''cmsPage'' (''cmsPage'', ''cmsPage'').'
+			identifier: array.duplicateKey
+			count: 2
+			path: repo/tests/integration/Core/Content/Category/SalesChannel/CategoryRouteTest.php
+
+		-
+			rawMessage: 'Array has 2 duplicate keys with value ''id'' (''id'', ''id'').'
+			identifier: array.duplicateKey
+			count: 4
+			path: repo/tests/integration/Core/Content/Category/SalesChannel/CategoryRouteTest.php
+
+		-
+			rawMessage: 'Array has 2 duplicate keys with value ''type'' (''type'', ''type'').'
+			identifier: array.duplicateKey
+			count: 2
+			path: repo/tests/integration/Core/Content/Category/SalesChannel/CategoryRouteTest.php
 
 		-
 			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.

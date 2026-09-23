@@ -1,2 +1,2 @@
 parameters:
-	ignoreErrors:
+	ignoreErrors: []
