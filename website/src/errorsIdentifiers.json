@@ -5843,14 +5843,14 @@
     "div.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticDivisionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticDivisionRule.php#L51"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticDivisionRule.php#L56"
             ]
         }
     },
     "div.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticDivisionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticDivisionRule.php#L59"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticDivisionRule.php#L64"
             ]
         }
     },
@@ -11133,14 +11133,14 @@
     "minus.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticSubtractionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticSubtractionRule.php#L51"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticSubtractionRule.php#L56"
             ]
         }
     },
     "minus.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticSubtractionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticSubtractionRule.php#L59"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticSubtractionRule.php#L64"
             ]
         }
     },
@@ -11668,28 +11668,28 @@
     "mod.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticModuloRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticModuloRule.php#L51"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticModuloRule.php#L56"
             ]
         }
     },
     "mod.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticModuloRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticModuloRule.php#L59"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticModuloRule.php#L64"
             ]
         }
     },
     "mul.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticMultiplicationRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticMultiplicationRule.php#L51"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticMultiplicationRule.php#L56"
             ]
         }
     },
     "mul.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticMultiplicationRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticMultiplicationRule.php#L59"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticMultiplicationRule.php#L64"
             ]
         }
     },
@@ -13541,29 +13541,41 @@
     "phpunit.assertFalse": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameBooleanExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L65"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L66"
             ]
         }
     },
     "phpunit.assertNull": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameNullExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameNullExpectedRule.php#L51"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameNullExpectedRule.php#L52"
             ]
         }
     },
     "phpunit.assertTrue": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameBooleanExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L51"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L52"
             ]
         }
     },
     "phpunit.attributeRequiresPhpVersion": {
         "PHPStan\\Rules\\PHPUnit\\AttributeRequiresPhpVersionRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AttributeRequiresPhpVersionRule.php#L75",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AttributeRequiresPhpVersionRule.php#L84"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L117",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L152",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L162",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L171",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L83"
+            ]
+        },
+        "PHPStan\\Rules\\PHPUnit\\ClassAttributeRequiresPhpVersionRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L117",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L152",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L162",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L171",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AttributeVersionRequirementHelper.php#L83"
             ]
         }
     },
@@ -13711,14 +13723,14 @@
     "plus.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticAdditionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticAdditionRule.php#L57"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticAdditionRule.php#L62"
             ]
         }
     },
     "plus.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticAdditionRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticAdditionRule.php#L63"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticAdditionRule.php#L68"
             ]
         }
     },
@@ -14152,14 +14164,14 @@
     "pow.leftNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticExponentiationRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticExponentiationRule.php#L51"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticExponentiationRule.php#L56"
             ]
         }
     },
     "pow.rightNonNumeric": {
         "PHPStan\\Rules\\Operators\\OperandsInArithmeticExponentiationRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticExponentiationRule.php#L59"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/Operators/OperandsInArithmeticExponentiationRule.php#L64"
             ]
         }
     },
