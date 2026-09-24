@@ -13,8 +13,8 @@ parameters:
 			path: repo/src/Framework/Exception/Exception.php
 
 		-
-			rawMessage: Foreach value variable $handler is never read.
-			identifier: foreach.unusedValue
+			rawMessage: Foreach value variable $handler is never read before being overwritten.
+			identifier: foreach.valueOverwritten
 			count: 2
 			path: repo/src/Framework/TestCase.php
 

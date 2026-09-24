@@ -241,6 +241,12 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/RebaseableCommand.php
 
 		-
+			message: '#^Strict comparison using \=\=\= between Neos\\EventStore\\Model\\Event\\EventMetadata and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.Core/Classes/Feature/RebaseableCommand.php
+
+		-
 			message: '#^Impure yield in pure method Neos\\ContentRepository\\Core\\Feature\\WorkspaceCommandHandler\:\:discardWorkspace\(\)\.$#'
 			identifier: impure.yield
 			count: 3
@@ -685,6 +691,12 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.Export/src/Event/ValueObject/ExportedEvent.php
 
 		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.LegacyNodeMigration/Classes/Processors/EventExportProcessor.php
+
+		-
 			message: '#^Method Neos\\ContentRepository\\LegacyNodeMigration\\Processors\\EventExportProcessor\:\:processNodeDataWithoutFallbackToEmptyDimension\(\) never returns array\<Neos\\ContentRepository\\Core\\SharedModel\\Node\\NodeName\> so it can be removed from the return type\.$#'
 			identifier: return.unusedType
 			count: 1
@@ -743,6 +755,12 @@ parameters:
 			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.ContentRepository.NodeAccess/Classes/FlowQueryOperations/PrevUntilOperation.php
+
+		-
+			message: '#^Property Neos\\ContentRepository\\Core\\NodeType\\NodeTypeName\:\:\$value \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: neos-dist/Packages/Neos/Neos.ContentRepository.StructureAdjustment/src/Adjustment/DisallowedChildNodeAdjustment.php
 
 		-
 			message: '#^PHPDoc tag @var with type array\<int\<2, max\>, string\> is not subtype of native type non\-empty\-list\<string\>\.$#'

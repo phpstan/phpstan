@@ -1,16 +1,10 @@
 parameters:
 	ignoreErrors:
 		-
-			rawMessage: Value assigned to variable $models is never read.
-			identifier: assign.unused
+			rawMessage: Value assigned to variable $models is never read before being overwritten.
+			identifier: assign.overwritten
 			count: 1
 			path: repo/src/Parameters/RelationClosureHelper.php
-
-		-
-			rawMessage: Value assigned to variable $firstMethodCall is never read.
-			identifier: assign.unused
-			count: 1
-			path: repo/src/Properties/SchemaAggregator.php
 
 		-
 			rawMessage: 'Strict comparison using !== between PhpParser\Node\Expr and null will always evaluate to true.'
