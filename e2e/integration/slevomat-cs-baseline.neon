@@ -1,6 +1,24 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Parameter \#2 \$needle of static method SlevomatCodingStandard\\Helpers\\StringHelper\:\:startsWith\(\) expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/SlevomatCodingStandard/Sniffs/Classes/ClassStructureSniff.php
+
+		-
+			message: '#^Property SlevomatCodingStandard\\Sniffs\\Commenting\\AnnotationNameSniff\:\:\$normalizedAnnotations \(array\<string, string\>\|null\) does not accept array\<string, string\>\|false\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/SlevomatCodingStandard/Sniffs/Commenting/AnnotationNameSniff.php
+
+		-
+			message: '#^Argument of an invalid type array\<int\<0, max\>, int\<0, max\>\>\|false supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: repo/SlevomatCodingStandard/Sniffs/Commenting/DocCommentSpacingSniff.php
+
+		-
 			message: '#^For loop initial assignment overwrites variable \$i\.$#'
 			identifier: for.variableOverwrite
 			count: 2

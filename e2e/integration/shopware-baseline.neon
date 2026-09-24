@@ -7,6 +7,12 @@ parameters:
 			path: repo/src/Core/Checkout/Cart/CartValueResolver.php
 
 		-
+			rawMessage: Foreach overwrites $id with its value variable.
+			identifier: foreach.valueOverwrite
+			count: 1
+			path: repo/src/Core/Checkout/Cart/Delivery/DeliveryProcessor.php
+
+		-
 			rawMessage: Throwing new exceptions within classes are not allowed. Please use domain exception pattern. See https://github.com/shopware/platform/blob/v6.4.20.0/adr/2022-02-24-domain-exceptions.md
 			identifier: shopware.domainException
 			count: 1
@@ -17,6 +23,12 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: repo/src/Core/Checkout/Cart/Facade/ScriptPriceStubs.php
+
+		-
+			rawMessage: Foreach overwrites $groupDefinition with its value variable.
+			identifier: foreach.valueOverwrite
+			count: 1
+			path: repo/src/Core/Checkout/Cart/LineItem/Group/LineItemGroupBuilder.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Checkout\Cart\LineItem\Group\LineItemGroupServiceRegistry::getPackagers() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -73,6 +85,12 @@ parameters:
 			path: repo/src/Core/Checkout/Cart/Order/Transformer/DeliveryTransformer.php
 
 		-
+			rawMessage: Value assigned to variable $taxRate is never read before being overwritten.
+			identifier: assign.overwritten
+			count: 2
+			path: repo/src/Core/Checkout/Cart/PriceActionController.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Checkout\Customer\CustomerValueResolver::resolve() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
@@ -95,6 +113,18 @@ parameters:
 			identifier: nullCoalesce.unnecessary
 			count: 1
 			path: repo/src/Core/Checkout/Customer/Validation/Constraint/CustomerVatIdentification.php
+
+		-
+			rawMessage: 'Call to function assert() with true will always evaluate to true.'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Core/Checkout/Payment/PaymentProcessor.php
+
+		-
+			rawMessage: Instanceof between Shopware\Core\Checkout\Payment\Cart\Token\TokenStruct and Shopware\Core\Checkout\Payment\Cart\Token\TokenStruct will always evaluate to true.
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/src/Core/Checkout/Payment/PaymentProcessor.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Checkout\Promotion\Util\PromotionCodeService::splitPattern() should return array{prefix?: string, replacement: string, suffix?: string, replacementString: string, replacementArray: array<string>} but returns array{0: non-empty-string, prefix: string, 1: string, replacement: non-falsy-string, 2: non-falsy-string, 3: non-falsy-string, suffix: string, 4: string, ...}.'
@@ -125,6 +155,12 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Content/Flow/DataAbstractionLayer/FieldSerializer/FlowTemplateConfigFieldSerializer.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Content\Flow\Dispatching\Action\SendMailAction::send() has an unused parameter $extension.'
+			identifier: method.unusedParameter
+			count: 1
+			path: repo/src/Core/Content/Flow/Dispatching/Action/SendMailAction.php
 
 		-
 			rawMessage: 'Parameter #5 $config of method Shopware\Core\Content\ImportExport\Service\ImportExportService::prepareExport() expects array{mapping?: array<array{key: string, mappedKey: string}|Shopware\Core\Content\ImportExport\Processing\Mapping\Mapping>|null, updateBy?: array<string, mixed>|null, parameters?: array<string, mixed>|null}, array<mixed> given.'
@@ -169,6 +205,12 @@ parameters:
 			path: repo/src/Core/Content/Media/Commands/DeleteNotUsedMediaCommand.php
 
 		-
+			rawMessage: Value of variable $i after ++ is never read.
+			identifier: postInc.unused
+			count: 1
+			path: repo/src/Core/Content/Media/Commands/DeleteNotUsedMediaCommand.php
+
+		-
 			rawMessage: PHPDoc tag @var with type array<array<string>> is not subtype of native type non-empty-array<mixed>.
 			identifier: varTag.nativeType
 			count: 1
@@ -187,10 +229,22 @@ parameters:
 			path: repo/src/Core/Content/Media/Subscriber/VideoCoverCleanupSubscriber.php
 
 		-
+			rawMessage: Foreach overwrites $media with its value variable.
+			identifier: foreach.valueOverwrite
+			count: 1
+			path: repo/src/Core/Content/Media/Subscriber/VideoCoverLoadedSubscriber.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Content\Media\Thumbnail\ThumbnailService::generateAndSave() should return list<array{id: string, mediaId: string, width: int, height: int}> but returns list<array{id: non-falsy-string, mediaId: string, mediaThumbnailSizeId: string, width: int<1, max>, height: int<1, max>}>.'
 			identifier: return.type
 			count: 1
 			path: repo/src/Core/Content/Media/Thumbnail/ThumbnailService.php
+
+		-
+			rawMessage: Foreach overwrites $id with its key variable.
+			identifier: foreach.keyOverwrite
+			count: 1
+			path: repo/src/Core/Content/Product/Cart/ProductCartProcessor.php
 
 		-
 			rawMessage: 'Constant SORT_DESC is not allowed for parameter #2 $flags of function arsort.'
@@ -251,6 +305,12 @@ parameters:
 			identifier: return.type
 			count: 1
 			path: repo/src/Core/Content/Seo/SeoResolver.php
+
+		-
+			rawMessage: 'Method Shopware\Core\Content\Sitemap\SalesChannel\SitemapFileRoute::_getSitemapFile() has an unused parameter $request.'
+			identifier: method.unusedParameter
+			count: 1
+			path: repo/src/Core/Content/Sitemap/SalesChannel/SitemapFileRoute.php
 
 		-
 			rawMessage: 'Return type (Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult<Shopware\Core\Framework\DataAbstractionLayer\EntityCollection<Shopware\Core\Framework\DataAbstractionLayer\Entity>>) of method Shopware\Core\Content\Test\ImportExport\MockRepository::search() should be compatible with return type (Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult<Shopware\Core\Framework\DataAbstractionLayer\EntityCollection>) of method Shopware\Core\Framework\DataAbstractionLayer\EntityRepository<TEntityCollection of Shopware\Core\Framework\DataAbstractionLayer\EntityCollection>::search()'
@@ -439,6 +499,12 @@ parameters:
 			path: repo/src/Core/Framework/Api/Controller/ApiController.php
 
 		-
+			rawMessage: Variable $appendLocationHeader is never read.
+			identifier: variable.unused
+			count: 1
+			path: repo/src/Core/Framework/Api/Controller/ApiController.php
+
+		-
 			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
 			identifier: nullCoalesce.unnecessary
 			count: 1
@@ -487,6 +553,12 @@ parameters:
 			path: repo/src/Core/Framework/App/Lifecycle/AppLifecycle.php
 
 		-
+			rawMessage: 'Method Shopware\Core\Framework\App\Lifecycle\AppLifecycle::updateApp() has an unused parameter $roleId.'
+			identifier: method.unusedParameter
+			count: 1
+			path: repo/src/Core/Framework/App/Lifecycle/AppLifecycle.php
+
+		-
 			rawMessage: 'Parameter #1 $webhooks of method Shopware\Core\Framework\App\Lifecycle\Persister\WebhookPersister::updateWebhooksFromArray() expects array<array{name: string, eventName: string, url: string, onlyLiveVersion?: bool, errorCount?: int}>, array<array{name: string, eventName: string, url: string, appId: string, active?: bool, errorCount?: int}> given.'
 			identifier: argument.type
 			count: 1
@@ -529,10 +601,22 @@ parameters:
 			path: repo/src/Core/Framework/DataAbstractionLayer/AttributeEntityCompiler.php
 
 		-
+			rawMessage: Foreach overwrites $command with its value variable.
+			identifier: foreach.valueOverwrite
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Dbal/EntityWriteGateway.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Framework\DataAbstractionLayer\Dbal\JoinGroupBuilder::getDuplicates() should return array<string> but returns list<int|string>.'
 			identifier: return.type
 			count: 1
 			path: repo/src/Core/Framework/DataAbstractionLayer/Dbal/JoinGroupBuilder.php
+
+		-
+			rawMessage: 'Value assigned to $notices[$definitionClass] is never read.'
+			identifier: assign.unused
+			count: 2
+			path: repo/src/Core/Framework/DataAbstractionLayer/DefinitionValidator.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\DataAbstractionLayer\EntityProtection\EntityProtection::parse() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -551,6 +635,12 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Framework/DataAbstractionLayer/EntityProtection/WriteProtection.php
+
+		-
+			rawMessage: 'Parameter #1 $element of method Shopware\Core\Framework\Struct\Collection<Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent<string>>::add() expects Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent<string>, object given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Event/EntityWrittenContainerEvent.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\DataAbstractionLayer\Exception\SearchRequestException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -967,6 +1057,12 @@ parameters:
 			path: repo/src/Core/Framework/DataAbstractionLayer/FieldSerializer/VersionFieldSerializer.php
 
 		-
+			rawMessage: 'Variable $indexer is assigned value array{} but it already has that value.'
+			identifier: assign.redundant
+			count: 1
+			path: repo/src/Core/Framework/DataAbstractionLayer/Indexing/EntityIndexerRegistry.php
+
+		-
 			rawMessage: 'Parameter #1 $ids of class Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria constructor expects array<string>|null, array<array<string>|string> given.'
 			identifier: argument.type
 			count: 1
@@ -1039,10 +1135,28 @@ parameters:
 			path: repo/src/Core/Framework/DependencyInjection/CompilerPass/FeatureFlagCompilerPass.php
 
 		-
+			rawMessage: Value assigned to variable $result is never read before being overwritten.
+			identifier: assign.overwritten
+			count: 1
+			path: repo/src/Core/Framework/Feature.php
+
+		-
 			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
 			identifier: nullCoalesce.unnecessary
 			count: 1
 			path: repo/src/Core/Framework/Increment/IncrementerGatewayCompilerPass.php
+
+		-
+			rawMessage: Value assigned to variable $packages is never read before being overwritten.
+			identifier: assign.overwritten
+			count: 1
+			path: repo/src/Core/Framework/Log/Monolog/AnnotatePackageProcessor.php
+
+		-
+			rawMessage: Foreach value variable $ignored is never read.
+			identifier: foreach.unusedValue
+			count: 1
+			path: repo/src/Core/Framework/Migration/Command/MigrationCommand.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\Migration\Command\MigrationCommand::getMigrationGenerator() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -1133,6 +1247,12 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/src/Core/Framework/Routing/RequestDataBagResolver.php
+
+		-
+			rawMessage: Value assigned to variable $hookScripts is never read before being overwritten.
+			identifier: assign.overwritten
+			count: 1
+			path: repo/src/Core/Framework/Script/Execution/ScriptLoader.php
 
 		-
 			rawMessage: 'Method Shopware\Core\Framework\Script\Facade\ArrayFacade::getIterator() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -1237,6 +1357,12 @@ parameters:
 			path: repo/src/Core/Kernel.php
 
 		-
+			rawMessage: Offset 'language_id' of array assigned to variable $slotTranslationData is never read before being overwritten.
+			identifier: array.offsetOverwritten
+			count: 1
+			path: repo/src/Core/Migration/V6_3/Migration1575010262AddCmsFormLayouts.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Migration\V6_3\Migration1590758953ProductFeatureSet::fetchLanguageIds() should return array{0?: string} but returns array<mixed, mixed>.'
 			identifier: return.type
 			count: 1
@@ -1265,6 +1391,12 @@ parameters:
 			identifier: nullCoalesce.unnecessary
 			count: 2
 			path: repo/src/Core/Service/AppInfo.php
+
+		-
+			rawMessage: Foreach overwrites $field with its value variable.
+			identifier: foreach.valueOverwrite
+			count: 1
+			path: repo/src/Core/System/CustomEntity/Schema/DynamicFieldFactory.php
 
 		-
 			rawMessage: 'Method Shopware\Core\System\DependencyInjection\CompilerPass\SalesChannelEntityCompilerPass::formatData() should return array<string, array{entityName: string, fallback?: string}> but returns array<string, array{entityName: string, fallBack?: mixed}>.'
@@ -1405,16 +1537,40 @@ parameters:
 			path: repo/src/Elasticsearch/Profiler/ClientProfiler.php
 
 		-
+			rawMessage: Foreach overwrites $languageQuery with its value variable.
+			identifier: foreach.valueOverwrite
+			count: 1
+			path: repo/src/Elasticsearch/TokenQueryBuilder.php
+
+		-
 			rawMessage: 'Offset ''host'' might not exist on non-empty-array{scheme?: string, host?: string, port?: int<0, 65535>, user?: string, pass?: string, path?: string, query?: string, fragment?: string}.'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: repo/src/Storefront/Controller/ContextController.php
 
 		-
+			rawMessage: 'Variable $response is assigned value array{} but it already has that value.'
+			identifier: assign.redundant
+			count: 1
+			path: repo/src/Storefront/Controller/FormController.php
+
+		-
+			rawMessage: Foreach overwrites $validator with its value variable.
+			identifier: foreach.valueOverwrite
+			count: 1
+			path: repo/src/Storefront/Framework/Media/StorefrontMediaValidatorRegistry.php
+
+		-
 			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
 			identifier: nullCoalesce.unnecessary
 			count: 1
 			path: repo/src/Storefront/Framework/Seo/SeoUrlRoute/ProductPageSeoUrlRoute.php
+
+		-
+			rawMessage: Foreach overwrites $data with its value variable.
+			identifier: foreach.valueOverwrite
+			count: 1
+			path: repo/src/Storefront/Theme/ConfigLoader/DatabaseConfigLoader.php
 
 		-
 			rawMessage: 'Method Shopware\Storefront\Theme\Exception\ThemeConfigException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -1453,6 +1609,12 @@ parameters:
 			path: repo/src/Storefront/Theme/ThemeMergedConfigBuilder.php
 
 		-
+			rawMessage: 'Method Shopware\Storefront\Theme\ThemeMergedConfigBuilder::buildSnippetKey() has an unused parameter $themeTechnicalName.'
+			identifier: method.unusedParameter
+			count: 1
+			path: repo/src/Storefront/Theme/ThemeMergedConfigBuilder.php
+
+		-
 			rawMessage: 'Parameter #1 $assertType of method PHPStan\Testing\TypeInferenceTestCase::assertFileAsserts() expects string, bool|float|int|list<string>|PHPStan\TrinaryLogic|string|null given.'
 			identifier: argument.type
 			count: 1
@@ -1487,6 +1649,30 @@ parameters:
 			identifier: array.duplicateKey
 			count: 1
 			path: repo/tests/integration/Core/Checkout/Cart/Order/RecalculationServiceTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\Order\RecalculationServiceTest::toggleAutomaticPromotionsForDelivery() has an unused parameter $promotionId.'
+			identifier: method.unusedParameter
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Cart/Order/RecalculationServiceTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\Order\RecalculationServiceTest::toggleAutomaticPromotionsForDelivery() has an unused parameter $stateId.'
+			identifier: method.unusedParameter
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Cart/Order/RecalculationServiceTest.php
+
+		-
+			rawMessage: Variable $orderDateTime is never read.
+			identifier: variable.unused
+			count: 2
+			path: repo/tests/integration/Core/Checkout/Cart/Order/RecalculationServiceTest.php
+
+		-
+			rawMessage: Value assigned to variable $cart is never read.
+			identifier: assign.unused
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Cart/SalesChannel/CartServiceTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Cart\Tax\TaxCalculationTypeTest::calculationProvider() should return array<array{array<Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint>, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection}> but returns array{array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection}, array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection}, array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection}, array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, true}, array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, true}, array{array{Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint, Shopware\Tests\Integration\Core\Checkout\Cart\Tax\ItemBlueprint}, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, Shopware\Core\Checkout\Cart\Tax\Struct\CalculatedTaxCollection, true}}.'
@@ -1537,6 +1723,12 @@ parameters:
 			path: repo/tests/integration/Core/Checkout/Document/Renderer/CreditNoteRendererTest.php
 
 		-
+			rawMessage: Value assigned to variable $result is never read.
+			identifier: assign.unused
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Document/Renderer/CreditNoteRendererTest.php
+
+		-
 			rawMessage: 'Call to static method PHPUnit\Framework\Assert::assertInstanceOf() with ''Shopware\\Core\\Checkout\\Document\\Renderer\\RenderedDocument'' and Shopware\Core\Checkout\Document\Renderer\RenderedDocument will always evaluate to true.'
 			identifier: staticMethod.alreadyNarrowedType
 			count: 1
@@ -1567,6 +1759,12 @@ parameters:
 			path: repo/tests/integration/Core/Checkout/Document/Service/PdfRendererTest.php
 
 		-
+			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Order\OrderRepositoryTest::getOrderData() has an unused parameter $context.'
+			identifier: method.unusedParameter
+			count: 1
+			path: repo/tests/integration/Core/Checkout/Order/OrderRepositoryTest.php
+
+		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Checkout\Shipping\ShippingMethodRepositoryTest::createShippingMethodDummyArray() should return array<array{id: string, bindShippingfree: bool, name: string, tax_type: null, availabilityRule: array<string, mixed>, deliveryTime: array{id: string, name: string, min: int, max: int, unit: string}}> but returns array{array{id: string, bindShippingfree: false, name: ''test'', technicalName: ''shipping_test'', tax_type: null, availabilityRule: array{id: string, name: ''asd'', priority: 2}, deliveryTime: array{id: string, name: string, min: int, max: int, unit: string}}}.'
 			identifier: return.type
 			count: 1
@@ -1589,6 +1787,12 @@ parameters:
 			identifier: array.duplicateKey
 			count: 2
 			path: repo/tests/integration/Core/Content/Category/SalesChannel/CategoryRouteTest.php
+
+		-
+			rawMessage: Foreach overwrites $category with its value variable.
+			identifier: foreach.valueOverwrite
+			count: 1
+			path: repo/tests/integration/Core/Content/Category/SalesChannel/NavigationRouteTest.php
 
 		-
 			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
@@ -1699,6 +1903,18 @@ parameters:
 			path: repo/tests/integration/Core/Content/ImportExport/ImportExportTest.php
 
 		-
+			rawMessage: Value assigned to variable $upsertData is never read before being overwritten.
+			identifier: assign.overwritten
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/Repository/ImportExportLogRepositoryTest.php
+
+		-
+			rawMessage: 'Variable $upsertData is assigned value array{} but it already has that value.'
+			identifier: assign.redundant
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/Repository/ImportExportLogRepositoryTest.php
+
+		-
 			rawMessage: 'Parameter $record of method Shopware\Tests\Integration\Core\Content\ImportExport\Subscriber\ProductCategoryPathsSubscriberTest::testCategoryPathToAssignment() expects array<array<string, mixed>>, array<string, array<int, array<string, string>>> given.'
 			identifier: argument.type
 			count: 1
@@ -1807,6 +2023,18 @@ parameters:
 			path: repo/tests/integration/Core/Content/Product/Cms/ProductListingCmsElementResolverTest.php
 
 		-
+			rawMessage: Value assigned to variable $criteria is never read before being overwritten.
+			identifier: assign.overwritten
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/Repository/ProductSearchScoringTest.php
+
+		-
+			rawMessage: Foreach overwrites $id with its value variable.
+			identifier: foreach.valueOverwrite
+			count: 1
+			path: repo/tests/integration/Core/Content/Product/SalesChannel/ProductListingTest.php
+
+		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Content\Product\SalesChannel\ProductListingTest::createProducts() should return array<array{id: string, productNumber: string, width: string, stock: int, name: string}> but returns list<array{id: non-falsy-string, productNumber: non-falsy-string, width: literal-string&non-falsy-string&numeric-string, stock: 1, name: literal-string&non-falsy-string, price: array{array{currencyId: ''b7d2554b0ce847cd82f…'', gross: 10, net: 9, linked: false}}, manufacturer: array{id: string, name: ''test''}, tax: array{id: string, taxRate: 17, name: ''with id''}, ...}>.'
 			identifier: return.type
 			count: 1
@@ -1885,6 +2113,12 @@ parameters:
 			path: repo/tests/integration/Core/Framework/CustomField/CustomFieldServiceTest.php
 
 		-
+			rawMessage: Foreach value variable $categoryId is never read.
+			identifier: foreach.unusedValue
+			count: 1
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/Dbal/EntityForeignKeyResolverTest.php
+
+		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\EntityExtensionTest::getCategoriesData() should return array{id: string, productNumber: string, stock: int, name: string, ean: string, price: array{array{currencyId: string, gross: int, net: int, linked: bool}}, manufacturer: array{name: string}, tax: array{name: string, taxRate: int}, ...} but returns array{id: string, productNumber: non-falsy-string, stock: 1, name: ''category test'', ean: ''test'', price: array{array{currencyId: ''b7d2554b0ce847cd82f…'', gross: 15, net: 10, linked: false}}, manufacturer: array{name: ''test''}, tax: array{name: ''test'', taxRate: 15}, ...}.'
 			identifier: return.type
 			count: 1
@@ -1901,6 +2135,12 @@ parameters:
 			identifier: argument.type
 			count: 11
 			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/EntityRepositoryTest.php
+
+		-
+			rawMessage: 'Variable $expected is assigned value array{} but it already has that value.'
+			identifier: assign.redundant
+			count: 2
+			path: repo/tests/integration/Core/Framework/DataAbstractionLayer/Field/CustomFieldTranslationTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Integration\Core\Framework\DataAbstractionLayer\Field\PriceFieldTest::cashRoundingFilterProvider() should return array<string, array{0: Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, 1: list<array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}>, 2: list<string>, 3: Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig, 4?: string}> but returns array{''0.01 interval default currency'': array{Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}}, array{string, string}, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig}, ''0.01 interval currency fallback'': array{Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}, array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}}, array{string, string}, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig, string}, ''0.05 interval default currency'': array{Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, ...}, list<string>, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig}, ''0.05 interval currency fallback'': array{Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, ...}, list<string>, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig, string}, ''0.10 interval default currency'': array{Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}}, list<string>, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig}, ''0.10 interval currency fallback'': array{Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}}, list<string>, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig, string}, ''0.50 interval default currency'': array{Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, ...}, list<string>, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig}, ''0.50 interval currency fallback'': array{Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter, array{array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, array{id: string, data: array{array{currencyId: string, gross: float, net: 1, linked: true}}}, ...}, list<string>, Shopware\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig, string}, ...}.'
@@ -2047,6 +2287,12 @@ parameters:
 			path: repo/tests/integration/Core/Framework/FeatureFlag/IdleFeatureFlagTest.php
 
 		-
+			rawMessage: Variable $exception is never read.
+			identifier: variable.unused
+			count: 1
+			path: repo/tests/integration/Core/Framework/MessageQueue/ScheduledTask/ScheduledTaskHandlerTest.php
+
+		-
 			rawMessage: Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.
 			identifier: nullCoalesce.unnecessary
 			count: 1
@@ -2057,6 +2303,12 @@ parameters:
 			identifier: missingType.generics
 			count: 1
 			path: repo/tests/integration/Core/Framework/Seo/SeoUrl/SeoUrlRepositoryTest.php
+
+		-
+			rawMessage: Foreach overwrites $seoUrl with its value variable.
+			identifier: foreach.valueOverwrite
+			count: 1
+			path: repo/tests/integration/Core/Framework/Seo/SeoUrlPersisterTest.php
 
 		-
 			rawMessage: 'Parameter #1 $rawConfig of class Shopware\Core\Framework\Sso\Config\LoginConfigService constructor expects array{use_default: bool, client_id: non-empty-string, client_secret: non-empty-string, redirect_uri: non-empty-string, base_url: non-empty-string, authorize_path: non-empty-string, token_path: non-empty-string, jwks_path: non-empty-string, ...}, array{use_default: false, client_id: ''client_id'', client_secret: ''client_secret'', redirect_uri: ''http://redirect.uri'', base_url: ''http://base.uri'', session_key: ''session_key'', authorize_path: ''/authorize'', token_path: ''/token'', ...} given.'
@@ -2173,6 +2425,12 @@ parameters:
 			path: repo/tests/integration/Elasticsearch/Product/ProductSearchQueryBuilderTest.php
 
 		-
+			rawMessage: 'Method Shopware\Tests\Integration\Storefront\Controller\DocumentControllerTest::createCustomer() has an unused parameter $paymentMethodId.'
+			identifier: method.unusedParameter
+			count: 1
+			path: repo/tests/integration/Storefront/Controller/DocumentControllerTest.php
+
+		-
 			rawMessage: 'Offset 1 might not exist on array{}|array{non-falsy-string, string}.'
 			identifier: offsetAccess.notFound
 			count: 1
@@ -2183,6 +2441,12 @@ parameters:
 			identifier: argument.type
 			count: 10
 			path: repo/tests/integration/Storefront/Framework/Routing/RequestTransformerTest.php
+
+		-
+			rawMessage: 'Value assigned to $arguments[] is never read.'
+			identifier: assign.unused
+			count: 1
+			path: repo/tests/integration/Storefront/Theme/Command/ThemeChangeCommandTest.php
 
 		-
 			rawMessage: 'Parameter #2 $app of method Shopware\Core\Framework\App\Lifecycle\AbstractAppLifecycle::delete() expects array{id: string}, array{id: string, name: string, roleId: string} given.'
@@ -2345,6 +2609,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Checkout/Document/Service/DocumentGeneratorTest.php
+
+		-
+			rawMessage: Value of variable $position after ++ is never read.
+			identifier: preInc.unused
+			count: 1
+			path: repo/tests/unit/Core/Checkout/Document/Zugferd/ZugferdDocumentTest.php
 
 		-
 			rawMessage: 'Parameter $mappings of method Shopware\Tests\Unit\Core\Checkout\Order\OrderAddressServiceTest::testValidateInvalidMapping() expects list<array{customerAddressId: string, type: ''billing''}|array{customerAddressId: string, type: ''shipping'', deliveryId: string}>, array{array{customerAddressId: ''123'', type: ''invalid''}} given.'
@@ -2701,10 +2971,40 @@ parameters:
 			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Dbal/CriteriaFieldsResolverTest.php
 
 		-
+			rawMessage: 'Call to an undefined method Shopware\Core\Framework\DataAbstractionLayer\Entity::all().'
+			identifier: method.notFound
+			count: 2
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Dbal/EntityHydratorTest.php
+
+		-
+			rawMessage: 'Call to an undefined method Shopware\Core\Framework\DataAbstractionLayer\Entity::getId().'
+			identifier: method.notFound
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Dbal/EntityHydratorTest.php
+
+		-
+			rawMessage: 'Mixed variable in a `$first->get(''warehouse'')->...()` can skip important errors. Make sure the type is known'
+			identifier: typePerfect.noMixedMethodCaller
+			count: 4
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Dbal/EntityHydratorTest.php
+
+		-
+			rawMessage: 'Mixed variable in a `$first->get(''zipcode'')->...()` can skip important errors. Make sure the type is known'
+			identifier: typePerfect.noMixedMethodCaller
+			count: 2
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Dbal/EntityHydratorTest.php
+
+		-
 			rawMessage: 'Offset 1 might not exist on array{}|array{non-falsy-string, non-empty-string}.'
 			identifier: offsetAccess.notFound
 			count: 1
 			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Dbal/QueryBuilderTest.php
+
+		-
+			rawMessage: Value assigned to variable $e is never read before being overwritten.
+			identifier: assign.overwritten
+			count: 1
+			path: repo/tests/unit/Core/Framework/DataAbstractionLayer/Doctrine/RetryableTransactionTest.php
 
 		-
 			rawMessage: 'Method Shopware\Tests\Unit\Core\Framework\DataAbstractionLayer\Field\TestFieldSerializer::encode() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
@@ -3337,6 +3637,12 @@ parameters:
 			path: repo/tests/unit/Core/Framework/Sso/Config/LoginConfigServiceTest.php
 
 		-
+			rawMessage: Variable $router is never read.
+			identifier: variable.unused
+			count: 1
+			path: repo/tests/unit/Core/Framework/Sso/TokenService/ExternalTokenServiceTest.php
+
+		-
 			rawMessage: 'Parameter #3 $sets of class Shopware\Core\Framework\Util\HtmlSanitizer constructor expects array<string, array{name?: string, tags?: list<string>, attributes?: list<string>, options?: array<string, mixed>, custom_attributes?: array<string, array<string, list<string>>>}>, array<string, array<string, mixed>> given.'
 			identifier: argument.type
 			count: 4
@@ -3379,6 +3685,12 @@ parameters:
 			path: repo/tests/unit/Core/Maintenance/System/Service/ShopConfiguratorTest.php
 
 		-
+			rawMessage: Variable $manifest is never read.
+			identifier: variable.unused
+			count: 1
+			path: repo/tests/unit/Core/Service/ServiceLifecycleTest.php
+
+		-
 			rawMessage: 'Parameter #1 $response of method Shopware\Tests\Unit\Core\Service\ServiceRegistry\ClientTest::testInvalidResponseBodyReturnsEmptyListOfServices() expects string, string|false given.'
 			identifier: argument.type
 			count: 7
@@ -3389,6 +3701,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Core/Service/ServiceRegistry/ClientTest.php
+
+		-
+			rawMessage: Offset 1 of array assigned to variable $definitions is never read.
+			identifier: array.unusedOffset
+			count: 1
+			path: repo/tests/unit/Core/System/CustomEntity/CustomEntityRegistrarTest.php
 
 		-
 			rawMessage: 'Parameter #1 $source of method DOMDocument::loadXML() expects non-empty-string, string given.'
@@ -3715,6 +4033,30 @@ parameters:
 			path: repo/tests/unit/Elasticsearch/TokenQueryBuilderTest.php
 
 		-
+			rawMessage: 'Method Shopware\Tests\Unit\Storefront\Checkout\Payment\BlockedPaymentMethodSwitcherTest::callbackLoadPaymentMethodsForAllBlocked() has an unused parameter $context.'
+			identifier: method.unusedParameter
+			count: 1
+			path: repo/tests/unit/Storefront/Checkout/Payment/BlockedPaymentMethodSwitcherTest.php
+
+		-
+			rawMessage: 'Method Shopware\Tests\Unit\Storefront\Checkout\Payment\BlockedPaymentMethodSwitcherTest::callbackLoadPaymentMethodsForAllBlocked() has an unused parameter $request.'
+			identifier: method.unusedParameter
+			count: 1
+			path: repo/tests/unit/Storefront/Checkout/Payment/BlockedPaymentMethodSwitcherTest.php
+
+		-
+			rawMessage: Variable $response is never read.
+			identifier: variable.unused
+			count: 3
+			path: repo/tests/unit/Storefront/Controller/CookieControllerTest.php
+
+		-
+			rawMessage: Value assigned to variable $page is never read.
+			identifier: assign.unused
+			count: 1
+			path: repo/tests/unit/Storefront/Page/Account/Order/AccountOrderEditPageLoaderTest.php
+
+		-
 			rawMessage: 'Parameter #1 $config of method Shopware\Tests\Unit\Storefront\Theme\ThemeCompilerTest::testDumpVariables() expects array<string>, array<string, array<string, array<string, array<int|string, bool|int|list<array<string, string>>|string>|bool|string>>> given.'
 			identifier: argument.type
 			count: 1
@@ -3737,6 +4079,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/unit/Storefront/Theme/ThemeCompilerTest.php
+
+		-
+			rawMessage: Foreach overwrites $path with its value variable.
+			identifier: foreach.valueOverwrite
+			count: 1
+			path: repo/tests/unit/Storefront/Theme/ThemeFileResolverTest.php
 
 		-
 			rawMessage: 'Parameter #1 $data of method Shopware\Tests\Unit\Storefront\Theme\Validator\SCSSValidatorTest::testValidateNoSanitize() expects array<string, string>, array<string, int|string> given.'

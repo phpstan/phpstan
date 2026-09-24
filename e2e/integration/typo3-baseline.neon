@@ -7,10 +7,10 @@ parameters:
 			path: repo/typo3/sysext/backend/Classes/EventListener/FailedLoginAttemptNotification.php
 
 		-
-			rawMessage: 'Call to function is_array() with array will always evaluate to true.'
-			identifier: function.alreadyNarrowedType
+			rawMessage: 'Strict comparison using !== between non-empty-array<int<1, max>, 1> and array{} will always evaluate to true.'
+			identifier: notIdentical.alwaysTrue
 			count: 1
-			path: repo/typo3/sysext/backend/Classes/Form/Wizard/SuggestWizardDefaultReceiver.php
+			path: repo/typo3/sysext/backend/Classes/Form/Element/BackendLayoutWizardElement.php
 
 		-
 			rawMessage: Dead catch - ArgumentCountError is never thrown in the try block.
@@ -29,12 +29,6 @@ parameters:
 			identifier: catch.neverThrown
 			count: 1
 			path: repo/typo3/sysext/core/Classes/DataHandling/DataHandler.php
-
-		-
-			rawMessage: 'Offset ''scope'' on array{0: non-falsy-string, flags: non-falsy-string, 1: non-falsy-string, scope: non-empty-string, 2: non-empty-string, subject: non-empty-string, 3: non-empty-string, aspects: string, ...} on left side of ?? always exists and is not nullable.'
-			identifier: nullCoalesce.offset
-			count: 1
-			path: repo/typo3/sysext/core/Classes/DataHandling/Model/CorrelationId.php
 
 		-
 			rawMessage: Dead catch - ArgumentCountError is never thrown in the try block.
