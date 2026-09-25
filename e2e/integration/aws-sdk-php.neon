@@ -1,0 +1,9 @@
+includes:
+	- repo/phpstan.neon
+	- aws-sdk-php-baseline.neon
+	- editor-link-repo.php
+
+parameters:
+	paths:
+		- repo/src
+	reportUnmatchedIgnoredErrors: false
