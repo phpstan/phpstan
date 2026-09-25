@@ -445,6 +445,12 @@ parameters:
 			path: repo/src/Symfony/Bridge/PhpUnit/CoverageListener.php
 
 		-
+			message: '#^Class Symfony\\Bridge\\PhpUnit\\CoverageListener implements deprecated interface PHPUnit\\Framework\\TestListener\.$#'
+			identifier: class.implementsDeprecatedInterface
+			count: 1
+			path: repo/src/Symfony/Bridge/PhpUnit/CoverageListener.php
+
+		-
 			message: '#^Instantiated class PHPUnit\\Framework\\Warning not found\.$#'
 			identifier: class.notFound
 			count: 1
@@ -453,6 +459,15 @@ parameters:
 		-
 			message: '#^Parameter \#1 \$objectOrValue of method ReflectionProperty\:\:setValue\(\) expects object\|null, string given\.$#'
 			identifier: argument.type
+			count: 1
+			path: repo/src/Symfony/Bridge/PhpUnit/CoverageListener.php
+
+		-
+			message: '''
+				#^Usage of deprecated trait PHPUnit\\Framework\\TestListenerDefaultImplementation in class Symfony\\Bridge\\PhpUnit\\CoverageListener\:
+				The `TestListener` interface is deprecated$#
+			'''
+			identifier: traitUse.deprecatedTrait
 			count: 1
 			path: repo/src/Symfony/Bridge/PhpUnit/CoverageListener.php
 
@@ -547,12 +562,6 @@ parameters:
 			path: repo/src/Symfony/Bridge/PhpUnit/ExpectUserDeprecationMessageTrait.php
 
 		-
-			message: '#^Access to an undefined property Symfony\\Bridge\\PhpUnit\\Legacy\\CommandForV8\:\:\$arguments\.$#'
-			identifier: property.notFound
-			count: 1
-			path: repo/src/Symfony/Bridge/PhpUnit/Legacy/CommandForV8.php
-
-		-
 			message: '#^Call to an undefined method Symfony\\Bridge\\PhpUnit\\SymfonyTestsListener\:\:globalListenerDisabled\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -571,18 +580,6 @@ parameters:
 			path: repo/src/Symfony/Bridge/PhpUnit/Legacy/CommandForV8.php
 
 		-
-			message: '#^Symfony\\Bridge\\PhpUnit\\Legacy\\CommandForV8\:\:createRunner\(\) calls parent\:\:createRunner\(\) but Symfony\\Bridge\\PhpUnit\\Legacy\\CommandForV8 does not extend any class\.$#'
-			identifier: class.noParent
-			count: 1
-			path: repo/src/Symfony/Bridge/PhpUnit/Legacy/CommandForV8.php
-
-		-
-			message: '#^Access to an undefined property Symfony\\Bridge\\PhpUnit\\Legacy\\CommandForV9\:\:\$arguments\.$#'
-			identifier: property.notFound
-			count: 1
-			path: repo/src/Symfony/Bridge/PhpUnit/Legacy/CommandForV9.php
-
-		-
 			message: '#^Call to an undefined method Symfony\\Bridge\\PhpUnit\\SymfonyTestsListener\:\:globalListenerDisabled\(\)\.$#'
 			identifier: method.notFound
 			count: 1
@@ -591,12 +588,6 @@ parameters:
 		-
 			message: '#^Call to an undefined static method PHPUnit\\TextUI\\Configuration\\Registry\:\:getInstance\(\)\.$#'
 			identifier: staticMethod.notFound
-			count: 1
-			path: repo/src/Symfony/Bridge/PhpUnit/Legacy/CommandForV9.php
-
-		-
-			message: '#^Symfony\\Bridge\\PhpUnit\\Legacy\\CommandForV9\:\:createRunner\(\) calls parent\:\:createRunner\(\) but Symfony\\Bridge\\PhpUnit\\Legacy\\CommandForV9 does not extend any class\.$#'
-			identifier: class.noParent
 			count: 1
 			path: repo/src/Symfony/Bridge/PhpUnit/Legacy/CommandForV9.php
 
@@ -635,6 +626,21 @@ parameters:
 			identifier: trait.unused
 			count: 1
 			path: repo/src/Symfony/Bridge/PhpUnit/Legacy/PolyfillAssertTrait.php
+
+		-
+			message: '#^Class Symfony\\Bridge\\PhpUnit\\Legacy\\SymfonyTestsListenerForV7 implements deprecated interface PHPUnit\\Framework\\TestListener\.$#'
+			identifier: class.implementsDeprecatedInterface
+			count: 1
+			path: repo/src/Symfony/Bridge/PhpUnit/Legacy/SymfonyTestsListenerForV7.php
+
+		-
+			message: '''
+				#^Usage of deprecated trait PHPUnit\\Framework\\TestListenerDefaultImplementation in class Symfony\\Bridge\\PhpUnit\\Legacy\\SymfonyTestsListenerForV7\:
+				The `TestListener` interface is deprecated$#
+			'''
+			identifier: traitUse.deprecatedTrait
+			count: 1
+			path: repo/src/Symfony/Bridge/PhpUnit/Legacy/SymfonyTestsListenerForV7.php
 
 		-
 			message: '#^Access to constant STATUS_ERROR on an unknown class PHPUnit\\Runner\\BaseTestRunner\.$#'
@@ -7780,78 +7786,6 @@ parameters:
 			identifier: booleanAnd.rightAlwaysTrue
 			count: 1
 			path: repo/src/Symfony/Component/Runtime/GenericRuntime.php
-
-		-
-			message: '#^Access to constant POST_AUTOLOAD_DUMP on an unknown class Composer\\Script\\ScriptEvents\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/src/Symfony/Component/Runtime/Internal/ComposerPlugin.php
-
-		-
-			message: '#^Call to method getConfig\(\) on an unknown class Composer\\Composer\.$#'
-			identifier: class.notFound
-			count: 2
-			path: repo/src/Symfony/Component/Runtime/Internal/ComposerPlugin.php
-
-		-
-			message: '#^Call to method getPackage\(\) on an unknown class Composer\\Composer\.$#'
-			identifier: class.notFound
-			count: 2
-			path: repo/src/Symfony/Component/Runtime/Internal/ComposerPlugin.php
-
-		-
-			message: '#^Call to static method getComposerFile\(\) on an unknown class Composer\\Factory\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/src/Symfony/Component/Runtime/Internal/ComposerPlugin.php
-
-		-
-			message: '#^Parameter \$composer of method Symfony\\Component\\Runtime\\Internal\\ComposerPlugin\:\:activate\(\) has invalid type Composer\\Composer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/src/Symfony/Component/Runtime/Internal/ComposerPlugin.php
-
-		-
-			message: '#^Parameter \$composer of method Symfony\\Component\\Runtime\\Internal\\ComposerPlugin\:\:deactivate\(\) has invalid type Composer\\Composer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/src/Symfony/Component/Runtime/Internal/ComposerPlugin.php
-
-		-
-			message: '#^Parameter \$composer of method Symfony\\Component\\Runtime\\Internal\\ComposerPlugin\:\:uninstall\(\) has invalid type Composer\\Composer\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/src/Symfony/Component/Runtime/Internal/ComposerPlugin.php
-
-		-
-			message: '#^Parameter \$io of method Symfony\\Component\\Runtime\\Internal\\ComposerPlugin\:\:activate\(\) has invalid type Composer\\IO\\IOInterface\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/src/Symfony/Component/Runtime/Internal/ComposerPlugin.php
-
-		-
-			message: '#^Parameter \$io of method Symfony\\Component\\Runtime\\Internal\\ComposerPlugin\:\:deactivate\(\) has invalid type Composer\\IO\\IOInterface\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/src/Symfony/Component/Runtime/Internal/ComposerPlugin.php
-
-		-
-			message: '#^Parameter \$io of method Symfony\\Component\\Runtime\\Internal\\ComposerPlugin\:\:uninstall\(\) has invalid type Composer\\IO\\IOInterface\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/src/Symfony/Component/Runtime/Internal/ComposerPlugin.php
-
-		-
-			message: '#^Property Symfony\\Component\\Runtime\\Internal\\ComposerPlugin\:\:\$composer has unknown class Composer\\Composer as its type\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/src/Symfony/Component/Runtime/Internal/ComposerPlugin.php
-
-		-
-			message: '#^Property Symfony\\Component\\Runtime\\Internal\\ComposerPlugin\:\:\$io has unknown class Composer\\IO\\IOInterface as its type\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/src/Symfony/Component/Runtime/Internal/ComposerPlugin.php
 
 		-
 			message: '#^Property Symfony\\Component\\Runtime\\Internal\\ComposerPlugin\:\:\$io is never read, only written\.$#'
