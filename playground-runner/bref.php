@@ -95,18 +95,6 @@ return function ($event) use ($phpstanVersion) {
 	require_once 'phar://' . $rootDir . '/vendor/phpstan/phpstan/phpstan.phar/stubs/runtime/Enum/ReflectionEnumBackedCase.php';
 
 	$containerFactory = new \PHPStan\DependencyInjection\ContainerFactory('/tmp');
-
-	// ContainerFactory::postInitializeContainer() skips resetting PHPStan's global state
-	// (BetterReflection, the reflection provider and PHP version accessors, ObjectType and
-	// TypeCombinator caches, the feature toggles) when the new container happens to get the
-	// same spl_object_id as the previous one. With BREF_LOOP_MAX above 1 several containers
-	// are built in one process, so that is no longer impossible - and it would fail silently,
-	// analysing the request against the previous request's PHP version. Forgetting the last
-	// id makes the reset unconditional; it measured at ~7 ms.
-	$lastContainerId = new ReflectionProperty(\PHPStan\DependencyInjection\ContainerFactory::class, 'lastInitializedContainerId');
-	$lastContainerId->setAccessible(true);
-	$lastContainerId->setValue(null, null);
-
 	$container = $containerFactory->create(
 		'/tmp',
 		[sprintf('%s/config.level%s.neon', $containerFactory->getConfigDirectory(), $level), $finalConfigFile],
