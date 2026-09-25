@@ -557,8 +557,16 @@ jobs:
             setup: |
               # mirrors the PHPStan job in Symfony's .github/workflows/static-analysis.yml
               export COMPOSER_ROOT_VERSION=8.2.x-dev
+              # lets PHPStan see that a few methods always return; their return.missing errors are non-ignorable
+              git apply ../symfony.patch
               composer remove --dev --no-update --no-interaction symfony/phpunit-bridge
-              composer require --dev --no-progress --no-plugins --no-interaction --ignore-platform-req=ext-mongodb phpstan/phpstan-deprecation-rules phpunit/phpunit:^11.5 php-http/discovery psr/event-dispatcher mongodb/mongodb
+              # composer/composer is needed by the Runtime component's ComposerPlugin
+              composer require --dev --no-progress --no-plugins --no-interaction --ignore-platform-req=ext-mongodb phpstan/phpstan-deprecation-rules phpunit/phpunit:^11.5 php-http/discovery psr/event-dispatcher mongodb/mongodb composer/composer
+              # PHPUnit 9 symbols used by the PhpUnit bridge, removed in PHPUnit 10, scanned via symfony.neon
+              mkdir .phpunit9
+              for f in Framework/TestListener.php Framework/TestListenerDefaultImplementation.php TextUI/Command.php; do
+                curl -fsSL "https://raw.githubusercontent.com/sebastianbergmann/phpunit/9.6.37/src/$f" -o ".phpunit9/$(basename "$f")"
+              done
             # the autoload file makes Symfony's custom rules in .github/sa-tools/rules loadable
             phpstan-command: ../../../phpstan.phar analyse -c ../symfony.neon --autoload-file=.github/sa-tools/rules/bootstrap.php --memory-limit=2G
             baseline-file: symfony-baseline.neon

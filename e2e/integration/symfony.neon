@@ -5,3 +5,7 @@ includes:
 
 parameters:
 	reportUnmatchedIgnoredErrors: false
+	scanFiles:
+		- repo/.phpunit9/TestListener.php
+		- repo/.phpunit9/TestListenerDefaultImplementation.php
+		- repo/.phpunit9/Command.php

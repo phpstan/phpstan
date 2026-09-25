@@ -1,0 +1,47 @@
+diff --git a/src/Symfony/Component/Cache/Adapter/TagAwareAdapter.php b/src/Symfony/Component/Cache/Adapter/TagAwareAdapter.php
+index cbf43e4dd0..281919613e 100644
+--- a/src/Symfony/Component/Cache/Adapter/TagAwareAdapter.php
++++ b/src/Symfony/Component/Cache/Adapter/TagAwareAdapter.php
+@@ -139,6 +139,8 @@ class TagAwareAdapter implements TagAwareAdapterInterface, TagAwareCacheInterfac
+         foreach ($this->getItems([$key]) as $item) {
+             return $item;
+         }
++
++        throw new \LogicException('getItems() did not return the requested item.');
+     }
+ 
+     public function getItems(array $keys = []): iterable
+diff --git a/src/Symfony/Component/DependencyInjection/Compiler/CheckExceptionOnInvalidReferenceBehaviorPass.php b/src/Symfony/Component/DependencyInjection/Compiler/CheckExceptionOnInvalidReferenceBehaviorPass.php
+index 7ad07984eb..c4700b5ed9 100644
+--- a/src/Symfony/Component/DependencyInjection/Compiler/CheckExceptionOnInvalidReferenceBehaviorPass.php
++++ b/src/Symfony/Component/DependencyInjection/Compiler/CheckExceptionOnInvalidReferenceBehaviorPass.php
+@@ -83,7 +83,7 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends AbstractRecursivePass
+         $this->throwServiceNotFoundException($value, $currentId, $value);
+     }
+ 
+-    private function throwServiceNotFoundException(Reference $ref, string $sourceId, mixed $value): void
++    private function throwServiceNotFoundException(Reference $ref, string $sourceId, mixed $value): never
+     {
+         $id = (string) $ref;
+         $alternatives = [];
+@@ -121,5 +121,7 @@ class CheckExceptionOnInvalidReferenceBehaviorPass extends AbstractRecursivePass
+         $pass->alternatives = $alternatives;
+ 
+         $pass->processValue($value, true);
++
++        throw new ServiceNotFoundException($id, $sourceId, null, $alternatives);
+     }
+ }
+diff --git a/src/Symfony/Component/ExpressionLanguage/Node/GetAttrNode.php b/src/Symfony/Component/ExpressionLanguage/Node/GetAttrNode.php
+index 9554fd0eef..8e1119e9c7 100644
+--- a/src/Symfony/Component/ExpressionLanguage/Node/GetAttrNode.php
++++ b/src/Symfony/Component/ExpressionLanguage/Node/GetAttrNode.php
+@@ -17,6 +17,8 @@ use Symfony\Component\ExpressionLanguage\Compiler;
+  * @author Fabien Potencier <fabien@symfony.com>
+  *
+  * @internal
++ *
++ * @property array{type: self::*, is_null_coalesce: bool, is_short_circuited: bool, is_null_safe: bool} $attributes
+  */
+ class GetAttrNode extends Node
+ {
