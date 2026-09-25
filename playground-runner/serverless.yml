@@ -17,6 +17,7 @@ plugins:
 package:
   patterns:
     - '!node_modules/**'
+    - '!smoke-test.*'
 
 functions:
     main:

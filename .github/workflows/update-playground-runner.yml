@@ -63,10 +63,6 @@ jobs:
           touch empty.php
           ../phpstan analyse -c playground.neon -l 8 empty.php
 
-      - name: "Analyse"
-        working-directory: ./playground-runner
-        run: "../phpstan"
-
       - name: "Copy current PHAR"
         working-directory: ./playground-runner
         run: |
@@ -77,6 +73,15 @@ jobs:
       - name: "Clean Git directory"
         working-directory: ./playground-runner
         run: rm -rf vendor/phpstan/phpstan/.git
+
+      # After copying the PHAR, so the runner is checked against the PHPStan it will run
+      - name: "Analyse"
+        working-directory: ./playground-runner
+        run: "../phpstan"
+
+      - name: "Smoke test"
+        working-directory: ./playground-runner
+        run: "./smoke-test.sh"
 
       # The DI containers are compiled by the deployed function itself, because their
       # cache key contains the absolute paths inside the Lambda package. So: deploy,

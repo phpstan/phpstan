@@ -8,5 +8,6 @@ parameters:
 		- ignoreErrors.php
 		- precompile.php
 		- runner-config.php
+		- smoke-test.php
 		- xray.php
 		- src
