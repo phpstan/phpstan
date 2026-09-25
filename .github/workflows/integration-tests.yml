@@ -557,7 +557,9 @@ jobs:
             setup: |
               # mirrors the PHPStan job in Symfony's .github/workflows/static-analysis.yml
               export COMPOSER_ROOT_VERSION=8.2.x-dev
-              # lets PHPStan see that a few methods always return; their return.missing errors are non-ignorable
+              # avoids non-ignorable errors: lets PHPStan see that a few methods always return, and regenerates
+              # RedisProxy and RedisClusterProxy from phpredis 6c1fbf86ae, which fixed the RedisCluster return types
+              # that phpstorm-stubs already have
               git apply ../symfony.patch
               composer remove --dev --no-update --no-interaction symfony/phpunit-bridge
               # composer/composer is needed by the Runtime component's ComposerPlugin

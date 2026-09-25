@@ -11,6 +11,490 @@ index cbf43e4dd0..281919613e 100644
      }
  
      public function getItems(array $keys = []): iterable
+diff --git a/src/Symfony/Component/Cache/Traits/RedisClusterProxy.php b/src/Symfony/Component/Cache/Traits/RedisClusterProxy.php
+index 11ddde8e0c..ce62a58ed9 100644
+--- a/src/Symfony/Component/Cache/Traits/RedisClusterProxy.php
++++ b/src/Symfony/Component/Cache/Traits/RedisClusterProxy.php
+@@ -114,7 +114,7 @@ class RedisClusterProxy extends \RedisCluster implements ResetInterface, LazyObj
+         return $this->initializeLazyObject()->bitpos(...\func_get_args());
+     }
+ 
+-    public function blmove($src, $dst, $wherefrom, $whereto, $timeout): \Redis|false|string
++    public function blmove($src, $dst, $wherefrom, $whereto, $timeout): \RedisCluster|false|string
+     {
+         return $this->initializeLazyObject()->blmove(...\func_get_args());
+     }
+@@ -219,6 +219,11 @@ class RedisClusterProxy extends \RedisCluster implements ResetInterface, LazyObj
+         return $this->initializeLazyObject()->del(...\func_get_args());
+     }
+ 
++    public function delifeq($key, $value): \RedisCluster|false|int
++    {
++        return $this->initializeLazyObject()->delifeq(...\func_get_args());
++    }
++
+     public function discard(): bool
+     {
+         return $this->initializeLazyObject()->discard(...\func_get_args());
+@@ -274,6 +279,16 @@ class RedisClusterProxy extends \RedisCluster implements ResetInterface, LazyObj
+         return $this->initializeLazyObject()->expireat(...\func_get_args());
+     }
+ 
++    public function expiremember($key, $field, $ttl, $unit = null): \RedisCluster|false|int
++    {
++        return $this->initializeLazyObject()->expiremember(...\func_get_args());
++    }
++
++    public function expirememberat($key, $field, $timestamp): \RedisCluster|false|int
++    {
++        return $this->initializeLazyObject()->expirememberat(...\func_get_args());
++    }
++
+     public function expiretime($key): \RedisCluster|false|int
+     {
+         return $this->initializeLazyObject()->expiretime(...\func_get_args());
+@@ -344,11 +359,21 @@ class RedisClusterProxy extends \RedisCluster implements ResetInterface, LazyObj
+         return $this->initializeLazyObject()->get(...\func_get_args());
+     }
+ 
++    public function getWithMeta($key): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->getWithMeta(...\func_get_args());
++    }
++
+     public function getbit($key, $value): \RedisCluster|false|int
+     {
+         return $this->initializeLazyObject()->getbit(...\func_get_args());
+     }
+ 
++    public function getdel($key): mixed
++    {
++        return $this->initializeLazyObject()->getdel(...\func_get_args());
++    }
++
+     public function getex($key, $options = []): \RedisCluster|false|string
+     {
+         return $this->initializeLazyObject()->getex(...\func_get_args());
+@@ -394,16 +419,46 @@ class RedisClusterProxy extends \RedisCluster implements ResetInterface, LazyObj
+         return $this->initializeLazyObject()->hexists(...\func_get_args());
+     }
+ 
++    public function hexpire($key, $ttl, $fields, $mode = null): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->hexpire(...\func_get_args());
++    }
++
++    public function hexpireat($key, $time, $fields, $mode = null): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->hexpireat(...\func_get_args());
++    }
++
++    public function hexpiretime($key, $fields): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->hexpiretime(...\func_get_args());
++    }
++
+     public function hget($key, $member): mixed
+     {
+         return $this->initializeLazyObject()->hget(...\func_get_args());
+     }
+ 
++    public function hgetWithMeta($key, $member): mixed
++    {
++        return $this->initializeLazyObject()->hgetWithMeta(...\func_get_args());
++    }
++
+     public function hgetall($key): \RedisCluster|array|false
+     {
+         return $this->initializeLazyObject()->hgetall(...\func_get_args());
+     }
+ 
++    public function hgetdel($key, $fields): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->hgetdel(...\func_get_args());
++    }
++
++    public function hgetex($key, $fields, $expiry = null): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->hgetex(...\func_get_args());
++    }
++
+     public function hincrby($key, $member, $value): \RedisCluster|false|int
+     {
+         return $this->initializeLazyObject()->hincrby(...\func_get_args());
+@@ -434,6 +489,31 @@ class RedisClusterProxy extends \RedisCluster implements ResetInterface, LazyObj
+         return $this->initializeLazyObject()->hmset(...\func_get_args());
+     }
+ 
++    public function hpersist($key, $fields): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->hpersist(...\func_get_args());
++    }
++
++    public function hpexpire($key, $ttl, $fields, $mode = null): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->hpexpire(...\func_get_args());
++    }
++
++    public function hpexpireat($key, $mstime, $fields, $mode = null): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->hpexpireat(...\func_get_args());
++    }
++
++    public function hpexpiretime($key, $fields): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->hpexpiretime(...\func_get_args());
++    }
++
++    public function hpttl($key, $fields): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->hpttl(...\func_get_args());
++    }
++
+     public function hrandfield($key, $options = null): \RedisCluster|array|string
+     {
+         return $this->initializeLazyObject()->hrandfield(...\func_get_args());
+@@ -449,6 +529,11 @@ class RedisClusterProxy extends \RedisCluster implements ResetInterface, LazyObj
+         return $this->initializeLazyObject()->hset(...\func_get_args());
+     }
+ 
++    public function hsetex($key, $fields, $expiry = null): \RedisCluster|false|int
++    {
++        return $this->initializeLazyObject()->hsetex(...\func_get_args());
++    }
++
+     public function hsetnx($key, $member, $value): \RedisCluster|bool
+     {
+         return $this->initializeLazyObject()->hsetnx(...\func_get_args());
+@@ -459,6 +544,11 @@ class RedisClusterProxy extends \RedisCluster implements ResetInterface, LazyObj
+         return $this->initializeLazyObject()->hstrlen(...\func_get_args());
+     }
+ 
++    public function httl($key, $fields): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->httl(...\func_get_args());
++    }
++
+     public function hvals($key): \RedisCluster|array|false
+     {
+         return $this->initializeLazyObject()->hvals(...\func_get_args());
+@@ -519,7 +609,7 @@ class RedisClusterProxy extends \RedisCluster implements ResetInterface, LazyObj
+         return $this->initializeLazyObject()->llen(...\func_get_args());
+     }
+ 
+-    public function lmove($src, $dst, $wherefrom, $whereto): \Redis|false|string
++    public function lmove($src, $dst, $wherefrom, $whereto): \RedisCluster|false|string
+     {
+         return $this->initializeLazyObject()->lmove(...\func_get_args());
+     }
+@@ -534,7 +624,7 @@ class RedisClusterProxy extends \RedisCluster implements ResetInterface, LazyObj
+         return $this->initializeLazyObject()->lpop(...\func_get_args());
+     }
+ 
+-    public function lpos($key, $value, $options = null): \Redis|array|bool|int|null
++    public function lpos($key, $value, $options = null): \RedisCluster|array|bool|int|null
+     {
+         return $this->initializeLazyObject()->lpos(...\func_get_args());
+     }
+@@ -909,6 +999,71 @@ class RedisClusterProxy extends \RedisCluster implements ResetInterface, LazyObj
+         return $this->initializeLazyObject()->unwatch(...\func_get_args());
+     }
+ 
++    public function vadd($key, $values, $element, $options = null): \RedisCluster|false|int
++    {
++        return $this->initializeLazyObject()->vadd(...\func_get_args());
++    }
++
++    public function vcard($key): \RedisCluster|false|int
++    {
++        return $this->initializeLazyObject()->vcard(...\func_get_args());
++    }
++
++    public function vdim($key): \RedisCluster|false|int
++    {
++        return $this->initializeLazyObject()->vdim(...\func_get_args());
++    }
++
++    public function vemb($key, $member, $raw = false): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->vemb(...\func_get_args());
++    }
++
++    public function vgetattr($key, $member, $decode = true): \RedisCluster|array|false|string
++    {
++        return $this->initializeLazyObject()->vgetattr(...\func_get_args());
++    }
++
++    public function vinfo($key): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->vinfo(...\func_get_args());
++    }
++
++    public function vismember($key, $member): \RedisCluster|bool
++    {
++        return $this->initializeLazyObject()->vismember(...\func_get_args());
++    }
++
++    public function vlinks($key, $member, $withscores = false): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->vlinks(...\func_get_args());
++    }
++
++    public function vrandmember($key, $count = 0): \RedisCluster|array|false|string
++    {
++        return $this->initializeLazyObject()->vrandmember(...\func_get_args());
++    }
++
++    public function vrange($key, $min, $max, $count = -1): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->vrange(...\func_get_args());
++    }
++
++    public function vrem($key, $member): \RedisCluster|false|int
++    {
++        return $this->initializeLazyObject()->vrem(...\func_get_args());
++    }
++
++    public function vsetattr($key, $member, $attributes): \RedisCluster|false|int
++    {
++        return $this->initializeLazyObject()->vsetattr(...\func_get_args());
++    }
++
++    public function vsim($key, $member, $options = null): \RedisCluster|array|false
++    {
++        return $this->initializeLazyObject()->vsim(...\func_get_args());
++    }
++
+     public function waitaof($key_or_address, $numlocal, $numreplicas, $timeout): \RedisCluster|array|false
+     {
+         return $this->initializeLazyObject()->waitaof(...\func_get_args());
+@@ -1044,7 +1199,7 @@ class RedisClusterProxy extends \RedisCluster implements ResetInterface, LazyObj
+         return $this->initializeLazyObject()->zmpop(...\func_get_args());
+     }
+ 
+-    public function zmscore($key, $member, ...$other_members): \Redis|array|false
++    public function zmscore($key, $member, ...$other_members): \RedisCluster|array|false
+     {
+         return $this->initializeLazyObject()->zmscore(...\func_get_args());
+     }
+diff --git a/src/Symfony/Component/Cache/Traits/RedisProxy.php b/src/Symfony/Component/Cache/Traits/RedisProxy.php
+index 883ba9d408..44edb4041c 100644
+--- a/src/Symfony/Component/Cache/Traits/RedisProxy.php
++++ b/src/Symfony/Component/Cache/Traits/RedisProxy.php
+@@ -219,6 +219,11 @@ class RedisProxy extends \Redis implements ResetInterface, LazyObjectInterface
+         return $this->initializeLazyObject()->delete(...\func_get_args());
+     }
+ 
++    public function delifeq($key, $value): \Redis|false|int
++    {
++        return $this->initializeLazyObject()->delifeq(...\func_get_args());
++    }
++
+     public function discard(): \Redis|bool
+     {
+         return $this->initializeLazyObject()->discard(...\func_get_args());
+@@ -274,6 +279,16 @@ class RedisProxy extends \Redis implements ResetInterface, LazyObjectInterface
+         return $this->initializeLazyObject()->expireAt(...\func_get_args());
+     }
+ 
++    public function expiremember($key, $field, $ttl, $unit = null): \Redis|false|int
++    {
++        return $this->initializeLazyObject()->expiremember(...\func_get_args());
++    }
++
++    public function expirememberat($key, $field, $timestamp): \Redis|false|int
++    {
++        return $this->initializeLazyObject()->expirememberat(...\func_get_args());
++    }
++
+     public function expiretime($key): \Redis|false|int
+     {
+         return $this->initializeLazyObject()->expiretime(...\func_get_args());
+@@ -439,6 +454,11 @@ class RedisProxy extends \Redis implements ResetInterface, LazyObjectInterface
+         return $this->initializeLazyObject()->getTransferredBytes(...\func_get_args());
+     }
+ 
++    public function getWithMeta($key): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->getWithMeta(...\func_get_args());
++    }
++
+     public function getset($key, $value): \Redis|false|string
+     {
+         return $this->initializeLazyObject()->getset(...\func_get_args());
+@@ -464,6 +484,11 @@ class RedisProxy extends \Redis implements ResetInterface, LazyObjectInterface
+         return $this->initializeLazyObject()->hGetAll(...\func_get_args());
+     }
+ 
++    public function hGetWithMeta($key, $member): mixed
++    {
++        return $this->initializeLazyObject()->hGetWithMeta(...\func_get_args());
++    }
++
+     public function hIncrBy($key, $field, $value): \Redis|false|int
+     {
+         return $this->initializeLazyObject()->hIncrBy(...\func_get_args());
+@@ -519,11 +544,71 @@ class RedisProxy extends \Redis implements ResetInterface, LazyObjectInterface
+         return $this->initializeLazyObject()->hVals(...\func_get_args());
+     }
+ 
++    public function hexpire($key, $ttl, $fields, $mode = null): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->hexpire(...\func_get_args());
++    }
++
++    public function hexpireat($key, $time, $fields, $mode = null): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->hexpireat(...\func_get_args());
++    }
++
++    public function hexpiretime($key, $fields): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->hexpiretime(...\func_get_args());
++    }
++
++    public function hgetdel($key, $fields): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->hgetdel(...\func_get_args());
++    }
++
++    public function hgetex($key, $fields, $expiry = null): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->hgetex(...\func_get_args());
++    }
++
++    public function hpersist($key, $fields): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->hpersist(...\func_get_args());
++    }
++
++    public function hpexpire($key, $ttl, $fields, $mode = null): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->hpexpire(...\func_get_args());
++    }
++
++    public function hpexpireat($key, $mstime, $fields, $mode = null): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->hpexpireat(...\func_get_args());
++    }
++
++    public function hpexpiretime($key, $fields): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->hpexpiretime(...\func_get_args());
++    }
++
++    public function hpttl($key, $fields): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->hpttl(...\func_get_args());
++    }
++
+     public function hscan($key, &$iterator, $pattern = null, $count = 0): \Redis|array|bool
+     {
+         return $this->initializeLazyObject()->hscan($key, $iterator, ...\array_slice(\func_get_args(), 2));
+     }
+ 
++    public function hsetex($key, $fields, $expiry = null): \Redis|false|int
++    {
++        return $this->initializeLazyObject()->hsetex(...\func_get_args());
++    }
++
++    public function httl($key, $fields): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->httl(...\func_get_args());
++    }
++
+     public function incr($key, $by = 1): \Redis|false|int
+     {
+         return $this->initializeLazyObject()->incr(...\func_get_args());
+@@ -899,6 +984,16 @@ class RedisProxy extends \Redis implements ResetInterface, LazyObjectInterface
+         return $this->initializeLazyObject()->select(...\func_get_args());
+     }
+ 
++    public function serverName(): false|string
++    {
++        return $this->initializeLazyObject()->serverName(...\func_get_args());
++    }
++
++    public function serverVersion(): false|string
++    {
++        return $this->initializeLazyObject()->serverVersion(...\func_get_args());
++    }
++
+     public function set($key, $value, $options = null): \Redis|bool|string
+     {
+         return $this->initializeLazyObject()->set(...\func_get_args());
+@@ -1049,6 +1144,71 @@ class RedisProxy extends \Redis implements ResetInterface, LazyObjectInterface
+         return $this->initializeLazyObject()->unwatch(...\func_get_args());
+     }
+ 
++    public function vadd($key, $values, $element, $options = null): \Redis|false|int
++    {
++        return $this->initializeLazyObject()->vadd(...\func_get_args());
++    }
++
++    public function vcard($key): \Redis|false|int
++    {
++        return $this->initializeLazyObject()->vcard(...\func_get_args());
++    }
++
++    public function vdim($key): \Redis|false|int
++    {
++        return $this->initializeLazyObject()->vdim(...\func_get_args());
++    }
++
++    public function vemb($key, $member, $raw = false): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->vemb(...\func_get_args());
++    }
++
++    public function vgetattr($key, $member, $decode = true): \Redis|array|false|string
++    {
++        return $this->initializeLazyObject()->vgetattr(...\func_get_args());
++    }
++
++    public function vinfo($key): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->vinfo(...\func_get_args());
++    }
++
++    public function vismember($key, $member): \Redis|bool
++    {
++        return $this->initializeLazyObject()->vismember(...\func_get_args());
++    }
++
++    public function vlinks($key, $member, $withscores = false): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->vlinks(...\func_get_args());
++    }
++
++    public function vrandmember($key, $count = 0): \Redis|array|false|string
++    {
++        return $this->initializeLazyObject()->vrandmember(...\func_get_args());
++    }
++
++    public function vrange($key, $min, $max, $count = -1): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->vrange(...\func_get_args());
++    }
++
++    public function vrem($key, $member): \Redis|false|int
++    {
++        return $this->initializeLazyObject()->vrem(...\func_get_args());
++    }
++
++    public function vsetattr($key, $member, $attributes): \Redis|false|int
++    {
++        return $this->initializeLazyObject()->vsetattr(...\func_get_args());
++    }
++
++    public function vsim($key, $member, $options = null): \Redis|array|false
++    {
++        return $this->initializeLazyObject()->vsim(...\func_get_args());
++    }
++
+     public function wait($numreplicas, $timeout): false|int
+     {
+         return $this->initializeLazyObject()->wait(...\func_get_args());
 diff --git a/src/Symfony/Component/DependencyInjection/Compiler/CheckExceptionOnInvalidReferenceBehaviorPass.php b/src/Symfony/Component/DependencyInjection/Compiler/CheckExceptionOnInvalidReferenceBehaviorPass.php
 index 7ad07984eb..c4700b5ed9 100644
 --- a/src/Symfony/Component/DependencyInjection/Compiler/CheckExceptionOnInvalidReferenceBehaviorPass.php
