@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: 'Parameter #1 $filename of function file_exists expects string, string|null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/ApplicationResolver.php
+
+		-
 			rawMessage: Switch condition comparison between 'nullabletimestamps'|'nullabletimestampstz'|'remembertoken'|'timestamps'|'timestampstz' and 'droptimestamps' is always false.
 			identifier: switch.alwaysFalse
 			count: 1
@@ -15,12 +21,6 @@ parameters:
 		-
 			rawMessage: Switch condition comparison between 'nullabletimestamps'|'nullabletimestampstz'|'timestamps'|'timestampstz' and 'dropremembertoken' is always false.
 			identifier: switch.alwaysFalse
-			count: 1
-			path: repo/src/Properties/SchemaAggregator.php
-
-		-
-			rawMessage: Value assigned to variable $firstMethodCall is never read.
-			identifier: assign.unused
 			count: 1
 			path: repo/src/Properties/SchemaAggregator.php
 
