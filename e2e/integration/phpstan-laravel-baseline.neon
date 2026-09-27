@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: 'Parameter #1 $filename of function file_exists expects string, string|null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/ApplicationResolver.php
+
+		-
 			rawMessage: Value assigned to variable $models is never read before being overwritten.
 			identifier: assign.overwritten
 			count: 1
