@@ -1,6 +1,7 @@
 /.* export-ignore
 /BACKERS.md export-ignore
 /CHANGELOG.md export-ignore
+/CLAUDE.md export-ignore
 /CODE_OF_CONDUCT.md export-ignore
 /docker export-ignore
 /e2e export-ignore
