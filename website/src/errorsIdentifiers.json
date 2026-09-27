@@ -13530,13 +13530,6 @@
             ]
         }
     },
-    "phpstanPlayground.staticWithoutType": {
-        "PHPStan\\Rules\\Playground\\StaticVarWithoutTypeRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Playground/StaticVarWithoutTypeRule.php#L35"
-            ]
-        }
-    },
     "phpstanPlayground.traitUnused": {
         "PHPStan\\Rules\\Playground\\NotAnalysedTraitRule": {
             "phpstan/phpstan-src": [
