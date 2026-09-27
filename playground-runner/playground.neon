@@ -7,10 +7,6 @@ rules:
 	- PHPStan\Rules\Playground\NoPhpCodeRule
 	- PHPStan\Rules\Playground\PhpdocCommentRule
 
-conditionalTags:
-	PHPStan\Rules\Playground\StaticVarWithoutTypeRule:
-		phpstan.rules.rule: %checkImplicitMixed%
-
 services:
 	-
 		class: PHPStanPlayground\XRay\AstNodesCollector
@@ -20,8 +16,6 @@ services:
 		class: PHPStanPlayground\XRay\ExprTypesCollector
 		tags:
 			- phpstan.collector
-	-
-		class: PHPStan\Rules\Playground\StaticVarWithoutTypeRule
 	-
 		class: PHPStan\Rules\Playground\PromoteParameterRule
 		arguments:
