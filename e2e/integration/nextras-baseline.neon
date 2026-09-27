@@ -43,12 +43,6 @@ parameters:
 			path: repo/src/Entity/AbstractEntity.php
 
 		-
-			rawMessage: Foreach value variable $metadataProperty is never read.
-			identifier: foreach.unusedValue
-			count: 1
-			path: repo/src/Entity/AbstractEntity.php
-
-		-
 			rawMessage: Cannot instantiate class using string|null.
 			identifier: new.nonObject
 			count: 1
@@ -71,12 +65,6 @@ parameters:
 			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: repo/src/Entity/Reflection/ModifierParser.php
-
-		-
-			rawMessage: Foreach value variable $metadataProperty is never read.
-			identifier: foreach.unusedValue
-			count: 1
-			path: repo/src/Entity/ToArrayConverter.php
 
 		-
 			rawMessage: 'Method Nextras\Orm\Mapper\Dbal\DbalMapper::createCollectionManyHasMany() should return Nextras\Orm\Collection\ICollection<Nextras\Orm\Entity\IEntity> but returns Nextras\Orm\Collection\ICollection<E of Nextras\Orm\Entity\IEntity>.'
@@ -175,12 +163,6 @@ parameters:
 			path: repo/src/Model/SimpleModelFactory.php
 
 		-
-			rawMessage: Foreach value variable $entity is never read.
-			identifier: foreach.unusedValue
-			count: 1
-			path: repo/src/Relationships/OneHasMany.php
-
-		-
 			rawMessage: 'Call to function assert() with true will always evaluate to true.'
 			identifier: function.alreadyNarrowedType
 			count: 1
@@ -191,6 +173,24 @@ parameters:
 			identifier: instanceof.alwaysTrue
 			count: 1
 			path: repo/src/Repository/RemovalHelper.php
+
+		-
+			rawMessage: 'Cannot access offset int|string on array{'''', ''Lorem'', ''ipsum'', ''dolor'', ''sit'', ''amet'', ''consectetur'', ''adipiscing'', ...}|false.'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/src/TestHelper/EntityCreator.php
+
+		-
+			rawMessage: 'Only booleans are allowed in a negated boolean, list<string>|false|null given.'
+			identifier: booleanNot.exprNotBoolean
+			count: 1
+			path: repo/src/TestHelper/EntityCreator.php
+
+		-
+			rawMessage: 'Parameter #1 $input of function array_rand expects non-empty-array, array{'''', ''Lorem'', ''ipsum'', ''dolor'', ''sit'', ''amet'', ''consectetur'', ''adipiscing'', ...}|false given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/TestHelper/EntityCreator.php
 
 		-
 			rawMessage: 'Parameter #1 $generator of method Nette\DI\ContainerLoader::load() expects callable(Nette\DI\Compiler): (string|null), Closure(Nette\DI\Compiler): void given.'
@@ -209,12 +209,6 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/tests/cases/integration/BridgeNetteDI/dic-finder.phpt
-
-		-
-			rawMessage: Catch variable $e is never read.
-			identifier: catch.unusedVariable
-			count: 1
-			path: repo/tests/cases/integration/Entity/entity.insert.phpt
 
 		-
 			rawMessage: Variable $tagA is never read.
@@ -245,18 +239,6 @@ parameters:
 			identifier: foreach.unusedValue
 			count: 1
 			path: 'repo/tests/cases/integration/Relationships/relationships.oneHasMany.isLoaded().phpt'
-
-		-
-			rawMessage: Catch variable $e is never read.
-			identifier: catch.unusedVariable
-			count: 1
-			path: repo/tests/cases/integration/Relationships/relationships.oneHasMany.persistence.phpt
-
-		-
-			rawMessage: Catch variable $e is never read.
-			identifier: catch.unusedVariable
-			count: 1
-			path: repo/tests/cases/integration/Relationships/relationships.oneHasMany.phpt
 
 		-
 			rawMessage: Variable $book is never read.
