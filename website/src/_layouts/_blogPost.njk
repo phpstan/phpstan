@@ -16,5 +16,10 @@ sectionTitle: Blog
 {% endblock %}
 
 {% block socialImages %}
-	{% socialImages title %}
+	{% if socialImage %}
+		<meta name="twitter:image" content="https://phpstan.org{{ socialImage }}" />
+		<meta property="og:image" content="https://phpstan.org{{ socialImage }}" />
+	{% else %}
+		{% socialImages title %}
+	{% endif %}
 {% endblock %}

@@ -29,6 +29,8 @@ Tags categorize articles:
 - `guides` - Explanations, tutorials, problem-solving articles
 - `other` - Website meta, process, non-technical
 
+Optional `socialImage: /images/some-image.png` replaces the generated title card used as og:image / twitter:image. Make it 1200×630 (1.91:1), the large link preview size of X, Facebook, Mastodon, Slack, LinkedIn and Reddit.
+
 ## Article Types and Their Patterns
 
 ### Release Announcements (tag: releases)
@@ -151,6 +153,10 @@ flowchart LR;
 Node1== label ==>Node2
 {% endmermaid %}
 ```
+
+### Line Charts
+
+Interactive line charts are rendered from a Markdown table wrapped in `<div class="line-chart">` together with a `<script type="application/json">` config (series columns, Tailwind color classes like `text-blue-600`, axis suffix, tooltip templates). The table stays in the page (visually hidden) for RSS and screen readers. The build renders a static SVG placeholder of each chart, which the script replaces with the interactive one. See the doc comment in `src/js/LineChart.ts` for the syntax and all options; `phpstan-2-3-leap-in-performance.md` has an example.
 
 ## Standard Closing
 

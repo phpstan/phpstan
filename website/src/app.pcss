@@ -23,6 +23,10 @@
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 @source "../tmp/**/*.html";
+@source "./js/LineChart.ts";
+@source "./js/IdentifierExplorer.ts";
+@source "./js/TypeInferenceDemo.ts";
+@source "./js/CodeWidget.ts";
 
 /*
  * littlefoot v4 resets the footnote popover text to `font-family: initial`,
@@ -34,6 +38,28 @@
  */
 .littlefoot__content {
 	font-family: inherit;
+}
+
+/* the popover shrinks to a short footnote instead of its fixed 22em width; capping the content
+   caps the popover's max-content width too (below 768px littlefoot shows a full-width sheet) */
+@media (min-width: 768px) {
+	.littlefoot__content {
+		max-width: 22em;
+	}
+}
+
+.littlefoot {
+	--popover-width: max-content;
+	--popover-horizontal-padding: 1rem;
+}
+
+/* the typography plugin's paragraph margins would leave an empty line under the text */
+.littlefoot__content > :first-child {
+	margin-top: 0;
+}
+
+.littlefoot__content > :last-child {
+	margin-bottom: 0;
 }
 
 html.dark {

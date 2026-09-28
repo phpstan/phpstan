@@ -39,6 +39,65 @@ async function closeBuildBrowser() {
 	}
 }
 
+// The interactive parts of a post - line charts with their data tables
+// (src/js/LineChart.ts), click-through code examples (src/js/IdentifierExplorer.ts,
+// src/js/TypeInferenceDemo.ts) - are not read from start to end, so they do not
+// count towards the reading time.
+function withoutInteractiveBlocks(html) {
+	const start = /<div class="(?:line-chart|identifier-explorer|type-inference-demo)"[^>]*>/g;
+	let result = '';
+	let position = 0;
+	let match;
+	while ((match = start.exec(html)) !== null) {
+		result += html.slice(position, match.index);
+		// skip to the </div> closing this one, past the divs nested in it
+		const tag = /<div\b|<\/div>/g;
+		tag.lastIndex = match.index + match[0].length;
+		let depth = 1;
+		let found;
+		while (depth > 0 && (found = tag.exec(html)) !== null) {
+			depth += found[0] === '</div>' ? -1 : 1;
+		}
+		position = depth === 0 ? tag.lastIndex : html.length;
+		start.lastIndex = position;
+	}
+
+	return result + html.slice(position);
+}
+
+// Render a line chart (src/js/LineChart.ts) with the same code the browser
+// runs, at a fixed width, and return its markup as a static placeholder.
+// Only the few styles that affect label measurement are needed here, the
+// markup carries its Tailwind classes into the page.
+async function renderLineChartPlaceholder(script, fontFace, chartHtml, width) {
+	const browser = await getBuildBrowser();
+	const page = await browser.newPage({ viewport: { width: width + 100, height: 800 } });
+	try {
+		await page.setContent('<!DOCTYPE html><html><head><style>' + fontFace
+			+ ' body { margin: 0; font-family: "Inter Variable", sans-serif; }'
+			+ ' .text-xs { font-size: 12px; } .text-\\[11px\\] { font-size: 11px; } .font-semibold { font-weight: 600; }'
+			+ '</style></head><body><div style="width: ' + width + 'px">' + chartHtml + '</div></body></html>');
+		await page.evaluate(() => document.fonts.load('12px "Inter Variable"'));
+		await page.addScriptTag({ type: 'module', content: script + '\ninitLineCharts();\nwindow.lineChartRendered = true;' });
+		await page.waitForFunction(() => window.lineChartRendered === true);
+		return await page.evaluate(() => {
+			const figure = document.querySelector('[data-line-chart-figure]');
+			figure.querySelector('[data-line-chart-tooltip]').remove();
+			const svg = figure.querySelector('svg');
+			svg.removeAttribute('width');
+			svg.removeAttribute('height');
+			svg.removeAttribute('tabindex');
+			svg.removeAttribute('role');
+			svg.removeAttribute('aria-label');
+			svg.setAttribute('class', 'block h-auto w-full select-none text-xs tabular-nums');
+			figure.removeAttribute('data-line-chart-figure');
+			return figure.outerHTML;
+		});
+	} finally {
+		await page.close();
+	}
+}
+
 // The mermaid library is injected from node_modules, so no network is needed.
 async function renderMermaid(definition) {
 	const browser = await getBuildBrowser();
@@ -138,7 +197,7 @@ module.exports = async function (eleventyConfig) {
 	});
 
 	eleventyConfig.addFilter('readingTime', (text) => {
-		return readingTime(text).text;
+		return readingTime(withoutInteractiveBlocks(text)).text;
 	});
 
 	eleventyConfig.addFilter("head", (array, n) => {
@@ -270,6 +329,40 @@ module.exports = async function (eleventyConfig) {
 			+ "\n"
 			+ '<meta property="og:image" content="/images/social-' + this.page.fileSlug + '.png" />';
 	})
+
+	// Line charts are rendered in the browser from the Markdown table inside
+	// <div class="line-chart"> (see src/js/LineChart.ts). So that readers do
+	// not see the bare table until the script loads, put a static placeholder
+	// of the chart before it - rendered for the mobile and the desktop content
+	// width - and hide the table (it stays for screen readers).
+	const lineChartPlaceholders = new Map();
+	eleventyConfig.addTransform('lineChartPlaceholders', async function (content) {
+		if (!this.page.outputPath || !this.page.outputPath.endsWith('.html') || !content.includes('<div class="line-chart">')) {
+			return content;
+		}
+
+		const script = require('typescript').transpileModule(fs.readFileSync('./src/js/LineChart.ts', 'utf8'), {
+			compilerOptions: { target: 'ES2019', module: 'ESNext' },
+		}).outputText;
+		let result = '';
+		let lastIndex = 0;
+		for (const match of content.matchAll(/<div class="line-chart">([\s\S]*?)<\/div>/g)) {
+			const id = crypto.createHash('sha256').update(script).update('\0').update(match[0]).digest('hex');
+			let placeholders = lineChartPlaceholders.get(id);
+			if (placeholders === undefined) {
+				const mobile = await renderLineChartPlaceholder(script, socialImageFontFace, match[0], 343);
+				const desktop = await renderLineChartPlaceholder(script, socialImageFontFace, match[0], 688);
+				placeholders = '<div class="sm:hidden" data-line-chart-placeholder aria-hidden="true">' + mobile + '</div>'
+					+ '<div class="hidden sm:block" data-line-chart-placeholder aria-hidden="true">' + desktop + '</div>';
+				lineChartPlaceholders.set(id, placeholders);
+			}
+			result += content.slice(lastIndex, match.index)
+				+ '<div class="line-chart">' + placeholders + match[1].replace('<table>', '<table class="sr-only">') + '</div>';
+			lastIndex = match.index + match[0].length;
+		}
+
+		return result + content.slice(lastIndex);
+	});
 
 	const { stdout: branchStdout } = await util.promisify(exec)('git rev-parse --abbrev-ref HEAD');
 	const gitBranch = branchStdout.trim();
