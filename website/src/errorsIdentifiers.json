@@ -5557,7 +5557,7 @@
     "classConstant.unused": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivateConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivateConstantRule.php#L108"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivateConstantRule.php#L132"
             ]
         }
     },
@@ -10863,7 +10863,7 @@
     "method.unused": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivateMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivateMethodRule.php#L199"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivateMethodRule.php#L204"
             ]
         }
     },
@@ -14696,14 +14696,14 @@
     "property.neverRead": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L267"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L286"
             ]
         }
     },
     "property.neverWritten": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L281"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L300"
             ]
         }
     },
@@ -14769,14 +14769,14 @@
     "property.onlyRead": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L286"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L305"
             ]
         }
     },
     "property.onlyWritten": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L272"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L291"
             ]
         }
     },
@@ -15082,7 +15082,7 @@
     "property.unused": {
         "PHPStan\\Rules\\DeadCode\\UnusedPrivatePropertyRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L261"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DeadCode/UnusedPrivatePropertyRule.php#L280"
             ]
         }
     },
