@@ -14,9 +14,6 @@ Many basic concepts about static analysis are shared among all the extension typ
 Custom rules
 -------------------
 
-Custom rules
-------------------
-
 PHPStan allows writing custom rules to check for specific situations in your own codebase.
 
 [Learn more »](/developing-extensions/rules)
