@@ -102,5 +102,6 @@ Unofficial extensions
 * [roave / no-floaters](https://github.com/Roave/no-floaters)
 * [PHP Language Extensions](https://github.com/DaveLiddament/phpstan-php-language-extensions)
 * [mspirkov/yii2-phpstan-rules](https://github.com/mspirkov/yii2-phpstan-rules)
+* [heyosseus/phpstan-sloppy](https://github.com/heyosseus/phpstan-sloppy)
 
 [**Find more on Packagist!**](https://packagist.org/?type=phpstan-extension)
