@@ -542,10 +542,10 @@
     "argument.invalidPregQuote": {
         "PHPStan\\Rules\\Regexp\\RegularExpressionQuotingRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Regexp/RegularExpressionQuotingRule.php#L156",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Regexp/RegularExpressionQuotingRule.php#L162",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Regexp/RegularExpressionQuotingRule.php#L185",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Regexp/RegularExpressionQuotingRule.php#L191"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Regexp/RegularExpressionQuotingRule.php#L189",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Regexp/RegularExpressionQuotingRule.php#L195",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Regexp/RegularExpressionQuotingRule.php#L218",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Regexp/RegularExpressionQuotingRule.php#L224"
             ]
         }
     },
