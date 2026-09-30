@@ -22,6 +22,8 @@ The array literal contains duplicate keys. When an array has duplicate keys, PHP
 
 In the example above, the key `'foo'` appears twice. The first value `1` will be silently overwritten by `3`.
 
+Unpacking another array with the spread operator (`...`) works like `array_merge()`. Overriding a string key that comes from an unpacked variable or function call, for example `[...$defaults, 'start' => 0.0]`, is a common way to write the code on purpose, so it isn't reported. Duplicate keys written out in the array literal itself, including inside an unpacked array literal, are still reported.
+
 ## How to fix it
 
 Use unique keys for each array entry:
