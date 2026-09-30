@@ -1360,14 +1360,14 @@
         },
         "PHPStan\\Rules\\Symfony\\InvalidArgumentDefaultValueRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/2.0.x/src/Rules/Symfony/InvalidArgumentDefaultValueRule.php#L65",
-                "https://github.com/phpstan/phpstan-symfony/blob/2.0.x/src/Rules/Symfony/InvalidArgumentDefaultValueRule.php#L75"
+                "https://github.com/phpstan/phpstan-symfony/blob/2.1.x/src/Rules/Symfony/InvalidArgumentDefaultValueRule.php#L65",
+                "https://github.com/phpstan/phpstan-symfony/blob/2.1.x/src/Rules/Symfony/InvalidArgumentDefaultValueRule.php#L75"
             ]
         },
         "PHPStan\\Rules\\Symfony\\InvalidOptionDefaultValueRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/2.0.x/src/Rules/Symfony/InvalidOptionDefaultValueRule.php#L70",
-                "https://github.com/phpstan/phpstan-symfony/blob/2.0.x/src/Rules/Symfony/InvalidOptionDefaultValueRule.php#L81"
+                "https://github.com/phpstan/phpstan-symfony/blob/2.1.x/src/Rules/Symfony/InvalidOptionDefaultValueRule.php#L70",
+                "https://github.com/phpstan/phpstan-symfony/blob/2.1.x/src/Rules/Symfony/InvalidOptionDefaultValueRule.php#L81"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
@@ -4218,7 +4218,7 @@
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L182"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L184"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
@@ -4354,7 +4354,7 @@
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L193",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L195",
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/RuleLevelHelper.php#L274"
             ]
         },
@@ -6056,6 +6056,11 @@
         "PHPStan\\Rules\\DisallowedConstructs\\DisallowedEmptyRule": {
             "phpstan/phpstan-strict-rules": [
                 "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/DisallowedConstructs/DisallowedEmptyRule.php#L26"
+            ]
+        },
+        "PHPStan\\Rules\\PHPUnit\\AssertEmptyIsDiscouragedRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertEmptyIsDiscouragedRule.php#L48"
             ]
         }
     },
@@ -8933,7 +8938,7 @@
     "ignore.allLineErrors": {
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L158"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L160"
             ]
         }
     },
@@ -8948,7 +8953,7 @@
     "ignore.noComment": {
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L177"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L179"
             ]
         }
     },
@@ -8969,14 +8974,14 @@
     "ignore.unmatchedIdentifier": {
         "PHPStan\\Analyser\\AnalyserResultFinalizer": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L225"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L227"
             ]
         }
     },
     "ignore.unmatchedLine": {
         "PHPStan\\Analyser\\AnalyserResultFinalizer": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L214"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L216"
             ]
         }
     },
@@ -9391,14 +9396,14 @@
     "include.fileNotFound": {
         "PHPStan\\Rules\\Keywords\\RequireFileExistsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L163"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L167"
             ]
         }
     },
     "includeOnce.fileNotFound": {
         "PHPStan\\Rules\\Keywords\\RequireFileExistsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L163"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L167"
             ]
         }
     },
@@ -10320,8 +10325,8 @@
     "method.abstractOverridingNonAbstract": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L103",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L221"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L104",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L222"
             ]
         }
     },
@@ -10384,8 +10389,8 @@
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/MethodSignatureRule.php#L115",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L316",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L329"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L317",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L330"
             ]
         }
     },
@@ -10529,7 +10534,7 @@
     "method.missingOverride": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L151"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L152"
             ]
         }
     },
@@ -10624,7 +10629,7 @@
     "method.nonStatic": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L193"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L194"
             ]
         }
     },
@@ -10643,23 +10648,23 @@
     "method.override": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L118"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L119"
             ]
         }
     },
     "method.parentMethodFinal": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L170",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L74"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L171",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L75"
             ]
         }
     },
     "method.parentMethodFinalByPhpDoc": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L179",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L180",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L87"
             ]
         }
     },
@@ -10718,7 +10723,7 @@
     "method.static": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L205"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L206"
             ]
         }
     },
@@ -10764,7 +10769,7 @@
     "method.tentativeReturnType": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L259"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L260"
             ]
         }
     },
@@ -11724,7 +11729,7 @@
     "new.abstract": {
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L239"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L241"
             ]
         }
     },
@@ -11780,14 +11785,14 @@
     "new.enum": {
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L223"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L225"
             ]
         }
     },
     "new.interface": {
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L231"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L233"
             ]
         }
     },
@@ -11822,28 +11827,28 @@
     "new.noConstructor": {
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L253"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L255"
             ]
         }
     },
     "new.nonObject": {
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L118"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L120"
             ]
         }
     },
     "new.privateConstructor": {
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L269"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L271"
             ]
         }
     },
     "new.protectedConstructor": {
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L269"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L271"
             ]
         }
     },
@@ -11877,7 +11882,7 @@
     "new.trait": {
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L215"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L217"
             ]
         }
     },
@@ -12363,7 +12368,7 @@
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L171"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L173"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
@@ -12400,7 +12405,7 @@
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L162"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L164"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
@@ -12437,7 +12442,7 @@
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L135"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/InstantiationRule.php#L137"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
@@ -12464,12 +12469,12 @@
     "paramClosureThis.nonClosure": {
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L180"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L184"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyHookPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L180"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L184"
             ]
         }
     },
@@ -12786,12 +12791,12 @@
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L139"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L141"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyHookPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L139"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L141"
             ]
         }
     },
@@ -12813,12 +12818,12 @@
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L62"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L64"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyHookPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L62"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L64"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodAssertRule": {
@@ -12867,14 +12872,14 @@
     "parameter.phpDocType": {
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L154",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L163"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L158",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L167"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyHookPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L154",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L163"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L158",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L167"
             ]
         }
     },
@@ -13018,12 +13023,12 @@
     "parameter.unresolvableType": {
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L69"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L71"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyHookPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L69"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L71"
             ]
         }
     },
@@ -13236,7 +13241,7 @@
     "phpstan.internal": {
         "PHPStan\\Analyser\\Analyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/Analyser.php#L116"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/Analyser.php#L118"
             ]
         },
         "PHPStan\\Analyser\\AnalyserResultFinalizer": {
@@ -13246,13 +13251,13 @@
         },
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L206"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L208"
             ]
         },
         "PHPStan\\Analyser\\FileAnalyserCallback": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L159",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L221"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L220"
             ]
         },
         "PHPStan\\PhpDoc\\StubValidator": {
@@ -13271,24 +13276,24 @@
     "phpstan.parse": {
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L199",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L202"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L201",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L204"
             ]
         }
     },
     "phpstan.path": {
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L229",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L231"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L231",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L233"
             ]
         }
     },
     "phpstan.php": {
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L282",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L292"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L285",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L295"
             ]
         }
     },
@@ -13301,16 +13306,16 @@
         },
         "PHPStan\\Analyser\\FileAnalyser": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L213",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L220"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L215",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyser.php#L222"
             ]
         },
         "PHPStan\\Analyser\\FileAnalyserCallback": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L167",
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L175",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L229",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L237"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L228",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L236"
             ]
         }
     },
@@ -13500,7 +13505,7 @@
     "phpstanPlayground.configParameter": {
         "PHPStan\\Rules\\Playground\\PromoteParameterRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Playground/PromoteParameterRule.php#L112"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Playground/PromoteParameterRule.php#L113"
             ]
         }
     },
@@ -14811,8 +14816,8 @@
     "property.phpDocType": {
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePropertyPhpDocTypeRule.php#L82",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePropertyPhpDocTypeRule.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePropertyPhpDocTypeRule.php#L86",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePropertyPhpDocTypeRule.php#L96"
             ]
         },
         "PHPStan\\Rules\\Properties\\OverridingPropertyRule": {
@@ -15075,7 +15080,7 @@
     "property.unresolvableType": {
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePropertyPhpDocTypeRule.php#L64"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePropertyPhpDocTypeRule.php#L65"
             ]
         }
     },
@@ -15433,7 +15438,7 @@
     "require.fileNotFound": {
         "PHPStan\\Rules\\Keywords\\RequireFileExistsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L163"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L167"
             ]
         }
     },
@@ -15729,7 +15734,7 @@
     "requireOnce.fileNotFound": {
         "PHPStan\\Rules\\Keywords\\RequireFileExistsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L163"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Keywords/RequireFileExistsRule.php#L167"
             ]
         }
     },
@@ -15927,14 +15932,14 @@
     "return.phpDocType": {
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L214",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L221"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L220",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L227"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyHookPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L214",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L221"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L220",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L227"
             ]
         }
     },
@@ -16097,12 +16102,12 @@
     "return.unresolvableType": {
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L192"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L196"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatiblePropertyHookPhpDocTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L192"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/IncompatiblePhpDocTypeCheck.php#L196"
             ]
         }
     },
@@ -17195,28 +17200,28 @@
     "symfonyConsole.argumentNotFound": {
         "PHPStan\\Rules\\Symfony\\UndefinedArgumentRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/2.0.x/src/Rules/Symfony/UndefinedArgumentRule.php#L76"
+                "https://github.com/phpstan/phpstan-symfony/blob/2.1.x/src/Rules/Symfony/UndefinedArgumentRule.php#L76"
             ]
         }
     },
     "symfonyConsole.optionNotFound": {
         "PHPStan\\Rules\\Symfony\\UndefinedOptionRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/2.0.x/src/Rules/Symfony/UndefinedOptionRule.php#L76"
+                "https://github.com/phpstan/phpstan-symfony/blob/2.1.x/src/Rules/Symfony/UndefinedOptionRule.php#L76"
             ]
         }
     },
     "symfonyContainer.privateService": {
         "PHPStan\\Rules\\Symfony\\ContainerInterfacePrivateServiceRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/2.0.x/src/Rules/Symfony/ContainerInterfacePrivateServiceRule.php#L73"
+                "https://github.com/phpstan/phpstan-symfony/blob/2.1.x/src/Rules/Symfony/ContainerInterfacePrivateServiceRule.php#L73"
             ]
         }
     },
     "symfonyContainer.serviceNotFound": {
         "PHPStan\\Rules\\Symfony\\ContainerInterfaceUnknownServiceRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/2.0.x/src/Rules/Symfony/ContainerInterfaceUnknownServiceRule.php#L73"
+                "https://github.com/phpstan/phpstan-symfony/blob/2.1.x/src/Rules/Symfony/ContainerInterfaceUnknownServiceRule.php#L73"
             ]
         }
     },
