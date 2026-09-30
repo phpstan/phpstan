@@ -104,3 +104,10 @@ There's also analogous functionality for:
 
 * **static methods** using [`DynamicStaticMethodReturnTypeExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.DynamicStaticMethodReturnTypeExtension.html) interface and `phpstan.broker.dynamicStaticMethodReturnTypeExtension` service tag.
 * **functions** using [`DynamicFunctionReturnTypeExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.DynamicFunctionReturnTypeExtension.html) interface and `phpstan.broker.dynamicFunctionReturnTypeExtension` service tag.
+
+Declaring dependencies for the result cache
+---------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.0</div>
+
+If the extension reads something PHPStan doesn't know about to resolve the return type, like a configuration file, typehint the `$scope` parameter as `Scope&DependencyEmitter` in the PHPDoc and declare it with `$scope->fileDependency()` or `$scope->valueDependency()`. When it changes, the [result cache](/user-guide/result-cache) analyses the file with the call again. [Learn more »](/developing-extensions/result-cache-meta-extensions#declaring-dependencies-on-files)
