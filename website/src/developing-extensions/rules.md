@@ -383,26 +383,26 @@ In order to write a specific category of rules like unused code detection, we ne
 
 Rules can also emit collected data directly without writing a separate Collector class, by typehinting the second parameter of `processNode()` as `Scope&CollectedDataEmitter`. [Learn more »](/developing-extensions/collectors#emitting-collected-data-from-rules)
 
-Declaring dependencies for the result cache
+Tracking dependencies for the result cache
 ---------------
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.0</div>
 
-If the rule reads something PHPStan doesn't know about, like a configuration file, the [result cache](/user-guide/result-cache) doesn't know to analyse the file again when it changes. Typehint the second parameter of `processNode()` as `Scope&DependencyEmitter` in the PHPDoc and declare it:
+If the rule reads something PHPStan doesn't know about, like a configuration file, the [result cache](/user-guide/result-cache) doesn't know to analyse the file again when it changes. Typehint the second parameter of `processNode()` as `Scope&DependencyTracker` in the PHPDoc and track it:
 
 ```php
 /**
- * @param Scope&DependencyEmitter $scope
+ * @param Scope&DependencyTracker $scope
  */
 public function processNode(Node $node, Scope $scope): array
 {
-	$scope->fileDependency($configFile);
+	$scope->trackFileDependency($configFile);
 
 	// ... read $configFile ...
 }
 ```
 
-Declare it whether the rule reports an error or not. Besides files, the rule can depend on values like a service in a dependency injection container with `$scope->valueDependency()`. [Learn more »](/developing-extensions/result-cache-meta-extensions#declaring-dependencies-on-files)
+Track it whether the rule reports an error or not. Besides files, the rule can depend on values like a service in a dependency injection container with `$scope->trackValueDependency()`. [Learn more »](/developing-extensions/result-cache-meta-extensions#tracking-dependencies-on-files)
 
 More custom rules examples
 ---------------
