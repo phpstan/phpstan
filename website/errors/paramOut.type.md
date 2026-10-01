@@ -25,6 +25,8 @@ A by-reference parameter has a `@param-out` PHPDoc tag declaring the type that t
 
 The `@param-out` tag is a contract with callers: it guarantees that after the function call, the referenced variable will have the specified type. Assigning a value of an incompatible type breaks this contract.
 
+For a variadic by-reference parameter like `&...$refs`, the `@param-out` type describes each individual argument, so the elements of the `$refs` array are checked against it.
+
 ## How to fix it
 
 Ensure the assigned value matches the declared `@param-out` type:
