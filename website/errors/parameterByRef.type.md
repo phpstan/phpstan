@@ -13,7 +13,7 @@ class Foo
 {
 	public function doFoo(string &$p): void
 	{
-		$p = 1;
+		$p = 1; // ERROR: Parameter &$p by-ref type of method Foo::doFoo() expects string, int given.
 	}
 }
 ```
@@ -23,6 +23,8 @@ class Foo
 A value assigned to a by-reference parameter does not match the parameter's declared type. In the example above, the parameter `$p` is declared as `string`, but an `int` value is assigned to it inside the method.
 
 Since the parameter is passed by reference, the assigned value will be visible to the caller. Assigning a value of the wrong type can lead to type errors in the calling code that expects the variable to remain a `string`.
+
+For a variadic by-reference parameter like `string|null &...$refs`, the declared type applies to each passed argument, while `$refs` inside the function holds an array of them. Each value written into the array (for example `$refs[$key] = 42;`) is checked against the declared type, because it is written back to the corresponding variable at the call site.
 
 ## How to fix it
 
