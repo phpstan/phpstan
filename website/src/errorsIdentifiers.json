@@ -6057,11 +6057,6 @@
             "phpstan/phpstan-strict-rules": [
                 "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/DisallowedConstructs/DisallowedEmptyRule.php#L26"
             ]
-        },
-        "PHPStan\\Rules\\PHPUnit\\AssertEmptyIsDiscouragedRule": {
-            "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertEmptyIsDiscouragedRule.php#L48"
-            ]
         }
     },
     "empty.offset": {
@@ -13547,6 +13542,13 @@
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L52",
                 "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L60"
+            ]
+        }
+    },
+    "phpunit.assertEmpty": {
+        "PHPStan\\Rules\\PHPUnit\\AssertEmptyIsDiscouragedRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertEmptyIsDiscouragedRule.php#L48"
             ]
         }
     },
