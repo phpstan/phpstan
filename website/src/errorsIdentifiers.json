@@ -17214,14 +17214,14 @@
     "symfonyContainer.privateService": {
         "PHPStan\\Rules\\Symfony\\ContainerInterfacePrivateServiceRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/2.1.x/src/Rules/Symfony/ContainerInterfacePrivateServiceRule.php#L73"
+                "https://github.com/phpstan/phpstan-symfony/blob/2.1.x/src/Rules/Symfony/ContainerInterfacePrivateServiceRule.php#L79"
             ]
         }
     },
     "symfonyContainer.serviceNotFound": {
         "PHPStan\\Rules\\Symfony\\ContainerInterfaceUnknownServiceRule": {
             "phpstan/phpstan-symfony": [
-                "https://github.com/phpstan/phpstan-symfony/blob/2.1.x/src/Rules/Symfony/ContainerInterfaceUnknownServiceRule.php#L73"
+                "https://github.com/phpstan/phpstan-symfony/blob/2.1.x/src/Rules/Symfony/ContainerInterfaceUnknownServiceRule.php#L79"
             ]
         }
     },
