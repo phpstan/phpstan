@@ -44,7 +44,7 @@ Tracking dependencies on files
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.0</div>
 
-A [custom rule](/developing-extensions/rules) or a [dynamic return type extension](/developing-extensions/dynamic-return-type-extensions) sometimes reads a file PHPStan doesn't know about - a configuration file, a template, a JSON schema. When the file changes, the result cache doesn't know the analysis of the file with the rule's node, or with the call, should run again.
+A [custom rule](/developing-extensions/rules), a [dynamic return type extension](/developing-extensions/dynamic-return-type-extensions), an [expression type resolver extension](/developing-extensions/expression-type-resolver-extensions) or a [parameter out type extension](/developing-extensions/parameter-out-type-extensions) sometimes reads a file PHPStan doesn't know about - a configuration file, a template, a JSON schema. When the file changes, the result cache doesn't know the analysis of the file with the rule's node, or with the call, should run again.
 
 Track the file by calling `$scope->trackFileDependency()`. For that, typehint the `$scope` parameter as `Scope&DependencyTracker` in the PHPDoc:
 
@@ -168,6 +168,6 @@ Which file is analysed again
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.0</div>
 
-Usually it's the file being analysed when the rule or the extension tracked the dependency. When a dynamic return type extension tracks a dependency for a call of a function or a method, it's the file with the call, not the file where the function or the method is declared.
+Usually it's the file being analysed when the rule or the extension tracked the dependency. When a dynamic return type extension or a parameter out type extension tracks a dependency for a call of a function or a method, it's the file with the call, not the file where the function or the method is declared.
 
 There's one exception. PHPStan sometimes infers what a file declares, like the type of a private property without a native type from the assignments in the constructor (with [`inferPrivatePropertyTypeFromConstructor`](/config-reference#inferprivatepropertytypefromconstructor)), and remembers it for the files analysed later. When a dependency is tracked during that inference, the file with the constructor and all files depending on it are analysed again.
