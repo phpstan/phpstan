@@ -12569,12 +12569,12 @@
     "paramOut.type": {
         "PHPStan\\Rules\\Variables\\ParameterOutAssignedTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/ParameterOutTypeCheck.php#L79"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/ParameterOutTypeCheck.php#L94"
             ]
         },
         "PHPStan\\Rules\\Variables\\ParameterOutExecutionEndTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/ParameterOutTypeCheck.php#L79"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/ParameterOutTypeCheck.php#L94"
             ]
         }
     },
@@ -13128,12 +13128,12 @@
     "parameterByRef.type": {
         "PHPStan\\Rules\\Variables\\ParameterOutAssignedTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/ParameterOutTypeCheck.php#L79"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/ParameterOutTypeCheck.php#L94"
             ]
         },
         "PHPStan\\Rules\\Variables\\ParameterOutExecutionEndTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/ParameterOutTypeCheck.php#L79"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/ParameterOutTypeCheck.php#L94"
             ]
         }
     },
