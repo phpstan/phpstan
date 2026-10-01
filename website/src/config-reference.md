@@ -930,16 +930,16 @@ Sets the maximum buffer size in bytes for communication between the main process
 
 **default**: `1.0`
 
-A percentage in the range `[0.0, 1.0]` representing the fraction of available CPU cores that PHPStan should use for parallel workers. The number of available cores is determined by the system load average — busy cores are subtracted from the total.
+A fraction in the range `[0.0, 1.0]` of the detected CPU cores to make available for parallel workers. The result is rounded down, with a minimum of one core. This setting does not account for the current system load.
 
-For example, if the system has 11 cores and 5 are busy, there are 6 available cores. Setting `loadLimit` to `0.7` means PHPStan will use 70% of 6 = 4 cores for parallel workers. Setting it to `null` skips this check entirely.
+For example, with 11 detected cores, setting `loadLimit` to `0.7` makes 7 cores available before other limits are applied.
 
-Note that `1.0` does not mean "no limit" — it means 100% of the _available_ cores, not the total number of cores on the machine.
+The default `1.0` keeps all detected cores available. Setting it to `null` skips this adjustment. Other limits and the amount of work can further reduce the number of workers.
 
 ```yaml
 parameters:
 	parallel:
-		loadLimit: null # skip load-based adjustment
+		loadLimit: null # skip percentage adjustment
 ```
 
 Clickable editor URL
