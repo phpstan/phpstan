@@ -13251,8 +13251,8 @@
         },
         "PHPStan\\Analyser\\FileAnalyserCallback": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L161",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L222"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L153",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L214"
             ]
         },
         "PHPStan\\PhpDoc\\StubValidator": {
@@ -13307,10 +13307,10 @@
         },
         "PHPStan\\Analyser\\FileAnalyserCallback": {
             "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L161",
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L169",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L177",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L230",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L238"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L222",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/FileAnalyserCallback.php#L230"
             ]
         }
     },
