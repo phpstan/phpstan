@@ -168,7 +168,7 @@ Tracking dependencies on directories
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.0</div>
 
-Sometimes the analysis depends on which files exist in a directory, not on what they contain. A rule checking that a view exists looks for a template file:
+Sometimes the analysis depends on the files in a directory and you don't know in advance which ones exist. A rule checking that a view exists looks for a template file:
 
 ```php
 /**
@@ -193,9 +193,7 @@ public function processNode(Node $node, Scope $scope): array
 }
 ```
 
-The analysed file is analysed again whenever a file matching the pattern is created, deleted or renamed anywhere in the directory or its subdirectories, or when the directory itself is created or deleted. The pattern is matched against the file name with [`fnmatch()`](https://www.php.net/manual/en/function.fnmatch.php) syntax, like `*.php` or `Pest.php`. Leave it out to match every file.
-
-A change in the contents of a file doesn't count. Track the files the rule or the extension reads with `$scope->trackFileDependency()`.
+The analysed file is analysed again whenever a file matching the pattern is created, changed in any way, deleted or renamed anywhere in the directory or its subdirectories, or when the directory itself is created or deleted. The pattern is matched against the file name with [`fnmatch()`](https://www.php.net/manual/en/function.fnmatch.php) syntax, like `*.php` or `Pest.php`. Leave it out to match every file.
 
 Tracking dependencies on classes
 ---------------
