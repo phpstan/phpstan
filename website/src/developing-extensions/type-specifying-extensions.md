@@ -111,3 +111,10 @@ There's also analogous functionality for:
 
 * **instance methods** using [`MethodTypeSpecifyingExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.MethodTypeSpecifyingExtension.html) interface and `phpstan.typeSpecifier.methodTypeSpecifyingExtension` service tag.
 * **functions** using [`FunctionTypeSpecifyingExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.FunctionTypeSpecifyingExtension.html) interface and `phpstan.typeSpecifier.functionTypeSpecifyingExtension` service tag.
+
+Tracking dependencies for the result cache
+---------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.0</div>
+
+If the extension reads something PHPStan doesn't know about to narrow the types, like a configuration file or a class named in a string argument, typehint the `$scope` parameter of `specifyTypes()` as `Scope&DependencyTracker` in the PHPDoc and track it with `$scope->trackFileDependency()`, `$scope->trackClassDependency()` or one of the other `DependencyTracker` methods. When it changes, the [result cache](/user-guide/result-cache) analyses the file with the call again. [Learn more »](/developing-extensions/result-cache-meta-extensions#tracking-dependencies-on-files)
