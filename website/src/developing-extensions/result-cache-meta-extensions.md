@@ -44,7 +44,7 @@ Tracking dependencies on files
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.0</div>
 
-A [custom rule](/developing-extensions/rules), a [collector](/developing-extensions/collectors), a [dynamic return type extension](/developing-extensions/dynamic-return-type-extensions), a [dynamic throw type extension](/developing-extensions/dynamic-throw-type-extensions), an [expression type resolver extension](/developing-extensions/expression-type-resolver-extensions) or a [parameter out type extension](/developing-extensions/parameter-out-type-extensions) sometimes reads a file PHPStan doesn't know about - a configuration file, a template, a JSON schema. When the file changes, the result cache doesn't know the analysis of the file with the rule's node, or with the call, should run again.
+A [custom rule](/developing-extensions/rules), a [collector](/developing-extensions/collectors), a [dynamic return type extension](/developing-extensions/dynamic-return-type-extensions), a [dynamic throw type extension](/developing-extensions/dynamic-throw-type-extensions), an [expression type resolver extension](/developing-extensions/expression-type-resolver-extensions), a [parameter out type extension](/developing-extensions/parameter-out-type-extensions), a [closure extension](/developing-extensions/closure-extensions) or a [type-specifying extension](/developing-extensions/type-specifying-extensions) sometimes reads a file PHPStan doesn't know about - a configuration file, a template, a JSON schema. When the file changes, the result cache doesn't know the analysis of the file with the rule's node, or with the call, should run again.
 
 Track the file by calling `$scope->trackFileDependency()`. For that, typehint the `$scope` parameter as `Scope&DependencyTracker` in the PHPDoc:
 
@@ -163,11 +163,125 @@ The keys are saved in the result cache as `keyToResultCache()` returns them, and
 
 `$scope->trackFileDependency()` from the previous section is a shortcut for a value dependency on the hash of the file.
 
+Tracking dependencies on directories
+---------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.0</div>
+
+Sometimes the analysis depends on which files exist in a directory, not on what they contain. A rule checking that a view exists looks for a template file:
+
+```php
+/**
+ * @param Scope&DependencyTracker $scope
+ */
+public function processNode(Node $node, Scope $scope): array
+{
+	// ... check that $node is a view() call and get $viewName ...
+
+	$viewsDirectory = __DIR__ . '/../resources/views';
+	$scope->trackDirectoryDependency($viewsDirectory, '*.blade.php');
+
+	if (is_file($viewsDirectory . '/' . $viewName . '.blade.php')) {
+		return [];
+	}
+
+	return [
+		RuleErrorBuilder::message(sprintf('View %s does not exist.', $viewName))
+			->identifier('view.notFound')
+			->build(),
+	];
+}
+```
+
+The analysed file is analysed again whenever a file matching the pattern is created, deleted or renamed anywhere in the directory or its subdirectories, or when the directory itself is created or deleted. The pattern is matched against the file name with [`fnmatch()`](https://www.php.net/manual/en/function.fnmatch.php) syntax, like `*.php` or `Pest.php`. Leave it out to match every file.
+
+A change in the contents of a file doesn't count. Track the files the rule or the extension reads with `$scope->trackFileDependency()`.
+
+Tracking dependencies on classes
+---------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.0</div>
+
+PHPStan knows about the classes the analysed code refers to. When one of them changes, the files that use it are analysed again. But a rule or an extension can also look up a class by a name from somewhere else - a string, a PHPDoc tag PHPStan doesn't resolve, a configuration file:
+
+```php
+/**
+ * @param Scope&DependencyTracker $scope
+ */
+public function processNode(Node $node, Scope $scope): array
+{
+	// ... get $coveredClass from a @covers tag ...
+
+	$scope->trackClassDependency($coveredClass);
+
+	if ($this->reflectionProvider->hasClass($coveredClass)) {
+		return [];
+	}
+
+	return [
+		RuleErrorBuilder::message(sprintf('Class %s in @covers does not exist.', $coveredClass))
+			->identifier('covers.classNotFound')
+			->build(),
+	];
+}
+```
+
+The analysed file is then analysed again when the class or one of its parents, interfaces or traits changes what it declares, and when the class is created, deleted or moved to another file. Here, "what it declares" means signatures and PHPDocs, not method bodies. The class doesn't have to exist.
+
+Extensions describing a class
+---------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.0</div>
+
+[Class reflection extensions](/developing-extensions/class-reflection-extensions) don't analyse code and don't get a `Scope`. They describe a class, and PHPStan remembers what they said about it for every file analysed after that. So it's the class that depends on what the extension reads, not the file being analysed.
+
+Inject [`DeclarationDependencyTracker`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Analyser.DeclarationDependencyTracker.html) into the extension's constructor. It has the same methods as `DependencyTracker`, but each of them takes the class reflection as the first argument:
+
+```php
+use PHPStan\Analyser\DeclarationDependencyTracker;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Reflection\MethodReflection;
+use PHPStan\Reflection\MethodsClassReflectionExtension;
+
+class ModelColumnMethodsExtension implements MethodsClassReflectionExtension
+{
+
+	public function __construct(
+		private DeclarationDependencyTracker $dependencyTracker,
+		private ModelSchema $modelSchema,
+	)
+	{
+	}
+
+	public function hasMethod(ClassReflection $classReflection, string $methodName): bool
+	{
+		if (!$classReflection->is(Model::class)) {
+			return false;
+		}
+
+		$schemaFile = $this->modelSchema->getSchemaFile($classReflection->getName());
+		$this->dependencyTracker->trackFileDependency($classReflection, $schemaFile);
+
+		return $this->modelSchema->hasColumnForMethod($schemaFile, $methodName);
+	}
+
+	public function getMethod(ClassReflection $classReflection, string $methodName): MethodReflection
+	{
+		// ...
+	}
+
+}
+```
+
+When the schema file changes, every file that depends on the class is analysed again: files that refer to it, call its methods or read its properties, and also files that depend on a class extending it. Track the dependency also when the extension says the class doesn't have the method or the property, because a change can make it appear.
+
 Which file is analysed again
 ---------------
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.0</div>
 
-Usually it's the file being analysed when the rule or the extension tracked the dependency. When a dynamic return type extension, a dynamic throw type extension or a parameter out type extension tracks a dependency for a call of a function or a method, it's the file with the call, not the file where the function or the method is declared.
+Usually it's the file being analysed when the rule or the extension tracked the dependency. When an extension tracks a dependency for a call of a function or a method - a dynamic return type extension, a dynamic throw type extension, a parameter out type extension, a closure extension or a type-specifying extension - it's the file with the call, not the file where the function or the method is declared.
+
+With `DeclarationDependencyTracker`, it's every file depending on the class, as [described above](#extensions-describing-a-class).
 
 There's one exception. PHPStan sometimes infers what a file declares, like the type of a private property without a native type from the assignments in the constructor (with [`inferPrivatePropertyTypeFromConstructor`](/config-reference#inferprivatepropertytypefromconstructor)), and remembers it for the files analysed later. When a dependency is tracked during that inference, the file with the constructor and all files depending on it are analysed again.

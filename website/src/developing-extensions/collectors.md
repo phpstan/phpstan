@@ -166,7 +166,7 @@ Tracking dependencies for the result cache
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.0</div>
 
-If the collector reads something PHPStan doesn't know about, like a configuration file, typehint the second parameter of `processNode()` as `Scope&DependencyTracker` in the PHPDoc and track it with `$scope->trackFileDependency()` or `$scope->trackValueDependency()`. When it changes, the [result cache](/user-guide/result-cache) analyses the file again and its data is collected again. [Learn more »](/developing-extensions/result-cache-meta-extensions#tracking-dependencies-on-files)
+If the collector reads something PHPStan doesn't know about, like a configuration file, typehint the second parameter of `processNode()` as `Scope&DependencyTracker` in the PHPDoc and track it with `$scope->trackFileDependency()` or one of the other `DependencyTracker` methods. When it changes, the [result cache](/user-guide/result-cache) analyses the file again and its data is collected again. [Learn more »](/developing-extensions/result-cache-meta-extensions#tracking-dependencies-on-files)
 
 Testing collectors
 ---------------

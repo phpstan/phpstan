@@ -148,3 +148,10 @@ services:
 		tags:
 			- phpstan.broker.methodsClassReflectionExtension
 ```
+
+Tracking dependencies for the result cache
+---------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.0</div>
+
+If the extension reads something PHPStan doesn't know about to describe the class, like a configuration file or a database schema, inject [`DeclarationDependencyTracker`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Analyser.DeclarationDependencyTracker.html) into its constructor and track it with `$this->dependencyTracker->trackFileDependency($classReflection, $file)` or one of the other methods. When it changes, the [result cache](/user-guide/result-cache) analyses again every file depending on the class. [Learn more »](/developing-extensions/result-cache-meta-extensions#extensions-describing-a-class)

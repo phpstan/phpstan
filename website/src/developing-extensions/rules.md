@@ -402,7 +402,7 @@ public function processNode(Node $node, Scope $scope): array
 }
 ```
 
-Track it whether the rule reports an error or not. Besides files, the rule can depend on values like a service in a dependency injection container with `$scope->trackValueDependency()`. [Learn more »](/developing-extensions/result-cache-meta-extensions#tracking-dependencies-on-files)
+Track it whether the rule reports an error or not. Besides files, the rule can depend on values like a service in a dependency injection container with `$scope->trackValueDependency()`, on which files there are in a directory with `$scope->trackDirectoryDependency()`, and on a class named in a string with `$scope->trackClassDependency()`. [Learn more »](/developing-extensions/result-cache-meta-extensions#tracking-dependencies-on-files)
 
 More custom rules examples
 ---------------
