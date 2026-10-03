@@ -612,6 +612,25 @@ function myMap(callable $f, array $arr): array
 
 When `myMap()` is called with a pure callback, PHPStan treats the whole call as pure. If the passed callback has side effects, the call is considered impure instead. The tag is inherited by overriding methods, and keeps applying to the matching parameter even when a child class renames it.
 
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.0</div>
+
+Some functions are only impure because they write to an optional by-reference parameter, like the `$count` parameter of PHP's own `str_replace()`. Use the `@pure-unless-parameter-passed` tag to mark a function or method as pure unless an argument is passed for the named parameter:
+
+```php
+/**
+ * @param-out int $count
+ * @pure-unless-parameter-passed $count
+ */
+function myReplace(string $subject, int &$count = 0): string
+{
+	$count = 1;
+
+	return $subject;
+}
+```
+
+A call like `myReplace($s)` is treated as pure, but `myReplace($s, $count)` is impure. Writing to the flagged parameter in the function body doesn't count as a side effect, but the rest of the body still has to be pure. The flagged parameter has to be optional and passed by reference, or PHPStan reports an error. Like `@pure-unless-callable-is-impure`, this tag is inherited by overriding methods, and the two tags can be used together on the same function.
+
 Enforcing class inheritance for interfaces and traits
 ---------------
 
