@@ -15,7 +15,7 @@
 		"@sentry/node": "^7.43.0",
 		"ansi-to-html": "^0.7.0",
 		"aws-sdk": "^2.1335.0",
-		"uuid": "^9.0.0",
+		"uuid": "^11.0.0",
 		"zod": "^4.3.6"
 	},
 	"devDependencies": {
