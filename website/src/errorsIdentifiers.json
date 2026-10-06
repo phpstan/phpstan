@@ -13552,8 +13552,8 @@
     "phpunit.assertCount": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameWithCountRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L52",
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L60"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L53",
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameWithCountRule.php#L76"
             ]
         }
     },
@@ -13574,7 +13574,7 @@
     "phpunit.assertFalse": {
         "PHPStan\\Rules\\PHPUnit\\AssertSameBooleanExpectedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L66"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertSameBooleanExpectedRule.php#L70"
             ]
         }
     },
