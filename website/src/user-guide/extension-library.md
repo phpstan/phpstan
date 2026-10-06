@@ -102,5 +102,6 @@ Unofficial extensions
 * [roave / no-floaters](https://github.com/Roave/no-floaters)
 * [PHP Language Extensions](https://github.com/DaveLiddament/phpstan-php-language-extensions)
 * [mspirkov/yii2-phpstan-rules](https://github.com/mspirkov/yii2-phpstan-rules)
+* [sorge-it / phpunit-pest-html-assertions](https://github.com/sorge-it/phpunit-pest-html-assertions)
 
 [**Find more on Packagist!**](https://packagist.org/?type=phpstan-extension)
