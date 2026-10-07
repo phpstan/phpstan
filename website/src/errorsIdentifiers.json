@@ -13560,7 +13560,7 @@
     "phpunit.assertEmpty": {
         "PHPStan\\Rules\\PHPUnit\\AssertEmptyIsDiscouragedRule": {
             "phpstan/phpstan-phpunit": [
-                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertEmptyIsDiscouragedRule.php#L48"
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/AssertEmptyIsDiscouragedRule.php#L54"
             ]
         }
     },
