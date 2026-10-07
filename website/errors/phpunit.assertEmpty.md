@@ -39,6 +39,17 @@ The same reasoning is behind the [`empty.notAllowed`](/error-identifiers/empty.n
 
 Replace the assertion with one that checks the exact expected value or type.
 
+In many cases PHPStan can make this change automatically. Run the analysis with the `--fix` option to rewrite the call based on the native type of the asserted value:
+
+| Native type of the value | `assertEmpty()` becomes | `assertNotEmpty()` becomes |
+|---|---|---|
+| `bool` | `assertFalse($value)` | `assertTrue($value)` |
+| `array` | `assertCount(0, $value)` | `assertNotCount(0, $value)` |
+| `int` | `assertSame(0, $value)` | `assertNotSame(0, $value)` |
+| nullable final class that is not `Countable` | `assertNull($value)` | `assertNotNull($value)` |
+
+Calls that use named or unpacked arguments, or that assert values of other types, have to be fixed by hand.
+
 For arrays and countable values, use `assertCount()` or compare against an empty array:
 
 ```diff-php
