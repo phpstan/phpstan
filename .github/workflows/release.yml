@@ -112,16 +112,24 @@ jobs:
 
           # Windows asset naming differs (PIE's WindowsExtensionAssetName):
           # php_{ext}-{version}-{minor}-{ts|nts}-{compiler}-{arch}.zip
-          # containing the same-named .dll. The 8.3 DLLs are linked with the
-          # v142 toolset → vs16, 8.4/8.5 with v143 → vs17 (mirrors the
-          # turbo-compile-windows matrix in phpstan-src).
+          # containing the same-named .dll. The compiler is the Visual Studio
+          # generation of the official PHP of that minor, which PIE matches:
+          # 8.3 → vs16 (v142 toolset), 8.4/8.5 → vs17, 8.6 → vs18 (mirrors
+          # the vs of the turbo-compile-windows matrix in phpstan-src).
           for dll in turbo-ext/windows-x86_64/phpstan_turbo-*.dll; do
             ver="$(basename "$dll" .dll)"; ver="${ver#phpstan_turbo-}"
             minor="${ver%-zts}"
             ts="nts"
             if [ "$ver" != "$minor" ]; then ts="ts"; fi
-            vs="vs17"
-            if [ "$minor" = "8.3" ]; then vs="vs16"; fi
+            case "$minor" in
+              8.3) vs="vs16" ;;
+              8.4|8.5) vs="vs17" ;;
+              8.6) vs="vs18" ;;
+              *)
+                echo "::error::No Visual Studio generation known for PHP $minor."
+                exit 1
+                ;;
+            esac
             name="php_phpstan_turbo-${TAG}-${minor}-${ts}-${vs}-x86_64"
             cp "$dll" "$work/$name.dll"
             zip -q -X -j "pie-assets/$name.zip" "$work/$name.dll"
