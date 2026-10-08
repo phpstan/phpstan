@@ -670,24 +670,26 @@
         },
         {
             "name": "paragonie/constant_time_encoding",
-            "version": "v2.5.0",
+            "version": "v3.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/constant_time_encoding.git",
-                "reference": "9229e15f2e6ba772f0c55dd6986c563b937170a8"
+                "reference": "d5b01a39b3415c2cd581d3bd3a3575c1ebbd8e77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/9229e15f2e6ba772f0c55dd6986c563b937170a8",
-                "reference": "9229e15f2e6ba772f0c55dd6986c563b937170a8",
+                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/d5b01a39b3415c2cd581d3bd3a3575c1ebbd8e77",
+                "reference": "d5b01a39b3415c2cd581d3bd3a3575c1ebbd8e77",
                 "shasum": ""
             },
             "require": {
-                "php": "^7|^8"
+                "php": "^8"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6|^7|^8|^9",
-                "vimeo/psalm": "^1|^2|^3|^4"
+                "infection/infection": "^0",
+                "nikic/php-fuzzer": "^0",
+                "phpunit/phpunit": "^9|^10|^11",
+                "vimeo/psalm": "^4|^5|^6"
             },
             "type": "library",
             "autoload": {
@@ -733,7 +735,7 @@
                 "issues": "https://github.com/paragonie/constant_time_encoding/issues",
                 "source": "https://github.com/paragonie/constant_time_encoding"
             },
-            "time": "2022-01-17T05:32:27+00:00"
+            "time": "2025-09-24T15:06:41+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -787,20 +789,20 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.14",
+            "version": "3.0.57",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "2f0b7af658cbea265cbb4a791d6c29a6613f98ef"
+                "reference": "d17e0ddaeaf6f22f7e007cbb437d78792fe2a0e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/2f0b7af658cbea265cbb4a791d6c29a6613f98ef",
-                "reference": "2f0b7af658cbea265cbb4a791d6c29a6613f98ef",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/d17e0ddaeaf6f22f7e007cbb437d78792fe2a0e4",
+                "reference": "d17e0ddaeaf6f22f7e007cbb437d78792fe2a0e4",
                 "shasum": ""
             },
             "require": {
-                "paragonie/constant_time_encoding": "^1|^2",
+                "paragonie/constant_time_encoding": "^1|^2|^3",
                 "paragonie/random_compat": "^1.4|^2.0|^9.99.99",
                 "php": ">=5.6.1"
             },
@@ -808,6 +810,7 @@
                 "phpunit/phpunit": "*"
             },
             "suggest": {
+                "ext-dom": "Install the DOM extension to load XML formatted public keys.",
                 "ext-gmp": "Install the GMP (GNU Multiple Precision) extension in order to speed up arbitrary precision integer arithmetic operations.",
                 "ext-libsodium": "SSH2/SFTP can make use of some algorithms provided by the libsodium-php extension.",
                 "ext-mcrypt": "Install the Mcrypt extension in order to speed up a few other cryptographic operations.",
@@ -876,7 +879,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.14"
+                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.57"
             },
             "funding": [
                 {
@@ -892,7 +895,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-04T05:15:45+00:00"
+            "time": "2026-08-26T12:13:21+00:00"
         },
         {
             "name": "psr/cache",
@@ -1268,10 +1271,10 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
-    "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "platform": {},
+    "platform-dev": {},
+    "plugin-api-version": "2.9.0"
 }
