@@ -108,11 +108,11 @@ jobs:
               rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
               vendor/bin/phpunit
           - php-version: 8.4
-            name: Larastan tests PHP 8.4, ^12.48
+            name: Larastan tests PHP 8.4, ^13.35
             script: |
               git clone https://github.com/larastan/larastan.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout eda1d2867d17521370de8c5e09d33b704cb0ecbf
+              git checkout dea9faffd2f9e247b8c5d6ce5f12d4a89ecd3fe0
               cp ../larastan-composer.lock composer.lock
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
@@ -381,7 +381,7 @@ jobs:
             baseline-file: symplify-baseline.neon
           - php-version: 8.4
             repo: larastan/larastan
-            ref: eda1d2867d17521370de8c5e09d33b704cb0ecbf
+            ref: dea9faffd2f9e247b8c5d6ce5f12d4a89ecd3fe0
             setup: |
               cp ../larastan-composer.lock composer.lock
               composer install
