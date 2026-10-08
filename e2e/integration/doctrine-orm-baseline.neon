@@ -61,6 +61,12 @@ parameters:
 			path: repo/src/Mapping/ToManyAssociationMapping.php
 
 		-
+			message: '#^Parameter \#1 \$columns of method Doctrine\\DBAL\\Platforms\\AbstractPlatform\:\:getColumnDeclarationListSQL\(\) expects list\<array\{name\: string, type\?\: Doctrine\\DBAL\\Types\\Type, typeName\?\: string, default\?\: mixed, notnull\?\: bool, autoincrement\?\: bool, columnDefinition\?\: non\-empty\-string\|null, comment\?\: string, \.\.\.\}\>, array\<string, array\{name\: string, notnull\: true, type\: Doctrine\\DBAL\\Types\\Type\}\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Persisters/Collection/OneToManyPersister.php
+
+		-
 			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isIndexed\(\) will always evaluate to false\.$#'
 			identifier: method.impossibleType
 			count: 1
@@ -79,6 +85,18 @@ parameters:
 			path: repo/src/Persisters/Entity/BasicEntityPersister.php
 
 		-
+			message: '#^Parameter \#1 \$columns of method Doctrine\\DBAL\\Platforms\\AbstractPlatform\:\:getColumnDeclarationListSQL\(\) expects list\<array\{name\: string, type\?\: Doctrine\\DBAL\\Types\\Type, typeName\?\: string, default\?\: mixed, notnull\?\: bool, autoincrement\?\: bool, columnDefinition\?\: non\-empty\-string\|null, comment\?\: string, \.\.\.\}\>, array\<string, array\{name\: string, notnull\: true, type\: Doctrine\\DBAL\\Types\\Type\}\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Query/Exec/MultiTableDeleteExecutor.php
+
+		-
+			message: '#^Parameter \#1 \$columns of method Doctrine\\DBAL\\Platforms\\AbstractPlatform\:\:getColumnDeclarationListSQL\(\) expects list\<array\{name\: string, type\?\: Doctrine\\DBAL\\Types\\Type, typeName\?\: string, default\?\: mixed, notnull\?\: bool, autoincrement\?\: bool, columnDefinition\?\: non\-empty\-string\|null, comment\?\: string, \.\.\.\}\>, array\<string, array\{name\: string, notnull\: true, type\: Doctrine\\DBAL\\Types\\Type\}\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Query/Exec/MultiTableUpdateExecutor.php
+
+		-
 			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isManyToMany\(\) will always evaluate to true\.$#'
 			identifier: method.alreadyNarrowedType
 			count: 1
@@ -91,10 +109,141 @@ parameters:
 			path: repo/src/Query/SqlWalker.php
 
 		-
-			message: '#^Call to function method_exists\(\) with ''Symfony\\\\Component\\\\Console\\\\Application'' and ''addCommand'' will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
+			message: '''
+				#^Call to deprecated method addColumn\(\) of class Doctrine\\DBAL\\Schema\\Table\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see TableEditor\:\:addColumn\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 3
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method addForeignKeyConstraint\(\) of class Doctrine\\DBAL\\Schema\\Table\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see TableEditor\:\:addForeignKeyConstraint\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method addIndex\(\) of class Doctrine\\DBAL\\Schema\\Table\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see TableEditor\:\:addIndex\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method addOption\(\) of class Doctrine\\DBAL\\Schema\\Table\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see TableEditor\:\:setOptions\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method addPrimaryKeyConstraint\(\) of class Doctrine\\DBAL\\Schema\\Table\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see TableEditor\:\:addPrimaryKeyConstraint\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
 			count: 1
-			path: repo/src/Tools/Console/ConsoleRunner.php
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method addUniqueIndex\(\) of class Doctrine\\DBAL\\Schema\\Table\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see TableEditor\:\:addIndex\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 3
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method createSequence\(\) of class Doctrine\\DBAL\\Schema\\Schema\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see SchemaEditor\:\:addSequence\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method createTable\(\) of class Doctrine\\DBAL\\Schema\\Schema\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see SchemaEditor\:\:addTable\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method dropForeignKey\(\) of class Doctrine\\DBAL\\Schema\\Table\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see TableEditor\:\:dropForeignKeyConstraint\(\)\}
+				            instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method dropIndex\(\) of class Doctrine\\DBAL\\Schema\\Table\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see TableEditor\:\:dropIndex\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 2
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method dropSequence\(\) of class Doctrine\\DBAL\\Schema\\Schema\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see SchemaEditor\:\:dropSequence\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method dropTable\(\) of class Doctrine\\DBAL\\Schema\\Schema\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see SchemaEditor\:\:dropTable\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method modifyColumn\(\) of class Doctrine\\DBAL\\Schema\\Table\:
+				since doctrine/dbal 4\.5\. Use \{@see edit\(\)\} and \{@see TableEditor\:\:modifyColumn\(\)\} instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Call to deprecated method setAutoincrement\(\) of class Doctrine\\DBAL\\Schema\\Column\:
+				since doctrine/dbal 4\.5\. Use \{@see Column\:\:editor\(\)\} and \{@see ColumnEditor\:\:setAutoincrement\(\)\}
+				            instead\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Tools/SchemaTool.php
+
+		-
+			message: '''
+				#^Access to constant on deprecated class Doctrine\\DBAL\\Types\\SimpleArrayType\:
+				Use \{@see JsonType\} instead\.$#
+			'''
+			identifier: classConstant.deprecatedClass
+			count: 1
+			path: repo/src/Tools/SchemaValidator.php
 
 		-
 			message: '#^Call to method Doctrine\\ORM\\Mapping\\AssociationMapping\:\:isToMany\(\) will always evaluate to true\.$#'
