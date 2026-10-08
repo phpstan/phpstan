@@ -142,6 +142,8 @@ jobs:
       - uses: "ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda" # v4.0.0
         with:
           working-directory: "extension"
+          # no nette/schema release allows PHP 8.6 yet, and some extensions need it through their dev dependencies
+          composer-options: ${{ matrix.php-version == '8.6' && '--ignore-platform-req=php+' || '' }}
 
       - name: "Copy current PHAR"
         working-directory: extension

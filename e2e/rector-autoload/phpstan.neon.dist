@@ -3,5 +3,7 @@ includes:
 
 parameters:
 	level: 8
+	# src/ calls str_contains(), and the project installs no polyfill for it on PHP 7.4
+	phpVersion: 80000
 	paths:
 		- src
