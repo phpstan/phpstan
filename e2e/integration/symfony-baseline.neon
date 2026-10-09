@@ -61,6 +61,16 @@ parameters:
 			path: repo/src/Symfony/Bridge/Doctrine/ContainerAwareEventManager.php
 
 		-
+			message: '''
+				#^Call to deprecated method getType\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Resolve the type through the type provider of the
+				            connection instead\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Symfony/Bridge/Doctrine/DataCollector/DoctrineDataCollector.php
+
+		-
 			message: '#^Class Symfony\\Component\\Clock\\DayPoint not found\.$#'
 			identifier: class.notFound
 			count: 1
@@ -77,6 +87,22 @@ parameters:
 			identifier: method.notFound
 			count: 1
 			path: repo/src/Symfony/Bridge/Doctrine/DependencyInjection/Security/UserProvider/EntityFactory.php
+
+		-
+			message: '''
+				#^Call to deprecated method getTypeRegistry\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Use \{@see Configuration\:\:getTypeProvider\(\)\}, or inject
+				            your own type provider\. There will be no static type provider in DBAL 5\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Symfony/Bridge/Doctrine/Form/ChoiceList/ORMQueryBuilderLoader.php
+
+		-
+			message: '#^Call to function method_exists\(\) with Doctrine\\DBAL\\Configuration and ''getTypeProvider'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/src/Symfony/Bridge/Doctrine/Form/ChoiceList/ORMQueryBuilderLoader.php
 
 		-
 			message: '#^Access to property \$fieldMappings on an unknown class Doctrine\\ORM\\Mapping\\ClassMetadataInfo\.$#'
@@ -5864,6 +5890,16 @@ parameters:
 			identifier: method.deprecated
 			count: 1
 			path: repo/src/Symfony/Component/KeyManagement/Bridge/DoctrineDbal/DataKeyStore.php
+
+		-
+			message: '''
+				#^Call to deprecated method getTypeRegistry\(\) of class Doctrine\\DBAL\\Types\\Type\:
+				since doctrine/dbal 4\.6\. Use \{@see Configuration\:\:getTypeProvider\(\)\}, or inject
+				            your own type provider\. There will be no static type provider in DBAL 5\.$#
+			'''
+			identifier: staticMethod.deprecated
+			count: 1
+			path: repo/src/Symfony/Component/KeyManagement/Bridge/DoctrineDbal/EncryptedTypes.php
 
 		-
 			message: '#^Dead catch \- Symfony\\Component\\KeyManagement\\Exception\\KeyNotFoundException is never thrown in the try block\.$#'
