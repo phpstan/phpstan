@@ -108,7 +108,7 @@ jobs:
           - { key: "php8.3", digest-key: "php8.3", image-tag-suffix: "-php8.3" }
           - { key: "php8.4", digest-key: "php8.4", image-tag-suffix: "-php8.4" }
           - { key: "php8.5", digest-key: "php8.5", image-tag-suffix: "-php8.5" }
-          - { key: "php8.6", digest-key: "php8.5", image-tag-suffix: "-php8.6" }
+          - { key: "php8.6", digest-key: "php8.6", image-tag-suffix: "-php8.6" }
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@bf7454d06d71f1098171f2acdf0cd4708d7b5920 # v2.20.0
