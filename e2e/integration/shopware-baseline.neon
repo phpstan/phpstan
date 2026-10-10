@@ -2371,6 +2371,18 @@ parameters:
 			path: repo/tests/integration/Core/Content/ImportExport/Api/ImportExportLogApiTest.php
 
 		-
+			rawMessage: 'Cannot unset offset ''fileType''|''sourceEntity'' on array<string, mixed>|false.'
+			identifier: unset.offset
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/Api/ImportExportProfileApiTest.php
+
+		-
+			rawMessage: 'Parameter #3 $parameters of method Shopware\Core\Framework\Test\TestCaseHelper\TestBrowser::jsonRequest() expects array<int|string, mixed>, array<string, mixed>|false given.'
+			identifier: argument.type
+			count: 1
+			path: repo/tests/integration/Core/Content/ImportExport/Api/ImportExportProfileApiTest.php
+
+		-
 			rawMessage: 'assertEmpty() is not allowed. Use more strict assertion.'
 			identifier: phpunit.assertEmpty
 			count: 1
