@@ -1,55 +1,22 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Strict comparison using \=\=\= between non\-empty\-list and array\{\} will always evaluate to false\.$#'
-			identifier: identical.alwaysFalse
-			count: 1
-			path: repo/rules/DeadCode/Rector/ClassMethod/RemoveUselessAssignFromPropertyPromotionRector.php
-
-		-
-			message: '''
-				#^Call to deprecated method toMutatingScope\(\) of interface PHPStan\\Analyser\\Scope\:
-				The scope answers every ask directly \- call the methods on the scope itself, or toWalkScope\(\) for the engine\-facing walk scope\.$#
-			'''
-			identifier: method.deprecated
-			count: 1
-			path: repo/rules/Php81/NodeManipulator/NullToStrictStringIntConverter.php
-
-		-
-			message: '#^Call to method toMutatingScope\(\) on an unknown class PHPStan\\Analyser\\Fiber\\FiberScope\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/rules/Php81/NodeManipulator/NullToStrictStringIntConverter.php
-
-		-
-			message: '#^Class PHPStan\\Analyser\\Fiber\\FiberScope not found\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/rules/Php81/NodeManipulator/NullToStrictStringIntConverter.php
-
-		-
 			message: '#^Only abstract classes can be extended$#'
 			identifier: symplify.forbiddenExtendOfNonAbstractClass
 			count: 1
 			path: repo/src/NodeTypeResolver/PHPStan/ObjectWithoutClassTypeWithParentTypes.php
 
 		-
-			message: '#^Call to deprecated method toMutatingScope\(\) of class PHPStan\\Analyser\\MutatingScope\.$#'
-			identifier: method.deprecated
+			message: '#^Unused Rector\\NodeTypeResolver\\Reflection\\BetterReflection\\SourceLocator\\IntermediateSourceLocator\:\:locateIdentifier$#'
+			identifier: shipmonk.deadMethod
 			count: 1
-			path: repo/src/NodeTypeResolver/PHPStan/Scope/PHPStanNodeScopeResolver.php
+			path: repo/src/NodeTypeResolver/Reflection/BetterReflection/SourceLocator/IntermediateSourceLocator.php
 
 		-
-			message: '#^Call to method toMutatingScope\(\) on an unknown class PHPStan\\Analyser\\Fiber\\FiberScope\.$#'
-			identifier: class.notFound
+			message: '#^Unused Rector\\NodeTypeResolver\\Reflection\\BetterReflection\\SourceLocator\\IntermediateSourceLocator\:\:locateIdentifiersByType$#'
+			identifier: shipmonk.deadMethod
 			count: 1
-			path: repo/src/NodeTypeResolver/PHPStan/Scope/PHPStanNodeScopeResolver.php
-
-		-
-			message: '#^Class PHPStan\\Analyser\\Fiber\\FiberScope not found\.$#'
-			identifier: class.notFound
-			count: 1
-			path: repo/src/NodeTypeResolver/PHPStan/Scope/PHPStanNodeScopeResolver.php
+			path: repo/src/NodeTypeResolver/Reflection/BetterReflection/SourceLocator/IntermediateSourceLocator.php
 
 		-
 			message: '#^Only abstract classes can be extended$#'
@@ -116,3 +83,57 @@ parameters:
 			identifier: symplify.forbiddenExtendOfNonAbstractClass
 			count: 1
 			path: repo/src/StaticTypeMapper/ValueObject/Type/SimpleStaticType.php
+
+		-
+			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\NoScopeFetchBeforeCheapGuardRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/utils/phpstan/src/Rule/NoScopeFetchBeforeCheapGuardRule.php
+
+		-
+			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\NoScopeFetchBeforeCheapGuardRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/utils/phpstan/src/Rule/NoScopeFetchBeforeCheapGuardRule.php
+
+		-
+			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\PreferGenericTemplateOnSameUnionTypeRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/utils/phpstan/src/Rule/PreferGenericTemplateOnSameUnionTypeRule.php
+
+		-
+			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\PreferGenericTemplateOnSameUnionTypeRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/utils/phpstan/src/Rule/PreferGenericTemplateOnSameUnionTypeRule.php
+
+		-
+			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\RegisterRelatedPolyfillRectorRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/utils/phpstan/src/Rule/RegisterRelatedPolyfillRectorRule.php
+
+		-
+			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\RegisterRelatedPolyfillRectorRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/utils/phpstan/src/Rule/RegisterRelatedPolyfillRectorRule.php
+
+		-
+			message: '#^Unused Rector\\Utils\\PHPStan\\Tests\\Rule\\NoScopeFetchBeforeCheapGuardRule\\NoScopeFetchBeforeCheapGuardRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/utils/phpstan/tests/Rule/NoScopeFetchBeforeCheapGuardRule/NoScopeFetchBeforeCheapGuardRuleTest.php
+
+		-
+			message: '#^Unused Rector\\Utils\\PHPStan\\Tests\\Rule\\PreferGenericTemplateOnSameUnionTypeRule\\PreferGenericTemplateOnSameUnionTypeRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/utils/phpstan/tests/Rule/PreferGenericTemplateOnSameUnionTypeRule/PreferGenericTemplateOnSameUnionTypeRuleTest.php
+
+		-
+			message: '#^Unused Rector\\Utils\\PHPStan\\Tests\\Rule\\RegisterRelatedPolyfillRectorRule\\RegisterRelatedPolyfillRectorRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/utils/phpstan/tests/Rule/RegisterRelatedPolyfillRectorRule/RegisterRelatedPolyfillRectorRuleTest.php
