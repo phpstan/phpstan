@@ -1501,7 +1501,7 @@ parameters:
 			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/Controller/WorkspaceController.php
 
 		-
-			message: '#^Parameter \#2 \$callback of function array_reduce expects callable\(array, object\)\: array, Closure\(array, Neos\\Neos\\Domain\\Model\\User\)\: non\-empty\-array given\.$#'
+			rawMessage: 'Parameter #2 $callback of function array_reduce expects callable(array<string, string>, object): array<string, string>, Closure(array, Neos\Neos\Domain\Model\User): non-empty-array<string, string> given.'
 			identifier: argument.type
 			count: 1
 			path: neos-dist/Packages/Neos/Neos.Workspace.Ui/Classes/Controller/WorkspaceController.php
