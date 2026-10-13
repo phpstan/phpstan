@@ -20,14 +20,14 @@ $phpstanVersion = \Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPret
 
 function clearTemp(): void
 {
-	$files = new RecursiveIteratorIterator(
-		new RecursiveDirectoryIterator('/tmp', RecursiveDirectoryIterator::SKIP_DOTS),
-		RecursiveIteratorIterator::CHILD_FIRST
-	);
-
-	foreach ($files as $fileinfo) {
-		$todo = ($fileinfo->isDir() ? 'rmdir' : 'unlink');
-		$todo($fileinfo->getRealPath());
+	// Remove only this request's input artifacts. PHPStan's result cache also
+	// lives under /tmp; on a warm Lambda we want to keep it so repeated analyses
+	// reuse it. The cache is keyed on file content and config, so each distinct
+	// submission still gets a correct result even though the path is reused.
+	foreach (['/tmp/tmp.php', '/tmp/run-phpstan-tmp.neon'] as $file) {
+		if (is_file($file)) {
+			unlink($file);
+		}
 	}
 }
 
