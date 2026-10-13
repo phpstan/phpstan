@@ -1,6 +1,7 @@
 includes:
 	- flow-dist/Packages/Framework/phpstan.neon.dist
 	- flow-baseline.neon
+	- editor-link-repo.php
 
 parameters:
 	reportUnmatchedIgnoredErrors: false
