@@ -47,7 +47,7 @@ class RestrictedUsageCollector implements Collector
 
         $identifier = $scope->getType($args[1]->value);
         if (count($identifier->getConstantStrings()) === 0) {
-            throw new ShouldNotHappenException(sprintf('Unknown identifier'));
+            throw new ShouldNotHappenException(sprintf('Unknown identifier in %s on line %d', $scope->getFile(), $args[1]->getStartLine()));
         }
 
         if (!$scope->isInClass()) {
