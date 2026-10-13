@@ -44,6 +44,12 @@ interface HttpResponse {
 	body?: string;
 }
 
+const RESULT_ID_PATTERN = /^(?:[0-9a-f]{32}|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i;
+
+function isValidResultId(id: unknown): boolean {
+	return typeof id === 'string' && RESULT_ID_PATTERN.test(id);
+}
+
 interface PHPStanError {
 	message: string,
 	line: number,
@@ -328,6 +334,9 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 	try {
 		const id = request.queryStringParameters.id;
+		if (!isValidResultId(id)) {
+			return Promise.resolve({statusCode: 400, body: JSON.stringify({error: 'Invalid id'})});
+		}
 		const object = await s3.getObject({
 			Bucket: 'phpstan-playground',
 			Key: 'api/results/' + id + '.json',
@@ -457,6 +466,9 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 	try {
 		const id = request.queryStringParameters.id;
+		if (!isValidResultId(id)) {
+			return Promise.resolve({statusCode: 400, body: JSON.stringify({error: 'Invalid id'})});
+		}
 		const object = await s3.getObject({
 			Bucket: 'phpstan-playground',
 			Key: 'api/results/' + id + '.json',
@@ -499,6 +511,9 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse> {
 	try {
 		const id = request.queryStringParameters.id;
+		if (!isValidResultId(id)) {
+			return Promise.resolve({statusCode: 400, body: JSON.stringify({error: 'Invalid id'})});
+		}
 		const firstTwoChars = id.substr(0, 2);
 		const path = 'data/results/' + firstTwoChars + '/' + id;
 		const inputObject = await s3.getObject({
