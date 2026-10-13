@@ -35,6 +35,12 @@ return function ($event) use ($phpstanVersion) {
 	clearTemp();
 	$code = $event['code'];
 	$level = $event['level'];
+	if (!in_array((string) $level, ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'max'], true)) {
+		throw new \InvalidArgumentException(sprintf(
+			'Invalid analysis level: %s',
+			var_export($level, true)
+		));
+	}
 	$codePath = '/tmp/tmp.php';
 	file_put_contents($codePath, $code);
 
