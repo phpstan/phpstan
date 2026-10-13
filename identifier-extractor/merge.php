@@ -13,13 +13,19 @@ $classes = [];
 foreach ($finder->files()->name('*.json')->in(__DIR__ . '/tmp') as $resultFile) {
 	$contents = file_get_contents($resultFile->getPathname());
 	if ($contents === false) {
-		throw new \LogicException();
+		throw new \LogicException(sprintf('Could not read %s', $resultFile->getPathname()));
 	}
 	$json = Json::decode($contents, true);
+	if (!is_array($json) || !is_string($json['repo'] ?? null) || !is_string($json['branch'] ?? null) || !is_array($json['data'] ?? null)) {
+		throw new \LogicException(sprintf('Malformed identifier artifact: %s', $resultFile->getPathname()));
+	}
 	$repo = $json['repo'];
 	$branch = $json['branch'];
 
 	foreach ($json['data'] as $row) {
+		if (!is_array($row) || !is_array($row['identifiers'] ?? null) || !isset($row['class'], $row['file'], $row['line'])) {
+			throw new \LogicException(sprintf('Malformed row in %s', $resultFile->getPathname()));
+		}
 		$classes[$row['class']] = true;
 		$data[] = [
 			'identifiers' => $row['identifiers'],
