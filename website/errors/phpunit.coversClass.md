@@ -1,6 +1,6 @@
 ---
 title: "phpunit.coversClass"
-shortDescription: "@coversDefaultClass references a class that does not exist."
+shortDescription: "#[CoversClass] attribute references a class that does not exist."
 ignorable: true
 ---
 
@@ -9,12 +9,11 @@ ignorable: true
 ```php
 <?php declare(strict_types = 1);
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @coversDefaultClass App\NonExistentService
- */
-class MyTest extends TestCase // ERROR: @coversDefaultClass references an invalid class App\NonExistentService.
+#[CoversClass(\App\NonExistentService::class)]
+class MyTest extends TestCase
 {
 	public function testSomething(): void
 	{
@@ -27,23 +26,22 @@ class MyTest extends TestCase // ERROR: @coversDefaultClass references an invali
 
 This rule is provided by the [phpstan-phpunit](https://github.com/phpstan/phpstan-phpunit) extension.
 
-The `@coversDefaultClass` annotation on the test class references a class that does not exist. This annotation is used by PHPUnit to track code coverage. When the referenced class cannot be found, the coverage data will be incorrect and PHPUnit may produce warnings or errors when generating coverage reports.
+The `#[CoversClass]` attribute on the test class references a class that does not exist. This attribute is used by PHPUnit to track code coverage. When the referenced class cannot be found, the coverage data will be incorrect and PHPUnit may produce warnings or errors when generating coverage reports.
 
-This typically happens when the class has been renamed, moved to a different namespace, or deleted without updating the test annotations.
+This typically happens when the class has been renamed, moved to a different namespace, or deleted without updating the test attributes.
 
 ## How to fix it
 
-Update the annotation to reference the correct class:
+Update the attribute to reference the correct class:
 
 ```diff-php
  <?php declare(strict_types = 1);
 
+ use PHPUnit\Framework\Attributes\CoversClass;
  use PHPUnit\Framework\TestCase;
 
- /**
-- * @coversDefaultClass App\NonExistentService
-+ * @coversDefaultClass App\UserService
-  */
+-#[CoversClass(\App\NonExistentService::class)]
++#[CoversClass(\App\UserService::class)]
  class MyTest extends TestCase
  {
  	public function testSomething(): void
@@ -52,5 +50,3 @@ Update the annotation to reference the correct class:
  	}
  }
 ```
-
-Make sure to use the fully qualified class name (including the namespace) in the `@coversDefaultClass` annotation.
