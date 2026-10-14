@@ -317,14 +317,14 @@ jobs:
             baseline-file: phpunit-baseline.neon
           - php-version: 8.4
             repo: laravel/framework
-            ref: 1d3c6c59f78b390c46671ea597024f07043b93c9
+            ref: e8b96d936929a041f40a9a73be9b364e6315f813
             setup: |
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../laravel.neon -vvv
             baseline-file: laravel-baseline.neon
           - php-version: 8.4
             repo: laravel/framework
-            ref: 1d3c6c59f78b390c46671ea597024f07043b93c9
+            ref: e8b96d936929a041f40a9a73be9b364e6315f813
             setup: |
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../laravel-types.neon -vvv
