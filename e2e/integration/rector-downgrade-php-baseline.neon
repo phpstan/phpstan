@@ -1,7 +1,25 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Property Rector\\DowngradePhp72\\Rector\\ClassMethod\\DowngradeParameterTypeWideningRector\:\:\$unsafeTypesToMethods \(array\<string, array\<string\>\>\) does not accept array\<string, iterable\<string\>\>\.$#'
-			identifier: assign.propertyType
+			message: '#^Param and return share the same class\-type union "Arg\|Assign\|FuncCall\|Expression\|Return_"\. Add a @template generic to narrow the return type to the passed one\.$#'
+			identifier: rector.genericTemplateOverSameUnionType
 			count: 1
-			path: repo/rules/DowngradePhp72/Rector/ClassMethod/DowngradeParameterTypeWideningRector.php
+			path: repo/rules/DowngradePhp80/Rector/Expression/DowngradeMatchToSwitchRector.php
+
+		-
+			message: '#^Unused Rector\\DowngradePhp80\\Reflection\\SimplePhpParameterReflection\:\:isOptional$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/rules/DowngradePhp80/Reflection/SimplePhpParameterReflection.php
+
+		-
+			message: '#^Param and return share the same class\-type union "Closure\|ClassMethod\|Function_"\. Add a @template generic to narrow the return type to the passed one\.$#'
+			identifier: rector.genericTemplateOverSameUnionType
+			count: 1
+			path: repo/rules/DowngradePhp81/Rector/FunctionLike/DowngradeNewInInitializerRector.php
+
+		-
+			message: '#^Param and return share the same class\-type union "ArrowFunction\|Closure\|ClassMethod\|Function_"\. Add a @template generic to narrow the return type to the passed one\.$#'
+			identifier: rector.genericTemplateOverSameUnionType
+			count: 1
+			path: repo/rules/DowngradePhp82/Rector/Class_/DowngradeUnionIntersectionRector.php

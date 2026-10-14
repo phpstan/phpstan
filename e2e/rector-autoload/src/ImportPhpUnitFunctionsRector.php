@@ -37,7 +37,7 @@ final class ImportPhpUnitFunctionsRector extends AbstractRector
 		$functionName = $this->getName($node);
 
 		// If function name is FQCN it's already imported or is a member of this file's namespace
-		if (str_contains($functionName, '\\')) {
+		if (strpos($functionName, '\\') !== false) {
 			return null;
 		}
 
