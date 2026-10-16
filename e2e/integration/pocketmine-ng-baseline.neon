@@ -181,6 +181,12 @@ parameters:
 			path: repo/src/world/World.php
 
 		-
+			message: '#^Parameter \#2 \$length of function fread expects int\<1, max\>, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/src/world/format/io/region/RegionLoader.php
+
+		-
 			message: '#^SplFixedArray\<SplFixedArray\<float\>\> does not accept SplFixedArray\<mixed\>\.$#'
 			identifier: offsetAssign.valueType
 			count: 2
