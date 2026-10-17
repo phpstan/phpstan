@@ -1381,6 +1381,12 @@ parameters:
 			path: repo/src/Core/Service/AppInfo.php
 
 		-
+			rawMessage: 'Method Shopware\Core\Service\Subscriber\WebhookManagerSubscriber::partitionArray() should return list<list<T>> but returns array<int, mixed>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Core/Service/Subscriber/WebhookManagerSubscriber.php
+
+		-
 			rawMessage: Foreach overwrites $field with its value variable.
 			identifier: foreach.valueOverwrite
 			count: 1
