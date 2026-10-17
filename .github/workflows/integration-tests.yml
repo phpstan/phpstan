@@ -715,6 +715,22 @@ jobs:
             phpstan-command: bin/phpstan analyse -c ../flow-legacy.neon
             baseline-file: flow-legacy-baseline.neon
           - php-version: 8.5
+            repo: nunomaduro/dev-null.sh
+            ref: 3938f72e107cdc18962909eff3dcb092e52072d7
+            setup: |
+              composer install
+              cp .env.example .env
+              php artisan key:generate
+            phpstan-command: ../../../phpstan.phar analyse -c ../dev-null.neon
+            baseline-file: dev-null-baseline.neon
+          - php-version: 8.5
+            repo: tempestphp/tempest-framework
+            ref: v3.19.2
+            setup: |
+              composer install
+            phpstan-command: ../../../phpstan.phar analyse -c ../tempest.neon --memory-limit=2G
+            baseline-file: tempest-baseline.neon
+          - php-version: 8.5
             repo: staabm/phpstan-dba
             ref: 594dc1fe9831ce551371ecdfc2acf1377abcc9b0
             setup: |
