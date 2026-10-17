@@ -75,8 +75,7 @@ Because GitHub Actions do not overwrite existing cache entries with the same key
     with:
       path: tmp # same as in phpstan.neon
       key: "phpstan-result-cache-{% raw %}${{ github.run_id }}"{% endraw %}
-      restore-keys: |
-        phpstan-result-cache-
+      restore-keys: "phpstan-result-cache-"
 
   - name: "Run PHPStan"
     run: "vendor/bin/phpstan"
