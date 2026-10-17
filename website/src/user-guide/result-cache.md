@@ -71,7 +71,7 @@ Because GitHub Actions do not overwrite existing cache entries with the same key
   # checkout, setup-php, composer install...
   
   - name: "Restore result cache"
-    uses: actions/cache/restore@v5
+    uses: actions/cache/restore@v6
     with:
       path: tmp # same as in phpstan.neon
       key: "phpstan-result-cache-{% raw %}${{ github.run_id }}"{% endraw %}
@@ -81,7 +81,7 @@ Because GitHub Actions do not overwrite existing cache entries with the same key
     run: "vendor/bin/phpstan"
 
   - name: "Save result cache"
-    uses: actions/cache/save@v5
+    uses: actions/cache/save@v6
     if: {% raw %}${{ !cancelled() }}{% endraw %}
     with:
       path: tmp # same as in phpstan.neon
