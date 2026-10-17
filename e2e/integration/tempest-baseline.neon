@@ -1,0 +1,55 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertSame\(\) with Tempest\\Auth\\Tests\\MemoizedAuthenticatable and Tempest\\Auth\\Tests\\MemoizedAuthenticatable will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 2
+			path: repo/packages/auth/tests/SessionAuthenticatorTest.php
+
+		-
+			message: '#^Call to method ReflectionEnum\<T&UnitEnum\>\:\:isBacked\(\) will always evaluate to false\.$#'
+			identifier: method.impossibleType
+			count: 1
+			path: repo/packages/console/src/Components/Option.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertSame\(\) with Tempest\\Core\\Environment\:\:STAGING and Tempest\\Core\\Environment\:\:STAGING will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: repo/packages/core/tests/EnvironmentTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertSame\(\) with ''0'' and ''0'' will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: repo/packages/intl/tests/FunctionsTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertSame\(\) with Tempest\\Intl\\Locale\:\:ARABIC_TUNISIA and Tempest\\Intl\\Locale\:\:ARABIC_TUNISIA will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 8
+			path: repo/packages/intl/tests/LocaleTest.php
+
+		-
+			message: '#^Anonymous function has an unused use \$context\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: repo/packages/mapper/src/SerializerFactory.php
+
+		-
+			message: '#^Method Tempest\\Storage\\DirectoryListing\:\:map\(\) should return Tempest\\Storage\\DirectoryListing\<T\> but returns Tempest\\Storage\\DirectoryListing\<R\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/packages/storage/src/DirectoryListing.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertSame\(\) with 0 and 0 will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 1
+			path: repo/tests/Integration/CommandBus/RedisCommandRepositoryTest.php
+
+		-
+			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertSame\(\) with ''\<svg\>\</svg\>'' and ''\<svg\>\</svg\>'' will always evaluate to true\.$#'
+			identifier: method.alreadyNarrowedType
+			count: 3
+			path: repo/tests/Integration/Icon/IconTest.php
