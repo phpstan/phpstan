@@ -81,6 +81,7 @@ Unofficial extensions
 * [Faker](https://github.com/calebdw/fakerstan)
 * [Silverstripe CMS](https://github.com/Cambis/silverstan)
 * [Sylius](https://github.com/bitExpert/phpstan-sylius)
+* [mspirkov/yii2-phpstan](https://github.com/mspirkov/yii2-phpstan)
 
 3rd party rules
 -----------------
@@ -101,6 +102,5 @@ Unofficial extensions
 * [symplify / phpstan-rules](https://github.com/symplify/phpstan-rules)
 * [roave / no-floaters](https://github.com/Roave/no-floaters)
 * [PHP Language Extensions](https://github.com/DaveLiddament/phpstan-php-language-extensions)
-* [mspirkov/yii2-phpstan-rules](https://github.com/mspirkov/yii2-phpstan-rules)
 
 [**Find more on Packagist!**](https://packagist.org/?type=phpstan-extension)
