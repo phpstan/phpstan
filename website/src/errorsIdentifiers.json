@@ -5787,34 +5787,34 @@
     "constructor.unusedParameter": {
         "PHPStan\\Rules\\Classes\\UnusedConstructorParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         },
         "PHPStan\\Rules\\Functions\\UnusedFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         },
         "PHPStan\\Rules\\Methods\\UnusedMethodParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         }
     },
     "constructor.unusedParameterFlow": {
         "PHPStan\\Rules\\Classes\\UnusedConstructorParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         },
         "PHPStan\\Rules\\Functions\\UnusedFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         },
         "PHPStan\\Rules\\Methods\\UnusedMethodParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         }
     },
@@ -7044,34 +7044,34 @@
     "function.unusedParameter": {
         "PHPStan\\Rules\\Classes\\UnusedConstructorParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         },
         "PHPStan\\Rules\\Functions\\UnusedFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         },
         "PHPStan\\Rules\\Methods\\UnusedMethodParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         }
     },
     "function.unusedParameterFlow": {
         "PHPStan\\Rules\\Classes\\UnusedConstructorParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         },
         "PHPStan\\Rules\\Functions\\UnusedFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         },
         "PHPStan\\Rules\\Methods\\UnusedMethodParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         }
     },
@@ -10882,34 +10882,34 @@
     "method.unusedParameter": {
         "PHPStan\\Rules\\Classes\\UnusedConstructorParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         },
         "PHPStan\\Rules\\Functions\\UnusedFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         },
         "PHPStan\\Rules\\Methods\\UnusedMethodParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         }
     },
     "method.unusedParameterFlow": {
         "PHPStan\\Rules\\Classes\\UnusedConstructorParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         },
         "PHPStan\\Rules\\Functions\\UnusedFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         },
         "PHPStan\\Rules\\Methods\\UnusedMethodParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/UnusedParametersCheck.php#L90"
             ]
         }
     },
