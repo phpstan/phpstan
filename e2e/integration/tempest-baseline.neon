@@ -49,6 +49,30 @@ parameters:
 			path: repo/tests/Integration/CommandBus/RedisCommandRepositoryTest.php
 
 		-
+			message: '#^Access to property \$title on an unknown class Tempest\\Database\\Builder\\QueryBuilders\\TModel\.$#'
+			identifier: class.notFound
+			count: 3
+			path: repo/tests/Integration/Database/Builder/IsDatabaseModelTest.php
+
+		-
+			message: '#^Access to property \$label on an unknown class Tempest\\Database\\Builder\\QueryBuilders\\TModel\.$#'
+			identifier: class.notFound
+			count: 8
+			path: repo/tests/Integration/Database/Builder/WhereHasTest.php
+
+		-
+			message: '#^Access to property \$name on an unknown class Tempest\\Database\\Builder\\QueryBuilders\\TModel\.$#'
+			identifier: class.notFound
+			count: 13
+			path: repo/tests/Integration/Database/Builder/WhereHasTest.php
+
+		-
+			message: '#^Access to property \$title on an unknown class Tempest\\Database\\Builder\\QueryBuilders\\TModel\.$#'
+			identifier: class.notFound
+			count: 4
+			path: repo/tests/Integration/Database/Builder/WhereHasTest.php
+
+		-
 			message: '#^Call to method PHPUnit\\Framework\\Assert\:\:assertSame\(\) with ''\<svg\>\</svg\>'' and ''\<svg\>\</svg\>'' will always evaluate to true\.$#'
 			identifier: method.alreadyNarrowedType
 			count: 3
