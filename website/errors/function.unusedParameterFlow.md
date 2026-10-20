@@ -23,7 +23,7 @@ The function's parameter `$input` *is* read — but only by `$input = $input + 1
 
 This is different from [`function.unusedParameter`](/error-identifiers/function.unusedParameter), where the parameter is never read at all. Here the value flows through further computation, but that computation is itself dead, so the parameter has no effect on the program. This usually points to a leftover from refactoring or a logic error where the parameter was meant to be used.
 
-Parameters referenced by a `@phpstan-assert` tag or a conditional return type are not reported, since they serve the call site.
+Parameters referenced by a `@phpstan-assert` tag or a conditional return type are not reported, since they serve the call site. Parameters whose name starts with an underscore (such as `$_input`) are not reported either — the prefix marks a parameter as intentionally unused.
 
 This rule is part of PHPStan's dead code analysis. It is reported at [rule level](/user-guide/rule-levels) 4 and above, and is currently part of [Bleeding Edge](/blog/what-is-bleeding-edge).
 
