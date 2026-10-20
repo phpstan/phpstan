@@ -19,7 +19,7 @@ function doFoo(): void
 
 A function or method with a `void` return type declaration attempts to return a value. In PHP, functions declared with `void` must not return any value. A bare `return;` statement is allowed, but `return $value;` is not.
 
-This is a violation of PHP's type system and will cause a fatal error at runtime in strict mode.
+PHP itself rejects this with a compile-time fatal error ("A void function must not return a value"), regardless of whether strict types are enabled.
 
 ## How to fix it
 
