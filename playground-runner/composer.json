@@ -1,7 +1,7 @@
 {
 	"require": {
 		"php": "^8.4",
-		"bref/bref": "^3.0.0",
+		"bref/bref": "^3.0.14",
 		"jean85/pretty-package-versions": "^2.0.4",
 		"nette/di": "^3.0",
 		"nette/neon": "^3.3",
@@ -27,7 +27,5 @@
 		"allow-plugins": {
 			"php-http/discovery": false
 		}
-	},
-	"minimum-stability": "dev",
-	"prefer-stable": true
+	}
 }
