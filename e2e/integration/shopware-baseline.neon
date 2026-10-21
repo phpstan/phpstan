@@ -313,6 +313,12 @@ parameters:
 			path: repo/src/Core/Content/Test/Product/ProductBuilder.php
 
 		-
+			rawMessage: Access to undefined constant Shopware\Core\Framework\Script\Execution\InterfaceHook::FUNCTIONS.
+			identifier: classConstant.notFound
+			count: 1
+			path: repo/src/Core/DevOps/Docs/Script/HooksReferenceGenerator.php
+
+		-
 			rawMessage: Casting to string something that's already string.
 			identifier: cast.useless
 			count: 2
