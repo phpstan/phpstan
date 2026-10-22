@@ -45,13 +45,32 @@ $requests = [
 		['code' => $returnTypeCode, 'level' => '9', 'phpVersion' => 80500, 'strictRules' => true, 'bleedingEdge' => true],
 		['Function foo() should return string but returns int.'],
 	],
-	'str_contains, PHP 7.4 again' => [
-		['code' => $strContainsCode, 'level' => '8', 'phpVersion' => 70400],
+	'str_contains, PHP 7.4 again, integer level' => [
+		['code' => $strContainsCode, 'level' => 8, 'phpVersion' => 70400],
 		['Function str_contains not found.'],
 	],
 ];
 
+$invalidRequests = [
+	'missing level' => ['code' => $returnTypeCode, 'phpVersion' => 80500],
+	'unknown level' => ['code' => $returnTypeCode, 'level' => '../foo', 'phpVersion' => 80500],
+	'missing code' => ['level' => '8', 'phpVersion' => 80500],
+];
+
 $failed = false;
+foreach ($invalidRequests as $name => $event) {
+	try {
+		$handler($event);
+		echo sprintf("FAIL %s: expected the request to be rejected\n", $name);
+		$failed = true;
+	} catch (InvalidArgumentException $e) {
+		echo sprintf("OK   %s rejected\n", $name);
+	} catch (Throwable $e) {
+		echo sprintf("FAIL %s: %s: %s\n", $name, get_class($e), $e->getMessage());
+		$failed = true;
+	}
+}
+
 foreach ($requests as $name => [$event, $expectedMessages]) {
 	try {
 		$response = $handler($event);

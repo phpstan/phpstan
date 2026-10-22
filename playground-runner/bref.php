@@ -64,9 +64,20 @@ function clearTemp(): void
 }
 
 return function ($event) use ($phpstanVersion) {
+	$code = $event['code'] ?? null;
+	if (!is_string($code)) {
+		throw new InvalidArgumentException('Missing or invalid "code" in the request.');
+	}
+	// the level picks a config file by name, so only accept the levels PHPStan ships
+	$level = $event['level'] ?? null;
+	if (is_int($level)) {
+		$level = (string) $level;
+	}
+	if (!is_string($level) || preg_match('~^(?:[0-9]|10|max)$~', $level) !== 1) {
+		throw new InvalidArgumentException('Missing or invalid "level" in the request.');
+	}
+
 	clearTemp();
-	$code = $event['code'];
-	$level = $event['level'];
 	$codePath = '/tmp/tmp.php';
 	file_put_contents($codePath, $code);
 
