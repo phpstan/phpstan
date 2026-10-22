@@ -9,7 +9,7 @@
 	"author": "",
 	"license": "MIT",
 	"dependencies": {
-		"osls": "^3.59.3",
+		"osls": "^4.0.0",
 		"@aws-sdk/client-lambda": "^3.700.0"
 	}
 }
