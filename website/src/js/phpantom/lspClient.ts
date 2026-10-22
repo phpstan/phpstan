@@ -10,5 +10,9 @@ export const PHP_URI = 'file:///try/main.php';
 // and diagnostics stay with PHPStan on the server (its result panel is
 // authoritative — we don't want PHPantom squiggles disagreeing with it).
 export const phpantomLsp = new LSPClient({
+	// The worker answers `initialize` only after downloading and compiling the
+	// ~11 MB wasm, which takes longer than the default 3 s on slow connections.
+	// A timed-out `initialize` leaves the client permanently uninitialized.
+	timeout: 60_000,
 	extensions: [serverCompletion(), signatureHelp()],
 }).connect(createPhpantomTransport());

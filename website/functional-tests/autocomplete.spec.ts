@@ -249,3 +249,27 @@ test('Ctrl-R rename of a method is type-aware (same-named method on another clas
 	await expect(doc).toContainText('$a->execute();');
 	await expect(doc).toContainText('class B { public function run()'); // untouched
 });
+
+test('completes after a slow wasm download', async ({browser}) => {
+	const context = await browser.newContext();
+	const page = await context.newPage();
+	// Simulate a slow connection: the LSP `initialize` request is only answered
+	// once the wasm has been downloaded and compiled. The wasm is fetched by the
+	// worker, which page.route() doesn't intercept.
+	await context.route('**/*.wasm', async (route) => {
+		await new Promise((resolve) => setTimeout(resolve, 5_000));
+		await route.continue();
+	});
+	await page.goto('/try');
+	await expect(page.locator('.cm-content').first()).toBeVisible();
+
+	await setCode(page, [
+		'<?php',
+		'class Box { public static function make(): self { return new self(); } }',
+		'Box::',
+	].join('\n'));
+	await page.keyboard.press('Control+Space');
+	await expect(popup(page)).toBeVisible({timeout: COMPLETION_TIMEOUT});
+	expect((await labels(page)).some((l) => l.startsWith('make'))).toBeTruthy();
+	await context.close();
+});
