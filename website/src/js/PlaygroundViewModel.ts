@@ -498,7 +498,13 @@ export class PlaygroundViewModel {
 		// @ts-ignore TS2339
 		if (typeof window.navigator.share !== 'undefined') {
 			// @ts-ignore TS2339
-			window.navigator.share({url: window.location.href});
+			window.navigator.share({url: window.location.href}).catch((e: unknown) => {
+				// the user dismissed the share sheet
+				if (e instanceof DOMException && e.name === 'AbortError') {
+					return;
+				}
+				throw e;
+			});
 			return;
 		}
 		if (typeof window.navigator.clipboard !== 'undefined') {
