@@ -139,6 +139,8 @@ jobs:
 
       - name: "Build"
         working-directory: ./website
+        env:
+          VITE_HONEYBADGER_API_KEY: ${{ secrets.HONEYBADGER_PLAYGROUND_WEB_API_KEY }}
         run: "npm run build"
 
       - name: "Upload website dist"
@@ -340,45 +342,3 @@ jobs:
         with:
           token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
           event-type: check_website_links
-
-  sentry-release:
-    name: "Create Sentry release"
-    needs:
-      - deploy
-    runs-on: "ubuntu-latest"
-    concurrency: website
-    steps:
-      - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
-        with:
-          egress-policy: audit
-
-      - name: "Checkout"
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
-
-      - name: "Download website dist"
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
-        with:
-          name: website-dist
-          path: dist
-
-      - name: Set outputs
-        id: vars
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
-
-      - name: Create Sentry release
-        uses: getsentry/action-release@6fb9aeade7061441cf3864e34fbe11a1457ad7dc # v3.7.1
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
-          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
-        with:
-          environment: production
-          version: ${{ steps.vars.outputs.sha_short }}
-          sourcemaps: './dist'
-          url_prefix: "https://phpstan.org"
-          ignore_missing: true
-          ignore_empty: true
-          # v3 enables Debug ID injection by default; keep the prior
-          # url_prefix-based upload behavior unchanged for this bump
-          inject: false

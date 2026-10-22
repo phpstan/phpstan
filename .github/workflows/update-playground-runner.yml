@@ -94,6 +94,7 @@ jobs:
           AWS_DEFAULT_REGION: "eu-west-1"
           AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
+          HONEYBADGER_API_KEY: ${{ secrets.HONEYBADGER_PLAYGROUND_RUNNER_API_KEY }}
         run: "npm run deploy"
 
       - name: "Precompile DI containers"
@@ -110,4 +111,5 @@ jobs:
           AWS_DEFAULT_REGION: "eu-west-1"
           AWS_ACCESS_KEY_ID: ${{ secrets.PLAYGROUND_RUNNER_AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.PLAYGROUND_RUNNER_AWS_SECRET_ACCESS_KEY }}
+          HONEYBADGER_API_KEY: ${{ secrets.HONEYBADGER_PLAYGROUND_RUNNER_API_KEY }}
         run: "npm run deploy"

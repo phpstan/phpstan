@@ -12,7 +12,7 @@
 	"author": "",
 	"license": "MIT",
 	"dependencies": {
-		"@sentry/node": "^7.43.0",
+		"@honeybadger-io/js": "^6.17.0",
 		"ansi-to-html": "^0.7.0",
 		"aws-sdk": "^2.1335.0",
 		"uuid": "^9.0.0",

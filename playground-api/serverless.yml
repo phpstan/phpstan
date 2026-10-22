@@ -10,6 +10,7 @@ provider:
   region: eu-west-1
   environment:
     RUNNER_FUNCTION: ${env:RUNNER_FUNCTION, 'phpstan-runner-prod-main'}
+    HONEYBADGER_API_KEY: ${env:HONEYBADGER_API_KEY, ''}
 
 plugins:
 - serverless-plugin-typescript

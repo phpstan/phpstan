@@ -15,13 +15,11 @@ ini_set('display_errors', '1');
 
 $phpstanVersion = \Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
 
-\Sentry\init([
-	'dsn' => 'https://35e1e4a8936c4b70b8377056a5eeaeeb@sentry.io/1319523',
-	'integrations' => [
-		new \Sentry\Integration\ExceptionListenerIntegration(),
-		new \Sentry\Integration\ErrorListenerIntegration(),
-		new \Sentry\Integration\FatalErrorListenerIntegration(),
-	]
+\Honeybadger\Honeybadger::new([
+	'api_key' => getenv('HONEYBADGER_API_KEY') ?: null,
+	// the default rethrows when Honeybadger can't be reached, failing the request
+	'service_exception_handler' => static function (): void {
+	},
 ]);
 
 function clearTemp(): void

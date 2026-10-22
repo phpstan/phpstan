@@ -1,13 +1,24 @@
-import {captureException, init as SentryInit} from '@sentry/node';
+import Honeybadger from '@honeybadger-io/js';
 import {AWSError, Lambda, S3} from 'aws-sdk';
 import {PromiseResult} from 'aws-sdk/lib/request';
 import { v4 as uuid } from 'uuid';
 import { z } from 'zod';
 import { createHash } from 'crypto';
 
-SentryInit({
-	dsn: 'https://f56a0e1f5022472982e901e7a5d08514@sentry.io/1319481',
+Honeybadger.configure({
+	apiKey: process.env.HONEYBADGER_API_KEY,
+	environment: 'production',
 });
+
+// Awaited so the report goes out before Lambda freezes the process. A failed
+// report must not fail the request.
+async function reportError(e: unknown): Promise<void> {
+	try {
+		await Honeybadger.notifyAsync(e as Error);
+	} catch (reportingError) {
+		console.error(reportingError);
+	}
+}
 
 const optionsSchema = z.object({
 	inferPrivatePropertyTypeFromConstructor: z.boolean().optional(),
@@ -130,7 +141,7 @@ async function readXRay(id: string): Promise<StoredXRay | null> {
 		const code = (e as AWSError).code;
 		if (code !== 'NoSuchKey' && code !== 'AccessDenied' && code !== 'NotFound') {
 			console.error(e);
-			captureException(e);
+			await reportError(e);
 		}
 		return null;
 	}
@@ -433,7 +444,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 			});
 		}
 		console.error(e);
-		captureException(e);
+		await reportError(e);
 		return Promise.resolve({statusCode: 500});
 	}
 }
@@ -568,7 +579,7 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 		});
 	} catch (e) {
 		console.error(e);
-		captureException(e);
+		await reportError(e);
 		return Promise.resolve({statusCode: 500});
 	}
 }
@@ -613,7 +624,7 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 		});
 	} catch (e) {
 		console.error(e);
-		captureException(e);
+		await reportError(e);
 		return Promise.resolve({statusCode: 500});
 	}
 }
@@ -661,7 +672,7 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 		});
 	} catch (e) {
 		console.error(e);
-		captureException(e);
+		await reportError(e);
 		return Promise.resolve({statusCode: 500});
 	}
 }

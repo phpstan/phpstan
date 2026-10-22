@@ -38,6 +38,7 @@ functions:
             # global state, so requests stay isolated from one another. The bound
             # exists because PHPStan retains a little memory per container built.
             BREF_LOOP_MAX: 50
+            HONEYBADGER_API_KEY: ${env:HONEYBADGER_API_KEY, ''}
     precompile:
         handler: precompile.php
         # Build-time only, invoked by precompile.mjs between the two deploys.

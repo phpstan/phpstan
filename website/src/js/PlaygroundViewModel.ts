@@ -4,7 +4,6 @@ import $ from 'jquery';
 import {MainMenuViewModel} from './MainMenuViewModel';
 import {PlaygroundTabViewModel} from './PlaygroundTabViewModel';
 import linkifyStr from 'linkify-string';
-import * as Sentry from '@sentry/browser';
 import {slugify} from './utils';
 import {EditorView} from '@codemirror/view';
 import {Transaction} from '@codemirror/state';
@@ -459,11 +458,7 @@ export class PlaygroundViewModel {
 				return;
 			}
 
-
 			this.hasServerError(true);
-			const scope = new Sentry.Scope();
-			scope.setExtra('code', this.code());
-			Sentry.captureMessage('Server error - could not analyse code', scope);
 		}).always(() => {
 			this.isLoading(false);
 		});
@@ -771,9 +766,6 @@ export class PlaygroundViewModel {
 				});
 			}).fail(() => {
 				this.hasServerError(true);
-				const scope = new Sentry.Scope();
-				scope.setExtra('id', this.id());
-				Sentry.captureMessage('Server error - could not get analysed result');
 				initCallback();
 				this.startAcceptingChanges();
 			});
@@ -798,9 +790,6 @@ export class PlaygroundViewModel {
 				}
 			}).fail(() => {
 				this.hasServerError(true);
-				const scope = new Sentry.Scope();
-				scope.setExtra('id', this.id());
-				Sentry.captureMessage('Server error - could not get analysed result');
 			}).always(() => {
 				initCallback();
 				this.startAcceptingChanges();

@@ -2,7 +2,7 @@
 # Runs smoke-test.php in the Bref PHP runtime the function is deployed with.
 #
 # The container gets its own /tmp for the handler to wipe, a read-only view of the
-# package, and no network - so nothing reaches Sentry either.
+# package, and no network - so nothing reaches Honeybadger either.
 set -euo pipefail
 
 cd "$(dirname "$0")"
