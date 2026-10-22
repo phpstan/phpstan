@@ -42,7 +42,7 @@
 		"glob": "^13.0.0",
 		"knockout": "^3.5.1",
 		"luxon": "^3.0.0",
-		"markdown-it": "^14.2.0",
+		"markdown-it": "^14.3.3",
 		"markdown-it-abbr": "^2.0.0",
 		"markdown-it-anchor": "^9.2.0",
 		"markdown-it-attrs": "^4.5.0",
