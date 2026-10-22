@@ -185,7 +185,14 @@ async function analyseResultInternal(
 		const phpVersion = tuple[1];
 		const lambdaResult = await promise;
 
+		// A runner that throws or times out still resolves the invoke, with the error as the payload.
+		if (typeof lambdaResult.FunctionError !== 'undefined') {
+			throw new Error(`Runner failed for PHP ${phpVersion} (${lambdaResult.FunctionError}): ${lambdaResult.Payload}`);
+		}
 		const jsonResponse = JSON.parse(lambdaResult.Payload as string);
+		if (!Array.isArray(jsonResponse?.result)) {
+			throw new Error(`Runner returned an unexpected response for PHP ${phpVersion}: ${lambdaResult.Payload}`);
+		}
 		const data: VersionedErrors = {
 			phpVersion: phpVersion,
 			errors: jsonResponse.result.map((error: any): PHPStanError => {
