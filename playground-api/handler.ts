@@ -128,6 +128,12 @@ function attachXRay(versionedErrors: VersionedErrors[], stored: StoredXRay | nul
 	});
 }
 
+// Without s3:ListBucket a missing key comes back as AccessDenied rather than NoSuchKey.
+function isMissingObjectError(e: unknown): boolean {
+	const code = (e as AWSError).code;
+	return code === 'NoSuchKey' || code === 'AccessDenied' || code === 'NotFound';
+}
+
 async function readXRay(id: string): Promise<StoredXRay | null> {
 	try {
 		const object = await s3.getObject({
@@ -136,10 +142,8 @@ async function readXRay(id: string): Promise<StoredXRay | null> {
 		}).promise();
 		return JSON.parse(object.Body as string);
 	} catch (e) {
-		// Results older than the feature have no object. Without s3:ListBucket a
-		// missing key comes back as AccessDenied rather than NoSuchKey.
-		const code = (e as AWSError).code;
-		if (code !== 'NoSuchKey' && code !== 'AccessDenied' && code !== 'NotFound') {
+		// Results older than the feature have no object.
+		if (!isMissingObjectError(e)) {
 			console.error(e);
 			await reportError(e);
 		}
@@ -590,6 +594,9 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 			body: JSON.stringify(bodyJson),
 		});
 	} catch (e) {
+		if (isMissingObjectError(e)) {
+			return Promise.resolve({statusCode: 404});
+		}
 		console.error(e);
 		await reportError(e);
 		return Promise.resolve({statusCode: 500});
@@ -635,6 +642,9 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 			body: JSON.stringify(bodyJson),
 		});
 	} catch (e) {
+		if (isMissingObjectError(e)) {
+			return Promise.resolve({statusCode: 404});
+		}
 		console.error(e);
 		await reportError(e);
 		return Promise.resolve({statusCode: 500});
@@ -683,6 +693,9 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 			}),
 		});
 	} catch (e) {
+		if (isMissingObjectError(e)) {
+			return Promise.resolve({statusCode: 404});
+		}
 		console.error(e);
 		await reportError(e);
 		return Promise.resolve({statusCode: 500});
