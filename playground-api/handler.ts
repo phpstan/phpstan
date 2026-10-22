@@ -377,8 +377,20 @@ function createTabs(versionedErrors: VersionedErrors[]): any[] {
 }
 
 async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
+	let json: any;
 	try {
-		const json = JSON.parse(request.body);
+		json = JSON.parse(request.body);
+	} catch {
+		json = null;
+	}
+	if (typeof json !== 'object' || json === null) {
+		return Promise.resolve({
+			statusCode: 400,
+			body: JSON.stringify({error: 'Request body must be a JSON object'}),
+		});
+	}
+
+	try {
 		const runStrictRules = typeof json.strictRules !== 'undefined' ? json.strictRules : false;
 		const runBleedingEdge = typeof json.bleedingEdge !== 'undefined' ? json.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.treatPhpDocTypesAsCertain !== 'undefined' ? json.treatPhpDocTypesAsCertain : true;
