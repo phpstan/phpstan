@@ -9,6 +9,10 @@ export const PHP_URI = 'file:///try/main.php';
 // Prism-highlighted source (editor/phpantomHover.ts) via phpantomLsp.request(),
 // and diagnostics stay with PHPStan on the server (its result panel is
 // authoritative — we don't want PHPantom squiggles disagreeing with it).
+// Requests wait for the connection; the workspace reopens the document on
+// connect.
 export const phpantomLsp = new LSPClient({
 	extensions: [serverCompletion(), signatureHelp()],
-}).connect(createPhpantomTransport());
+});
+
+void createPhpantomTransport().then((transport) => phpantomLsp.connect(transport));

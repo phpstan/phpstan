@@ -249,3 +249,27 @@ test('Ctrl-R rename of a method is type-aware (same-named method on another clas
 	await expect(doc).toContainText('$a->execute();');
 	await expect(doc).toContainText('class B { public function run()'); // untouched
 });
+
+test('a slow wasm download does not time out the language server', async ({browser}) => {
+	const page = await browser.newPage();
+	const pageErrors: string[] = [];
+	page.on('pageerror', (err) => pageErrors.push(err.message));
+	await page.route('**/*.wasm', async (route) => {
+		await new Promise((resolve) => setTimeout(resolve, 5_000));
+		await route.continue();
+	});
+	await page.goto('/try');
+	await expect(page.locator('.cm-content').first()).toBeVisible();
+
+	await setCode(page, [
+		'<?php',
+		'class Greeter { public function greet(): void {} }',
+		'$g = new Greeter();',
+		'$g->',
+	].join('\n'));
+	await page.keyboard.press('Control+Space');
+	await expect(popup(page)).toBeVisible({timeout: COMPLETION_TIMEOUT});
+	expect((await labels(page)).some((l) => l.startsWith('greet'))).toBeTruthy();
+	expect(pageErrors).toEqual([]);
+	await page.close();
+});

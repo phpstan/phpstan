@@ -7,6 +7,7 @@
 // hits a memory-corruption bug on wasm32-unknown-unknown but is correct on
 // wasm32-wasip1.
 import {WASI, OpenFile, File as WasiFile, ConsoleStdout} from '@bjorn3/browser_wasi_shim';
+import {PHPANTOM_READY} from './ready';
 // PHPStan stub shells built by `npm run build:stubs` (cleaned sources from
 // phpstan-src, mirroring its layout). Loaded recursively and opened as hidden
 // documents (below) so the editor autocompletes PHPStan's own symbols alongside
@@ -94,6 +95,10 @@ function loadStubs(): void {
 		}));
 	}
 }
+
+// Load wasm up front and tell the transport when it can connect, so the
+// client's `initialize` request isn't timed out by a slow wasm download.
+void ensureReady().then(() => ctx.postMessage(PHPANTOM_READY));
 
 ctx.onmessage = async (e: MessageEvent) => {
 	const message = e.data as string;
