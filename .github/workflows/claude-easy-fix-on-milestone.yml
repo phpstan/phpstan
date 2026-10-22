@@ -19,4 +19,4 @@ jobs:
       - name: Trigger Claude Random Easy Fixes
         env:
           GH_TOKEN: ${{ secrets.PHPSTAN_BOT_TOKEN }}
-        run: gh workflow run claude-fix-issue.yml -f issue-number=${{ github.event.issue.number }} --repo phpstan-bot/phpstan-src --target-branch 2.3.x
+        run: gh workflow run claude-fix-issue.yml -f issue-number=${{ github.event.issue.number }} -f --target-branch=2.3.x --repo phpstan-bot/phpstan-src
