@@ -97,7 +97,20 @@ function loadStubs(): void {
 
 ctx.onmessage = async (e: MessageEvent) => {
 	const message = e.data as string;
-	await ensureReady();
+	try {
+		await ensureReady();
+	} catch (err) {
+		// Answer requests with an error instead of leaving them to time out.
+		const id = (JSON.parse(message) as {id?: number | string}).id;
+		if (id !== undefined) {
+			ctx.postMessage(JSON.stringify({
+				jsonrpc: '2.0',
+				id,
+				error: {code: -32603, message: 'PHPantom failed to load: ' + String(err)},
+			}));
+		}
+		return;
+	}
 	const response = callHandle(message);
 	if (!stubsLoaded) {
 		stubsLoaded = true;

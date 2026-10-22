@@ -35,6 +35,7 @@ ko.bindingHandlers.codeMirror = {
 		const xrayToggle: ((enabled: boolean) => void) | null = allBindings.get('codeMirrorXRayToggle') ?? null;
 
 		const themeCompartment = new Compartment();
+		const lspCompartment = new Compartment();
 
 		const extensions = [
 			lineNumbers(),
@@ -98,7 +99,7 @@ ko.bindingHandlers.codeMirror = {
 			phpantomHover,
 			goToDefinition,
 			occurrenceHighlight,
-			phpantomLsp.plugin(PHP_URI, 'php'),
+			lspCompartment.of([]),
 			xray({onToggle: (enabled) => xrayToggle?.(enabled)}),
 			EditorView.baseTheme({
 				'.cm-tooltip.cm-tooltip-hover': {
@@ -141,6 +142,14 @@ ko.bindingHandlers.codeMirror = {
 			}
 		});
 		darkModeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+		// Attach the LSP plugin only once the worker has answered `initialize`.
+		// If it never does (the wasm failed to load), the client's notifications,
+		// which chain on its rejected `initializing` promise without a catch,
+		// would surface as unhandled rejections.
+		phpantomLsp.initializing.then(() => {
+			editor.dispatch({effects: lspCompartment.reconfigure(phpantomLsp.plugin(PHP_URI, 'php'))});
+		}, () => {});
 
 		ko.utils.domData.set(element, 'codeMirror', editor);
 	},

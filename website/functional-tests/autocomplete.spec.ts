@@ -273,3 +273,21 @@ test('completes after a slow wasm download', async ({browser}) => {
 	expect((await labels(page)).some((l) => l.startsWith('make'))).toBeTruthy();
 	await context.close();
 });
+
+test('a failed wasm download leaves no unhandled rejections', async ({browser}) => {
+	const context = await browser.newContext();
+	const page = await context.newPage();
+	const pageErrors: string[] = [];
+	page.on('pageerror', (error) => pageErrors.push(error.message));
+	await context.route('**/*.wasm', (route) => route.abort());
+	await page.goto('/try');
+	await expect(page.locator('.cm-content').first()).toBeVisible();
+
+	// Edits and a `(` (which triggers signature help) while the client is unusable.
+	await setCode(page, '<?php\nstrlen');
+	await page.keyboard.type('(');
+	await page.waitForTimeout(2_000);
+
+	expect(pageErrors).toEqual([]);
+	await context.close();
+});
