@@ -1,0 +1,6 @@
+{
+	"require": {
+		"nikic/php-parser": "^5.9",
+		"phpstan/phpstan": "^2.3"
+	}
+}

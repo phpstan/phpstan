@@ -396,6 +396,16 @@ jobs:
               cd e2e/bug-10023
               composer install
               ../../phpstan
+          - php-version: 8.4
+            ini-values: memory_limit=256M
+            operating-system: ubuntu-latest
+            script: |
+              cd e2e/turbo-included-phar
+              composer install
+              cp ../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
+              cp ../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
+              rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../turbo-ext vendor/phpstan/phpstan/turbo-ext
+              php run.php
           - php-version: 8.3
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
