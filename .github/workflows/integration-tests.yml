@@ -725,7 +725,7 @@ jobs:
             baseline-file: dev-null-baseline.neon
           - php-version: 8.5
             repo: tempestphp/tempest-framework
-            ref: v3.19.2
+            ref: v3.20.0
             setup: |
               composer install
             phpstan-command: ../../../phpstan.phar analyse -c ../tempest.neon --memory-limit=2G
