@@ -95,13 +95,33 @@ function loadStubs(): void {
 	}
 }
 
+function respondToFailure(message: string): void {
+	const request = JSON.parse(message) as {id?: number | string; method?: string};
+	if (request.id === undefined) {
+		return;
+	}
+	// Answering `initialize` with no capabilities keeps lsp-client from asking
+	// for completion and signature help; an error would leave it uninitialized.
+	ctx.postMessage(JSON.stringify(request.method === 'initialize'
+		? {jsonrpc: '2.0', id: request.id, result: {capabilities: {}}}
+		: {jsonrpc: '2.0', id: request.id, error: {code: -32603, message: 'PHPantom is unavailable'}}));
+}
+
 ctx.onmessage = async (e: MessageEvent) => {
 	const message = e.data as string;
-	await ensureReady();
-	const response = callHandle(message);
-	if (!stubsLoaded) {
-		stubsLoaded = true;
-		loadStubs();
+	let response: string | undefined;
+	try {
+		await ensureReady();
+		response = callHandle(message);
+		if (!stubsLoaded) {
+			stubsLoaded = true;
+			loadStubs();
+		}
+	} catch (error) {
+		console.warn('[phpantom]', error);
+		if (response === undefined) {
+			respondToFailure(message);
+		}
 	}
 	if (response !== undefined) {
 		ctx.postMessage(response);
