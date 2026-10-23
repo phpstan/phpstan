@@ -406,6 +406,7 @@ jobs:
               cp ../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../turbo-ext vendor/phpstan/phpstan/turbo-ext
               php run.php
+              php -d disable_functions= run.php
           - php-version: 8.3
             ini-values: memory_limit=256M
             operating-system: ubuntu-latest
