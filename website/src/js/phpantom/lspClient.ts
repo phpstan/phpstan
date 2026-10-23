@@ -11,8 +11,11 @@ export const PHP_URI = 'file:///try/main.php';
 // authoritative — we don't want PHPantom squiggles disagreeing with it).
 export const phpantomLsp = new LSPClient({
 	// The worker answers `initialize` only after downloading and compiling the
-	// ~11 MB wasm, which takes longer than the default 3 s on slow connections.
-	// A timed-out `initialize` leaves the client permanently uninitialized.
-	timeout: 60_000,
+	// ~11 MB wasm, which can take minutes on slow connections, and it handles
+	// messages one at a time, so a timeout never frees anything up. A timed-out
+	// request instead rejects promises lsp-client leaves unhandled (its
+	// notifications after a failed `initialize`, trigger-character signature
+	// help). The worker answers every request itself, even when it fails.
+	timeout: 2 ** 31 - 1,
 	extensions: [serverCompletion(), signatureHelp()],
 }).connect(createPhpantomTransport());
