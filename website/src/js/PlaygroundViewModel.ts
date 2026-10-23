@@ -131,7 +131,8 @@ export class PlaygroundViewModel {
 				return null;
 			}
 
-			return this.tabs()[index];
+			// The index can briefly point past the end while tabs are replaced.
+			return this.tabs()[index] ?? null;
 		});
 
 		this.upToDateTabs = ko.observable(null);
