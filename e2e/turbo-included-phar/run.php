@@ -1,8 +1,9 @@
 <?php declare(strict_types = 1);
 
 // Mimics a program that includes phpstan.phar instead of running inside it, the way Rector does:
-// the main process restarts into the turbo extension, then spawns itself as a "worker" with the -d flags
-// findExtensionForWorkers() resolves, and each worker must run with the extension active, without a restart of its own.
+// the main process restarts into the turbo extension when it can fork, then spawns itself as a "worker" with the -d flags
+// findExtensionForWorkers() resolves for that phar, and each worker must run with the extension active, without a restart
+// of its own. Without pcntl the main process does not restart, and the lookup has to find the binary next to the phar.
 
 use PHPStan\Turbo\TurboExtensionEnabler;
 use PHPStan\Turbo\TurboExtensionSelector;
@@ -34,7 +35,7 @@ if ($isWorker) {
 }
 
 echo $state, "\n";
-if (!TurboExtensionEnabler::isActive()) {
+if (function_exists('pcntl_fork') && !TurboExtensionEnabler::isActive()) {
 	fwrite(STDERR, "The main process did not restart into the turbo extension.\n");
 	fwrite(STDERR, sprintf(
 		"php=%s os=%s machine=%s zts=%d debug=%d binary=%s restarted=%s pcntl_fork=%d pcntl_exec=%d posix_kill=%d proc_open=%d incompatible=%s disabled=%s\n",
@@ -55,9 +56,9 @@ if (!TurboExtensionEnabler::isActive()) {
 	exit(1);
 }
 
-$extensionPath = TurboExtensionSelector::findExtensionForWorkers();
+$extensionPath = TurboExtensionSelector::findExtensionForWorkers($pharPath);
 if ($extensionPath === null) {
-	fwrite(STDERR, "findExtensionForWorkers() returned null in the restarted main process.\n");
+	fwrite(STDERR, "findExtensionForWorkers() returned null.\n");
 	exit(1);
 }
 
