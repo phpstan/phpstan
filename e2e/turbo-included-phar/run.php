@@ -36,6 +36,22 @@ if ($isWorker) {
 echo $state, "\n";
 if (!TurboExtensionEnabler::isActive()) {
 	fwrite(STDERR, "The main process did not restart into the turbo extension.\n");
+	fwrite(STDERR, sprintf(
+		"php=%s os=%s machine=%s zts=%d debug=%d binary=%s restarted=%s pcntl_fork=%d pcntl_exec=%d posix_kill=%d proc_open=%d incompatible=%s disabled=%s\n",
+		PHP_VERSION,
+		PHP_OS_FAMILY,
+		php_uname('m'),
+		(int) PHP_ZTS,
+		(int) PHP_DEBUG,
+		TurboExtensionSelector::findExtension($pharPath) ?? 'none',
+		var_export(getenv('PHPSTAN_RESTART'), true),
+		(int) function_exists('pcntl_fork'),
+		(int) function_exists('pcntl_exec'),
+		(int) function_exists('posix_kill'),
+		(int) function_exists('proc_open'),
+		TurboExtensionEnabler::getIncompatibleLoadedVersion() ?? 'none',
+		(string) ini_get('disable_functions'),
+	));
 	exit(1);
 }
 
