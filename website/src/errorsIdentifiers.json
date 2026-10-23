@@ -13383,7 +13383,7 @@
     "phpstanApi.classConstant": {
         "PHPStan\\Rules\\Api\\ApiClassConstFetchRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiClassConstFetchRule.php#L58"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiClassConstFetchRule.php#L59"
             ]
         }
     },
@@ -13479,7 +13479,7 @@
         },
         "PHPStan\\Rules\\Api\\ApiTraitUseRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiTraitUseRule.php#L53"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiTraitUseRule.php#L63"
             ]
         }
     },
