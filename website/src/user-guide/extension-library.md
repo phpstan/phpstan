@@ -82,6 +82,7 @@ Unofficial extensions
 * [Silverstripe CMS](https://github.com/Cambis/silverstan)
 * [Sylius](https://github.com/bitExpert/phpstan-sylius)
 * [mspirkov/yii2-phpstan](https://github.com/mspirkov/yii2-phpstan)
+* [Crucible](https://github.com/cruciblephp/crucible)
 
 3rd party rules
 -----------------
