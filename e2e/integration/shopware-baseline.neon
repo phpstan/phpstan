@@ -2797,6 +2797,12 @@ parameters:
 			path: repo/tests/integration/Core/Content/Product/Subscriber/ProductLoadedSubscriberTest.php
 
 		-
+			rawMessage: 'Method Psr\Log\AbstractLogger@anonymous/tests/integration/Core/Content/Seo/SeoUrlGeneratorTest.php:361::log() throws exception TypeError but the PHPDoc contains @throws void.'
+			identifier: throws.void
+			count: 1
+			path: repo/tests/integration/Core/Content/Seo/SeoUrlGeneratorTest.php
+
+		-
 			rawMessage: 'assertEmpty() is not allowed. Use more strict assertion.'
 			identifier: phpunit.assertEmpty
 			count: 1
