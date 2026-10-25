@@ -1023,12 +1023,6 @@ parameters:
         treatPhpDocTypesAsCertain: false
 ```
 
-#### `tips.possiblyImpure`
-
-**default**: `true`
-
-This option no longer has any effect. PHPStan used to append a tip to "always true/false" condition errors when the condition contained a function or method call whose return value was remembered, suggesting to annotate the function with `@phpstan-impure` if it actually has side effects. This tip has been removed. The option is still accepted so that existing configuration files keep working.
-
 ### `tipsOfTheDay`
 
 **default**: `true`
