@@ -32,13 +32,22 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
 
       - name: "Install Node"
+        id: setup-node
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           node-version: "24"
           cache: "npm"
           cache-dependency-path: website/package-lock.json
 
+      - name: "Cache node_modules"
+        id: node-modules-cache
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        with:
+          path: website/node_modules
+          key: "node-modules-${{ runner.os }}-node-${{ steps.setup-node.outputs.node-version }}-${{ hashFiles('website/package-lock.json') }}"
+
       - name: "Install dependencies"
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
         working-directory: ./website
         run: "npm ci"
 
@@ -46,45 +55,9 @@ jobs:
         working-directory: ./website
         run: "npm run check"
 
-  build-wasm:
-    name: "Build PHPantom wasm"
-    runs-on: "ubuntu-latest"
-
-    steps:
-      - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@dc2769abcc0fcfbadfc1df54081c1608579ef6b2 # v2.22.2
-        with:
-          egress-policy: audit
-
-      - name: "Checkout"
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
-
-      - name: "Install Node"
-        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
-        with:
-          node-version: "24"
-
-      - name: "Install Rust"
-        run: |
-          rustup update stable
-          rustup default stable
-          rustc --version
-
-      - name: "Build wasm (cargo -> wasm32-wasip1)"
-        working-directory: ./website
-        run: "npm run build:wasm"
-
-      - name: "Upload PHPantom wasm"
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        with:
-          name: phpantom-wasm
-          path: website/src/js/phpantom/pkg-wasi/phpantom_lsp.wasm
-          if-no-files-found: error
-
   build:
     name: "Build"
     runs-on: "ubuntu-latest"
-    needs: build-wasm
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
@@ -96,17 +69,33 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
 
       - name: "Install Node"
+        id: setup-node
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           node-version: "24"
           cache: "npm"
           cache-dependency-path: website/package-lock.json
 
-      - name: "Download PHPantom wasm"
-        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+      # The PHPantom ref is pinned in build-wasm.sh, so the script's hash
+      # identifies the wasm. Rust only runs when the ref or script changes.
+      - name: "Cache PHPantom wasm"
+        id: wasm-cache
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
         with:
-          name: phpantom-wasm
-          path: website/src/js/phpantom/pkg-wasi
+          path: website/src/js/phpantom/pkg-wasi/phpantom_lsp.wasm
+          key: "phpantom-wasm-${{ hashFiles('website/scripts/build-wasm.sh') }}"
+
+      - name: "Install Rust"
+        if: steps.wasm-cache.outputs.cache-hit != 'true'
+        run: |
+          rustup update stable
+          rustup default stable
+          rustc --version
+
+      - name: "Build wasm (cargo -> wasm32-wasip1)"
+        if: steps.wasm-cache.outputs.cache-hit != 'true'
+        working-directory: ./website
+        run: "npm run build:wasm"
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962" # 2.40.0
@@ -114,13 +103,39 @@ jobs:
           coverage: "none"
           php-version: "8.0"
 
+      - name: "Cache node_modules"
+        id: node-modules-cache
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        with:
+          path: website/node_modules
+          key: "node-modules-${{ runner.os }}-node-${{ steps.setup-node.outputs.node-version }}-${{ hashFiles('website/package-lock.json') }}"
+
       - name: "Install dependencies"
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
         working-directory: ./website
         run: "npm ci"
 
+      - name: "Get Playwright version"
+        id: playwright-version
+        working-directory: ./website
+        run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: "Cache Playwright browsers"
+        id: playwright-cache
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: "playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}"
+
       - name: "Install Playwright browsers"
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         working-directory: ./website
         run: "npx playwright install --with-deps chromium"
+
+      - name: "Install Playwright system dependencies"
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        working-directory: ./website
+        run: "npx playwright install-deps chromium"
 
       - name: "Cache generated social images"
         uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
@@ -164,6 +179,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
 
       - name: "Install Node"
+        id: setup-node
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           node-version: "24"
@@ -176,13 +192,39 @@ jobs:
           name: website-dist
           path: website/dist
 
+      - name: "Cache node_modules"
+        id: node-modules-cache
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        with:
+          path: website/node_modules
+          key: "node-modules-${{ runner.os }}-node-${{ steps.setup-node.outputs.node-version }}-${{ hashFiles('website/package-lock.json') }}"
+
       - name: "Install dependencies"
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
         working-directory: ./website
         run: "npm ci"
 
+      - name: "Get Playwright version"
+        id: playwright-version
+        working-directory: ./website
+        run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: "Cache Playwright browsers"
+        id: playwright-cache
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: "playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}"
+
       - name: "Install Playwright browsers"
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         working-directory: ./website
         run: "npx playwright install --with-deps chromium"
+
+      - name: "Install Playwright system dependencies"
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        working-directory: ./website
+        run: "npx playwright install-deps chromium"
 
       - name: "Run visual regression tests"
         working-directory: ./website
@@ -237,6 +279,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
 
       - name: "Install Node"
+        id: setup-node
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           node-version: "24"
@@ -249,13 +292,39 @@ jobs:
           name: website-dist
           path: website/dist
 
+      - name: "Cache node_modules"
+        id: node-modules-cache
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        with:
+          path: website/node_modules
+          key: "node-modules-${{ runner.os }}-node-${{ steps.setup-node.outputs.node-version }}-${{ hashFiles('website/package-lock.json') }}"
+
       - name: "Install dependencies"
+        if: steps.node-modules-cache.outputs.cache-hit != 'true'
         working-directory: ./website
         run: "npm ci"
 
+      - name: "Get Playwright version"
+        id: playwright-version
+        working-directory: ./website
+        run: echo "version=$(node -p "require('@playwright/test/package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: "Cache Playwright browsers"
+        id: playwright-cache
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: "playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}"
+
       - name: "Install Playwright browsers"
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         working-directory: ./website
         run: "npx playwright install --with-deps chromium"
+
+      - name: "Install Playwright system dependencies"
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        working-directory: ./website
+        run: "npx playwright install-deps chromium"
 
       - name: "Run functional tests"
         working-directory: ./website
@@ -312,18 +381,29 @@ jobs:
       # wasm is larger, so it would be served uncompressed. Upload it
       # pre-compressed with Brotli instead (the browser decompresses it
       # transparently). The wasm is excluded from the sync above so this stays
-      # the only copy in the bucket.
+      # the only copy in the bucket. Brotli -q 11 is slow, so the compressed
+      # output is cached by the wasm's content.
+      - name: "Cache Brotli-compressed WebAssembly"
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        with:
+          path: wasm-br
+          key: "wasm-br-${{ hashFiles('dist/**/*.wasm') }}"
+
       - name: "Upload WebAssembly with Brotli encoding"
         run: |
-          command -v brotli >/dev/null || { sudo apt-get update && sudo apt-get install -y brotli; }
           find dist -name '*.wasm' -print0 | while IFS= read -r -d '' f; do
             key="${f#dist/}"
-            brotli -f -q 11 "$f"
-            aws s3 cp "$f.br" "s3://${{ vars.WEBSITE_BUCKET }}/$key" \
+            br="wasm-br/$key.br"
+            if [ ! -f "$br" ]; then
+              command -v brotli >/dev/null || { sudo apt-get update && sudo apt-get install -y brotli; }
+              mkdir -p "$(dirname "$br")"
+              brotli -f -q 11 -o "$br" "$f"
+            fi
+            aws s3 cp "$br" "s3://${{ vars.WEBSITE_BUCKET }}/$key" \
               --content-type application/wasm \
               --content-encoding br \
               --cache-control 'public, max-age=31536000, immutable'
-            echo "uploaded $key (brotli: $(wc -c <"$f") -> $(wc -c <"$f.br") bytes)"
+            echo "uploaded $key (brotli: $(wc -c <"$f") -> $(wc -c <"$br") bytes)"
           done
 
       - name: "Invalidate CloudFront"
