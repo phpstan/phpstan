@@ -1,0 +1,10 @@
+# Long-running services for Amp orbs. Started with `amp orb services ensure`.
+services:
+  website-preview:
+    # Serves the built site from website/dist. Build it first when missing or
+    # stale: cd website && npm run build
+    command: npx --prefix website serve website/dist -l "$PORT" --no-clipboard
+    health: /
+    portal:
+      title: PHPStan website build preview
+      description: Built phpstan.org from website/dist. Run "cd website && npm run build" if pages are missing or stale.
