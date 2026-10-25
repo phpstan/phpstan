@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Fast post-wake checks for the phpstan/phpstan distribution repository.
+# There are no databases, daemons, or user-scoped authentications here, so
+# this only verifies the toolchain survived the pause. Must finish in seconds.
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+php -v >/dev/null 2>&1 || echo "warning: php not found; run .agents/setup" >&2
+
+exit 0

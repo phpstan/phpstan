@@ -5,5 +5,6 @@
 /vendor
 /.idea/*
 !.idea/icon.png
+/.amp/portals/*
 /tests/tmp
 /tests/.phpunit.result.cache

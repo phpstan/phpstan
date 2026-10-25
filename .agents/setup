@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Orb setup for the phpstan/phpstan distribution repository.
+# Installs the PHP toolchain and all lockfile-pinned dependencies for the
+# subprojects (e2e tests, website, playground, identifier extractor).
+# Must be idempotent and fast on a warm filesystem.
+
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$REPO_ROOT"
+
+step() {
+    echo "[$(date '+%H:%M:%S')] $*"
+}
+
+as_root() {
+    if [ "$(id -u)" -eq 0 ]; then
+        "$@"
+    else
+        sudo "$@"
+    fi
+}
+
+apt_install() {
+    as_root apt-get update -qq
+    as_root DEBIAN_FRONTEND=noninteractive apt-get install -y -qq --no-install-recommends "$@"
+}
+
+# ---------------------------------------------------------------------------
+# System packages: PHP CLI with extensions the repo relies on, plus Composer.
+# ---------------------------------------------------------------------------
+missing_pkgs=()
+for pkg in php-cli php-mbstring php-xml php-curl composer unzip; do
+    if ! dpkg-query -W -f='${Status}' "$pkg" 2>/dev/null | grep -q 'install ok installed'; then
+        missing_pkgs+=("$pkg")
+    fi
+done
+if [ "${#missing_pkgs[@]}" -gt 0 ]; then
+    step "Installing system packages: ${missing_pkgs[*]}"
+    apt_install "${missing_pkgs[@]}"
+else
+    step "System packages already present (php-cli, composer, ...)"
+fi
+
+# Node.js is preinstalled in Amp orbs; fall back to apt for other environments.
+if ! command -v node >/dev/null 2>&1; then
+    step "Installing Node.js via apt"
+    apt_install nodejs npm
+else
+    step "Node.js $(node --version) already present"
+fi
+
+step "PHP $(php -r 'echo PHP_VERSION;') / Composer $(composer --version 2>/dev/null | cut -d' ' -f3)"
+
+# ---------------------------------------------------------------------------
+# Dependency installs. Each runs only when the installed tree is missing or
+# older than its lockfile, so warm snapshots skip the work.
+# ---------------------------------------------------------------------------
+
+composer_install_if_stale() {
+    local dir="$1"
+    shift
+    local lock="$dir/composer.lock"
+    if [ ! -d "$dir/vendor" ] || [ "$lock" -nt "$dir/vendor" ]; then
+        step "composer install in $dir"
+        (cd "$dir" && composer install --quiet --no-interaction --no-progress "$@")
+    else
+        step "$dir/vendor is up to date, skipping composer install"
+    fi
+}
+
+npm_ci_if_stale() {
+    local dir="$1"
+    local lock="$dir/package-lock.json"
+    if [ ! -d "$dir/node_modules" ] || [ "$lock" -nt "$dir/node_modules" ]; then
+        step "npm ci in $dir"
+        (cd "$dir" && npm ci --no-audit --no-fund --loglevel=error)
+    else
+        step "$dir/node_modules is up to date, skipping npm ci"
+    fi
+}
+
+# Website (Eleventy + Vite) and playground API (TypeScript Lambda).
+npm_ci_if_stale website
+npm_ci_if_stale playground-api
+
+# The website build launches a Playwright Chromium for Mermaid diagram
+# rendering and social-image generation; the browser lives outside node_modules.
+if ! ls "$HOME/.cache/ms-playwright/"chromium-* >/dev/null 2>&1; then
+    step "Installing Playwright Chromium for the website build"
+    (cd website && npx playwright install --with-deps chromium)
+else
+    step "Playwright Chromium already present, skipping install"
+fi
+
+# Playground runner has both PHP and Node dependencies.
+composer_install_if_stale playground-runner --ignore-platform-reqs
+npm_ci_if_stale playground-runner
+
+# Identifier extractor tool.
+composer_install_if_stale identifier-extractor
+
+step "Setup complete"
