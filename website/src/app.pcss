@@ -80,6 +80,19 @@ html.dark {
 		@apply invert hue-rotate-180;
 	}
 
+	/* Safari on iOS tints the status bar with the computed background-color
+	   of the fixed header and ignores the filter, so the header gets a real
+	   dark background and only its contents are inverted */
+	body > div > .nav-header {
+		@apply filter-none;
+		background-color: #000;
+		border-color: #16181c;
+	}
+
+	.nav-header > * {
+		@apply invert hue-rotate-180;
+	}
+
 	img, video {
 		@apply invert hue-rotate-180;
 	}
