@@ -20,6 +20,7 @@
 ::target-text {
 	@apply bg-blue-100;
 }
+@custom-variant dark (&:where(.dark, .dark *));
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 @source "../tmp/**/*.html";
@@ -76,24 +77,27 @@ html.dark {
 		background-color: #060504 !important;
 	}
 
-	body > div > * {
+	/* The fixed header and sidebar use dark: variants instead of the filter:
+	   a filter on an ancestor turns position: fixed into scrolling with
+	   that ancestor, and Safari on iOS tints the status bar with the
+	   header's computed background-color, ignoring the filter */
+	body > div > :not(.nav-header, :has(.sidebar)),
+	.sidebar ~ .content {
 		@apply invert hue-rotate-180;
 	}
 
-	/* Safari on iOS tints the status bar with the computed background-color
-	   of the fixed header and ignores the filter, so the header gets a real
-	   dark background and only its contents are inverted */
-	body > div > .nav-header {
-		@apply filter-none;
-		background-color: #000;
-		border-color: #16181c;
+	.nav-header {
+		--docsearch-searchbox-background: #0f1214;
+		--docsearch-searchbox-focus-background: #000;
+		--docsearch-text-color: #dfe1e4;
+		--docsearch-muted-color: #596272;
+		--docsearch-primary-color: #768aff;
+		--docsearch-key-gradient: linear-gradient(-225deg, #20252f, #070707);
+		--docsearch-key-shadow: inset 0 -2px 0 0 #2d2d46, inset 0 0 1px 1px #000;
+		--docsearch-key-pressed-shadow: inset 0 -2px 0 0 #2d2d46, inset 0 0 1px 1px #000;
 	}
 
-	.nav-header > * {
-		@apply invert hue-rotate-180;
-	}
-
-	img, video {
+	img:not(.nav-header img), video {
 		@apply invert hue-rotate-180;
 	}
 
