@@ -123,8 +123,9 @@ jobs:
           - php-version: 8.5
             name: phpstan-laravel tests
             script: |
-              git clone https://github.com/calebdw/phpstan-laravel.git --depth 1 -b v1.10.0 e2e/integration/repo
+              git clone https://github.com/calebdw/phpstan-laravel.git e2e/integration/repo
               cd e2e/integration/repo
+              git checkout 1797c66c301183a7f8d6e6065070dc2ffc2cb527
               cp ../phpstan-laravel-composer.lock composer.lock
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
@@ -393,7 +394,7 @@ jobs:
             baseline-file: larastan-baseline.neon
           - php-version: 8.5
             repo: calebdw/phpstan-laravel
-            ref: v1.10.0
+            ref: 1797c66c301183a7f8d6e6065070dc2ffc2cb527
             setup: |
               cp ../phpstan-laravel-composer.lock composer.lock
               composer install
