@@ -61,8 +61,8 @@
 		"vite-plugin-static-copy": "^3.2.0"
 	},
 	"scripts": {
-		"check": "tsc -p tsconfig.json --noEmit && eslint -c .eslintrc.js --ext .ts",
-		"fix": "eslint -c .eslintrc.js --fix --ext .ts",
+		"check": "tsc -p tsconfig.json --noEmit && eslint -c .eslintrc.js --ext .ts src/js",
+		"fix": "eslint -c .eslintrc.js --fix --ext .ts src/js",
 		"watch:vite": "vite --config vite.config.js",
 		"watch:11ty": "eleventy --watch",
 		"build:vite": "vite build --config vite.config.js",

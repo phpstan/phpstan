@@ -4,16 +4,16 @@ import countries from './data/countries.json';
 import { loadStripe, Stripe, StripeCardElement } from '@stripe/stripe-js';
 import { TShirtCartItem } from './TShirtCartItem';
 
-export type TShirtType = {
+export interface TShirtType {
 	id: string,
 	htmlClass: TShirtColor,
 	name: string,
 	price: number,
 	style: TShirtStyle,
 	sizes: TShirtSize[],
-};
+}
 
-type Country = {
+interface Country {
 	country_code: string,
 	country_name: string,
 	phone_code: string,
@@ -28,7 +28,7 @@ type TShirtStyle = 'Straight' | 'Fitted';
 type TShirtView = 'front' | 'back';
 type TElephpantView = 'left' | 'right';
 
-type TDistributor = {
+interface TDistributor {
 	id: string,
 	name: string,
 	country: string,
@@ -481,7 +481,7 @@ export class MerchSaleViewModel {
 	selectTShirtSize(size: TShirtSize): void {
 		this.tShirtErrorMessage(null);
 		this.selectedTShirtSize(size);
-	};
+	}
 
 	addTShirtToCart(): void {
 		const selectedTShirtSize = this.selectedTShirtSize();
@@ -517,7 +517,7 @@ export class MerchSaleViewModel {
 		);
 
 		this.cartTShirts.push(newItem);
-	};
+	}
 
 	addElephpantToCart(): void {
 		const currentAmount = this.cartElephpantAmount();
@@ -964,7 +964,7 @@ export class MerchSaleViewModel {
 			contentType: 'application/json; charset=utf-8',
 			dataType: 'json',
 			data: JSON.stringify(this.getDataPayload()),
-		}).done((result) => {
+		}).done(() => {
 			this.markOrderAsSuccessful();
 		}).fail((response) => {
 			if (typeof response.responseJSON !== 'undefined') {
