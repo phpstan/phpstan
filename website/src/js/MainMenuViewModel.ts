@@ -1,7 +1,7 @@
 import ko from '@tko/build.knockout';
 import $ from 'jquery';
 import littlefoot from 'littlefoot';
-import docsearch from '@docsearch/js';
+import docsearch from '@docsearch/js/docsearch';
 import '@docsearch/css';
 
 // Self-hosted Inter (variable font) via npm, replacing the external
@@ -38,7 +38,7 @@ export class MainMenuViewModel {
 
 		const docsearchOptions = {
 			appId: '563YUB35R3',
-			indexName: 'phpstan',
+			indices: ['phpstan'],
 			apiKey: '38f6379285feb01cc915c6967c715ec2',
 			transformItems: (items: any[]) => {
 				return items.map((item) => {
