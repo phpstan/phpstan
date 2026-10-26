@@ -4,3 +4,5 @@ includes:
 
 parameters:
 	reportUnmatchedIgnoredErrors: false
+	bootstrapFiles:
+		- typo3-constants.php
