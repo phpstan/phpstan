@@ -14,6 +14,7 @@
 		"esModuleInterop": true
 	},
 	"exclude": [
+		"eslint.config.js",
 		"node_modules",
 		"build",
 		"webpack"
