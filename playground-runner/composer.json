@@ -5,7 +5,7 @@
 		"honeybadger-io/honeybadger-php": "^2.26",
 		"jean85/pretty-package-versions": "^2.0.4",
 		"nette/di": "^3.0",
-		"nette/neon": "^3.3",
+		"nette/neon": "^4.0",
 		"nikic/php-parser": "^5.1",
 		"phpstan/phpstan": "^2.0",
 		"phpstan/phpstan-deprecation-rules": "^2.0",
