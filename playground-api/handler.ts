@@ -1,4 +1,5 @@
 import Honeybadger from '@honeybadger-io/js';
+import AnsiToHtml from 'ansi-to-html';
 import {InvokeCommand, InvokeCommandOutput, LambdaClient} from '@aws-sdk/client-lambda';
 import {GetObjectCommand, PutObjectCommand, S3Client} from '@aws-sdk/client-s3';
 import { z } from 'zod';
@@ -664,7 +665,6 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 		const inputObject = await readObject(path + '/input.json');
 		const outputObject = await readObject(path + '/output.json');
 		const inputJson = JSON.parse(inputObject);
-		const AnsiToHtml = require('ansi-to-html');
 		const convert = new AnsiToHtml({ escapeXML: true });
 		const result = await analyseResultInternal(
 			inputJson.phpCode,

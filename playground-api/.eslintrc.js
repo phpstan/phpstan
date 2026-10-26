@@ -21,6 +21,7 @@ module.exports = {
 			{'ts-ignore': 'allow-with-description'},
 		],
 		"indent": ["error", "tab"],
-		"no-console": "error"
+		// console.error is how the handler logs to CloudWatch.
+		"no-console": ["error", {"allow": ["error"]}]
 	}
 };
