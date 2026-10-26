@@ -27,7 +27,7 @@
 		"osls": "^3.59.3",
 		"serverless-offline": "13.10.1",
 		"serverless-plugin-typescript": "^2.0.0",
-		"typescript": "^5.0.2",
+		"typescript": "^6.0.3",
 		"typescript-eslint": "^8.72.0"
 	}
 }
