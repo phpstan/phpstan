@@ -38,7 +38,7 @@
 		"@types/prismjs": "^1.26.0",
 		"eslint": "^10.13.0",
 		"glob": "^13.0.0",
-		"gray-matter": "npm:@11ty/gray-matter@^1.0.0",
+		"gray-matter": "npm:@11ty/gray-matter@^3.0.0",
 		"knockout": "^3.5.1",
 		"luxon": "^3.0.0",
 		"markdown-it": "^15.0.3",
