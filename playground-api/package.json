@@ -12,9 +12,10 @@
 	"author": "",
 	"license": "MIT",
 	"dependencies": {
+		"@aws-sdk/client-lambda": "^3.1156.0",
+		"@aws-sdk/client-s3": "^3.1156.0",
 		"@honeybadger-io/js": "^6.17.0",
 		"ansi-to-html": "^0.7.0",
-		"aws-sdk": "^2.1335.0",
 		"zod": "^4.3.6"
 	},
 	"devDependencies": {
