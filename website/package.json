@@ -57,8 +57,8 @@
 		"typescript": "^6.0.3",
 		"typescript-eslint": "^8.72.0",
 		"typopo": "^3.0.2",
-		"vite": "^7.3.7",
-		"vite-plugin-static-copy": "^3.2.0"
+		"vite": "^8.3.5",
+		"vite-plugin-static-copy": "^4.1.1"
 	},
 	"scripts": {
 		"check": "tsc -p tsconfig.json --noEmit && eslint src/js",

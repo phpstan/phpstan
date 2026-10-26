@@ -42,7 +42,7 @@ export default defineConfig({
 	build: {
 		outDir: resolve(__dirname, 'dist'),
 		emptyOutDir: true,
-		rollupOptions: {
+		rolldownOptions: {
 			input,
 		},
 	},
@@ -69,8 +69,8 @@ export default defineConfig({
 				{ src: 'errorsIdentifiers.json', dest: '.' },
 				{ src: 'pages.json', dest: '.' },
 				{ src: 'release.txt', dest: '.' },
-				{ src: 'images-emails/**/*', dest: 'images-emails' },
-				{ src: 'images-emails-2/**/*', dest: 'images-emails-2' },
+				{ src: 'images-emails/**/*', dest: '.' },
+				{ src: 'images-emails-2/**/*', dest: '.' },
 			],
 		}),
 	],
