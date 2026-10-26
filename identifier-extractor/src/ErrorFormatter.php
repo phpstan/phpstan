@@ -21,9 +21,9 @@ class ErrorFormatter implements \PHPStan\Command\ErrorFormatter\ErrorFormatter
 			return $this->tableErrorFormatter->formatErrors($analysisResult, $output);
 		}
 
-        foreach ($analysisResult->getNotFileSpecificErrors() as $notFileSpecificError) {
-            return $this->tableErrorFormatter->formatErrors($analysisResult, $output);
-        }
+		if ($analysisResult->getNotFileSpecificErrors() !== []) {
+			return $this->tableErrorFormatter->formatErrors($analysisResult, $output);
+		}
 
 		$json = [];
 		foreach ($analysisResult->getFileSpecificErrors() as $error) {
