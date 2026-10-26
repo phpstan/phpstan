@@ -30,6 +30,24 @@ The PHP property type does not match the Doctrine column type mapping. In this e
 
 This mismatch can lead to type errors at runtime when Doctrine hydrates entities from the database or persists them.
 
+The check also takes value ranges into account. For example, a `smallint` column can contain values in the range `int<-32768, 32767>`, or `int<0, 65535>` when the column is declared with `options: ['unsigned' => true]`. A property typed with a range that does not cover the column's range is reported:
+
+```php
+<?php declare(strict_types = 1);
+
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity]
+class Product
+{
+	/** @var int<0, 65535> */
+	#[ORM\Column(type: 'smallint')]
+	private int $quantity;
+}
+```
+
+Here the database can contain `int<-32768, 32767>` but the property expects `int<0, 65535>`.
+
 ## How to fix it
 
 Align the PHP property type with the Doctrine column type:
@@ -61,6 +79,23 @@ Or change the Doctrine column type to match the property type:
 -	#[ORM\Column(type: 'string')]
 +	#[ORM\Column(type: 'integer')]
  	private int $name;
+ }
+```
+
+For `smallint` columns, make the property's integer range match the column's signedness:
+
+```diff-php
+ <?php declare(strict_types = 1);
+
+ use Doctrine\ORM\Mapping as ORM;
+
+ #[ORM\Entity]
+ class Product
+ {
+ 	/** @var int<0, 65535> */
+-	#[ORM\Column(type: 'smallint')]
++	#[ORM\Column(type: 'smallint', options: ['unsigned' => true])]
+ 	private int $quantity;
  }
 ```
 
