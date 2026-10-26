@@ -17,8 +17,8 @@
 		"@stripe/stripe-js": "^4.9.0",
 		"@tko/build.knockout": "^4.1.0",
 		"jquery": "^3.6.0",
-		"linkify-string": "^4.1.0",
-		"linkifyjs": "^4.1.0",
+		"linkify-string": "^4.4.0",
+		"linkifyjs": "^4.4.0",
 		"littlefoot": "^4.1.4",
 		"prism-themes": "^1.7.0",
 		"prismjs": "^1.27.0",
@@ -43,7 +43,7 @@
 		"gray-matter": "npm:@11ty/gray-matter@^1.0.0",
 		"knockout": "^3.5.1",
 		"luxon": "^3.0.0",
-		"markdown-it": "^14.2.0",
+		"markdown-it": "^14.3.3",
 		"markdown-it-abbr": "^2.0.0",
 		"markdown-it-anchor": "^9.2.0",
 		"markdown-it-attrs": "^4.5.0",
@@ -58,7 +58,7 @@
 		"tailwindcss": "^4.1.18",
 		"typescript": "^5.0.2",
 		"typopo": "^3.0.2",
-		"vite": "^7.3.1",
+		"vite": "^7.3.7",
 		"vite-plugin-static-copy": "^3.2.0"
 	},
 	"scripts": {
