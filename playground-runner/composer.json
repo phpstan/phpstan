@@ -1,6 +1,6 @@
 {
 	"require": {
-		"php": "^8.4",
+		"php": "^8.5",
 		"bref/bref": "^3.0.14",
 		"honeybadger-io/honeybadger-php": "^2.26",
 		"jean85/pretty-package-versions": "^2.0.4",
@@ -20,7 +20,7 @@
 	},
 	"config": {
         "platform": {
-            "php": "8.4.99"
+            "php": "8.5.99"
         },
 		"sort-packages": true,
 		"allow-plugins": {
