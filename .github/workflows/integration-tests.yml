@@ -30,7 +30,7 @@ jobs:
           egress-policy: audit
 
       - name: "Checkout"
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
@@ -228,7 +228,7 @@ jobs:
           egress-policy: audit
 
       - name: "Checkout"
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
@@ -750,7 +750,7 @@ jobs:
           egress-policy: audit
 
       - name: "Checkout"
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
@@ -776,7 +776,7 @@ jobs:
           path: turbo-ext
 
       - name: "Checkout project"
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: "${{ matrix.repo }}"
           ref: "${{ matrix.ref }}"
@@ -816,7 +816,7 @@ jobs:
           egress-policy: audit
 
       - name: "Checkout"
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
@@ -856,7 +856,7 @@ jobs:
           egress-policy: audit
 
       - name: "Checkout"
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
@@ -882,7 +882,7 @@ jobs:
           path: turbo-ext
 
       - name: "Checkout PMMP"
-        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: "pmmp/PocketMine-MP"
           ref: 5.37.3
