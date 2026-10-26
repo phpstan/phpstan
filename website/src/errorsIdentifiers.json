@@ -5893,8 +5893,8 @@
     "doctrine.columnType": {
         "PHPStan\\Rules\\Doctrine\\ORM\\EntityColumnRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/2.1.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L224",
-                "https://github.com/phpstan/phpstan-doctrine/blob/2.1.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L240"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.1.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L230",
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.1.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L246"
             ]
         }
     },
@@ -5908,7 +5908,7 @@
     "doctrine.descriptorNotFound": {
         "PHPStan\\Rules\\Doctrine\\ORM\\EntityColumnRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/2.1.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L100"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.1.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L102"
             ]
         }
     },
@@ -5927,8 +5927,8 @@
     "doctrine.enumType": {
         "PHPStan\\Rules\\Doctrine\\ORM\\EntityColumnRule": {
             "phpstan/phpstan-doctrine": [
-                "https://github.com/phpstan/phpstan-doctrine/blob/2.1.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L122",
-                "https://github.com/phpstan/phpstan-doctrine/blob/2.1.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L146"
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.1.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L124",
+                "https://github.com/phpstan/phpstan-doctrine/blob/2.1.x/src/Rules/Doctrine/ORM/EntityColumnRule.php#L148"
             ]
         }
     },
