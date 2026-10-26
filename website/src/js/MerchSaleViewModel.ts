@@ -630,7 +630,7 @@ export class MerchSaleViewModel {
 				agreeToTerms: this.agreeToTerms(),
 			};
 			window.localStorage.setItem('phpstan-merch-24', JSON.stringify(json));
-		} catch (e) {
+		} catch {
 			// pass
 		}
 	}
@@ -709,7 +709,7 @@ export class MerchSaleViewModel {
 
 			this.agreeToPrivacyPolicy(json.agreeToPrivacyPolicy);
 			this.agreeToTerms(json.agreeToTerms);
-		} catch (e) {
+		} catch {
 			// pass
 		}
 	}
@@ -990,7 +990,7 @@ export class MerchSaleViewModel {
 
 		try {
 			window.localStorage.removeItem('phpstan-merch-24');
-		} catch (e) {
+		} catch {
 			// pass
 		}
 	}
