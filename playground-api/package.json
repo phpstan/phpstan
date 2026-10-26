@@ -19,11 +19,11 @@
 		"zod": "^4.3.6"
 	},
 	"devDependencies": {
-		"@eslint/js": "^9.39.5",
+		"@eslint/js": "^10.0.1",
 		"@tsconfig/node24": "^24.0.0",
 		"@types/aws-lambda": "^8.10.112",
 		"@types/node": "^24.0.0",
-		"eslint": "^9.39.5",
+		"eslint": "^10.13.0",
 		"osls": "^3.59.3",
 		"serverless-offline": "13.10.1",
 		"serverless-plugin-typescript": "^2.0.0",
