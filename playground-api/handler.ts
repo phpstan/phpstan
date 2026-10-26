@@ -1,9 +1,8 @@
 import Honeybadger from '@honeybadger-io/js';
 import {AWSError, Lambda, S3} from 'aws-sdk';
 import {PromiseResult} from 'aws-sdk/lib/request';
-import { v4 as uuid } from 'uuid';
 import { z } from 'zod';
-import { createHash } from 'crypto';
+import { createHash, randomUUID } from 'crypto';
 
 Honeybadger.configure({
 	apiKey: process.env.HONEYBADGER_API_KEY,
@@ -423,7 +422,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 		};
 
 		if (saveResult) {
-			const id: string = uuid() as string;
+			const id: string = randomUUID();
 			const puts = [s3.putObject({
 				Bucket: 'phpstan-playground',
 				Key: 'api/results/' + id + '.json',

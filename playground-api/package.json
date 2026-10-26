@@ -15,14 +15,12 @@
 		"@honeybadger-io/js": "^6.17.0",
 		"ansi-to-html": "^0.7.0",
 		"aws-sdk": "^2.1335.0",
-		"uuid": "^9.0.0",
 		"zod": "^4.3.6"
 	},
 	"devDependencies": {
 		"@tsconfig/node24": "^24.0.0",
 		"@types/aws-lambda": "^8.10.112",
 		"@types/node": "^24.0.0",
-		"@types/uuid": "^9.0.1",
 		"@typescript-eslint/eslint-plugin": "^6.7.5",
 		"@typescript-eslint/parser": "^6.7.5",
 		"eslint": "^8.51.0",
