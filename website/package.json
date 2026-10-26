@@ -14,7 +14,7 @@
 		"@docsearch/js": "3",
 		"@fontsource-variable/inter": "^5.2.8",
 		"@honeybadger-io/js": "^6.17.0",
-		"@stripe/stripe-js": "^4.9.0",
+		"@stripe/stripe-js": "^10.1.0",
 		"@tko/build.knockout": "^4.1.0",
 		"jquery": "^4.0.0",
 		"linkify-string": "^4.4.0",
