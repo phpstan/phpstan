@@ -27,7 +27,7 @@
 		"osls": "^4.4.0",
 		"serverless-offline": "14.8.4",
 		"serverless-plugin-typescript": "^2.0.0",
-		"typescript": "^6.0.3",
+		"typescript": "^7.0.0",
 		"typescript-eslint": "^8.72.0"
 	},
 	"overrides": {
