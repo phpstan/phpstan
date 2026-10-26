@@ -3,7 +3,7 @@ import {PHPStanError} from "../PHPStanError";
 import {errorsFacet} from "./errors";
 import {isXRayActive} from "./xray";
 
-export const hover = hoverTooltip((view, pos, side) => {
+export const hover = hoverTooltip((view, pos) => {
 	if (isXRayActive(view.state)) {
 		return null;
 	}

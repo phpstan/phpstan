@@ -122,7 +122,7 @@ export class PlaygroundViewModel {
 		this.shareText = ko.observable('Share');
 		this.legacyResult = ko.observable(null);
 
-		// @ts-ignore
+		// @ts-ignore TS2322
 		this.tabs = ko.observableArray([]);
 		this.currentTabIndex = ko.observable(null);
 		this.currentTab = ko.pureComputed(() => {
@@ -217,7 +217,7 @@ export class PlaygroundViewModel {
 		});
 		this.hasServerError = ko.observable<boolean>(false);
 
-		this.linkify = (text: string, options) => {
+		this.linkify = (text: string) => {
 			return linkifyStr(text, {
 				className: () => 'underline hover:no-underline',
 				target: '_blank',
@@ -225,7 +225,6 @@ export class PlaygroundViewModel {
 					if (type === 'url' && value.startsWith('https://phpstan.org/')) {
 						const path = value.substring('https://phpstan.org'.length);
 						if (path in pages) {
-							// @ts-ignore
 							return pages[path];
 						}
 					}

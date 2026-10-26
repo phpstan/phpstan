@@ -6,6 +6,7 @@
 // We target WASI rather than wasm-bindgen because PHPantom's completion path
 // hits a memory-corruption bug on wasm32-unknown-unknown but is correct on
 // wasm32-wasip1.
+/* eslint-disable no-console -- the worker forwards PHPantom output and failures to the console */
 import {WASI, OpenFile, File as WasiFile, ConsoleStdout} from '@bjorn3/browser_wasi_shim';
 // PHPStan stub shells built by `npm run build:stubs` (cleaned sources from
 // phpstan-src, mirroring its layout). Loaded recursively and opened as hidden
@@ -18,7 +19,7 @@ const stubModules = import.meta.glob<string>('./stubs/**/*.php', {
 	eager: true,
 });
 
-const STUBS: ReadonlyArray<{uri: string; text: string}> = Object.entries(stubModules).map(
+const STUBS: readonly {uri: string; text: string}[] = Object.entries(stubModules).map(
 	([path, text]) => ({uri: 'file:///stubs/' + path.replace(/^\.\//, ''), text}),
 );
 
