@@ -1,6 +1,6 @@
 import Honeybadger from '@honeybadger-io/js';
-import {AWSError, Lambda, S3} from 'aws-sdk';
-import {PromiseResult} from 'aws-sdk/lib/request';
+import {InvokeCommand, InvokeCommandOutput, LambdaClient} from '@aws-sdk/client-lambda';
+import {GetObjectCommand, PutObjectCommand, S3Client} from '@aws-sdk/client-s3';
 import { z } from 'zod';
 import { createHash, randomUUID } from 'crypto';
 
@@ -88,8 +88,8 @@ interface StoredXRay {
 
 const RUNNER_FUNCTION = process.env.RUNNER_FUNCTION ?? 'phpstan-runner-prod-main';
 
-const lambda = new Lambda();
-const s3 = new S3();
+const lambda = new LambdaClient({});
+const s3 = new S3Client({});
 
 function stripXRay(versionedErrors: VersionedErrors[]): VersionedErrors[] {
 	return versionedErrors.map((version) => {
@@ -129,17 +129,21 @@ function attachXRay(versionedErrors: VersionedErrors[], stored: StoredXRay | nul
 
 // Without s3:ListBucket a missing key comes back as AccessDenied rather than NoSuchKey.
 function isMissingObjectError(e: unknown): boolean {
-	const code = (e as AWSError).code;
-	return code === 'NoSuchKey' || code === 'AccessDenied' || code === 'NotFound';
+	const name = (e as Error | undefined)?.name;
+	return name === 'NoSuchKey' || name === 'AccessDenied' || name === 'NotFound';
+}
+
+async function readObject(key: string): Promise<string> {
+	const object = await s3.send(new GetObjectCommand({
+		Bucket: 'phpstan-playground',
+		Key: key,
+	}));
+	return await object.Body?.transformToString() as string;
 }
 
 async function readXRay(id: string): Promise<StoredXRay | null> {
 	try {
-		const object = await s3.getObject({
-			Bucket: 'phpstan-playground',
-			Key: 'api/xray/' + id + '.json',
-		}).promise();
-		return JSON.parse(object.Body as string);
+		return JSON.parse(await readObject('api/xray/' + id + '.json'));
 	} catch (e) {
 		// Results older than the feature have no object.
 		if (!isMissingObjectError(e)) {
@@ -159,7 +163,7 @@ async function analyseResultInternal(
 	phpVersions: number[],
 	options?: PlaygroundOptions,
 ): Promise<VersionedErrors[]> {
-	const lambdaPromises: [Promise<PromiseResult<Lambda.InvocationResponse, AWSError>>, number][] = [];
+	const lambdaPromises: [Promise<InvokeCommandOutput>, number][] = [];
 	for (const phpVersion of phpVersions) {
 		const payload: any = {
 			code: code,
@@ -172,10 +176,10 @@ async function analyseResultInternal(
 		if (options && Object.keys(options).length > 0) {
 			payload.options = options;
 		}
-		lambdaPromises.push([lambda.invoke({
+		lambdaPromises.push([lambda.send(new InvokeCommand({
 			FunctionName: RUNNER_FUNCTION,
 			Payload: JSON.stringify(payload),
-		}).promise(), phpVersion]);
+		})), phpVersion]);
 	}
 
 	const versionedErrors: VersionedErrors[] = [];
@@ -183,14 +187,15 @@ async function analyseResultInternal(
 		const promise = tuple[0];
 		const phpVersion = tuple[1];
 		const lambdaResult = await promise;
+		const lambdaPayload = lambdaResult.Payload?.transformToString();
 
 		// A runner that throws or times out still resolves the invoke, with the error as the payload.
 		if (typeof lambdaResult.FunctionError !== 'undefined') {
-			throw new Error(`Runner failed for PHP ${phpVersion} (${lambdaResult.FunctionError}): ${lambdaResult.Payload}`);
+			throw new Error(`Runner failed for PHP ${phpVersion} (${lambdaResult.FunctionError}): ${lambdaPayload}`);
 		}
-		const jsonResponse = JSON.parse(lambdaResult.Payload as string);
+		const jsonResponse = JSON.parse(lambdaPayload as string);
 		if (!Array.isArray(jsonResponse?.result)) {
-			throw new Error(`Runner returned an unexpected response for PHP ${phpVersion}: ${lambdaResult.Payload}`);
+			throw new Error(`Runner returned an unexpected response for PHP ${phpVersion}: ${lambdaPayload}`);
 		}
 		const data: VersionedErrors = {
 			phpVersion: phpVersion,
@@ -423,7 +428,7 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 
 		if (saveResult) {
 			const id: string = randomUUID();
-			const puts = [s3.putObject({
+			const puts = [s3.send(new PutObjectCommand({
 				Bucket: 'phpstan-playground',
 				Key: 'api/results/' + id + '.json',
 				ContentType: 'application/json',
@@ -439,15 +444,15 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 						options: options,
 					},
 				}),
-			}).promise()];
+			}))];
 			const xray = packXRay(versionedErrors);
 			if (xray !== null) {
-				puts.push(s3.putObject({
+				puts.push(s3.send(new PutObjectCommand({
 					Bucket: 'phpstan-playground',
 					Key: 'api/xray/' + id + '.json',
 					ContentType: 'application/json',
 					Body: JSON.stringify(xray),
-				}).promise());
+				})));
 			}
 			await Promise.all(puts);
 
@@ -475,13 +480,10 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 	try {
 		const id = request.queryStringParameters.id;
 		const [object, storedXRay] = await Promise.all([
-			s3.getObject({
-				Bucket: 'phpstan-playground',
-				Key: 'api/results/' + id + '.json',
-			}).promise(),
+			readObject('api/results/' + id + '.json'),
 			readXRay(id),
 		]);
-		const json = JSON.parse(object.Body as string);
+		const json = JSON.parse(object);
 		const strictRules = typeof json.config.strictRules !== 'undefined' ? json.config.strictRules : false;
 		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true;
@@ -613,13 +615,10 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 	try {
 		const id = request.queryStringParameters.id;
 		const [object, storedXRay] = await Promise.all([
-			s3.getObject({
-				Bucket: 'phpstan-playground',
-				Key: 'api/results/' + id + '.json',
-			}).promise(),
+			readObject('api/results/' + id + '.json'),
 			readXRay(id),
 		]);
-		const json = JSON.parse(object.Body as string);
+		const json = JSON.parse(object);
 		const strictRules = typeof json.config.strictRules !== 'undefined' ? json.config.strictRules : false;
 		const bleedingEdge = typeof json.config.bleedingEdge !== 'undefined' ? json.config.bleedingEdge : false;
 		const treatPhpDocTypesAsCertain = typeof json.config.treatPhpDocTypesAsCertain !== 'undefined' ? json.config.treatPhpDocTypesAsCertain : true;
@@ -662,15 +661,9 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 		const id = request.queryStringParameters.id;
 		const firstTwoChars = id.substr(0, 2);
 		const path = 'data/results/' + firstTwoChars + '/' + id;
-		const inputObject = await s3.getObject({
-			Bucket: 'phpstan-playground',
-			Key: path + '/input.json',
-		}).promise();
-		const outputObject = await s3.getObject({
-			Bucket: 'phpstan-playground',
-			Key: path + '/output.json',
-		}).promise();
-		const inputJson = JSON.parse(inputObject.Body as string);
+		const inputObject = await readObject(path + '/input.json');
+		const outputObject = await readObject(path + '/output.json');
+		const inputJson = JSON.parse(inputObject);
 		const AnsiToHtml = require('ansi-to-html');
 		const convert = new AnsiToHtml({ escapeXML: true });
 		const result = await analyseResultInternal(
@@ -686,7 +679,7 @@ async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse>
 			statusCode: 200,
 			body: JSON.stringify({
 				code: inputJson.phpCode,
-				htmlErrors: convert.toHtml(JSON.parse(outputObject.Body as string).output),
+				htmlErrors: convert.toHtml(JSON.parse(outputObject).output),
 				upToDateTabs: createTabs(result),
 				upToDateVersionedErrors: stripXRay(result),
 				version: inputJson.phpStanVersion,
