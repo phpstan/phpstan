@@ -1,5 +1,5 @@
 import {hoverTooltip} from '@codemirror/view';
-import MarkdownIt from 'markdown-it';
+import markdownit, {type MarkdownIt} from 'markdown-it';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-markup-templating';
 import 'prismjs/components/prism-php';
@@ -13,7 +13,7 @@ import {isXRayActive} from './xray';
 let md: MarkdownIt | null = null;
 function markdown(): MarkdownIt {
 	if (md === null) {
-		md = new MarkdownIt({
+		md = markdownit({
 			html: false,
 			linkify: true,
 			highlight: (str, lang) => {
