@@ -153,7 +153,11 @@ return function ($event) use ($phpstanVersion) {
     if (count($diffs) > 0) {
         /** @var \PHPStan\Fixable\Patcher $patcher */
         $patcher = $container->getByType(\PHPStan\Fixable\Patcher::class);
-        $differ = new \SebastianBergmann\Diff\Differ(new \SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder('', addLineNumbers: true, emitNoLineEndEofWarning: false));
+        $differ = new \SebastianBergmann\Diff\Differ(new \SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder([
+            'header' => '',
+            'addLineNumbers' => true,
+            'emitNoLineEndEofWarning' => false,
+        ]));
         $fixedCode = $patcher->applyDiffs($codePath, $diffs);
         $response['fixedCode'] = $fixedCode;
         $response['fixedCodeDiff'] = $differ->diff($code, $fixedCode);
