@@ -18,6 +18,9 @@ package:
   patterns:
     - '!node_modules/**'
     - '!smoke-test.*'
+    # Native phpstan_turbo binaries for every platform. Only the CLI loads them, by
+    # restarting the process; the handlers build PHPStan's container in-process.
+    - '!vendor/phpstan/phpstan/turbo-ext/**'
 
 functions:
     main:
