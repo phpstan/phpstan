@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8418c816e85add55cb8f0862214fca44",
+    "content-hash": "5254a38ffa0181a12e8f169be80e5861",
     "packages": [
         {
             "name": "bref/bref",
@@ -3042,11 +3042,11 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.4"
+        "php": "^8.5"
     },
     "platform-dev": {},
     "platform-overrides": {
-        "php": "8.4.99"
+        "php": "8.5.99"
     },
     "plugin-api-version": "2.9.0"
 }
