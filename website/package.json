@@ -46,7 +46,7 @@
 		"markdown-it-anchor": "^10.0.0",
 		"markdown-it-attrs": "^5.0.1",
 		"markdown-it-footnote": "^4.0.0",
-		"mermaid": "^11.15.0",
+		"mermaid": "^12.2.0",
 		"npm-run-all2": "^8.0.4",
 		"nunjucks": "npm:@11ty/nunjucks@^3.3.0",
 		"postcss": "^8.5.15",

@@ -106,7 +106,16 @@ async function renderMermaid(definition) {
 		await page.setContent('<!DOCTYPE html><html><body></body></html>');
 		await page.addScriptTag({ path: mermaidScriptPath });
 		return await page.evaluate(async (def) => {
-			window.mermaid.initialize({ startOnLoad: false });
+			// Mermaid 12 defaults to the ELK layout, the new "neo" look and
+			// wider minimum flowchart nodes; keep the classic dagre rendering
+			// (and Mermaid 11 node sizes) the existing diagrams were drawn for.
+			window.mermaid.initialize({
+				startOnLoad: false,
+				layout: 'dagre',
+				theme: 'default',
+				look: 'classic',
+				flowchart: { minNodeWidth: 0, wrappingWidth: 200 },
+			});
 			const { svg } = await window.mermaid.render('mermaid-diagram', def);
 			return svg;
 		}, definition);
