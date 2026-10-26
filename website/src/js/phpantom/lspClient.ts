@@ -9,7 +9,7 @@ export const PHP_URI = 'file:///try/main.php';
 // Prism-highlighted source (editor/phpantomHover.ts) via phpantomLsp.request(),
 // and diagnostics stay with PHPStan on the server (its result panel is
 // authoritative — we don't want PHPantom squiggles disagreeing with it).
-export const phpantomLsp = new LSPClient({
+const client = new LSPClient({
 	// The worker answers `initialize` only after downloading and compiling the
 	// ~11 MB wasm, which can take minutes on slow connections, and it handles
 	// messages one at a time, so a timeout never frees anything up. A timed-out
@@ -18,4 +18,11 @@ export const phpantomLsp = new LSPClient({
 	// help). The worker answers every request itself, even when it fails.
 	timeout: 2 ** 31 - 1,
 	extensions: [serverCompletion(), signatureHelp()],
-}).connect(createPhpantomTransport());
+});
+
+// Even the longest timeout fires when a headless renderer fast-forwards timers
+// or a tab stays open for weeks, so lsp-client's private timeout handler is
+// replaced to never reject a request.
+Object.assign(client, {timeoutRequest: () => undefined});
+
+export const phpantomLsp = client.connect(createPhpantomTransport());
