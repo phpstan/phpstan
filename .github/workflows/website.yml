@@ -41,7 +41,7 @@ jobs:
 
       - name: "Cache node_modules"
         id: node-modules-cache
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: website/node_modules
           key: "node-modules-${{ runner.os }}-node-${{ steps.setup-node.outputs.node-version }}-${{ hashFiles('website/package-lock.json') }}"
@@ -80,7 +80,7 @@ jobs:
       # identifies the wasm. Rust only runs when the ref or script changes.
       - name: "Cache PHPantom wasm"
         id: wasm-cache
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: website/src/js/phpantom/pkg-wasi/phpantom_lsp.wasm
           key: "phpantom-wasm-${{ hashFiles('website/scripts/build-wasm.sh') }}"
@@ -105,7 +105,7 @@ jobs:
 
       - name: "Cache node_modules"
         id: node-modules-cache
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: website/node_modules
           key: "node-modules-${{ runner.os }}-node-${{ steps.setup-node.outputs.node-version }}-${{ hashFiles('website/package-lock.json') }}"
@@ -117,7 +117,7 @@ jobs:
 
       - name: "Cache Playwright browsers"
         id: playwright-cache
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/ms-playwright
           key: "playwright-${{ runner.os }}-${{ hashFiles('website/node_modules/@playwright/test/package.json') }}"
@@ -133,7 +133,7 @@ jobs:
         run: "npx playwright install-deps chromium"
 
       - name: "Cache generated social images"
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: website/.cache/social
           key: "social-images-${{ hashFiles('website/src/_posts/**', 'website/src/_includes/social/socialImage.njk') }}"
@@ -189,7 +189,7 @@ jobs:
 
       - name: "Cache node_modules"
         id: node-modules-cache
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: website/node_modules
           key: "node-modules-${{ runner.os }}-node-${{ steps.setup-node.outputs.node-version }}-${{ hashFiles('website/package-lock.json') }}"
@@ -201,7 +201,7 @@ jobs:
 
       - name: "Cache Playwright browsers"
         id: playwright-cache
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/ms-playwright
           key: "playwright-${{ runner.os }}-${{ hashFiles('website/node_modules/@playwright/test/package.json') }}"
@@ -284,7 +284,7 @@ jobs:
 
       - name: "Cache node_modules"
         id: node-modules-cache
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: website/node_modules
           key: "node-modules-${{ runner.os }}-node-${{ steps.setup-node.outputs.node-version }}-${{ hashFiles('website/package-lock.json') }}"
@@ -296,7 +296,7 @@ jobs:
 
       - name: "Cache Playwright browsers"
         id: playwright-cache
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: ~/.cache/ms-playwright
           key: "playwright-${{ runner.os }}-${{ hashFiles('website/node_modules/@playwright/test/package.json') }}"
@@ -369,7 +369,7 @@ jobs:
       # the only copy in the bucket. Brotli -q 11 is slow, so the compressed
       # output is cached by the wasm's content.
       - name: "Cache Brotli-compressed WebAssembly"
-        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           path: wasm-br
           key: "wasm-br-${{ hashFiles('dist/**/*.wasm') }}"
