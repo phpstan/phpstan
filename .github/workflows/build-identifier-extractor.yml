@@ -37,7 +37,7 @@ jobs:
         uses: "shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962" # 2.40.0
         with:
           coverage: "none"
-          php-version: "8.1"
+          php-version: "8.2"
 
       - name: "Install Extractor dependencies"
         uses: "ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda" # v4.0.0
