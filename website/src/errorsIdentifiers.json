@@ -10384,8 +10384,8 @@
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/MethodSignatureRule.php#L127",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L317",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L330"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L320",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L333"
             ]
         }
     },
