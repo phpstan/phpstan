@@ -2400,6 +2400,12 @@ parameters:
 			path: repo/src/Symfony/Component/Cache/LockRegistry.php
 
 		-
+			message: '#^Call to function is_object\(\) with bool will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: repo/src/Symfony/Component/Cache/Traits/PdoTrait.php
+
+		-
 			message: '#^Method Symfony\\Component\\Cache\\Traits\\RedisClusterProxy\:\:createLazyProxy\(\) should return static\(Symfony\\Component\\Cache\\Traits\\RedisClusterProxy\) but returns Symfony\\Component\\Cache\\Traits\\RedisClusterProxy\.$#'
 			identifier: return.type
 			count: 1
@@ -2472,20 +2478,8 @@ parameters:
 			path: repo/src/Symfony/Component/Config/Definition/Builder/ArrayNodeDefinition.php
 
 		-
-			message: '#^Method Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition\:\:prototype\(\) should return Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition\<\$this\(Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition\<TParent of Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\|null \= null\>\)\> but returns Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition\<TNewParent of Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\>\|Symfony\\Component\\Config\\Definition\\Builder\\VariableNodeDefinition\<TNewParent of Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\>\.$#'
-			identifier: return.type
-			count: 1
-			path: repo/src/Symfony/Component/Config/Definition/Builder/ArrayNodeDefinition.php
-
-		-
 			message: '#^Parameter \#1 \$node of method Symfony\\Component\\Config\\Definition\\PrototypedArrayNode\:\:setPrototype\(\) expects Symfony\\Component\\Config\\Definition\\PrototypeNodeInterface, Symfony\\Component\\Config\\Definition\\NodeInterface given\.$#'
 			identifier: argument.type
-			count: 1
-			path: repo/src/Symfony/Component/Config/Definition/Builder/ArrayNodeDefinition.php
-
-		-
-			message: '#^Property Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition\<TParent of Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\|null \= null\>\:\:\$prototype \(Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition\<\$this\(Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition\<TParent of Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\|null \= null\>\)\>\) does not accept Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition\<TNewParent of Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\>\|Symfony\\Component\\Config\\Definition\\Builder\\VariableNodeDefinition\<TNewParent of Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\>\.$#'
-			identifier: assign.propertyType
 			count: 1
 			path: repo/src/Symfony/Component/Config/Definition/Builder/ArrayNodeDefinition.php
 
@@ -2536,12 +2530,6 @@ parameters:
 			identifier: generics.notSubtype
 			count: 1
 			path: repo/src/Symfony/Component/Config/Definition/Builder/ParentNodeDefinitionInterface.php
-
-		-
-			message: '#^Property Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder\<T of string \= string\>\:\:\$root \(Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition\<\$this\(Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder\<T of string \= string\>\)\>\|null\) does not accept Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition\<TNewParent of Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\>\|Symfony\\Component\\Config\\Definition\\Builder\\VariableNodeDefinition\<TNewParent of Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\>\.$#'
-			identifier: assign.propertyType
-			count: 1
-			path: repo/src/Symfony/Component/Config/Definition/Builder/TreeBuilder.php
 
 		-
 			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\NodeInterface\:\:getParent\(\)\.$#'
@@ -2796,6 +2784,18 @@ parameters:
 			path: repo/src/Symfony/Component/Console/ConsoleBundle.php
 
 		-
+			message: '#^Strict comparison using \!\=\= between ''Symfony\\\\Component\\\\Console\\\\Command\\\\Command'' and ReflectionClass will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/src/Symfony/Component/Console/DataCollector/CommandDataCollector.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: repo/src/Symfony/Component/Console/DataCollector/CommandDataCollector.php
+
+		-
 			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
 			identifier: nullsafe.neverNull
 			count: 1
@@ -3046,6 +3046,12 @@ parameters:
 			identifier: parameterByRef.unusedType
 			count: 1
 			path: repo/src/Symfony/Component/DependencyInjection/Attribute/Target.php
+
+		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 2
+			path: repo/src/Symfony/Component/DependencyInjection/Compiler/AbstractRecursivePass.php
 
 		-
 			message: '#^Parameter &\$configurators by\-ref type of method Symfony\\Component\\DependencyInjection\\Compiler\\AttributeAutoconfigurationPass\:\:callConfigurators\(\) expects array\<class\-string, array\<callable\(\)\: mixed\>\>, array given\.$#'
@@ -3928,6 +3934,12 @@ parameters:
 			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: repo/src/Symfony/Component/Form/Extension/Core/DataAccessor/PropertyPathAccessor.php
+
+		-
+			message: '#^Offset ''days'' on array\{years\: string, months\: string, days\: string, hours\: string, minutes\: string, seconds\: string, invert\: string, weeks\: ''0''\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: repo/src/Symfony/Component/Form/Extension/Core/DataTransformer/DateIntervalToArrayTransformer.php
 
 		-
 			message: '#^Parameter \#1 \$month of function checkdate expects int, string given\.$#'
@@ -6043,6 +6055,12 @@ parameters:
 			path: repo/src/Symfony/Component/Lock/Store/MongoDbStore.php
 
 		-
+			message: '#^Call to function is_object\(\) with bool will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 2
+			path: repo/src/Symfony/Component/Lock/Store/PdoStore.php
+
+		-
 			message: '#^Argument of an invalid type Predis\\ClientInterface\|Redis\|RedisArray\|RedisCluster\|Relay\\Cluster\|Relay\\Relay supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
@@ -7728,6 +7746,12 @@ parameters:
 			path: repo/src/Symfony/Component/RateLimiter/Policy/Window.php
 
 		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/src/Symfony/Component/RateLimiter/RateLimiterFactory.php
+
+		-
 			message: '#^Parameter \#2 \$datetime of static method DateTimeImmutable\:\:createFromFormat\(\) expects string, int\<1, max\> given\.$#'
 			identifier: argument.type
 			count: 1
@@ -7976,6 +8000,12 @@ parameters:
 		-
 			message: '#^Property Symfony\\Component\\Scheduler\\Trigger\\PeriodicalTrigger\:\:\$interval \(DateInterval\|float\|int\|string\) is never assigned int so it can be removed from the property type\.$#'
 			identifier: property.unusedType
+			count: 1
+			path: repo/src/Symfony/Component/Scheduler/Trigger/PeriodicalTrigger.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between false and DateInterval will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
 			count: 1
 			path: repo/src/Symfony/Component/Scheduler/Trigger/PeriodicalTrigger.php
 
@@ -9180,6 +9210,12 @@ parameters:
 			path: repo/src/Symfony/Component/TypeInfo/TypeResolver/PhpDocAwareReflectionTypeResolver.php
 
 		-
+			message: '#^Using nullsafe method call on non\-nullable type ReflectionClass\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/src/Symfony/Component/TypeInfo/TypeResolver/PhpDocAwareReflectionTypeResolver.php
+
+		-
 			message: '#^Class PHPStan\\PhpDocParser\\Lexer\\Lexer constructor invoked with 0 parameters, 1 required\.$#'
 			identifier: arguments.count
 			count: 1
@@ -10124,6 +10160,12 @@ parameters:
 		-
 			message: '#^Parameter &\$isQuotedString by\-ref type of method Symfony\\Component\\Yaml\\Inline\:\:evaluateScalar\(\) expects bool, bool\|null given\.$#'
 			identifier: parameterByRef.type
+			count: 1
+			path: repo/src/Symfony/Component/Yaml/Inline.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between false and int will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
 			count: 1
 			path: repo/src/Symfony/Component/Yaml/Inline.php
 

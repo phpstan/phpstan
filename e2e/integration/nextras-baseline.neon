@@ -1,6 +1,18 @@
 parameters:
 	ignoreErrors:
 		-
+			rawMessage: 'Call to an undefined method Nette\DI\Definitions\Definition::getType().'
+			identifier: method.notFound
+			count: 1
+			path: repo/src/Bridges/NetteDI/DIRepositoryFinder.php
+
+		-
+			rawMessage: 'Method Nextras\Orm\Bridges\NetteDI\DIRepositoryFinder::findRepositories() should return array<string, Nette\DI\Definitions\Definition> but returns array<string, Nette\DI\Definition>.'
+			identifier: return.type
+			count: 1
+			path: repo/src/Bridges/NetteDI/DIRepositoryFinder.php
+
+		-
 			rawMessage: 'Parameter #1 $type of method Nette\DI\Definitions\ServiceDefinition::setType() expects class-string|null, string given.'
 			identifier: argument.type
 			count: 1
