@@ -1261,6 +1261,12 @@ parameters:
 			path: repo/src/Core/Framework/Sso/Config/LoginConfigService.php
 
 		-
+			rawMessage: 'Parameter #1 $email of method Shopware\Core\Framework\Sso\LoginResponseService::createErrorResponse() expects string, string|null given.'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/Sso/Controller/SsoController.php
+
+		-
 			rawMessage: 'Method Shopware\Core\Framework\Store\Exception\StoreApiException::getErrors() return type with generic class Generator does not specify its types: TKey, TValue, TSend, TReturn'
 			identifier: missingType.generics
 			count: 1
