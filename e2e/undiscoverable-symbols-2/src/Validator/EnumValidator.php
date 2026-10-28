@@ -33,7 +33,7 @@ class EnumValidator extends ConstraintValidator
         if (is_subclass_of($constraint->class, ClabsEnum::class)) {
             /** @var class-string<ClabsEnum<int>>|class-string<ClabsEnum<string>> $enumClass */
             $enumClass = $constraint->class;
-            $valid = $constraint->checkKey ? $enumClass::isValidKey($value) : $enumClass::isValid($value);
+            $valid = $constraint->checkKey ? $enumClass::isValidKey((string) $value) : $enumClass::isValid($value);
         } else {
             /** @var class-string<\BackedEnum> $enumClass */
             $enumClass = $constraint->class;
