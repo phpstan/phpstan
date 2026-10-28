@@ -92,6 +92,22 @@ There's also analogous functionality for:
 * **static methods** using [`StaticMethodParameterClosureThisExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.StaticMethodParameterClosureThisExtension.html) interface and `phpstan.staticMethodParameterClosureThisExtension` service tag.
 * **functions** using [`FunctionParameterClosureThisExtension`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.FunctionParameterClosureThisExtension.html) interface and `phpstan.functionParameterClosureThisExtension` service tag.
 
+### Binding scope and generated subclasses
+
+The type returned by a parameter closure this extension also determines the closure's binding scope. Returning `new ObjectType(BaseTestCase::class)` allows the closure to access private members declared by `BaseTestCase`, as well as its protected members.
+
+If a framework binds the closure to a generated subclass, private members of the base class are inaccessible at runtime. Return the subclass type to model that scope:
+
+```php
+return new ObjectType($generatedClassReflection->getName(), null, $generatedClassReflection);
+```
+
+The subclass must be known to [ReflectionProvider](https://apiref.phpstan.org/__BRANCH__/PHPStan.Reflection.ReflectionProvider.html). Returning an invented class name from `Type::getObjectClassNames()` does not register that class. PHPStan skips binding scope classes it cannot reflect.
+
+For an anonymous subclass, `ReflectionProvider::getAnonymousClassReflection()` can provide and register the reflection. Pass a `PhpParser\Node\Stmt\Class_` node that describes the subclass, including its fully qualified parent and any traits, and the scope containing the call. Anonymous class reflections are cached by source file and position, so the node needs a stable position that does not collide with other anonymous classes or generated contexts.
+
+With the subclass as the binding scope, protected base members remain accessible and private base members are reported. This also applies to arrow functions. Static closures do not receive `$this` from these extensions.
+
 Tracking dependencies for the result cache
 ---------------
 
