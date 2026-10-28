@@ -56,6 +56,20 @@ interface HttpResponse {
 	body?: string;
 }
 
+function getIdParameter(request: HttpRequest): string | null {
+	const id = request.queryStringParameters?.id;
+	if (typeof id !== 'string' || id === '') {
+		return null;
+	}
+
+	return id;
+}
+
+const missingIdResponse: HttpResponse = {
+	statusCode: 400,
+	body: JSON.stringify({error: 'Missing id query parameter'}),
+};
+
 interface PHPStanError {
 	message: string,
 	line: number,
@@ -478,8 +492,11 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 }
 
 async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
+	const id = getIdParameter(request);
+	if (id === null) {
+		return Promise.resolve(missingIdResponse);
+	}
 	try {
-		const id = request.queryStringParameters.id;
 		const [object, storedXRay] = await Promise.all([
 			readObject('api/results/' + id + '.json'),
 			readXRay(id),
@@ -613,8 +630,11 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 }
 
 async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
+	const id = getIdParameter(request);
+	if (id === null) {
+		return Promise.resolve(missingIdResponse);
+	}
 	try {
-		const id = request.queryStringParameters.id;
 		const [object, storedXRay] = await Promise.all([
 			readObject('api/results/' + id + '.json'),
 			readXRay(id),
@@ -658,8 +678,11 @@ async function retrieveSample(request: HttpRequest): Promise<HttpResponse> {
 }
 
 async function retrieveLegacyResult(request: HttpRequest): Promise<HttpResponse> {
+	const id = getIdParameter(request);
+	if (id === null) {
+		return Promise.resolve(missingIdResponse);
+	}
 	try {
-		const id = request.queryStringParameters.id;
 		const firstTwoChars = id.substr(0, 2);
 		const path = 'data/results/' + firstTwoChars + '/' + id;
 		const inputObject = await readObject(path + '/input.json');
