@@ -102,7 +102,7 @@ html.dark {
 		--docsearch-key-color: #9ca3af;
 	}
 
-	img:not(.nav-header img), video {
+	img:not(.nav-header img, .exclude-from-dark img), video:not(.exclude-from-dark video) {
 		@apply invert hue-rotate-180;
 	}
 
@@ -114,10 +114,6 @@ html.dark {
 
 	.cm-editor {
 		@apply invert hue-rotate-180;
-	}
-
-	.exclude-from-dark img, .exclude-from-dark video {
-		@apply invert-0 hue-rotate-0;
 	}
 }
 
