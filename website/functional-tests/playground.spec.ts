@@ -275,3 +275,40 @@ test('an out-of-date snippet offers the latest result, which has no URL of its o
 	await expect(page.getByText('The latest result.')).toBeVisible();
 	expect(api.analyses).toHaveLength(0);
 });
+
+test('back after showing the latest result goes to the snippet and its stored result', async ({page}) => {
+	const api = await mockApi(page);
+	api.upToDateTabs = [{title: 'PHP 7.2 – 8.6 (1 error)', errors: [{message: 'The latest result.', line: 1}]}];
+	await open(page, `/r/${SNIPPET_ID}`);
+	await expect(page.getByText('This result is out of date.')).toBeVisible();
+
+	await page.getByText('Show the latest result').click();
+	await expect(page).toHaveURL('/try');
+	await expect(page.getByText('The latest result.')).toBeVisible();
+
+	await page.goBack();
+	await expect(page).toHaveURL(`/r/${SNIPPET_ID}`);
+	await expect(page.getByText(SNIPPET_ERROR)).toBeVisible();
+	await expect(page.getByText('This result is out of date.')).toBeVisible();
+
+	await page.goForward();
+	await expect(page).toHaveURL('/try');
+	await expect(page.getByText('The latest result.')).toBeVisible();
+	await expect(page.getByText('This result is out of date.')).toBeHidden();
+
+	// Code typed after showing the latest result is not the snippet's.
+	await typeAtEnd(page, 'x');
+	await expect(page.getByText('Analysis #1 at level 10')).toBeVisible();
+	await page.goBack();
+	await expect(page).toHaveURL(`/r/${SNIPPET_ID}`);
+	await expect(lastLine(page)).toHaveText('');
+	await expect(page.getByText(SNIPPET_ERROR)).toBeVisible();
+
+	await page.goForward();
+	await expect(page).toHaveURL('/try');
+	await expect(lastLine(page)).toHaveText('x');
+	await expect(page.getByText('Analysis #1 at level 10')).toBeVisible();
+
+	expect(api.samples).toEqual([SNIPPET_ID]);
+	expect(api.analyses).toHaveLength(1);
+});
