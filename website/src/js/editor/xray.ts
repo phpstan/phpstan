@@ -80,8 +80,16 @@ function isHiddenKind(kind: string): boolean {
 
 function buildNodes(data: XRayData, doc: Text, pending: ChangeSet | null): XRayNode[] {
 	const string = (index: number): string => data.strings[index] ?? '';
-	const mapFrom = (pos: number): number => Math.min(pending ? pending.mapPos(pos, 1) : pos, doc.length);
-	const mapTo = (pos: number): number => Math.min(pending ? pending.mapPos(pos, -1) : pos, doc.length);
+	// The data may not describe the document the request was sent from (e.g. a
+	// stored result), so positions past its end are clamped before mapping.
+	const map = (pos: number, assoc: number): number => {
+		if (pending === null) {
+			return Math.min(pos, doc.length);
+		}
+		return Math.min(pending.mapPos(Math.min(pos, pending.length), assoc), doc.length);
+	};
+	const mapFrom = (pos: number): number => map(pos, 1);
+	const mapTo = (pos: number): number => map(pos, -1);
 	const propValue = (value: number | number[]): XRayProp['value'] => {
 		if (Array.isArray(value)) {
 			return value.map((v) => v >= 0 ? v : string(-v - 1));
