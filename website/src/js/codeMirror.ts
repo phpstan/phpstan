@@ -1,38 +1,60 @@
-import ko from '@tko/build.knockout';
-import {EditorView} from '@codemirror/view'
+import ko from '@tko/build.reference';
+import {EditorView} from '@codemirror/view';
 import {keymap, highlightSpecialChars, drawSelection,
-	lineNumbers} from '@codemirror/view'
-import {Compartment, EditorState, StateEffect} from '@codemirror/state'
-import {defaultHighlightStyle, syntaxHighlighting, indentOnInput, indentUnit, bracketMatching} from '@codemirror/language'
-import {defaultKeymap, history, historyField, historyKeymap, indentWithTab} from '@codemirror/commands'
-import {closeBrackets, closeBracketsKeymap, completionKeymap} from '@codemirror/autocomplete'
-import {highlightSelectionMatches} from '@codemirror/search'
-import {php} from '@codemirror/lang-php'
-import { PHPStanError } from './PHPStanError';
-import { ttcn } from './ttcn-theme';
-import {errorsCompartment, errorsFacet, lineErrors, updateErrorsEffect} from "./editor/errors";
-import {hover} from "./editor/hover";
-import {materialDark} from "./editor/darkTheme";
-import {urlIdField, urlIdExtensions} from "./editor/urlId";
-import {docBlockKeymap} from "./editor/docBlock";
-import {phpantomHover} from "./editor/phpantomHover";
-import {goToDefinition} from "./editor/goToDefinition";
-import {occurrenceHighlight, inlineRename} from "./editor/occurrences";
-import {phpantomLsp, PHP_URI} from "./phpantom/lspClient";
-import {xray, setXRayData, setXRayEnabled, setXRayBusy} from "./editor/xray";
-import {PlaygroundTabViewModel} from "./PlaygroundTabViewModel";
+	lineNumbers} from '@codemirror/view';
+import {Compartment, EditorState, StateEffect} from '@codemirror/state';
+import {defaultHighlightStyle, syntaxHighlighting, indentOnInput, indentUnit, bracketMatching} from '@codemirror/language';
+import {defaultKeymap, history, historyField, historyKeymap, indentWithTab} from '@codemirror/commands';
+import {closeBrackets, closeBracketsKeymap, completionKeymap} from '@codemirror/autocomplete';
+import {highlightSelectionMatches} from '@codemirror/search';
+import {php} from '@codemirror/lang-php';
+import {PHPStanError} from './PHPStanError';
+import {ttcn} from './ttcn-theme';
+import {errorsCompartment, errorsFacet, lineErrors, updateErrorsEffect} from './editor/errors';
+import {hover} from './editor/hover';
+import {materialDark} from './editor/darkTheme';
+import {urlIdField, urlIdExtensions} from './editor/urlId';
+import {docBlockKeymap} from './editor/docBlock';
+import {phpantomHover} from './editor/phpantomHover';
+import {goToDefinition} from './editor/goToDefinition';
+import {occurrenceHighlight, inlineRename} from './editor/occurrences';
+import {phpantomLsp, PHP_URI} from './phpantom/lspClient';
+import {xray, setXRayData, setXRayEnabled, setXRayBusy} from './editor/xray';
+import {PlaygroundTabViewModel} from './PlaygroundTabViewModel';
+
+interface CodeMirrorOptions {
+	code: ko.Observable<string>;
+	initialUrlId: string | null;
+	onUrlIdChange: (id: string | null) => void;
+	restoredState: any | null;
+	onXRayToggle: (enabled: boolean) => void;
+}
+
+interface CodeMirrorXRayOptions {
+	enabled: ko.Observable<boolean>;
+	busy: ko.PureComputed<boolean>;
+	tab: ko.PureComputed<PlaygroundTabViewModel | null>;
+}
+
+declare global {
+	interface KoCustomBindings {
+		/** The playground editor, kept in sync with the code observable. */
+		'ko-codeMirror'?: CodeMirrorOptions;
+		/** Errors shown in the editor; needs ko-codeMirror on the same element. */
+		'ko-codeMirrorErrors'?: ko.Subscribable<PHPStanError[]>;
+		/** AST X-Ray state; needs ko-codeMirror on the same element. */
+		'ko-codeMirrorXRay'?: CodeMirrorXRayOptions;
+	}
+}
 
 ko.bindingHandlers.codeMirror = {
 	init: (element, valueAccessor, allBindings) => {
 		// from https://github.com/codemirror/basic-setup/blob/78d1a916147c8c19678838cbdbf9396a8d1a6460/src/codemirror.ts
 		// options explained here: https://codemirror.net/docs/ref/
 
-		const text: string = ko.unwrap(valueAccessor());
+		const {code, initialUrlId, onUrlIdChange, restoredState, onXRayToggle}: CodeMirrorOptions = valueAccessor();
+		const text = code();
 		const errors: PHPStanError[] = allBindings.get('codeMirrorErrors');
-		const initialUrlId: string | null = allBindings.get('codeMirrorInitialUrlId') ?? null;
-		const urlIdChange: ((id: string | null) => void) | null = allBindings.get('codeMirrorUrlIdChange') ?? null;
-		const restoredState: any | null = allBindings.get('codeMirrorRestoredState') ?? null;
-		const xrayToggle: ((enabled: boolean) => void) | null = allBindings.get('codeMirrorXRayToggle') ?? null;
 
 		const themeCompartment = new Compartment();
 
@@ -41,7 +63,7 @@ ko.bindingHandlers.codeMirror = {
 			// highlightActiveLineGutter(),
 			highlightSpecialChars({
 				// eslint-disable-next-line no-control-regex -- matching control characters is the point
-				addSpecialChars: /[\u0000-\u0008\u000b-\u001f\u007f-\u009f\u00a0\u00ad\u061c\u2000-\u200f\u2028\u2029\u2060\u2066-\u2069\ufeff\ufff9-\ufffc]/g
+				addSpecialChars: /[\u0000-\u0008\u000b-\u001f\u007f-\u009f\u00a0\u00ad\u061c\u2000-\u200f\u2028\u2029\u2060\u2066-\u2069\ufeff\ufff9-\ufffc]/g,
 			}),
 			history(),
 			// foldGutter(),
@@ -62,7 +84,7 @@ ko.bindingHandlers.codeMirror = {
 				// Ctrl-R starts inline rename of the symbol under the cursor (all
 				// occurrences become editable at once). preventDefault so it never
 				// falls through to the browser's reload.
-				{key: "Ctrl-r", run: inlineRename, preventDefault: true},
+				{key: 'Ctrl-r', run: inlineRename, preventDefault: true},
 				...completionKeymap,
 				...docBlockKeymap,
 				indentWithTab,
@@ -78,19 +100,16 @@ ko.bindingHandlers.codeMirror = {
 			indentUnit.of('\t'),
 			EditorView.lineWrapping,
 			EditorView.updateListener.of((update) => {
-				if (urlIdChange) {
-					const oldId = update.startState.field(urlIdField);
-					const newId = update.state.field(urlIdField);
-					if (oldId !== newId) {
-						urlIdChange(newId);
-					}
+				const oldId = update.startState.field(urlIdField);
+				const newId = update.state.field(urlIdField);
+				if (oldId !== newId) {
+					onUrlIdChange(newId);
 				}
 				if (!update.docChanged) {
 					return;
 				}
 
-				const observable = valueAccessor();
-				observable(update.state.doc.toString());
+				code(update.state.doc.toString());
 			}),
 			...urlIdExtensions(initialUrlId),
 			errorsCompartment.of(errorsFacet.of(errors)),
@@ -100,7 +119,7 @@ ko.bindingHandlers.codeMirror = {
 			goToDefinition,
 			occurrenceHighlight,
 			phpantomLsp.plugin(PHP_URI, 'php'),
-			xray({onToggle: (enabled) => xrayToggle?.(enabled)}),
+			xray({onToggle: onXRayToggle}),
 			EditorView.baseTheme({
 				'.cm-tooltip.cm-tooltip-hover': {
 					border: 'none',
@@ -141,7 +160,7 @@ ko.bindingHandlers.codeMirror = {
 				}
 			}
 		});
-		darkModeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+		darkModeObserver.observe(document.documentElement, {attributes: true, attributeFilter: ['class']});
 
 		ko.utils.domData.set(element, 'codeMirror', editor);
 	},
@@ -150,10 +169,7 @@ ko.bindingHandlers.codeMirror = {
 ko.bindingHandlers.codeMirrorXRay = {
 	update: (element, valueAccessor) => {
 		const editor: EditorView = ko.utils.domData.get(element, 'codeMirror');
-		// The observables are passed uncalled and read here: TKO's expression
-		// parser hands over a fresh copy of any value it evaluates itself, which
-		// would make the data look new on every update.
-		const raw: {enabled: ko.Observable<boolean>, busy: ko.PureComputed<boolean>, tab: ko.PureComputed<PlaygroundTabViewModel | null>} = valueAccessor();
+		const raw: CodeMirrorXRayOptions = valueAccessor();
 		const tab = ko.unwrap(raw.tab);
 		const value = {
 			enabled: ko.unwrap(raw.enabled),

@@ -1,7 +1,6 @@
-import ko from '@tko/build.knockout';
+import ko from '@tko/build.reference';
 import {PHPStanError} from './PHPStanError';
 import $ from 'jquery';
-import {MainMenuViewModel} from './MainMenuViewModel';
 import {PlaygroundTabViewModel} from './PlaygroundTabViewModel';
 import linkifyStr from 'linkify-string';
 import {slugify} from './utils';
@@ -43,7 +42,6 @@ const defaultValues = Object.values(optionDefaults);
 
 export class PlaygroundViewModel {
 
-	mainMenu: MainMenuViewModel;
 	code: ko.Observable<string>;
 	codeDelayed: ko.Computed<string>;
 	shareText: ko.Observable<string>;
@@ -97,7 +95,7 @@ export class PlaygroundViewModel {
 
 	editorView: EditorView | null;
 	urlIdJustRestored: boolean;
-	savedTabsByUrlId: Map<string, {tabs: PlaygroundTabViewModel[], upToDateTabs: PlaygroundTabViewModel[] | null}>;
+	savedTabsByUrlId: Map<string, {tabs: PlaygroundTabViewModel[]; upToDateTabs: PlaygroundTabViewModel[] | null}>;
 	settingUrlIdProgrammatically: boolean;
 	restoredEditorState: any | null;
 
@@ -113,11 +111,10 @@ export class PlaygroundViewModel {
 	private newOptionEntries: [string, ko.Observable<any>][];
 
 	constructor(urlPath: string) {
-		this.mainMenu = new MainMenuViewModel();
 		this.code = ko.observable('');
 		this.codeDelayed = ko.pureComputed(this.code).extend({
 			notify: 'always',
-			rateLimit: { timeout: 500, method: 'notifyWhenChangesStop' },
+			rateLimit: {timeout: 500, method: 'notifyWhenChangesStop'},
 		});
 		this.shareText = ko.observable('Share');
 		this.legacyResult = ko.observable(null);
@@ -153,8 +150,8 @@ export class PlaygroundViewModel {
 		this.tooWideImplicitThrowType = ko.observable<boolean>(optionDefaults.tooWideImplicitThrowType);
 		this.reportUnsafeArrayStringKeyCasting = ko.observable<string>(optionDefaults.reportUnsafeArrayStringKeyCasting);
 
-		this.allOptions = optionKeys.map(key => this[key] as ko.Observable<any>);
-		this.newOptionEntries = optionKeys.slice(3).map(key => [key, this[key] as ko.Observable<any>] as [string, ko.Observable<any>]);
+		this.allOptions = optionKeys.map((key) => this[key] as ko.Observable<any>);
+		this.newOptionEntries = optionKeys.slice(3).map((key) => [key, this[key] as ko.Observable<any>] as [string, ko.Observable<any>]);
 
 		this.optionsSnapshot = null;
 
@@ -239,7 +236,7 @@ export class PlaygroundViewModel {
 	// --- Options dialog ---
 
 	openOptions(): void {
-		this.optionsSnapshot = this.allOptions.map(o => o());
+		this.optionsSnapshot = this.allOptions.map((o) => o());
 		const dialog = document.getElementById('optionsDialog') as HTMLDialogElement;
 		dialog.showModal();
 	}
@@ -265,8 +262,8 @@ export class PlaygroundViewModel {
 		this.allOptions.forEach((o, i) => o(defaultValues[i]));
 	}
 
-	isNonDefault(name: OptionName): boolean {
-		return (this[name] as ko.Observable<any>)() !== optionDefaults[name];
+	isNonDefault(name: OptionName): ko.PureComputed<boolean> {
+		return ko.pureComputed(() => (this[name] as ko.Observable<any>)() !== optionDefaults[name]);
 	}
 
 	handleOptionsBackdropClick(_: PlaygroundViewModel, event: Event): boolean {
@@ -288,7 +285,7 @@ export class PlaygroundViewModel {
 
 	private getApiOptions(): Record<string, any> {
 		const parseClasses = (s: string): string[] =>
-			s.split('\n').map(l => l.trim().replace(/^\\+/, '')).filter(l => l.length > 0);
+			s.split('\n').map((l) => l.trim().replace(/^\\+/, '')).filter((l) => l.length > 0);
 		const opts: Record<string, any> = {};
 		for (const [key, obs] of this.newOptionEntries) {
 			opts[key] = obs();
@@ -445,7 +442,7 @@ export class PlaygroundViewModel {
 				options: this.getApiOptions(),
 				saveResult,
 			}),
-			contentType: 'application/json'
+			contentType: 'application/json',
 		}).done((data) => {
 			this.tabs(this.createTabs(data.tabs));
 			this.currentTabIndex(0);
@@ -485,7 +482,7 @@ export class PlaygroundViewModel {
 			this.copyId();
 			this.savePlaygroundState();
 
-			const anyWindow = (window as any);
+			const anyWindow = window as any;
 			if (typeof anyWindow.fathom !== 'undefined') {
 				anyWindow.fathom.trackGoal('N702LGVH', 0);
 			}
@@ -518,7 +515,7 @@ export class PlaygroundViewModel {
 	}
 
 	grabEditorView(): void {
-		const el = document.querySelector('[data-bind*="codeMirror"]');
+		const el = document.getElementById('playground-editor');
 		if (el) {
 			this.editorView = ko.utils.domData.get(el, 'codeMirror') ?? null;
 		}
@@ -590,7 +587,7 @@ export class PlaygroundViewModel {
 				return;
 			}
 			this.analyse(false).done(() => {
-				const anyWindow = (window as any);
+				const anyWindow = window as any;
 				if (typeof anyWindow.fathom !== 'undefined') {
 					anyWindow.fathom.trackGoal('BGQV3HAP', 0);
 				}
@@ -631,7 +628,7 @@ export class PlaygroundViewModel {
 		if (!this.editorView) return;
 		const editorState = this.editorView.state.toJSON({history: historyField, urlId: urlIdField});
 		const build = (withXRay: boolean) => {
-			const tab = (t: PlaygroundTabViewModel): {errors: PHPStanError[], title: string, xray?: XRayData} => {
+			const tab = (t: PlaygroundTabViewModel): {errors: PHPStanError[]; title: string; xray?: XRayData} => {
 				const xray = t.xray();
 				return withXRay && xray !== null ? {errors: t.errors, title: t.title, xray} : {errors: t.errors, title: t.title};
 			};
@@ -652,7 +649,7 @@ export class PlaygroundViewModel {
 					[...this.savedTabsByUrlId].map(([k, v]) => [k, {
 						tabs: v.tabs.map(tab),
 						upToDateTabs: v.upToDateTabs?.map(tab) ?? null,
-					}])
+					}]),
 				),
 				id: this.id(),
 			};
@@ -700,7 +697,8 @@ export class PlaygroundViewModel {
 				this.savedTabsByUrlId.set(key, {
 					tabs: this.createTabs((value as any).tabs),
 					upToDateTabs: (value as any).upToDateTabs
-						? this.createTabs((value as any).upToDateTabs) : null,
+						? this.createTabs((value as any).upToDateTabs)
+						: null,
 				});
 			}
 
@@ -806,7 +804,7 @@ export class PlaygroundViewModel {
 		// The default snippet and the API's answer for it, so the page has a
 		// result (errors and X-Ray) before the first analysis. Handled like a
 		// sample response; regenerate with scripts/update-playground-default.mjs.
-		const data = {code: defaultCode, tabs: defaultResponse.tabs as {errors: PHPStanError[], title: string, xray?: XRayData}[]};
+		const data = {code: defaultCode, tabs: defaultResponse.tabs as {errors: PHPStanError[]; title: string; xray?: XRayData}[]};
 		this.code(data.code);
 		initCallback();
 		this.tabs(this.createTabs(data.tabs));
@@ -866,7 +864,7 @@ export class PlaygroundViewModel {
 		return false;
 	}
 
-	createTabs(tabs: {errors: PHPStanError[], title: string, xray?: XRayData}[]): PlaygroundTabViewModel[] {
+	createTabs(tabs: {errors: PHPStanError[]; title: string; xray?: XRayData}[]): PlaygroundTabViewModel[] {
 		const viewModelTabs: PlaygroundTabViewModel[] = [];
 		let versionOrder = 0;
 		for (const tab of tabs) {

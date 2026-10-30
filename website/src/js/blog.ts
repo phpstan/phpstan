@@ -1,11 +1,8 @@
 import $ from 'jquery';
-import ko from '@tko/build.knockout';
-import {MainMenuViewModel} from './MainMenuViewModel';
+import {initMainMenu} from './MainMenu';
 
 $(() => {
-	ko.applyBindings({
-		mainMenu: new MainMenuViewModel(),
-	});
+	initMainMenu();
 
 	if (document.querySelector('.line-chart') !== null) {
 		import('./LineChart').then(({initLineCharts}) => initLineCharts());

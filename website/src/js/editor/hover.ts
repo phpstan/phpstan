@@ -1,7 +1,7 @@
-import {hoverTooltip} from "@codemirror/view";
-import {PHPStanError} from "../PHPStanError";
-import {errorsFacet} from "./errors";
-import {isXRayActive} from "./xray";
+import {hoverTooltip} from '@codemirror/view';
+import {PHPStanError} from '../PHPStanError';
+import {errorsFacet} from './errors';
+import {isXRayActive} from './xray';
 
 export const hover = hoverTooltip((view, pos) => {
 	if (isXRayActive(view.state)) {
@@ -22,11 +22,11 @@ export const hover = hoverTooltip((view, pos) => {
 
 	let from = line.from;
 	while (from < line.to && /\s/.test(line.text[from - line.from])) {
-		from++
+		from++;
 	}
 
 	if (from === line.to) {
-		from = line.from
+		from = line.from;
 	}
 
 	return {
@@ -34,7 +34,7 @@ export const hover = hoverTooltip((view, pos) => {
 		end: line.to,
 		above: true,
 		create() {
-			const dom = document.createElement('div')
+			const dom = document.createElement('div');
 			let style = 'bg-yellow-100 text-black';
 			for (const error of lineErrors) {
 				const errorDom = document.createElement('div');
@@ -55,9 +55,9 @@ export const hover = hoverTooltip((view, pos) => {
 
 			return {
 				dom: outerDom,
-			}
-		}
-	}
+			};
+		},
+	};
 }, {
 	hoverTime: 5,
 });

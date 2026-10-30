@@ -1,6 +1,5 @@
 import $ from 'jquery';
-import ko from '@tko/build.knockout';
-import {MainMenuViewModel} from './MainMenuViewModel';
+import {initMainMenu} from './MainMenu';
 
 const activeClass = 'bg-blue-500 text-white';
 const inactiveClass = 'hover:bg-gray-50';
@@ -66,7 +65,7 @@ function initScrollSpy(): void {
 				const linkRect = next.getBoundingClientRect();
 				const sidebarRect = sidebarEl.getBoundingClientRect();
 				if (linkRect.top < sidebarRect.top || linkRect.bottom > sidebarRect.bottom) {
-					next.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+					next.scrollIntoView({block: 'nearest', behavior: 'smooth'});
 				}
 			}
 		}
@@ -148,9 +147,7 @@ function initScrollSpy(): void {
 }
 
 $(() => {
-	ko.applyBindings({
-		mainMenu: new MainMenuViewModel(),
-	});
+	initMainMenu();
 
 	initScrollSpy();
 });

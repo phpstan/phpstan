@@ -46,7 +46,6 @@
 
 <div class="flex flex-col main-area" style="{% block bgColor %}background-color: #fff{% endblock %}">
 	<nav class="bg-white dark:bg-black border-b border-gray-200 dark:border-gray-900 flex-shrink z-20 nav-header">
-		<!-- ko with: mainMenu -->
 			<div class="max-w-5xl mx-auto px-4 md:px-6">
 				<div class="flex justify-between h-16">
 					<div class="flex flex-grow">
@@ -98,16 +97,11 @@
 					</div>
 					<div class="-mr-2 flex items-center md:hidden">
 						<div id="docsearch-mobile"></div>
-						<button data-bind="click: toggleMainMenu" class="ml-2 inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-950 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-950 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
-							<svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-								<path data-bind="css: {hidden: mainMenuOpen, 'inline-flex': !mainMenuOpen()}" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-								<path data-bind="css: {hidden: !mainMenuOpen(), 'inline-flex': mainMenuOpen}" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-							</svg>
-						</button>
+						<div id="main-menu-button"></div>
 					</div>
 				</div>
 			</div>
-			<div data-bind="css: {block: mainMenuOpen, hidden: !mainMenuOpen()}" class="hidden md:hidden">
+			<div id="main-menu-panel" class="hidden md:hidden">
 				<div class="pt-2 pb-3">
 					{% for item in mainMenu %}
 						{% if item.pageType === pageType %}
@@ -127,7 +121,6 @@
 					</a>
 				</div>
 			</div>
-		<!-- /ko -->
 	</nav>
 	<div>
 		<main>

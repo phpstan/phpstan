@@ -10,9 +10,9 @@ import {phpantomLsp, PHP_URI} from '../phpantom/lspClient';
 // PHPantom resolves their definition to a different (or no) URI, and we only
 // act when it points back into the edited document.
 
-interface LspPosition { line: number; character: number }
-interface LspLocation { uri: string; range: {start: LspPosition; end: LspPosition} }
-interface DefinitionParams { textDocument: {uri: string}; position: LspPosition }
+interface LspPosition {line: number; character: number}
+interface LspLocation {uri: string; range: {start: LspPosition; end: LspPosition}}
+interface DefinitionParams {textDocument: {uri: string}; position: LspPosition}
 
 // CodeMirror abstracts the platform modifier for *keymaps* (`Mod-` = Cmd on
 // macOS, Ctrl elsewhere) but not for mouse events, so we mirror its own check.
@@ -75,7 +75,7 @@ const linkField = StateField.define<DecorationSet>({
 		}
 		return deco;
 	},
-	provide: f => EditorView.decorations.from(f),
+	provide: (f) => EditorView.decorations.from(f),
 });
 
 const flashField = StateField.define<DecorationSet>({
@@ -91,7 +91,7 @@ const flashField = StateField.define<DecorationSet>({
 		}
 		return deco;
 	},
-	provide: f => EditorView.decorations.from(f),
+	provide: (f) => EditorView.decorations.from(f),
 });
 
 const goToDefinitionPlugin = ViewPlugin.fromClass(class {
@@ -137,7 +137,7 @@ const goToDefinitionPlugin = ViewPlugin.fromClass(class {
 			return; // already showing this token
 		}
 		const seq = ++this.requestSeq;
-		void resolveInFileDefinition(this.view.state, offset).then(target => {
+		void resolveInFileDefinition(this.view.state, offset).then((target) => {
 			if (seq !== this.requestSeq) {
 				return; // a newer hover superseded this request
 			}
@@ -160,7 +160,7 @@ const goToDefinitionPlugin = ViewPlugin.fromClass(class {
 		}
 		// Take over the modifier-click (CodeMirror would otherwise add a cursor).
 		event.preventDefault();
-		void resolveInFileDefinition(this.view.state, offset).then(target => {
+		void resolveInFileDefinition(this.view.state, offset).then((target) => {
 			if (target != null) {
 				this.jumpTo(target);
 			}

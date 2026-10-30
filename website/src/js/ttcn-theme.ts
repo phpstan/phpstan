@@ -1,5 +1,5 @@
-import {HighlightStyle, syntaxHighlighting} from '@codemirror/language'
-import {tags as t} from '@lezer/highlight'
+import {HighlightStyle, syntaxHighlighting} from '@codemirror/language';
+import {tags as t} from '@lezer/highlight';
 
 // helpful sources:
 // https://github.com/lezer-parser/php/blob/96115e48b82f1ac6f0e849ff032645b812bd064b/src/highlight.js
@@ -50,7 +50,7 @@ export const ttcnHighlightStyle = HighlightStyle.define([
 	{tag: [t.function(t.variableName), t.special(t.variableName), t.local(t.variableName), t.typeName],
 		color: '#8b2252'},
 	{tag: [t.self, t.labelName],
-		color: '#085'}
-])
+		color: '#085'},
+]);
 
 export const ttcn = syntaxHighlighting(ttcnHighlightStyle);

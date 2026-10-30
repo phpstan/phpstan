@@ -3,8 +3,7 @@
 {% block content %}
 
 <div class="flex">
-	<!-- ko with: mainMenu -->
-		<div class="sidebar w-64 md:block hidden flex-none pr-4 border-r border-gray-200 dark:border-gray-900 fixed bg-white dark:bg-black dark:text-white overflow-y-auto top-0 bottom-0 mt-16 pt-6 pl-4 md:pl-0 z-10 md:z-auto" data-bind="css: { hidden: !sidebarOpen() }, event: { click: handleSidebarClick }">
+		<div id="sidebar" class="sidebar w-64 md:block hidden flex-none pr-4 border-r border-gray-200 dark:border-gray-900 fixed bg-white dark:bg-black dark:text-white overflow-y-auto top-0 bottom-0 mt-16 pt-6 pl-4 md:pl-0 z-10 md:z-auto">
 			{% if pageType === "documentation" %}
 				<a href="/documentation" class="flex items-center px-3 py-1 text-sm text-gray-400 dark:text-gray-600 hover:text-gray-600 dark:hover:text-gray-400 transition ease-in-out duration-150">
 					<svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" /></svg>
@@ -18,11 +17,7 @@
 				<span id="algoliaSectionTitle" class="hidden">{% block algoliaSectionTitle %}{{ sectionTitle }}{% endblock %}</span>
 			{% if searchKeywords %}<span id="algoliaSearchKeywords" class="hidden">{{ searchKeywords | join(", ") }}</span>{% endif %}
 
-				<a href="#" class="md:hidden text-gray-400 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400" data-bind="click: closeSidebar">
-					<svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-					</svg>
-				</a>
+				<div id="sidebar-close"></div>
 			</div>
 
 			{% if sidebarGroups %}
@@ -79,11 +74,8 @@
 				<a class="px-3 py-3 md:py-10" href="/sponsor">Sponsor PHPStan!</a>
 			</div>
 		</div>
-	<!-- /ko -->
 	<div class="content px-4 pt-4 min-w-0 w-full ml-0 md:ml-64">
-		<!-- ko with: mainMenu -->
-			<a href="#" class="text-sm text-gray-400 md:hidden no-underline hover:underline" data-bind="click: openSidebar">Menu</a>
-		<!-- /ko -->
+		<div id="sidebar-open"></div>
 
 		<div class="flex items-center justify-between gap-4 mb-4">
 			{% block mainTitle %}<h1 class="leading-tight !mb-0">{{ title | fixTypos }}</h1>{% endblock %}

@@ -1,6 +1,7 @@
 import $ from 'jquery';
-import ko from '@tko/build.knockout';
 import {PlaygroundViewModel} from './PlaygroundViewModel';
+import {initMainMenu} from './MainMenu';
+import {mountPlayground} from './Playground';
 import './codeMirror';
 import Honeybadger from '@honeybadger-io/js';
 
@@ -21,7 +22,7 @@ Honeybadger.beforeNotify(() => {
 });
 
 $(() => {
-
+	initMainMenu();
 	const playgroundViewModel = new PlaygroundViewModel(window.location.pathname);
 
 	// Failed connections and timeouts are the visitor's network, 5xx are ours.
@@ -42,7 +43,6 @@ $(() => {
 		});
 	});
 	playgroundViewModel.init(() => {
-		ko.applyBindings(playgroundViewModel);
+		mountPlayground(playgroundViewModel);
 	});
-
 });

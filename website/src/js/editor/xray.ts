@@ -61,7 +61,7 @@ export const startXRayRequest = StateEffect.define<null>();
 const setHovered = StateEffect.define<{node: number; anchor: number}>();
 
 const xrayConfig = Facet.define<{onToggle: (enabled: boolean) => void}, {onToggle: (enabled: boolean) => void}>({
-	combine: values => values.length > 0 ? values[0] : {onToggle: () => undefined},
+	combine: (values) => values.length > 0 ? values[0] : {onToggle: () => undefined},
 });
 
 // Not offered on phones (the site's small breakpoint) or on touch-only devices:
@@ -84,7 +84,7 @@ function buildNodes(data: XRayData, doc: Text, pending: ChangeSet | null): XRayN
 	const mapTo = (pos: number): number => Math.min(pending ? pending.mapPos(pos, -1) : pos, doc.length);
 	const propValue = (value: number | number[]): XRayProp['value'] => {
 		if (Array.isArray(value)) {
-			return value.map(v => v >= 0 ? v : string(-v - 1));
+			return value.map((v) => v >= 0 ? v : string(-v - 1));
 		}
 		return value >= 0 ? value : string(-value - 1);
 	};
@@ -161,7 +161,7 @@ export const xrayField = StateField.define<XRayState>({
 		let next = state;
 		if (tr.docChanged) {
 			// Like a decoration set, the boxes follow edits until fresh data arrives.
-			const nodes = state.nodes.map(node => {
+			const nodes = state.nodes.map((node) => {
 				const from = tr.changes.mapPos(node.from, 1);
 				return {...node, from, to: Math.max(from, tr.changes.mapPos(node.to, -1))};
 			});
@@ -410,7 +410,7 @@ function hitRegions(view: EditorView, state: XRayState, boxes: Box[]): Box[] {
 	const nodes = state.nodes;
 	const base = layerBase(view);
 	const contentRight = (view.contentDOM.getBoundingClientRect().right - base.left) / view.scaleX;
-	const hits: Box[] = boxes.map(box => box.block || box.rowTop === undefined || box.rowBottom === undefined
+	const hits: Box[] = boxes.map((box) => box.block || box.rowTop === undefined || box.rowBottom === undefined
 		? {...box}
 		: {...box, top: box.rowTop, bottom: box.rowBottom});
 
@@ -464,7 +464,7 @@ function hitRegions(view: EditorView, state: XRayState, boxes: Box[]): Box[] {
 
 	for (const group of groups.values()) {
 		const rowKeys = [...group.keys()].sort((a, b) => a - b);
-		const groupLeft = Math.min(...[...group.values()].flat().map(h => h.left));
+		const groupLeft = Math.min(...[...group.values()].flat().map((h) => h.left));
 		for (const row of group.values()) {
 			// The leftmost statement of the row reaches the shared edge; a second
 			// statement on the same row already meets the first halfway.
@@ -474,8 +474,8 @@ function hitRegions(view: EditorView, state: XRayState, boxes: Box[]): Box[] {
 		for (let i = 0; i + 1 < rowKeys.length; i++) {
 			const upper = group.get(rowKeys[i])!;
 			const lower = group.get(rowKeys[i + 1])!;
-			const upperBottom = Math.max(...upper.map(h => h.bottom));
-			const lowerTop = Math.min(...lower.map(h => h.top));
+			const upperBottom = Math.max(...upper.map((h) => h.bottom));
+			const lowerTop = Math.min(...lower.map((h) => h.top));
 			if (lowerTop <= upperBottom) {
 				continue; // adjacent rows, nothing in between
 			}
@@ -518,7 +518,7 @@ function snapEdges(boxes: Box[]): void {
 			rows.set(key, [box]);
 		}
 	}
-	const blocks = boxes.filter(b => b.block);
+	const blocks = boxes.filter((b) => b.block);
 	for (const row of rows.values()) {
 		const rowTop = row[0].top;
 		const anchors: number[] = [];
@@ -579,7 +579,7 @@ const boxesLayer = layer({
 	updateOnDocViewUpdate: false,
 	update(update: ViewUpdate) {
 		return update.docChanged || update.viewportChanged || update.geometryChanged
-			|| update.transactions.some(tr => tr.effects.some(e => e.is(setXRayData) || e.is(setXRayEnabled) || e.is(setHovered)));
+			|| update.transactions.some((tr) => tr.effects.some((e) => e.is(setXRayData) || e.is(setXRayEnabled) || e.is(setHovered)));
 	},
 	markers: buildMarkers,
 });
@@ -673,8 +673,8 @@ function describeValue(nodes: XRayNode[], value: XRayProp['value']): string {
 	if (value.length === 0) {
 		return '[]';
 	}
-	const kinds = value.map(v => typeof v === 'number' ? (nodes[v]?.kind ?? '?') : v);
-	if (kinds.every(k => k === kinds[0])) {
+	const kinds = value.map((v) => typeof v === 'number' ? (nodes[v]?.kind ?? '?') : v);
+	if (kinds.every((k) => k === kinds[0])) {
 		return kinds[0] + '[' + kinds.length + ']';
 	}
 	return '[' + kinds.slice(0, 3).join(', ') + (kinds.length > 3 ? ', …' : '') + ']';
@@ -733,7 +733,7 @@ const popupField = StateField.define<Tooltip | null>({
 		if (!state.enabled || state.hovered < 0) {
 			return null;
 		}
-		const changed = tr.docChanged || tr.effects.some(e => e.is(setHovered) || e.is(setXRayData) || e.is(setXRayEnabled));
+		const changed = tr.docChanged || tr.effects.some((e) => e.is(setHovered) || e.is(setXRayData) || e.is(setXRayEnabled));
 		if (tooltip !== null && !changed) {
 			return tooltip;
 		}
@@ -749,7 +749,7 @@ const popupField = StateField.define<Tooltip | null>({
 			},
 		};
 	},
-	provide: f => showTooltip.from(f),
+	provide: (f) => showTooltip.from(f),
 });
 
 // ---- Toggle --------------------------------------------------------------------
@@ -763,7 +763,7 @@ const togglePlugin = ViewPlugin.fromClass(class {
 		this.button.className = 'cm-xray-toggle';
 		this.button.title = 'Outline every AST node and show the type PHPStan resolved for it';
 		this.button.innerHTML = '<span class="cm-xray-toggle-dot"></span><span class="cm-xray-toggle-label">AST X-Ray</span>';
-		this.button.addEventListener('mousedown', event => event.preventDefault());
+		this.button.addEventListener('mousedown', (event) => event.preventDefault());
 		this.button.addEventListener('click', () => {
 			const enabled = !this.view.state.field(xrayField).enabled;
 			this.view.dispatch({effects: setXRayEnabled.of(enabled)});
@@ -807,7 +807,7 @@ const togglePlugin = ViewPlugin.fromClass(class {
 
 // The editor is inverted in X-ray mode: the light theme goes black, the dark
 // theme goes light. cm-xray-light / cm-xray-dark name the theme underneath.
-const editorClass = EditorView.editorAttributes.compute([xrayField, EditorView.darkTheme], state => {
+const editorClass = EditorView.editorAttributes.compute([xrayField, EditorView.darkTheme], (state) => {
 	if (!state.field(xrayField).enabled) {
 		return {class: ''};
 	}

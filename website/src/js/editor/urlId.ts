@@ -4,7 +4,7 @@ import {invertedEffects} from '@codemirror/commands';
 export const setUrlId = StateEffect.define<string | null>();
 
 const initialUrlIdFacet = Facet.define<string | null, string | null>({
-	combine: values => values.length ? values[0] : null,
+	combine: (values) => values.length ? values[0] : null,
 });
 
 export const urlIdField = StateField.define<string | null>({
@@ -32,7 +32,7 @@ const urlIdInverter = invertedEffects.of((tr) => {
 
 // Auto-clear URL id on any doc change (first edit only, since field is null after)
 const clearUrlIdOnEdit = EditorState.transactionExtender.of((tr) => {
-	if (tr.docChanged && !tr.effects.some(e => e.is(setUrlId))
+	if (tr.docChanged && !tr.effects.some((e) => e.is(setUrlId))
 		&& tr.startState.field(urlIdField) !== null) {
 		return {effects: [setUrlId.of(null)]};
 	}

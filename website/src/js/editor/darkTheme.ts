@@ -1,10 +1,10 @@
 // from https://github.com/dennis84/codemirror-themes/tree/main/theme
 // Copyright (C) 2018-2021 by Dennis Dietrich <ddietr@protonmail.com> and others
 
-import {EditorView} from '@codemirror/view'
-import {Extension} from '@codemirror/state'
-import {HighlightStyle, syntaxHighlighting} from '@codemirror/language'
-import {tags as t} from '@lezer/highlight'
+import {EditorView} from '@codemirror/view';
+import {Extension} from '@codemirror/state';
+import {HighlightStyle, syntaxHighlighting} from '@codemirror/language';
+import {tags as t} from '@lezer/highlight';
 
 export const config = {
 	name: 'materialDark',
@@ -31,7 +31,7 @@ export const config = {
 	heading: '#89DDFF',
 	invalid: '#f0717870',
 	regexp: '#C3E88D',
-}
+};
 
 export const materialDarkTheme = EditorView.theme({
 	'&': {
@@ -50,10 +50,10 @@ export const materialDarkTheme = EditorView.theme({
 
 	'.cm-searchMatch': {
 		backgroundColor: config.dropdownBackground,
-		outline: `1px solid ${config.dropdownBorder}`
+		outline: `1px solid ${config.dropdownBorder}`,
 	},
 	'.cm-searchMatch.cm-searchMatch-selected': {
-		backgroundColor: config.selection
+		backgroundColor: config.selection,
 	},
 
 	'.cm-activeLine': {backgroundColor: config.activeLine},
@@ -63,20 +63,20 @@ export const materialDarkTheme = EditorView.theme({
 
 	'&.cm-focused .cm-matchingBracket, &.cm-focused .cm-nonmatchingBracket': {
 		backgroundColor: config.matchingBracket,
-		outline: 'none'
+		outline: 'none',
 	},
 
 	'.cm-gutters': {
 		backgroundColor: config.background,
 		color: config.foreground,
-		border: 'none'
+		border: 'none',
 	},
 	'.cm-activeLineGutter': {backgroundColor: config.background},
 
 	'.cm-foldPlaceholder': {
 		backgroundColor: 'transparent',
 		border: 'none',
-		color: config.foreground
+		color: config.foreground,
 	},
 	'.cm-tooltip': {
 		border: `1px solid ${config.dropdownBorder}`,
@@ -85,7 +85,7 @@ export const materialDarkTheme = EditorView.theme({
 	},
 	'.cm-tooltip .cm-tooltip-arrow:before': {
 		borderTopColor: 'transparent',
-		borderBottomColor: 'transparent'
+		borderBottomColor: 'transparent',
 	},
 	'.cm-tooltip .cm-tooltip-arrow:after': {
 		borderTopColor: config.foreground,
@@ -95,9 +95,9 @@ export const materialDarkTheme = EditorView.theme({
 		'& > ul > li[aria-selected]': {
 			background: config.selection,
 			color: config.foreground,
-		}
-	}
-}, {dark: config.dark})
+		},
+	},
+}, {dark: config.dark});
 
 export const materialDarkHighlightStyle = HighlightStyle.define([
 	{tag: t.keyword, color: config.keyword},
@@ -120,9 +120,9 @@ export const materialDarkHighlightStyle = HighlightStyle.define([
 	{tag: [t.atom, t.bool, t.special(t.variableName)], color: config.variable},
 	{tag: t.invalid, color: config.invalid},
 	{tag: t.strikethrough, textDecoration: 'line-through'},
-])
+]);
 
 export const materialDark: Extension = [
 	materialDarkTheme,
 	syntaxHighlighting(materialDarkHighlightStyle),
-]
+];

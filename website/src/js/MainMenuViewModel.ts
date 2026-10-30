@@ -1,4 +1,4 @@
-import ko from '@tko/build.knockout';
+import ko from '@tko/build.reference';
 import $ from 'jquery';
 import littlefoot from 'littlefoot';
 import docsearch from '@docsearch/js/docsearch';
@@ -16,7 +16,7 @@ $(() => {
 	littlefoot();
 });
 
-type Theme = 'auto' | 'light' | 'dark';
+export type Theme = 'auto' | 'light' | 'dark';
 
 export class MainMenuViewModel {
 
@@ -52,8 +52,8 @@ export class MainMenuViewModel {
 				});
 			},
 		};
-		docsearch({ container: '#docsearch', ...docsearchOptions });
-		docsearch({ container: '#docsearch-mobile', ...docsearchOptions });
+		docsearch({container: '#docsearch', ...docsearchOptions});
+		docsearch({container: '#docsearch-mobile', ...docsearchOptions});
 	}
 
 	toggleMainMenu(): void {
@@ -72,37 +72,24 @@ export class MainMenuViewModel {
 		this.sidebarOpen(false);
 	}
 
-	handleSidebarClick(viewModel: MainMenuViewModel, event: any): boolean {
-		const target: HTMLElement = event.target;
-		if (target.tagName !== 'A') {
-			return true;
+	handleSidebarClick(event: MouseEvent): boolean {
+		if ((event.target as HTMLElement).tagName === 'A') {
+			this.sidebarOpen(false);
 		}
 
-		this.sidebarOpen(false);
 		return true;
 	}
 
-	switchToAutoTheme(): void {
-		this.theme('auto');
-		localStorage.removeItem(this.themeKey);
-		const query = window.matchMedia('(prefers-color-scheme: dark)');
-		if (query.matches) {
-			document.documentElement.classList.add('dark');
+	switchTheme(theme: Theme): void {
+		this.theme(theme);
+		if (theme === 'auto') {
+			localStorage.removeItem(this.themeKey);
 		} else {
-			document.documentElement.classList.remove('dark');
+			localStorage.setItem(this.themeKey, theme);
 		}
-	}
 
-	switchToLightTheme(): void {
-		this.theme('light');
-		localStorage.setItem(this.themeKey, 'light');
-		document.documentElement.classList.remove('dark');
-	}
-
-	switchToDarkTheme(): void {
-		this.theme('dark');
-		localStorage.setItem(this.themeKey, 'dark');
-		document.documentElement.classList.add('dark');
+		const dark = theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+		document.documentElement.classList.toggle('dark', dark);
 	}
 
 }
