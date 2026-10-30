@@ -48,7 +48,7 @@ export const apiBaseUrl: string = import.meta.env.VITE_PLAYGROUND_API ?? 'https:
 export class PlaygroundViewModel extends ko.Component {
 	static override readonly customElementName = 'playground';
 
-	readonly loaded = ko.observable(false);
+	readonly loaded: ko.Observable<boolean>;
 
 	code: ko.Observable<string>;
 	codeDelayed: ko.Computed<string>;
@@ -116,9 +116,10 @@ export class PlaygroundViewModel extends ko.Component {
 	// New option entries for save/restore/API (excludes the three legacy top-level ones)
 	private newOptionEntries: [string, ko.Observable<any>][];
 
-	constructor(urlPath: string) {
+	constructor({urlPath, loaded}: {urlPath: string; loaded: ko.Observable<boolean>}) {
 		super();
 
+		this.loaded = loaded;
 		this.code = ko.observable('');
 		this.codeDelayed = ko.pureComputed(this.code).extend({
 			notify: 'always',

@@ -21,9 +21,11 @@ async function setDarkMode(page: Page, enabled: boolean): Promise<void> {
 	await page.waitForTimeout(100);
 }
 
-async function waitForPageReady(page: Page): Promise<void> {
+async function waitForPageReady(page: Page, networkIdle = true): Promise<void> {
 	// Wait for network idle
-	await page.waitForLoadState('networkidle');
+	if (networkIdle) {
+		await page.waitForLoadState('networkidle');
+	}
 	// Wait for fonts to load
 	await page.evaluate(() => document.fonts.ready);
 	// Hide dynamic content that might cause flakiness
@@ -62,3 +64,31 @@ for (const pageInfo of pages) {
 		});
 	});
 }
+
+// A shared playground (/r/…) shows only a spinner, without the footer, until
+// its code arrives from the API. The widths are the Tailwind breakpoints.
+test.describe('playground-loading', () => {
+	for (const width of [375, 640, 768, 1024, 1280]) {
+		test(`${width}`, async ({ page }, testInfo) => {
+			test.skip(testInfo.project.name.startsWith('mobile'), 'The widths are set here, the desktop projects cover light and dark mode.');
+			await page.setViewportSize({ width, height: 800 });
+
+			// The static server knows only /try, and the API never answers.
+			await page.route('**/r/*', async (route) => route.fulfill({ response: await route.fetch({ url: new URL('/try', route.request().url()).href }) }));
+			await page.route('https://api.phpstan.org/**', () => {});
+			const sampleRequest = page.waitForRequest('https://api.phpstan.org/sample?**');
+			await page.goto('/r/12345678-1234-4123-8123-123456789012');
+			await sampleRequest;
+			await waitForPageReady(page, false);
+
+			await setDarkMode(page, testInfo.project.name.includes('dark'));
+
+			await expect(page.getByText('PHPStan s.r.o.')).toBeHidden();
+			// The page is mostly empty, so even the footer is less than 1 % of it.
+			await expect(page).toHaveScreenshot('playground-loading.png', {
+				fullPage: true,
+				maxDiffPixels: 100,
+			});
+		});
+	}
+});

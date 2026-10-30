@@ -1,7 +1,8 @@
 import $ from 'jquery';
+import ko from '@tko/build.reference';
 import {apiBaseUrl, PlaygroundViewModel} from './PlaygroundViewModel';
 import {initMainMenu} from './MainMenu';
-import {mountComponent} from './tsx';
+import {bindElement, mountComponent} from './tsx';
 import './codeMirror';
 import Honeybadger from '@honeybadger-io/js';
 
@@ -42,5 +43,8 @@ $(() => {
 		});
 	});
 
-	mountComponent('playground', PlaygroundViewModel, window.location.pathname);
+	// The footer would sit right under the spinner, so it waits for the playground.
+	const loaded = ko.observable(false);
+	bindElement('playground-footer', {visible: loaded});
+	mountComponent('playground', PlaygroundViewModel, {urlPath: window.location.pathname, loaded});
 });
