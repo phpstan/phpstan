@@ -1,0 +1,106 @@
+{
+	"sample": {
+		"code": "<?php\n#[\\NoDiscard]\nfunction test(): int {\n\treturn 0;\n}\n\nif (random_int(1,1)) {\n    $fn = 'call_user_func';\n} else {\n    $fn = 'nope';\n}\n\n$fn('test');",
+		"level": "10",
+		"config": {
+			"strictRules": true,
+			"bleedingEdge": true,
+			"treatPhpDocTypesAsCertain": true,
+			"options": {
+				"inferPrivatePropertyTypeFromConstructor": true,
+				"rememberPossiblyImpureFunctionValues": true,
+				"checkBenevolentUnionTypes": false,
+				"checkTooWideTypesInProtectedAndPublicMethods": false,
+				"implicitThrows": true,
+				"reportUncheckedExceptionDeadCatch": true,
+				"uncheckedExceptionClasses": [],
+				"checkedExceptionClasses": [],
+				"missingCheckedExceptionInThrows": false,
+				"tooWideImplicitThrowType": false,
+				"reportUnsafeArrayStringKeyCasting": null
+			}
+		},
+		"tabs": [
+			{
+				"errors": [
+					{
+						"line": 7,
+						"message": "If condition is always true.",
+						"ignorable": true,
+						"tip": "Because the type is coming from a PHPDoc, you can turn off this check by setting treatPhpDocTypesAsCertain: false in your %configurationFile%.",
+						"identifier": "if.alwaysTrue"
+					},
+					{
+						"line": 7,
+						"message": "Only booleans are allowed in an if condition, int given.",
+						"ignorable": true,
+						"identifier": "if.condNotBoolean"
+					}
+				],
+				"title": "PHP 7.2 – 8.6 (2 errors)"
+			}
+		]
+	},
+	"result": {
+		"code": "<?php\n#[\\NoDiscard]\nfunction test(): int {\n\treturn 0;\n}\n\nif (random_int(1,1)) {\n    $fn = 'call_user_func';\n} else {\n    $fn = 'nope';\n}\n\n$fn('test');",
+		"level": "10",
+		"config": {
+			"strictRules": true,
+			"bleedingEdge": true,
+			"treatPhpDocTypesAsCertain": true,
+			"options": {
+				"inferPrivatePropertyTypeFromConstructor": true,
+				"rememberPossiblyImpureFunctionValues": true,
+				"checkBenevolentUnionTypes": false,
+				"checkTooWideTypesInProtectedAndPublicMethods": false,
+				"implicitThrows": true,
+				"reportUncheckedExceptionDeadCatch": true,
+				"uncheckedExceptionClasses": [],
+				"checkedExceptionClasses": [],
+				"missingCheckedExceptionInThrows": false,
+				"tooWideImplicitThrowType": false,
+				"reportUnsafeArrayStringKeyCasting": null
+			}
+		},
+		"upToDateTabs": [
+			{
+				"errors": [
+					{
+						"line": 7,
+						"message": "If condition is always true.",
+						"ignorable": true,
+						"tip": "Because the type is coming from a PHPDoc, you can turn off this check by setting treatPhpDocTypesAsCertain: false in your %configurationFile%.",
+						"identifier": "if.alwaysTrue"
+					},
+					{
+						"line": 7,
+						"message": "Only booleans are allowed in an if condition, int given.",
+						"ignorable": true,
+						"identifier": "if.condNotBoolean"
+					}
+				],
+				"title": "PHP 7.2 – 8.6 (2 errors)"
+			}
+		],
+		"tabs": [
+			{
+				"errors": [
+					{
+						"line": 7,
+						"message": "If condition is always true.",
+						"ignorable": true,
+						"tip": "Because the type is coming from a PHPDoc, you can turn off this check by setting treatPhpDocTypesAsCertain: false in your %configurationFile%.",
+						"identifier": "if.alwaysTrue"
+					},
+					{
+						"line": 7,
+						"message": "Only booleans are allowed in an if condition, int given.",
+						"ignorable": true,
+						"identifier": "if.condNotBoolean"
+					}
+				],
+				"title": "PHP 7.2 – 8.6 (2 errors)"
+			}
+		]
+	}
+}

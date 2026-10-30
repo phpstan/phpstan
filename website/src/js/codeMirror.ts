@@ -13,7 +13,6 @@ import {ttcn} from './ttcn-theme';
 import {errorsCompartment, errorsFacet, lineErrors, updateErrorsEffect} from './editor/errors';
 import {hover} from './editor/hover';
 import {materialDark} from './editor/darkTheme';
-import {urlIdField, urlIdExtensions} from './editor/urlId';
 import {docBlockKeymap} from './editor/docBlock';
 import {phpantomHover} from './editor/phpantomHover';
 import {goToDefinition} from './editor/goToDefinition';
@@ -24,8 +23,6 @@ import {PlaygroundTabViewModel} from './PlaygroundTabViewModel';
 
 interface CodeMirrorOptions {
 	code: ko.Observable<string>;
-	initialUrlId: string | null;
-	onUrlIdChange: (id: string | null) => void;
 	restoredState: any | null;
 	onXRayToggle: (enabled: boolean) => void;
 }
@@ -52,7 +49,7 @@ ko.bindingHandlers.codeMirror = {
 		// from https://github.com/codemirror/basic-setup/blob/78d1a916147c8c19678838cbdbf9396a8d1a6460/src/codemirror.ts
 		// options explained here: https://codemirror.net/docs/ref/
 
-		const {code, initialUrlId, onUrlIdChange, restoredState, onXRayToggle}: CodeMirrorOptions = valueAccessor();
+		const {code, restoredState, onXRayToggle}: CodeMirrorOptions = valueAccessor();
 		const text = code();
 		const errors: PHPStanError[] = allBindings.get('codeMirrorErrors');
 
@@ -100,18 +97,12 @@ ko.bindingHandlers.codeMirror = {
 			indentUnit.of('\t'),
 			EditorView.lineWrapping,
 			EditorView.updateListener.of((update) => {
-				const oldId = update.startState.field(urlIdField);
-				const newId = update.state.field(urlIdField);
-				if (oldId !== newId) {
-					onUrlIdChange(newId);
-				}
 				if (!update.docChanged) {
 					return;
 				}
 
 				code(update.state.doc.toString());
 			}),
-			...urlIdExtensions(initialUrlId),
 			errorsCompartment.of(errorsFacet.of(errors)),
 			lineErrors,
 			hover,
@@ -139,7 +130,7 @@ ko.bindingHandlers.codeMirror = {
 		];
 
 		const startState = restoredState
-			? EditorState.fromJSON(restoredState, {extensions}, {history: historyField, urlId: urlIdField})
+			? EditorState.fromJSON(restoredState, {extensions}, {history: historyField})
 			: EditorState.create({doc: text, extensions});
 
 		const editor = new EditorView({

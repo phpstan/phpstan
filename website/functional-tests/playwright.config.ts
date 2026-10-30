@@ -1,8 +1,9 @@
 import {defineConfig, devices} from '@playwright/test';
 
-// Functional (non-screenshot) tests for the playground editor — currently the
-// PHPantom-in-wasm autocomplete. Runs against the built site served from
-// ../dist (so the wasm worker is exercised exactly as shipped).
+// Functional (non-screenshot) tests for the playground: the PHPantom-in-wasm
+// autocomplete and the URL and browser history. Runs against the built site
+// served from ../dist (so the wasm worker is exercised exactly as shipped),
+// with /r/… rewritten to the playground like in production (serve.json).
 //
 // For a quick local run against the dev server instead, set
 // PW_BASE_URL=http://localhost:5173 (this skips the built-site web server).
@@ -35,7 +36,8 @@ export default defineConfig({
 	webServer: process.env.PW_BASE_URL
 		? undefined
 		: {
-				command: 'npx serve ../dist -l 3001',
+				// The config path is relative to the served directory.
+				command: 'npx serve ../dist -l 3001 -c ../functional-tests/serve.json',
 				url: baseURL,
 				reuseExistingServer: !process.env.CI,
 				timeout: 120 * 1000,

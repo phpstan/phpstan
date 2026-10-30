@@ -27,8 +27,6 @@ export function playgroundTemplate(vm: PlaygroundViewModel): JSX.Element {
 						id="playground-editor"
 						ko-codeMirror={{
 							code: vm.code,
-							initialUrlId: vm.isHashMatch ? vm.id.peek() : null,
-							onUrlIdChange: (id) => vm.onEditorUrlIdChange(id),
 							restoredState: vm.restoredEditorState,
 							onXRayToggle: (enabled) => vm.onXRayToggle(enabled),
 						}}
