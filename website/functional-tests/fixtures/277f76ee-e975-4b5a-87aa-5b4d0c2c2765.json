@@ -1,0 +1,121 @@
+{
+	"sample": {
+		"code": "<?php declare(strict_types = 1);\n\nuse function PHPStan\\dumpType;\nuse function PHPStan\\Testing\\assertType;\n\nfunction getIntOrNull(?int $i) {\n\treturn $i !== null ? $i : null;\n}\n\nfunction getIntOrNullCoalesce(?int $i) {\n\treturn $i ?? null;\n}\n",
+		"level": "10",
+		"config": {
+			"strictRules": true,
+			"bleedingEdge": true,
+			"treatPhpDocTypesAsCertain": true,
+			"options": {
+				"inferPrivatePropertyTypeFromConstructor": true,
+				"rememberPossiblyImpureFunctionValues": true,
+				"checkBenevolentUnionTypes": false,
+				"checkTooWideTypesInProtectedAndPublicMethods": false,
+				"implicitThrows": true,
+				"reportUncheckedExceptionDeadCatch": true,
+				"uncheckedExceptionClasses": [],
+				"checkedExceptionClasses": [],
+				"missingCheckedExceptionInThrows": false,
+				"tooWideImplicitThrowType": false,
+				"reportUnsafeArrayStringKeyCasting": null
+			}
+		},
+		"tabs": [
+			{
+				"errors": [
+					{
+						"line": 6,
+						"message": "Function getIntOrNull() has no return type specified.",
+						"ignorable": true,
+						"identifier": "missingType.return"
+					},
+					{
+						"line": 10,
+						"message": "Function getIntOrNullCoalesce() has no return type specified.",
+						"ignorable": true,
+						"identifier": "missingType.return"
+					},
+					{
+						"line": 11,
+						"message": "Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.",
+						"ignorable": true,
+						"identifier": "nullCoalesce.unnecessary"
+					}
+				],
+				"title": "PHP 7.2 – 8.6 (3 errors)"
+			}
+		]
+	},
+	"result": {
+		"code": "<?php declare(strict_types = 1);\n\nuse function PHPStan\\dumpType;\nuse function PHPStan\\Testing\\assertType;\n\nfunction getIntOrNull(?int $i) {\n\treturn $i !== null ? $i : null;\n}\n\nfunction getIntOrNullCoalesce(?int $i) {\n\treturn $i ?? null;\n}\n",
+		"level": "10",
+		"config": {
+			"strictRules": true,
+			"bleedingEdge": true,
+			"treatPhpDocTypesAsCertain": true,
+			"options": {
+				"inferPrivatePropertyTypeFromConstructor": true,
+				"rememberPossiblyImpureFunctionValues": true,
+				"checkBenevolentUnionTypes": false,
+				"checkTooWideTypesInProtectedAndPublicMethods": false,
+				"implicitThrows": true,
+				"reportUncheckedExceptionDeadCatch": true,
+				"uncheckedExceptionClasses": [],
+				"checkedExceptionClasses": [],
+				"missingCheckedExceptionInThrows": false,
+				"tooWideImplicitThrowType": false,
+				"reportUnsafeArrayStringKeyCasting": null
+			}
+		},
+		"upToDateTabs": [
+			{
+				"errors": [
+					{
+						"line": 6,
+						"message": "Function getIntOrNull() has no return type specified.",
+						"ignorable": true,
+						"identifier": "missingType.return"
+					},
+					{
+						"line": 10,
+						"message": "Function getIntOrNullCoalesce() has no return type specified.",
+						"ignorable": true,
+						"identifier": "missingType.return"
+					},
+					{
+						"line": 11,
+						"message": "Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.",
+						"ignorable": true,
+						"identifier": "nullCoalesce.unnecessary"
+					}
+				],
+				"title": "PHP 7.2 – 8.6 (3 errors)"
+			}
+		],
+		"tabs": [
+			{
+				"errors": [
+					{
+						"line": 6,
+						"message": "Function getIntOrNull() has no return type specified.",
+						"ignorable": true,
+						"identifier": "missingType.return"
+					},
+					{
+						"line": 10,
+						"message": "Function getIntOrNullCoalesce() has no return type specified.",
+						"ignorable": true,
+						"identifier": "missingType.return"
+					},
+					{
+						"line": 11,
+						"message": "Coalesce operator ?? is unnecessary because the left side is always set and the right side is null.",
+						"ignorable": true,
+						"identifier": "nullCoalesce.unnecessary"
+					}
+				],
+				"title": "PHP 7.2 – 8.6 (3 errors)"
+			}
+		]
+	}
+}

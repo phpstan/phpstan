@@ -5,8 +5,6 @@ import {PlaygroundTabViewModel} from './PlaygroundTabViewModel';
 import linkifyStr from 'linkify-string';
 import {slugify} from './utils';
 import {EditorView} from '@codemirror/view';
-import {Transaction} from '@codemirror/state';
-import {setUrlId, urlIdField} from './editor/urlId';
 import {historyField} from '@codemirror/commands';
 import {XRayData} from './XRayData';
 import defaultCode from './data/playground-default.php?raw';
@@ -42,6 +40,15 @@ const optionKeys = Object.keys(optionDefaults) as OptionName[];
 const defaultValues = Object.values(optionDefaults);
 
 export const apiBaseUrl: string = import.meta.env.VITE_PLAYGROUND_API ?? 'https://api.phpstan.org';
+
+// A snippet with a URL: loaded from /r/… or shared. Its URL is shown whenever
+// the code and the settings are these again, with its stored result.
+interface Snippet {
+	code: string;
+	settings: string;
+	tabs: PlaygroundTabViewModel[];
+	upToDateTabs: PlaygroundTabViewModel[] | null;
+}
 
 // The playground on /try and /r/…: the editor, the options and the results.
 // Shows a spinner until the code and results to start with are loaded.
@@ -96,13 +103,10 @@ export class PlaygroundViewModel extends ko.Component {
 	id: ko.Observable<string | null>;
 	resultUrl: string | null;
 	sampleUrl: string | null;
-	isHashMatch: boolean;
 	hasServerError: ko.Observable<boolean>;
 
 	editorView: EditorView | null;
-	urlIdJustRestored: boolean;
-	savedTabsByUrlId: Map<string, {tabs: PlaygroundTabViewModel[]; upToDateTabs: PlaygroundTabViewModel[] | null}>;
-	settingUrlIdProgrammatically: boolean;
+	snippets: Map<string, Snippet>;
 	restoredEditorState: any | null;
 
 	linkify: typeof linkifyStr;
@@ -188,9 +192,7 @@ export class PlaygroundViewModel extends ko.Component {
 			}
 		});
 		this.editorView = null;
-		this.urlIdJustRestored = false;
-		this.savedTabsByUrlId = new Map();
-		this.settingUrlIdProgrammatically = false;
+		this.snippets = new Map();
 		this.restoredEditorState = null;
 
 		const legacyHashMatch = /^\/r\/([a-f0-9]{32})$/.exec(urlPath);
@@ -211,7 +213,6 @@ export class PlaygroundViewModel extends ko.Component {
 
 		this.resultUrl = resultUrl;
 		this.sampleUrl = sampleUrl;
-		this.isHashMatch = hashMatch !== null;
 
 		this.id = ko.observable(id);
 		this.subscribe(this.id, (value) => {
@@ -424,6 +425,11 @@ export class PlaygroundViewModel extends ko.Component {
 	preanalyse(): void {
 		this.id(null);
 		this.hasServerError(false);
+		this.abortRequests();
+		this.isLoading(true);
+	}
+
+	private abortRequests(): void {
 		if (this.xhr !== null) {
 			this.xhr.abort();
 			this.xhr = null;
@@ -440,8 +446,6 @@ export class PlaygroundViewModel extends ko.Component {
 			this.xrayXhr.abort();
 			this.xrayXhr = null;
 		}
-
-		this.isLoading(true);
 	}
 
 	analyse(saveResult: boolean): JQuery.jqXHR {
@@ -488,14 +492,7 @@ export class PlaygroundViewModel extends ko.Component {
 		this.isSharing(true);
 		this.analyse(true).done((data) => {
 			this.id(data.id);
-			this.savedTabsByUrlId.set(data.id, {tabs: this.tabs().slice(), upToDateTabs: null});
-			if (this.editorView) {
-				this.settingUrlIdProgrammatically = true;
-				this.editorView.dispatch({
-					effects: [setUrlId.of(data.id)],
-				});
-				this.settingUrlIdProgrammatically = false;
-			}
+			this.snippets.set(data.id, {code: this.code(), settings: this.settings(), tabs: this.tabs().slice(), upToDateTabs: null});
 			this.copyId();
 			this.savePlaygroundState();
 
@@ -538,66 +535,55 @@ export class PlaygroundViewModel extends ko.Component {
 		}
 	}
 
-	onEditorUrlIdChange(newUrlId: string | null): void {
-		if (this.settingUrlIdProgrammatically) {
-			return;
-		}
-		if (newUrlId !== null) {
-			this.urlIdJustRestored = true;
-			this.id(newUrlId);
+	// The level and the options, which a snippet's URL stands for too.
+	private settings(): string {
+		return JSON.stringify([this.level(), ...this.allOptions.map((o) => o())]);
+	}
 
-			if (this.xhr !== null) {
-				this.xhr.abort();
-				this.xhr = null;
-			}
-			if (this.shareXhr !== null) {
-				this.shareXhr.abort();
-				this.shareXhr = null;
-			}
-			if (this.resultXhr !== null) {
-				this.resultXhr.abort();
-				this.resultXhr = null;
+	// Shows the snippet with the current code and settings, if there is one:
+	// its URL and its stored result, without analysing it again.
+	private restoreSnippet(): boolean {
+		const code = this.code();
+		const settings = this.settings();
+		for (const [id, snippet] of this.snippets) {
+			if (snippet.code !== code || snippet.settings !== settings) {
+				continue;
 			}
 
+			this.abortRequests();
 			this.isLoading(false);
 			this.hasServerError(false);
-
-			const saved = this.savedTabsByUrlId.get(newUrlId);
-			if (saved) {
-				this.tabs(saved.tabs);
-				this.currentTabIndex(0);
-				this.legacyResult(null);
-				this.upToDateTabs(saved.upToDateTabs);
-			}
+			this.id(id);
+			this.tabs(snippet.tabs);
+			this.currentTabIndex(0);
+			this.legacyResult(null);
+			this.upToDateTabs(snippet.upToDateTabs);
 			this.ensureXRay();
+			return true;
 		}
+
+		return false;
 	}
 
 	private doInstantAnalyse(): void {
-		if (this.editorView) {
-			this.editorView.dispatch({
-				effects: [setUrlId.of(null)],
-				annotations: [Transaction.addToHistory.of(false)],
-			});
+		if (this.restoreSnippet()) {
+			return;
 		}
-		this.savedTabsByUrlId.clear();
 		this.preanalyse();
 		this.analyse(false);
 	}
 
 	startAcceptingChanges(): void {
+		// Also when an analysis is still to come: the code is restored and
+		// analysed when the visitor comes back.
 		window.addEventListener('beforeunload', () => {
-			if (!this.isLoading()) {
-				this.savePlaygroundState();
-			}
+			this.savePlaygroundState();
 		});
 
 		this.subscribe(this.code, () => {
-			if (this.urlIdJustRestored) {
-				this.urlIdJustRestored = false;
-				return;
+			if (!this.restoreSnippet()) {
+				this.preanalyse();
 			}
-			this.preanalyse();
 		});
 		this.subscribe(this.codeDelayed, () => {
 			if (this.id() !== null) {
@@ -643,7 +629,7 @@ export class PlaygroundViewModel extends ko.Component {
 
 	savePlaygroundState(): void {
 		if (!this.editorView) return;
-		const editorState = this.editorView.state.toJSON({history: historyField, urlId: urlIdField});
+		const editorState = this.editorView.state.toJSON({history: historyField});
 		const build = (withXRay: boolean) => {
 			const tab = (t: PlaygroundTabViewModel): {errors: PHPStanError[]; title: string; xray?: XRayData} => {
 				const xray = t.xray();
@@ -662,13 +648,17 @@ export class PlaygroundViewModel extends ko.Component {
 				currentTabIndex: this.currentTabIndex(),
 				legacyResult: this.legacyResult(),
 				upToDateTabs: this.upToDateTabs()?.map(tab) ?? null,
-				savedTabsByUrlId: Object.fromEntries(
-					[...this.savedTabsByUrlId].map(([k, v]) => [k, {
+				snippets: Object.fromEntries(
+					[...this.snippets].map(([k, v]) => [k, {
+						code: v.code,
+						settings: v.settings,
 						tabs: v.tabs.map(tab),
 						upToDateTabs: v.upToDateTabs?.map(tab) ?? null,
 					}]),
 				),
 				id: this.id(),
+				// The shown result is not for this code or these settings.
+				analysing: this.isLoading(),
 			};
 		};
 		try {
@@ -710,18 +700,23 @@ export class PlaygroundViewModel extends ko.Component {
 			this.legacyResult(saved.legacyResult);
 			this.upToDateTabs(saved.upToDateTabs ? this.createTabs(saved.upToDateTabs) : null);
 
-			for (const [key, value] of Object.entries(saved.savedTabsByUrlId)) {
-				this.savedTabsByUrlId.set(key, {
-					tabs: this.createTabs((value as any).tabs),
-					upToDateTabs: (value as any).upToDateTabs
-						? this.createTabs((value as any).upToDateTabs)
-						: null,
+			// Saved before snippets were remembered with their code: their URL is not restored.
+			for (const [key, value] of Object.entries<any>(saved.snippets ?? {})) {
+				this.snippets.set(key, {
+					code: value.code,
+					settings: value.settings,
+					tabs: this.createTabs(value.tabs),
+					upToDateTabs: value.upToDateTabs ? this.createTabs(value.upToDateTabs) : null,
 				});
 			}
 
 			this.loaded(true);
 			this.grabEditorView();
 			this.startAcceptingChanges();
+			if (saved.analysing === true) {
+				this.preanalyse();
+				this.analyse(false);
+			}
 			return;
 		}
 
@@ -748,9 +743,9 @@ export class PlaygroundViewModel extends ko.Component {
 					this.restoreOptionsState(data.config.options);
 				}
 
-				if (originalId !== null) {
-					this.savedTabsByUrlId.set(originalId, {tabs, upToDateTabs: null});
-				}
+				// CodeMirror normalizes line breaks, so this is the code an undo comes back to.
+				const snippet: Snippet = {code: data.code.replace(/\r\n?/g, '\n'), settings: this.settings(), tabs, upToDateTabs: null};
+				this.snippets.set(originalId!, snippet);
 
 				this.loaded(true);
 				this.grabEditorView();
@@ -771,18 +766,14 @@ export class PlaygroundViewModel extends ko.Component {
 					const upToDateTabs = this.createTabs(resultData.upToDateTabs);
 
 					if (this.areTabsDifferent(savedTabs, upToDateTabs)) {
-						this.tabs(savedTabs);
-						this.upToDateTabs(upToDateTabs);
-						if (originalId !== null) {
-							this.savedTabsByUrlId.set(originalId, {tabs: savedTabs, upToDateTabs});
-						}
+						snippet.tabs = savedTabs;
+						snippet.upToDateTabs = upToDateTabs;
 					} else {
-						this.tabs(upToDateTabs);
-						this.upToDateTabs(null);
-						if (originalId !== null) {
-							this.savedTabsByUrlId.set(originalId, {tabs: upToDateTabs, upToDateTabs: null});
-						}
+						snippet.tabs = upToDateTabs;
+						snippet.upToDateTabs = null;
 					}
+					this.tabs(snippet.tabs);
+					this.upToDateTabs(snippet.upToDateTabs);
 					this.savePlaygroundState();
 				});
 			}).fail(() => {
