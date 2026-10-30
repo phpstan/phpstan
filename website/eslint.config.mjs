@@ -1,5 +1,6 @@
 import js from '@eslint/js';
 import { defineConfig } from 'eslint/config';
+import stylistic from '@stylistic/eslint-plugin';
 import tseslint from 'typescript-eslint';
 
 // tsc type-checks the value of every ko-* binding in TSX templates, but like
@@ -41,6 +42,7 @@ export default defineConfig(
 			js.configs.recommended,
 			tseslint.configs.recommended,
 			tseslint.configs.stylistic,
+			stylistic.configs.customize({indent: 'tab', quotes: 'single', semi: true, jsx: true, braceStyle: '1tbs'}),
 		],
 		languageOptions: {
 			parserOptions: {
@@ -59,8 +61,13 @@ export default defineConfig(
 				'error',
 				{'ts-ignore': 'allow-with-description'},
 			],
-			// JSX is not supported by the core indent rule.
-			'indent': ['error', 'tab', {'SwitchCase': 1, ignoredNodes: ['JSXElement *', 'JSXFragment *']}],
+			// The code base's style where it differs from the preset.
+			'@stylistic/object-curly-spacing': ['error', 'never'],
+			'@stylistic/arrow-parens': ['error', 'always'],
+			'@stylistic/quote-props': ['error', 'as-needed'],
+			'@stylistic/padded-blocks': ['error', {blocks: 'never', switches: 'never'}],
+			// TSX templates keep inline text and elements on one line, like HTML.
+			'@stylistic/jsx-one-expression-per-line': 'off',
 			'no-console': 'error',
 		},
 	},

@@ -51,7 +51,7 @@ jobs:
         working-directory: ./website
         run: "npm ci"
 
-      - name: "TypeScript check"
+      - name: "TypeScript check and ESLint"
         working-directory: ./website
         run: "npm run check"
 
