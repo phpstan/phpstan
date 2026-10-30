@@ -42,7 +42,7 @@ export const hover = hoverTooltip((view, pos) => {
 				errorDom.textContent = error.message;
 				dom.appendChild(errorDom);
 
-				if (!error.identifier || !error.identifier.startsWith('phpstanPlayground.')) {
+				if (!error.identifier?.startsWith('phpstanPlayground.')) {
 					style = 'bg-red-800 text-white';
 				}
 			}

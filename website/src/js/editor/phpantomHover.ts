@@ -12,24 +12,22 @@ import {isXRayActive} from './xray';
 // imported globally in app.pcss, so tokens get coloured for free).
 let md: MarkdownIt | null = null;
 function markdown(): MarkdownIt {
-	if (md === null) {
-		md = markdownit({
-			html: false,
-			linkify: true,
-			highlight: (str, lang) => {
-				if (lang === 'php' && Prism.languages.php) {
-					// Drop the redundant leading `<?php` PHPantom prepends to signatures.
-					const code = str.replace(/^<\?php\n/, '');
-					try {
-						return Prism.highlight(code, Prism.languages.php, 'php');
-					} catch {
-						// fall through to default escaping
-					}
+	md ??= markdownit({
+		html: false,
+		linkify: true,
+		highlight: (str, lang) => {
+			if (lang === 'php' && Prism.languages.php) {
+				// Drop the redundant leading `<?php` PHPantom prepends to signatures.
+				const code = str.replace(/^<\?php\n/, '');
+				try {
+					return Prism.highlight(code, Prism.languages.php, 'php');
+				} catch {
+					// fall through to default escaping
 				}
-				return '';
-			},
-		});
-	}
+			}
+			return '';
+		},
+	});
 	return md;
 }
 

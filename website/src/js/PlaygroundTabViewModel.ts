@@ -2,60 +2,31 @@ import {PHPStanError} from './PHPStanError';
 import {XRayData} from './XRayData';
 import ko from '@tko/build.reference';
 
+// The result of one analysis tab (a range of PHP versions).
 export class PlaygroundTabViewModel {
 
-	errors: PHPStanError[];
-	errorsText: string;
-	errorLines: number[];
-	tabClass: ko.PureComputed<string>;
-	isActive: ko.Observable<boolean>;
-
-	title: string;
+	readonly errorsText: string;
+	readonly errorLines: number[];
+	readonly isActive: ko.Observable<boolean>;
 
 	// AST X-Ray data for this tab's newest PHP version; null when the result
 	// predates the feature (fetched on demand when the toggle is flipped).
-	xray: ko.Observable<XRayData | null>;
+	readonly xray: ko.Observable<XRayData | null>;
 
-	constructor(errors: PHPStanError[], title: string, active: boolean, xray: XRayData | null = null) {
-		this.errors = errors;
+	readonly tabClass = ko.pureComputed((): string => {
+		const hasErrors = this.errors.length > 0;
+		if (this.isActive()) {
+			return hasErrors ? 'bg-red-100 text-red-500 cursor-default border-gray-400' : 'bg-green-100 text-green-500 cursor-default border-gray-400';
+		}
+
+		return hasErrors ? 'bg-gray-100 text-red-400 hover:bg-white' : 'bg-gray-100 text-green-400 hover:bg-white';
+	});
+
+	constructor(readonly errors: PHPStanError[], readonly title: string, active: boolean, xray: XRayData | null = null) {
 		this.xray = ko.observable(xray);
-
-		const errorsCount = this.errors.length;
-		if (errorsCount === 1) {
-			this.errorsText = 'Found ' + errorsCount.toString() + ' error';
-		} else {
-			this.errorsText = 'Found ' + errorsCount.toString() + ' errors';
-		}
-
-		const lines = [];
-		for (const error of errors) {
-			const line = error.line;
-			if (line < 1) {
-				continue;
-			}
-			lines.push(line - 1);
-		}
-
-		this.errorLines = lines;
-
-		this.title = title;
-		this.tabClass = ko.pureComputed((): string => {
-			const isActive = this.isActive();
-			if (isActive) {
-				if (this.errors.length > 0) {
-					return 'bg-red-100 text-red-500 cursor-default border-gray-400';
-				}
-
-				return 'bg-green-100 text-green-500 cursor-default border-gray-400';
-			}
-
-			if (this.errors.length > 0) {
-				return 'bg-gray-100 text-red-400 hover:bg-white';
-			}
-
-			return 'bg-gray-100 text-green-400 hover:bg-white';
-		});
 		this.isActive = ko.observable(active);
+		this.errorsText = `Found ${errors.length} ${errors.length === 1 ? 'error' : 'errors'}`;
+		this.errorLines = errors.filter((error) => error.line >= 1).map((error) => error.line - 1);
 	}
 
 }
