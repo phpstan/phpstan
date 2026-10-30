@@ -41,7 +41,7 @@ export default defineConfig(
 		extends: [
 			js.configs.recommended,
 			tseslint.configs.recommended,
-			tseslint.configs.stylistic,
+			tseslint.configs.stylisticTypeChecked,
 			stylistic.configs.customize({indent: 'tab', quotes: 'single', semi: true, jsx: true, braceStyle: '1tbs'}),
 		],
 		languageOptions: {
@@ -56,6 +56,14 @@ export default defineConfig(
 		rules: {
 			'tko/known-bindings': 'error',
 			'no-prototype-builtins': 'off',
+			// Prefer the newer syntax that the ES2022 target allows.
+			'logical-assignment-operators': ['error', 'always', {enforceForIfStatements: true}],
+			'prefer-exponentiation-operator': 'error',
+			'prefer-object-has-own': 'error',
+			'prefer-object-spread': 'error',
+			'@typescript-eslint/prefer-find': 'error',
+			'@typescript-eslint/prefer-includes': 'error',
+			'@typescript-eslint/prefer-string-starts-ends-with': 'error',
 			'@typescript-eslint/no-explicit-any': 'off',
 			'@typescript-eslint/ban-ts-comment': [
 				'error',

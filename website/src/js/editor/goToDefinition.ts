@@ -50,7 +50,7 @@ async function resolveInFileDefinition(state: EditorState, offset: number): Prom
 		return null;
 	}
 	const location = Array.isArray(result) ? result[0] : result;
-	if (!location || location.uri !== PHP_URI) {
+	if (location?.uri !== PHP_URI) {
 		return null;
 	}
 	return fromLspPosition(state, location.range.start);

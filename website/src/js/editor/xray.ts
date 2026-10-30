@@ -71,7 +71,7 @@ export const xrayUnavailable: MediaQueryList | null = typeof window !== 'undefin
 	: null;
 
 export function isXRayAvailable(): boolean {
-	return xrayUnavailable === null || !xrayUnavailable.matches;
+	return !xrayUnavailable?.matches;
 }
 
 function isHiddenKind(kind: string): boolean {

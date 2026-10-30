@@ -351,7 +351,7 @@ module.exports = async function (eleventyConfig) {
 		}
 
 		const script = require('typescript').transpileModule(fs.readFileSync('./src/js/LineChart.ts', 'utf8'), {
-			compilerOptions: { target: 'ES2019', module: 'ESNext' },
+			compilerOptions: { target: 'ES2022', module: 'ESNext' },
 		}).outputText;
 		let result = '';
 		let lastIndex = 0;

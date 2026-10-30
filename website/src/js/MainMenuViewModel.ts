@@ -42,7 +42,7 @@ export class MainMenuViewModel {
 			apiKey: '38f6379285feb01cc915c6967c715ec2',
 			transformItems: (items: any[]) => {
 				return items.map((item) => {
-					const query = (document.querySelector('.DocSearch-Input') as HTMLInputElement)?.value?.trim();
+					const query = document.querySelector<HTMLInputElement>('.DocSearch-Input')?.value.trim();
 					const contentMatch = item._highlightResult?.content?.matchLevel !== undefined
 						&& item._highlightResult.content.matchLevel !== 'none';
 					if (query && item.url && !item.url.includes('#') && query.length >= 3 && item.type !== 'lvl1' && contentMatch) {

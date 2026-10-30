@@ -159,7 +159,7 @@ export class MerchSaleViewModel {
 				return;
 			}
 
-			if (sizes.indexOf(selected) === -1) {
+			if (!sizes.includes(selected)) {
 				this.selectedTShirtSize(null);
 			}
 		});
@@ -393,7 +393,7 @@ export class MerchSaleViewModel {
 			euCountries.push('JE'); // Jersey
 			euCountries.push('IM'); // Isle of Man
 
-			return euCountries.indexOf(this.billingCountry()) !== -1;
+			return euCountries.includes(this.billingCountry());
 		});
 		this.selectedPaymentMethod = ko.observable<PaymentMethod>('cc');
 		this.selectedPaymentMethod.subscribe(() => {

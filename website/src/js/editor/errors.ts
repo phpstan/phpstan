@@ -22,7 +22,7 @@ const buildErrorLines = (doc: Text, errors: PHPStanError[]) => {
 		if (error.line < 1) {
 			continue;
 		}
-		if (error.identifier && error.identifier.startsWith('phpstanPlayground.')) {
+		if (error.identifier?.startsWith('phpstanPlayground.')) {
 			tipLines.push(error.line - 1);
 		} else {
 			errorLines.push(error.line - 1);
