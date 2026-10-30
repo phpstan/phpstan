@@ -499,8 +499,8 @@ export class PlaygroundViewModel {
 		if (typeof window.navigator.share !== 'undefined') {
 			// @ts-ignore TS2339
 			window.navigator.share({url: window.location.href}).catch((e: unknown) => {
-				// the user dismissed the share sheet
-				if (e instanceof DOMException && e.name === 'AbortError') {
+				// the user dismissed the share sheet, or clicked Share again while it was still open
+				if (e instanceof DOMException && (e.name === 'AbortError' || e.name === 'InvalidStateError')) {
 					return;
 				}
 				throw e;
