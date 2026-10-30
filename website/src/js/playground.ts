@@ -27,7 +27,7 @@ $(() => {
 
 	// Failed connections and timeouts are the visitor's network, 5xx are ours.
 	$(document).ajaxError((event, xhr, settings) => {
-		if (xhr.status < 500 || settings.url === undefined || !settings.url.startsWith(playgroundViewModel.apiBaseUrl)) {
+		if (xhr.status < 500 || !settings.url?.startsWith(playgroundViewModel.apiBaseUrl)) {
 			return;
 		}
 

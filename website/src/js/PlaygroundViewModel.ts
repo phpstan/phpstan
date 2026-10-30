@@ -184,7 +184,7 @@ export class PlaygroundViewModel {
 		this.settingUrlIdProgrammatically = false;
 		this.restoredEditorState = null;
 
-		const legacyHashMatch = urlPath.match(/^\/r\/([a-f0-9]{32})$/);
+		const legacyHashMatch = /^\/r\/([a-f0-9]{32})$/.exec(urlPath);
 		let resultUrl = null;
 		let sampleUrl: string | null = null;
 		let id: string | null = null;
@@ -193,7 +193,7 @@ export class PlaygroundViewModel {
 			resultUrl = this.apiBaseUrl + '/legacyResult?id=' + id;
 		}
 
-		const hashMatch = urlPath.match(/^\/r\/([0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12})$/i);
+		const hashMatch = /^\/r\/([0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12})$/i.exec(urlPath);
 		if (hashMatch !== null) {
 			id = hashMatch[1];
 			resultUrl = this.apiBaseUrl + '/result?id=' + id;
@@ -341,7 +341,7 @@ export class PlaygroundViewModel {
 			return;
 		}
 		const tab = this.currentTab();
-		if (tab === null || tab.xray() !== null || this.xrayXhr !== null) {
+		if (tab?.xray() !== null || this.xrayXhr !== null) {
 			return;
 		}
 		this.fetchXRay();

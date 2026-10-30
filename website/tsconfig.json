@@ -1,10 +1,10 @@
 {
 	"compilerOptions": {
-		"target": "ES6",
+		"target": "ES2022",
 		"module": "esnext",
 		"strict": true,
 		"moduleResolution": "bundler",
-		"lib": ["dom", "es2019"],
+		"lib": ["dom", "dom.iterable", "es2022"],
 		"noImplicitAny": true,
 		"noUnusedLocals": true,
 		"noImplicitThis": true,

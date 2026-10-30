@@ -49,7 +49,7 @@ export class ErrorIdentifierSearchViewModel {
 
 			const matches: SearchResult[] = [];
 			for (const identifier of this.allIdentifiers) {
-				if (identifier.toLowerCase().indexOf(q) !== -1) {
+				if (identifier.toLowerCase().includes(q)) {
 					matches.push({
 						identifier: identifier,
 						link: '/error-identifiers/' + identifier,

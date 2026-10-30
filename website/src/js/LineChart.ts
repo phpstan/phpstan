@@ -195,7 +195,7 @@ function colorize<T extends HTMLElement | SVGElement>(element: T, series: Series
 
 function niceStep(range: number, targetTicks: number): number {
 	const rough = range / targetTicks;
-	const magnitude = Math.pow(10, Math.floor(Math.log10(rough)));
+	const magnitude = 10 ** Math.floor(Math.log10(rough));
 	for (const multiplier of [1, 2, 5, 10]) {
 		if (multiplier * magnitude >= rough) {
 			return multiplier * magnitude;
@@ -443,7 +443,7 @@ export class LineChart {
 			}
 
 			const first = points[0];
-			const last = points[points.length - 1];
+			const last = points.at(-1)!;
 			if (series.labels.includes('first')) {
 				// Placed on the side the line leaves, above a falling line and below a rising one
 				const rising = points.length > 1 && points[1].value > first.value;

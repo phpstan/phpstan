@@ -2,11 +2,28 @@ import ko from '@tko/build.reference';
 import {MerchSaleViewModel, TShirtSize, TShirtType} from './MerchSaleViewModel';
 
 export class TShirtCartItem {
-	amount: ko.Observable<number | string>;
-	amountOptions: ko.PureComputed<(number | string)[]>;
+	readonly amount: ko.Observable<number | string>;
+
+	readonly amountOptions = ko.pureComputed(() => {
+		const currentAmount = this.amount();
+		let maxAmount = 10;
+		if (typeof currentAmount === 'number') {
+			maxAmount = Math.max(currentAmount, 10);
+		}
+
+		const options = [];
+		for (let i = 1; i <= maxAmount; i++) {
+			options.push(i);
+		}
+
+		options.push('More…');
+
+		return options;
+	});
+
 	constructor(
-		public tShirtType: TShirtType,
-		public size: TShirtSize,
+		readonly tShirtType: TShirtType,
+		readonly size: TShirtSize,
 		amount: number,
 		viewModel: MerchSaleViewModel,
 	) {
@@ -29,22 +46,6 @@ export class TShirtCartItem {
 			}
 			viewModel.updateShippingPrice();
 			viewModel.updateLocalStorage();
-		});
-		this.amountOptions = ko.pureComputed(() => {
-			const currentAmount = this.amount();
-			let maxAmount = 10;
-			if (typeof currentAmount === 'number') {
-				maxAmount = Math.max(currentAmount, 10);
-			}
-
-			const options = [];
-			for (let i = 1; i <= maxAmount; i++) {
-				options.push(i);
-			}
-
-			options.push('More…');
-
-			return options;
 		});
 	}
 

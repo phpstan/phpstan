@@ -43,23 +43,21 @@ let lsp: LspExports | null = null;
 let initPromise: Promise<void> | null = null;
 
 function ensureReady(): Promise<void> {
-	if (initPromise === null) {
-		initPromise = (async () => {
-			const url = new URL('./pkg-wasi/phpantom_lsp.wasm', import.meta.url);
-			const wasi = new WASI([], [], [
-				new OpenFile(new WasiFile([])), // fd 0: stdin (unused)
-				ConsoleStdout.lineBuffered((m: string) => console.log('[phpantom]', m)), // fd 1
-				ConsoleStdout.lineBuffered((m: string) => console.warn('[phpantom]', m)), // fd 2
-			]);
-			const bytes = await (await fetch(url)).arrayBuffer();
-			const module = await WebAssembly.compile(bytes);
-			const instance = await WebAssembly.instantiate(module, {
-				wasi_snapshot_preview1: wasi.wasiImport,
-			});
-			wasi.initialize(instance as unknown as Parameters<WASI['initialize']>[0]); // reactor
-			lsp = instance.exports as unknown as LspExports;
-		})();
-	}
+	initPromise ??= (async () => {
+		const url = new URL('./pkg-wasi/phpantom_lsp.wasm', import.meta.url);
+		const wasi = new WASI([], [], [
+			new OpenFile(new WasiFile([])), // fd 0: stdin (unused)
+			ConsoleStdout.lineBuffered((m: string) => console.log('[phpantom]', m)), // fd 1
+			ConsoleStdout.lineBuffered((m: string) => console.warn('[phpantom]', m)), // fd 2
+		]);
+		const bytes = await (await fetch(url)).arrayBuffer();
+		const module = await WebAssembly.compile(bytes);
+		const instance = await WebAssembly.instantiate(module, {
+			wasi_snapshot_preview1: wasi.wasiImport,
+		});
+		wasi.initialize(instance as unknown as Parameters<WASI['initialize']>[0]); // reactor
+		lsp = instance.exports as unknown as LspExports;
+	})();
 	return initPromise;
 }
 
