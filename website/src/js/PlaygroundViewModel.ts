@@ -39,6 +39,11 @@ type OptionName = keyof typeof optionDefaults;
 const optionKeys = Object.keys(optionDefaults) as OptionName[];
 const defaultValues = Object.values(optionDefaults);
 
+// The code in a saved playground state.
+function docOf(saved: any): string {
+	return Array.isArray(saved.editorState.doc) ? saved.editorState.doc.join('\n') : saved.editorState.doc;
+}
+
 export const apiBaseUrl: string = import.meta.env.VITE_PLAYGROUND_API ?? 'https://api.phpstan.org';
 
 // A snippet with a URL: loaded from /r/… or shared. Its URL is shown whenever
@@ -108,6 +113,8 @@ export class PlaygroundViewModel extends ko.Component {
 	editorView: EditorView | null;
 	snippets: Map<string, Snippet>;
 	restoredEditorState: any | null;
+	// Loading the page again for another history entry, which must keep what it saved.
+	private reloading = false;
 
 	linkify: typeof linkifyStr;
 
@@ -465,6 +472,8 @@ export class PlaygroundViewModel extends ko.Component {
 			}),
 			contentType: 'application/json',
 		}).done((data) => {
+			// Saved below: the result is for this code and these settings now.
+			this.isLoading(false);
 			this.tabs(this.createTabs(data.tabs));
 			this.currentTabIndex(0);
 			this.legacyResult(null);
@@ -577,7 +586,12 @@ export class PlaygroundViewModel extends ko.Component {
 		// Also when an analysis is still to come: the code is restored and
 		// analysed when the visitor comes back.
 		window.addEventListener('beforeunload', () => {
-			this.savePlaygroundState();
+			if (!this.reloading) {
+				this.savePlaygroundState();
+			}
+		});
+		window.addEventListener('popstate', () => {
+			this.onPopState();
 		});
 
 		this.subscribe(this.code, () => {
@@ -619,12 +633,50 @@ export class PlaygroundViewModel extends ko.Component {
 			return;
 		}
 
+		// The latest result gets its own history entry, so going back shows the
+		// snippet's URL and its stored result again.
+		this.savePlaygroundState();
+		window.history.pushState(null, '', '/try');
+
 		this.tabs(tabs);
 		this.currentTabIndex(0);
 		this.legacyResult(null);
 		this.upToDateTabs(null);
 		this.id(null);
 		this.ensureXRay();
+		this.savePlaygroundState();
+	}
+
+	// Back or forward between the entries of this page (see showUpToDateTabs).
+	// With the same code and settings only the result differs; otherwise the
+	// page is loaded again, which restores the editor from the entry too.
+	private onPopState(): void {
+		const saved = PlaygroundViewModel.loadSavedState();
+		if (saved === null || saved.analysing === true || docOf(saved) !== this.code() || JSON.stringify(saved.settings) !== JSON.stringify(this.settingsState())) {
+			this.reloading = true;
+			window.location.reload();
+			return;
+		}
+
+		this.abortRequests();
+		this.isLoading(false);
+		this.hasServerError(false);
+		this.id(saved.id);
+		this.tabs(this.createTabs(saved.tabs));
+		this.currentTabIndex(saved.currentTabIndex);
+		this.legacyResult(saved.legacyResult);
+		this.upToDateTabs(saved.upToDateTabs ? this.createTabs(saved.upToDateTabs) : null);
+		this.ensureXRay();
+	}
+
+	private settingsState(): Record<string, any> {
+		return {
+			level: this.level(),
+			strictRules: this.strictRules(),
+			bleedingEdge: this.bleedingEdge(),
+			treatPhpDocTypesAsCertain: this.treatPhpDocTypesAsCertain(),
+			options: this.getOptionsState(),
+		};
 	}
 
 	savePlaygroundState(): void {
@@ -637,13 +689,7 @@ export class PlaygroundViewModel extends ko.Component {
 			};
 			return {
 				editorState,
-				settings: {
-					level: this.level(),
-					strictRules: this.strictRules(),
-					bleedingEdge: this.bleedingEdge(),
-					treatPhpDocTypesAsCertain: this.treatPhpDocTypesAsCertain(),
-					options: this.getOptionsState(),
-				},
+				settings: this.settingsState(),
 				tabs: this.tabs().map(tab),
 				currentTabIndex: this.currentTabIndex(),
 				legacyResult: this.legacyResult(),
@@ -681,10 +727,7 @@ export class PlaygroundViewModel extends ko.Component {
 	init(): void {
 		const saved = PlaygroundViewModel.loadSavedState();
 		if (saved) {
-			const doc = Array.isArray(saved.editorState.doc)
-				? saved.editorState.doc.join('\n')
-				: saved.editorState.doc;
-			this.code(doc);
+			this.code(docOf(saved));
 			this.level(saved.settings.level);
 			this.strictRules(saved.settings.strictRules);
 			this.bleedingEdge(saved.settings.bleedingEdge);
