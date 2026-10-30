@@ -1,5 +1,5 @@
 import ko from '@tko/build.reference';
-import {MerchSaleViewModel, TShirtType} from './MerchSaleViewModel';
+import type {MerchSaleViewModel, TShirtType} from './MerchSaleViewModel';
 import {mount, when} from './tsx';
 
 // Imported so that Vite fingerprints them, as it does for <img> tags in HTML.
@@ -18,11 +18,11 @@ function tShirtAlt(type: TShirtType): string {
 	return type.htmlClass === 'bg-white' ? 'White T-shirt' : 'Blue T-shirt';
 }
 
-// Replaces the loading spinner on /merch.
-export function mountMerch(vm: MerchSaleViewModel): void {
+// The template of MerchSaleViewModel.
+export function merchTemplate(vm: MerchSaleViewModel): JSX.Element {
 	const tShirtType = vm.selectedTShirtType;
 
-	mount('merch', (
+	return (
 		<div>
 			{vm.canBuy
 				? null
@@ -228,7 +228,7 @@ export function mountMerch(vm: MerchSaleViewModel): void {
 				{checkout(vm)}
 			</div>
 		</div>
-	));
+	);
 }
 
 export function mountMerchFatalError(): void {

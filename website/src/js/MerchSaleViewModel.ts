@@ -3,6 +3,7 @@ import $ from 'jquery';
 import countries from './data/countries.json';
 import {loadStripe, Stripe, StripeCardElement} from '@stripe/stripe-js';
 import {TShirtCartItem} from './TShirtCartItem';
+import {merchTemplate} from './Merch';
 
 export interface TShirtType {
 	id: string;
@@ -34,7 +35,9 @@ interface TDistributor {
 	country: string;
 }
 
-export class MerchSaleViewModel {
+// The shop on /merch: the products, the cart and the checkout.
+export class MerchSaleViewModel extends ko.Component {
+	static override readonly customElementName = 'merch-sale';
 
 	canBuy: boolean;
 	countries: Country[];
@@ -108,6 +111,8 @@ export class MerchSaleViewModel {
 	successfulOrder: ko.Observable<boolean>;
 
 	constructor(distributor: string | null) {
+		super();
+
 		countries.sort((a: Country, b: Country) => {
 			return a.country_name.localeCompare(b.country_name);
 		});
@@ -115,7 +120,7 @@ export class MerchSaleViewModel {
 		this.canBuy = (endDate - (new Date().getTime())) > 0;
 
 		this.distributor = ko.observable(null);
-		this.distributor.subscribe(() => {
+		this.subscribe(this.distributor, () => {
 			this.updateLocalStorage();
 			this.updateShippingPrice();
 		});
@@ -153,7 +158,7 @@ export class MerchSaleViewModel {
 
 			return type.sizes;
 		});
-		this.sizes.subscribe((sizes) => {
+		this.subscribe(this.sizes, (sizes) => {
 			const selected = this.selectedTShirtSize();
 			if (selected === null) {
 				return;
@@ -169,13 +174,13 @@ export class MerchSaleViewModel {
 		this.selectedTShirtView = ko.observable<TShirtView>('front');
 		this.selectedElephpantView = ko.observable<TElephpantView>('right');
 		this.cartTShirts = ko.observableArray();
-		this.cartTShirts.subscribe(() => {
+		this.subscribe(this.cartTShirts, () => {
 			this.updateShippingPrice();
 			this.updateLocalStorage();
 			this.getStripe();
 		});
 		this.cartElephpantAmount = ko.observable<string | number>(0);
-		this.cartElephpantAmount.subscribe((value) => {
+		this.subscribe(this.cartElephpantAmount, (value) => {
 			if (typeof value === 'string') {
 				const newAmount = window.prompt('Please enter the number of elephpants:');
 				if (newAmount === null || newAmount === '') {
@@ -241,42 +246,42 @@ export class MerchSaleViewModel {
 		});
 
 		this.billingName = ko.observable('');
-		this.billingName.subscribe(() => {
+		this.subscribe(this.billingName, () => {
 			this.updateLocalStorage();
 		});
 
 		this.billingSurname = ko.observable('');
-		this.billingSurname.subscribe(() => {
+		this.subscribe(this.billingSurname, () => {
 			this.updateLocalStorage();
 		});
 
 		this.billingCompany = ko.observable('');
-		this.billingCompany.subscribe(() => {
+		this.subscribe(this.billingCompany, () => {
 			this.updateLocalStorage();
 		});
 
 		this.billingStreet = ko.observable('');
-		this.billingStreet.subscribe(() => {
+		this.subscribe(this.billingStreet, () => {
 			this.updateLocalStorage();
 		});
 
 		this.billingHouseNumber = ko.observable('');
-		this.billingHouseNumber.subscribe(() => {
+		this.subscribe(this.billingHouseNumber, () => {
 			this.updateLocalStorage();
 		});
 
 		this.billingCity = ko.observable('');
-		this.billingCity.subscribe(() => {
+		this.subscribe(this.billingCity, () => {
 			this.updateLocalStorage();
 		});
 
 		this.billingZip = ko.observable('');
-		this.billingZip.subscribe(() => {
+		this.subscribe(this.billingZip, () => {
 			this.updateLocalStorage();
 		});
 
 		this.billingCountry = ko.observable('');
-		this.billingCountry.subscribe((value) => {
+		this.subscribe(this.billingCountry, (value) => {
 			this.updateLocalStorage();
 
 			if (this.deliveryAddressSameAsBillingAddress()) {
@@ -293,17 +298,17 @@ export class MerchSaleViewModel {
 		});
 
 		this.billingRegistrationNumber = ko.observable('');
-		this.billingRegistrationNumber.subscribe(() => {
+		this.subscribe(this.billingRegistrationNumber, () => {
 			this.updateLocalStorage();
 		});
 
 		this.billingVatId = ko.observable('');
-		this.billingVatId.subscribe(() => {
+		this.subscribe(this.billingVatId, () => {
 			this.updateLocalStorage();
 		});
 
 		this.deliveryAddressSameAsBillingAddress = ko.observable<boolean>(true);
-		this.deliveryAddressSameAsBillingAddress.subscribe((value) => {
+		this.subscribe(this.deliveryAddressSameAsBillingAddress, (value) => {
 			this.updateLocalStorage();
 
 			if (!value) {
@@ -321,58 +326,58 @@ export class MerchSaleViewModel {
 		});
 
 		this.deliveryName = ko.observable('');
-		this.deliveryName.subscribe(() => {
+		this.subscribe(this.deliveryName, () => {
 			this.updateLocalStorage();
 		});
 
 		this.deliverySurname = ko.observable('');
-		this.deliverySurname.subscribe(() => {
+		this.subscribe(this.deliverySurname, () => {
 			this.updateLocalStorage();
 		});
 
 		this.deliveryCompany = ko.observable('');
-		this.deliveryCompany.subscribe(() => {
+		this.subscribe(this.deliveryCompany, () => {
 			this.updateLocalStorage();
 		});
 
 		this.deliveryStreet = ko.observable('');
-		this.deliveryStreet.subscribe(() => {
+		this.subscribe(this.deliveryStreet, () => {
 			this.updateLocalStorage();
 		});
 
 		this.deliveryHouseNumber = ko.observable('');
-		this.deliveryHouseNumber.subscribe(() => {
+		this.subscribe(this.deliveryHouseNumber, () => {
 			this.updateLocalStorage();
 		});
 
 		this.deliveryCity = ko.observable('');
-		this.deliveryCity.subscribe(() => {
+		this.subscribe(this.deliveryCity, () => {
 			this.updateLocalStorage();
 		});
 
 		this.deliveryZip = ko.observable('');
-		this.deliveryZip.subscribe(() => {
+		this.subscribe(this.deliveryZip, () => {
 			this.updateLocalStorage();
 		});
 
 		this.deliveryCountry = ko.observable('');
-		this.deliveryCountry.subscribe(() => {
+		this.subscribe(this.deliveryCountry, () => {
 			this.updateLocalStorage();
 			this.updateShippingPrice();
 		});
 
 		this.email = ko.observable('');
-		this.email.subscribe(() => {
+		this.subscribe(this.email, () => {
 			this.updateLocalStorage();
 		});
 
 		this.phonePrefix = ko.observable('');
-		this.phonePrefix.subscribe(() => {
+		this.subscribe(this.phonePrefix, () => {
 			this.updateLocalStorage();
 		});
 
 		this.phoneNumber = ko.observable('');
-		this.phoneNumber.subscribe(() => {
+		this.subscribe(this.phoneNumber, () => {
 			this.updateLocalStorage();
 		});
 
@@ -396,7 +401,7 @@ export class MerchSaleViewModel {
 			return euCountries.includes(this.billingCountry());
 		});
 		this.selectedPaymentMethod = ko.observable<PaymentMethod>('cc');
-		this.selectedPaymentMethod.subscribe(() => {
+		this.subscribe(this.selectedPaymentMethod, () => {
 			this.updateLocalStorage();
 			this.confirmOrderErrors([]);
 		});
@@ -428,11 +433,11 @@ export class MerchSaleViewModel {
 		this.isConfirmingOrder = ko.observable<boolean>(false);
 		this.confirmOrderErrors = ko.observableArray();
 		this.agreeToPrivacyPolicy = ko.observable<boolean>(false);
-		this.agreeToPrivacyPolicy.subscribe(() => {
+		this.subscribe(this.agreeToPrivacyPolicy, () => {
 			this.updateLocalStorage();
 		});
 		this.agreeToTerms = ko.observable<boolean>(false);
-		this.agreeToTerms.subscribe(() => {
+		this.subscribe(this.agreeToTerms, () => {
 			this.updateLocalStorage();
 		});
 
@@ -466,6 +471,10 @@ export class MerchSaleViewModel {
 				this.distributorLoading(false);
 			});
 		}
+	}
+
+	get template(): JSX.Element {
+		return merchTemplate(this);
 	}
 
 	selectTShirtColor(color: TShirtColor): void {

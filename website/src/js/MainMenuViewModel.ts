@@ -16,26 +16,12 @@ $(() => {
 	littlefoot();
 });
 
-export type Theme = 'auto' | 'light' | 'dark';
-
 export class MainMenuViewModel {
 
-	theme: ko.Observable<Theme>;
-	mainMenuOpen: ko.Observable<boolean>;
-	sidebarOpen: ko.Observable<boolean>;
-
-	private themeKey = 'phpstanWebTheme';
+	readonly mainMenuOpen = ko.observable(false);
+	readonly sidebarOpen = ko.observable(false);
 
 	constructor() {
-		let theme: Theme = 'auto';
-		if (localStorage.getItem(this.themeKey) !== null) {
-			theme = localStorage.getItem(this.themeKey) as Theme;
-		}
-		this.theme = ko.observable(theme);
-
-		this.mainMenuOpen = ko.observable<boolean>(false);
-		this.sidebarOpen = ko.observable<boolean>(false);
-
 		const docsearchOptions = {
 			appId: '563YUB35R3',
 			indices: ['phpstan'],
@@ -78,18 +64,6 @@ export class MainMenuViewModel {
 		}
 
 		return true;
-	}
-
-	switchTheme(theme: Theme): void {
-		this.theme(theme);
-		if (theme === 'auto') {
-			localStorage.removeItem(this.themeKey);
-		} else {
-			localStorage.setItem(this.themeKey, theme);
-		}
-
-		const dark = theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-		document.documentElement.classList.toggle('dark', dark);
 	}
 
 }

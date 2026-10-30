@@ -22,6 +22,41 @@ export function mount(id: string, template: JSX.Element): void {
 }
 
 /**
+ * Renders a component in place of the element with the given id, registering
+ * it under its customElementName first if needed.
+ * The component is bound between two comments rather than inside an element,
+ * so the page gets the template's markup and nothing around it. If the
+ * component's constructor throws, the element stays and the error propagates.
+ */
+export function mountComponent<P extends unknown[]>(
+	id: string,
+	component: (new (...params: P) => ko.Component) & Pick<typeof ko.Component, 'customElementName' | 'register'>,
+	...params: P
+): void {
+	const placeholder = document.getElementById(id);
+	if (placeholder === null) {
+		return;
+	}
+
+	if (!ko.components.isRegistered(component.customElementName)) {
+		component.register();
+	}
+
+	const start = document.createComment('ko component');
+	const end = document.createComment('/ko');
+	placeholder.before(start, end);
+	try {
+		ko.applyBindingsToNode(start, {component: {name: component.customElementName, params: params[0]}});
+	} catch (e) {
+		start.remove();
+		end.remove();
+		throw e;
+	}
+
+	placeholder.remove();
+}
+
+/**
  * Applies bindings to a server-rendered element that wraps static content,
  * without binding (or re-rendering) anything inside it.
  */

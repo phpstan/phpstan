@@ -1,113 +1,123 @@
 import ko from '@tko/build.reference';
-import {PlaygroundViewModel} from './PlaygroundViewModel';
-import {PlaygroundTabViewModel} from './PlaygroundTabViewModel';
-import {mount, when} from './tsx';
+import type {PlaygroundViewModel} from './PlaygroundViewModel';
+import type {PlaygroundTabViewModel} from './PlaygroundTabViewModel';
+import {when} from './tsx';
 
 type OptionName = Parameters<PlaygroundViewModel['isNonDefault']>[0];
 
 const levels = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
-// Replaces the loading spinner on /try once the view model is initialized.
-export function mountPlayground(vm: PlaygroundViewModel): void {
+// The template of PlaygroundViewModel.
+export function playgroundTemplate(vm: PlaygroundViewModel): JSX.Element {
 	const errors = ko.pureComputed(() => vm.currentTab()?.errors ?? []);
 
-	mount('playground', (
+	return (
 		<div>
-			{optionsDialog(vm)}
-
-			<div
-				id="playground-editor"
-				ko-codeMirror={{
-					code: vm.code,
-					initialUrlId: vm.isHashMatch ? vm.id() : null,
-					onUrlIdChange: (id) => vm.onEditorUrlIdChange(id),
-					restoredState: vm.restoredEditorState,
-					onXRayToggle: (enabled) => vm.onXRayToggle(enabled),
-				}}
-				ko-codeMirrorErrors={errors}
-				ko-codeMirrorXRay={{enabled: vm.xrayEnabled, busy: vm.xrayBusy, tab: vm.currentTab}}
-			>
-			</div>
-
-			<div class="flex items-center mt-4 flex-row gap-2 md:gap-6 px-4 md:px-0">
-				{when(() => vm.legacyResult() === null && !vm.isSharing(), () => (
-					<a href="#" ko-click={() => vm.share()} class="inline-flex flex-1 md:flex-initial items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 hover:bg-gray-200 md:w-32 h-10 justify-center border-gray-300 border dark:border-black">
-						<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
-						<span class="ml-2" ko-text={vm.shareText}></span>
-					</a>
-				))}
-
-				{when(() => vm.legacyResult() === null && vm.isSharing(), () => (
-					<span class="inline-flex flex-1 md:flex-initial items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 md:w-32 h-10 justify-center border-gray-300 border">
-						{/* By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL */}
-						<svg width="120" height="30" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#3f83f8" class="h-12 w-12">
-							<circle cx="15" cy="15" r="15">
-								<animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite" />
-								<animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite" />
-							</circle>
-							<circle cx="60" cy="15" r="9" fill-opacity="0.3">
-								<animate attributeName="r" from="9" to="9" begin="0s" dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite" />
-								<animate attributeName="fill-opacity" from="0.5" to="0.5" begin="0s" dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite" />
-							</circle>
-							<circle cx="105" cy="15" r="15">
-								<animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite" />
-								<animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite" />
-							</circle>
-						</svg>
-					</span>
-				))}
-
-				<select class="block flex-1 md:flex-initial rounded-md border border-gray-300 dark:border-black" ko-value={vm.level}>
-					{levels.map((level) => <option value={level}>Level {level}</option>)}
-				</select>
-
-				<button ko-click={() => vm.openOptions()} class="inline-flex flex-1 md:flex-initial items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 hover:bg-gray-200 md:w-32 h-10 justify-center border-gray-300 border dark:border-black relative cursor-pointer">
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-						<path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
-						<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-					</svg>
-					<span class="ml-1.5">Options</span>
-					{when(() => vm.changedOptionsCount() > 0, () => (
-						<span class="absolute -top-2 -right-2 inline-flex items-center justify-center min-w-5 h-5 px-1 text-xs font-bold text-white bg-blue-500 rounded-full" ko-text={vm.changedOptionsCount}></span>
-					))}
-				</button>
-			</div>
-
-			{when(vm.isLoading, () => (
-				<div class="m-auto w-12 h-12 mt-8">
+			{when(() => !vm.loaded(), () => (
+				<div class="mx-auto w-12 h-12 my-12">
 					<div class="spinner"></div>
 				</div>
 			))}
 
-			{when(vm.hasServerError, () => (
-				<span class="inline-flex text-red-500 mb-8">An error occurred. Please try again later.</span>
-			))}
+			{when(vm.loaded, () => (
+				<>
+					{optionsDialog(vm)}
 
-			{when(() => !vm.hasServerError(), () => (
-				<div class="pt-4">
-					{when(() => vm.upToDateTabs() !== null && !vm.isLoading(), () => (
-						<div class="flex content-center justify-center">
-							<div class="inline-block bg-yellow-100 dark:bg-yellow-500 dark:text-white rounded-lg px-2 py-1 text-sm">This result is out of date. <a href="#" class="text-blue-700 dark:text-blue-500" ko-click={() => vm.showUpToDateTabs()}>Show the latest result</a></div>
+					<div
+						id="playground-editor"
+						ko-codeMirror={{
+							code: vm.code,
+							initialUrlId: vm.isHashMatch ? vm.id.peek() : null,
+							onUrlIdChange: (id) => vm.onEditorUrlIdChange(id),
+							restoredState: vm.restoredEditorState,
+							onXRayToggle: (enabled) => vm.onXRayToggle(enabled),
+						}}
+						ko-codeMirrorErrors={errors}
+						ko-codeMirrorXRay={{enabled: vm.xrayEnabled, busy: vm.xrayBusy, tab: vm.currentTab}}
+					>
+					</div>
+
+					<div class="flex items-center mt-4 flex-row gap-2 md:gap-6 px-4 md:px-0">
+						{when(() => vm.legacyResult() === null && !vm.isSharing(), () => (
+							<a href="#" ko-click={() => vm.share()} class="inline-flex flex-1 md:flex-initial items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 hover:bg-gray-200 md:w-32 h-10 justify-center border-gray-300 border dark:border-black">
+								<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+								<span class="ml-2" ko-text={vm.shareText}></span>
+							</a>
+						))}
+
+						{when(() => vm.legacyResult() === null && vm.isSharing(), () => (
+							<span class="inline-flex flex-1 md:flex-initial items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 md:w-32 h-10 justify-center border-gray-300 border">
+								{/* By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL */}
+								<svg width="120" height="30" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#3f83f8" class="h-12 w-12">
+									<circle cx="15" cy="15" r="15">
+										<animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite" />
+										<animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite" />
+									</circle>
+									<circle cx="60" cy="15" r="9" fill-opacity="0.3">
+										<animate attributeName="r" from="9" to="9" begin="0s" dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite" />
+										<animate attributeName="fill-opacity" from="0.5" to="0.5" begin="0s" dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite" />
+									</circle>
+									<circle cx="105" cy="15" r="15">
+										<animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite" />
+										<animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite" />
+									</circle>
+								</svg>
+							</span>
+						))}
+
+						<select class="block flex-1 md:flex-initial rounded-md border border-gray-300 dark:border-black" ko-value={vm.level}>
+							{levels.map((level) => <option value={level}>Level {level}</option>)}
+						</select>
+
+						<button ko-click={() => vm.openOptions()} class="inline-flex flex-1 md:flex-initial items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 hover:bg-gray-200 md:w-32 h-10 justify-center border-gray-300 border dark:border-black relative cursor-pointer">
+							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
+								<path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+							</svg>
+							<span class="ml-1.5">Options</span>
+							{when(() => vm.changedOptionsCount() > 0, () => (
+								<span class="absolute -top-2 -right-2 inline-flex items-center justify-center min-w-5 h-5 px-1 text-xs font-bold text-white bg-blue-500 rounded-full" ko-text={vm.changedOptionsCount}></span>
+							))}
+						</button>
+					</div>
+
+					{when(vm.isLoading, () => (
+						<div class="m-auto w-12 h-12 mt-8">
+							<div class="spinner"></div>
 						</div>
 					))}
 
-					{when(() => vm.tabs().length > 1 && !vm.isLoading() && vm.legacyResult() === null, () => (
-						<nav class="flex mt-4 border-b border-gray-400">
-							{ko.pureComputed(() => vm.tabs().map((tab, index) => (
-								<a href="#" class="relative px-3 py-2 font-medium text-md mr-4 leading-5 rounded-md rounded-b-none text-gray-500 border-l border-t border-r" ko-click={() => vm.switchTab(index)} ko-class={tab.tabClass} ko-style={{top: ko.pureComputed(() => tab.isActive() ? '1px' : '0')}}>{tab.title}</a>
-							)))}
-						</nav>
+					{when(vm.hasServerError, () => (
+						<span class="inline-flex text-red-500 mb-8">An error occurred. Please try again later.</span>
 					))}
 
-					{when(() => vm.currentTab() !== null && !vm.isLoading() && vm.legacyResult() === null, () => tabResult(vm, vm.currentTab()!))}
+					{when(() => !vm.hasServerError(), () => (
+						<div class="pt-4">
+							{when(() => vm.upToDateTabs() !== null && !vm.isLoading(), () => (
+								<div class="flex content-center justify-center">
+									<div class="inline-block bg-yellow-100 dark:bg-yellow-500 dark:text-white rounded-lg px-2 py-1 text-sm">This result is out of date. <a href="#" class="text-blue-700 dark:text-blue-500" ko-click={() => vm.showUpToDateTabs()}>Show the latest result</a></div>
+								</div>
+							))}
 
-					{when(() => vm.legacyResult() !== null && !vm.isLoading(), () => (
-						<pre ko-html={vm.legacyResult} class="bg-gray-800 w-auto p-4 mt-4 leading-none"></pre>
+							{when(() => vm.tabs().length > 1 && !vm.isLoading() && vm.legacyResult() === null, () => (
+								<nav class="flex mt-4 border-b border-gray-400">
+									{ko.pureComputed(() => vm.tabs().map((tab, index) => (
+										<a href="#" class="relative px-3 py-2 font-medium text-md mr-4 leading-5 rounded-md rounded-b-none text-gray-500 border-l border-t border-r" ko-click={() => vm.switchTab(index)} ko-class={tab.tabClass} ko-style={{top: ko.pureComputed(() => tab.isActive() ? '1px' : '0')}}>{tab.title}</a>
+									)))}
+								</nav>
+							))}
+
+							{when(() => vm.currentTab() !== null && !vm.isLoading() && vm.legacyResult() === null, () => tabResult(vm, vm.currentTab()!))}
+
+							{when(() => vm.legacyResult() !== null && !vm.isLoading(), () => (
+								<pre ko-html={vm.legacyResult} class="bg-gray-800 w-auto p-4 mt-4 leading-none"></pre>
+							))}
+						</div>
 					))}
-				</div>
+				</>
 			))}
 		</div>
-	));
+	);
 }
 
 function tabResult(vm: PlaygroundViewModel, tab: PlaygroundTabViewModel): JSX.Element {

@@ -1,10 +1,10 @@
 import ko from '@tko/build.reference';
-import {MainMenuViewModel, Theme} from './MainMenuViewModel';
-import {bindElement, mount} from './tsx';
+import {MainMenuViewModel} from './MainMenuViewModel';
+import {bindElement, mount, mountComponent} from './tsx';
 
 // The navigation, sidebar and footer of every page. Their links are rendered
 // by Eleventy, so the panels that show and hide them only get bindings; the
-// controls are TSX.
+// controls are TSX, and the theme switcher is a component.
 export function initMainMenu(): MainMenuViewModel {
 	const menu = new MainMenuViewModel();
 	const mainMenuClosed = ko.pureComputed(() => !menu.mainMenuOpen());
@@ -35,34 +35,61 @@ export function initMainMenu(): MainMenuViewModel {
 		<a href="#" class="text-sm text-gray-400 md:hidden no-underline hover:underline" ko-click={() => menu.openSidebar()}>Menu</a>
 	));
 
-	mount('theme-switcher', (
-		<div class="flex rounded border border-gray-400 w-36 text-sm text-gray-400">
-			{themeOption(menu, 'auto', 'font-medium text-base', 'border-r', 'Theme follows system-level setting', (
-				<span>A</span>
-			))}
-			{themeOption(menu, 'light', '', 'border-r', 'Theme will always use light colors', (
-				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-				</svg>
-			))}
-			{themeOption(menu, 'dark', '', '', 'Theme will always use dark colors', (
-				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-					<path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
-				</svg>
-			))}
-		</div>
-	));
+	mountComponent('theme-switcher', ThemeSwitcher);
 
 	return menu;
 }
 
-function themeOption(menu: MainMenuViewModel, theme: Theme, className: string, inactiveBorder: string, title: string, icon: JSX.Element): JSX.Element {
-	const active = ko.pureComputed(() => menu.theme() === theme);
-	const inactive = ko.pureComputed(() => menu.theme() !== theme);
+type Theme = 'auto' | 'light' | 'dark';
 
-	return (
-		<div class={`flex basis-0 flex-grow items-center justify-center py-1 ${className}`} ko-click={() => menu.switchTheme(theme)} ko-css={{'cursor-default text-white bg-gray-400': active, [`cursor-pointer hover:text-gray-500 border-gray-400 ${inactiveBorder}`]: inactive}} title={title}>
-			{icon}
-		</div>
-	);
+const themeKey = 'phpstanWebTheme';
+
+// The light/dark/system theme buttons in the footer.
+export class ThemeSwitcher extends ko.Component {
+	static override readonly customElementName = 'theme-switcher';
+
+	readonly theme = ko.observable((localStorage.getItem(themeKey) ?? 'auto') as Theme);
+
+	get template(): JSX.Element {
+		return (
+			<div class="flex rounded border border-gray-400 w-36 text-sm text-gray-400">
+				{this.option('auto', 'font-medium text-base', 'border-r', 'Theme follows system-level setting', (
+					<span>A</span>
+				))}
+				{this.option('light', '', 'border-r', 'Theme will always use light colors', (
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+					</svg>
+				))}
+				{this.option('dark', '', '', 'Theme will always use dark colors', (
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+					</svg>
+				))}
+			</div>
+		);
+	}
+
+	switchTheme(theme: Theme): void {
+		this.theme(theme);
+		if (theme === 'auto') {
+			localStorage.removeItem(themeKey);
+		} else {
+			localStorage.setItem(themeKey, theme);
+		}
+
+		const dark = theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+		document.documentElement.classList.toggle('dark', dark);
+	}
+
+	private option(theme: Theme, className: string, inactiveBorder: string, title: string, icon: JSX.Element): JSX.Element {
+		const active = ko.pureComputed(() => this.theme() === theme);
+		const inactive = ko.pureComputed(() => this.theme() !== theme);
+
+		return (
+			<div class={`flex basis-0 flex-grow items-center justify-center py-1 ${className}`} ko-click={() => this.switchTheme(theme)} ko-css={{'cursor-default text-white bg-gray-400': active, [`cursor-pointer hover:text-gray-500 border-gray-400 ${inactiveBorder}`]: inactive}} title={title}>
+				{icon}
+			</div>
+		);
+	}
 }
