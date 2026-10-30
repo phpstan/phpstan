@@ -21,6 +21,16 @@ function modHeld(event: MouseEvent): boolean {
 	return isMac ? event.metaKey : event.ctrlKey;
 }
 
+// posAtCoords can throw inside CodeMirror when its line tiles are out of sync
+// with the height map; a missed hover or click is better than an exception.
+function safePosAtCoords(view: EditorView, event: MouseEvent): number | null {
+	try {
+		return view.posAtCoords({x: event.clientX, y: event.clientY});
+	} catch {
+		return null;
+	}
+}
+
 function toLspPosition(state: EditorState, offset: number): LspPosition {
 	const line = state.doc.lineAt(offset);
 	return {line: line.number - 1, character: offset - line.from};
@@ -127,7 +137,7 @@ const goToDefinitionPlugin = ViewPlugin.fromClass(class {
 			this.clearLink();
 			return;
 		}
-		const offset = this.view.posAtCoords({x: event.clientX, y: event.clientY});
+		const offset = safePosAtCoords(this.view, event);
 		const word = offset == null ? null : this.view.state.wordAt(offset);
 		if (offset == null || word == null) {
 			this.clearLink();
@@ -154,7 +164,7 @@ const goToDefinitionPlugin = ViewPlugin.fromClass(class {
 		if (!modHeld(event)) {
 			return false;
 		}
-		const offset = this.view.posAtCoords({x: event.clientX, y: event.clientY});
+		const offset = safePosAtCoords(this.view, event);
 		if (offset == null || this.view.state.wordAt(offset) == null) {
 			return false;
 		}
