@@ -1,8 +1,9 @@
 import $ from 'jquery';
 import {initMainMenu} from './MainMenu';
-import {initIgnoreErrorsWidget} from './IgnoreErrorsWidget';
+import {IgnoreErrorsWidget} from './IgnoreErrorsWidget';
+import {mountComponent} from './tsx';
 
 $(() => {
 	initMainMenu();
-	initIgnoreErrorsWidget();
+	mountComponent('ignore-errors-widget', IgnoreErrorsWidget);
 });

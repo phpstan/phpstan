@@ -24,6 +24,7 @@ declare global {
 		'ko-checked'?: ko.Observable<any>;
 		'ko-class'?: ko.MaybeSubscribable<string>;
 		'ko-click'?: (data: unknown, event: MouseEvent) => unknown;
+		'ko-component'?: {name: string; params?: unknown};
 		'ko-css'?: Record<string, ko.MaybeSubscribable<boolean>>;
 		'ko-disable'?: ko.MaybeSubscribable<boolean>;
 		'ko-enable'?: ko.MaybeSubscribable<boolean>;

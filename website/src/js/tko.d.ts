@@ -65,6 +65,33 @@ declare module '@tko/build.reference' {
 		/** Applies the given bindings to node only, leaving its descendants alone. */
 		function applyBindingsToNode(node: Node, bindings: KoNodeBindings, viewModel?: object): void;
 
+		/** Owns subscriptions and computeds, and disposes them together. */
+		class LifeCycle {
+			/** Subscribes until the owner is disposed. */
+			subscribe<T>(subscribable: Subscribable<T>, action: (value: T) => void): void;
+			/** A computed that is disposed with the owner. */
+			computed<T>(evaluator: () => T): Computed<T>;
+			dispose(): void;
+		}
+
+		/**
+		 * A view model with its own TSX template. The component binding creates
+		 * it with `new (params)`, renders `template`, binds it to the instance and
+		 * disposes it when the rendered nodes are cleaned.
+		 */
+		abstract class Component extends LifeCycle {
+			/** The name register() registers the component under; minification renames classes, so set it. */
+			static readonly customElementName: string;
+			static register(name?: string): void;
+			abstract get template(): JSX.Element;
+			/** Called once the template is rendered and bound. */
+			koDescendantsComplete?(node: Node): void;
+		}
+
+		const components: {
+			isRegistered(name: string): boolean;
+		};
+
 		const options: {
 			deferUpdates: boolean;
 		};

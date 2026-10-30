@@ -12,6 +12,7 @@ import {XRayData} from './XRayData';
 import defaultCode from './data/playground-default.php?raw';
 import defaultResponse from './data/playground-default.json';
 import {isXRayAvailable, startXRayRequest, xrayUnavailable} from './editor/xray';
+import {playgroundTemplate} from './Playground';
 
 declare const __PAGES_JSON__: Record<string, string>;
 const pages = __PAGES_JSON__;
@@ -40,7 +41,14 @@ type OptionName = keyof typeof optionDefaults;
 const optionKeys = Object.keys(optionDefaults) as OptionName[];
 const defaultValues = Object.values(optionDefaults);
 
-export class PlaygroundViewModel {
+export const apiBaseUrl: string = import.meta.env.VITE_PLAYGROUND_API ?? 'https://api.phpstan.org';
+
+// The playground on /try and /r/…: the editor, the options and the results.
+// Shows a spinner until the code and results to start with are loaded.
+export class PlaygroundViewModel extends ko.Component {
+	static override readonly customElementName = 'playground';
+
+	readonly loaded = ko.observable(false);
 
 	code: ko.Observable<string>;
 	codeDelayed: ko.Computed<string>;
@@ -91,8 +99,6 @@ export class PlaygroundViewModel {
 	isHashMatch: boolean;
 	hasServerError: ko.Observable<boolean>;
 
-	apiBaseUrl: string = import.meta.env.VITE_PLAYGROUND_API ?? 'https://api.phpstan.org';
-
 	editorView: EditorView | null;
 	urlIdJustRestored: boolean;
 	savedTabsByUrlId: Map<string, {tabs: PlaygroundTabViewModel[]; upToDateTabs: PlaygroundTabViewModel[] | null}>;
@@ -111,6 +117,8 @@ export class PlaygroundViewModel {
 	private newOptionEntries: [string, ko.Observable<any>][];
 
 	constructor(urlPath: string) {
+		super();
+
 		this.code = ko.observable('');
 		this.codeDelayed = ko.pureComputed(this.code).extend({
 			notify: 'always',
@@ -190,14 +198,14 @@ export class PlaygroundViewModel {
 		let id: string | null = null;
 		if (legacyHashMatch !== null) {
 			id = legacyHashMatch[1];
-			resultUrl = this.apiBaseUrl + '/legacyResult?id=' + id;
+			resultUrl = apiBaseUrl + '/legacyResult?id=' + id;
 		}
 
 		const hashMatch = /^\/r\/([0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12})$/i.exec(urlPath);
 		if (hashMatch !== null) {
 			id = hashMatch[1];
-			resultUrl = this.apiBaseUrl + '/result?id=' + id;
-			sampleUrl = this.apiBaseUrl + '/sample?id=' + id;
+			resultUrl = apiBaseUrl + '/result?id=' + id;
+			sampleUrl = apiBaseUrl + '/sample?id=' + id;
 		}
 
 		this.resultUrl = resultUrl;
@@ -205,7 +213,7 @@ export class PlaygroundViewModel {
 		this.isHashMatch = hashMatch !== null;
 
 		this.id = ko.observable(id);
-		this.id.subscribe((value) => {
+		this.subscribe(this.id, (value) => {
 			if (value === null) {
 				window.history.replaceState(window.history.state, '', '/try');
 			} else {
@@ -231,6 +239,14 @@ export class PlaygroundViewModel {
 		};
 
 		this.slugify = slugify;
+	}
+
+	get template(): JSX.Element {
+		return playgroundTemplate(this);
+	}
+
+	koDescendantsComplete(): void {
+		this.init();
 	}
 
 	// --- Options dialog ---
@@ -354,7 +370,7 @@ export class PlaygroundViewModel {
 		this.markXRayRequest();
 		this.xrayXhr = $.ajax({
 			type: 'POST',
-			url: this.apiBaseUrl + '/analyse',
+			url: apiBaseUrl + '/analyse',
 			dataType: 'json',
 			data: JSON.stringify({
 				code,
@@ -431,7 +447,7 @@ export class PlaygroundViewModel {
 		this.markXRayRequest();
 		this.xhr = $.ajax({
 			type: 'POST',
-			url: this.apiBaseUrl + '/analyse',
+			url: apiBaseUrl + '/analyse',
 			dataType: 'json',
 			data: JSON.stringify({
 				code: this.code(),
@@ -575,14 +591,14 @@ export class PlaygroundViewModel {
 			}
 		});
 
-		this.code.subscribe(() => {
+		this.subscribe(this.code, () => {
 			if (this.urlIdJustRestored) {
 				this.urlIdJustRestored = false;
 				return;
 			}
 			this.preanalyse();
 		});
-		this.codeDelayed.subscribe(() => {
+		this.subscribe(this.codeDelayed, () => {
 			if (this.id() !== null) {
 				return;
 			}
@@ -594,7 +610,7 @@ export class PlaygroundViewModel {
 			});
 		});
 
-		this.level.subscribe(() => {
+		this.subscribe(this.level, () => {
 			this.doInstantAnalyse();
 		});
 
@@ -671,7 +687,7 @@ export class PlaygroundViewModel {
 		return null;
 	}
 
-	init(initCallback: () => void): void {
+	init(): void {
 		const saved = PlaygroundViewModel.loadSavedState();
 		if (saved) {
 			const doc = Array.isArray(saved.editorState.doc)
@@ -702,7 +718,7 @@ export class PlaygroundViewModel {
 				});
 			}
 
-			initCallback();
+			this.loaded(true);
 			this.grabEditorView();
 			this.startAcceptingChanges();
 			return;
@@ -735,7 +751,7 @@ export class PlaygroundViewModel {
 					this.savedTabsByUrlId.set(originalId, {tabs, upToDateTabs: null});
 				}
 
-				initCallback();
+				this.loaded(true);
 				this.grabEditorView();
 				this.startAcceptingChanges();
 				this.savePlaygroundState();
@@ -770,7 +786,7 @@ export class PlaygroundViewModel {
 				});
 			}).fail(() => {
 				this.hasServerError(true);
-				initCallback();
+				this.loaded(true);
 				this.startAcceptingChanges();
 			});
 			return;
@@ -795,7 +811,7 @@ export class PlaygroundViewModel {
 			}).fail(() => {
 				this.hasServerError(true);
 			}).always(() => {
-				initCallback();
+				this.loaded(true);
 				this.startAcceptingChanges();
 			});
 			return;
@@ -806,7 +822,7 @@ export class PlaygroundViewModel {
 		// sample response; regenerate with scripts/update-playground-default.mjs.
 		const data = {code: defaultCode, tabs: defaultResponse.tabs as {errors: PHPStanError[]; title: string; xray?: XRayData}[]};
 		this.code(data.code);
-		initCallback();
+		this.loaded(true);
 		this.tabs(this.createTabs(data.tabs));
 		this.currentTabIndex(0);
 		this.legacyResult(null);
