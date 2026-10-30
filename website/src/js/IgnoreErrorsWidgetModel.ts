@@ -1,4 +1,4 @@
-import ko from '@tko/build.knockout';
+import ko from '@tko/build.reference';
 import $ from 'jquery';
 
 export class IgnoreErrorsWidgetModel {
@@ -34,19 +34,19 @@ export class IgnoreErrorsWidgetModel {
 			return this.message() + '---' + this.path();
 		}).extend({
 			notify: 'always',
-			rateLimit: { timeout: 500, method: 'notifyWhenChangesStop' },
+			rateLimit: {timeout: 500, method: 'notifyWhenChangesStop'},
 		}).subscribe(() => {
 			xhr = $.get('https://ymln7gojyg.execute-api.eu-west-1.amazonaws.com/ignoreErrors', {
 				message: this.message(),
 				path: this.path(),
-			}).done(((data) => {
+			}).done((data) => {
 				this.result(data.neon.trim());
 
-				const anyWindow = (window as any);
+				const anyWindow = window as any;
 				if (typeof anyWindow.fathom !== 'undefined') {
 					anyWindow.fathom.trackGoal('ESXYRAMV', 0);
 				}
-			})).fail((xhrr, textStatus) => {
+			}).fail((xhrr, textStatus) => {
 				if (textStatus === 'abort') {
 					return;
 				}

@@ -1,6 +1,6 @@
 import {PHPStanError} from './PHPStanError';
 import {XRayData} from './XRayData';
-import ko from '@tko/build.knockout';
+import ko from '@tko/build.reference';
 
 export class PlaygroundTabViewModel {
 

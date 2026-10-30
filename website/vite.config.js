@@ -31,6 +31,15 @@ export default defineConfig({
 		__ERRORS_IDENTIFIERS_JSON__: errorsIdentifiersJson,
 		__EXCLUDED_ERROR_IDENTIFIERS_JSON__: excludedErrorIdentifiersJson,
 	},
+	// TSX templates are rendered by TKO; matches the JSX settings in
+	// tsconfig.json, which Vite does not read because its root is tmp/.
+	oxc: {
+		jsx: {
+			runtime: 'classic',
+			pragma: 'ko.jsx.createElement',
+			pragmaFrag: 'ko.jsx.Fragment',
+		},
+	},
 	server: {
 		watch: {
 			// tmp/ is gitignored but it's the Vite root (Eleventy output).

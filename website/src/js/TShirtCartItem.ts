@@ -1,5 +1,5 @@
-import ko from '@tko/build.knockout';
-import { MerchSaleViewModel, TShirtSize, TShirtType } from './MerchSaleViewModel';
+import ko from '@tko/build.reference';
+import {MerchSaleViewModel, TShirtSize, TShirtType} from './MerchSaleViewModel';
 
 export class TShirtCartItem {
 	amount: ko.Observable<number | string>;

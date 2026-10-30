@@ -17,13 +17,13 @@ import {phpantomLsp, PHP_URI} from '../phpantom/lspClient';
 //    are confined to the identifier; Enter confirms, Esc reverts, and clicking
 //    away ends the session — so the editor never lingers in multi-cursor mode.
 
-interface LspPosition { line: number; character: number }
-interface LspRange { start: LspPosition; end: LspPosition }
-interface LspLocation { uri: string; range: LspRange }
-interface DocumentHighlight { range: LspRange }
-interface TextEdit { range: LspRange; newText: string }
-interface WorkspaceEdit { changes?: Record<string, TextEdit[]> }
-interface PositionParams { textDocument: {uri: string}; position: LspPosition }
+interface LspPosition {line: number; character: number}
+interface LspRange {start: LspPosition; end: LspPosition}
+interface LspLocation {uri: string; range: LspRange}
+interface DocumentHighlight {range: LspRange}
+interface TextEdit {range: LspRange; newText: string}
+interface WorkspaceEdit {changes?: Record<string, TextEdit[]>}
+interface PositionParams {textDocument: {uri: string}; position: LspPosition}
 
 function toLspPosition(state: EditorState, offset: number): LspPosition {
 	const line = state.doc.lineAt(offset);
@@ -73,7 +73,7 @@ const occurrenceField = StateField.define<DecorationSet>({
 		}
 		return deco;
 	},
-	provide: f => EditorView.decorations.from(f),
+	provide: (f) => EditorView.decorations.from(f),
 });
 
 const occurrencePlugin = ViewPlugin.fromClass(class {
@@ -119,10 +119,10 @@ const occurrencePlugin = ViewPlugin.fromClass(class {
 			return; // superseded, or a rename started meanwhile
 		}
 		const ranges = (highlights ?? [])
-			.map(h => ({from: fromLspPosition(view.state, h.range.start), to: fromLspPosition(view.state, h.range.end)}))
-			.filter(r => r.to > r.from)
+			.map((h) => ({from: fromLspPosition(view.state, h.range.start), to: fromLspPosition(view.state, h.range.end)}))
+			.filter((r) => r.to > r.from)
 			.sort((a, b) => a.from - b.from)
-			.map(r => occurrenceMark.range(r.from, r.to));
+			.map((r) => occurrenceMark.range(r.from, r.to));
 		view.dispatch({effects: setOccurrences.of(Decoration.set(ranges))});
 	}
 });
@@ -157,7 +157,7 @@ const renameField = StateField.define<RenameSession | null>({
 		if (tr.docChanged) {
 			return {
 				original: session.original,
-				ranges: session.ranges.map(r => ({
+				ranges: session.ranges.map((r) => ({
 					from: tr.changes.mapPos(r.from, -1),
 					to: tr.changes.mapPos(r.to, 1),
 				})),
@@ -192,7 +192,7 @@ const renameChangeGuard = EditorState.changeFilter.of((tr: Transaction) => {
 	}
 	let allowed = true;
 	tr.changes.iterChangedRanges((fromA, toA) => {
-		if (!session.ranges.some(r => fromA >= r.from && toA <= r.to)) {
+		if (!session.ranges.some((r) => fromA >= r.from && toA <= r.to)) {
 			allowed = false;
 		}
 	});
@@ -209,7 +209,7 @@ const renameSelectionGuard = EditorState.transactionFilter.of((tr: Transaction) 
 	if (tr.isUserEvent('select.pointer')) {
 		return [tr, {effects: stopRename.of(null)}];
 	}
-	const ranges = tr.selection.ranges.map(sel => {
+	const ranges = tr.selection.ranges.map((sel) => {
 		const range = rangeFor(session, sel.head);
 		const head = Math.min(Math.max(sel.head, range.from), range.to);
 		const anchor = Math.min(Math.max(sel.anchor, range.from), range.to);
@@ -224,7 +224,7 @@ function endRename(view: EditorView, revert: boolean): boolean {
 		return false; // not renaming — let the key do its normal thing
 	}
 	if (revert) {
-		const changes = session.ranges.map(r => ({from: r.from, to: r.to, insert: session.original}));
+		const changes = session.ranges.map((r) => ({from: r.from, to: r.to, insert: session.original}));
 		view.dispatch({
 			changes,
 			selection: EditorSelection.cursor(session.ranges[0].from + session.original.length),
@@ -241,8 +241,8 @@ function endRename(view: EditorView, revert: boolean): boolean {
 }
 
 const renameKeymap = Prec.highest(keymap.of([
-	{key: 'Enter', run: view => endRename(view, false)},
-	{key: 'Escape', run: view => endRename(view, true)},
+	{key: 'Enter', run: (view) => endRename(view, false)},
+	{key: 'Escape', run: (view) => endRename(view, true)},
 ]));
 
 /// Occurrence highlighting + the inline-rename machinery. Also enables multiple
@@ -274,7 +274,7 @@ async function startInlineRename(view: EditorView): Promise<void> {
 	if (!edits || edits.length === 0) {
 		return;
 	}
-	const ranges = edits.map(e => {
+	const ranges = edits.map((e) => {
 		let from = fromLspPosition(view.state, e.range.start);
 		const to = fromLspPosition(view.state, e.range.end);
 		// Keep the leading `$` of a variable; only the name is editable.
@@ -284,13 +284,13 @@ async function startInlineRename(view: EditorView): Promise<void> {
 		return {from, to};
 	}).sort((a, b) => a.from - b.from);
 
-	let main = ranges.findIndex(r => offset >= r.from && offset <= r.to);
+	let main = ranges.findIndex((r) => offset >= r.from && offset <= r.to);
 	if (main < 0) {
 		main = 0;
 	}
 	const original = view.state.doc.sliceString(ranges[main].from, ranges[main].to);
 	view.dispatch({
-		selection: EditorSelection.create(ranges.map(r => EditorSelection.range(r.from, r.to)), main),
+		selection: EditorSelection.create(ranges.map((r) => EditorSelection.range(r.from, r.to)), main),
 		effects: [startRename.of({ranges, original}), setOccurrences.of(Decoration.none)],
 	});
 	view.focus();

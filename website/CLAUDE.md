@@ -8,7 +8,7 @@ Static website for PHPStan - PHP Static Analysis Tool.
 - **Bundler:** Vite
 - **Styling:** TailwindCSS v3 with PostCSS and autoprefixer
 - **Templating:** Nunjucks (11ty layouts/includes), Markdown (content pages, blog posts)
-- **Client-side JS:** TKO (Technical Knockout 4, the Knockout.js successor), TypeScript (ES6 target), jQuery
+- **Client-side JS:** TKO (Technical Knockout 4, the Knockout.js successor) with TSX templates, TypeScript (ES6 target), jQuery
 - **Code editor:** CodeMirror 6 (playground)
 - **Syntax highlighting:** Prism.js (build-time via 11ty plugin)
 - **Search:** Algolia DocSearch
@@ -54,6 +54,16 @@ Built on GitHub Actions, deployed to AWS S3 (`web-phpstan.org` bucket) with Clou
 - `src/writing-php-code/` — PHP writing guide
 - `src/app.pcss` — Main stylesheet (Tailwind + custom CSS)
 - `visual-tests/` — Playwright visual regression tests and baseline screenshots
+
+## TSX Templates
+
+Interactive UI is written as TSX in `src/js/*.tsx` and rendered by TKO's `@tko/build.reference` (`ko.jsx`), never as `data-bind` strings in Nunjucks:
+
+- Nunjucks renders an empty placeholder element; `mount(id, template)` from `src/js/tsx.ts` replaces it with the rendered template and applies its bindings. Never apply bindings to the whole page: `@tko/build.reference` would turn `{{ … }}` in documentation text into bindings.
+- Bindings are `ko-*` attributes whose values are TypeScript expressions, e.g. `ko-text={vm.title}`, `ko-click={() => vm.save()}`. Pass observables, not their values; derived values need a `ko.pureComputed`. Use `when(condition, template)` for conditional parts and a `ko.pureComputed` that maps an array for lists.
+- `src/js/jsx.d.ts` types the allowed attributes and bindings, so `npm run check` (tsc) rejects wrong values; the `tko/known-bindings` ESLint rule rejects misspelled binding names. Custom binding handlers declare their binding by augmenting `KoCustomBindings`.
+- Server-rendered content that only needs to be shown or hidden (the sidebar, the mobile menu) stays in Nunjucks and gets typed bindings through `bindElement(id, bindings)`.
+- Images used in TSX must be imported so that Vite fingerprints them (see `src/js/Merch.tsx`).
 
 ## Eleventy Configuration
 

@@ -1,22 +1,22 @@
-import ko from '@tko/build.knockout';
+import ko from '@tko/build.reference';
 import $ from 'jquery';
 import countries from './data/countries.json';
-import { loadStripe, Stripe, StripeCardElement } from '@stripe/stripe-js';
-import { TShirtCartItem } from './TShirtCartItem';
+import {loadStripe, Stripe, StripeCardElement} from '@stripe/stripe-js';
+import {TShirtCartItem} from './TShirtCartItem';
 
 export interface TShirtType {
-	id: string,
-	htmlClass: TShirtColor,
-	name: string,
-	price: number,
-	style: TShirtStyle,
-	sizes: TShirtSize[],
+	id: string;
+	htmlClass: TShirtColor;
+	name: string;
+	price: number;
+	style: TShirtStyle;
+	sizes: TShirtSize[];
 }
 
 interface Country {
-	country_code: string,
-	country_name: string,
-	phone_code: string,
+	country_code: string;
+	country_name: string;
+	phone_code: string;
 }
 
 type PaymentMethod = 'cc' | 'sepa';
@@ -29,9 +29,9 @@ type TShirtView = 'front' | 'back';
 type TElephpantView = 'left' | 'right';
 
 interface TDistributor {
-	id: string,
-	name: string,
-	country: string,
+	id: string;
+	name: string;
+	country: string;
 }
 
 export class MerchSaleViewModel {
@@ -665,7 +665,7 @@ export class MerchSaleViewModel {
 				}
 
 				throw new Error('Undefined t-shirt');
-			}
+			};
 
 			const json = JSON.parse(jsonString);
 			const items = json.items;
@@ -769,17 +769,17 @@ export class MerchSaleViewModel {
 						fontSmoothing: 'antialiased',
 						fontSize: '16px',
 						'::placeholder': {
-							color: '#32325d'
-						}
+							color: '#32325d',
+						},
 					},
 					invalid: {
 						fontFamily: 'Arial, sans-serif',
 						color: '#fa755a',
-						iconColor: '#fa755a'
-					}
+						iconColor: '#fa755a',
+					},
 				};
 				const elements = stripe.elements({locale: 'en-GB'});
-				const card = elements.create('card', { style });
+				const card = elements.create('card', {style});
 				card.mount('#card-element');
 
 				/* card.on("change", function (event) {
@@ -914,7 +914,7 @@ export class MerchSaleViewModel {
 			stripe.confirmCardPayment(paymentIntentResult.clientSecret, {
 				payment_method: {
 					card,
-				}
+				},
 			}).then((confirmResult) => {
 				this.isConfirmingOrder(false);
 				if (confirmResult.error) {
@@ -981,7 +981,7 @@ export class MerchSaleViewModel {
 	markOrderAsSuccessful(): void {
 		this.successfulOrder(true);
 
-		const anyWindow = (window as any);
+		const anyWindow = window as any;
 		if (typeof anyWindow.fathom !== 'undefined') {
 			anyWindow.fathom.trackEvent('Merch 2.0 order', {
 				_value: this.totalPrice() * 100, // Value is in cents

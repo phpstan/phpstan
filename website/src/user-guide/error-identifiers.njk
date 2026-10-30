@@ -70,29 +70,10 @@ Each error identifier has its own detail page with information about why the err
 
 {% endmarkdown %}
 
-<!-- ko with: identifierSearch -->
 <div class="mt-6 mb-8">
 	<label for="identifier-search" class="text-sm font-medium text-gray-700 mb-2 block">Search error identifiers:</label>
-	<div class="relative max-w-md">
-		<input id="identifier-search" type="text" class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg text-sm font-mono focus:border-blue-500 focus:outline-none transition duration-150" placeholder="e.g. argument.type, return.missing, deadCode..." data-bind="textInput: query, event: { keydown: onKeyDown, focus: onFocus, blur: onBlur }" autocomplete="off" />
-		<!-- ko if: showDropdown -->
-		<div class="absolute z-30 left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
-			<!-- ko foreach: results -->
-			<a class="block px-4 py-2.5 font-mono text-sm no-underline transition duration-100" data-bind="attr: { href: link }, css: { 'bg-blue-500 text-white': $index() === $parent.selectedIndex(), 'text-gray-900 hover:bg-gray-50': $index() !== $parent.selectedIndex() }">
-				<!-- ko text: identifier --><!-- /ko -->
-			</a>
-			<!-- /ko -->
-		</div>
-		<!-- /ko -->
-	</div>
-	<div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm">
-		<span class="text-gray-400">Examples:</span>
-		<!-- ko foreach: randomExamples -->
-		<a class="text-blue-600 hover:text-blue-800" data-bind="attr: { href: link }, text: identifier"></a>
-		<!-- /ko -->
-	</div>
+	<div id="identifier-search-widget"></div>
 </div>
-<!-- /ko -->
 
 {% markdown %}
 

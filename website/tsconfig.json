@@ -13,7 +13,10 @@
 		"allowSyntheticDefaultImports": true,
 		"esModuleInterop": true,
 		"resolveJsonModule": true,
-		"skipLibCheck": true
+		"skipLibCheck": true,
+		"jsx": "react",
+		"jsxFactory": "ko.jsx.createElement",
+		"jsxFragmentFactory": "ko.jsx.Fragment"
 	},
 	"include": [
 		"src/js/**/*"

@@ -1,6 +1,6 @@
-import {Compartment, Facet, RangeSetBuilder, StateEffect, StateEffectType, StateField, Text} from "@codemirror/state";
-import {PHPStanError} from "../PHPStanError";
-import {Decoration, DecorationSet, EditorView} from "@codemirror/view";
+import {Compartment, Facet, RangeSetBuilder, StateEffect, StateEffectType, StateField, Text} from '@codemirror/state';
+import {PHPStanError} from '../PHPStanError';
+import {Decoration, DecorationSet, EditorView} from '@codemirror/view';
 
 export const errorsFacet = Facet.define<PHPStanError[], PHPStanError[]>({
 	combine: (values) => {
@@ -55,7 +55,6 @@ export const lineErrors = StateField.define<DecorationSet>({
 		return lineErrors.map(transaction.changes);
 	},
 	provide(field) {
-		return EditorView.decorations.from(field)
+		return EditorView.decorations.from(field);
 	},
 });
-

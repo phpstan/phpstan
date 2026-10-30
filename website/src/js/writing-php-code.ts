@@ -1,9 +1,6 @@
 import $ from 'jquery';
-import ko from '@tko/build.knockout';
-import {MainMenuViewModel} from './MainMenuViewModel';
+import {initMainMenu} from './MainMenu';
 
 $(() => {
-	ko.applyBindings({
-		mainMenu: new MainMenuViewModel(),
-	});
+	initMainMenu();
 });
