@@ -2,7 +2,8 @@ import $ from 'jquery';
 import ko from '@tko/build.reference';
 import {MerchSaleViewModel} from './MerchSaleViewModel';
 import {initMainMenu} from './MainMenu';
-import {mountMerch, mountMerchFatalError} from './Merch';
+import {mountMerchFatalError} from './Merch';
+import {mountComponent} from './tsx';
 
 $(async () => {
 	ko.options.deferUpdates = true;
@@ -12,7 +13,7 @@ $(async () => {
 	const urlParams = new URLSearchParams(window.location.search);
 
 	try {
-		mountMerch(new MerchSaleViewModel(urlParams.has('distributor') ? urlParams.get('distributor') : null));
+		mountComponent('merch', MerchSaleViewModel, urlParams.get('distributor'));
 	} catch (e) {
 		// eslint-disable-next-line no-console -- report the failure, the page shows a generic error
 		console.error(e);

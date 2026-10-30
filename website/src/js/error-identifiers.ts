@@ -1,8 +1,9 @@
 import $ from 'jquery';
 import {initMainMenu} from './MainMenu';
-import {initErrorIdentifierSearch} from './ErrorIdentifierSearch';
+import {ErrorIdentifierSearch} from './ErrorIdentifierSearch';
+import {mountComponent} from './tsx';
 
 $(() => {
 	initMainMenu();
-	initErrorIdentifierSearch();
+	mountComponent('identifier-search-widget', ErrorIdentifierSearch);
 });

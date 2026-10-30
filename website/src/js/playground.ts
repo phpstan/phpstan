@@ -1,7 +1,7 @@
 import $ from 'jquery';
-import {PlaygroundViewModel} from './PlaygroundViewModel';
+import {apiBaseUrl, PlaygroundViewModel} from './PlaygroundViewModel';
 import {initMainMenu} from './MainMenu';
-import {mountPlayground} from './Playground';
+import {mountComponent} from './tsx';
 import './codeMirror';
 import Honeybadger from '@honeybadger-io/js';
 
@@ -23,11 +23,10 @@ Honeybadger.beforeNotify(() => {
 
 $(() => {
 	initMainMenu();
-	const playgroundViewModel = new PlaygroundViewModel(window.location.pathname);
 
 	// Failed connections and timeouts are the visitor's network, 5xx are ours.
 	$(document).ajaxError((event, xhr, settings) => {
-		if (xhr.status < 500 || !settings.url?.startsWith(playgroundViewModel.apiBaseUrl)) {
+		if (xhr.status < 500 || !settings.url?.startsWith(apiBaseUrl)) {
 			return;
 		}
 
@@ -42,7 +41,6 @@ $(() => {
 			},
 		});
 	});
-	playgroundViewModel.init(() => {
-		mountPlayground(playgroundViewModel);
-	});
+
+	mountComponent('playground', PlaygroundViewModel, window.location.pathname);
 });
