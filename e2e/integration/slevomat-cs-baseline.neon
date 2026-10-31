@@ -1,6 +1,12 @@
 parameters:
 	ignoreErrors:
 		-
+			message: '#^Access to an undefined property PHPStan\\PhpDocParser\\Ast\\Type\\IdentifierTypeNode\|PHPStan\\PhpDocParser\\Ast\\Type\\NameNode\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 2
+			path: repo/SlevomatCodingStandard/Helpers/AnnotationTypeHelper.php
+
+		-
 			message: '#^Parameter \#2 \$needle of static method SlevomatCodingStandard\\Helpers\\StringHelper\:\:startsWith\(\) expects string, string\|false given\.$#'
 			identifier: argument.type
 			count: 1
@@ -17,6 +23,12 @@ parameters:
 			identifier: foreach.nonIterable
 			count: 1
 			path: repo/SlevomatCodingStandard/Sniffs/Commenting/DocCommentSpacingSniff.php
+
+		-
+			message: '#^Access to an undefined property PHPStan\\PhpDocParser\\Ast\\Type\\IdentifierTypeNode\|PHPStan\\PhpDocParser\\Ast\\Type\\NameNode\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/SlevomatCodingStandard/Sniffs/PHP/RequireExplicitAssertionSniff.php
 
 		-
 			message: '#^For loop initial assignment overwrites variable \$i\.$#'
