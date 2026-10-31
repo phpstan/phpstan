@@ -169,6 +169,42 @@ test('undo does not bring back the snippet URL when the level is no longer the s
 	await expect(page.getByText(SNIPPET_ERROR)).toBeVisible();
 });
 
+test('clicking share again while the share sheet is open does not share twice', async ({page}) => {
+	await mockApi(page);
+	await page.addInitScript(() => {
+		const w = window as unknown as {shareCalls: number; closeShareSheet: (() => void) | null};
+		w.shareCalls = 0;
+		w.closeShareSheet = null;
+		Object.defineProperty(navigator, 'share', {value: () => {
+			w.shareCalls++;
+			if (w.closeShareSheet !== null) {
+				return Promise.reject(new DOMException('An earlier share has not yet completed.', 'InvalidStateError'));
+			}
+			return new Promise<void>((resolve) => {
+				w.closeShareSheet = () => {
+					w.closeShareSheet = null;
+					resolve();
+				};
+			});
+		}});
+	});
+	const pageErrors: Error[] = [];
+	page.on('pageerror', (e) => pageErrors.push(e));
+	await open(page, '/try');
+
+	await typeAtEnd(page, '// a');
+	await expect(page.getByText('Analysis #1 at level 10')).toBeVisible();
+	await page.getByText('Share', {exact: true}).click();
+	await expect(page).toHaveURL(`/r/${SHARED_ID}`);
+	await page.getByText('Share', {exact: true}).click();
+	expect(await page.evaluate(() => (window as unknown as {shareCalls: number}).shareCalls)).toBe(1);
+
+	await page.evaluate(() => (window as unknown as {closeShareSheet: () => void}).closeShareSheet());
+	await page.getByText('Share', {exact: true}).click();
+	await expect.poll(() => page.evaluate(() => (window as unknown as {shareCalls: number}).shareCalls)).toBe(2);
+	expect(pageErrors).toEqual([]);
+});
+
 test('after sharing, undo goes back to the shared code and then to what came before', async ({page}) => {
 	const api = await mockApi(page);
 	await open(page, '/try');
