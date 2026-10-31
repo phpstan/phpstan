@@ -96,6 +96,7 @@ export class PlaygroundViewModel extends ko.Component {
 	isSharing: ko.Observable<boolean>;
 	xhr: JQuery.jqXHR | null;
 	shareXhr: JQuery.jqXHR | null;
+	isShareSheetOpen: boolean;
 	resultXhr: JQuery.jqXHR | null;
 
 	// AST X-Ray toggle (deliberately not remembered: not in localStorage nor in
@@ -187,6 +188,7 @@ export class PlaygroundViewModel extends ko.Component {
 		this.isSharing = ko.observable<boolean>(false);
 		this.xhr = null;
 		this.shareXhr = null;
+		this.isShareSheetOpen = false;
 		this.resultXhr = null;
 		this.xrayEnabled = ko.observable<boolean>(false);
 		this.xrayLoading = ko.observable<boolean>(false);
@@ -517,6 +519,11 @@ export class PlaygroundViewModel extends ko.Component {
 	copyId(): void {
 		// @ts-ignore TS2339
 		if (typeof window.navigator.share !== 'undefined') {
+			// navigator.share() rejects while an earlier share sheet is still open
+			if (this.isShareSheetOpen) {
+				return;
+			}
+			this.isShareSheetOpen = true;
 			// @ts-ignore TS2339
 			window.navigator.share({url: window.location.href}).catch((e: unknown) => {
 				// the user dismissed the share sheet
@@ -524,6 +531,8 @@ export class PlaygroundViewModel extends ko.Component {
 					return;
 				}
 				throw e;
+			}).finally(() => {
+				this.isShareSheetOpen = false;
 			});
 			return;
 		}
