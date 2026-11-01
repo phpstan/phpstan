@@ -405,6 +405,22 @@ async function analyseResult(request: HttpRequest): Promise<HttpResponse> {
 			body: JSON.stringify({error: 'Request body must be a JSON object'}),
 		});
 	}
+	if (typeof json.code !== 'string') {
+		return {
+			statusCode: 400,
+			body: JSON.stringify({error: 'Missing or invalid "code"'}),
+		};
+	}
+	if (typeof json.level === 'number') {
+		json.level = json.level.toString();
+	}
+	// Same levels the runner accepts.
+	if (typeof json.level !== 'string' || !/^(?:[0-9]|10|max)$/.test(json.level)) {
+		return {
+			statusCode: 400,
+			body: JSON.stringify({error: 'Missing or invalid "level"'}),
+		};
+	}
 
 	try {
 		const runStrictRules = typeof json.strictRules !== 'undefined' ? json.strictRules : false;
