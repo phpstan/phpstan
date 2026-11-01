@@ -1,2 +1,7 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			rawMessage: 'Method PHPStan\Rules\FunctionCallParametersCheck::check() invoked with 25 parameters, 26 required.'
+			identifier: arguments.count
+			count: 1
+			path: repo/src/Rules/CheckDispatchArgumentTypesCompatibleWithClassConstructorRule.php
