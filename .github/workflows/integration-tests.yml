@@ -73,7 +73,7 @@ jobs:
             script: |
               git clone https://github.com/rectorphp/rector-src.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout b17ebfedf5321326c430f2fe813e910a96f41c9a
+              git checkout 8323e93e55a40fb408fae7af4e5ba8b770fa8441
               cp ../rector-composer.lock composer.lock
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
@@ -99,7 +99,7 @@ jobs:
             script: |
               git clone https://github.com/symplify/phpstan-rules.git e2e/integration/repo
               cd e2e/integration/repo
-              git checkout 31b31b0160aac4c9d86815a1e19c00c2c88f302e
+              git checkout 8ffdf72c3e76f9b8fab8de971b2a9b8061ec339e
               cp ../symplify-composer.lock composer.lock
               composer install
               cp ../../../phpstan.phar vendor/phpstan/phpstan/phpstan.phar
@@ -289,7 +289,7 @@ jobs:
         include:
           - php-version: 8.4
             repo: rectorphp/rector-src
-            ref: b17ebfedf5321326c430f2fe813e910a96f41c9a
+            ref: 8323e93e55a40fb408fae7af4e5ba8b770fa8441
             setup: |
               cp ../rector-composer.lock composer.lock
               composer install
@@ -374,7 +374,7 @@ jobs:
             baseline-file: slevomat-cs-tests-baseline.neon
           - php-version: 8.4
             repo: symplify/phpstan-rules
-            ref: 31b31b0160aac4c9d86815a1e19c00c2c88f302e
+            ref: 8ffdf72c3e76f9b8fab8de971b2a9b8061ec339e
             setup: |
               cp ../symplify-composer.lock composer.lock
               composer install
