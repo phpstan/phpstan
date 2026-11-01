@@ -1,6 +1,6 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
-name: "Integration tests"
+name: "Integration tests" # zizmor: ignore[concurrency-limits] concurrency is set by the calling workflow
 
 on:
   workflow_call:
@@ -13,6 +13,9 @@ on:
         description: 'PHAR checksum from reproducible build (please rebase)'
         required: true
         type: string
+
+permissions:
+  contents: read
 
 jobs:
   check-phar-checksum:
@@ -31,11 +34,13 @@ jobs:
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
+          persist-credentials: false
       - name: "Check PHAR checksum"
         id: checksum-difference
+        env:
+          CHECKSUM: ${{ inputs.phar-checksum }}
         run: |
-          checksum="${{ inputs.phar-checksum }}"
-          if [[ $(head -n 1 .phar-checksum) != "$checksum" ]]; then
+          if [[ $(head -n 1 .phar-checksum) != "$CHECKSUM" ]]; then
             echo "result=different" >> "$GITHUB_OUTPUT"
           else
             echo "result=same" >> "$GITHUB_OUTPUT"
@@ -229,6 +234,7 @@ jobs:
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
+          persist-credentials: false
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962" # 2.40.0
@@ -256,7 +262,7 @@ jobs:
           path: turbo-ext
 
       - name: "Tests"
-        run: "${{ matrix.script }}"
+        run: "${{ matrix.script }}" # zizmor: ignore[template-injection] scripts are defined statically in the matrix
         env:
           COMPOSER_NO_SECURITY_BLOCKING: 1
 
@@ -751,6 +757,7 @@ jobs:
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
+          persist-credentials: false
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962" # 2.40.0
@@ -778,21 +785,22 @@ jobs:
           repository: "${{ matrix.repo }}"
           ref: "${{ matrix.ref }}"
           path: e2e/integration/repo
+          persist-credentials: false
 
       - name: "Setup"
         working-directory: e2e/integration/repo
-        run: "${{ matrix.setup }}"
+        run: "${{ matrix.setup }}" # zizmor: ignore[template-injection] scripts are defined statically in the matrix
         env:
           COMPOSER_NO_SECURITY_BLOCKING: 1
 
       - name: "PHPStan"
         working-directory: ${{ matrix.phpstan-cwd || 'e2e/integration/repo' }}
-        run: "${{ matrix.phpstan-command }}"
+        run: "${{ matrix.phpstan-command }}" # zizmor: ignore[template-injection] commands are defined statically in the matrix
 
       - name: "Generate baseline"
         if: ${{ failure() && matrix.baseline-file }}
         working-directory: ${{ matrix.phpstan-cwd || 'e2e/integration/repo' }}
-        run: "${{ matrix.phpstan-command }} -b ../${{ matrix.baseline-file }}"
+        run: "${{ matrix.phpstan-command }} -b ../${{ matrix.baseline-file }}" # zizmor: ignore[template-injection] commands are defined statically in the matrix
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: ${{ failure() && matrix.baseline-file }}
@@ -820,6 +828,7 @@ jobs:
         with:
           repository: "phpstan/phpstan"
           ref: ${{ inputs.ref }}
+          persist-credentials: false
 
       - name: Setup PHP
         uses: pmmp/setup-php-action@3c38c259834f945351a662392836d90eb08abff0 # 3.2.0
@@ -847,6 +856,7 @@ jobs:
           repository: "pmmp/PocketMine-MP"
           ref: 5.37.3
           path: e2e/integration/repo
+          persist-credentials: false
 
       - name: "Install dependencies"
         uses: "ramsey/composer-install@65e4f84970763564f46a70b8a54b90d033b3bdda" # v4.0.0

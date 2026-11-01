@@ -1,11 +1,14 @@
-name: "Claude React On Review"
+name: "Claude React On Review" # zizmor: ignore[concurrency-limits] each run saves the context of a different review
 
 on:
   pull_request_review:
     types: [submitted]
 
+permissions: {}
+
 jobs:
   save-context:
+    name: "Save review context"
     runs-on: ubuntu-latest
     if: >
       github.event.pull_request.user.login == 'phpstan-bot'
@@ -17,9 +20,12 @@ jobs:
           egress-policy: audit
 
       - name: Save review context
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          REVIEW_ID: ${{ github.event.review.id }}
         run: |
-          echo "${{ github.event.pull_request.number }}" > pr_number.txt
-          echo "${{ github.event.review.id }}" > review_id.txt
+          echo "$PR_NUMBER" > pr_number.txt
+          echo "$REVIEW_ID" > review_id.txt
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:

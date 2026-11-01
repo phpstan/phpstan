@@ -8,6 +8,10 @@ on:
       - '.github/workflows/algolia-crawler-config.json'
       - '.github/workflows/algolia-crawler-config.yml'
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
@@ -23,17 +27,28 @@ jobs:
 
       - name: "Checkout"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: "Update Crawler Config"
+        env:
+          CRAWLER_API_KEY: ${{ secrets.ALGOLIA_CRAWLER_CRAWLER_API_KEY }}
+          CRAWLER_ID: ${{ secrets.ALGOLIA_CRAWLER_ID }}
+          CRAWLER_USER_ID: ${{ secrets.ALGOLIA_CRAWLER_USER_ID }}
+          API_KEY: ${{ secrets.ALGOLIA_CRAWLER_API_KEY }}
         run: |
-          jq --arg key "${{ secrets.ALGOLIA_CRAWLER_CRAWLER_API_KEY }}" '.apiKey = $key' .github/workflows/algolia-crawler-config.json | \
-          curl -X PATCH "https://crawler.algolia.com/api/1/crawlers/${{ secrets.ALGOLIA_CRAWLER_ID }}/config" \
+          jq --arg key "$CRAWLER_API_KEY" '.apiKey = $key' .github/workflows/algolia-crawler-config.json | \
+          curl -X PATCH "https://crawler.algolia.com/api/1/crawlers/${CRAWLER_ID}/config" \
             -H "Content-Type: application/json" \
-            -u "${{ secrets.ALGOLIA_CRAWLER_USER_ID }}:${{ secrets.ALGOLIA_CRAWLER_API_KEY }}" \
+            -u "${CRAWLER_USER_ID}:${API_KEY}" \
             -d @-
 
       - name: "Trigger Crawler Reindex"
+        env:
+          CRAWLER_ID: ${{ secrets.ALGOLIA_CRAWLER_ID }}
+          CRAWLER_USER_ID: ${{ secrets.ALGOLIA_CRAWLER_USER_ID }}
+          API_KEY: ${{ secrets.ALGOLIA_CRAWLER_API_KEY }}
         run: |
-          curl -X POST "https://crawler.algolia.com/api/1/crawlers/${{ secrets.ALGOLIA_CRAWLER_ID }}/reindex" \
+          curl -X POST "https://crawler.algolia.com/api/1/crawlers/${CRAWLER_ID}/reindex" \
             -H "Content-Type: application/json" \
-            -u "${{ secrets.ALGOLIA_CRAWLER_USER_ID }}:${{ secrets.ALGOLIA_CRAWLER_API_KEY }}"
+            -u "${CRAWLER_USER_ID}:${API_KEY}"

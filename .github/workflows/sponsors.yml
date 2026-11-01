@@ -13,9 +13,19 @@ on:
       - '.github/workflows/sponsors.yml'
       - 'BACKERS.md'
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   sponsors:
+    name: "Generate Sponsors"
     runs-on: ubuntu-latest
+    env:
+      SPONSOR_TEMPLATE: "<li><a href=\"https://github.com/{{{ login }}}\">{{{ name }}} ({{{ login }}})</a></li>\n"
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
@@ -36,16 +46,8 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: ${{ github.head_ref }}
           token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
-
-      - name: "Construct template"
-        id: template
-        run: |
-          echo "text<<MESSAGE" >> "$GITHUB_OUTPUT"
-          echo '<li><a href="https://github.com/{{{ login }}}">{{{ name }}} ({{{ login }}})</a></li>' >> "$GITHUB_OUTPUT"
-          echo "" >> "$GITHUB_OUTPUT"
-          echo 'MESSAGE' >> "$GITHUB_OUTPUT"
+          persist-credentials: true # zizmor: ignore[artipacked] git-auto-commit-action pushes with these credentials
 
       - name: Generate Sponsors
         uses: ondrejmirtes/github-sponsors-readme-action@9fd59795af9477235df8f234f962ef3dd854592f # v1.2.2.3
@@ -55,7 +57,7 @@ jobs:
           minimum: 500
           maximum: 2999
           marker: 'indi'
-          template: ${{ steps.template.outputs.text }}
+          template: ${{ env.SPONSOR_TEMPLATE }}
 
       - name: Generate Sponsors
         uses: ondrejmirtes/github-sponsors-readme-action@9fd59795af9477235df8f234f962ef3dd854592f # v1.2.2.3
@@ -66,7 +68,7 @@ jobs:
           maximum: 2999
           organization: true
           marker: 'indi-org'
-          template: ${{ steps.template.outputs.text }}
+          template: ${{ env.SPONSOR_TEMPLATE }}
 
       - name: Generate Sponsors
         uses: ondrejmirtes/github-sponsors-readme-action@9fd59795af9477235df8f234f962ef3dd854592f # v1.2.2.3
@@ -76,7 +78,7 @@ jobs:
           minimum: 3000
           maximum: 9999
           marker: 'small'
-          template: ${{ steps.template.outputs.text }}
+          template: ${{ env.SPONSOR_TEMPLATE }}
 
       - name: Generate Sponsors
         uses: ondrejmirtes/github-sponsors-readme-action@9fd59795af9477235df8f234f962ef3dd854592f # v1.2.2.3
@@ -87,7 +89,7 @@ jobs:
           maximum: 9999
           organization: true
           marker: 'small-org'
-          template: ${{ steps.template.outputs.text }}
+          template: ${{ env.SPONSOR_TEMPLATE }}
 
       - name: Generate Sponsors
         uses: ondrejmirtes/github-sponsors-readme-action@9fd59795af9477235df8f234f962ef3dd854592f # v1.2.2.3
@@ -97,7 +99,7 @@ jobs:
           minimum: 10000
           maximum: 32999
           marker: 'bronze'
-          template: ${{ steps.template.outputs.text }}
+          template: ${{ env.SPONSOR_TEMPLATE }}
 
       - name: Generate Sponsors
         uses: ondrejmirtes/github-sponsors-readme-action@9fd59795af9477235df8f234f962ef3dd854592f # v1.2.2.3
@@ -108,7 +110,7 @@ jobs:
           maximum: 32999
           organization: true
           marker: 'bronze-org'
-          template: ${{ steps.template.outputs.text }}
+          template: ${{ env.SPONSOR_TEMPLATE }}
 
       - name: Generate Sponsors
         uses: ondrejmirtes/github-sponsors-readme-action@9fd59795af9477235df8f234f962ef3dd854592f # v1.2.2.3
@@ -118,7 +120,7 @@ jobs:
           minimum: 33000
           maximum: 49999
           marker: 'silver'
-          template: ${{ steps.template.outputs.text }}
+          template: ${{ env.SPONSOR_TEMPLATE }}
 
       - name: Generate Sponsors
         uses: ondrejmirtes/github-sponsors-readme-action@9fd59795af9477235df8f234f962ef3dd854592f # v1.2.2.3
@@ -129,7 +131,7 @@ jobs:
           maximum: 49999
           organization: true
           marker: 'silver-org'
-          template: ${{ steps.template.outputs.text }}
+          template: ${{ env.SPONSOR_TEMPLATE }}
 
       - name: Generate Sponsors
         uses: ondrejmirtes/github-sponsors-readme-action@9fd59795af9477235df8f234f962ef3dd854592f # v1.2.2.3
@@ -138,7 +140,7 @@ jobs:
           file: 'BACKERS.md'
           minimum: 50000
           marker: 'gold'
-          template: ${{ steps.template.outputs.text }}
+          template: ${{ env.SPONSOR_TEMPLATE }}
 
       - name: Generate Sponsors
         uses: ondrejmirtes/github-sponsors-readme-action@9fd59795af9477235df8f234f962ef3dd854592f # v1.2.2.3
@@ -148,7 +150,7 @@ jobs:
           minimum: 50000
           organization: true
           marker: 'gold-org'
-          template: ${{ steps.template.outputs.text }}
+          template: ${{ env.SPONSOR_TEMPLATE }}
 
       - name: "Commit changes"
         uses: "stefanzweifel/git-auto-commit-action@d0b01107b5db882071f96de5dd4b54961ea93f4c" # v7.2.1

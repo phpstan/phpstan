@@ -1,4 +1,4 @@
-name: "Claude Update Error Docs"
+name: "Claude Update Error Docs" # zizmor: ignore[concurrency-limits] each run dispatches docs update for a specific commit
 
 on:
   push:
@@ -8,12 +8,12 @@ on:
       - '.github/workflows/claude-update-error-docs-identifiers-change.yml'
       - 'website/src/errorsIdentifiers.json'
 
+permissions: {}
+
 jobs:
   fix:
+    name: "Trigger Claude Update Error Docs"
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      actions: write
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
@@ -23,4 +23,5 @@ jobs:
       - name: Trigger Claude Update Error Docs
         env:
           GH_TOKEN: ${{ secrets.PHPSTAN_BOT_TOKEN }}
-        run: gh workflow run claude-update-error-docs.yml -f sha=${{ github.sha }} --repo phpstan-bot/phpstan
+          SHA: ${{ github.sha }}
+        run: gh workflow run claude-update-error-docs.yml -f sha="$SHA" --repo phpstan-bot/phpstan

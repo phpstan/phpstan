@@ -17,6 +17,13 @@ on:
       - 'website/**'
       - '!website/infra/**'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
 jobs:
   typescript-check:
     name: "TypeScript check"
@@ -30,6 +37,8 @@ jobs:
 
       - name: "Checkout"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: "Install Node"
         id: setup-node
@@ -67,6 +76,8 @@ jobs:
 
       - name: "Checkout"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: "Install Node"
         id: setup-node
@@ -172,6 +183,8 @@ jobs:
 
       - name: "Checkout"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: "Install Node"
         id: setup-node
@@ -267,6 +280,8 @@ jobs:
 
       - name: "Checkout"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: "Install Node"
         id: setup-node
@@ -332,9 +347,9 @@ jobs:
       - functional-tests
     if: "github.ref == 'refs/heads/2.3.x'"
     runs-on: "ubuntu-latest"
-    concurrency: website
+    concurrency: website # zizmor: ignore[concurrency-limits] deploys must not be cancelled midway
     permissions:
-      id-token: write
+      id-token: write # to assume the AWS deploy role via OIDC
       contents: read
     steps:
       - name: Harden the runner (Audit all outbound calls)
@@ -355,8 +370,10 @@ jobs:
           aws-region: us-east-1
 
       - name: "Sync with S3"
+        env:
+          WEBSITE_BUCKET: ${{ vars.WEBSITE_BUCKET }}
         run: |
-          aws s3 sync ./dist "s3://${{ vars.WEBSITE_BUCKET }}" \
+          aws s3 sync ./dist "s3://${WEBSITE_BUCKET}" \
             --exclude '.git*/*' \
             --exclude '*.map' \
             --exclude '*.wasm' \
@@ -375,6 +392,8 @@ jobs:
           key: "wasm-br-${{ hashFiles('dist/**/*.wasm') }}"
 
       - name: "Upload WebAssembly with Brotli encoding"
+        env:
+          WEBSITE_BUCKET: ${{ vars.WEBSITE_BUCKET }}
         run: |
           find dist -name '*.wasm' -print0 | while IFS= read -r -d '' f; do
             key="${f#dist/}"
@@ -384,7 +403,7 @@ jobs:
               mkdir -p "$(dirname "$br")"
               brotli -f -q 11 -o "$br" "$f"
             fi
-            aws s3 cp "$br" "s3://${{ vars.WEBSITE_BUCKET }}/$key" \
+            aws s3 cp "$br" "s3://${WEBSITE_BUCKET}/$key" \
               --content-type application/wasm \
               --content-encoding br \
               --cache-control 'public, max-age=31536000, immutable'
@@ -392,16 +411,22 @@ jobs:
           done
 
       - name: "Invalidate CloudFront"
+        env:
+          WEBSITE_DISTRIBUTION_ID: ${{ vars.WEBSITE_DISTRIBUTION_ID }}
         run: |
           aws cloudfront create-invalidation \
-            --distribution-id "${{ vars.WEBSITE_DISTRIBUTION_ID }}" \
+            --distribution-id "${WEBSITE_DISTRIBUTION_ID}" \
             --paths '/*'
 
       - name: "Trigger Algolia Crawler"
+        env:
+          CRAWLER_ID: ${{ secrets.ALGOLIA_CRAWLER_ID }}
+          CRAWLER_USER_ID: ${{ secrets.ALGOLIA_CRAWLER_USER_ID }}
+          API_KEY: ${{ secrets.ALGOLIA_CRAWLER_API_KEY }}
         run: |
-          curl -X POST "https://crawler.algolia.com/api/1/crawlers/${{ secrets.ALGOLIA_CRAWLER_ID }}/reindex" \
+          curl -X POST "https://crawler.algolia.com/api/1/crawlers/${CRAWLER_ID}/reindex" \
             -H "Content-Type: application/json" \
-            -u "${{ secrets.ALGOLIA_CRAWLER_USER_ID }}:${{ secrets.ALGOLIA_CRAWLER_API_KEY }}"
+            -u "${CRAWLER_USER_ID}:${API_KEY}"
 
       - uses: peter-evans/repository-dispatch@28959ce8df70de7be546dd1250a005dd32156697 # v4.0.1
         with:

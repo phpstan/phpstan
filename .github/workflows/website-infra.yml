@@ -16,8 +16,14 @@ on:
       - 'website/infra/**'
 
 # Deploys must be serialized — CloudFront / CFN do not tolerate concurrent
-# updates of the same stack.
-concurrency: website-infra
+# updates of the same stack. Pull request runs only test, so a new push to
+# the pull request cancels the previous run.
+concurrency:
+  group: ${{ github.event_name == 'pull_request' && format('website-infra-pr-{0}', github.event.pull_request.number) || 'website-infra' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
 
 jobs:
   test:
@@ -34,6 +40,8 @@ jobs:
 
       - name: "Checkout"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: "Install Node"
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
@@ -64,7 +72,7 @@ jobs:
     needs: test
     if: "github.event_name == 'push' && github.ref == 'refs/heads/2.3.x'"
     permissions:
-      id-token: write
+      id-token: write # to assume the AWS deploy role via OIDC
       contents: read
 
     steps:
@@ -75,6 +83,8 @@ jobs:
 
       - name: "Checkout"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: "Install Node"
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
