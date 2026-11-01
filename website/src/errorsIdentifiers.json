@@ -1300,7 +1300,7 @@
         },
         "PHPStan\\Rules\\Functions\\ImplodeParameterCastableToStringRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/ParameterCastableToStringCheck.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/ParameterCastableToStringCheck.php#L65"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
@@ -1310,12 +1310,12 @@
         },
         "PHPStan\\Rules\\Functions\\ParameterCastableToNumberRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/ParameterCastableToStringCheck.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/ParameterCastableToStringCheck.php#L65"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParameterCastableToStringRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/ParameterCastableToStringCheck.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/ParameterCastableToStringCheck.php#L65"
             ]
         },
         "PHPStan\\Rules\\Functions\\PrintfParameterTypeRule": {
@@ -1330,7 +1330,7 @@
         },
         "PHPStan\\Rules\\Functions\\SortParameterCastableToStringRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/ParameterCastableToStringCheck.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/ParameterCastableToStringCheck.php#L65"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
