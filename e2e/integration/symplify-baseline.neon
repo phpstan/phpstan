@@ -1,2 +1,2443 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Collector\\ClassConstantDeclarationCollector\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Collector/ClassConstantDeclarationCollector.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Collector\\ClassConstantDeclarationCollector\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Collector/ClassConstantDeclarationCollector.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Collector\\ClassTargetServiceAliasCollector\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Collector/ClassTargetServiceAliasCollector.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Collector\\ClassTargetServiceAliasCollector\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Collector/ClassTargetServiceAliasCollector.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Collector\\NewWithFollowingSettersCollector\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Collector/NewWithFollowingSettersCollector.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Collector\\NewWithFollowingSettersCollector\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Collector/NewWithFollowingSettersCollector.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Collector\\ServiceStringReferenceCollector\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Collector/ServiceStringReferenceCollector.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Collector\\ServiceStringReferenceCollector\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Collector/ServiceStringReferenceCollector.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Collector\\StaticClassConstFetchCollector\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Collector/StaticClassConstFetchCollector.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Collector\\StaticClassConstFetchCollector\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Collector/StaticClassConstFetchCollector.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\ReturnTypeExtension\\Laravel\\LaravelContainerMakeTypeExtension\:\:getClass$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/ReturnTypeExtension/Laravel/LaravelContainerMakeTypeExtension.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\ReturnTypeExtension\\Laravel\\LaravelContainerMakeTypeExtension\:\:getTypeFromMethodCall$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/ReturnTypeExtension/Laravel/LaravelContainerMakeTypeExtension.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\ReturnTypeExtension\\Laravel\\LaravelContainerMakeTypeExtension\:\:isMethodSupported$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/ReturnTypeExtension/Laravel/LaravelContainerMakeTypeExtension.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\ReturnTypeExtension\\NativeFunctionReturnTypeExtension\:\:getTypeFromFunctionCall$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/ReturnTypeExtension/NativeFunctionReturnTypeExtension.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\ReturnTypeExtension\\NativeFunctionReturnTypeExtension\:\:isFunctionSupported$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/ReturnTypeExtension/NativeFunctionReturnTypeExtension.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\ReturnTypeExtension\\Symfony\\ContainerGetReturnTypeExtension\:\:getClass$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/ReturnTypeExtension/Symfony/ContainerGetReturnTypeExtension.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\ReturnTypeExtension\\Symfony\\ContainerGetReturnTypeExtension\:\:getTypeFromMethodCall$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/ReturnTypeExtension/Symfony/ContainerGetReturnTypeExtension.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\ReturnTypeExtension\\Symfony\\ContainerGetReturnTypeExtension\:\:isMethodSupported$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/ReturnTypeExtension/Symfony/ContainerGetReturnTypeExtension.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\ReturnTypeExtension\\Symfony\\SplFileInfoTolerantReturnTypeExtension\:\:getClass$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/ReturnTypeExtension/Symfony/SplFileInfoTolerantReturnTypeExtension.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\ReturnTypeExtension\\Symfony\\SplFileInfoTolerantReturnTypeExtension\:\:getTypeFromMethodCall$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/ReturnTypeExtension/Symfony/SplFileInfoTolerantReturnTypeExtension.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\ReturnTypeExtension\\Symfony\\SplFileInfoTolerantReturnTypeExtension\:\:isMethodSupported$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/ReturnTypeExtension/Symfony/SplFileInfoTolerantReturnTypeExtension.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\CheckRequiredInterfaceInContractNamespaceRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/CheckRequiredInterfaceInContractNamespaceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\CheckRequiredInterfaceInContractNamespaceRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/CheckRequiredInterfaceInContractNamespaceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\ClassNameRespectsParentSuffixRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/ClassNameRespectsParentSuffixRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\ClassNameRespectsParentSuffixRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/ClassNameRespectsParentSuffixRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Complexity\\ForbiddenArrayMethodCallRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Complexity/ForbiddenArrayMethodCallRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Complexity\\ForbiddenArrayMethodCallRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Complexity/ForbiddenArrayMethodCallRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Complexity\\ForbiddenNewArgumentRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Complexity/ForbiddenNewArgumentRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Complexity\\ForbiddenNewArgumentRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Complexity/ForbiddenNewArgumentRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Complexity\\ForeachCeptionRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Complexity/ForeachCeptionRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Complexity\\ForeachCeptionRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Complexity/ForeachCeptionRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Complexity\\NoArrayMapWithArrayCallableRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Complexity/NoArrayMapWithArrayCallableRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Complexity\\NoArrayMapWithArrayCallableRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Complexity/NoArrayMapWithArrayCallableRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Complexity\\NoConstructorOverrideRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Complexity/NoConstructorOverrideRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Complexity\\NoConstructorOverrideRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Complexity/NoConstructorOverrideRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Complexity\\NoJustPropertyAssignRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Complexity/NoJustPropertyAssignRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Complexity\\NoJustPropertyAssignRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Complexity/NoJustPropertyAssignRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Complexity\\NoPropertyToPropertyAssignRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Complexity/NoPropertyToPropertyAssignRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Complexity\\NoPropertyToPropertyAssignRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Complexity/NoPropertyToPropertyAssignRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Convention\\ParamNameToTypeConventionRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Convention/ParamNameToTypeConventionRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Convention\\ParamNameToTypeConventionRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Convention/ParamNameToTypeConventionRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\CollectionGetterMustReturnCollectionRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/CollectionGetterMustReturnCollectionRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\CollectionGetterMustReturnCollectionRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/CollectionGetterMustReturnCollectionRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\CollectionParamMustHaveGenericDocblockRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/CollectionParamMustHaveGenericDocblockRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\CollectionParamMustHaveGenericDocblockRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/CollectionParamMustHaveGenericDocblockRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\CollectionPropertyMustHaveGenericDocblockRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/CollectionPropertyMustHaveGenericDocblockRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\CollectionPropertyMustHaveGenericDocblockRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/CollectionPropertyMustHaveGenericDocblockRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\CollectionReturnMustHaveGenericDocblockRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/CollectionReturnMustHaveGenericDocblockRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\CollectionReturnMustHaveGenericDocblockRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/CollectionReturnMustHaveGenericDocblockRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\NoDoctrineListenerWithoutContractRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/NoDoctrineListenerWithoutContractRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\NoDoctrineListenerWithoutContractRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/NoDoctrineListenerWithoutContractRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\NoDocumentMockingRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/NoDocumentMockingRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\NoDocumentMockingRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/NoDocumentMockingRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\NoEntityMockingRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/NoEntityMockingRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\NoEntityMockingRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/NoEntityMockingRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\NoGetRepositoryOnServiceRepositoryEntityRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/NoGetRepositoryOnServiceRepositoryEntityRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\NoGetRepositoryOnServiceRepositoryEntityRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/NoGetRepositoryOnServiceRepositoryEntityRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\NoGetRepositoryOutsideServiceRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/NoGetRepositoryOutsideServiceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\NoGetRepositoryOutsideServiceRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/NoGetRepositoryOutsideServiceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\NoParentRepositoryRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/NoParentRepositoryRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\NoParentRepositoryRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/NoParentRepositoryRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\NoReadonlyEntityClassRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/NoReadonlyEntityClassRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\NoReadonlyEntityClassRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/NoReadonlyEntityClassRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\NoStringTargetEntityRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/NoStringTargetEntityRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\NoStringTargetEntityRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/NoStringTargetEntityRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\RepositoryMethodMustHaveReturnTypeRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/RepositoryMethodMustHaveReturnTypeRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\RepositoryMethodMustHaveReturnTypeRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/RepositoryMethodMustHaveReturnTypeRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\RequireQueryBuilderOnRepositoryRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/RequireQueryBuilderOnRepositoryRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\RequireQueryBuilderOnRepositoryRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/RequireQueryBuilderOnRepositoryRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\RequireServiceRepositoryParentRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/RequireServiceRepositoryParentRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Doctrine\\RequireServiceRepositoryParentRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Doctrine/RequireServiceRepositoryParentRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Domain\\RequireAttributeNamespaceRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Domain/RequireAttributeNamespaceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Domain\\RequireAttributeNamespaceRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Domain/RequireAttributeNamespaceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Domain\\RequireExceptionNamespaceRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Domain/RequireExceptionNamespaceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Domain\\RequireExceptionNamespaceRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Domain/RequireExceptionNamespaceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Enum\\RequireUniqueEnumConstantRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Enum/RequireUniqueEnumConstantRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Enum\\RequireUniqueEnumConstantRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Enum/RequireUniqueEnumConstantRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Explicit\\ExplicitClassPrefixSuffixRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Explicit/ExplicitClassPrefixSuffixRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Explicit\\ExplicitClassPrefixSuffixRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Explicit/ExplicitClassPrefixSuffixRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Explicit\\NoMissingVariableDimFetchRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Explicit/NoMissingVariableDimFetchRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Explicit\\NoMissingVariableDimFetchRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Explicit/NoMissingVariableDimFetchRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\ForbiddenExtendOfNonAbstractClassRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/ForbiddenExtendOfNonAbstractClassRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\ForbiddenExtendOfNonAbstractClassRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/ForbiddenExtendOfNonAbstractClassRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\ForbiddenFuncCallRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/ForbiddenFuncCallRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\ForbiddenFuncCallRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/ForbiddenFuncCallRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\ForbiddenMultipleClassLikeInOneFileRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/ForbiddenMultipleClassLikeInOneFileRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\ForbiddenMultipleClassLikeInOneFileRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/ForbiddenMultipleClassLikeInOneFileRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\ForbiddenNodeRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/ForbiddenNodeRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\ForbiddenNodeRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/ForbiddenNodeRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\ForbiddenStaticClassConstFetchRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/ForbiddenStaticClassConstFetchRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\ForbiddenStaticClassConstFetchRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/ForbiddenStaticClassConstFetchRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\ForbiddenSwitchRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/ForbiddenSwitchRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\ForbiddenSwitchRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/ForbiddenSwitchRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\ForbiddenTraitRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/ForbiddenTraitRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\ForbiddenTraitRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/ForbiddenTraitRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NewOverSettersRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NewOverSettersRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NewOverSettersRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NewOverSettersRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NoDynamicNameRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NoDynamicNameRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NoDynamicNameRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NoDynamicNameRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NoEntityOutsideEntityNamespaceRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NoEntityOutsideEntityNamespaceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NoEntityOutsideEntityNamespaceRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NoEntityOutsideEntityNamespaceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NoGlobalConstRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NoGlobalConstRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NoGlobalConstRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NoGlobalConstRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NoMissnamedDocTagRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NoMissnamedDocTagRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NoMissnamedDocTagRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NoMissnamedDocTagRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NoReferenceRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NoReferenceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NoReferenceRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NoReferenceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NoReturnSetterMethodRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NoReturnSetterMethodRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NoReturnSetterMethodRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NoReturnSetterMethodRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NoValueObjectInServiceConstructorRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NoValueObjectInServiceConstructorRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NoValueObjectInServiceConstructorRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NoValueObjectInServiceConstructorRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NullablePropertyGetterMustReturnNullableRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NullablePropertyGetterMustReturnNullableRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\NullablePropertyGetterMustReturnNullableRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/NullablePropertyGetterMustReturnNullableRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\AvoidAnyExpectsRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/AvoidAnyExpectsRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\AvoidAnyExpectsRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/AvoidAnyExpectsRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\MockedMethodReturnMustMatchNativeTypeRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/MockedMethodReturnMustMatchNativeTypeRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\MockedMethodReturnMustMatchNativeTypeRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/MockedMethodReturnMustMatchNativeTypeRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\NoAssertFuncCallInTestsRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/NoAssertFuncCallInTestsRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\NoAssertFuncCallInTestsRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/NoAssertFuncCallInTestsRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\NoDoubleConsecutiveTestMockRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/NoDoubleConsecutiveTestMockRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\NoDoubleConsecutiveTestMockRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/NoDoubleConsecutiveTestMockRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\NoMockObjectAndRealObjectPropertyRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/NoMockObjectAndRealObjectPropertyRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\NoMockObjectAndRealObjectPropertyRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/NoMockObjectAndRealObjectPropertyRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\NoTestMocksRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/NoTestMocksRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\NoTestMocksRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/NoTestMocksRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\NoWithOnStubRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/NoWithOnStubRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\NoWithOnStubRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/NoWithOnStubRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\PublicStaticDataProviderRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/PublicStaticDataProviderRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\PublicStaticDataProviderRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/PublicStaticDataProviderRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\RequireAtLeastOneRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/RequireAtLeastOneRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PHPUnit\\RequireAtLeastOneRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PHPUnit/RequireAtLeastOneRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PreferredClassRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PreferredClassRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PreferredClassRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PreferredClassRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PreventParentMethodVisibilityOverrideRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PreventParentMethodVisibilityOverrideRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\PreventParentMethodVisibilityOverrideRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/PreventParentMethodVisibilityOverrideRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\AvoidFeatureSetAttributeInRectorRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/AvoidFeatureSetAttributeInRectorRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\AvoidFeatureSetAttributeInRectorRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/AvoidFeatureSetAttributeInRectorRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\NarrowReturnToUnionParamRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/NarrowReturnToUnionParamRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\NarrowReturnToUnionParamRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/NarrowReturnToUnionParamRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\NoClassReflectionStaticReflectionRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/NoClassReflectionStaticReflectionRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\NoClassReflectionStaticReflectionRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/NoClassReflectionStaticReflectionRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\NoInstanceOfStaticReflectionRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/NoInstanceOfStaticReflectionRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\NoInstanceOfStaticReflectionRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/NoInstanceOfStaticReflectionRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\NoIntegerRefactorReturnRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/NoIntegerRefactorReturnRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\NoIntegerRefactorReturnRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/NoIntegerRefactorReturnRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\NoLeadingBackslashInNameRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/NoLeadingBackslashInNameRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\NoLeadingBackslashInNameRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/NoLeadingBackslashInNameRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\NoOnlyNullReturnInRefactorRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/NoOnlyNullReturnInRefactorRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\NoOnlyNullReturnInRefactorRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/NoOnlyNullReturnInRefactorRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\NoPropertyNodeAssignRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/NoPropertyNodeAssignRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\NoPropertyNodeAssignRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/NoPropertyNodeAssignRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\NoScopeFetchBeforeCheapGuardRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/NoScopeFetchBeforeCheapGuardRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\NoScopeFetchBeforeCheapGuardRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/NoScopeFetchBeforeCheapGuardRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\PhpUpgradeDowngradeRegisteredInSetRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/PhpUpgradeDowngradeRegisteredInSetRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\PhpUpgradeDowngradeRegisteredInSetRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/PhpUpgradeDowngradeRegisteredInSetRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\PhpUpgradeImplementsMinPhpVersionInterfaceRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/PhpUpgradeImplementsMinPhpVersionInterfaceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\PhpUpgradeImplementsMinPhpVersionInterfaceRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/PhpUpgradeImplementsMinPhpVersionInterfaceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\PreferDirectIsNameRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/PreferDirectIsNameRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\PreferDirectIsNameRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/PreferDirectIsNameRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\PreferGenericTemplateOnSameUnionTypeRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/PreferGenericTemplateOnSameUnionTypeRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\PreferGenericTemplateOnSameUnionTypeRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/PreferGenericTemplateOnSameUnionTypeRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\RectorCheaperGuardsFirstRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/RectorCheaperGuardsFirstRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Rector\\RectorCheaperGuardsFirstRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Rector/RectorCheaperGuardsFirstRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\RequireArrayShapeReturnRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/RequireArrayShapeReturnRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\RequireArrayShapeReturnRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/RequireArrayShapeReturnRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\RequireAttributeNameRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/RequireAttributeNameRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\RequireAttributeNameRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/RequireAttributeNameRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\SeeAnnotationToTestRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/SeeAnnotationToTestRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\SeeAnnotationToTestRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/SeeAnnotationToTestRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\StringFileAbsolutePathExistsRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/StringFileAbsolutePathExistsRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\StringFileAbsolutePathExistsRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/StringFileAbsolutePathExistsRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\CommandMustHaveAsCommandAttributeRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/CommandMustHaveAsCommandAttributeRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\CommandMustHaveAsCommandAttributeRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/CommandMustHaveAsCommandAttributeRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\AlreadyRegisteredAutodiscoveryServiceRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/AlreadyRegisteredAutodiscoveryServiceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\AlreadyRegisteredAutodiscoveryServiceRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/AlreadyRegisteredAutodiscoveryServiceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\FileNameMatchesExtensionRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/FileNameMatchesExtensionRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\FileNameMatchesExtensionRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/FileNameMatchesExtensionRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\NoAutoconfiguredServiceTagRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoAutoconfiguredServiceTagRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\NoAutoconfiguredServiceTagRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoAutoconfiguredServiceTagRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\NoBundleResourceConfigRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoBundleResourceConfigRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\NoBundleResourceConfigRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoBundleResourceConfigRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\NoDuplicateArgAutowireByTypeRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoDuplicateArgAutowireByTypeRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\NoDuplicateArgAutowireByTypeRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoDuplicateArgAutowireByTypeRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\NoDuplicateArgsAutowireByTypeRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoDuplicateArgsAutowireByTypeRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\NoDuplicateArgsAutowireByTypeRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoDuplicateArgsAutowireByTypeRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\NoServiceSameNameSetClassRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoServiceSameNameSetClassRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\NoServiceSameNameSetClassRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoServiceSameNameSetClassRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\NoServiceSetterCallRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoServiceSetterCallRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\NoServiceSetterCallRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoServiceSetterCallRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\NoSetClassServiceDuplicationRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoSetClassServiceDuplicationRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\NoSetClassServiceDuplicationRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/NoSetClassServiceDuplicationRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\PreferClassServiceReferenceRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/PreferClassServiceReferenceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\PreferClassServiceReferenceRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/PreferClassServiceReferenceRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\ServicesExcludedDirectoryMustExistRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/ServicesExcludedDirectoryMustExistRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\ServicesExcludedDirectoryMustExistRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/ServicesExcludedDirectoryMustExistRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\TaggedIteratorOverRepeatedServiceCallRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/TaggedIteratorOverRepeatedServiceCallRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConfigClosure\\TaggedIteratorOverRepeatedServiceCallRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConfigClosure/TaggedIteratorOverRepeatedServiceCallRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConstraintMustHaveAttributeRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConstraintMustHaveAttributeRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\ConstraintMustHaveAttributeRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/ConstraintMustHaveAttributeRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\FormTypeClassNameRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/FormTypeClassNameRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\FormTypeClassNameRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/FormTypeClassNameRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoBareAndSecurityIsGrantedContentsRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoBareAndSecurityIsGrantedContentsRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoBareAndSecurityIsGrantedContentsRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoBareAndSecurityIsGrantedContentsRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoClassLevelRouteRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoClassLevelRouteRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoClassLevelRouteRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoClassLevelRouteRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoConstructorAndRequiredTogetherRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoConstructorAndRequiredTogetherRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoConstructorAndRequiredTogetherRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoConstructorAndRequiredTogetherRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoFindTaggedServiceIdsCallRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoFindTaggedServiceIdsCallRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoFindTaggedServiceIdsCallRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoFindTaggedServiceIdsCallRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoGetDoctrineInControllerRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoGetDoctrineInControllerRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoGetDoctrineInControllerRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoGetDoctrineInControllerRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoGetInCommandRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoGetInCommandRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoGetInCommandRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoGetInCommandRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoGetInControllerRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoGetInControllerRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoGetInControllerRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoGetInControllerRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoListenerWithoutContractRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoListenerWithoutContractRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoListenerWithoutContractRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoListenerWithoutContractRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoNullableServiceInConstructorRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoNullableServiceInConstructorRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoNullableServiceInConstructorRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoNullableServiceInConstructorRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoPublicNonActionMethodInControllerRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoPublicNonActionMethodInControllerRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoPublicNonActionMethodInControllerRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoPublicNonActionMethodInControllerRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoRouteTrailingSlashPathRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoRouteTrailingSlashPathRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoRouteTrailingSlashPathRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoRouteTrailingSlashPathRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoRoutingPrefixRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoRoutingPrefixRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoRoutingPrefixRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoRoutingPrefixRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoServiceAutowireDuplicateRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoServiceAutowireDuplicateRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoServiceAutowireDuplicateRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoServiceAutowireDuplicateRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoServiceJugglingRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoServiceJugglingRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoServiceJugglingRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoServiceJugglingRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoStringInGetSubscribedEventsRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoStringInGetSubscribedEventsRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\NoStringInGetSubscribedEventsRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/NoStringInGetSubscribedEventsRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\PreferClassInDefinitionFetchRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/PreferClassInDefinitionFetchRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\PreferClassInDefinitionFetchRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/PreferClassInDefinitionFetchRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\PreferInterfaceInConstructorRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/PreferInterfaceInConstructorRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\PreferInterfaceInConstructorRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/PreferInterfaceInConstructorRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\RequireIsGrantedEnumRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/RequireIsGrantedEnumRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\RequireIsGrantedEnumRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/RequireIsGrantedEnumRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\RequireRouteNameToGenerateControllerRouteRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/RequireRouteNameToGenerateControllerRouteRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\RequireRouteNameToGenerateControllerRouteRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/RequireRouteNameToGenerateControllerRouteRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\SingleArgEventDispatchRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/SingleArgEventDispatchRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\SingleArgEventDispatchRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/SingleArgEventDispatchRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\SingleRequiredMethodRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/SingleRequiredMethodRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\Symfony\\SingleRequiredMethodRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/Symfony/SingleRequiredMethodRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\UppercaseConstantRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/UppercaseConstantRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Rules\\UppercaseConstantRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/Rules/UppercaseConstantRule.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\ErrorFormatter\\SymplifyErrorFormatterTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/ErrorFormatter/SymplifyErrorFormatterTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\ReturnTypeExtension\\ContainerGetReturnTypeExtension\\ContainerGetReturnTypeExtensionTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/ReturnTypeExtension/ContainerGetReturnTypeExtension/ContainerGetReturnTypeExtensionTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\ReturnTypeExtension\\LaravelContainerMakeTypeExtension\\LaravelContainerMakeTypeExtensionTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/ReturnTypeExtension/LaravelContainerMakeTypeExtension/LaravelContainerMakeTypeExtensionTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\ReturnTypeExtension\\NativeFunctionReturnTypeExtension\\NativeFunctionReturnTypeExtensionTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/ReturnTypeExtension/NativeFunctionReturnTypeExtension/NativeFunctionReturnTypeExtensionTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\ReturnTypeExtension\\NodeGetAttributeTypeExtension\\NodeGetAttributeTypeExtensionTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/ReturnTypeExtension/NodeGetAttributeTypeExtension/NodeGetAttributeTypeExtensionTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\ReturnTypeExtension\\SplFileInfoTolerantReturnTypeExtension\\SplFileInfoTolerantReturnTypeExtensionTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/ReturnTypeExtension/SplFileInfoTolerantReturnTypeExtension/SplFileInfoTolerantReturnTypeExtensionTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\CheckRequiredInterfaceInContractNamespaceRule\\CheckRequiredInterfaceInContractNamespaceRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/CheckRequiredInterfaceInContractNamespaceRule/CheckRequiredInterfaceInContractNamespaceRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\CheckRequiredInterfaceInContractNamespaceRule\\CheckRequiredInterfaceInContractNamespaceRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/CheckRequiredInterfaceInContractNamespaceRule/CheckRequiredInterfaceInContractNamespaceRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ClassNameRespectsParentSuffixRule\\ClassNameRespectsParentSuffixRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ClassNameRespectsParentSuffixRule/ClassNameRespectsParentSuffixRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ClassNameRespectsParentSuffixRule\\ClassNameRespectsParentSuffixRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ClassNameRespectsParentSuffixRule/ClassNameRespectsParentSuffixRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Complexity\\ForbiddenArrayMethodCallRule\\ForbiddenArrayMethodCallRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Complexity/ForbiddenArrayMethodCallRule/ForbiddenArrayMethodCallRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Complexity\\ForbiddenArrayMethodCallRule\\ForbiddenArrayMethodCallRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Complexity/ForbiddenArrayMethodCallRule/ForbiddenArrayMethodCallRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Complexity\\NoJustPropertyAssignRule\\NoJustPropertyAssignRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Complexity/NoJustPropertyAssignRule/NoJustPropertyAssignRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Complexity\\NoJustPropertyAssignRule\\NoJustPropertyAssignRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Complexity/NoJustPropertyAssignRule/NoJustPropertyAssignRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Complexity\\NoPropertyToPropertyAssignRule\\NoPropertyToPropertyAssignRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Complexity/NoPropertyToPropertyAssignRule/NoPropertyToPropertyAssignRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Convention\\ParamNameToTypeConventionRule\\ParamNameToTypeConventionRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Convention/ParamNameToTypeConventionRule/ParamNameToTypeConventionRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Convention\\ParamNameToTypeConventionRule\\ParamNameToTypeConventionRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Convention/ParamNameToTypeConventionRule/ParamNameToTypeConventionRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Doctrine\\CollectionGetterMustReturnCollectionRule\\CollectionGetterMustReturnCollectionRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Doctrine/CollectionGetterMustReturnCollectionRule/CollectionGetterMustReturnCollectionRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Doctrine\\CollectionParamMustHaveGenericDocblockRule\\CollectionParamMustHaveGenericDocblockRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Doctrine/CollectionParamMustHaveGenericDocblockRule/CollectionParamMustHaveGenericDocblockRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Doctrine\\CollectionPropertyMustHaveGenericDocblockRule\\CollectionPropertyMustHaveGenericDocblockRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Doctrine/CollectionPropertyMustHaveGenericDocblockRule/CollectionPropertyMustHaveGenericDocblockRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Doctrine\\CollectionReturnMustHaveGenericDocblockRule\\CollectionReturnMustHaveGenericDocblockRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Doctrine/CollectionReturnMustHaveGenericDocblockRule/CollectionReturnMustHaveGenericDocblockRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Doctrine\\NoDoctrineListenerWithoutContractRule\\NoDoctrineListenerWithoutContractRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Doctrine/NoDoctrineListenerWithoutContractRule/NoDoctrineListenerWithoutContractRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Doctrine\\NoDocumentMockingRule\\NoDocumentMockingRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Doctrine/NoDocumentMockingRule/NoDocumentMockingRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Doctrine\\NoDocumentMockingRule\\NoDocumentMockingRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Doctrine/NoDocumentMockingRule/NoDocumentMockingRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Doctrine\\NoGetRepositoryOnServiceRepositoryEntityRule\\NoGetRepositoryOnServiceRepositoryEntityRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Doctrine/NoGetRepositoryOnServiceRepositoryEntityRule/NoGetRepositoryOnServiceRepositoryEntityRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Doctrine\\NoGetRepositoryOutsideServiceRule\\NoGetRepositoryOutsideServiceRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Doctrine/NoGetRepositoryOutsideServiceRule/NoGetRepositoryOutsideServiceRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Doctrine\\NoParentRepositoryRule\\NoParentRepositoryRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Doctrine/NoParentRepositoryRule/NoParentRepositoryRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Doctrine\\NoReadonlyEntityClassRule\\NoReadonlyEntityClassRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Doctrine/NoReadonlyEntityClassRule/NoReadonlyEntityClassRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Doctrine\\NoStringTargetEntityRule\\NoStringTargetEntityRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Doctrine/NoStringTargetEntityRule/NoStringTargetEntityRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Doctrine\\RepositoryMethodMustHaveReturnTypeRule\\RepositoryMethodMustHaveReturnTypeRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Doctrine/RepositoryMethodMustHaveReturnTypeRule/RepositoryMethodMustHaveReturnTypeRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Doctrine\\RequireQueryBuilderOnRepositoryRule\\RequireQueryBuilderOnRepositoryRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Doctrine/RequireQueryBuilderOnRepositoryRule/RequireQueryBuilderOnRepositoryRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Doctrine\\RequireServiceRepositoryParentRule\\RequireServiceRepositoryParentRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Doctrine/RequireServiceRepositoryParentRule/RequireServiceRepositoryParentRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Domain\\RequireAttributeNamespaceRule\\RequireAttributeNamespaceRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Domain/RequireAttributeNamespaceRule/RequireAttributeNamespaceRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Domain\\RequireAttributeNamespaceRule\\RequireAttributeNamespaceRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Domain/RequireAttributeNamespaceRule/RequireAttributeNamespaceRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Domain\\RequireExceptionNamespaceRule\\RequireExceptionNamespaceRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Domain/RequireExceptionNamespaceRule/RequireExceptionNamespaceRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Domain\\RequireExceptionNamespaceRule\\RequireExceptionNamespaceRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Domain/RequireExceptionNamespaceRule/RequireExceptionNamespaceRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Enum\\RequireUniqueEnumConstantRule\\RequireUniqueEnumConstantRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Enum/RequireUniqueEnumConstantRule/RequireUniqueEnumConstantRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Enum\\RequireUniqueEnumConstantRule\\RequireUniqueEnumConstantRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Enum/RequireUniqueEnumConstantRule/RequireUniqueEnumConstantRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Explicit\\ExplicitClassPrefixSuffixRule\\ExplicitClassPrefixSuffixRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Explicit/ExplicitClassPrefixSuffixRule/ExplicitClassPrefixSuffixRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Explicit\\ExplicitClassPrefixSuffixRule\\ExplicitClassPrefixSuffixRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Explicit/ExplicitClassPrefixSuffixRule/ExplicitClassPrefixSuffixRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Explicit\\NoMissingVariableDimFetchRule\\NoMissingVariableDimFetchRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Explicit/NoMissingVariableDimFetchRule/NoMissingVariableDimFetchRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Explicit\\NoMissingVariableDimFetchRule\\NoMissingVariableDimFetchRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Explicit/NoMissingVariableDimFetchRule/NoMissingVariableDimFetchRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenExtendOfNonAbstractClassRule\\ForbiddenExtendOfNonAbstractClassRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenExtendOfNonAbstractClassRule/ForbiddenExtendOfNonAbstractClassRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenExtendOfNonAbstractClassRule\\ForbiddenExtendOfNonAbstractClassRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenExtendOfNonAbstractClassRule/ForbiddenExtendOfNonAbstractClassRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenFuncCallRule\\ForbiddenFuncCallRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenFuncCallRule/ForbiddenFuncCallRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenFuncCallRule\\ForbiddenFuncCallRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenFuncCallRule/ForbiddenFuncCallRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenFuncCallRule\\ForbiddenFuncCallRuleWithDeprecationsTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenFuncCallRule/ForbiddenFuncCallRuleWithDeprecationsTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenFuncCallRule\\ForbiddenFuncCallRuleWithDeprecationsTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenFuncCallRule/ForbiddenFuncCallRuleWithDeprecationsTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenMultipleClassLikeInOneFileRule\\ForbiddenMultipleClassLikeInOneFileRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenMultipleClassLikeInOneFileRule/ForbiddenMultipleClassLikeInOneFileRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenMultipleClassLikeInOneFileRule\\ForbiddenMultipleClassLikeInOneFileRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenMultipleClassLikeInOneFileRule/ForbiddenMultipleClassLikeInOneFileRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenNodeRule\\ForbiddenNodeRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenNodeRule/ForbiddenNodeRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenNodeRule\\ForbiddenNodeRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenNodeRule/ForbiddenNodeRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenStaticClassConstFetchRule\\ForbiddenStaticClassConstFetchRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenStaticClassConstFetchRule/ForbiddenStaticClassConstFetchRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenStaticClassConstFetchRule\\ForbiddenStaticClassConstFetchRuleTest\:\:getCollectors$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenStaticClassConstFetchRule/ForbiddenStaticClassConstFetchRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenStaticClassConstFetchRule\\ForbiddenStaticClassConstFetchRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenStaticClassConstFetchRule/ForbiddenStaticClassConstFetchRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenSwitchRule\\ForbiddenSwitchRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenSwitchRule/ForbiddenSwitchRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenSwitchRule\\ForbiddenSwitchRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenSwitchRule/ForbiddenSwitchRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenTraitRule\\ForbiddenTraitRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenTraitRule/ForbiddenTraitRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\ForbiddenTraitRule\\ForbiddenTraitRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/ForbiddenTraitRule/ForbiddenTraitRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NewOverSettersRule\\NewOverSettersRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NewOverSettersRule/NewOverSettersRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NewOverSettersRule\\NewOverSettersRuleTest\:\:getCollectors$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NewOverSettersRule/NewOverSettersRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NewOverSettersRule\\NewOverSettersRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NewOverSettersRule/NewOverSettersRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NoArrayMapWithArrayCallableRule\\NoArrayMapWithArrayCallableRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NoArrayMapWithArrayCallableRule/NoArrayMapWithArrayCallableRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NoArrayMapWithArrayCallableRule\\NoArrayMapWithArrayCallableRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NoArrayMapWithArrayCallableRule/NoArrayMapWithArrayCallableRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NoDynamicNameRule\\NoDynamicNameRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NoDynamicNameRule/NoDynamicNameRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NoDynamicNameRule\\NoDynamicNameRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NoDynamicNameRule/NoDynamicNameRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NoGlobalConstRule\\NoGlobalConstRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NoGlobalConstRule/NoGlobalConstRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NoGlobalConstRule\\NoGlobalConstRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NoGlobalConstRule/NoGlobalConstRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NoMissnamedDocTagRule\\NoMissnamedDocTagRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NoMissnamedDocTagRule/NoMissnamedDocTagRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NoMissnamedDocTagRule\\NoMissnamedDocTagRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NoMissnamedDocTagRule/NoMissnamedDocTagRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NoReadonlyApiParamRule\\NoReadonlyApiParamRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NoReadonlyApiParamRule/NoReadonlyApiParamRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NoReferenceRule\\NoReferenceRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NoReferenceRule/NoReferenceRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NoReferenceRule\\NoReferenceRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NoReferenceRule/NoReferenceRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NoReturnSetterMethodRule\\NoReturnSetterMethodRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NoReturnSetterMethodRule/NoReturnSetterMethodRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NoReturnSetterMethodRule\\NoReturnSetterMethodRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NoReturnSetterMethodRule/NoReturnSetterMethodRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\NullablePropertyGetterMustReturnNullableRule\\NullablePropertyGetterMustReturnNullableRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/NullablePropertyGetterMustReturnNullableRule/NullablePropertyGetterMustReturnNullableRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\PHPUnit\\AvoidAnyExpectsRule\\AvoidAnyExpectsRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/PHPUnit/AvoidAnyExpectsRule/AvoidAnyExpectsRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\PHPUnit\\MockedMethodReturnMustMatchNativeTypeRule\\MockedMethodReturnMustMatchNativeTypeRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/PHPUnit/MockedMethodReturnMustMatchNativeTypeRule/MockedMethodReturnMustMatchNativeTypeRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\PHPUnit\\NoAssertFuncCallInTestsRule\\NoAssertFuncCallInTestsRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/PHPUnit/NoAssertFuncCallInTestsRule/NoAssertFuncCallInTestsRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\PHPUnit\\NoDoubleConsecutiveTestMockRule\\NoDoubleConsecutiveTestMockRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/PHPUnit/NoDoubleConsecutiveTestMockRule/NoDoubleConsecutiveTestMockRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\PHPUnit\\NoEntityMockingRule\\NoEntityMockingRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/PHPUnit/NoEntityMockingRule/NoEntityMockingRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\PHPUnit\\NoEntityMockingRule\\NoEntityMockingRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/PHPUnit/NoEntityMockingRule/NoEntityMockingRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\PHPUnit\\NoMockObjectAndRealObjectPropertyRule\\NoMockObjectAndRealObjectPropertyRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/PHPUnit/NoMockObjectAndRealObjectPropertyRule/NoMockObjectAndRealObjectPropertyRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\PHPUnit\\NoTestMocksRule\\NoTestMocksRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/PHPUnit/NoTestMocksRule/NoTestMocksRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\PHPUnit\\NoTestMocksRule\\NoTestMocksRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/PHPUnit/NoTestMocksRule/NoTestMocksRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\PHPUnit\\NoWithOnStubRule\\NoWithOnStubRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/PHPUnit/NoWithOnStubRule/NoWithOnStubRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\PHPUnit\\PublicStaticDataProviderRule\\PublicStaticDataProviderRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/PHPUnit/PublicStaticDataProviderRule/PublicStaticDataProviderRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\PHPUnit\\RequireAtLeastOneRule\\RequireAtLeastOneRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/PHPUnit/RequireAtLeastOneRule/RequireAtLeastOneRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\PreferredClassRule\\PreferredClassRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/PreferredClassRule/PreferredClassRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\PreferredClassRule\\PreferredClassRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/PreferredClassRule/PreferredClassRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\PreventParentMethodVisibilityOverrideRule\\PreventParentMethodVisibilityOverrideRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/PreventParentMethodVisibilityOverrideRule/PreventParentMethodVisibilityOverrideRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\PreventParentMethodVisibilityOverrideRule\\PreventParentMethodVisibilityOverrideRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/PreventParentMethodVisibilityOverrideRule/PreventParentMethodVisibilityOverrideRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\AvoidFeatureSetAttributeInRectorRule\\AvoidFeatureSetAttributeInRectorRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/AvoidFeatureSetAttributeInRectorRule/AvoidFeatureSetAttributeInRectorRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\NarrowReturnToUnionParamRule\\NarrowReturnToUnionParamRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/NarrowReturnToUnionParamRule/NarrowReturnToUnionParamRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\NoClassReflectionStaticReflectionRule\\NoClassReflectionStaticReflectionRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/NoClassReflectionStaticReflectionRule/NoClassReflectionStaticReflectionRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\NoClassReflectionStaticReflectionRule\\NoClassReflectionStaticReflectionRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/NoClassReflectionStaticReflectionRule/NoClassReflectionStaticReflectionRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\NoInstanceOfStaticReflectionRule\\NoInstanceOfStaticReflectionRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/NoInstanceOfStaticReflectionRule/NoInstanceOfStaticReflectionRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\NoInstanceOfStaticReflectionRule\\NoInstanceOfStaticReflectionRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/NoInstanceOfStaticReflectionRule/NoInstanceOfStaticReflectionRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\NoIntegerRefactorReturnRule\\NoIntegerRefactorReturnRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/NoIntegerRefactorReturnRule/NoIntegerRefactorReturnRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\NoLeadingBackslashInNameRule\\NoLeadingBackslashInNameRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/NoLeadingBackslashInNameRule/NoLeadingBackslashInNameRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\NoLeadingBackslashInNameRule\\NoLeadingBackslashInNameRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/NoLeadingBackslashInNameRule/NoLeadingBackslashInNameRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\NoOnlyNullReturnInRefactorRule\\NoOnlyNullReturnInRefactorRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/NoOnlyNullReturnInRefactorRule/NoOnlyNullReturnInRefactorRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\NoPropertyNodeAssignRule\\NoPropertyNodeAssignRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/NoPropertyNodeAssignRule/NoPropertyNodeAssignRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\NoScopeFetchBeforeCheapGuardRule\\NoScopeFetchBeforeCheapGuardRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/NoScopeFetchBeforeCheapGuardRule/NoScopeFetchBeforeCheapGuardRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\PhpUpgradeDowngradeRegisteredInSetRule\\PhpUpgradeDowngradeRegisteredInSetRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/PhpUpgradeDowngradeRegisteredInSetRule/PhpUpgradeDowngradeRegisteredInSetRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\PhpUpgradeImplementsMinPhpVersionInterfaceRule\\PhpUpgradeImplementsMinPhpVersionInterfaceRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/PhpUpgradeImplementsMinPhpVersionInterfaceRule/PhpUpgradeImplementsMinPhpVersionInterfaceRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\PhpUpgradeImplementsMinPhpVersionInterfaceRule\\PhpUpgradeImplementsMinPhpVersionInterfaceRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/PhpUpgradeImplementsMinPhpVersionInterfaceRule/PhpUpgradeImplementsMinPhpVersionInterfaceRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\PreferDirectIsNameRule\\PreferDirectIsNameRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/PreferDirectIsNameRule/PreferDirectIsNameRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\PreferGenericTemplateOnSameUnionTypeRule\\PreferGenericTemplateOnSameUnionTypeRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/PreferGenericTemplateOnSameUnionTypeRule/PreferGenericTemplateOnSameUnionTypeRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Rector\\RectorCheaperGuardsFirstRule\\RectorCheaperGuardsFirstRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Rector/RectorCheaperGuardsFirstRule/RectorCheaperGuardsFirstRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\RequireArrayShapeReturnRule\\RequireArrayShapeReturnRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/RequireArrayShapeReturnRule/RequireArrayShapeReturnRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\RequireAttributeNameRule\\RequireAttributeNameRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/RequireAttributeNameRule/RequireAttributeNameRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\RequireAttributeNameRule\\RequireAttributeNameRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/RequireAttributeNameRule/RequireAttributeNameRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\SeeAnnotationToTestRule\\SeeAnnotationToTestRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/SeeAnnotationToTestRule/SeeAnnotationToTestRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\SeeAnnotationToTestRule\\SeeAnnotationToTestRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/SeeAnnotationToTestRule/SeeAnnotationToTestRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\StringFileAbsolutePathExistsRule\\StringFileAbsolutePathExistsRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/StringFileAbsolutePathExistsRule/StringFileAbsolutePathExistsRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\CommandMustHaveAsCommandAttributeRule\\CommandMustHaveAsCommandAttributeRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/CommandMustHaveAsCommandAttributeRule/CommandMustHaveAsCommandAttributeRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\CommandMustHaveAsCommandAttributeRule\\CommandMustHaveAsCommandAttributeRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/CommandMustHaveAsCommandAttributeRule/CommandMustHaveAsCommandAttributeRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\AlreadyRegisteredAutodiscoveryServiceRule\\AlreadyRegisteredAutodiscoveryServiceRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/AlreadyRegisteredAutodiscoveryServiceRule/AlreadyRegisteredAutodiscoveryServiceRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\AlreadyRegisteredAutodiscoveryServiceRule\\AlreadyRegisteredAutodiscoveryServiceRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/AlreadyRegisteredAutodiscoveryServiceRule/AlreadyRegisteredAutodiscoveryServiceRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\FileNameMatchesExtensionRule\\FileNameMatchesExtensionRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/FileNameMatchesExtensionRule/FileNameMatchesExtensionRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\NoAutoconfiguredServiceTagRule\\NoAutoconfiguredServiceTagRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/NoAutoconfiguredServiceTagRule/NoAutoconfiguredServiceTagRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\NoAutoconfiguredServiceTagRule\\NoAutoconfiguredServiceTagRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/NoAutoconfiguredServiceTagRule/NoAutoconfiguredServiceTagRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\NoDuplicateArgAutowireByTypeRule\\NoDuplicateArgAutowireByTypeRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/NoDuplicateArgAutowireByTypeRule/NoDuplicateArgAutowireByTypeRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\NoDuplicateArgAutowireByTypeRule\\NoDuplicateArgAutowireByTypeRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/NoDuplicateArgAutowireByTypeRule/NoDuplicateArgAutowireByTypeRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\NoDuplicateArgsAutowireByTypeRule\\NoDuplicateArgsAutowireByTypeRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/NoDuplicateArgsAutowireByTypeRule/NoDuplicateArgsAutowireByTypeRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\NoDuplicateArgsAutowireByTypeRule\\NoDuplicateArgsAutowireByTypeRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/NoDuplicateArgsAutowireByTypeRule/NoDuplicateArgsAutowireByTypeRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\NoServiceSameNameSetClassRule\\NoServiceSameNameSetClassRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/NoServiceSameNameSetClassRule/NoServiceSameNameSetClassRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\NoServiceSameNameSetClassRule\\NoServiceSameNameSetClassRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/NoServiceSameNameSetClassRule/NoServiceSameNameSetClassRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\NoServiceSetterCallRule\\NoServiceSetterCallRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/NoServiceSetterCallRule/NoServiceSetterCallRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\NoSetClassServiceDuplicationRule\\NoSetClassServiceDuplicationRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/NoSetClassServiceDuplicationRule/NoSetClassServiceDuplicationRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\PreferClassServiceReferenceRule\\PreferClassServiceReferenceRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/PreferClassServiceReferenceRule/PreferClassServiceReferenceRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\PreferClassServiceReferenceRule\\PreferClassServiceReferenceRuleTest\:\:getCollectors$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/PreferClassServiceReferenceRule/PreferClassServiceReferenceRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\PreferClassServiceReferenceRule\\PreferClassServiceReferenceRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/PreferClassServiceReferenceRule/PreferClassServiceReferenceRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\ServicesExcludedDirectoryMustExistRule\\ServicesExcludedDirectoryMustExistRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/ServicesExcludedDirectoryMustExistRule/ServicesExcludedDirectoryMustExistRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConfigClosure\\TaggedIteratorOverRepeatedServiceCallRule\\TaggedIteratorOverRepeatedServiceCallRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConfigClosure/TaggedIteratorOverRepeatedServiceCallRule/TaggedIteratorOverRepeatedServiceCallRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConstraintMustHaveAttributeRule\\ConstraintMustHaveAttributeRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConstraintMustHaveAttributeRule/ConstraintMustHaveAttributeRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\ConstraintMustHaveAttributeRule\\ConstraintMustHaveAttributeRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/ConstraintMustHaveAttributeRule/ConstraintMustHaveAttributeRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\FormTypeClassNameRule\\FormTypeClassNameRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/FormTypeClassNameRule/FormTypeClassNameRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\NoBareAndSecurityIsGrantedContentsRule\\NoBareAndSecurityIsGrantedContentsRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/NoBareAndSecurityIsGrantedContentsRule/NoBareAndSecurityIsGrantedContentsRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\NoClassLevelRouteRule\\NoClassLevelRouteRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/NoClassLevelRouteRule/NoClassLevelRouteRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\NoConstructorAndRequiredTogetherRule\\NoConstructorAndRequiredTogetherRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/NoConstructorAndRequiredTogetherRule/NoConstructorAndRequiredTogetherRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\NoFindTaggedServiceIdsCallRule\\NoFindTaggedServiceIdsCallRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/NoFindTaggedServiceIdsCallRule/NoFindTaggedServiceIdsCallRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\NoFindTaggedServiceIdsCallRule\\NoFindTaggedServiceIdsCallRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/NoFindTaggedServiceIdsCallRule/NoFindTaggedServiceIdsCallRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\NoGetInCommandRule\\NoGetInCommandRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/NoGetInCommandRule/NoGetInCommandRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\NoListenerWithoutContractRule\\NoListenerWithoutContractRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/NoListenerWithoutContractRule/NoListenerWithoutContractRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\NoNullableServiceInConstructorRule\\NoNullableServiceInConstructorRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/NoNullableServiceInConstructorRule/NoNullableServiceInConstructorRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\NoPublicNonActionMethodInControllerRule\\NoPublicNonActionMethodInControllerRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/NoPublicNonActionMethodInControllerRule/NoPublicNonActionMethodInControllerRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\NoRouteTrailingSlashPathRule\\NoRouteTrailingSlashPathRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/NoRouteTrailingSlashPathRule/NoRouteTrailingSlashPathRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\NoRoutingPrefixRule\\NoRoutingPrefixRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/NoRoutingPrefixRule/NoRoutingPrefixRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\NoServiceAutowireDuplicateRule\\NoServiceAutowireDuplicateRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/NoServiceAutowireDuplicateRule/NoServiceAutowireDuplicateRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\NoServiceJugglingRule\\NoServiceJugglingRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/NoServiceJugglingRule/NoServiceJugglingRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\PreferClassInDefinitionFetchRule\\PreferClassInDefinitionFetchRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/PreferClassInDefinitionFetchRule/PreferClassInDefinitionFetchRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\PreferClassInDefinitionFetchRule\\PreferClassInDefinitionFetchRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/PreferClassInDefinitionFetchRule/PreferClassInDefinitionFetchRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\PreferInterfaceInConstructorRule\\PreferInterfaceInConstructorRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/PreferInterfaceInConstructorRule/PreferInterfaceInConstructorRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\PreferInterfaceInConstructorRule\\PreferInterfaceInConstructorRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/PreferInterfaceInConstructorRule/PreferInterfaceInConstructorRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\RequireIsGrantedEnumRule\\RequireIsGrantedEnumRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/RequireIsGrantedEnumRule/RequireIsGrantedEnumRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\RequireRouteNameToGenerateControllerRouteRule\\RequireRouteNameToGenerateControllerRouteRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/RequireRouteNameToGenerateControllerRouteRule/RequireRouteNameToGenerateControllerRouteRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\SingleArgEventDispatchRule\\SingleArgEventDispatchRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/SingleArgEventDispatchRule/SingleArgEventDispatchRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\Symfony\\SingleRequiredMethodRule\\SingleRequiredMethodRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/Symfony/SingleRequiredMethodRule/SingleRequiredMethodRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\UppercaseConstantRule\\UppercaseConstantRuleTest\:\:getAdditionalConfigFiles$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/UppercaseConstantRule/UppercaseConstantRuleTest.php
+
+		-
+			message: '#^Unused Symplify\\PHPStanRules\\Tests\\Rules\\UppercaseConstantRule\\UppercaseConstantRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/tests/Rules/UppercaseConstantRule/UppercaseConstantRuleTest.php

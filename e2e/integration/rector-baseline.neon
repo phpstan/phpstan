@@ -19,6 +19,12 @@ parameters:
 			path: repo/src/NodeTypeResolver/Reflection/BetterReflection/SourceLocator/IntermediateSourceLocator.php
 
 		-
+			message: '#^Unused Rector\\NodeTypeResolver\\Reflection\\BetterReflection\\SourceLocatorProvider\\DynamicSourceLocatorProvider\:\:provide$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/src/NodeTypeResolver/Reflection/BetterReflection/SourceLocatorProvider/DynamicSourceLocatorProvider.php
+
+		-
 			message: '#^Only abstract classes can be extended$#'
 			identifier: symplify.forbiddenExtendOfNonAbstractClass
 			count: 1
@@ -85,28 +91,40 @@ parameters:
 			path: repo/src/StaticTypeMapper/ValueObject/Type/SimpleStaticType.php
 
 		-
-			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\NoScopeFetchBeforeCheapGuardRule\:\:getNodeType$#'
+			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\NoGetClassReflectionOnScopeRule\:\:getNodeType$#'
 			identifier: shipmonk.deadMethod
 			count: 1
-			path: repo/utils/phpstan/src/Rule/NoScopeFetchBeforeCheapGuardRule.php
+			path: repo/utils/phpstan/src/Rule/NoGetClassReflectionOnScopeRule.php
 
 		-
-			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\NoScopeFetchBeforeCheapGuardRule\:\:processNode$#'
+			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\NoGetClassReflectionOnScopeRule\:\:processNode$#'
 			identifier: shipmonk.deadMethod
 			count: 1
-			path: repo/utils/phpstan/src/Rule/NoScopeFetchBeforeCheapGuardRule.php
+			path: repo/utils/phpstan/src/Rule/NoGetClassReflectionOnScopeRule.php
 
 		-
-			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\PreferGenericTemplateOnSameUnionTypeRule\:\:getNodeType$#'
+			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\NoResolveClassReflectionInForeachRule\:\:getNodeType$#'
 			identifier: shipmonk.deadMethod
 			count: 1
-			path: repo/utils/phpstan/src/Rule/PreferGenericTemplateOnSameUnionTypeRule.php
+			path: repo/utils/phpstan/src/Rule/NoResolveClassReflectionInForeachRule.php
 
 		-
-			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\PreferGenericTemplateOnSameUnionTypeRule\:\:processNode$#'
+			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\NoResolveClassReflectionInForeachRule\:\:processNode$#'
 			identifier: shipmonk.deadMethod
 			count: 1
-			path: repo/utils/phpstan/src/Rule/PreferGenericTemplateOnSameUnionTypeRule.php
+			path: repo/utils/phpstan/src/Rule/NoResolveClassReflectionInForeachRule.php
+
+		-
+			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\RegisterRectorRule\:\:getNodeType$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/utils/phpstan/src/Rule/RegisterRectorRule.php
+
+		-
+			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\RegisterRectorRule\:\:processNode$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/utils/phpstan/src/Rule/RegisterRectorRule.php
 
 		-
 			message: '#^Unused Rector\\Utils\\PHPStan\\Rule\\RegisterRelatedPolyfillRectorRule\:\:getNodeType$#'
@@ -121,16 +139,22 @@ parameters:
 			path: repo/utils/phpstan/src/Rule/RegisterRelatedPolyfillRectorRule.php
 
 		-
-			message: '#^Unused Rector\\Utils\\PHPStan\\Tests\\Rule\\NoScopeFetchBeforeCheapGuardRule\\NoScopeFetchBeforeCheapGuardRuleTest\:\:getRule$#'
+			message: '#^Unused Rector\\Utils\\PHPStan\\Tests\\Rule\\NoGetClassReflectionOnScopeRule\\NoGetClassReflectionOnScopeRuleTest\:\:getRule$#'
 			identifier: shipmonk.deadMethod
 			count: 1
-			path: repo/utils/phpstan/tests/Rule/NoScopeFetchBeforeCheapGuardRule/NoScopeFetchBeforeCheapGuardRuleTest.php
+			path: repo/utils/phpstan/tests/Rule/NoGetClassReflectionOnScopeRule/NoGetClassReflectionOnScopeRuleTest.php
 
 		-
-			message: '#^Unused Rector\\Utils\\PHPStan\\Tests\\Rule\\PreferGenericTemplateOnSameUnionTypeRule\\PreferGenericTemplateOnSameUnionTypeRuleTest\:\:getRule$#'
+			message: '#^Unused Rector\\Utils\\PHPStan\\Tests\\Rule\\NoResolveClassReflectionInForeachRule\\NoResolveClassReflectionInForeachRuleTest\:\:getRule$#'
 			identifier: shipmonk.deadMethod
 			count: 1
-			path: repo/utils/phpstan/tests/Rule/PreferGenericTemplateOnSameUnionTypeRule/PreferGenericTemplateOnSameUnionTypeRuleTest.php
+			path: repo/utils/phpstan/tests/Rule/NoResolveClassReflectionInForeachRule/NoResolveClassReflectionInForeachRuleTest.php
+
+		-
+			message: '#^Unused Rector\\Utils\\PHPStan\\Tests\\Rule\\RegisterRectorRule\\RegisterRectorRuleTest\:\:getRule$#'
+			identifier: shipmonk.deadMethod
+			count: 1
+			path: repo/utils/phpstan/tests/Rule/RegisterRectorRule/RegisterRectorRuleTest.php
 
 		-
 			message: '#^Unused Rector\\Utils\\PHPStan\\Tests\\Rule\\RegisterRelatedPolyfillRectorRule\\RegisterRelatedPolyfillRectorRuleTest\:\:getRule$#'
