@@ -12,6 +12,10 @@ on:
       - '.phar-checksum'
       - 'bootstrap.php'
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 

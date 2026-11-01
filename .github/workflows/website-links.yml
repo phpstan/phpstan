@@ -12,6 +12,12 @@ on:
     paths:
       - '.github/workflows/website-links.yml'
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+permissions: {}
+
 jobs:
   website-links:
     name: "Check for broken links"
