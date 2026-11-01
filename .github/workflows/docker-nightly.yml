@@ -41,11 +41,14 @@ permissions:
 
 jobs:
   build:
+    name: Build
     runs-on: ${{ matrix.runner }}
     permissions:
       contents: read
-      packages: write
-    concurrency: docker-nightly-${{ github.ref }}-${{ matrix.key }}-${{ matrix.platform }}
+      packages: write # to push the images to ghcr.io
+    concurrency:
+      group: docker-nightly-${{ github.ref }}-${{ matrix.key }}-${{ matrix.platform }}
+      cancel-in-progress: true
     strategy:
       fail-fast: false
       matrix:
@@ -69,6 +72,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Set up Docker Buildx
         id: buildx
@@ -124,13 +129,16 @@ jobs:
           retention-days: 1
 
   merge:
+    name: Merge
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write
+      packages: write # to push the images to ghcr.io
     needs: build
-    concurrency: docker-nightly-merge-${{ github.ref }}-${{ matrix.key }}
+    concurrency:
+      group: docker-nightly-merge-${{ github.ref }}-${{ matrix.key }}
+      cancel-in-progress: true
     strategy:
       fail-fast: false
       matrix:
@@ -169,12 +177,16 @@ jobs:
 
       - name: Create multi-platform manifest
         working-directory: ${{ runner.temp }}/digests
+        env:
+          SUFFIX: ${{ matrix.image-tag-suffix }}
         run: |
           digests=()
           for digest in *; do digests+=("ghcr.io/phpstan/phpstan@sha256:${digest}"); done
           docker buildx imagetools create \
-            -t "ghcr.io/phpstan/phpstan:nightly${{ matrix.image-tag-suffix }}" \
+            -t "ghcr.io/phpstan/phpstan:nightly${SUFFIX}" \
             "${digests[@]}"
 
       - name: Inspect
-        run: docker buildx imagetools inspect "ghcr.io/phpstan/phpstan:nightly${{ matrix.image-tag-suffix }}"
+        env:
+          SUFFIX: ${{ matrix.image-tag-suffix }}
+        run: docker buildx imagetools inspect "ghcr.io/phpstan/phpstan:nightly${SUFFIX}"

@@ -8,10 +8,15 @@ on:
     branches:
       - "2.3.x"
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
 permissions: {}
 
 jobs:
   actionlint:
+    name: Actionlint
     runs-on: ubuntu-latest
     steps:
       - name: Harden the runner (Audit all outbound calls)
@@ -20,10 +25,13 @@ jobs:
           egress-policy: audit
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Check workflow files
         run: |
           echo "::add-matcher::.github/actionlint-matcher.json"
-          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
+          # Download script pinned to the v1.7.12 tag commit
+          bash <(curl https://raw.githubusercontent.com/rhysd/actionlint/914e7df21a07ef503a81201c76d2b11c789d3fca/scripts/download-actionlint.bash) 1.7.12
           ./actionlint -color
         shell: bash
 
@@ -40,6 +48,8 @@ jobs:
           egress-policy: audit
 
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - name: Run octoscan
         id: octoscan
         uses: synacktiv/action-octoscan@6b1cf2343893dfb9e5f75652388bd2dc83f456b0 # v1.0.0

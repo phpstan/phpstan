@@ -1,0 +1,8 @@
+skip:
+  # These reusable workflows are only called by trusted workflows in phpstan/phpstan
+  # and phpstan/phpstan-src. They check out the ref the caller wants to test.
+  - rule: untrusted_checkout_exec
+    path:
+      - .github/workflows/extension-tests.yml
+      - .github/workflows/integration-tests.yml
+      - .github/workflows/other-tests.yml

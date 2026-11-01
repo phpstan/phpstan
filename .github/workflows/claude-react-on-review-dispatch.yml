@@ -1,17 +1,22 @@
-name: "Claude React On Review Dispatch"
+name: "Claude React On Review Dispatch" # zizmor: ignore[concurrency-limits] each run dispatches a reaction to a different review
 
-on:
+# workflow_run is needed because pull_request_review runs for PRs from forks
+# do not get secrets. The artifact from the triggering run is untrusted input,
+# so it is validated before use and the job only gets read access.
+on: # zizmor: ignore[dangerous-triggers]
   workflow_run:
     workflows: ["Claude React On Review"]
     types: [completed]
 
+permissions: {}
+
 jobs:
   dispatch:
+    name: "Trigger Claude PR Review"
     runs-on: ubuntu-latest
     if: github.event.workflow_run.conclusion == 'success'
     permissions:
-      contents: read
-      actions: write
+      actions: read # to download the review context artifact from the triggering run
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
@@ -34,6 +39,10 @@ jobs:
         run: |
           pr_number=$(cat pr_number.txt)
           review_id=$(cat review_id.txt)
+          if ! [[ "$pr_number" =~ ^[0-9]+$ && "$review_id" =~ ^[0-9]+$ ]]; then
+            echo "::error::Invalid review context"
+            exit 1
+          fi
           gh workflow run claude-pr-review.yml \
             -f pr_number="$pr_number" \
             -f review_id="$review_id" \

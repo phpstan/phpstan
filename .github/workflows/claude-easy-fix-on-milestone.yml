@@ -1,15 +1,15 @@
-name: "Claude Easy Fix on Milestone"
+name: "Claude Easy Fix on Milestone" # zizmor: ignore[concurrency-limits] each run dispatches a fix for a different issue
 
 on:
   issues:
     types: [milestoned]
 
+permissions: {}
+
 jobs:
   fix:
+    name: "Trigger Claude fix"
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      actions: write
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
@@ -19,4 +19,5 @@ jobs:
       - name: Trigger Claude Random Easy Fixes
         env:
           GH_TOKEN: ${{ secrets.PHPSTAN_BOT_TOKEN }}
-        run: gh workflow run claude-fix-issue.yml -f issue-number=${{ github.event.issue.number }} -f target-branch=2.3.x --repo phpstan-bot/phpstan-src
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: gh workflow run claude-fix-issue.yml -f issue-number="$ISSUE_NUMBER" -f target-branch=2.3.x --repo phpstan-bot/phpstan-src

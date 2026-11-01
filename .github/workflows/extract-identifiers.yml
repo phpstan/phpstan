@@ -48,12 +48,15 @@ jobs:
 
       - name: "Checkout"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: "Checkout"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: ${{ matrix.repository }}
           path: "identifier-extractor/repo"
+          persist-credentials: false
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962" # 2.40.0
@@ -68,7 +71,9 @@ jobs:
 
       - name: "Repository name"
         id: repo-name
-        run: echo "name=$(basename "${{ matrix.repository }}")" >> "$GITHUB_OUTPUT"
+        env:
+          REPO: ${{ matrix.repository }}
+        run: echo "name=$(basename "$REPO")" >> "$GITHUB_OUTPUT"
 
       - name: "Branch name"
         id: branch-name
@@ -79,10 +84,11 @@ jobs:
         working-directory: "identifier-extractor/repo"
         run: |
           set -o pipefail
-          ../../phpstan analyse -c ../extractor.neon -a ../vendor/autoload.php | tee ../${{ steps.repo-name.outputs.name }}.json
+          ../../phpstan analyse -c ../extractor.neon -a ../vendor/autoload.php | tee "../${REPO_NAME}.json"
         env:
           REPO: ${{ matrix.repository }}
           BRANCH: ${{ steps.branch-name.outputs.name }}
+          REPO_NAME: ${{ steps.repo-name.outputs.name }}
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
@@ -107,6 +113,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           token: ${{ secrets.PHPSTAN_BOT_TOKEN }}
+          persist-credentials: true # zizmor: ignore[artipacked] git-auto-commit-action pushes with these credentials
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962" # 2.40.0

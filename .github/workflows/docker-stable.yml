@@ -19,11 +19,12 @@ permissions:
 
 jobs:
   build:
+    name: Build
     runs-on: ${{ matrix.runner }}
     permissions:
       contents: read
-      packages: write
-    concurrency: docker-stable-${{ github.ref }}-${{ matrix.key }}-${{ matrix.platform }}
+      packages: write # to push the images to ghcr.io
+    concurrency: docker-stable-${{ github.ref }}-${{ matrix.key }}-${{ matrix.platform }} # zizmor: ignore[concurrency-limits] release images must not be cancelled
     strategy:
       fail-fast: false
       matrix:
@@ -47,6 +48,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Set up Docker Buildx
         id: buildx
@@ -90,12 +93,13 @@ jobs:
           retention-days: 1
 
   merge:
+    name: Merge
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write
+      packages: write # to push the images to ghcr.io
     needs: build
-    concurrency: docker-stable-merge-${{ github.ref }}-${{ matrix.key }}
+    concurrency: docker-stable-merge-${{ github.ref }}-${{ matrix.key }} # zizmor: ignore[concurrency-limits] release images must not be cancelled
     strategy:
       fail-fast: false
       matrix:
@@ -136,16 +140,18 @@ jobs:
         working-directory: ${{ runner.temp }}/digests
         env:
           VERSION: ${{ github.ref_name }}
+          SUFFIX: ${{ matrix.image-tag-suffix }}
         run: |
           digests=()
           for digest in *; do digests+=("ghcr.io/phpstan/phpstan@sha256:${digest}"); done
           docker buildx imagetools create \
-            -t "ghcr.io/phpstan/phpstan:latest${{ matrix.image-tag-suffix }}" \
-            -t "ghcr.io/phpstan/phpstan:2${{ matrix.image-tag-suffix }}" \
-            -t "ghcr.io/phpstan/phpstan:${VERSION}${{ matrix.image-tag-suffix }}" \
+            -t "ghcr.io/phpstan/phpstan:latest${SUFFIX}" \
+            -t "ghcr.io/phpstan/phpstan:2${SUFFIX}" \
+            -t "ghcr.io/phpstan/phpstan:${VERSION}${SUFFIX}" \
             "${digests[@]}"
 
       - name: Inspect
         env:
           VERSION: ${{ github.ref_name }}
-        run: docker buildx imagetools inspect "ghcr.io/phpstan/phpstan:${VERSION}${{ matrix.image-tag-suffix }}"
+          SUFFIX: ${{ matrix.image-tag-suffix }}
+        run: docker buildx imagetools inspect "ghcr.io/phpstan/phpstan:${VERSION}${SUFFIX}"
