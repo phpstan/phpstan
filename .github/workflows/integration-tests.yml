@@ -77,6 +77,8 @@ jobs:
               cp ../../../phpstan vendor/phpstan/phpstan/phpstan
               cp ../../../bootstrap.php vendor/phpstan/phpstan/bootstrap.php
               rm -rf vendor/phpstan/phpstan/turbo-ext && cp -R ../../../turbo-ext vendor/phpstan/phpstan/turbo-ext
+              # with this repository's vendor/ four levels up, bin/rector.php thinks it is a split package and loads both preload files
+              rm -rf ../../../vendor
               vendor/bin/phpunit
           - php-version: 8.4
             name: Rector downgrade PHP tests
