@@ -5665,36 +5665,36 @@
     "conditionalType.alwaysFalse": {
         "PHPStan\\Rules\\PhpDoc\\FunctionConditionalReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L121"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L126"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodConditionalReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L121"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L126"
             ]
         }
     },
     "conditionalType.alwaysTrue": {
         "PHPStan\\Rules\\PhpDoc\\FunctionConditionalReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L121"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L126"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodConditionalReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L121"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L126"
             ]
         }
     },
     "conditionalType.subjectNotFound": {
         "PHPStan\\Rules\\PhpDoc\\FunctionConditionalReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L91"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L96"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\MethodConditionalReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L91"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L96"
             ]
         }
     },
@@ -12815,7 +12815,7 @@
         },
         "PHPStan\\Rules\\PhpDoc\\FunctionConditionalReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L99"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L104"
             ]
         },
         "PHPStan\\Rules\\PhpDoc\\IncompatibleParamImmediatelyInvokedCallableRule": {
@@ -12840,7 +12840,7 @@
         },
         "PHPStan\\Rules\\PhpDoc\\MethodConditionalReturnTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L99"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/PhpDoc/ConditionalReturnTypeRuleHelper.php#L104"
             ]
         }
     },
