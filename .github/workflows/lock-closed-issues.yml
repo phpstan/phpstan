@@ -4,13 +4,16 @@ on:
   schedule:
     - cron: '2 1 * * *'
 
-concurrency: lock_issues
+concurrency:
+  group: lock_issues
+  cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
   lock:
+    name: "Lock closed issues"
     permissions:
       issues: write  # for dessant/lock-threads to lock issues
     runs-on: ubuntu-latest

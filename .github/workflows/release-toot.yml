@@ -1,4 +1,4 @@
-name: Toot release
+name: Toot release # zizmor: ignore[concurrency-limits] each run announces a different release
 
 # More triggers
 # https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#release
@@ -6,8 +6,11 @@ on:
   release:
     types: [published]
 
+permissions: {}
+
 jobs:
   toot:
+    name: "Toot release"
     runs-on: ubuntu-latest
     steps:
       - name: Harden the runner (Audit all outbound calls)
