@@ -297,6 +297,53 @@ class MyRuleTest extends RuleTestCase
 }
 ```
 
+Auto-fixable rules
+---------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.5</div>
+
+A rule can attach a fix to the error it reports. Users then apply it with [`phpstan analyse --fix`](/user-guide/command-line-usage#--fix%2C---fix-ignored). A fix is a change to the AST, not to the text: you pass the node from the analysed AST and a callback that returns its replacement. PHPStan prints only the replaced node and keeps the formatting of the rest of the file.
+
+```php
+return [
+	RuleErrorBuilder::message('Backtick operator is deprecated in PHP 8.5. Use shell_exec() function call instead.')
+		->identifier('backtick.deprecated')
+		->fixNode($node, static fn (Node\Expr\ShellExec $node) => new Node\Expr\FuncCall(
+			new Node\Name('shell_exec'),
+			[new Node\Arg($argExpr)],
+		))
+		->build(),
+];
+```
+
+The callback receives a copy of the node, so it can modify the node and return it, or return a completely new one.
+
+`removeNode()` removes a node that is an item of an array, like a statement, a class member, an argument, a parameter, or an array item. When the last item of a declaration like `const A = 1, B = 2;` or `public $a, $b;` is removed, the whole declaration is removed with it.
+
+```php
+RuleErrorBuilder::message(sprintf('Method %s::%s() is unused.', $className, $methodName))
+	->identifier('method.unused')
+	->removeNode($methodNode)
+	->build();
+```
+
+`fixNode()` and `removeNode()` can be called repeatedly. Each call adds a change, and the error is fixed only when all its changes apply. Both methods accept an optional `$file` argument for nodes from another file than the one the error is reported in. That's how a [collector-based](/developing-extensions/collectors) rule fixes code across the whole project: it re-parses the file with the `@defaultAnalysisParser` service and passes the node it found there.
+
+Write the fix for this one error and let PHPStan handle the rest. If the fix makes another error fixable, or if it overlaps with the fix of another error, it's applied in the next round of `--fix`, after the fixed code is analysed again.
+
+Fixes are tested with `RuleTestCase::fix()`. It takes the analysed file and the file with the expected result, and like `--fix` it fixes in rounds until nothing fixable is left:
+
+```php
+public function testFix(): void
+{
+	$this->fix(__DIR__ . '/data/my-rule.php', __DIR__ . '/data/my-rule.php.fixed');
+}
+```
+
+When the fixed node lives in another file, like a trait or a file the error points to with `RuleErrorBuilder::file()`, use `fixOtherFile($file, $fixedFile, $expectedFile)`.
+
+To apply fixes outside of the `analyse` command, for example in a custom [error formatter](/developing-extensions/error-formatters), call `fix()` on the `PHPStan\Fixable\ErrorFixer` service with a list of errors. `Error::isFixable()` tells you which errors have a fix.
+
 Virtual nodes
 ---------------
 
