@@ -58,7 +58,7 @@ parameters:
 
 Next time you run PHPStan, the errors in the baseline will be skipped in the analysis result. You can manage the baseline manually by editing the file, or generate the whole file again by running PHPStan with `--generate-baseline`.
 
-If some of the ignored errors do not occur in the result anymore, PHPStan will let you know and you will have to remove the pattern from the baseline file. You can turn off this behaviour by setting `reportUnmatchedIgnoredErrors` to `false` in the configuration:
+If some of the ignored errors do not occur in the result anymore, PHPStan will let you know. Run PHPStan with [`--fix`](/user-guide/command-line-usage#--fix%2C---fix-ignored) to remove these entries from the baseline file, or lower their `count`. You can turn off this behaviour by setting `reportUnmatchedIgnoredErrors` to `false` in the configuration:
 
 ```yaml
 parameters:

@@ -92,6 +92,8 @@ Related config keys: [`ignoreErrors`](/user-guide/ignoring-errors#ignoring-in-co
 [`reportUnmatchedIgnoredErrors`](/user-guide/ignoring-errors#reporting-unused-ignores),
 [`reportIgnoresWithoutComments`](#reportignoreswithoutcomments).
 
+Unused ignores reported by `reportUnmatchedIgnoredErrors`, both `@phpstan-ignore` comments and `ignoreErrors` entries in the configuration and the baseline, can be removed automatically with [`--fix`](/user-guide/command-line-usage#--fix%2C---fix-ignored). [Learn more »](/user-guide/ignoring-errors#reporting-unused-ignores)
+
 ### `reportIgnoresWithoutComments`
 
 <div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.1.41</div>

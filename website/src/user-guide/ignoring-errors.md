@@ -230,6 +230,13 @@ parameters:
 	reportUnmatchedIgnoredErrors: false
 ```
 
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.5</div>
+
+Unused ignores are fixed by [`phpstan analyse --fix`](/user-guide/command-line-usage#--fix%2C---fix-ignored), wherever they are:
+
+* An identifier no error matched is removed from its `@phpstan-ignore` comment, together with its comment in parentheses. When it's the last identifier, the whole comment goes away, and so do unused `@phpstan-ignore-line` and `@phpstan-ignore-next-line`. Other tags in the same PHPDoc are kept.
+* An unmatched entry is removed from `ignoreErrors` in your configuration file or in the [baseline](/user-guide/baseline). When an entry with `count` matches fewer errors than expected, the count is lowered.
+
 You can turn on/off reporting unused ignores explicitly for each entry in `ignoredErrors`. This overwrites global `reportUnmatchedIgnoredErrors` setting.
 
 ```yaml

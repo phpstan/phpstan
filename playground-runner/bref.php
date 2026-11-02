@@ -124,7 +124,6 @@ return function ($event) use ($phpstanVersion) {
 
 	$errors = [];
 	$tipFormatter = new OutputFormatter(false);
-    $diffs = [];
 	foreach ($results as $result) {
 		$error = [
 			'message' => $result->getMessage(),
@@ -137,10 +136,9 @@ return function ($event) use ($phpstanVersion) {
 		if ($result->getIdentifier() !== null) {
 			$error['identifier'] = $result->getIdentifier();
 		}
-        if ($result->getFixedErrorDiff() !== null) {
-            $diffs[] = $result->getFixedErrorDiff();
-            $error['fixDiff'] = $result->getFixedErrorDiff()->diff;
-        }
+		if ($result->isFixable()) {
+			$error['fixable'] = true;
+		}
 		$errors[] = $error;
 	}
 
@@ -150,15 +148,15 @@ return function ($event) use ($phpstanVersion) {
         'xray' => playground_xray($code, $analyserResult->getAnalyserResult()->getCollectedData()[$codePath] ?? []),
     ];
 
-    if (count($diffs) > 0) {
-        /** @var \PHPStan\Fixable\Patcher $patcher */
-        $patcher = $container->getByType(\PHPStan\Fixable\Patcher::class);
+    /** @var \PHPStan\Fixable\ErrorFixer $errorFixer */
+    $errorFixer = $container->getByType(\PHPStan\Fixable\ErrorFixer::class);
+    if (count($errorFixer->fix($results)->getFixedErrors()) > 0) {
         $differ = new \SebastianBergmann\Diff\Differ(new \SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder([
             'header' => '',
             'addLineNumbers' => true,
             'emitNoLineEndEofWarning' => false,
         ]));
-        $fixedCode = $patcher->applyDiffs($codePath, $diffs);
+        $fixedCode = (string) file_get_contents($codePath);
         $response['fixedCode'] = $fixedCode;
         $response['fixedCodeDiff'] = $differ->diff($code, $fixedCode);
     }

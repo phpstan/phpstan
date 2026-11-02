@@ -33,6 +33,24 @@ Please note that the exit code differs in this case. Exit code 0 means that the 
 
 By default PHPStan will not generate an empty baseline. However you can pass `--allow-empty-baseline` alongside `--generate-baseline` to allow an empty baseline file to be generated.
 
+### `--fix`, `--fix-ignored`
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.5</div>
+
+Some rules know how to fix the errors they report. These errors are marked with 🔧 in the default table output, which also says how many of them can be fixed. Run PHPStan again with `--fix` to rewrite the affected files:
+
+```bash
+vendor/bin/phpstan analyse --fix
+```
+
+Edits preserve the formatting of the surrounding code. Fixing one error can make another one fixable, and two fixes can touch the same lines, so PHPStan analyses the fixed code again and keeps fixing in rounds until nothing fixable is left. It stops after 10 rounds; run it again to see what remains. The exit code is 0 when every fixable error was fixed, and 1 when some are left, because fixing hit the round limit or some fixes kept conflicting with each other. Thanks to the [result cache](/user-guide/result-cache), each round only reanalyses the changed files and the files that depend on them.
+
+`--fix-ignored` fixes errors you have [ignored](/user-guide/ignoring-errors) in the configuration, in the baseline, or with inline `@phpstan-ignore` comments. The table output mentions them in grey when there are some. It can be used alone, or together with `--fix` to fix both reported and ignored errors at once.
+
+[Unused ignores](/user-guide/ignoring-errors#reporting-unused-ignores) are fixable too: unmatched identifiers and comments are removed from `@phpstan-ignore` comments, and unmatched entries from `ignoreErrors` in the configuration and the baseline.
+
+Want to make your own rules fixable? [Learn more »](/developing-extensions/rules#auto-fixable-rules)
+
 ### `--pro`
 
 Launches [PHPStan Pro](https://phpstan.org/blog/introducing-phpstan-pro){.phpstan-pro-label} which lets you browse errors (including ignored errors) in a beautiful web UI. Try it out by running PHPStan with `--pro` or by going to [account.phpstan.com](https://account.phpstan.com/) and creating an account.
