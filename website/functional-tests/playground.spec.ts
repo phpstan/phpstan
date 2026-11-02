@@ -348,3 +348,21 @@ test('X-Ray data of a restored snippet is not mapped through edits made for anot
 	expect(errors).toEqual([]);
 	await expect(page.getByText(SNIPPET_ERROR)).toBeVisible();
 });
+
+test('sharing when the browser denies writing to the clipboard does not fail', async ({page}) => {
+	const errors: string[] = [];
+	page.on('pageerror', (error) => errors.push(error.message));
+	await page.addInitScript(() => {
+		navigator.clipboard.writeText = () => Promise.reject(new DOMException('Write permission denied.', 'NotAllowedError'));
+	});
+	await mockApi(page);
+	await open(page, '/try');
+
+	await typeAtEnd(page, '// a');
+	await expect(page.getByText('Analysis #1 at level 10')).toBeVisible();
+	await page.getByText('Share', {exact: true}).click();
+	await expect(page).toHaveURL(`/r/${SHARED_ID}`);
+	await page.waitForTimeout(500);
+	expect(errors).toEqual([]);
+	await expect(page.getByText('Copied!')).toHaveCount(0);
+});
