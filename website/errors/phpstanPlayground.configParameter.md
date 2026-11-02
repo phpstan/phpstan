@@ -2,6 +2,7 @@
 title: "phpstanPlayground.configParameter"
 shortDescription: "Playground suggests enabling a configuration parameter for additional checks."
 ignorable: false
+autofixable: true
 ---
 
 ## Code example

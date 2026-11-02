@@ -2,6 +2,7 @@
 title: "ignore.unmatchedIdentifier"
 shortDescription: "Inline @phpstan-ignore specifies an identifier that is not reported on that line."
 ignorable: false
+autofixable: true
 ---
 
 ## Code example
