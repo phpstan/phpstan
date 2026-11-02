@@ -3,31 +3,29 @@
 use function PHPStan\dumpType;
 use function PHPStan\Testing\assertType;
 
-class CoffeeBreak
+class Greeter
 {
-	public function getDuration(): int { }
-}
-
-class MondayMorning
-{
-	private bool $coffeeConsumed = false;
-
-	public function startDay(string|int $task): string
+	public function greet(string $name): string
 	{
-		$this->coffeeConsumed = true;
-		
-		/** @var DateTime $deadline */
-		$deadline = new DateTimeImmutable('friday');
-		$deadline->modify('-1 week'); // that will help
-		
-		$words = count(explode(' ', $task));
-		if ($words === 0) { echo 'if only'; }
-		$this->deployToProduction();
-		return array_pop($task);
+		return 'Hello, ' . $name;
 	}
 }
 
-$cb = new CoffeeBreak();
-if (isset($cb->getDuration())) { echo 'break time'; }
+class LoudGreeter extends Greeter
+{
+	#[\Override]
+	public function greet(string $name): string
+	{
+		return strtoupper(parent::greet($name)) . '!';
+	}
 
-echo sprintf('%s %s', 'safe');
+	#[\Override]
+	public function wave(): string
+	{
+		return 'o/';
+	}
+}
+
+$greeter = new LoudGreeter();
+echo $greeter->greet('world'); // @phpstan-ignore argument.type
+echo $greeter->greet(42);
