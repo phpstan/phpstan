@@ -60,8 +60,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/visol">visol (visol)</a></li>
 <!-- small -->
 
-<!-- small-org --><li><a href="https://github.com/polylang">Polylang (polylang)</a></li>
-<li><a href="https://github.com/Enkora">Enkora Oy (Enkora)</a></li>
+<!-- small-org --><li><a href="https://github.com/Enkora">Enkora Oy (Enkora)</a></li>
 <li><a href="https://github.com/wikando">wikando (wikando)</a></li>
 <!-- small-org -->
 </ul>
@@ -139,6 +138,7 @@ the logo of your company in PHPStan's README and the website.
 <li><a href="https://github.com/tenkoma">Koji Tanaka (tenkoma)</a></li>
 <li><a href="https://github.com/stafftastic">stafftastic GmbH (stafftastic)</a></li>
 <li><a href="https://github.com/AllenJB">AllenJB (AllenJB)</a></li>
+<li><a href="https://github.com/polylang">Polylang (polylang)</a></li>
 <li><a href="https://github.com/stopfstedt">Stefan Topfstedt (stopfstedt)</a></li>
 <li><a href="https://github.com/kingkero">Martin Rehberger (kingkero)</a></li>
 <li><a href="https://github.com/erik-perri">Erik Perri (erik-perri)</a></li>
