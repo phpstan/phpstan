@@ -13,6 +13,9 @@ require __DIR__.'/xray.php';
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
+// The same limit as `phpstan analyse --fix`.
+const PLAYGROUND_FIX_ROUNDS_LIMIT = 10;
+
 $phpstanVersion = \Jean85\PrettyVersions::getVersion('phpstan/phpstan')->getPrettyVersion();
 
 \Honeybadger\Honeybadger::new([
@@ -103,21 +106,29 @@ return function ($event) use ($phpstanVersion) {
 	require_once 'phar://' . $rootDir . '/vendor/phpstan/phpstan/phpstan.phar/stubs/runtime/Enum/ReflectionEnumUnitCase.php';
 	require_once 'phar://' . $rootDir . '/vendor/phpstan/phpstan/phpstan.phar/stubs/runtime/Enum/ReflectionEnumBackedCase.php';
 
-	$containerFactory = new \PHPStan\DependencyInjection\ContainerFactory('/tmp');
-	$container = $containerFactory->create(
-		'/tmp',
-		[sprintf('%s/config.level%s.neon', $containerFactory->getConfigDirectory(), $level), $finalConfigFile],
-		[$codePath],
-		additionalParameters: playground_extra_parameters(),
-	);
+	$analyse = static function () use ($level, $finalConfigFile, $codePath): array {
+		$containerFactory = new \PHPStan\DependencyInjection\ContainerFactory('/tmp');
+		$container = $containerFactory->create(
+			'/tmp',
+			[sprintf('%s/config.level%s.neon', $containerFactory->getConfigDirectory(), $level), $finalConfigFile],
+			[$codePath],
+			additionalParameters: playground_extra_parameters(),
+		);
 
-	/** @var \PHPStan\Analyser\Analyser $analyser */
-	$analyser = $container->getByType(\PHPStan\Analyser\Analyser::class);
-	$analyserResult = $analyser->analyse([$codePath], null, null, false, [$codePath]);
+		/** @var \PHPStan\Analyser\Analyser $analyser */
+		$analyser = $container->getByType(\PHPStan\Analyser\Analyser::class);
+		$analyserResult = $analyser->analyse([$codePath], null, null, false, [$codePath]);
 
-	/** @var \PHPStan\Analyser\AnalyserResultFinalizer $analyserResultFinalizer */
-	$analyserResultFinalizer = $container->getByType(\PHPStan\Analyser\AnalyserResultFinalizer::class);
-	$analyserResult = $analyserResultFinalizer->finalize($analyserResult, true, false);
+		/** @var \PHPStan\Analyser\AnalyserResultFinalizer $analyserResultFinalizer */
+		$analyserResultFinalizer = $container->getByType(\PHPStan\Analyser\AnalyserResultFinalizer::class);
+
+		/** @var \PHPStan\Fixable\ErrorFixer $errorFixer */
+		$errorFixer = $container->getByType(\PHPStan\Fixable\ErrorFixer::class);
+
+		return [$analyserResultFinalizer->finalize($analyserResult, true, false), $errorFixer];
+	};
+
+	[$analyserResult, $errorFixer] = $analyse();
 	$results = $analyserResult->getErrors();
 
 	error_clear_last();
@@ -142,24 +153,35 @@ return function ($event) use ($phpstanVersion) {
 		$errors[] = $error;
 	}
 
-    $response = [
-        'result' => $errors,
-        'version' => $phpstanVersion,
-        'xray' => playground_xray($code, $analyserResult->getAnalyserResult()->getCollectedData()[$codePath] ?? []),
-    ];
+	$response = [
+		'result' => $errors,
+		'version' => $phpstanVersion,
+		'xray' => playground_xray($code, $analyserResult->getAnalyserResult()->getCollectedData()[$codePath] ?? []),
+	];
 
-    /** @var \PHPStan\Fixable\ErrorFixer $errorFixer */
-    $errorFixer = $container->getByType(\PHPStan\Fixable\ErrorFixer::class);
-    if (count($errorFixer->fix($results)->getFixedErrors()) > 0) {
-        $differ = new \SebastianBergmann\Diff\Differ(new \SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder([
-            'header' => '',
-            'addLineNumbers' => true,
-            'emitNoLineEndEofWarning' => false,
-        ]));
-        $fixedCode = (string) file_get_contents($codePath);
-        $response['fixedCode'] = $fixedCode;
-        $response['fixedCodeDiff'] = $differ->diff($code, $fixedCode);
-    }
+	// Like `phpstan analyse --fix`: the fixed code is analysed again in a new container
+	// and fixed again, which applies fixes skipped because they overlapped with other fixes
+	// and fixes errors caused by the previous round.
+	$roundResults = $results;
+	for ($round = 1; ; $round++) {
+		$fixedCount = count($errorFixer->fix($roundResults)->getFixedErrors());
+		if ($fixedCount === 0 || $round === PLAYGROUND_FIX_ROUNDS_LIMIT) {
+			break;
+		}
+		[$roundAnalyserResult, $errorFixer] = $analyse();
+		$roundResults = $roundAnalyserResult->getErrors();
+	}
+
+	$fixedCode = (string) file_get_contents($codePath);
+	if ($fixedCode !== $code) {
+		$differ = new \SebastianBergmann\Diff\Differ(new \SebastianBergmann\Diff\Output\StrictUnifiedDiffOutputBuilder([
+			'header' => '',
+			'addLineNumbers' => true,
+			'emitNoLineEndEofWarning' => false,
+		]));
+		$response['fixedCode'] = $fixedCode;
+		$response['fixedCodeDiff'] = $differ->diff($code, $fixedCode);
+	}
 
 	return $response;
 };
