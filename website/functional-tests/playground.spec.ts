@@ -59,7 +59,12 @@ async function mockApi(page: Page): Promise<Api> {
 			api.analyses.push(body);
 			const message = `Analysis #${api.analyses.length} at level ${body.level}`;
 			await route.fulfill({json: {
-				tabs: [{title: 'PHP 7.2 – 8.6 (1 error)', errors: [{message, line: 1, ignorable: true}]}],
+				tabs: [{
+					title: 'PHP 7.2 – 8.6 (1 error)',
+					errors: [{message, line: 1, ignorable: true}],
+					// One node spanning the whole analysed code.
+					xray: {strings: ['Stmt\\Expression'], nodes: [[0, 0, body.code.length, -1, -1, []]]},
+				}],
 				...(body.saveResult ? {id: SHARED_ID} : {}),
 			}});
 			return;
@@ -311,4 +316,35 @@ test('back after showing the latest result goes to the snippet and its stored re
 
 	expect(api.samples).toEqual([SNIPPET_ID]);
 	expect(api.analyses).toHaveLength(1);
+});
+
+test('X-Ray data of a restored snippet is not mapped through edits made for another analysis', async ({page}) => {
+	const errors: string[] = [];
+	page.on('pageerror', (error) => errors.push(error.message));
+	page.on('console', (message) => {
+		if (message.type() === 'error') {
+			errors.push(message.text());
+		}
+	});
+	const api = await mockApi(page);
+	await open(page, `/r/${SNIPPET_ID}`);
+
+	await page.locator('.cm-xray-toggle').click();
+	await expect(page.locator('.cm-xray-toggle')).toHaveClass(/cm-xray-toggle-active/);
+	await expect.poll(() => api.analyses.length).toBe(1);
+	await page.waitForTimeout(500);
+
+	// The analysis of the shorter code starts while the snippet's X-Ray data is for the longer one.
+	await page.locator('.cm-content').click();
+	await page.keyboard.press('ControlOrMeta+End');
+	for (let i = 0; i < 5; i++) {
+		await page.keyboard.press('Backspace');
+	}
+	await expect(page.getByText('Analysis #2 at level 10')).toBeVisible();
+
+	await undo(page);
+	await expect(page).toHaveURL(`/r/${SNIPPET_ID}`);
+	await page.waitForTimeout(500);
+	expect(errors).toEqual([]);
+	await expect(page.getByText(SNIPPET_ERROR)).toBeVisible();
 });

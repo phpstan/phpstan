@@ -10,7 +10,7 @@ import {historyField} from '@codemirror/commands';
 import {XRayData} from './XRayData';
 import defaultCode from './data/playground-default.php?raw';
 import defaultResponse from './data/playground-default.json';
-import {isXRayAvailable, startXRayRequest, xrayUnavailable} from './editor/xray';
+import {isXRayAvailable, xrayUnavailable} from './editor/xray';
 import {playgroundTemplate} from './Playground';
 
 declare const __PAGES_JSON__: Record<string, string>;
@@ -417,13 +417,6 @@ export class PlaygroundViewModel extends ko.Component {
 		this.ensureXRay();
 	}
 
-	// Lets the editor map the answer through whatever is typed meanwhile.
-	private markXRayRequest(): void {
-		if (this.editorView) {
-			this.editorView.dispatch({effects: startXRayRequest.of(null)});
-		}
-	}
-
 	// Fetch X-Ray data when the toggle is on and the shown result has none.
 	ensureXRay(): void {
 		if (!this.xrayEnabled() || !isXRayAvailable()) {
@@ -440,7 +433,6 @@ export class PlaygroundViewModel extends ko.Component {
 		const tabs = this.tabs();
 		const code = this.code();
 		this.xrayLoading(true);
-		this.markXRayRequest();
 		this.xrayXhr = $.ajax({
 			type: 'POST',
 			url: apiBaseUrl + '/analyse',
@@ -520,7 +512,6 @@ export class PlaygroundViewModel extends ko.Component {
 	}
 
 	analyse(saveResult: boolean): JQuery.jqXHR {
-		this.markXRayRequest();
 		this.xhr = $.ajax({
 			type: 'POST',
 			url: apiBaseUrl + '/analyse',
