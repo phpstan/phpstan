@@ -45,6 +45,7 @@ Ways to fix the error.
 - `title`: The error identifier (e.g., `"property.notFound"`)
 - `shortDescription`: One sentence (ending with a period) describing when the error is reported. Written from a user's perspective — what code pattern causes PHPStan to report this error. Examples: `"Accessing a private property from outside the declaring class."`, `"Loose comparison using == will always evaluate to true."`, `"Pure function uses print, which produces output as a side effect."`
 - `ignorable`: `true` for most identifiers. Set to `false` for identifiers that use `->nonIgnorable()` in the rule builder chain, or that start with `phpstan.` or `phpstanPlayground.`
+- `autofixable`: Add `autofixable: true` when the rule attaches a fix to the error with `->fixNode()` or `->removeNode()` in the rule builder chain, so that `phpstan analyse --fix` can fix it. Omit it otherwise.
 
 ### Code example
 

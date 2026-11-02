@@ -2,6 +2,7 @@
 title: "method.missingOverride"
 shortDescription: "Overriding method is missing the #[Override] attribute."
 ignorable: true
+autofixable: true
 ---
 
 ## Code example

@@ -2,6 +2,7 @@
 title: "phpunit.assertEmpty"
 shortDescription: "Calling PHPUnit's assertEmpty() or assertNotEmpty() is disallowed in favour of a more strict assertion."
 ignorable: true
+autofixable: true
 ---
 
 ## Code example

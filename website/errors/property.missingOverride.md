@@ -2,6 +2,7 @@
 title: "property.missingOverride"
 shortDescription: "Overriding property is missing the #[Override] attribute."
 ignorable: true
+autofixable: true
 ---
 
 ## Code example

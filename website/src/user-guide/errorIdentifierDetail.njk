@@ -68,6 +68,14 @@ This error can be reported by PHPStan, but only under circumstances where a more
 
 {{ errorIdentifier.doc.content | renderMarkdown | safe }}
 
+{% if errorIdentifier.doc.autofixable %}
+<div class="bg-green-100 border-l-4 border-green-500 text-green-800 p-4 mb-4" role="note">
+<p class="!mb-2"><strong>🔧 This error is auto-fixable.</strong> PHPStan can fix it for you. Run the analysis with the <code class="whitespace-nowrap">--fix</code> option to rewrite the affected code:</p>
+<pre class="!my-2"><code>vendor/bin/phpstan analyse --fix</code></pre>
+<p class="!mb-0">{% if errorIdentifier.doc.ignorable %}To also fix the errors you have ignored, use <code class="whitespace-nowrap">--fix-ignored</code>. {% endif %}<a href="/user-guide/command-line-usage#--fix%2C---fix-ignored">Learn more about <code class="whitespace-nowrap">--fix</code> »</a></p>
+</div>
+{% endif %}
+
 {% if errorIdentifier.doc.ignorable %}
 
 {% markdown %}

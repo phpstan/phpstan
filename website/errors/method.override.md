@@ -2,6 +2,7 @@
 title: "method.override"
 shortDescription: "Method has the #[Override] attribute but does not override any parent method."
 ignorable: true
+autofixable: true
 ---
 
 ## Code example

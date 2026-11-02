@@ -49,6 +49,7 @@ module.exports = async () => {
 				ignorable: file.data.ignorable !== false,
 				feasible: file.data.feasible !== false,
 				unlikely: file.data.unlikely === true,
+				autofixable: file.data.autofixable === true,
 				shortDescription: file.data.shortDescription || null,
 				content: file.content,
 			};

@@ -2,6 +2,7 @@
 title: "phpunit.assertCount"
 shortDescription: "assertSame() with count() should be replaced with assertCount()."
 ignorable: true
+autofixable: true
 ---
 
 ## Code example
