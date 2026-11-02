@@ -130,3 +130,134 @@ parametersSchema:
 ```
 
 The schema is enforced using the [`nette/schema`](https://doc.nette.org/en/3.1/schema) library. See how [PHPStan's own schema](https://github.com/phpstan/phpstan-src/blob/__BRANCH__/conf/parametersSchema.neon) is defined to get an idea how to define yours.
+
+Attribute services
+------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.5</div>
+
+Instead of the `services`, `rules` and `conditionalTags` sections, services can be registered with PHP attributes on the classes themselves. List the directories with these classes in the top-level `attributeServicesDirectories` section of the extension's configuration file. Relative paths are resolved against the file:
+
+```yaml
+attributeServicesDirectories:
+	- src
+```
+
+The classes must be autoloadable through the `psr-4` or `classmap` rules in the `autoload` section of the package's `composer.json`. PHPStan reads the attributes with native reflection, so the package must require PHP 8.0 or later.
+
+The directories are scanned only when the DI container is compiled. The compiled container is cached until the package version changes. For directories in the analysed project itself, the cache is invalidated when any file in them changes.
+
+### `#[AutowiredService]`
+
+Registers the class as a service. Replaces a `services` entry:
+
+```yaml
+services:
+	-
+		class: App\MyExtension
+```
+
+```php
+use PHPStan\DependencyInjection\AutowiredService;
+
+#[AutowiredService]
+class MyExtension implements DynamicMethodReturnTypeExtension
+```
+
+Extension tags like `phpstan.broker.dynamicMethodReturnTypeExtension` are added automatically based on the implemented interfaces.
+
+* `name`: service name, replaces the key of a named `services` entry. Default: none.
+* `factory`: factory method like `'@App\MyFactory::create'`, replaces `factory`. Default: none.
+* `as`: the type or list of types the service is autowired as, replaces `autowired: [App\MyInterface]`. Default: all types of the class.
+* `autoTag`: set to `false` to not add the extension tags. Default: `true`.
+
+### `#[NonAutowiredService]`
+
+Registers the class as a service that is not autowired. Replaces `autowired: false`. It has the required `name` parameter and the optional `factory` parameter, the same as `#[AutowiredService]`.
+
+### `#[RegisteredRule]` and `#[RegisteredCollector]`
+
+Registers a [custom rule](/developing-extensions/rules) or a [collector](/developing-extensions/collectors). Replaces the `rules` section and services tagged with `phpstan.rules.rule` or `phpstan.collector`:
+
+```php
+use PHPStan\DependencyInjection\RegisteredRule;
+
+#[RegisteredRule(level: 0)]
+class MyRule implements Rule
+```
+
+* `level`: the lowest [rule level](/user-guide/rule-levels) the rule or collector is registered on. Use `0` for rules that run on every level, like the ones in the `rules` section.
+
+### `#[GenerateFactory]`
+
+Generates an implementation of the factory interface that creates the class. Replaces the `implement` key of a `services` entry:
+
+```yaml
+services:
+	-
+		implement: App\MyValueFactory
+```
+
+```php
+use PHPStan\DependencyInjection\GenerateFactory;
+
+#[GenerateFactory(interface: MyValueFactory::class)]
+class MyValue
+```
+
+* `interface`: the factory interface with the `create()` method.
+* `resultType`: the type the factory creates, when it differs from the return type of `create()`. Default: none.
+
+### `#[AutowiredParameter]`
+
+On a constructor parameter. Supplies a parameter or a service that can't be autowired. Replaces the `arguments` key of a `services` entry:
+
+```php
+use PHPStan\DependencyInjection\AutowiredParameter;
+
+public function __construct(
+	#[AutowiredParameter]
+	private bool $checkUninitializedProperties,
+	#[AutowiredParameter(ref: '%myExtension.myOwnParameter%')]
+	private bool $myOwnParameter,
+	#[AutowiredParameter(ref: '@serviceTwo')]
+	private MyService $myService,
+)
+```
+
+* `ref`: the configuration parameter like `'%myExtension.myOwnParameter%'`, or the service like `'@serviceTwo'`. Default: the parameter with the same name as the constructor parameter.
+
+### `#[Conditional]`
+
+Adds the tags of the wrapped `#[AutowiredService]`, `#[RegisteredRule]` or `#[RegisteredCollector]` only when the condition is met. Replaces the `conditionalTags` section:
+
+```yaml
+conditionalTags:
+	App\MyRule:
+		phpstan.rules.rule: %myExtension.myRule%
+```
+
+```php
+use PHPStan\DependencyInjection\Conditional;
+use PHPStan\DependencyInjection\RegisteredRule;
+
+#[Conditional(
+	attribute: new RegisteredRule(level: 0),
+	if: '%myExtension.myRule%',
+)]
+class MyRule implements Rule
+```
+
+The service is always registered so that other services can still ask for it.
+
+* `attribute`: `new AutowiredService(...)`, `new RegisteredRule(...)` or `new RegisteredCollector(...)`.
+* `if`: the same values as in `conditionalTags`: a parameter like `'%myExtension.myRule%'`, its negation `'not(%myExtension.myRule%)'`, or a list of them that must all be met, like `['%myExtension.myRule%', '%featureToggles.bleedingEdge%']`.
+
+`new` in attribute arguments requires PHP 8.1. On PHP 8.0, write the wrapped attribute as an array:
+
+```php
+#[Conditional(
+	attribute: ['olvlvl\ComposerAttributeCollector\NewExpression' => [RegisteredRule::class, ['level' => 0]]],
+	if: '%myExtension.myRule%',
+)]
+```
