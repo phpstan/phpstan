@@ -342,8 +342,6 @@ public function testFix(): void
 
 When the fixed node lives in another file, like a trait or a file the error points to with `RuleErrorBuilder::file()`, use `fixOtherFile($file, $fixedFile, $expectedFile)`.
 
-To apply fixes outside of the `analyse` command, for example in a custom [error formatter](/developing-extensions/error-formatters), call `fix()` on the `PHPStan\Fixable\ErrorFixer` service with a list of errors. `Error::isFixable()` tells you which errors have a fix.
-
 Virtual nodes
 ---------------
 
