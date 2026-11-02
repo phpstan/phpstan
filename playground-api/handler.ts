@@ -62,6 +62,7 @@ interface PHPStanError {
 	tip?: string,
 	identifier?: string,
 	ignorable?: boolean,
+	fixable?: boolean,
 }
 
 // "AST X-Ray" payload produced by the runner: every AST node with its UTF-16
@@ -214,6 +215,10 @@ async function analyseResultInternal(
 					obj.identifier = error.identifier;
 				}
 
+				if (error.fixable) {
+					obj.fixable = true;
+				}
+
 				return obj;
 			}),
 		};
@@ -320,6 +325,12 @@ function createTabs(versionedErrors: VersionedErrors[]): any[] {
 				break;
 			}
 			if (error.ignorable !== lastError.ignorable) {
+				versions.push(last);
+				last = current;
+				merge = false;
+				break;
+			}
+			if (error.fixable !== lastError.fixable) {
 				versions.push(last);
 				last = current;
 				merge = false;
@@ -587,6 +598,11 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 						}
 
 						if (error.ignorable !== otherError.ignorable) {
+							isSame = false;
+							break;
+						}
+
+						if (error.fixable !== otherError.fixable) {
 							isSame = false;
 							break;
 						}

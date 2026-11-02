@@ -37,12 +37,6 @@ parameters:
 			path: bref.php
 
 		-
-			message: '#^Calling PHPStan\\Fixable\\Patcher\:\:applyDiffs\(\) is not covered by backward compatibility promise\. The method might change in a minor PHPStan version\.$#'
-			identifier: phpstanApi.method
-			count: 1
-			path: bref.php
-
-		-
 			message: '#^Calling PHPStan\\Analyser\\AnalyserResult\:\:getCollectedData\(\) is not covered by backward compatibility promise\. The method might change in a minor PHPStan version\.$#'
 			identifier: phpstanApi.method
 			count: 1
