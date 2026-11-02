@@ -44,4 +44,8 @@ Replace the blanket ignore with `@phpstan-ignore` using a specific error identif
 +echo $anotherUndefined; // @phpstan-ignore variable.undefined (loaded dynamically)
 ```
 
-Each identifier must have an accompanying comment in parentheses. Learn more about ignoring errors in [Ignoring Errors](/user-guide/ignoring-errors).
+Each identifier must have an accompanying comment in parentheses.
+
+Running `vendor/bin/phpstan analyse --fix` replaces `@phpstan-ignore-next-line` and `@phpstan-ignore-line` with `@phpstan-ignore` listing the identifiers of the errors currently reported on the ignored line. Any text after the original tag becomes the comment for each identifier. If an error on that line has no identifier, the ignore is left for you to rewrite by hand.
+
+Learn more about ignoring errors in [Ignoring Errors](/user-guide/ignoring-errors).
