@@ -43,7 +43,7 @@ Some rules know how to fix the errors they report. These errors are marked with 
 vendor/bin/phpstan analyse --fix
 ```
 
-Edits preserve the formatting of the surrounding code. Fixing one error can make another one fixable, and two fixes can touch the same lines, so PHPStan analyses the fixed code again and keeps fixing in rounds until nothing fixable is left. It stops after 10 rounds; run it again to see what remains. Thanks to the [result cache](/user-guide/result-cache), each round only reanalyses the changed files and the files that depend on them.
+Edits preserve the formatting of the surrounding code. Fixing one error can make another one fixable, and two fixes can touch the same lines, so PHPStan analyses the fixed code again and keeps fixing in rounds until nothing fixable is left. It stops after 10 rounds; run it again to see what remains. The exit code is 0 when every fixable error was fixed, and 1 when some are left, because fixing hit the round limit or some fixes kept conflicting with each other. Thanks to the [result cache](/user-guide/result-cache), each round only reanalyses the changed files and the files that depend on them.
 
 `--fix-ignored` fixes errors you have [ignored](/user-guide/ignoring-errors) in the configuration, in the baseline, or with inline `@phpstan-ignore` comments. The table output mentions them in grey when there are some. It can be used alone, or together with `--fix` to fix both reported and ignored errors at once.
 
