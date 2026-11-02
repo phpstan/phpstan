@@ -42,3 +42,9 @@ Remove the unnecessary ignore comment:
 ```
 
 If the ignore comment was suppressing an error that still exists but has moved, relocate the comment to the correct line.
+
+The unnecessary `@phpstan-ignore-line` or `@phpstan-ignore-next-line` comment can also be removed automatically by running PHPStan with [`--fix`](/user-guide/command-line-usage#--fix%2C---fix-ignored):
+
+```bash
+vendor/bin/phpstan analyse --fix
+```

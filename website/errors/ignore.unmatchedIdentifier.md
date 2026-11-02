@@ -36,3 +36,9 @@ Remove the unnecessary ignore comment if the error no longer occurs:
 ```
 
 If the error should still be ignored but the identifier is wrong, correct it to match the actual error identifier. You can find the correct identifier by temporarily removing the ignore comment and running PHPStan to see the reported error with its identifier.
+
+Unmatched identifiers can also be removed automatically by running PHPStan with [`--fix`](/user-guide/command-line-usage#--fix%2C---fix-ignored). If the comment lists other identifiers that are still matched, only the unmatched one is removed; otherwise the whole `@phpstan-ignore` comment is removed:
+
+```bash
+vendor/bin/phpstan analyse --fix
+```
