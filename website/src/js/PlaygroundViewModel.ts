@@ -915,7 +915,8 @@ export class PlaygroundViewModel extends ko.Component {
 		// The default snippet and the API's answer for it, so the page has a
 		// result (errors and X-Ray) before the first analysis. Handled like a
 		// sample response; regenerate with scripts/update-playground-default.mjs.
-		const data = {code: defaultCode, tabs: defaultResponse.tabs as TabData[]};
+		// Through unknown because JSON imports never infer tuples like X-Ray nodes.
+		const data = {code: defaultCode, tabs: defaultResponse.tabs as unknown as TabData[]};
 		this.code(data.code);
 		this.loaded(true);
 		this.tabs(this.createTabs(data.tabs));
