@@ -3,69 +3,29 @@
 		{
 			"errors": [
 				{
-					"line": 8,
-					"message": "Method CoffeeBreak::getDuration() should return int but return statement is missing.",
+					"line": 22,
+					"message": "Method LoudGreeter::wave() has #[\\Override] attribute but does not override any method.",
 					"ignorable": false,
-					"identifier": "return.missing"
+					"identifier": "method.override",
+					"fixable": true
 				},
 				{
-					"line": 13,
-					"message": "Property MondayMorning::$coffeeConsumed is never read, only written.",
-					"ignorable": true,
-					"tip": "See: https://phpstan.org/developing-extensions/always-read-written-properties",
-					"identifier": "property.onlyWritten"
-				},
-				{
-					"line": 20,
-					"message": "PHPDoc tag @var with type DateTime is not subtype of native type DateTimeImmutable.",
-					"ignorable": true,
-					"identifier": "varTag.nativeType"
-				},
-				{
-					"line": 23,
-					"message": "Parameter #2 $string of function explode expects string, int|string given.",
-					"ignorable": true,
-					"identifier": "argument.type"
-				},
-				{
-					"line": 24,
-					"message": "Strict comparison using === between int<1, max> and 0 will always evaluate to false.",
-					"ignorable": true,
-					"tip": "Because the type is coming from a PHPDoc, you can turn off this check by setting treatPhpDocTypesAsCertain: false in your %configurationFile%.",
-					"identifier": "identical.alwaysFalse"
-				},
-				{
-					"line": 25,
-					"message": "Call to an undefined method MondayMorning::deployToProduction().",
-					"ignorable": true,
-					"identifier": "method.notFound"
-				},
-				{
-					"line": 26,
-					"message": "Method MondayMorning::startDay() should return string but returns null.",
-					"ignorable": true,
-					"identifier": "return.type"
-				},
-				{
-					"line": 26,
-					"message": "Parameter #1 $array of function array_pop expects array, int|string given.",
-					"ignorable": true,
-					"identifier": "argument.type"
+					"line": 30,
+					"message": "No error with identifier argument.type is reported on line 30.",
+					"ignorable": false,
+					"identifier": "ignore.unmatchedIdentifier",
+					"fixable": true
 				},
 				{
 					"line": 31,
-					"message": "Expression in isset() is not nullable.",
+					"message": "Parameter #1 $name of method LoudGreeter::greet() expects string, int given.",
 					"ignorable": true,
-					"identifier": "isset.expr"
-				},
-				{
-					"line": 33,
-					"message": "Call to sprintf contains 2 placeholders, 1 value given.",
-					"ignorable": true,
-					"identifier": "argument.sprintf"
+					"identifier": "argument.type"
 				}
 			],
-			"title": "PHP 8.0 – 8.5 (10 errors)",
+			"title": "PHP 7.2 – 8.6 (3 errors)",
+			"fixedCode": "<?php declare(strict_types = 1);\n\nuse function PHPStan\\dumpType;\nuse function PHPStan\\Testing\\assertType;\n\nclass Greeter\n{\n\tpublic function greet(string $name): string\n\t{\n\t\treturn 'Hello, ' . $name;\n\t}\n}\n\nclass LoudGreeter extends Greeter\n{\n\t#[\\Override]\n\tpublic function greet(string $name): string\n\t{\n\t\treturn strtoupper(parent::greet($name)) . '!';\n\t}\n\n\tpublic function wave(): string\n\t{\n\t\treturn 'o/';\n\t}\n}\n\n$greeter = new LoudGreeter();\necho $greeter->greet('world');\necho $greeter->greet(42);\n",
+			"fixedCodeDiff": "@@ -19,7 +19,6 @@\n \t\treturn strtoupper(parent::greet($name)) . '!';\n \t}\n \n-\t#[\\Override]\n \tpublic function wave(): string\n \t{\n \t\treturn 'o/';\n@@ -27,5 +26,5 @@\n }\n \n $greeter = new LoudGreeter();\n-echo $greeter->greet('world'); // @phpstan-ignore argument.type\n+echo $greeter->greet('world');\n echo $greeter->greet(42);\n",
 			"xray": {
 				"strings": [
 					"declares",
@@ -95,99 +55,64 @@
 					"extends",
 					"implements",
 					"Stmt\\Class_",
-					"\"CoffeeBreak\"",
+					"\"Greeter\"",
 					"byRef",
 					"false",
 					"params",
 					"returnType",
 					"Stmt\\ClassMethod",
-					"\"getDuration\"",
-					"\"int\"",
-					"\"MondayMorning\"",
-					"4",
-					"props",
-					"hooks",
-					"Stmt\\Property",
-					"\"bool\"",
-					"default",
-					"PropertyItem",
-					"\"coffeeConsumed\"",
-					"VarLikeIdentifier",
-					"Expr\\ConstFetch",
-					"\"false\"",
-					"Name\\FullyQualified",
-					"\"startDay\"",
+					"\"greet\"",
 					"variadic",
 					"var",
+					"default",
+					"hooks",
 					"Param",
-					"types",
-					"UnionType",
 					"\"string\"",
-					"\"task\"",
+					"\"name\"",
 					"Expr\\Variable",
 					"expr",
-					"Stmt\\Expression",
-					"Expr\\Assign",
-					"true",
-					"Expr\\PropertyFetch",
-					"bool",
-					"\"this\"",
-					"$this(MondayMorning)",
-					"\"true\"",
-					"DateTimeImmutable",
-					"\"deadline\"",
-					"class",
-					"args",
-					"Expr\\New_",
-					"\"DateTimeImmutable\"",
-					"unpack",
-					"Arg",
-					"\"friday\"",
-					"Scalar\\String_",
-					"'friday'",
-					"Expr\\MethodCall",
-					"DateTime",
-					"\"modify\"",
-					"\"-1 week\"",
-					"'-1 week'",
-					"int<1, max>",
-					"\"words\"",
-					"Expr\\FuncCall",
-					"\"count\"",
-					"non-empty-list<string>",
-					"\"explode\"",
-					"\" \"",
-					"' '",
-					"int|string",
-					"cond",
-					"elseifs",
-					"else",
-					"Stmt\\If_",
+					"Stmt\\Return_",
 					"left",
 					"right",
-					"Expr\\BinaryOp\\Identical",
+					"Expr\\BinaryOp\\Concat",
+					"non-falsy-string",
+					"\"Hello, \"",
+					"Scalar\\String_",
+					"'Hello, '",
+					"string",
+					"\"LoudGreeter\"",
+					"Name\\FullyQualified",
+					"attrs",
+					"AttributeGroup",
+					"args",
+					"Attribute",
+					"\"Override\"",
+					"non-falsy-string&uppercase-string",
+					"Expr\\FuncCall",
+					"uppercase-string",
+					"\"strtoupper\"",
+					"unpack",
+					"Arg",
+					"class",
+					"Expr\\StaticCall",
+					"\"parent\"",
+					"\"!\"",
+					"'!'",
+					"\"wave\"",
+					"\"o/\"",
+					"'o/'",
+					"Stmt\\Expression",
+					"Expr\\Assign",
+					"LoudGreeter",
+					"\"greeter\"",
+					"mixed",
+					"Expr\\New_",
 					"exprs",
 					"Stmt\\Echo_",
-					"\"if only\"",
-					"'if only'",
-					"*ERROR*",
-					"\"deployToProduction\"",
-					"Stmt\\Return_",
-					"\"array_pop\"",
-					"CoffeeBreak",
-					"\"cb\"",
-					"mixed",
-					"vars",
-					"Expr\\Isset_",
-					"int",
-					"\"break time\"",
-					"'break time'",
-					"lowercase-string&non-empty-string",
-					"\"sprintf\"",
-					"\"%s %s\"",
-					"'%s %s'",
-					"\"safe\"",
-					"'safe'"
+					"Expr\\MethodCall",
+					"\"world\"",
+					"'world'",
+					"42"
 				],
 				"nodes": [
 					[
@@ -325,7 +250,7 @@
 					[
 						26,
 						107,
-						168,
+						203,
 						-1,
 						-1,
 						[
@@ -348,7 +273,7 @@
 					[
 						9,
 						113,
-						124,
+						120,
 						10,
 						-1,
 						[
@@ -358,8 +283,8 @@
 					],
 					[
 						32,
-						128,
-						166,
+						124,
+						201,
 						10,
 						-1,
 						[
@@ -372,17 +297,21 @@
 							7,
 							13,
 							30,
-							[],
+							[
+								14
+							],
 							31,
-							14,
+							17,
 							1,
-							[]
+							[
+								18
+							]
 						]
 					],
 					[
 						9,
-						144,
-						155,
+						140,
+						145,
 						12,
 						-1,
 						[
@@ -391,77 +320,46 @@
 						]
 					],
 					[
-						9,
-						159,
-						162,
+						38,
+						146,
+						158,
 						12,
-						-1,
-						[
-							7,
-							-35
-						]
-					],
-					[
-						26,
-						170,
-						596,
-						-1,
 						-1,
 						[
 							22,
 							[],
 							23,
 							-17,
-							7,
-							16,
-							24,
-							-3,
-							25,
-							[],
-							1,
-							[
-								17,
-								23
-							]
-						]
-					],
-					[
-						9,
-						176,
-						189,
-						15,
-						-1,
-						[
-							7,
-							-36
-						]
-					],
-					[
-						39,
-						193,
-						230,
-						15,
-						-1,
-						[
-							22,
-							[],
-							23,
-							-37,
 							12,
-							18,
+							15,
+							28,
+							-30,
+							34,
+							-30,
+							35,
+							16,
+							36,
+							-3,
 							37,
-							[
-								19
-							],
-							38,
 							[]
 						]
 					],
 					[
 						9,
-						201,
-						205,
-						17,
+						146,
+						152,
+						14,
+						-1,
+						[
+							7,
+							-40
+						]
+					],
+					[
+						41,
+						153,
+						158,
+						14,
 						-1,
 						[
 							7,
@@ -469,831 +367,102 @@
 						]
 					],
 					[
-						42,
-						206,
-						229,
-						17,
+						9,
+						161,
+						167,
+						12,
 						-1,
 						[
 							7,
+							-40
+						]
+					],
+					[
+						43,
+						173,
+						198,
+						12,
+						-1,
+						[
+							42,
+							19
+						]
+					],
+					[
+						46,
+						180,
+						197,
+						18,
+						47,
+						[
+							44,
 							20,
-							41,
+							45,
 							21
 						]
 					],
 					[
-						44,
-						206,
-						221,
+						49,
+						180,
+						189,
 						19,
-						-1,
+						50,
 						[
-							7,
-							-44
-						]
-					],
-					[
-						45,
-						224,
-						229,
-						19,
-						29,
-						[
-							7,
-							22
-						]
-					],
-					[
-						47,
-						224,
-						229,
-						21,
-						-1,
-						[
-							7,
-							-47
-						]
-					],
-					[
-						32,
-						233,
-						594,
-						15,
-						-1,
-						[
-							22,
-							[],
-							23,
-							-11,
-							28,
-							-30,
-							7,
-							24,
-							30,
-							[
-								25
-							],
-							31,
-							30,
-							1,
-							[
-								31,
-								38,
-								45,
-								51,
-								63,
-								69,
-								73
-							]
-						]
-					],
-					[
-						9,
-						249,
-						257,
-						23,
-						-1,
-						[
-							7,
+							5,
 							-49
 						]
 					],
 					[
+						41,
+						192,
+						197,
+						19,
 						51,
-						258,
-						274,
-						23,
+						[
+							7,
+							-41
+						]
+					],
+					[
+						26,
+						205,
+						424,
+						-1,
 						-1,
 						[
 							22,
 							[],
 							23,
 							-17,
-							12,
-							26,
-							28,
-							-30,
-							49,
-							-30,
-							50,
-							29,
-							41,
-							-3,
-							38,
-							[]
+							7,
+							23,
+							24,
+							24,
+							25,
+							[],
+							1,
+							[
+								25,
+								45
+							]
+						]
+					],
+					[
+						9,
+						211,
+						222,
+						22,
+						-1,
+						[
+							7,
+							-53
 						]
 					],
 					[
 						53,
-						258,
-						268,
-						25,
-						-1,
-						[
-							52,
-							[
-								27,
-								28
-							]
-						]
-					],
-					[
-						9,
-						258,
-						264,
-						26,
-						-1,
-						[
-							7,
-							-55
-						]
-					],
-					[
-						9,
-						265,
-						268,
-						26,
-						-1,
-						[
-							7,
-							-35
-						]
-					],
-					[
-						56,
-						269,
-						274,
-						25,
-						-1,
-						[
-							7,
-							-56
-						]
-					],
-					[
-						9,
-						277,
-						283,
-						23,
-						-1,
-						[
-							7,
-							-55
-						]
-					],
-					[
-						58,
-						289,
-						318,
-						23,
-						-1,
-						[
-							57,
-							32
-						]
-					],
-					[
-						59,
-						289,
-						317,
-						31,
-						60,
-						[
-							50,
-							33,
-							57,
-							36
-						]
-					],
-					[
-						61,
-						289,
-						310,
-						32,
-						62,
-						[
-							50,
-							34,
-							7,
-							35
-						]
-					],
-					[
-						56,
-						289,
-						294,
-						33,
-						64,
-						[
-							7,
-							-64
-						]
-					],
-					[
-						9,
-						296,
-						310,
-						33,
-						-1,
-						[
-							7,
-							-44
-						]
-					],
-					[
-						45,
-						313,
-						317,
-						32,
-						60,
-						[
-							7,
-							37
-						]
-					],
-					[
-						47,
-						313,
-						317,
-						36,
-						-1,
-						[
-							7,
-							-66
-						]
-					],
-					[
-						58,
-						357,
-						401,
-						23,
-						-1,
-						[
-							57,
-							39
-						]
-					],
-					[
-						59,
-						357,
-						400,
-						38,
-						66,
-						[
-							50,
-							40,
-							57,
-							41
-						]
-					],
-					[
-						56,
-						357,
-						366,
-						39,
-						-1,
-						[
-							7,
-							-68
-						]
-					],
-					[
-						70,
-						369,
-						400,
-						39,
-						66,
-						[
-							68,
-							42,
-							69,
-							[
-								43
-							]
-						]
-					],
-					[
-						47,
-						373,
-						390,
-						41,
-						-1,
-						[
-							7,
-							-72
-						]
-					],
-					[
-						73,
-						391,
-						399,
-						41,
-						-1,
-						[
-							7,
-							-3,
-							5,
-							44,
-							28,
-							-30,
-							72,
-							-30
-						]
-					],
-					[
-						75,
-						391,
-						399,
-						43,
-						76,
-						[
-							5,
-							-75
-						]
-					],
-					[
-						58,
-						404,
-						433,
-						23,
-						-1,
-						[
-							57,
-							46
-						]
-					],
-					[
-						77,
-						404,
-						432,
-						45,
-						78,
-						[
-							50,
-							47,
-							7,
-							48,
-							69,
-							[
-								49
-							]
-						]
-					],
-					[
-						56,
-						404,
-						413,
-						46,
-						78,
-						[
-							7,
-							-68
-						]
-					],
-					[
-						9,
-						415,
-						421,
-						46,
-						-1,
-						[
-							7,
-							-80
-						]
-					],
-					[
-						73,
-						422,
-						431,
-						46,
-						-1,
-						[
-							7,
-							-3,
-							5,
-							50,
-							28,
-							-30,
-							72,
-							-30
-						]
-					],
-					[
-						75,
-						422,
-						431,
-						49,
-						81,
-						[
-							5,
-							-81
-						]
-					],
-					[
-						58,
-						457,
-						493,
-						23,
-						-1,
-						[
-							57,
-							52
-						]
-					],
-					[
-						59,
-						457,
-						492,
-						51,
-						82,
-						[
-							50,
-							53,
-							57,
-							54
-						]
-					],
-					[
-						56,
-						457,
-						463,
-						52,
-						-1,
-						[
-							7,
-							-84
-						]
-					],
-					[
-						84,
-						466,
-						492,
-						52,
-						82,
-						[
-							7,
-							55,
-							69,
-							[
-								56
-							]
-						]
-					],
-					[
-						47,
-						466,
-						471,
-						54,
-						-1,
-						[
-							7,
-							-86
-						]
-					],
-					[
-						73,
-						472,
-						491,
-						54,
-						-1,
-						[
-							7,
-							-3,
-							5,
-							57,
-							28,
-							-30,
-							72,
-							-30
-						]
-					],
-					[
-						84,
-						472,
-						491,
-						56,
-						86,
-						[
-							7,
-							58,
-							69,
-							[
-								59,
-								61
-							]
-						]
-					],
-					[
-						47,
-						472,
-						479,
-						57,
-						-1,
-						[
-							7,
-							-88
-						]
-					],
-					[
-						73,
-						480,
-						483,
-						57,
-						-1,
-						[
-							7,
-							-3,
-							5,
-							60,
-							28,
-							-30,
-							72,
-							-30
-						]
-					],
-					[
-						75,
-						480,
-						483,
-						59,
-						89,
-						[
-							5,
-							-89
-						]
-					],
-					[
-						73,
-						485,
-						490,
-						57,
-						-1,
-						[
-							7,
-							-3,
-							5,
-							62,
-							28,
-							-30,
-							72,
-							-30
-						]
-					],
-					[
-						56,
-						485,
-						490,
-						61,
-						90,
-						[
-							7,
-							-56
-						]
-					],
-					[
-						94,
-						496,
-						533,
-						23,
-						-1,
-						[
-							91,
-							64,
-							1,
-							[
-								67
-							],
-							92,
-							[],
-							93,
-							-3
-						]
-					],
-					[
-						97,
-						500,
-						512,
-						63,
-						29,
-						[
-							95,
-							65,
-							96,
-							66
-						]
-					],
-					[
-						56,
-						500,
-						506,
-						64,
-						82,
-						[
-							7,
-							-84
-						]
-					],
-					[
-						11,
-						511,
-						512,
-						64,
-						16,
-						[
-							5,
-							-17
-						]
-					],
-					[
-						99,
-						516,
-						531,
-						63,
-						-1,
-						[
-							98,
-							[
-								68
-							]
-						]
-					],
-					[
-						75,
-						521,
-						530,
-						67,
-						101,
-						[
-							5,
-							-101
-						]
-					],
-					[
-						58,
-						536,
-						564,
-						23,
-						-1,
-						[
-							57,
-							70
-						]
-					],
-					[
-						77,
-						536,
-						563,
-						69,
-						102,
-						[
-							50,
-							71,
-							7,
-							72,
-							69,
-							[]
-						]
-					],
-					[
-						56,
-						536,
-						541,
-						70,
-						64,
-						[
-							7,
-							-64
-						]
-					],
-					[
-						9,
-						543,
-						561,
-						70,
-						-1,
-						[
-							7,
-							-104
-						]
-					],
-					[
-						104,
-						567,
-						591,
-						23,
-						-1,
-						[
-							57,
-							74
-						]
-					],
-					[
-						84,
-						574,
-						590,
-						73,
-						2,
-						[
-							7,
-							75,
-							69,
-							[
-								76
-							]
-						]
-					],
-					[
-						47,
-						574,
-						583,
-						74,
-						-1,
-						[
-							7,
-							-106
-						]
-					],
-					[
-						73,
-						584,
-						589,
-						74,
-						-1,
-						[
-							7,
-							-3,
-							5,
-							77,
-							28,
-							-30,
-							72,
-							-30
-						]
-					],
-					[
-						56,
-						584,
-						589,
-						76,
-						90,
-						[
-							7,
-							-56
-						]
-					],
-					[
-						58,
-						598,
-						622,
-						-1,
-						-1,
-						[
-							57,
-							79
-						]
-					],
-					[
-						59,
-						598,
-						621,
-						78,
-						106,
-						[
-							50,
-							80,
-							57,
-							81
-						]
-					],
-					[
-						56,
-						598,
-						601,
-						79,
-						108,
-						[
-							7,
-							-108
-						]
-					],
-					[
-						70,
-						604,
-						621,
-						79,
-						106,
-						[
-							68,
-							82,
-							69,
-							[]
-						]
-					],
-					[
-						47,
-						608,
-						619,
-						81,
+						231,
+						238,
+						22,
 						-1,
 						[
 							7,
@@ -1301,68 +470,76 @@
 						]
 					],
 					[
-						94,
-						623,
-						676,
-						-1,
+						32,
+						242,
+						354,
+						22,
 						-1,
 						[
-							91,
-							84,
+							22,
+							[
+								26
+							],
+							23,
+							-11,
+							28,
+							-30,
+							7,
+							29,
+							30,
+							[
+								30
+							],
+							31,
+							33,
 							1,
 							[
-								88
-							],
-							92,
-							[],
-							93,
-							-3
-						]
-					],
-					[
-						110,
-						627,
-						652,
-						83,
-						60,
-						[
-							109,
-							[
-								85
+								34
 							]
 						]
 					],
 					[
-						77,
-						633,
-						651,
-						84,
-						111,
+						55,
+						242,
+						254,
+						25,
+						-1,
 						[
-							50,
-							86,
+							54,
+							[
+								27
+							]
+						]
+					],
+					[
+						57,
+						244,
+						253,
+						26,
+						-1,
+						[
 							7,
-							87,
-							69,
+							28,
+							56,
 							[]
 						]
 					],
 					[
-						56,
-						633,
-						636,
-						85,
-						106,
+						53,
+						244,
+						253,
+						27,
+						-1,
 						[
 							7,
-							-108
+							-59
 						]
 					],
 					[
 						9,
-						638,
-						649,
-						85,
+						272,
+						277,
+						25,
 						-1,
 						[
 							7,
@@ -1370,518 +547,163 @@
 						]
 					],
 					[
-						99,
-						656,
-						674,
-						83,
+						38,
+						278,
+						290,
+						25,
 						-1,
 						[
-							98,
-							[
-								89
-							]
-						]
-					],
-					[
-						75,
-						661,
-						673,
-						88,
-						113,
-						[
-							5,
-							-113
-						]
-					],
-					[
-						99,
-						678,
-						708,
-						-1,
-						-1,
-						[
-							98,
-							[
-								91
-							]
-						]
-					],
-					[
-						84,
-						683,
-						707,
-						90,
-						114,
-						[
-							7,
-							92,
-							69,
-							[
-								93,
-								95
-							]
-						]
-					],
-					[
-						47,
-						683,
-						690,
-						91,
-						-1,
-						[
-							7,
-							-116
-						]
-					],
-					[
-						73,
-						691,
-						698,
-						91,
-						-1,
-						[
-							7,
-							-3,
-							5,
-							94,
+							22,
+							[],
+							23,
+							-17,
+							12,
+							31,
 							28,
 							-30,
-							72,
-							-30
-						]
-					],
-					[
-						75,
-						691,
-						698,
-						93,
-						117,
-						[
-							5,
-							-117
-						]
-					],
-					[
-						73,
-						700,
-						706,
-						91,
-						-1,
-						[
-							7,
-							-3,
-							5,
-							96,
-							28,
+							34,
 							-30,
-							72,
-							-30
-						]
-					],
-					[
-						75,
-						700,
-						706,
-						95,
-						119,
-						[
-							5,
-							-119
-						]
-					]
-				]
-			}
-		},
-		{
-			"errors": [
-				{
-					"line": 8,
-					"message": "Method CoffeeBreak::getDuration() should return int but return statement is missing.",
-					"ignorable": false,
-					"identifier": "return.missing"
-				},
-				{
-					"line": 13,
-					"message": "Property MondayMorning::$coffeeConsumed is never read, only written.",
-					"ignorable": true,
-					"tip": "See: https://phpstan.org/developing-extensions/always-read-written-properties",
-					"identifier": "property.onlyWritten"
-				},
-				{
-					"line": 15,
-					"message": "Method MondayMorning::startDay() uses native union types but they're supported only on PHP 8.0 and later.",
-					"ignorable": false,
-					"identifier": "parameter.unionTypeNotSupported"
-				},
-				{
-					"line": 20,
-					"message": "PHPDoc tag @var with type DateTime is not subtype of native type DateTimeImmutable.",
-					"ignorable": true,
-					"identifier": "varTag.nativeType"
-				},
-				{
-					"line": 23,
-					"message": "Parameter #2 $str of function explode expects string, int|string given.",
-					"ignorable": true,
-					"identifier": "argument.type"
-				},
-				{
-					"line": 24,
-					"message": "Strict comparison using === between int<1, max> and 0 will always evaluate to false.",
-					"ignorable": true,
-					"tip": "Because the type is coming from a PHPDoc, you can turn off this check by setting treatPhpDocTypesAsCertain: false in your %configurationFile%.",
-					"identifier": "identical.alwaysFalse"
-				},
-				{
-					"line": 25,
-					"message": "Call to an undefined method MondayMorning::deployToProduction().",
-					"ignorable": true,
-					"identifier": "method.notFound"
-				},
-				{
-					"line": 26,
-					"message": "Method MondayMorning::startDay() should return string but returns null.",
-					"ignorable": true,
-					"identifier": "return.type"
-				},
-				{
-					"line": 26,
-					"message": "Parameter #1 $stack of function array_pop expects array, int|string given.",
-					"ignorable": true,
-					"identifier": "argument.type"
-				},
-				{
-					"line": 31,
-					"message": "Expression in isset() is not nullable.",
-					"ignorable": true,
-					"identifier": "isset.expr"
-				},
-				{
-					"line": 33,
-					"message": "Call to sprintf contains 2 placeholders, 1 value given.",
-					"ignorable": true,
-					"identifier": "argument.sprintf"
-				}
-			],
-			"title": "PHP 7.2 – 7.4 (11 errors)",
-			"xray": {
-				"strings": [
-					"declares",
-					"stmts",
-					"null",
-					"Stmt\\Declare_",
-					"key",
-					"value",
-					"DeclareItem",
-					"name",
-					"\"strict_types\"",
-					"Identifier",
-					"1",
-					"Scalar\\Int_",
-					"type",
-					"2",
-					"uses",
-					"Stmt\\Use_",
-					"0",
-					"alias",
-					"UseItem",
-					"\"PHPStan\\\\dumpType\"",
-					"Name",
-					"\"PHPStan\\\\Testing\\\\assertType\"",
-					"attrGroups",
-					"flags",
-					"extends",
-					"implements",
-					"Stmt\\Class_",
-					"\"CoffeeBreak\"",
-					"byRef",
-					"false",
-					"params",
-					"returnType",
-					"Stmt\\ClassMethod",
-					"\"getDuration\"",
-					"\"int\"",
-					"\"MondayMorning\"",
-					"4",
-					"props",
-					"hooks",
-					"Stmt\\Property",
-					"\"bool\"",
-					"default",
-					"PropertyItem",
-					"\"coffeeConsumed\"",
-					"VarLikeIdentifier",
-					"Expr\\ConstFetch",
-					"\"false\"",
-					"Name\\FullyQualified",
-					"\"startDay\"",
-					"variadic",
-					"var",
-					"Param",
-					"types",
-					"UnionType",
-					"\"string\"",
-					"\"task\"",
-					"Expr\\Variable",
-					"expr",
-					"Stmt\\Expression",
-					"Expr\\Assign",
-					"true",
-					"Expr\\PropertyFetch",
-					"bool",
-					"\"this\"",
-					"$this(MondayMorning)",
-					"\"true\"",
-					"DateTimeImmutable",
-					"\"deadline\"",
-					"class",
-					"args",
-					"Expr\\New_",
-					"\"DateTimeImmutable\"",
-					"unpack",
-					"Arg",
-					"\"friday\"",
-					"Scalar\\String_",
-					"'friday'",
-					"Expr\\MethodCall",
-					"DateTime",
-					"\"modify\"",
-					"\"-1 week\"",
-					"'-1 week'",
-					"int<1, max>",
-					"\"words\"",
-					"Expr\\FuncCall",
-					"\"count\"",
-					"non-empty-list<string>",
-					"\"explode\"",
-					"\" \"",
-					"' '",
-					"int|string",
-					"cond",
-					"elseifs",
-					"else",
-					"Stmt\\If_",
-					"left",
-					"right",
-					"Expr\\BinaryOp\\Identical",
-					"exprs",
-					"Stmt\\Echo_",
-					"\"if only\"",
-					"'if only'",
-					"*ERROR*",
-					"\"deployToProduction\"",
-					"Stmt\\Return_",
-					"\"array_pop\"",
-					"CoffeeBreak",
-					"\"cb\"",
-					"mixed",
-					"vars",
-					"Expr\\Isset_",
-					"int",
-					"\"break time\"",
-					"'break time'",
-					"lowercase-string&non-empty-string",
-					"\"sprintf\"",
-					"\"%s %s\"",
-					"'%s %s'",
-					"\"safe\"",
-					"'safe'"
-				],
-				"nodes": [
-					[
-						3,
-						6,
-						32,
-						-1,
-						-1,
-						[
-							0,
-							[
-								1
-							],
-							1,
-							-3
-						]
-					],
-					[
-						6,
-						14,
-						30,
-						0,
-						-1,
-						[
-							4,
-							2,
-							5,
-							3
+							35,
+							32,
+							36,
+							-3,
+							37,
+							[]
 						]
 					],
 					[
 						9,
-						14,
-						26,
-						1,
+						278,
+						284,
+						30,
 						-1,
 						[
 							7,
-							-9
+							-40
 						]
 					],
 					[
-						11,
-						29,
+						41,
+						285,
+						290,
 						30,
-						1,
-						10,
+						-1,
 						[
-							5,
-							-11
+							7,
+							-41
 						]
 					],
 					[
-						15,
+						9,
+						293,
+						299,
+						25,
+						-1,
+						[
+							7,
+							-40
+						]
+					],
+					[
+						43,
+						305,
+						351,
+						25,
+						-1,
+						[
+							42,
+							35
+						]
+					],
+					[
+						46,
+						312,
+						350,
 						34,
+						59,
+						[
+							44,
+							36,
+							45,
+							44
+						]
+					],
+					[
+						60,
+						312,
+						344,
+						35,
+						61,
+						[
+							7,
+							37,
+							56,
+							[
+								38
+							]
+						]
+					],
+					[
+						53,
+						312,
+						322,
+						36,
+						-1,
+						[
+							7,
+							-63
+						]
+					],
+					[
 						64,
-						-1,
-						-1,
-						[
-							12,
-							-14,
-							14,
-							[
-								5
-							]
-						]
-					],
-					[
-						18,
-						47,
-						63,
-						4,
-						-1,
-						[
-							12,
-							-17,
-							7,
-							6,
-							17,
-							-3
-						]
-					],
-					[
-						20,
-						47,
-						63,
-						5,
+						323,
+						343,
+						36,
 						-1,
 						[
 							7,
-							-20
-						]
-					],
-					[
-						15,
-						65,
-						105,
-						-1,
-						-1,
-						[
-							12,
-							-14,
-							14,
-							[
-								8
-							]
-						]
-					],
-					[
-						18,
-						78,
-						104,
-						7,
-						-1,
-						[
-							12,
-							-17,
-							7,
-							9,
-							17,
-							-3
-						]
-					],
-					[
-						20,
-						78,
-						104,
-						8,
-						-1,
-						[
-							7,
-							-22
-						]
-					],
-					[
-						26,
-						107,
-						168,
-						-1,
-						-1,
-						[
-							22,
-							[],
-							23,
-							-17,
-							7,
-							11,
-							24,
 							-3,
-							25,
-							[],
-							1,
-							[
-								12
-							]
-						]
-					],
-					[
-						9,
-						113,
-						124,
-						10,
-						-1,
-						[
-							7,
-							-28
-						]
-					],
-					[
-						32,
-						128,
-						166,
-						10,
-						-1,
-						[
-							22,
-							[],
-							23,
-							-11,
+							5,
+							39,
 							28,
 							-30,
+							63,
+							-30
+						]
+					],
+					[
+						66,
+						323,
+						343,
+						38,
+						51,
+						[
+							65,
+							40,
 							7,
-							13,
-							30,
-							[],
-							31,
-							14,
-							1,
-							[]
+							41,
+							56,
+							[
+								42
+							]
+						]
+					],
+					[
+						20,
+						323,
+						329,
+						39,
+						-1,
+						[
+							7,
+							-68
 						]
 					],
 					[
 						9,
-						144,
-						155,
-						12,
+						331,
+						336,
+						39,
 						-1,
 						[
 							7,
@@ -1889,978 +711,257 @@
 						]
 					],
 					[
-						9,
-						159,
-						162,
-						12,
-						-1,
-						[
-							7,
-							-35
-						]
-					],
-					[
-						26,
-						170,
-						596,
-						-1,
-						-1,
-						[
-							22,
-							[],
-							23,
-							-17,
-							7,
-							16,
-							24,
-							-3,
-							25,
-							[],
-							1,
-							[
-								17,
-								23
-							]
-						]
-					],
-					[
-						9,
-						176,
-						189,
-						15,
-						-1,
-						[
-							7,
-							-36
-						]
-					],
-					[
+						64,
+						337,
+						342,
 						39,
-						193,
-						230,
-						15,
 						-1,
 						[
-							22,
-							[],
-							23,
-							-37,
-							12,
-							18,
-							37,
-							[
-								19
-							],
-							38,
-							[]
+							7,
+							-3,
+							5,
+							43,
+							28,
+							-30,
+							63,
+							-30
 						]
 					],
 					[
-						9,
-						201,
-						205,
-						17,
-						-1,
+						41,
+						337,
+						342,
+						42,
+						51,
 						[
 							7,
 							-41
 						]
 					],
 					[
-						42,
-						206,
-						229,
-						17,
-						-1,
+						49,
+						347,
+						350,
+						35,
+						69,
 						[
-							7,
-							20,
-							41,
-							21
-						]
-					],
-					[
-						44,
-						206,
-						221,
-						19,
-						-1,
-						[
-							7,
-							-44
-						]
-					],
-					[
-						45,
-						224,
-						229,
-						19,
-						29,
-						[
-							7,
-							22
-						]
-					],
-					[
-						47,
-						224,
-						229,
-						21,
-						-1,
-						[
-							7,
-							-47
+							5,
+							-69
 						]
 					],
 					[
 						32,
-						233,
-						594,
-						15,
+						357,
+						422,
+						22,
 						-1,
 						[
 							22,
-							[],
+							[
+								46
+							],
 							23,
 							-11,
 							28,
 							-30,
 							7,
-							24,
+							49,
 							30,
-							[
-								25
-							],
+							[],
 							31,
-							30,
+							50,
 							1,
 							[
-								31,
-								38,
-								45,
-								51,
-								63,
-								69,
-								73
+								51
 							]
 						]
 					],
 					[
-						9,
-						249,
-						257,
-						23,
+						55,
+						357,
+						369,
+						45,
 						-1,
 						[
-							7,
-							-49
+							54,
+							[
+								47
+							]
 						]
 					],
 					[
-						51,
-						258,
-						274,
-						23,
+						57,
+						359,
+						368,
+						46,
 						-1,
 						[
-							22,
-							[],
-							23,
-							-17,
-							12,
-							26,
-							28,
-							-30,
-							49,
-							-30,
-							50,
-							29,
-							41,
-							-3,
-							38,
+							7,
+							48,
+							56,
 							[]
 						]
 					],
 					[
 						53,
-						258,
-						268,
-						25,
+						359,
+						368,
+						47,
 						-1,
 						[
-							52,
-							[
-								27,
-								28
-							]
+							7,
+							-59
 						]
 					],
 					[
 						9,
-						258,
-						264,
-						26,
-						-1,
-						[
-							7,
-							-55
-						]
-					],
-					[
-						9,
-						265,
-						268,
-						26,
-						-1,
-						[
-							7,
-							-35
-						]
-					],
-					[
-						56,
-						269,
-						274,
-						25,
-						-1,
-						[
-							7,
-							-56
-						]
-					],
-					[
-						9,
-						277,
-						283,
-						23,
-						-1,
-						[
-							7,
-							-55
-						]
-					],
-					[
-						58,
-						289,
-						318,
-						23,
-						-1,
-						[
-							57,
-							32
-						]
-					],
-					[
-						59,
-						289,
-						317,
-						31,
-						60,
-						[
-							50,
-							33,
-							57,
-							36
-						]
-					],
-					[
-						61,
-						289,
-						310,
-						32,
-						62,
-						[
-							50,
-							34,
-							7,
-							35
-						]
-					],
-					[
-						56,
-						289,
-						294,
-						33,
-						64,
-						[
-							7,
-							-64
-						]
-					],
-					[
-						9,
-						296,
-						310,
-						33,
-						-1,
-						[
-							7,
-							-44
-						]
-					],
-					[
+						387,
+						391,
 						45,
-						313,
-						317,
-						32,
-						60,
-						[
-							7,
-							37
-						]
-					],
-					[
-						47,
-						313,
-						317,
-						36,
 						-1,
 						[
 							7,
-							-66
+							-71
 						]
 					],
 					[
-						58,
-						357,
+						9,
+						395,
 						401,
-						23,
-						-1,
-						[
-							57,
-							39
-						]
-					],
-					[
-						59,
-						357,
-						400,
-						38,
-						66,
-						[
-							50,
-							40,
-							57,
-							41
-						]
-					],
-					[
-						56,
-						357,
-						366,
-						39,
+						45,
 						-1,
 						[
 							7,
-							-68
+							-40
 						]
 					],
 					[
-						70,
-						369,
-						400,
-						39,
-						66,
+						43,
+						407,
+						419,
+						45,
+						-1,
 						[
-							68,
 							42,
-							69,
-							[
-								43
-							]
+							52
 						]
 					],
 					[
-						47,
-						373,
-						390,
-						41,
-						-1,
+						49,
+						414,
+						418,
+						51,
+						72,
 						[
-							7,
+							5,
 							-72
 						]
 					],
 					[
 						73,
-						391,
-						399,
-						41,
+						426,
+						455,
+						-1,
 						-1,
 						[
-							7,
-							-3,
-							5,
-							44,
-							28,
-							-30,
-							72,
-							-30
-						]
-					],
-					[
-						75,
-						391,
-						399,
-						43,
-						76,
-						[
-							5,
-							-75
-						]
-					],
-					[
-						58,
-						404,
-						433,
-						23,
-						-1,
-						[
-							57,
-							46
-						]
-					],
-					[
-						77,
-						404,
-						432,
-						45,
-						78,
-						[
-							50,
-							47,
-							7,
-							48,
-							69,
-							[
-								49
-							]
-						]
-					],
-					[
-						56,
-						404,
-						413,
-						46,
-						78,
-						[
-							7,
-							-68
-						]
-					],
-					[
-						9,
-						415,
-						421,
-						46,
-						-1,
-						[
-							7,
-							-80
-						]
-					],
-					[
-						73,
-						422,
-						431,
-						46,
-						-1,
-						[
-							7,
-							-3,
-							5,
-							50,
-							28,
-							-30,
-							72,
-							-30
-						]
-					],
-					[
-						75,
-						422,
-						431,
-						49,
-						81,
-						[
-							5,
-							-81
-						]
-					],
-					[
-						58,
-						457,
-						493,
-						23,
-						-1,
-						[
-							57,
-							52
-						]
-					],
-					[
-						59,
-						457,
-						492,
-						51,
-						82,
-						[
-							50,
-							53,
-							57,
+							42,
 							54
 						]
 					],
 					[
-						56,
-						457,
-						463,
-						52,
-						-1,
+						74,
+						426,
+						454,
+						53,
+						75,
 						[
-							7,
-							-84
-						]
-					],
-					[
-						84,
-						466,
-						492,
-						52,
-						82,
-						[
-							7,
+							35,
 							55,
-							69,
-							[
-								56
-							]
+							42,
+							56
 						]
 					],
 					[
-						47,
-						466,
-						471,
+						41,
+						426,
+						434,
 						54,
-						-1,
-						[
-							7,
-							-86
-						]
-					],
-					[
-						73,
-						472,
-						491,
-						54,
-						-1,
-						[
-							7,
-							-3,
-							5,
-							57,
-							28,
-							-30,
-							72,
-							-30
-						]
-					],
-					[
-						84,
-						472,
-						491,
-						56,
-						86,
-						[
-							7,
-							58,
-							69,
-							[
-								59,
-								61
-							]
-						]
-					],
-					[
-						47,
-						472,
-						479,
-						57,
-						-1,
-						[
-							7,
-							-88
-						]
-					],
-					[
-						73,
-						480,
-						483,
-						57,
-						-1,
-						[
-							7,
-							-3,
-							5,
-							60,
-							28,
-							-30,
-							72,
-							-30
-						]
-					],
-					[
-						75,
-						480,
-						483,
-						59,
-						89,
-						[
-							5,
-							-89
-						]
-					],
-					[
-						73,
-						485,
-						490,
-						57,
-						-1,
-						[
-							7,
-							-3,
-							5,
-							62,
-							28,
-							-30,
-							72,
-							-30
-						]
-					],
-					[
-						56,
-						485,
-						490,
-						61,
-						90,
-						[
-							7,
-							-56
-						]
-					],
-					[
-						94,
-						496,
-						533,
-						23,
-						-1,
-						[
-							91,
-							64,
-							1,
-							[
-								67
-							],
-							92,
-							[],
-							93,
-							-3
-						]
-					],
-					[
-						97,
-						500,
-						512,
-						63,
-						29,
-						[
-							95,
-							65,
-							96,
-							66
-						]
-					],
-					[
-						56,
-						500,
-						506,
-						64,
-						82,
-						[
-							7,
-							-84
-						]
-					],
-					[
-						11,
-						511,
-						512,
-						64,
-						16,
-						[
-							5,
-							-17
-						]
-					],
-					[
-						99,
-						516,
-						531,
-						63,
-						-1,
-						[
-							98,
-							[
-								68
-							]
-						]
-					],
-					[
-						75,
-						521,
-						530,
-						67,
-						101,
-						[
-							5,
-							-101
-						]
-					],
-					[
-						58,
-						536,
-						564,
-						23,
-						-1,
-						[
-							57,
-							70
-						]
-					],
-					[
 						77,
-						536,
-						563,
-						69,
-						102,
-						[
-							50,
-							71,
-							7,
-							72,
-							69,
-							[]
-						]
-					],
-					[
-						56,
-						536,
-						541,
-						70,
-						64,
 						[
 							7,
-							-64
+							-77
 						]
 					],
 					[
-						9,
-						543,
-						561,
-						70,
-						-1,
-						[
-							7,
-							-104
-						]
-					],
-					[
-						104,
-						567,
-						591,
-						23,
-						-1,
-						[
-							57,
-							74
-						]
-					],
-					[
-						84,
-						574,
-						590,
-						73,
-						2,
-						[
-							7,
-							75,
-							69,
-							[
-								76
-							]
-						]
-					],
-					[
-						47,
-						574,
-						583,
-						74,
-						-1,
-						[
-							7,
-							-106
-						]
-					],
-					[
-						73,
-						584,
-						589,
-						74,
-						-1,
-						[
-							7,
-							-3,
-							5,
-							77,
-							28,
-							-30,
-							72,
-							-30
-						]
-					],
-					[
-						56,
-						584,
-						589,
-						76,
-						90,
-						[
-							7,
-							-56
-						]
-					],
-					[
-						58,
-						598,
-						622,
-						-1,
-						-1,
-						[
-							57,
-							79
-						]
-					],
-					[
-						59,
-						598,
-						621,
 						78,
-						106,
+						437,
+						454,
+						54,
+						75,
 						[
-							50,
-							80,
+							65,
 							57,
-							81
-						]
-					],
-					[
-						56,
-						598,
-						601,
-						79,
-						108,
-						[
-							7,
-							-108
-						]
-					],
-					[
-						70,
-						604,
-						621,
-						79,
-						106,
-						[
-							68,
-							82,
-							69,
+							56,
 							[]
 						]
 					],
 					[
-						47,
-						608,
-						619,
-						81,
+						53,
+						441,
+						452,
+						56,
 						-1,
 						[
 							7,
-							-28
+							-53
 						]
 					],
 					[
-						94,
-						623,
-						676,
+						80,
+						456,
+						486,
 						-1,
 						-1,
 						[
-							91,
-							84,
-							1,
+							79,
 							[
-								88
-							],
-							92,
-							[],
-							93,
-							-3
-						]
-					],
-					[
-						110,
-						627,
-						652,
-						83,
-						60,
-						[
-							109,
-							[
-								85
+								59
 							]
 						]
 					],
 					[
-						77,
-						633,
-						651,
-						84,
-						111,
+						81,
+						461,
+						485,
+						58,
+						51,
 						[
-							50,
-							86,
+							35,
+							60,
 							7,
-							87,
-							69,
-							[]
+							61,
+							56,
+							[
+								62
+							]
 						]
 					],
 					[
-						56,
-						633,
-						636,
-						85,
-						106,
+						41,
+						461,
+						469,
+						59,
+						75,
 						[
 							7,
-							-108
+							-77
 						]
 					],
 					[
 						9,
-						638,
-						649,
-						85,
+						471,
+						476,
+						59,
 						-1,
 						[
 							7,
@@ -2868,123 +969,111 @@
 						]
 					],
 					[
-						99,
-						656,
-						674,
+						64,
+						477,
+						484,
+						59,
+						-1,
+						[
+							7,
+							-3,
+							5,
+							63,
+							28,
+							-30,
+							63,
+							-30
+						]
+					],
+					[
+						49,
+						477,
+						484,
+						62,
 						83,
-						-1,
-						[
-							98,
-							[
-								89
-							]
-						]
-					],
-					[
-						75,
-						661,
-						673,
-						88,
-						113,
 						[
 							5,
-							-113
+							-83
 						]
 					],
 					[
-						99,
-						678,
-						708,
+						80,
+						520,
+						545,
 						-1,
 						-1,
 						[
-							98,
+							79,
 							[
-								91
+								65
 							]
 						]
 					],
 					[
-						84,
-						683,
-						707,
-						90,
-						114,
+						81,
+						525,
+						544,
+						64,
+						51,
+						[
+							35,
+							66,
+							7,
+							67,
+							56,
+							[
+								68
+							]
+						]
+					],
+					[
+						41,
+						525,
+						533,
+						65,
+						75,
 						[
 							7,
-							92,
+							-77
+						]
+					],
+					[
+						9,
+						535,
+						540,
+						65,
+						-1,
+						[
+							7,
+							-34
+						]
+					],
+					[
+						64,
+						541,
+						543,
+						65,
+						-1,
+						[
+							7,
+							-3,
+							5,
 							69,
-							[
-								93,
-								95
-							]
-						]
-					],
-					[
-						47,
-						683,
-						690,
-						91,
-						-1,
-						[
-							7,
-							-116
-						]
-					],
-					[
-						73,
-						691,
-						698,
-						91,
-						-1,
-						[
-							7,
-							-3,
-							5,
-							94,
 							28,
 							-30,
-							72,
+							63,
 							-30
 						]
 					],
 					[
-						75,
-						691,
-						698,
-						93,
-						117,
+						11,
+						541,
+						543,
+						68,
+						84,
 						[
 							5,
-							-117
-						]
-					],
-					[
-						73,
-						700,
-						706,
-						91,
-						-1,
-						[
-							7,
-							-3,
-							5,
-							96,
-							28,
-							-30,
-							72,
-							-30
-						]
-					],
-					[
-						75,
-						700,
-						706,
-						95,
-						119,
-						[
-							5,
-							-119
+							-85
 						]
 					]
 				]
