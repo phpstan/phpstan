@@ -8966,6 +8966,20 @@
             ]
         }
     },
+    "ignore.unmatchedIdentifier": {
+        "PHPStan\\Analyser\\AnalyserResultFinalizer": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L468"
+            ]
+        }
+    },
+    "ignore.unmatchedLine": {
+        "PHPStan\\Analyser\\AnalyserResultFinalizer": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L455"
+            ]
+        }
+    },
     "impure.betweenPhpTags": {
         "PHPStan\\Rules\\Pure\\PureFunctionRule": {
             "phpstan/phpstan-src": [
