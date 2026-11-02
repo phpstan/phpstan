@@ -22,6 +22,7 @@ export function playgroundTemplate(vm: PlaygroundViewModel): JSX.Element {
 			{when(vm.loaded, () => (
 				<>
 					{optionsDialog(vm)}
+					{fixDialog(vm)}
 
 					<div
 						id="playground-editor"
@@ -35,38 +36,8 @@ export function playgroundTemplate(vm: PlaygroundViewModel): JSX.Element {
 					>
 					</div>
 
-					<div class="flex items-center mt-4 flex-row gap-2 md:gap-6 px-4 md:px-0">
-						{when(() => vm.legacyResult() === null && !vm.isSharing(), () => (
-							<a href="#" ko-click={() => vm.share()} class="inline-flex flex-1 md:flex-initial items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 hover:bg-gray-200 md:w-32 h-10 justify-center border-gray-300 border dark:border-black">
-								<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
-								<span class="ml-2" ko-text={vm.shareText}></span>
-							</a>
-						))}
-
-						{when(() => vm.legacyResult() === null && vm.isSharing(), () => (
-							<span class="inline-flex flex-1 md:flex-initial items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 md:w-32 h-10 justify-center border-gray-300 border">
-								{/* By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL */}
-								<svg width="120" height="30" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#3f83f8" class="h-12 w-12">
-									<circle cx="15" cy="15" r="15">
-										<animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite" />
-										<animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite" />
-									</circle>
-									<circle cx="60" cy="15" r="9" fill-opacity="0.3">
-										<animate attributeName="r" from="9" to="9" begin="0s" dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite" />
-										<animate attributeName="fill-opacity" from="0.5" to="0.5" begin="0s" dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite" />
-									</circle>
-									<circle cx="105" cy="15" r="15">
-										<animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite" />
-										<animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite" />
-									</circle>
-								</svg>
-							</span>
-						))}
-
-						<select class="block flex-1 md:flex-initial rounded-md border border-gray-300 dark:border-black" ko-value={vm.level}>
-							{levels.map((level) => <option value={level}>Level {level}</option>)}
-						</select>
-
+					{/* Options and level on the left, Fix and Share on the right. On phones Fix gets a row of its own below. */}
+					<div class="flex flex-wrap items-center mt-4 gap-2 md:gap-6 px-4 md:px-0">
 						<button ko-click={() => vm.openOptions()} class="inline-flex flex-1 md:flex-initial items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 hover:bg-gray-200 md:w-32 h-10 justify-center border-gray-300 border dark:border-black relative cursor-pointer">
 							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
 								<path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
@@ -77,6 +48,43 @@ export function playgroundTemplate(vm: PlaygroundViewModel): JSX.Element {
 								<span class="absolute -top-2 -right-2 inline-flex items-center justify-center min-w-5 h-5 px-1 text-xs font-bold text-white bg-blue-500 rounded-full" ko-text={vm.changedOptionsCount}></span>
 							))}
 						</button>
+						<select class="block flex-1 md:flex-initial rounded-md border border-gray-300 dark:border-black" ko-value={vm.level}>
+							{levels.map((level) => <option value={level}>Level {level}</option>)}
+						</select>
+
+						<div class="hidden md:block md:flex-1"></div>
+
+						{when(() => vm.fixedCode() !== null, () => fixButton(vm))}
+
+						{/* Hidden but still taking its place while the result is loading, so nothing jumps. */}
+						<div class="flex flex-1 md:flex-initial" ko-css={{invisible: vm.isLoading}}>
+							{when(() => vm.legacyResult() === null && !vm.isSharing(), () => (
+								<a href="#" ko-click={() => vm.share()} class="inline-flex flex-1 md:flex-initial items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 hover:bg-gray-200 md:w-32 h-10 justify-center border-gray-300 border dark:border-black">
+									<svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" class="w-6 h-6"><path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+									<span class="ml-2" ko-text={vm.shareText}></span>
+								</a>
+							))}
+
+							{when(() => vm.legacyResult() === null && vm.isSharing(), () => (
+								<span class="inline-flex flex-1 md:flex-initial items-center px-2.5 py-3 rounded-lg text-md font-medium leading-4 bg-gray-100 md:w-32 h-10 justify-center border-gray-300 border">
+									{/* By Sam Herbert (@sherb), for everyone. More @ http://goo.gl/7AJzbL */}
+									<svg width="120" height="30" viewBox="0 0 120 30" xmlns="http://www.w3.org/2000/svg" fill="#3f83f8" class="h-12 w-12">
+										<circle cx="15" cy="15" r="15">
+											<animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite" />
+											<animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite" />
+										</circle>
+										<circle cx="60" cy="15" r="9" fill-opacity="0.3">
+											<animate attributeName="r" from="9" to="9" begin="0s" dur="0.8s" values="9;15;9" calcMode="linear" repeatCount="indefinite" />
+											<animate attributeName="fill-opacity" from="0.5" to="0.5" begin="0s" dur="0.8s" values=".5;1;.5" calcMode="linear" repeatCount="indefinite" />
+										</circle>
+										<circle cx="105" cy="15" r="15">
+											<animate attributeName="r" from="15" to="15" begin="0s" dur="0.8s" values="15;9;15" calcMode="linear" repeatCount="indefinite" />
+											<animate attributeName="fill-opacity" from="1" to="1" begin="0s" dur="0.8s" values="1;.5;1" calcMode="linear" repeatCount="indefinite" />
+										</circle>
+									</svg>
+								</span>
+							))}
+						</div>
 					</div>
 
 					{when(vm.isLoading, () => (
@@ -146,7 +154,8 @@ function tabResult(vm: PlaygroundViewModel, tab: PlaygroundTabViewModel): JSX.El
 													{error.tip !== undefined ? <div class="mt-2 text-gray-500 text-sm" ko-html={vm.linkify(error.tip)}></div> : null}
 												</div>
 
-												<div class="flex flex-shrink-0 ml-2 md:flex-grow md:justify-end md:ml-4">
+												<div class="flex flex-shrink-0 items-center gap-2 ml-2 md:flex-grow md:justify-end md:ml-4">
+													{error.fixable === true ? <span class="fixable-pill" title="PHPStan can fix this error, use the Fix button above the results">{wrenchIcon('w-3 h-3')}<span class="hidden md:inline">Fixable</span></span> : null}
 													{error.identifier !== undefined ? <a target="_blank" class="inline-flex items-center justify-center w-6 h-6 ml-1 rounded-full bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold leading-none" href={'/error-identifiers/' + error.identifier}>?</a> : null}
 												</div>
 											</div>
@@ -161,9 +170,71 @@ function tabResult(vm: PlaygroundViewModel, tab: PlaygroundTabViewModel): JSX.El
 	);
 }
 
+function fixButton(vm: PlaygroundViewModel): JSX.Element {
+	const label = ko.pureComputed(() => {
+		const count = vm.currentTab()?.fixableCount ?? 0;
+		if (count === 0) {
+			return 'Fix';
+		}
+		return `Fix ${count} ${count === 1 ? 'error' : 'errors'}`;
+	});
+	return (
+		<button id="fix-button" type="button" ko-click={() => vm.openFix()} class="fix-button order-last basis-full md:order-none md:basis-auto">
+			{wrenchIcon('w-5 h-5')}
+			<span ko-text={label}></span>
+		</button>
+	);
+}
+
+function fixDialog(vm: PlaygroundViewModel): JSX.Element {
+	// Only the diff scrolls: the title and the buttons stay in view, also on phones.
+	return (
+		<dialog id="fixDialog" class="fix-dialog rounded-xl shadow-2xl border border-gray-200 p-0 w-[calc(100%-1rem)] md:w-[calc(100%-2rem)] max-w-5xl" ko-click={(_, event) => vm.handleFixBackdropClick(vm, event)}>
+			<div class="flex flex-col max-h-[calc(100dvh-1rem)] md:max-h-[85vh] p-4 md:p-6">
+				<div class="flex items-start justify-between gap-4 mb-3 md:mb-4">
+					<div class="flex items-center gap-3">
+						<span class="fix-dialog-icon">{wrenchIcon('w-5 h-5')}</span>
+						<div>
+							<h2 class="text-lg font-semibold leading-6">Fix errors</h2>
+							<p class="hidden md:block text-sm text-gray-500">Review the changes before they are applied to the code in the editor.</p>
+						</div>
+					</div>
+					<button type="button" ko-click={() => vm.closeFix()} class="text-gray-400 hover:text-gray-600 p-1 cursor-pointer" aria-label="Close">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+						</svg>
+					</button>
+				</div>
+
+				<div class="fix-diff" ko-codeMirrorDiff={vm.fixDiff}></div>
+
+				<div class="flex flex-col md:flex-row md:items-center gap-3 md:gap-4 mt-3 md:mt-5">
+					<p class="text-xs text-gray-500 md:flex-1">
+						Fix your own project the same way: run <code class="px-1 py-0.5 bg-gray-100 rounded font-mono">phpstan analyse --fix</code>, and add <code class="px-1 py-0.5 bg-gray-100 rounded font-mono">--fix-ignored</code> to fix ignored errors too.
+						{' '}<a href="/user-guide/command-line-usage#--fix%2C---fix-ignored" target="_blank" class="underline hover:no-underline">Learn more</a>
+					</p>
+					<div class="flex gap-2 md:gap-3">
+						<button type="button" ko-click={() => vm.closeFix()} class="flex-1 md:flex-initial px-5 py-2 rounded-lg text-sm font-medium border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 cursor-pointer">Cancel</button>
+						<button type="button" ko-click={() => vm.applyFix()} class="flex-1 md:flex-initial px-5 py-2 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 cursor-pointer">Apply</button>
+					</div>
+				</div>
+			</div>
+		</dialog>
+	);
+}
+
+function wrenchIcon(className: string): JSX.Element {
+	return (
+		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor" class={className} aria-hidden="true">
+			<path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75a4.5 4.5 0 0 1-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 1 1-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 0 1 6.336-4.486l-3.276 3.276a3.004 3.004 0 0 0 2.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852Z" />
+			<path stroke-linecap="round" stroke-linejoin="round" d="M4.867 19.125h.008v.008h-.008v-.008Z" />
+		</svg>
+	);
+}
+
 function optionsDialog(vm: PlaygroundViewModel): JSX.Element {
 	return (
-		<dialog id="optionsDialog" class="options-dialog rounded-xl shadow-2xl border border-gray-200 dark:border-black p-0 w-[calc(100%-2rem)] max-w-4xl backdrop:bg-black/50" ko-click={(_, event) => vm.handleOptionsBackdropClick(vm, event)}>
+		<dialog id="optionsDialog" class="options-dialog rounded-xl shadow-2xl border border-gray-200 p-0 w-[calc(100%-2rem)] max-w-4xl backdrop:bg-black/50" ko-click={(_, event) => vm.handleOptionsBackdropClick(vm, event)}>
 			<div class="p-6">
 				<div class="flex items-center justify-between mb-4">
 					<div class="flex items-center gap-3">
