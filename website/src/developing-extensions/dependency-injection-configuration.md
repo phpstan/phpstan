@@ -143,9 +143,7 @@ attributeServicesDirectories:
 	- src
 ```
 
-The classes must be autoloadable through the `psr-4` or `classmap` rules in the `autoload` section of the package's `composer.json`. PHPStan reads the attributes with native reflection, so the package must require PHP 8.0 or later.
-
-The directories are scanned only when the DI container is compiled. The compiled container is cached until the package version changes. For directories in the analysed project itself, the container is recompiled when a class with these attributes changes.
+PHPStan reads the attributes with native reflection, so the package must require PHP 8.0 or later.
 
 ### `#[AutowiredService]`
 
@@ -169,8 +167,8 @@ Extension tags like `phpstan.broker.dynamicMethodReturnTypeExtension` are added 
 Attribute arguments:
 
 * `name`: service name, replaces the key of a named `services` entry. Default: none.
-* `factory`: factory method like `'@App\MyFactory::create'`, replaces `factory`. Default: none.
-* `as`: the type or list of types the service is autowired as, replaces `autowired: [App\MyInterface]`. Default: all types of the class.
+* `factory`: a method of another service like `'@App\MyFactory::create'`, or a static method like `'App\MyFactory::create'`. Replaces `factory`. Default: none.
+* `as`: the type or list of types the service is autowired as. A single type also becomes the type of the service, so `as: App\MyInterface::class` on the implementation class replaces a `services` entry with `class: App\MyInterface` and `factory: App\MyImplementation`: the service is autowired only as `App\MyInterface`, not as the implementation class, and gets the tags of the extension interfaces `App\MyInterface` extends or implements. A list of types replaces `autowired: [App\FirstInterface, App\SecondInterface]`. Default: all types of the class.
 * `autoTag`: set to `false` to not add the extension tags. Default: `true`.
 
 For example this `services` entry:
@@ -217,7 +215,7 @@ Other services ask for it with `#[AutowiredParameter(ref: '@myService')]`.
 Attribute arguments:
 
 * `name`: service name. Required.
-* `factory`: factory method like `'@App\MyFactory::create'`, replaces `factory`. Default: none.
+* `factory`: a method of another service like `'@App\MyFactory::create'`, or a static method like `'App\MyFactory::create'`. Replaces `factory`. Default: none.
 
 ### `#[RegisteredRule]` and `#[RegisteredCollector]`
 
@@ -275,7 +273,7 @@ public function __construct(
 
 Attribute arguments:
 
-* `ref`: the configuration parameter like `'%myExtension.myOwnParameter%'`, or the service like `'@serviceTwo'`. Default: the parameter with the same name as the constructor parameter.
+* `ref`: the configuration parameter like `'%myExtension.myOwnParameter%'`, the service like `'@serviceTwo'`, or a value like `'App\MyClass::MY_CONSTANT'`. As in the `arguments` of a `services` entry, `Class::CONSTANT` and `@service` strings become constants and services, also in the value of the parameter. Default: the parameter with the same name as the constructor parameter.
 
 ### `#[Conditional]`
 
@@ -313,3 +311,43 @@ Attribute arguments:
 	if: '%myExtension.myRule%',
 )]
 ```
+
+### Custom extension interfaces
+
+An extension can define its own extension interface with its own tag, and collect the implementations with `tagged()`. Map the interface to the tag with `#[ExtensionInterface]` on the interface in one of the `attributeServicesDirectories`:
+
+```php
+use PHPStan\DependencyInjection\ExtensionInterface;
+
+#[ExtensionInterface(tag: 'myExtension.myOwnExtension')]
+interface MyOwnExtension
+```
+
+Or in the top-level `extensionInterfaces` section, which does not need PHP 8.0:
+
+```yaml
+extensionInterfaces:
+	App\MyOwnExtension: myExtension.myOwnExtension
+```
+
+Then the tag works like the tags of PHPStan's own extension interfaces:
+
+* `#[AutowiredService]` adds it to the services implementing the interface.
+* It can be used in `conditionalTags` and `#[Conditional]`.
+* A service with the tag must implement the interface.
+
+Each interface has one tag and each tag one interface, so a custom interface cannot reuse PHPStan's own tags.
+
+### Migrating from NEON
+
+The `migrate:neon2attributes` command converts the `services`, `rules`, `conditionalTags` and `extensionInterfaces` entries in the project's configuration files to attributes. It finds the configuration file the same way as `analyse`, or reads it from `--configuration`, and adds the files from `extra.phpstan.includes` in `composer.json`. It rewrites the included `.neon` files outside `vendor/`, and adds the attributes to the classes in `attributeServicesDirectories`, which must be set first. The package must require PHP 8.0 or later:
+
+```bash
+vendor/bin/phpstan migrate:neon2attributes
+```
+
+Entries the attributes cannot express stay in the configuration files, and the command lists them with the reason.
+
+The command migrates the configuration files of one entry point. A project that runs PHPStan with several configuration files registering different services, like separate analysis phases, has to be migrated by hand: the attribute services are registered in every run that uses `attributeServicesDirectories`, so services needed only in some runs need `#[Conditional]` on a parameter set by those runs.
+
+Services registered with attributes are ordered by their class names, so a list collected with `tagged()` can come in a different order than the entries in the configuration file.
