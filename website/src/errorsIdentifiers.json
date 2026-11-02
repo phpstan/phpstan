@@ -2243,12 +2243,12 @@
     "attribute.abstract": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L71"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L87"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L71"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L87"
             ]
         },
         "PHPStan\\Rules\\Classes\\NonClassAttributeClassRule": {
@@ -2258,52 +2258,52 @@
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L71"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L87"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L71"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L87"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L71"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L87"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L71"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L87"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L71"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L87"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L71"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L87"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L71"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L87"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L71"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L87"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L71"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L87"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L71"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L87"
             ]
         }
     },
@@ -2317,12 +2317,12 @@
     "attribute.constructorNotPublic": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L125"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L141"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L125"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L141"
             ]
         },
         "PHPStan\\Rules\\Classes\\NonClassAttributeClassRule": {
@@ -2332,114 +2332,114 @@
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L125"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L141"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L125"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L141"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L125"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L141"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L125"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L141"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L125"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L141"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L125"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L141"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L125"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L141"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L125"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L141"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L125"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L141"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L125"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L141"
             ]
         }
     },
     "attribute.deprecated": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L123"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L123"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L123"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L123"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L123"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L123"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L123"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L123"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L123"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L123"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L123"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L107"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L123"
             ]
         }
     },
@@ -2516,280 +2516,280 @@
     "attribute.noConstructor": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L115"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L131"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L115"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L131"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L115"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L131"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L115"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L131"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L115"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L131"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L115"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L131"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L115"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L131"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L115"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L131"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L115"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L131"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L115"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L131"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L115"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L131"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L115"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L131"
             ]
         }
     },
     "attribute.nonRepeatable": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L108"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L108"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L108"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L108"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L108"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L108"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L108"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L108"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L108"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L108"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L108"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L92"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L108"
             ]
         }
     },
     "attribute.notAttribute": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L66"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L66"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L66"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L66"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L66"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L66"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L66"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L66"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L66"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L66"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L66"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L63"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L66"
             ]
         }
     },
     "attribute.notFound": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L55"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L58"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L55"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L58"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L55"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L58"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L55"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L58"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L55"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L58"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L55"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L58"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L55"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L58"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L55"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L58"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L55"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L58"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L55"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L58"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L55"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L58"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L55"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L58"
             ]
         }
     },
     "attribute.target": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
@@ -2812,12 +2812,12 @@
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
@@ -2828,7 +2828,7 @@
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
@@ -2839,18 +2839,18 @@
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L99"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L83",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L99",
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Properties/PropertyHookAttributesRule.php#L49"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L99"
             ]
         }
     },
@@ -13370,6 +13370,68 @@
         "PHPStan\\Rules\\Debug\\FileAssertRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L229"
+            ]
+        }
+    },
+    "phpstanApi.attribute": {
+        "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L79"
+            ]
+        },
+        "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/AttributesCheck.php#L79"
             ]
         }
     },
