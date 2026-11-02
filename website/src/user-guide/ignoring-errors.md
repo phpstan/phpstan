@@ -92,13 +92,23 @@ echo $foo; // @phpstan-ignore-line
 echo $foo;
 ```
 
-If your codebase is currently full of `@phpstan-ignore-line` & `@phpstan-ignore-next-line` and you'd like to switch to identifier-specific `@phpstan-ignore`, you can use automatic migration wizard in [PHPStan Pro](https://phpstan.org/blog/introducing-phpstan-pro){.phpstan-pro-label} that will do it for you:
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.5</div>
 
-<video class="w-full aspect-[1680/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/images/ignore-line-wizard-poster.jpg">
-  <source src="/images/ignore-line-wizard.mp4" type="video/mp4">
-</video>
+If your codebase is currently full of `@phpstan-ignore-line` & `@phpstan-ignore-next-line` and you'd like to switch to identifier-specific `@phpstan-ignore`, set [`reportIgnoresWithoutComments`](/config-reference#reportignoreswithoutcomments) to `true` and run [`phpstan analyse --fix`](/user-guide/command-line-usage#--fix%2C---fix-ignored). It converts them to `@phpstan-ignore` with the identifiers of the errors reported on the line. Text after the tag becomes the comment in parentheses:
 
-Try out [PHPStan Pro](https://phpstan.org/blog/introducing-phpstan-pro){.phpstan-pro-label} by running PHPStan with `--pro` or by going to [account.phpstan.com](https://account.phpstan.com/) and creating an account.
+```php
+// before
+echo $foo; // @phpstan-ignore-line
+
+// @phpstan-ignore-next-line Legacy code
+echo $foo;
+
+// after
+echo $foo; // @phpstan-ignore echo.nonString
+
+// @phpstan-ignore echo.nonString (Legacy code)
+echo $foo;
+```
 
 Ignoring in configuration file
 -------------------

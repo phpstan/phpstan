@@ -2,6 +2,7 @@
 title: "ignore.allLineErrors"
 shortDescription: "Ignoring all errors on a line is not allowed."
 ignorable: false
+autofixable: true
 ---
 
 ## Code example
