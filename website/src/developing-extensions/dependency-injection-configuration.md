@@ -145,7 +145,7 @@ attributeServicesDirectories:
 
 The classes must be autoloadable through the `psr-4` or `classmap` rules in the `autoload` section of the package's `composer.json`. PHPStan reads the attributes with native reflection, so the package must require PHP 8.0 or later.
 
-The directories are scanned only when the DI container is compiled. The compiled container is cached until the package version changes. For directories in the analysed project itself, the cache is invalidated when any file in them changes.
+The directories are scanned only when the DI container is compiled. The compiled container is cached until the package version changes. For directories in the analysed project itself, the container is recompiled when a class with these attributes changes.
 
 ### `#[AutowiredService]`
 
@@ -164,16 +164,60 @@ use PHPStan\DependencyInjection\AutowiredService;
 class MyExtension implements DynamicMethodReturnTypeExtension
 ```
 
-Extension tags like `phpstan.broker.dynamicMethodReturnTypeExtension` are added automatically based on the implemented interfaces.
+Extension tags like `phpstan.broker.dynamicMethodReturnTypeExtension` are added automatically based on the implemented interfaces. This includes `phpstan.rules.rule` and `phpstan.collector`, so a rule or a collector registered with `#[AutowiredService]` runs on all rule levels. Use `#[RegisteredRule]` or `#[RegisteredCollector]` to register it only from a given level up.
+
+Attribute arguments:
 
 * `name`: service name, replaces the key of a named `services` entry. Default: none.
 * `factory`: factory method like `'@App\MyFactory::create'`, replaces `factory`. Default: none.
 * `as`: the type or list of types the service is autowired as, replaces `autowired: [App\MyInterface]`. Default: all types of the class.
 * `autoTag`: set to `false` to not add the extension tags. Default: `true`.
 
+For example this `services` entry:
+
+```yaml
+services:
+	myExtension:
+		class: App\MyExtension
+		factory: @App\MyExtensionFactory::create
+		autowired: [App\MyInterface]
+```
+
+is replaced by:
+
+```php
+#[AutowiredService(
+	name: 'myExtension',
+	factory: '@App\MyExtensionFactory::create',
+	as: [MyInterface::class],
+)]
+class MyExtension implements MyInterface
+```
+
 ### `#[NonAutowiredService]`
 
-Registers the class as a service that is not autowired. Replaces `autowired: false`. It has the required `name` parameter and the optional `factory` parameter, the same as `#[AutowiredService]`.
+Registers the class as a service that is not autowired. Replaces a named `services` entry with `autowired: false`:
+
+```yaml
+services:
+	myService:
+		class: App\MyService
+		autowired: false
+```
+
+```php
+use PHPStan\DependencyInjection\NonAutowiredService;
+
+#[NonAutowiredService(name: 'myService')]
+class MyService
+```
+
+Other services ask for it with `#[AutowiredParameter(ref: '@myService')]`.
+
+Attribute arguments:
+
+* `name`: service name. Required.
+* `factory`: factory method like `'@App\MyFactory::create'`, replaces `factory`. Default: none.
 
 ### `#[RegisteredRule]` and `#[RegisteredCollector]`
 
@@ -185,6 +229,8 @@ use PHPStan\DependencyInjection\RegisteredRule;
 #[RegisteredRule(level: 0)]
 class MyRule implements Rule
 ```
+
+Attribute arguments:
 
 * `level`: the lowest [rule level](/user-guide/rule-levels) the rule or collector is registered on. Use `0` for rules that run on every level, like the ones in the `rules` section.
 
@@ -205,6 +251,8 @@ use PHPStan\DependencyInjection\GenerateFactory;
 class MyValue
 ```
 
+Attribute arguments:
+
 * `interface`: the factory interface with the `create()` method.
 * `resultType`: the type the factory creates, when it differs from the return type of `create()`. Default: none.
 
@@ -224,6 +272,8 @@ public function __construct(
 	private MyService $myService,
 )
 ```
+
+Attribute arguments:
 
 * `ref`: the configuration parameter like `'%myExtension.myOwnParameter%'`, or the service like `'@serviceTwo'`. Default: the parameter with the same name as the constructor parameter.
 
@@ -249,6 +299,8 @@ class MyRule implements Rule
 ```
 
 The service is always registered so that other services can still ask for it.
+
+Attribute arguments:
 
 * `attribute`: `new AutowiredService(...)`, `new RegisteredRule(...)` or `new RegisteredCollector(...)`.
 * `if`: the same values as in `conditionalTags`: a parameter like `'%myExtension.myRule%'`, its negation `'not(%myExtension.myRule%)'`, or a list of them that must all be met, like `['%myExtension.myRule%', '%featureToggles.bleedingEdge%']`.
