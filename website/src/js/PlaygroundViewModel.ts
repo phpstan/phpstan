@@ -5,6 +5,7 @@ import {PlaygroundTabViewModel} from './PlaygroundTabViewModel';
 import linkifyStr from 'linkify-string';
 import {slugify} from './utils';
 import {EditorView} from '@codemirror/view';
+import {diff} from '@codemirror/merge';
 import {historyField} from '@codemirror/commands';
 import {XRayData} from './XRayData';
 import defaultCode from './data/playground-default.php?raw';
@@ -46,6 +47,14 @@ function docOf(saved: any): string {
 
 export const apiBaseUrl: string = import.meta.env.VITE_PLAYGROUND_API ?? 'https://api.phpstan.org';
 
+// A result tab as the API returns it and as it is saved in the history state.
+interface TabData {
+	errors: PHPStanError[];
+	title: string;
+	xray?: XRayData;
+	fixedCode?: string;
+}
+
 // A snippet with a URL: loaded from /r/… or shared. Its URL is shown whenever
 // the code and the settings are these again, with its stored result.
 interface Snippet {
@@ -72,6 +81,11 @@ export class PlaygroundViewModel extends ko.Component {
 	currentTab: ko.PureComputed<PlaygroundTabViewModel | null>;
 
 	upToDateTabs: ko.Observable<PlaygroundTabViewModel[] | null>;
+
+	// The code with the fixable errors of the shown result fixed, null when there is nothing to fix.
+	fixedCode: ko.PureComputed<string | null>;
+	// The code before and after the fix, while the fix dialog is open.
+	fixDiff: ko.Observable<{original: string; fixed: string} | null>;
 
 	level: ko.Observable<string>;
 	strictRules: ko.Observable<boolean>;
@@ -184,6 +198,14 @@ export class PlaygroundViewModel extends ko.Component {
 		});
 
 		this.isLoading = ko.observable<boolean>(false);
+		this.fixedCode = ko.pureComputed(() => {
+			if (this.isLoading() || this.legacyResult() !== null) {
+				return null;
+			}
+
+			return this.currentTab()?.fixedCode ?? null;
+		});
+		this.fixDiff = ko.observable(null);
 		this.isSharing = ko.observable<boolean>(false);
 		this.xhr = null;
 		this.shareXhr = null;
@@ -344,6 +366,48 @@ export class PlaygroundViewModel extends ko.Component {
 				obs(value);
 			}
 		}
+	}
+
+	// --- Fix dialog ---
+
+	openFix(): void {
+		const fixed = this.fixedCode();
+		if (fixed === null) {
+			return;
+		}
+		this.fixDiff({original: this.code(), fixed});
+		(document.getElementById('fixDialog') as HTMLDialogElement).showModal();
+	}
+
+	closeFix(): void {
+		(document.getElementById('fixDialog') as HTMLDialogElement).close();
+	}
+
+	// Edits only the changed parts of the code, so the cursor stays put and undo brings the code back.
+	applyFix(): void {
+		const fix = this.fixDiff();
+		this.closeFix();
+		const view = this.editorView;
+		if (fix === null || view?.state.doc.toString() !== fix.original) {
+			return;
+		}
+		view.dispatch({
+			changes: diff(fix.original, fix.fixed).map((change) => ({
+				from: change.fromA,
+				to: change.toA,
+				insert: fix.fixed.slice(change.fromB, change.toB),
+			})),
+			userEvent: 'input.fix',
+		});
+		view.focus();
+	}
+
+	handleFixBackdropClick(_: PlaygroundViewModel, event: Event): boolean {
+		if (event.target === event.currentTarget) {
+			this.closeFix();
+			return false;
+		}
+		return true;
 	}
 
 	// --- AST X-Ray ---
@@ -623,6 +687,10 @@ export class PlaygroundViewModel extends ko.Component {
 				this.cancelOptions();
 			});
 		}
+		// Closed by any means, also by Esc: the diff view goes away with it.
+		document.getElementById('fixDialog')?.addEventListener('close', () => {
+			this.fixDiff(null);
+		});
 
 		this.ensureXRay();
 	}
@@ -683,9 +751,16 @@ export class PlaygroundViewModel extends ko.Component {
 		if (!this.editorView) return;
 		const editorState = this.editorView.state.toJSON({history: historyField});
 		const build = (withXRay: boolean) => {
-			const tab = (t: PlaygroundTabViewModel): {errors: PHPStanError[]; title: string; xray?: XRayData} => {
+			const tab = (t: PlaygroundTabViewModel): TabData => {
+				const data: TabData = {errors: t.errors, title: t.title};
 				const xray = t.xray();
-				return withXRay && xray !== null ? {errors: t.errors, title: t.title, xray} : {errors: t.errors, title: t.title};
+				if (withXRay && xray !== null) {
+					data.xray = xray;
+				}
+				if (t.fixedCode !== null) {
+					data.fixedCode = t.fixedCode;
+				}
+				return data;
 			};
 			return {
 				editorState,
@@ -855,7 +930,7 @@ export class PlaygroundViewModel extends ko.Component {
 		// The default snippet and the API's answer for it, so the page has a
 		// result (errors and X-Ray) before the first analysis. Handled like a
 		// sample response; regenerate with scripts/update-playground-default.mjs.
-		const data = {code: defaultCode, tabs: defaultResponse.tabs as {errors: PHPStanError[]; title: string; xray?: XRayData}[]};
+		const data = {code: defaultCode, tabs: defaultResponse.tabs as TabData[]};
 		this.code(data.code);
 		this.loaded(true);
 		this.tabs(this.createTabs(data.tabs));
@@ -915,11 +990,11 @@ export class PlaygroundViewModel extends ko.Component {
 		return false;
 	}
 
-	createTabs(tabs: {errors: PHPStanError[]; title: string; xray?: XRayData}[]): PlaygroundTabViewModel[] {
+	createTabs(tabs: TabData[]): PlaygroundTabViewModel[] {
 		const viewModelTabs: PlaygroundTabViewModel[] = [];
 		let versionOrder = 0;
 		for (const tab of tabs) {
-			viewModelTabs.push(new PlaygroundTabViewModel(tab.errors, tab.title, versionOrder === 0, tab.xray ?? null));
+			viewModelTabs.push(new PlaygroundTabViewModel(tab.errors, tab.title, versionOrder === 0, tab.xray ?? null, tab.fixedCode ?? null));
 			versionOrder++;
 		}
 

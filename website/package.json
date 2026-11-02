@@ -8,6 +8,7 @@
 		"@codemirror/lang-php": "^6.0.1",
 		"@codemirror/language": "^6.6.0",
 		"@codemirror/lsp-client": "^6.2.4",
+		"@codemirror/merge": "^6.12.3",
 		"@codemirror/search": "^6.7.0",
 		"@codemirror/state": "^6.2.0",
 		"@codemirror/view": "^6.9.2",

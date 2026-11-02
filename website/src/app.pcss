@@ -118,6 +118,12 @@ html.dark {
 	.cm-editor {
 		@apply invert hue-rotate-180;
 	}
+
+	/* Dialogs are in the top layer, outside the inverted page, so they are inverted on their own.
+	   The editors in them are inverted once more, like the playground editor, and keep their dark theme. */
+	dialog {
+		@apply invert hue-rotate-180;
+	}
 }
 
 .cm-editor {
@@ -326,6 +332,105 @@ h3.hash-target code {
 
 .options-dialog::backdrop {
 	@apply bg-black/50;
+}
+
+/* The Fix button: the site's light grey button with pastel rainbow stripes crawling behind
+   the label and a light sweep every few seconds. The stripe layer is one period wider than
+   the button and moves by exactly one period (72px across the stripes is 72px × √2 along x),
+   so the loop has no seam. */
+.fix-button, .fixable-pill, .fix-dialog-icon {
+	--fix-stripes: repeating-linear-gradient(-45deg, #fecdd3 0 12px, #fde68a 12px 24px, #d9f99d 24px 36px, #bae6fd 36px 48px, #c7d2fe 48px 60px, #f5d0fe 60px 72px);
+	--fix-stripes-small: repeating-linear-gradient(-45deg, #fecdd3 0 5px, #fde68a 5px 10px, #d9f99d 10px 15px, #bae6fd 15px 20px, #c7d2fe 20px 25px, #f5d0fe 25px 30px);
+}
+
+@keyframes fix-crawl {
+	to {transform: translateX(101.82px);}
+}
+
+@keyframes fix-sheen {
+	0%, 55% {transform: translateX(-150%) skewX(-20deg);}
+	100% {transform: translateX(450%) skewX(-20deg);}
+}
+
+@keyframes fix-wiggle {
+	0%, 100% {transform: rotate(0);}
+	25% {transform: rotate(-18deg);}
+	75% {transform: rotate(12deg);}
+}
+
+.fix-button {
+	@apply relative isolate overflow-hidden inline-flex items-center justify-center gap-2 h-10 px-4 rounded-lg font-medium leading-4 text-gray-900 bg-gray-50 border border-gray-300 cursor-pointer;
+}
+
+.fix-button > * {
+	@apply relative z-10;
+}
+
+.fix-button::before, .fix-button::after {
+	content: '';
+	@apply absolute inset-0 pointer-events-none;
+}
+
+.fix-button::before {
+	left: -102px;
+	background: var(--fix-stripes);
+	opacity: 0.75;
+	animation: fix-crawl 5s linear infinite;
+}
+
+.fix-button::after {
+	width: 30%;
+	background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.85), transparent);
+	animation: fix-sheen 3.5s ease-in-out infinite;
+}
+
+.fix-button:hover::before {
+	opacity: 1;
+}
+
+.fix-button:hover svg {
+	animation: fix-wiggle 0.5s ease-in-out;
+}
+
+/* Says which errors the Fix button fixes; a label, not a button: grey, the stripes only in its outline. */
+.fixable-pill {
+	@apply inline-flex items-center gap-1 h-5 px-2 rounded-full text-xs font-medium leading-none text-gray-600 whitespace-nowrap select-none;
+	border: 1px solid transparent;
+	background:
+		linear-gradient(var(--color-gray-100), var(--color-gray-100)) padding-box,
+		var(--fix-stripes-small) border-box;
+}
+
+.fix-dialog-icon {
+	@apply inline-flex items-center justify-center w-9 h-9 rounded-full text-gray-700 flex-shrink-0;
+	border: 2px solid transparent;
+	background:
+		linear-gradient(var(--color-gray-50), var(--color-gray-50)) padding-box,
+		var(--fix-stripes-small) border-box;
+}
+
+.fix-dialog {
+	margin: auto;
+	max-height: none;
+}
+
+.fix-dialog::backdrop {
+	@apply bg-black/50;
+}
+
+.fix-diff {
+	@apply min-h-0 flex-1 overflow-auto rounded-md border border-gray-200;
+}
+
+.fix-diff .cm-editor {
+	@apply m-0 border-0 rounded-none shadow-none;
+	font-size: 14px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.fix-button::before, .fix-button::after, .fix-button:hover svg {
+		animation: none;
+	}
 }
 
 /* PHPantom (wasm) hover tooltip — rendered Markdown with Prism-highlighted PHP. */

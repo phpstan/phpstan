@@ -8,6 +8,7 @@ import {defaultKeymap, history, historyField, historyKeymap, indentWithTab} from
 import {closeBrackets, closeBracketsKeymap, completionKeymap} from '@codemirror/autocomplete';
 import {highlightSelectionMatches} from '@codemirror/search';
 import {php} from '@codemirror/lang-php';
+import {unifiedMergeView} from '@codemirror/merge';
 import {PHPStanError} from './PHPStanError';
 import {ttcn} from './ttcn-theme';
 import {errorsCompartment, errorsFacet, lineErrors, updateErrorsEffect} from './editor/errors';
@@ -41,6 +42,8 @@ declare global {
 		'ko-codeMirrorErrors'?: ko.Subscribable<PHPStanError[]>;
 		/** AST X-Ray state; needs ko-codeMirror on the same element. */
 		'ko-codeMirrorXRay'?: CodeMirrorXRayOptions;
+		/** A read-only diff of the code before and after a fix; nothing while null. */
+		'ko-codeMirrorDiff'?: ko.Subscribable<{original: string; fixed: string} | null>;
 	}
 }
 
@@ -198,5 +201,66 @@ ko.bindingHandlers.codeMirrorErrors = {
 				updateErrorsEffect.of(true),
 			],
 		});
+	},
+};
+
+// The fix dialog's diff, like the editor but read-only: removed lines are shown
+// above the lines that replace them and long unchanged stretches are collapsed.
+ko.bindingHandlers.codeMirrorDiff = {
+	update: (element, valueAccessor) => {
+		ko.utils.domData.get(element, 'codeMirrorDiffDestroy')?.();
+		ko.utils.domData.set(element, 'codeMirrorDiffDestroy', null);
+
+		const value: {original: string; fixed: string} | null = ko.unwrap(valueAccessor());
+		if (value === null) {
+			return;
+		}
+
+		// Made again each time the dialog opens, which also picks up the current theme:
+		// the theme switcher cannot be used while the dialog is open.
+		const view = new EditorView({
+			state: EditorState.create({
+				doc: value.fixed,
+				extensions: [
+					lineNumbers(),
+					EditorState.readOnly.of(true),
+					EditorView.editable.of(false),
+					syntaxHighlighting(defaultHighlightStyle, {fallback: true}),
+					// The removed lines are highlighted on their own, without the <?php before them,
+					// which would make them HTML. Plain PHP highlights them as the code around them.
+					php({plain: true}),
+					EditorState.tabSize.of(4),
+					EditorView.lineWrapping,
+					EditorView.theme({
+						'.cm-content': {lineHeight: '1.6'},
+						'& .cm-changeGutter': {width: '3px', paddingLeft: '0'},
+						'& .cm-collapsedLines': {fontSize: '13px'},
+					}),
+					// Whole lines tinted like a diff on GitHub, the changed parts a little stronger.
+					EditorView.baseTheme({
+						'&light.cm-merge-b .cm-changedLine': {backgroundColor: '#e6ffec'},
+						'&light.cm-merge-b .cm-changedText': {background: '#abf2bc'},
+						'&light .cm-deletedChunk': {backgroundColor: '#ffebe9'},
+						'&light.cm-merge-b .cm-deletedText, &light .cm-deletedChunk .cm-deletedText': {background: '#ffcecb'},
+						'&light.cm-merge-b .cm-changedLineGutter': {background: '#2da44e'},
+						'&light .cm-deletedLineGutter': {background: '#cf222e'},
+						'&dark.cm-merge-b .cm-changedLine': {backgroundColor: 'rgb(46 160 67 / 0.15)'},
+						'&dark.cm-merge-b .cm-changedText': {background: 'rgb(46 160 67 / 0.3)'},
+						'&dark .cm-deletedChunk': {backgroundColor: 'rgb(248 81 73 / 0.12)'},
+						'&dark.cm-merge-b .cm-deletedText, &dark .cm-deletedChunk .cm-deletedText': {background: 'rgb(248 81 73 / 0.22)'},
+						'&dark.cm-merge-b .cm-changedLineGutter': {background: '#3fb950'},
+						'&dark .cm-deletedLineGutter': {background: '#f85149'},
+					}),
+					document.documentElement.classList.contains('dark') ? materialDark : ttcn,
+					unifiedMergeView({
+						original: value.original,
+						mergeControls: false,
+						collapseUnchanged: {margin: 3, minSize: 4},
+					}),
+				],
+			}),
+			parent: element,
+		});
+		ko.utils.domData.set(element, 'codeMirrorDiffDestroy', () => view.destroy());
 	},
 };
