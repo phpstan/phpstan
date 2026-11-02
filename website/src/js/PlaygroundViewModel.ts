@@ -480,13 +480,7 @@ export class PlaygroundViewModel extends ko.Component {
 	// --- Core ---
 
 	switchTab(index: number): void {
-		const currentIndex = this.currentTabIndex();
-		if (currentIndex !== null) {
-			this.tabs()[currentIndex].isActive(false);
-		}
-
 		this.currentTabIndex(index);
-		this.tabs()[index].isActive(true);
 	}
 
 	isActiveTab(index: number): boolean {
@@ -991,14 +985,7 @@ export class PlaygroundViewModel extends ko.Component {
 	}
 
 	createTabs(tabs: TabData[]): PlaygroundTabViewModel[] {
-		const viewModelTabs: PlaygroundTabViewModel[] = [];
-		let versionOrder = 0;
-		for (const tab of tabs) {
-			viewModelTabs.push(new PlaygroundTabViewModel(tab.errors, tab.title, versionOrder === 0, tab.xray ?? null, tab.fixedCode ?? null));
-			versionOrder++;
-		}
-
-		return viewModelTabs;
+		return tabs.map((tab) => new PlaygroundTabViewModel(tab.errors, tab.title, tab.xray ?? null, tab.fixedCode ?? null));
 	}
 
 }
