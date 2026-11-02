@@ -107,9 +107,11 @@ export function playgroundTemplate(vm: PlaygroundViewModel): JSX.Element {
 
 							{when(() => vm.tabs().length > 1 && !vm.isLoading() && vm.legacyResult() === null, () => (
 								<nav class="flex mt-4 border-b border-gray-400">
-									{ko.pureComputed(() => vm.tabs().map((tab, index) => (
-										<a href="#" class="relative px-3 py-2 font-medium text-md mr-4 leading-5 rounded-md rounded-b-none text-gray-500 border-l border-t border-r" ko-click={() => vm.switchTab(index)} ko-class={tab.tabClass} ko-style={{top: ko.pureComputed(() => tab.isActive() ? '1px' : '0')}}>{tab.title}</a>
-									)))}
+									{ko.pureComputed(() => vm.tabs().map((tab, index) => {
+										// The shown tab, also after tabs that were shown before come back, like a snippet's.
+										const active = ko.pureComputed(() => vm.currentTab() === tab);
+										return <a href="#" class="relative px-3 py-2 font-medium text-md mr-4 leading-5 rounded-md rounded-b-none text-gray-500 border-l border-t border-r" ko-click={() => vm.switchTab(index)} ko-class={ko.pureComputed(() => tab.tabClass(active()))} ko-style={{top: ko.pureComputed(() => active() ? '1px' : '0')}}>{tab.title}</a>;
+									}))}
 								</nav>
 							))}
 
