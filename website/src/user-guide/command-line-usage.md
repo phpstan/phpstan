@@ -47,7 +47,7 @@ Edits preserve the formatting of the surrounding code. Fixing one error can make
 
 `--fix-ignored` fixes errors you have [ignored](/user-guide/ignoring-errors) in the configuration, in the baseline, or with inline `@phpstan-ignore` comments. The table output mentions them in grey when there are some. It can be used alone, or together with `--fix` to fix both reported and ignored errors at once.
 
-[Unused ignores](/user-guide/ignoring-errors#reporting-unused-ignores) are fixable too: the unmatched identifier is removed from the `@phpstan-ignore` comment, or the whole comment when nothing else is left in it.
+[Unused ignores](/user-guide/ignoring-errors#reporting-unused-ignores) are fixable too: unmatched identifiers and comments are removed from `@phpstan-ignore` comments, and unmatched entries from `ignoreErrors` in the configuration and the baseline.
 
 Want to make your own rules fixable? [Learn more »](/developing-extensions/rules#auto-fixable-rules)
 

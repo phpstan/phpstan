@@ -92,7 +92,7 @@ Related config keys: [`ignoreErrors`](/user-guide/ignoring-errors#ignoring-in-co
 [`reportUnmatchedIgnoredErrors`](/user-guide/ignoring-errors#reporting-unused-ignores),
 [`reportIgnoresWithoutComments`](#reportignoreswithoutcomments).
 
-Unused `@phpstan-ignore` comments reported by `reportUnmatchedIgnoredErrors` can be removed automatically with [`--fix`](/user-guide/command-line-usage#--fix%2C---fix-ignored). [Learn more »](/user-guide/ignoring-errors#reporting-unused-ignores)
+Unused ignores reported by `reportUnmatchedIgnoredErrors`, both `@phpstan-ignore` comments and `ignoreErrors` entries in the configuration and the baseline, can be removed automatically with [`--fix`](/user-guide/command-line-usage#--fix%2C---fix-ignored). [Learn more »](/user-guide/ignoring-errors#reporting-unused-ignores)
 
 ### `reportIgnoresWithoutComments`
 
