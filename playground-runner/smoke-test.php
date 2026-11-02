@@ -28,6 +28,16 @@ $strContainsCode = <<<'PHP'
 var_dump(str_contains('abc', 'b'));
 PHP;
 
+// The two fixes of the ignore comment overlap, so the second one is applied in the second round.
+$fixableCode = <<<'PHP'
+<?php declare(strict_types = 1);
+
+function foo(int $i): int
+{
+	return $i; // @phpstan-ignore argument.type, return.type
+}
+PHP;
+
 $requests = [
 	'return type, PHP 8.5' => [
 		['code' => $returnTypeCode, 'level' => '8', 'phpVersion' => 80500],
@@ -48,6 +58,14 @@ $requests = [
 	'str_contains, PHP 7.4 again, integer level' => [
 		['code' => $strContainsCode, 'level' => 8, 'phpVersion' => 70400],
 		['Function str_contains not found.'],
+	],
+	'fixes in rounds, PHP 8.5' => [
+		['code' => $fixableCode, 'level' => '8', 'phpVersion' => 80500],
+		[
+			'No error with identifier argument.type is reported on line 5.',
+			'No error with identifier return.type is reported on line 5.',
+		],
+		str_replace(' // @phpstan-ignore argument.type, return.type', '', $fixableCode),
 	],
 ];
 
@@ -71,7 +89,9 @@ foreach ($invalidRequests as $name => $event) {
 	}
 }
 
-foreach ($requests as $name => [$event, $expectedMessages]) {
+foreach ($requests as $name => $request) {
+	[$event, $expectedMessages] = $request;
+	$expectedFixedCode = $request[2] ?? null;
 	try {
 		$response = $handler($event);
 	} catch (Throwable $e) {
@@ -83,6 +103,12 @@ foreach ($requests as $name => [$event, $expectedMessages]) {
 	$messages = array_column($response['result'], 'message');
 	if ($messages !== $expectedMessages) {
 		echo sprintf("FAIL %s:\n  expected: %s\n  actual:   %s\n", $name, json_encode($expectedMessages), json_encode($messages));
+		$failed = true;
+		continue;
+	}
+
+	if (($response['fixedCode'] ?? null) !== $expectedFixedCode) {
+		echo sprintf("FAIL %s:\n  expected fixed code: %s\n  actual:   %s\n", $name, json_encode($expectedFixedCode), json_encode($response['fixedCode'] ?? null));
 		$failed = true;
 		continue;
 	}
