@@ -460,7 +460,7 @@ jobs:
 
             # test project-base separately
             phpstan-command: ../../../../../phpstan.phar analyse -c ../../../shopsys-project-base.neon -l 5 src tests -vvv
-            baseline-file: ../../shopsys-project-base-baseline.neon
+            baseline-file: shopsys-project-base-baseline.neon
           - php-version: 8.4
             repo: doctrine/orm
             ref: 3.5.8
@@ -544,6 +544,41 @@ jobs:
               npm run build:dev
             phpstan-command: ../../../phpstan.phar analyse -c ../wordpress.neon --memory-limit=2G -vvv
             baseline-file: wordpress-baseline.neon
+          - php-version: 8.4
+            repo: woocommerce/woocommerce
+            ref: 11.2.1
+            # relative includes in WooCommerce resolve against the working directory,
+            # and szepeviktor/phpstan-wordpress is autoloaded from plugins/woocommerce/vendor
+            phpstan-cwd: e2e/integration/repo/plugins/woocommerce
+            setup: |
+              cd plugins/woocommerce
+              # skip post-install-cmd, it only installs coding standards tooling
+              composer install --no-scripts
+            phpstan-command: ../../../../../phpstan.phar analyse -c ../../../woocommerce.neon --memory-limit=4G
+            baseline-file: woocommerce-baseline.neon
+          - php-version: 8.4
+            repo: Automattic/woocommerce-payments
+            # develop branch, uses woocommerce/php-stubs for plugins it integrates with
+            ref: 883f62ad7e957b077776f8520e9f2cacc14c8a8c
+            setup: |
+              composer install --ignore-platform-req=php
+            phpstan-command: ../../../phpstan.phar analyse -c ../woocommerce-payments.neon
+            baseline-file: woocommerce-payments-baseline.neon
+          - php-version: 8.5
+            repo: mailpoet/mailpoet
+            ref: 0d996a8150d575a18817efd6c08d9d35216caa5e
+            # PHPStan runs from tasks/phpstan, which has its own vendor/ with the PHPStan extensions,
+            # the same as `./do qa:phpstan`
+            phpstan-cwd: e2e/integration/repo/mailpoet/tasks/phpstan
+            setup: |
+              # mirrors .github/workflows/build.yml in MailPoet
+              cd mailpoet
+              COMPOSER_DEV_MODE=1 php tools/install.php
+              touch .env
+              ./tools/vendor/composer.phar install
+              php -d register_argc_argv=1 ../tests_env/vendor/bin/codecept build
+            phpstan-command: ../../../../../../phpstan.phar analyse -c ../../../../mailpoet.neon --memory-limit=4G ../../lib ../../tests/_support ../../tests/DataFactories ../../tests/acceptance ../../tests/integration ../../tests/unit
+            baseline-file: mailpoet-baseline.neon
           - php-version: 8.4
             repo: aws/aws-sdk-php
             ref: 3.398.0
@@ -794,7 +829,7 @@ jobs:
       - name: "Generate baseline"
         if: ${{ failure() && matrix.baseline-file }}
         working-directory: ${{ matrix.phpstan-cwd || 'e2e/integration/repo' }}
-        run: "${{ matrix.phpstan-command }} -b ../${{ matrix.baseline-file }}"
+        run: "${{ matrix.phpstan-command }} -b ${{ github.workspace }}/e2e/integration/${{ matrix.baseline-file }}"
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         if: ${{ failure() && matrix.baseline-file }}

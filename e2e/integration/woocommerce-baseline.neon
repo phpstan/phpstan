@@ -1,0 +1,553 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Offset \(int\|string\) might not exist on non\-empty\-array\<WC_Meta_Data\>\|null\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/includes/abstracts/abstract-wc-data.php
+
+		-
+			message: '#^Offset ''decimal_point'' on array\{decimal_point\: string, thousands_sep\: string, int_curr_symbol\: string, currency_symbol\: string, mon_decimal_point\: string, mon_thousands_sep\: string, positive_sign\: string, negative_sign\: string, \.\.\.\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: repo/plugins/woocommerce/includes/admin/class-wc-admin-assets.php
+
+		-
+			message: '#^PHPDoc tag @param has invalid value \(int @default_max_terms_to_display Default value\.\)\: Unexpected token "@default_max_terms_to_display", expected variable at offset 152 on line 4$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: repo/plugins/woocommerce/includes/admin/class-wc-admin-attributes.php
+
+		-
+			message: '#^Variable \$checked in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.variable
+			count: 1
+			path: repo/plugins/woocommerce/includes/admin/class-wc-admin-setup-wizard.php
+
+		-
+			message: '#^PHPDoc tag @param has invalid value \(array @user_info An array containing one item with the name and email of the user currently selected as the customer for the order\.\)\: Unexpected token "@user_info", expected variable at offset 317 on line 7$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: repo/plugins/woocommerce/includes/admin/meta-boxes/class-wc-meta-box-order-data.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_attr expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/plugins/woocommerce/includes/admin/meta-boxes/views/html-product-attribute-inner.php
+
+		-
+			message: '#^Variable \$order might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: repo/plugins/woocommerce/includes/class-wc-checkout.php
+
+		-
+			message: '#^Cannot call method get_id\(\) on int\|WC_Customer_Download\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: repo/plugins/woocommerce/includes/class-wc-download-handler.php
+
+		-
+			message: '#^Call to an undefined method object\:\:get_id\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: repo/plugins/woocommerce/includes/class-wc-structured-data.php
+
+		-
+			message: '#^Parameter \#1 \$input of function array_slice expects array, list\<string\>\|false given\.$#'
+			identifier: argument.type
+			count: 2
+			path: repo/plugins/woocommerce/includes/class-woocommerce.php
+
+		-
+			message: '#^Call to function in_array\(\) with arguments ''\.\.\.''\|''\<''\|''\<\=''\|''\>''\|''\>\='', array\{''\>'', ''\>\='', ''\='', ''\<\='', ''\<'', ''\.\.\.''\} and true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/includes/data-stores/class-wc-data-store-wp.php
+
+		-
+			message: '#^Cannot assign offset ''year'' to array\<string, string\>\|string\.$#'
+			identifier: offsetAssign.dimType
+			count: 1
+			path: repo/plugins/woocommerce/includes/data-stores/class-wc-data-store-wp.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: repo/plugins/woocommerce/includes/data-stores/class-wc-product-data-store-cpt.php
+
+		-
+			message: '#^Offset ''tax_class'' might not exist on array\{description\?\: mixed, regular_price\?\: mixed, sale_price\?\: mixed, date_on_sale_from\?\: mixed, date_on_sale_to\?\: mixed, manage_stock\?\: mixed, stock_status\?\: mixed, virtual\?\: mixed, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/includes/data-stores/class-wc-product-variation-data-store-cpt.php
+
+		-
+			message: '#^Call to function class_exists\(\) with ''WC_Importer…'' and false will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: repo/plugins/woocommerce/includes/import/abstract-wc-product-importer.php
+
+		-
+			message: '#^Parameter \#2 \$to of function rename expects string, bool\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/plugins/woocommerce/includes/log-handlers/class-wc-log-handler-file.php
+
+		-
+			message: '#^WP_REST_Request does not accept array\<mixed, mixed\>\.$#'
+			identifier: offsetAssign.valueType
+			count: 1
+			path: repo/plugins/woocommerce/includes/rest-api/Controllers/Version1/class-wc-rest-products-v1-controller.php
+
+		-
+			message: '#^Call to an undefined method WC_Data\:\:get_parent_id\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: repo/plugins/woocommerce/includes/rest-api/Controllers/Version2/class-wc-rest-products-v2-controller.php
+
+		-
+			message: '#^Parameter \#1 \$title of function sanitize_title expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/plugins/woocommerce/includes/rest-api/Controllers/Version2/class-wc-rest-tax-classes-v2-controller.php
+
+		-
+			message: '#^Offset ''number'' might not exist on array\{author__in\?\: mixed, author__not_in\?\: mixed, comment__not_in\?\: mixed, comment__in\?\: mixed, offset\?\: mixed, order\?\: mixed, number\?\: mixed, post__in\?\: mixed, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/includes/rest-api/Controllers/Version3/class-wc-rest-product-reviews-controller.php
+
+		-
+			message: '#^Parameter \#1 \$array_arg of function usort expects non\-empty\-array\<WP_Term\>, non\-empty\-array\<WP_Term\>\|WP_Error given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/plugins/woocommerce/includes/rest-api/Controllers/Version3/class-wc-rest-terms-controller.php
+
+		-
+			message: '#^Offset ''decimal_point'' on array\{decimal_point\: string, thousands_sep\: string, int_curr_symbol\: string, currency_symbol\: string, mon_decimal_point\: string, mon_thousands_sep\: string, positive_sign\: string, negative_sign\: string, \.\.\.\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: repo/plugins/woocommerce/includes/wc-formatting-functions.php
+
+		-
+			message: '#^Offset 1 on array\{non\-empty\-list\<string\>, non\-empty\-list\<non\-falsy\-string\>\} in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.offset
+			count: 1
+			path: repo/plugins/woocommerce/includes/wc-update-functions.php
+
+		-
+			message: '#^Offset 1 on array\{non\-empty\-list\<string\>, non\-empty\-list\<string\>\} in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.offset
+			count: 1
+			path: repo/plugins/woocommerce/includes/wc-update-functions.php
+
+		-
+			message: '#^Parameter \#1 \$item of method Automattic\\WooCommerce\\Admin\\API\\OnboardingProfile\:\:prepare_item_for_response\(\) expects object, array\<mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/plugins/woocommerce/src/Admin/API/OnboardingProfile.php
+
+		-
+			message: '#^Cannot assign offset ''name'' to ArrayObject\<\*NEVER\*, \*NEVER\*\>\.$#'
+			identifier: offsetAssign.dimType
+			count: 1
+			path: repo/plugins/woocommerce/src/Admin/API/Reports/Categories/DataStore.php
+
+		-
+			message: '#^Call to an undefined method object\:\:format\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: repo/plugins/woocommerce/src/Admin/API/Reports/DataStore.php
+
+		-
+			message: '#^Call to an undefined method object\:\:setTimestamp\(\)\.$#'
+			identifier: method.notFound
+			count: 2
+			path: repo/plugins/woocommerce/src/Admin/API/Reports/DataStore.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$data\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/plugins/woocommerce/src/Admin/API/Reports/PerformanceIndicators/Controller.php
+
+		-
+			message: '#^Cannot assign offset ''low_stock_amount'' to ArrayObject\<\*NEVER\*, \*NEVER\*\>\.$#'
+			identifier: offsetAssign.dimType
+			count: 1
+			path: repo/plugins/woocommerce/src/Admin/API/Reports/Products/DataStore.php
+
+		-
+			message: '#^Offset ''low_stock_amount'' does not exist on ArrayObject\<\*NEVER\*, \*NEVER\*\>\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/src/Admin/API/Reports/Products/DataStore.php
+
+		-
+			message: '#^Offset 1 might not exist on array\{\}\|array\{non\-falsy\-string, numeric\-string, numeric\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/src/Admin/API/Reports/Products/Stats/Segmenter.php
+
+		-
+			message: '#^Offset 2 might not exist on array\{\}\|array\{non\-falsy\-string, numeric\-string, numeric\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/src/Admin/API/Reports/Products/Stats/Segmenter.php
+
+		-
+			message: '#^Cannot assign offset ''attributes'' to ArrayObject\<\*NEVER\*, \*NEVER\*\>\.$#'
+			identifier: offsetAssign.dimType
+			count: 1
+			path: repo/plugins/woocommerce/src/Admin/API/Reports/Variations/DataStore.php
+
+		-
+			message: '#^Cannot assign offset ''deleted'' to ArrayObject\<\*NEVER\*, \*NEVER\*\>\.$#'
+			identifier: offsetAssign.dimType
+			count: 1
+			path: repo/plugins/woocommerce/src/Admin/API/Reports/Variations/DataStore.php
+
+		-
+			message: '#^Cannot assign offset ''low_stock_amount'' to ArrayObject\<\*NEVER\*, \*NEVER\*\>\.$#'
+			identifier: offsetAssign.dimType
+			count: 1
+			path: repo/plugins/woocommerce/src/Admin/API/Reports/Variations/DataStore.php
+
+		-
+			message: '#^Offset ''low_stock_amount'' does not exist on ArrayObject\<\*NEVER\*, \*NEVER\*\>\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/src/Admin/API/Reports/Variations/DataStore.php
+
+		-
+			message: '#^Offset 1 might not exist on array\{\}\|array\{non\-falsy\-string, numeric\-string, numeric\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/src/Admin/API/Reports/Variations/Stats/Segmenter.php
+
+		-
+			message: '#^Offset 2 might not exist on array\{\}\|array\{non\-falsy\-string, numeric\-string, numeric\-string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/src/Admin/API/Reports/Variations/Stats/Segmenter.php
+
+		-
+			message: '#^Binary operation "\*" between non\-empty\-string and 1\|3\|7 results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/plugins/woocommerce/src/Admin/Features/Fulfillments/FulfillmentUtils.php
+
+		-
+			message: '#^Cannot call method get_title\(\) on class\-string\|object\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: repo/plugins/woocommerce/src/Blocks/BlockTypes/PaymentMethodIcons.php
+
+		-
+			message: '#^Parameter \#1 \$array_arg of function usort contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: repo/plugins/woocommerce/src/Blocks/BlockTypes/PaymentMethodIcons.php
+
+		-
+			message: '#^Parameter \#2 \$callback of function usort contains unresolvable type\.$#'
+			identifier: argument.unresolvableType
+			count: 1
+			path: repo/plugins/woocommerce/src/Blocks/BlockTypes/PaymentMethodIcons.php
+
+		-
+			message: '#^Parameter \#1 \$var of function intval expects array\|bool\|float\|GMP\|int\|resource\|SimpleXMLElement\|string\|null, string\|WP_Error given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/plugins/woocommerce/src/Blocks/BlockTypes/ProductFilterAttribute.php
+
+		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: repo/plugins/woocommerce/src/Blocks/BlockTypes/Reviews/ProductReviewsTitle.php
+
+		-
+			message: '#^Offset ''decimal_point'' on array\{decimal_point\: string, thousands_sep\: string, int_curr_symbol\: string, currency_symbol\: string, mon_decimal_point\: string, mon_thousands_sep\: string, positive_sign\: string, negative_sign\: string, \.\.\.\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Abilities/Domain/Traits/ProductAbilityTrait.php
+
+		-
+			message: '#^Offset ''mon_decimal_point'' on array\{decimal_point\: string, thousands_sep\: string, int_curr_symbol\: string, currency_symbol\: string, mon_decimal_point\: string, mon_thousands_sep\: string, positive_sign\: string, negative_sign\: string, \.\.\.\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Abilities/Domain/Traits/ProductAbilityTrait.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\CustomizeStoreWithBlocks'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/CustomizeStoreWithBlocks.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\CustomizingProductCatalog'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/CustomizingProductCatalog.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\EUVATNumber'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/EUVATNumber.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\EditProductsOnTheMove'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/EditProductsOnTheMove.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\EmailImprovements'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/EmailImprovements.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\FirstProduct'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/FirstProduct.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\FullRefundFixDataToolNotice'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/FullRefundFixDataToolNotice.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\GivingFeedbackNotes'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/GivingFeedbackNotes.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\InstallJPAndWCSPlugins'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/InstallJPAndWCSPlugins.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\LaunchChecklist'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/LaunchChecklist.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\MagentoMigration'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/MagentoMigration.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\ManageOrdersOnTheGo'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/ManageOrdersOnTheGo.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\MarketingJetpack'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/MarketingJetpack.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\MigrateFromShopify'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/MigrateFromShopify.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\MobileApp'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/MobileApp.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\NewSalesRecord'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/NewSalesRecord.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\OnboardingPayments'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/OnboardingPayments.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\OnlineClothingStore'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/OnlineClothingStore.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\PaymentsMoreInfoNeeded'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/PaymentsMoreInfoNeeded.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\PaymentsRemindMeLater'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/PaymentsRemindMeLater.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\PerformanceOnMobile'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/PerformanceOnMobile.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\PersonalizeStore'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/PersonalizeStore.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\RealTimeOrderAlerts'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/RealTimeOrderAlerts.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\ScheduledUpdatesPromotion'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/ScheduledUpdatesPromotion.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\SellingOnlineCourses'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/SellingOnlineCourses.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\TrackingOptIn'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/TrackingOptIn.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\WooCommercePayments'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/WooCommercePayments.php
+
+		-
+			message: '#^Call to function method_exists\(\) with ''Automattic\\\\WooCommerce\\\\Internal\\\\Admin\\\\Notes\\\\WooCommerceSubscriptions'' and ''get_note'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Notes/WooCommerceSubscriptions.php
+
+		-
+			message: '#^Parameter \#1 \$args of method WP_Ajax_Response\:\:add\(\) expects array\{what\?\: string, action\?\: string\|false, id\?\: int\|WP_Error, old_id\?\: int\|false, position\?\: string, data\?\: string\|WP_Error, supplemental\?\: array\}, array\{what\: ''comment'', id\: string, data\: string\|false, position\: ''\-1''\|int, supplemental\: array\{in_moderation\: int, i18n_comments_text\: string, i18n_moderation_text\: string, parent_approved\: string, parent_post_id\: \*NEVER\*\}\|array\{in_moderation\: int, i18n_comments_text\: string, i18n_moderation_text\: string\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/ProductReviews/Reviews.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Settings/SettingsUISchema.php
+
+		-
+			message: '#^Right side of && is always true\.$#'
+			identifier: booleanAnd.rightAlwaysTrue
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Admin/Settings/SettingsUISchema.php
+
+		-
+			message: '#^Call to function in_array\(\) with arguments ''\.\.\.''\|''\<''\|''\<\=''\|''\>''\|''\>\='', array\{''\>'', ''\>\='', ''\='', ''\<\='', ''\<'', ''\.\.\.''\} and true will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/DataStores/Orders/OrdersTableQuery.php
+
+		-
+			message: '#^Parameter \#2 \$array of function implode expects array\<string\>, array\<array\<mixed, mixed\>\|string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Logging/RemoteLogger.php
+
+		-
+			message: '#^Method Automattic\\WooCommerce\\Internal\\PushNotifications\\Controllers\\PushTokenRestController\:\:get_schema\(\) should return array\<array\> but returns array\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/PushNotifications/Controllers/PushTokenRestController.php
+
+		-
+			message: '#^Instanceof between WC_Order and WC_Order will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/RestApi/Routes/V4/Orders/Controller.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/RestApi/Routes/V4/Orders/Controller.php
+
+		-
+			message: '#^Variable \$order might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/RestApi/Routes/V4/Orders/Controller.php
+
+		-
+			message: '#^Access to an undefined property WC_Data\:\:\$post_type\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/RestApi/Routes/V4/Products/Controller.php
+
+		-
+			message: '#^Offset ''is_enabled'' might not exist on non\-empty\-array\{is_enabled\?\: 0\|1, method_order\?\: int\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/RestApi/Routes/V4/ShippingZoneMethod/ShippingZoneMethodService.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_attr expects string, int\<1, max\> given\.$#'
+			identifier: argument.type
+			count: 2
+			path: repo/plugins/woocommerce/src/Internal/StockNotifications/Admin/Templates/html-admin-notification-create.php
+
+		-
+			message: '#^Parameter \#2 \$allowed_html of function wp_kses expects array\<array\>\|string, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/plugins/woocommerce/src/Internal/Utilities/HtmlSanitizer.php
+
+		-
+			message: '#^Parameter \#1 \$data of function esc_sql expects array\|string, int\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/plugins/woocommerce/src/StoreApi/Schemas/V1/ProductBrandSchema.php
+
+		-
+			message: '#^Parameter \#1 \$data of function esc_sql expects array\|string, int\|string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/plugins/woocommerce/src/StoreApi/Schemas/V1/ProductCategorySchema.php
+
+		-
+			message: '#^Offset ''tax_query'' does not exist on array\{offset\: mixed, order\: mixed, orderby\: mixed, paged\: mixed, post__in\: mixed, post__not_in\: mixed, posts_per_page\: mixed, post_parent__in\: mixed, \.\.\.\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/plugins/woocommerce/src/StoreApi/Utilities/ProductQuery.php
+
+		-
+			message: '#^Offset ''tax_query'' on array\{offset\: mixed, order\: mixed, orderby\: mixed, paged\: mixed, post__in\: mixed, post__not_in\: mixed, posts_per_page\: mixed, post_parent__in\: mixed, \.\.\.\} in empty\(\) does not exist\.$#'
+			identifier: empty.offset
+			count: 2
+			path: repo/plugins/woocommerce/src/StoreApi/Utilities/ProductQuery.php

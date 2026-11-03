@@ -1,0 +1,7 @@
+includes:
+	- repo/mailpoet/tasks/phpstan/phpstan.neon
+	- mailpoet-baseline.neon
+	# no editor-link-repo.php: PHPStan runs from tasks/phpstan and %relFile% is absolute for files outside it
+
+parameters:
+	reportUnmatchedIgnoredErrors: false
