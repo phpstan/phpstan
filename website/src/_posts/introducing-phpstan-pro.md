@@ -55,16 +55,6 @@ Once you fix all the found errors and achieve [Error Zero](https://twitter.com/O
 Continuous analysis reflects and supports my preferred workflow when developing applications: when I realize that I have to pass an additional new value through multiple layers of a codebase, I start by changing method signatures – renaming them, adding parameters, changing return typehints. After that, I run PHPStan which essentially gives me a todo list of places to fix. But running PHPStan several times a minute to get instant feedback can become tedious. Having a persistent window that refreshes automatically and gives me an up-to-date view of the project is much nicer.
 
 
-Migration wizards for improving your codebase
-------------------------
-
-Besides providing a beautiful web UI for browsing reported (and ignored) errors, PHPStan Pro now offers migration wizards to improve your code:
-
-<video class="w-full aspect-[1680/1080] mb-8 border border-gray-200 rounded-lg overflow-hidden" autoplay muted loop playsinline poster="/images/ignore-line-wizard-poster.jpg">
-  <source src="/images/ignore-line-wizard.mp4" type="video/mp4">
-</video>
-
-Wizards let you update various aspects of your codebase related to static analysis and leave it in a better state. They improve typehints and add PHPDocs that will make PHPStan understand your code better and find more issues.
 
 Pricing
 ------------------------
