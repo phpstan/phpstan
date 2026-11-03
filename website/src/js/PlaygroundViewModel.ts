@@ -577,11 +577,14 @@ export class PlaygroundViewModel extends ko.Component {
 			return;
 		}
 		if (typeof window.navigator.clipboard !== 'undefined') {
-			window.navigator.clipboard.writeText(window.location.href);
-			this.shareText('Copied!');
-			window.setTimeout(() => {
-				this.shareText('Share');
-			}, 2000);
+			window.navigator.clipboard.writeText(window.location.href).then(() => {
+				this.shareText('Copied!');
+				window.setTimeout(() => {
+					this.shareText('Share');
+				}, 2000);
+			}, () => {
+				// e.g. the document lost focus while the snippet was being saved; the URL is in the address bar anyway
+			});
 			return;
 		}
 	}
