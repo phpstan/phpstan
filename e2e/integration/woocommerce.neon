@@ -1,0 +1,7 @@
+includes:
+	- repo/plugins/woocommerce/phpstan.neon
+	- woocommerce-baseline.neon
+	- editor-link-repo.php
+
+parameters:
+	reportUnmatchedIgnoredErrors: false
