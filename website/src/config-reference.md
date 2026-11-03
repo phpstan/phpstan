@@ -1133,6 +1133,34 @@ Forces a full re-analysis if the result cache is older than the specified number
 
 When set to `true`, PHPStan tracks transitive dependencies of project extension files for cache invalidation. This adds overhead but catches more scenarios where the cache should be invalidated.
 
+### `fixer.importNames`
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.5</div>
+
+**default**: `true`
+
+When a fix applied with [`--fix`](/user-guide/command-line-usage#--fix%2C---fix-ignored) adds a class name to a file, PHPStan writes it relative to the existing `use` statements or the current namespace if possible. Otherwise, when `fixer.importNames` is `true`, it adds a new `use` statement and writes the short class name (unless that short name already means something else in the file). Set it to `false` to write such class names as fully qualified instead:
+
+```yaml
+parameters:
+	fixer:
+		importNames: false
+```
+
+### `fixer.preferSelf`
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.5</div>
+
+**default**: `false`
+
+When set to `true`, a class name added by a fix applied with [`--fix`](/user-guide/command-line-usage#--fix%2C---fix-ignored) that refers to the class it's written in is written as `self` instead of the class name (in places where `self` is allowed).
+
+```yaml
+parameters:
+	fixer:
+		preferSelf: true
+```
+
 Environment variables
 -------------
 
