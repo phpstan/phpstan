@@ -342,6 +342,43 @@ public function testFix(): void
 
 When the fixed node lives in another file, like a trait or a file the error points to with `RuleErrorBuilder::file()`, use `fixOtherFile($file, $fixedFile, $expectedFile)`.
 
+### Editing PHPDocs
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.6</div>
+
+To change a PHPDoc in a fix, inject [`PHPStan\Fixable\PhpDoc\PhpDocEditor`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Fixable.PhpDoc.PhpDocEditor.html) into your rule's constructor and call its `edit()` method on the node inside the `fixNode()` callback. It parses the node's PHPDoc with [phpstan/phpdoc-parser](https://github.com/phpstan/phpdoc-parser) and calls your callback for each PHPDoc AST node. The callback returns a new node to replace the visited one, an array of nodes to replace it with several nodes, an empty array to remove it, or `null` to leave it as it is. The PHPDoc is printed back with only the changed parts reprinted, so the rest of its formatting is kept. When the last tag is removed, the whole PHPDoc is removed.
+
+```php
+use PhpParser\Node;
+use PHPStan\Fixable\PhpDoc\PhpDocEditor;
+use PHPStan\PhpDocParser\Ast\PhpDoc\PhpDocTagNode;
+
+public function __construct(private PhpDocEditor $phpDocEditor)
+{
+}
+
+// ...
+
+return [
+	RuleErrorBuilder::message('@deprecated tag is not allowed here.')
+		->identifier('myRule.deprecatedTag')
+		->fixNode($node, function (Node\Stmt\ClassMethod $method) {
+			$this->phpDocEditor->edit($method, static function (\PHPStan\PhpDocParser\Ast\Node $phpDocNode) {
+				if ($phpDocNode instanceof PhpDocTagNode && $phpDocNode->name === '@deprecated') {
+					return [];
+				}
+
+				return null;
+			});
+
+			return $method;
+		})
+		->build(),
+];
+```
+
+When the node does not have a PHPDoc yet, `edit()` starts from an empty one, so the callback can add a tag by appending it to the `children` of the `PhpDocNode`. To edit a PHPDoc you only have as a string, use `editText()`. It returns the new text, or `null` when no tags are left.
+
 Virtual nodes
 ---------------
 
