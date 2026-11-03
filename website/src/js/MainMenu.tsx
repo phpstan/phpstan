@@ -44,11 +44,25 @@ type Theme = 'auto' | 'light' | 'dark';
 
 const themeKey = 'phpstanWebTheme';
 
+// localStorage is null or throws when the browser blocks site storage.
+function readStoredTheme(): Theme {
+	try {
+		const theme = localStorage.getItem(themeKey);
+		if (theme === 'light' || theme === 'dark') {
+			return theme;
+		}
+	} catch {
+		// pass
+	}
+
+	return 'auto';
+}
+
 // The light/dark/system theme buttons in the footer.
 export class ThemeSwitcher extends ko.Component {
 	static override readonly customElementName = 'theme-switcher';
 
-	readonly theme = ko.observable((localStorage.getItem(themeKey) ?? 'auto') as Theme);
+	readonly theme = ko.observable(readStoredTheme());
 
 	get template(): JSX.Element {
 		return (
@@ -72,10 +86,14 @@ export class ThemeSwitcher extends ko.Component {
 
 	switchTheme(theme: Theme): void {
 		this.theme(theme);
-		if (theme === 'auto') {
-			localStorage.removeItem(themeKey);
-		} else {
-			localStorage.setItem(themeKey, theme);
+		try {
+			if (theme === 'auto') {
+				localStorage.removeItem(themeKey);
+			} else {
+				localStorage.setItem(themeKey, theme);
+			}
+		} catch {
+			// storage unavailable: the theme still applies to the current page
 		}
 
 		const dark = theme === 'dark' || (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches);

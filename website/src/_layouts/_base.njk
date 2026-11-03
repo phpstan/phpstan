@@ -25,8 +25,15 @@
 	<script>
 		const query = window.matchMedia('(prefers-color-scheme: dark)');
 		const themeKey = 'phpstanWebTheme';
+		const storedTheme = () => {
+			try {
+				return localStorage.getItem(themeKey);
+			} catch {
+				return null;
+			}
+		};
 		query.addEventListener('change', (event) => {
-			if (themeKey in localStorage) {
+			if (storedTheme() !== null) {
 				return;
 			}
 			if (event.matches) {
@@ -35,7 +42,7 @@
 				document.documentElement.classList.remove('dark');
 			}
 		});
-		if (localStorage[themeKey] === 'dark' || (!(themeKey in localStorage) && query.matches)) {
+		if (storedTheme() === 'dark' || (storedTheme() === null && query.matches)) {
 			document.documentElement.classList.add('dark');
 		} else {
 			document.documentElement.classList.remove('dark');
