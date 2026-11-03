@@ -64,6 +64,7 @@ Unofficial extensions
 -----------------
 
 * Laravel ([Larastan](https://github.com/larastan/larastan) and [Bladestan](https://github.com/bladestan/bladestan))
+* Twig ([TwigStan](https://github.com/twigstan/twigstan))
 * [Drupal](https://github.com/mglaman/phpstan-drupal)
 * [WordPress](https://github.com/szepeviktor/phpstan-wordpress)
 * [Laminas](https://github.com/Slamdunk/phpstan-laminas-framework)
