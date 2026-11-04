@@ -27,6 +27,8 @@ jobs:
           - "phpstan/ipsum"
           - "phpstan/dolor"
           - "packagist/private-packagist"
+          - "phpstan/phpstan-fixer"
+          - "phpstan/phpstan-fixer-saas"
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
