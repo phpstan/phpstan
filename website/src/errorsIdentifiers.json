@@ -6845,7 +6845,7 @@
     "function.impossibleHaystackValue": {
         "PHPStan\\Rules\\Comparison\\ImpossibleInArrayHaystackFiniteTypesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleInArrayHaystackFiniteTypesRule.php#L192"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleInArrayHaystackFiniteTypesRule.php#L194"
             ]
         }
     },
@@ -17356,21 +17356,21 @@
     "switch.alwaysFalse": {
         "PHPStan\\Rules\\Comparison\\SwitchConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/SwitchConditionRule.php#L133"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/SwitchConditionRule.php#L134"
             ]
         }
     },
     "switch.alwaysTrue": {
         "PHPStan\\Rules\\Comparison\\SwitchConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/SwitchConditionRule.php#L152"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/SwitchConditionRule.php#L153"
             ]
         }
     },
     "switch.duplicateCase": {
         "PHPStan\\Rules\\Comparison\\SwitchConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/SwitchConditionRule.php#L86"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/SwitchConditionRule.php#L87"
             ]
         }
     },
