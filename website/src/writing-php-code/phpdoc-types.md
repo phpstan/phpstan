@@ -65,6 +65,20 @@ Integer ranges
 * `int<min, 100>`
 * `int<50, max>`
 
+Float ranges
+-------------------------
+
+* `positive-float`
+* `negative-float`
+* `non-positive-float`
+* `non-negative-float`
+* `finite-float`
+* `float<0, 1.5>`
+* `float<min, 100.0>`
+* `float<0.5, max>`
+
+`finite-float` is any float except `INF`, `-INF`, and `NAN`. Bounds of `float<min, max>` are inclusive and can be specified as integer or float literals.
+
 General arrays
 -------------------------
 
