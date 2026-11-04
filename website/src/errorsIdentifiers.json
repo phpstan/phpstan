@@ -6944,8 +6944,8 @@
     "function.strict": {
         "PHPStan\\Rules\\StrictCalls\\StrictFunctionCallsRule": {
             "phpstan/phpstan-strict-rules": [
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/StrictCalls/StrictFunctionCallsRule.php#L77",
-                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/StrictCalls/StrictFunctionCallsRule.php#L89"
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/StrictCalls/StrictFunctionCallsRule.php#L76",
+                "https://github.com/phpstan/phpstan-strict-rules/blob/2.1.x/src/Rules/StrictCalls/StrictFunctionCallsRule.php#L87"
             ]
         }
     },
