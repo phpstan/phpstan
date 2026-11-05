@@ -12364,7 +12364,7 @@
     "offsetAssign.valueType": {
         "PHPStan\\Rules\\Arrays\\OffsetAccessValueAssignmentRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Arrays/OffsetAccessValueAssignmentRule.php#L96"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Arrays/OffsetAccessValueAssignmentRule.php#L97"
             ]
         }
     },
