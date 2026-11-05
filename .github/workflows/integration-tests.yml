@@ -594,7 +594,8 @@ jobs:
               export COMPOSER_ROOT_VERSION=8.2.x-dev
               # avoids non-ignorable errors: lets PHPStan see that a few methods always return, and regenerates
               # RedisProxy and RedisClusterProxy from phpredis 6c1fbf86ae, which fixed the RedisCluster return types
-              # that phpstorm-stubs already have
+              # that phpstorm-stubs already have, and adds the optional parameters of Relay >= 0.50.2 to RelayProxy and
+              # RelayClusterProxy, like Symfony's own Relay502Trait does
               git apply ../symfony.patch
               composer remove --dev --no-update --no-interaction symfony/phpunit-bridge
               # composer/composer is needed by the Runtime component's ComposerPlugin

@@ -19,6 +19,12 @@ parameters:
 			path: repo/src/Server.php
 
 		-
+			message: '#^Call to function is_infinite\(\) with float\<0\.0, 1\.0\> will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: repo/src/block/ItemFrame.php
+
+		-
 			message: '#^Parameter \#1 \$array of function sort expects an array of values castable to string, array\<mixed\> given\.$#'
 			identifier: argument.type
 			count: 1
