@@ -17356,21 +17356,21 @@
     "switch.alwaysFalse": {
         "PHPStan\\Rules\\Comparison\\SwitchConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/SwitchConditionRule.php#L134"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/SwitchConditionRule.php#L133"
             ]
         }
     },
     "switch.alwaysTrue": {
         "PHPStan\\Rules\\Comparison\\SwitchConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/SwitchConditionRule.php#L153"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/SwitchConditionRule.php#L152"
             ]
         }
     },
     "switch.duplicateCase": {
         "PHPStan\\Rules\\Comparison\\SwitchConditionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/SwitchConditionRule.php#L87"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/SwitchConditionRule.php#L86"
             ]
         }
     },
