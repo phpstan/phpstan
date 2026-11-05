@@ -543,15 +543,47 @@ async function retrieveResult(request: HttpRequest): Promise<HttpResponse> {
 			phpVersionsToAnalyse.push(80600);
 		}
 
-		const newResult = await analyseResultInternal(
-			json.code,
-			json.level,
-			strictRules,
-			bleedingEdge,
-			treatPhpDocTypesAsCertain,
-			phpVersionsToAnalyse,
-			options,
-		);
+		const storedVersionedErrors: VersionedErrors[] = typeof json.versionedErrors !== 'undefined'
+			? json.versionedErrors
+			: [{phpVersion: 70400, errors: json.errors}];
+
+		// Re-analysis only checks whether the stored result is outdated. When a runner
+		// fails, still serve the stored result and keep reporting the failure.
+		let newResult: VersionedErrors[];
+		try {
+			newResult = await analyseResultInternal(
+				json.code,
+				json.level,
+				strictRules,
+				bleedingEdge,
+				treatPhpDocTypesAsCertain,
+				phpVersionsToAnalyse,
+				options,
+			);
+		} catch (e) {
+			console.error(e);
+			await reportError(e);
+			const storedTabs = createTabs(attachXRay(storedVersionedErrors, storedXRay));
+			return Promise.resolve({
+				statusCode: 200,
+				body: JSON.stringify({
+					code: json.code,
+					errors: json.errors,
+					version: json.version,
+					level: json.level,
+					config: {
+						strictRules,
+						bleedingEdge,
+						treatPhpDocTypesAsCertain,
+						options,
+					},
+					versionedErrors: stripXRay(storedVersionedErrors),
+					tabs: storedTabs,
+					upToDateTabs: storedTabs,
+					upToDateVersionedErrors: stripXRay(storedVersionedErrors),
+				}),
+			});
+		}
 		const newTabs = createTabs(newResult);
 
 		const bodyJson: any = {
