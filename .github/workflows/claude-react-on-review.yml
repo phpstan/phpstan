@@ -10,6 +10,7 @@ jobs:
     if: >
       github.event.pull_request.user.login == 'phpstan-bot'
       && github.event.review.user.login != 'phpstan-bot'
+      && contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.review.author_association)
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
