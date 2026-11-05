@@ -495,6 +495,80 @@ index 883ba9d408..44edb4041c 100644
      public function wait($numreplicas, $timeout): false|int
      {
          return $this->initializeLazyObject()->wait(...\func_get_args());
+diff --git a/src/Symfony/Component/Cache/Traits/RelayClusterProxy.php b/src/Symfony/Component/Cache/Traits/RelayClusterProxy.php
+index beb3f25..f6e0307 100644
+--- a/src/Symfony/Component/Cache/Traits/RelayClusterProxy.php
++++ b/src/Symfony/Component/Cache/Traits/RelayClusterProxy.php
+@@ -297,7 +297,7 @@ class RelayClusterProxy extends \Relay\Cluster implements ResetInterface, LazyOb
+         return $this->initializeLazyObject()->expire(...\func_get_args());
+     }
+ 
+-    public function expireat($key, $timestamp): \Relay\Cluster|bool
++    public function expireat($key, $timestamp, $mode = null): \Relay\Cluster|bool
+     {
+         return $this->initializeLazyObject()->expireat(...\func_get_args());
+     }
+@@ -727,12 +727,12 @@ class RelayClusterProxy extends \Relay\Cluster implements ResetInterface, LazyOb
+         return $this->initializeLazyObject()->persist(...\func_get_args());
+     }
+ 
+-    public function pexpire($key, $milliseconds): \Relay\Cluster|bool
++    public function pexpire($key, $milliseconds, $mode = null): \Relay\Cluster|bool
+     {
+         return $this->initializeLazyObject()->pexpire(...\func_get_args());
+     }
+ 
+-    public function pexpireat($key, $timestamp_ms): \Relay\Cluster|bool
++    public function pexpireat($key, $timestamp_ms, $mode = null): \Relay\Cluster|bool
+     {
+         return $this->initializeLazyObject()->pexpireat(...\func_get_args());
+     }
+@@ -1077,7 +1077,7 @@ class RelayClusterProxy extends \Relay\Cluster implements ResetInterface, LazyOb
+         return $this->initializeLazyObject()->vismember(...\func_get_args());
+     }
+ 
+-    public function vlinks($key, $element, $withscores): \Relay\Cluster|array|false
++    public function vlinks($key, $element, $withscores = false): \Relay\Cluster|array|false
+     {
+         return $this->initializeLazyObject()->vlinks(...\func_get_args());
+     }
+diff --git a/src/Symfony/Component/Cache/Traits/RelayProxy.php b/src/Symfony/Component/Cache/Traits/RelayProxy.php
+index fc485fa..6545bb1 100644
+--- a/src/Symfony/Component/Cache/Traits/RelayProxy.php
++++ b/src/Symfony/Component/Cache/Traits/RelayProxy.php
+@@ -344,7 +344,7 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
+         return $this->initializeLazyObject()->expire(...\func_get_args());
+     }
+ 
+-    public function expireat($key, $timestamp): \Relay\Relay|bool
++    public function expireat($key, $timestamp, $mode = null): \Relay\Relay|bool
+     {
+         return $this->initializeLazyObject()->expireat(...\func_get_args());
+     }
+@@ -1069,12 +1069,12 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
+         return $this->initializeLazyObject()->persist(...\func_get_args());
+     }
+ 
+-    public function pexpire($key, $milliseconds): \Relay\Relay|bool
++    public function pexpire($key, $milliseconds, $mode = null): \Relay\Relay|bool
+     {
+         return $this->initializeLazyObject()->pexpire(...\func_get_args());
+     }
+ 
+-    public function pexpireat($key, $timestamp_ms): \Relay\Relay|bool
++    public function pexpireat($key, $timestamp_ms, $mode = null): \Relay\Relay|bool
+     {
+         return $this->initializeLazyObject()->pexpireat(...\func_get_args());
+     }
+@@ -1464,7 +1464,7 @@ class RelayProxy extends \Relay\Relay implements ResetInterface, LazyObjectInter
+         return $this->initializeLazyObject()->vismember(...\func_get_args());
+     }
+ 
+-    public function vlinks($key, $element, $withscores): \Relay\Relay|array|false
++    public function vlinks($key, $element, $withscores = false): \Relay\Relay|array|false
+     {
+         return $this->initializeLazyObject()->vlinks(...\func_get_args());
+     }
 diff --git a/src/Symfony/Component/DependencyInjection/Compiler/CheckExceptionOnInvalidReferenceBehaviorPass.php b/src/Symfony/Component/DependencyInjection/Compiler/CheckExceptionOnInvalidReferenceBehaviorPass.php
 index 7ad07984eb..c4700b5ed9 100644
 --- a/src/Symfony/Component/DependencyInjection/Compiler/CheckExceptionOnInvalidReferenceBehaviorPass.php

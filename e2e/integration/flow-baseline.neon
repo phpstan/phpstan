@@ -55,6 +55,18 @@ parameters:
 			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Link/ActionViewHelper.php
 
 		-
+			message: '#^Loose comparison using \!\= between Neos\\Flow\\Security\\Context and null will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Security/IfAuthenticatedViewHelper.php
+
+		-
+			message: '#^Loose comparison using \!\= between Neos\\Flow\\Security\\Context and null will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: flow-dist/Packages/Framework/Neos.FluidAdaptor/Classes/ViewHelpers/Security/IfHasRoleViewHelper.php
+
+		-
 			message: '#^Instanceof between Neos\\Flow\\Mvc\\ActionRequest and Neos\\Flow\\Mvc\\ActionRequest will always evaluate to true\.$#'
 			identifier: instanceof.alwaysTrue
 			count: 1

@@ -5196,12 +5196,6 @@ parameters:
 			path: repo/src/Symfony/Component/HttpKernel/Controller/ArgumentResolver/QueryParameterValueResolver.php
 
 		-
-			message: '#^Match expression does not handle remaining values\: string\|null$#'
-			identifier: match.unhandled
-			count: 1
-			path: repo/src/Symfony/Component/HttpKernel/Controller/ArgumentResolver/RequestHeaderValueResolver.php
-
-		-
 			message: '#^Argument of an invalid type null supplied for foreach, only iterables are supported\.$#'
 			identifier: foreach.nonIterable
 			count: 1
@@ -9234,12 +9228,6 @@ parameters:
 			path: repo/src/Symfony/Component/TypeInfo/TypeResolver/StringTypeResolver.php
 
 		-
-			message: '#^Instanceof between PHPStan\\PhpDocParser\\Ast\\Type\\IdentifierTypeNode and PHPStan\\PhpDocParser\\Ast\\Type\\IdentifierTypeNode will always evaluate to true\.$#'
-			identifier: instanceof.alwaysTrue
-			count: 2
-			path: repo/src/Symfony/Component/TypeInfo/TypeResolver/StringTypeResolver.php
-
-		-
 			message: '#^Parameter \#1 \$config of class PHPStan\\PhpDocParser\\Parser\\TypeParser constructor expects PHPStan\\PhpDocParser\\ParserConfig, PHPStan\\PhpDocParser\\Parser\\ConstExprParser given\.$#'
 			identifier: argument.type
 			count: 1
@@ -9498,12 +9486,6 @@ parameters:
 			path: repo/src/Symfony/Component/Validator/Constraints/Image.php
 
 		-
-			message: '#^Call to function is_numeric\(\) with numeric\-string will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 2
-			path: repo/src/Symfony/Component/Validator/Constraints/ImageValidator.php
-
-		-
 			message: '#^Binary operation "\*" between non\-empty\-string and 3 results in an error\.$#'
 			identifier: binaryOp.invalid
 			count: 1
@@ -9568,12 +9550,6 @@ parameters:
 			identifier: parameter.unresolvableType
 			count: 1
 			path: repo/src/Symfony/Component/Validator/Constraints/Video.php
-
-		-
-			message: '#^Call to function is_numeric\(\) with numeric\-string will always evaluate to true\.$#'
-			identifier: function.alreadyNarrowedType
-			count: 2
-			path: repo/src/Symfony/Component/Validator/Constraints/VideoValidator.php
 
 		-
 			message: '#^Parameter \#6 \$year of function mktime expects int\|null, string given\.$#'

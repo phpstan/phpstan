@@ -37,6 +37,12 @@ parameters:
 			path: repo/plugins/woocommerce/includes/admin/meta-boxes/views/html-product-attribute-inner.php
 
 		-
+			message: '#^Binary operation "\*" between array\|float\<min, \-5\.0E\-324\>\|int\<min, \-1\> and \(float\|int\) results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: repo/plugins/woocommerce/includes/class-wc-cart-totals.php
+
+		-
 			message: '#^Variable \$order might not be defined\.$#'
 			identifier: variable.undefined
 			count: 1
@@ -91,6 +97,12 @@ parameters:
 			path: repo/plugins/woocommerce/includes/import/abstract-wc-product-importer.php
 
 		-
+			message: '#^Offset \(''\*''\|''\+''\|''\-''\|''/''\|''\^''\|''_''\) might not exist on array\{''\+''\: 0, ''\-''\: 0, ''\*''\: 0, ''/''\: 0, ''\^''\: 1\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/plugins/woocommerce/includes/libraries/class-wc-eval-math.php
+
+		-
 			message: '#^Parameter \#2 \$to of function rename expects string, bool\|string given\.$#'
 			identifier: argument.type
 			count: 1
@@ -113,6 +125,12 @@ parameters:
 			identifier: argument.type
 			count: 1
 			path: repo/plugins/woocommerce/includes/rest-api/Controllers/Version2/class-wc-rest-tax-classes-v2-controller.php
+
+		-
+			message: '#^Method WC_REST_Product_Reviews_Controller\:\:prepare_status_response\(\) should return string but returns int\<min, \-1\>\|int\<2, max\>\|string\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/plugins/woocommerce/includes/rest-api/Controllers/Version3/class-wc-rest-product-reviews-controller.php
 
 		-
 			message: '#^Offset ''number'' might not exist on array\{author__in\?\: mixed, author__not_in\?\: mixed, comment__not_in\?\: mixed, comment__in\?\: mixed, offset\?\: mixed, order\?\: mixed, number\?\: mixed, post__in\?\: mixed, \.\.\.\}\.$#'

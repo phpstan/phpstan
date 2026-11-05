@@ -1,2 +1,7 @@
 parameters:
-	ignoreErrors: []
+	ignoreErrors:
+		-
+			rawMessage: 'Call to function is_string() with float<0.0, max> will always evaluate to false.'
+			identifier: function.impossibleType
+			count: 1
+			path: repo/includes/class-woopay-tracker.php
