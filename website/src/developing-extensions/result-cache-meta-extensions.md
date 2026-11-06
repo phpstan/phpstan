@@ -157,7 +157,7 @@ $service = $this->serviceMap->getService($serviceId);
 
 The value is saved in the result cache. On the next run, PHPStan asks the extension for the value again, and the files that tracked it are analysed again if it's different. The same value tracked by more rules and extensions in the same file is saved once.
 
-The value can be a hash if what it describes is big. Return a value for a key that doesn't exist too, so that the result cache notices when it starts to exist.
+The value can be a hash if what it describes is big. Return a value for a key that doesn't exist too, so that the result cache notices when it starts to exist. `getValue` is invoked before bootstrap-files are included.
 
 The keys are saved in the result cache as `keyToResultCache()` returns them, and read back through `keyFromResultCache()`. That's useful for keys that are absolute file paths. You can make them relative so that the result cache survives moving the project to a different directory, for example between CI runs.
 
