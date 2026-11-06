@@ -22,6 +22,10 @@ Honeybadger.beforeNotify(() => {
 	return html.lang === 'en' && !html.classList.contains('translated-ltr') && !html.classList.contains('translated-rtl');
 });
 
+// Stored legacy results are rendered with the html binding and can be longer
+// than TKO's default limit of 4096 characters.
+ko.options.templateSizeLimit = 0;
+
 $(() => {
 	initMainMenu();
 

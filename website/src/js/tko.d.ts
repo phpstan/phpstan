@@ -94,6 +94,7 @@ declare module '@tko/build.reference' {
 
 		const options: {
 			deferUpdates: boolean;
+			templateSizeLimit: number;
 		};
 
 		const utils: {
