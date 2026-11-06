@@ -7,22 +7,39 @@ on:
 jobs:
   save-context:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     if: >
       github.event.pull_request.user.login == 'phpstan-bot'
+      && github.event.pull_request.state == 'open'
       && github.event.review.user.login != 'phpstan-bot'
-      && contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.review.author_association)
+      && github.event.review.state != 'approved'
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@46b06cea07f9e64621fdf066ba77ac6915163d43 # v2.22.3
         with:
           egress-policy: audit
 
+      - name: Check reviewer permissions
+        id: reviewer-permissions
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const { data } = await github.rest.repos.getCollaboratorPermissionLevel({
+              ...context.repo,
+              username: context.payload.review.user.login,
+            });
+            core.notice(`Reviewer ${context.payload.review.user.login} has ${data.permission} permission.`);
+            return ['write', 'maintain', 'admin'].includes(data.permission);
+
       - name: Save review context
+        if: steps.reviewer-permissions.outputs.result == 'true'
         run: |
           echo "${{ github.event.pull_request.number }}" > pr_number.txt
           echo "${{ github.event.review.id }}" > review_id.txt
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: steps.reviewer-permissions.outputs.result == 'true'
         with:
           name: review-context
           path: |
