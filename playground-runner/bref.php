@@ -156,7 +156,7 @@ return function ($event) use ($phpstanVersion) {
 	$response = [
 		'result' => $errors,
 		'version' => $phpstanVersion,
-		'xray' => playground_xray($code, $analyserResult->getAnalyserResult()->getCollectedData()[$codePath] ?? []),
+		'xray' => playground_xray($code, $analyserResult->getAnalyserResult()->getLazyCollectedData()->toArray()[$codePath] ?? []),
 	];
 
 	// Like `phpstan analyse --fix`: the fixed code is analysed again in a new container

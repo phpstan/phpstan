@@ -31,7 +31,13 @@ parameters:
 			path: bref.php
 
 		-
-			message: '#^Calling PHPStan\\Analyser\\AnalyserResult\:\:getCollectedData\(\) is not covered by backward compatibility promise\. The method might change in a minor PHPStan version\.$#'
+			message: '#^Calling PHPStan\\Analyser\\AnalyserResult\:\:getLazyCollectedData\(\) is not covered by backward compatibility promise\. The method might change in a minor PHPStan version\.$#'
+			identifier: phpstanApi.method
+			count: 1
+			path: bref.php
+
+		-
+			message: '#^Calling PHPStan\\Analyser\\ResultCache\\LazyCollectedData\:\:toArray\(\) is not covered by backward compatibility promise\. The method might change in a minor PHPStan version\.$#'
 			identifier: phpstanApi.method
 			count: 1
 			path: bref.php
