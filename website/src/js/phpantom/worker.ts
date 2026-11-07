@@ -3,7 +3,8 @@
 // marshalled into wasm memory, handed to `lsp_handle`, and the response posted
 // back. Notifications produce no response.
 //
-// We target WASI rather than wasm-bindgen because PHPantom's completion path
+// The module is PHPantom's prebuilt release asset (scripts/build-wasm.sh). It
+// targets WASI rather than wasm-bindgen because PHPantom's completion path
 // hits a memory-corruption bug on wasm32-unknown-unknown but is correct on
 // wasm32-wasip1.
 /* eslint-disable no-console -- the worker forwards PHPantom output and failures to the console */

@@ -6,9 +6,8 @@
 /visual-tests/playwright-report/
 /playwright-report/
 
-# PHPantom wasm (built via npm run build:wasm)
+# PHPantom wasm (downloaded via npm run build:wasm)
 src/js/phpantom/pkg-wasi/*.wasm
-.phpantom-build/
 functional-tests/test-results/
 
 # PHPStan stub shells (fetched via npm run build:stubs)

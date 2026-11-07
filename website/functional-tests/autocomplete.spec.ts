@@ -1,7 +1,7 @@
 import {test, expect, Page} from '@playwright/test';
 
 // PHPantom runs as wasm in a Web Worker, loaded eagerly when /try opens. The
-// first completion has to wait for that ~11 MB module to download + initialise.
+// first completion has to wait for that ~17 MB module to download + initialise.
 const COMPLETION_TIMEOUT = 30_000;
 
 // Replace the playground editor's contents with the given PHP.
