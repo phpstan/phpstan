@@ -2,422 +2,422 @@
     "argument.bitmaskNotAllowed": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L516"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L517"
             ]
         }
     },
     "argument.byRef": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L561",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L599",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L617"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L562",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L600",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L618"
             ]
         }
     },
     "argument.duplicate": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L783",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L808"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L784",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L809"
             ]
         }
     },
     "argument.exclusiveConstants": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L507"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L508"
             ]
         }
     },
@@ -432,110 +432,110 @@
     "argument.invalidConstant": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L497",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L540"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L498",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L541"
             ]
         }
     },
@@ -552,92 +552,92 @@
     "argument.missing": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L824"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L825"
             ]
         }
     },
@@ -945,92 +945,92 @@
     "argument.positionalAfterNamed": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L792"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L793"
             ]
         }
     },
@@ -1061,184 +1061,184 @@
     "argument.staticClosure": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L478"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L479"
             ]
         }
     },
     "argument.templateType": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L679"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L680"
             ]
         }
     },
@@ -1379,92 +1379,92 @@
     "argument.unknown": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L770"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L771"
             ]
         }
     },
@@ -1655,99 +1655,99 @@
     "argument.unresolvableType": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L459"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L460"
             ]
         }
     },
     "argument.unused": {
         "PHPStan\\Rules\\Functions\\DefineParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/DefineParametersRule.php#L49"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/DefineParametersRule.php#L58"
             ]
         }
     },
@@ -1905,7 +1905,7 @@
     "array.invalidKey": {
         "PHPStan\\Rules\\Arrays\\InvalidKeyInArrayItemRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Arrays/InvalidKeyInArrayItemRule.php#L64"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Arrays/InvalidKeyInArrayItemRule.php#L66"
             ]
         }
     },
@@ -2794,20 +2794,20 @@
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L223",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L534"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L226",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L537"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L223",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L534"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L226",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L537"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L223",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L534"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L226",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L537"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
@@ -2822,8 +2822,8 @@
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L223",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L534"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L226",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L537"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
@@ -2833,8 +2833,8 @@
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L223",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L534"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L226",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L537"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
@@ -2869,92 +2869,92 @@
     "attribute.unresolvableReturnType": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         }
     },
@@ -3053,7 +3053,7 @@
     "backtick.deprecated": {
         "PHPStan\\Rules\\Operators\\BacktickRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/BacktickRule.php#L53"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/BacktickRule.php#L62"
             ]
         }
     },
@@ -3306,92 +3306,92 @@
     "callable.unresolvableReturnType": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         }
     },
@@ -4483,29 +4483,29 @@
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L175",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L262",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L332",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L455",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L545"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L178",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L265",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L335",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L458",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L548"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L175",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L262",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L332",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L455",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L545"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L178",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L265",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L335",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L458",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L548"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L175",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L262",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L332",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L455",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L545"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L178",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L265",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L335",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L458",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L548"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
@@ -4663,11 +4663,11 @@
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L175",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L262",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L332",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L455",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L545"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L178",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L265",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L335",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L458",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L548"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
@@ -4803,11 +4803,11 @@
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L175",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L262",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L332",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L455",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L545"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L178",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L265",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L335",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L458",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L548"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
@@ -5203,8 +5203,8 @@
     "class.serializable": {
         "PHPStan\\Rules\\Methods\\MissingMagicSerializationMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/MissingMagicSerializationMethodsRule.php#L68",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/MissingMagicSerializationMethodsRule.php#L77"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/MissingMagicSerializationMethodsRule.php#L77",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/MissingMagicSerializationMethodsRule.php#L86"
             ]
         }
     },
@@ -6726,7 +6726,7 @@
     "filterVar.nullOnFailureAndThrowOnFailure": {
         "PHPStan\\Rules\\Functions\\FilterVarRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/FilterVarRule.php#L68"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/FilterVarRule.php#L72"
             ]
         }
     },
@@ -6952,92 +6952,92 @@
     "function.unresolvableReturnType": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         }
     },
@@ -10326,8 +10326,8 @@
     "method.abstractOverridingNonAbstract": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L104",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L222"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L111",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L229"
             ]
         }
     },
@@ -10390,8 +10390,8 @@
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/MethodSignatureRule.php#L127",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L325",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L338"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L333",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L346"
             ]
         }
     },
@@ -10547,7 +10547,7 @@
     "method.missingOverride": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L152"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L159"
             ]
         }
     },
@@ -10642,7 +10642,7 @@
     "method.nonStatic": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L194"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L201"
             ]
         }
     },
@@ -10661,23 +10661,23 @@
     "method.override": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L119"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L126"
             ]
         }
     },
     "method.parentMethodFinal": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L171",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L75"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L178",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L82"
             ]
         }
     },
     "method.parentMethodFinalByPhpDoc": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L180",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L87"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L187",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L94"
             ]
         }
     },
@@ -10736,7 +10736,7 @@
     "method.static": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L206"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L213"
             ]
         }
     },
@@ -10755,126 +10755,126 @@
     "method.templateTypeNotInParameter": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L621"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L624"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L621"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L624"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L621"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L624"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L621"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L624"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L621"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L624"
             ]
         }
     },
     "method.tentativeReturnType": {
         "PHPStan\\Rules\\Methods\\OverridingMethodRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L261"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/OverridingMethodRule.php#L269"
             ]
         }
     },
     "method.unresolvableReturnType": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         }
     },
@@ -11902,92 +11902,92 @@
     "new.unresolvableReturnType": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         }
     },
@@ -12307,7 +12307,7 @@
     "offsetAccess.invalidOffset": {
         "PHPStan\\Rules\\Arrays\\InvalidKeyInArrayDimFetchRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Arrays/InvalidKeyInArrayDimFetchRule.php#L84"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Arrays/InvalidKeyInArrayDimFetchRule.php#L86"
             ]
         }
     },
@@ -12700,27 +12700,27 @@
     "parameter.implicitlyNullable": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L840"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L843"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L840"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L843"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L840"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L843"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L840"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L843"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L840"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L843"
             ]
         }
     },
@@ -12767,27 +12767,27 @@
     "parameter.noParent": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L508"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L511"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L508"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L511"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L508"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L511"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L508"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L511"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L508"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L511"
             ]
         }
     },
@@ -12899,27 +12899,27 @@
     "parameter.requiredAfterOptional": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L656"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L659"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L656"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L659"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L656"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L659"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L656"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L659"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L656"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L659"
             ]
         }
     },
@@ -12940,96 +12940,96 @@
     "parameter.trait": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L184",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L469"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L187",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L472"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L184",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L469"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L187",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L472"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L184",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L469"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L187",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L472"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L184",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L469"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L187",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L472"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L184",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L469"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L187",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L472"
             ]
         }
     },
     "parameter.unionTypeNotSupported": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L134",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L387"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L137",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L390"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L134",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L387"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L137",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L390"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L134",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L387"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L137",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L390"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L134",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L387"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L137",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L390"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L134",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L387"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L137",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L390"
             ]
         }
     },
     "parameter.unresolvableNativeType": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L163",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L440"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L166",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L443"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L163",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L440"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L166",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L443"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L163",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L440"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L166",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L443"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L163",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L440"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L166",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L443"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L163",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L440"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L166",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L443"
             ]
         }
     },
@@ -14195,7 +14195,7 @@
     "postDec.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L95"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L98"
             ]
         }
     },
@@ -14216,7 +14216,7 @@
     "postDec.type": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L165"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L171"
             ]
         }
     },
@@ -14237,7 +14237,7 @@
     "postInc.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L95"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L98"
             ]
         }
     },
@@ -14258,7 +14258,7 @@
     "postInc.type": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L165"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L171"
             ]
         }
     },
@@ -14293,7 +14293,7 @@
     "preDec.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L95"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L98"
             ]
         }
     },
@@ -14314,7 +14314,7 @@
     "preDec.type": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L165"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L171"
             ]
         }
     },
@@ -14335,7 +14335,7 @@
     "preInc.expr": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L95"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L98"
             ]
         }
     },
@@ -14356,7 +14356,7 @@
     "preInc.type": {
         "PHPStan\\Rules\\Operators\\InvalidIncDecOperationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L165"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Operators/InvalidIncDecOperationRule.php#L171"
             ]
         }
     },
@@ -14441,7 +14441,7 @@
     "property.assignByRef": {
         "PHPStan\\Rules\\Properties\\PropertyAssignRefRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Properties/PropertyAssignRefRule.php#L64"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Properties/PropertyAssignRefRule.php#L68"
             ]
         }
     },
@@ -16089,27 +16089,27 @@
     "return.noParent": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L589"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L592"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L589"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L592"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L589"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L592"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L589"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L592"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L589"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L592"
             ]
         }
     },
@@ -16167,32 +16167,32 @@
     "return.trait": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L270",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L555"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L273",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L558"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L270",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L555"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L273",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L558"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L270",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L555"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L273",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L558"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L270",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L555"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L273",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L558"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L270",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L555"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L273",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L558"
             ]
         }
     },
@@ -16222,64 +16222,64 @@
     "return.unionTypeNotSupported": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L238",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L397"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L241",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L400"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L238",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L397"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L241",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L400"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L238",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L397"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L241",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L400"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L238",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L397"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L241",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L400"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L238",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L397"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L241",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L400"
             ]
         }
     },
     "return.unresolvableNativeType": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L250",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L519"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L253",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L522"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L250",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L519"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L253",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L522"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L250",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L519"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L253",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L522"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L250",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L519"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L253",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L522"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L250",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L519"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L253",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L522"
             ]
         }
     },
@@ -16504,27 +16504,27 @@
     "selfOut.trait": {
         "PHPStan\\Rules\\Functions\\ExistingClassesInArrowFunctionTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L342"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L345"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInClosureTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L342"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L345"
             ]
         },
         "PHPStan\\Rules\\Functions\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L342"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L345"
             ]
         },
         "PHPStan\\Rules\\Methods\\ExistingClassesInTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L342"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L345"
             ]
         },
         "PHPStan\\Rules\\Properties\\ExistingClassesInPropertyHookTypehintsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L342"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionDefinitionCheck.php#L345"
             ]
         }
     },
@@ -16941,92 +16941,92 @@
     "staticMethod.unresolvableReturnType": {
         "PHPStan\\Rules\\Classes\\ClassAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Classes\\ClassConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Constants\\ConstantAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\EnumCases\\EnumCaseAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ArrowFunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallCallablesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallToFunctionParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\CallUserFuncRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ClosureAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\FunctionAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Functions\\ParamAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\CallStaticMethodsRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Properties\\PropertyHookAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         },
         "PHPStan\\Rules\\Traits\\TraitAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L692"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/FunctionCallParametersCheck.php#L693"
             ]
         }
     },
@@ -18248,42 +18248,42 @@
     "unset.hookedProperty": {
         "PHPStan\\Rules\\Variables\\UnsetRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/UnsetRule.php#L78"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/UnsetRule.php#L83"
             ]
         }
     },
     "unset.offset": {
         "PHPStan\\Rules\\Variables\\UnsetRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/UnsetRule.php#L137"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/UnsetRule.php#L142"
             ]
         }
     },
     "unset.possiblyHookedProperty": {
         "PHPStan\\Rules\\Variables\\UnsetRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/UnsetRule.php#L95"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/UnsetRule.php#L100"
             ]
         }
     },
     "unset.readOnlyProperty": {
         "PHPStan\\Rules\\Variables\\UnsetRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/UnsetRule.php#L64"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/UnsetRule.php#L69"
             ]
         }
     },
     "unset.readOnlyPropertyByPhpDoc": {
         "PHPStan\\Rules\\Variables\\UnsetRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/UnsetRule.php#L64"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/UnsetRule.php#L69"
             ]
         }
     },
     "unset.variable": {
         "PHPStan\\Rules\\Variables\\UnsetRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/UnsetRule.php#L121"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Variables/UnsetRule.php#L126"
             ]
         }
     },
