@@ -110,6 +110,7 @@ services:
 		arguments:
 			checkPhpDocMethodSignatures: %checkPhpDocMethodSignatures%
 			checkMissingOverrideMethodAttribute: true
+			checkWholePhpVersionRange: %featureToggles.checkWholePhpVersionRange%
 		autowired: false
 
 	methodThrowTypeCovarianceRule:
