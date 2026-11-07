@@ -14,7 +14,7 @@ const client = new LSPClient({
 });
 
 // lsp-client has no option to disable its request timeout. The worker answers
-// `initialize` only after downloading and compiling the ~11 MB wasm, and it
+// `initialize` only after downloading and compiling the ~17 MB wasm, and it
 // handles messages one at a time, so a timeout never frees anything up. A
 // timed-out request instead rejects promises lsp-client leaves unhandled (its
 // notifications after a failed `initialize`, trigger-character signature help).

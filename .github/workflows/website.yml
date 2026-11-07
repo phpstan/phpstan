@@ -76,24 +76,8 @@ jobs:
           cache: "npm"
           cache-dependency-path: website/package-lock.json
 
-      # The PHPantom ref is pinned in build-wasm.sh, so the script's hash
-      # identifies the wasm. Rust only runs when the ref or script changes.
-      - name: "Cache PHPantom wasm"
-        id: wasm-cache
-        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: website/src/js/phpantom/pkg-wasi/phpantom_lsp.wasm
-          key: "phpantom-wasm-${{ hashFiles('website/scripts/build-wasm.sh') }}"
-
-      - name: "Install Rust"
-        if: steps.wasm-cache.outputs.cache-hit != 'true'
-        run: |
-          rustup update stable
-          rustup default stable
-          rustc --version
-
-      - name: "Build wasm (cargo -> wasm32-wasip1)"
-        if: steps.wasm-cache.outputs.cache-hit != 'true'
+      # Downloads the PHPantom release pinned (with its checksum) in build-wasm.sh.
+      - name: "Download PHPantom wasm"
         working-directory: ./website
         run: "npm run build:wasm"
 
