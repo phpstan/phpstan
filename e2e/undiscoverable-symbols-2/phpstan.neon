@@ -5,3 +5,9 @@ parameters:
     paths:
         - src
         - tests
+    ignoreErrors:
+        -
+            rawMessage: 'Parameter #1 $key of static method MyCLabs\Enum\Enum<int>::isValidKey() expects string, int|string given.'
+            identifier: argument.type
+            path: src/Validator/EnumValidator.php
+            reportUnmatched: false
