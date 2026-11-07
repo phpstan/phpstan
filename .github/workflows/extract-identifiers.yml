@@ -26,19 +26,20 @@ jobs:
 
     strategy:
       matrix:
-        repository:
-          - "phpstan/phpstan-src"
-          - "phpstan/phpstan-strict-rules"
-          - "phpstan/phpstan-deprecation-rules"
-          - "phpstan/phpstan-doctrine"
-          - "phpstan/phpstan-symfony"
-          - "phpstan/phpstan-phpunit"
-          - "phpstan/phpstan-nette"
-          - "phpstan/phpstan-dibi"
-          #- "phpstan/phpstan-php-parser"
-          - "phpstan/phpstan-beberlei-assert"
-          - "phpstan/phpstan-webmozart-assert"
-          - "phpstan/phpstan-mockery"
+        # repositories in the phpstan organization
+        repository-name:
+          - "phpstan-src"
+          - "phpstan-strict-rules"
+          - "phpstan-deprecation-rules"
+          - "phpstan-doctrine"
+          - "phpstan-symfony"
+          - "phpstan-phpunit"
+          - "phpstan-nette"
+          - "phpstan-dibi"
+          #- "phpstan-php-parser"
+          - "phpstan-beberlei-assert"
+          - "phpstan-webmozart-assert"
+          - "phpstan-mockery"
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
@@ -54,7 +55,7 @@ jobs:
       - name: "Checkout"
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          repository: ${{ matrix.repository }}
+          repository: phpstan/${{ matrix.repository-name }}
           path: "identifier-extractor/repo"
           persist-credentials: false
 
@@ -69,31 +70,21 @@ jobs:
         with:
           working-directory: "identifier-extractor"
 
-      - name: "Repository name"
-        id: repo-name
-        env:
-          REPO: ${{ matrix.repository }}
-        run: echo "name=$(basename "$REPO")" >> "$GITHUB_OUTPUT"
-
-      - name: "Branch name"
-        id: branch-name
-        working-directory: "identifier-extractor/repo"
-        run: echo "name=$(git branch --show)" >> "$GITHUB_OUTPUT"
-
       - name: "Extract"
         working-directory: "identifier-extractor/repo"
         run: |
           set -o pipefail
+          BRANCH="$(git branch --show-current)"
+          export BRANCH
           ../../phpstan analyse -c ../extractor.neon -a ../vendor/autoload.php | tee "../${REPO_NAME}.json"
         env:
-          REPO: ${{ matrix.repository }}
-          BRANCH: ${{ steps.branch-name.outputs.name }}
-          REPO_NAME: ${{ steps.repo-name.outputs.name }}
+          REPO: phpstan/${{ matrix.repository-name }}
+          REPO_NAME: ${{ matrix.repository-name }}
 
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: identifiers-${{ steps.repo-name.outputs.name }}
-          path: identifier-extractor/${{ steps.repo-name.outputs.name }}.json
+          name: identifiers-${{ matrix.repository-name }}
+          path: identifier-extractor/${{ matrix.repository-name }}.json
 
   merge:
     permissions:
