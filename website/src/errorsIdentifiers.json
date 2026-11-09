@@ -18550,14 +18550,14 @@
     "whitespace.bom": {
         "PHPStan\\Rules\\Whitespace\\FileWhitespaceRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Whitespace/FileWhitespaceRule.php#L42"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Whitespace/FileWhitespaceRule.php#L43"
             ]
         }
     },
     "whitespace.fileEnd": {
         "PHPStan\\Rules\\Whitespace\\FileWhitespaceRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Whitespace/FileWhitespaceRule.php#L93"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Whitespace/FileWhitespaceRule.php#L98"
             ]
         }
     }
