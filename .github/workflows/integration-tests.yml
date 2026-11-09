@@ -582,6 +582,9 @@ jobs:
               COMPOSER_DEV_MODE=1 php tools/install.php
               touch .env
               ./tools/vendor/composer.phar install
+              # MailPoet pins phpstan-doctrine 2.0.28, which serialize()s types and crashes intermittently
+              # with "Serialization of 'Closure' is not allowed" (https://github.com/phpstan/phpstan/issues/15687)
+              ./tools/vendor/composer.phar --working-dir=tasks/phpstan require --no-interaction phpstan/phpstan-doctrine:2.1.2
               php -d register_argc_argv=1 ../tests_env/vendor/bin/codecept build
             phpstan-command: ../../../../../../phpstan.phar analyse -c ../../../../mailpoet.neon --memory-limit=4G ../../lib ../../tests/_support ../../tests/DataFactories ../../tests/acceptance ../../tests/integration ../../tests/unit
             baseline-file: mailpoet-baseline.neon
