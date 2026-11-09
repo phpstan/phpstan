@@ -957,6 +957,8 @@ Related config keys: `editorUrl`, `editorUrlTitle`
 
 Customizes the link text shown for editor URLs in the `table` error formatter. Supports the same `%file%`, `%relFile%`, and `%line%` placeholders as `editorUrl`. When not set, the relative file path is used as the link text.
 
+If your console doesn't support link texts, just pass the same pattern as for `editorUrl`.
+
 ```yaml
 parameters:
     editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
