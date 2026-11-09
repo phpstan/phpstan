@@ -79,6 +79,15 @@ parameters:
 			path: repo/core/modules/filter/src/FilterProcessResult.php
 
 		-
+			message: '''
+				#^Call to deprecated method check\(\) of class JsonSchema\\Validator\:
+				since 6\.0\.0, use Validator\:\:validate\(\) instead, to be removed in 7\.0$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/core/modules/jsonapi/src/EventSubscriber/ResourceResponseValidator.php
+
+		-
 			message: '#^Anonymous function has an unused use \$resource_type\.$#'
 			identifier: closure.unusedUse
 			count: 1

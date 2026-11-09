@@ -31,6 +31,12 @@ parameters:
 			path: repo/src/Framework/TestSuite.php
 
 		-
+			rawMessage: 'Call to method nameAndVersion() of internal class SebastianBergmann\CodeCoverage\Driver\Driver from outside its root namespace SebastianBergmann.'
+			identifier: method.internalClass
+			count: 1
+			path: repo/src/Runner/CodeCoverage.php
+
+		-
 			rawMessage: 'Method PHPUnit\Runner\ErrorHandler::errorStackTrace() should return list<array{file: string, line: int|null, class?: class-string, function?: string, type: string}> but returns list<array{function: string, line?: int, file?: string, class?: class-string, type?: ''->''|''::'', args?: list<mixed>, object?: object}>.'
 			identifier: return.type
 			count: 1

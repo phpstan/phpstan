@@ -411,6 +411,15 @@ parameters:
 			path: repo/src/Symfony/Bridge/Doctrine/Validator/Constraints/UniqueEntityValidator.php
 
 		-
+			message: '''
+				#^Call to deprecated method hasMetadataFor\(\) of interface Doctrine\\Persistence\\Mapping\\ClassMetadataFactory\:
+				since 4\.3\. This method will be removed without direct replacement in a future major version\.$#
+			'''
+			identifier: method.deprecated
+			count: 1
+			path: repo/src/Symfony/Bridge/Doctrine/Validator/Constraints/UniqueEntityValidator.php
+
+		-
 			message: '#^Call to an undefined method Symfony\\Component\\Validator\\Mapping\\PropertyMetadataInterface\:\:getAutoMappingStrategy\(\)\.$#'
 			identifier: method.notFound
 			count: 2
