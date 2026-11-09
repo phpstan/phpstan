@@ -26,7 +26,7 @@ function doFoo(int $x): void
 
 PHPStan determined that the result of the `or` expression is always `false`. Both comparisons evaluate to `false` for the narrowed type of `$x`, making the entire expression always `false`. This usually indicates dead code, a logic error, or a condition that has already been checked earlier in the control flow.
 
-The `or` keyword is the low-precedence version of `||`. This identifier specifically covers the `or` keyword; for `||`, see [`booleanOr.alwaysFalse`](/errors/booleanOr.alwaysFalse).
+The `or` keyword is the low-precedence version of `||`. This identifier specifically covers the `or` keyword; for `||`, see [`booleanOr.alwaysFalse`](/error-identifiers/booleanOr.alwaysFalse).
 
 ## How to fix it
 

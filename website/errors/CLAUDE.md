@@ -62,6 +62,7 @@ Ways to fix the error.
 - Be concise and technically precise
 - List multiple reasons if applicable
 - If the rule's `->tip()` links to a blog post on phpstan.org, mention it: `Learn more: [Blog post title](/blog/post-slug)`
+- Link to another identifier's page as `/error-identifiers/<identifier>` (e.g. `[booleanAnd.alwaysTrue](/error-identifiers/booleanAnd.alwaysTrue)`); there is no `/errors/` path on phpstan.org
 
 ### "How to fix it" section
 

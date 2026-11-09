@@ -230,7 +230,7 @@ PHPStan ships several built-in late-resolvable types you can study as references
 - [`ValueOfType`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.ValueOfType.html) - `value-of<T>`
 - [`OffsetAccessType`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.OffsetAccessType.html) - `T[K]`
 - [`NewObjectType`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.NewObjectType.html) - `new<T>`
-- [`ClassConstantAccessType`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.ClassConstantAccessType.html) - `T::SOME_CONSTANT`
+- [`ClassConstantAccessType`](https://github.com/phpstan/phpstan-src/blob/__BRANCH__/src/Type/ClassConstantAccessType.php) - `T::SOME_CONSTANT`
 - [`ConditionalType`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.ConditionalType.html) - [conditional return types](/writing-php-code/phpdoc-types#conditional-return-types) like `(T is string ? int : float)`
 - [`ConditionalTypeForParameter`](https://apiref.phpstan.org/__BRANCH__/PHPStan.Type.ConditionalTypeForParameter.html) - conditional types keyed on a parameter, like `($size is positive-int ? non-empty-list<T> : list<T>)`
 
