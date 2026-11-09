@@ -24,7 +24,7 @@ function doFoo(int $x): void
 
 PHPStan determined that the left side of the `or` expression is always `false`. This means the left operand does not contribute to the result -- the entire expression depends solely on the right side. This usually indicates a logic error, a redundant check, or a condition that has already been narrowed by earlier control flow.
 
-The `or` keyword is the low-precedence version of `||`. This identifier specifically covers the `or` keyword; for `||`, see [`booleanOr.leftAlwaysFalse`](/errors/booleanOr.leftAlwaysFalse).
+The `or` keyword is the low-precedence version of `||`. This identifier specifically covers the `or` keyword; for `||`, see [`booleanOr.leftAlwaysFalse`](/error-identifiers/booleanOr.leftAlwaysFalse).
 
 ## How to fix it
 

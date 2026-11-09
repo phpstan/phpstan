@@ -20,7 +20,7 @@ function doFoo(bool $flag): bool
 
 The right side of the `or` operator always evaluates to `false`. This typically happens because the right-side expression is a value that is always falsy, because the left side already covers all the cases where the right side could be `true`, or because the type of the expression on the right side is narrowed to a point where it can never be `true`. The right operand is redundant and likely indicates a logic error.
 
-The `or` keyword is the low-precedence version of `||`. This identifier specifically covers the `or` keyword; for `||`, see [`booleanOr.rightAlwaysFalse`](/errors/booleanOr.rightAlwaysFalse).
+The `or` keyword is the low-precedence version of `||`. This identifier specifically covers the `or` keyword; for `||`, see [`booleanOr.rightAlwaysFalse`](/error-identifiers/booleanOr.rightAlwaysFalse).
 
 In the example above, `$f` is always `false`, so the right side of `or` never contributes to the result.
 

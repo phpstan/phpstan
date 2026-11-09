@@ -19,7 +19,7 @@ function doFoo(int $i): bool
 
 PHPStan determined that the result of the `or` expression is always `true`. At least one side of the operator is guaranteed to be truthy regardless of the input. In the example above, every integer is either greater than or equal to zero, or less than zero, so the entire expression is always `true`. This usually indicates a logic error, a redundant check, or dead code.
 
-The `or` keyword is the low-precedence version of `||`. This identifier specifically covers the `or` keyword; for `||`, see [`booleanOr.alwaysTrue`](/errors/booleanOr.alwaysTrue).
+The `or` keyword is the low-precedence version of `||`. This identifier specifically covers the `or` keyword; for `||`, see [`booleanOr.alwaysTrue`](/error-identifiers/booleanOr.alwaysTrue).
 
 ## How to fix it
 

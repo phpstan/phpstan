@@ -23,7 +23,7 @@ The left side of the `or` expression is not a boolean value. PHP will implicitly
 
 This rule is part of [phpstan-strict-rules](https://github.com/phpstan/phpstan-strict-rules) and enforces that only boolean values are used with the `or` operator, making the code's intent explicit.
 
-The `or` keyword is the low-precedence version of `||`. This identifier specifically covers the `or` keyword; for `||`, see [`booleanOr.leftNotBoolean`](/errors/booleanOr.leftNotBoolean).
+The `or` keyword is the low-precedence version of `||`. This identifier specifically covers the `or` keyword; for `||`, see [`booleanOr.leftNotBoolean`](/error-identifiers/booleanOr.leftNotBoolean).
 
 In the example above, `$string` is of type `string`, not `bool`, so using it on the left side of `or` relies on PHP's loose type coercion.
 

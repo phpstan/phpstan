@@ -20,7 +20,7 @@ function doFoo(bool $flag): bool
 
 PHPStan determined that the right side of the `and` expression always evaluates to `true`. This means the right operand does not contribute additional filtering to the condition -- the result depends solely on the left side. This usually indicates redundant logic, a copy-paste mistake, or a condition that has been made unnecessary by earlier narrowing.
 
-The `and` keyword is the low-precedence version of `&&`. This identifier specifically covers the `and` keyword; for `&&`, see [`booleanAnd.rightAlwaysTrue`](/errors/booleanAnd.rightAlwaysTrue).
+The `and` keyword is the low-precedence version of `&&`. This identifier specifically covers the `and` keyword; for `&&`, see [`booleanAnd.rightAlwaysTrue`](/error-identifiers/booleanAnd.rightAlwaysTrue).
 
 In the example above, `$t` is always `true`, so the right side of `and` is redundant and the result depends entirely on `$flag`.
 

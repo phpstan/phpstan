@@ -20,7 +20,7 @@ function doFoo(int $i): bool
 
 The result of the `and` expression is always `true`. Both sides of the logical AND are always true given the types and conditions involved, making the check redundant. This often indicates duplicated conditions or overly broad type constraints that make the test meaningless.
 
-The `and` keyword is the low-precedence version of `&&`. This identifier specifically covers the `and` keyword; for `&&`, see [`booleanAnd.alwaysTrue`](/errors/booleanAnd.alwaysTrue).
+The `and` keyword is the low-precedence version of `&&`. This identifier specifically covers the `and` keyword; for `&&`, see [`booleanAnd.alwaysTrue`](/error-identifiers/booleanAnd.alwaysTrue).
 
 In the example above, `$i` is a `positive-int`, so `$i > 0` is always `true`, and `is_int($i)` is also always `true` because `$i` is typed as `int`.
 

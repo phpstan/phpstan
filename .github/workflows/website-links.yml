@@ -29,12 +29,51 @@ jobs:
         with:
           egress-policy: audit
 
+      - name: "Install muffet"
+        env:
+          MUFFET_VERSION: "2.11.7"
+          MUFFET_SHA256: "c53012541894c65e0fa2cd8c1bd910633b4531309804451a5314d0b4e5ffbc64"
+        run: |
+          curl -fsSL -o "${RUNNER_TEMP}/muffet.tar.gz" "https://github.com/raviqqe/muffet/releases/download/v${MUFFET_VERSION}/muffet_linux_amd64.tar.gz"
+          echo "${MUFFET_SHA256}  ${RUNNER_TEMP}/muffet.tar.gz" | sha256sum --check --strict
+          tar -xzf "${RUNNER_TEMP}/muffet.tar.gz" -C "${RUNNER_TEMP}" muffet
+
+      # muffet crawls the whole site and downloads every page only once: a link
+      # with a #fragment is checked against the cached response of the page.
+      #
+      # --ignore-fragments: anchor ids on phpstan.org contain percent-encoded
+      #   characters (id="why-is-it-reported%3F"); browsers match those, but muffet
+      #   compares against the decoded fragment and would report them as missing.
+      # --buffer-size: github.com, youtube.com and x.com send response headers
+      #   larger than the 4 KiB default.
+      # --accepted-status-codes: 429 Too Many Requests says nothing about the link
+      #   being broken (github.com, youtube.com, web.archive.org rate-limit crawlers).
+      # stackoverflow.com, medium.com and www.slevomat.cz answer every non-browser
+      #   client with a Cloudflare bot challenge (403, cf-mitigated: challenge).
+      #
+      # --max-retries only covers connection errors; muffet doesn't retry a request
+      # that timed out. So that a single slow response from an external host doesn't
+      # fail the job, the crawl (~1 minute) runs again if the first one fails;
+      # a broken link fails both.
       - name: "Check for broken links"
-        uses: ScholliYT/Broken-Links-Crawler-Action@21eab52f98097989d343116dbbd46dc4541b849b # v3.3.2
-        with:
-          website_url: 'https://phpstan.org/'
-          resolve_before_filtering: 'true'
-          exclude_url_prefix: 'mailto:,https://twitter.com,https://www.startupjobs.cz,https://www.shopware.com,https://github.com/phpstan'
-          verbose: 'warning'
-          max_retry_time: 30
-          max_retries: 5
+        run: |
+          check_links() {
+            "${RUNNER_TEMP}/muffet" \
+              --color=never \
+              --ignore-fragments \
+              --max-connections-per-host=4 \
+              --timeout=60 \
+              --max-retries=4 \
+              --buffer-size=65536 \
+              --accepted-status-codes=200..300,429 \
+              --header='User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36' \
+              --exclude='^https://twitter\.com' \
+              --exclude='^https://www\.startupjobs\.cz' \
+              --exclude='^https://www\.shopware\.com' \
+              --exclude='^https://github\.com/phpstan' \
+              --exclude='^https://stackoverflow\.com' \
+              --exclude='^https://medium\.com' \
+              --exclude='^https://www\.slevomat\.cz' \
+              https://phpstan.org/
+          }
+          check_links || { echo "Crawling again to rule out transient failures"; check_links; }
