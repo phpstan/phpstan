@@ -20,6 +20,8 @@ try {
 
 The caught exception type is never thrown by any of the code in the corresponding `try` block. This means the `catch` block is dead code that will never execute. Having dead `catch` blocks makes the code harder to understand and can hide missing error handling for exceptions that are actually thrown.
 
+When the `try`/`catch` is inside a trait, the code is analysed separately for every class that uses the trait. The error is reported only if the caught exception is never thrown in any of those classes. If the exception is thrown when the trait is used in one class but not in another, the `catch` block is not dead and no error is reported.
+
 PHPStan performs [precise try-catch-finally analysis](https://phpstan.org/blog/precise-try-catch-finally-analysis) to determine which exceptions can be thrown inside the `try` block. It relies on `@throws` PHPDoc tags on called functions and methods to know which exceptions they throw. You can learn more about this in [Bring Your Exceptions Under Control](https://phpstan.org/blog/bring-your-exceptions-under-control).
 
 Sometimes this error is a false positive because the code is not documented sufficiently — the called function or method actually does throw the exception, but it's missing the `@throws` tag. In that case, the fix is to add the correct `@throws` PHPDoc tag above the called function or method.

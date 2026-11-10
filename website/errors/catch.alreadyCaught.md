@@ -25,6 +25,8 @@ function doFoo(): void
 
 PHP evaluates `catch` blocks in order from top to bottom and enters the first one whose type matches the thrown exception. In the example above, `\Throwable` is a supertype of `\TypeError`, so the first `catch` block will always match any `TypeError` before the second block is reached. The second `catch` block is dead code and will never execute.
 
+When the `try`/`catch` is inside a trait, the code is analysed separately for every class that uses the trait. The error is reported only if the `catch` block is dead in all of those classes.
+
 ## How to fix it
 
 Reorder the catch blocks so that more specific exception types come first:
