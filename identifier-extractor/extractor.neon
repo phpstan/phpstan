@@ -6,6 +6,12 @@ parameters:
 	errorFormat: extractor
 	paths:
 		- repo/src
+	ignoreErrors:
+		# The restricted-usage rules run even with customRulesetUsed, so phpstan-src's own
+		# runtime reflection calls (in its phpstan-baseline.neon) are reported here too.
+		-
+			identifier: phpstanApi.runtimeReflection
+			reportUnmatched: false
 
 rules:
 	- IdentifierExtractor\Rule
