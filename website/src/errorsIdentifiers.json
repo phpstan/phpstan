@@ -3249,8 +3249,8 @@
         },
         "PHPStan\\Rules\\Functions\\FunctionCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/FunctionCallableRule.php#L108",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/FunctionCallableRule.php#L115"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/FunctionCallableRule.php#L137",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/FunctionCallableRule.php#L144"
             ]
         }
     },
@@ -3262,17 +3262,22 @@
         },
         "PHPStan\\Rules\\Functions\\FunctionCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/FunctionCallableRule.php#L50"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/FunctionCallableRule.php#L104",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/FunctionCallableRule.php#L66",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/FunctionCallableRule.php#L74"
             ]
         },
         "PHPStan\\Rules\\Methods\\MethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/MethodCallableRule.php#L34"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/MethodCallableRule.php#L35",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/MethodCallableRule.php#L43",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/MethodCallableRule.php#L52"
             ]
         },
         "PHPStan\\Rules\\Methods\\StaticMethodCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/StaticMethodCallableRule.php#L34"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/StaticMethodCallableRule.php#L35",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Methods/StaticMethodCallableRule.php#L43"
             ]
         }
     },
@@ -5226,16 +5231,16 @@
     "classConstant.deprecated": {
         "PHPStan\\Rules\\Deprecations\\RestrictedDeprecatedClassConstantUsageExtension": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L77",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L89"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L82",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L94"
             ]
         }
     },
     "classConstant.deprecatedClass": {
         "PHPStan\\Rules\\Deprecations\\RestrictedDeprecatedClassConstantUsageExtension": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L42",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L57"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L47",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L62"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\RestrictedDeprecatedClassNameUsageExtension": {
@@ -5247,8 +5252,8 @@
     "classConstant.deprecatedEnum": {
         "PHPStan\\Rules\\Deprecations\\RestrictedDeprecatedClassConstantUsageExtension": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L42",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L57"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L47",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L62"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\RestrictedDeprecatedClassNameUsageExtension": {
@@ -5260,8 +5265,8 @@
     "classConstant.deprecatedInterface": {
         "PHPStan\\Rules\\Deprecations\\RestrictedDeprecatedClassConstantUsageExtension": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L42",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L57"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L47",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L62"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\RestrictedDeprecatedClassNameUsageExtension": {
@@ -5273,8 +5278,8 @@
     "classConstant.deprecatedTrait": {
         "PHPStan\\Rules\\Deprecations\\RestrictedDeprecatedClassConstantUsageExtension": {
             "phpstan/phpstan-deprecation-rules": [
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L42",
-                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L57"
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L47",
+                "https://github.com/phpstan/phpstan-deprecation-rules/blob/2.0.x/src/Rules/Deprecations/RestrictedDeprecatedClassConstantUsageExtension.php#L62"
             ]
         },
         "PHPStan\\Rules\\Deprecations\\RestrictedDeprecatedClassNameUsageExtension": {
@@ -6886,7 +6891,7 @@
         },
         "PHPStan\\Rules\\Functions\\FunctionCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/FunctionCallableRule.php#L73"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/FunctionCallableRule.php#L96"
             ]
         },
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInGroupUseRule": {
@@ -6908,7 +6913,7 @@
         },
         "PHPStan\\Rules\\Functions\\FunctionCallableRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/FunctionCallableRule.php#L87"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/FunctionCallableRule.php#L116"
             ]
         },
         "PHPStan\\Rules\\Namespaces\\ExistingNamesInGroupUseRule": {
