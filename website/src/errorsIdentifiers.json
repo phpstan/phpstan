@@ -13504,14 +13504,9 @@
         }
     },
     "phpstanApi.method": {
-        "PHPStan\\Rules\\Api\\ApiMethodCallRule": {
+        "PHPStan\\Rules\\Api\\ApiMethodUsageExtension": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiMethodCallRule.php#L55"
-            ]
-        },
-        "PHPStan\\Rules\\Api\\ApiStaticCallRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiStaticCallRule.php#L70"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiMethodUsageExtension.php#L54"
             ]
         }
     },
