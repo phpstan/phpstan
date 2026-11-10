@@ -3556,7 +3556,7 @@
     "catch.alreadyCaught": {
         "PHPStan\\Rules\\Exceptions\\CatchWithUnthrownExceptionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Exceptions/CatchWithUnthrownExceptionRule.php#L45"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Exceptions/CatchWithUnthrownExceptionRule.php#L53"
             ]
         }
     },
@@ -3619,7 +3619,7 @@
     "catch.neverThrown": {
         "PHPStan\\Rules\\Exceptions\\CatchWithUnthrownExceptionRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Exceptions/CatchWithUnthrownExceptionRule.php#L69"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Exceptions/CatchWithUnthrownExceptionRule.php#L75"
             ]
         }
     },
@@ -13437,9 +13437,9 @@
         }
     },
     "phpstanApi.class": {
-        "PHPStan\\Rules\\Api\\ApiClassExtendsRule": {
+        "PHPStan\\Rules\\Api\\ApiClassNameUsageExtension": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiClassExtendsRule.php#L58"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiClassNameUsageExtension.php#L58"
             ]
         },
         "PHPStan\\Rules\\Api\\ApiInstanceofRule": {
@@ -13492,19 +13492,14 @@
         }
     },
     "phpstanApi.interface": {
-        "PHPStan\\Rules\\Api\\ApiClassImplementsRule": {
+        "PHPStan\\Rules\\Api\\ApiClassNameUsageExtension": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiClassImplementsRule.php#L64"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiClassNameUsageExtension.php#L58"
             ]
         },
         "PHPStan\\Rules\\Api\\ApiInstanceofRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiInstanceofRule.php#L60"
-            ]
-        },
-        "PHPStan\\Rules\\Api\\ApiInterfaceExtendsRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiInterfaceExtendsRule.php#L64"
             ]
         }
     },
@@ -13528,26 +13523,26 @@
         }
     },
     "phpstanApi.runtimeReflection": {
-        "PHPStan\\Rules\\Api\\RuntimeReflectionFunctionRule": {
+        "PHPStan\\Rules\\Api\\RuntimeReflectionFunctionUsageExtension": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/RuntimeReflectionFunctionRule.php#L74"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/RuntimeReflectionFunctionUsageExtension.php#L54"
             ]
         },
-        "PHPStan\\Rules\\Api\\RuntimeReflectionInstantiationRule": {
+        "PHPStan\\Rules\\Api\\RuntimeReflectionInstantiationUsageExtension": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/RuntimeReflectionInstantiationRule.php#L93"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/RuntimeReflectionInstantiationUsageExtension.php#L78"
             ]
         }
     },
     "phpstanApi.trait": {
+        "PHPStan\\Rules\\Api\\ApiClassNameUsageExtension": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiClassNameUsageExtension.php#L58"
+            ]
+        },
         "PHPStan\\Rules\\Api\\ApiInstanceofRule": {
             "phpstan/phpstan-src": [
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiInstanceofRule.php#L60"
-            ]
-        },
-        "PHPStan\\Rules\\Api\\ApiTraitUseRule": {
-            "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiTraitUseRule.php#L63"
             ]
         }
     },
