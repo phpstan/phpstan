@@ -4213,7 +4213,7 @@
     "class.noParent": {
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L122"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L123"
             ]
         },
         "PHPStan\\Rules\\Classes\\InstantiationRule": {
@@ -4332,8 +4332,8 @@
         },
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L135",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L145",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L136",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L146",
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/RuleLevelHelper.php#L333"
             ]
         },
@@ -5293,7 +5293,7 @@
     "classConstant.dynamicString": {
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L209"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L212"
             ]
         }
     },
@@ -5487,28 +5487,28 @@
     "classConstant.nonObject": {
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L233"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L236"
             ]
         }
     },
     "classConstant.notFound": {
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L247"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L250"
             ]
         }
     },
     "classConstant.notSupported": {
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L200"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L203"
             ]
         }
     },
     "classConstant.onTrait": {
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L163"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L164"
             ]
         }
     },
@@ -5529,14 +5529,14 @@
     "classConstant.private": {
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L259"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L262"
             ]
         }
     },
     "classConstant.protected": {
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L259"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L262"
             ]
         }
     },
@@ -12371,7 +12371,7 @@
     "outOfClass.parent": {
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L111"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L112"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassInInstanceOfRule": {
@@ -12408,7 +12408,7 @@
     "outOfClass.self": {
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L102"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassInInstanceOfRule": {
@@ -12445,7 +12445,7 @@
     "outOfClass.static": {
         "PHPStan\\Rules\\Classes\\ClassConstantRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L101"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Classes/ClassConstantRule.php#L102"
             ]
         },
         "PHPStan\\Rules\\Classes\\ExistingClassInInstanceOfRule": {
@@ -13449,9 +13449,9 @@
         }
     },
     "phpstanApi.classConstant": {
-        "PHPStan\\Rules\\Api\\ApiClassConstFetchRule": {
+        "PHPStan\\Rules\\Api\\ApiClassConstantUsageExtension": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiClassConstFetchRule.php#L59"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/ApiClassConstantUsageExtension.php#L58"
             ]
         }
     },
