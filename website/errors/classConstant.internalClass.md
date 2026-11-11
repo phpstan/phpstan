@@ -27,6 +27,8 @@ namespace App {
 
 A constant is being accessed on a class that is marked as `@internal`. Internal classes are not meant to be used outside the package or namespace where they are defined. Accessing constants on internal classes creates a dependency on implementation details that may change without notice.
 
+Referencing the name of an internal class with `::class` (for example `\Vendor\InternalClass::class`) from outside its package is reported with this identifier as well, with the message "Access to constant on internal class Vendor\InternalClass."
+
 ## How to fix it
 
 Use a public (non-internal) API to access the information:

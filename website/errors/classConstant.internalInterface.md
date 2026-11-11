@@ -26,6 +26,8 @@ echo InternalConfig::MAX_RETRIES;
 
 The code accesses a class constant on an interface that is marked with the `@internal` PHPDoc tag. Internal interfaces are not part of the public API and are intended to be used only within the package or root namespace where they are defined. Accessing constants on an internal interface from outside its root namespace creates a dependency on an implementation detail that may change or be removed without notice.
 
+Referencing the name of an internal interface with `::class` (for example `\Vendor\InternalInterface::class`) from outside its package is reported with this identifier as well, with the message "Access to constant on internal interface Vendor\InternalInterface."
+
 ## How to fix it
 
 Use a constant from a public (non-internal) interface or class instead:
