@@ -238,7 +238,7 @@ parameters:
 
 		-
 			message: '''
-				#^Access to constant on deprecated class Doctrine\\DBAL\\Types\\SimpleArrayType\:
+				#^Fetching class constant class of deprecated class Doctrine\\DBAL\\Types\\SimpleArrayType\:
 				Use \{@see JsonType\} instead\.$#
 			'''
 			identifier: classConstant.deprecatedClass
