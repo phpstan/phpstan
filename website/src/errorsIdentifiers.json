@@ -1332,7 +1332,7 @@
         },
         "PHPStan\\Rules\\Functions\\RandomIntParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/RandomIntParametersRule.php#L84"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/RandomIntParametersRule.php#L91"
             ]
         },
         "PHPStan\\Rules\\Functions\\SortParameterCastableToStringRule": {
@@ -1761,7 +1761,7 @@
     "argument.vprintf": {
         "PHPStan\\Rules\\Functions\\PrintfArrayParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfArrayParametersRule.php#L150",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfArrayParametersRule.php#L151",
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfArrayParametersRule.php#L76"
             ]
         }
@@ -1769,7 +1769,7 @@
     "argument.vsprintf": {
         "PHPStan\\Rules\\Functions\\PrintfArrayParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfArrayParametersRule.php#L150",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfArrayParametersRule.php#L151",
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/PrintfArrayParametersRule.php#L76"
             ]
         }
@@ -5734,7 +5734,7 @@
     "constant.defineValue": {
         "PHPStan\\Rules\\Constants\\ValueAssignedToDefineRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/ValueAssignedToDefineRule.php#L83"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Constants/ValueAssignedToDefineRule.php#L90"
             ]
         }
     },
@@ -11761,21 +11761,21 @@
     "new.dateInterval": {
         "PHPStan\\Rules\\DateIntervalInstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DateIntervalInstantiationRule.php#L59"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DateIntervalInstantiationRule.php#L66"
             ]
         }
     },
     "new.dateTime": {
         "PHPStan\\Rules\\DateTimeInstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DateTimeInstantiationRule.php#L66"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DateTimeInstantiationRule.php#L73"
             ]
         }
     },
     "new.dateTimeImmutable": {
         "PHPStan\\Rules\\DateTimeInstantiationRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DateTimeInstantiationRule.php#L66"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/DateTimeInstantiationRule.php#L73"
             ]
         }
     },
@@ -13224,7 +13224,7 @@
     "phpParser.nodeConnectingAttribute": {
         "PHPStan\\Rules\\Api\\NodeConnectingVisitorAttributesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/NodeConnectingVisitorAttributesRule.php#L75"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/NodeConnectingVisitorAttributesRule.php#L77"
             ]
         }
     },
@@ -13294,7 +13294,7 @@
     "phpstan.nativeType": {
         "PHPStan\\Rules\\Debug\\FileAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L126"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L144"
             ]
         }
     },
@@ -13347,7 +13347,7 @@
     "phpstan.superType": {
         "PHPStan\\Rules\\Debug\\FileAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L156"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L174"
             ]
         }
     },
@@ -13361,28 +13361,28 @@
     "phpstan.type": {
         "PHPStan\\Rules\\Debug\\FileAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L97"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L115"
             ]
         }
     },
     "phpstan.unknownExpectation": {
         "PHPStan\\Rules\\Debug\\FileAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L113",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L142",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L172",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L180",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L189",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L102",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L131",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L160",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L190",
                 "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L198",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L217",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L84"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L207",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L216",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L235"
             ]
         }
     },
     "phpstan.variable": {
         "PHPStan\\Rules\\Debug\\FileAssertRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L229"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Debug/FileAssertRule.php#L247"
             ]
         }
     },
@@ -15617,7 +15617,7 @@
         },
         "PHPStan\\Rules\\Regexp\\RegularExpressionPatternRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Regexp/RegularExpressionPatternRule.php#L48"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Regexp/RegularExpressionPatternRule.php#L58"
             ]
         }
     },
