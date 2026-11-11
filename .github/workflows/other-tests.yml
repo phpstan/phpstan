@@ -455,6 +455,11 @@ jobs:
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962" # 2.40.0
+        env:
+          # setup-php 2.40.0 runs `cd "$sub_dir"` with an empty sub_dir when building an extension from git,
+          # which bash 5.3 (ubuntu-latest is now 26.04) rejects with "cd: null directory".
+          # Remove with the next setup-php release (https://github.com/shivammathur/setup-php/issues/1146).
+          AUTOLOAD_PSR_PATH: "."
         with:
           coverage: "none"
           php-version: "${{ matrix.php-version }}"
