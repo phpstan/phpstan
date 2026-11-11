@@ -1042,6 +1042,13 @@
             ]
         }
     },
+    "argument.replaceCount": {
+        "PHPStan\\Rules\\Functions\\ReplaceCountMismatchRule": {
+            "phpstan/phpstan-src": [
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/ReplaceCountMismatchRule.php#L101"
+            ]
+        }
+    },
     "argument.sprintf": {
         "PHPStan\\Rules\\Functions\\PrintfParametersRule": {
             "phpstan/phpstan-src": [
