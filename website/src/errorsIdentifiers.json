@@ -1332,7 +1332,7 @@
         },
         "PHPStan\\Rules\\Functions\\RandomIntParametersRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/RandomIntParametersRule.php#L91"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Functions/RandomIntParametersRule.php#L89"
             ]
         },
         "PHPStan\\Rules\\Functions\\SortParameterCastableToStringRule": {
@@ -6857,7 +6857,7 @@
     "function.impossibleHaystackValue": {
         "PHPStan\\Rules\\Comparison\\ImpossibleInArrayHaystackFiniteTypesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleInArrayHaystackFiniteTypesRule.php#L194"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleInArrayHaystackFiniteTypesRule.php#L196"
             ]
         }
     },
