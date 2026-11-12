@@ -168,6 +168,71 @@ Tracking dependencies for the result cache
 
 If the collector reads something PHPStan doesn't know about, like a configuration file, typehint the second parameter of `processNode()` as `Scope&DependencyTracker` in the PHPDoc and track it with `$scope->trackFileDependency()` or one of the other `DependencyTracker` methods. When it changes, the [result cache](/user-guide/result-cache) analyses the file again and its data is collected again. [Learn more »](/developing-extensions/result-cache-meta-extensions#tracking-dependencies-on-files)
 
+Which files the reported errors depend on
+---------------
+
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.6</div>
+
+A rule on `CollectedDataNode` often reports an error in one file based on what it collected in another one. Take a rule reporting calls of functions marked as legacy: the collector of the calls runs in the file with the call, but the rule knows a function is legacy only when the file declaring it is analysed too.
+
+When only a part of the project is analysed - some directories or files passed on the command line instead of all the configured [`paths`](/config-reference#analysed-files) - PHPStan reports [`ignoreErrors`](/user-guide/ignoring-errors) entries that matched nothing only for the files whose errors it knows, and `--fix` removes only those. Without knowing about the other file, PHPStan would report the entry ignoring the legacy call as unmatched, because the declaration wasn't analysed and the error wasn't reported.
+
+Tell PHPStan about the other file by calling `$scope->trackAnalysedFileDependency()` in the collector. Typehint the `$scope` parameter as `Scope&DependencyTracker` in the PHPDoc:
+
+```php
+use PhpParser\Node;
+use PhpParser\Node\Expr\FuncCall;
+use PHPStan\Analyser\DependencyTracker;
+use PHPStan\Analyser\Scope;
+use PHPStan\Collectors\Collector;
+use PHPStan\Reflection\ReflectionProvider;
+
+/**
+ * @implements Collector<FuncCall, array{string, int}>
+ */
+class LegacyCallCollector implements Collector
+{
+
+	public function __construct(private ReflectionProvider $reflectionProvider)
+	{
+	}
+
+	public function getNodeType(): string
+	{
+		return FuncCall::class;
+	}
+
+	/**
+	 * @param Scope&DependencyTracker $scope
+	 */
+	public function processNode(Node $node, Scope $scope)
+	{
+		if (!$node->name instanceof Node\Name || !$this->reflectionProvider->hasFunction($node->name, $scope)) {
+			return null;
+		}
+
+		$function = $this->reflectionProvider->getFunction($node->name, $scope);
+
+		// the rule reports the call only when the declaration is analysed too
+		$fileName = $function->getFileName();
+		if ($fileName !== null) {
+			$scope->trackAnalysedFileDependency($fileName);
+		}
+
+		return [$function->getName(), $node->getStartLine()];
+	}
+
+}
+```
+
+When the tracked file isn't analysed, the `ignoreErrors` entries of the file with the call aren't reported as unmatched. The same goes for the files the tracked file depends on, so a chain of dependencies across several files is followed too. A file that isn't analysed even when the whole project is - one in `vendor/`, outside the configured `paths`, or in [`excludePaths`](/user-guide/ignoring-errors#excluding-whole-files) - doesn't count, because it doesn't report errors either way. Track the file whether the rule is going to report an error or not.
+
+When what the rule reports in a file can depend on any file in the project, like on all subclasses of a class, call `$scope->trackAnalysedProjectDependency()` instead. The `ignoreErrors` entries of the file are then reported as unmatched only when the whole project is analysed.
+
+The tracked dependencies are saved in the [result cache](/user-guide/result-cache) along with the collected data. They only decide which unmatched entries are reported. They don't make the result cache analyse the file again when the tracked file changes - for that, see [tracking dependencies for the result cache](#tracking-dependencies-for-the-result-cache).
+
+Track the dependencies in the collector, or in a rule [emitting collected data](#emitting-collected-data-from-rules) - typehint its `$scope` as `Scope&CollectedDataEmitter&DependencyTracker` then. Calling them in the rule on `CollectedDataNode` itself does nothing, because it doesn't analyse any file.
+
 Testing collectors
 ---------------
 

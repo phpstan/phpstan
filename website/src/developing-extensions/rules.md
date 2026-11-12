@@ -465,6 +465,10 @@ In order to write a specific category of rules like unused code detection, we ne
 
 Rules can also emit collected data directly without writing a separate Collector class, by typehinting the second parameter of `processNode()` as `Scope&CollectedDataEmitter`. [Learn more »](/developing-extensions/collectors#emitting-collected-data-from-rules)
 
+<div class="text-xs inline-block border border-green-600 text-green-600 bg-green-100 rounded px-1 mb-4">Available in PHPStan 2.3.6</div>
+
+When the rule on `CollectedDataNode` reports an error in a file only when another file is analysed too, the collector or the rule emitting the data should tell PHPStan with `$scope->trackAnalysedFileDependency()`, so that the `ignoreErrors` entries of the error aren't reported as unmatched when only a part of the project is analysed. A rule that doesn't use collected data doesn't need it: what it reports depends only on the file it analyses. [Learn more »](/developing-extensions/collectors#which-files-the-reported-errors-depend-on)
+
 Tracking dependencies for the result cache
 ---------------
 
