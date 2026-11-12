@@ -26,7 +26,7 @@ The ignored error pattern was expected to match a specific number of times (`cou
 
 This typically happens after code changes -- a refactoring might introduce new instances of the error, or fix some of the existing ones, causing the count to drift from the configured value.
 
-When only some of the paths from the configuration are passed on the command line, an entry whose path is a directory or a wildcard pattern outside of the analysed paths is not checked for occurring fewer times than expected, because the files it covers were not analysed.
+When only some of the paths from the configuration are passed on the command line, or when only a list of files is analysed, an entry is checked for occurring fewer times than expected only when PHPStan knows that all the errors it could match were analysed. An entry whose path is a directory or a wildcard pattern that is not entirely covered by the analysed files is not checked, and neither is an entry for a file whose reported errors depend on files that were not analysed, like a trait used by a class in the file.
 
 ## How to fix it
 

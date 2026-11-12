@@ -22,7 +22,14 @@ An ignored error pattern in your PHPStan configuration was not matched by any ac
 
 When the entry has a `path`, the error is reported in that file. When the entry has no path, the error is reported at the line where the entry is defined in the configuration file.
 
-When only some of the paths from the configuration are passed on the command line (for example `vendor/bin/phpstan analyse src/Foo`), PHPStan cannot know whether an entry would match in the files that were not analysed. In that case an entry whose path is a directory or a wildcard pattern is reported only when that path is under the analysed paths, and an entry with several `paths` is reported only with the analysed ones. An entry without a path is not reported at all, because the errors it matches could be anywhere. When there are no `paths` in the configuration, the paths passed on the command line are taken as the whole project and all entries are reported as usual.
+When only some of the paths from the configuration are passed on the command line (for example `vendor/bin/phpstan analyse src/Foo`), or when only a list of files is analysed (for example `vendor/bin/phpstan analyse src/Foo.php src/Bar.php`), PHPStan cannot know whether an entry would match in the files that were not analysed. In that case:
+
+* An entry whose path is an analysed file is reported, unless what is reported in that file depends on files that were not analysed - for example a trait used by a class in the file, a function whose declaration decides whether a call to it is reported, or subclasses that a call with named arguments depends on. A file that declares a trait is never judged on its own either, because the trait is analysed in the context of the classes using it.
+* An entry whose path is a directory or a wildcard pattern is reported only when all the files it covers were analysed in this way.
+* An entry with several `paths` is reported only with the paths that can be judged.
+* An entry without a path is not reported at all, because the errors it matches could be anywhere.
+
+When there are no `paths` in the configuration, the directories passed on the command line are taken as the whole project and all entries are reported as usual. A list of files is still only a part of the project, so the rules above apply to it.
 
 This error is controlled by the [`reportUnmatchedIgnoredErrors`](/user-guide/ignoring-errors#reporting-unused-ignores) configuration parameter.
 
