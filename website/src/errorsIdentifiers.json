@@ -8945,7 +8945,7 @@
     "ignore.allLineErrors": {
         "PHPStan\\Analyser\\AnalyserResultFinalizer": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L501"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L505"
             ]
         },
         "PHPStan\\Analyser\\FileAnalyser": {
@@ -8957,8 +8957,8 @@
     "ignore.count": {
         "PHPStan\\Analyser\\Ignore\\IgnoredErrorHelperResult": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L364",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L407"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L365",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L413"
             ]
         }
     },
@@ -8979,22 +8979,22 @@
     "ignore.unmatched": {
         "PHPStan\\Analyser\\Ignore\\IgnoredErrorHelperResult": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L428",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L449"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L438",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/Ignore/IgnoredErrorHelperResult.php#L464"
             ]
         }
     },
     "ignore.unmatchedIdentifier": {
         "PHPStan\\Analyser\\AnalyserResultFinalizer": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L593"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L599"
             ]
         }
     },
     "ignore.unmatchedLine": {
         "PHPStan\\Analyser\\AnalyserResultFinalizer": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L580"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L586"
             ]
         }
     },
@@ -10585,6 +10585,11 @@
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L144"
+            ]
+        },
+        "PHPStan\\Rules\\PHPUnit\\EmptyDataProviderRule": {
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L144"
             ]
@@ -13271,7 +13276,7 @@
         },
         "PHPStan\\Analyser\\AnalyserResultFinalizer": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L142"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L144"
             ]
         },
         "PHPStan\\Analyser\\FileAnalyser": {
@@ -13325,8 +13330,8 @@
     "phpstan.reflection": {
         "PHPStan\\Analyser\\AnalyserResultFinalizer": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L150",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L158"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L152",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Analyser/AnalyserResultFinalizer.php#L160"
             ]
         },
         "PHPStan\\Analyser\\FileAnalyser": {
@@ -13759,6 +13764,18 @@
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L116"
             ]
+        },
+        "PHPStan\\Rules\\PHPUnit\\EmptyDataProviderRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L116"
+            ]
+        }
+    },
+    "phpunit.dataProviderEmpty": {
+        "PHPStan\\Rules\\PHPUnit\\EmptyDataProviderRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/EmptyDataProviderRule.php#L84"
+            ]
         }
     },
     "phpunit.dataProviderMethod": {
@@ -13768,6 +13785,11 @@
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L130"
+            ]
+        },
+        "PHPStan\\Rules\\PHPUnit\\EmptyDataProviderRule": {
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L130"
             ]
@@ -13783,6 +13805,11 @@
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L154"
             ]
+        },
+        "PHPStan\\Rules\\PHPUnit\\EmptyDataProviderRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L154"
+            ]
         }
     },
     "phpunit.dataProviderStatic": {
@@ -13792,6 +13819,11 @@
             ]
         },
         "PHPStan\\Rules\\PHPUnit\\DataProviderDeclarationRule": {
+            "phpstan/phpstan-phpunit": [
+                "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L168"
+            ]
+        },
+        "PHPStan\\Rules\\PHPUnit\\EmptyDataProviderRule": {
             "phpstan/phpstan-phpunit": [
                 "https://github.com/phpstan/phpstan-phpunit/blob/2.1.x/src/Rules/PHPUnit/DataProviderHelper.php#L168"
             ]
@@ -17934,7 +17966,7 @@
     "trait.unused": {
         "PHPStan\\Rules\\Traits\\NotAnalysedTraitRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Traits/NotAnalysedTraitRule.php#L58"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Traits/NotAnalysedTraitRule.php#L60"
             ]
         }
     },
