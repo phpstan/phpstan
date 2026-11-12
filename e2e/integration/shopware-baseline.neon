@@ -1117,6 +1117,12 @@ parameters:
 			path: repo/src/Core/Framework/DataAbstractionLayer/Write/WriteException.php
 
 		-
+			rawMessage: 'Parameter #1 $min (0|1) of function random_int expects lower number than parameter #2 $max (int<0, 4>).'
+			identifier: argument.type
+			count: 1
+			path: repo/src/Core/Framework/Demodata/Generator/ProductGenerator.php
+
+		-
 			rawMessage: 'Parameter #1 $registeredFeatures of static method Shopware\Core\Framework\Feature::registerFeatures() expects array<int<0, max>|string, array{name?: string, default?: bool, major?: bool, description?: string, active?: bool, static?: bool}|string>, array{''v6.5.0.0'': array{default: bool, major: bool, toggleable: bool}, ''v6.6.0.0'': array{default: bool, major: bool, toggleable: bool}, ''v6.7.0.0'': array{default: bool, major: bool, toggleable: bool}, ''v6.8.0.0'': array{default: bool, major: bool, toggleable: bool}, DISABLE_VUE_COMPAT: array{default: bool, major: bool, toggleable: bool}, ACCESSIBILITY_TWEAKS: array{default: bool, major: bool, toggleable: bool, description: string}, TELEMETRY_METRICS: array{default: bool, major: bool, toggleable: bool, description: string}, FLOW_EXECUTION_AFTER_BUSINESS_PROCESS: array{default: bool, major: bool, toggleable: bool, description: string}, ...} given.'
 			identifier: argument.type
 			count: 1
