@@ -6857,7 +6857,7 @@
     "function.impossibleHaystackValue": {
         "PHPStan\\Rules\\Comparison\\ImpossibleInArrayHaystackFiniteTypesRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleInArrayHaystackFiniteTypesRule.php#L196"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Comparison/ImpossibleInArrayHaystackFiniteTypesRule.php#L216"
             ]
         }
     },
@@ -12340,8 +12340,8 @@
     "offsetAccess.nonOffsetAccessible": {
         "PHPStan\\Rules\\Arrays\\NonexistentOffsetInArrayDimFetchRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchRule.php#L102",
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchRule.php#L94"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchRule.php#L103",
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Arrays/NonexistentOffsetInArrayDimFetchRule.php#L95"
             ]
         }
     },
@@ -13484,7 +13484,7 @@
     "phpstanApi.getTemplateType": {
         "PHPStan\\Rules\\Api\\GetTemplateTypeRule": {
             "phpstan/phpstan-src": [
-                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/GetTemplateTypeRule.php#L76"
+                "https://github.com/phpstan/phpstan-src/blob/2.3.x/src/Rules/Api/GetTemplateTypeRule.php#L83"
             ]
         }
     },
