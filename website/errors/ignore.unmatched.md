@@ -22,6 +22,8 @@ An ignored error pattern in your PHPStan configuration was not matched by any ac
 
 When the entry has a `path`, the error is reported in that file. When the entry has no path, the error is reported at the line where the entry is defined in the configuration file.
 
+When only some of the paths from the configuration are passed on the command line (for example `vendor/bin/phpstan analyse src/Foo`), PHPStan cannot know whether an entry would match in the files that were not analysed. In that case an entry whose path is a directory or a wildcard pattern is reported only when that path is under the analysed paths, and an entry with several `paths` is reported only with the analysed ones. An entry without a path is not reported at all, because the errors it matches could be anywhere. When there are no `paths` in the configuration, the paths passed on the command line are taken as the whole project and all entries are reported as usual.
+
 This error is controlled by the [`reportUnmatchedIgnoredErrors`](/user-guide/ignoring-errors#reporting-unused-ignores) configuration parameter.
 
 ## How to fix it

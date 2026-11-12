@@ -2,6 +2,7 @@
 title: "ignore.count"
 shortDescription: "Ignored error count does not match the actual number of occurrences."
 ignorable: false
+autofixable: true
 ---
 
 ## Code example
@@ -25,9 +26,13 @@ The ignored error pattern was expected to match a specific number of times (`cou
 
 This typically happens after code changes -- a refactoring might introduce new instances of the error, or fix some of the existing ones, causing the count to drift from the configured value.
 
+When only some of the paths from the configuration are passed on the command line, an entry whose path is a directory or a wildcard pattern outside of the analysed paths is not checked for occurring fewer times than expected, because the files it covers were not analysed.
+
 ## How to fix it
 
-Update the `count` to match the actual number of occurrences:
+When the error occurs fewer times than expected, running PHPStan with [`--fix`](/user-guide/command-line-usage#--fix%2C---fix-ignored) lowers the `count` in the configuration file or in the [baseline](/user-guide/baseline) automatically.
+
+Otherwise, update the `count` to match the actual number of occurrences:
 
 ```diff-neon
  parameters:
