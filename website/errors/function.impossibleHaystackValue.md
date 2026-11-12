@@ -30,7 +30,9 @@ The haystack passed to `in_array()`, `array_search()` or `array_keys()` is a con
 
 In the example above, the needle `$i` is an `int`, so it can never be identical to the enum case `Foo::ONE`. The `Foo::ONE` element in the haystack is dead: only `1` and `2` can ever match. This usually points to a wrong value in the array or an incorrect needle type.
 
-Only values with a finite type (such as enum cases, `true`, `false`, `null`, or constant scalars) are reported, since only those are certain never to match. If *no* haystack value can ever match, the whole `in_array()` call is impossible and is reported by [`function.impossibleType`](/error-identifiers/function.impossibleType) instead.
+Only values with a finite type (such as enum cases, `true`, `false`, `null`, or constant scalars) are reported, since only those are certain never to match. A value that is just another value of the needle's own type, like a different case of the same enum, is not reported when some other haystack value can match, because checking membership in a set of cases is a normal pattern. If *no* haystack value can ever match an `in_array()` call, the whole call is impossible and is reported by [`function.impossibleType`](/error-identifiers/function.impossibleType) instead. For `array_search()` and `array_keys()`, the values that can never match are still reported under this identifier.
+
+The needle, haystack and strict arguments are also recognised when passed as named arguments, for example `in_array(needle: $i, haystack: [Foo::ONE, 1, 2], strict: true)`.
 
 This rule is only applied at [rule level](/user-guide/rule-levels) 4 and above, and is currently part of [Bleeding Edge](/blog/what-is-bleeding-edge).
 
