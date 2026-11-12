@@ -10197,7 +10197,7 @@ parameters:
 			path: repo/src/Symfony/Component/Yaml/Parser.php
 
 		-
-			message: '#^Parameter \#4 \$flags of function preg_match expects TFlags of 0\|256\|512\|768, int given\.$#'
+			message: '#^Parameter \#4 \$flags of function preg_match expects 0\|256\|512\|768, int given\.$#'
 			identifier: argument.type
 			count: 1
 			path: repo/src/Symfony/Component/Yaml/Parser.php
