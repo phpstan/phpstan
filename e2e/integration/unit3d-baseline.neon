@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Variable \$level might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: repo/resources/views/vendor/notifications/email.blade.php

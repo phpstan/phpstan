@@ -1,0 +1,3981 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Argument of an invalid type stdClass supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: repo/app/DataMapper/CompanySettings.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/BankTransactionRuleFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 3
+			path: repo/app/Filters/ClientFilters.php
+
+		-
+			message: '#^Offset 0 on non\-empty\-list\<string\> in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 2
+			path: repo/app/Filters/ClientFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/CompanyGatewayFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/CreditFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/DesignFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/DocumentFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\{string, string\} will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/ExpenseCategoryFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/ExpenseCategoryFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 3
+			path: repo/app/Filters/ExpenseFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/GroupSettingFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/InvoiceFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\{string, string\} will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/LocationFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/LocationFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/PaymentFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/PaymentTermFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/ProductFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/ProjectFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/PurchaseOrderFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/QuoteFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\{string, string\} will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/RecurringExpenseFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/RecurringInvoiceFilters.php
+
+		-
+			message: '#^Offset 0 on non\-empty\-list\<string\> in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: repo/app/Filters/RecurringInvoiceFilters.php
+
+		-
+			message: '#^PHPDoc tag @var with type array is not subtype of native type list\<string\>\.$#'
+			identifier: varTag.nativeType
+			count: 2
+			path: repo/app/Filters/RecurringInvoiceFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/RecurringQuoteFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/SchedulerFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/SubscriptionFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/SystemLogFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/TaskFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/TaskStatusFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/TaxRateFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/TokenFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/VendorFilters.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Filters/WebhookFilters.php
+
+		-
+			message: '#^Binary operation "\." between ''Invalid Input for…'' and array\<mixed, mixed\> results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: repo/app/Helpers/Bank/Nordigen/Transformer/TransactionTransformer.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>original" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Helpers/Bank/Yodlee/Transformer/IncomeTransformer.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>company1" in isset\(\) is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Helpers/Epc/EpcQrGenerator.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>company2" in isset\(\) is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Helpers/Epc/EpcQrGenerator.php
+
+		-
+			message: '#^Argument of an invalid type stdClass supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: repo/app/Helpers/Invoice/InvoiceItemSum.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: repo/app/Helpers/Invoice/InvoiceItemSum.php
+
+		-
+			message: '#^Method App\\Helpers\\Invoice\\InvoiceItemSum\:\:collectTaxCategoriesFromFirstLineItem\(\) should return Illuminate\\Support\\Collection\<int, array\{name\: string, percentage\: float, tax_id\: string\}\> but returns Illuminate\\Support\\Collection\<int, array\{name\: non\-falsy\-string, percentage\: float, tax_id\: mixed\}\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/app/Helpers/Invoice/InvoiceItemSum.php
+
+		-
+			message: '#^PHPDoc tag @var with type App\\DataMapper\\Tax\\BaseRule is not subtype of native type non\-falsy\-string\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/app/Helpers/Invoice/InvoiceItemSum.php
+
+		-
+			message: '#^Parameter \#1 \$num of function round expects float\|int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Helpers/Invoice/InvoiceItemSum.php
+
+		-
+			message: '#^Method App\\Helpers\\Invoice\\InvoiceItemSumInclusive\:\:collectTaxCategoriesFromFirstLineItem\(\) should return Illuminate\\Support\\Collection\<int, array\{name\: string, percentage\: float, tax_id\: string\}\> but returns Illuminate\\Support\\Collection\<int, array\{name\: non\-falsy\-string, percentage\: float, tax_id\: mixed\}\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/app/Helpers/Invoice/InvoiceItemSumInclusive.php
+
+		-
+			message: '#^Parameter \#1 \$num of function round expects float\|int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Helpers/Invoice/InvoiceItemSumInclusive.php
+
+		-
+			message: '#^Access to an undefined property App\\Helpers\\Invoice\\InvoiceSum\:\:\$peppol_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Helpers/Invoice/InvoiceSum.php
+
+		-
+			message: '#^Parameter \#1 \$num of function round expects float\|int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Helpers/Invoice/InvoiceSum.php
+
+		-
+			message: '#^Access to an undefined property App\\Helpers\\Invoice\\InvoiceSumInclusive\:\:\$peppol_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Helpers/Invoice/InvoiceSumInclusive.php
+
+		-
+			message: '#^Parameter \#1 \$num of function round expects float\|int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Helpers/Invoice/InvoiceSumInclusive.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between null and null will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: repo/app/Helpers/Language/NinjaTranslator.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Http/Controllers/AccountController.php
+
+		-
+			message: '#^Call to function method_exists\(\) with \$this\(App\\Http\\Controllers\\Auth\\ContactLoginController\) and ''hasTooManyLoginAtte…'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Http/Controllers/Auth/ContactLoginController.php
+
+		-
+			message: '#^Loose comparison using \=\= between ''passwords\.reset'' and ''passwords\.reset'' will always evaluate to true\.$#'
+			identifier: equal.alwaysTrue
+			count: 1
+			path: repo/app/Http/Controllers/Auth/ContactResetPasswordController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$is_owner\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Http/Controllers/Auth/LoginController.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 4
+			path: repo/app/Http/Controllers/Auth/LoginController.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: repo/app/Http/Controllers/Auth/LoginController.php
+
+		-
+			message: '#^Loose comparison using \=\= between ''account''\|''institution'' and ''id'' will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/app/Http/Controllers/Bank/NordigenController.php
+
+		-
+			message: '#^Parameter \#1 \$bank_integration of class App\\Jobs\\Bank\\ProcessBankTransactionsNordigen constructor expects App\\Models\\BankIntegration, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Http/Controllers/BankIntegrationController.php
+
+		-
+			message: '#^Parameter \#2 \$bank_integration of event class App\\Jobs\\Bank\\ProcessBankTransactionsYodlee constructor expects App\\Models\\BankIntegration in App\\Jobs\\Bank\\ProcessBankTransactionsYodlee\:\:dispatch\(\), Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Http/Controllers/BankIntegrationController.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Http/Controllers/ClientController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$key\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Http/Controllers/ClientPortal/InvoiceController.php
+
+		-
+			message: '#^Cannot access property \$company on Illuminate\\Database\\Eloquent\\Model\|false\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: repo/app/Http/Controllers/ClientPortal/InvoiceController.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Http/Controllers/ClientPortal/InvoiceController.php
+
+		-
+			message: '#^Parameter \#1 \$invitation of class App\\Utils\\HtmlEngine constructor expects App\\Models\\CreditInvitation\|App\\Models\\InvoiceInvitation\|App\\Models\\QuoteInvitation\|App\\Models\\RecurringInvoiceInvitation, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Http/Controllers/ClientPortal/InvoiceController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$is_default\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Http/Controllers/ClientPortal/PaymentMethodController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$company\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Http/Controllers/ClientPortal/QuoteController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$key\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Http/Controllers/ClientPortal/QuoteController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$viewed_date\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Http/Controllers/ClientPortal/QuoteController.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 3
+			path: repo/app/Http/Controllers/ClientPortal/QuoteController.php
+
+		-
+			message: '#^Parameter \#1 \$invitation of class App\\Events\\Quote\\QuoteWasViewed constructor expects App\\Models\\QuoteInvitation, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Http/Controllers/ClientPortal/QuoteController.php
+
+		-
+			message: '#^Parameter \#1 \$invitation of class App\\Utils\\HtmlEngine constructor expects App\\Models\\CreditInvitation\|App\\Models\\InvoiceInvitation\|App\\Models\\QuoteInvitation\|App\\Models\\RecurringInvoiceInvitation, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 3
+			path: repo/app/Http/Controllers/ClientPortal/QuoteController.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>dn_completed" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Http/Controllers/ClientPortal/QuoteController.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Http/Controllers/CreditController.php
+
+		-
+			message: '#^Property App\\Http\\Controllers\\EInvoiceController\:\:\$einvoice_props is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Http/Controllers/EInvoiceController.php
+
+		-
+			message: '#^Call to function is_object\(\) with object will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Http/Controllers/EInvoicePeppolController.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: repo/app/Http/Controllers/ExpenseController.php
+
+		-
+			message: '#^PHPDoc tag @var with type App\\Models\\CompanyGateway is not subtype of native type null\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/app/Http/Controllers/Gateways/GoCardlessOAuthWebhookController.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Http/Controllers/ImportController.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between string and false will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 2
+			path: repo/app/Http/Controllers/ImportController.php
+
+		-
+			message: '#^Anonymous function has an unused use \$user\.$#'
+			identifier: closure.unusedUse
+			count: 1
+			path: repo/app/Http/Controllers/InvoiceController.php
+
+		-
+			message: '#^Comparison operation "\>\=" between int\<1, max\> and 1 is always true\.$#'
+			identifier: greaterOrEqual.alwaysTrue
+			count: 1
+			path: repo/app/Http/Controllers/InvoiceController.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: repo/app/Http/Controllers/InvoiceController.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\LazyCollection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:each\(\) expects callable\(Illuminate\\Database\\Eloquent\\Model, int\)\: mixed, Closure\(App\\Models\\CompanyToken\)\: void given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Http/Controllers/LogoutController.php
+
+		-
+			message: '''
+				#^PHPDoc tag @OA\\Schema has invalid value \(\(
+				  schema\="CompanySettings",
+				  type\="object",\)\: Unexpected token "// Backfilled from CompanySettings\:\:\$casts", expected type at offset 21145 on line 152$#
+			'''
+			identifier: phpDoc.parseError
+			count: 1
+			path: repo/app/Http/Controllers/OpenAPI/CompanySettingsSchema.php
+
+		-
+			message: '''
+				#^PHPDoc tag @OA\\Schema has invalid value \(\(
+				  schema\="Paymentable",
+				  type\="object",\)\: Unexpected token "\*", expected type at offset 973 on line 11$#
+			'''
+			identifier: phpDoc.parseError
+			count: 1
+			path: repo/app/Http/Controllers/OpenAPI/PaymentableSchema.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) expects callable\(Illuminate\\Database\\Eloquent\\Model, int\)\: array\{id\: mixed, name\: string\|null, created_at\: Illuminate\\Support\\Carbon\|null, last_used_at\: float\|int\|string\|null\}, Closure\(App\\Models\\PasskeyCredential\)\: array\{id\: mixed, name\: string\|null, created_at\: Illuminate\\Support\\Carbon\|null, last_used_at\: float\|int\|string\|null\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Http/Controllers/PasskeyController.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Http/Controllers/PaymentController.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Http/Controllers/PreviewPurchaseOrderController.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Http/Controllers/QuoteController.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between DateTime and false will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/app/Http/Controllers/SNSController.php
+
+		-
+			message: '#^Method Illuminate\\Contracts\\Mail\\Mailer\:\:to\(\) invoked with 2 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: repo/app/Http/Controllers/SmtpController.php
+
+		-
+			message: '#^Variable \$company in PHPDoc tag @var does not exist\.$#'
+			identifier: varTag.variableNotFound
+			count: 1
+			path: repo/app/Http/Controllers/SquareController.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Http/Controllers/VendorPortal/InvitationController.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 2
+			path: repo/app/Http/Middleware/ContactKeyLogin.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: repo/app/Http/Middleware/ContactKeyLogin.php
+
+		-
+			message: '#^Expression in empty\(\) is not falsy\.$#'
+			identifier: empty.expr
+			count: 1
+			path: repo/app/Http/Middleware/ContactKeyLogin.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: repo/app/Http/Middleware/ContactKeyLogin.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Http/Middleware/ContactTokenAuth.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Http/Middleware/SetInviteDb.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Http/Middleware/SetInviteDb.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Http/Middleware/TokenAuth.php
+
+		-
+			message: '#^Constructor of class App\\Http\\Middleware\\TrustProxies has an unused parameter \$config\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: repo/app/Http/Middleware/TrustProxies.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Http/Middleware/UrlSetDb.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Http/Middleware/UrlSetDb.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 2
+			path: repo/app/Http/Middleware/VendorContactKeyLogin.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: repo/app/Http/Middleware/VendorContactKeyLogin.php
+
+		-
+			message: '#^Expression in empty\(\) is not falsy\.$#'
+			identifier: empty.expr
+			count: 1
+			path: repo/app/Http/Middleware/VendorContactKeyLogin.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: repo/app/Http/Middleware/VendorContactKeyLogin.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: repo/app/Http/Requests/Client/StoreClientRequest.php
+
+		-
+			message: '#^Method App\\Http\\Requests\\Client\\UpdateClientRequest\:\:filterSaveableSettings\(\) should return stdClass but returns array\<mixed, mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/app/Http/Requests/Client/UpdateClientRequest.php
+
+		-
+			message: '#^Static method App\\Utils\\Number\:\:parseFloat\(\) invoked with 2 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: repo/app/Http/Requests/ClientPortal/PrePayments/StorePrePaymentRequest.php
+
+		-
+			message: '#^Call to function is_array\(\) with object will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: repo/app/Http/Requests/Company/UpdateCompanyRequest.php
+
+		-
+			message: '#^Call to function array_key_exists\(\) with ''next_send_date'' and non\-empty\-array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Http/Requests/RecurringInvoice/StoreRecurringInvoiceRequest.php
+
+		-
+			message: '#^Call to function array_key_exists\(\) with ''next_send_date'' and non\-empty\-array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Http/Requests/RecurringInvoice/UpdateRecurringInvoiceRequest.php
+
+		-
+			message: '#^Call to function array_key_exists\(\) with ''date_range'' and non\-empty\-array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Http/Requests/Report/GenericReportRequest.php
+
+		-
+			message: '#^Call to function array_key_exists\(\) with ''date_range'' and non\-empty\-array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Http/Requests/Report/ProductSalesReportRequest.php
+
+		-
+			message: '#^Call to function array_key_exists\(\) with ''date_range'' and non\-empty\-array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Http/Requests/Report/ProjectReportRequest.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: repo/app/Http/Requests/Request.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: repo/app/Http/Requests/TaskScheduler/StoreSchedulerRequest.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: repo/app/Http/Requests/TaskScheduler/UpdateSchedulerRequest.php
+
+		-
+			message: '#^Dead catch \- Twig\\Sandbox\\SecurityError is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: repo/app/Http/ValidationRules/Design/TwigLint.php
+
+		-
+			message: '#^Dead catch \- Twig\\Sandbox\\SecurityNotAllowedFilterError is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: repo/app/Http/ValidationRules/Design/TwigLint.php
+
+		-
+			message: '#^Dead catch \- Twig\\Sandbox\\SecurityNotAllowedFunctionError is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: repo/app/Http/ValidationRules/Design/TwigLint.php
+
+		-
+			message: '#^Dead catch \- Twig\\Sandbox\\SecurityNotAllowedTagError is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: repo/app/Http/ValidationRules/Design/TwigLint.php
+
+		-
+			message: '#^Instanceof between DateTime and DateTime will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/app/Http/ValidationRules/EInvoice/ValidInvoiceScheme.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Import/Providers/BaseImport.php
+
+		-
+			message: '#^Method App\\Import\\Providers\\BaseImport\:\:convertData\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: repo/app/Import/Providers/BaseImport.php
+
+		-
+			message: '#^Call to preg_quote\(\) is missing delimiter / to be effective\.$#'
+			identifier: argument.invalidPregQuote
+			count: 2
+			path: repo/app/Import/Transformer/BaseTransformer.php
+
+		-
+			message: '#^Offset ''amount'' on array\{company_id\: mixed, number\: mixed, user_id\: mixed, amount\: float, refunded\: float, applied\: float, transaction_reference\: mixed, date\: mixed, \.\.\.\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: repo/app/Import/Transformer/Csv/PaymentTransformer.php
+
+		-
+			message: '#^Call to method create\(\) on an unknown class Modules\\Admin\\Services\\Evaluator\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/Jobs/Account/CreateAccount.php
+
+		-
+			message: '#^Call to method handle\(\) on an unknown class Modules\\Admin\\Jobs\\Account\\NinjaUser\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/Jobs/Account/CreateAccount.php
+
+		-
+			message: '#^Class Modules\\Admin\\Services\\Evaluator not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/Jobs/Account/CreateAccount.php
+
+		-
+			message: '#^Instantiated class Modules\\Admin\\Jobs\\Account\\NinjaUser not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/Jobs/Account/CreateAccount.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Jobs/Bank/MatchBankTransactions.php
+
+		-
+			message: '#^Property App\\Jobs\\Bank\\ProcessBankTransactionsNordigen\:\:\$from_date \(string\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: repo/app/Jobs/Bank/ProcessBankTransactionsNordigen.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>BounceID" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: repo/app/Jobs/Brevo/ProcessBrevoWebhook.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$url\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Jobs/Company/CompanyExport.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$company_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Jobs/Company/CompanyImport.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Jobs/Company/CompanyImport.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$user_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Jobs/Company/CompanyImport.php
+
+		-
+			message: '#^Property App\\Models\\Company\:\:\$enable_modules \(bool\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/app/Jobs/Company/CompanyImport.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>taxSales" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Jobs/Company/CompanyTaxRate.php
+
+		-
+			message: '#^Property App\\Jobs\\Cron\\AutoBillCron\:\:\$counter is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Jobs/Cron/AutoBillCron.php
+
+		-
+			message: '#^Relation ''client'' is not found in App\\Models\\RecurringExpense model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: repo/app/Jobs/Cron/RecurringExpensesCron.php
+
+		-
+			message: '#^Relation ''vendor'' is not found in App\\Models\\RecurringExpense model\.$#'
+			identifier: larastan.relationExistence
+			count: 1
+			path: repo/app/Jobs/Cron/RecurringExpensesCron.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 2
+			path: repo/app/Jobs/EDocument/RecordFranceEReportingPayment.php
+
+		-
+			message: '#^Property App\\Jobs\\Invoice\\BulkInvoiceJob\:\:\$templates is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Jobs/Invoice/BulkInvoiceJob.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$signature_base64\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Jobs/Invoice/InjectSignature.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$signature_date\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Jobs/Invoice/InjectSignature.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$signature_ip\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Jobs/Invoice/InjectSignature.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 2
+			path: repo/app/Jobs/Invoice/InvoiceCheckOverdue.php
+
+		-
+			message: '#^Property App\\Jobs\\Ledger\\ClientLedgerBalanceUpdate\:\:\$next_balance_record is unused\.$#'
+			identifier: property.unused
+			count: 1
+			path: repo/app/Jobs/Ledger/ClientLedgerBalanceUpdate.php
+
+		-
+			message: '#^Loose comparison using \=\= between non\-falsy\-string and '''' will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/app/Jobs/Mail/NinjaMailerJob.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Jobs/Mail/NinjaMailerJob.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type App\\Models\\PaymentHash\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Jobs/Mail/PaymentFailedMailer.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 6
+			path: repo/app/Jobs/Mailgun/ProcessMailgunWebhook.php
+
+		-
+			message: '#^Instanceof between App\\Models\\SystemLog and App\\Models\\SystemLog will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/app/Jobs/Mailgun/ProcessMailgunWebhook.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 2
+			path: repo/app/Jobs/Mailgun/ProcessMailgunWebhook.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Jobs/Mailgun/ProcessMailgunWebhook.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/app/Jobs/Payment/EmailPayment.php
+
+		-
+			message: '#^Property App\\Jobs\\Payment\\EmailPayment\:\:\$contact \(App\\Models\\ClientContact\|null\) does not accept Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/app/Jobs/Payment/EmailPayment.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/app/Jobs/Payment/EmailRefundPayment.php
+
+		-
+			message: '#^Property App\\Jobs\\Payment\\PaymentNotification\:\:\$company is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Jobs/Payment/PaymentNotification.php
+
+		-
+			message: '#^Access to an undefined property Postmark\\Models\\DynamicResponseModel\:\:\$messageevents\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Jobs/PostMark/ProcessPostmarkWebhook.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: repo/app/Jobs/PostMark/ProcessPostmarkWebhook.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>BounceID" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 3
+			path: repo/app/Jobs/PostMark/ProcessPostmarkWebhook.php
+
+		-
+			message: '#^Method App\\Jobs\\Quote\\QuoteCheckExpired\:\:checkForExpiredQuotes\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: repo/app/Jobs/Quote/QuoteCheckExpired.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Jobs/Quote/QuoteCheckExpired.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/app/Jobs/RecurringInvoice/SendRecurring.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: repo/app/Jobs/User/CreateUser.php
+
+		-
+			message: '#^Static method Illuminate\\Contracts\\Filesystem\\Filesystem\:\:allFiles\(\) invoked with 2 parameters, 0\-1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: repo/app/Jobs/Util/DiskCleanup.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/app/Jobs/Util/QuoteReminderJob.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/app/Jobs/Util/ReminderJob.php
+
+		-
+			message: '#^Method App\\Jobs\\Util\\UploadFile\:\:generatePreview\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: repo/app/Jobs/Util/UploadFile.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Jobs/Util/VersionCheck.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Jobs/Util/WebhookHandler.php
+
+		-
+			message: '#^Dead catch \- GuzzleHttp\\Exception\\ClientException is already caught above\.$#'
+			identifier: catch.alreadyCaught
+			count: 1
+			path: repo/app/Jobs/Util/WebhookSingle.php
+
+		-
+			message: '#^Dead catch \- GuzzleHttp\\Exception\\ServerException is already caught above\.$#'
+			identifier: catch.alreadyCaught
+			count: 1
+			path: repo/app/Jobs/Util/WebhookSingle.php
+
+		-
+			message: '#^Parameter \#3 \$value of function curl_setopt expects bool, int given\.$#'
+			identifier: argument.type
+			count: 2
+			path: repo/app/Libraries/OFX.php
+
+		-
+			message: '#^Instantiated class Modules\\Admin\\Mail\\Welcome not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/Listeners/Account/CreateAccountActivity.php
+
+		-
+			message: '#^Match expression does not handle remaining values\: class\-string\|false$#'
+			identifier: match.unhandled
+			count: 1
+			path: repo/app/Listeners/General/EntityEmailedNotification.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$invoice_amount\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Listeners/Invoice/InvoiceTransactionEventEntry.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$metadata\.$#'
+			identifier: property.notFound
+			count: 4
+			path: repo/app/Listeners/Invoice/InvoiceTransactionEventEntry.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$period\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Listeners/Invoice/InvoiceTransactionEventEntry.php
+
+		-
+			message: '#^Parameter \#2 \$options of function curl_setopt_array expects array\{10002\: non\-empty\-string, 19913\: bool, 47\: bool, 10015\: array\|string\}, array\{10002\: mixed, 19913\: true, 47\: ''POST'', 10015\: string\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Listeners/Payment/PaymentNotification.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Listeners/Quote/QuoteCreatedNotification.php
+
+		-
+			message: '#^Result of method App\\Livewire\\BillingPortal\\Authentication\\RegisterOrLogin\:\:withOtp\(\) \(void\) is used\.$#'
+			identifier: method.void
+			count: 1
+			path: repo/app/Livewire/BillingPortal/Authentication/RegisterOrLogin.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between App\\Models\\CompanyGateway and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/app/Livewire/BillingPortal/RFF.php
+
+		-
+			message: '#^Property App\\Livewire\\BillingPortalPurchase\:\:\$email \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 3
+			path: repo/app/Livewire/BillingPortalPurchase.php
+
+		-
+			message: '#^Property App\\Livewire\\BillingPortalPurchase\:\:\$user_coupon is unused\.$#'
+			identifier: property.unused
+			count: 1
+			path: repo/app/Livewire/BillingPortalPurchase.php
+
+		-
+			message: '#^Result of method Illuminate\\Session\\Store\:\:flash\(\) \(void\) is used\.$#'
+			identifier: method.void
+			count: 1
+			path: repo/app/Livewire/BillingPortalPurchase.php
+
+		-
+			message: '#^Method App\\Livewire\\BillingPortalPurchasev2\:\:render\(\) should return Illuminate\\Contracts\\Foundation\\Application\|Illuminate\\Http\\RedirectResponse\|Illuminate\\Routing\\Redirector but returns Illuminate\\Contracts\\View\\Factory\|Illuminate\\View\\View\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/app/Livewire/BillingPortalPurchasev2.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Livewire/BillingPortalPurchasev2.php
+
+		-
+			message: '#^Property App\\Livewire\\BillingPortalPurchasev2\:\:\$email \(string\) does not accept null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/app/Livewire/BillingPortalPurchasev2.php
+
+		-
+			message: '#^Property App\\Livewire\\BillingPortalPurchasev2\:\:\$email \(string\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 2
+			path: repo/app/Livewire/BillingPortalPurchasev2.php
+
+		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: repo/app/Livewire/Flow2/InvoicePay.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/app/Livewire/RequiredClientInfo.php
+
+		-
+			message: '#^Array has 2 duplicate keys with value ''additional_info'' \(''additional_info'', ''additional_info''\)\.$#'
+			identifier: array.duplicateKey
+			count: 1
+			path: repo/app/Mail/Admin/ClientPaymentFailureObject.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Mail/Admin/InvoiceOverdueObject.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Mail/Admin/PurchaseOrderAcceptedObject.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Mail/Admin/QuoteApprovedObject.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Mail/Admin/QuoteExpiredObject.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Mail/Admin/QuoteRejectedObject.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$hash\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Mail/Engine/InvoiceEmailEngine.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 2
+			path: repo/app/Mail/Engine/InvoiceEmailEngine.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$size\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Mail/Engine/InvoiceEmailEngine.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$hash\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Mail/Engine/PaymentEmailEngine.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 2
+			path: repo/app/Mail/Engine/PaymentEmailEngine.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$size\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Mail/Engine/PaymentEmailEngine.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$hash\.$#'
+			identifier: property.notFound
+			count: 2
+			path: repo/app/Mail/Engine/PurchaseOrderEmailEngine.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 4
+			path: repo/app/Mail/Engine/PurchaseOrderEmailEngine.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$size\.$#'
+			identifier: property.notFound
+			count: 2
+			path: repo/app/Mail/Engine/PurchaseOrderEmailEngine.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/app/Mail/TemplateEmail.php
+
+		-
+			message: '#^Property App\\Mail\\TemplateEmail\:\:\$contact \(App\\Models\\ClientContact\|App\\Models\\VendorContact\) is never assigned App\\Models\\VendorContact so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: repo/app/Mail/TemplateEmail.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$settings\.$#'
+			identifier: property.notFound
+			count: 4
+			path: repo/app/Models/Account.php
+
+		-
+			message: '#^Variable \$trial_active in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.variable
+			count: 1
+			path: repo/app/Models/Account.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 2
+			path: repo/app/Models/Activity.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type App\\Models\\Client\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Models/Activity.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type App\\Models\\ClientContact\|App\\Models\\VendorContact\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Models/Activity.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type App\\Models\\Vendor\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Models/Activity.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>client" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Models/Activity.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>hashed_id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Models/Activity.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>number" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 11
+			path: repo/app/Models/Activity.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type \$this\(App\\Models\\Activity\)\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 4
+			path: repo/app/Models/Activity.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\BankAccount\:\:\$username\.$#'
+			identifier: property.notFound
+			count: 2
+			path: repo/app/Models/BankAccount.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 2
+			path: repo/app/Models/BankTransaction.php
+
+		-
+			message: '#^Call to function method_exists\(\) with class\-string\<static\(App\\Models\\BankTransaction\)\> and ''forceDeleted'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Models/BankTransaction.php
+
+		-
+			message: '#^Comparison operation "\>\=" between int\<1, max\> and 1 is always true\.$#'
+			identifier: greaterOrEqual.alwaysTrue
+			count: 2
+			path: repo/app/Models/BankTransaction.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: repo/app/Models/BankTransaction.php
+
+		-
+			message: '#^Property App\\Models\\BankTransactionRule\:\:\$search_results is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Models/BankTransactionRule.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Models/BaseModel.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$size\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Models/BaseModel.php
+
+		-
+			message: '#^Method App\\Models\\BaseModel\:\:getSignedPdfDocument\(\) should return App\\Models\\Document\|null but returns Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/app/Models/BaseModel.php
+
+		-
+			message: '#^PHPDoc tag @var with type App\\Models\\BaseModel\|Illuminate\\Support\\Facades\\Schema is not subtype of native type \$this\(App\\Models\\BaseModel\)\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/app/Models/BaseModel.php
+
+		-
+			message: '#^PHPDoc tag @var with type App\\Models\\Credit\|App\\Models\\Invoice\|App\\Models\\PurchaseOrder\|App\\Models\\Quote is not subtype of native type \$this\(App\\Models\\BaseModel\)\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/app/Models/BaseModel.php
+
+		-
+			message: '#^Call to function method_exists\(\) with class\-string\<static\(App\\Models\\Client\)\> and ''forceDeleted'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Models/Client.php
+
+		-
+			message: '#^Method App\\Models\\Client\:\:gateway_token\(\) should return App\\Models\\ClientGatewayToken but returns Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/app/Models/Client.php
+
+		-
+			message: '#^Method App\\Models\\Client\:\:preferredLocale\(\) should return string\|null but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: repo/app/Models/Client.php
+
+		-
+			message: '#^PHPDoc tag @var with type App\\Models\\BaseModel\|Illuminate\\Support\\Facades\\Schema is not subtype of native type \$this\(App\\Models\\Client\)\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/app/Models/Client.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: repo/app/Models/Client.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: repo/app/Models/Client.php
+
+		-
+			message: '#^Class App\\Models\\Timezone referenced with incorrect case\: App\\Models\\TimeZone\.$#'
+			identifier: class.nameCase
+			count: 1
+			path: repo/app/Models/Company.php
+
+		-
+			message: '#^Property App\\Models\\Company\:\:\$presenter \(App\\Models\\Presenters\\CompanyPresenter\) does not accept default value of type string\.$#'
+			identifier: property.defaultValue
+			count: 1
+			path: repo/app/Models/Company.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/app/Models/CompanyGateway.php
+
+		-
+			message: '#^Call to function method_exists\(\) with class\-string\<static\(App\\Models\\Credit\)\> and ''forceDeleted'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Models/Credit.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: repo/app/Models/Credit.php
+
+		-
+			message: '#^PHPDoc type array\<string\> of property App\\Models\\Document\:\:\$casts is not covariant with PHPDoc type array\<string, string\> of overridden property App\\Models\\BaseModel\:\:\$casts\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: repo/app/Models/Document.php
+
+		-
+			message: '#^PHPDoc type array\<string\> of property App\\Models\\Document\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: repo/app/Models/Document.php
+
+		-
+			message: '#^Call to function method_exists\(\) with class\-string\<static\(App\\Models\\Expense\)\> and ''forceDeleted'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Models/Expense.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: repo/app/Models/Expense.php
+
+		-
+			message: '#^Call to function method_exists\(\) with class\-string\<static\(App\\Models\\Invoice\)\> and ''forceDeleted'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Models/Invoice.php
+
+		-
+			message: '#^Loose comparison using \=\= between false and false will always evaluate to true\.$#'
+			identifier: equal.alwaysTrue
+			count: 1
+			path: repo/app/Models/Invoice.php
+
+		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 2
+			path: repo/app/Models/Invoice.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: repo/app/Models/Invoice.php
+
+		-
+			message: '#^PHPDoc tag @var with type App\\Models\\BaseModel\|Illuminate\\Support\\Facades\\Schema is not subtype of native type \$this\(App\\Models\\Location\)\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/app/Models/Location.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$contact_key\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Models/Payment.php
+
+		-
+			message: '#^Call to function method_exists\(\) with class\-string\<static\(App\\Models\\Payment\)\> and ''forceDeleted'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Models/Payment.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: repo/app/Models/Payment.php
+
+		-
+			message: '#^Call to function method_exists\(\) with class\-string\<static\(App\\Models\\Product\)\> and ''forceDeleted'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Models/Product.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: repo/app/Models/Product.php
+
+		-
+			message: '#^Call to function method_exists\(\) with class\-string\<static\(App\\Models\\Project\)\> and ''forceDeleted'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Models/Project.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: repo/app/Models/Project.php
+
+		-
+			message: '#^Call to function method_exists\(\) with class\-string\<static\(App\\Models\\PurchaseOrder\)\> and ''forceDeleted'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Models/PurchaseOrder.php
+
+		-
+			message: '#^Class App\\Events\\PurchaseOrder\\PurchaseOrderWasEmailed constructor invoked with 4 parameters, 3 required\.$#'
+			identifier: arguments.count
+			count: 2
+			path: repo/app/Models/PurchaseOrder.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: repo/app/Models/PurchaseOrder.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: repo/app/Models/PurchaseOrder.php
+
+		-
+			message: '#^Call to function method_exists\(\) with class\-string\<static\(App\\Models\\Quote\)\> and ''forceDeleted'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Models/Quote.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: repo/app/Models/Quote.php
+
+		-
+			message: '#^Call to function method_exists\(\) with class\-string\<static\(App\\Models\\RecurringExpense\)\> and ''forceDeleted'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Models/RecurringExpense.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Models/RecurringExpense.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: repo/app/Models/RecurringExpense.php
+
+		-
+			message: '#^Call to function method_exists\(\) with class\-string\<static\(App\\Models\\RecurringInvoice\)\> and ''forceDeleted'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Models/RecurringInvoice.php
+
+		-
+			message: '#^Loose comparison using \!\= between int\<min, \-1\>\|int\<1, max\> and 0 will always evaluate to true\.$#'
+			identifier: notEqual.alwaysTrue
+			count: 1
+			path: repo/app/Models/RecurringInvoice.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Models/RecurringInvoice.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: repo/app/Models/RecurringInvoice.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Models/RecurringQuote.php
+
+		-
+			message: '#^PHPDoc tag @var with type App\\Models\\BaseModel\|Illuminate\\Support\\Facades\\Schema is not subtype of native type \$this\(App\\Models\\StaticModel\)\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/app/Models/StaticModel.php
+
+		-
+			message: '#^Call to function is_numeric\(\) with float will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Models/Task.php
+
+		-
+			message: '#^Call to function method_exists\(\) with class\-string\<static\(App\\Models\\Task\)\> and ''forceDeleted'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Models/Task.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: repo/app/Models/Task.php
+
+		-
+			message: '#^PHPDoc type array\<string\> of property App\\Models\\TaskStatus\:\:\$fillable is not covariant with PHPDoc type list\<string\> of overridden property Illuminate\\Database\\Eloquent\\Model\:\:\$fillable\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: repo/app/Models/TaskStatus.php
+
+		-
+			message: '#^Property App\\Models\\User\:\:\$company \(App\\Models\\Company\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: repo/app/Models/User.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: repo/app/Models/User.php
+
+		-
+			message: '#^Call to function method_exists\(\) with class\-string\<static\(App\\Models\\Vendor\)\> and ''forceDeleted'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Models/Vendor.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) expects callable\(Illuminate\\Database\\Eloquent\\Model, int\)\: Illuminate\\Mail\\Mailables\\Address, Closure\(App\\Models\\VendorContact\)\: Illuminate\\Mail\\Mailables\\Address given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Models/Vendor.php
+
+		-
+			message: '#^Unsafe usage of new static\(\)\.$#'
+			identifier: new.static
+			count: 1
+			path: repo/app/Models/Vendor.php
+
+		-
+			message: '#^Constructor of class App\\Notifications\\Admin\\EntitySentNotification has an unused parameter \$settings\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: repo/app/Notifications/Admin/EntitySentNotification.php
+
+		-
+			message: '#^Constructor of class App\\Notifications\\Admin\\EntityViewedNotification has an unused parameter \$settings\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: repo/app/Notifications/Admin/EntityViewedNotification.php
+
+		-
+			message: '#^Constructor of class App\\Notifications\\Admin\\NewPaymentNotification has an unused parameter \$settings\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: repo/app/Notifications/Admin/NewPaymentNotification.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 4
+			path: repo/app/Observers/ClientContactObserver.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: repo/app/Observers/VendorContactObserver.php
+
+		-
+			message: '#^Loose comparison using \=\= between stdClass and null will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/app/PaymentDrivers/BTCPayPaymentDriver.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/BaseDriver.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 3
+			path: repo/app/PaymentDrivers/BaseDriver.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type App\\Models\\PaymentHash\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/PaymentDrivers/BaseDriver.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/PaymentDrivers/BlockonomicsPaymentDriver.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: repo/app/PaymentDrivers/Braintree/CreditCard.php
+
+		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: repo/app/PaymentDrivers/BraintreePaymentDriver.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: repo/app/PaymentDrivers/BraintreePaymentDriver.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$gateway_customer_reference\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/CBAPowerBoard/Customer.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/CBAPowerBoard/Customer.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$meta\.$#'
+			identifier: property.notFound
+			count: 2
+			path: repo/app/PaymentDrivers/CBAPowerBoard/Customer.php
+
+		-
+			message: '#^Property Checkout\\CheckoutApiException\:\:\$http_metadata \(Checkout\\HttpMetadata\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutCom/CheckoutSetupWebhook.php
+
+		-
+			message: '#^Access to an undefined property App\\PaymentDrivers\\CheckoutCom\\CheckoutWebhook\:\:\$checkout\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutCom/CheckoutWebhook.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutCom/CheckoutWebhook.php
+
+		-
+			message: '#^Access to an undefined property App\\PaymentDrivers\\CheckoutCom\\CreditCard\:\:\$company_gateway\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutCom/CreditCard.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutCom/CreditCard.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\CheckoutCom\\CreditCard\:\:authorizeResponse\(\) should return Illuminate\\Http\\RedirectResponse\|Illuminate\\Http\\Response but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutCom/CreditCard.php
+
+		-
+			message: '#^Access to an undefined property App\\PaymentDrivers\\CheckoutCom\\CreditCardFlow\:\:\$company_gateway\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutCom/CreditCardFlow.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutCom/CreditCardFlow.php
+
+		-
+			message: '#^Property Checkout\\CheckoutApiException\:\:\$error_details \(array\) on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.property
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutCom/CreditCardFlow.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>iso_3166_2" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutCom/CreditCardFlow.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\CheckoutCom\\Webhook\:\:getEventTypes\(\) with return type void returns mixed but should not return anything\.$#'
+			identifier: return.void
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutCom/Webhook.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\CheckoutCom\\Webhook\:\:getEventTypes\(\) with return type void returns null but should not return anything\.$#'
+			identifier: return.void
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutCom/Webhook.php
+
+		-
+			message: '#^Access to an undefined property App\\PaymentDrivers\\CheckoutComPaymentDriver\:\:\$checkout\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutComPaymentDriver.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutComPaymentDriver.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\CheckoutComPaymentDriver\:\:detach\(\) should return bool but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutComPaymentDriver.php
+
+		-
+			message: '#^PHPDoc tag @var has invalid value \(CheckoutSdk;\)\: Unexpected token ";", expected TOKEN_HORIZONTAL_WS at offset 27 on line 2$#'
+			identifier: phpDoc.parseError
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutComPaymentDriver.php
+
+		-
+			message: '#^Parameter \#1 \$data \(array\) of method App\\PaymentDrivers\\CheckoutComPaymentDriver\:\:authorizeResponse\(\) should be compatible with parameter \$request \(Illuminate\\Http\\Request\) of method App\\PaymentDrivers\\BaseDriver\:\:authorizeResponse\(\)$#'
+			identifier: method.childParameterType
+			count: 1
+			path: repo/app/PaymentDrivers/CheckoutComPaymentDriver.php
+
+		-
+			message: '#^Return type \(void\) of method App\\PaymentDrivers\\CustomPaymentDriver\:\:detach\(\) should be compatible with return type \(bool\) of method App\\PaymentDrivers\\BaseDriver\:\:detach\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: repo/app/PaymentDrivers/CustomPaymentDriver.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: repo/app/PaymentDrivers/Eway/CreditCard.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\EwayPaymentDriver\:\:importCustomers\(\) with return type void returns true but should not return anything\.$#'
+			identifier: return.void
+			count: 1
+			path: repo/app/PaymentDrivers/EwayPaymentDriver.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: repo/app/PaymentDrivers/Factory/SquareCustomerFactory.php
+
+		-
+			message: '#^Property App\\PaymentDrivers\\Forte\\ACH\:\:\$forte_api_access_id is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/PaymentDrivers/Forte/ACH.php
+
+		-
+			message: '#^Property App\\PaymentDrivers\\Forte\\ACH\:\:\$forte_auth_organization_id is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/PaymentDrivers/Forte/ACH.php
+
+		-
+			message: '#^Property App\\PaymentDrivers\\Forte\\ACH\:\:\$forte_base_uri is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/PaymentDrivers/Forte/ACH.php
+
+		-
+			message: '#^Property App\\PaymentDrivers\\Forte\\ACH\:\:\$forte_location_id is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/PaymentDrivers/Forte/ACH.php
+
+		-
+			message: '#^Property App\\PaymentDrivers\\Forte\\ACH\:\:\$forte_organization_id is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/PaymentDrivers/Forte/ACH.php
+
+		-
+			message: '#^Property App\\PaymentDrivers\\Forte\\ACH\:\:\$forte_secure_key is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/PaymentDrivers/Forte/ACH.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\FortePaymentDriver\:\:getClient\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: repo/app/PaymentDrivers/FortePaymentDriver.php
+
+		-
+			message: '#^Variable \$httpcode might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: repo/app/PaymentDrivers/FortePaymentDriver.php
+
+		-
+			message: '#^Variable \$response might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: repo/app/PaymentDrivers/FortePaymentDriver.php
+
+		-
+			message: '#^PHPDoc tag @param for parameter \$payment with type App\\PaymentDrivers\\GoCardless\\ResourcesPayment is not subtype of native type GoCardlessPro\\Resources\\Payment\.$#'
+			identifier: parameter.phpDocType
+			count: 2
+			path: repo/app/PaymentDrivers/GoCardless/DirectDebit.php
+
+		-
+			message: '#^Parameter \$payment of method App\\PaymentDrivers\\GoCardless\\DirectDebit\:\:processPendingPayment\(\) has invalid type App\\PaymentDrivers\\GoCardless\\ResourcesPayment\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/GoCardless/DirectDebit.php
+
+		-
+			message: '#^Parameter \$payment of method App\\PaymentDrivers\\GoCardless\\DirectDebit\:\:processUnsuccessfulPayment\(\) has invalid type App\\PaymentDrivers\\GoCardless\\ResourcesPayment\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/GoCardless/DirectDebit.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type App\\Models\\PaymentHash\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/PaymentDrivers/GoCardless/DirectDebit.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\GoCardlessPaymentDriver\:\:detach\(\) should return bool but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: repo/app/PaymentDrivers/GoCardlessPaymentDriver.php
+
+		-
+			message: '#^Variable \$response might not be defined\.$#'
+			identifier: variable.undefined
+			count: 5
+			path: repo/app/PaymentDrivers/LawPay/ACH.php
+
+		-
+			message: '#^Variable \$response might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: repo/app/PaymentDrivers/LawPay/CreditCard.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: repo/app/PaymentDrivers/LawPay/Jobs/LawPayWebhook.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\Mollie\\Bancontact\:\:paymentView\(\) has invalid return type Illuminate\\Http\\RedirectResponseor\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/Bancontact.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\Mollie\\Bancontact\:\:paymentView\(\) should return Illuminate\\Http\\RedirectResponse\|Illuminate\\Http\\RedirectResponseor but returns null\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/Bancontact.php
+
+		-
+			message: '#^PHPDoc tag @param for parameter \$exception with type App\\PaymentDrivers\\Mollie\\Exception is not subtype of native type Exception\.$#'
+			identifier: parameter.phpDocType
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/Bancontact.php
+
+		-
+			message: '#^PHPDoc tag @param for parameter \$payment with type App\\PaymentDrivers\\Mollie\\ResourcesPayment is not subtype of native type Mollie\\Api\\Resources\\Payment\.$#'
+			identifier: parameter.phpDocType
+			count: 2
+			path: repo/app/PaymentDrivers/Mollie/Bancontact.php
+
+		-
+			message: '#^Parameter \$exception of method App\\PaymentDrivers\\Mollie\\Bancontact\:\:processUnsuccessfulPayment\(\) has invalid type App\\PaymentDrivers\\Mollie\\Exception\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/Bancontact.php
+
+		-
+			message: '#^Parameter \$payment of method App\\PaymentDrivers\\Mollie\\Bancontact\:\:processOpenPayment\(\) has invalid type App\\PaymentDrivers\\Mollie\\ResourcesPayment\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/Bancontact.php
+
+		-
+			message: '#^Parameter \$payment of method App\\PaymentDrivers\\Mollie\\Bancontact\:\:processSuccessfulPayment\(\) has invalid type App\\PaymentDrivers\\Mollie\\ResourcesPayment\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/Bancontact.php
+
+		-
+			message: '#^Result of method App\\PaymentDrivers\\Mollie\\Bancontact\:\:processUnsuccessfulPayment\(\) \(void\) is used\.$#'
+			identifier: method.void
+			count: 5
+			path: repo/app/PaymentDrivers/Mollie/Bancontact.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\Mollie\\BankTransfer\:\:paymentView\(\) has invalid return type Illuminate\\Http\\RedirectResponseor\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/BankTransfer.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\Mollie\\BankTransfer\:\:paymentView\(\) should return Illuminate\\Http\\RedirectResponse\|Illuminate\\Http\\RedirectResponseor but returns null\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/BankTransfer.php
+
+		-
+			message: '#^Result of method App\\PaymentDrivers\\Mollie\\BankTransfer\:\:processUnsuccessfulPayment\(\) \(void\) is used\.$#'
+			identifier: method.void
+			count: 4
+			path: repo/app/PaymentDrivers/Mollie/BankTransfer.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\Mollie\\IDEAL\:\:paymentView\(\) has invalid return type Illuminate\\Http\\RedirectResponseor\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/IDEAL.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\Mollie\\IDEAL\:\:paymentView\(\) should return Illuminate\\Http\\RedirectResponse\|Illuminate\\Http\\RedirectResponseor but returns null\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/IDEAL.php
+
+		-
+			message: '#^PHPDoc tag @param for parameter \$exception with type App\\PaymentDrivers\\Mollie\\Exception is not subtype of native type Exception\.$#'
+			identifier: parameter.phpDocType
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/IDEAL.php
+
+		-
+			message: '#^PHPDoc tag @param for parameter \$payment with type App\\PaymentDrivers\\Mollie\\ResourcesPayment is not subtype of native type Mollie\\Api\\Resources\\Payment\.$#'
+			identifier: parameter.phpDocType
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/IDEAL.php
+
+		-
+			message: '#^Parameter \$exception of method App\\PaymentDrivers\\Mollie\\IDEAL\:\:processUnsuccessfulPayment\(\) has invalid type App\\PaymentDrivers\\Mollie\\Exception\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/IDEAL.php
+
+		-
+			message: '#^Parameter \$payment of method App\\PaymentDrivers\\Mollie\\IDEAL\:\:processSuccessfulPayment\(\) has invalid type App\\PaymentDrivers\\Mollie\\ResourcesPayment\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/IDEAL.php
+
+		-
+			message: '#^Result of method App\\PaymentDrivers\\Mollie\\IDEAL\:\:processUnsuccessfulPayment\(\) \(void\) is used\.$#'
+			identifier: method.void
+			count: 5
+			path: repo/app/PaymentDrivers/Mollie/IDEAL.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\Mollie\\KBC\:\:paymentView\(\) has invalid return type Illuminate\\Http\\RedirectResponseor\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/KBC.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\Mollie\\KBC\:\:paymentView\(\) should return Illuminate\\Http\\RedirectResponse\|Illuminate\\Http\\RedirectResponseor but returns null\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/KBC.php
+
+		-
+			message: '#^PHPDoc tag @param for parameter \$exception with type App\\PaymentDrivers\\Mollie\\Exception is not subtype of native type Exception\.$#'
+			identifier: parameter.phpDocType
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/KBC.php
+
+		-
+			message: '#^PHPDoc tag @param for parameter \$payment with type App\\PaymentDrivers\\Mollie\\ResourcesPayment is not subtype of native type Mollie\\Api\\Resources\\Payment\.$#'
+			identifier: parameter.phpDocType
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/KBC.php
+
+		-
+			message: '#^Parameter \$exception of method App\\PaymentDrivers\\Mollie\\KBC\:\:processUnsuccessfulPayment\(\) has invalid type App\\PaymentDrivers\\Mollie\\Exception\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/KBC.php
+
+		-
+			message: '#^Parameter \$payment of method App\\PaymentDrivers\\Mollie\\KBC\:\:processSuccessfulPayment\(\) has invalid type App\\PaymentDrivers\\Mollie\\ResourcesPayment\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Mollie/KBC.php
+
+		-
+			message: '#^Result of method App\\PaymentDrivers\\Mollie\\KBC\:\:processUnsuccessfulPayment\(\) \(void\) is used\.$#'
+			identifier: method.void
+			count: 5
+			path: repo/app/PaymentDrivers/Mollie/KBC.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/app/PaymentDrivers/MolliePaymentDriver.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\MolliePaymentDriver\:\:detach\(\) should return bool but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: repo/app/PaymentDrivers/MolliePaymentDriver.php
+
+		-
+			message: '#^Offset 0 on non\-empty\-list\<string\> on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: repo/app/PaymentDrivers/PayPal/PayPalBasePaymentDriver.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: repo/app/PaymentDrivers/PayPal/PayPalBasePaymentDriver.php
+
+		-
+			message: '#^Property App\\PaymentDrivers\\PayPal\\PayPalWebhook\:\:\$test_endpoint is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/PaymentDrivers/PayPal/PayPalWebhook.php
+
+		-
+			message: '#^Access to an undefined property Razorpay\\Api\\Api\:\:\$order\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Razorpay/Hosted.php
+
+		-
+			message: '#^Access to an undefined property Razorpay\\Api\\Api\:\:\$utility\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Razorpay/Hosted.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\Razorpay\\Hosted\:\:paymentResponse\(\) with return type void returns Illuminate\\Http\\RedirectResponse but should not return anything\.$#'
+			identifier: return.void
+			count: 1
+			path: repo/app/PaymentDrivers/Razorpay/Hosted.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\Razorpay\\Hosted\:\:paymentResponse\(\) with return type void returns null but should not return anything\.$#'
+			identifier: return.void
+			count: 1
+			path: repo/app/PaymentDrivers/Razorpay/Hosted.php
+
+		-
+			message: '#^PHPDoc tag @param for parameter \$exception with type App\\PaymentDrivers\\Razorpay\\Exception is not subtype of native type Exception\.$#'
+			identifier: parameter.phpDocType
+			count: 1
+			path: repo/app/PaymentDrivers/Razorpay/Hosted.php
+
+		-
+			message: '#^Parameter \$exception of method App\\PaymentDrivers\\Razorpay\\Hosted\:\:processUnsuccessfulPayment\(\) has invalid type App\\PaymentDrivers\\Razorpay\\Exception\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Razorpay/Hosted.php
+
+		-
+			message: '#^Result of method App\\PaymentDrivers\\Razorpay\\Hosted\:\:processUnsuccessfulPayment\(\) \(void\) is used\.$#'
+			identifier: method.void
+			count: 1
+			path: repo/app/PaymentDrivers/Razorpay/Hosted.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\RazorpayPaymentDriver\:\:convertToRazorpayAmount\(\) should return int but returns string\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/app/PaymentDrivers/RazorpayPaymentDriver.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\Sample\\CreditCard\:\:processSuccessfulPayment\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: repo/app/PaymentDrivers/Sample/CreditCard.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\Sample\\CreditCard\:\:processUnsuccessfulPayment\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: repo/app/PaymentDrivers/Sample/CreditCard.php
+
+		-
+			message: '#^Loose comparison using \=\= between 2 and 0 will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/app/PaymentDrivers/SquarePaymentDriver.php
+
+		-
+			message: '#^Access to an undefined property Stripe\\PaymentIntent\:\:\$charges\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/ACH.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/ACH.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\Stripe\\ACSS\:\:authorizeResponse\(\) with return type void returns Illuminate\\Http\\RedirectResponse but should not return anything\.$#'
+			identifier: return.void
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/ACSS.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\Stripe\\ACSS\:\:authorizeResponse\(\) with return type void returns mixed but should not return anything\.$#'
+			identifier: return.void
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/ACSS.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\Stripe\\ACSS\:\:authorizeView\(\) with return type void returns Illuminate\\Contracts\\View\\Factory\|Illuminate\\View\\View but should not return anything\.$#'
+			identifier: return.void
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/ACSS.php
+
+		-
+			message: '#^Parameter \#1 \$params of static method Stripe\\PaymentIntent\:\:create\(\) expects array\{amount\: int, application_fee_amount\?\: int, automatic_payment_methods\?\: array\{allow_redirects\?\: string, enabled\: bool\}, capture_method\?\: string, confirm\?\: bool, confirmation_method\?\: string, confirmation_token\?\: string, currency\: string, \.\.\.\}\|null, array\{amount\: mixed, currency\: mixed, payment_method_types\: array\{''acss_debit''\}, customer\: string\|null, description\: mixed, metadata\: array\{payment_hash\: string, gateway_type_id\: 19\}, payment_method\: string\|null, mandate\: mixed, \.\.\.\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/ACSS.php
+
+		-
+			message: '#^Parameter \#1 \$params of static method Stripe\\PaymentIntent\:\:create\(\) expects array\{amount\: int, application_fee_amount\?\: int, automatic_payment_methods\?\: array\{allow_redirects\?\: string, enabled\: bool\}, capture_method\?\: string, confirm\?\: bool, confirmation_method\?\: string, confirmation_token\?\: string, currency\: string, \.\.\.\}\|null, array\{amount\: mixed, currency\: mixed, payment_method_types\: array\{''alipay''\}, customer\: Stripe\\Customer\|null, description\: mixed, metadata\: array\{payment_hash\: string, gateway_type_id\: 6\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/Alipay.php
+
+		-
+			message: '#^Access to an undefined property object\{bsb_number\: string\|null, fingerprint\: string\|null, last4\: string\|null\}&Stripe\\StripeObject\:\:\$bank_code\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/BECS.php
+
+		-
+			message: '#^Parameter \#1 \$params of static method Stripe\\PaymentIntent\:\:create\(\) expects array\{amount\: int, application_fee_amount\?\: int, automatic_payment_methods\?\: array\{allow_redirects\?\: string, enabled\: bool\}, capture_method\?\: string, confirm\?\: bool, confirmation_method\?\: string, confirmation_token\?\: string, currency\: string, \.\.\.\}\|null, array\{amount\: mixed, currency\: mixed, payment_method_types\: array\{''au_becs_debit''\}, setup_future_usage\: ''off_session'', customer\: Stripe\\Customer\|null, description\: mixed, metadata\: array\{payment_hash\: string, gateway_type_id\: 20\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/BECS.php
+
+		-
+			message: '#^Parameter \#1 \$params of static method Stripe\\PaymentIntent\:\:create\(\) expects array\{amount\: int, application_fee_amount\?\: int, automatic_payment_methods\?\: array\{allow_redirects\?\: string, enabled\: bool\}, capture_method\?\: string, confirm\?\: bool, confirmation_method\?\: string, confirmation_token\?\: string, currency\: string, \.\.\.\}\|null, array\{amount\: mixed, currency\: ''eur'', payment_method_types\: array\{''bancontact''\}, customer\: Stripe\\Customer\|null, description\: mixed, metadata\: array\{payment_hash\: string, gateway_type_id\: 12\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/Bancontact.php
+
+		-
+			message: '#^Call to function is_bool\(\) with bool will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/BankAccountEligibility.php
+
+		-
+			message: '#^Access to an undefined property Spaze\\PHPStan\\Stripe\\Retrofit\\PaymentIntentNextAction\:\:\$display_bank_transfer_instructions\.$#'
+			identifier: property.notFound
+			count: 35
+			path: repo/app/PaymentDrivers/Stripe/BankTransfer.php
+
+		-
+			message: '#^PHPDoc tag @param for parameter \$pi with type mixed is not subtype of native type Stripe\\PaymentIntent\.$#'
+			identifier: parameter.phpDocType
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/BankTransfer.php
+
+		-
+			message: '#^Parameter \#1 \$params of static method Stripe\\PaymentIntent\:\:create\(\) expects array\{amount\: int, application_fee_amount\?\: int, automatic_payment_methods\?\: array\{allow_redirects\?\: string, enabled\: bool\}, capture_method\?\: string, confirm\?\: bool, confirmation_method\?\: string, confirmation_token\?\: string, currency\: string, \.\.\.\}\|null, array\{amount\: mixed, currency\: mixed, customer\: string, description\: mixed, payment_method_types\: array\{''customer_balance''\}, payment_method_data\: array\{type\: ''customer_balance''\}, payment_method_options\: array\{customer_balance\: array\{funding_type\: ''bank_transfer'', bank_transfer\: array\}\}, metadata\: array\{payment_hash\: string, gateway_type_id\: 18\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/BankTransfer.php
+
+		-
+			message: '#^Result of method App\\PaymentDrivers\\Stripe\\BankTransfer\:\:processUnsuccesfulRedirect\(\) \(void\) is used\.$#'
+			identifier: method.void
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/BankTransfer.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/BankTransfer.php
+
+		-
+			message: '#^Variable \$data might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/BankTransfer.php
+
+		-
+			message: '#^Access to an undefined property Stripe\\PaymentIntent\:\:\$charges\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/Charge.php
+
+		-
+			message: '#^Access to an undefined property object\{ach_credit_transfer\?\: object\{account_number\: string\|null, bank_name\: string\|null, routing_number\: string\|null, swift_code\: string\|null\}&Stripe\\StripeObject, ach_debit\?\: object\{account_holder_type\: string\|null, bank_name\: string\|null, country\: string\|null, fingerprint\: string\|null, last4\: string\|null, routing_number\: string\|null\}&Stripe\\StripeObject, acss_debit\?\: object\{bank_name\: string\|null, fingerprint\: string\|null, institution_number\: string\|null, last4\: string\|null, mandate\?\: string, transit_number\: string\|null\}&Stripe\\StripeObject, affirm\?\: object\{location\?\: string, reader\?\: string, transaction_id\: string\|null\}&Stripe\\StripeObject, afterpay_clearpay\?\: object\{order_id\: string\|null, reference\: string\|null\}&Stripe\\StripeObject, alipay\?\: object\{buyer_id\?\: string, fingerprint\: string\|null, transaction_id\: string\|null\}&Stripe\\StripeObject, alma\?\: object\{installments\?\: object\{count\: int\}&Stripe\\StripeObject, transaction_id\: string\|null\}&Stripe\\StripeObject, amazon_pay\?\: object\{funding\?\: object\{card\?\: object\{brand\: string\|null, country\: string\|null, exp_month\: int\|null, exp_year\: int\|null, funding\: string\|null, last4\: string\|null\}&Stripe\\StripeObject, type\: string\|null\}&Stripe\\StripeObject, transaction_id\: string\|null\}&Stripe\\StripeObject, au_becs_debit\?\: object\{bsb_number\: string\|null, fingerprint\: string\|null, last4\: string\|null, mandate\?\: string\}&Stripe\\StripeObject, bacs_debit\?\: object\{fingerprint\: string\|null, last4\: string\|null, mandate\: string\|null, sort_code\: string\|null\}&Stripe\\StripeObject, bancontact\?\: object\{bank_code\: string\|null, bank_name\: string\|null, bic\: string\|null, generated_sepa_debit\: string\|Stripe\\PaymentMethod\|null, generated_sepa_debit_mandate\: string\|Stripe\\Mandate\|null, iban_last4\: string\|null, preferred_language\: string\|null, verified_name\: string\|null\}&Stripe\\StripeObject, billie\?\: object\{transaction_id\: string\|null\}&Stripe\\StripeObject, blik\?\: object\{buyer_id\: string\|null\}&Stripe\\StripeObject, boleto\?\: object\{tax_id\: string\}&Stripe\\StripeObject, card\?\: object\{amount_authorized\: int\|null, authorization_code\: string\|null, brand\: string\|null, capture_before\?\: int, checks\: \(object\{address_line1_check\: string\|null, address_postal_code_check\: string\|null, cvc_check\: string\|null\}&Stripe\\StripeObject\)\|null, country\: string\|null, description\?\: string\|null, exp_month\: int, exp_year\: int, extended_authorization\?\: object\{status\: string\}&Stripe\\StripeObject, fingerprint\?\: string\|null, funding\: string\|null, iin\?\: string\|null, incremental_authorization\?\: object\{status\: string\}&Stripe\\StripeObject, installments\: \(object\{plan\: \(object\{count\: int\|null, interval\: string\|null, type\: string\}&Stripe\\StripeObject\)\|null\}&Stripe\\StripeObject\)\|null, issuer\?\: string\|null, last4\: string\|null, mandate\: string\|null, moto\?\: bool\|null, multicapture\?\: object\{status\: string\}&Stripe\\StripeObject, network\: string\|null, network_token\?\: \(object\{used\: bool\}&Stripe\\StripeObject\)\|null, network_transaction_id\: string\|null, overcapture\?\: object\{maximum_amount_capturable\: int, status\: string\}&Stripe\\StripeObject, regulated_status\: string\|null, three_d_secure\: \(object\{authentication_flow\: string\|null, electronic_commerce_indicator\: string\|null, exemption_indicator\: string\|null, exemption_indicator_applied\?\: bool, result\: string\|null, result_reason\: string\|null, transaction_id\: string\|null, version\: string\|null\}&Stripe\\StripeObject\)\|null, wallet\: \(object\{amex_express_checkout\?\: Stripe\\StripeObject, apple_pay\?\: Stripe\\StripeObject, dynamic_last4\: string\|null, google_pay\?\: Stripe\\StripeObject, link\?\: Stripe\\StripeObject, masterpass\?\: object\{billing_address\: \(object\{city\: string\|null, country\: string\|null, line1\: string\|null, line2\: string\|null, postal_code\: string\|null, state\: string\|null\}&Stripe\\StripeObject\)\|null, email\: string\|null, name\: string\|null, shipping_address\: \(object\{city\: string\|null, country\: string\|null, line1\: string\|null, line2\: string\|null, postal_code\: string\|null, state\: string\|null\}&Stripe\\StripeObject\)\|null\}&Stripe\\StripeObject, samsung_pay\?\: Stripe\\StripeObject, type\: string, visa_checkout\?\: object\{billing_address\: \(object\{city\: string\|null, country\: string\|null, line1\: string\|null, line2\: string\|null, postal_code\: string\|null, state\: string\|null\}&Stripe\\StripeObject\)\|null, email\: string\|null, name\: string\|null, shipping_address\: \(object\{city\: string\|null, country\: string\|null, line1\: string\|null, line2\: string\|null, postal_code\: string\|null, state\: string\|null\}&Stripe\\StripeObject\)\|null\}&Stripe\\StripeObject\}&Stripe\\StripeObject\)\|null\}&Stripe\\StripeObject, card_present\?\: object\{amount_authorized\: int\|null, brand\: string\|null, brand_product\: string\|null, capture_before\?\: int, cardholder_name\: string\|null, country\: string\|null, description\?\: string\|null, emv_auth_data\: string\|null, exp_month\: int, exp_year\: int, fingerprint\: string\|null, funding\: string\|null, generated_card\: string\|null, iin\?\: string\|null, incremental_authorization_supported\: bool, issuer\?\: string\|null, last4\: string\|null, network\: string\|null, network_transaction_id\: string\|null, offline\: \(object\{stored_at\: int\|null, type\: string\|null\}&Stripe\\StripeObject\)\|null, overcapture_supported\: bool, preferred_locales\: array\<string\>\|null, read_method\: string\|null, receipt\: \(object\{account_type\?\: string, application_cryptogram\: string\|null, application_preferred_name\: string\|null, authorization_code\: string\|null, authorization_response_code\: string\|null, cardholder_verification_method\: string\|null, dedicated_file_name\: string\|null, terminal_verification_results\: string\|null, transaction_status_information\: string\|null\}&Stripe\\StripeObject\)\|null, wallet\?\: object\{type\: string\}&Stripe\\StripeObject\}&Stripe\\StripeObject, cashapp\?\: object\{buyer_id\: string\|null, cashtag\: string\|null, transaction_id\: string\|null\}&Stripe\\StripeObject, crypto\?\: Stripe\\StripeObject, customer_balance\?\: Stripe\\StripeObject, eps\?\: object\{bank\: string\|null, verified_name\: string\|null\}&Stripe\\StripeObject, fpx\?\: object\{account_holder_type\: string\|null, bank\: string, transaction_id\: string\|null\}&Stripe\\StripeObject, giropay\?\: object\{bank_code\: string\|null, bank_name\: string\|null, bic\: string\|null, verified_name\: string\|null\}&Stripe\\StripeObject, grabpay\?\: object\{transaction_id\: string\|null\}&Stripe\\StripeObject, ideal\?\: object\{bank\: string\|null, bic\: string\|null, generated_sepa_debit\: string\|Stripe\\PaymentMethod\|null, generated_sepa_debit_mandate\: string\|Stripe\\Mandate\|null, iban_last4\: string\|null, verified_name\: string\|null\}&Stripe\\StripeObject, interac_present\?\: object\{brand\: string\|null, cardholder_name\: string\|null, country\: string\|null, description\?\: string\|null, emv_auth_data\: string\|null, exp_month\: int, exp_year\: int, fingerprint\: string\|null, funding\: string\|null, generated_card\: string\|null, iin\?\: string\|null, issuer\?\: string\|null, last4\: string\|null, network\: string\|null, network_transaction_id\: string\|null, preferred_locales\: array\<string\>\|null, read_method\: string\|null, receipt\: \(object\{account_type\?\: string, application_cryptogram\: string\|null, application_preferred_name\: string\|null, authorization_code\: string\|null, authorization_response_code\: string\|null, cardholder_verification_method\: string\|null, dedicated_file_name\: string\|null, terminal_verification_results\: string\|null, transaction_status_information\: string\|null\}&Stripe\\StripeObject\)\|null\}&Stripe\\StripeObject, kakao_pay\?\: object\{buyer_id\: string\|null, transaction_id\: string\|null\}&Stripe\\StripeObject, klarna\?\: object\{payer_details\: \(object\{address\: \(object\{country\: string\|null\}&Stripe\\StripeObject\)\|null\}&Stripe\\StripeObject\)\|null, payment_method_category\: string\|null, preferred_locale\: string\|null\}&Stripe\\StripeObject, konbini\?\: object\{store\: \(object\{chain\: string\|null\}&Stripe\\StripeObject\)\|null\}&Stripe\\StripeObject, kr_card\?\: object\{brand\: string\|null, buyer_id\: string\|null, last4\: string\|null, transaction_id\: string\|null\}&Stripe\\StripeObject, link\?\: object\{country\: string\|null\}&Stripe\\StripeObject, mobilepay\?\: object\{card\: \(object\{brand\: string\|null, country\: string\|null, exp_month\: int\|null, exp_year\: int\|null, last4\: string\|null\}&Stripe\\StripeObject\)\|null\}&Stripe\\StripeObject, multibanco\?\: object\{entity\: string\|null, reference\: string\|null\}&Stripe\\StripeObject, naver_pay\?\: object\{buyer_id\: string\|null, transaction_id\: string\|null\}&Stripe\\StripeObject, nz_bank_account\?\: object\{account_holder_name\: string\|null, bank_code\: string, bank_name\: string, branch_code\: string, last4\: string, suffix\: string\|null\}&Stripe\\StripeObject, oxxo\?\: object\{number\: string\|null\}&Stripe\\StripeObject, p24\?\: object\{bank\: string\|null, reference\: string\|null, verified_name\: string\|null\}&Stripe\\StripeObject, pay_by_bank\?\: Stripe\\StripeObject, payco\?\: object\{buyer_id\: string\|null, transaction_id\: string\|null\}&Stripe\\StripeObject, paynow\?\: object\{location\?\: string, reader\?\: string, reference\: string\|null\}&Stripe\\StripeObject, paypal\?\: object\{country\: string\|null, payer_email\: string\|null, payer_id\: string\|null, payer_name\: string\|null, seller_protection\: \(object\{dispute_categories\: array\<string\>\|null, status\: string\}&Stripe\\StripeObject\)\|null, transaction_id\: string\|null\}&Stripe\\StripeObject, pix\?\: Stripe\\StripeObject, promptpay\?\: object\{reference\: string\|null\}&Stripe\\StripeObject, revolut_pay\?\: object\{funding\?\: object\{card\?\: object\{brand\: string\|null, country\: string\|null, exp_month\: int\|null, exp_year\: int\|null, funding\: string\|null, last4\: string\|null\}&Stripe\\StripeObject, type\: string\|null\}&Stripe\\StripeObject, transaction_id\: string\|null\}&Stripe\\StripeObject, samsung_pay\?\: object\{buyer_id\: string\|null, transaction_id\: string\|null\}&Stripe\\StripeObject, satispay\?\: object\{transaction_id\: string\|null\}&Stripe\\StripeObject, sepa_credit_transfer\?\: object\{bank_name\: string\|null, bic\: string\|null, iban\: string\|null\}&Stripe\\StripeObject, sepa_debit\?\: object\{bank_code\: string\|null, branch_code\: string\|null, country\: string\|null, fingerprint\: string\|null, last4\: string\|null, mandate\: string\|null\}&Stripe\\StripeObject, sofort\?\: object\{bank_code\: string\|null, bank_name\: string\|null, bic\: string\|null, country\: string\|null, generated_sepa_debit\: string\|Stripe\\PaymentMethod\|null, generated_sepa_debit_mandate\: string\|Stripe\\Mandate\|null, iban_last4\: string\|null, preferred_language\: string\|null, verified_name\: string\|null\}&Stripe\\StripeObject, stripe_account\?\: Stripe\\StripeObject, swish\?\: object\{fingerprint\: string\|null, payment_reference\: string\|null, verified_phone_last4\: string\|null\}&Stripe\\StripeObject, twint\?\: Stripe\\StripeObject, type\: string, us_bank_account\?\: object\{account_holder_type\: string\|null, account_type\: string\|null, bank_name\: string\|null, fingerprint\: string\|null, last4\: string\|null, mandate\?\: string\|Stripe\\Mandate, payment_reference\: string\|null, routing_number\: string\|null\}&Stripe\\StripeObject, wechat\?\: Stripe\\StripeObject, wechat_pay\?\: object\{fingerprint\: string\|null, location\?\: string, reader\?\: string, transaction_id\: string\|null\}&Stripe\\StripeObject, zip\?\: Stripe\\StripeObject\}&Stripe\\StripeObject\:\:\$card\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/Charge.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\Stripe\\Charge\:\:formatGatewayResponse\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/Charge.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type Stripe\\PaymentIntent\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/Charge.php
+
+		-
+			message: '#^Access to an undefined property Stripe\\StripeObject\:\:\$stripe_user_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/Connect/ConnectOauth.php
+
+		-
+			message: '#^Parameter \#1 \$params of static method Stripe\\PaymentIntent\:\:create\(\) expects array\{amount\: int, application_fee_amount\?\: int, automatic_payment_methods\?\: array\{allow_redirects\?\: string, enabled\: bool\}, capture_method\?\: string, confirm\?\: bool, confirmation_method\?\: string, confirmation_token\?\: string, currency\: string, \.\.\.\}\|null, array\{amount\: mixed, currency\: ''eur'', payment_method_types\: array\{''eps''\}, customer\: Stripe\\Customer\|null, description\: mixed, metadata\: array\{payment_hash\: string, gateway_type_id\: 17\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/EPS.php
+
+		-
+			message: '#^Parameter \#1 \$params of static method Stripe\\PaymentIntent\:\:create\(\) expects array\{amount\: int, application_fee_amount\?\: int, automatic_payment_methods\?\: array\{allow_redirects\?\: string, enabled\: bool\}, capture_method\?\: string, confirm\?\: bool, confirmation_method\?\: string, confirmation_token\?\: string, currency\: string, \.\.\.\}\|null, array\{amount\: mixed, currency\: string, payment_method_types\: array\{''fpx''\}, customer\: Stripe\\Customer\|null, description\: mixed, metadata\: array\{payment_hash\: string, gateway_type_id\: 22\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/FPX.php
+
+		-
+			message: '#^Parameter \#1 \$params of static method Stripe\\PaymentIntent\:\:create\(\) expects array\{amount\: int, application_fee_amount\?\: int, automatic_payment_methods\?\: array\{allow_redirects\?\: string, enabled\: bool\}, capture_method\?\: string, confirm\?\: bool, confirmation_method\?\: string, confirmation_token\?\: string, currency\: string, \.\.\.\}\|null, array\{amount\: mixed, currency\: ''eur'', payment_method_types\: array\{''giropay''\}, customer\: Stripe\\Customer\|null, description\: mixed, metadata\: array\{payment_hash\: string, gateway_type_id\: 15\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/GIROPAY.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/ImportCustomers.php
+
+		-
+			message: '#^Parameter \#1 \$params of static method Stripe\\Customer\:\:all\(\) expects array\{created\?\: array\|int, email\?\: string, ending_before\?\: string, expand\?\: array\<string\>, limit\?\: int, starting_after\?\: string, test_clock\?\: string\}\|null, array\{email\: mixed, limit\: 2, starting_after\: null\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/ImportCustomers.php
+
+		-
+			message: '#^Property App\\PaymentDrivers\\Stripe\\Jobs\\PaymentIntentFailureWebhook\:\:\$company_gateway_id is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/Jobs/PaymentIntentFailureWebhook.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/Jobs/PaymentIntentProcessingWebhook.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/Jobs/PaymentIntentProcessingWebhook.php
+
+		-
+			message: '#^Parameter \#1 \$params of static method Stripe\\PaymentIntent\:\:create\(\) expects array\{amount\: int, application_fee_amount\?\: int, automatic_payment_methods\?\: array\{allow_redirects\?\: string, enabled\: bool\}, capture_method\?\: string, confirm\?\: bool, confirmation_method\?\: string, confirmation_token\?\: string, currency\: string, \.\.\.\}\|null, array\{amount\: mixed, currency\: string, payment_method_types\: array\{''klarna''\}, customer\: Stripe\\Customer\|null, description\: mixed, metadata\: array\{payment_hash\: string, gateway_type_id\: 23\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/Klarna.php
+
+		-
+			message: '#^Parameter \#1 \$params of static method Stripe\\PaymentIntent\:\:create\(\) expects array\{amount\: int, application_fee_amount\?\: int, automatic_payment_methods\?\: array\{allow_redirects\?\: string, enabled\: bool\}, capture_method\?\: string, confirm\?\: bool, confirmation_method\?\: string, confirmation_token\?\: string, currency\: string, \.\.\.\}\|null, array\{amount\: mixed, currency\: ''eur'', payment_method_types\: array\{''p24''\}, customer\: Stripe\\Customer\|null, description\: mixed, metadata\: array\{payment_hash\: string, gateway_type_id\: 16\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/PRZELEWY24.php
+
+		-
+			message: '#^Parameter \#1 \$params of static method Stripe\\PaymentIntent\:\:create\(\) expects array\{amount\: int, application_fee_amount\?\: int, automatic_payment_methods\?\: array\{allow_redirects\?\: string, enabled\: bool\}, capture_method\?\: string, confirm\?\: bool, confirmation_method\?\: string, confirmation_token\?\: string, currency\: string, \.\.\.\}\|null, array\{amount\: mixed, currency\: ''eur'', payment_method_types\: array\{''sepa_debit''\}, setup_future_usage\: ''off_session'', customer\: Stripe\\Customer\|null, description\: mixed, metadata\: array\{payment_hash\: string, gateway_type_id\: 9\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/SEPA.php
+
+		-
+			message: '#^Parameter \#1 \$params of static method Stripe\\PaymentIntent\:\:create\(\) expects array\{amount\: int, application_fee_amount\?\: int, automatic_payment_methods\?\: array\{allow_redirects\?\: string, enabled\: bool\}, capture_method\?\: string, confirm\?\: bool, confirmation_method\?\: string, confirmation_token\?\: string, currency\: string, \.\.\.\}\|null, array\{amount\: mixed, currency\: ''eur'', payment_method_types\: array\{''sofort''\}, customer\: Stripe\\Customer\|null, description\: mixed, metadata\: array\{payment_hash\: string, gateway_type_id\: 7\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/SOFORT.php
+
+		-
+			message: '#^Parameter \#1 \$params of static method Stripe\\PaymentIntent\:\:create\(\) expects array\{amount\: int, application_fee_amount\?\: int, automatic_payment_methods\?\: array\{allow_redirects\?\: string, enabled\: bool\}, capture_method\?\: string, confirm\?\: bool, confirmation_method\?\: string, confirmation_token\?\: string, currency\: string, \.\.\.\}\|null, array\{amount\: mixed, currency\: ''eur'', payment_method_types\: array\{''ideal''\}, customer\: Stripe\\Customer\|null, description\: mixed, metadata\: array\{payment_hash\: string, gateway_type_id\: 13\}\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/PaymentDrivers/Stripe/iDeal.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: repo/app/PaymentDrivers/StripePaymentDriver.php
+
+		-
+			message: '#^Method App\\PaymentDrivers\\StripePaymentDriver\:\:disconnect\(\) should return bool but returns Illuminate\\Http\\JsonResponse\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/app/PaymentDrivers/StripePaymentDriver.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/PaymentDrivers/StripePaymentDriver.php
+
+		-
+			message: '#^PHPDoc type array of property App\\Providers\\AuthServiceProvider\:\:\$policies is not covariant with PHPDoc type array\<class\-string, class\-string\> of overridden property Illuminate\\Foundation\\Support\\Providers\\AuthServiceProvider\:\:\$policies\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: repo/app/Providers/AuthServiceProvider.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>email" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Providers/RouteServiceProvider.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 2
+			path: repo/app/Repositories/ActivityRepository.php
+
+		-
+			message: '#^Instanceof between App\\Models\\Credit\|App\\Models\\Expense\|App\\Models\\Invoice\|App\\Models\\PurchaseOrder\|App\\Models\\Quote and App\\Models\\User will always evaluate to false\.$#'
+			identifier: instanceof.alwaysFalse
+			count: 1
+			path: repo/app/Repositories/ActivityRepository.php
+
+		-
+			message: '#^Loose comparison using \=\= between class\-string\<App\\Models\\Credit\>\|class\-string\<App\\Models\\Expense\>\|class\-string\<App\\Models\\Invoice\>\|class\-string\<App\\Models\\PurchaseOrder\>\|class\-string\<App\\Models\\Quote\>\|false and ''App\\\\Models\\\\RecurringInvoice'' will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/app/Repositories/ActivityRepository.php
+
+		-
+			message: '#^Property App\\Models\\Backup\:\:\$amount \(string\) does not accept float\.$#'
+			identifier: assign.propertyType
+			count: 2
+			path: repo/app/Repositories/ActivityRepository.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type App\\Models\\Company\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Repositories/ActivityRepository.php
+
+		-
+			message: '#^Loose comparison using \=\= between int\<min, \-1\>\|int\<1, max\> and 0 will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/app/Repositories/ClientRepository.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Repositories/InvoiceRepository.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: repo/app/Repositories/PaymentRepository.php
+
+		-
+			message: '#^Loose comparison using \=\= between int\<min, \-1\>\|int\<1, max\> and 0 will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/app/Repositories/PaymentRepository.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$can_sign\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Repositories/PurchaseOrderRepository.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Repositories/TaskRepository.php
+
+		-
+			message: '#^Call to function is_numeric\(\) with float will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Repositories/TaskRepository.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: repo/app/Repositories/TaskRepository.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: repo/app/Repositories/TaskStatusRepository.php
+
+		-
+			message: '#^Call to function is_numeric\(\) with int will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Repositories/UserRepository.php
+
+		-
+			message: '#^Negated boolean expression is always true\.$#'
+			identifier: booleanNot.alwaysTrue
+			count: 1
+			path: repo/app/Services/Bank/ProcessBankRules.php
+
+		-
+			message: '#^Method Carbon\\Carbon\:\:addDay\(\) invoked with 1 parameter, 0 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: repo/app/Services/Chart/CashFlowForecastService.php
+
+		-
+			message: '#^Method Carbon\\Carbon\:\:addMonthNoOverflow\(\) invoked with 1 parameter, 0 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: repo/app/Services/Chart/CashFlowForecastService.php
+
+		-
+			message: '#^Method Carbon\\Carbon\:\:addWeek\(\) invoked with 1 parameter, 0 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: repo/app/Services/Chart/CashFlowForecastService.php
+
+		-
+			message: '#^Method Carbon\\Carbon\:\:addYear\(\) invoked with 1 parameter, 0 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: repo/app/Services/Chart/CashFlowForecastService.php
+
+		-
+			message: '#^Property App\\Services\\Chart\\CashFlowForecastService\:\:\$company is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/Chart/CashFlowForecastService.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 8
+			path: repo/app/Services/Chart/ChartCalculations.php
+
+		-
+			message: '#^Method App\\Services\\Chart\\ChartService\:\:activeTasks\(\) should return Illuminate\\Support\\Collection\<int, App\\Models\\Task\> but returns Illuminate\\Database\\Eloquent\\Collection\<int, Illuminate\\Database\\Eloquent\\Model\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/app/Services/Chart/ChartService.php
+
+		-
+			message: '#^Method Carbon\\Carbon\:\:addDay\(\) invoked with 1 parameter, 0 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: repo/app/Services/Chart/ChartService.php
+
+		-
+			message: '#^Method Carbon\\Carbon\:\:addMonthNoOverflow\(\) invoked with 1 parameter, 0 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: repo/app/Services/Chart/ChartService.php
+
+		-
+			message: '#^Method Carbon\\Carbon\:\:addWeek\(\) invoked with 1 parameter, 0 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: repo/app/Services/Chart/ChartService.php
+
+		-
+			message: '#^Method Carbon\\Carbon\:\:addYear\(\) invoked with 1 parameter, 0 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: repo/app/Services/Chart/ChartService.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:filter\(\) expects \(callable\(Illuminate\\Database\\Eloquent\\Model, int\)\: bool\)\|null, Closure\(App\\Models\\Task\)\: bool given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Services/Chart/ChartService.php
+
+		-
+			message: '#^Property App\\Services\\Chart\\ClientPaymentAnalyticsService\:\:\$company is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/Chart/ClientPaymentAnalyticsService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Client/ClientService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: repo/app/Services/Client/ClientService.php
+
+		-
+			message: '#^Loose comparison using \=\= between non\-falsy\-string and '''' will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/app/Services/Client/MapSettings.php
+
+		-
+			message: '#^Method App\\Services\\Client\\PaymentMethod\:\:validGatewayForAmount\(\) invoked with 2 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: repo/app/Services/Client/PaymentMethod.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$invitations\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Client/Statement.php
+
+		-
+			message: '#^Property App\\Services\\Client\\Statement\:\:\$entity \(App\\Models\\Invoice\|null\) does not accept Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/app/Services/Client/Statement.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\Collection\<\(int\|string\),mixed\>\:\:filter\(\) expects \(callable\(mixed, int\|string\)\: bool\)\|null, Closure\(mixed\)\: \(App\\Models\\Invoice\|null\) given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Services/ClientPortal/InstantPayment.php
+
+		-
+			message: '#^Method App\\Services\\Credit\\ApplyPayment\:\:applyPaymentToCredit\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: repo/app/Services/Credit/ApplyPayment.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Gateway\\Qvalia\\Mutator\:\:\$override_country_code is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Gateway/Qvalia/Mutator.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Gateway\\Qvalia\\Qvalia\:\:\$dbn_discovery is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Gateway/Qvalia/Qvalia.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Gateway\\Qvalia\\Qvalia\:\:\$legal_entity_id is never written, only read\.$#'
+			identifier: property.onlyRead
+			count: 1
+			path: repo/app/Services/EDocument/Gateway/Qvalia/Qvalia.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Gateway\\Qvalia\\Qvalia\:\:\$peppol_discovery is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Gateway/Qvalia/Qvalia.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Gateway\\Storecove\\Mutator\:\:\$override_country_code is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Gateway/Storecove/Mutator.php
+
+		-
+			message: '#^Call to function property_exists\(\) with App\\Services\\EDocument\\Gateway\\Storecove\\Models\\TaxesDutiesFees and ''category'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Services/EDocument/Gateway/Storecove/StorecoveAdapter.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Gateway\\Transformers\\StorecoveExpense\:\:\$storecove is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Gateway/Transformers/StorecoveExpense.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 2
+			path: repo/app/Services/EDocument/Imports/MindeeEDocument.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: repo/app/Services/EDocument/Imports/UblEDocument.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Services/EDocument/Imports/ZugferdEDocument.php
+
+		-
+			message: '#^Property App\\Models\\Expense\:\:\$date \(string\|null\) does not accept DateTime\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/app/Services/EDocument/Imports/ZugferdEDocument.php
+
+		-
+			message: '#^Array has 2 duplicate keys with value 875 \("875", "875"\)\.$#'
+			identifier: array.duplicateKey
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Codes/InvoiceType.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\Codes\\InvoiceType\:\:\$InvoiceTypeCodes is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Codes/InvoiceType.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\Codes\\Iso6523\:\:\$icd is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Codes/Iso6523.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\Codes\\Iso6523\:\:\$iso6523 is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Codes/Iso6523.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\Codes\\Tax\:\:\$tax_codes is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Codes/Tax.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$custom_value1\.$#'
+			identifier: property.notFound
+			count: 2
+			path: repo/app/Services/EDocument/Standards/FacturaEInvoice.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$custom_value2\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/EDocument/Standards/FacturaEInvoice.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$custom_value3\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/EDocument/Standards/FacturaEInvoice.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: repo/app/Services/EDocument/Standards/FatturaPA.php
+
+		-
+			message: '#^Property InvoiceNinja\\EInvoice\\Models\\FatturaPA\\CessionarioCommittenteType\\CessionarioCommittente\:\:\$DatiAnagrafici \(InvoiceNinja\\EInvoice\\Models\\FatturaPA\\DatiAnagraficiCessionarioType\\DatiAnagrafici\) does not accept InvoiceNinja\\EInvoice\\Models\\FatturaPA\\DatiAnagraficiCedenteType\\DatiAnagrafici\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/app/Services/EDocument/Standards/FatturaPANew.php
+
+		-
+			message: '#^Property InvoiceNinja\\EInvoice\\Models\\FatturaPA\\DettaglioLineeType\\DettaglioLinee\:\:\$NumeroLinea \(int\) does not accept string\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/app/Services/EDocument/Standards/FatturaPANew.php
+
+		-
+			message: '#^Property InvoiceNinja\\EInvoice\\Models\\FatturaPA\\IndirizzoType\\Sede\:\:\$CAP \(string\) does not accept int\.$#'
+			identifier: assign.propertyType
+			count: 2
+			path: repo/app/Services/EDocument/Standards/FatturaPANew.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\OrderXDocument\:\:\$returnObject is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Standards/OrderXDocument.php
+
+		-
+			message: '#^Access to an undefined property App\\Services\\EDocument\\Standards\\Peppol\:\:\$peppol_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Peppol.php
+
+		-
+			message: '#^Parameter \#1 \$num of function round expects float\|int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Peppol.php
+
+		-
+			message: '#^Property InvoiceNinja\\EInvoice\\Models\\Peppol\\AmountType\\PayableAmount\:\:\$amount \(string\) does not accept float\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Peppol.php
+
+		-
+			message: '#^Property InvoiceNinja\\EInvoice\\Models\\Peppol\\AmountType\\TaxInclusiveAmount\:\:\$amount \(string\) does not accept float\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Peppol.php
+
+		-
+			message: '#^Property InvoiceNinja\\EInvoice\\Models\\Peppol\\FinancialAccountType\\PayeeFinancialAccount\:\:\$FinancialInstitutionBranch \(InvoiceNinja\\EInvoice\\Models\\Peppol\\BranchType\\FinancialInstitutionBranch\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Peppol/DK.php
+
+		-
+			message: '#^Property InvoiceNinja\\EInvoice\\Models\\Peppol\\PaymentMeansType\\PaymentMeans\:\:\$PayeeFinancialAccount \(InvoiceNinja\\EInvoice\\Models\\Peppol\\FinancialAccountType\\PayeeFinancialAccount\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Peppol/DK.php
+
+		-
+			message: '#^Property InvoiceNinja\\EInvoice\\Models\\Peppol\\PaymentMeansType\\PaymentMeans\:\:\$PaymentMeansCode \(InvoiceNinja\\EInvoice\\Models\\Peppol\\CodeType\\PaymentMeansCode\) in isset\(\) is not nullable\.$#'
+			identifier: isset.property
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Peppol/DK.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 2
+			path: repo/app/Services/EDocument/Standards/Peppol/DK.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>ID" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Peppol/DK.php
+
+		-
+			message: '#^Access to an undefined property InvoiceNinja\\EInvoice\\Models\\Peppol\\PartyIdentificationType\\PartyIdentification\:\:\$value\.$#'
+			identifier: property.notFound
+			count: 4
+			path: repo/app/Services/EDocument/Standards/Peppol/RO.php
+
+		-
+			message: '#^Method App\\Services\\EDocument\\Standards\\RoEInvoice\:\:createTaxRate\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: repo/app/Services/EDocument/Standards/RoEInvoice.php
+
+		-
+			message: '#^Method App\\Services\\EDocument\\Standards\\RoEInvoice\:\:getItemTaxable\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: repo/app/Services/EDocument/Standards/RoEInvoice.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\RoEInvoice\:\:\$sectorCodes is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Standards/RoEInvoice.php
+
+		-
+			message: '#^Loose comparison using \=\= between 0 and 0 will always evaluate to true\.$#'
+			identifier: equal.alwaysTrue
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Validation/Peppol/EntityLevel.php
+
+		-
+			message: '#^Using nullsafe method call on non\-nullable type App\\Models\\Company\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Validation/Peppol/EntityLevel.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Validation/Verifactu/InvoiceValidator.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 2
+			path: repo/app/Services/EDocument/Standards/Validation/Verifactu/InvoiceValidator.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\Validation\\VerifactuDocumentValidator\:\:\$verifactu_informacion_xsd is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Validation/VerifactuDocumentValidator.php
+
+		-
+			message: '#^Call to function is_numeric\(\) with float will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu.php
+
+		-
+			message: '#^Constant App\\Services\\EDocument\\Standards\\Verifactu\\Models\\IDOtro\:\:VALID_ID_TYPES is unused\.$#'
+			identifier: classConstant.unused
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu/Models/IDOtro.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\Verifactu\\Models\\IDOtro\:\:\$nombreRazon \(string\|null\) is never assigned null so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu/Models/IDOtro.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between App\\Services\\EDocument\\Standards\\Verifactu\\Models\\Desglose and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu/Models/Invoice.php
+
+		-
+			message: '#^Parameter \#1 \$idOtro of method App\\Services\\EDocument\\Standards\\Verifactu\\Models\\PersonaFisicaJuridica\:\:setIdOtro\(\) expects App\\Services\\EDocument\\Standards\\Verifactu\\Models\\IDOtro, string\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu/Models/PersonaFisicaJuridica.php
+
+		-
+			message: '#^Access to an undefined property App\\Services\\EDocument\\Standards\\Verifactu\\RegistroAlta\:\:\$peppol_enabled\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu/RegistroAlta.php
+
+		-
+			message: '#^Parameter \#1 \$num of function round expects float\|int, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu/RegistroAlta.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\Verifactu\\RegistroAlta\:\:\$calculated_invoice_values is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu/RegistroAlta.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\Verifactu\\RegistroAlta\:\:\$calificacion_operacion_codes is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu/RegistroAlta.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\Verifactu\\RegistroAlta\:\:\$clave_regimen_codes is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu/RegistroAlta.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\Verifactu\\RegistroAlta\:\:\$errors is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu/RegistroAlta.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\Verifactu\\RegistroAlta\:\:\$impuesto_codes is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu/RegistroAlta.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\Verifactu\\RegistroAlta\:\:\$v_log \(App\\Models\\VerifactuLog\|null\) does not accept Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu/RegistroAlta.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\Verifactu\\ResponseProcessor\:\:\$root is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu/ResponseProcessor.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$contact\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu/SendToAeat.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$email_error\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu/SendToAeat.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$hash\.$#'
+			identifier: property.notFound
+			count: 2
+			path: repo/app/Services/EDocument/Standards/Verifactu/SendToAeat.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$invoice\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/EDocument/Standards/Verifactu/SendToAeat.php
+
+		-
+			message: '#^Method App\\Services\\EDocument\\Standards\\ZugferdEDocument\:\:getIdNumberRegistrationType\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: repo/app/Services/EDocument/Standards/ZugferdEDocument.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\ZugferdEDocument\:\:\$returnObject is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/EDocument/Standards/ZugferdEDocument.php
+
+		-
+			message: '#^Property App\\Services\\EDocument\\Standards\\ZugferdEDocument\:\:\$temp_file_path \(string\|null\) is never assigned string so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: repo/app/Services/EDocument/Standards/ZugferdEDocument.php
+
+		-
+			message: '#^Cannot access property \$access_token on array\|object\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: repo/app/Services/Email/AdminEmail.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 4
+			path: repo/app/Services/Email/AdminEmail.php
+
+		-
+			message: '#^Parameter \#2 \$recipient_object of method App\\Services\\Email\\AdminEmail\:\:logMailError\(\) expects App\\Models\\Client\|null, Illuminate\\Database\\Eloquent\\Model\|null given\.$#'
+			identifier: argument.type
+			count: 4
+			path: repo/app/Services/Email/AdminEmail.php
+
+		-
+			message: '#^Cannot access property \$access_token on array\|object\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: repo/app/Services/Email/Email.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 4
+			path: repo/app/Services/Email/Email.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Services/Email/Email.php
+
+		-
+			message: '#^Property App\\Services\\Email\\EmailObject\:\:\$invitation \(App\\Models\\CreditInvitation\|App\\Models\\InvoiceInvitation\|App\\Models\\PurchaseOrderInvitation\|App\\Models\\QuoteInvitation\|null\) does not accept Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/app/Services/Email/Email.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>\(Expression\)" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Services/Email/EmailDefaults.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-list\<string\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 4
+			path: repo/app/Services/InboundMail/InboundMailEngine.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Services/InboundMail/InboundMailEngine.php
+
+		-
+			message: '#^PHPDoc tag @var with type App\\Models\\Expense is not subtype of native type null\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/app/Services/InboundMail/InboundMailEngine.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Services/Invoice/AutoBillInvoice.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: repo/app/Services/Invoice/AutoBillInvoice.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$can_sign\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Invoice/CreateInvitations.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Invoice/CreateInvitations.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Builder\<Illuminate\\Database\\Eloquent\\Model\>\:\:each\(\) expects callable\(Illuminate\\Database\\Eloquent\\Model, int\)\: mixed, Closure\(App\\Models\\ClientContact\)\: void given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Services/Invoice/CreateInvitations.php
+
+		-
+			message: '#^Property App\\Services\\Invoice\\GenerateDeliveryNote\:\:\$contact is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/Invoice/GenerateDeliveryNote.php
+
+		-
+			message: '#^Property App\\Services\\Invoice\\GenerateDeliveryNote\:\:\$disk is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/Invoice/GenerateDeliveryNote.php
+
+		-
+			message: '#^Property App\\Services\\Invoice\\GetInvoicePdf\:\:\$contact \(App\\Models\\ClientContact\|null\) does not accept Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/app/Services/Invoice/GetInvoicePdf.php
+
+		-
+			message: '#^Property App\\Services\\Invoice\\HandleRestore\:\:\$payment_total is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/Invoice/HandleRestore.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: repo/app/Services/Invoice/MarkPaid.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$company\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Invoice/SendEmail.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Invoice/SendEmail.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$invoice\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Invoice/SendEmail.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$invoice_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Invoice/SendEmail.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/app/Services/Invoice/UpdateReminder.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/app/Services/Payment/DeletePayment.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/app/Services/Payment/DeletePaymentV2.php
+
+		-
+			message: '#^Parameter \#1 \$balance_adjustment of method App\\Services\\Invoice\\InvoiceService\:\:updateBalance\(\) expects float, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Services/Payment/DeletePaymentV2.php
+
+		-
+			message: '#^Parameter \#3 \$contact of job class App\\Jobs\\Payment\\EmailRefundPayment constructor expects App\\Models\\ClientContact\|null in App\\Jobs\\Payment\\EmailRefundPayment\:\:dispatch\(\), Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Services/Payment/RefundPayment.php
+
+		-
+			message: '#^Offset 0 on non\-empty\-list\<string\> in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: repo/app/Services/Pdf/JsonToSectionsAdapter.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-falsy\-string and ''0'' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: repo/app/Services/Pdf/JsonToSectionsAdapter.php
+
+		-
+			message: '#^Access to an undefined property App\\DataMapper\\InvoiceItem\:\:\$item\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Pdf/PdfBuilder.php
+
+		-
+			message: '#^Access to an undefined property DOMNode\:\:\$tagName\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Pdf/PdfBuilder.php
+
+		-
+			message: '#^Call to function is_null\(\) with float will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: repo/app/Services/Pdf/PdfBuilder.php
+
+		-
+			message: '#^Call to function is_object\(\) with object will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Services/Pdf/PdfBuilder.php
+
+		-
+			message: '#^Call to function property_exists\(\) with App\\DataMapper\\InvoiceItem and ''gross_line_total'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Services/Pdf/PdfBuilder.php
+
+		-
+			message: '#^Call to function property_exists\(\) with App\\DataMapper\\InvoiceItem and ''task_id'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Services/Pdf/PdfBuilder.php
+
+		-
+			message: '#^Call to function property_exists\(\) with App\\DataMapper\\InvoiceItem and ''tax_amount'' will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Services/Pdf/PdfBuilder.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type object\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: repo/app/Services/Pdf/PdfBuilder.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$company\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Pdf/PdfMock.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Services/Pdf/PdfMock.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>primary_font" in isset\(\) is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Services/Pdf/PdfMock.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>secondary_font" in isset\(\) is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: repo/app/Services/Pdf/PdfMock.php
+
+		-
+			message: '#^Static method App\\Services\\Pdf\\Purify\:\:isDangerousSvgElement\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: repo/app/Services/Pdf/Purify.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) expects callable\(Illuminate\\Database\\Eloquent\\Model, int\)\: array\{date\: string, hours_used\: float\|int, hours_invoiced\: float\|int, hours_uninvoiced\: float\|int\}, Closure\(App\\Models\\Task\)\: array\{date\: string, hours_used\: float\|int, hours_invoiced\: float\|int, hours_uninvoiced\: float\|int\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Services/Project/ProjectService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$can_sign\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/PurchaseOrder/CreateInvitations.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/PurchaseOrder/CreateInvitations.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Services/PurchaseOrder/CreateInvitations.php
+
+		-
+			message: '#^Property App\\Services\\PurchaseOrder\\GetPurchaseOrderPdf\:\:\$contact \(App\\Models\\VendorContact\|null\) does not accept Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/app/Services/PurchaseOrder/GetPurchaseOrderPdf.php
+
+		-
+			message: '#^Call to function is_array\(\) with non\-empty\-array\<int, mixed\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/app/Services/Quickbooks/Invoice/AstTaxResponseProcessor.php
+
+		-
+			message: '#^Property App\\Services\\Quickbooks\\Jobs\\QuickbooksImport\:\:\$settings is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/Quickbooks/Jobs/QuickbooksImport.php
+
+		-
+			message: '#^Loose comparison using \=\= between 0 and 0 will always evaluate to true\.$#'
+			identifier: equal.alwaysTrue
+			count: 2
+			path: repo/app/Services/Quickbooks/Models/QbClient.php
+
+		-
+			message: '#^If condition is always true\.$#'
+			identifier: if.alwaysTrue
+			count: 1
+			path: repo/app/Services/Quickbooks/Models/QbProduct.php
+
+		-
+			message: '#^Property App\\DataMapper\\ProductSync\:\:\$qb_id \(string\) does not accept null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/app/Services/Quickbooks/Models/QbProduct.php
+
+		-
+			message: '#^Offset ''code'' on array\{code\: string, element\: string, message\: string, detail\: string\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: repo/app/Services/Quickbooks/QuickbooksFault.php
+
+		-
+			message: '#^Offset ''element'' on array\{code\: string, element\: string, message\: string, detail\: string\} on left side of \?\? always exists and is not nullable\.$#'
+			identifier: nullCoalesce.offset
+			count: 1
+			path: repo/app/Services/Quickbooks/QuickbooksFault.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 6
+			path: repo/app/Services/Quickbooks/QuickbooksService.php
+
+		-
+			message: '#^Parameter \#1 \$array \(non\-empty\-list\<non\-empty\-array\<mixed\>\>\) of array_values is already a list, call has no effect\.$#'
+			identifier: arrayValues.list
+			count: 1
+			path: repo/app/Services/Quickbooks/QuickbooksService.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 3
+			path: repo/app/Services/Quickbooks/Transformers/BaseTransformer.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Quickbooks/Transformers/ClientTransformer.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$first_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Quickbooks/Transformers/ClientTransformer.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$last_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Quickbooks/Transformers/ClientTransformer.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$phone\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Quickbooks/Transformers/ClientTransformer.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>email" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Services/Quickbooks/Transformers/ClientTransformer.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>first_name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Services/Quickbooks/Transformers/ClientTransformer.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>iso_3166_3" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: repo/app/Services/Quickbooks/Transformers/ClientTransformer.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>last_name" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Services/Quickbooks/Transformers/ClientTransformer.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>phone" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Services/Quickbooks/Transformers/ClientTransformer.php
+
+		-
+			message: '#^Loose comparison using \=\= between float and ''NON'' will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/app/Services/Quickbooks/Transformers/QuoteTransformer.php
+
+		-
+			message: '#^Loose comparison using \=\= between float and ''true'' will always evaluate to false\.$#'
+			identifier: equal.alwaysFalse
+			count: 1
+			path: repo/app/Services/Quickbooks/Transformers/QuoteTransformer.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Quote/ConvertQuoteToProject.php
+
+		-
+			message: '#^Property App\\Services\\Quote\\GetQuotePdf\:\:\$contact \(App\\Models\\ClientContact\|null\) does not accept Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/app/Services/Quote/GetQuotePdf.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:filter\(\) expects \(callable\(Illuminate\\Database\\Eloquent\\Model, int\)\: bool\)\|null, Closure\(App\\Models\\Client\)\: bool given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Services/Report/ClientBalanceReport.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\Collection\<\(int\|string\),Illuminate\\Database\\Eloquent\\Model\>\:\:sortBy\(\) expects array\<array\{string, string\}\|\(callable\(Illuminate\\Database\\Eloquent\\Model, Illuminate\\Database\\Eloquent\\Model\)\: mixed\)\|\(callable\(Illuminate\\Database\\Eloquent\\Model, int\|string\)\: mixed\)\|string\>\|\(callable\(Illuminate\\Database\\Eloquent\\Model, int\|string\)\: mixed\)\|string, Closure\(App\\Models\\Client\)\: string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Services/Report/ClientSalesReport.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:filter\(\) expects \(callable\(Illuminate\\Database\\Eloquent\\Model, int\)\: bool\)\|null, Closure\(App\\Models\\Client\)\: bool given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Services/Report/ClientSalesReport.php
+
+		-
+			message: '#^Property App\\Services\\Report\\EInvoiceReport\:\:\$template is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/Report/EInvoiceReport.php
+
+		-
+			message: '#^Using nullsafe property access on non\-nullable type App\\DataMapper\\InvoiceBackup\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Services/Report/EInvoiceReport.php
+
+		-
+			message: '#^Property App\\Services\\Report\\ProfitLoss\:\:\$credit_invoice is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/Report/ProfitLoss.php
+
+		-
+			message: '#^Property App\\Services\\Report\\ProfitLoss\:\:\$is_expense_billed is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/Report/ProfitLoss.php
+
+		-
+			message: '#^Property App\\Services\\Report\\ProfitLoss\:\:\$is_tax_included is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/Report/ProfitLoss.php
+
+		-
+			message: '#^Property App\\Services\\Report\\RefundReport\:\:\$template is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: repo/app/Services/Report/RefundReport.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Services/Scheduler/EmailReport.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Database\\Eloquent\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:map\(\) expects callable\(Illuminate\\Database\\Eloquent\\Model, int\)\: App\\DataMapper\\InvoiceItem, Closure\(App\\Models\\Task, mixed\)\: App\\DataMapper\\InvoiceItem given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Services/Scheduler/InvoiceOutstandingTasksService.php
+
+		-
+			message: '#^Parameter \#1 \$callback of method Illuminate\\Support\\Collection\<int,Illuminate\\Database\\Eloquent\\Model\>\:\:filter\(\) expects \(callable\(Illuminate\\Database\\Eloquent\\Model, int\)\: bool\)\|null, Closure\(App\\Models\\Task\)\: bool given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Services/Scheduler/InvoiceOutstandingTasksService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$hashed_id\.$#'
+			identifier: property.notFound
+			count: 3
+			path: repo/app/Services/Subscription/PaymentLinkService.php
+
+		-
+			message: '#^Right side of \|\| is always false\.$#'
+			identifier: booleanOr.rightAlwaysFalse
+			count: 1
+			path: repo/app/Services/Subscription/PaymentLinkService.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>hashed_id" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Services/Subscription/PaymentLinkService.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: repo/app/Services/Subscription/SubscriptionCalculator.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model&object\{pivot\: Illuminate\\Database\\Eloquent\\Relations\\MorphPivot\}\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Subscription/SubscriptionService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$email\.$#'
+			identifier: property.notFound
+			count: 2
+			path: repo/app/Services/Subscription/SubscriptionService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$first_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Subscription/SubscriptionService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$hashed_id\.$#'
+			identifier: property.notFound
+			count: 3
+			path: repo/app/Services/Subscription/SubscriptionService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$id\.$#'
+			identifier: property.notFound
+			count: 2
+			path: repo/app/Services/Subscription/SubscriptionService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$key\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Subscription/SubscriptionService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$last_name\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Subscription/SubscriptionService.php
+
+		-
+			message: '#^Comparison operation "\>" between int\<2, max\> and 1 is always true\.$#'
+			identifier: greater.alwaysTrue
+			count: 1
+			path: repo/app/Services/Subscription/SubscriptionService.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 2
+			path: repo/app/Services/Subscription/SubscriptionService.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: repo/app/Services/Subscription/SubscriptionService.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$client\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Subscription/SubscriptionStatus.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$date\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Subscription/SubscriptionStatus.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$status_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Services/Subscription/SubscriptionStatus.php
+
+		-
+			message: '#^Parameter \#1 \$invoice of method App\\Services\\Subscription\\UpgradePrice\:\:getRefundableAmount\(\) expects App\\Models\\Invoice\|null, Illuminate\\Database\\Eloquent\\Model\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Services/Subscription/UpgradePrice.php
+
+		-
+			message: '#^Parameter \#1 \$invitation of class App\\Utils\\HtmlEngine constructor expects App\\Models\\CreditInvitation\|App\\Models\\InvoiceInvitation\|App\\Models\\QuoteInvitation\|App\\Models\\RecurringInvoiceInvitation, Illuminate\\Database\\Eloquent\\Model given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Services/Template/TemplateMock.php
+
+		-
+			message: '#^Left side of && is always true\.$#'
+			identifier: booleanAnd.leftAlwaysTrue
+			count: 1
+			path: repo/app/Services/Template/TemplateService.php
+
+		-
+			message: '#^Property App\\Services\\Template\\TemplateService\:\:\$vendor \(App\\Models\\Vendor\|null\) is never assigned App\\Models\\Vendor so it can be removed from the property type\.$#'
+			identifier: property.unusedType
+			count: 1
+			path: repo/app/Services/Template/TemplateService.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 2
+			path: repo/app/Services/Template/TemplateService.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Account\:\:\$deleted_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Transformers/AccountTransformer.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\CompanyGateway\:\:\$require_zip\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Transformers/CompanyGatewayTransformer.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\CompanyGateway\:\:\$show_billing_address\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Transformers/CompanyGatewayTransformer.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\CompanyGateway\:\:\$show_shipping_address\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Transformers/CompanyGatewayTransformer.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: repo/app/Transformers/CompanyGatewayTransformer.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\CompanyLedger\:\:\$deleted_at\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Transformers/CompanyLedgerTransformer.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 5
+			path: repo/app/Transformers/CompanyTransformer.php
+
+		-
+			message: '#^Ternary operator condition is always true\.$#'
+			identifier: ternary.alwaysTrue
+			count: 1
+			path: repo/app/Transformers/CompanyTransformer.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Credit\:\:\$has_expenses\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Transformers/CreditTransformer.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Credit\:\:\$has_tasks\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Transformers/CreditTransformer.php
+
+		-
+			message: '#^Array has 2 duplicate keys with value ''is_template'' \(''is_template'', ''is_template''\)\.$#'
+			identifier: array.duplicateKey
+			count: 1
+			path: repo/app/Transformers/DesignTransformer.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Transformers/ProjectTransformer.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\PurchaseOrder\:\:\$subscription_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Transformers/PurchaseOrderTransformer.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Quote\:\:\$has_expenses\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Transformers/QuoteTransformer.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\Quote\:\:\$has_tasks\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Transformers/QuoteTransformer.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\RecurringInvoice\:\:\$has_expenses\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Transformers/RecurringInvoiceTransformer.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\RecurringInvoice\:\:\$has_tasks\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Transformers/RecurringInvoiceTransformer.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\RecurringQuote\:\:\$has_expenses\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Transformers/RecurringQuoteTransformer.php
+
+		-
+			message: '#^Access to an undefined property App\\Models\\RecurringQuote\:\:\$has_tasks\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Transformers/RecurringQuoteTransformer.php
+
+		-
+			message: '#^Instantiated class App\\Transformers\\QuoteHistoryTransformer not found\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/app/Transformers/RecurringQuoteTransformer.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between string and false will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 3
+			path: repo/app/Utils/Encode.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$signature_base64\.$#'
+			identifier: property.notFound
+			count: 2
+			path: repo/app/Utils/HtmlEngine.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$signature_date\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Utils/HtmlEngine.php
+
+		-
+			message: '#^Access to an undefined property Illuminate\\Database\\Eloquent\\Model\:\:\$signature_ip\.$#'
+			identifier: property.notFound
+			count: 1
+			path: repo/app/Utils/HtmlEngine.php
+
+		-
+			message: '#^Instanceof between App\\Models\\CreditInvitation\|App\\Models\\QuoteInvitation\|App\\Models\\RecurringInvoiceInvitation and App\\Models\\InvoiceInvitation will always evaluate to false\.$#'
+			identifier: instanceof.alwaysFalse
+			count: 1
+			path: repo/app/Utils/HtmlEngine.php
+
+		-
+			message: '#^Instanceof between App\\Models\\RecurringInvoiceInvitation and App\\Models\\RecurringInvoiceInvitation will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: repo/app/Utils/HtmlEngine.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: repo/app/Utils/HtmlEngine.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>signature_base64" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: repo/app/Utils/HtmlEngine.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>signature_ip" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Utils/HtmlEngine.php
+
+		-
+			message: '#^Parameter \#3 \$value of function curl_setopt expects bool, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/app/Utils/Ninja.php
+
+		-
+			message: '#^Property App\\Utils\\PaymentHtmlEngine\:\:\$contact \(App\\Models\\ClientContact\|null\) does not accept Illuminate\\Database\\Eloquent\\Model\|null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: repo/app/Utils/PaymentHtmlEngine.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>signature_base64" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 2
+			path: repo/app/Utils/VendorHtmlEngine.php
+
+		-
+			message: '#^Using nullsafe property access "\?\-\>signature_ip" on left side of \?\? is unnecessary\. Use \-\> instead\.$#'
+			identifier: nullsafe.neverNull
+			count: 1
+			path: repo/app/Utils/VendorHtmlEngine.php

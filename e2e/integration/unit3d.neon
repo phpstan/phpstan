@@ -1,0 +1,7 @@
+includes:
+	- repo/phpstan.neon
+	- unit3d-baseline.neon
+	- editor-link-repo.php
+
+parameters:
+	reportUnmatchedIgnoredErrors: false

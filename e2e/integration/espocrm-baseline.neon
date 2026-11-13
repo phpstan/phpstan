@@ -1,0 +1,127 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Parameter \#2 \$arg2 of static method Espo\\Core\\Currency\\CalculatorUtil\:\:divide\(\) expects numeric\-string, ''\-INF''\|''INF''\|''NAN''\|numeric\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/application/Espo/Core/Currency/Converter.php
+
+		-
+			message: '#^Parameter \#2 \$arg2 of static method Espo\\Core\\Currency\\CalculatorUtil\:\:multiply\(\) expects numeric\-string, ''\-INF''\|''INF''\|''NAN''\|numeric\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/application/Espo/Core/Currency/Converter.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/application/Espo/Core/Htmlizer/Htmlizer.php
+
+		-
+			message: '#^Offset 1 might not exist on array\{\}\|array\{non\-falsy\-string, string, string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/application/Espo/Core/Mail/Sender/DefaultTransportPreparator.php
+
+		-
+			message: '#^Offset 2 might not exist on array\{\}\|array\{non\-falsy\-string, string, string\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: repo/application/Espo/Core/Mail/Sender/DefaultTransportPreparator.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: repo/application/Espo/Core/Utils/Config.php
+
+		-
+			message: '#^Cannot access offset 1 on list\<mixed\>\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/application/Espo/Core/Utils/Database/DetailsProviders/MysqlDetailsProvider.php
+
+		-
+			message: '#^Offset ''dir'' might not exist on array\{\}\|array\{file\?\: mixed, dir\?\: mixed\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/application/Espo/Core/Utils/File/Permission.php
+
+		-
+			message: '#^Offset ''file'' might not exist on array\{\}\|array\{file\?\: mixed, dir\?\: mixed\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 2
+			path: repo/application/Espo/Core/Utils/File/Permission.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between non\-falsy\-string and ''0'' will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 2
+			path: repo/application/Espo/Core/Utils/Security/HostCheck.php
+
+		-
+			message: '#^Method Espo\\Core\\Utils\\Util\:\:merge\(\) should return T of array\<int\|string, mixed\> but returns array\<mixed\>\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/application/Espo/Core/Utils/Util.php
+
+		-
+			message: '#^Offset 1 on array\{non\-empty\-list\<string\>, non\-empty\-list\<non\-empty\-string\>\} in empty\(\) always exists and is not falsy\.$#'
+			identifier: empty.offset
+			count: 1
+			path: repo/application/Espo/Entities/Email.php
+
+		-
+			message: '#^Match arm comparison between ''tentative'' and ''tentative'' is always true\.$#'
+			identifier: match.alwaysTrue
+			count: 1
+			path: repo/application/Espo/Modules/Crm/EntryPoints/EventConfirmation.php
+
+		-
+			message: '#^Cannot access offset ''count'' on array\<string, mixed\>\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: repo/application/Espo/Modules/Crm/Tools/Activities/Service.php
+
+		-
+			message: '#^Cannot access offset ''count'' on array\<string, mixed\>\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/application/Espo/Modules/Crm/Tools/Activities/UpcomingService.php
+
+		-
+			message: '#^Cannot access offset ''count'' on array\<string, mixed\>\|false\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: repo/application/Espo/Modules/Crm/Tools/TargetList/OptOutService.php
+
+		-
+			message: '#^Parameter \#1 \$sthCollection of static method Espo\\ORM\\EntityCollection\<Espo\\ORM\\Entity\>\:\:fromSthCollection\(\) expects Espo\\ORM\\SthCollection\<Espo\\ORM\\Entity\>, Espo\\ORM\\SthCollection\<TEntity of Espo\\ORM\\Entity\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/application/Espo/ORM/CollectionFactory.php
+
+		-
+			message: '#^Method Espo\\ORM\\SthCollection\:\:fetchRow\(\) should return array\<string, mixed\> but returns array\<string, mixed\>\|false\.$#'
+			identifier: return.type
+			count: 1
+			path: repo/application/Espo/ORM/SthCollection.php
+
+		-
+			message: '#^Parameter \#1 \$rate of method Espo\\Entities\\CurrencyRecordRate\:\:setRate\(\) expects numeric\-string, ''\-INF''\|''INF''\|''NAN''\|numeric\-string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/application/Espo/Tools/Currency/RateService.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between 0 and 0 will always evaluate to true\.$#'
+			identifier: identical.alwaysTrue
+			count: 1
+			path: repo/application/Espo/Tools/Email/AddressService.php
+
+		-
+			message: '#^PHPDoc tag @var with type array\<non\-empty\-string\> is not subtype of native type list\<non\-falsy\-string\>\.$#'
+			identifier: varTag.nativeType
+			count: 1
+			path: repo/application/Espo/Tools/OAuthServer/EntryPoints/AuthorizeComplete.php

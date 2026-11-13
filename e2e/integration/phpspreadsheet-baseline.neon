@@ -1,0 +1,241 @@
+parameters:
+	ignoreErrors:
+		-
+			rawMessage: Possibly invalid array key type int|string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 4
+			path: repo/src/PhpSpreadsheet/Calculation/Calculation.php
+
+		-
+			rawMessage: Possibly invalid array key type int|string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 4
+			path: repo/src/PhpSpreadsheet/Calculation/Engine/ArrayArgumentProcessor.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 5
+			path: repo/src/PhpSpreadsheet/Calculation/Engine/BranchPruner.php
+
+		-
+			rawMessage: Cannot use ++ on int|string|null.
+			identifier: preInc.type
+			count: 1
+			path: repo/src/PhpSpreadsheet/Calculation/LookupRef/Lookup.php
+
+		-
+			rawMessage: Possibly invalid array key type int|string|null.
+			identifier: array.invalidKey
+			count: 1
+			path: repo/src/PhpSpreadsheet/Calculation/LookupRef/Lookup.php
+
+		-
+			rawMessage: Possibly invalid array key type int|string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 2
+			path: repo/src/PhpSpreadsheet/Calculation/LookupRef/Lookup.php
+
+		-
+			rawMessage: Possibly invalid array key type int|string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 5
+			path: repo/src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: repo/src/PhpSpreadsheet/Calculation/MathTrig/Arabic.php
+
+		-
+			rawMessage: Cannot unset property PhpOffice\PhpSpreadsheet\Cell\CellAddress::$worksheet because it might have hooks in a subclass.
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/PhpSpreadsheet/Cell/CellAddress.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: repo/src/PhpSpreadsheet/Reader/Ods.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 18
+			path: repo/src/PhpSpreadsheet/Reader/Xlsx.php
+
+		-
+			rawMessage: Possibly invalid array key type int|null.
+			identifier: offsetAccess.invalidOffset
+			count: 6
+			path: repo/src/PhpSpreadsheet/Reader/Xlsx/Chart.php
+
+		-
+			rawMessage: Possibly invalid array key type int|string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 61
+			path: repo/src/PhpSpreadsheet/Reader/Xlsx/Chart.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: repo/src/PhpSpreadsheet/Reader/Xlsx/PageSetup.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: repo/src/PhpSpreadsheet/Reader/Xlsx/Styles.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 2
+			path: repo/src/PhpSpreadsheet/Shared/Drawing.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 8
+			path: repo/src/PhpSpreadsheet/Shared/Font.php
+
+		-
+			rawMessage: Possibly invalid array key type int|null.
+			identifier: offsetAccess.invalidOffset
+			count: 2
+			path: repo/src/PhpSpreadsheet/Spreadsheet.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 2
+			path: repo/src/PhpSpreadsheet/Spreadsheet.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: array.invalidKey
+			count: 1
+			path: repo/src/PhpSpreadsheet/Style/Border.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: array.invalidKey
+			count: 1
+			path: repo/src/PhpSpreadsheet/Style/Color.php
+
+		-
+			rawMessage: Possibly invalid array key type int|null.
+			identifier: offsetAccess.invalidOffset
+			count: 2
+			path: repo/src/PhpSpreadsheet/Style/Style.php
+
+		-
+			rawMessage: Cannot unset property PhpOffice\PhpSpreadsheet\Worksheet\CellIterator::$cellCollection because it might have hooks in a subclass.
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/PhpSpreadsheet/Worksheet/CellIterator.php
+
+		-
+			rawMessage: Cannot unset property PhpOffice\PhpSpreadsheet\Worksheet\CellIterator::$worksheet because it might have hooks in a subclass.
+			identifier: unset.possiblyHookedProperty
+			count: 1
+			path: repo/src/PhpSpreadsheet/Worksheet/CellIterator.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: repo/src/PhpSpreadsheet/Worksheet/PivotTable/PivotTableBuilder.php
+
+		-
+			rawMessage: Possibly invalid array key type int|null.
+			identifier: offsetAccess.invalidOffset
+			count: 2
+			path: repo/src/PhpSpreadsheet/Worksheet/Worksheet.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 5
+			path: repo/src/PhpSpreadsheet/Worksheet/Worksheet.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: repo/src/PhpSpreadsheet/Writer/Html.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 2
+			path: repo/src/PhpSpreadsheet/Writer/Ods/Cell/Style.php
+
+		-
+			rawMessage: Cannot use -- on string.
+			identifier: preDec.type
+			count: 2
+			path: repo/src/PhpSpreadsheet/Writer/Xls/Worksheet.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 3
+			path: repo/src/PhpSpreadsheet/Writer/Xlsx.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: repo/src/PhpSpreadsheet/Writer/Xlsx/ContentTypes.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 3
+			path: repo/src/PhpSpreadsheet/Writer/Xlsx/Drawing.php
+
+		-
+			rawMessage: Possibly invalid array key type int|string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: repo/src/PhpSpreadsheet/Writer/Xlsx/Rels.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 7
+			path: repo/src/PhpSpreadsheet/Writer/Xlsx/Rels.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 2
+			path: repo/src/PhpSpreadsheet/Writer/Xlsx/Style.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 7
+			path: repo/src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
+
+		-
+			rawMessage: Possibly invalid array key type int|null.
+			identifier: offsetAccess.invalidOffset
+			count: 2
+			path: repo/tests/PhpSpreadsheetTests/Shared/OLETest.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 3
+			path: repo/tests/PhpSpreadsheetTests/Writer/Xlsx/DrawingPassThroughTest.php
+
+		-
+			rawMessage: Possibly invalid array key type string|null.
+			identifier: offsetAccess.invalidOffset
+			count: 1
+			path: repo/tests/PhpSpreadsheetTests/Writer/Xlsx/UnparsedDataCloneTest.php

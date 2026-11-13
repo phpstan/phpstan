@@ -1,0 +1,13 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to an undefined method Mautic\\LeadBundle\\Segment\\Query\\Expression\\ExpressionBuilder\:\:endsWith\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: repo/app/bundles/LeadBundle/Segment/Query/Filter/ComplexRelationValueFilterQueryBuilder.php
+
+		-
+			message: '#^Call to an undefined method Mautic\\LeadBundle\\Segment\\Query\\Expression\\ExpressionBuilder\:\:startsWith\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: repo/app/bundles/LeadBundle/Segment/Query/Filter/ComplexRelationValueFilterQueryBuilder.php

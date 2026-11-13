@@ -1,0 +1,13 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Strict comparison using \=\=\= between ''folder''\|''podcast_episode''\|''song''\|''video'' and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/src/Module/Api/Json8_Data.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between ''folder''\|''podcast_episode''\|''song''\|''video'' and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: repo/src/Module/Api/Xml8_Data.php

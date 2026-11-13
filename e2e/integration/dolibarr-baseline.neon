@@ -1,0 +1,193 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Variable \$dolibarr_main_db_pass might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: repo/htdocs/admin/system/constall.php
+
+		-
+			message: '#^Variable \$dolibarr_main_url_root might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: repo/htdocs/admin/system/constall.php
+
+		-
+			message: '#^Variable \$dolibarr_main_auth_ldap_admin_pass might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: repo/htdocs/admin/system/dolibarr.php
+
+		-
+			message: '#^Variable \$dolibarr_main_db_pass might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: repo/htdocs/admin/system/dolibarr.php
+
+		-
+			message: '#^Variable \$dolibarr_main_db_readonly might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: repo/htdocs/admin/system/dolibarr.php
+
+		-
+			message: '#^Variable \$dolibarr_main_disable_totp might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: repo/htdocs/admin/system/dolibarr.php
+
+		-
+			message: '#^Variable \$dolibarr_main_url_root might not be defined\.$#'
+			identifier: variable.undefined
+			count: 3
+			path: repo/htdocs/admin/system/dolibarr.php
+
+		-
+			message: '#^Variable \$dolibarr_nocsrfcheck might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: repo/htdocs/admin/system/dolibarr.php
+
+		-
+			message: '#^Offset ''copytoclipboard'' on array\{type\: string, label\: string, enabled\: int\<0, 2\>\|string, position\: int, notnull\?\: int, visible\: int\<\-2, 5\>\|string, noteditable\?\: int\<0, 1\>, default\?\: string, \.\.\.\} in isset\(\) does not exist\.$#'
+			identifier: isset.offset
+			count: 1
+			path: repo/htdocs/asset/tpl/depreciation_options_view.tpl.php
+
+		-
+			message: '#^Offset ''copytoclipboard'' on array\{type\: string, label\: string, enabled\: int\<0, 2\>\|string, position\: int, notnull\?\: int, visible\: int\<\-2, 5\>\|string, noteditable\?\: int\<0, 1\>, default\?\: string, \.\.\.\} in isset\(\) does not exist\.$#'
+			identifier: isset.offset
+			count: 1
+			path: repo/htdocs/asset/tpl/depreciation_view.tpl.php
+
+		-
+			message: '#^Dead catch \- Exception is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: repo/htdocs/blockedlog/class/blockedlog.class.php
+
+		-
+			message: '#^Variable \$search_doc_ref might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: repo/htdocs/core/ajax/ajaxdirpreview.php
+
+		-
+			message: '#^Dead catch \- Exception is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 2
+			path: repo/htdocs/core/class/translate.class.php
+
+		-
+			message: '#^Parameter \#2 \$x1 of function imagefilledrectangle expects int, float given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/htdocs/core/lib/barcode.lib.php
+
+		-
+			message: '#^Parameter \#4 \$x2 of function imagefilledrectangle expects int, float given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/htdocs/core/lib/barcode.lib.php
+
+		-
+			message: '#^Offset ''enabled'' on array\{type\: string, label\: string, enabled\: int\<0, 2\>\|string, position\: int, visible\: int\<\-6, 6\>\|string, langfile\?\: string, notnull\?\: int\<\-1, 1\>, noteditable\?\: int\<0, 1\>, \.\.\.\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: repo/htdocs/core/lib/customreports.lib.php
+
+		-
+			message: '#^Offset ''visible'' on array\{type\: string, label\: string, enabled\: int\<0, 2\>\|string, position\: int, visible\: int\<\-6, 6\>\|string, langfile\?\: string, notnull\?\: int\<\-1, 1\>, noteditable\?\: int\<0, 1\>, \.\.\.\} in isset\(\) always exists and is not nullable\.$#'
+			identifier: isset.offset
+			count: 1
+			path: repo/htdocs/core/lib/customreports.lib.php
+
+		-
+			message: '#^Parameter \#1 \$imap of function imap_close expects IMAP\\Connection, true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/htdocs/emailcollector/class/emailcollector.class.php
+
+		-
+			message: '#^Parameter \#1 \$imap of function imap_expunge expects IMAP\\Connection, true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/htdocs/emailcollector/class/emailcollector.class.php
+
+		-
+			message: '#^Parameter \#1 \$imap of function imap_fetch_overview expects IMAP\\Connection, true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/htdocs/emailcollector/class/emailcollector.class.php
+
+		-
+			message: '#^Parameter \#1 \$imap of function imap_fetchheader expects IMAP\\Connection, true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/htdocs/emailcollector/class/emailcollector.class.php
+
+		-
+			message: '#^Parameter \#1 \$imap of function imap_mail_move expects IMAP\\Connection, true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/htdocs/emailcollector/class/emailcollector.class.php
+
+		-
+			message: '#^Parameter \#1 \$mbox of method EmailCollector\:\:getmsg\(\) expects IMAP\\Connection\|resource, true given\.$#'
+			identifier: argument.type
+			count: 4
+			path: repo/htdocs/emailcollector/class/emailcollector.class.php
+
+		-
+			message: '#^Parameter \#2 \$mbox of function getAttachments expects IMAP\\Connection, true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/htdocs/emailcollector/class/emailcollector.class.php
+
+		-
+			message: '#^Parameter \#4 \$mbox of function getFileData expects IMAP\\Connection, true given\.$#'
+			identifier: argument.type
+			count: 1
+			path: repo/htdocs/emailcollector/class/emailcollector.class.php
+
+		-
+			message: '#^Variable \$multicurrency_buyprice might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: repo/htdocs/fourn/class/fournisseur.product.class.php
+
+		-
+			message: '#^Variable \$multicurrency_code might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: repo/htdocs/fourn/class/fournisseur.product.class.php
+
+		-
+			message: '#^Variable \$multicurrency_tx might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: repo/htdocs/fourn/class/fournisseur.product.class.php
+
+		-
+			message: '#^Variable \$type might not be defined\.$#'
+			identifier: variable.undefined
+			count: 4
+			path: repo/htdocs/product/stock/replenish.php
+
+		-
+			message: '#^Offset ''children'' on array\{id\: string, rank\: int, url\: string, name\: string, group\: string, override\?\: int\<0, 1\>, active\?\: bool, separator\?\: bool\} in empty\(\) does not exist\.$#'
+			identifier: empty.offset
+			count: 1
+			path: repo/htdocs/public/webportal/lib/webportal.lib.php
+
+		-
+			message: '#^Variable \$keyCodeForEnter might not be defined\.$#'
+			identifier: variable.undefined
+			count: 2
+			path: repo/htdocs/takepos/index.php
+
+		-
+			message: '#^Variable \$pathdir might not be defined\.$#'
+			identifier: variable.undefined
+			count: 1
+			path: repo/htdocs/webportal/controllers/document.controller.class.php
