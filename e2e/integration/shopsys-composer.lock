@@ -4257,20 +4257,20 @@
         },
         {
             "name": "grpc/grpc",
-            "version": "1.82.0",
+            "version": "1.84.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/grpc/grpc-php.git",
-                "reference": "be984cb608f21e96453b3cfe54c748cc7b192250"
+                "reference": "815e3c31a1b3b28dcfd992345ce72221bbe08bdc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/grpc/grpc-php/zipball/be984cb608f21e96453b3cfe54c748cc7b192250",
-                "reference": "be984cb608f21e96453b3cfe54c748cc7b192250",
+                "url": "https://api.github.com/repos/grpc/grpc-php/zipball/815e3c31a1b3b28dcfd992345ce72221bbe08bdc",
+                "reference": "815e3c31a1b3b28dcfd992345ce72221bbe08bdc",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1.0"
+                "php": ">=8.2.0"
             },
             "require-dev": {
                 "google/auth": "^v1.3.0"
@@ -4295,9 +4295,9 @@
                 "rpc"
             ],
             "support": {
-                "source": "https://github.com/grpc/grpc-php/tree/v1.82.0"
+                "source": "https://github.com/grpc/grpc-php/tree/v1.84.1"
             },
-            "time": "2026-07-03T09:39:53+00:00"
+            "time": "2026-10-28T06:02:24+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
