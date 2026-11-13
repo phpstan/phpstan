@@ -9822,6 +9822,30 @@ parameters:
 			path: repo/src/Symfony/Component/VarDumper/Caster/DoctrineCaster.php
 
 		-
+			message: '#^Call to method capacity\(\) on an unknown class Ds\\Collection\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Symfony/Component/VarDumper/Caster/DsCaster.php
+
+		-
+			message: '#^Call to method count\(\) on an unknown class Ds\\Collection\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Symfony/Component/VarDumper/Caster/DsCaster.php
+
+		-
+			message: '#^Call to method toArray\(\) on an unknown class Ds\\Collection\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Symfony/Component/VarDumper/Caster/DsCaster.php
+
+		-
+			message: '#^Parameter \$c of method Symfony\\Component\\VarDumper\\Caster\\DsCaster\:\:castCollection\(\) has invalid type Ds\\Collection\.$#'
+			identifier: class.notFound
+			count: 1
+			path: repo/src/Symfony/Component/VarDumper/Caster/DsCaster.php
+
+		-
 			message: '#^Call to an undefined method Ds\\Collection\:\:capacity\(\)\.$#'
 			identifier: method.notFound
 			count: 1
